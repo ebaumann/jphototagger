@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
+ * Database containing metadata of image files.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008/10/21
@@ -42,11 +42,11 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns the id of a filename.
+     * Returns the database ID of a filename.
      *
-     * @param  connection  connection
-     * @param  filename    filename
-     * @return id or -1 if the filename does not exist
+     * @param  connection connection
+     * @param  filename   filename
+     * @return            database ID or -1 if the filename does not exist
      */
     long getIdFile(Connection connection, String filename) throws SQLException {
         long id = -1;
@@ -65,9 +65,9 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Renames a file.
      *
-     * @param  oldFilename  old filename
-     * @param  newFilename  new filename
-     * @return count of renamed files
+     * @param  oldFilename old filename
+     * @param  newFilename new filename
+     * @return             count of renamed files
      */
     public int updateRenameImageFilename(
             String oldFilename, String newFilename) {
@@ -98,7 +98,7 @@ public final class DatabaseImageFiles extends Database {
      *
      * @param  start    start substring of the old filenames
      * @param  newStart new start substring
-     * @return count of renamed files
+     * @return          count of renamed files
      */
     public int updateRenameImageFilenamesStartingWith(
             String start, String newStart) {
@@ -125,7 +125,7 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Inserts an image file into the databse. If the image already exists
      * it's data will be updated.
-     *
+     * <p>
      * Inserts or updates this metadata:
      *
      * <ul>
@@ -134,8 +134,8 @@ public final class DatabaseImageFiles extends Database {
      * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true</li>
      * </ul>
      *
-     * @param  imageFile  image
-     * @return true if inserted
+     * @param  imageFile image
+     * @return           true if inserted
      */
     public boolean insertImageFile(ImageFile imageFile) {
         boolean success = false;
@@ -207,7 +207,7 @@ public final class DatabaseImageFiles extends Database {
 
     /**
      * Aktualisiert ein Bild in der Datenbank.
-     *
+     * <p>
      * Updates this metadata:
      *
      * <ul>
@@ -272,9 +272,9 @@ public final class DatabaseImageFiles extends Database {
      * Updates all thumbnails, reads the files from the file system and creates
      * thumbnails from the files.
      *
-     * @param  listener  progress listener, can stop action via event and receive
-     * the current filename
-     * @return count of updated thumbnails
+     * @param  listener progress listener, can stop action via event and receive
+     *                  the current filename
+     * @return          count of updated thumbnails
      */
     public int updateAllThumbnails(ProgressListener listener) {
         int updated = 0;
@@ -284,9 +284,10 @@ public final class DatabaseImageFiles extends Database {
             ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, ""); // NOI18N
             connection = getConnection();
             connection.setAutoCommit(true);
+            String sql = "SELECT filename FROM files ORDER BY filename ASC"; // NOI18N
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT filename FROM files ORDER BY filename ASC"); // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
             int count = 0;
             notifyProgressListenerStart(listener, event);
             while (!event.isStop() && rs.next()) {
@@ -412,7 +413,8 @@ public final class DatabaseImageFiles extends Database {
      * Returns a file's thumbnail.
      *
      * @param  filename  filename
-     * @return Thumbnail oder null on errors or if the thumbnail doesn't exist
+     * @return           Thumbnail oder null on errors or if the thumbnail
+     *                   doesn't exist
      */
     public Image getThumbnail(String filename) {
         Image thumbnail = null;
@@ -482,12 +484,15 @@ public final class DatabaseImageFiles extends Database {
      * mehr im Dateisystem existieren.
      *
      * @param listener Listener oder null, falls kein Interesse am Fortschritt.
-     * {@link de.elmar_baumann.imv.event.listener.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
-     * liefert ein {@link de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
-     * das mit {@link de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
-     * ein Int-Objekt liefert mit der Anzahl der gelöschten Datensätze.
-     * {@link de.elmar_baumann.imv.event.ProgressEvent#isStop()}
-     * wird ausgewertet (Abbruch des Löschens).
+     *                 {@link de.elmar_baumann.imv.event.listener.ProgressListener#progressEnded(de.elmar_baumann.imv.event.ProgressEvent)}
+     *                 liefert ein
+     *                 {@link de.elmar_baumann.imv.event.ProgressEvent}-Objekt,
+     *                 das mit
+     *                 {@link de.elmar_baumann.imv.event.ProgressEvent#getInfo()}
+     *                 ein Int-Objekt liefert mit der Anzahl der gelöschten
+     *                 Datensätze.
+     *                 {@link de.elmar_baumann.imv.event.ProgressEvent#isStop()}
+     *                 wird ausgewertet (Abbruch des Löschens).
      * @return         Anzahl gelöschter Datensätze
      */
     public int deleteNotExistingImageFiles(ProgressListener listener) {
@@ -499,8 +504,9 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             Statement stmt = connection.createStatement();
-            String query = "SELECT filename FROM files"; // NOI18N
-            ResultSet rs = stmt.executeQuery(query);
+            String sql = "SELECT filename FROM files"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
             String filename;
             boolean stop = notifyProgressListenerStart(listener, event);
             while (!stop && rs.next()) {
@@ -553,10 +559,10 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns the last modification time of the xmp data.
      *
-     * @param  imageFilename  <em>image</em> filename (<em>not</em> sidecar
-     *                        filename)
-     * @return last modification time in milliseconds since 1970 or -1 if
-     *         not defined
+     * @param  imageFilename <em>image</em> filename (<em>not</em> sidecar
+     *                       filename)
+     * @return               last modification time in milliseconds since 1970
+     *                       or -1 if not defined
      */
     public long getLastModifiedXmp(String imageFilename) {
         long lastModified = -1;
@@ -583,9 +589,9 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Sets the last modification time of XMP metadata.
      *
-     * @param imageFilename image filename
-     * @param time          milliseconds since 1970
-     * @return              true if set
+     * @param  imageFilename image filename
+     * @param  time          milliseconds since 1970
+     * @return               true if set
      */
     public boolean setLastModifiedXmp(String imageFilename, long time) {
         boolean set = false;
@@ -637,29 +643,42 @@ public final class DatabaseImageFiles extends Database {
     private void insertXmpDcSubjects(
             Connection connection, long idXmp, List<String> dcSubjects) throws
             SQLException {
+
         if (dcSubjects != null) {
-            insertValues(connection,
-                    "INSERT INTO xmp_dc_subjects (id_xmp, subject)", // NOI18N
-                    idXmp, dcSubjects); // NOI18N
+            String sql =
+                    "INSERT INTO xmp_dc_subjects (id_xmp, subject)"; // NOI18N
+            insertValues(
+                    connection,
+                    sql,
+                    idXmp,
+                    dcSubjects);
         }
     }
 
     private void insertXmpPhotoshopSupplementalcategories(
-            Connection connection, long idXmp,
+            Connection connection,
+            long idXmp,
             List<String> photoshopSupplementalCategories) throws SQLException {
 
+        String sql =
+                "INSERT INTO xmp_photoshop_supplementalcategories" + // NOI18N
+                " (id_xmp, supplementalcategory)"; // NOI18N
         if (photoshopSupplementalCategories != null) {
-            insertValues(connection,
-                    "INSERT INTO xmp_photoshop_supplementalcategories" + // NOI18N
-                    " (id_xmp, supplementalcategory)" // NOI18N
-                    , idXmp, photoshopSupplementalCategories);
+            insertValues(
+                    connection,
+                    sql,
+                    idXmp,
+                    photoshopSupplementalCategories);
         }
     }
 
-    private void insertValues(Connection connection, String statement, long id,
+    private void insertValues(
+            Connection connection,
+            String sql,
+            long id,
             List<String> values) throws SQLException {
 
-        PreparedStatement stmt = connection.prepareStatement(statement +
+        PreparedStatement stmt = connection.prepareStatement(sql +
                 " VALUES (?, ?)"); // NOI18N
         for (String value : values) {
             stmt.setLong(1, id);
@@ -737,8 +756,8 @@ public final class DatabaseImageFiles extends Database {
      * Deletes XMP-Data of image files when a XMP sidecar file does not
      * exist but in the database is XMP data for this image file.
      *
-     * @param  listener   progress listener
-     * @return count of deleted XMP data (one per image file)
+     * @param  listener  progress listener
+     * @return           count of deleted XMP data (one per image file)
      */
     public int deleteOrphanedXmp(ProgressListener listener) {
         int countDeleted = 0;
@@ -749,9 +768,11 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             Statement stmt = connection.createStatement();
-            String query = "SELECT files.filename FROM files," + // NOI18N
-                    " xmp WHERE files.id = xmp.id_files"; // NOI18N
-            ResultSet rs = stmt.executeQuery(query);
+            String sql = "SELECT files.filename" +// NOI18N
+                    " FROM files, xmp" + // NOI18N
+                    " WHERE files.id = xmp.id_files"; // NOI18N
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
             String filename;
             boolean abort = notifyProgressListenerStart(listener, event);
             while (!abort && rs.next()) {
@@ -827,8 +848,8 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Liefert die XMP-Daten einer Datei.
      *
-     * @param  filename  Dateiname
-     * @return XMP-Daten der Datei
+     * @param  filename Dateiname
+     * @return          XMP-Daten der Datei
      */
     public Xmp getXmpOfFile(String filename) {
         Xmp xmp = new Xmp();
@@ -880,12 +901,12 @@ public final class DatabaseImageFiles extends Database {
      * Ersetzt Strings in XMP-Spalten bestimmter Dateien.
      * Gleichzeitig werden die Sidecarfiles aktualisiert.
      *
-     * @param  filenames  Dateinamen
-     * @param  xmpColumn  Spalte
-     * @param  oldValue   Alter Wert
-     * @param  newValue   Neuer Wert
-     * @param  listener   Beobachter oder null.
-     * @return Anzahl umbenannter Strings
+     * @param  filenames Dateinamen
+     * @param  xmpColumn Spalte
+     * @param  oldValue  Alter Wert
+     * @param  newValue  Neuer Wert
+     * @param  listener  Beobachter oder null.
+     * @return           Anzahl umbenannter Strings
      */
     public int renameXmpMetadata(
             List<String> filenames,
@@ -982,15 +1003,17 @@ public final class DatabaseImageFiles extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
+            String sql =
                     " SELECT DISTINCT photoshop_category FROM xmp" + // NOI18N
                     " WHERE photoshop_category IS NOT NULL" + // NOI18N
                     " UNION ALL" + // NOI18N
                     " SELECT DISTINCT supplementalcategory" + // NOI18N
                     " FROM xmp_photoshop_supplementalcategories" + // NOI18N
                     " WHERE supplementalcategory IS NOT NULL" + // NOI18N
-                    " ORDER BY 1 ASC"); // NOI18N
+                    " ORDER BY 1 ASC"; // NOI18N
+            Statement stmt = connection.createStatement();
+            AppLog.logFinest(getClass(), sql);
+            ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 categories.add(rs.getString(1));
@@ -1007,16 +1030,15 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Liefert alle Dateien mit bestimmter Kategorie.
      *
-     * @param  category  Kategorie
-     * @return Dateinamen
+     * @param  category Kategorie
+     * @return          Dateinamen
      */
     public Set<String> getFilenamesOfCategory(String category) {
         Set<String> filenames = new LinkedHashSet<String>();
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt =
-                    connection.prepareStatement(
+            String sql =
                     " (SELECT DISTINCT files.filename FROM" + // NOI18N
                     " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
                     " WHERE xmp.photoshop_category = ?)" + // NOI18N
@@ -1025,7 +1047,8 @@ public final class DatabaseImageFiles extends Database {
                     " xmp_photoshop_supplementalcategories LEFT JOIN xmp" + // NOI18N
                     " ON xmp_photoshop_supplementalcategories.id_xmp = xmp.id" + // NOI18N
                     " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
-                    " WHERE xmp_photoshop_supplementalcategories.supplementalcategory = ?)"); // NOI18N
+                    " WHERE xmp_photoshop_supplementalcategories.supplementalcategory = ?)"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, category);
             stmt.setString(2, category);
@@ -1046,23 +1069,23 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Liefert, ob eine Kategorie existiert.
      *
-     * @param  name  Name der Kategorie
-     * @return true, wenn existent
+     * @param  name Name der Kategorie
+     * @return      true, wenn existent
      */
     public boolean existsCategory(String name) {
         boolean exists = false;
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt =
-                    connection.prepareStatement(
+            String sql =
                     "SELECT COUNT(*) FROM" + // NOI18N
                     " iptc_supplemental_categories" + // NOI18N
                     ", xmp" + // NOI18N
                     ", xmp_photoshop_supplementalcategories" + // NOI18N
                     " WHERE" + // NOI18N
                     " xmp.photoshop_category = ?" + // NOI18N
-                    " OR xmp_photoshop_supplementalcategories.supplementalcategory = ?"); // NOI18N
+                    " OR xmp_photoshop_supplementalcategories.supplementalcategory = ?"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, name);
             stmt.setString(2, name);
@@ -1092,7 +1115,9 @@ public final class DatabaseImageFiles extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            String sql = "SELECT DISTINCT subject FROM xmp_dc_subjects" + // NOI18N
+            String sql =
+                    "SELECT DISTINCT subject" + // NOI18N
+                    " FROM xmp_dc_subjects" + // NOI18N
                     " ORDER BY 1 ASC"; // NOI18N
             Statement stmt = connection.createStatement();
             AppLog.logFinest(getClass(), sql);
@@ -1114,14 +1139,15 @@ public final class DatabaseImageFiles extends Database {
      * Returns all dublin core subjects (keywords) of a file.
      *
      * @param  filename name of the file
-     * @return dc subjects (keywords) ordered ascending
+     * @return          dc subjects (keywords) ordered ascending
      */
     public List<String> getDcSubjectsOfFile(String filename) {
         List<String> dcSubjects = new ArrayList<String>();
         Connection connection = null;
         try {
             connection = getConnection();
-            String sql = "SELECT DISTINCT xmp_dc_subjects.subject FROM" + // NOI18N
+            String sql =
+                    "SELECT DISTINCT xmp_dc_subjects.subject FROM" + // NOI18N
                     " files INNER JOIN xmp ON files.id = xmp.id_files" + // NOI18N
                     " INNER JOIN xmp_dc_subjects" + // NOI18N
                     " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
@@ -1148,19 +1174,20 @@ public final class DatabaseImageFiles extends Database {
      * Returns the filenames within a specific dublin core subject (keyword).
      *
      * @param  dcSubject subject
-     * @return filenames
+     * @return           filenames
      */
     public Set<String> getFilenamesOfDcSubject(String dcSubject) {
         Set<String> filenames = new LinkedHashSet<String>();
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
+            String sql =
                     " SELECT DISTINCT files.filename FROM" + // NOI18N
                     " xmp_dc_subjects LEFT JOIN xmp" + // NOI18N
                     " ON xmp_dc_subjects.id_xmp = xmp.id" + // NOI18N
                     " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
-                    " WHERE xmp_dc_subjects.subject = ?"); // NOI18N
+                    " WHERE xmp_dc_subjects.subject = ?"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, dcSubject);
             AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
@@ -1262,7 +1289,7 @@ public final class DatabaseImageFiles extends Database {
      * Returns the timeline of images where EXIF metadata date time original
      * is defined.
      *
-     * @return  timeline
+     * @return timeline
      */
     public Timeline getTimeline() {
         Timeline timeline = new Timeline();
@@ -1346,7 +1373,7 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns image files without EXIF date time taken.
      *
-     * @return  image files
+     * @return image files
      */
     public List<File> getFilesOfUnknownExifDate() {
         List<File> files = new ArrayList<File>();
@@ -1437,9 +1464,9 @@ public final class DatabaseImageFiles extends Database {
      * This method is also unusable for one to many references (columns which
      * are foreign keys).
      *
-     * @param column     column whith the value
-     * @param exactValue exact value of the column content
-     * @return           files
+     * @param  column     column whith the value
+     * @param  exactValue exact value of the column content
+     * @return            files
      */
     public List<File> getFilesJoinTable(Column column, String exactValue) {
         assert !column.isForeignKey() : column;
@@ -1526,7 +1553,10 @@ public final class DatabaseImageFiles extends Database {
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH) + 1;
             int day = cal.get(Calendar.DAY_OF_MONTH);
-            String sql = "SELECT COUNT(*) FROM exif WHERE exif_date_time_original" + // NOI18N
+            String sql =
+                    "SELECT COUNT(*)" + // NOI18N
+                    " FROM exif" + // NOI18N
+                    " WHERE exif_date_time_original" + // NOI18N
                     " LIKE '" + year + "-" + getMonthDayPrefix(month) + month + // NOI18N
                     "-" + getMonthDayPrefix(day) + day + "%'"; // NOI18N
             Statement stmt = connection.createStatement();
@@ -1549,14 +1579,15 @@ public final class DatabaseImageFiles extends Database {
      *
      * @param  column column of the table, where the value shall exist
      * @param  value  value
-     * @return true if the value exists
+     * @return        true if the value exists
      */
     public boolean exists(Column column, Object value) {
         boolean exists = false;
         Connection connection = null;
         try {
             connection = getConnection();
-            String sql = "SELECT COUNT(*)" + // NOI18N
+            String sql =
+                    "SELECT COUNT(*)" + // NOI18N
                     " FROM " + column.getTable().getName() + // NOI18N
                     " WHERE " + column.getName() + // NOI18N
                     " = ?"; // NOI18N
