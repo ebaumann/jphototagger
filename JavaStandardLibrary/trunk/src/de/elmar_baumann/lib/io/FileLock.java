@@ -14,7 +14,7 @@ import java.util.Map;
  * virtually for objects using this class.</em>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/22
+ * @version 2009-06-22
  */
 public final class FileLock {
 

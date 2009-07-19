@@ -13,7 +13,7 @@ import java.util.regex.PatternSyntaxException;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/02/16
+ * @version 2009-02-16
  */
 public final class RegexUtil {
 

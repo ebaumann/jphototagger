@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/26
+ * @version 2008-10-26
  */
 public final class KeyEventUtil {
 

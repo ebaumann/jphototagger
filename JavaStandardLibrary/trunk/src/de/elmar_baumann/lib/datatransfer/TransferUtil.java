@@ -21,7 +21,7 @@ import javax.swing.JList;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/17
+ * @version 2008-10-17
  */
 public final class TransferUtil {
 

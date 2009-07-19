@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/06
+ * @version 2008-09-06
  */
 public final class LogLevelIcons {
 

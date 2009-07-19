@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileSystemView;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/23
+ * @version 2008-07-23
  */
 public final class DirectoryFilter implements java.io.FileFilter {
 

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * not documentet that it can be null.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/02
+ * @version 2008-09-02
  */
 public final class Bundle {
 

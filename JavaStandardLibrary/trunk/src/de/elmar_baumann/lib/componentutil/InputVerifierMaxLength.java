@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  * To use other components, enhance the private method <code>lengthOk()</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/28
+ * @version 2008-10-28
  */
 public final class InputVerifierMaxLength extends InputVerifier {
 

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * <em>The objects have to implement the Interface {@link Serializable}!</em>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/17
+ * @version 2008-10-17
  */
 public final class TransferableObject implements Transferable {
 

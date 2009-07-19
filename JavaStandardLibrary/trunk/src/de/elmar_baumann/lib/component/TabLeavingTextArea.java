@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
  * Textarea, die mit der Tabulatortaste verlassen wird.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/19
+ * @version 2008-09-19
  */
 public final class TabLeavingTextArea extends JTextArea {
 

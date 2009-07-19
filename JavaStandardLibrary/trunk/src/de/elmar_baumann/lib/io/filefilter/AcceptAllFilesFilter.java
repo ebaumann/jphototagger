@@ -8,7 +8,7 @@ import java.io.FileFilter;
  * Accepts all Files, rejects directories.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/22
+ * @version 2009-05-22
  */
 public final class AcceptAllFilesFilter implements FileFilter {
 

@@ -4,7 +4,7 @@ package de.elmar_baumann.lib.dialog;
  * Dialog to display long messages.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/03
+ * @version 2009-05-03
  */
 public class LongMessageDialog extends javax.swing.JDialog {
 

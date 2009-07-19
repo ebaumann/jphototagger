@@ -15,7 +15,7 @@ import javax.swing.filechooser.FileSystemView;
  * {@link javax.swing.filechooser.FileSystemView#getSystemIcon(java.io.File)}.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @version 2008-09-14
  */
 public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
 

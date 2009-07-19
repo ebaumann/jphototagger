@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/31
+ * @version 2008-08-31
  */
 public final class Util {
 

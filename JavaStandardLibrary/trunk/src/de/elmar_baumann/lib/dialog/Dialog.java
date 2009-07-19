@@ -22,7 +22,7 @@ import javax.swing.KeyStroke;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/19
+ * @version 2008-10-19
  */
 public class Dialog extends JDialog {
 

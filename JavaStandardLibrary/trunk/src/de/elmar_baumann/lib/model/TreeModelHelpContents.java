@@ -16,7 +16,7 @@ import javax.swing.tree.TreePath;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/02
+ * @version 2008-10-02
  */
 public final class TreeModelHelpContents implements TreeModel {
 

@@ -26,7 +26,7 @@ import javax.swing.tree.TreePath;
  * of the root directory.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/29
+ * @version 2009-06-29
  */
 public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         implements TreeWillExpandListener {

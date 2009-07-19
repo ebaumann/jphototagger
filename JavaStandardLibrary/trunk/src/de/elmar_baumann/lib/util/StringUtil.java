@@ -7,7 +7,7 @@ import java.util.List;
  * Utils for strings.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/25
+ * @version 2009-06-25
  */
 public final class StringUtil {
 

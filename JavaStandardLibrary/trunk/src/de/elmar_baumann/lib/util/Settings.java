@@ -42,7 +42,7 @@ import javax.swing.tree.TreePath;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/02/23
+ * @version 2009-02-23
  */
 public final class Settings {
 

@@ -18,7 +18,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * directory names instead of their full path.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/23
+ * @version 2008-07-23
  */
 public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellRenderer {
 

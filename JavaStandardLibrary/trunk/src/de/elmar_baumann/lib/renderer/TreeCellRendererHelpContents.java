@@ -15,7 +15,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * {@link de.elmar_baumann.lib.util.help.HelpPage}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/02
+ * @version 2008-10-02
  */
 public final class TreeCellRendererHelpContents extends DefaultTreeCellRenderer {
 

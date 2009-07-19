@@ -7,7 +7,7 @@ import java.io.File;
  * {@link java.io.FileFilter}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/30
+ * @version 2009-05-30
  */
 public final class FileChooserFilter extends javax.swing.filechooser.FileFilter {
 

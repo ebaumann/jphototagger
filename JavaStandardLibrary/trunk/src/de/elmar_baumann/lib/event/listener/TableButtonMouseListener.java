@@ -9,7 +9,7 @@ import javax.swing.SwingUtilities;
 /**
  * Ursprünglicher Code von http://www.devx.com/getHelpOn/10MinuteSolution/20425
  *
- * @version 2009/04/01
+ * @version 2009-04-01
  */
 public final class TableButtonMouseListener implements MouseListener {
 

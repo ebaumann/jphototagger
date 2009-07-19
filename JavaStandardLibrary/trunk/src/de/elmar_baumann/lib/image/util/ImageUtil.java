@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/24
+ * @version 2008-07-24
  */
 public final class ImageUtil {
 

@@ -4,7 +4,7 @@ package de.elmar_baumann.lib.util;
  * Math utils.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/02/20
+ * @version 2009-02-20
  */
 public final class MathUtil {
 

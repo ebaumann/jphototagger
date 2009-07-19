@@ -10,7 +10,7 @@ import javax.swing.ComboBoxModel;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2007/08/29
+ * @version 2007-08-29
  */
 public final class ComboBoxUtil {
 

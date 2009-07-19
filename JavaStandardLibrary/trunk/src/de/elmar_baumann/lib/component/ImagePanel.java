@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/20
+ * @version 2008-07-20
  */
 public class ImagePanel extends JPanel {
 

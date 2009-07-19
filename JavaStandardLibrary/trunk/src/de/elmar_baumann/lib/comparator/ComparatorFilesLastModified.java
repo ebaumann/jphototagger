@@ -7,7 +7,7 @@ import java.util.Comparator;
  * Compares the last modification time of two files.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/14
+ * @version 2008-10-14
  */
 public final class ComparatorFilesLastModified implements Comparator<File> {
 

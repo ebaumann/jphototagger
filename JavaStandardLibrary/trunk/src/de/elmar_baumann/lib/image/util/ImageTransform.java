@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/19
+ * @version 2008-08-19
  */
 public final class ImageTransform {
 

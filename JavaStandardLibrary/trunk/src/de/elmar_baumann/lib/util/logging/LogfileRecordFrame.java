@@ -5,7 +5,7 @@ package de.elmar_baumann.lib.util.logging;
  * Ein Frame beschreibt eine Zeile im Backtrace eines Throwable-Objekts.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 1.0 2008/08/04
+ * @version 1.0 2008-08-04
  */
 public final class LogfileRecordFrame {
 

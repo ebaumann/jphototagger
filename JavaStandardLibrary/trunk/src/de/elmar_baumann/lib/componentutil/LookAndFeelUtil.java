@@ -12,7 +12,7 @@ import javax.swing.UIManager;
  * not documentet that it can be null.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/14
+ * @version 2008-07-14
  */
 public final class LookAndFeelUtil {
 

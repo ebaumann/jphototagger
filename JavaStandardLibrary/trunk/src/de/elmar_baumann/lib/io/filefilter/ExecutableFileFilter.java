@@ -6,7 +6,7 @@ import java.io.File;
  * Accepts only executable files.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/04/01
+ * @version 2009-04-01
  */
 public final class ExecutableFileFilter implements java.io.FileFilter {
 
