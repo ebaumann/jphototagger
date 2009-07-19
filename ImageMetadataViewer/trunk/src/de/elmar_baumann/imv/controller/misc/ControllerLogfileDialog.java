@@ -10,10 +10,9 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ErrorPopupPanel;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
-import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
@@ -32,11 +31,8 @@ public final class ControllerLogfileDialog implements ActionListener,
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonLogfileDialog =
             appPanel.getButtonLogfileDialog();
-    private static final String ICON_PATH = AppIcons.getIconPath();
-    private static final ImageIcon ICON_OK =
-            IconUtil.getImageIcon(ICON_PATH + "/icon_ok.png"); // NOI18N
-    private static final ImageIcon ICON_ERROR =
-            IconUtil.getImageIcon(ICON_PATH + "/icon_error.png"); // NOI18N
+    private static final Icon ICON_OK = AppIcons.getIcon("icon_ok.png"); // NOI18N
+    private static final Icon ICON_ERROR = AppIcons.getIcon("icon_error.png"); // NOI18N
 
     public ControllerLogfileDialog() {
         buttonLogfileDialog.setIcon(ICON_OK);

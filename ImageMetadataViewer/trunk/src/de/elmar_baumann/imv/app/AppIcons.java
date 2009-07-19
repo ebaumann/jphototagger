@@ -22,17 +22,15 @@ public final class AppIcons {
     /**
      * Path to the small application's icon (16 x 16 pixels)
      */
-    public static final String PATH_APP_ICON_SMALL =
+    private static final String PATH_APP_ICON_SMALL =
             PATH_ICONS + "/icon_app_small.png";  // NOI18N
     /**
      * Path to the medium sized application's icon (32 x 32 pixels)
      */
-    public static final String PATH_APP_ICON_MEDIUM =
+    private static final String PATH_APP_ICON_MEDIUM =
             PATH_ICONS + "/icon_app_medium.png";  // NOI18N
     private static List<String> appIconPaths = new ArrayList<String>();
     private static List<Image> appIcons = new ArrayList<Image>();
-    private static final Icon APP_ICON_MEDIUM =
-            IconUtil.getImageIcon(PATH_APP_ICON_MEDIUM);
 
     static {
         appIconPaths.add(PATH_APP_ICON_SMALL);
@@ -70,24 +68,6 @@ public final class AppIcons {
      */
     public static Icon getIcon(String name) {
         return IconUtil.getImageIcon(PATH_ICONS + "/" + name); // NOI18N
-    }
-
-    /**
-     * Returns the path (directory name) of all icons.
-     *
-     * @return path
-     */
-    public static String getIconPath() {
-        return PATH_ICONS;
-    }
-
-    /**
-     * Returns the medium sized application's icon (32 x 32 pixels).
-     *
-     * @return medium sized application's icon
-     */
-    public static Icon getMediumAppIcon() {
-        return APP_ICON_MEDIUM;
     }
 
     private AppIcons() {

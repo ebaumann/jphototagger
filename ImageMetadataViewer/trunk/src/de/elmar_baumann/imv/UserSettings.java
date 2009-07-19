@@ -91,7 +91,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         propertiesToFile.readFromFile();
         settings.removeEmptyKeys();
         Resources.INSTANCE.setProperties(properties);
-        Resources.INSTANCE.setIconImagesPath(AppIcons.getAppIconPaths());
+        Resources.INSTANCE.setFramesIconImagesPath(AppIcons.getAppIconPaths());
     }
 
     /**
