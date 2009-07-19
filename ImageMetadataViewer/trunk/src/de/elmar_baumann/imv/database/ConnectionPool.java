@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.types.Filename;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -88,7 +89,8 @@ public final class ConnectionPool implements Runnable {
      */
     private ConnectionPool() throws SQLException {
         url = "jdbc:hsqldb:file:" + // NOI18N
-                UserSettings.INSTANCE.getDatabaseFileName(false) + // NOI18N
+                UserSettings.INSTANCE.getDatabaseFileName(
+                Filename.FULL_PATH_NO_SUFFIX) +
                 ";shutdown=true";  // NOI18N
 
         driver = "org.hsqldb.jdbcDriver"; // NOI18N

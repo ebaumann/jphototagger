@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.database.metadata.ColumnUtil;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.imv.types.Filename;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.resource.Resources;
@@ -25,12 +26,14 @@ import java.util.logging.XMLFormatter;
 
 /**
  * Stores user settings in a single {@link java.util.Properties} instance.
+ * <p>
  * To make changes permanent the application has to call {@link #writeToFile()}.
- * While creating an instance, this class loads the written properties if the
- * file exists.
+ * <p>
+ * While creating an instance, this class loads the written properties if is
+ * does exist.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class UserSettings implements UserSettingsChangeListener {
 
@@ -92,7 +95,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Returns the properties.
+     * Returns the properties with the user settings.
      *
      * @return properties
      */
@@ -102,8 +105,10 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns a settings object instanciated with the properties file of
-     * this class. The settings offering easy writing and reading different
-     * types of objects.
+     * this class.
+     * <p>
+     * The settings are offering easy reading and writing different types of
+     * objects.
      *
      * @return settings
      */
@@ -133,7 +138,9 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns the default name of the directory where the database file is
-     * located. When the user didn't change the directory, the database file is
+     * located.
+     * <p>
+     * When the user doesn't change the directory, the database file is
      * in the same directory as the properties file.
      *
      * @return directory name
@@ -143,22 +150,27 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
-     * Returns the filename of the database (complete path).
+     * Returns the filename of the database.
      *
-     * @param  suffix true when the suffix shall be appended and false if not
-     *         (e.g. to create a connection string)
-     * @return filename
+     * @param  name name token. Has to be {@link Filename#FULL_PATH} or
+     *              {@link Filename#FULL_PATH_NO_SUFFIX}.
+     * @return      filename
      */
-    public String getDatabaseFileName(boolean suffix) {
+    public String getDatabaseFileName(Filename name) {
+
+        assert name.equals(Filename.FULL_PATH) ||
+                name.equals(Filename.FULL_PATH_NO_SUFFIX) : name;
+
         return getDatabaseDirectoryName() + File.separator + "database" + // NOI18N
-                (suffix
+                (name.equals(Filename.FULL_PATH)
                  ? ".data" // NOI18N
                  : ""); // NOI18N
     }
 
     /**
-     * Returns the directory name where the thumbnails are located. This is
-     * a directory below the database directory.
+     * Returns the directory name where the thumbnails are located.
+     * <p>
+     * This is a directory below the database directory.
      *
      * @return directory name
      */
@@ -168,7 +180,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Writes the properties to a file.
-     *
+     *<p>
      * <em>If not called, settings are lost after exiting the program!</em>
      */
     public void writeToFile() {

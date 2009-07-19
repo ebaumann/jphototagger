@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.types.Filename;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +69,8 @@ public final class CompressDatabase implements Runnable {
     public void run() {
         logCompressDatabase();
         notifyStarted();
-        File dbFile = new File(UserSettings.INSTANCE.getDatabaseFileName(true));
+        File dbFile = new File(UserSettings.INSTANCE.getDatabaseFileName(
+                Filename.FULL_PATH));
         sizeBefore = dbFile.length();
         success = DatabaseMaintainance.INSTANCE.compressDatabase();
         sizeAfter = dbFile.length();

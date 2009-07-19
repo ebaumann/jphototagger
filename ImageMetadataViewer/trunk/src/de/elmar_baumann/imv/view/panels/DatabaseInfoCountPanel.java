@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.event.listener.impl.DatabaseListenerTotalRecordCount;
 import de.elmar_baumann.imv.model.TableModelDatabaseInfo;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.types.Filename;
 import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
 
 /**
@@ -59,7 +60,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     private void setLabelFilename() {
         labelFilename.setText(Bundle.getString(
                 "DatabaseInfoCountPanel.labelFilename.Filename", // NOI18N
-                UserSettings.INSTANCE.getDatabaseFileName(true)));
+                UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
     }
 
     private void setModelDatabaseInfo() {
