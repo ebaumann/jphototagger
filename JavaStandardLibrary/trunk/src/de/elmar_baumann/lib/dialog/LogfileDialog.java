@@ -97,9 +97,9 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     }
 
     private void setIcons() {
-        if (Resources.INSTANCE.hasIconImages()) {
+        if (Resources.INSTANCE.hasFrameIconImages()) {
             setIconImages(IconUtil.getIconImages(
-                    Resources.INSTANCE.getIconImagesPaths()));
+                    Resources.INSTANCE.getFramesIconImagesPaths()));
         }
     }
 

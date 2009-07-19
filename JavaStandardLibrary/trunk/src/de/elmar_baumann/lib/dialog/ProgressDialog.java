@@ -33,9 +33,9 @@ public final class ProgressDialog extends javax.swing.JDialog {
     }
 
     private void setIcons() {
-        if (Resources.INSTANCE.hasIconImages()) {
+        if (Resources.INSTANCE.hasFrameIconImages()) {
             setIconImages(IconUtil.getIconImages(
-                    Resources.INSTANCE.getIconImagesPaths()));
+                    Resources.INSTANCE.getFramesIconImagesPaths()));
         }
     }
 

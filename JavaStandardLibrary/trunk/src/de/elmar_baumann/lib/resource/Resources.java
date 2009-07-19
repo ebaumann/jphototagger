@@ -6,13 +6,13 @@ import java.util.Properties;
 
 /**
  * Settings that will be used by the classes of this Java library.
- *
+ * <p>
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008-10-05
+ * @version 2008/10/05
  */
 public final class Resources {
 
@@ -21,27 +21,32 @@ public final class Resources {
     private List<String> iconImagesPaths = new ArrayList<String>();
 
     /**
-     * Returns the paths to icon images. Each path is a single icon image,
-     * e.g. <code>"/de/elmar_baumann/imv/resource/help.png"</code>.
+     * Returns the paths to icon images set to frames if defined, e.g. to
+     * dialogs.
+     * <p>
+     * Each path is a single icon image, e.g.
+     * <code>"/de/elmar_baumann/imv/resource/help.png"</code>.
      * 
-     * @return paths. Is empty if not set through
-     *         {@link #setIconImagesPath(java.util.List)}
+     * @return paths
      */
-    public List<String> getIconImagesPaths() {
+    public List<String> getFramesIconImagesPaths() {
         return iconImagesPaths;
     }
 
     /**
-     * Sets the paths to icon images. Each path is a single icon image,
-     * e.g. <code>"/de/elmar_baumann/imv/resource/help.png"</code>.
+     * Sets the paths to icon images set to frames if defined, e.g. to
+     * dialogs.
+     * <p>
+     *  Each path is a single icon image, e.g.
+     * <code>"/de/elmar_baumann/imv/resource/help.png"</code>.
      * 
-     * @param iconImagesPaths paths
+     * @param paths paths
      */
-    public void setIconImagesPath(List<String> iconImagesPaths) {
-        if (iconImagesPaths == null)
+    public void setFramesIconImagesPath(List<String> paths) {
+        if (paths == null)
             throw new NullPointerException("iconImagesPaths == null"); // NOI18N
 
-        this.iconImagesPaths = new ArrayList<String>(iconImagesPaths);
+        this.iconImagesPaths = new ArrayList<String>(paths);
     }
 
     /**
@@ -65,11 +70,12 @@ public final class Resources {
     }
 
     /**
-     * Returns, whether at least one path to an icon image is defined.
+     * Returns, whether at least one path to an icon image set to frames is
+     * defined.
      * 
      * @return true, if one ore more paths to icon images are defined
      */
-    public boolean hasIconImages() {
+    public boolean hasFrameIconImages() {
         return !iconImagesPaths.isEmpty();
     }
 
