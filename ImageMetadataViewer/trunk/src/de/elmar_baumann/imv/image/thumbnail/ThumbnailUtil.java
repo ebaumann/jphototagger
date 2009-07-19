@@ -318,7 +318,7 @@ public final class ThumbnailUtil {
      * @param file Das zu ladende Bild.
      * @return Ein BufferedImage als Ergebnis.
      */
-    private static BufferedImage loadImage(File file) {
+    public static BufferedImage loadImage(File file) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(file);

@@ -153,6 +153,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
     public synchronized void setFiles(List<File> files, Content content) {
         this.files.clear();
         this.files.addAll(files);
+        thumbCache.setFiles(files);
         this.content = content;
         Thread thread = new Thread(new SetFiles(this));
         thread.setName("Setting files to thumbnails panel" + " @ " + // NOI18N
@@ -232,6 +233,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         int index = files.indexOf(oldFile);
         if (index >= 0) {
             files.set(index, newFile);
+            thumbCache.updateFiles(index, newFile);
             repaint();
         }
     }
@@ -300,6 +302,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
         if (index >= 0) {
             removeFromCache(index);
+            thumbCache.removeEntry(index);
         }
     }
 
@@ -312,23 +315,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         int index = getIndexOf(file);
         if (index >= 0) {
             removeFromCache(index);
+            thumbCache.removeEntry(index);
         }
-    }
-
-    @Override
-    public synchronized Image getThumbnail(int index) {
-        ImageFile image = getCachedImageFile(index);
-        if (image == null) {
-            return null;
-        }
-        return getCachedImageFile(index).getThumbnail();
-    }
-
-    @Override
-    public synchronized ImageFile getImageFile(int index) {
-        return isIndex(index)
-               ? db.getImageFile(files.get(index).getAbsolutePath())
-               : null;
     }
 
     /**
@@ -406,10 +394,10 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
                 filesWithoutMoved.size()));
         files.clear();
         files.addAll(newOrderedFiles);
+        thumbCache.setFiles(files);
         List<Integer> indicesToRemoveFromCache = getIndicesToEndFrom(Math.min(
                 index, selectedIndices.get(0)));
         clearSelection();
-        removeFromCache(indicesToRemoveFromCache);
     }
 
     private List<Integer> getIndicesToEndFrom(int fromIndex) {
@@ -439,10 +427,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     protected List<String> getKeywords(int index) {
-        if (isIndex(index)) {
-            return getCachedImageFile(index).getXmp().getDcSubjects();
-        }
-        return null;
+        return thumbCache.getSubjects(index);
     }
 
     @Override

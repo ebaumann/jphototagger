@@ -75,14 +75,13 @@ public final class ControllerRotateThumbnail implements ActionListener {
                         getSelectedIndices();
                 for (Integer index : selectedIndices) {
                     Image thumbnail = ImageTransform.rotate(
-                            thumbnailsPanel.getThumbnail(index.intValue()),
+                            thumbnailsPanel.thumbCache.getThumbnail(index.intValue()),
                             rotateAngle);
                     if (thumbnail != null) {
                         String filename = thumbnailsPanel.getFile(
                                 index.intValue()).getAbsolutePath();
-                        if (db.updateThumbnail(filename, thumbnail)) {
-                            thumbnailsPanel.set(index.intValue(), thumbnail);
-                        }
+                        // should fire an update caught by cache
+                        db.updateThumbnail(filename, thumbnail);
                     }
                 }
             }

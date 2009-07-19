@@ -928,7 +928,7 @@ public final class AppPanel extends javax.swing.JPanel implements
 
         splitPaneMain.setRightComponent(panelThumbnailsMetadata);
 
-        sliderThumbnailSize.setMajorTickSpacing(10);
+        sliderThumbnailSize.setMajorTickSpacing(5);
         sliderThumbnailSize.setMinimum(10);
         sliderThumbnailSize.setSnapToTicks(true);
         sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N

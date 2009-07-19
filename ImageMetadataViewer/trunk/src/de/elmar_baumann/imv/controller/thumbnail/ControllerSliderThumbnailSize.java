@@ -31,7 +31,8 @@ public final class ControllerSliderThumbnailSize
     private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final JSlider slider = appPanel.getSliderThumbnailSize();
-    private static final int STEP_WIDTH = 10;
+    private static final int STEP_WIDTH = 1;
+    private static final int MIN_MAGINFICATION_PERCENT = 10;
     private static final int MAX_MAGINFICATION_PERCENT = 100;
     private static final String KEY_SLIDER_VALUE =
             ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue"; // NOI18N
@@ -54,7 +55,7 @@ public final class ControllerSliderThumbnailSize
 
     private void initSlider() {
         readProperties();
-        slider.setMinimum(STEP_WIDTH);
+        slider.setMinimum(MIN_MAGINFICATION_PERCENT);
         slider.setMaximum(MAX_MAGINFICATION_PERCENT);
         slider.setMajorTickSpacing(STEP_WIDTH);
         slider.setMinorTickSpacing(STEP_WIDTH);

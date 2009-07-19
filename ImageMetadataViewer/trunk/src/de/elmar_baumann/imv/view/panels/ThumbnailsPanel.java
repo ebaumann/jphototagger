@@ -1,9 +1,9 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.data.ImageFile;
-import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
+import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
+import de.elmar_baumann.imv.image.thumbnail.ThumbnailCache;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import de.elmar_baumann.lib.util.MathUtil;
 import java.awt.Color;
@@ -13,7 +13,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.MediaTracker;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -148,16 +147,6 @@ public abstract class ThumbnailsPanel extends JPanel
     private final Map<Integer, ThumbnailFlag> flagOfThumbnail =
             new HashMap<Integer, ThumbnailFlag>();
     /**
-     * Caches the thumbnails at specific indices
-     */
-    private final Map<Integer, Image> thumbnailAtIndex =
-            new HashMap<Integer, Image>();
-    /**
-     * Caches the ImageFile at specific indices
-     */
-    private final Map<Integer, ImageFile> imageFileAtIndex =
-            new HashMap<Integer, ImageFile>();
-    /**
      * Listens to thumbnail events
      */
     private final List<ThumbnailsPanelListener> panelListeners =
@@ -199,6 +188,7 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     private int clickInSelection = -1;
     private boolean keywordsOverlay;
+    public ThumbnailCache thumbCache = new ThumbnailCache(this);
 
     public ThumbnailsPanel() {
         computeFontHeight();
@@ -220,8 +210,6 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private void empty() {
-        thumbnailAtIndex.clear();
-        imageFileAtIndex.clear();
         clearSelection();
         flagOfThumbnail.clear();
         System.gc();
@@ -258,8 +246,6 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     public synchronized void setThumbnailWidth(int width) {
         if (width != thumbnailWidth) {
-            thumbnailAtIndex.clear();
-            System.gc();
             thumbnailWidth = width;
             setCountPerRow();
             maxCharCountText = (int) (((double) MAX_CHAR_COUNT_PER_150_PX *
@@ -324,23 +310,6 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Liefert ein bestimmtes Thumbnail.
-     * 
-     * @param index Index
-     * @return      Thumbnail. Null bei ungültigem Index.
-     */
-    public abstract Image getThumbnail(int index);
-
-    /**
-     * Fetch a specific ImageFile.
-     *
-     * @param index Index
-     * @return      ImageFile.  Null for invalidThumbnail. Null bei ungültigem Index.
-     */
-    public abstract ImageFile getImageFile(int index);
-
-
-    /**
      * Liefert den Text für ein bestimmtes Thumbnail.
      * 
      * @param index Thumbnailindex
@@ -400,8 +369,8 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index     Index
      * @param thumbnail Thumbnail
      */
-    public synchronized void set(int index, Image thumbnail) {
-        thumbnailAtIndex.put(index, thumbnail);
+    public synchronized void repaint(int index) {
+        // fixme: optimize for specific location
         repaint();
     }
 
@@ -496,32 +465,6 @@ public abstract class ThumbnailsPanel extends JPanel
     private int getRowCountInHeight(int height) {
         return (int) ((height - MARGIN_THUMBNAIL) /
                 (getThumbnailAreaHeight() + MARGIN_THUMBNAIL) + 0.5);
-    }
-
-    protected Image getCachedThumbnail(int index) {
-        Image thumbnail = null;
-        if (thumbnailAtIndex.containsKey(index)) {
-            thumbnail = thumbnailAtIndex.get(index);
-        } else {
-            thumbnail = getThumbnail(index);
-            if (thumbnail != null) {
-                thumbnailAtIndex.put(index, thumbnail);
-            }
-        }
-        return thumbnail;
-    }
-
-    protected ImageFile getCachedImageFile(int index) {
-        ImageFile image = null;
-        if (imageFileAtIndex.containsKey(index)) {
-            image = imageFileAtIndex.get(index);
-        } else {
-            image = getImageFile(index);
-            if (image != null) {
-                imageFileAtIndex.put(index, image);
-            }
-        }
-        return image;
     }
 
     /**
@@ -824,17 +767,14 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
-        Image thumbnail = getCachedThumbnail(index);
+        Image thumbnail = thumbCache.getScaledThumbnail(index, thumbnailWidth);
 
         paintThumbnailBackground(g, topLeft.x, topLeft.y, isSelected(index));
         paintThumbnailFlag(index, g, topLeft.x, topLeft.y);
-        if (thumbnail != null) {
-            paintThumbnail(
-                    getScaledInstance(index, thumbnail), g, topLeft.x, topLeft.y);
-            paintThumbnailTextAt(g, index, topLeft.x, topLeft.y);
-            if (isKeywordsOverlay()) {
-                paintThumbnailKeywordsAt(g, index, topLeft.x, topLeft.y);
-            }
+        paintThumbnail(thumbnail, g, topLeft.x, topLeft.y);
+        paintThumbnailTextAt(g, index, topLeft.x, topLeft.y);
+        if (isKeywordsOverlay()) {
+            paintThumbnailKeywordsAt(g, index, topLeft.x, topLeft.y);
         }
     }
 
@@ -1065,81 +1005,13 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Returns an image with a longer side that fits the attribute thumbnailWidth.
-     * 
-     * @param  cacheIndex  index of the image in the cache. If the image will be
-     *                     scaled the cache will be refreshed with the scaled
-     *                     instance
-     * @param  image       image to scale
-     * @return image if it must not be scaled or scaled instance
-     */
-    private Image getScaledInstance(int cacheIndex, Image image) {
-        int width = image.getWidth(null);
-        int height = image.getHeight(null);
-        double longer = width > height
-                        ? width
-                        : height;
-        if (longer == thumbnailWidth) {
-            return image;
-        }
-        double scaleFactor = (double) thumbnailWidth / longer;
-
-        Image scaled = image.getScaledInstance(
-                width > height
-                ? thumbnailWidth
-                : (int) ((double) width * scaleFactor + 0.5),
-                height > width
-                ? thumbnailWidth
-                : (int) ((double) height * scaleFactor + 0.5),
-                Image.SCALE_AREA_AVERAGING);
-        MediaTracker tracker = new MediaTracker(this);
-        tracker.addImage(image, 0);
-        try {
-            tracker.waitForID(0);
-        } catch (InterruptedException ex) {
-            AppLog.logSevere(ThumbnailsPanel.class, ex);
-        }
-        thumbnailAtIndex.put(cacheIndex, scaled);
-        return scaled;
-    }
-
-    /**
-     * Entfernt aus dem internen Bildcache Thumbnails und ImageFiles und liest
-     * sie bei Bedarf - wenn sie gezeichnet werden müssen - erneut ein.
-     * 
-     * @param thumbnailIndices Indexe
-     */
-    protected void removeFromCache(ArrayList<Integer> thumbnailIndices) {
-        for (Integer index : thumbnailIndices) {
-            thumbnailAtIndex.remove(index);
-            imageFileAtIndex.remove(index);
-        }
-        repaint();
-    }
-
-    /**
      * Entfernt aus dem internen Bildcache ein Thumbnail und ImageFile und
      * liest sie bei Bedarf - wenn sie gezeichnet werden müssen - erneut ein.
      * 
      * @param index Index
      */
     protected void removeFromCache(int index) {
-        thumbnailAtIndex.remove(index);
-        imageFileAtIndex.remove(index);
-        repaint();
-    }
-
-    /**
-     * Removes some thumbnails and ImageFiles from the cache and repaints the
-     * panel.
-     *
-     * @param indices indices of the thumbnails to remove.
-     */
-    protected synchronized void removeFromCache(List<Integer> indices) {
-        for (Integer index : indices) {
-            thumbnailAtIndex.remove(index);
-            imageFileAtIndex.remove(index);
-        }
+        thumbCache.removeEntry(index);
         repaint();
     }
 
