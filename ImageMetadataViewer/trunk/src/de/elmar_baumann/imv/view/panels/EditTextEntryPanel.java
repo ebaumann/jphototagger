@@ -16,7 +16,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * Panel zum Eingeben einzeiliger Texte.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/18
+ * @version 2008-09-18
  */
 public final class EditTextEntryPanel extends javax.swing.JPanel
         implements TextEntry, DocumentListener {

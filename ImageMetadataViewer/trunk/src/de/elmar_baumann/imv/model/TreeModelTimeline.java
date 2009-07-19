@@ -16,7 +16,7 @@ import javax.swing.tree.DefaultTreeModel;
  * A {@link de.elmar_baumann.imv.data.Timeline}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/12
+ * @version 2009-06-12
  */
 public final class TreeModelTimeline extends DefaultTreeModel implements
         DatabaseListener {

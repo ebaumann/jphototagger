@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.types;
  * Token of a filename.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/19
+ * @version 2009-07-19
  */
 public enum Filename {
 

@@ -12,7 +12,7 @@ import javax.swing.JList;
  * collections.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/24
+ * @version 2008-10-24
  */
 public final class TransferHandlerListImageCollections extends TransferHandlerListsDropThumbnails {
 

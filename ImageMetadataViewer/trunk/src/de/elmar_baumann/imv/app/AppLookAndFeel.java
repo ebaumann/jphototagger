@@ -13,7 +13,7 @@ import javax.swing.plaf.FontUIResource;
  * under certain operation systems.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/06
+ * @version 2009-06-06
  */
 public final class AppLookAndFeel {
 

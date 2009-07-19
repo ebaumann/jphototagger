@@ -18,7 +18,7 @@ import java.util.List;
  * ({@link de.elmar_baumann.imv.data.Program#getId()}).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/04
+ * @version 2008-11-04
  */
 public final class DatabasePrograms extends Database {
 

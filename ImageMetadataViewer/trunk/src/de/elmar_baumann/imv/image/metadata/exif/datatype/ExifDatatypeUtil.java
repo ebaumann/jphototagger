@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
  *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/03/31
+ * @version 2009-03-31
  */
 public final class ExifDatatypeUtil {
 

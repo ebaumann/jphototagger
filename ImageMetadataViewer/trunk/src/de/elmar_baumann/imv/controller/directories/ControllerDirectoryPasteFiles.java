@@ -20,7 +20,7 @@ import javax.swing.JTree;
  * moves files to directories when the keys related to a copy or move action.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/26
+ * @version 2008-10-26
  */
 public final class ControllerDirectoryPasteFiles implements KeyListener {
 

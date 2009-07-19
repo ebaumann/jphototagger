@@ -13,7 +13,7 @@ import javax.swing.KeyStroke;
  * Popupmenü für gespeicherte Suchen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/31
+ * @version 2008-08-31
  */
 public final class PopupMenuSavedSearches extends JPopupMenu {
 

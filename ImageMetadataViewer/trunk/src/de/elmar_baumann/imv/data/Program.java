@@ -8,7 +8,7 @@ import java.io.File;
  * into the database {@link DatabasePrograms}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/04
+ * @version 2008-11-04
  */
 public final class Program {
 

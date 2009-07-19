@@ -15,7 +15,7 @@ import javax.swing.tree.TreeNode;
  * Renders items and text for {@link de.elmar_baumann.imv.data.Timeline} nodes.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/12
+ * @version 2009-06-12
  */
 public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
 

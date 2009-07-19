@@ -19,7 +19,7 @@ import javax.swing.border.Border;
  * Panel offering text to select via text elements.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/26
+ * @version 2009-06-26
  */
 public class TextSelectionPanel extends javax.swing.JPanel {
 

@@ -15,7 +15,7 @@ import javax.swing.filechooser.FileSystemView;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/04
+ * @version 2008-11-04
  */
 public final class ListCellRendererPrograms extends DefaultListCellRenderer {
 

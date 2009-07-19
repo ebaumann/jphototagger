@@ -24,7 +24,7 @@ import javax.swing.tree.TreePath;
  * hierarchical keyword if the delete key was pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/12
+ * @version 2009-07-12
  */
 public class ControllerRemoveHierarchicalKeyword
         implements ActionListener, KeyListener {

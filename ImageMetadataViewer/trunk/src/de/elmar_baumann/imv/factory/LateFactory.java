@@ -13,7 +13,7 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
  * here.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/16
+ * @version 2008-10-16
  */
 public final class LateFactory {
 

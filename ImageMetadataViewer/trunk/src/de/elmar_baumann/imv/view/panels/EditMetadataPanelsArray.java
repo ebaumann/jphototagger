@@ -52,7 +52,7 @@ import javax.swing.JTextField;
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008/10/05
+ * @version 2008-10-05
  */
 public final class EditMetadataPanelsArray implements FocusListener,
                                                       DatabaseListener,

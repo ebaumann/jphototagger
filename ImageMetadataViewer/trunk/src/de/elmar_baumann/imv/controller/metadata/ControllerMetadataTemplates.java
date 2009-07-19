@@ -23,7 +23,7 @@ import javax.swing.SwingUtilities;
  * Kontrolliert Eingaben bezüglich Metadaten-Templates.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/22
+ * @version 2008-09-22
  */
 public final class ControllerMetadataTemplates implements ActionListener,
                                                           MetadataEditPanelListener {

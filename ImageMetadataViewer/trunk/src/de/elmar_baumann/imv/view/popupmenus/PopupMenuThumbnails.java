@@ -25,7 +25,7 @@ import javax.swing.KeyStroke;
  * Popup menu of the thumbnails panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008/10/05
+ * @version 2008-10-05
  */
 public final class PopupMenuThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {

@@ -7,7 +7,7 @@ import java.util.Arrays;
  * LONG is the numerator and the second LONG expresses the denominator.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/03/17
+ * @version 2009-03-17
  * @see ExifLong
  */
 public final class ExifRational {

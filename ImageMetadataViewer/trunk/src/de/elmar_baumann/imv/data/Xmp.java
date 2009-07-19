@@ -37,7 +37,7 @@ import java.util.Map;
  * documentation links to the corresponging {@link Iptc} method.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/22
+ * @version 2008-08-22
  */
 public final class Xmp {
 

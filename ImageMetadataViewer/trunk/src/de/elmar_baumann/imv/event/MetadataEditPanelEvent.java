@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
  * {@link de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/22
+ * @version 2008-09-22
  */
 public final class MetadataEditPanelEvent {
 

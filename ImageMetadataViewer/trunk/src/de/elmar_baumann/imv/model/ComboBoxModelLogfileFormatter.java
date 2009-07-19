@@ -8,7 +8,7 @@ import javax.swing.DefaultComboBoxModel;
  * Logdateien-Formatierer.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/17
+ * @version 2008-09-17
  */
 public final class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {
 

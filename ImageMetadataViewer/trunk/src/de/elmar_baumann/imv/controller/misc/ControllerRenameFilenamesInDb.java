@@ -11,7 +11,7 @@ import javax.swing.JMenuItem;
  * {@link de.elmar_baumann.imv.view.dialogs.RenameFilenamesInDbDialog}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/16
+ * @version 2009-06-16
  */
 public final class ControllerRenameFilenamesInDb implements ActionListener {
 

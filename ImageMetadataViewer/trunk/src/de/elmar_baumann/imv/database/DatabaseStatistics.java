@@ -13,7 +13,7 @@ import java.util.List;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/21
+ * @version 2008-10-21
  */
 public final class DatabaseStatistics extends Database {
 

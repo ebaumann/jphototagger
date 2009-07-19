@@ -32,7 +32,7 @@ import javax.swing.tree.TreePath;
  * Also listens to key events and does the same if Ctrl+B were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/15
+ * @version 2009-07-15
  */
 public class ControllerAddHierarchicalKeywordsToEditPanel
         implements ActionListener, KeyListener {

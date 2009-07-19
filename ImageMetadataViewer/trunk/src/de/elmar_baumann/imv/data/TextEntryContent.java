@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
  * Text entry with text and column.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/29
+ * @version 2008-10-29
  */
 public final class TextEntryContent implements TextEntry {
 

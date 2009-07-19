@@ -7,7 +7,7 @@ import java.util.List;
  * Contains the EXIF metadata to display (show) to the user.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifMetadataToDisplay {
 

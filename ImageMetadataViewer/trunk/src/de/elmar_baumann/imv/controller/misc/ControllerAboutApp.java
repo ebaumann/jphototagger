@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * werden.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/12
+ * @version 2008-09-12
  */
 public final class ControllerAboutApp implements ActionListener {
 

@@ -17,7 +17,7 @@ import javax.swing.table.TableCellRenderer;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @version 2008-09-14
  */
 public final class TableCellRendererExif extends FormatterLabelMetadata
         implements TableCellRenderer {

@@ -17,7 +17,7 @@ import java.util.logging.StreamHandler;
  * Logging system of the application.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/11
+ * @version 2009-06-11
  */
 public final class AppLoggingSystem {
 

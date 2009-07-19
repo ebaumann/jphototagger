@@ -11,7 +11,7 @@ import javax.swing.JButton;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/31
+ * @version 2009-05-31
  */
 public final class ControllerShowSystemOutput implements ActionListener {
 

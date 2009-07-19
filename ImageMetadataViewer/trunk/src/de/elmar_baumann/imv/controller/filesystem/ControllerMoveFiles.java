@@ -20,7 +20,7 @@ import java.util.List;
  * Renames files in the file system.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/13
+ * @version 2008-10-13
  */
 public final class ControllerMoveFiles implements ActionListener,
                                                   FileSystemActionListener {

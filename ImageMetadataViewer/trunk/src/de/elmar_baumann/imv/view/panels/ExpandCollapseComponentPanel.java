@@ -19,7 +19,7 @@ import javax.swing.text.JTextComponent;
  * has a {@link javax.swing.JLabel} the label's text is shown when collapsed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/24
+ * @version 2009-06-24
  */
 public class ExpandCollapseComponentPanel extends JPanel implements
         FocusListener {

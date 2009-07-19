@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.database.metadata.file.ColumnFilesId;
  * Spalte <code>id_files</code> der Tabelle <code>xmp</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/27
+ * @version 2008-08-27
  */
 public final class ColumnXmpIdFiles extends Column {
 

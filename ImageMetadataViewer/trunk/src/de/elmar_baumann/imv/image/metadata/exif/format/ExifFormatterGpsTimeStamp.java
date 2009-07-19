@@ -13,7 +13,7 @@ import java.util.Calendar;
  * Formats an EXIF entry of the type {@link ExifTag#GPS_TIME_STAMP}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifFormatterGpsTimeStamp extends ExifFormatter {
 

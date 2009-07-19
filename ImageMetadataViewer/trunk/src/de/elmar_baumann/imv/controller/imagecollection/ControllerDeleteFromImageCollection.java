@@ -26,7 +26,7 @@ import javax.swing.SwingUtilities;
  * {@link Content#IMAGE_COLLECTION}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/00/10
+ * @version 2008-00-10
  * @see     ControllerDeleteFiles
  */
 public final class ControllerDeleteFromImageCollection

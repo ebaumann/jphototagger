@@ -20,7 +20,7 @@ import javax.swing.JRadioButton;
  * to replace substrings in filenames.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/16
+ * @version 2009-06-16
  */
 public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
 

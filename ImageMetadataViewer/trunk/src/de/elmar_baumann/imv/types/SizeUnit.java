@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.types;
  * Size units as n multiplied by one byte.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/16
+ * @version 2009-07-16
  */
 public enum SizeUnit {
 

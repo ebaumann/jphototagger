@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * Displays messages.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/12
+ * @version 2009-07-12
  */
 public final class MessageDisplayer {
 

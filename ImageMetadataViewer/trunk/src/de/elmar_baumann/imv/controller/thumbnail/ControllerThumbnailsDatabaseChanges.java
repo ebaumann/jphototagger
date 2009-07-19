@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
  * Reacts to databse changes of thumbnails
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/15
+ * @version 2008-10-15
  */
 public final class ControllerThumbnailsDatabaseChanges
         implements DatabaseListener {

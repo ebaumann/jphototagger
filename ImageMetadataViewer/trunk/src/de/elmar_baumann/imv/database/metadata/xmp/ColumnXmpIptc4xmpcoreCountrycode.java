@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Spalte <code>iptc4xmpcore_countrycode</code> der Tabelle <code>xmp</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/23
+ * @version 2008-08-23
  */
 public final class ColumnXmpIptc4xmpcoreCountrycode extends Column {
 

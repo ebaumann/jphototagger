@@ -11,7 +11,7 @@ import java.text.NumberFormat;
  * Formats an EXIF entry of the type {@link ExifTag#F_NUMBER}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifFormatterFnumber extends ExifFormatter {
 

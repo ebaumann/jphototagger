@@ -20,7 +20,7 @@ import javax.swing.event.ChangeListener;
  * Controls the slider which changes the size of the thumbnails
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/12
+ * @version 2008-10-12
  */
 public final class ControllerSliderThumbnailSize
         implements ActionListener, ChangeListener, ThumbnailsPanelListener,

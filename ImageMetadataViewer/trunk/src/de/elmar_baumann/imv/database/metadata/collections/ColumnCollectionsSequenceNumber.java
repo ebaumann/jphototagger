@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Spalte <code>sequence_number</code> der Tabelle <code>collections</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/07
+ * @version 2008-09-07
  */
 public final class ColumnCollectionsSequenceNumber extends Column {
 

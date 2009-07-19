@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
  * for parent keywords and adds them.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/12
+ * @version 2009-07-12
  */
 public class TextModifierHierarchicalKeywords implements TextModifyer {
 

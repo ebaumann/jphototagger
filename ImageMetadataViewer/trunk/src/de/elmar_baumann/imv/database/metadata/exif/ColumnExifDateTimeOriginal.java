@@ -11,7 +11,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * </ul>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/27
+ * @version 2008-08-27
  */
 public final class ColumnExifDateTimeOriginal extends Column {
 

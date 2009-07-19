@@ -6,7 +6,7 @@ import java.util.List;
  * Reagiert auf Ereignisse bezüglich Bildsammlungen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/07
+ * @version 2008-09-07
  */
 public interface ImageCollectionListener {
 

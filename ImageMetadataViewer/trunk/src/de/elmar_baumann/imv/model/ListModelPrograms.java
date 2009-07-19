@@ -11,7 +11,7 @@ import javax.swing.DefaultListModel;
  * {@link de.elmar_baumann.imv.data.Program#isAction()} is false.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/16
+ * @version 2008-10-16
  */
 public final class ListModelPrograms extends DefaultListModel {
 

@@ -8,7 +8,7 @@ import javax.swing.JProgressBar;
  * Shows an information: Setting thumbnails.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/14
+ * @version 2009-06-14
  */
 public final class InfoSettingThumbnails {
 

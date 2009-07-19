@@ -31,7 +31,7 @@ import javax.swing.ListModel;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/19
+ * @version 2008-10-19
  */
 public final class ControllerAutocopyDirectory implements ActionListener {
 

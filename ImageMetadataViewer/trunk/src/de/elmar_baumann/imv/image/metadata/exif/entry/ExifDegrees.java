@@ -9,7 +9,7 @@ import java.util.Arrays;
  * 1/3600 or a degree).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/03/30
+ * @version 2009-03-30
  */
 public final class ExifDegrees {
 

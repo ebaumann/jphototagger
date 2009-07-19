@@ -12,7 +12,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
  * {@link de.elmar_baumann.imv.view.dialogs.ActionsDialog}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/06
+ * @version 2008-11-06
  */
 public final class ControllerActionExecutor implements ProgramActionListener {
 

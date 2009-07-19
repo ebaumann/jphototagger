@@ -14,7 +14,7 @@ import java.util.Set;
  * {@link DatabaseMaintainance#deleteOrphanedThumbnails(de.elmar_baumann.imv.event.listener.ProgressListener)}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/25
+ * @version 2009-06-25
  */
 public final class DeleteOrphanedThumbnails implements Runnable, ProgressListener {
 

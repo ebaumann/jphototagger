@@ -17,7 +17,7 @@ import javax.swing.JTree;
  * the key <code>F5</code> was pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/28
+ * @version 2009-06-28
  */
 public final class ControllerRefreshFavorites
         implements ActionListener, KeyListener {

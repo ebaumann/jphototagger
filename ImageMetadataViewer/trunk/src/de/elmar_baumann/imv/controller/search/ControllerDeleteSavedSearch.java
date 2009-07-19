@@ -19,7 +19,7 @@ import javax.swing.JList;
  * search when the <code>Del</code> key was pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/10
+ * @version 2008-09-10
  */
 public final class ControllerDeleteSavedSearch
         implements ActionListener, KeyListener {

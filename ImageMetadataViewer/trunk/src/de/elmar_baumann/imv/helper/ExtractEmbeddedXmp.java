@@ -15,7 +15,7 @@ import java.util.EnumSet;
  * Extracts in images embedded XMP metadata into sidecar files.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/22
+ * @version 2009-05-22
  */
 public final class ExtractEmbeddedXmp extends FileEditor {
 

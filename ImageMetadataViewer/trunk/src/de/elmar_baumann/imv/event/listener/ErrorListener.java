@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.ErrorEvent;
  * Beobachtet Fehler (in Threads).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/03
+ * @version 2008-08-03
  */
 public interface ErrorListener {
 

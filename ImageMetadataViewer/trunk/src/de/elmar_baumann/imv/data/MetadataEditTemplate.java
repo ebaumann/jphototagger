@@ -27,7 +27,7 @@ import java.util.Map;
  * Vorlage zum Bearbeiten von Metadaten.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/22
+ * @version 2008-09-22
  */
 public final class MetadataEditTemplate {
     // Diese Klasse sollte je ein Attribut enthalten für jede Spalte aus

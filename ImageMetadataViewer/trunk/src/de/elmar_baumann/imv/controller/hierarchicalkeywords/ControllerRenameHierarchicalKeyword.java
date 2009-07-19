@@ -26,7 +26,7 @@ import javax.swing.tree.TreePath;
  * hierarchical keyword if the keys F2 or Ctrl+R were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/12
+ * @version 2009-07-12
  */
 public class ControllerRenameHierarchicalKeyword
         implements ActionListener, KeyListener {

@@ -12,7 +12,7 @@ import java.util.List;
  * Adds new columns to the database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/06
+ * @version 2008-11-06
  */
 final class UpdateTablesAddColumns {
 

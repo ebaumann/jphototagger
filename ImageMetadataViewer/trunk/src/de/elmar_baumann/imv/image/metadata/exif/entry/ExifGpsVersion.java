@@ -5,7 +5,7 @@ package de.elmar_baumann.imv.image.metadata.exif.entry;
  * mandatory when GPSInfo tag is present.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/03/17
+ * @version 2009-03-17
  */
 public final class ExifGpsVersion {
 

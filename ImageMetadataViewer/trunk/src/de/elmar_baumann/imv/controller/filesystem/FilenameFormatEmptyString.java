@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * A format which is always an empty string.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/13
+ * @version 2008-10-13
  */
 public final class FilenameFormatEmptyString extends FilenameFormat {
 

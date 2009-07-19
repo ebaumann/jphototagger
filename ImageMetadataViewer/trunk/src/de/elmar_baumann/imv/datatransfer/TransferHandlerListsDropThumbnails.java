@@ -18,7 +18,7 @@ import javax.swing.TransferHandler;
  * {@link #handleDroppedThumbnails(int, java.util.List)}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/24
+ * @version 2008-10-24
  */
 public abstract class TransferHandlerListsDropThumbnails extends TransferHandler {
 

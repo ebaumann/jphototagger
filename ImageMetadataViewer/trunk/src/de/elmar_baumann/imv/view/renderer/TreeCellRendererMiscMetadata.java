@@ -19,7 +19,7 @@ import javax.swing.tree.TreeNode;
  * {@link de.elmar_baumann.imv.model.TreeModelMiscMetadata} nodes.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/12
+ * @version 2009-06-12
  */
 public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer {
 

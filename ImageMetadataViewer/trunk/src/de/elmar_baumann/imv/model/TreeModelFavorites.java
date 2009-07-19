@@ -33,7 +33,7 @@ import javax.swing.tree.TreePath;
  * Favorite directories.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/15
+ * @version 2009-06-15
  */
 public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener, AppExitListener {

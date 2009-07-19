@@ -5,7 +5,7 @@ package de.elmar_baumann.imv.image.metadata.exif.datatype;
  * one 7-bit ASCII code. The final byte is terminated with NULL.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/04/04
+ * @version 2009-04-04
  */
 public final class ExifAscii {
 

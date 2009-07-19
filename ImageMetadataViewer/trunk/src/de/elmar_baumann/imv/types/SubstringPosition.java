@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.types;
  * Position of a substring within a string.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/16
+ * @version 2009-06-16
  */
 public enum SubstringPosition {
 

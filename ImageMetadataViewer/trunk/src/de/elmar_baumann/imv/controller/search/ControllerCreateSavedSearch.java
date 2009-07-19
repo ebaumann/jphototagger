@@ -22,7 +22,7 @@ import javax.swing.JList;
  * search when the keys <code>Ctrl+N</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/10
+ * @version 2008-09-10
  */
 public final class ControllerCreateSavedSearch
         implements ActionListener, KeyListener, SearchListener {

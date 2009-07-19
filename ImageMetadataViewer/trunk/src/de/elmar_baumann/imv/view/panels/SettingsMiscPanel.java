@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileFilter;
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/02
+ * @version 2008-11-02
  */
 public final class SettingsMiscPanel extends javax.swing.JPanel
         implements Persistence {

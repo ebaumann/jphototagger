@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Filename format that returns exactly a set string (formats nothing).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/13
+ * @version 2008-10-13
  */
 public final class FilenameFormatConstantString extends FilenameFormat {
 

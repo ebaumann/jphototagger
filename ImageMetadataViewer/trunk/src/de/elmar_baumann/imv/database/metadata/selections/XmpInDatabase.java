@@ -7,7 +7,7 @@ import java.util.Set;
  * Liefert, welche XMP-Metadaten in die Datenbank gespeichert werden.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @version 2008-09-14
  */
 public final class XmpInDatabase {
 

@@ -16,7 +16,7 @@ import java.util.List;
  * into the database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/07
+ * @version 2009-06-07
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {
 

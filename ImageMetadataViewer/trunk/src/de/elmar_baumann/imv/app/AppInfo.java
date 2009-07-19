@@ -7,7 +7,7 @@ import de.elmar_baumann.lib.util.Version;
  * Informations about this application.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/06/21
+ * @version 2008-06-21
  */
 public final class AppInfo {
 
@@ -18,7 +18,7 @@ public final class AppInfo {
     /**
      * The application's version
      */
-    public static final String APP_VERSION = "0.6.8 2009/07/17";  // NOI18N
+    public static final String APP_VERSION = "0.6.8 2009-07-17";  // NOI18N
     /**
      * The application's name
      */

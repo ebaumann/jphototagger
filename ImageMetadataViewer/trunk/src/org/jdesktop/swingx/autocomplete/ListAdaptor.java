@@ -1,5 +1,5 @@
 /*
- * $Id: ListAdaptor.java,v 1.6 2006/07/29 16:53:46 Bierhance Exp $
+ * $Id: ListAdaptor.java,v 1.6 2006-07-29 16:53:46 Bierhance Exp $
  *
  * Copyright 2004 Sun Microsystems, Inc., 4150 Network Circle,
  * Santa Clara, California 95054, U.S.A. All rights reserved.

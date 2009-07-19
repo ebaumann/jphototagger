@@ -15,7 +15,7 @@ import java.util.List;
  * Updates all Thumbnails in the database with the current settings.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/12
+ * @version 2008-10-12
  */
 public final class UpdateAllThumbnails
         implements Runnable, ProgressListener, ActionListener {

@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
  * Wird über einen Fortschritt benachrichtigt.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/22
+ * @version 2008-07-22
  */
 public interface ProgressListener {
 

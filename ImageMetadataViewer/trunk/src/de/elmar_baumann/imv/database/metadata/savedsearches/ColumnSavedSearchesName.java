@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Spalte <code>name</code> der Tabelle <code>saved_searches</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/17
+ * @version 2008-09-17
  */
 public final class ColumnSavedSearchesName extends Column {
     

@@ -19,7 +19,7 @@ import javax.swing.JList;
  * search when the keys <code>Ctrl+R</code> or <code>F2</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/10
+ * @version 2008-09-10
  */
 public final class ControllerRenameSavedSearch
         implements ActionListener, KeyListener {

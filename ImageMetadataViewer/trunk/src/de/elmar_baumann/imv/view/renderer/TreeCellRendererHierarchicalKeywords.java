@@ -14,7 +14,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * {@link HierarchicalKeywordsPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/12
+ * @version 2009-06-12
  */
 public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellRenderer {
 

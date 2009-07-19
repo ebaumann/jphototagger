@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Spalte <code>dc_description</code> der Tabelle <code>xmp</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/23
+ * @version 2008-08-23
  */
 public final class ColumnXmpDcDescription extends Column {
 

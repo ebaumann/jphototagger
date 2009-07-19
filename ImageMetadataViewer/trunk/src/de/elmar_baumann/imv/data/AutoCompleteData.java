@@ -13,7 +13,7 @@ import java.util.Set;
  * Model for Autocomplete.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/10
+ * @version 2008-09-10
  */
 public final class AutoCompleteData {
 

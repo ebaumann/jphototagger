@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Initializes the application's database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/11
+ * @version 2009-06-11
  */
 public final class AppDatabase {
 

@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Pattern).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/28
+ * @version 2008-08-28
  */
 public enum Comparator {
 

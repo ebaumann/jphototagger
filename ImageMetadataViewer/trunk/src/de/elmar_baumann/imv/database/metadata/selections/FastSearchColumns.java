@@ -20,7 +20,7 @@ import java.util.List;
  * Spalten für die Schnellsuche.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/29
+ * @version 2008-07-29
  */
 public final class FastSearchColumns {
 

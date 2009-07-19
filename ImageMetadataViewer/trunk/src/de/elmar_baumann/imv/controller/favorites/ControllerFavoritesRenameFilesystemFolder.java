@@ -22,7 +22,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/19
+ * @version 2009-06-19
  */
 public final class ControllerFavoritesRenameFilesystemFolder
         implements ActionListener, KeyListener {

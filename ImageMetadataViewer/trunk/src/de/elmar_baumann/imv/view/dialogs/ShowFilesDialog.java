@@ -12,7 +12,7 @@ import java.util.List;
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/22
+ * @version 2009-05-22
  */
 public class ShowFilesDialog extends Dialog {
 

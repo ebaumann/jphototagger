@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.event;
  * Text was selected.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/26
+ * @version 2009-06-26
  */
 public final class TextSelectionEvent {
 

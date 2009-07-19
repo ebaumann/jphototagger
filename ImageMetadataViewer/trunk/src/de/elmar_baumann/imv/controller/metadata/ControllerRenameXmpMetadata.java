@@ -17,7 +17,7 @@ import java.util.List;
  * XMP metadata via {@link RenameXmpMetadata}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/30
+ * @version 2008-09-30
  */
 public final class ControllerRenameXmpMetadata implements ActionListener {
 

@@ -30,7 +30,7 @@ import java.util.Map;
  * einem Namespace-URI
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/19
+ * @version 2008-09-19
  */
 public final class XmpColumnNamespaceUriMapping {
 

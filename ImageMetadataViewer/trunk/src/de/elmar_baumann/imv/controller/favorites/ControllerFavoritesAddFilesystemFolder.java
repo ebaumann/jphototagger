@@ -23,7 +23,7 @@ import javax.swing.tree.TreePath;
  * pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/30
+ * @version 2009-06-30
  */
 public final class ControllerFavoritesAddFilesystemFolder
         implements ActionListener, KeyListener {

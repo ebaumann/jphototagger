@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.SearchEvent;
  * Beobachtet Suchen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/23
+ * @version 2008-08-23
  */
 public interface SearchListener {
 

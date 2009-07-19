@@ -19,7 +19,7 @@ import javax.swing.ListSelectionModel;
  * Panel to (de-) select columns to show in the {@link EditMetadataPanelsArray}.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/01
+ * @version 2008-11-01
  */
 public final class SettingsEditColumnsPanel extends javax.swing.JPanel
     implements ActionListener, Persistence {

@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.app.AppLog;
  * locked if used and could not be deleted and renamed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/15
+ * @version 2008-10-15
  */
 public final class IdfEntryProxy implements Comparable<IdfEntryProxy> {
 

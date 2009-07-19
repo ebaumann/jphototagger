@@ -15,7 +15,7 @@ import javax.swing.tree.TreeModel;
  * {@link java.util.Calendar}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/11
+ * @version 2009-06-11
  */
 public final class Timeline {
 

@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
  * ausgelöst von {@link de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/10
+ * @version 2008-09-10
  */
 public final class ControllerOpenFilesWithStandardApp implements ActionListener {
 

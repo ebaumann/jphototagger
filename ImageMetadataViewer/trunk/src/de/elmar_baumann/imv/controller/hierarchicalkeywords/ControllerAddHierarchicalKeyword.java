@@ -26,7 +26,7 @@ import javax.swing.tree.TreePath;
  * selected keyword if the keys Ctrl+N were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/12
+ * @version 2009-07-12
  */
 public class ControllerAddHierarchicalKeyword
         implements ActionListener, KeyListener {

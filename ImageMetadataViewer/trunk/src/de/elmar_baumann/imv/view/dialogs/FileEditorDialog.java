@@ -12,7 +12,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
  * Closing is disabled as long as the file editor runs.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/22
+ * @version 2009-05-22
  */
 public class FileEditorDialog extends Dialog {
 

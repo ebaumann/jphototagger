@@ -11,7 +11,7 @@ import java.text.NumberFormat;
  * Formats an EXIF entry of the type {@link ExifTag#FOCAL_LENGTH}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifFormatterFocalLength extends ExifFormatter {
 

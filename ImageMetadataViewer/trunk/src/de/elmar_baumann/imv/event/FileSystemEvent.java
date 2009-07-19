@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.event;
  * Event in a file system.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/20
+ * @version 2008-10-20
  */
 public enum FileSystemEvent {
 

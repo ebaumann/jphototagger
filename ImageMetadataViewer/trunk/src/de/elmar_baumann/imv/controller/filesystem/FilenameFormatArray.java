@@ -9,7 +9,7 @@ import java.util.List;
  * Array of {@link FilenameFormat} objects.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/13
+ * @version 2008-10-13
  */
 public final class FilenameFormatArray implements FilenameFormatListener {
 

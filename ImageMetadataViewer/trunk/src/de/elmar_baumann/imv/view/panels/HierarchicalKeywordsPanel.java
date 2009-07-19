@@ -11,7 +11,7 @@ import javax.swing.tree.TreeSelectionModel;
  * A tree for hierarchical keywords.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/10
+ * @version 2009-07-10
  */
 public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 

@@ -16,7 +16,7 @@ import java.util.Set;
  * Removes invalid EXIF metadata (Bugfix).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/14
+ * @version 2009-06-14
  */
 final class UpdateTablesDeleteInvalidExif {
 

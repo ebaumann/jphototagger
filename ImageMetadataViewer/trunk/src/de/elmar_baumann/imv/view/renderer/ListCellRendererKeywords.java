@@ -11,7 +11,7 @@ import javax.swing.JList;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/25
+ * @version 2008-10-25
  */
 public final class ListCellRendererKeywords extends DefaultListCellRenderer {
 

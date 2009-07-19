@@ -12,7 +12,7 @@ import de.elmar_baumann.imv.view.renderer.TableCellRendererDatabaseInfoColumns;
  * Dislplays the database record count total and of specific columns.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/08
+ * @version 2008-11-08
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 

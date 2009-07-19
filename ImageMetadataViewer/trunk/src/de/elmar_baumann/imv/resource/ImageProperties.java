@@ -5,7 +5,7 @@ import com.imagero.util.R3;
 /**
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/02/17
+ * @version 2008-02-17
  */
 public final class ImageProperties implements R3 {
 

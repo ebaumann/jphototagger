@@ -40,7 +40,7 @@ import java.util.Map;
  * XMP sidecar files.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008/10/05
+ * @version 2008-10-05
  */
 public final class XmpMetadata {
 

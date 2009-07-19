@@ -16,7 +16,7 @@ import javax.swing.TransferHandler;
  * clipboard.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/26
+ * @version 2008-10-26
  */
 public final class ControllerCopyOrCutFilesToClipboard implements KeyListener {
 

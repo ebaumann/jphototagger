@@ -33,7 +33,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * or pushing the ADD button.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/18
+ * @version 2008-09-18
  */
 public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         implements TextEntry, ActionListener, DocumentListener {

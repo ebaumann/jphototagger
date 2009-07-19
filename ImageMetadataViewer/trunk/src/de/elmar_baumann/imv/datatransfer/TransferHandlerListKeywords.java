@@ -19,7 +19,7 @@ import javax.swing.TransferHandler;
  * other strings in transferables which also supports that data flavor.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/11
+ * @version 2009-07-11
  */
 public final class TransferHandlerListKeywords extends TransferHandler {
 

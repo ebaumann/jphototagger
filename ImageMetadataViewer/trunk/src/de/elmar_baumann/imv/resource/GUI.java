@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
  * Provides access to GUI elements.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/29
+ * @version 2008-09-29
  */
 public final class GUI {
 

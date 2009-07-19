@@ -5,7 +5,7 @@ package de.elmar_baumann.imv.data;
  * Die Indexe sind Indexe von Listenitems in Comboboxen oder Listboxen.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/12
+ * @version 2008-09-12
  */
 public final class SavedSearchPanel {
 

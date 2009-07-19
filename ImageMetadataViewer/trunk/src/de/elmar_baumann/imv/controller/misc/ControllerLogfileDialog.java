@@ -22,7 +22,7 @@ import javax.swing.PopupFactory;
  * einem Button des {@link de.elmar_baumann.imv.view.panels.AppPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/11
+ * @version 2008-09-11
  */
 public final class ControllerLogfileDialog implements ActionListener,
                                                       ErrorListener {

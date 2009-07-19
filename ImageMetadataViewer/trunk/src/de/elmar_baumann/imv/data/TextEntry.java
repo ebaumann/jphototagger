@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
  * benutzt werden.
  * 
  * @author Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/18
+ * @version 2008-09-18
  */
 public interface TextEntry {
 

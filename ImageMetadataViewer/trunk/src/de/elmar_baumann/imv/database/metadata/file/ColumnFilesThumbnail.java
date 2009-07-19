@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Tabellenspalte <code>thumbnail</code> der Tabelle <code>files</code>.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2007/07/29
+ * @version 2007-07-29
  */
 public final class ColumnFilesThumbnail extends Column {
 

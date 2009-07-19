@@ -9,7 +9,7 @@ import java.util.Map;
  * GPS latitude.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/03/17
+ * @version 2009-03-17
  */
 public final class ExifGpsLatitude {
 

@@ -5,7 +5,7 @@ package de.elmar_baumann.imv.comparator;
  * than a number that is not null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/10
+ * @version 2009-07-10
  */
 final class NumberCompare {
 

@@ -13,7 +13,7 @@ import java.util.Date;
  * Formatted date in the order YYYY-MM-dd.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/13
+ * @version 2008-10-13
  */
 public final class FilenameFormatDate extends FilenameFormat {
 

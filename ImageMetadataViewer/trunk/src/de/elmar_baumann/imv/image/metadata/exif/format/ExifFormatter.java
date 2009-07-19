@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.resource.Translation;
  * Formats EXIF metadata.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public abstract class ExifFormatter {
 

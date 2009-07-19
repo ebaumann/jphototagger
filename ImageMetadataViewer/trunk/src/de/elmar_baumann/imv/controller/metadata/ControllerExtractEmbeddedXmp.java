@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
  * an {@link de.elmar_baumann.imv.tasks.ExtractEmbeddedXmp} editor.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/22
+ * @version 2009-05-22
  */
 public final class ControllerExtractEmbeddedXmp implements ActionListener {
 

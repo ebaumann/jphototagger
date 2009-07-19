@@ -23,7 +23,7 @@ import javax.swing.TransferHandler;
  * the clipboard are pasted into the directory of the displayed thumbnails.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/27
+ * @version 2008-10-27
  */
 public final class ControllerPasteFilesFromClipboard implements KeyListener {
 

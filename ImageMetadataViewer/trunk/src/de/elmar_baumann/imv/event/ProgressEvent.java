@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.event;
  * Fortschritts-Ereignis.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/27
+ * @version 2008-08-27
  */
 public final class ProgressEvent {
 

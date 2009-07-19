@@ -15,7 +15,7 @@ import java.util.List;
  * Compresses the database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/30
+ * @version 2008-10-30
  */
 public final class CompressDatabase implements Runnable {
 

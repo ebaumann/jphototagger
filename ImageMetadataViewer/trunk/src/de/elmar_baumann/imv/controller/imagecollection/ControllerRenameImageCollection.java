@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
  * pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/00/10
+ * @version 2008-00-10
  */
 public final class ControllerRenameImageCollection
         implements ActionListener, KeyListener {

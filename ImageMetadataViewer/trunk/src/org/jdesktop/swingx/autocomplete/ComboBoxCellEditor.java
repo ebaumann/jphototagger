@@ -1,5 +1,5 @@
 /*
- * $Id: ComboBoxCellEditor.java,v 1.7 2007/11/02 14:26:47 kschaefe Exp $
+ * $Id: ComboBoxCellEditor.java,v 1.7 2007-11-02 14:26:47 kschaefe Exp $
  *
  * Copyright 2004 Sun Microsystems, Inc., 4150 Network Circle,
  * Santa Clara, California 95054, U.S.A. All rights reserved.

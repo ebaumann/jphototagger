@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Column <code>lastmodified</code> of table <code>xmp</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/23
+ * @version 2008-10-23
  */
 public final class ColumnXmpLastModified extends Column {
     

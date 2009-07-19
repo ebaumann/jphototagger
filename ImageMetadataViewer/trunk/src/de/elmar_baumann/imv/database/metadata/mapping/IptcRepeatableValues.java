@@ -9,7 +9,7 @@ import java.util.Map;
  * repeatable values.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/02/20
+ * @version 2009-02-20
  */
 public final class IptcRepeatableValues {
 

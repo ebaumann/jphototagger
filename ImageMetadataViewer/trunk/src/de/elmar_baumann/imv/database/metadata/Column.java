@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.database.metadata;
  * Eine Tabellenspalte.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2007/07/29
+ * @version 2007-07-29
  */
 public class Column {
 

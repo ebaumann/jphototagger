@@ -43,7 +43,7 @@ import javax.swing.SwingUtilities;
  * metadata of a file if that file was changed in the database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
- * @version 2008/10/05
+ * @version 2008-10-05
  */
 public final class ControllerShowMetadata implements DatabaseListener,
                                                      ThumbnailsPanelListener {

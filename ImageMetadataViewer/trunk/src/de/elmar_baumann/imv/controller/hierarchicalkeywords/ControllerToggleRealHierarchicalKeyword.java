@@ -22,7 +22,7 @@ import javax.swing.tree.TreePath;
  * and toggles the real property of a keyword.
  *
  * @author  Martin Pohlack <martinp@gmx.de>
- * @version 2009/07/13
+ * @version 2009-07-13
  */
 public class ControllerToggleRealHierarchicalKeyword
         implements ActionListener, KeyListener {

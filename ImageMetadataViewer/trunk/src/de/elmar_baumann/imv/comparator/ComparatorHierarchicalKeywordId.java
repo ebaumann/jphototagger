@@ -7,7 +7,7 @@ import java.util.Comparator;
  * Compares {@link HierarchicalKeyword}s by their database ID.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/10
+ * @version 2009-07-10
  */
 public final class ComparatorHierarchicalKeywordId
         implements Comparator<HierarchicalKeyword> {

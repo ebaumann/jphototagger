@@ -13,7 +13,7 @@ import javax.swing.JButton;
  * disables the stop button.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @version 2008-09-14
  */
 public final class ControllerButtonStopScheduledTasks implements ActionListener {
 

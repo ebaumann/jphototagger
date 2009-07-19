@@ -13,7 +13,7 @@ import java.util.Comparator;
  * identifizieren diesen eindeutig; er ist redundand.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/02/17
+ * @version 2008-02-17
  * @see     IptcEntry
  */
 public final class IptcEntryComparator implements Comparator<IptcEntry> {

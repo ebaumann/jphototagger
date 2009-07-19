@@ -7,7 +7,7 @@ import java.util.List;
  * Daten eines Objekts der Klasse {@link de.elmar_baumann.imv.database.metadata.ParamStatement}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/12
+ * @version 2008-09-12
  */
 public final class SavedSearchParamStatement {
 

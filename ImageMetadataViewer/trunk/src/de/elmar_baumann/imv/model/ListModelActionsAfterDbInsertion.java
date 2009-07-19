@@ -15,7 +15,7 @@ import javax.swing.DefaultListModel;
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/07
+ * @version 2009-06-07
  */
 public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         implements DatabaseListener {

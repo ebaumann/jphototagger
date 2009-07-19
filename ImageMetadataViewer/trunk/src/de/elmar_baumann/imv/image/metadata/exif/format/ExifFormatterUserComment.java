@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Formats an EXIF entry of the type {@link ExifTag#USER_COMMENT}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifFormatterUserComment extends ExifFormatter {
 

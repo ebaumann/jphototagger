@@ -21,7 +21,7 @@ import javax.swing.tree.TreeModel;
  * into the selected directory when the keys <code>Ctrl+N</code> was pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/19
+ * @version 2009-06-19
  */
 public final class ControllerCreateDirectory
         implements ActionListener, KeyListener {

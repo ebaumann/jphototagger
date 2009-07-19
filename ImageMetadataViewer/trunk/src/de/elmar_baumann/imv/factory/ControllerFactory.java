@@ -73,7 +73,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerToggleKeywordOverlay;
  * Erzeugt alle Controller.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/29
+ * @version 2008-09-29
  */
 public final class ControllerFactory {
 

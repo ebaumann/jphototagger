@@ -13,7 +13,7 @@ import javax.swing.tree.TreePath;
  * Reagiert auf Mausaktionen in der Treeview, die die Verzeichnisse darstellt.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/24
+ * @version 2008-09-24
  */
 public final class MouseListenerDirectories extends MouseAdapter {
 

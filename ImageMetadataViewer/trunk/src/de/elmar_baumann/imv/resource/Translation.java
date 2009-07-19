@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
  * Properties-Datei.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/05
+ * @version 2008-09-05
  */
 public final class Translation {
 

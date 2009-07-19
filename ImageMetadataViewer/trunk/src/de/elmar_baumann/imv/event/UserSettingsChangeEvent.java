@@ -14,7 +14,7 @@ import java.util.logging.Level;
  * will return null or an unitialized value!</em>
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @version 2008-09-14
  */
 public final class UserSettingsChangeEvent {
 

@@ -15,7 +15,7 @@ import javax.swing.filechooser.FileSystemView;
  * den Verzeichnisnamen an.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/25
+ * @version 2008-07-25
  * @see     de.elmar_baumann.imv.view.dialogs.UpdateMetadataOfDirectoriesDialog
  */
 public final class ListCellRendererDirectories extends DefaultListCellRenderer {

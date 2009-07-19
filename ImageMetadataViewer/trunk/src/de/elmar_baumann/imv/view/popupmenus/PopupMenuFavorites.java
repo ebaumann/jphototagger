@@ -15,7 +15,7 @@ import javax.swing.tree.TreePath;
  * Menü für Aktionen in der Liste mit den Favoritenverzeichnissen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/23
+ * @version 2008-09-23
  */
 public final class PopupMenuFavorites extends JPopupMenu {
 

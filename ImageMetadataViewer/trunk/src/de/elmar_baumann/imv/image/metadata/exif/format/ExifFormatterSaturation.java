@@ -10,7 +10,7 @@ import java.util.Map;
  * Formats an EXIF entry of the type {@link ExifTag#SATURATION}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifFormatterSaturation extends ExifFormatter {
 

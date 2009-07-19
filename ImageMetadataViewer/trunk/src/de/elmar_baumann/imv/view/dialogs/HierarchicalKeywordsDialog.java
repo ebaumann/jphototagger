@@ -10,7 +10,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
  * Dialog holding a {@link HierarchicalKeywordsPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2007/07/10
+ * @version 2007-07-10
  */
 public class HierarchicalKeywordsDialog extends Dialog {
 

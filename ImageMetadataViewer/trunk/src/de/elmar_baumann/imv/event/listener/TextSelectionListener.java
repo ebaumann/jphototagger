@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.event.TextSelectionEvent;
  * Listens to text selections.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/26
+ * @version 2009-06-26
  */
 public interface TextSelectionListener {
 

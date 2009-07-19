@@ -14,7 +14,7 @@ import java.util.Map;
  * {@link com.adobe.xmp.properties.XMPPropertyInfo#getPath()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/19
+ * @version 2008-09-19
  */
 public final class XmpColumnXmpPathStartMapping {
 

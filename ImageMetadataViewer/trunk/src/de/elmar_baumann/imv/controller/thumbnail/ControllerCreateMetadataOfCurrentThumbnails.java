@@ -22,7 +22,7 @@ import java.util.EnumSet;
  * started, the update will be cancelled.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/29
+ * @version 2008-09-29
  */
 public final class ControllerCreateMetadataOfCurrentThumbnails
         implements ThumbnailsPanelListener {

@@ -6,7 +6,7 @@ import java.io.File;
  * Edits a file.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/05/22
+ * @version 2009-05-22
  */
 public class FileEditor {
 

@@ -10,7 +10,7 @@ import javax.swing.Icon;
  * Icons used in the application.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/02/19
+ * @version 2009-02-19
  */
 public final class AppIcons {
 

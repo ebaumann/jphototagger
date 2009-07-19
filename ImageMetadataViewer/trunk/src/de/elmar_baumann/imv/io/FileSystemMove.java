@@ -16,7 +16,7 @@ import java.util.List;
  * {@link de.elmar_baumann.lib.generics.Pair#getSecond()} is the target file.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/20
+ * @version 2008-10-20
  */
 public final class FileSystemMove extends FileSystem implements Runnable {
 

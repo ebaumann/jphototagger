@@ -19,7 +19,7 @@ import javax.swing.tree.TreePath;
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/12
+ * @version 2009-06-12
  */
 public final class ControllerTimelineItemSelected implements
         TreeSelectionListener, RefreshListener {

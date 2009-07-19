@@ -18,7 +18,7 @@ import javax.swing.tree.TreePath;
  * clicked.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/15
+ * @version 2009-06-15
  */
 public final class ControllerMoveFavorite implements ActionListener {
 

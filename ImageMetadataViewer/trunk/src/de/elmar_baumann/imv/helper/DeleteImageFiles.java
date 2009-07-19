@@ -16,7 +16,7 @@ import java.util.List;
  * Deletes image files from the file system.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/02/19
+ * @version 2009-02-19
  */
 public final class DeleteImageFiles {
 

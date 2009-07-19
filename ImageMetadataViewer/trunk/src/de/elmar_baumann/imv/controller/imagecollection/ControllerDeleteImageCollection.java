@@ -23,7 +23,7 @@ import javax.swing.SwingUtilities;
  * collection when the keys <code>Ctrl+N</code> were pressed.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/00/10
+ * @version 2008-00-10
  */
 public final class ControllerDeleteImageCollection
         implements ActionListener, KeyListener {

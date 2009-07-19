@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.image.metadata.exif.datatype;
  * Count of an EXIF data.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/06
+ * @version 2009-07-06
  */
 public final class ExifCount {
 

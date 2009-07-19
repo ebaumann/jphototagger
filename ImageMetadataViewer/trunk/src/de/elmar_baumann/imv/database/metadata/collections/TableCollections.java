@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.database.metadata.Table;
  * Tabelle <code>collections</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/07
+ * @version 2008-09-07
  */
 public final class TableCollections extends Table {
 

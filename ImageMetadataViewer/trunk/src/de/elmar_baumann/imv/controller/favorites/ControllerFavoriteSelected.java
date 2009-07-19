@@ -25,7 +25,7 @@ import javax.swing.tree.TreePath;
  * the files of the selected directory to the image file thumbnails panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/24
+ * @version 2008-09-24
  */
 public final class ControllerFavoriteSelected implements
         TreeSelectionListener, RefreshListener {

@@ -12,7 +12,7 @@ import javax.swing.ListModel;
  * Dialog zum Anzeigen und Auswählen der Namen von Bildsammlungen.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/08
+ * @version 2008-09-08
  */
 public final class ImageCollectionsDialog extends Dialog {
 

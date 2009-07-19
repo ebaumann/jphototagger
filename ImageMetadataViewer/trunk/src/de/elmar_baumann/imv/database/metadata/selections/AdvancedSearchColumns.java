@@ -31,7 +31,7 @@ import java.util.List;
  * Spalten für die erweiterte Suche.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/22
+ * @version 2008-09-22
  */
 public final class AdvancedSearchColumns {
 

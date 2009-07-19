@@ -11,7 +11,7 @@ import java.util.Set;
  * Daten einer Bilddatei.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/07/28
+ * @version 2008-07-28
  */
 public final class ImageFile {
 

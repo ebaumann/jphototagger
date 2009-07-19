@@ -9,7 +9,7 @@ import java.util.Set;
  * Contains all metadata table models.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/25
+ * @version 2008-09-25
  */
 public final class MetadataTableModels {
 

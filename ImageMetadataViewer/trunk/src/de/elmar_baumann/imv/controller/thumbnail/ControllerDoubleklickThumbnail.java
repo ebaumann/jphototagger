@@ -10,7 +10,7 @@ import java.util.Collections;
  * {@link de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/10
+ * @version 2008-09-10
  */
 public final class ControllerDoubleklickThumbnail {
 

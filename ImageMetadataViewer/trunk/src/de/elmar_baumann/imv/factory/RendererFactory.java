@@ -12,7 +12,7 @@ import javax.swing.JTable;
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/29
+ * @version 2008-09-29
  */
 public final class RendererFactory {
 

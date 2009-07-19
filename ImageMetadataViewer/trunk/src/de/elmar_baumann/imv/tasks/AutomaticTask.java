@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * shall start.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/16
+ * @version 2009-07-16
  */
 public final class AutomaticTask {
 

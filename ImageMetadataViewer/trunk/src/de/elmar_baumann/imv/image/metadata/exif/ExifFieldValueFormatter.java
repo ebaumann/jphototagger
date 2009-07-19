@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.image.metadata.exif.format.ExifFormatterFactory;
  * Formatiert EXIF-Werte.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/31
+ * @version 2008-08-31
  */
 public final class ExifFieldValueFormatter {
 

@@ -20,7 +20,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * file system directory if the <code>DEL</code> key was pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/30
+ * @version 2009-06-30
  */
 public final class ControllerFavoritesDeleteFilesystemFolder
         implements ActionListener, KeyListener {

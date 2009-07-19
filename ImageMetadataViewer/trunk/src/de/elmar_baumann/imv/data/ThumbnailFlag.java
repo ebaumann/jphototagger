@@ -7,7 +7,7 @@ import java.awt.Color;
  * Flag für ein Thumbnail.
  * 
  * @author  Elmar Baumann <eb@elmar-aumann.de>
- * @version 2008/09/09
+ * @version 2008-09-09
  */
 public final class ThumbnailFlag {
 

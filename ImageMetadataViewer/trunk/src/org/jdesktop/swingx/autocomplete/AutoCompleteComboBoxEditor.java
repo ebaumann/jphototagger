@@ -1,5 +1,5 @@
 /*
- * $Id: AutoCompleteComboBoxEditor.java,v 1.4 2008/07/31 18:12:18 kschaefe Exp $
+ * $Id: AutoCompleteComboBoxEditor.java,v 1.4 2008-07-31 18:12:18 kschaefe Exp $
  *
  * Copyright 2004 Sun Microsystems, Inc., 4150 Network Circle,
  * Santa Clara, California 95054, U.S.A. All rights reserved.

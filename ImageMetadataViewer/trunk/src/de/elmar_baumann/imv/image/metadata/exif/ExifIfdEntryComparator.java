@@ -6,7 +6,7 @@ import java.util.Comparator;
  * Vergleicht Objekte des Typs IdfEntryProxy.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/24
+ * @version 2008-08-24
  * @see     de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy
  */
 public final class ExifIfdEntryComparator implements Comparator<IdfEntryProxy> {

@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/25
+ * @version 2008-09-25
  */
 public final class MouseListenerProgressBarScheduledTasks extends MouseAdapter {
 

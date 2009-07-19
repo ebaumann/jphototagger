@@ -23,7 +23,7 @@ import javax.swing.SwingUtilities;
  * the keys <code>Ctrl+I</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/23
+ * @version 2008-09-23
  */
 public final class ControllerInsertFavorite
         implements ActionListener, KeyListener {

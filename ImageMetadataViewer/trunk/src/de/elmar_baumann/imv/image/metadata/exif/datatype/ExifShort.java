@@ -8,7 +8,7 @@ package de.elmar_baumann.imv.image.metadata.exif.datatype;
  * same byte count.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/04/04
+ * @version 2009-04-04
  */
 public final class ExifShort {
 

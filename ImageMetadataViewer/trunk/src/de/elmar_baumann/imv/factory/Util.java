@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Factorie's utils.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/02/17
+ * @version 2009-02-17
  */
 final class Util {
 

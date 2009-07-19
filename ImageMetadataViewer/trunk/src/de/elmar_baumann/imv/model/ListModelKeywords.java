@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
  * Contains all Keywords.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/25
+ * @version 2008-10-25
  */
 public final class ListModelKeywords extends DefaultListModel
         implements DatabaseListener {

@@ -15,7 +15,7 @@ import java.util.List;
  * dieser Klasse an.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @version 2008-09-14
  */
 public final class ErrorListeners {
 

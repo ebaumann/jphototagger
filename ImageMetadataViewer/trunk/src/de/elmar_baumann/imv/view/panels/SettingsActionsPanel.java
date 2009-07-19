@@ -17,7 +17,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/07
+ * @version 2009-06-07
  */
 public class SettingsActionsPanel extends javax.swing.JPanel implements
         ListSelectionListener, Persistence {

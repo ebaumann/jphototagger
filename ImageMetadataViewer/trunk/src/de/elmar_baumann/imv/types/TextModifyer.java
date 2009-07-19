@@ -6,7 +6,7 @@ import java.util.Collection;
  * Modifies text.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/12
+ * @version 2009-07-12
  */
 public interface TextModifyer {
 

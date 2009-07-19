@@ -20,7 +20,7 @@ import javax.swing.JList;
  * search when the keys <code>Ctrl+E</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/10
+ * @version 2008-09-10
  */
 public final class ControllerEditSafedSearch
         implements ActionListener, KeyListener {

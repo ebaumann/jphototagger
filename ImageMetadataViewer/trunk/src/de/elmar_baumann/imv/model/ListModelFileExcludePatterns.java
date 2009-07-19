@@ -9,7 +9,7 @@ import javax.swing.DefaultListModel;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/09
+ * @version 2008-10-09
  */
 public final class ListModelFileExcludePatterns extends DefaultListModel {
 

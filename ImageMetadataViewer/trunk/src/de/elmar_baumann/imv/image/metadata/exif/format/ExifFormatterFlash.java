@@ -9,7 +9,7 @@ import de.elmar_baumann.lib.lang.Util;
  * Formats an EXIF entry of the type {@link ExifTag#FLASH}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifFormatterFlash extends ExifFormatter {
 

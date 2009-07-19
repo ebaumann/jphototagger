@@ -9,7 +9,7 @@ import java.util.List;
  * <strong>one</strong> file is selected. Used for sharing data.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/07
+ * @version 2009-07-07
  */
 public final class SelectedFile {
 

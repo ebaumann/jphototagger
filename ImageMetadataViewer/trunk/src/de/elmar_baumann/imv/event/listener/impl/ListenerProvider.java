@@ -26,7 +26,7 @@ import java.util.List;
  * </ul>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/18
+ * @version 2008-10-18
  */
 public final class ListenerProvider {
 

@@ -28,7 +28,7 @@ import javax.swing.tree.TreePath;
  * in the directorie's tree if the keys <code>Ctrl+O</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/05
+ * @version 2008-11-05
  */
 public final class ControllerOpenFavoriteInFolders
         implements ActionListener, KeyListener {

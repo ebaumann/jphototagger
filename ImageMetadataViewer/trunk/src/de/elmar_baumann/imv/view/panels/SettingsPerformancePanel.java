@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.types.Persistence;
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/02
+ * @version 2008-11-02
  */
 public final class SettingsPerformancePanel extends javax.swing.JPanel
         implements Persistence {

@@ -8,7 +8,7 @@ import javax.swing.JLabel;
  * Basisklasse für Renderer, die Metadaten darstellen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @version 2008-09-14
  */
 public class FormatterLabelMetadata {
 

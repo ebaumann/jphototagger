@@ -16,7 +16,7 @@ import java.util.List;
  * Applies persistent settings to the thumbnails panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/15
+ * @version 2008-10-15
  */
 public final class ControllerThumbnailsPanelPersistence
         implements ThumbnailsPanelListener, AppExitListener {

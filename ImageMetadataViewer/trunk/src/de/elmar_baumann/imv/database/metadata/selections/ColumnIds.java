@@ -39,7 +39,7 @@ import java.util.Set;
  * ermittelt werden kann.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/13
+ * @version 2008-09-13
  */
 public final class ColumnIds {
 

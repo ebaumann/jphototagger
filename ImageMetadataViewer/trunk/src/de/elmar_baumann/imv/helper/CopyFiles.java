@@ -15,7 +15,7 @@ import java.util.List;
  * Kopieren von Dateien.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/24
+ * @version 2008-09-24
  */
 public final class CopyFiles implements Runnable {
 

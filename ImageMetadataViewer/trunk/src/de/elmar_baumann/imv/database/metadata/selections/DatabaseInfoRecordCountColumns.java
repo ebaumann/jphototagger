@@ -31,7 +31,7 @@ import java.util.List;
  * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/08
+ * @version 2008-11-08
  */
 public final class DatabaseInfoRecordCountColumns {
 

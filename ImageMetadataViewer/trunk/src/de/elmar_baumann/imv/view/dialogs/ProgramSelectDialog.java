@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
  * Dialog to select an {@link de.elmar_baumann.imv.data.Program}.
  *
  * @author Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/07
+ * @version 2009-06-07
  */
 public class ProgramSelectDialog extends Dialog {
 

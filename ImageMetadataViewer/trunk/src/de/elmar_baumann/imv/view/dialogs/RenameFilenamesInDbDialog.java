@@ -9,7 +9,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
  * Holds a {@link de.elmar_baumann.imv.view.panels.RenameFilenamesInDbPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/16
+ * @version 2009-06-16
  */
 public class RenameFilenamesInDbDialog extends Dialog {
 

@@ -14,7 +14,7 @@ import java.net.URL;
  * Kontrolliert die Aktion: Hilfe anzeigen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/12
+ * @version 2008-09-12
  */
 public final class ControllerHelp implements ActionListener,
                                              HelpBrowserListener {

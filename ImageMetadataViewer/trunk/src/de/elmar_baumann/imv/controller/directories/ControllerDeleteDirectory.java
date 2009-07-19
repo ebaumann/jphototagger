@@ -20,7 +20,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * selected directory if the delete key was typed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/19
+ * @version 2009-06-19
  */
 public final class ControllerDeleteDirectory
         implements ActionListener, KeyListener {

@@ -17,7 +17,7 @@ import javax.swing.JTree;
  * when <code>F5</code> was pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/30
+ * @version 2009-06-30
  */
 public final class ControllerRefreshDirectoryTree
         implements ActionListener, KeyListener {

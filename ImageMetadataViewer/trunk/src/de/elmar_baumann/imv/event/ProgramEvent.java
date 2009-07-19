@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.data.Program;
  * called from this program. It displays or modifies images etc.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/06
+ * @version 2008-11-06
  */
 public final class ProgramEvent {
 

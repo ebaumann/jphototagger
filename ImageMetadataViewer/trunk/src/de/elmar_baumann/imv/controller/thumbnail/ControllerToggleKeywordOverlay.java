@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
  * 
  *
  * @author  Martin Pohlack <martinp@gmx.de>
- * @version 2009/07/16
+ * @version 2009-07-16
  */
 public final class ControllerToggleKeywordOverlay implements ActionListener {
 

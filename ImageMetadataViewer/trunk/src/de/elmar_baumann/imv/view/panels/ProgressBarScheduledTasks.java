@@ -8,7 +8,7 @@ import de.elmar_baumann.lib.resource.MutualExcludedResource;
  * {@link AppPanel#getProgressBarScheduledTasks()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/17
+ * @version 2009-07-17
  */
 public final class ProgressBarScheduledTasks extends MutualExcludedResource {
 

@@ -11,7 +11,7 @@ import javax.swing.table.TableCellRenderer;
  * Datensätze bezogen auf eine bestimmte Tabellenspalte.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/17
+ * @version 2008-09-17
  */
 public final class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
 

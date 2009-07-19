@@ -12,7 +12,7 @@ import de.elmar_baumann.lib.dialog.SystemOutputDialog;
  * Initializes the application.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/11
+ * @version 2009-06-11
  */
 public final class AppInit {
 

@@ -14,7 +14,7 @@ import javax.swing.table.TableCellRenderer;
  * {@link com.imagero.reader.iptc.IPTCEntryMeta}-Spaltenobjekten.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/14
+ * @version 2008-09-14
  */
 public final class TableCellRendererIptc extends FormatterLabelMetadata
         implements TableCellRenderer {

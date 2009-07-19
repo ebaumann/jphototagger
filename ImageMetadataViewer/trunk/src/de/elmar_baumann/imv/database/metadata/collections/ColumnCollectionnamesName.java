@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Spalte <code>name</code> der Tabelle <code>collection_names</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/07
+ * @version 2008-09-07
  */
 public final class ColumnCollectionnamesName extends Column {
 

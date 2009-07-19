@@ -4,7 +4,7 @@ package de.elmar_baumann.imv.event;
  * Fehler.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/03
+ * @version 2008-08-03
  */
 public final class ErrorEvent {
 

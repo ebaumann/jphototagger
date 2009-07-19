@@ -9,7 +9,7 @@ import java.util.Comparator;
  * will be compared.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/05
+ * @version 2008-11-05
  */
 public final class ComparatorSavedSearch implements Comparator<SavedSearch> {
 

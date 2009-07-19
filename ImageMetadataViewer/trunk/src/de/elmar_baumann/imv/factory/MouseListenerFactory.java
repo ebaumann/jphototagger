@@ -12,7 +12,7 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
  * Erzeugt und verbindet MouseListener.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/29
+ * @version 2008-09-29
  */
 public final class MouseListenerFactory {
 

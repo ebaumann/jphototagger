@@ -1,5 +1,5 @@
 /*
- * $Id: AbstractAutoCompleteAdaptor.java,v 1.2 2006/07/29 14:57:48 Bierhance Exp $
+ * $Id: AbstractAutoCompleteAdaptor.java,v 1.2 2006-07-29 14:57:48 Bierhance Exp $
  *
  * Copyright 2004 Sun Microsystems, Inc., 4150 Network Circle,
  * Santa Clara, California 95054, U.S.A. All rights reserved.

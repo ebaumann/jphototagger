@@ -26,7 +26,7 @@ import java.util.List;
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/20
+ * @version 2008-10-20
  */
 public final class MoveToDirectoryDialog extends Dialog
         implements ProgressListener, FileSystemActionListener {

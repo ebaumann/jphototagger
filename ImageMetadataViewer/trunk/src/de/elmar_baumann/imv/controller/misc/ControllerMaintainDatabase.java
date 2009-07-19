@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  * Kontrolliert die Aktion: Datenbank warten.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/12
+ * @version 2008-09-12
  */
 public final class ControllerMaintainDatabase implements ActionListener {
 

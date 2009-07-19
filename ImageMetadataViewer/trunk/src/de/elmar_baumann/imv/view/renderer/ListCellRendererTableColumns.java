@@ -10,7 +10,7 @@ import javax.swing.JList;
  * Renderer für Tabellenspaltenbeschreibungen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/13
+ * @version 2008-09-13
  * @see     de.elmar_baumann.imv.database.metadata.Column#getDescription()
  */
 public final class ListCellRendererTableColumns extends DefaultListCellRenderer {

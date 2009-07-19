@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * Logs messages.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/11/11
+ * @version 2008-11-11
  */
 public final class AppLog {
 

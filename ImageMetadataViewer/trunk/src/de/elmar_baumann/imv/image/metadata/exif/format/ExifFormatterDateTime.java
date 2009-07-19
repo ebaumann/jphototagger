@@ -12,7 +12,7 @@ import java.util.GregorianCalendar;
  * Formats an EXIF entry of the type {@link ExifTag#DATE_TIME_ORIGINAL}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifFormatterDateTime extends ExifFormatter {
 

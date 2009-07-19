@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
  * The application's splashscreen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/23
+ * @version 2008-08-23
  */
 public final class SplashScreen {
 

@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
  * Formats an EXIF entry of the type {@link ExifTag#ISO_SPEED_RATINGS}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/10
+ * @version 2009-06-10
  */
 public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
 

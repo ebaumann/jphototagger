@@ -13,7 +13,7 @@ import javax.swing.JProgressBar;
  * settings to the application's frame and panel.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/29
+ * @version 2008-09-29
  */
 public final class MetaFactory implements Runnable {
 

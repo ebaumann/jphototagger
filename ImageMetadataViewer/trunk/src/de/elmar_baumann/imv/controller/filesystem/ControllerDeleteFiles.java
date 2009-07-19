@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
  * {@link Content#IMAGE_COLLECTION}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/12
+ * @version 2008-10-12
  * @see     ControllerDeleteFromImageCollection
  */
 public final class ControllerDeleteFiles implements ActionListener, KeyListener {

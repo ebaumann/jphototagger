@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Copyright as specified in the EXIF standard, tag 33432 (8298.H).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/09
+ * @version 2009-06-09
  */
 public final class ExifCopyright {
 

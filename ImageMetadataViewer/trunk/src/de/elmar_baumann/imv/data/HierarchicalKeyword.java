@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Persistent instances resists in the {@link DatabaseHierarchicalKeywords}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/10
+ * @version 2009-07-10
  */
 public final class HierarchicalKeyword implements Serializable {
 

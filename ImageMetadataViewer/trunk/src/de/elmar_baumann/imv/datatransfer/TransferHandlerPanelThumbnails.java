@@ -22,7 +22,7 @@ import javax.swing.TransferHandler;
  * {@link #DELIMITER}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/24
+ * @version 2008-10-24
  */
 public final class TransferHandlerPanelThumbnails extends TransferHandler {
 

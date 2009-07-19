@@ -18,7 +18,7 @@ import javax.swing.tree.TreePath;
  * Handles drags and drops for the {@link HierarchicalKeywordsDialog}'s tree.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/11
+ * @version 2009-07-11
  */
 public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandler {
 

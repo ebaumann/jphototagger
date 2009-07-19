@@ -24,7 +24,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * file favorite directory if the keys <code>Strg+E</code> were pressed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/23
+ * @version 2008-09-23
  */
 public final class ControllerUpdateFavorite
         implements ActionListener, KeyListener {

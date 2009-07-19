@@ -16,7 +16,7 @@ import javax.swing.event.TreeSelectionListener;
  * not writable, no XMP metadata files can be written into this directory).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/22
+ * @version 2008-09-22
  */
 public final class ControllerEnableInsertMetadataTemplate implements
         TreeSelectionListener {

@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
  * Kontrolliert die Aktion: Thumbnailspanelanzeige aktualisieren.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/25
+ * @version 2008-09-25
  */
 public final class ControllerRefreshThumbnailsPanel implements ActionListener {
 

@@ -29,7 +29,7 @@ import java.util.Map;
  * und einem XMP-Datentyp.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/20
+ * @version 2008-09-20
  */
 public final class XmpColumnXmpDataTypeMapping {
 

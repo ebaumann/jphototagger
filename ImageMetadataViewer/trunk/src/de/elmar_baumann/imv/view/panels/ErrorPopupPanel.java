@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Error Message for using in popups.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/06/18
+ * @version 2009-06-18
  */
 public class ErrorPopupPanel extends javax.swing.JPanel {
 

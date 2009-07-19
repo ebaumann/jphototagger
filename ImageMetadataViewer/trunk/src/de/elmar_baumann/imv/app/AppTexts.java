@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.Bundle;
  * Texts used in multiple classes.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/02/19
+ * @version 2009-02-19
  */
 public final class AppTexts {
 

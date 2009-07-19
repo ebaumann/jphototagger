@@ -18,7 +18,7 @@ import javax.swing.Icon;
  * Liefert Icons für Tabellen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/13
+ * @version 2008-09-13
  */
 public final class TableIcons {
 

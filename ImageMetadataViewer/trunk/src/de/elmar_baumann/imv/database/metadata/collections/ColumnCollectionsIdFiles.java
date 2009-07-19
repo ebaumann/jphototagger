@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.database.metadata.Column.DataType;
  * Spalte <code>id_files</code> der Tabelle <code>collections</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/08/27
+ * @version 2008-08-27
  */
 public final class ColumnCollectionsIdFiles extends Column {
 

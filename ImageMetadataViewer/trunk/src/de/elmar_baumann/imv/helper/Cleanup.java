@@ -9,7 +9,7 @@ import de.elmar_baumann.imv.tasks.UserTasks;
  * Shuts down all Tasks. Should be called when the application exits.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009/07/16
+ * @version 2009-07-16
  */
 public final class Cleanup {
 

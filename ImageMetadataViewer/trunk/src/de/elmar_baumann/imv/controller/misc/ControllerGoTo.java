@@ -18,7 +18,7 @@ import javax.swing.JTextField;
  * Controls the action: Go to ...
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/10
+ * @version 2008-10-10
  */
 public final class ControllerGoTo implements ActionListener {
 

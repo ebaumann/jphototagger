@@ -1,5 +1,5 @@
 /*
- * $Id: Contract.java,v 1.4 2007/11/25 15:52:59 kschaefe Exp $
+ * $Id: Contract.java,v 1.4 2007-11-25 15:52:59 kschaefe Exp $
  *
  * Copyright 2006 Sun Microsystems, Inc., 4150 Network Circle,
  * Santa Clara, California 95054, U.S.A. All rights reserved.

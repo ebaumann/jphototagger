@@ -7,7 +7,7 @@ import java.util.List;
  * Util class for XMP data.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/10/06
+ * @version 2008-10-06
  */
 public final class AutoCompleteUtil {
 

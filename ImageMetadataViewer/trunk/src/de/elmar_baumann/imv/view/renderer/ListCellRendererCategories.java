@@ -11,7 +11,7 @@ import javax.swing.JList;
  * Rendert Kategorien.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008/09/23
+ * @version 2008-09-23
  */
 public final class ListCellRendererCategories extends DefaultListCellRenderer {
 
