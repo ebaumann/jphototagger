@@ -28,7 +28,8 @@ public class ThumbnailCache {
     private ThumbnailsPanel panel;
     private final int MAX_ENTRIES = 2000;
     private Image dummyThumbnail = ThumbnailUtil.loadImage(
-            new File(Bundle.getString("ThumbnailCache.Path.DummyThumbnail")));
+            new File(getClass().getResource(
+            Bundle.getString("ThumbnailCache.Path.DummyThumbnail")).getPath()));
     private Image dummyThumbnailScaled = null;
 
     private void maybeCleanupCache() {
