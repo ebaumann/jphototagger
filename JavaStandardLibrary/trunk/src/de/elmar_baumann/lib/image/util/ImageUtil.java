@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- * Utils für Bilder.
+ * Image utils.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -22,29 +22,36 @@ import javax.imageio.ImageIO;
 public final class ImageUtil {
 
     /**
-     * Liefert von einem Bild ein ByteArrayInputStream-Objekt.
+     * Returns a <code>ByteArrayInputStream</code> of an image.
      * 
-     * @param image Bild
-     * @return      Stream oder null, wenn der Stream nicht erzeugt werden konnte
+     * @param image      image
+     * @param formatName a String containg the informal name of the format
+     * @return           stream oder null on errors
      */
-    public static ByteArrayInputStream getByteArrayInputStream(Image image) {
+    public static ByteArrayInputStream getByteArrayInputStream(
+            Image image, String formatName) {
+
         if (image == null)
             throw new NullPointerException("image == null"); // NOI18N
+        if (formatName == null)
+            throw new NullPointerException("formatName == null"); // NOI18N
 
         ByteArrayInputStream stream = null;
         try {
             BufferedImage bufferedImage =
-                new BufferedImage(image.getWidth(null), image.getHeight(null),
-                BufferedImage.TYPE_INT_RGB);
+                    new BufferedImage(image.getWidth(null),
+                    image.getHeight(null),
+                    BufferedImage.TYPE_INT_RGB);
             Graphics graphics = bufferedImage.getGraphics();
             graphics.drawImage(image, 0, 0, null);
             graphics.dispose();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "jpeg", outputStream); // NOI18N
-            byte[] bytebuffer = outputStream.toByteArray();
-            stream = new ByteArrayInputStream(bytebuffer);
+            ImageIO.write(bufferedImage, formatName, outputStream); // NOI18N
+            byte[] byteArray = outputStream.toByteArray();
+            stream = new ByteArrayInputStream(byteArray);
         } catch (Exception ex) {
-            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(
+                    ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return stream;
     }
