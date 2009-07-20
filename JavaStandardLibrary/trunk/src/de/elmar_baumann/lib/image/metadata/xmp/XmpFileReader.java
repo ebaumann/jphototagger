@@ -58,6 +58,7 @@ public final class XmpFileReader {
         RandomAccessFile file = null;
         try {
             file = new RandomAccessFile(filename, "r"); // NOI18N
+            file.getChannel().lock(0, Long.MAX_VALUE, true);
             int xmpPacketStartIndex = getMatchIndex(file, 0, XMP_PACKET_MARKER);
             if (xmpPacketStartIndex >= 0) {
                 int xmpStartIndex = getMatchIndex(file, xmpPacketStartIndex +
