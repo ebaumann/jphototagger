@@ -19,6 +19,7 @@ import de.elmar_baumann.lib.image.util.ImageUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.generics.Pair;
+import de.elmar_baumann.lib.io.FileLock;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -337,11 +338,12 @@ public final class ThumbnailUtil {
 
     public static void writeThumbnail(Image thumbnail, long id) {
         FileOutputStream fos = null;
+        File tnFile = getThumbnailfile(id);
         try {
-            File tnFile = getThumbnailfile(id);
-            AppLog.logInfo(ThumbnailUtil.class,
-                    Bundle.getString("ThumbnailUtil.Info.WriteThumbnail", tnFile)); // NOI18N
+            if (!IoUtil.lockLogWarning(tnFile, ThumbnailUtil.class)) return;
+            logWriteThumbnail(tnFile);
             fos = new FileOutputStream(tnFile);
+            fos.getChannel().lock();
             ByteArrayInputStream is =
                     ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
             if (is != null) {
@@ -353,8 +355,14 @@ public final class ThumbnailUtil {
         } catch (Exception ex) {
             AppLog.logSevere(ThumbnailUtil.class, ex);
         } finally {
+            FileLock.INSTANCE.unlock(tnFile, ThumbnailUtil.class);
             closeStream(fos);
         }
+    }
+
+    private static void logWriteThumbnail(File tnFile) {
+        AppLog.logInfo(ThumbnailUtil.class,
+                Bundle.getString("ThumbnailUtil.Info.WriteThumbnail", tnFile)); // NOI18N
     }
 
     public static boolean deleteThumbnail(long id) {
