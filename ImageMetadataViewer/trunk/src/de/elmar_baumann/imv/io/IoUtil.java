@@ -81,15 +81,20 @@ public final class IoUtil {
     /**
      * Locks <em>internally</em> a file (other applications doesn't regognize
      * the lock) and logs errors.
-     *
-     * If a file couldn't be locked, {@link AppLog#logWarning(java.lang.Class, java.lang.String)}
-     * will be called.
+     * <p>
+     * If a file couldn't be locked,
+     * {@link AppLog#logWarning(java.lang.Class, java.lang.String)} will be
+     * called.
+     * <p>
+     * Uses {@link FileLock#lock(java.io.File, java.lang.Object)}. <em>The
+     * caller has to call {@link FileLock#unlock(java.io.File, java.lang.Object)}
+     * after using the file!</em>
      *
      * @param  file  file to lock
      * @param  owner owner of the file lock
      * @return       true if the file was locked
      */
-    public boolean lockLogError(File file, Object owner) {
+    public static boolean lockLogError(File file, Object owner) {
         if (!FileLock.INSTANCE.lock(file, owner)) {
             AppLog.logWarning(owner.getClass(),
                     Bundle.getString("IoUtil.Error.lock",
