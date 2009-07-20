@@ -5,6 +5,8 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.event.listener.TextEntryListener;
+import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.TextModifyer;
@@ -61,6 +63,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
      * Contains the words not to modify by the text modifier
      */
     private List<String> ignoreModifyWords = new ArrayList<String>();
+    private TextEntryListenerSupport textEntryListenerSupport =
+            new TextEntryListenerSupport();
 
     public EditRepeatableTextEntryPanel(Column column) {
         this.column = column;
@@ -108,6 +112,10 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         listItemText += textfieldText.isEmpty()
                         ? "" // NOI18N
                         : DELIMITER + textfieldText;
+        if (!textfieldText.isEmpty() &&
+                !ListUtil.containsString(model, textfieldText)) {
+            notifyTextAdded(column, textfieldText);
+        }
         return listItemText;
     }
 
@@ -221,6 +229,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         if (!word.isEmpty() && !model.contains(word)) {
             model.addElement(word);
             textFieldInput.setText(""); // NOI18N
+            notifyTextAdded(column, word);
             ComponentUtil.forceRepaint(getParent().getParent());
         }
     }
@@ -269,6 +278,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
             for (Object value : values) {
                 model.removeElement(value);
                 ignoreModifyWords.remove(value.toString());
+                notifyTextRemoved(column, value.toString());
                 dirty = true;
             }
             ComponentUtil.forceRepaint(getParent().getParent());
@@ -425,6 +435,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
                 model.addElement(token);
                 ignoreModifyWords.add(token);
                 countAdded++;
+                notifyTextAdded(column, token);
             }
         }
         if (countAdded > 0) {
@@ -470,6 +481,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         if (newName != null) {
             model.set(index, newName);
             dirty = true;
+            notifyTextChanged(column, oldName, newName);
         }
     }
 
@@ -484,6 +496,26 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
             return false;
         }
         return true;
+    }
+
+    public void addTextEntryListener(TextEntryListener listener) {
+        textEntryListenerSupport.addTextEntryListener(listener);
+    }
+
+    public void removeTextEntryListener(TextEntryListener listener) {
+        textEntryListenerSupport.removeTextEntryListener(listener);
+    }
+
+    private void notifyTextRemoved(Column column, String removedText) {
+        textEntryListenerSupport.notifyTextRemoved(column, removedText);
+    }
+
+    private void notifyTextAdded(Column column, String addedText) {
+        textEntryListenerSupport.notifyTextAdded(column, addedText);
+    }
+
+    private void notifyTextChanged(Column column, String oldText, String newText) {
+        textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
     }
 
     /** This method is called from within the constructor to

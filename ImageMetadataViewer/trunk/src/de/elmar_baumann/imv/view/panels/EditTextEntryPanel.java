@@ -4,6 +4,8 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.event.listener.TextEntryListener;
+import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
@@ -26,6 +28,8 @@ public final class EditTextEntryPanel extends javax.swing.JPanel
     private AutoCompleteData autoCompleteData;
     private boolean dirty = false;
     private boolean editable;
+    private TextEntryListenerSupport textEntryListenerSupport =
+            new TextEntryListenerSupport();
 
     public EditTextEntryPanel(Column column) {
         this.column = column;
@@ -114,17 +118,32 @@ public final class EditTextEntryPanel extends javax.swing.JPanel
 
     @Override
     public void insertUpdate(DocumentEvent e) {
+        notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
+        notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
+        notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
+    }
+
+    public void addTextEntryListener(TextEntryListener listener) {
+        textEntryListenerSupport.addTextEntryListener(listener);
+    }
+
+    public void removeTextEntryListener(TextEntryListener listener) {
+        textEntryListenerSupport.removeTextEntryListener(listener);
+    }
+
+    private void notifyTextChanged(Column column, String oldText, String newText) {
+        textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
     }
 
     /** This method is called from within the constructor to
