@@ -20,16 +20,18 @@ import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpPathStartMapping;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.database.metadata.selections.XmpInDatabase;
+import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
+import de.elmar_baumann.lib.io.FileLock;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -109,6 +111,7 @@ public final class XmpMetadata {
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfNamespace(
             List<XMPPropertyInfo> propertyInfos, String namespace) {
+
         List<XMPPropertyInfo> propertyInfosNs = new ArrayList<XMPPropertyInfo>();
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
             if (propertyInfo.getNamespace().equals(namespace)) {
@@ -142,12 +145,9 @@ public final class XmpMetadata {
             if (xmp != null && xmp.length() > 0) {
                 XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmp);
                 if (xmpMeta != null) {
-                    addXmpPropertyInfo(xmpMeta, metadata);
+                    addXmpPropertyInfosTo(xmpMeta, metadata);
                 }
             }
-        } catch (XMPException ex) {
-            metadata = null;
-            AppLog.logSevere(XmpMetadata.class, ex);
         } catch (Exception ex) {
             metadata = null;
             AppLog.logSevere(XmpMetadata.class, ex);
@@ -155,7 +155,14 @@ public final class XmpMetadata {
         return metadata;
     }
 
-    private static void addXmpPropertyInfo(XMPMeta xmpMeta,
+    /**
+     * Adds XMP property infos of XMP metadata to a list of property infos.
+     *
+     * @param xmpMeta          XMP metadata
+     * @param xmpPropertyInfos list of property infos to retrieve the properties
+     *                         from XMP metadata
+     */
+    private static void addXmpPropertyInfosTo(XMPMeta xmpMeta,
             List<XMPPropertyInfo> xmpPropertyInfos) {
         try {
             for (XMPIterator it = xmpMeta.iterator(); it.hasNext();) {
@@ -164,7 +171,7 @@ public final class XmpMetadata {
                     xmpPropertyInfos.add(xmpPropertyInfo);
                 }
             }
-        } catch (XMPException ex) {
+        } catch (Exception ex) {
             AppLog.logSevere(XmpMetadata.class, ex);
         }
     }
@@ -240,9 +247,7 @@ public final class XmpMetadata {
 
     private static String getXmpAsStringFromImageFile(String imageFilename) {
 
-        if (!FileUtil.existsFile(new File(imageFilename))) {
-            return null;
-        }
+        if (!FileUtil.existsFile(new File(imageFilename))) return null;
         String xmpString = null;
         String sidecarFilename =
                 getSidecarFilenameOfImageFileIfExists(imageFilename);
@@ -343,55 +348,57 @@ public final class XmpMetadata {
             String sidecarFilename, Xmp metadata) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
-            writeSidecarFileDeleteItems(xmpMeta);
-            writeMetadata(xmpMeta, metadata);
+            deleteAllEditableMetadataFrom(xmpMeta);
+            setMetadata(xmpMeta, metadata);
             return writeSidecarFile(sidecarFilename, xmpMeta);
-        } catch (XMPException ex) {
+        } catch (Exception ex) {
             AppLog.logSevere(XmpMetadata.class, ex);
             return false;
         }
     }
 
-    private static void writeMetadata(XMPMeta xmpMeta, Xmp metadata) throws
-            XMPException {
+    private static void setMetadata(XMPMeta xmpMeta, Xmp metadata)
+            throws XMPException {
         Set<Column> xmpColumns = EditColumns.getColumns();
         for (Column column : xmpColumns) {
             String namespaceUri = XmpColumnNamespaceUriMapping.
                     getNamespaceUriOfColumn(column);
             String propertyName = XmpColumnXmpPathStartMapping.
                     getXmpPathStartOfColumn(column);
-            writeSidecarFileSetMetadata(column, metadata,
-                    xmpMeta, namespaceUri, propertyName);
+            setSidecarFileSetMetadata(
+                    column, metadata, xmpMeta, namespaceUri, propertyName);
         }
     }
 
     /**
      * Writes the values of a {@link TextEntry} instance into a sidecar file.
      * 
-     * @param  sidecarFilename  name of the sidecar file
-     * @param  textEntries      text entries to write
-     * @param  writeOptions     options
-     * @return                  true when successfully written
+     * @param  sidecarFilename name of the sidecar file
+     * @param  textEntries     text entries to write
+     * @param  writeOptions    options
+     * @return                 true when successfully written
      */
-    public static boolean writeMetadataToSidecarFile(String sidecarFilename,
-            List<TextEntry> textEntries, EnumSet<UpdateOption> writeOptions) {
+    public static boolean writeMetadataToSidecarFile(
+            String sidecarFilename,
+            List<TextEntry> textEntries,
+            EnumSet<UpdateOption> writeOptions) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
-            writeSidecarFileDeleteItems(xmpMeta, textEntries, writeOptions);
+            deleteMetadataFrom(xmpMeta, textEntries, writeOptions);
             for (TextEntry entry : textEntries) {
                 Column xmpColumn = entry.getColumn();
                 String namespaceUri = XmpColumnNamespaceUriMapping.
                         getNamespaceUriOfColumn(xmpColumn);
-                String name = XmpColumnXmpPathStartMapping.
+                String propertyName = XmpColumnXmpPathStartMapping.
                         getXmpPathStartOfColumn(xmpColumn);
                 String entryText = entry.getText().trim();
                 if (!entryText.isEmpty()) {
-                    writeSidecarFileSetTextEntry(xmpColumn, entryText,
-                            xmpMeta, namespaceUri, name);
+                    setTextEntryToMetadata(xmpColumn, entryText,
+                            xmpMeta, namespaceUri, propertyName);
                 }
             }
             return writeSidecarFile(sidecarFilename, xmpMeta);
-        } catch (XMPException ex) {
+        } catch (Exception ex) {
             AppLog.logSevere(XmpMetadata.class, ex);
             return false;
         }
@@ -409,40 +416,72 @@ public final class XmpMetadata {
         return XMPMetaFactory.create();
     }
 
-    private static void writeSidecarFileDeleteItems(XMPMeta xmpMeta,
-            List<TextEntry> textEntries, EnumSet<UpdateOption> options) {
-        for (TextEntry textEntry : textEntries) {
+    /**
+     * Deletes metadata from a XMP instance corresponding to text entries.
+     *
+     * @param xmpMeta           XMP metadata instance to delete metadata from
+     * @param deleteThisEntries if the metadata corresponding to that text
+     *                          entries it will be deleted
+     * @param options           delete options: metadata will be deleted when:
+     *                          <ol>
+     *                          <li>the text entry contains text and the options
+     *                              are <em>not</em> containing
+     *                              {@link UpdateOption#APPEND_TO_REPEATABLE_VALUES}
+     *                          </li>
+     *                          <li>the text entry does <em>not</em> contain
+     *                              text and the options are containing
+     *                              {@link UpdateOption#DELETE_IF_SOURCE_VALUE_IS_EMPTY}
+     *                          </li>
+     *                          </ol>
+     */
+    private static void deleteMetadataFrom(
+            XMPMeta xmpMeta,
+            Collection<TextEntry> deleteThisEntries,
+            EnumSet<UpdateOption> deleteOptions) {
+
+        for (TextEntry textEntry : deleteThisEntries) {
             Column xmpColumn = textEntry.getColumn();
             String namespaceUri = XmpColumnNamespaceUriMapping.
                     getNamespaceUriOfColumn(xmpColumn);
-            String name = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(
-                    xmpColumn);
-            boolean textEntryIsEmpty = textEntry.getText().trim().isEmpty();
-            boolean deleteProperty =
-                    (!textEntryIsEmpty && !options.contains(
-                    UpdateOption.APPEND_TO_REPEATABLE_VALUES)) // !textEntryIsEmpty: empty must not be deleted
-                    || (textEntryIsEmpty && options.contains(
+            String propertyName = XmpColumnXmpPathStartMapping.
+                    getXmpPathStartOfColumn(xmpColumn);
+            boolean entryContainsText = !textEntry.getText().trim().isEmpty();
+            boolean delete =
+                    (entryContainsText &&
+                    !deleteOptions.contains(
+                    UpdateOption.APPEND_TO_REPEATABLE_VALUES)) ||
+                    (!entryContainsText && deleteOptions.contains(
                     UpdateOption.DELETE_IF_SOURCE_VALUE_IS_EMPTY));
-            if (deleteProperty) {
-                xmpMeta.deleteProperty(namespaceUri, name);
+            if (delete) {
+                xmpMeta.deleteProperty(namespaceUri, propertyName);
             }
         }
     }
 
-    private static void writeSidecarFileDeleteItems(XMPMeta xmpMeta) {
-        Set<Column> xmpColumns = EditColumns.getColumns();
-        for (Column column : xmpColumns) {
+    /**
+     * Deletes from an <code>XMPMeta</code> instance all data an user can edit.
+     *
+     * @param xmpMeta XMP metadata
+     */
+    private static void deleteAllEditableMetadataFrom(XMPMeta xmpMeta) {
+        Set<Column> editableXmpColumns = EditColumns.getColumns();
+        for (Column editableColumn : editableXmpColumns) {
             String namespaceUri = XmpColumnNamespaceUriMapping.
-                    getNamespaceUriOfColumn(column);
-            String name = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(
-                    column);
-            xmpMeta.deleteProperty(namespaceUri, name);
+                    getNamespaceUriOfColumn(editableColumn);
+            String propertyName = XmpColumnXmpPathStartMapping.
+                    getXmpPathStartOfColumn(editableColumn);
+            xmpMeta.deleteProperty(namespaceUri, propertyName);
         }
     }
 
-    private static void writeSidecarFileSetTextEntry(Column xmpColumn,
-            String entryText, XMPMeta xmpMeta, String namespaceUri,
-            String propertyName) throws XMPException {
+    private static void setTextEntryToMetadata(
+            Column xmpColumn,
+            String entryText,
+            XMPMeta xmpMeta,
+            String namespaceUri,
+            String propertyName)
+            throws XMPException {
+
         if (XmpColumnXmpDataTypeMapping.isText(xmpColumn)) {
             xmpMeta.setProperty(namespaceUri, propertyName, entryText);
         } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
@@ -450,12 +489,12 @@ public final class XmpMetadata {
             xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", // NOI18N
                     entryText);
         } else if (XmpColumnXmpDataTypeMapping.isArray(xmpColumn)) {
-            List<String> items = ArrayUtil.stringTokenToList(
-                    entryText, getXmpTokenDelimiter());
+            List<String> items = ArrayUtil.stringTokenToList(entryText,
+                    getXmpTokenDelimiter());
             for (String item : items) {
                 item = item.trim();
-                if (!doesArrayItemExist(xmpMeta, namespaceUri, propertyName,
-                        item)) {
+                if (!doesArrayItemExist(
+                        xmpMeta, namespaceUri, propertyName, item)) {
                     xmpMeta.appendArrayItem(namespaceUri, propertyName,
                             getArrayPropertyOptions(xmpColumn), item, null);
                 }
@@ -463,13 +502,27 @@ public final class XmpMetadata {
         }
     }
 
-    private static void writeSidecarFileSetMetadata(Column column, Xmp metadata,
-            XMPMeta xmpMeta, String namespaceUri, String propertyName)
+    /**
+     * Sets metadata of a {@link Xmp} instance to a {@link XMPMeta} instance.
+     *
+     * @param column         part of data to set
+     * @param metadata       <code>Xmp</code> metadata to set from
+     * @param xmpMeta        <code>XMPMeta</code> metadata to set to
+     * @param namespaceUri   URI of namespase in <code>XMPMeta</code> to set
+     * @param propertyName   property name to set within the URI
+     * @throws XMPException  if the namespace or uri or data is invalid
+     */
+    private static void setSidecarFileSetMetadata(
+            Column column,
+            Xmp metadata,
+            XMPMeta xmpMeta,
+            String namespaceUri,
+            String propertyName)
             throws XMPException {
-        Object o = metadata.getValue(column);
-        if (o != null) {
-            if (o instanceof String) {
-                String value = (String) o;
+        Object metadataValue = metadata.getValue(column);
+        if (metadataValue != null) {
+            if (metadataValue instanceof String) {
+                String value = (String) metadataValue;
                 if (XmpColumnXmpDataTypeMapping.isText(column)) {
                     xmpMeta.setProperty(namespaceUri, propertyName, value);
                 } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
@@ -478,9 +531,9 @@ public final class XmpMetadata {
                             "x-default", // NOI18N
                             value);
                 }
-            } else if (o instanceof List) {
+            } else if (metadataValue instanceof List) {
                 @SuppressWarnings("unchecked")
-                List<String> values = (List<String>) o;
+                List<String> values = (List<String>) metadataValue;
                 for (String value : values) {
                     value = value.trim();
                     if (!doesArrayItemExist(
@@ -491,19 +544,21 @@ public final class XmpMetadata {
                 }
             } else {
                 AppLog.logWarning(XmpMetadata.class, Bundle.getString(
-                        "XmpMetadata.Error.WriteSetMetadata") + o. // NOI18N
+                        "XmpMetadata.Error.WriteSetMetadata") + metadataValue. // NOI18N
                         toString());
             }
         }
     }
 
-    private static boolean doesArrayItemExist(XMPMeta xmpMeta,
-            String namespaceUri, String propertyName, String item)
+    private static boolean doesArrayItemExist(
+            XMPMeta xmpMeta,
+            String namespaceUri,
+            String propertyName,
+            String item)
             throws XMPException {
         if (xmpMeta.doesPropertyExist(namespaceUri, propertyName)) {
             for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName,
-                    new IteratorOptions());
-                    it.hasNext();) {
+                    new IteratorOptions()); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
                 if (xmpPropertyInfo != null) {
                     Object value = xmpPropertyInfo.getValue();
@@ -535,20 +590,29 @@ public final class XmpMetadata {
     }
 
     private static boolean writeSidecarFile(String sidecarFilename, XMPMeta meta) {
+        FileOutputStream out = null;
+        File sidecarFile = new File(sidecarFilename);
+        if (!IoUtil.lockLogWarning(sidecarFile, XmpMetadata.class))
+            return false;
         try {
-            FileOutputStream out = new FileOutputStream(
-                    new File(sidecarFilename));
+            out = new FileOutputStream(sidecarFile);
+            out.getChannel().lock();
             XMPMetaFactory.serialize(meta, out,
                     new SerializeOptions().setPadding(10).setOmitPacketWrapper(
                     true));
-            out.close();
             return true;
-        } catch (XMPException ex) {
+        } catch (Exception ex) {
             AppLog.logSevere(XmpMetadata.class, ex);
             return false;
-        } catch (IOException ex) {
-            AppLog.logSevere(XmpMetadata.class, ex);
-            return false;
+        } finally {
+            FileLock.INSTANCE.unlock(sidecarFile, XmpMetadata.class);
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (Exception ex) {
+                    AppLog.logSevere(XmpMetadata.class, ex);
+                }
+            }
         }
     }
 
