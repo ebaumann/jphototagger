@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailCache;
@@ -366,8 +365,7 @@ public abstract class ThumbnailsPanel extends JPanel
      * Setzt ein Thumbnail an einem bestimmten Index (neu). Der Cache wird mit
      * diesem Thumbnail aktualisiert.
      * 
-     * @param index     Index
-     * @param thumbnail Thumbnail
+     * @param index Index
      */
     public synchronized void repaint(int index) {
         // fixme: optimize for specific location
