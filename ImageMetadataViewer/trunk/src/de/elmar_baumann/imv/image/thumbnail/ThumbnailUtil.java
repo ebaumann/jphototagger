@@ -343,7 +343,7 @@ public final class ThumbnailUtil {
                     Bundle.getString("ThumbnailUtil.Info.WriteThumbnail", tnFile)); // NOI18N
             fos = new FileOutputStream(tnFile);
             ByteArrayInputStream is =
-                    ImageUtil.getByteArrayInputStream(thumbnail);
+                    ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
             if (is != null) {
                 int nextByte;
                 while ((nextByte = is.read()) != -1) {
