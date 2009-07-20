@@ -80,7 +80,7 @@ public final class IoUtil {
 
     /**
      * Locks <em>internally</em> a file (other applications doesn't regognize
-     * the lock) and logs errors.
+     * the lock) and logs a warning if the file couldn't be locked.
      * <p>
      * If a file couldn't be locked,
      * {@link AppLog#logWarning(java.lang.Class, java.lang.String)} will be
@@ -94,7 +94,7 @@ public final class IoUtil {
      * @param  owner owner of the file lock
      * @return       true if the file was locked
      */
-    public static boolean lockLogError(File file, Object owner) {
+    public static boolean lockLogWarning(File file, Object owner) {
         if (!FileLock.INSTANCE.lock(file, owner)) {
             AppLog.logWarning(owner.getClass(),
                     Bundle.getString("IoUtil.Error.lock",
