@@ -56,7 +56,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         if (!transferSupport.isDrop()) return false;
         File targetDirectory = getTargetDirectory(transferSupport);
         Transferable transferable = transferSupport.getTransferable();
-        List<File> sourceFiles = IoUtil.getImageFiles(TransferUtil.getFiles(
+        List<File> sourceFiles = IoUtil.filterImageFiles(TransferUtil.getFiles(
                 transferable, DELIMITER_FILENAMES));
         if (targetDirectory != null && !sourceFiles.isEmpty()) {
             handleDroppedFiles(
@@ -80,7 +80,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
      */
     public static void handleDroppedFiles(
             int dropAction, List<File> sourceFiles, File targetDirectory) {
-        List<File> imageFiles = IoUtil.getImageFiles(sourceFiles);
+        List<File> imageFiles = IoUtil.filterImageFiles(sourceFiles);
         if (imageFiles.isEmpty()) return;
         if (dropAction == COPY && confirmFileAction(
                 "TransferHandlerTreeDirectories.Confirm.Copy", // NOI18N

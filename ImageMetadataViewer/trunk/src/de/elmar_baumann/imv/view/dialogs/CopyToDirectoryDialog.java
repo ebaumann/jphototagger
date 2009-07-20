@@ -16,6 +16,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +37,7 @@ public final class CopyToDirectoryDialog extends Dialog
     private CopyFiles copyTask;
     private boolean copy = false;
     private boolean writeProperties = true;
-    private List<File> sourceFiles;
+    private Collection<File> sourceFiles;
     private File targetDirectory = new File(""); // NOI18N
 
     /** Creates new form CopyToDirectoryDialog */
@@ -161,7 +162,7 @@ public final class CopyToDirectoryDialog extends Dialog
      * 
      * @param sourceFiles  Quelldateien
      */
-    public void setSourceFiles(List<File> sourceFiles) {
+    public void setSourceFiles(Collection<File> sourceFiles) {
         this.sourceFiles = sourceFiles;
     }
 

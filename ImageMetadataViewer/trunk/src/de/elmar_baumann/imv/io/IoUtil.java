@@ -10,6 +10,7 @@ import de.elmar_baumann.lib.runtime.External;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -43,15 +44,15 @@ public final class IoUtil {
     }
 
     /**
-     * Returns from a list of arbitrary file image files.
+     * Filters from a collection of arbitrary file image files.
      * 
-     * @param  files arbitrary files
-     * @return       image files of <code>files</code>
+     * @param  arbitraryFiles arbitrary files
+     * @return                image files of <code>files</code>
      */
-    public static List<File> getImageFiles(List<File> files) {
+    public static List<File> filterImageFiles(Collection<File> arbitraryFiles) {
         List<File> imageFiles = new ArrayList<File>();
         RegexFileFilter filter = AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS;
-        for (File file : files) {
+        for (File file : arbitraryFiles) {
             if (filter.accept(file)) {
                 imageFiles.add(file);
             }
@@ -66,7 +67,8 @@ public final class IoUtil {
      * @param  quote  qoute before and after each filename
      * @return        string
      */
-    public static String getQuotedForCommandline(List<File> files, String quote) {
+    public static String getQuotedForCommandline(
+            Collection<File> files, String quote) {
         StringBuffer buffer = new StringBuffer();
         for (File file : files) {
             if (buffer.length() == 0) {
