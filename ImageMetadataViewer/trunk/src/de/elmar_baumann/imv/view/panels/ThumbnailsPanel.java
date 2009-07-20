@@ -753,6 +753,13 @@ public abstract class ThumbnailsPanel extends JPanel
                 paintThumbnail(index, g);
             }
             paintPanelFocusBorder(g);
+
+            // prefetch for scrolling down a bit
+            thumbCache.prefetchThumbnails(lastIndex + 1,
+                                          lastIndex + thumbnailCountPerRow * 5);
+            // prefetch for scrolling up a bit
+            thumbCache.prefetchThumbnails(firstIndex - thumbnailCountPerRow * 5,
+                                          firstIndex - 1);
         }
     }
 

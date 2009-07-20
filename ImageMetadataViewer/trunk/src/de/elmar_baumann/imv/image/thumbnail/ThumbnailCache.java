@@ -26,7 +26,7 @@ import javax.swing.SwingUtilities;
 public class ThumbnailCache {
 
     private ThumbnailsPanel panel;
-    private final int MAX_ENTRIES = 2000;
+    private final int MAX_ENTRIES = 1500;
     private Image dummyThumbnail = ThumbnailUtil.loadImage(
             new File(getClass().getResource(
             Bundle.getString("ThumbnailCache.Path.DummyThumbnail")).getPath()));
@@ -72,10 +72,10 @@ public class ThumbnailCache {
          * @param file
          */
         public synchronized void append(File file) {
-            if (!queue.contains(file)) {
+            if (! queue.contains(file)) {
                 queue.add(file);    // append at end
+                notify();
             }
-            notify();
         }
 
         /**
@@ -208,13 +208,21 @@ public class ThumbnailCache {
      * Requests for the real image and the subjects are put into their
      * respective work queues
      */
-    public synchronized void generateEntry(File file, boolean wqsubjects) {
+    public synchronized void generateEntry(File file, boolean wqsubjects,
+                                           boolean prefetch) {
         CacheIndirection ci = new CacheIndirection(file);
         updateUsageTime(ci);
         fileCache.put(file, ci);
-        imageWQ.push(file);
-        if (wqsubjects) {
-            subjectWQ.push(file);
+        if (prefetch) {
+            imageWQ.append(file);
+            if (wqsubjects) {
+                subjectWQ.append(file);
+            }
+        } else {
+            imageWQ.push(file);
+            if (wqsubjects) {
+                subjectWQ.push(file);
+            }
         }
     }
 
@@ -283,7 +291,7 @@ public class ThumbnailCache {
 
     public synchronized Image getThumbnail(File file) {
         if (!fileCache.containsKey(file)) {
-            generateEntry(file, false);
+            generateEntry(file, false, false);
         }
         CacheIndirection ci = fileCache.get(file);
         updateUsageTime(ci);
@@ -294,13 +302,33 @@ public class ThumbnailCache {
         return ci.thumbnail;
     }
 
+    public void prefetchThumbnails(int indexLow, int indexHigh) {
+        for (int i = indexLow; i <= indexHigh; i++) {
+            prefetchThumbnail(i);
+        }
+    }
+
+    public synchronized void prefetchThumbnail(int index) {
+        if (index < 0 || index >= files.size()) {
+            return;
+        }
+        prefetchThumbnail(files.get(index));
+    }
+
+    public synchronized void prefetchThumbnail(File file) {
+        if (fileCache.containsKey(file)) {
+            return;  // we have this already
+        }
+        generateEntry(file, false, true);
+    }
+
     public Image getScaledThumbnail(int index, int length) {
         return getScaledThumbnail(files.get(index), length);
     }
 
     public Image getScaledThumbnail(File file, int length) {
         if (!fileCache.containsKey(file)) {
-            generateEntry(file, false);
+            generateEntry(file, false, false);
         }
         CacheIndirection ci = fileCache.get(file);
         updateUsageTime(ci);
@@ -367,7 +395,7 @@ public class ThumbnailCache {
 
     public synchronized List<String> getSubjects(File file) {
         if (!fileCache.containsKey(file)) {
-            generateEntry(file, true);
+            generateEntry(file, true, false);
             return null;
         }
         CacheIndirection ci = fileCache.get(file);
