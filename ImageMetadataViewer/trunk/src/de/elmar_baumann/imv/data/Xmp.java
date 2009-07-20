@@ -25,6 +25,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.List;
@@ -39,7 +40,7 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-08-22
  */
-public final class Xmp {
+public final class Xmp implements TextEntryListener {
 
     private final Map<Column, Object> valueOfColumn =
             new HashMap<Column, Object>();
@@ -464,6 +465,42 @@ public final class Xmp {
      */
     public Long getLastModified() {
         return longValueOf(ColumnXmpLastModified.INSTANCE);
+    }
+
+    @Override
+    public void textRemoved(Column column, String removedText) {
+        removeValue(column, removedText);
+    }
+
+    @Override
+    public void textAdded(Column column, String addedText) {
+        setValue(column, addedText);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void textChanged(Column column, String oldText, String newText) {
+        if (XmpRepeatableValues.isRepeatable(column)) {
+            Object o = valueOfColumn.get(column);
+            if (o == null) {
+                List<String> list = new ArrayList<String>();
+                list.add(newText);
+                valueOfColumn.put(column, list);
+            }
+            assert o instanceof List :
+                    "o is not a " + List.class + " but a " + o.getClass();
+            if (o instanceof List) {
+                List list = (List) o;
+                int index = list.indexOf(oldText);
+                if (index >= 0) {
+                    list.set(index, newText);
+                } else {
+                    list.add(newText);
+                }
+            }
+        } else {
+            setValue(column, newText);
+        }
     }
 
     /**
