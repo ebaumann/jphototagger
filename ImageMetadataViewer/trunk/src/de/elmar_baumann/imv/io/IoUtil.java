@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.io.FileLock;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.runtime.External;
 import java.io.File;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Utils für I/O.
+ * I/O utils.
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -20,10 +21,10 @@ import java.util.List;
 public final class IoUtil {
 
     /**
-     * Startet eine Anwendung und zeigt im Fehlerfall einen Messagedialog.
+     * Executes an application and desplays a message dialog on errors.
      * 
-     * @param appPath   Pfad zur Anwendung
-     * @param arguments Argumente die dem Pfad angehängt werden
+     * @param appPath   path to the external application
+     * @param arguments arguments added to the path
      */
     public static void execute(String appPath, String arguments) {
         if (!appPath.isEmpty()) {
@@ -32,7 +33,8 @@ public final class IoUtil {
             try {
                 AppLog.logInfo(IoUtil.class,
                         Bundle.getString("IoUtil.Info.Execute", openCommand)); // NOI18N
-                Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
+                Runtime.getRuntime().exec(External.parseQuotedCommandLine(
+                        openCommand));
             } catch (IOException ex) {
                 AppLog.logSevere(IoUtil.class, ex);
                 MessageDisplayer.error("IoUtil.Error.OpenFile"); // NOI18N
@@ -41,10 +43,10 @@ public final class IoUtil {
     }
 
     /**
-     * Returns image files.
+     * Returns from a list of arbitrary file image files.
      * 
-     * @param  files  arbitrary files
-     * @return image files of <code>files</code>
+     * @param  files arbitrary files
+     * @return       image files of <code>files</code>
      */
     public static List<File> getImageFiles(List<File> files) {
         List<File> imageFiles = new ArrayList<File>();
@@ -62,7 +64,7 @@ public final class IoUtil {
      * 
      * @param  files  files
      * @param  quote  qoute before and after each filename
-     * @return string
+     * @return        string
      */
     public static String getQuotedForCommandline(List<File> files, String quote) {
         StringBuffer buffer = new StringBuffer();
@@ -74,6 +76,27 @@ public final class IoUtil {
             }
         }
         return buffer.toString();
+    }
+
+    /**
+     * Locks <em>internally</em> a file (other applications doesn't regognize
+     * the lock) and logs errors.
+     *
+     * If a file couldn't be locked, {@link AppLog#logWarning(java.lang.Class, java.lang.String)}
+     * will be called.
+     *
+     * @param  file  file to lock
+     * @param  owner owner of the file lock
+     * @return       true if the file was locked
+     */
+    public boolean lockLogError(File file, Object owner) {
+        if (!FileLock.INSTANCE.lock(file, owner)) {
+            AppLog.logWarning(owner.getClass(),
+                    Bundle.getString("IoUtil.Error.lock",
+                    file, owner, FileLock.INSTANCE.getOwner(file)));
+            return false;
+        }
+        return true;
     }
 
     private IoUtil() {
