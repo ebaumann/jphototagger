@@ -1,7 +1,7 @@
-
 package de.elmar_baumann.imv.image.thumbnail;
 
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -21,13 +21,14 @@ import javax.swing.SwingUtilities;
 /**
  *
  * @author Martin Pohlack <martinp@gmx.de>
- * @version 2009/07/18
+ * @version 2009-07-18
  */
 public class ThumbnailCache {
+
     private ThumbnailsPanel panel;
     private final int MAX_ENTRIES = 2000;
     private Image dummyThumbnail = ThumbnailUtil.loadImage(
-            new File("src/de/elmar_baumann/imv/resource/images/loading.png"));
+            new File(Bundle.getString("ThumbnailCache.Path.DummyThumbnail")));
     private Image dummyThumbnailScaled = null;
 
     private void maybeCleanupCache() {
@@ -38,7 +39,7 @@ public class ThumbnailCache {
                 new ArrayList<CacheIndirection>(fileCache.values());
         Collections.sort(removeItems, new CacheIndirectionAgeComparator());
         removeItems = removeItems.subList(0, MAX_ENTRIES / 10);
-        for (CacheIndirection item : removeItems){
+        for (CacheIndirection item : removeItems) {
             fileCache.remove(item.file);
         }
     }
@@ -46,6 +47,7 @@ public class ThumbnailCache {
     // based on http://www.exampledepot.com/egs/java.lang/WorkQueue.html
     private class WorkQueue {
         // fixme: maybe use better data structure here with efficient contains()
+
         Deque<File> queue = new ArrayDeque<File>();
 
         /**
@@ -69,7 +71,7 @@ public class ThumbnailCache {
          * @param file
          */
         public synchronized void append(File file) {
-            if (! queue.contains(file)) {
+            if (!queue.contains(file)) {
                 queue.add(file);    // append at end
             }
             notify();
@@ -88,13 +90,12 @@ public class ThumbnailCache {
             return queue.removeFirst();
         }
     }
-
     private WorkQueue imageWQ = new WorkQueue();
     private WorkQueue subjectWQ = new WorkQueue();
     public static int currentAge = 0;
 
-
     private class CacheIndirection {
+
         public int usageTime;
         public File file;
         public Image thumbnail;
@@ -114,23 +115,25 @@ public class ThumbnailCache {
 
         @Override
         public int compare(CacheIndirection o1, CacheIndirection o2) {
-            return (o1.usageTime < o2.usageTime ? -1 :
-                    (o1.usageTime == o2.usageTime ? 0 : 1));
+            return (o1.usageTime < o2.usageTime
+                    ? -1
+                    : (o1.usageTime == o2.usageTime
+                       ? 0
+                       : 1));
         }
     }
-
     /**
      * Mapping from file to all kinds of cached data
      */
     private final Map<File, CacheIndirection> fileCache =
             new HashMap<File, CacheIndirection>();
-
     /**
      * Mapping from index to filename
      */
     private List<File> files = new ArrayList<File>();
 
     private static class ThumbnailFetcher implements Runnable {
+
         private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         private WorkQueue wq;
         private ThumbnailCache cache;
@@ -148,12 +151,14 @@ public class ThumbnailCache {
                     file = wq.fetch();
                     Image image = db.getThumbnail(file.getAbsolutePath());
                     cache.updateThumbnail(image, file);
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
             }
         }
     }
 
     private static class SubjectFetcher implements Runnable {
+
         private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         private WorkQueue wq;
         private ThumbnailCache cache;
@@ -175,7 +180,8 @@ public class ThumbnailCache {
                 if (file == null) {
                     continue;
                 }
-                List<String> subjects = db.getDcSubjectsOfFile(file.getAbsolutePath());
+                List<String> subjects = db.getDcSubjectsOfFile(file.
+                        getAbsolutePath());
                 cache.updateSubjects(subjects, file);
             }
         }
@@ -184,16 +190,17 @@ public class ThumbnailCache {
     public ThumbnailCache(ThumbnailsPanel _panel) {
         panel = _panel;
         // fixme: we may want to have threadpools here later on.
-        Thread sft = new Thread(new SubjectFetcher(subjectWQ, this), "SubjectFetcher");
+        Thread sft = new Thread(new SubjectFetcher(subjectWQ, this),
+                "SubjectFetcher");
         sft.start();
-        Thread tft = new Thread(new ThumbnailFetcher(imageWQ, this), "ThumbnailFetcher");
+        Thread tft = new Thread(new ThumbnailFetcher(imageWQ, this),
+                "ThumbnailFetcher");
         tft.start();
     }
 
     /**
      * Interface for producers.
      */
-
     /**
      * Creates a new entry in the cache with the two keys index and filename.
      *
@@ -218,7 +225,7 @@ public class ThumbnailCache {
     }
 
     public synchronized void updateThumbnail(Image image, final File file) {
-        if (! fileCache.containsKey(file)) {
+        if (!fileCache.containsKey(file)) {
             return;  // stale entry
         }
         CacheIndirection ci = fileCache.get(file);
@@ -227,6 +234,7 @@ public class ThumbnailCache {
         ci.scaled = null;
         maybeCleanupCache();
         SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 panel.repaint();
@@ -235,7 +243,7 @@ public class ThumbnailCache {
     }
 
     public synchronized void updateSubjects(List<String> subjects, File file) {
-        if (! fileCache.containsKey(file)) {
+        if (!fileCache.containsKey(file)) {
             return;  // stale entry
         }
         CacheIndirection ci = fileCache.get(file);
@@ -243,6 +251,7 @@ public class ThumbnailCache {
         ci.subjects = subjects;
         maybeCleanupCache();
         SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 panel.repaint();
@@ -253,7 +262,6 @@ public class ThumbnailCache {
     /**
      * Interface for consumers.
      */
-
     /**
      * Provide a new mapping for indices to filenames.
      *
@@ -273,7 +281,7 @@ public class ThumbnailCache {
     }
 
     public synchronized Image getThumbnail(File file) {
-        if (! fileCache.containsKey(file)) {
+        if (!fileCache.containsKey(file)) {
             generateEntry(file, false);
         }
         CacheIndirection ci = fileCache.get(file);
@@ -290,15 +298,15 @@ public class ThumbnailCache {
     }
 
     public Image getScaledThumbnail(File file, int length) {
-        if (! fileCache.containsKey(file)) {
+        if (!fileCache.containsKey(file)) {
             generateEntry(file, false);
         }
         CacheIndirection ci = fileCache.get(file);
         updateUsageTime(ci);
 
         if (ci.thumbnail == null) {
-            if (dummyThumbnailScaled  == null ||
-                ! correctlyScaled(dummyThumbnailScaled, length)) {
+            if (dummyThumbnailScaled == null ||
+                    !correctlyScaled(dummyThumbnailScaled, length)) {
                 dummyThumbnailScaled = computeScaled(dummyThumbnail, length);
             }
             return dummyThumbnailScaled;
@@ -307,7 +315,7 @@ public class ThumbnailCache {
             ci.scaled = computeScaled(ci.thumbnail, length);
         } else {
             // we have both a thumbnail and a scaled version
-            if (! correctlyScaled(ci.scaled, length)) {
+            if (!correctlyScaled(ci.scaled, length)) {
                 ci.scaled = computeScaled(ci.thumbnail, length);
             }
         }
@@ -317,14 +325,18 @@ public class ThumbnailCache {
     private boolean correctlyScaled(Image image, int length) {
         int width = image.getWidth(null);
         int height = image.getHeight(null);
-        int longer = width > height ? width : height;
+        int longer = width > height
+                     ? width
+                     : height;
         return longer == length;
     }
 
     private Image computeScaled(Image image, int length) {
         int width = image.getWidth(null);
         int height = image.getHeight(null);
-        double longer = width > height ? width : height;
+        double longer = width > height
+                        ? width
+                        : height;
         if (longer == length) {
             return image;
         }
@@ -338,10 +350,10 @@ public class ThumbnailCache {
                  : (int) ((double) height * scaleFactor + 0.5);
 
         BufferedImage scaled = new BufferedImage(tw, th,
-                                                 BufferedImage.TYPE_INT_RGB);
+                BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = scaled.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         g2.drawImage(image, 0, 0, tw, th, null);
         g2.dispose();
 
@@ -353,7 +365,7 @@ public class ThumbnailCache {
     }
 
     public synchronized List<String> getSubjects(File file) {
-        if (! fileCache.containsKey(file)) {
+        if (!fileCache.containsKey(file)) {
             generateEntry(file, true);
             return null;
         }
