@@ -104,7 +104,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             ImageFile imageFile = getImageFile(filename);
             if (isUpdate(imageFile)) {
                 logInsertImageFile(imageFile);
-                db.insertImageFile(imageFile);
+                db.insertOrUpdateImageFile(imageFile);
                 runActionsAfterInserting(imageFile);
             }
             progressPerformed(index + 1, index + 1 < count
