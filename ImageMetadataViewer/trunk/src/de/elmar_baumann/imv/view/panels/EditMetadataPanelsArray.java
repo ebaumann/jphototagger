@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.SuggestionHierarchicalKeywords;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.SuggestHierarchicalKeywords;
 import de.elmar_baumann.imv.helper.SaveEditedMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
@@ -413,7 +413,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 panel.textFieldInput.addFocusListener(this);
                 panel.textFieldInput.addKeyListener(this);
                 if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                    panel.setSuggest(new SuggestionHierarchicalKeywords());
+                    panel.setSuggest(new SuggestHierarchicalKeywords());
                 }
                 panels.add(panel);
             } else {
