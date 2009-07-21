@@ -173,11 +173,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddInputActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonTextModifier">
+        <Component class="javax.swing.JButton" name="buttonSuggestion">
           <Properties>
             <Property name="mnemonic" type="int" value="107"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonTextModifier.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonSuggestion.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -185,7 +185,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTextModifierActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSuggestionActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

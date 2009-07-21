@@ -21,6 +21,13 @@ public interface TextEntry {
     public String getText();
 
     /**
+     * Empties the text.
+     * 
+     * @param dirty true if set dirty, else fals
+     */
+    public void empty(boolean dirty);
+
+    /**
      * Setzt den Text.
      * 
      * @param text Text

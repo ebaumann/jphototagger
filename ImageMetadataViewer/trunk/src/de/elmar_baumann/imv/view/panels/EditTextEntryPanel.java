@@ -20,7 +20,8 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-18
  */
-public final class EditTextEntryPanel extends javax.swing.JPanel
+public final class EditTextEntryPanel
+        extends javax.swing.JPanel
         implements TextEntry, DocumentListener {
 
     private static final Color EDITABLE_COLOR = Color.WHITE;
@@ -67,6 +68,12 @@ public final class EditTextEntryPanel extends javax.swing.JPanel
     public void setText(String text) {
         textAreaEdit.setText(text.trim());
         dirty = false;
+    }
+
+    @Override
+    public void empty(boolean dirty) {
+        textAreaEdit.setText("");
+        this.dirty = dirty;
     }
 
     @Override
@@ -118,19 +125,19 @@ public final class EditTextEntryPanel extends javax.swing.JPanel
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText());
+        notifyTextChanged(column, "", textAreaEdit.getText()); // NOI18N
         dirty = true;
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText());
+        notifyTextChanged(column, "", textAreaEdit.getText()); // NOI18N
         dirty = true;
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText());
+        notifyTextChanged(column, "", textAreaEdit.getText()); // NOI18N
         dirty = true;
     }
 

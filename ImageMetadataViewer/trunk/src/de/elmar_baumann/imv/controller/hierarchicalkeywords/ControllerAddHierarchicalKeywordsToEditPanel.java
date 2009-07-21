@@ -3,14 +3,12 @@ package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
-import de.elmar_baumann.lib.util.ArrayUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -85,11 +83,9 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel =
                     (EditRepeatableTextEntryPanel) panel;
-            String text = ArrayUtil.toTokenString(keywordNames,
-                    XmpMetadata.getXmpTokenDelimiter(), "?").trim(); // NOI18N
             if (editPanel.isEditable()) {
-                if (!text.isEmpty()) {
-                    editPanel.addText(text);
+                for (String keywordName : keywordNames) {
+                    editPanel.addText(keywordName);
                 }
             } else {
                 MessageDisplayer.error(

@@ -10,7 +10,6 @@ import com.adobe.xmp.options.SerializeOptions;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.mapping.IptcEntryXmpPathStartMapping;
@@ -26,13 +25,10 @@ import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileLock;
-import de.elmar_baumann.lib.util.ArrayUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Set;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +43,6 @@ import java.util.Map;
 public final class XmpMetadata {
 
     private static final List<String> KNOWN_NAMESPACES = new ArrayList<String>();
-    private static final String XMP_TOKEN_DELIMITER = "\\"; // NOI18N;
 
     static {
         KNOWN_NAMESPACES.add("Iptc4xmpCore"); // NOI18N
@@ -63,25 +58,6 @@ public final class XmpMetadata {
     }
 
     /**
-     * Options when updating XMP metadata in a sidecar file.
-     */
-    public enum UpdateOption {
-
-        /**
-         * Not existing values shall be <strong>added</strong> to existing
-         * repeatable values
-         */
-        APPEND_TO_REPEATABLE_VALUES,
-        /**
-         * Delete existing values if the source does not contain corresponding
-         * values. E.g. if a sidecar file has a Dublin Core description and the
-         * metadata to set hasn't a dc description the dc description in the
-         * sidecar file is to delete.
-         */
-        DELETE_IF_SOURCE_VALUE_IS_EMPTY
-    }
-
-    /**
      * Location of the XMP metadata.
      */
     private enum XmpLocation {
@@ -90,15 +66,6 @@ public final class XmpMetadata {
         EMBEDDED,
         /** The XMP metadta exists in a sidecar file */
         SIDECAR_FILE
-    }
-
-    /**
-     * Returns the delimiter between multiple XMP tokens.
-     * 
-     * @return delimiter
-     */
-    public static final String getXmpTokenDelimiter() {
-        return XMP_TOKEN_DELIMITER;
     }
 
     /**
@@ -370,40 +337,6 @@ public final class XmpMetadata {
         }
     }
 
-    /**
-     * Writes the values of a {@link TextEntry} instance into a sidecar file.
-     * 
-     * @param  sidecarFilename name of the sidecar file
-     * @param  textEntries     text entries to write
-     * @param  writeOptions    options
-     * @return                 true when successfully written
-     */
-    public static boolean writeMetadataToSidecarFile(
-            String sidecarFilename,
-            List<TextEntry> textEntries,
-            EnumSet<UpdateOption> writeOptions) {
-        try {
-            XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
-            deleteMetadataFrom(xmpMeta, textEntries, writeOptions);
-            for (TextEntry entry : textEntries) {
-                Column xmpColumn = entry.getColumn();
-                String namespaceUri = XmpColumnNamespaceUriMapping.
-                        getNamespaceUriOfColumn(xmpColumn);
-                String propertyName = XmpColumnXmpPathStartMapping.
-                        getXmpPathStartOfColumn(xmpColumn);
-                String entryText = entry.getText().trim();
-                if (!entryText.isEmpty()) {
-                    setTextEntryToMetadata(xmpColumn, entryText,
-                            xmpMeta, namespaceUri, propertyName);
-                }
-            }
-            return writeSidecarFile(sidecarFilename, xmpMeta);
-        } catch (Exception ex) {
-            AppLog.logSevere(XmpMetadata.class, ex);
-            return false;
-        }
-    }
-
     private static XMPMeta getXmpMetaOfSidecarFile(String sidecarFilename)
             throws XMPException {
         File sidecarFile = new File(sidecarFilename);
@@ -414,48 +347,6 @@ public final class XmpMetadata {
             }
         }
         return XMPMetaFactory.create();
-    }
-
-    /**
-     * Deletes metadata from a XMP instance corresponding to text entries.
-     *
-     * @param xmpMeta           XMP metadata instance to delete metadata from
-     * @param deleteThisEntries if the metadata corresponding to that text
-     *                          entries it will be deleted
-     * @param options           delete options: metadata will be deleted when:
-     *                          <ol>
-     *                          <li>the text entry contains text and the options
-     *                              are <em>not</em> containing
-     *                              {@link UpdateOption#APPEND_TO_REPEATABLE_VALUES}
-     *                          </li>
-     *                          <li>the text entry does <em>not</em> contain
-     *                              text and the options are containing
-     *                              {@link UpdateOption#DELETE_IF_SOURCE_VALUE_IS_EMPTY}
-     *                          </li>
-     *                          </ol>
-     */
-    private static void deleteMetadataFrom(
-            XMPMeta xmpMeta,
-            Collection<TextEntry> deleteThisEntries,
-            EnumSet<UpdateOption> deleteOptions) {
-
-        for (TextEntry textEntry : deleteThisEntries) {
-            Column xmpColumn = textEntry.getColumn();
-            String namespaceUri = XmpColumnNamespaceUriMapping.
-                    getNamespaceUriOfColumn(xmpColumn);
-            String propertyName = XmpColumnXmpPathStartMapping.
-                    getXmpPathStartOfColumn(xmpColumn);
-            boolean entryContainsText = !textEntry.getText().trim().isEmpty();
-            boolean delete =
-                    (entryContainsText &&
-                    !deleteOptions.contains(
-                    UpdateOption.APPEND_TO_REPEATABLE_VALUES)) ||
-                    (!entryContainsText && deleteOptions.contains(
-                    UpdateOption.DELETE_IF_SOURCE_VALUE_IS_EMPTY));
-            if (delete) {
-                xmpMeta.deleteProperty(namespaceUri, propertyName);
-            }
-        }
     }
 
     /**
@@ -471,34 +362,6 @@ public final class XmpMetadata {
             String propertyName = XmpColumnXmpPathStartMapping.
                     getXmpPathStartOfColumn(editableColumn);
             xmpMeta.deleteProperty(namespaceUri, propertyName);
-        }
-    }
-
-    private static void setTextEntryToMetadata(
-            Column xmpColumn,
-            String entryText,
-            XMPMeta xmpMeta,
-            String namespaceUri,
-            String propertyName)
-            throws XMPException {
-
-        if (XmpColumnXmpDataTypeMapping.isText(xmpColumn)) {
-            xmpMeta.setProperty(namespaceUri, propertyName, entryText);
-        } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
-                xmpColumn)) {
-            xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", // NOI18N
-                    entryText);
-        } else if (XmpColumnXmpDataTypeMapping.isArray(xmpColumn)) {
-            List<String> items = ArrayUtil.stringTokenToList(entryText,
-                    getXmpTokenDelimiter());
-            for (String item : items) {
-                item = item.trim();
-                if (!doesArrayItemExist(
-                        xmpMeta, namespaceUri, propertyName, item)) {
-                    xmpMeta.appendArrayItem(namespaceUri, propertyName,
-                            getArrayPropertyOptions(xmpColumn), item, null);
-                }
-            }
         }
     }
 

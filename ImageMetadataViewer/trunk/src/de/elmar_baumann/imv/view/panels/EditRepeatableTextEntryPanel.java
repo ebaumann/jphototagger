@@ -7,9 +7,8 @@ import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
-import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.types.TextModifyer;
+import de.elmar_baumann.imv.types.Suggest;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererKeywordsEdit;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -19,8 +18,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -39,30 +39,16 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-18
  */
-public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
+public final class EditRepeatableTextEntryPanel
+        extends javax.swing.JPanel
         implements TextEntry, ActionListener, DocumentListener {
 
-    /**
-     * Delimiter separating words in a single string
-     */
-    private static final String DELIMITER = XmpMetadata.getXmpTokenDelimiter();
-    /**
-     * Replaces delimiter in a single word to avoid considering it as multiple
-     * words.
-     *
-     * Have to be different from {@link XmpMetadata#getXmpTokenDelimiter()}!
-     */
-    private static final String DELIMITER_REPLACEMENT = "?"; // NOI18N
     private final DefaultListModel model = new DefaultListModel();
     private Column column;
     private AutoCompleteData autoCompleteData;
     private boolean editable = true;
     private boolean dirty = false;
-    private TextModifyer textModifier;
-    /**
-     * Contains the words not to modify by the text modifier
-     */
-    private List<String> ignoreModifyWords = new ArrayList<String>();
+    private Suggest suggest;
     private TextEntryListenerSupport textEntryListenerSupport =
             new TextEntryListenerSupport();
 
@@ -70,8 +56,6 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         this.column = column;
         initComponents();
         postInitComponents();
-        assert !DELIMITER_REPLACEMENT.equals(DELIMITER) :
-                "Delimiter replacement is equals to delimiter! " + DELIMITER; // NOI18N
     }
 
     private void postInitComponents() {
@@ -99,104 +83,85 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
     }
 
     /**
-     * Returns the text: All elements in the list <strong>plus</strong> the
-     * text of the input field if it's not contained in the list.
+     * Returns the text from the input field.
      *
-     * @return words delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
+     * @return trimmed text
      */
     @Override
     public String getText() {
-        emptyTextfieldIfListContainsText();
-        String listItemText = ListUtil.getTokenString(model, DELIMITER);
-        String textfieldText = textFieldInput.getText().trim();
-        listItemText += textfieldText.isEmpty()
-                        ? "" // NOI18N
-                        : DELIMITER + textfieldText;
-        if (!textfieldText.isEmpty() &&
-                !ListUtil.containsString(model, textfieldText)) {
-            notifyTextAdded(column, textfieldText);
-        }
-        return listItemText;
+        return textFieldInput.getText().trim();
     }
 
     /**
-     * Empties the input text field if the word in the text field is also in
-     * the list. This is true if the user hits ENTER or the ADD button; then
-     * the text in the input field will be added to the list if it is not
-     * already there.
+     * Returns the list item texts.
+     *
+     * @return list item texts
      */
-    private void emptyTextfieldIfListContainsText() {
-        String input = textFieldInput.getText();
-        if (ListUtil.containsString(list.getModel(), input)) {
-            textFieldInput.setText(""); // NOI18N
+    public Collection<String> getRepeatableText() {
+        List<String> texts = new ArrayList<String>(model.size());
+        int size = model.getSize();
+        for (int i = 0; i < size; i++) {
+            texts.add(model.get(i).toString());
         }
+        return texts;
     }
 
     /**
-     * Sets a text modifier. If the user presses <strong>Ctrl+K</strong> or
-     * pushes the <strong>K</strong> button, the text modifier will be invoked
-     * through
-     * {@link TextModifyer#modify(java.lang.String, java.util.Collection)}.
+     * Sets a suggester for the keyword in the input text field.
      *
-     * If the modified text differs from the text in the input field after
-     * invoking, the modified text will be added to the list. If the text is
-     * delimited by {@link XmpMetadata#getXmpTokenDelimiter()}, all words not
-     * contained in the list will be added to the list.
-     *
-     * @param textModifier text modifier
+     * @param suggest suggest for keywords
      */
-    public void setTextModifier(TextModifyer textModifier) {
-        this.textModifier = textModifier;
-        buttonTextModifier.setEnabled(editable && textModifier != null);
-        buttonTextModifier.setToolTipText(textModifier == null
+    public void setSuggest(Suggest suggest) {
+        this.suggest = suggest;
+        buttonSuggestion.setEnabled(editable && suggest != null);
+        buttonSuggestion.setToolTipText(suggest == null
                                           ? "" // NOI18N
-                                          : textModifier.getDescription());
+                                          : suggest.getDescription());
     }
 
     /**
-     * Sets and replaces the words in the list. A word is a token delimited by
-     * {@link XmpMetadata#getXmpTokenDelimiter()}. Does <em>not</em> check
-     * for duplicates.
+     * Does nothing but removing the dirty flag. Don't call this!
      *
-     * Removes also the dirty flag.
-     *
-     * @param text text delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
+     * @param text ignroed
+     * @see        #addText(java.lang.String)
      */
     @Override
     public void setText(String text) {
-        ListUtil.setToken(text, DELIMITER, model);
-        setIgnoreModifyWords(text);
-        textFieldInput.setText(""); // NOI18N
-        dirty = false;
-        setEnabledButtons();
+        assert false : "Don't call this (Called with text: '" + text + "')"; // NOI18N
+        // ignore
     }
 
     /**
-     * Adds text <em>whithout</em> replacing existing words in the list. If the
-     * text is delimited by {@link XmpMetadata#getXmpTokenDelimiter()}, every
-     * word not contained in the list will be added to the list.
+     * Sets text to lists (replaces existing text) and sets the dirty to false.
      *
-     * @param text text delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
+     * @param texts text to set, every text is a list item
+     */
+    public void setText(Collection<String> texts) {
+        textFieldInput.setText(""); // NOI18N
+        model.removeAllElements();
+        addToList(texts);
+        setEnabledButtons();
+        dirty = false;
+    }
+
+    @Override
+    public void empty(boolean dirty) {
+        textFieldInput.setText("");
+        model.removeAllElements();
+        this.dirty = dirty;
+    }
+
+    /**
+     * Adds text to the list <em>whithout</em> replacing existing words in the
+     * list if editing is allowed and sets the dirty flag to true.
+     *
+     * @param text text
      */
     public void addText(String text) {
         assert editable : "Edit is not enabled!"; // NOI18N
         if (!editable) return;
-        addTokensToList(text);
+        addToList(Collections.singleton(text));
         dirty = true;
-    }
-
-    /**
-     * Sets and replaces all words that will <em>not</em> be modified through
-     * the text modifier.
-     *
-     * @param text text delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
-     */
-    private void setIgnoreModifyWords(String text) {
-        ignoreModifyWords.clear();
-        StringTokenizer st = new StringTokenizer(text, DELIMITER);
-        while (st.hasMoreTokens()) {
-            ignoreModifyWords.add(st.nextToken());
-        }
     }
 
     @Override
@@ -214,40 +179,16 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         JComponent component = (JComponent) evt.getSource();
         if (evt.getKeyCode() == KeyEvent.VK_ENTER &&
                 component.getInputVerifier().verify(component)) {
-            addOneWordToList(getInputWithoutDelimiter());
+            addInputToList();
         } else {
             setEnabledButtons();
         }
     }
 
-    /**
-     * Adds a word to the list if the list doesn't contain that word.
-     *
-     * @param word word
-     */
-    private void addOneWordToList(String word) {
-        if (!word.isEmpty() && !model.contains(word)) {
-            model.addElement(word);
+    private void addInputToList() {
+        if (addToList(Collections.singleton(textFieldInput.getText())) > 0) {
             textFieldInput.setText(""); // NOI18N
-            notifyTextAdded(column, word);
-            ComponentUtil.forceRepaint(getParent().getParent());
         }
-    }
-
-    /**
-     * Returns the text in the input text field where all occurences of
-     * {@link XmpMetadata#getXmpTokenDelimiter()} will be replaced with
-     * {@link #DELIMITER_REPLACEMENT}.
-     *
-     * This is necessary to avoid words in the list that will be considered as
-     * two or more words when returned by {@link #getText()}.
-     *
-     * @return text where the delimiter is replaced with
-     *         <code>DELIMITER_REPLACEMENT</code>
-     */
-    private String getInputWithoutDelimiter() {
-        String input = textFieldInput.getText().trim();
-        return input.replace(DELIMITER, DELIMITER_REPLACEMENT).trim();
     }
 
     @Override
@@ -277,7 +218,6 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
             Object[] values = list.getSelectedValues();
             for (Object value : values) {
                 model.removeElement(value);
-                ignoreModifyWords.remove(value.toString());
                 notifyTextRemoved(column, value.toString());
                 dirty = true;
             }
@@ -287,7 +227,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     private MessageDisplayer.ConfirmAction confirmRemoveSelectedItems() {
         return MessageDisplayer.confirm(
-                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems",
+                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, column.getDescription());
     }
 
@@ -297,7 +237,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         textFieldInput.setEditable(editable);
         buttonAddInput.setEnabled(editable);
         buttonRemoveSelection.setEnabled(editable);
-        buttonTextModifier.setEnabled(editable && textModifier != null);
+        buttonSuggestion.setEnabled(editable && suggest != null);
         list.setBackground(editable
                            ? textFieldInput.getBackground()
                            : getBackground());
@@ -308,12 +248,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         return editable;
     }
 
-    /**
-     * Adds the input as one word to the list if the list doesn't contain the
-     * input.
-     */
     private void handleButtonAddInputActionPerformed() {
-        addOneWordToList(getInputWithoutDelimiter());
+        addInputToList();
     }
 
     /**
@@ -369,6 +305,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
      */
     @Override
     public void insertUpdate(DocumentEvent e) {
+        // Don't notify TextEntryListener listeners because the model doesn't
+        // change
         dirty = true;
     }
 
@@ -379,6 +317,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
      */
     @Override
     public void removeUpdate(DocumentEvent e) {
+        // Don't notify TextEntryListener listeners because the model doesn't
+        // change
         dirty = true;
     }
 
@@ -389,6 +329,8 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
      */
     @Override
     public void changedUpdate(DocumentEvent e) {
+        // Don't notify TextEntryListener listeners because the model doesn't
+        // change
         dirty = true;
     }
 
@@ -397,50 +339,33 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
      *
      * @param evt key event
      */
-    private void modifyText(java.awt.event.KeyEvent evt) {
-        if (textModifier != null && KeyEventUtil.isControl(evt, KeyEvent.VK_K)) {
-            modifyText();
+    private void suggestText(java.awt.event.KeyEvent evt) {
+        if (KeyEventUtil.isControl(evt, KeyEvent.VK_K)) {
+            suggestText();
         }
     }
 
-    /**
-     * Invokes the text modifier and after returning sets the words of the
-     * modified text to the list if not contained there. Does nothing if no
-     * text was modified.
-     */
-    private void modifyText() {
-        String prevText = textFieldInput.getText();
-        String modifiedText =
-                textModifier.modify(prevText, new ArrayList<String>());
-        if (!modifiedText.isEmpty() &&
-                !prevText.equalsIgnoreCase(modifiedText)) {
-            addTokensToList(modifiedText);
-            textFieldInput.setText(""); // NOI18N
+    private void suggestText() {
+        String trimmedInput = textFieldInput.getText().trim();
+        if (suggest != null && !trimmedInput.isEmpty()) {
+            addToList(suggest.suggest(trimmedInput));
         }
     }
 
-    /**
-     * Adds all tokens delimited by {@link XmpMetadata#getXmpTokenDelimiter()}
-     * not contained in the list to the list.
-     *
-     * @param tokenText text delimited by
-     *                  {@link XmpMetadata#getXmpTokenDelimiter()}
-     */
-    private void addTokensToList(String tokenText) {
-        StringTokenizer st = new StringTokenizer(tokenText, DELIMITER);
+    private int addToList(Collection<String> texts) {
         int countAdded = 0;
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken().trim();
-            if (!token.isEmpty() && !model.contains(token)) {
-                model.addElement(token);
-                ignoreModifyWords.add(token);
+        for (String text : texts) {
+            String trimmedText = text.trim();
+            if (!trimmedText.isEmpty() && !model.contains(trimmedText)) {
+                model.addElement(trimmedText);
                 countAdded++;
-                notifyTextAdded(column, token);
+                notifyTextAdded(column, trimmedText);
             }
         }
         if (countAdded > 0) {
             ComponentUtil.forceRepaint(getParent().getParent());
         }
+        return countAdded;
     }
 
     private void renameSelectedListItems() {
@@ -453,24 +378,24 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     private void renameListItem(int index) {
         assert model.getElementAt(index) != null :
-                "Invalid model index: " + index +
-                ". Valid: 0.." + (model.size() - 1);
+                "Invalid model index: " + index + // NOI18N
+                ". Valid: 0.." + (model.size() - 1); // NOI18N
         boolean ready = false;
         String oldName = model.getElementAt(index).toString();
         String newName = null;
         do {
             newName = JOptionPane.showInputDialog(Bundle.getString(
-                    "EditRepeatableTextEntryPanel.Input.RenameListItem"),
+                    "EditRepeatableTextEntryPanel.Input.RenameListItem"), // NOI18N
                     oldName);
             ready = newName == null;
             if (newName != null && newName.trim().equalsIgnoreCase(oldName)) {
-                ready = confirm("EditRepeatableTextEntryPanel.Confirm.SameNames").
+                ready = confirm("EditRepeatableTextEntryPanel.Confirm.SameNames"). // NOI18N
                         equals(MessageDisplayer.ConfirmAction.NO);
                 newName = null;
             } else if (newName != null &&
                     ListUtil.containsString(list.getModel(), newName.trim())) {
                 ready = confirm(
-                        "EditRepeatableTextEntryPanel.Confirm.NameExists",
+                        "EditRepeatableTextEntryPanel.Confirm.NameExists", // NOI18N
                         newName).equals(MessageDisplayer.ConfirmAction.NO);
                 newName = null;
             } else if (newName != null && !newName.trim().isEmpty()) {
@@ -492,7 +417,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
 
     private boolean checkSelected(int selCount) {
         if (selCount <= 0) {
-            MessageDisplayer.error("EditRepeatableTextEntryPanel.Error.Select");
+            MessageDisplayer.error("EditRepeatableTextEntryPanel.Error.Select"); // NOI18N
             return false;
         }
         return true;
@@ -538,7 +463,7 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         panelButtons = new javax.swing.JPanel();
         buttonRemoveSelection = new javax.swing.JButton();
         buttonAddInput = new javax.swing.JButton();
-        buttonTextModifier = new javax.swing.JButton();
+        buttonSuggestion = new javax.swing.JButton();
 
         menuItemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_rename.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
@@ -635,16 +560,16 @@ public final class EditRepeatableTextEntryPanel extends javax.swing.JPanel
         });
         panelButtons.add(buttonAddInput);
 
-        buttonTextModifier.setMnemonic('k');
-        buttonTextModifier.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonTextModifier.text")); // NOI18N
-        buttonTextModifier.setEnabled(false);
-        buttonTextModifier.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonTextModifier.addActionListener(new java.awt.event.ActionListener() {
+        buttonSuggestion.setMnemonic('k');
+        buttonSuggestion.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
+        buttonSuggestion.setEnabled(false);
+        buttonSuggestion.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonSuggestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTextModifierActionPerformed(evt);
+                buttonSuggestionActionPerformed(evt);
             }
         });
-        panelButtons.add(buttonTextModifier);
+        panelButtons.add(buttonSuggestion);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -676,12 +601,12 @@ private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list
 }//GEN-LAST:event_listKeyPressed
 
 private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
-    modifyText(evt);
+    suggestText(evt);
 }//GEN-LAST:event_textFieldInputKeyPressed
 
-private void buttonTextModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTextModifierActionPerformed
-    modifyText();
-}//GEN-LAST:event_buttonTextModifierActionPerformed
+private void buttonSuggestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSuggestionActionPerformed
+    suggestText();
+}//GEN-LAST:event_buttonSuggestionActionPerformed
 
 private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRenameActionPerformed
     renameSelectedListItems();
@@ -693,7 +618,7 @@ private void menuItemRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GE
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddInput;
     private javax.swing.JButton buttonRemoveSelection;
-    private javax.swing.JButton buttonTextModifier;
+    private javax.swing.JButton buttonSuggestion;
     private javax.swing.JLabel labelPrompt;
     private javax.swing.JList list;
     private javax.swing.JMenuItem menuItemRemove;

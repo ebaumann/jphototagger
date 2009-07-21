@@ -38,6 +38,7 @@ public final class TextEntryContent implements TextEntry {
      */
     @Override
     public void focus() {
+        // ignore
     }
 
     /**
@@ -57,6 +58,7 @@ public final class TextEntryContent implements TextEntry {
      */
     @Override
     public void setAutocomplete() {
+        // ignore
     }
 
     /**
@@ -76,6 +78,7 @@ public final class TextEntryContent implements TextEntry {
      */
     @Override
     public void setDirty(boolean dirty) {
+        // ignore
     }
 
     @Override
@@ -91,5 +94,11 @@ public final class TextEntryContent implements TextEntry {
     @Override
     public boolean isEditable() {
         return false;
+    }
+
+    @Override
+    public void empty(boolean dirty) {
+        text = "";
+        // ignore dirty
     }
 }

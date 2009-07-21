@@ -112,7 +112,10 @@ public final class Xmp implements TextEntryListener {
      * @see    de.elmar_baumann.imv.data.Iptc#getKeywords()
      */
     public List<String> getDcSubjects() {
-        return stringListOf(ColumnXmpDcSubjectsSubject.INSTANCE);
+        List<String> list = stringListReferenceOf(ColumnXmpDcSubjectsSubject.INSTANCE);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -408,8 +411,12 @@ public final class Xmp implements TextEntryListener {
      * @see    de.elmar_baumann.imv.data.Iptc#getSupplementalCategories()
      */
     public List<String> getPhotoshopSupplementalCategories() {
-        return stringListOf(
+        List<String> list =
+                stringListReferenceOf(
                 ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -577,8 +584,19 @@ public final class Xmp implements TextEntryListener {
      *         <li>Long when set with a <code>set...()</code> method setting a
      *             Long value (lastmodified)
      */
+    @SuppressWarnings("unchecked")
     public Object getValue(Column xmpColumn) {
-        return valueOfColumn.get(xmpColumn);
+        Object o = valueOfColumn.get(xmpColumn);
+        if (o == null) return null;
+        assert o instanceof List || o instanceof String || o instanceof Long :
+                "o is neither List nor String nor Long: " + o;
+        return o instanceof List
+               ? new ArrayList<String>((List) o)
+               : o instanceof String
+                 ? (String) o
+                 : o instanceof Long
+                   ? (Long) o
+                   : null;
     }
 
     /**
@@ -660,16 +678,16 @@ public final class Xmp implements TextEntryListener {
     }
 
     @SuppressWarnings("unchecked")
-    private List<String> stringListOf(Column column) {
+    private List<String> stringListReferenceOf(Column column) {
         Object o = valueOfColumn.get(column);
         return o instanceof List
-               ? (List<String>) o
+               ? (List) o
                : null;
     }
 
     private void addToStringList(Column column, String string) {
         if (string == null) return;
-        List<String> list = stringListOf(column);
+        List<String> list = stringListReferenceOf(column);
         if (list == null) {
             list = new ArrayList<String>();
             valueOfColumn.put(column, list);
@@ -677,5 +695,10 @@ public final class Xmp implements TextEntryListener {
         if (!list.contains(string)) {
             list.add(string);
         }
+    }
+
+    @Override
+    public String toString() {
+        return valueOfColumn.toString();
     }
 }

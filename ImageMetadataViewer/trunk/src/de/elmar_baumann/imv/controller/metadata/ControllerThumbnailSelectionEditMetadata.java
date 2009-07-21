@@ -1,7 +1,5 @@
 package de.elmar_baumann.imv.controller.metadata;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import de.elmar_baumann.imv.data.SelectedFile;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -10,7 +8,6 @@ import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.lib.io.FileUtil;
-import java.io.File;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -65,7 +62,8 @@ public final class ControllerThumbnailSelectionEditMetadata implements
                 if (thumbnailsPanel.getSelectionCount() > 0) {
                     boolean canEdit = canEdit();
                     setEnabled(canEdit);
-                    setEditPanelsContent();
+                    editPanels.setFilenames(FileUtil.getAsFilenames(thumbnailsPanel.
+                            getSelectedFiles()));
                     setInfoLabel(canEdit);
                 } else {
                     appPanel.getEditPanelsArray().emptyPanels(false);
@@ -106,34 +104,4 @@ public final class ControllerThumbnailSelectionEditMetadata implements
         }
         return filenames.size() > 0;
     }
-
-    private void setEditPanelsContent() {
-        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.
-                getSelectedFiles());
-        List<XMPPropertyInfo> xmpPropertyInfos = null;
-        if (filenames.size() == 1) {
-            File file = new File(filenames.get(0));
-            synchronized (SelectedFile.INSTANCE) {
-                if (SelectedFile.INSTANCE.getFile().equals(file)) {
-                    xmpPropertyInfos = SelectedFile.INSTANCE.getPropertyInfos();
                 }
-            }
-            if (xmpPropertyInfos == null) {
-                xmpPropertyInfos =
-                        XmpMetadata.getPropertyInfosOfImageFile(filenames.get(0));
-                SelectedFile.INSTANCE.setFile(file, xmpPropertyInfos);
-            }
-            if (xmpPropertyInfos != null && xmpPropertyInfos.size() > 0) {
-                editPanels.setXmpPropertyInfos(filenames, xmpPropertyInfos);
-            } else {
-                editPanels.emptyPanels(false);
-                editPanels.setFilenames(filenames);
-            }
-        } else if (filenames.size() > 1) {
-            editPanels.emptyPanels(false);
-            editPanels.setFilenames(filenames);
-        } else if (filenames.size() <= 0) {
-            editPanels.emptyPanels(false);
-        }
-    }
-}

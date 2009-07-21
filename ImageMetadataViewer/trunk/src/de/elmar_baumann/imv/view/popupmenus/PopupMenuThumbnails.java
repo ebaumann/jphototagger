@@ -299,7 +299,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         itemUpdateMetadata.setIcon(AppIcons.getIcon("icon_metadata_refresh.png")); // NOI18N
         itemUpdateThumbnail.setIcon(AppIcons.getIcon("icon_image_refresh.png")); // NOI18N
         itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png")); // NOI18N
-        itemIptcToXmp.setIcon(AppIcons.getIcon("icon_xmp.png")); // NOI18N
+        itemIptcToXmp.setIcon(AppIcons.getIcon("icon_iptc.png")); // NOI18N
     }
 
     private void setAccelerators() {

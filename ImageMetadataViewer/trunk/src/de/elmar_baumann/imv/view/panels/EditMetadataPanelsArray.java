@@ -1,9 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.TextModifierHierarchicalKeywords;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.SuggestionHierarchicalKeywords;
 import de.elmar_baumann.imv.helper.SaveEditedMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
@@ -16,7 +14,6 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
-import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.event.TextSelectionEvent;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
@@ -31,6 +28,7 @@ import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.lib.component.TabLeavingTextArea;
+import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -41,8 +39,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -61,13 +61,13 @@ public final class EditMetadataPanelsArray implements FocusListener,
                                                       KeyListener {
 
     private final List<JPanel> panels = new ArrayList<JPanel>();
-    private List<String> filenames = new ArrayList<String>();
+    private final List<Pair<String, Xmp>> filenamesXmp =
+            new ArrayList<Pair<String, Xmp>>();
     private List<MetadataEditPanelListener> listeners =
             new LinkedList<MetadataEditPanelListener>();
     boolean editable = true;
     private JComponent container;
     private EditMetadataActionsPanel editActionsPanel;
-    private boolean isUseAutocomplete = false;
     private Component lastFocussedComponent;
     private ListenerProvider listenerProvider;
 
@@ -82,15 +82,34 @@ public final class EditMetadataPanelsArray implements FocusListener,
         setEditable(false);
     }
 
-    private void checkDirty() {
-        boolean dirty = false;
+    private boolean isDirty() {
         int size = panels.size();
-        for (int i = 0; !dirty && i < size; i++) {
-            dirty = ((TextEntry) panels.get(i)).isDirty();
+        for (int i = 0; i < size; i++) {
+            if (((TextEntry) panels.get(i)).isDirty()) return true;
         }
-        if (dirty) {
-            SaveEditedMetadata.saveMetadata(this);
+        return false;
+    }
+
+    private void checkDirty() {
+        if (isDirty()) {
+            addInputToRepeatableTextEntries();
+            SaveEditedMetadata.saveMetadata(filenamesXmp);
+            setDirty(false);
+            setFocusToLastFocussedComponent();
             SelectedFile.INSTANCE.setFile(new File(""), null); // NOI18N
+        }
+    }
+
+    private void addInputToRepeatableTextEntries() {
+        for (JPanel panel : panels) {
+            if (panel instanceof EditRepeatableTextEntryPanel) {
+                EditRepeatableTextEntryPanel editPanel =
+                        (EditRepeatableTextEntryPanel) panel;
+                String text = editPanel.getText();
+                if (!text.isEmpty()) {
+                    editPanel.addText(text);
+                }
+            }
         }
     }
 
@@ -126,34 +145,52 @@ public final class EditMetadataPanelsArray implements FocusListener,
         return editable;
     }
 
-    /**
-     * Liefert die Dateinamen, deren Daten angezeigt werden.
-     * 
-     * @return Dateinamen
-     */
-    public List<String> getFilenames() {
-        return filenames;
+    public synchronized void setFilenames(Collection<String> filenames) {
+        emptyPanels(false);
+        setXmpOfFiles(filenames);
+        setXmpToEditPanels();
+        setXmpOfFilesAsTextEntryListener(true);
     }
 
-    public void setFilenames(List<String> filenames) {
-        this.filenames = filenames;
+    private void setXmpOfFiles(Collection<String> filenames) {
+        filenamesXmp.clear();
+        for (String filename : filenames) {
+            Xmp xmp = null;
+            if (XmpMetadata.hasImageASidecarFile(filename)) {
+                xmp = XmpMetadata.getXmpOfImageFile(filename);
+            }
+            if (xmp == null) {
+                xmp = new Xmp();
+            }
+            filenamesXmp.add(new Pair<String, Xmp>(filename, xmp));
+        }
     }
 
-    /**
-     * Returns the text entries.
-     *
-     * @param  dirty   if true, only dirty entries returned
-     * @return entries
-     */
-    public List<TextEntry> getTextEntries(boolean dirty) {
-        List<TextEntry> textEntries = new ArrayList<TextEntry>(panels.size());
+    private void setXmpOfFilesAsTextEntryListener(boolean add) {
+        for (Pair<String, Xmp> pair : filenamesXmp) {
+            setXmpAsTextEntryListener(pair.getSecond(), add);
+        }
+    }
+
+    private void setXmpAsTextEntryListener(Xmp xmp, boolean add) {
         for (JPanel panel : panels) {
-            TextEntry entry = (TextEntry) panel;
-            if (!dirty || (dirty && entry.isDirty())) {
-                textEntries.add(entry.clone());
+            if (panel instanceof EditRepeatableTextEntryPanel) {
+                EditRepeatableTextEntryPanel textPanel =
+                        (EditRepeatableTextEntryPanel) panel;
+                if (add) {
+                    textPanel.addTextEntryListener(xmp);
+                } else {
+                    textPanel.removeTextEntryListener(xmp);
+                }
+            } else if (panel instanceof EditTextEntryPanel) {
+                EditTextEntryPanel textPanel = (EditTextEntryPanel) panel;
+                if (add) {
+                    textPanel.addTextEntryListener(xmp);
+                } else {
+                    textPanel.removeTextEntryListener(xmp);
+                }
             }
         }
-        return textEntries;
     }
 
     /**
@@ -170,6 +207,10 @@ public final class EditMetadataPanelsArray implements FocusListener,
             }
         }
         return null;
+    }
+
+    public Collection<Pair<String, Xmp>> getFilenamesXmp() {
+        return filenamesXmp;
     }
 
     /**
@@ -217,38 +258,86 @@ public final class EditMetadataPanelsArray implements FocusListener,
         }
     }
 
-    /**
-     * Setzt IPTC-Einträge in die einzelnen Edit-Felder.
-     * 
-     * @param filenames Dateinamen, deren Metadaten angezeigt werden
-     * @param infos     Zu setzende Einträge
-     */
-    public void setXmpPropertyInfos(List<String> filenames,
-            List<XMPPropertyInfo> infos) {
-        emptyPanels(false);
-        this.filenames = filenames;
+    private void setXmpToEditPanels() {
+        if (filenamesXmp.size() <= 0) return;
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             Column xmpColumn = textEntry.getColumn();
-            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.
-                    getIptcEntryMetaOfXmpColumn(xmpColumn);
-            List<XMPPropertyInfo> matchingInfos =
-                    XmpMetadata.getFilteredPropertyInfosOfIptcEntryMeta(
-                    iptcEntryMeta, infos);
-
-            int countMatchingInfos = matchingInfos.size();
-            StringBuffer buffer = new StringBuffer();
-            for (int i = 0; i < countMatchingInfos; i++) {
-                buffer.append((i > 0
-                               ? XmpMetadata.getXmpTokenDelimiter()
-                               : "") + // NOI18N
-                        matchingInfos.get(i).getValue().toString().trim());
+            if (textEntry instanceof EditRepeatableTextEntryPanel) {
+                EditRepeatableTextEntryPanel editPanel =
+                        (EditRepeatableTextEntryPanel) textEntry;
+                editPanel.setText(getCommonXmpCollection(xmpColumn));
+            } else if (textEntry instanceof EditTextEntryPanel) {
+                EditTextEntryPanel editPanel = (EditTextEntryPanel) textEntry;
+                editPanel.setText(getCommonXmpString(xmpColumn));
             }
-            if (buffer.length() > 0) {
-                textEntry.setText(buffer.toString());
-                textEntry.setDirty(false);
+            textEntry.setDirty(false);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private Collection<String> getCommonXmpCollection(Column column) {
+        assert filenamesXmp.size() >= 1 : "No files!"; // NOI18N
+        if (filenamesXmp.size() == 1) {
+            Object value = filenamesXmp.get(0).getSecond().getValue(column);
+            assert value == null || value instanceof List : value;
+            if (value instanceof List) {
+                return (List) value;
+            } else {
+                return new ArrayList<String>(1);
             }
         }
+        // more then 1 file
+        Stack<List<String>> lists = new Stack<List<String>>();
+        for (Pair<String, Xmp> pair : filenamesXmp) {
+            Xmp xmp = pair.getSecond();
+            Object value = xmp.getValue(column);
+            assert value == null || value instanceof List : value;
+            if (value instanceof List) {
+                lists.push((List) value);
+            }
+        }
+        if (lists.size() != filenamesXmp.size()) {
+            // 1 ore more files without metadata
+            return new ArrayList<String>(1);
+        }
+        List<String> coll = new ArrayList<String>();
+        coll = lists.pop();
+        while (!lists.isEmpty() && coll.size() > 0) {
+            coll.retainAll(lists.pop());
+        }
+        return coll;
+    }
+
+    private String getCommonXmpString(Column column) {
+        assert filenamesXmp.size() >= 1 : "No files!"; // NOI18N
+        if (filenamesXmp.size() == 1) {
+            Object value = filenamesXmp.get(0).getSecond().getValue(column);
+            assert value == null || value instanceof String : value;
+            if (value instanceof String) {
+                return ((String) value).trim();
+            } else {
+                return ""; // NOI18N
+            }
+        }
+        // more then 1 file
+        Stack<String> strings = new Stack<String>();
+        for (Pair<String, Xmp> pair : filenamesXmp) {
+            Xmp xmp = pair.getSecond();
+            Object value = xmp.getValue(column);
+            assert value == null || value instanceof String : value;
+            if (value instanceof String) {
+                strings.push(((String) value).trim());
+            }
+        }
+        if (strings.size() != filenamesXmp.size()) return ""; // NOI18N
+        String string = strings.pop();
+        while (!strings.empty()) {
+            if (!strings.pop().equalsIgnoreCase(string)) {
+                return ""; // NOI18N
+            }
+        }
+        return string;
     }
 
     private void addPanels() {
@@ -324,7 +413,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 panel.textFieldInput.addFocusListener(this);
                 panel.textFieldInput.addKeyListener(this);
                 if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                    panel.setTextModifier(new TextModifierHierarchicalKeywords());
+                    panel.setSuggest(new SuggestionHierarchicalKeywords());
                 }
                 panels.add(panel);
             } else {
@@ -340,7 +429,6 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     public void setAutocomplete() {
-        isUseAutocomplete = true;
         for (JPanel panel : panels) {
             if (panel instanceof TextEntry) {
                 TextEntry textEntry = (TextEntry) panel;
@@ -349,12 +437,13 @@ public final class EditMetadataPanelsArray implements FocusListener,
         }
     }
 
-    public void emptyPanels(boolean setDirty) {
+    public void emptyPanels(boolean dirty) {
         checkDirty();
+        // The listeners shouldn't notified when emptying text because they
+        // would delete their content
+        setXmpOfFilesAsTextEntryListener(false);
         for (JPanel panel : panels) {
-            TextEntry entry = (TextEntry) panel;
-            entry.setText(""); // NOI18N
-            entry.setDirty(setDirty);
+            ((TextEntry) panel).empty(dirty);
         }
     }
 
@@ -406,10 +495,36 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     @Override
     public void actionPerformed(DatabaseImageEvent event) {
-        if (isUseAutocomplete && event.isTextMetadataAffected()) {
-            ImageFile data = event.getImageFile();
-            if (data != null && data.getXmp() != null) {
-                addAutoCompleteData(data.getXmp());
+        if (event.isTextMetadataAffected()) {
+            ImageFile imageFile = event.getImageFile();
+            setModifiedXmp(imageFile);
+            if (imageFile != null && imageFile.getXmp() != null) {
+                addAutoCompleteData(imageFile.getXmp());
+            }
+        }
+    }
+
+    /**
+     * When the XMP was changed and the data was not edited settin the new
+     * XMP data.
+     *
+     * @param imageFile image file with new XMP data
+     */
+    private void setModifiedXmp(ImageFile imageFile) {
+        if (isDirty()) return;
+        if (imageFile != null && imageFile.getXmp() != null) {
+            String filename = imageFile.getFilename();
+            if (filename == null) return;
+            if (filenamesXmp.size() != 1) return;
+            Pair<String, Xmp> pair = filenamesXmp.get(0);
+            if (pair.getFirst().equals(filename)) {
+                Xmp xmp = imageFile.getXmp();
+                setXmpAsTextEntryListener(pair.getSecond(), false);
+                setXmpAsTextEntryListener(xmp, true);
+                filenamesXmp.set(0,
+                        new Pair<String, Xmp>(filename, xmp));
+                setXmpToEditPanels();
+                return;
             }
         }
     }
