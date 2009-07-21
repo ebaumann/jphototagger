@@ -4,7 +4,9 @@ import de.elmar_baumann.imv.types.FileEditor;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
+import de.elmar_baumann.lib.io.FileLock;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,10 +23,12 @@ public final class ExtractEmbeddedXmp extends FileEditor {
 
     @Override
     public void edit(File file) {
+        if (!IoUtil.lockLogWarning(file, this)) return;
         File sidecarFile = XmpMetadata.getSidecarFileOfImageFileIfExists(file);
         if (sidecarFile != null && !confirmRemove(sidecarFile.getAbsolutePath()))
             return;
         writeSidecarFile(file);
+        FileLock.INSTANCE.unlock(file, this);
     }
 
     private boolean confirmRemove(String absolutePath) {
@@ -45,18 +49,27 @@ public final class ExtractEmbeddedXmp extends FileEditor {
 
     private void writeSidecarFile(File file) {
         String xmp = XmpFileReader.readFile(file.getAbsolutePath());
+        FileOutputStream fos = null;
         if (xmp != null) {
             try {
                 create(file);
-                FileOutputStream fos = new FileOutputStream(new File(
+                fos = new FileOutputStream(new File(
                         XmpMetadata.suggestSidecarFilenameForImageFile(file.
                         getAbsolutePath())));
+                fos.getChannel().lock();
                 fos.write(xmp.getBytes());
                 fos.flush();
-                fos.close();
                 updateDatabase(file.getAbsolutePath());
             } catch (Exception ex) {
                 AppLog.logSevere(ExtractEmbeddedXmp.class, ex);
+            } finally {
+                if (fos != null) {
+                    try {
+                        fos.close();
+                    } catch (IOException ex) {
+                        AppLog.logSevere(ExtractEmbeddedXmp.class, ex);
+                    }
+                }
             }
         }
     }
