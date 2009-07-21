@@ -161,7 +161,6 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             if (listModel instanceof ListModelImageCollections) {
                 insertImageFilesIntoDb();
                 if (insertPrevCollectionIntoDb()) {
-                    ((ListModelImageCollections) listModel).addPrevImportItem();
                     selectPrevImportCollection();
                 }
             }

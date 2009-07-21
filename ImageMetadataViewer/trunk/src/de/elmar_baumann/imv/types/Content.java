@@ -83,7 +83,6 @@ public enum Content {
         for (Content content : values()) {
             CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED.add(content);
         }
-        CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED.remove(IMAGE_COLLECTION);
 
         // Insertion is allowed if the directory is not ambigious where the
         // files shall be inserted. This is true if all displayed thumbnails

@@ -18,6 +18,10 @@ public final class AppTexts {
             Bundle.getString("ProgressBarScheduledTasks.TooltipText"); // NOI18N
     public static final String DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT =
             Bundle.getString("DisplayName.ItemImageCollections.LastImport"); // NOI18N
+    public static final String DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED =
+            Bundle.getString("DisplayName.ItemImageCollections.Picked"); // NOI18N
+    public static final String DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED =
+            Bundle.getString("DisplayName.ItemImageCollections.Rejected"); // NOI18N
 
     private AppTexts() {
     }
