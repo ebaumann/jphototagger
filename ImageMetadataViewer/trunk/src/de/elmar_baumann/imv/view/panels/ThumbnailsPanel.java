@@ -22,6 +22,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -325,6 +326,14 @@ public abstract class ThumbnailsPanel extends JPanel
     protected abstract List<String> getKeywords(int index);
 
     /**
+     * Returns the index of a specific file.
+     *
+     * @param  file  file
+     * @return Index or -1 if not displayed
+     */
+    public abstract int getIndexOf(File file);
+
+    /**
      * Ein Popupmenü soll angezeigt werden. Per Default wird nichts übernommen.
      * Spezialisierte Klassen können diese Operation überschreiben.
      * 
@@ -368,8 +377,11 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index Index
      */
     public synchronized void repaint(int index) {
-        // fixme: optimize for specific location
-        repaint();
+        paintThumbnail(index, this.getGraphics());
+    }
+
+    public synchronized void repaint(File file) {
+        repaint(getIndexOf(file));
     }
 
     /**
