@@ -32,6 +32,7 @@ public class ThumbnailCache {
             Bundle.getString("ThumbnailCache.Path.DummyThumbnail")).getPath()));
     private Image dummyThumbnailScaled = null;
 
+    // must be called from synchronized function
     private void maybeCleanupCache() {
         if (fileCache.size() <= MAX_ENTRIES) {
             return;
@@ -39,9 +40,15 @@ public class ThumbnailCache {
         List<CacheIndirection> removeItems =
                 new ArrayList<CacheIndirection>(fileCache.values());
         Collections.sort(removeItems, new CacheIndirectionAgeComparator());
-        removeItems = removeItems.subList(0, MAX_ENTRIES / 10);
-        for (CacheIndirection item : removeItems) {
-            fileCache.remove(item.file);
+        CacheIndirection ci;
+        for (int index = 0; index < MAX_ENTRIES / 10; index++) {
+            ci = removeItems.get(index);
+            // check if this image is probably in a prefetch queue and remove it
+            if (ci.thumbnail == null || ci.subjects == null) {
+                imageWQ.remove(ci.file);
+                subjectWQ.remove(ci.file);
+            }
+            fileCache.remove(ci.file);
         }
     }
 
@@ -90,6 +97,15 @@ public class ThumbnailCache {
             }
             return queue.removeFirst();
         }
+
+        /**
+         * Remove an image from a queue.
+         *
+         * @param file
+         */
+        public synchronized void remove(File file) {
+            queue.remove(file);
+        }
     }
     private WorkQueue imageWQ = new WorkQueue();
     private WorkQueue subjectWQ = new WorkQueue();
@@ -137,7 +153,7 @@ public class ThumbnailCache {
 
         private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         private WorkQueue wq;
-        private ThumbnailCache cache;
+        private final ThumbnailCache cache;
 
         ThumbnailFetcher(WorkQueue imageWQ, ThumbnailCache _cache) {
             wq = imageWQ;
@@ -234,7 +250,7 @@ public class ThumbnailCache {
     }
 
     public synchronized void updateThumbnail(Image image, final File file) {
-        if (!fileCache.containsKey(file)) {
+        if (! fileCache.containsKey(file)) {
             return;  // stale entry
         }
         CacheIndirection ci = fileCache.get(file);
@@ -322,18 +338,23 @@ public class ThumbnailCache {
         generateEntry(file, false, true);
     }
 
-    public Image getScaledThumbnail(int index, int length) {
+    public synchronized Image getScaledThumbnail(int index, int length) {
         return getScaledThumbnail(files.get(index), length);
     }
 
-    public Image getScaledThumbnail(File file, int length) {
-        if (!fileCache.containsKey(file)) {
+    public synchronized Image getScaledThumbnail(File file, int length) {
+        boolean generated = false;
+        if (! fileCache.containsKey(file)) {
             generateEntry(file, false, false);
+            generated = true;
         }
         CacheIndirection ci = fileCache.get(file);
         updateUsageTime(ci);
 
         if (ci.thumbnail == null) {
+            if (! generated) {
+                imageWQ.push(file);  // push to front again, is current
+            }
             if (dummyThumbnailScaled == null ||
                     !correctlyScaled(dummyThumbnailScaled, length)) {
                 dummyThumbnailScaled = computeScaled(dummyThumbnail, length);
