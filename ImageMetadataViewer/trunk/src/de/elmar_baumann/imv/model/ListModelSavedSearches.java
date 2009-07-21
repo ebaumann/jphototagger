@@ -32,7 +32,8 @@ public final class ListModelSavedSearches extends DefaultListModel {
         if (index >= 0) {
             remove(index);
             ListUtil.insertSorted(
-                    this, newSearch, ComparatorSavedSearch.INSTANCE, 0);
+                    this, newSearch, ComparatorSavedSearch.INSTANCE,
+                    0, getSize() - 1);
         }
     }
 }

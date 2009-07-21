@@ -1,12 +1,18 @@
 package de.elmar_baumann.imv.view;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.view.panels.MessagePopupPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.io.File;
 import javax.swing.JTree;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -96,6 +102,53 @@ public class ViewUtil {
                 ((TreeModelAllSystemDirectories) model).expandToFile(
                         directory, true);
             }
+        }
+    }
+
+    public static void showMessagePopup(
+            final String message, final long milliseconds) {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                PopupFactory factory = PopupFactory.getSharedInstance();
+                MessagePopupPanel messagePanel = new MessagePopupPanel(message);
+                ThumbnailsPanel tnPanel =
+                        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+                int x = tnPanel.getLocationOnScreen().x +
+                        tnPanel.getWidth() / 2 - messagePanel.getWidth() / 2;
+                int y = 100;
+                Popup popup = factory.getPopup(tnPanel, messagePanel, x, y);
+                popup.show();
+                Thread thread = new Thread(new HidePopup(popup, milliseconds));
+                thread.setName("Hiding message popup @ " + getClass().getName()); // NOI18N
+                thread.setPriority(Thread.MIN_PRIORITY);
+                thread.start();
+            }
+        });
+        thread.setPriority(Thread.MIN_PRIORITY);
+        thread.setName("Showing message popup @ " + ViewUtil.class.getName()); // NOI18N
+        thread.start();
+    }
+
+    private static class HidePopup implements Runnable {
+
+        private final Popup popup;
+        private final long milliseconds;
+
+        public HidePopup(Popup popup, long milliseconds) {
+            this.popup = popup;
+            this.milliseconds = milliseconds;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(milliseconds);
+            } catch (InterruptedException ex) {
+                AppLog.logSevere(ViewUtil.class, ex);
+            }
+            popup.hide();
         }
     }
 

@@ -48,6 +48,8 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+            if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION))
+                return;
             delete();
         }
     }

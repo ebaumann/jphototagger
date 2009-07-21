@@ -2,16 +2,21 @@ package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 
 /**
  * Listens to the menu item {@link ImageFileThumbnailsPanel} to key events
@@ -20,14 +25,22 @@ import javax.swing.JList;
  * If the key <strong>P</strong> was pressed, this class adds the selected
  * thumbnails to the <strong>Pick</strong> collection and if the key
  * <strong>R</strong> was pressed to the <strong>Reject</strong> collection.
+ * <p>
+ * Also listens to the {@link PopupMenuThumbnails#getItemPick()} and
+ * {@link PopupMenuThumbnails#getItemReject()} and does the same as by the
+ * key events <strong>P</strong> or <strong>R</strong>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-21
  */
-public final class ControllerPickReject implements KeyListener {
+public final class ControllerPickReject implements ActionListener, KeyListener {
 
-    private ImageFileThumbnailsPanel panelThumbnails =
+    private final ImageFileThumbnailsPanel panelThumbnails =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final JMenuItem itemPick =
+            PopupMenuThumbnails.INSTANCE.getItemPick();
+    private final JMenuItem itemReject =
+            PopupMenuThumbnails.INSTANCE.getItemReject();
 
     public ControllerPickReject() {
         listen();
@@ -35,21 +48,33 @@ public final class ControllerPickReject implements KeyListener {
 
     private void listen() {
         panelThumbnails.addKeyListener(this);
+        itemPick.addActionListener(this);
+        itemReject.addActionListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_P) {
-            addRemove(true);
+            addOrRemove(true);
         } else if (e.getKeyCode() == KeyEvent.VK_R) {
-            addRemove(false);
+            addOrRemove(false);
         }
     }
 
-    private void addRemove(boolean pick) {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(itemPick)) {
+            addOrRemove(true);
+        } else if (e.getSource().equals(itemReject)) {
+            addOrRemove(false);
+        }
+    }
+
+    private void addOrRemove(boolean pick) {
         if (pick && isPickCollection() || !pick && isRejectCollection()) return;
         if (panelThumbnails.getSelectionCount() > 0) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
+            ViewUtil.showMessagePopup(getPopupMessage(pick), 1000);
             addToCollection(
                     pick
                     ? AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED
@@ -64,6 +89,12 @@ public final class ControllerPickReject implements KeyListener {
                 panelThumbnails.remove(selFiles);
             }
         }
+    }
+
+    private String getPopupMessage(boolean pick) {
+        return pick
+                ? Bundle.getString("ControllerPickReject.Info.Pick")
+                : Bundle.getString("ControllerPickReject.Info.Reject");
     }
 
     private boolean isPickCollection() {

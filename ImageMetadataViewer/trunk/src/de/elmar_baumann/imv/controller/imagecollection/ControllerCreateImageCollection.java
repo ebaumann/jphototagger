@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -63,8 +62,8 @@ public final class ControllerCreateImageCollection
     }
 
     private void createImageCollectionOfSelectedFiles() {
-        final String collectionName = ModifyImageCollections.
-                insertImageCollection(
+        final String collectionName =
+                ModifyImageCollections.insertImageCollection(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (collectionName != null) {
             SwingUtilities.invokeLater(new Runnable() {
@@ -76,7 +75,9 @@ public final class ControllerCreateImageCollection
                         ListUtil.insertSorted((ListModelImageCollections) model,
                                 collectionName,
                                 ComparatorStringAscending.IGNORE_CASE,
-                                getSortIndex(model));
+                                ListModelImageCollections.
+                                getSpecialCollectionCount(),
+                                model.getSize() - 1);
                     }
                 }
             });
@@ -85,16 +86,6 @@ public final class ControllerCreateImageCollection
                     getString(
                     "ControllerCreateImageCollection.Error.Create")); // NOI18N
         }
-    }
-
-    private int getSortIndex(ListModel model) {
-        Object firstElement = model.getElementAt(0);
-        return firstElement == null
-               ? 0
-               : firstElement.toString().equalsIgnoreCase(
-                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT)
-                 ? 1
-                 : 0;
     }
 
     @Override

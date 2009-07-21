@@ -94,6 +94,10 @@ public final class ControllerMenuItemEnabler
                 popupThumbnails.getItemFileSystemRenameFiles());
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getItemIptcToXmp());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemPick());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getItemReject());
     }
 
     private void setEnabled() {

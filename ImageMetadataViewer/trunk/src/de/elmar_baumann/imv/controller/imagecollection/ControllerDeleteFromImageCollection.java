@@ -22,8 +22,7 @@ import javax.swing.SwingUtilities;
 /**
  * Listens to key events of {@link ImageFileThumbnailsPanel} and when the
  * <code>DEL</code> key was pressed deletes the selected files from the
- * file system if the panel's content <em>is</em>
- * {@link Content#IMAGE_COLLECTION}.
+ * image collection.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-00-10

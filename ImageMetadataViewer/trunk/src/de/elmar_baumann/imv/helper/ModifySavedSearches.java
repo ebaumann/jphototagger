@@ -36,7 +36,8 @@ public final class ModifySavedSearches {
                         ListModelSavedSearches model = getModel();
                         if (!model.contains(savedSearch)) {
                             ListUtil.insertSorted(model, savedSearch,
-                                    ComparatorSavedSearch.INSTANCE, 0);
+                                    ComparatorSavedSearch.INSTANCE,
+                                    0, model.getSize() - 1);
                         }
                     } else {
                         MessageDisplayer.error(

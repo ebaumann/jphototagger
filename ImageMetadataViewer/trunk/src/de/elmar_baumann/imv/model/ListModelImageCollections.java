@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.app.AppTexts;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.lib.componentutil.ListUtil;
@@ -40,11 +41,16 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     public void rename(String oldName, String newName) {
+        if (!checkIsNotSpecialCollection(newName,
+                "ListModelImageCollections.Error.RenameSpecialCollection"))
+            return;
         int index = indexOf(oldName);
         if (index >= 0) {
             remove(index);
             ListUtil.insertSorted(this, newName,
-                    ComparatorStringAscending.IGNORE_CASE, 0);
+                    ComparatorStringAscending.IGNORE_CASE,
+                    getSpecialCollectionCount(),
+                    getSize() - 1);
         }
     }
 
@@ -65,11 +71,44 @@ public final class ListModelImageCollections extends DefaultListModel {
         }
     }
 
-    // ignores case
-    private boolean isSpecialCollection(String name) {
+    public static int getSpecialCollectionCount() {
+        return SPECIAL_COLLECTIONS.size();
+    }
+
+    /**
+     * Returns wheter a collection is a special image collection, e.g. for
+     * picked or rejected images.
+     *
+     * @param  collectionName name of the collection (the name is the identifier)
+     * @return                true if that name is the name of a special image
+     *                        collection
+     */
+    public static boolean isSpecialCollection(String collectionName) {
         for (String collection : SPECIAL_COLLECTIONS) {
-            if (collection.equalsIgnoreCase(name)) return true;
+            if (collection.equalsIgnoreCase(collectionName)) return true;
         }
         return false;
+    }
+
+    /**
+     * Checks whether an image collection isn't a special collection and when it
+     * is, displays a warning message with the name of the image collection as
+     * parameter.
+     * 
+     * @param  collectionName name of the image collection
+     * @param  propertyKey    property key to load the warning message. If it
+     *                        has a parameter zero, that will be replaced with
+     *                        the name of the image collection
+     * @return                true if everything is ok: the image collection is
+     *                        <em>not</em> a special collection
+     */
+    public static boolean checkIsNotSpecialCollection(
+            String collectionName, String propertyKey) {
+
+        if (isSpecialCollection(collectionName)) {
+            MessageDisplayer.warning(propertyKey, collectionName);
+            return false;
+        }
+        return true;
     }
 }
