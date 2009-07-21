@@ -35,12 +35,16 @@ import javax.swing.tree.TreePath;
 public class ControllerAddHierarchicalKeywordsToEditPanel
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel panelKeywords =
-            HierarchicalKeywordsDialog.INSTANCE.getPanel();
-    private final EditMetadataPanelsArray editPanels =
-            GUI.INSTANCE.getAppPanel().getEditPanelsArray();
+    private final HierarchicalKeywordsPanel panelKeywords;
 
     public ControllerAddHierarchicalKeywordsToEditPanel() {
+        panelKeywords = HierarchicalKeywordsDialog.INSTANCE.getPanel();
+        listen();
+    }
+
+    public ControllerAddHierarchicalKeywordsToEditPanel(
+            HierarchicalKeywordsPanel panelKeywords) {
+        this.panelKeywords = panelKeywords;
         listen();
     }
 
@@ -78,6 +82,8 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
     }
 
     private void addToEditPanel(List<String> keywordNames) {
+        EditMetadataPanelsArray editPanels =
+                GUI.INSTANCE.getAppPanel().getEditPanelsArray();
         JPanel panel = editPanels.getEditPanel(
                 ColumnXmpDcSubjectsSubject.INSTANCE);
         if (panel instanceof EditRepeatableTextEntryPanel) {
