@@ -8,14 +8,18 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.lang.ref.SoftReference;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 import javax.swing.SwingUtilities;
 
 /**
@@ -26,6 +30,11 @@ import javax.swing.SwingUtilities;
 public class ThumbnailCache {
 
     private ThumbnailsPanel panel;
+    /* carefull, don't set too high.  Although hard memory overruns will be
+     * prevented by the SoftReferences, I have seen
+     * "java.lang.OutOfMemoryError: GC overhead limit exceeded" things with
+     * values of 3500.
+     */
     private final int MAX_ENTRIES = 1500;
     private Image dummyThumbnail = ThumbnailUtil.loadImage(
             new File(getClass().getResource(
@@ -37,6 +46,7 @@ public class ThumbnailCache {
             Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")).
             getPath()));
 
+    /*
     // must be called from synchronized function
     private void maybeCleanupCache() {
         if (fileCache.size() <= MAX_ENTRIES) {
@@ -58,6 +68,7 @@ public class ThumbnailCache {
             }
         }
     }
+     */
 
     // based on http://www.exampledepot.com/egs/java.lang/WorkQueue.html
     private class WorkQueue {
@@ -135,22 +146,123 @@ public class ThumbnailCache {
     }
 
     private class CacheIndirectionAgeComparator
-            implements Comparator<CacheIndirection> {
+            implements Comparator<Entry<File, SoftReference<CacheIndirection>>> {
 
         @Override
-        public int compare(CacheIndirection o1, CacheIndirection o2) {
-            return (o1.usageTime < o2.usageTime
-                    ? -1
-                    : (o1.usageTime == o2.usageTime
-                       ? 0
-                       : 1));
+        public int compare(Entry<File, SoftReference<CacheIndirection>> o1,
+                           Entry<File, SoftReference<CacheIndirection>> o2) {
+            CacheIndirection c;
+            int t1, t2;
+
+            c = o1.getValue().get();
+            if (c == null) {
+                t1 = 0;
+            } else {
+                t1 = o1.getValue().get().usageTime;
+            }
+
+            c = o2.getValue().get();
+            if (c == null) {
+                t2 = 0;
+            } else {
+                t2 = o2.getValue().get().usageTime;
+            }
+
+            return (t1 < t2 ? -1 : (t1 == t2 ? 0 : 1));
+        }
+    }
+
+    private class SoftCacheMap {
+        HashMap<File, SoftReference<CacheIndirection>> _map =
+                new HashMap<File, SoftReference<CacheIndirection>>();
+        private final int MAX_ENTRIES;
+
+        public SoftCacheMap(int maxEntries) {
+            MAX_ENTRIES = maxEntries;
+        }
+
+        CacheIndirection get(File k) {
+            SoftReference<CacheIndirection> sr = _map.get(k);
+            if (sr == null) {
+                return null;
+            }
+            return sr.get();
+        }
+
+        CacheIndirection put(File k, CacheIndirection v) {
+            SoftReference<CacheIndirection> sr = _map.put(k, new SoftReference<CacheIndirection>(v));
+            if (sr == null) {
+                return null;
+            }
+            return sr.get();
+        }
+
+        CacheIndirection remove(File k) {
+            SoftReference<CacheIndirection> sr = _map.remove(k);
+            if (sr == null) {
+                return null;
+            }
+            return sr.get();
+        }
+
+        int size() {
+            return _map.size();
+        }
+
+        boolean containsKey(File k) {
+            if (! _map.containsKey(k)) {
+                return false;
+            }
+            return _map.get(k).get() != null;
+        }
+
+        public void maybeCleanupCache() {
+            /* 1. get EntrySet
+             * 2. sort entries according to age in softref, empty softrefs
+             *    first, using a sorted set
+             * 3. iterate over first n elements and remove them from original
+             *    cache
+             */
+            if (size() <= MAX_ENTRIES) {
+                return;
+            }
+
+            NavigableSet<Entry<File, SoftReference<CacheIndirection>>> removes =
+                    new TreeSet<Entry<File, SoftReference<CacheIndirection>>>
+                    (new CacheIndirectionAgeComparator());
+            removes.addAll(_map.entrySet());
+            Iterator<Entry<File, SoftReference<CacheIndirection>>> it = removes.iterator();
+
+            Entry<File, SoftReference<CacheIndirection>> e;
+            CacheIndirection ci;
+            for (int index = 0;
+                 index < MAX_ENTRIES / 10 && it.hasNext();
+                 index++) {
+                e = it.next();
+                if (e.getValue() == null) {
+                    _map.remove(e.getKey());
+                    continue;
+                }
+                ci = e.getValue().get();
+                if (ci == null) {
+                    _map.remove(e.getKey());
+                    continue;
+                }
+                synchronized(ci) {
+                    // check if this image is probably in a prefetch queue and remove it
+                    if (ci.thumbnail == null || ci.subjects == null) {
+                        imageWQ.remove(ci.file);
+                        subjectWQ.remove(ci.file);
+                    }
+                    _map.remove(ci.file);
+                }
+            }
         }
     }
     /**
      * Mapping from file to all kinds of cached data
      */
-    private final Map<File, CacheIndirection> fileCache =
-            new HashMap<File, CacheIndirection>();
+    private final SoftCacheMap fileCache = new SoftCacheMap(MAX_ENTRIES);
     /**
      * Mapping from index to filename
      */
@@ -273,7 +385,7 @@ public class ThumbnailCache {
         updateUsageTime(ci);
         ci.thumbnail = image;
         ci.scaled = null;
-        maybeCleanupCache();
+        fileCache.maybeCleanupCache();
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
@@ -290,7 +402,7 @@ public class ThumbnailCache {
         CacheIndirection ci = fileCache.get(file);
         updateUsageTime(ci);
         ci.subjects = subjects;
-        maybeCleanupCache();
+        fileCache.maybeCleanupCache();
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
