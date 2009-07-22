@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Support to add, remove and notify {@link TextEntryListener}s.
  *
- * @author  Elmar Baumann <ebaumann@feitsch.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/07/20
  */
 public final class TextEntryListenerSupport {
