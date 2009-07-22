@@ -29,11 +29,13 @@ public class ThumbnailCache {
     private final int MAX_ENTRIES = 1500;
     private Image dummyThumbnail = ThumbnailUtil.loadImage(
             new File(getClass().getResource(
-            Bundle.getString("ThumbnailCache.Path.DummyThumbnail")).getPath()));
+            Bundle.getString("ThumbnailCache.Path.DummyThumbnail")).
+            getPath()));
     private Image dummyThumbnailScaled = null;
     private Image noPreviewThumbnail = ThumbnailUtil.loadImage(
             new File(getClass().getResource(
-            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")).getPath()));
+            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")).
+            getPath()));
 
     // must be called from synchronized function
     private void maybeCleanupCache() {
@@ -46,12 +48,14 @@ public class ThumbnailCache {
         CacheIndirection ci;
         for (int index = 0; index < MAX_ENTRIES / 10; index++) {
             ci = removeItems.get(index);
-            // check if this image is probably in a prefetch queue and remove it
-            if (ci.thumbnail == null || ci.subjects == null) {
-                imageWQ.remove(ci.file);
-                subjectWQ.remove(ci.file);
+            synchronized(ci) {
+                // check if this image is probably in a prefetch queue and remove it
+                if (ci.thumbnail == null || ci.subjects == null) {
+                    imageWQ.remove(ci.file);
+                    subjectWQ.remove(ci.file);
+                }
+                fileCache.remove(ci.file);
             }
-            fileCache.remove(ci.file);
         }
     }
 
@@ -117,7 +121,7 @@ public class ThumbnailCache {
     private class CacheIndirection {
 
         public int usageTime;
-        public File file;
+        final public File file;
         public Image thumbnail;
         public Image scaled;
         public List<String> subjects;
@@ -212,13 +216,19 @@ public class ThumbnailCache {
 
     public ThumbnailCache(ThumbnailsPanel _panel) {
         panel = _panel;
-        // fixme: we may want to have threadpools here later on.
-        Thread sft = new Thread(new SubjectFetcher(subjectWQ, this),
-                "SubjectFetcher");
-        sft.start();
-        Thread tft = new Thread(new ThumbnailFetcher(imageWQ, this),
-                "ThumbnailFetcher");
-        tft.start();
+        new Thread(new SubjectFetcher(subjectWQ, this),
+                   "SubjectFetcher").start();
+
+        ThumbnailFetcher tf = new ThumbnailFetcher(imageWQ, this);
+        new Thread(tf, "ThumbnailFetcher1").start();
+        // more threads does not seem to help much, instead it increases the
+        // latency a bit for redraw, as newly pushed requests can not overtake
+        // active request, which we have more of with many threads.
+        /*
+        new Thread(tf, "ThumbnailFetcher2").start();
+        new Thread(tf, "ThumbnailFetcher3").start();
+        new Thread(tf, "ThumbnailFetcher4").start();
+         */
     }
 
     /**
@@ -312,7 +322,7 @@ public class ThumbnailCache {
     }
 
     public synchronized Image getThumbnail(File file) {
-        if (!fileCache.containsKey(file)) {
+        if (! fileCache.containsKey(file)) {
             generateEntry(file, false, false);
         }
         CacheIndirection ci = fileCache.get(file);
@@ -362,7 +372,7 @@ public class ThumbnailCache {
                 imageWQ.push(file);  // push to front again, is current
             }
             if (dummyThumbnailScaled == null ||
-                    !correctlyScaled(dummyThumbnailScaled, length)) {
+                ! correctlyScaled(dummyThumbnailScaled, length)) {
                 dummyThumbnailScaled = computeScaled(dummyThumbnail, length);
             }
             return dummyThumbnailScaled;
