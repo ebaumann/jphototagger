@@ -153,39 +153,17 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         this.files.addAll(files);
         thumbCache.setFiles(files);
         this.content = content;
-        Thread thread = new Thread(new SetFiles(this));
-        thread.setName("Setting files to thumbnails panel" + " @ " + // NOI18N
-                getClass().getName());
-        thread.start();
-    }
 
-    private class SetFiles implements Runnable {
-
-        private final ThumbnailsPanel panel;
-
-        public SetFiles(ThumbnailsPanel panel) {
-            this.panel = panel;
+        InfoSettingThumbnails info = new InfoSettingThumbnails();
+        if (!content.equals(Content.IMAGE_COLLECTION)) {
+            Collections.sort(files, fileSort.getComparator());
         }
-
-        @Override
-        public void run() {
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    InfoSettingThumbnails info = new InfoSettingThumbnails();
-                    if (!content.equals(Content.IMAGE_COLLECTION)) {
-                        Collections.sort(files, fileSort.getComparator());
-                    }
-                    setNewThumbnails(files.size());
-                    if (hadFiles) scrollToTop();
-                    hadFiles = true;
-                    setMissingFilesFlags();
-                    panel.forceRepaint();
-                    info.hide();
-                }
-            });
-        }
+        setNewThumbnails(files.size());
+        if (hadFiles) scrollToTop();
+        hadFiles = true;
+        setMissingFilesFlags();
+        forceRepaint();
+        info.hide();
     }
 
     /**
