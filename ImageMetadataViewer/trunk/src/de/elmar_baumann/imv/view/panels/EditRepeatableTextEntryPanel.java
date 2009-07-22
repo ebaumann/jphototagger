@@ -226,7 +226,7 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private MessageDisplayer.ConfirmAction confirmRemoveSelectedItems() {
-        return MessageDisplayer.confirm(
+        return MessageDisplayer.confirm(this,
                 "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, column.getDescription());
     }
@@ -384,7 +384,7 @@ public final class EditRepeatableTextEntryPanel
         String oldName = model.getElementAt(index).toString();
         String newName = null;
         do {
-            newName = JOptionPane.showInputDialog(Bundle.getString(
+            newName = JOptionPane.showInputDialog(this, Bundle.getString(
                     "EditRepeatableTextEntryPanel.Input.RenameListItem"), // NOI18N
                     oldName);
             ready = newName == null;
@@ -411,13 +411,13 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private MessageDisplayer.ConfirmAction confirm(String key, Object... params) {
-        return MessageDisplayer.confirm(key, MessageDisplayer.CancelButton.HIDE,
-                params);
+        return MessageDisplayer.confirm(
+                this, key, MessageDisplayer.CancelButton.HIDE, params);
     }
 
     private boolean checkSelected(int selCount) {
         if (selCount <= 0) {
-            MessageDisplayer.error("EditRepeatableTextEntryPanel.Error.Select"); // NOI18N
+            MessageDisplayer.error(this, "EditRepeatableTextEntryPanel.Error.Select"); // NOI18N
             return false;
         }
         return true;

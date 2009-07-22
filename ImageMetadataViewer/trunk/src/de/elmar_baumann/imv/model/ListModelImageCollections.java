@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +107,10 @@ public final class ListModelImageCollections extends DefaultListModel {
             String collectionName, String propertyKey) {
 
         if (isSpecialCollection(collectionName)) {
-            MessageDisplayer.warning(propertyKey, collectionName);
+            MessageDisplayer.warning(
+                    GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                    propertyKey,
+                    collectionName);
             return false;
         }
         return true;

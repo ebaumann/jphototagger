@@ -11,7 +11,6 @@ import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.imv.view.dialogs.ProgramPropertiesDialog;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererPrograms;
 import de.elmar_baumann.lib.image.util.IconUtil;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -98,7 +97,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private boolean askRemove(String otherImageOpenApp) {
-        return MessageDisplayer.confirm(
+        return MessageDisplayer.confirm(this,
                 "UserSettingsDialog.Confirm.RemoveImageOpenApp", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, otherImageOpenApp).equals(
                 MessageDisplayer.ConfirmAction.YES);

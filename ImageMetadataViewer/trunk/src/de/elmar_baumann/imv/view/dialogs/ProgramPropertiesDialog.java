@@ -111,7 +111,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             accecpted = true;
             setVisible(false);
         } else {
-            MessageDisplayer.error(
+            MessageDisplayer.error(this,
                     "ProgramPropertiesDialog.Error.MissingData"); // NOI18N
         }
     }
@@ -169,7 +169,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                 labelFile.setText(file.getAbsolutePath());
                 setProgramIcon();
             } else {
-                MessageDisplayer.error(
+                MessageDisplayer.error(this,
                         "ProgramPropertiesDialog.Error.ChooseFile"); // NOI18N
             }
         }

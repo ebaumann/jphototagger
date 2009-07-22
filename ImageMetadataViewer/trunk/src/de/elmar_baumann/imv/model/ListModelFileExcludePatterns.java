@@ -29,7 +29,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     public void insertPattern(String pattern) {
         String trimmedPattern = pattern.trim();
         if (db.existsFileExcludePattern(trimmedPattern)) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(null,
                     "ListModelFileExcludePatterns.Error.InsertPattern.Exists", // NOI18N
                     trimmedPattern);
         }
@@ -37,7 +37,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
-            MessageDisplayer.error(
+            MessageDisplayer.error(null,
                     "ListModelFileExcludePatterns.Error.InsertPattern.Add", // NOI18N
                     trimmedPattern);
         }
@@ -49,7 +49,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
-            MessageDisplayer.error(
+            MessageDisplayer.error(null,
                     "ListModelFileExcludePatterns.Error.Delete", // NOI18N
                     trimmedPattern);
         }

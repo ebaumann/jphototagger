@@ -198,11 +198,12 @@ public final class ControllerMetadataTemplates implements ActionListener,
         boolean abort = false;
         String name = null;
         while (exists && !abort) {
-            name = JOptionPane.showInputDialog(Bundle.getString(
+            name = JOptionPane.showInputDialog(buttonMetadataTemplateCreate,
+                    Bundle.getString(
                     "ControllerMetadataTemplates.Input.TemplateName"), name); // NOI18N
             exists = name != null && db.existsMetadataEditTemplate(name);
             if (exists) {
-                abort = confirmAbort(name);
+                abort = confirmOverride(name);
             }
             if (exists && abort) {
                 name = null;
@@ -212,14 +213,14 @@ public final class ControllerMetadataTemplates implements ActionListener,
     }
 
     private boolean confirmDelete(String templateName) {
-        return MessageDisplayer.confirm(
+        return MessageDisplayer.confirm(buttonMetadataTemplateDelete,
                 "ControllerMetadataTemplates.Confirm.Delete", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, templateName).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
 
-    private boolean confirmAbort(String name) {
-        return MessageDisplayer.confirm(
+    private boolean confirmOverride(String name) {
+        return MessageDisplayer.confirm(buttonMetadataTemplateRename,
                 "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, name).equals(
                 MessageDisplayer.ConfirmAction.NO);

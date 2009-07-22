@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.imv.resource.Bundle;
+import java.awt.Component;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -31,40 +32,46 @@ public final class MessageDisplayer {
     /**
      * Displays an error message.
      * 
+     * @param component   parent component or null
      * @param propertyKey property key for {@link Bundle}. If in the property
      *                    file exists a key having the same name plus the
      *                    postfix <code>.Title</code> this key is used for the
      *                    title. Else a default title will be set.
      * @param params      parameters for message format placeholders
      */
-    public static void error(String propertyKey, Object... params) {
-        message(propertyKey, JOptionPane.ERROR_MESSAGE, params);
+    public static void error(
+            Component component, String propertyKey, Object... params) {
+        message(component, propertyKey, JOptionPane.ERROR_MESSAGE, params);
     }
 
     /**
      * Displays an warning message.
      *
+     * @param component   parent component or null
      * @param propertyKey property key for {@link Bundle}. If in the property
      *                    file exists a key having the same name plus the
      *                    postfix <code>.Title</code> this key is used for the
      *                    title. Else a default title will be set.
      * @param params      parameters for message format placeholders
      */
-    public static void warning(String propertyKey, Object... params) {
-        message(propertyKey, JOptionPane.WARNING_MESSAGE, params);
+    public static void warning(
+            Component component, String propertyKey, Object... params) {
+        message(component, propertyKey, JOptionPane.WARNING_MESSAGE, params);
     }
 
     /**
      * Displays an information message.
      *
+     * @param component   parent component or null
      * @param propertyKey property key for {@link Bundle}. If in the property
      *                    file exists a key having the same name plus the
      *                    postfix <code>.Title</code> this key is used for the
      *                    title. Else a default title will be set.
      * @param params      parameters for message format placeholders
      */
-    public static void information(String propertyKey, Object... params) {
-        message(propertyKey, JOptionPane.INFORMATION_MESSAGE, params);
+    public static void information(
+            Component component, String propertyKey, Object... params) {
+        message(component, propertyKey, JOptionPane.INFORMATION_MESSAGE, params);
     }
 
     /**
@@ -147,6 +154,7 @@ public final class MessageDisplayer {
     /**
      * Displays a confirm message.
      *
+     * @param component    component where to display the dialog or null
      * @param propertyKey  property key for {@link Bundle}. There also a key for
      *                     the title has to be in the properties file with the
      *                     same name and the postfix <code>.Title</code>
@@ -155,9 +163,13 @@ public final class MessageDisplayer {
      * @return             user action
      */
     public static ConfirmAction confirm(
-            String propertyKey, CancelButton cancelButton, Object... params) {
+            Component component,
+            String propertyKey,
+            CancelButton cancelButton,
+            Object... params) {
+
         return ConfirmAction.actionOfOptionType(
-                JOptionPane.showConfirmDialog(null,
+                JOptionPane.showConfirmDialog(component,
                 Bundle.getString(propertyKey, params),
                 getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
                 cancelButton.isShow()
@@ -165,12 +177,14 @@ public final class MessageDisplayer {
                 : JOptionPane.YES_NO_OPTION));
     }
 
-    private static void message(String propertyKey, int type, Object... params) {
-        JOptionPane.showMessageDialog(null,
+    private static void message(
+            Component component, String propertyKey, int type, Object... params) {
+
+        JOptionPane.showMessageDialog(
+                component,
                 Bundle.getString(propertyKey, params),
                 getTitle(propertyKey, type),
                 type);
-
     }
 
     private static String getTitle(String propertyKey, int messageType) {

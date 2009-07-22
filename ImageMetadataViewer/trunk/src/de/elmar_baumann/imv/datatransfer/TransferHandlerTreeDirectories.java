@@ -129,7 +129,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
 
     private static boolean confirmFileAction(
             String bundleKey, int size, String absolutePath) {
-        return MessageDisplayer.confirm(bundleKey,
+        return MessageDisplayer.confirm(null, bundleKey,
                 MessageDisplayer.CancelButton.HIDE, size, absolutePath).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }

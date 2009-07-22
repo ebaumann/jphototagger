@@ -76,7 +76,7 @@ public final class MoveToDirectoryDialog extends Dialog
 
     private void checkClosing() {
         if (runs) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(this,
                     "MoveToDirectoryDialog.Error.AbortBeforeClose"); // NOI18N
         } else {
             setVisible(false);
@@ -85,7 +85,7 @@ public final class MoveToDirectoryDialog extends Dialog
 
     private void checkErrors() {
         if (errors) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(this,
                     "MoveToDirectoryDialog.Error.CheckLogfile"); // NOI18N
         }
     }

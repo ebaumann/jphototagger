@@ -38,7 +38,7 @@ public final class IoUtil {
                         openCommand));
             } catch (IOException ex) {
                 AppLog.logSevere(IoUtil.class, ex);
-                MessageDisplayer.error("IoUtil.Error.OpenFile"); // NOI18N
+                MessageDisplayer.error(null, "IoUtil.Error.OpenFile"); // NOI18N
             }
         }
     }

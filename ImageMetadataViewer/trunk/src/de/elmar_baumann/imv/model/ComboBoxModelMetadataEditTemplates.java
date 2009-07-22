@@ -108,7 +108,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
     }
 
     private void errorMessage(String name, String cause) {
-        MessageDisplayer.error(
+        MessageDisplayer.error(null,
                 "ComboBoxModelMetadataEditTemplates.Error.Template", // NOI18N
                 name, cause);
     }

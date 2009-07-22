@@ -61,7 +61,7 @@ public final class StartPrograms {
 
     private boolean checkFilecount(List<File> imageFiles) {
         if (imageFiles.size() <= 0) {
-            MessageDisplayer.error("ProgramStarter.Error.Selection"); // NOI18N
+            MessageDisplayer.error(null, "ProgramStarter.Error.Selection"); // NOI18N
             return false;
         }
         return true;

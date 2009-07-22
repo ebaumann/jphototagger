@@ -20,7 +20,7 @@ public final class ControllerAboutApp implements ActionListener {
     }
 
     private void showAbout() {
-        MessageDisplayer.information(
+        MessageDisplayer.information(null,
                 "ControllerAboutApp.Info.About", // NOI18N
                 AppInfo.APP_NAME, AppInfo.APP_VERSION);
     }

@@ -69,7 +69,7 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
         JTree tree = panelKeywords.getTree();
         TreePath path = tree.getSelectionPath();
         if (path == null) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(panelKeywords.getTree(),
                     "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
@@ -94,11 +94,11 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
                     editPanel.addText(keywordName);
                 }
             } else {
-                MessageDisplayer.error(
+                MessageDisplayer.error(panelKeywords.getTree(),
                         "ControllerAddHierarchicalKeywordsToEditPanel.Error.EditDisabled"); // NOI18N
             }
         } else {
-            MessageDisplayer.error(
+            MessageDisplayer.error(panelKeywords.getTree(),
                     "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoEditPanel"); // NOI18N
         }
     }

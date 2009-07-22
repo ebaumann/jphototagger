@@ -96,7 +96,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void informationMessageNoFilesFound() {
-        if (MessageDisplayer.confirm(
+        if (MessageDisplayer.confirm(null,
                 "ControllerAutocopyDirectory.Info.NoFilesFound", // NOI18N
                 MessageDisplayer.CancelButton.HIDE).equals(
                 MessageDisplayer.ConfirmAction.YES)) {
@@ -106,7 +106,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private boolean confirmSetAutocopyDirectory() {
-        return MessageDisplayer.confirm(
+        return MessageDisplayer.confirm(null,
                 "ControllerAutocopyDirectory.Confirm.DefineDirectory", // NOI18N
                 MessageDisplayer.CancelButton.HIDE).equals(
                 MessageDisplayer.ConfirmAction.YES);

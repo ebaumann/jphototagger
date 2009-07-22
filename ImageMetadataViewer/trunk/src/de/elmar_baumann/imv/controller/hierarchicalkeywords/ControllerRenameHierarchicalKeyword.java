@@ -66,7 +66,7 @@ public class ControllerRenameHierarchicalKeyword
         JTree tree = panel.getTree();
         TreePath path = tree.getSelectionPath();
         if (path == null) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(panel.getTree(),
                     "ControllerRenameHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
@@ -77,7 +77,7 @@ public class ControllerRenameHierarchicalKeyword
                 if (userObject instanceof HierarchicalKeyword) {
                     renameKeyword(keywordNode, (HierarchicalKeyword) userObject);
                 } else {
-                    MessageDisplayer.error(
+                    MessageDisplayer.error(panel.getTree(),
                             "ControllerRenameHierarchicalKeyword.Error.Node", // NOI18N
                             node);
                 }
@@ -89,7 +89,7 @@ public class ControllerRenameHierarchicalKeyword
             DefaultMutableTreeNode node, HierarchicalKeyword keyword) {
         TreeModel tm = panel.getTree().getModel();
         if (tm instanceof TreeModelHierarchicalKeywords) {
-            String newName = getName(keyword, db);
+            String newName = getName(keyword, db, panel.getTree());
             if (newName != null && !newName.trim().isEmpty()) {
                 keyword.setKeyword(newName);
                 ((TreeModelHierarchicalKeywords) tm).changed(node, keyword);
@@ -102,12 +102,15 @@ public class ControllerRenameHierarchicalKeyword
     }
 
     static String getName(
-            HierarchicalKeyword keyword, DatabaseHierarchicalKeywords database) {
+            HierarchicalKeyword keyword,
+            DatabaseHierarchicalKeywords database,
+            JTree tree) {
+
         String newName = null;
         String oldName = keyword.getKeyword();
         boolean confirmed = true;
         while (newName == null && confirmed) {
-            newName = JOptionPane.showInputDialog(Bundle.getString(
+            newName = JOptionPane.showInputDialog(tree, Bundle.getString(
                     "ControllerRenameHierarchicalKeyword.Input.Name", oldName), // NOI18N
                     oldName);
             confirmed = newName != null;
@@ -116,7 +119,7 @@ public class ControllerRenameHierarchicalKeyword
                         keyword.getIdParent(), newName.trim(), keyword.isReal());
                 if (database.parentHasChild(s)) {
                     newName = null;
-                    confirmed = MessageDisplayer.confirm(
+                    confirmed = MessageDisplayer.confirm(tree,
                             "ControllerRenameHierarchicalKeyword.Confirm.Exists", // NOI18N
                             MessageDisplayer.CancelButton.HIDE, keyword).equals(
                             MessageDisplayer.ConfirmAction.YES);

@@ -64,7 +64,7 @@ public class ControllerAddHierarchicalKeyword
         JTree tree = panel.getTree();
         TreePath path = tree.getSelectionPath();
         if (path == null) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(panel.getTree(),
                     "ControllerAddHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
@@ -96,7 +96,7 @@ public class ControllerAddHierarchicalKeyword
                 Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"), // NOI18N
                 true);
         String name = ControllerRenameHierarchicalKeyword.getName(newKeyword,
-                DatabaseHierarchicalKeywords.INSTANCE);
+                DatabaseHierarchicalKeywords.INSTANCE, panel.getTree());
         if (name != null && !name.trim().isEmpty()) {
             TreeModel tm = panel.getTree().getModel();
             if (tm instanceof TreeModelHierarchicalKeywords) {

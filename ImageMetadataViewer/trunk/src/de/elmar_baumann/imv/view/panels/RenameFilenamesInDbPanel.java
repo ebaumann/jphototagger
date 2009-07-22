@@ -111,7 +111,7 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
                 }
 
                 private void informationReplaced(int count) {
-                    MessageDisplayer.information(
+                    MessageDisplayer.information(null,
                             "RenameFilenamesInDbPanel.Info.CountReplaced", count); // NOI18N
                 }
             });
@@ -130,7 +130,7 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
     }
 
     private boolean confirmReplace() {
-        return MessageDisplayer.confirm(
+        return MessageDisplayer.confirm(this,
                 "RenameFilenamesInDbPanel.Confirm.Replace", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, textFieldSearch.getText(),
                 textFieldReplacement.getText()).equals(

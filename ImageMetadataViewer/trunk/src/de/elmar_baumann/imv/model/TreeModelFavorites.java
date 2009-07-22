@@ -308,7 +308,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private void errorMessage(String favoriteName, String cause) {
-        MessageDisplayer.error("TreeModelFavorites.Error.Template", // NOI18N
+        MessageDisplayer.error(null, "TreeModelFavorites.Error.Template", // NOI18N
                 favoriteName, cause);
     }
 

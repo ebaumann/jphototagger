@@ -61,7 +61,7 @@ public class ControllerToggleRealHierarchicalKeyword
         JTree tree = panel.getTree();
         TreePath path = tree.getSelectionPath();
         if (path == null) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(panel.getTree(),
                     "ControllerToggleRealHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
@@ -81,7 +81,7 @@ public class ControllerToggleRealHierarchicalKeyword
                             "ControllerToggleRealHierarchicalKeyword.Error.Model")); // NOI18N
                     }
                 } else {
-                    MessageDisplayer.error(
+                    MessageDisplayer.error(panel.getTree(),
                             "ControllerToggleRealHierarchicalKeyword.Error.Node", // NOI18N
                             node);
                 }

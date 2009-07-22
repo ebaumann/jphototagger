@@ -62,7 +62,7 @@ public class ControllerRemoveHierarchicalKeyword
         JTree tree = panel.getTree();
         TreePath path = tree.getSelectionPath();
         if (path == null) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(panel.getTree(),
                     "ControllerDeleteHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
         } else {
             Object node = path.getLastPathComponent();
@@ -73,7 +73,7 @@ public class ControllerRemoveHierarchicalKeyword
                 if (userObject instanceof HierarchicalKeyword) {
                     delete(keywordNode, (HierarchicalKeyword) userObject);
                 } else {
-                    MessageDisplayer.error(
+                    MessageDisplayer.error(panel.getTree(),
                             "ControllerDeleteHierarchicalKeyword.Error.Node", // NOI18N
                             node);
                 }
@@ -86,6 +86,7 @@ public class ControllerRemoveHierarchicalKeyword
         TreeModel tm = panel.getTree().getModel();
         if (tm instanceof TreeModelHierarchicalKeywords) {
             if (MessageDisplayer.confirm(
+                    panel,
                     "ControllerDeleteHierarchicalKeyword.Confirm.Delete", // NOI18N
                     MessageDisplayer.CancelButton.HIDE, keyword).equals(
                     MessageDisplayer.ConfirmAction.YES)) {

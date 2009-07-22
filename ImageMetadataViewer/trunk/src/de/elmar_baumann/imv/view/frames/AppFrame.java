@@ -302,7 +302,7 @@ public final class AppFrame extends javax.swing.JFrame {
                     AppLog.logSevere(AppFrame.class, ex);
                 }
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    MessageDisplayer.error(
+                    MessageDisplayer.error(this,
                             "AppFrame.Error.ExitDataNotSaved.MaxWaitTimeExceeded", // NOI18N
                             timeoutMilliSeconds);
                 }

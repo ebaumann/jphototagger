@@ -77,7 +77,7 @@ public final class CopyToDirectoryDialog extends Dialog
 
     private void checkClosing() {
         if (copy) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(this,
                     "CopyToDirectoryDialog.Error.AbortBeforeClose"); // NOI18N
         } else {
             setVisible(false);
@@ -86,7 +86,7 @@ public final class CopyToDirectoryDialog extends Dialog
 
     private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(this,
                     "CopyToDirectoryDialog.Error.CopyErrorsOccured"); // NOI18N
         }
     }
@@ -206,13 +206,13 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     private void errorMessageTargetDirectoryDoesNotExist() {
-        MessageDisplayer.error(
+        MessageDisplayer.error(this,
                 "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist", // NOI18N
                 targetDirectory.getAbsolutePath());
     }
 
     private void errorMessageMissingSourceFiles() {
-        MessageDisplayer.error(
+        MessageDisplayer.error(this,
                 "CopyToDirectoryDialog.Error.MissingSourceFiles"); // NOI18N
     }
 

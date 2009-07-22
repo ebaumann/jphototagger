@@ -228,7 +228,7 @@ public final class RenameDialog extends Dialog {
         String input = textFieldNewName.getText().trim();
         boolean defined = !input.isEmpty();
         if (!defined) {
-            MessageDisplayer.error("RenameDialog.Error.InvalidInput"); // NOI18N
+            MessageDisplayer.error(this, "RenameDialog.Error.InvalidInput"); // NOI18N
         }
         return defined;
     }
@@ -237,7 +237,7 @@ public final class RenameDialog extends Dialog {
         boolean equals = newFile.getAbsolutePath().equals(oldFile.
                 getAbsolutePath());
         if (equals) {
-            MessageDisplayer.error("RenameDialog.Error.FilenamesEquals"); // NOI18N
+            MessageDisplayer.error(this, "RenameDialog.Error.FilenamesEquals"); // NOI18N
         }
         return !equals;
     }
@@ -245,7 +245,7 @@ public final class RenameDialog extends Dialog {
     private boolean checkNewFileNotExists(File file) {
         boolean exists = file.exists();
         if (exists) {
-            MessageDisplayer.error("RenameDialog.Error.NewFileExists", // NOI18N
+            MessageDisplayer.error(this, "RenameDialog.Error.NewFileExists", // NOI18N
                     file.getName());
         }
         return !exists;
@@ -337,7 +337,7 @@ public final class RenameDialog extends Dialog {
     }
 
     private void errorMessageNotRenamed(String filename) {
-        if (MessageDisplayer.confirm(
+        if (MessageDisplayer.confirm(this,
                 "RenameDialog.Confirm.RenameNextFile", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, filename).equals(
                 MessageDisplayer.ConfirmAction.NO)) {

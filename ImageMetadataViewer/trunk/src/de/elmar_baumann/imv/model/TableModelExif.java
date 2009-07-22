@@ -150,7 +150,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private boolean checkWebBrowser(String webBrowser) {
             if (webBrowser.length() <= 0) {
-                MessageDisplayer.error("TableModelExif.Error.WebBrowser"); // NOI18N
+                MessageDisplayer.error(null, "TableModelExif.Error.WebBrowser"); // NOI18N
                 setWebBrowser();
                 return false;
             }

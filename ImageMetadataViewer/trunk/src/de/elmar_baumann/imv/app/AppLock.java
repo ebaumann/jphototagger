@@ -74,13 +74,14 @@ public final class AppLock {
     }
 
     private static boolean confirmForceUnlock() {
-        return MessageDisplayer.confirm("AppLock.Error.LockFileExists", // NOI18N
+        return MessageDisplayer.confirm(null,
+                "AppLock.Error.LockFileExists", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, LOCKFILE_NAME).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
 
     private static void errorMessageDelete() {
-        MessageDisplayer.error("AppLock.Error.DeleteLockFile"); // NOI18N
+        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile"); // NOI18N
     }
 
     private AppLock() {

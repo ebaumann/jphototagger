@@ -63,7 +63,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().
                         expandPath(new TreePath(parentNode.getPath()));
             } else {
-                MessageDisplayer.error(
+                MessageDisplayer.error(null,
                         "TreeModelHierarchicalKeywords.Error.DbInsert", keyword); // NOI18N
             }
         }
@@ -72,7 +72,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     private boolean checkKeywordExists(
             DefaultMutableTreeNode parentNode, String keyword) {
         if (childHasKeyword(parentNode, keyword)) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(null,
                     "TreeModelHierarchicalKeywords.Error.KeywordExists", // NOI18N
                     keyword, parentNode);
             return false;
@@ -120,7 +120,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         if (db.delete(delKeywords)) {
             removeNodeFromParent(keywordNode);
         } else {
-            MessageDisplayer.error(
+            MessageDisplayer.error(null,
                     "TreeModelHierarchicalKeywords.Error.DbRemove", // NOI18N
                     keywordNode.toString());
         }
@@ -144,7 +144,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 fireTreeNodesChanged(this, parentNode.getPath(),
                         new int[]{parentNode.getIndex(node)}, new Object[]{node});
             } else {
-                MessageDisplayer.error(
+                MessageDisplayer.error(null,
                         "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword); // NOI18N
             }
         }
@@ -196,7 +196,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     private boolean checkIsBelow(
             DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
         if (TreeUtil.isBelow(source, target)) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(null,
                     "TreeModelHierarchicalKeywords.Error.Move.NodeIsBelow", // NOI18N
                     source, target);
             return false;
@@ -207,7 +207,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     private boolean checkIsChild(
             DefaultMutableTreeNode target, DefaultMutableTreeNode source) {
         if (TreeUtil.isChild(target, source)) {
-            MessageDisplayer.error(
+            MessageDisplayer.error(null,
                     "TreeModelHierarchicalKeywords.Error.Move.NodeIsChild", // NOI18N
                     source, target);
             return false;

@@ -40,7 +40,7 @@ public final class ModifySavedSearches {
                                     0, model.getSize() - 1);
                         }
                     } else {
-                        MessageDisplayer.error(
+                        MessageDisplayer.error(null,
                                 "SavedSearchesModifier.Error.SearchCouldntBeSaved"); // NOI18N
                     }
                 }
@@ -64,7 +64,7 @@ public final class ModifySavedSearches {
                         ListModelSavedSearches model = getModel();
                         model.removeElement(savedSearch);
                     } else {
-                        MessageDisplayer.error(
+                        MessageDisplayer.error(null,
                                 "SavedSearchesModifier.Error.SavedSearchCouldntBeDeleted"); // NOI18N
                     }
                 }
@@ -89,14 +89,14 @@ public final class ModifySavedSearches {
                     if (db.updateRenameSavedSearch(oldName, newName)) {
                         SavedSearch newSearch = db.getSavedSearch(newName);
                         if (newSearch == null) {
-                            MessageDisplayer.error(
+                            MessageDisplayer.error(null,
                                     "SavedSearchesModifier.Error.SavedSearchWasRenamedButCouldntBeLoaded", // NOI18N
                                     oldName);
                         } else {
                             getModel().rename(oldSearch, newSearch);
                         }
                     } else {
-                        MessageDisplayer.error(
+                        MessageDisplayer.error(null,
                                 "SavedSearchesModifier.Error.RenameFailed", // NOI18N
                                 oldName);
                     }
@@ -141,6 +141,7 @@ public final class ModifySavedSearches {
 
     private static boolean confirmInputDifferentName(String input) {
         return MessageDisplayer.confirm(
+                GUI.INSTANCE.getAppPanel().getListSavedSearches(),
                 "SavedSearchesModifier.Confirm.ChangeNameBecauseExists", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, input).equals(
                 MessageDisplayer.ConfirmAction.YES);
@@ -148,6 +149,7 @@ public final class ModifySavedSearches {
 
     private static boolean confirmDelete(String name) {
         return MessageDisplayer.confirm(
+                GUI.INSTANCE.getAppPanel().getListSavedSearches(),
                 "SavedSearchesModifier.Confirm.DeleteSearch", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, name).equals(
                 MessageDisplayer.ConfirmAction.YES);
@@ -156,6 +158,7 @@ public final class ModifySavedSearches {
     private static boolean confirmInsert(SavedSearch savedSearch) {
         if (getDb().existsSavedSearch(savedSearch)) {
             return MessageDisplayer.confirm(
+                GUI.INSTANCE.getAppPanel().getListSavedSearches(),
                     "SavedSearchesModifier.Confirm.ReplaceExisting", // NOI18N
                     MessageDisplayer.CancelButton.HIDE).equals(
                     MessageDisplayer.ConfirmAction.YES);

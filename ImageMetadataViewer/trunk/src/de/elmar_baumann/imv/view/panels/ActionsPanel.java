@@ -120,7 +120,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         String propertiesKey = existsInActionsAfterDbInsertion
                                ? "ActionsPanel.Confirm.Delete.ExistsInOtherDb" // NOI18N
                                : "ActionsPanel.Confirm.Delete"; // NOI18N
-        return MessageDisplayer.confirm(propertiesKey,
+        return MessageDisplayer.confirm(this, propertiesKey,
                 MessageDisplayer.CancelButton.HIDE, programName).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
