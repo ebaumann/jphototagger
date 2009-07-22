@@ -377,11 +377,23 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index Index
      */
     public synchronized void repaint(int index) {
-        paintThumbnail(index, this.getGraphics());
+        Graphics g = this.getGraphics();
+        Shape oldShape = g.getClip();
+        g.setClip(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
+                  getThumbnailAreaWidth(), getThumbnailAreaHeight());
+        paintPanelBackground(g);
+        g.setFont(FONT);
+        paintThumbnail(index, g);
+        g.setClip(oldShape);
     }
 
     public synchronized void repaint(File file) {
-        repaint(getIndexOf(file));
+        int index = getIndexOf(file);
+
+        // drop stale update request
+        if (index >= 0) {
+            repaint(index);
+        }
     }
 
     /**
@@ -752,7 +764,7 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public synchronized void paintComponent(Graphics g) {
         paintPanelBackground(g);
         if (thumbnailCount > 0) {
             Rectangle rectClip = g.getClipBounds();

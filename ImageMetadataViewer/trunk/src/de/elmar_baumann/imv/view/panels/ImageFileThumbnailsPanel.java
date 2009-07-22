@@ -300,7 +300,6 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
         if (index >= 0) {
             removeFromCache(index);
-            thumbCache.removeEntry(index);
         }
     }
 
@@ -309,12 +308,12 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * 
      * @param file  file
      */
-    public synchronized void repaint(File file) {
+    public synchronized void removeAndRepaint(File file) {
         int index = getIndexOf(file);
         if (index >= 0) {
             removeFromCache(index);
-            thumbCache.removeEntry(index);
         }
+        repaint();
     }
 
     /**

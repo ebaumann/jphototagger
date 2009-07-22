@@ -40,9 +40,9 @@ public final class ControllerThumbnailsDatabaseChanges
             public void run() {
                 DatabaseImageEvent.Type eventType = event.getType();
                 if (eventType.equals(DatabaseImageEvent.Type.THUMBNAIL_UPDATED)) {
-                    thumbnailsPanel.repaint(event.getImageFile().getFile());
+                    thumbnailsPanel.removeAndRepaint(event.getImageFile().getFile());
                 } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
-                    thumbnailsPanel.removeFromCache(event.getImageFile().getFile());
+                    thumbnailsPanel.removeAndRepaint(event.getImageFile().getFile());
                 } else if (eventType.equals(
                         DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
                     List<File> deleted = Collections.singletonList(

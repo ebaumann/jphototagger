@@ -31,6 +31,9 @@ public class ThumbnailCache {
             new File(getClass().getResource(
             Bundle.getString("ThumbnailCache.Path.DummyThumbnail")).getPath()));
     private Image dummyThumbnailScaled = null;
+    private Image noPreviewThumbnail = ThumbnailUtil.loadImage(
+            new File(getClass().getResource(
+            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")).getPath()));
 
     // must be called from synchronized function
     private void maybeCleanupCache() {
@@ -167,6 +170,9 @@ public class ThumbnailCache {
                 try {
                     file = wq.fetch();
                     Image image = db.getThumbnail(file.getAbsolutePath());
+                    if (image == null) {  // no image available from db
+                        image = cache.noPreviewThumbnail;
+                    }
                     cache.updateThumbnail(image, file);
                 } catch (InterruptedException e) {
                 }
@@ -262,12 +268,12 @@ public class ThumbnailCache {
 
             @Override
             public void run() {
-                panel.repaint();
+                panel.repaint(file);
             }
         });
     }
 
-    public synchronized void updateSubjects(List<String> subjects, File file) {
+    public synchronized void updateSubjects(List<String> subjects, final File file) {
         if (!fileCache.containsKey(file)) {
             return;  // stale entry
         }
@@ -279,7 +285,7 @@ public class ThumbnailCache {
 
             @Override
             public void run() {
-                panel.repaint();
+                panel.repaint(file);
             }
         });
     }
