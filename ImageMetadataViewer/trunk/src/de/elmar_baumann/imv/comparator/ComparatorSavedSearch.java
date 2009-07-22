@@ -18,14 +18,15 @@ public final class ComparatorSavedSearch implements Comparator<SavedSearch> {
 
     @Override
     public int compare(SavedSearch o1, SavedSearch o2) {
-
-        assert o1.getParamStatement() != null : "Null statement: " + o1;
-        assert o2.getParamStatement() != null : "Null statement: " + o2;
-        assert o1.getParamStatement().getName() != null : "Null name: " + o1;
-        assert o2.getParamStatement().getName() != null : "Null name: " + o2;
-
-        return o1.getParamStatement().getName().compareToIgnoreCase(
-                o2.getParamStatement().getName());
+        String nameO1 = o1.getParamStatement().getName();
+        String nameO2 = o2.getParamStatement().getName();
+        return o1 == o2 || nameO1 == null && nameO2 == null
+               ? 0
+               : nameO1 == null && nameO2 != null
+                 ? -1
+                 : nameO1 != null && nameO2 == null
+                   ? 1
+                   : nameO1.compareToIgnoreCase(nameO2);
     }
 
     private ComparatorSavedSearch() {
