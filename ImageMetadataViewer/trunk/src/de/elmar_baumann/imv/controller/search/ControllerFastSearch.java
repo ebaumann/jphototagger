@@ -162,7 +162,7 @@ public final class ControllerFastSearch
                             db.searchFilenamesLikeOr(UserSettings.INSTANCE.
                             getFastSearchColumns(), searchText.trim());
                     thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                            Content.SAFED_SEARCH);
+                            Content.SAVED_SEARCH);
                 }
             }
         });

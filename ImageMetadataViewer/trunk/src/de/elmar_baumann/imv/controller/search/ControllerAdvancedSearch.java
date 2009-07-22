@@ -54,7 +54,7 @@ public final class ControllerAdvancedSearch implements ActionListener,
     @Override
     public void actionPerformed(SearchEvent e) {
         if (e.getType().equals(SearchEvent.Type.START)) {
-            applySafedSearch(e);
+            applySavedSearch(e);
             setMetadataEditable();
         }
     }
@@ -69,21 +69,22 @@ public final class ControllerAdvancedSearch implements ActionListener,
         }
     }
 
-    private void applySafedSearch(final SearchEvent e) {
+    private void applySavedSearch(final SearchEvent e) {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                SavedSearch data = e.getSafedSearch();
-                if (data != null) {
-                    SavedSearchParamStatement stmt = data.getParamStatements();
-                    if (stmt != null) {
+                SavedSearch savedSearch = e.getSavedSearch();
+                if (savedSearch != null) {
+                    SavedSearchParamStatement paramStmt =
+                            savedSearch.getParamStatement();
+                    if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);
-                        List<String> filenames = db.searchFilenames(stmt.
-                                createStatement());
+                        List<String> filenames = db.searchFilenames(
+                                paramStmt.createStatement());
 
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                                Content.SAFED_SEARCH);
+                                Content.SAVED_SEARCH);
                     }
                 }
             }

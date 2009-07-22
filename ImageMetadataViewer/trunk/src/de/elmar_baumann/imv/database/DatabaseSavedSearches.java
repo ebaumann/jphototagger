@@ -31,16 +31,16 @@ public final class DatabaseSavedSearches extends Database {
      * {@link #updateSavedSearch(de.elmar_baumann.imv.data.SavedSearch)}
      * aufgerufen.
      *
-     * @param  data Suche
-     * @return true bei Erfolg
+     * @param   savedSearch Suche
+     * @return              true bei Erfolg
      */
-    public boolean insertSavedSearch(SavedSearch data) {
+    public boolean insertSavedSearch(SavedSearch savedSearch) {
         boolean inserted = false;
-        SavedSearchParamStatement stmtData = data.getParamStatements();
-        List<SavedSearchPanel> panelData = data.getPanels();
-        if (stmtData != null && !stmtData.getName().isEmpty()) {
-            if (existsSavedSearch(data)) {
-                return updateSavedSearch(data);
+        SavedSearchParamStatement paramStmt = savedSearch.getParamStatement();
+        List<SavedSearchPanel> panels = savedSearch.getPanels();
+        if (paramStmt != null && !paramStmt.getName().isEmpty()) {
+            if (existsSavedSearch(savedSearch)) {
+                return updateSavedSearch(savedSearch);
             }
             Connection connection = null;
             try {
@@ -52,14 +52,14 @@ public final class DatabaseSavedSearches extends Database {
                         ", sql_string" + // NOI18N -- 2 --
                         ", is_query)" + // NOI18N -- 3 --
                         " VALUES (?, ?, ?)"); // NOI18N
-                stmt.setString(1, stmtData.getName());
-                stmt.setBytes(2, stmtData.getSql().getBytes());
-                stmt.setBoolean(3, stmtData.isQuery());
+                stmt.setString(1, paramStmt.getName());
+                stmt.setBytes(2, paramStmt.getSql().getBytes());
+                stmt.setBoolean(3, paramStmt.isQuery());
                 AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
                 stmt.executeUpdate();
-                long id = getIdSavedSearch(connection, stmtData.getName());
-                insertSavedSearchValues(connection, id, stmtData.getValues());
-                insertSavedSearchPanelData(connection, id, panelData);
+                long id = getIdSavedSearch(connection, paramStmt.getName());
+                insertSavedSearchValues(connection, id, paramStmt.getValues());
+                insertSavedSearchPanels(connection, id, panels);
                 connection.commit();
                 inserted = true;
                 stmt.close();
@@ -77,6 +77,7 @@ public final class DatabaseSavedSearches extends Database {
     private void insertSavedSearchValues(
             Connection connection, long idSavedSearch, List<String> values)
             throws SQLException {
+
         if (idSavedSearch > 0 && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO saved_searches_values (" + // NOI18N
@@ -98,10 +99,13 @@ public final class DatabaseSavedSearches extends Database {
         }
     }
 
-    private void insertSavedSearchPanelData(
-            Connection connection, long idSavedSearch,
-            List<SavedSearchPanel> panelData) throws SQLException {
-        if (idSavedSearch > 0 && panelData != null) {
+    private void insertSavedSearchPanels(
+            Connection connection,
+            long idSavedSearch,
+            List<SavedSearchPanel> panels)
+            throws SQLException {
+
+        if (idSavedSearch > 0 && panels != null) {
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO" + // NOI18N
                     " saved_searches_panels (" + // NOI18N
@@ -116,15 +120,15 @@ public final class DatabaseSavedSearches extends Database {
                     ", bracket_right)" + // NOI18N -- 9 --
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             stmt.setLong(1, idSavedSearch);
-            for (SavedSearchPanel data : panelData) {
-                stmt.setInt(2, data.getPanelIndex());
-                stmt.setBoolean(3, data.isBracketLeft1Selected());
-                stmt.setInt(4, data.getOperatorId());
-                stmt.setBoolean(5, data.isBracketLeft2Selected());
-                stmt.setInt(6, data.getColumnId());
-                stmt.setInt(7, data.getComparatorId());
-                stmt.setString(8, data.getValue());
-                stmt.setBoolean(9, data.isBracketRightSelected());
+            for (SavedSearchPanel panel : panels) {
+                stmt.setInt(2, panel.getPanelIndex());
+                stmt.setBoolean(3, panel.isBracketLeft1Selected());
+                stmt.setInt(4, panel.getOperatorId());
+                stmt.setBoolean(5, panel.isBracketLeft2Selected());
+                stmt.setInt(6, panel.getColumnId());
+                stmt.setInt(7, panel.getComparatorId());
+                stmt.setString(8, panel.getValue());
+                stmt.setBoolean(9, panel.isBracketRightSelected());
                 AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
                 stmt.executeUpdate();
             }
@@ -197,12 +201,12 @@ public final class DatabaseSavedSearches extends Database {
     /**
      * Liefert, ob eine gespeicherte Suche existiert.
      *
-     * @param  search search Gespeicherte Suche
+     * @param  savedSearch search Gespeicherte Suche
      * @return true, wenn die gespeicherte Suche existiert
      * @see    #existsSavedSearch(java.lang.String)
      */
-    public boolean existsSavedSearch(SavedSearch search) {
-        return existsSavedSearch(search.getName());
+    public boolean existsSavedSearch(SavedSearch savedSearch) {
+        return existsSavedSearch(savedSearch.getName());
     }
 
     /**
@@ -271,14 +275,14 @@ public final class DatabaseSavedSearches extends Database {
     /**
      * Aktualisiert eine gespeicherte Suche.
      *
-     * @param  data Suche
-     * @return true bei Erfolg
+     * @param  savedSearch Suche
+     * @return             true bei Erfolg
      */
-    public boolean updateSavedSearch(SavedSearch data) {
-        if (data.hasParamStatement() && data.getParamStatements() != null) {
+    public boolean updateSavedSearch(SavedSearch savedSearch) {
+        if (savedSearch.hasParamStatement()) {
             boolean updated =
-                    deleteSavedSearch(data.getParamStatements().getName()) &&
-                    insertSavedSearch(data);
+                    deleteSavedSearch(savedSearch.getParamStatement().getName()) &&
+                    insertSavedSearch(savedSearch);
             return updated;
         }
         return false;
@@ -288,10 +292,10 @@ public final class DatabaseSavedSearches extends Database {
      * Liefert eine gespeicherte Suche mit bestimmtem Namen.
      *
      * @param  name Name
-     * @return Suche oder null, wenn die Suche nicht erzeugt wurde
+     * @return      Suche oder null, wenn die Suche nicht erzeugt wurde
      */
     public SavedSearch getSavedSearch(String name) {
-        SavedSearch data = null;
+        SavedSearch savedSearch = null;
         Connection connection = null;
         try {
             connection = getConnection();
@@ -305,24 +309,24 @@ public final class DatabaseSavedSearches extends Database {
             AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                data = new SavedSearch();
-                SavedSearchParamStatement paramStatementData =
+                savedSearch = new SavedSearch();
+                SavedSearchParamStatement paramStmt =
                         new SavedSearchParamStatement();
-                paramStatementData.setName(rs.getString(1));
-                paramStatementData.setSql(new String(rs.getBytes(2)));
-                paramStatementData.setQuery(rs.getBoolean(3));
-                data.setParamStatements(paramStatementData);
-                setSavedSearchValues(connection, data);
-                setSavedSearchPanels(connection, data);
+                paramStmt.setName(rs.getString(1));
+                paramStmt.setSql(new String(rs.getBytes(2)));
+                paramStmt.setQuery(rs.getBoolean(3));
+                savedSearch.setParamStatement(paramStmt);
+                setSavedSearchValues(connection, savedSearch);
+                setSavedSearchPanels(connection, savedSearch);
             }
             stmt.close();
         } catch (SQLException ex) {
-            data = null;
+            savedSearch = null;
             AppLog.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
             free(connection);
         }
-        return data;
+        return savedSearch;
     }
 
     /**
@@ -345,16 +349,16 @@ public final class DatabaseSavedSearches extends Database {
             AppLog.logFinest(getClass(), sql);
             ResultSet rs = stmt.executeQuery(sql); // NOI18N
             while (rs.next()) {
-                SavedSearch data = new SavedSearch();
-                SavedSearchParamStatement paramStatementData =
+                SavedSearch savedSearch = new SavedSearch();
+                SavedSearchParamStatement paramStmt =
                         new SavedSearchParamStatement();
-                paramStatementData.setName(rs.getString(1));
-                paramStatementData.setSql(new String(rs.getBytes(2)));
-                paramStatementData.setQuery(rs.getBoolean(3));
-                data.setParamStatements(paramStatementData);
-                setSavedSearchValues(connection, data);
-                setSavedSearchPanels(connection, data);
-                allData.add(data);
+                paramStmt.setName(rs.getString(1));
+                paramStmt.setSql(new String(rs.getBytes(2)));
+                paramStmt.setQuery(rs.getBoolean(3));
+                savedSearch.setParamStatement(paramStmt);
+                setSavedSearchValues(connection, savedSearch);
+                setSavedSearchPanels(connection, savedSearch);
+                allData.add(savedSearch);
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -366,8 +370,11 @@ public final class DatabaseSavedSearches extends Database {
         return allData;
     }
 
-    private void setSavedSearchValues(Connection connection, SavedSearch data)
+    private void setSavedSearchValues(
+            Connection connection, SavedSearch savedSearch)
             throws SQLException {
+        assert savedSearch.getParamStatement() != null :
+                "Searches statement is null!";
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT" + // NOI18N
                 " saved_searches_values.value" + // NOI18N
@@ -376,7 +383,7 @@ public final class DatabaseSavedSearches extends Database {
                 " ON saved_searches_values.id_saved_searches = saved_searches.id" + // NOI18N
                 " AND saved_searches.name = ?" + // NOI18N
                 " ORDER BY saved_searches_values.value_index ASC"); // NOI18N
-        stmt.setString(1, data.getParamStatements().getName());
+        stmt.setString(1, savedSearch.getParamStatement().getName());
         AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         List<String> values = new ArrayList<String>();
@@ -385,12 +392,17 @@ public final class DatabaseSavedSearches extends Database {
         }
         stmt.close();
         if (values.size() > 0) {
-            data.getParamStatements().setValues(values);
+            SavedSearchParamStatement paramStmt =
+                    savedSearch.getParamStatement();
+            paramStmt.setValues(values);
+            savedSearch.setParamStatement(paramStmt);
         }
     }
 
-    private void setSavedSearchPanels(Connection connection, SavedSearch data)
+    private void setSavedSearchPanels(
+            Connection connection, SavedSearch savedSearch)
             throws SQLException {
+        assert savedSearch.getParamStatement() != null : "Statement is null!";
         PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
                 " saved_searches_panels.panel_index" + // NOI18N -- 1 --
                 ", saved_searches_panels.bracket_left_1" + // NOI18N -- 2 --
@@ -405,25 +417,25 @@ public final class DatabaseSavedSearches extends Database {
                 " ON saved_searches_panels.id_saved_searches = saved_searches.id" + // NOI18N
                 " AND saved_searches.name = ?" + // NOI18N
                 " ORDER BY saved_searches_panels.panel_index ASC"); // NOI18N
-        stmt.setString(1, data.getParamStatements().getName());
+        stmt.setString(1, savedSearch.getParamStatement().getName());
         AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
         ResultSet rs = stmt.executeQuery();
-        List<SavedSearchPanel> allPanelData = new ArrayList<SavedSearchPanel>();
+        List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
         while (rs.next()) {
-            SavedSearchPanel panelData = new SavedSearchPanel();
-            panelData.setPanelIndex(rs.getInt(1));
-            panelData.setBracketLeft1Selected(rs.getBoolean(2));
-            panelData.setOperatorId(rs.getInt(3));
-            panelData.setBracketLeft2Selected(rs.getBoolean(4));
-            panelData.setColumnId(rs.getInt(5));
-            panelData.setComparatorId(rs.getInt(6));
-            panelData.setValue(rs.getString(7));
-            panelData.setBracketRightSelected(rs.getBoolean(8));
-            allPanelData.add(panelData);
+            SavedSearchPanel panel = new SavedSearchPanel();
+            panel.setPanelIndex(rs.getInt(1));
+            panel.setBracketLeft1Selected(rs.getBoolean(2));
+            panel.setOperatorId(rs.getInt(3));
+            panel.setBracketLeft2Selected(rs.getBoolean(4));
+            panel.setColumnId(rs.getInt(5));
+            panel.setComparatorId(rs.getInt(6));
+            panel.setValue(rs.getString(7));
+            panel.setBracketRightSelected(rs.getBoolean(8));
+            panels.add(panel);
         }
         stmt.close();
-        if (allPanelData.size() > 0) {
-            data.setPanels(allPanelData);
+        if (panels.size() > 0) {
+            savedSearch.setPanels(panels);
         }
     }
 }

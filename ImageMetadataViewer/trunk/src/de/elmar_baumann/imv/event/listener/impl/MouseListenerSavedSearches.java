@@ -28,8 +28,8 @@ public final class MouseListenerSavedSearches extends MouseAdapter {
             boolean isItem = index >= 0 && index == list.getSelectedIndex();
             Object selectedValue = list.getSelectedValue();
             if (selectedValue instanceof SavedSearch) {
-                SavedSearch data = (SavedSearch) selectedValue;
-                popupMenu.setSavedSearch(data);
+                SavedSearch savedSearch = (SavedSearch) selectedValue;
+                popupMenu.setSavedSearch(savedSearch);
             }
             popupMenu.getItemEdit().setEnabled(isItem);
             popupMenu.getItemDelete().setEnabled(isItem);

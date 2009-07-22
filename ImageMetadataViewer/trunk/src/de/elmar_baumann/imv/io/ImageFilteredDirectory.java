@@ -28,7 +28,7 @@ public final class ImageFilteredDirectory {
      * @return Dateien
      */
     public List<File> getFiles() {
-        return imageFiles;
+        return new ArrayList<File>(imageFiles);
     }
 
     /**

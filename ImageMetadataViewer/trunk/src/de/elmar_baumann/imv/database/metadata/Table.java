@@ -45,7 +45,9 @@ public abstract class Table {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 29 * hash + (this.name != null
+                            ? this.name.hashCode()
+                            : 0);
         return hash;
     }
 
@@ -72,7 +74,7 @@ public abstract class Table {
         if (columns.isEmpty()) {
             addColumns();
         }
-        return columns;
+        return new ArrayList<Column>(columns);
     }
 
     /**

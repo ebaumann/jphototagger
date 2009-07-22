@@ -11,7 +11,7 @@ import java.util.List;
  */
 public final class SavedSearch {
 
-    private SavedSearchParamStatement paramStatements;
+    private SavedSearchParamStatement paramStatement;
     private List<SavedSearchPanel> panels;
 
     /**
@@ -20,46 +20,54 @@ public final class SavedSearch {
      * @return Paneldaten
      */
     public List<SavedSearchPanel> getPanels() {
-        return panels;
+        return panels == null
+               ? null
+               : getDeepCopyPanels();
     }
 
     /**
      * Setzt die Paneldaten.
      * 
-     * @param panelData Paneldaten
+     * @param panels panels
      */
-    public void setPanels(List<SavedSearchPanel> panelData) {
-        this.panels = panelData;
+    public void setPanels(List<SavedSearchPanel> panels) {
+        if (panels == null) {
+            this.panels = null;
+        } else {
+            setDeepCopyPanels(panels);
+        }
     }
 
     /**
      * Fügt Paneldaten hinzu.
      * 
-     * @param data Paneldaten
+     * @param panel Panel
      */
-    public void addToPanelData(SavedSearchPanel data) {
+    public void addPanel(SavedSearchPanel panel) {
         if (panels == null) {
             panels = new ArrayList<SavedSearchPanel>();
         }
-        panels.add(data);
+        panels.add(panel);
     }
 
     /**
      * Setzt die Satementdaten.
      * 
-     * @return Satementdaten
+     * @return <strong>reference</strong> to satement data
      */
-    public SavedSearchParamStatement getParamStatements() {
-        return paramStatements;
+    public SavedSearchParamStatement getParamStatement() {
+        return paramStatement == null
+               ? null
+               : new SavedSearchParamStatement(paramStatement);
     }
 
     /**
-     * Liefert die Satementdaten.
+     * Sets the param statement.
      * 
-     * @param paramStatementData Satementdaten
+     * @param paramStatement Satement
      */
-    public void setParamStatements(SavedSearchParamStatement paramStatementData) {
-        this.paramStatements = paramStatementData;
+    public void setParamStatement(SavedSearchParamStatement paramStatement) {
+        this.paramStatement = new SavedSearchParamStatement(paramStatement);
     }
 
     /**
@@ -68,7 +76,7 @@ public final class SavedSearch {
      * @return true, wenn Statementdaten existieren
      */
     public boolean hasParamStatement() {
-        return paramStatements != null;
+        return paramStatement != null;
     }
 
     /**
@@ -89,13 +97,15 @@ public final class SavedSearch {
             return false;
         }
         final SavedSearch other = (SavedSearch) obj;
-        return paramStatements.equals(other.paramStatements);
+        return paramStatement.equals(other.paramStatement);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 19 * hash + (this.paramStatements != null ? this.paramStatements.hashCode() : 0);
+        hash = 19 * hash + (this.paramStatement != null
+                            ? this.paramStatement.hashCode()
+                            : 0);
         return hash;
     }
 
@@ -108,10 +118,12 @@ public final class SavedSearch {
      */
     public String getName() {
         String string = null;
-        if (paramStatements != null) {
-            string = paramStatements.getName();
+        if (paramStatement != null) {
+            string = paramStatement.getName();
         }
-        return (string == null ? "" : string); // NOI18N
+        return (string == null
+                ? ""
+                : string); // NOI18N
     }
 
     /**
@@ -121,11 +133,29 @@ public final class SavedSearch {
      * @see    de.elmar_baumann.imv.database.metadata.ParamStatement#setName(java.lang.String)
      */
     public void setName(String name) {
-        paramStatements.setName(name);
+        paramStatement.setName(name);
     }
 
     @Override
     public String toString() {
         return getName();
+    }
+
+    private List<SavedSearchPanel> getDeepCopyPanels() {
+        assert panels != null : "panels field is null!";
+        List<SavedSearchPanel> copy =
+                new ArrayList<SavedSearchPanel>(panels.size());
+        for (SavedSearchPanel panel : panels) {
+            copy.add(new SavedSearchPanel(panel));
+        }
+        return copy;
+    }
+
+    private void setDeepCopyPanels(List<SavedSearchPanel> p) {
+        assert p != null : "panels parameter is null!";
+        panels = new ArrayList<SavedSearchPanel>(p.size());
+        for (SavedSearchPanel panel : p) {
+            panels.add(new SavedSearchPanel(panel));
+        }
     }
 }

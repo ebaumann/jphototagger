@@ -309,7 +309,7 @@ public final class UserSettings implements UserSettingsChangeListener {
                     settings.getString(KEY_EDIT_COLUMNS), DELIMITER_COLUMNS);
             return ColumnUtil.columnKeysToColumns(columnKeys);
         }
-        return new ArrayList<Column>(EditColumns.getColumns());
+        return new ArrayList<Column>(EditColumns.get());
     }
 
     /**

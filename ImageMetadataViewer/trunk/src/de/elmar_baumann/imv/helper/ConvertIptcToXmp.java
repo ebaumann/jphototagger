@@ -28,7 +28,7 @@ public final class ConvertIptcToXmp implements Runnable {
     private boolean stop = false;
 
     public ConvertIptcToXmp(List<String> filenames) {
-        this.filenames = filenames;
+        this.filenames = new ArrayList<String>(filenames);
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {

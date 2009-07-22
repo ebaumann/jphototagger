@@ -46,7 +46,7 @@ public final class FastSearchColumns {
     }
 
     public static List<Column> get() {
-        return COLUMNS;
+        return new ArrayList<Column>(COLUMNS);
     }
 
     private FastSearchColumns() {

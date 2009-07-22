@@ -22,7 +22,7 @@ public final class CopyFiles implements Runnable {
     private final List<ProgressListener> progressListeners =
             new ArrayList<ProgressListener>();
     private final List<File> errorFiles = new ArrayList<File>();
-    private final List<Pair<File, File>> files;
+    private final List<Pair<File, File>> sourceTargetFiles;
     private final Options options;
     private boolean stop = false;
 
@@ -40,12 +40,13 @@ public final class CopyFiles implements Runnable {
     /**
      * Konstruktor
      *
-     * @param files    Zu kopierende Dateien. Die erste im Paar
+     * @param sourceTargetFiles    Zu kopierende Dateien. Die erste im Paar
      *                 ist die Quelldatei, die zweite die Zieldatei.
      * @param options  Optionen
      */
-    public CopyFiles(List<Pair<File, File>> files, Options options) {
-        this.files = files;
+    public CopyFiles(List<Pair<File, File>> sourceTargetFiles, Options options) {
+        this.sourceTargetFiles =
+                new ArrayList<Pair<File, File>>(sourceTargetFiles);
         this.options = options;
     }
 
@@ -81,9 +82,9 @@ public final class CopyFiles implements Runnable {
     @Override
     public void run() {
         notifyStart();
-        int size = files.size();
+        int size = sourceTargetFiles.size();
         for (int i = 0; !stop && i < size; i++) {
-            Pair<File, File> filePair = files.get(i);
+            Pair<File, File> filePair = sourceTargetFiles.get(i);
             if (checkDifferent(filePair) && checkOverwrite(filePair)) {
                 try {
                     File sourceFile = filePair.getFirst();
@@ -108,7 +109,8 @@ public final class CopyFiles implements Runnable {
     }
 
     private synchronized void notifyStart() {
-        ProgressEvent evt = new ProgressEvent(this, 0, files.size(), 0, null);
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(),
+                0, null);
         for (ProgressListener listener : progressListeners) {
             listener.progressStarted(evt);
         }
@@ -116,7 +118,8 @@ public final class CopyFiles implements Runnable {
 
     private synchronized void notifyPerformed(int value,
             Pair<File, File> filePair) {
-        ProgressEvent evt = new ProgressEvent(this, 0, files.size(), value,
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(),
+                value,
                 filePair);
         for (ProgressListener listener : progressListeners) {
             listener.progressPerformed(evt);
@@ -124,8 +127,8 @@ public final class CopyFiles implements Runnable {
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0, files.size(),
-                files.size(), errorFiles);
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(),
+                sourceTargetFiles.size(), errorFiles);
         for (ProgressListener listener : progressListeners) {
             listener.progressEnded(evt);
         }

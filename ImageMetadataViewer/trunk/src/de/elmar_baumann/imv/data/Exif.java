@@ -21,7 +21,7 @@ public final class Exif {
      * @return date
      */
     public Date getDateTimeOriginal() {
-        return dateTimeOriginal;
+        return new Date(dateTimeOriginal.getTime());
     }
 
     /**

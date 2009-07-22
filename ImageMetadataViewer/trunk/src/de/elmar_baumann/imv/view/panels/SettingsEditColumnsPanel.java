@@ -36,7 +36,7 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel
     private void postInitComponents() {
         list = new CheckList();
         list.setModel(new ListModelSelectedColumns(
-            new ArrayList<Column>(EditColumns.getColumns())));
+            new ArrayList<Column>(EditColumns.get())));
         list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         list.addActionListener(this);
         scrollPane.setViewportView(list);

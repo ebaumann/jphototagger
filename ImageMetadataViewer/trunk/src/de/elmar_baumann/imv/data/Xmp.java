@@ -112,7 +112,8 @@ public final class Xmp implements TextEntryListener {
      * @see    de.elmar_baumann.imv.data.Iptc#getKeywords()
      */
     public List<String> getDcSubjects() {
-        List<String> list = stringListReferenceOf(ColumnXmpDcSubjectsSubject.INSTANCE);
+        List<String> list = stringListReferenceOf(
+                ColumnXmpDcSubjectsSubject.INSTANCE);
         return list == null
                ? null
                : new ArrayList<String>(list);
@@ -411,6 +412,7 @@ public final class Xmp implements TextEntryListener {
      * @see    de.elmar_baumann.imv.data.Iptc#getSupplementalCategories()
      */
     public List<String> getPhotoshopSupplementalCategories() {
+
         List<String> list =
                 stringListReferenceOf(
                 ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
@@ -587,16 +589,14 @@ public final class Xmp implements TextEntryListener {
     @SuppressWarnings("unchecked")
     public Object getValue(Column xmpColumn) {
         Object o = valueOfColumn.get(xmpColumn);
-        if (o == null) return null;
-        assert o instanceof List || o instanceof String || o instanceof Long :
+        assert o == null || o instanceof List || o instanceof String ||
+                o instanceof Long :
                 "o is neither List nor String nor Long: " + o;
         return o instanceof List
                ? new ArrayList<String>((List) o)
-               : o instanceof String
-                 ? (String) o
-                 : o instanceof Long
-                   ? (Long) o
-                   : null;
+               : o instanceof String || o instanceof Long
+                 ? o
+                 : null;
     }
 
     /**

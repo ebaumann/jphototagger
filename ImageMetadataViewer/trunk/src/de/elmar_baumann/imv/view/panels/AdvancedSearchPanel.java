@@ -100,30 +100,30 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private SavedSearchParamStatement getParamStatementData() {
-        SavedSearchParamStatement data = new SavedSearchParamStatement();
+        SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
         ParamStatement stmt = getSql();
-        data.setQuery(stmt.isQuery());
-        data.setSql(stmt.getSql());
+        paramStmt.setQuery(stmt.isQuery());
+        paramStmt.setSql(stmt.getSql());
         List<String> values = stmt.getValuesAsStringList();
-        data.setValues(values.size() > 0
-                       ? values
-                       : null);
-        return data;
+        paramStmt.setValues(values.size() > 0
+                            ? values
+                            : null);
+        return paramStmt;
     }
 
     private synchronized void notifySearch() {
         SearchEvent event = new SearchEvent(SearchEvent.Type.START);
-        SavedSearch data = new SavedSearch();
-        data.setParamStatements(getParamStatementData());
-        event.setData(data);
+        SavedSearch savedSearch = new SavedSearch();
+        savedSearch.setParamStatement(getParamStatementData());
+        event.setData(savedSearch);
         for (SearchListener listener : searchListeners) {
             listener.actionPerformed(event);
         }
     }
 
-    private synchronized void notifySave(SavedSearch search) {
+    private synchronized void notifySave(SavedSearch savedSearch) {
         SearchEvent event = new SearchEvent(SearchEvent.Type.SAVE);
-        event.setData(search);
+        event.setData(savedSearch);
         event.setForceOverwrite(isSavedSearch);
         for (SearchListener listener : searchListeners) {
             listener.actionPerformed(event);
@@ -150,14 +150,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         setSavedSearchToPanels(search.getPanels());
     }
 
-    private void setSavedSearchToPanels(List<SavedSearchPanel> data) {
-        if (data != null) {
+    private void setSavedSearchToPanels(List<SavedSearchPanel> savedSearchPanels) {
+        if (savedSearchPanels != null) {
             int panelSize = searchColumnPanels.size();
-            int dataSize = data.size();
+            int dataSize = savedSearchPanels.size();
             for (int dataIndex = 0; dataIndex < dataSize; dataIndex++) {
                 if (dataIndex < panelSize) {
                     searchColumnPanels.get(dataIndex).setSavedSearchData(
-                            data.get(dataIndex));
+                            savedSearchPanels.get(dataIndex));
                 }
             }
         }
@@ -230,25 +230,26 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private SavedSearch getSavedSearch(String name) {
-        SavedSearch search = new SavedSearch();
+        SavedSearch savedSearch = new SavedSearch();
         SavedSearchParamStatement paramStatementData = getParamStatementData();
         paramStatementData.setName(name);
-        search.setParamStatements(paramStatementData);
-        search.setPanels(getPanelData());
-        return search;
+        savedSearch.setParamStatement(paramStatementData);
+        savedSearch.setPanels(getSavedSearchPanels());
+        return savedSearch;
     }
 
-    private List<SavedSearchPanel> getPanelData() {
-        List<SavedSearchPanel> panelData = new ArrayList<SavedSearchPanel>();
+    private List<SavedSearchPanel> getSavedSearchPanels() {
+        List<SavedSearchPanel> savedSearchPanels =
+                new ArrayList<SavedSearchPanel>();
         int size = searchColumnPanels.size();
         for (int index = 0; index < size; index++) {
             SearchColumnPanel panel = searchColumnPanels.get(index);
-            SavedSearchPanel data = panel.getSavedSearchData();
-            data.setPanelIndex(index);
-            panelData.add(data);
+            SavedSearchPanel savedSearchPanel = panel.getSavedSearchData();
+            savedSearchPanel.setPanelIndex(index);
+            savedSearchPanels.add(savedSearchPanel);
         }
-        return panelData.size() > 0
-               ? panelData
+        return savedSearchPanels.size() > 0
+               ? savedSearchPanels
                : null;
     }
 

@@ -11,6 +11,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -73,7 +74,7 @@ public final class StartPrograms {
         ProgramInputParametersDialog dialog = new ProgramInputParametersDialog();
 
         public Execute(Program program, List<File> imageFiles) {
-            this.imageFiles = imageFiles;
+            this.imageFiles = new ArrayList<File>(imageFiles);
             this.program = program;
             setName("Executing program " + program.getAlias() + " @ " + // NOI18N
                     getClass().getName());

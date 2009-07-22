@@ -22,14 +22,14 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-10
  */
-public final class ControllerEditSafedSearch
+public final class ControllerEditSavedSearch
         implements ActionListener, KeyListener {
 
     private final PopupMenuSavedSearches actionPopup =
             PopupMenuSavedSearches.INSTANCE;
     private final JList list = GUI.INSTANCE.getAppPanel().getListSavedSearches();
 
-    public ControllerEditSafedSearch() {
+    public ControllerEditSavedSearch() {
         listen();
     }
 

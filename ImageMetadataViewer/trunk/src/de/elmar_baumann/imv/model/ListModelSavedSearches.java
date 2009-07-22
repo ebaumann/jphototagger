@@ -20,19 +20,19 @@ public final class ListModelSavedSearches extends DefaultListModel {
     }
 
     private void addElements() {
-        List<SavedSearch> searches =
+        List<SavedSearch> savedSearches =
                 DatabaseSavedSearches.INSTANCE.getSavedSearches();
-        for (SavedSearch search : searches) {
-            addElement(search);
+        for (SavedSearch savedSearch : savedSearches) {
+            addElement(savedSearch);
         }
     }
 
-    public void rename(SavedSearch oldSearch, SavedSearch newSearch) {
-        int index = indexOf(oldSearch);
+    public void rename(SavedSearch oldSavedSearch, SavedSearch newSavedSearch) {
+        int index = indexOf(oldSavedSearch);
         if (index >= 0) {
             remove(index);
             ListUtil.insertSorted(
-                    this, newSearch, ComparatorSavedSearch.INSTANCE,
+                    this, newSavedSearch, ComparatorSavedSearch.INSTANCE,
                     0, getSize() - 1);
         }
     }

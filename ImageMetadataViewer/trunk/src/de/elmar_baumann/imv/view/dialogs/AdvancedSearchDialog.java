@@ -31,8 +31,8 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
         registerKeyStrokes();
     }
 
-    public void setSavedSearch(SavedSearch search) {
-        panel.setSavedSearch(search);
+    public void setSavedSearch(SavedSearch savedSearch) {
+        panel.setSavedSearch(savedSearch);
     }
 
     @Override

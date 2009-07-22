@@ -27,7 +27,10 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopAuthorsposition()
      */
     public List<String> getByLinesTitles() {
-        return stringListOf(IPTCEntryMeta.BYLINE_TITLE);
+        List<String> list = stringListOf(IPTCEntryMeta.BYLINE_TITLE);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -47,7 +50,10 @@ public final class Iptc {
      * @see    Xmp#getDcCreator()
      */
     public List<String> getByLines() {
-        return stringListOf(IPTCEntryMeta.BYLINE);
+        List<String> list = stringListOf(IPTCEntryMeta.BYLINE);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -127,7 +133,10 @@ public final class Iptc {
      * @see    Xmp#getIptc4xmpcoreCountrycode()
      */
     public List<String> getContentLocationCodes() {
-        return stringListOf(IPTCEntryMeta.CONTENT_LOCATION_CODE);
+        List<String> list = stringListOf(IPTCEntryMeta.CONTENT_LOCATION_CODE);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -147,7 +156,10 @@ public final class Iptc {
      * @see    Xmp#getIptc4xmpcoreLocation()
      */
     public List<String> getContentLocationNames() {
-        return stringListOf(IPTCEntryMeta.CONTENT_LOCATION_NAME);
+        List<String> list = stringListOf(IPTCEntryMeta.CONTENT_LOCATION_NAME);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -250,7 +262,10 @@ public final class Iptc {
      * @see    Xmp#getDcSubjects()
      */
     public List<String> getKeywords() {
-        return stringListOf(IPTCEntryMeta.KEYWORDS);
+        List<String> list = stringListOf(IPTCEntryMeta.KEYWORDS);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -375,7 +390,10 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopSupplementalCategories()
      */
     public List<String> getSupplementalCategories() {
-        return stringListOf(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY);
+        List<String> list = stringListOf(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -396,7 +414,10 @@ public final class Iptc {
      * @see    Xmp#getPhotoshopCaptionwriter()
      */
     public List<String> getWritersEditors() {
-        return stringListOf(IPTCEntryMeta.WRITER_EDITOR);
+        List<String> list = stringListOf(IPTCEntryMeta.WRITER_EDITOR);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
     }
 
     /**
@@ -416,8 +437,18 @@ public final class Iptc {
      * @return value. It's a string for not repeatable values or a string list
      *         for repeatable values or null if this entry has no value
      */
+    @SuppressWarnings("unchecked")
     public Object getValue(IPTCEntryMeta iptcEntry) {
-        return valueOfEntryMeta.get(iptcEntry);
+        Object value = valueOfEntryMeta.get(iptcEntry);
+        assert value == null || value instanceof List || value instanceof String :
+                "Value is neither List nor String: " + value;
+        return value == null
+               ? null
+               : value instanceof List
+                 ? new ArrayList<String>((List) value)
+                 : value instanceof String
+                   ? value
+                   : null;
     }
 
     /**
@@ -449,7 +480,7 @@ public final class Iptc {
             } else if (o instanceof List) {
                 List list = (List) o;
                 if (!list.isEmpty()) return false;
-            // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
+                // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
             } else if (o != null) {
                 return false;
             }

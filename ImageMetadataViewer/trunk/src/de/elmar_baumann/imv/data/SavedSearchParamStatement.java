@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,18 @@ public final class SavedSearchParamStatement {
     private String sql;
     private List<String> values;
     private boolean query;
+
+    public SavedSearchParamStatement() {
+    }
+
+    public SavedSearchParamStatement(SavedSearchParamStatement other) {
+        this.name = other.name;
+        this.sql = other.sql;
+        this.values = other.values == null
+                      ? null
+                      : new ArrayList<String>(other.values);
+        this.query = other.query;
+    }
 
     /**
      * Liefert den Namen.
@@ -76,7 +89,9 @@ public final class SavedSearchParamStatement {
      * @return Werte
      */
     public List<String> getValues() {
-        return values;
+        return values == null
+               ? null
+               : new ArrayList<String>(values);
     }
 
     /**
@@ -85,7 +100,9 @@ public final class SavedSearchParamStatement {
      * @param values Werte
      */
     public void setValues(List<String> values) {
-        this.values = values;
+        this.values = values == null
+                      ? null
+                      : new ArrayList<String>(values);
     }
 
     /**
@@ -122,7 +139,9 @@ public final class SavedSearchParamStatement {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 79 * hash + (this.name != null
+                            ? this.name.hashCode()
+                            : 0);
         return hash;
     }
 }

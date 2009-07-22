@@ -8,8 +8,8 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Updates all Thumbnails in the database with the current settings.
@@ -22,7 +22,8 @@ public final class UpdateAllThumbnails
 
     private ProgressDialog progressDialog;
     private boolean stop = false;
-    private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
+    private final Set<ActionListener> actionListeners =
+            new HashSet<ActionListener>();
 
     /**
      * Adds an action listener. It will be notified when the work is done.

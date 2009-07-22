@@ -48,7 +48,7 @@ public final class ControllerCreateSavedSearch
     @Override
     public void actionPerformed(SearchEvent evt) {
         if (evt.getType().equals(SearchEvent.Type.SAVE)) {
-            ModifySavedSearches.insert(evt.getSafedSearch(), evt.
+            ModifySavedSearches.insert(evt.getSavedSearch(), evt.
                     isForceOverwrite());
         }
     }

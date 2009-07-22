@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.data;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public final class SelectedFile {
         if (file == null)
             throw new NullPointerException("file == null"); // NOI18N
         this.file = file;
-        this.xmpPropertyInfos = xmpPropertyInfos;
+        this.xmpPropertyInfos = new ArrayList<XMPPropertyInfo>(xmpPropertyInfos);
     }
 
     /**
@@ -47,7 +48,7 @@ public final class SelectedFile {
      * @return XMP metadata or null if not set or set as null
      */
     public synchronized List<XMPPropertyInfo> getPropertyInfos() {
-        return xmpPropertyInfos;
+        return new ArrayList<XMPPropertyInfo>(xmpPropertyInfos);
     }
 
     private SelectedFile() {

@@ -18,6 +18,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -89,7 +90,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             EnumSet<Insert> what,
             MutualExcludedResource progressBarResource) {
 
-        this.filenames = filenames;
+        this.filenames = new ArrayList<String>(filenames);
         this.what = what;
         this.progressBarResource = progressBarResource;
         setName("Inserting image files into database @ " + getClass().getName()); // NOI18N

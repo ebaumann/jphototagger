@@ -31,7 +31,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
      * @param targetDirectory  target directory
      */
     public FileSystemMove(List<File> sourceFiles, File targetDirectory) {
-        this.sourceFiles = sourceFiles;
+        this.sourceFiles = new ArrayList<File>(sourceFiles);
         this.targetDirectory = targetDirectory;
         setTargetFiles();
     }
@@ -43,15 +43,16 @@ public final class FileSystemMove extends FileSystem implements Runnable {
      * @param targetFiles  target files - size must be equals to sourceFiles
      */
     public FileSystemMove(List<File> sourceFiles, List<File> targetFiles) {
-        this.sourceFiles = sourceFiles;
-        this.targetFiles = targetFiles;
+        this.sourceFiles = new ArrayList<File>(sourceFiles);
+        this.targetFiles = new ArrayList<File>(targetFiles);
     }
 
     private void setTargetFiles() {
         targetFiles = new ArrayList<File>(sourceFiles.size());
         for (File sourceFile : sourceFiles) {
             targetFiles.add(new File(
-                targetDirectory.getAbsolutePath() + File.separator + sourceFile.getName()));
+                    targetDirectory.getAbsolutePath() + File.separator +
+                    sourceFile.getName()));
         }
     }
 
@@ -81,29 +82,32 @@ public final class FileSystemMove extends FileSystem implements Runnable {
     private boolean checkExists(File sourceFile, File targetFile) {
         boolean exists = targetFile.exists();
         if (exists) {
-            notifyError(FileSystemError.MOVE_RENAME_EXISTS, sourceFile, targetFile);
+            notifyError(FileSystemError.MOVE_RENAME_EXISTS, sourceFile,
+                    targetFile);
         }
         return !exists;
     }
 
     private void checkMoved(boolean moved, File sourceFile, File targetFile) {
         if (moved) {
-            notifyActionListenersPerformed(FileSystemEvent.MOVE, sourceFile, targetFile);
+            notifyActionListenersPerformed(FileSystemEvent.MOVE, sourceFile,
+                    targetFile);
         } else {
             notifyError(FileSystemError.UNKNOWN, sourceFile, targetFile);
         }
     }
 
-    private synchronized void notifyError(FileSystemError error, File sourceFile, File targetFile) {
+    private synchronized void notifyError(FileSystemError error, File sourceFile,
+            File targetFile) {
         notifyActionListenersFailed(
-            FileSystemEvent.MOVE,
-            error,
-            sourceFile,
-            targetFile);
+                FileSystemEvent.MOVE,
+                error,
+                sourceFile,
+                targetFile);
         notifyActionListenersFailed(
-            FileSystemEvent.MOVE,
-            error,
-            sourceFile,
-            targetFile);
+                FileSystemEvent.MOVE,
+                error,
+                sourceFile,
+                targetFile);
     }
 }

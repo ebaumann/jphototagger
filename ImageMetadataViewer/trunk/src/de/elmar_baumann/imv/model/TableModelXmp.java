@@ -31,9 +31,9 @@ public final class TableModelXmp extends DefaultTableModel {
      * @param propertyInfos  Property-Infos
      */
     public void setPropertyInfosOfFile(String filename,
-        List<XMPPropertyInfo> propertyInfos) {
+            List<XMPPropertyInfo> propertyInfos) {
         this.filename = filename;
-        this.propertyInfos = propertyInfos;
+        this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
         removeAllRows();
         setXmpData();
     }

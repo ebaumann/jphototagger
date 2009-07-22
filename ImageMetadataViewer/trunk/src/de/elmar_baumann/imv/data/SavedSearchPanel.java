@@ -18,6 +18,20 @@ public final class SavedSearchPanel {
     private int comparatorId = -1;
     private String value;
 
+    public SavedSearchPanel() {
+    }
+
+    public SavedSearchPanel(SavedSearchPanel other) {
+        panelIndex = other.panelIndex;
+        bracketLeft1Selected = other.bracketLeft1Selected;
+        bracketLeft2Selected = other.bracketLeft2Selected;
+        bracketRightSelected = other.bracketRightSelected;
+        operatorId = other.operatorId;
+        columnId = other.columnId;
+        comparatorId = other.comparatorId;
+        value = other.value;
+    }
+
     /**
      * Liefert den Panelindex.
      * 

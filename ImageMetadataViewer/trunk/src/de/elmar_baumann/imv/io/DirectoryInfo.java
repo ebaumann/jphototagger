@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.io;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public final class DirectoryInfo {
      * @see    #hasImageFiles() 
      */
     public List<File> getImageFiles() {
-        return imageFiles;
+        return new ArrayList<File>(imageFiles);
     }
 
     @Override
@@ -76,7 +77,9 @@ public final class DirectoryInfo {
     public int hashCode() {
         int hash = 3;
         hash =
-            97 * hash + (this.directory != null ? this.directory.hashCode() : 0);
+                97 * hash + (this.directory != null
+                             ? this.directory.hashCode()
+                             : 0);
         return hash;
     }
 }

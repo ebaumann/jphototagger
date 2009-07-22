@@ -78,7 +78,7 @@ public final class EditColumns {
             ColumnXmpPhotoshopCaptionwriter.INSTANCE, notRepeatableHintSmall);
     }
 
-    public static Set<Column> getColumns() {
+    public static Set<Column> get() {
         return EDIT_HINT_OF_COLUMN.keySet();
     }
 

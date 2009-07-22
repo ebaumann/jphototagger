@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerSafedSearchSelected
+public final class ControllerSavedSearchSelected
         implements ListSelectionListener, RefreshListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
@@ -34,13 +34,13 @@ public final class ControllerSafedSearchSelected
     private final EditMetadataPanelsArray editPanels =
             appPanel.getEditPanelsArray();
 
-    public ControllerSafedSearchSelected() {
+    public ControllerSavedSearchSelected() {
         listen();
     }
 
     private void listen() {
         list.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.SAFED_SEARCH);
+        thumbnailsPanel.addRefreshListener(this, Content.SAVED_SEARCH);
     }
 
     @Override
@@ -76,11 +76,13 @@ public final class ControllerSafedSearchSelected
 
         private void searchSelectedValue(Object selectedValue) {
             if (selectedValue instanceof SavedSearch) {
-                SavedSearch data = (SavedSearch) selectedValue;
-                ParamStatement stmt =
-                        data.getParamStatements().createStatement();
-                if (stmt != null) {
-                    searchParamStatement(stmt);
+                SavedSearch savedSearch = (SavedSearch) selectedValue;
+                if (savedSearch.hasParamStatement()) {
+                    ParamStatement stmt =
+                            savedSearch.getParamStatement().createStatement();
+                    if (stmt != null) {
+                        searchParamStatement(stmt);
+                    }
                 }
             }
         }
@@ -88,7 +90,7 @@ public final class ControllerSafedSearchSelected
         private void searchParamStatement(ParamStatement stmt) {
             List<String> filenames = db.searchFilenames(stmt);
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                    Content.SAFED_SEARCH);
+                    Content.SAVED_SEARCH);
         }
 
         private void setMetadataEditable() {

@@ -11,7 +11,7 @@ import de.elmar_baumann.imv.data.SavedSearch;
 public final class SearchEvent {
 
     private Type type;
-    private SavedSearch data;
+    private SavedSearch savedSearch;
     private String searchName;
     private boolean forceOverwrite;
 
@@ -56,17 +56,17 @@ public final class SearchEvent {
      * 
      * @return Daten
      */
-    public SavedSearch getSafedSearch() {
-        return data;
+    public SavedSearch getSavedSearch() {
+        return savedSearch;
     }
 
     /**
      * Setzt die Daten.
      * 
-     * @param data Daten
+     * @param savedSearch Daten
      */
-    public void setData(SavedSearch data) {
-        this.data = data;
+    public void setData(SavedSearch savedSearch) {
+        this.savedSearch = savedSearch;
     }
 
     /**

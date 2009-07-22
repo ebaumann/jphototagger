@@ -155,7 +155,7 @@ public class Column {
      * @param canBeNull true, wenn die Spalte leer sein kann.
      *                   Default: true, bei Primärschlüsselspalten false
      */
-    public void setCanBeNull(boolean canBeNull) {
+    protected void setCanBeNull(boolean canBeNull) {
         this.canBeNull = canBeNull;
     }
 

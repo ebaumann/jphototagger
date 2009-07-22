@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.database.metadata.Column;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
@@ -18,7 +19,7 @@ public final class ListModelSelectedColumns extends DefaultListModel {
     private List<Column> allColumns;
 
     public ListModelSelectedColumns(List<Column> allColumns) {
-        this.allColumns = allColumns;
+        this.allColumns = new ArrayList<Column>(allColumns);
         addElements();
     }
 

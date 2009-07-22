@@ -36,7 +36,7 @@ public final class RenameXmpMetadataDialog extends Dialog {
     }
 
     private void setModel() {
-        Set<Column> columns = EditColumns.getColumns();
+        Set<Column> columns = EditColumns.get();
         comboBoxReplaceColumn.setModel(
                 new DefaultComboBoxModel(columns.toArray(
                 new Column[columns.size()])));

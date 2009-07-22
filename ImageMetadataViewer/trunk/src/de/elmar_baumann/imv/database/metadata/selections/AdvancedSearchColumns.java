@@ -36,12 +36,12 @@ import java.util.List;
 public final class AdvancedSearchColumns {
 
     private static final List<Column> COLUMNS = new ArrayList<Column>();
-    
 
     static {
         COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopCategory.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
+        COLUMNS.add(
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
         COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
         COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);
@@ -70,7 +70,7 @@ public final class AdvancedSearchColumns {
      * @return Suchspalten
      */
     public static List<Column> get() {
-        return COLUMNS;
+        return new ArrayList<Column>(COLUMNS);
     }
 
     private AdvancedSearchColumns() {

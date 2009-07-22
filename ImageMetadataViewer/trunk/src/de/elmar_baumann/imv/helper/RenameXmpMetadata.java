@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.UserTasks;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JProgressBar;
 
@@ -41,7 +42,7 @@ public final class RenameXmpMetadata extends Thread
 
     private RenameXmpMetadata(List<String> filenames, Column column,
             String oldValue, String newValue) {
-        this.filenames = filenames;
+        this.filenames = new ArrayList<String>(filenames);
         this.column = column;
         this.oldValue = oldValue;
         this.newValue = newValue;

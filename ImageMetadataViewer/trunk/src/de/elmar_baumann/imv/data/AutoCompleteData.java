@@ -72,6 +72,12 @@ public final class AutoCompleteData {
 
     }
 
+    /**
+     * Returns a <strong>reference</strong> to the list with the autocomplete
+     * data.
+     *
+     * @return autocomplete data
+     */
     public List<String> getList() {
         return content;
     }

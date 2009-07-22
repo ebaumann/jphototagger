@@ -54,7 +54,7 @@ public enum Content {
      * The displayed thumbnails are the images of a saved search.
      * The images can be located in multiple file system directories.
      */
-    SAFED_SEARCH,
+    SAVED_SEARCH,
     /**
      * The type of the displayed thumbnails is not known.
      */
@@ -97,7 +97,7 @@ public enum Content {
         SORTABLE_CONTENT.add(FAVORITE);
         SORTABLE_CONTENT.add(KEYWORD);
         SORTABLE_CONTENT.add(MISC_METADATA);
-        SORTABLE_CONTENT.add(SAFED_SEARCH);
+        SORTABLE_CONTENT.add(SAVED_SEARCH);
         SORTABLE_CONTENT.add(TIMELINE);
     }
 

@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseFileExcludePattern;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -22,7 +23,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     }
 
     public List<String> getPatterns() {
-        return patterns;
+        return new ArrayList<String>(patterns);
     }
 
     public void insertPattern(String pattern) {

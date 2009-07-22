@@ -145,7 +145,8 @@ public final class MetadataTableModels {
     }
 
     /**
-     * @param xmpTableModelCameraRawSettings the xmpTableModelCameraRawSettings to set
+     * @param xmpTableModelCameraRawSettings the xmpTableModelCameraRawSettings
+     *        to set
      */
     public void setXmpTableModelCameraRawSettings(
             TableModelXmp xmpTableModelCameraRawSettings) {

@@ -51,18 +51,18 @@ public final class ModifySavedSearches {
     /**
      * Deletes a saved search after the user confirms.
      *
-     * @param search  saved search
+     * @param savedSearch  saved search
      */
-    public static void delete(final SavedSearch search) {
+    public static void delete(final SavedSearch savedSearch) {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                String searchName = search.getParamStatements().getName();
+                String searchName = savedSearch.getParamStatement().getName();
                 if (confirmDelete(searchName)) {
                     if (getDb().deleteSavedSearch(searchName)) {
                         ListModelSavedSearches model = getModel();
-                        model.removeElement(search);
+                        model.removeElement(savedSearch);
                     } else {
                         MessageDisplayer.error(
                                 "SavedSearchesModifier.Error.SavedSearchCouldntBeDeleted"); // NOI18N

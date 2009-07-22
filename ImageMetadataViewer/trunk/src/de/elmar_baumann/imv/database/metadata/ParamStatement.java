@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.database.metadata;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,10 +28,13 @@ public final class ParamStatement {
      * @param isQuery  true, wenn das Statement eine Abfrage ist
      * @param name     Name
      */
-    public ParamStatement(String sql, Object[] values, boolean isQuery,
-        String name) {
+    public ParamStatement(
+            String sql, Object[] values, boolean isQuery, String name) {
+
         this.sql = sql;
-        this.values = values;
+        this.values = values == null
+                      ? null
+                      : Arrays.copyOf(values, values.length);
         this.isQuery = isQuery;
         this.name = name;
     }
@@ -59,7 +63,9 @@ public final class ParamStatement {
      * @return Parameterwerte oder null, wenn es keine gibt
      */
     public Object[] getValues() {
-        return values;
+        return values == null
+               ? null
+               : Arrays.copyOf(values, values.length);
     }
 
     /**
@@ -68,7 +74,11 @@ public final class ParamStatement {
      * @param values Parameterwerte. Default: null.
      */
     public void setValues(Object[] values) {
-        this.values = values;
+        if (values == null) {
+            this.values = null;
+        } else {
+            this.values = Arrays.copyOf(values, values.length);
+        }
     }
 
     /**
@@ -77,6 +87,7 @@ public final class ParamStatement {
      * @return Werte als Stringarray
      */
     public List<String> getValuesAsStringList() {
+        if (values == null) return new ArrayList<String>();
         List<String> array = new ArrayList<String>();
         for (int index = 0; index < values.length; index++) {
             array.add(values[index].toString());
@@ -123,17 +134,18 @@ public final class ParamStatement {
 
     @Override
     public String toString() {
-        return getSql() + "\nValues:" + getValuesString("\n\t"); // NOI18N
+        String sqlString = sql == null
+                           ? "Sql: null"
+                           : "Sql: " + sql;
+        return sqlString + " Values:" + getValuesString(" "); // NOI18N
     }
 
     private String getValuesString(String delimiter) {
-        StringBuffer buffer = new StringBuffer();
-        if (getValues() == null) {
-            return ""; // NOI18N
-        }
+        if (getValues() == null) return ""; // NOI18N
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < getValues().length; i++) {
-            buffer.append(delimiter + getValues()[i].toString());
+            sb.append(delimiter + getValues()[i].toString());
         }
-        return buffer.toString();
+        return sb.toString();
     }
 }

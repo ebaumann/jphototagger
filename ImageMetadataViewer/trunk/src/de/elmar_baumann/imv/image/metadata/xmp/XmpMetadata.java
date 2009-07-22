@@ -326,7 +326,7 @@ public final class XmpMetadata {
 
     private static void setMetadata(XMPMeta xmpMeta, Xmp metadata)
             throws XMPException {
-        Set<Column> xmpColumns = EditColumns.getColumns();
+        Set<Column> xmpColumns = EditColumns.get();
         for (Column column : xmpColumns) {
             String namespaceUri = XmpColumnNamespaceUriMapping.
                     getNamespaceUriOfColumn(column);
@@ -355,7 +355,7 @@ public final class XmpMetadata {
      * @param xmpMeta XMP metadata
      */
     private static void deleteAllEditableMetadataFrom(XMPMeta xmpMeta) {
-        Set<Column> editableXmpColumns = EditColumns.getColumns();
+        Set<Column> editableXmpColumns = EditColumns.get();
         for (Column editableColumn : editableXmpColumns) {
             String namespaceUri = XmpColumnNamespaceUriMapping.
                     getNamespaceUriOfColumn(editableColumn);
