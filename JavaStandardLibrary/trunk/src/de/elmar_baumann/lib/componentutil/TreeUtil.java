@@ -13,6 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 /**
  * Werkzeuge für Trees.
@@ -399,6 +400,14 @@ public final class TreeUtil {
             tree.expandPath(parent);
         } else {
             tree.collapsePath(parent);
+        }
+    }
+
+    public static void deselectAll(JTree tree) {
+        TreeSelectionModel m = tree.getSelectionModel();
+        assert m != null : "Selection model is null!";
+        if (m != null) {
+            m.clearSelection();
         }
     }
 
