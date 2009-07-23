@@ -29,8 +29,12 @@ public final class SelectedFile {
             File file, List<XMPPropertyInfo> xmpPropertyInfos) {
         if (file == null)
             throw new NullPointerException("file == null"); // NOI18N
+
         this.file = file;
-        this.xmpPropertyInfos = new ArrayList<XMPPropertyInfo>(xmpPropertyInfos);
+        this.xmpPropertyInfos = xmpPropertyInfos == null
+                                ? null
+                                : new ArrayList<XMPPropertyInfo>(
+                xmpPropertyInfos);
     }
 
     /**
@@ -48,7 +52,9 @@ public final class SelectedFile {
      * @return XMP metadata or null if not set or set as null
      */
     public synchronized List<XMPPropertyInfo> getPropertyInfos() {
-        return new ArrayList<XMPPropertyInfo>(xmpPropertyInfos);
+        return xmpPropertyInfos == null
+               ? null
+               : new ArrayList<XMPPropertyInfo>(xmpPropertyInfos);
     }
 
     private SelectedFile() {
