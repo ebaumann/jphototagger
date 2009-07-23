@@ -94,17 +94,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="51.125"
-     inkscape:cx="8"
-     inkscape:cy="8"
-     inkscape:current-layer="layer4"
+     inkscape:zoom="49.5625"
+     inkscape:cx="6.6179067"
+     inkscape:cy="8.2881142"
+     inkscape:current-layer="layer2"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1680"
-     inkscape:window-height="1031"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4"
+     inkscape:window-width="1272"
+     inkscape:window-height="995"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      showguides="true"
      inkscape:guide-bbox="true">
     <inkscape:grid
@@ -136,13 +136,13 @@
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
           </cc:Agent>
         </dc:publisher>
-        <dc:title>Folder yellow</dc:title>
+        <dc:title>Star 8</dc:title>
         <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_favorite.svg</dc:identifier>
         <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <cc:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
-        <dc:description>Favorite Folder</dc:description>
+        <dc:description>Favorite, Star</dc:description>
         <dc:subject>
           <rdf:Bag>
             <rdf:li>icon</rdf:li>
@@ -206,9 +206,18 @@
      id="layer3"
      inkscape:label="Star 2">
     <path
-       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#aaaaff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0"
        d="M 3,3 L 8,5 L 13,3 L 11,8 L 13,13 L 8,11 L 3,13 L 5,8 L 3,3 z"
        id="path3315"
        sodipodi:nodetypes="ccccccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Border">
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.25000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 3.0264817,3.0466583 L 6.6784363,4.4590164 L 8.0100883,1.0088272 L 9.4224464,4.5397226 L 12.973518,2.9659521 L 11.581337,6.7187894 L 14.95082,7.9899117 L 11.500631,9.442623 C 11.500631,9.442623 12.7314,12.348045 12.872636,12.650694 C 13.013871,12.953342 13.013871,13.013871 13.013871,13.013871 L 9.3619168,11.540984 L 8.0100883,14.991173 L 6.6784363,11.56116 L 3.0466583,12.953342 L 4.519546,9.5031526 L 1.0491803,8.0100883 L 4.4993695,6.6179067 L 3.0264817,3.0466583 z"
+       id="path3171" />
   </g>
 </svg>
