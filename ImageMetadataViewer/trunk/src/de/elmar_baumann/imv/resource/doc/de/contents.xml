@@ -66,6 +66,10 @@
 			<url>mainwindow_panel_edit.html</url>
 			<title>Bearbeiten</title>
 		</page>
+		<page>
+			<url>mainwindow_panel_hierarchical_keywords.html</url>
+			<title>Stichwortbaum</title>
+		</page>
 	</node>
 	<node>
 		<title>Arbeiten im Bildfenster</title>
