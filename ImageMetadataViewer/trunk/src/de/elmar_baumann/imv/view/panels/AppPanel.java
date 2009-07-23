@@ -211,6 +211,10 @@ public final class AppPanel extends javax.swing.JPanel implements
         return panelThumbnails;
     }
 
+    public HierarchicalKeywordsPanel getPanelHierarchicalKeywords() {
+        return panelHierarchicalKeywords;
+    }
+
     public JList getListImageCollections() {
         return listImageCollections;
     }
