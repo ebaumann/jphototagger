@@ -377,14 +377,8 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param index Index
      */
     public synchronized void repaint(int index) {
-        Graphics g = this.getGraphics();
-        Shape oldShape = g.getClip();
-        g.clipRect(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
-                   getThumbnailAreaWidth(), getThumbnailAreaHeight());
-        paintPanelBackground(g);
-        g.setFont(FONT);
-        paintThumbnail(index, g);
-        g.setClip(oldShape);
+        repaint(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
+                getThumbnailAreaWidth(), getThumbnailAreaHeight());
     }
 
     public synchronized void repaint(File file) {
@@ -438,6 +432,10 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private int getCountHorizontalLeftFromX(int x) {
         return x / (getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
+    }
+
+    private int getCountHorizontalRightFromX(int x) {
+        return getCountHorizontalLeftFromX(x - 1);
     }
 
     private int getCountVerticalAboveY(int y) {
@@ -771,10 +769,17 @@ public abstract class ThumbnailsPanel extends JPanel
             int firstIndex = getFirstPaintIndexAtHeight(rectClip.y);
             int lastIndex = getLastPaintIndexAtHeight(rectClip.y +
                     rectClip.height);
+            int firstColumn = Math.max(0,
+                    getCountHorizontalLeftFromX(rectClip.x));
+            int lastColumn = Math.min(thumbnailCountPerRow - 1,
+                    getCountHorizontalRightFromX(rectClip.x + rectClip.width));
             g.setFont(FONT);
             for (int index = firstIndex; index < lastIndex && index <
                     thumbnailCount; index++) {
-                paintThumbnail(index, g);
+                if (index % thumbnailCountPerRow >= firstColumn &&
+                    index % thumbnailCountPerRow <= lastColumn) {
+                    paintThumbnail(index, g);
+                }
             }
             paintPanelFocusBorder(g);
 
