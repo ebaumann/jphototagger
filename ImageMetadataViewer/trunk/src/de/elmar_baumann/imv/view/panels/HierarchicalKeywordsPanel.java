@@ -67,6 +67,28 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         UserSettings.INSTANCE.writeToFile();
     }
 
+    /**
+     * Expands or collapses all tree nodes and synchronizes the toggle button
+     * for expanding and collapsing.
+     *
+     * @param expand true if expand, false if collapse
+     */
+    public void expandAll(boolean expand) {
+        boolean buttonPressed = buttonToggleExpandAllNodes.isSelected();
+        if (buttonPressed != expand) {
+            buttonToggleExpandAllNodes.doClick();
+        }
+    }
+
+    /**
+     * Returns wether all nodes expanded.
+     *
+     * @return true if all nodes expanded
+     */
+    public boolean isExpandedAll() {
+        return buttonToggleExpandAllNodes.isSelected();
+    }
+
     private void handleButtonToggleExpandAllNodesActionPerformed() {
         boolean selected = buttonToggleExpandAllNodes.isSelected();
         TreeUtil.expandAll(tree, selected);
@@ -129,6 +151,7 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         tree.setCellRenderer(new de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords());
         tree.setComponentPopupMenu(popupMenu);
         tree.setDragEnabled(true);
+        tree.setShowsRootHandles(true);
         scrollPane.setViewportView(tree);
         tree.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalKeywords());
 
