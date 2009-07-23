@@ -379,8 +379,8 @@ public abstract class ThumbnailsPanel extends JPanel
     public synchronized void repaint(int index) {
         Graphics g = this.getGraphics();
         Shape oldShape = g.getClip();
-        g.setClip(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
-                  getThumbnailAreaWidth(), getThumbnailAreaHeight());
+        g.clipRect(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
+                   getThumbnailAreaWidth(), getThumbnailAreaHeight());
         paintPanelBackground(g);
         g.setFont(FONT);
         paintThumbnail(index, g);
