@@ -5,8 +5,11 @@ import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords;
+import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,33 +26,38 @@ import javax.swing.tree.TreeCellRenderer;
 public final class ControllerHighlightHierarchicalKeywords
         implements ThumbnailsPanelListener {
 
-    private final ImageFileThumbnailsPanel panel =
+    private final ImageFileThumbnailsPanel tnPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final JTree treeAppPanel =
-            GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords();
-    private final JTree treeDialog =
-            HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+    private final HierarchicalKeywordsPanel appHkPanel =
+            appPanel.getPanelHierarchicalKeywords();
+    private final HierarchicalKeywordsPanel dlgHkPanel =
+            HierarchicalKeywordsDialog.INSTANCE.getPanel();
+    private final JTree treeAppPanel = appHkPanel.getTree();
+    private final JTree treeDialog = dlgHkPanel.getTree();
 
     public ControllerHighlightHierarchicalKeywords() {
         listen();
     }
 
     private void listen() {
-        panel.addThumbnailsPanelListener(this);
+        tnPanel.addThumbnailsPanelListener(this);
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
         removeKeywords();
-        if (panel.getSelectionCount() == 1) {
-            List<File> selFile = panel.getSelectedFiles();
+        if (tnPanel.getSelectionCount() == 1) {
+            List<File> selFile = tnPanel.getSelectedFiles();
             assert selFile.size() == 1;
             if (selFile.size() == 1 && hasSidecarFile(selFile)) {
                 Collection<String> keywords =
                         db.getDcSubjectsOfFile(selFile.get(0).getAbsolutePath());
                 setKeywords(treeAppPanel, keywords);
                 setKeywords(treeDialog, keywords);
+                expandTreeNodes(appHkPanel);
+                expandTreeNodes(dlgHkPanel);
             }
         }
     }
@@ -60,8 +68,15 @@ public final class ControllerHighlightHierarchicalKeywords
                 "Renderer is not an instance of " +
                 TreeCellRendererHierarchicalKeywords.class + " but of " + r;
         if (r instanceof TreeCellRendererHierarchicalKeywords) {
+            TreeUtil.expandAll(tree, true);
             ((TreeCellRendererHierarchicalKeywords) r).setKeywords(keywords);
             tree.repaint();
+        }
+    }
+
+    private void expandTreeNodes(HierarchicalKeywordsPanel panel) {
+        if (!panel.isExpandedAll()) {
+            panel.expandAll(true);
         }
     }
 
