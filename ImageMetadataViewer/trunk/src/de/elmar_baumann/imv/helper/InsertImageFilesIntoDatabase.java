@@ -17,11 +17,15 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JProgressBar;
 
 /**
@@ -39,9 +43,13 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             UserSettings.INSTANCE.isUseEmbeddedThumbnails();
     private final String externalThumbnailCreationCommand =
             UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
+    private String currentFilename;
+    private final Set<ActionListener> actionListeners =
+            Collections.synchronizedSet(new HashSet<ActionListener>());
     private final List<String> filenames;
     private final EnumSet<Insert> what;
     private final MutualExcludedResource progressBarResource;
+    private boolean cancelled;
     private JProgressBar progressBar;
 
     /**
@@ -96,12 +104,58 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         setName("Inserting image files into database @ " + getClass().getName()); // NOI18N
     }
 
+    /**
+     * A <em>soft</em> interrupt: I/O operations can finishing their current
+     * process.
+     */
+    public synchronized void cancel() {
+        cancelled = true;
+    }
+
+    /**
+     * Adds an action listener. It will be called when a file was processed.
+     *
+     * @param listener action listener
+     */
+    public void addActionListener(ActionListener listener) {
+        actionListeners.add(listener);
+    }
+
+    /**
+     * Removes an action listener.
+     *
+     * @param listener action listener
+     * @see   #addActionListener(java.awt.event.ActionListener)
+     */
+    public void removeActionListener(ActionListener listener) {
+        actionListeners.remove(listener);
+    }
+
+    private void notifyActionListeners() {
+        synchronized (actionListeners) {
+            for (ActionListener listener : actionListeners) {
+                listener.actionPerformed(new ActionEvent(this, 1, ""));
+            }
+        }
+    }
+
+    /**
+     * Returns the currently processed filename.
+     *
+     * @return filename or null if no file was processed
+     */
+    public String getCurrentFilename() {
+        return currentFilename;
+    }
+
     @Override
     public void run() {
         int count = filenames.size();
         progressStarted(count); // NOI18N
-        for (int index = 0; !isInterrupted() && index < count; index++) {
+        for (int index = 0; !isInterrupted() && !cancelled && index < count;
+                index++) {
             String filename = filenames.get(index);
+            currentFilename = filename;
             ImageFile imageFile = getImageFile(filename);
             if (isUpdate(imageFile)) {
                 logInsertImageFile(imageFile);
@@ -112,6 +166,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                                          ? filenames.get(index + 1)
                                          : filename);
         }
+        currentFilename = null;
         progressEnded(count);
     }
 
@@ -309,9 +364,13 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private void progressPerformed(int value, String filename) {
         informationMessagePerformed(filename);
+        notifyActionListeners();
         if (progressBar != null) {
             progressBar.setValue(value);
             progressBar.setToolTipText(filename);
+            if (progressBar.isStringPainted()) {
+                progressBar.setString(value + "/" + filenames.size());
+            }
         }
     }
 
