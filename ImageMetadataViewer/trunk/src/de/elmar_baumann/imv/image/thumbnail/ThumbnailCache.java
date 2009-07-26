@@ -37,12 +37,12 @@ public class ThumbnailCache {
      */
     private final int MAX_ENTRIES = 1500;
     private Image dummyThumbnail = ThumbnailUtil.loadImage(
-            new File(getClass().getResource(
+            new File(getClass().getClassLoader().getSystemResource(
             Bundle.getString("ThumbnailCache.Path.DummyThumbnail")).
             getPath()));
     private Image dummyThumbnailScaled = null;
     private Image noPreviewThumbnail = ThumbnailUtil.loadImage(
-            new File(getClass().getResource(
+            new File(getClass().getClassLoader().getSystemResource(
             Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")).
             getPath()));
 
