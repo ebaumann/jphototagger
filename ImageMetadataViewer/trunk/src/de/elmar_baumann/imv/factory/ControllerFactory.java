@@ -64,6 +64,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromD
 import de.elmar_baumann.imv.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import de.elmar_baumann.imv.controller.metadata.ControllerRenameXmpMetadata;
+import de.elmar_baumann.imv.controller.misc.ControllerHidePanels;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
@@ -155,6 +156,7 @@ public final class ControllerFactory {
             new ControllerAddHierarchicalKeywordsToEditPanel();
             new ControllerPickReject();
             new ControllerHighlightHierarchicalKeywords();
+            new ControllerHidePanels();
             init = true;
         }
     }

@@ -36,12 +36,12 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -57,6 +57,14 @@ public final class AppPanel extends javax.swing.JPanel implements
             "AppPanel.DividerLocationMain"; // NOI18N
     private static final String KEY_DIVIDER_LOCATION_THUMBNAILS =
             "AppPanel.DividerLocationThumbnails"; // NOI18N
+    private static final String KEY_METADATA_PANEL_HIDDEN =
+            "AppPanel.MetadataPanelHidden";
+    private static final String KEY_SELECTION_PANEL_HIDDEN =
+            "AppPanel.SelectionPanelHidden";
+    private static final String KEY_PREV_DIVIDER_LOCATION_SPLIT_PANE_TN_METADATA =
+            "AppPanel.KeyPrevDividerLocationSplitPaneTnMetadata";
+    private static final String KEY_PREV_DIVIDER_LOCATION_SPLIT_PANE_MAIN =
+            "AppPanel.KeyPrevDividerLocationSplitPaneMain";
     private static final int MIN_DIVIDER_LOCATION_MAIN = 100;
     private static final int MIN_DIVIDER_LOCATION_THUMBNAILS = 200;
     private final List<JTable> xmpTables = new ArrayList<JTable>();
@@ -65,6 +73,11 @@ public final class AppPanel extends javax.swing.JPanel implements
     private final List<JList> selectionLists = new ArrayList<JList>();
     private EditMetadataPanelsArray editPanelsArray;
     private EditMetadataActionsPanel editActionsPanel;
+    private int prevDividerLocationSplitPaneMain = MIN_DIVIDER_LOCATION_MAIN;
+    private int prevDividerLocationSplitPaneTnMetadata =
+            MIN_DIVIDER_LOCATION_THUMBNAILS;
+    private boolean selectionPanelHidden;
+    private boolean metadataPanelHidden;
 
     public AppPanel() {
         GUI.INSTANCE.setAppPanel(this);
@@ -80,6 +93,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         initArrays();
         tableExif.addMouseListener(new TableButtonMouseListener(tableExif));
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
+        readProperties();
     }
 
     private void initArrays() {
@@ -397,22 +411,85 @@ public final class AppPanel extends javax.swing.JPanel implements
         }
     }
 
-    public JSplitPane getSplitPaneThumbnailsMetadata() {
-        return splitPaneThumbnailsMetadata;
+    public void toggleHideSelectionPanel() {
+        if (selectionPanelHidden) {
+            splitPaneMain.setDividerLocation(prevDividerLocationSplitPaneMain);
+        } else {
+            prevDividerLocationSplitPaneMain =
+                    splitPaneMain.getDividerLocation();
+            splitPaneMain.setDividerLocation(0);
+        }
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (metadataPanelHidden) {
+                    // No effect, if not later
+                    splitPaneThumbnailsMetadata.setDividerLocation(getWidth());
+                }
+            }
+        });
+        selectionPanelHidden = !selectionPanelHidden;
+    }
+
+    public void toggleHideMetadataPanel() {
+        if (metadataPanelHidden) {
+            splitPaneThumbnailsMetadata.setDividerLocation(
+                    prevDividerLocationSplitPaneTnMetadata);
+        } else {
+            prevDividerLocationSplitPaneTnMetadata =
+                    splitPaneThumbnailsMetadata.getDividerLocation();
+            splitPaneThumbnailsMetadata.setDividerLocation(getWidth());
+        }
+        metadataPanelHidden = !metadataPanelHidden;
+    }
+
+    public boolean isSelectionPanelHidden() {
+        return selectionPanelHidden;
+    }
+
+    public boolean isMetadataPanelHidden() {
+        return metadataPanelHidden;
     }
 
     @Override
     public void appWillExit() {
+        writeProperties();
+    }
+
+    private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setComponent(this, getPersistentSettingsHints());
-        int dividerLocationThumbnails = splitPaneThumbnailsMetadata.
-                getDividerLocation();
+        int dividerLocationThumbnails =
+                splitPaneThumbnailsMetadata.getDividerLocation();
         int dividerLocationMain = splitPaneMain.getDividerLocation();
         settings.setInt(dividerLocationMain, KEY_DIVIDER_LOCATION_MAIN);
-        settings.setInt(dividerLocationThumbnails,
-                KEY_DIVIDER_LOCATION_THUMBNAILS);
+        settings.setInt(
+                dividerLocationThumbnails, KEY_DIVIDER_LOCATION_THUMBNAILS);
+        settings.setBoolean(metadataPanelHidden, KEY_METADATA_PANEL_HIDDEN);
+        settings.setBoolean(selectionPanelHidden, KEY_SELECTION_PANEL_HIDDEN);
+        settings.setInt(prevDividerLocationSplitPaneMain,
+                KEY_PREV_DIVIDER_LOCATION_SPLIT_PANE_MAIN);
+        settings.setInt(prevDividerLocationSplitPaneTnMetadata,
+                KEY_PREV_DIVIDER_LOCATION_SPLIT_PANE_TN_METADATA);
         ViewUtil.writeTreeDirectoriesToProperties();
         UserSettings.INSTANCE.writeToFile();
+    }
+
+    private void readProperties() {
+        Settings settings = UserSettings.INSTANCE.getSettings();
+        metadataPanelHidden = settings.getBoolean(KEY_METADATA_PANEL_HIDDEN);
+        selectionPanelHidden = settings.getBoolean(KEY_SELECTION_PANEL_HIDDEN);
+        int pdlm = settings.getInt(KEY_PREV_DIVIDER_LOCATION_SPLIT_PANE_MAIN);
+        int pdlt = settings.getInt(
+                KEY_PREV_DIVIDER_LOCATION_SPLIT_PANE_TN_METADATA);
+        prevDividerLocationSplitPaneMain = pdlm > MIN_DIVIDER_LOCATION_MAIN
+                                           ? pdlm
+                                           : MIN_DIVIDER_LOCATION_MAIN;
+        prevDividerLocationSplitPaneTnMetadata =
+                pdlt > MIN_DIVIDER_LOCATION_THUMBNAILS
+                ? pdlt
+                : MIN_DIVIDER_LOCATION_THUMBNAILS;
     }
 
     public SettingsHints getPersistentSettingsHints() {
@@ -437,7 +514,8 @@ public final class AppPanel extends javax.swing.JPanel implements
     private int getDividerLocationMain() {
         int location = UserSettings.INSTANCE.getSettings().getInt(
                 KEY_DIVIDER_LOCATION_MAIN);
-        return location > MIN_DIVIDER_LOCATION_MAIN
+        if (location <= splitPaneMain.getDividerSize()) location = 0;
+        return location >= 0
                ? location
                : MIN_DIVIDER_LOCATION_MAIN;
     }
