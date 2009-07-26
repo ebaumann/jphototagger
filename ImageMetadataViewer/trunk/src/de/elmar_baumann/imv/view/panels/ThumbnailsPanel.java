@@ -1083,7 +1083,7 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private void checkScrollUp() {
-        if (viewport != null) {
+        if (viewport != null && getSelectedIndex() >= 0) {
             int tnHeight = getThumbnailAreaHeight();
             int topSel = getTopLeftOfTnIndex(getSelectedIndex()).y - tnHeight;
             int viewPosBottom = viewport.getViewPosition().y;
@@ -1094,7 +1094,7 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private void checkScrollDown() {
-        if (viewport != null) {
+        if (viewport != null && getSelectedIndex() >= 0) {
             int tnHeight = getThumbnailAreaHeight();
             int bottomSel = getTopLeftOfTnIndex(getSelectedIndex()).y + tnHeight;
             int viewPosBottom =
