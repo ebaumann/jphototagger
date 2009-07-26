@@ -300,6 +300,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @param  file  file
      * @return Index or -1 if not displayed
      */
+    @Override
     public synchronized int getIndexOf(File file) {
         return files.indexOf(file);
     }
