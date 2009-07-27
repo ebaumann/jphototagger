@@ -15,7 +15,6 @@ import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
 import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
 import de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories;
-import java.awt.Color;
 import javax.swing.tree.TreeCellRenderer;
 
 /**
