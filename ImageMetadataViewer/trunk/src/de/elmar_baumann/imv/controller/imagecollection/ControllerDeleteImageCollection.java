@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections;
+import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,7 +29,7 @@ import javax.swing.SwingUtilities;
 public final class ControllerDeleteImageCollection
         implements ActionListener, KeyListener {
 
-    private final PopupMenuImageCollections actionPopup =
+    private final PopupMenuImageCollections popupMenu =
             PopupMenuImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
@@ -38,7 +39,7 @@ public final class ControllerDeleteImageCollection
     }
 
     private void listen() {
-        actionPopup.getItemDelete().addActionListener(this);
+        popupMenu.getItemDelete().addActionListener(this);
         list.addKeyListener(this);
     }
 
@@ -54,11 +55,12 @@ public final class ControllerDeleteImageCollection
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        deleteCollection(actionPopup.getImageCollectionName());
+        deleteCollection(ListUtil.getItemString(list, popupMenu.getItemIndex()));
     }
 
     private void deleteCollection(final String collectionName) {
-        if (!ListModelImageCollections.checkIsNotSpecialCollection(collectionName,
+        if (!ListModelImageCollections.checkIsNotSpecialCollection(
+                collectionName,
                 "ControllerDeleteImageCollection.Error.SpecialCollection"))
             return;
         if (collectionName != null) {

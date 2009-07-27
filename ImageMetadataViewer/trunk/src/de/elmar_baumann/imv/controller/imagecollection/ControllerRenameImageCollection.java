@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections;
+import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -56,7 +57,8 @@ public final class ControllerRenameImageCollection
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        renameImageCollection(popupMenu.getImageCollectionName());
+        renameImageCollection(ListUtil.getItemString(
+                list, popupMenu.getItemIndex()));
     }
 
     private boolean isRename(KeyEvent e) {

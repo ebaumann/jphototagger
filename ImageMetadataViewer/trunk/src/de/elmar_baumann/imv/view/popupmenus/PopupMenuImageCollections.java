@@ -25,9 +25,9 @@ public final class PopupMenuImageCollections extends JPopupMenu {
             new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
     private final JMenuItem itemRename =
             new JMenuItem(DISPLAY_NAME_ACTION_RENAME);
-    private String imageCollectionName;
     public static final PopupMenuImageCollections INSTANCE =
             new PopupMenuImageCollections();
+    public int itemIndex;
 
     private PopupMenuImageCollections() {
         init();
@@ -41,22 +41,12 @@ public final class PopupMenuImageCollections extends JPopupMenu {
         return itemRename;
     }
 
-    /**
-     * Setzt den Namen der Bildsamlung.
-     * 
-     * @param name Name. Default: null.
-     */
-    public void setImageCollectionName(String name) {
-        imageCollectionName = name;
+    public int getItemIndex() {
+        return itemIndex;
     }
 
-    /**
-     * Liefert den Namen der gespeicherten Bildsamlung.
-     * 
-     * @return Name
-     */
-    public String getImageCollectionName() {
-        return imageCollectionName;
+    public void setItemIndex(int itemIndex) {
+        this.itemIndex = itemIndex;
     }
 
     private void init() {
