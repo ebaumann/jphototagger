@@ -1,6 +1,6 @@
 package de.elmar_baumann.lib.concurrent;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import java.lang.reflect.Method;
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.Executor;
@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public final class SerialExecutor implements Executor {
 
     private final Queue<Runnable> runnables = new ArrayDeque<Runnable>();
+    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
     private final Executor executor;
     private Runnable active;
 
@@ -30,16 +31,41 @@ public final class SerialExecutor implements Executor {
      *
      * To interrupt it, the runnable has to be a {@link Thread} and periodically
      * calling {@link Thread#isInterrupted()}.
+     *
+     * If the active runnable has a method named <strong>cancel</strong> with
+     * no parameters, it will be invoked instead of <strong>interrupt</strong>.
      */
     public synchronized void shutdown() {
         runnables.clear();
-        if (active instanceof Thread) {
-            ((Thread) active).interrupt();
-        } else if (active != null) {
-            Logger.getLogger(getClass().getName()).log(Level.WARNING,
-                    Bundle.getString(
-                    "SerialExecutor.Error.Shutdown.RunnableIsNotAThread", active)); // NOI18N
+        interruptActive(active);
+    }
+
+    private synchronized void interruptActive(Runnable active) {
+        if (active == null) return;
+        Method methodCancel = null;
+        if (hasCancelMethod(active)) {
+            try {
+                methodCancel = active.getClass().getMethod(
+                        ALT_METHOD_NAME_INTERRUPT);
+                methodCancel.invoke(active);
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex); // NOI18N
+            }
         }
+        if (methodCancel == null && active instanceof Thread) {
+            ((Thread) active).interrupt();
+        }
+    }
+
+    private boolean hasCancelMethod(Runnable runnable) {
+        Method[] methods = runnable.getClass().getDeclaredMethods();
+        for (Method method : methods) {
+            if (method.getName().equals(ALT_METHOD_NAME_INTERRUPT) &&
+                    method.getParameterTypes().length == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
