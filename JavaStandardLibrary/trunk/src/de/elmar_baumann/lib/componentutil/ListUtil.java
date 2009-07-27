@@ -1,5 +1,7 @@
 package de.elmar_baumann.lib.componentutil;
 
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -185,6 +187,42 @@ public final class ListUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns the item index below a mouse position got by a mouse event.
+     *
+     * @param  e mouse event within a {@link JList}
+     * @return   item index below the mouse position or -1 if below the mouse
+     *           position isn't an item
+     */
+    public static int getItemIndex(MouseEvent e) {
+        Object source = e.getSource();
+        assert source instanceof JList;
+        if (source instanceof JList) {
+            int mousePosX = e.getX();
+            int mousePosY = e.getY();
+            return ((JList) source).locationToIndex(
+                    new Point(mousePosX, mousePosY));
+        }
+        return -1;
+    }
+
+    /**
+     * Returns the string value of a list item got from the list's model.
+     *
+     * @param  list  list
+     * @param  index index of the list item
+     * @return       string or null if the index isn't valid
+     */
+    public static String getItemString(JList list, int index) {
+        if (index >= 0) {
+            Object o = list.getModel().getElementAt(index);
+            if (o instanceof String) {
+                return (String) o;
+            }
+        }
+        return null;
     }
 
     private ListUtil() {
