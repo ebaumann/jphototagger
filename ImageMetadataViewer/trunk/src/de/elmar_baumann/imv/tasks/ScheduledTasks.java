@@ -74,8 +74,11 @@ public final class ScheduledTasks {
      * currently running runnable if it's an instance of
      * <code>java.lang.Thread</code>.
      *
-     * Thus means: The currently running task stops only when it is a thread
+     * This means: The currently running task stops only when it is a thread
      * that will periodically check {@link Thread#isInterrupted()}.
+     *
+     * If the active runnable has a method named <strong>cancel</strong> with
+     * no parameters, it will be invoked instead of <strong>interrupt</strong>.
      */
     public void shutdown() {
         executor.shutdown();

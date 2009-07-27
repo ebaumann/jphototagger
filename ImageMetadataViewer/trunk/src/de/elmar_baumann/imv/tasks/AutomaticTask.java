@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.resource.Bundle;
+import java.lang.reflect.Method;
 
 /**
  * An automatic task is a background task running as long as the next task
@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 public final class AutomaticTask {
 
     public static final AutomaticTask INSTANCE = new AutomaticTask();
+    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
     private Runnable runnable;
 
     private AutomaticTask() {
@@ -26,7 +27,10 @@ public final class AutomaticTask {
      * This means: The currently running task stops only when it is a thread
      * that will periodically check {@link Thread#isInterrupted()}.
      *
-     * @param runnable
+     * If the active has a method named <strong>cancel</strong> with no
+     * parameters, it will be invoked instead of <strong>interrupt</strong>.
+     *
+     * @param runnable runnable
      */
     public synchronized void setTask(Runnable runnable) {
         this.runnable = runnable;
@@ -40,14 +44,35 @@ public final class AutomaticTask {
      */
     public void shutdown() {
         if (runnable != null) {
-            if (runnable instanceof Thread) {
-                ((Thread) runnable).interrupt();
-            } else {
-                AppLog.logWarning(AutomaticTask.class,
-                        Bundle.getString("AutomaticTask.Error.Terminate", // NOI18N
-                        runnable));
+            interrupt(runnable);
+        }
+    }
+
+    private synchronized void interrupt(Runnable r) {
+        if (r == null) return;
+        Method methodCancel = null;
+        if (hasCancelMethod(r)) {
+            try {
+                methodCancel = r.getClass().getMethod(ALT_METHOD_NAME_INTERRUPT);
+                methodCancel.invoke(r);
+            } catch (Exception ex) {
+                AppLog.logSevere(AutomaticTask.class, ex);
             }
         }
+        if (methodCancel == null && r instanceof Thread) {
+            ((Thread) r).interrupt();
+        }
+    }
+
+    private boolean hasCancelMethod(Runnable runnable) {
+        Method[] methods = runnable.getClass().getDeclaredMethods();
+        for (Method method : methods) {
+            if (method.getName().equals(ALT_METHOD_NAME_INTERRUPT) &&
+                    method.getParameterTypes().length == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void startTask(final Runnable runnable) {
