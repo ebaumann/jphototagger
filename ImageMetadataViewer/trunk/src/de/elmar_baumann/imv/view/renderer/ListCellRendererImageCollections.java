@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
+import de.elmar_baumann.imv.app.AppColors;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
@@ -25,6 +26,7 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
     private static final Color COLOR_FOREGROUND_PREV_IMPORT = Color.BLUE;
     private static final Map<Object, Icon> ICON_OF_VALUE =
             new HashMap<Object, Icon>();
+    private int popupHighLightRow = -1;
 
     {
         ICON_OF_VALUE.put(
@@ -41,8 +43,14 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
             int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(
                 list, value, index, isSelected, cellHasFocus);
-        if (ListModelImageCollections.isSpecialCollection(value.toString())) {
+        if (ListModelImageCollections.isSpecialCollection(value.toString())
+                && !isSelected) {
             label.setForeground(COLOR_FOREGROUND_PREV_IMPORT);
+        }
+        if (index == popupHighLightRow) {
+            label.setForeground(AppColors.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
+            label.setBackground(AppColors.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
+            label.setOpaque(true);
         }
         label.setIcon(getIconOfValue(value));
         return label;
@@ -55,9 +63,7 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
                : icon;
     }
 
-    private boolean hasItemText(Object value, String text) {
-        return value == null
-               ? false
-               : value.toString().equalsIgnoreCase(text);
+    public void setHighlightIndexForPopup(int index) {
+        popupHighLightRow = index;
     }
 }

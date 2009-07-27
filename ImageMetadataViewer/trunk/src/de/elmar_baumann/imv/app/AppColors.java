@@ -51,6 +51,30 @@ public final class AppColors {
      */
     public static final Color COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD =
             new Color(255, 255, 255);
+    /**
+     * Selection foreground color of highlighted tree nodes when a popup menu
+     * was invoked obove a tree node
+     */
+    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE =
+            Color.BLACK;
+    /**
+     * Selection background color of highlighted tree nodes when a popup menu
+     * was invoked obove a tree node
+     */
+    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE =
+            new Color(251, 232, 158);
+    /**
+     * Selection foreground color of highlighted list items when a popup menu
+     * was invoked obove a list item
+     */
+    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST =
+            COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE;
+    /**
+     * Selection background color of highlighted list items when a popup menu
+     * was invoked obove a list item
+     */
+    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST =
+            COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE;
 
     private AppColors() {
     }

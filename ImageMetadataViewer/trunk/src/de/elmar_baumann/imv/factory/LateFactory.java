@@ -1,12 +1,22 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppColors;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ScheduledTasks;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
+import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
+import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
+import de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories;
+import java.awt.Color;
+import javax.swing.tree.TreeCellRenderer;
 
 /**
  * Methods causing the form designer fail to display the AppFrame are called
@@ -41,6 +51,33 @@ public final class LateFactory {
             GUI.INSTANCE.getAppFrame().addAppExitListener(
                     appPanel.getPanelThumbnails());
             ScheduledTasks.INSTANCE.run();
+            setPopupMenuHighlighter();
+        }
+    }
+
+    private void setPopupMenuHighlighter() {
+        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        new TreeCellPopupHighlighter(
+                appPanel.getTreeFavorites(), PopupMenuFavorites.INSTANCE);
+        new TreeCellPopupHighlighter(appPanel.getTreeDirectories(),
+                PopupMenuDirectories.INSTANCE);
+        new ListItemPopupHighlighter(appPanel.getListImageCollections(),
+                PopupMenuImageCollections.INSTANCE);
+        new ListItemPopupHighlighter(
+                appPanel.getListSavedSearches(), PopupMenuSavedSearches.INSTANCE);
+
+        setColorsToRendererTreeDirectories();
+    }
+
+    private void setColorsToRendererTreeDirectories() {
+        TreeCellRenderer r =
+                GUI.INSTANCE.getAppPanel().getTreeDirectories().getCellRenderer();
+        if (r instanceof TreeCellRendererAllSystemDirectories) {
+            TreeCellRendererAllSystemDirectories renderer =
+                    (TreeCellRendererAllSystemDirectories) r;
+            renderer.setHighlightColorsForPopup(
+                    AppColors.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE,
+                    AppColors.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
         }
     }
 }
