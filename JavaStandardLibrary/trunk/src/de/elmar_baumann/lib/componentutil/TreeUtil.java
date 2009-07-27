@@ -192,6 +192,24 @@ public final class TreeUtil {
     }
 
     /**
+     * Returns the tree path below a mouse position got by a mouse event.
+     *
+     * @param  e mouse event within a {@link JTree}
+     * @return   tree path below the mouse position or null if below the mouse
+     *           position isn't a tree path
+     */
+    public static TreePath getTreePath(MouseEvent e) {
+        Object source = e.getSource();
+        assert source instanceof JTree;
+        if (source instanceof JTree) {
+            int mousePosX = e.getX();
+            int mousePosY = e.getY();
+            return ((JTree) source).getPathForLocation(mousePosX, mousePosY);
+        }
+        return null;
+    }
+
+    /**
      * Returns the tree path of a file, each path component is a parent
      * (child) file of a file.
      *
