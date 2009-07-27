@@ -268,14 +268,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemThumbnailSizeIncrease;
     }
 
-    public JMenuItem getMenuItemHideMetadataPanel() {
-        return menuItemHideMetadataPanel;
-    }
-
-    public JMenuItem getMenuItemHideSelectionPanel() {
-        return menuItemHideSelectionPanel;
-    }
-
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
@@ -367,9 +359,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemThumbnailSizeDecrease = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JSeparator();
         checkboxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
-        jSeparator11 = new javax.swing.JSeparator();
-        menuItemHideSelectionPanel = new javax.swing.JMenuItem();
-        menuItemHideMetadataPanel = new javax.swing.JMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -500,15 +489,6 @@ public final class AppFrame extends javax.swing.JFrame {
         checkboxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkboxMenuItemKeywordOverlay.text")); // NOI18N
         checkboxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkboxMenuItemKeywordOverlay.toolTipText")); // NOI18N
         menuView.add(checkboxMenuItemKeywordOverlay);
-        menuView.add(jSeparator11);
-
-        menuItemHideSelectionPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemHideSelectionPanel.setText(Bundle.getString("AppFrame.menuItemHideSelectionPanel.text")); // NOI18N
-        menuView.add(menuItemHideSelectionPanel);
-
-        menuItemHideMetadataPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemHideMetadataPanel.setText(Bundle.getString("AppFrame.menuItemHideMetadataPanel.text")); // NOI18N
-        menuView.add(menuItemHideMetadataPanel);
 
         menuBar.add(menuView);
 
@@ -688,7 +668,6 @@ private void menuItemHierarchicalKeywordsActionPerformed(java.awt.event.ActionEv
     private javax.swing.JCheckBoxMenuItem checkboxMenuItemKeywordOverlay;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -723,8 +702,6 @@ private void menuItemHierarchicalKeywordsActionPerformed(java.awt.event.ActionEv
     private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
-    private javax.swing.JMenuItem menuItemHideMetadataPanel;
-    private javax.swing.JMenuItem menuItemHideSelectionPanel;
     private javax.swing.JMenuItem menuItemHierarchicalKeywords;
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
