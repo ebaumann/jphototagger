@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.image.thumbnail;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -11,7 +12,6 @@ import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
@@ -36,15 +36,11 @@ public class ThumbnailCache {
      * values of 3500.
      */
     private final int MAX_ENTRIES = 1500;
-    private Image dummyThumbnail = ThumbnailUtil.loadImage(
-            new File(getClass().getClassLoader().getSystemResource(
-            Bundle.getString("ThumbnailCache.Path.DummyThumbnail")).
-            getPath()));
+    private Image dummyThumbnail = IconUtil.getIconImage(
+            Bundle.getString("ThumbnailCache.Path.DummyThumbnail"));
     private Image dummyThumbnailScaled = null;
-    private Image noPreviewThumbnail = ThumbnailUtil.loadImage(
-            new File(getClass().getClassLoader().getSystemResource(
-            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")).
-            getPath()));
+    private Image noPreviewThumbnail = IconUtil.getIconImage(
+            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
 
     /*
     // must be called from synchronized function
@@ -351,6 +347,9 @@ public class ThumbnailCache {
      *
      * Requests for the real image and the subjects are put into their
      * respective work queues
+     * @param file
+     * @param wqsubjects
+     * @param prefetch
      */
     public synchronized void generateEntry(File file, boolean wqsubjects,
                                            boolean prefetch) {
@@ -418,7 +417,7 @@ public class ThumbnailCache {
     /**
      * Provide a new mapping for indices to filenames.
      *
-     * @param names Ordered list of filenames
+     * @param _files Ordered list of filenames
      */
     public void setFiles(List<File> _files) {
         files.clear();
