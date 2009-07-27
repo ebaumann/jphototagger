@@ -246,11 +246,31 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     public synchronized void setThumbnailWidth(int width) {
         if (width != thumbnailWidth) {
+            float oldPosition = getRelativeScrollPosition();
             thumbnailWidth = width;
             setCountPerRow();
+            setSize(getWidth(), getCalculatedHeight());
             maxCharCountText = (int) (((double) MAX_CHAR_COUNT_PER_150_PX *
                     (double) width / 150.0));
+            setRelativeScrollPosition(oldPosition);
             repaint();
+        }
+    }
+
+    private float getRelativeScrollPosition() {
+        if (viewport != null) {
+            int middle = viewport.getViewRect().y +
+                         viewport.getExtentSize().height / 2;
+            return (float) middle / (float) getHeight();
+        }
+        return (float) 0.0;
+    }
+
+    private void setRelativeScrollPosition(float p) {
+        if (viewport != null) {
+            int newY = ((int)(p * getHeight())) -
+                       viewport.getExtentSize().height / 2;
+            viewport.setViewPosition(new Point(0, Math.max(0, newY)));
         }
     }
 
@@ -974,6 +994,7 @@ public abstract class ThumbnailsPanel extends JPanel
     @Override
     public void componentResized(ComponentEvent e) {
         setCountPerRow();
+        setSize(getWidth(), getCalculatedHeight());
     }
 
     private void setCountPerRow() {
@@ -986,9 +1007,6 @@ public abstract class ThumbnailsPanel extends JPanel
         thumbnailCountPerRow = count >= 1
                                ? (int) count
                                : 1;
-        if (prevCount != thumbnailCountPerRow) {
-            setSize(getWidth(), getCalculatedHeight());
-        }
     }
 
     @Override
