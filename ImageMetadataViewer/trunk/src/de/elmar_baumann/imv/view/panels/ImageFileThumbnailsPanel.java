@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
 
 /**
  * Shows thumbnails of image files.
