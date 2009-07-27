@@ -73,9 +73,9 @@ public final class ControllerOpenFavoriteInFolders
 
             @Override
             public void run() {
-                TreePath selPath = treeFavoriteDirectories.getSelectionPath();
-                if (selPath != null) {
-                    File dir = getDir((DefaultMutableTreeNode) selPath.
+                TreePath path = popupMenu.getTreePath();
+                if (path != null) {
+                    File dir = getDir((DefaultMutableTreeNode) path.
                             getLastPathComponent());
                     if (dir != null && dir.isDirectory()) {
                         expandTreeToDir(dir);

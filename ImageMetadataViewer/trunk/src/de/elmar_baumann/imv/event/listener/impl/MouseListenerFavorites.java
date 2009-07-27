@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.event.listener.impl;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
+import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -23,43 +24,41 @@ public final class MouseListenerFavorites extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        JTree tree = (JTree) e.getSource();
-        int x = e.getX();
-        int y = e.getY();
-        if ((e.isPopupTrigger() || e.getModifiers() == 4)) {
-            boolean isItemSelected = TreeUtil.isSelectedItemPosition(e);
-            boolean isFavoriteItemSelected = false;
-            boolean isFileDirectory = false;
-            if (isItemSelected) {
-                Object o = tree.getSelectionPath().getLastPathComponent();
-                TreePath path = tree.getPathForLocation(x, y);
-                popupMenu.setTreePath(path);
-                if (path != null && o.equals(path.getLastPathComponent()) &&
-                        o instanceof DefaultMutableTreeNode) {
-                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+        if (MouseEventUtil.isPopupTrigger(e)) {
+            TreePath path = TreeUtil.getTreePath(e);
+            boolean isFavorite = false;
+            boolean isDirectory = false;
+            popupMenu.setTreePath(path);
+            if (path != null) {
+                Object usrObj = path.getLastPathComponent();
+                if (usrObj instanceof DefaultMutableTreeNode) {
+                    DefaultMutableTreeNode node =
+                            (DefaultMutableTreeNode) usrObj;
                     Object userObject = node.getUserObject();
                     DefaultMutableTreeNode parent =
                             (DefaultMutableTreeNode) node.getParent();
-                    TreeNode root = (TreeNode) tree.getModel().getRoot();
-                    isFileDirectory = userObject instanceof File;
+                    TreeNode root = (TreeNode) ((JTree) e.getSource()).getModel().
+                            getRoot();
+                    isDirectory = userObject instanceof File;
                     if (root.equals(parent) &&
                             userObject instanceof FavoriteDirectory) {
-                        isFavoriteItemSelected = true;
+                        isFavorite = true;
                         popupMenu.setFavoriteDirectory(
                                 (FavoriteDirectory) userObject);
                     }
                 }
             }
-            popupMenu.getItemDeleteFavorite().setEnabled(isFavoriteItemSelected);
-            popupMenu.getItemUpdateFavorite().setEnabled(isFavoriteItemSelected);
-            popupMenu.getItemMoveUp().setEnabled(isFavoriteItemSelected);
-            popupMenu.getItemMoveDown().setEnabled(isFavoriteItemSelected);
-            popupMenu.getItemOpenInFolders().setEnabled(isItemSelected);
+            popupMenu.getItemDeleteFavorite().setEnabled(isFavorite);
+            popupMenu.getItemUpdateFavorite().setEnabled(isFavorite);
+            popupMenu.getItemMoveUp().setEnabled(isFavorite);
+            popupMenu.getItemMoveDown().setEnabled(isFavorite);
+            popupMenu.getItemOpenInFolders().setEnabled(
+                    isFavorite || isDirectory);
             popupMenu.getItemAddFilesystemFolder().setEnabled(
-                    isFavoriteItemSelected || isFileDirectory);
-            popupMenu.getItemRenameFilesystemFolder().setEnabled(isFileDirectory);
-            popupMenu.getItemDeleteFilesystemFolder().setEnabled(isFileDirectory);
-            popupMenu.show(tree, x, y);
+                    isFavorite || isDirectory);
+            popupMenu.getItemRenameFilesystemFolder().setEnabled(isDirectory);
+            popupMenu.getItemDeleteFilesystemFolder().setEnabled(isDirectory);
+            popupMenu.show((JTree) e.getSource(), e.getX(), e.getY());
         }
     }
 }
