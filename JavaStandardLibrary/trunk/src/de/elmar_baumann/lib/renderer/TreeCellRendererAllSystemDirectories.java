@@ -3,6 +3,7 @@ package de.elmar_baumann.lib.renderer;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.resource.Bundle;
+import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
 import java.util.logging.Level;
@@ -27,7 +28,11 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
     private Icon rootIcon = IconUtil.getImageIcon(
             "/de/elmar_baumann/lib/resource/icons/icon_workspace.png"); // NOI18N
     private static final String DISPLAY_NAME_ROOT =
-            Bundle.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root"); // NOI18N
+            Bundle.getString(
+            "TreeCellRendererAllSystemDirectories.DisplayName.Root"); // NOI18N
+    private int popupHighLightRow = -1;
+    private Color foregroundColorHighlightPopup;
+    private Color backgroundColorHighlightPopup;
 
     @Override
     public Component getTreeCellRendererComponent(
@@ -58,6 +63,7 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
             }
             setText(getDirectoryName(file));
         }
+        renderHighlightPopup(row);
         return this;
     }
 
@@ -72,5 +78,26 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
             }
         }
         return name;
+    }
+
+    public void setHighlightColorsForPopup(Color foreground, Color background) {
+        foregroundColorHighlightPopup = foreground;
+        backgroundColorHighlightPopup = background;
+    }
+
+    public void setHighlightIndexForPopup(int index) {
+        popupHighLightRow = index;
+    }
+
+    private void renderHighlightPopup(int row) {
+        if (row == popupHighLightRow && foregroundColorHighlightPopup != null &&
+                backgroundColorHighlightPopup != null) {
+            System.out.println("row: " + row + " hlr: " + popupHighLightRow);
+            setOpaque(true);
+            setForeground(foregroundColorHighlightPopup);
+            setBackground(backgroundColorHighlightPopup);
+        } else {
+            setOpaque(false);
+        }
     }
 }
