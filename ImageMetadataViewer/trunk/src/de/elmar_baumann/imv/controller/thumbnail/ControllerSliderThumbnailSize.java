@@ -89,10 +89,10 @@ public final class ControllerSliderThumbnailSize
 
     private void addToSliderValue(int increment) {
         int value = slider.getValue();
-        int newValue = value + increment;
-        if (newValue >= STEP_WIDTH && newValue <= MAX_MAGINFICATION_PERCENT) {
-            slider.setValue(newValue);
-        }
+        int newValue = Math.min(Math.max(value + increment,
+                                         MIN_MAGINFICATION_PERCENT),
+                                MAX_MAGINFICATION_PERCENT);
+        slider.setValue(newValue);
     }
 
     @Override
