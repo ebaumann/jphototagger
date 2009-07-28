@@ -151,6 +151,15 @@ public final class EditRepeatableTextEntryPanel
         this.dirty = dirty;
     }
 
+    public void removeText(String text) {
+        assert editable : "Edit is not enabled!"; // NOI18N
+        if (!editable) return;
+        model.removeElement(text);
+        notifyTextRemoved(column, text);
+        dirty = true;
+    }
+
+
     /**
      * Adds text to the list <em>whithout</em> replacing existing words in the
      * list if editing is allowed and sets the dirty flag to true.

@@ -52,6 +52,10 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         return menuItemAddToEditPanel;
     }
 
+    public JMenuItem getMenuItemRemoveFromEditPanel() {
+        return menuItemRemoveFromEditPanel;
+    }
+
     /**
      * Reads the persistent properties, currently the selected tree node.
      */
@@ -115,6 +119,7 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         menuItemRename = new javax.swing.JMenuItem();
         menuItemToggleReal = new javax.swing.JMenuItem();
         menuItemAddToEditPanel = new javax.swing.JMenuItem();
+        menuItemRemoveFromEditPanel = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
@@ -144,7 +149,18 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         menuItemAddToEditPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit.png"))); // NOI18N
         menuItemAddToEditPanel.setMnemonic('a');
         menuItemAddToEditPanel.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemAddToEditPanel.text")); // NOI18N
+        menuItemAddToEditPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAddToEditPanelActionPerformed(evt);
+            }
+        });
         popupMenu.add(menuItemAddToEditPanel);
+
+        menuItemRemoveFromEditPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_BACK_SPACE, 0));
+        menuItemRemoveFromEditPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_delete.png"))); // NOI18N
+        menuItemRemoveFromEditPanel.setMnemonic('d');
+        menuItemRemoveFromEditPanel.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRemoveFromEditPanel.text")); // NOI18N
+        popupMenu.add(menuItemRemoveFromEditPanel);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -183,11 +199,17 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
     private void buttonToggleExpandAllNodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
         handleButtonToggleExpandAllNodesActionPerformed();
     }//GEN-LAST:event_buttonToggleExpandAllNodesActionPerformed
+
+    private void menuItemAddToEditPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddToEditPanelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemAddToEditPanelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
     private javax.swing.JMenuItem menuItemAdd;
     private javax.swing.JMenuItem menuItemAddToEditPanel;
     private javax.swing.JMenuItem menuItemRemove;
+    private javax.swing.JMenuItem menuItemRemoveFromEditPanel;
     private javax.swing.JMenuItem menuItemRename;
     private javax.swing.JMenuItem menuItemToggleReal;
     private javax.swing.JPopupMenu popupMenu;
