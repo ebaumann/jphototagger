@@ -32,6 +32,7 @@ public final class ControllerSliderThumbnailSize
             appPanel.getPanelThumbnails();
     private final JSlider slider = appPanel.getSliderThumbnailSize();
     private static final int STEP_WIDTH = 1;
+    private static final int LARGER_STEP_WIDTH = 10;
     private static final int MIN_MAGINFICATION_PERCENT = 10;
     private static final int MAX_MAGINFICATION_PERCENT = 100;
     private static final String KEY_SLIDER_VALUE =
@@ -71,18 +72,18 @@ public final class ControllerSliderThumbnailSize
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(appFrame.getMenuItemThumbnailSizeDecrease())) {
-            moveSlider(false);
+            moveSlider(LARGER_STEP_WIDTH, false);
         } else if (e.getSource().equals(
                 appFrame.getMenuItemThumbnailSizeIncrease())) {
-            moveSlider(true);
+            moveSlider(LARGER_STEP_WIDTH, true);
         }
     }
 
-    private void moveSlider(boolean increase) {
+    private void moveSlider(int stepWidth, boolean increase) {
         if (increase) {
-            addToSliderValue(STEP_WIDTH);
+            addToSliderValue(stepWidth);
         } else {
-            addToSliderValue(-STEP_WIDTH);
+            addToSliderValue(-stepWidth);
         }
     }
 
