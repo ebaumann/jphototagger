@@ -541,6 +541,11 @@ public abstract class ThumbnailsPanel extends JPanel
                 2 * WIDHT_BORDER_THUMBNAIL + FONT_PIXEL_HEIGHT;
     }
 
+    private int getThumbnailAreaHeightNoText() {
+        return thumbnailWidth + 2 * PADDING_THUMBNAIL +
+                2 * WIDHT_BORDER_THUMBNAIL;
+    }
+
     private int getThumbnailAreaWidth() {
         return thumbnailWidth + 2 * PADDING_THUMBNAIL +
                 2 * WIDHT_BORDER_THUMBNAIL;
@@ -805,10 +810,12 @@ public abstract class ThumbnailsPanel extends JPanel
 
             // prefetch for scrolling down a bit
             thumbCache.prefetchThumbnails(lastIndex + 1,
-                                          lastIndex + thumbnailCountPerRow * 5);
+                                          lastIndex + thumbnailCountPerRow * 5,
+                                          isKeywordsOverlay());
             // prefetch for scrolling up a bit
             thumbCache.prefetchThumbnails(firstIndex - thumbnailCountPerRow * 5,
-                                          firstIndex - 1);
+                                          firstIndex - 1,
+                                          isKeywordsOverlay());
         }
     }
 
@@ -923,7 +930,7 @@ public abstract class ThumbnailsPanel extends JPanel
             return;
         }
         int width = getThumbnailAreaWidth();
-        int height = getThumbnailAreaHeight();
+        int height = getThumbnailAreaHeightNoText();
         Color oldColor = g.getColor();
         g.setColor(COLOR_TEXT_HIGHLIGHTED);
         Shape oldShape = g.getClip();

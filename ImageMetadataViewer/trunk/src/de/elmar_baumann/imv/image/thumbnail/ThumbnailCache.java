@@ -445,24 +445,24 @@ public class ThumbnailCache {
         return ci.thumbnail;
     }
 
-    public void prefetchThumbnails(int indexLow, int indexHigh) {
+    public void prefetchThumbnails(int indexLow, int indexHigh, boolean subjects) {
         for (int i = indexLow; i <= indexHigh; i++) {
-            prefetchThumbnail(i);
+            prefetchThumbnail(i, subjects);
         }
     }
 
-    public synchronized void prefetchThumbnail(int index) {
+    public synchronized void prefetchThumbnail(int index, boolean subjects) {
         if (index < 0 || index >= files.size()) {
             return;
         }
-        prefetchThumbnail(files.get(index));
+        prefetchThumbnail(files.get(index), subjects);
     }
 
-    public synchronized void prefetchThumbnail(File file) {
+    public synchronized void prefetchThumbnail(File file, boolean subjects) {
         if (fileCache.containsKey(file)) {
             return;  // we have this already
         }
-        generateEntry(file, false, true);
+        generateEntry(file, subjects, true);
     }
 
     public synchronized Image getScaledThumbnail(int index, int length) {
