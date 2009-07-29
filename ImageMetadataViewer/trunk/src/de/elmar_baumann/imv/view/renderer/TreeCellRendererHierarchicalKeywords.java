@@ -27,6 +27,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
             AppIcons.getIcon("icon_keyword_hk_highlighted.png"); // NOI18N
     private static final Icon ICON_HELPER = AppIcons.getIcon("icon_folder.png"); // NOI18N
     private final List<String> keywords = new ArrayList<String>();
+    private int popupHighLightRow = -1;
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value,
@@ -36,11 +37,11 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
                 tree, value, sel, expanded, false, row, hasFocus);
 
         assert value instanceof DefaultMutableTreeNode;
-        render(((DefaultMutableTreeNode) value).getUserObject());
+        render(((DefaultMutableTreeNode) value).getUserObject(), row);
         return this;
     }
 
-    private void render(Object userObject) {
+    private void render(Object userObject, int row) {
         setOpaque(false);
         if (userObject instanceof HierarchicalKeyword) {
             HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
@@ -63,6 +64,11 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
                 setIcon(ICON_REAL_HIGHLIGHTED);
             }
         }
+        setOpaque(row == popupHighLightRow);
+        if (row == popupHighLightRow) {
+            setForeground(AppColors.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
+            setBackground(AppColors.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
+        }
     }
 
     private boolean isKeyword(Object value) {
@@ -84,5 +90,9 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
             this.keywords.clear();
             this.keywords.addAll(keywords);
         }
+    }
+
+    public void setHighlightIndexForPopup(int index) {
+        popupHighLightRow = index;
     }
 }

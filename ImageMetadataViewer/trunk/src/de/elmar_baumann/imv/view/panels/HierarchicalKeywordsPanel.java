@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
-import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -30,30 +29,6 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
     public JTree getTree() {
         return tree;
-    }
-
-    public JMenuItem getMenuItemAdd() {
-        return menuItemAdd;
-    }
-
-    public JMenuItem getMenuItemRemove() {
-        return menuItemRemove;
-    }
-
-    public JMenuItem getMenuItemRename() {
-        return menuItemRename;
-    }
-
-    public JMenuItem getMenuItemToggleReal() {
-        return menuItemToggleReal;
-    }
-
-    public JMenuItem getMenuItemAddToEditPanel() {
-        return menuItemAddToEditPanel;
-    }
-
-    public JMenuItem getMenuItemRemoveFromEditPanel() {
-        return menuItemRemoveFromEditPanel;
     }
 
     /**
@@ -113,64 +88,19 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        popupMenu = new javax.swing.JPopupMenu();
-        menuItemAdd = new javax.swing.JMenuItem();
-        menuItemRemove = new javax.swing.JMenuItem();
-        menuItemRename = new javax.swing.JMenuItem();
-        menuItemToggleReal = new javax.swing.JMenuItem();
-        menuItemAddToEditPanel = new javax.swing.JMenuItem();
-        menuItemRemoveFromEditPanel = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
 
-        menuItemAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_add.png"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
-        menuItemAdd.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemAdd.text")); // NOI18N
-        popupMenu.add(menuItemAdd);
-
-        menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_remove.png"))); // NOI18N
-        menuItemRemove.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRemove.text")); // NOI18N
-        popupMenu.add(menuItemRemove);
-
-        menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        menuItemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_rename.png"))); // NOI18N
-        menuItemRename.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRename.text")); // NOI18N
-        popupMenu.add(menuItemRename);
-
-        menuItemToggleReal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemToggleReal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword_real_helper.png"))); // NOI18N
-        menuItemToggleReal.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemToggleReal.text")); // NOI18N
-        popupMenu.add(menuItemToggleReal);
-
-        menuItemAddToEditPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemAddToEditPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit.png"))); // NOI18N
-        menuItemAddToEditPanel.setMnemonic('a');
-        menuItemAddToEditPanel.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemAddToEditPanel.text")); // NOI18N
-        menuItemAddToEditPanel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemAddToEditPanelActionPerformed(evt);
-            }
-        });
-        popupMenu.add(menuItemAddToEditPanel);
-
-        menuItemRemoveFromEditPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_BACK_SPACE, 0));
-        menuItemRemoveFromEditPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_delete.png"))); // NOI18N
-        menuItemRemoveFromEditPanel.setMnemonic('d');
-        menuItemRemoveFromEditPanel.setText(bundle.getString("HierarchicalKeywordsPanel.menuItemRemoveFromEditPanel.text")); // NOI18N
-        popupMenu.add(menuItemRemoveFromEditPanel);
-
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setCellRenderer(new de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords());
-        tree.setComponentPopupMenu(popupMenu);
         tree.setDragEnabled(true);
         tree.setShowsRootHandles(true);
         scrollPane.setViewportView(tree);
         tree.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerTreeHierarchicalKeywords());
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
         buttonToggleExpandAllNodes.setText(bundle.getString("HierarchicalKeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,19 +130,8 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         handleButtonToggleExpandAllNodesActionPerformed();
     }//GEN-LAST:event_buttonToggleExpandAllNodesActionPerformed
 
-    private void menuItemAddToEditPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddToEditPanelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemAddToEditPanelActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
-    private javax.swing.JMenuItem menuItemAdd;
-    private javax.swing.JMenuItem menuItemAddToEditPanel;
-    private javax.swing.JMenuItem menuItemRemove;
-    private javax.swing.JMenuItem menuItemRemoveFromEditPanel;
-    private javax.swing.JMenuItem menuItemRename;
-    private javax.swing.JMenuItem menuItemToggleReal;
-    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables

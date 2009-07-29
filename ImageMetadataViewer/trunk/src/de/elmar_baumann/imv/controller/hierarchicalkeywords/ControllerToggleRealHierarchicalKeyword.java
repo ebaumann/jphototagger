@@ -7,12 +7,12 @@ import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -31,6 +31,9 @@ public class ControllerToggleRealHierarchicalKeyword
 
     public ControllerToggleRealHierarchicalKeyword() {
         panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
+        // Has to be called only one times (the popup menu is a singleton)!
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemToggleReal().
+                addActionListener(this);
         listen();
     }
 
@@ -41,7 +44,6 @@ public class ControllerToggleRealHierarchicalKeyword
     }
 
     private void listen() {
-        panel.getMenuItemToggleReal().addActionListener(this);
         panel.getTree().addKeyListener(this);
     }
 
@@ -58,8 +60,7 @@ public class ControllerToggleRealHierarchicalKeyword
     }
 
     private void toggleReal() {
-        JTree tree = panel.getTree();
-        TreePath path = tree.getSelectionPath();
+        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
         if (path == null) {
             MessageDisplayer.error(panel.getTree(),
                     "ControllerToggleRealHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
@@ -70,15 +71,18 @@ public class ControllerToggleRealHierarchicalKeyword
                         (DefaultMutableTreeNode) node;
                 Object userObject = keywordNode.getUserObject();
                 if (userObject instanceof HierarchicalKeyword) {
-                    HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
-                    TreeModel tm = tree.getModel();
+                    HierarchicalKeyword keyword =
+                            (HierarchicalKeyword) userObject;
+                    TreeModel tm = panel.getTree().getModel();
                     if (tm instanceof TreeModelHierarchicalKeywords) {
-                        keyword.setReal(! keyword.isReal());
-                        ((TreeModelHierarchicalKeywords) tm).changed((DefaultMutableTreeNode) node, keyword);
+                        keyword.setReal(!keyword.isReal());
+                        ((TreeModelHierarchicalKeywords) tm).changed(
+                                (DefaultMutableTreeNode) node, keyword);
                     } else {
-                        AppLog.logWarning(ControllerToggleRealHierarchicalKeyword.class,
-                        Bundle.getString(
-                            "ControllerToggleRealHierarchicalKeyword.Error.Model")); // NOI18N
+                        AppLog.logWarning(
+                                ControllerToggleRealHierarchicalKeyword.class,
+                                Bundle.getString(
+                                "ControllerToggleRealHierarchicalKeyword.Error.Model")); // NOI18N
                     }
                 } else {
                     MessageDisplayer.error(panel.getTree(),

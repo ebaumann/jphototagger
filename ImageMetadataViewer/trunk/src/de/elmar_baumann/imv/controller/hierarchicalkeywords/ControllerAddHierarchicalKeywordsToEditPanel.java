@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +17,6 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -39,6 +39,9 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
 
     public ControllerAddHierarchicalKeywordsToEditPanel() {
         panelKeywords = HierarchicalKeywordsDialog.INSTANCE.getPanel();
+        // Has to be called only one times (the popup menu is a singleton)!
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemAddToEditPanel().
+                addActionListener(this);
         listen();
     }
 
@@ -49,7 +52,6 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
     }
 
     private void listen() {
-        panelKeywords.getMenuItemAddToEditPanel().addActionListener(this);
         panelKeywords.getTree().addKeyListener(this);
     }
 
@@ -66,8 +68,7 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
     }
 
     private void addToEditPanel() {
-        JTree tree = panelKeywords.getTree();
-        TreePath path = tree.getSelectionPath();
+        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
         if (path == null) {
             MessageDisplayer.error(panelKeywords.getTree(),
                     "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoPathSelected"); // NOI18N

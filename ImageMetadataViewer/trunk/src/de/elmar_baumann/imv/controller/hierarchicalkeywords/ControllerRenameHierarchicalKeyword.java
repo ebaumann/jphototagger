@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -37,6 +38,9 @@ public class ControllerRenameHierarchicalKeyword
 
     public ControllerRenameHierarchicalKeyword() {
         panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
+        // Has to be called only one times (the popup menu is a singleton)!
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRename().
+                addActionListener(this);
         listen();
     }
 
@@ -46,7 +50,6 @@ public class ControllerRenameHierarchicalKeyword
     }
 
     private void listen() {
-        panel.getMenuItemRename().addActionListener(this);
         panel.getTree().addKeyListener(this);
     }
 
@@ -63,8 +66,7 @@ public class ControllerRenameHierarchicalKeyword
     }
 
     private void rename() {
-        JTree tree = panel.getTree();
-        TreePath path = tree.getSelectionPath();
+        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
         if (path == null) {
             MessageDisplayer.error(panel.getTree(),
                     "ControllerRenameHierarchicalKeyword.Error.NoPathSelected"); // NOI18N

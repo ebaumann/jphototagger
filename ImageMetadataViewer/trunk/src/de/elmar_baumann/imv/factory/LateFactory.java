@@ -6,9 +6,11 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ScheduledTasks;
+import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
@@ -60,6 +62,11 @@ public final class LateFactory {
                 appPanel.getTreeFavorites(), PopupMenuFavorites.INSTANCE);
         new TreeCellPopupHighlighter(appPanel.getTreeDirectories(),
                 PopupMenuDirectories.INSTANCE);
+        new TreeCellPopupHighlighter(appPanel.getTreeHierarchicalKeywords(),
+                PopupMenuHierarchicalKeywords.INSTANCE);
+        new TreeCellPopupHighlighter(
+                HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree(),
+                PopupMenuHierarchicalKeywords.INSTANCE);
         new ListItemPopupHighlighter(appPanel.getListImageCollections(),
                 PopupMenuImageCollections.INSTANCE);
         new ListItemPopupHighlighter(

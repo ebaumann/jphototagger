@@ -8,14 +8,13 @@ import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Collection;
 import javax.swing.JPanel;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -37,6 +36,9 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
 
     public ControllerRemoveHierarchicalKeywordFromEditPanel() {
         panelKeywords = HierarchicalKeywordsDialog.INSTANCE.getPanel();
+        // Has to be called only one times (the popup menu is a singleton)!
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRemoveFromEditPanel().
+                addActionListener(this);
         listen();
     }
 
@@ -47,7 +49,6 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
     }
 
     private void listen() {
-        panelKeywords.getMenuItemRemoveFromEditPanel().addActionListener(this);
         panelKeywords.getTree().addKeyListener(this);
     }
 
@@ -64,8 +65,7 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
     }
 
     private void removeFromEditPanel() {
-        JTree tree = panelKeywords.getTree();
-        TreePath path = tree.getSelectionPath();
+        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
         if (path == null) {
             MessageDisplayer.error(panelKeywords.getTree(),
                     "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.NoPathSelected"); // NOI18N
@@ -88,7 +88,12 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel =
                     (EditRepeatableTextEntryPanel) panel;
-            editPanel.removeText(keyword);
+            if (editPanel.isEditable()) {
+                editPanel.removeText(keyword);
+            } else {
+                MessageDisplayer.error(panelKeywords.getTree(),
+                        "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.EditDisabled"); // NOI18N
+            }
         } else {
             MessageDisplayer.error(panelKeywords.getTree(),
                     "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.NoEditPanel"); // NOI18N

@@ -8,12 +8,12 @@ import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -35,6 +35,9 @@ public class ControllerAddHierarchicalKeyword
 
     public ControllerAddHierarchicalKeyword() {
         panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
+        // Has to be called only one times (the popup menu is a singleton)!
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemAdd().
+                addActionListener(this);
         listen();
     }
 
@@ -44,7 +47,6 @@ public class ControllerAddHierarchicalKeyword
     }
 
     private void listen() {
-        panel.getMenuItemAdd().addActionListener(this);
         panel.getTree().addKeyListener(this);
     }
 
@@ -61,8 +63,7 @@ public class ControllerAddHierarchicalKeyword
     }
 
     private void add() {
-        JTree tree = panel.getTree();
-        TreePath path = tree.getSelectionPath();
+        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
         if (path == null) {
             MessageDisplayer.error(panel.getTree(),
                     "ControllerAddHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
@@ -91,8 +92,8 @@ public class ControllerAddHierarchicalKeyword
         HierarchicalKeyword newKeyword =
                 new HierarchicalKeyword(
                 null, parentKeyword == null
-                ? null
-                : parentKeyword.getId(),
+                      ? null
+                      : parentKeyword.getId(),
                 Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"), // NOI18N
                 true);
         String name = ControllerRenameHierarchicalKeyword.getName(newKeyword,
