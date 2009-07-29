@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.io.File;
@@ -18,10 +19,11 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 
 /**
- * Listens to
+ * Listens to a {@link ImageFileThumbnailsPanel} and highlights in the tree
+ * of a  {@link HierarchicalKeywordsPanel} the keywords of the selected image.
  *
- * @author  Elmar Baumann <ebaumann@feitsch.de>
- * @version 2009/07/23
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2009-07-23
  */
 public final class ControllerHighlightHierarchicalKeywords
         implements ThumbnailsPanelListener {

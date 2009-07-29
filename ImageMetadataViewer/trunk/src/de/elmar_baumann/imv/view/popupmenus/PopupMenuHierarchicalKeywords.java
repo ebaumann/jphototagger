@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.popupmenus;
 
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
@@ -10,9 +11,9 @@ import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
 
 /**
+ * Popup menu for the tree in a {@link HierarchicalKeywordsPanel}.
  *
- *
- * @author  Elmar Baumann <ebaumann@feitsch.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-29
  */
 public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
