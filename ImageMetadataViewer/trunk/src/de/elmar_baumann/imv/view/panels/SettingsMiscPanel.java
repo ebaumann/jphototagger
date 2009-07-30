@@ -9,6 +9,7 @@ import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererLogfileFormatter;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.image.util.IconUtil;
+import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.ExecutableFileChooserFileFilter;
 import java.awt.Component;
 import java.io.File;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -129,10 +131,19 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     private void setDatabaseDirectoryName(String directoryName) {
         labelDatabaseDirectory.setText(directoryName);
+        setIconDatabaseDirectory();
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
                 UserSettingsChangeEvent.Type.DATABASE_DIRECTORY, this);
         evt.setDatabaseDirectoryName(directoryName);
         notifyChangeListener(evt);
+    }
+
+    private void setIconDatabaseDirectory() {
+        File dir = new File(labelDatabaseDirectory.getText());
+        if (FileUtil.existsDirectory(dir)) {
+            labelDatabaseDirectory.setIcon(
+                    FileSystemView.getFileSystemView().getSystemIcon(dir));
+        }
     }
 
     private void handleActionPerformedSetStandardDatabaseDirectory() {
@@ -198,6 +209,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 settings.isTreeDirectoriesSelectLastDirectory());
         labelDatabaseDirectory.setText(UserSettings.INSTANCE.
                 getDatabaseDirectoryName());
+        setIconDatabaseDirectory();
     }
 
     private void readAutoCopyDirectoryProperties(UserSettings settings) {
@@ -272,7 +284,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(panelWebBrowserLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelWebBrowserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                    .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addComponent(buttonChooseWebBrowser, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -283,7 +295,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(labelWebBrowser, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseWebBrowser)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelWebBrowser.TabConstraints.tabTitle"), panelWebBrowser); // NOI18N
@@ -307,7 +319,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             }
         });
 
-        labelInfoDatabaseDirectory.setForeground(new java.awt.Color(0, 0, 255));
+        labelInfoDatabaseDirectory.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.labelInfoDatabaseDirectory.text")); // NOI18N
 
         javax.swing.GroupLayout panelDatabaseDirectoryLayout = new javax.swing.GroupLayout(panelDatabaseDirectory);
@@ -317,14 +329,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatabaseDirectoryLayout.createSequentialGroup()
                         .addComponent(buttonSetStandardDatabaseDirectoryName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonChooseDatabaseDirectory))
-                    .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
-                        .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(106, 106, 106)))
+                    .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelDatabaseDirectoryLayout.setVerticalGroup(
@@ -337,8 +347,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                     .addComponent(buttonChooseDatabaseDirectory)
                     .addComponent(buttonSetStandardDatabaseDirectoryName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(118, 118, 118))
+                .addComponent(labelInfoDatabaseDirectory)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.TabConstraints.tabTitle"), panelDatabaseDirectory); // NOI18N
@@ -362,7 +372,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             }
         });
 
-        labelInfoLogfile.setForeground(new java.awt.Color(0, 0, 255));
+        labelInfoLogfile.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoLogfile.setText(Bundle.getString("SettingsMiscPanel.labelInfoLogfile.text")); // NOI18N
 
         javax.swing.GroupLayout panelLogfileLayout = new javax.swing.GroupLayout(panelLogfile);
@@ -378,12 +388,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                             .addComponent(labelLogLevel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxLogfileFormatterClass, 0, 230, Short.MAX_VALUE)
-                            .addComponent(comboBoxLogLevel, 0, 230, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(panelLogfileLayout.createSequentialGroup()
-                        .addComponent(labelInfoLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-                        .addGap(118, 118, 118))))
+                            .addComponent(comboBoxLogfileFormatterClass, 0, 308, Short.MAX_VALUE)
+                            .addComponent(comboBoxLogLevel, 0, 308, Short.MAX_VALUE)))
+                    .addComponent(labelInfoLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelLogfileLayout.setVerticalGroup(
             panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,8 +405,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                     .addComponent(comboBoxLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelLogLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                .addGap(100, 100, 100))
+                .addComponent(labelInfoLogfile)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelLogfile.TabConstraints.tabTitle"), panelLogfile); // NOI18N
@@ -421,7 +429,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                    .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addComponent(buttonChooseAutocopyDirectory, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -432,7 +440,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseAutocopyDirectory)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelAutoCopyDirectory.TabConstraints.tabTitle"), panelAutoCopyDirectory); // NOI18N
@@ -462,7 +470,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE))
+                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelMiscLayout.setVerticalGroup(
@@ -472,7 +480,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
@@ -485,7 +493,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
