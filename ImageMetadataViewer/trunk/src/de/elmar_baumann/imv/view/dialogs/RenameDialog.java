@@ -32,6 +32,7 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * Dialog for renaming filenames.
@@ -322,6 +323,8 @@ public final class RenameDialog extends Dialog {
     private void setDirectoryNameLabel(File file) {
         File dir = file.getParentFile();
         labelDirectory.setText(dir.getAbsolutePath());
+        labelDirectory.setIcon(
+                FileSystemView.getFileSystemView().getSystemIcon(dir));
     }
 
     private synchronized void setThumbnail(File file) {
