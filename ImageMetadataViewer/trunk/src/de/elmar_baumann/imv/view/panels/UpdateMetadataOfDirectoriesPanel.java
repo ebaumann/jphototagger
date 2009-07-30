@@ -400,7 +400,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoCountSelectedFiles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
