@@ -1,11 +1,11 @@
 package de.elmar_baumann.imv.helper;
 
+import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.imv.tasks.UserTasks;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
@@ -46,7 +46,7 @@ public final class SaveEditedMetadata extends Thread {
 
     private SaveEditedMetadata(Collection<Pair<String, Xmp>> filenamesXmp) {
 
-        GUI.INSTANCE.getAppFrame().addSaveObject(this);
+        AppLifeCycle.INSTANCE.addSaveObject(this);
         this.filenamesXmp = new ArrayList<Pair<String, Xmp>>(filenamesXmp);
         setName("Saving edited metadata @ " + getClass().getName()); // NOI18N
     }
@@ -68,7 +68,7 @@ public final class SaveEditedMetadata extends Thread {
             progressPerformed(++index, filename);
         }
         progressEnded(count);
-        GUI.INSTANCE.getAppFrame().removeSaveObject(this);
+        AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
     private void updateDatabase(String filename) {

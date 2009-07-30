@@ -41,6 +41,7 @@ import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHier
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHighlightHierarchicalKeywords;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerShowHierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerToggleRealHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerPickReject;
 import de.elmar_baumann.imv.controller.metadata.ControllerExtractEmbeddedXmp;
@@ -65,6 +66,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerDeleteThumbnailsFromD
 import de.elmar_baumann.imv.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import de.elmar_baumann.imv.controller.metadata.ControllerRenameXmpMetadata;
+import de.elmar_baumann.imv.controller.metadata.ControllerShowTextSelectionDialog;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
@@ -157,6 +159,8 @@ public final class ControllerFactory {
             new ControllerRemoveHierarchicalKeywordFromEditPanel();
             new ControllerPickReject();
             new ControllerHighlightHierarchicalKeywords();
+            new ControllerShowHierarchicalKeywordsDialog();
+            new ControllerShowTextSelectionDialog();
             init = true;
         }
     }

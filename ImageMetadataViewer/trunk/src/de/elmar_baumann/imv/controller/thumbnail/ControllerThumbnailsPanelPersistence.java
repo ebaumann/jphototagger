@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
@@ -39,7 +40,7 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
-        GUI.INSTANCE.getAppFrame().addAppExitListener(this);
+        AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
     @Override

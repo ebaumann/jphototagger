@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.SuggestHierarchicalKeywords;
 import de.elmar_baumann.imv.helper.SaveEditedMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
@@ -369,7 +370,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     private void listenToActionSources() {
         DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
-        GUI.INSTANCE.getAppFrame().addAppExitListener(this);
+        AppLifeCycle.INSTANCE.addAppExitListener(this);
         TextSelectionDialog.INSTANCE.getPanel().addTextSelectionListener(this);
     }
 

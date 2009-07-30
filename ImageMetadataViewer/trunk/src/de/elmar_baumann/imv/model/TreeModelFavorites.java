@@ -1,13 +1,13 @@
 package de.elmar_baumann.imv.model;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -54,7 +54,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         tree.addTreeWillExpandListener(this);
         db = DatabaseFavoriteDirectories.INSTANCE;
         addDirectories();
-        GUI.INSTANCE.getAppFrame().addAppExitListener(this);
+        AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
     public void insertFavorite(FavoriteDirectory favoriteDirectory) {

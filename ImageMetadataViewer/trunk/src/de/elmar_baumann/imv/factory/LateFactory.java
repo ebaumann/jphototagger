@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppColors;
+import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.resource.GUI;
@@ -49,7 +50,7 @@ public final class LateFactory {
             listenerProvider.addUserSettingsChangeListener(
                     popupMenuPanelThumbnails);
             listenerProvider.addUserSettingsChangeListener(userSettings);
-            GUI.INSTANCE.getAppFrame().addAppExitListener(
+            AppLifeCycle.INSTANCE.addAppExitListener(
                     appPanel.getPanelThumbnails());
             ScheduledTasks.INSTANCE.run();
             setPopupMenuHighlighter();

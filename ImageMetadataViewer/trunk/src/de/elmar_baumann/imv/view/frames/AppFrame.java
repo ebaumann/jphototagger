@@ -1,38 +1,22 @@
 package de.elmar_baumann.imv.view.frames;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppInfo;
-import de.elmar_baumann.imv.app.AppLock;
-import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.app.MessageDisplayer;
-import de.elmar_baumann.imv.database.DatabaseMaintainance;
-import de.elmar_baumann.imv.event.listener.AppExitListener;
-import de.elmar_baumann.imv.factory.MetaFactory;
+import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.helper.Cleanup;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
-import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.componentutil.MenuUtil;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
 /**
- * Rahmenfenster der Anwendung.
+ * The application's frame.
  * 
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
@@ -46,11 +30,7 @@ public final class AppFrame extends javax.swing.JFrame {
             new HashMap<GoTo, JMenuItem>();
     private final Map<JMenuItem, GoTo> gotoOfMenuItem =
             new HashMap<JMenuItem, GoTo>();
-    private final List<AppExitListener> exitListeners =
-            new ArrayList<AppExitListener>();
     private AppPanel appPanel;
-    private final Set<Object> saveObjects =
-            Collections.synchronizedSet(new HashSet<Object>());
 
     public AppFrame() {
         GUI.INSTANCE.setAppFrame(this);
@@ -125,61 +105,21 @@ public final class AppFrame extends javax.swing.JFrame {
         MenuUtil.setMnemonics(menuBar);
         initSortMenuItemsMap();
         initGotoMenuItemsMap();
-        listenToClose();
         setTitleAndFrameIcon();
-        Thread thread = new Thread(MetaFactory.INSTANCE);
-        thread.setName("Initializing meta factory" + " @ " + // NOI18N
-                getClass().getName());
-        thread.start();
-        addAppExitListener(appPanel);
+        AppLifeCycle.INSTANCE.started(this);
+    }
+
+    private void setTitleAndFrameIcon() {
+        setIconImages(AppIcons.getAppIcons());
+    }
+
+    public AppPanel getAppPanel() {
+        return appPanel;
     }
 
     private void addAppPanel() {
         appPanel = new AppPanel();
         getContentPane().add(appPanel);
-    }
-
-    public void addAppExitListener(AppExitListener listener) {
-        synchronized (exitListeners) {
-            exitListeners.add(listener);
-        }
-    }
-
-    public void removeAppExitListener(AppExitListener listener) {
-        synchronized (exitListeners) {
-            exitListeners.remove(listener);
-        }
-    }
-
-    private void notifyExit() {
-        synchronized (exitListeners) {
-            for (AppExitListener listener : exitListeners) {
-                listener.appWillExit();
-            }
-        }
-    }
-
-    /**
-     * Sets whether an object saving data. As long as data is to save, the app
-     * does not exit.
-     * 
-     * <em>Do not forget removing a save object via
-     * {@link #removeSaveObject(java.lang.Object)}, otherwise the app terminates
-     * after a timeout and does not know wheter data was saved!</em>
-     * 
-     * @param saveObject object that saves data.
-     */
-    public void addSaveObject(Object saveObject) {
-        saveObjects.add(saveObject);
-    }
-
-    /**
-     * Removes a save object added via {@link #addSaveObject(java.lang.Object)}.
-     *
-     * @param saveObject save object to remove
-     */
-    public void removeSaveObject(Object saveObject) {
-        saveObjects.remove(saveObject);
     }
 
     public JMenu getMenuSort() {
@@ -188,12 +128,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JCheckBoxMenuItem getMenuItemKeywordOverlay() {
         return checkboxMenuItemKeywordOverlay;
-    }
-
-    public void toggleKeywordOverlay() {
-        boolean active = !appPanel.getPanelThumbnails().isKeywordsOverlay();
-        appPanel.getPanelThumbnails().setKeywordsOverlay(active);
-        checkboxMenuItemKeywordOverlay.setSelected(active);
     }
 
     public GoTo getGotoOfMenuItem(JMenuItem item) {
@@ -268,59 +202,12 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemThumbnailSizeIncrease;
     }
 
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.writeToFile();
+    public JMenuItem getMenuItemLastEditedWords() {
+        return menuItemLastEditedWords;
     }
 
-    private void setTitleAndFrameIcon() {
-        setIconImages(AppIcons.getAppIcons());
-    }
-
-    private void quit() {
-        notifyExit();
-        writeProperties();
-        checkDataToSave();
-        Cleanup.shutdown();
-        DatabaseMaintainance.INSTANCE.shutdown();
-        dispose();
-        AppLock.unlock();
-        System.exit(0);
-    }
-
-    private void checkDataToSave() {
-        long elapsedMilliseconds = 0;
-        long timeoutMilliSeconds = 120 * 1000;
-        long checkIntervalMilliSeconds = 2000;
-        if (saveObjects.size() > 0) {
-            AppLog.logInfo(AppFrame.class, Bundle.getString(
-                    "AppFrame.Info.SaveObjectsExisting", saveObjects)); // NOI18N
-            while (saveObjects.size() > 0 &&
-                    elapsedMilliseconds < timeoutMilliSeconds) {
-                try {
-                    elapsedMilliseconds += checkIntervalMilliSeconds;
-                    Thread.sleep(checkIntervalMilliSeconds);
-                } catch (InterruptedException ex) {
-                    AppLog.logSevere(AppFrame.class, ex);
-                }
-                if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    MessageDisplayer.error(this,
-                            "AppFrame.Error.ExitDataNotSaved.MaxWaitTimeExceeded", // NOI18N
-                            timeoutMilliSeconds);
-                }
-            }
-        }
-    }
-
-    private void listenToClose() {
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter() {
-
-            @Override
-            public void windowClosed(WindowEvent evt) {
-                quit();
-            }
-        });
+    public JMenuItem getMenuItemHierarchicalKeywords() {
+        return menuItemHierarchicalKeywords;
     }
 
     /** This method is called from within the constructor to
@@ -607,21 +494,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_insert_words.png"))); // NOI18N
         menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
-        menuItemLastEditedWords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemLastEditedWordsActionPerformed(evt);
-            }
-        });
         menuWindow.add(menuItemLastEditedWords);
 
         menuItemHierarchicalKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
         menuItemHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemHierarchicalKeywords.setText(Bundle.getString("AppFrame.menuItemHierarchicalKeywords.text")); // NOI18N
-        menuItemHierarchicalKeywords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemHierarchicalKeywordsActionPerformed(evt);
-            }
-        });
         menuWindow.add(menuItemHierarchicalKeywords);
 
         menuBar.add(menuWindow);
@@ -643,27 +520,12 @@ public final class AppFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExitActionPerformed
-    quit();
+    AppLifeCycle.INSTANCE.quit();
 }//GEN-LAST:event_menuItemExitActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    quit();
+    AppLifeCycle.INSTANCE.quit();
 }//GEN-LAST:event_formWindowClosing
-
-private void menuItemLastEditedWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLastEditedWordsActionPerformed
-    TextSelectionDialog.INSTANCE.setTitle(
-            Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
-    TextSelectionDialog.INSTANCE.setVisible(true);
-}//GEN-LAST:event_menuItemLastEditedWordsActionPerformed
-
-private void menuItemHierarchicalKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemHierarchicalKeywordsActionPerformed
-    HierarchicalKeywordsDialog dlg = HierarchicalKeywordsDialog.INSTANCE;
-    if (dlg.isVisible()) {
-        dlg.toFront();
-    } else {
-        dlg.setVisible(true);
-    }
-}//GEN-LAST:event_menuItemHierarchicalKeywordsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem checkboxMenuItemKeywordOverlay;
     private javax.swing.JSeparator jSeparator1;

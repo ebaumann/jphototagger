@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.frames.AppFrame;
+import de.elmar_baumann.imv.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,6 +26,13 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        appFrame.toggleKeywordOverlay();
+        toggleKeywordOverlay();
+    }
+
+    private void toggleKeywordOverlay() {
+        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        boolean active = !appPanel.getPanelThumbnails().isKeywordsOverlay();
+        appPanel.getPanelThumbnails().setKeywordsOverlay(active);
+        appFrame.getMenuItemKeywordOverlay().setSelected(active);
     }
 }

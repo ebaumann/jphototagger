@@ -517,9 +517,6 @@
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemLastEditedWords.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemLastEditedWordsActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemHierarchicalKeywords">
               <Properties>
@@ -533,9 +530,6 @@
                   <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemHierarchicalKeywords.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemHierarchicalKeywordsActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
