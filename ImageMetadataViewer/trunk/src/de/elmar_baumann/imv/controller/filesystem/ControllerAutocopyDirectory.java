@@ -58,13 +58,15 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
     private void copy() {
         File dir = UserSettings.INSTANCE.getAutocopyDirectory();
-        if (dir == null && confirmSetAutocopyDirectory()) {
+        boolean dirOk = dir != null && confirmAutocopyDir(dir);
+
+        if (dirOk) {
+            copy(dir);
+        } else if (confirmSetAutocopyDirectory(
+                dir == null
+                ? "ControllerAutocopyDirectory.Confirm.DefineDirectoryWasNull"
+                : "ControllerAutocopyDirectory.Confirm.DefineDirectoryHasChanged")) {
             setAutocopyDirectory();
-            copy(); // recursive
-        } else {
-            if (dir != null) {
-                copy(dir);
-            }
         }
     }
 
@@ -105,10 +107,17 @@ public final class ControllerAutocopyDirectory implements ActionListener {
         }
     }
 
-    private boolean confirmSetAutocopyDirectory() {
+    private boolean confirmSetAutocopyDirectory(String bundleKey) {
         return MessageDisplayer.confirm(null,
-                "ControllerAutocopyDirectory.Confirm.DefineDirectory", // NOI18N
+                bundleKey,
                 MessageDisplayer.CancelButton.HIDE).equals(
+                MessageDisplayer.ConfirmAction.YES);
+    }
+
+    private boolean confirmAutocopyDir(File dir) {
+        return MessageDisplayer.confirm(null,
+                "ControllerAutocopyDirectory.Confirm.AutocopyDir", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, dir).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
 
