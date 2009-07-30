@@ -21,7 +21,7 @@ public final class ListModelImageCollections extends DefaultListModel {
     private static final List<String> SPECIAL_COLLECTIONS =
             new ArrayList<String>();
 
-    {
+    static {
         // Order of appearance
         SPECIAL_COLLECTIONS.add(
                 AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT);
