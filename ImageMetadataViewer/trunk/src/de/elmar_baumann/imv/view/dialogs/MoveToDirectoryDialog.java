@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -143,15 +144,28 @@ public final class MoveToDirectoryDialog extends Dialog
             List<File> files = dialog.getSelectedDirectories();
             if (files.size() > 0) {
                 targetDirectory = files.get(0);
-                labelDirectoryName.setText(targetDirectory.getAbsolutePath());
-                buttonStart.setEnabled(true);
+                if (targetDirectory.canWrite()) {
+                    labelDirectoryName.setText(targetDirectory.getAbsolutePath());
+                    setIconToLabelTargetDirectory();
+                    buttonStart.setEnabled(true);
+                } else {
+                    MessageDisplayer.error(this,
+                            "MoveToDirectoryDialog.TargetDirNotWritable",
+                            targetDirectory);
+                }
             }
         } else {
-            String directoryName = labelDirectoryName.getText().trim();
-            if (directoryName.isEmpty() ||
-                    !FileUtil.existsDirectory(new File(directoryName))) {
-                buttonStart.setEnabled(false);
-            }
+            File dir = new File(labelDirectoryName.getText().trim());
+            buttonStart.setEnabled(
+                    FileUtil.existsDirectory(dir) && dir.canWrite());
+        }
+    }
+
+    private void setIconToLabelTargetDirectory() {
+        File dir = new File(labelDirectoryName.getText());
+        if (dir.isDirectory()) {
+            labelDirectoryName.setIcon(
+                    FileSystemView.getFileSystemView().getSystemIcon(dir));
         }
     }
 
@@ -198,6 +212,7 @@ public final class MoveToDirectoryDialog extends Dialog
                 KEY_TARGET_DIRECTORY));
         if (targetDirectory.exists()) {
             labelDirectoryName.setText(targetDirectory.getAbsolutePath());
+            setIconToLabelTargetDirectory();
             buttonStart.setEnabled(true);
         }
     }
@@ -299,6 +314,7 @@ public final class MoveToDirectoryDialog extends Dialog
         buttonChooseDirectory = new javax.swing.JButton();
         labelDirectoryName = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
+        labelInfoCurrentFilename = new javax.swing.JLabel();
         labelCurrentFilename = new javax.swing.JLabel();
         labelInfoIsThread = new javax.swing.JLabel();
         buttonStop = new javax.swing.JButton();
@@ -324,8 +340,10 @@ public final class MoveToDirectoryDialog extends Dialog
 
         labelDirectoryName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        labelInfoCurrentFilename.setText(bundle.getString("MoveToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
+
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
-        labelCurrentFilename.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(225, 225, 225)));
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
         labelInfoIsThread.setText(Bundle.getString("MoveToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
@@ -355,40 +373,44 @@ public final class MoveToDirectoryDialog extends Dialog
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(buttonChooseDirectory))
-                    .addComponent(labelDirectoryName, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(labelDirectoryName, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelInfoIsThread)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(buttonStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStart)))
+                        .addComponent(buttonStart))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelInfoCurrentFilename)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelInfo)
-                    .addComponent(buttonChooseDirectory))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonChooseDirectory)
+                    .addComponent(labelInfo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelDirectoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelCurrentFilename)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCurrentFilename)
+                    .addComponent(labelInfoCurrentFilename))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelInfoIsThread)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonStart)
-                        .addComponent(buttonStop)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonStart)
+                    .addComponent(buttonStop)
+                    .addComponent(labelInfoIsThread))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -440,6 +462,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JLabel labelCurrentFilename;
     private javax.swing.JLabel labelDirectoryName;
     private javax.swing.JLabel labelInfo;
+    private javax.swing.JLabel labelInfoCurrentFilename;
     private javax.swing.JLabel labelInfoIsThread;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables

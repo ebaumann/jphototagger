@@ -333,11 +333,11 @@ public final class CopyToDirectoryDialog
         checkBoxForceOverwrite = new javax.swing.JCheckBox();
         checkBoxCopyXmp = new javax.swing.JCheckBox();
         progressBar = new javax.swing.JProgressBar();
+        labelInfoCurrentFilename = new javax.swing.JLabel();
         labelCurrentFilename = new javax.swing.JLabel();
         labelInfoIsThread = new javax.swing.JLabel();
         buttonStop = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString("CopyToDirectoryDialog.title")); // NOI18N
@@ -366,6 +366,9 @@ public final class CopyToDirectoryDialog
         checkBoxCopyXmp.setSelected(true);
         checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
+
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
@@ -389,9 +392,6 @@ public final class CopyToDirectoryDialog
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
-        jLabel1.setText(bundle.getString("CopyToDirectoryDialog.jLabel1.text")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -414,7 +414,7 @@ public final class CopyToDirectoryDialog
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStart))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -437,7 +437,7 @@ public final class CopyToDirectoryDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCurrentFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(labelInfoCurrentFilename))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelInfoIsThread)
@@ -493,9 +493,9 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private javax.swing.JButton buttonStop;
     private javax.swing.JCheckBox checkBoxCopyXmp;
     private javax.swing.JCheckBox checkBoxForceOverwrite;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelCurrentFilename;
     private javax.swing.JLabel labelInfo;
+    private javax.swing.JLabel labelInfoCurrentFilename;
     private javax.swing.JLabel labelInfoIsThread;
     private javax.swing.JLabel labelTargetDirectory;
     private javax.swing.JProgressBar progressBar;

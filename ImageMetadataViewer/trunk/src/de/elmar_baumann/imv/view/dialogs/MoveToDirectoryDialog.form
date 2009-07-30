@@ -30,25 +30,29 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="labelInfo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <EmptySpace pref="32" max="32767" attributes="0"/>
                       <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelDirectoryName" alignment="0" pref="388" max="32767" attributes="0"/>
-                  <Component id="progressBar" alignment="0" pref="388" max="32767" attributes="0"/>
-                  <Component id="labelCurrentFilename" alignment="1" pref="388" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="labelDirectoryName" alignment="0" pref="409" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="0" pref="409" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="labelInfoIsThread" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
                       <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="labelInfoCurrentFilename" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="labelCurrentFilename" pref="333" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,23 +60,24 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelInfo" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonChooseDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelInfo" linkSize="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labelDirectoryName" min="-2" pref="20" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="progressBar" min="-2" pref="26" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="labelCurrentFilename" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelCurrentFilename" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelInfoCurrentFilename" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="labelInfoIsThread" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="buttonStart" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonStop" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="buttonStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonStop" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelInfoIsThread" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -109,17 +114,17 @@
     </Component>
     <Component class="javax.swing.JProgressBar" name="progressBar">
     </Component>
+    <Component class="javax.swing.JLabel" name="labelInfoCurrentFilename">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.labelInfoCurrentFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JLabel" name="labelCurrentFilename">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder>
-              <Color PropertyName="color" blue="e1" green="e1" red="e1" type="rgb"/>
-            </LineBorder>
-          </Border>
         </Property>
       </Properties>
     </Component>
