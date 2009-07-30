@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.Translation;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.imv.view.panels.SettingsMiscPanel;
 import de.elmar_baumann.lib.runtime.External;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -164,7 +165,7 @@ public final class TableModelExif extends DefaultTableModel {
             } else {
                 settingsDialog.setVisible(true);
             }
-            settingsDialog.selectTab(UserSettingsDialog.Tab.MISC);
+            settingsDialog.selectTab(SettingsMiscPanel.Tab.WEB_BROWSER);
         }
 
         private void startWebBrowser(String webBrowser) {

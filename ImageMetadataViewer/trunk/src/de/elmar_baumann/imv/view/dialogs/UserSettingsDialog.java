@@ -106,7 +106,8 @@ public final class UserSettingsDialog extends Dialog {
         helpUrlOfComponent.put(tabbedPane.getComponentAt(5),
                 Bundle.getString("Help.Url.UserSettingsDialog.Performance")); // NOI18N
         helpUrlOfComponent.put(tabbedPane.getComponentAt(6),
-                Bundle.getString("Help.Url.UserSettingsDialog.FileExcludePattern")); // NOI18N
+                Bundle.getString(
+                "Help.Url.UserSettingsDialog.FileExcludePattern")); // NOI18N
         helpUrlOfComponent.put(tabbedPane.getComponentAt(7),
                 Bundle.getString("Help.Url.UserSettingsDialog.Edit")); // NOI18N
         helpUrlOfComponent.put(tabbedPane.getComponentAt(8),
@@ -128,17 +129,13 @@ public final class UserSettingsDialog extends Dialog {
         persistentPanels.add(panelThumbnails);
     }
 
-    /**
-     * Wählt einen Tab aus.
-     * 
-     * @param tab Tab
-     */
     public void selectTab(Tab tab) {
         tabbedPane.setSelectedIndex(indexOfTab.get(tab));
     }
 
-    public Tab getSelectedTab() {
-        return tabOfIndex.get(tabbedPane.getSelectedIndex());
+    public void selectTab(
+            de.elmar_baumann.imv.view.panels.SettingsMiscPanel.Tab tab) {
+        panelMisc.selectTab(tab);
     }
 
     private SettingsHints getPersistentSettingsHints() {

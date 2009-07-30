@@ -15,6 +15,7 @@ import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
+import de.elmar_baumann.imv.view.panels.SettingsMiscPanel;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter.Option;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -72,7 +73,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
     private void setAutocopyDirectory() {
         UserSettingsDialog dialog = UserSettingsDialog.INSTANCE;
-        dialog.selectTab(UserSettingsDialog.Tab.MISC);
+        dialog.selectTab(SettingsMiscPanel.Tab.AUTOCOPY_DIRECTORY);
         if (dialog.isVisible()) {
             dialog.toFront();
         } else {

@@ -10,7 +10,10 @@ import de.elmar_baumann.imv.view.renderer.ListCellRendererLogfileFormatter;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.filefilter.ExecutableFileChooserFileFilter;
+import java.awt.Component;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -24,11 +27,36 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         implements Persistence {
 
     private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private final Map<Tab, Component> componentOfTab =
+            new HashMap<Tab, Component>();
     private String lastSelectedAutocopyDirectory = ""; // NOI18N
 
-    /** Creates new form SettingsMiscPanel */
+    public enum Tab {
+
+        WEB_BROWSER,
+        DATABASE_DIRECTORY,
+        LOGFILE,
+        AUTOCOPY_DIRECTORY,
+        MISCELLANEOUS,
+    }
+
+    private void initComponentOfTab() {
+        componentOfTab.put(Tab.AUTOCOPY_DIRECTORY, panelAutoCopyDirectory);
+        componentOfTab.put(Tab.DATABASE_DIRECTORY, panelDatabaseDirectory);
+        componentOfTab.put(Tab.LOGFILE, panelLogfile);
+        componentOfTab.put(Tab.WEB_BROWSER, panelWebBrowser);
+        componentOfTab.put(Tab.MISCELLANEOUS, panelMisc);
+    }
+
     public SettingsMiscPanel() {
         initComponents();
+        initComponentOfTab();
+    }
+
+    public void selectTab(Tab tab) {
+        assert componentOfTab.containsKey(tab) :
+                "Missing key " + tab + " in " + componentOfTab;
+        tabbedPane.setSelectedComponent(componentOfTab.get(tab));
     }
 
     private void chooseAutocopyDirectory() {
@@ -492,7 +520,6 @@ private void buttonChooseDatabaseDirectoryActionPerformed(java.awt.event.ActionE
 private void buttonSetStandardDatabaseDirectoryNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
     handleActionPerformedSetStandardDatabaseDirectory();
 }//GEN-LAST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseAutocopyDirectory;
     private javax.swing.JButton buttonChooseDatabaseDirectory;
