@@ -16,6 +16,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -63,6 +64,7 @@ public final class IptcToXmpDialog extends Dialog
         if (dialog.accepted()) {
             directory = dialog.getSelectedDirectories().get(0);
             labelDirectoryName.setText(directory.getAbsolutePath());
+            setIconToDirectoryLabel();
             progressBar.setValue(0);
             buttonStart.setEnabled(true);
         }
@@ -100,6 +102,8 @@ public final class IptcToXmpDialog extends Dialog
                 SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
         directory = new File(UserSettings.INSTANCE.getSettings().getString(
                 KEY_DIRECTORY_NAME));
+        setIconToDirectoryLabel();
+        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
     }
 
     private void writeProperties() {
@@ -112,11 +116,19 @@ public final class IptcToXmpDialog extends Dialog
         UserSettings.INSTANCE.writeToFile();
     }
 
+    private void setIconToDirectoryLabel() {
+        if (directory != null && directory.isDirectory()) {
+            labelDirectoryName.setIcon(
+                    FileSystemView.getFileSystemView().getSystemIcon(directory));
+        }
+    }
+
     private void init() {
         boolean directoryExists = directory.exists() && directory.isDirectory();
         buttonStart.setEnabled(directoryExists);
         if (directoryExists) {
             labelDirectoryName.setText(directory.getAbsolutePath());
+            setIconToDirectoryLabel();
         }
         buttonStop.setEnabled(false);
     }
@@ -124,7 +136,8 @@ public final class IptcToXmpDialog extends Dialog
     private void start() {
         stop = false;
         setEnabledButtons();
-        ConvertIptcToXmp converter = new ConvertIptcToXmp(FileUtil.getAsFilenames(getFiles()));
+        ConvertIptcToXmp converter = new ConvertIptcToXmp(FileUtil.
+                getAsFilenames(getFiles()));
         converter.addProgressListener(this);
         Thread thread = new Thread(converter);
         thread.setName("Writing IPTC to XMP sidecar files" + " @ " + // NOI18N
@@ -265,14 +278,14 @@ public final class IptcToXmpDialog extends Dialog
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
-                    .addComponent(labelDirectoryName, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelDirectoryPrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
-                        .addComponent(buttonChooseDirectory))
                     .addComponent(checkBoxSubdirectories)
+                    .addComponent(labelDirectoryName, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelDirectoryPrompt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
+                        .addComponent(buttonChooseDirectory))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -285,12 +298,12 @@ public final class IptcToXmpDialog extends Dialog
                 .addGap(11, 11, 11)
                 .addComponent(labelInfo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDirectoryPrompt)
-                    .addComponent(buttonChooseDirectory))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonChooseDirectory)
+                    .addComponent(labelDirectoryPrompt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelDirectoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(checkBoxSubdirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
