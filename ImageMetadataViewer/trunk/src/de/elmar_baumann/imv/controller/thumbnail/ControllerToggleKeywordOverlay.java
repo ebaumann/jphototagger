@@ -21,7 +21,7 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
     }
 
     private void listen() {
-        appFrame.getMenuItemKeywordOverlay().addActionListener(this);
+        appFrame.getCheckBoxMenuItemKeywordOverlay().addActionListener(this);
     }
 
     @Override
@@ -33,6 +33,6 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         boolean active = !appPanel.getPanelThumbnails().isKeywordsOverlay();
         appPanel.getPanelThumbnails().setKeywordsOverlay(active);
-        appFrame.getMenuItemKeywordOverlay().setSelected(active);
+        appFrame.getCheckBoxMenuItemKeywordOverlay().setSelected(active);
     }
 }

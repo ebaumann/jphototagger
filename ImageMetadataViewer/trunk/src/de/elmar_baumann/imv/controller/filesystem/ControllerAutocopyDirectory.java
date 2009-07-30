@@ -42,7 +42,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemAutocopyDirectory().
+        GUI.INSTANCE.getAppFrame().getMenuItemCopyFromAutocopyDirectory().
                 addActionListener(this);
     }
 

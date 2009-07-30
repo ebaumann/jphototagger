@@ -46,7 +46,7 @@ public final class AppLifeCycle {
                     getClass().getName());
             thread.start();
             addAppExitListener(appFrame.getAppPanel());
-            listenToWindowClosed();
+            listenForQuit();
         }
     }
 
@@ -104,12 +104,24 @@ public final class AppLifeCycle {
         }
     }
 
-    private void listenToWindowClosed() {
+    private void listenForQuit() {
         appFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         appFrame.addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowClosed(WindowEvent evt) {
+                quit();
+            }
+
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                quit();
+            }
+        });
+        appFrame.getMenuItemExit().addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quit();
             }
         });

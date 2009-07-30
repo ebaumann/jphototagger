@@ -105,12 +105,8 @@ public final class AppFrame extends javax.swing.JFrame {
         MenuUtil.setMnemonics(menuBar);
         initSortMenuItemsMap();
         initGotoMenuItemsMap();
-        setTitleAndFrameIcon();
-        AppLifeCycle.INSTANCE.started(this);
-    }
-
-    private void setTitleAndFrameIcon() {
         setIconImages(AppIcons.getAppIcons());
+        AppLifeCycle.INSTANCE.started(this);
     }
 
     public AppPanel getAppPanel() {
@@ -126,8 +122,8 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuSort;
     }
 
-    public JCheckBoxMenuItem getMenuItemKeywordOverlay() {
-        return checkboxMenuItemKeywordOverlay;
+    public JCheckBoxMenuItem getCheckBoxMenuItemKeywordOverlay() {
+        return checkBoxMenuItemKeywordOverlay;
     }
 
     public GoTo getGotoOfMenuItem(JMenuItem item) {
@@ -142,7 +138,7 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemRenameInXmp;
     }
 
-    public JMenuItem getMenuItemAutocopyDirectory() {
+    public JMenuItem getMenuItemCopyFromAutocopyDirectory() {
         return menuItemCopyFromAutocopyDirectory;
     }
 
@@ -210,6 +206,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemHierarchicalKeywords;
     }
 
+    public JMenuItem getMenuItemExit() {
+        return menuItemExit;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -245,7 +245,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemThumbnailSizeIncrease = new javax.swing.JMenuItem();
         menuItemThumbnailSizeDecrease = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JSeparator();
-        checkboxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
+        checkBoxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -280,11 +280,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(AppInfo.APP_NAME + " " + AppInfo.APP_VERSION);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
 
         menuFile.setText(Bundle.getString("AppFrame.menuFile.text")); // NOI18N
 
@@ -308,11 +303,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         menuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_exit.png"))); // NOI18N
         menuItemExit.setText(Bundle.getString("AppFrame.menuItemExit.text")); // NOI18N
-        menuItemExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemExitActionPerformed(evt);
-            }
-        });
         menuFile.add(menuItemExit);
 
         menuBar.add(menuFile);
@@ -372,10 +362,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuView.add(menuItemThumbnailSizeDecrease);
         menuView.add(jSeparator10);
 
-        checkboxMenuItemKeywordOverlay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        checkboxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkboxMenuItemKeywordOverlay.text")); // NOI18N
-        checkboxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkboxMenuItemKeywordOverlay.toolTipText")); // NOI18N
-        menuView.add(checkboxMenuItemKeywordOverlay);
+        checkBoxMenuItemKeywordOverlay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        checkBoxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text")); // NOI18N
+        checkBoxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText")); // NOI18N
+        menuView.add(checkBoxMenuItemKeywordOverlay);
 
         menuBar.add(menuView);
 
@@ -519,15 +509,8 @@ public final class AppFrame extends javax.swing.JFrame {
         setJMenuBar(menuBar);
     }// </editor-fold>//GEN-END:initComponents
 
-private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExitActionPerformed
-    AppLifeCycle.INSTANCE.quit();
-}//GEN-LAST:event_menuItemExitActionPerformed
-
-private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    AppLifeCycle.INSTANCE.quit();
-}//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBoxMenuItem checkboxMenuItemKeywordOverlay;
+    private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
