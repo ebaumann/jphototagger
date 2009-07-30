@@ -54,7 +54,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="buttonActionsAfterDatabaseInsertionEdit" min="-2" max="-2" attributes="0"/>
@@ -66,7 +66,7 @@
                       <Component id="radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="radioButtonActionsAfterDatabaseInsertionExecuteAlways" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="scrollPaneActionsAfterDatabaseInsertion" pref="278" max="32767" attributes="0"/>
+                          <Component id="scrollPaneActionsAfterDatabaseInsertion" pref="286" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="buttonActionsAfterDatabaseInsertionMoveUp" linkSize="1" min="-2" max="-2" attributes="0"/>
@@ -87,9 +87,9 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonActionsAfterDatabaseInsertionMoveDown" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="scrollPaneActionsAfterDatabaseInsertion" max="32767" attributes="0"/>
+                      <Component id="scrollPaneActionsAfterDatabaseInsertion" pref="137" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="radioButtonActionsAfterDatabaseInsertionExecuteAlways" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp" min="-2" max="-2" attributes="0"/>
