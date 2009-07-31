@@ -149,14 +149,14 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
      */
     public synchronized void setFiles(List<File> files, Content content) {
         this.files.clear();
+        if (!content.equals(Content.IMAGE_COLLECTION)) {
+            Collections.sort(files, fileSort.getComparator());
+        }
         this.files.addAll(files);
         thumbCache.setFiles(files);
         this.content = content;
 
         InfoSettingThumbnails info = new InfoSettingThumbnails();
-        if (!content.equals(Content.IMAGE_COLLECTION)) {
-            Collections.sort(files, fileSort.getComparator());
-        }
         setNewThumbnails(files.size());
         if (hadFiles) scrollToTop();
         hadFiles = true;
