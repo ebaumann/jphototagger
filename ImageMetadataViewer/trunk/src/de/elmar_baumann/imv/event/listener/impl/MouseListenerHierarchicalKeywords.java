@@ -27,25 +27,24 @@ public final class MouseListenerHierarchicalKeywords extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        TreePath path = TreeUtil.getTreePath(e);
-        if (path == null) return;
         if (MouseEventUtil.isPopupTrigger(e)) {
+            TreePath path = TreeUtil.getTreePath(e);
             boolean isHkNode =
+                    path != null &&
                     !TreeUtil.isRootItemPosition(e) &&
                     path.getLastPathComponent() instanceof DefaultMutableTreeNode;
-            popupMenu.setTreePath(isHkNode
-                                  ? path
-                                  : null);
+            popupMenu.setTreePath(path);
             setMenuItemsEnabled(isHkNode);
+            popupMenu.getMenuItemAdd().setEnabled(path != null);
             popupMenu.show((JTree) e.getSource(), e.getX(), e.getY());
         }
     }
 
     private void setMenuItemsEnabled(boolean hkNode) {
-        popupMenu.getMenuItemAdd().setEnabled(hkNode);
-        popupMenu.getMenuItemAddToEditPanel().setEnabled(hkNode);
         popupMenu.getMenuItemRemove().setEnabled(hkNode);
         popupMenu.getMenuItemRename().setEnabled(hkNode);
         popupMenu.getMenuItemToggleReal().setEnabled(hkNode);
+        popupMenu.getMenuItemAddToEditPanel().setEnabled(hkNode);
+        popupMenu.getMenuItemRemoveFromEditPanel().setEnabled(hkNode);
     }
 }
