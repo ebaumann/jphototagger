@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -14,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -33,20 +33,14 @@ public class ControllerAddHierarchicalKeyword
 
     private final HierarchicalKeywordsPanel panel;
 
-    public ControllerAddHierarchicalKeyword() {
-        panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
-        // Has to be called only one times (the popup menu is a singleton)!
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemAdd().
-                addActionListener(this);
-        listen();
-    }
-
     public ControllerAddHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
         panel = _panel;
         listen();
     }
 
     private void listen() {
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemAdd().
+                addActionListener(this);
         panel.getTree().addKeyListener(this);
     }
 
@@ -96,12 +90,14 @@ public class ControllerAddHierarchicalKeyword
                       : parentKeyword.getId(),
                 Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"), // NOI18N
                 true);
+        JTree tree = panel.getTree();
         String name = ControllerRenameHierarchicalKeyword.getName(newKeyword,
-                DatabaseHierarchicalKeywords.INSTANCE, panel.getTree());
+                DatabaseHierarchicalKeywords.INSTANCE, tree);
         if (name != null && !name.trim().isEmpty()) {
-            TreeModel tm = panel.getTree().getModel();
+            TreeModel tm = tree.getModel();
             if (tm instanceof TreeModelHierarchicalKeywords) {
                 ((TreeModelHierarchicalKeywords) tm).addKeyword(parentNode, name);
+                tree.expandPath(new TreePath(parentNode.getPath()));
             } else {
                 AppLog.logWarning(ControllerAddHierarchicalKeyword.class,
                         Bundle.getString(

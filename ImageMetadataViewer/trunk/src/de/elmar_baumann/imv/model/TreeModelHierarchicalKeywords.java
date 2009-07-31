@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +13,6 @@ import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
 
 /**
  * Model of data in {@link DatabaseHierarchicalKeywords}.
@@ -60,8 +58,6 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 DefaultMutableTreeNode childNode =
                         new DefaultMutableTreeNode(child);
                 insertNodeInto(childNode, parentNode, parentNode.getChildCount());
-                HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().
-                        expandPath(new TreePath(parentNode.getPath()));
             } else {
                 MessageDisplayer.error(null,
                         "TreeModelHierarchicalKeywords.Error.DbInsert", keyword); // NOI18N
@@ -169,8 +165,6 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                     removeNodeFromParent(removeNode);
                 }
                 insertNodeInto(source, target, target.getChildCount());
-                HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().
-                        expandPath(new TreePath(target.getPath()));
             }
         }
     }

@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionEvent;
@@ -31,20 +30,14 @@ public class ControllerRemoveHierarchicalKeyword
 
     private final HierarchicalKeywordsPanel panel;
 
-    public ControllerRemoveHierarchicalKeyword() {
-        panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
-        // Has to be called only one times (the popup menu is a singleton)!
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRemove().
-                addActionListener(this);
-        listen();
-    }
-
     public ControllerRemoveHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
         panel = _panel;
         listen();
     }
 
     private void listen() {
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRemove().
+                addActionListener(this);
         panel.getTree().addKeyListener(this);
     }
 

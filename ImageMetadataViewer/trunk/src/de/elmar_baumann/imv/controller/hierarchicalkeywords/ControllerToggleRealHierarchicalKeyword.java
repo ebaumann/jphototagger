@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -29,14 +28,6 @@ public class ControllerToggleRealHierarchicalKeyword
 
     private final HierarchicalKeywordsPanel panel;
 
-    public ControllerToggleRealHierarchicalKeyword() {
-        panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
-        // Has to be called only one times (the popup menu is a singleton)!
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemToggleReal().
-                addActionListener(this);
-        listen();
-    }
-
     public ControllerToggleRealHierarchicalKeyword(
             HierarchicalKeywordsPanel _panel) {
         panel = _panel;
@@ -44,6 +35,8 @@ public class ControllerToggleRealHierarchicalKeyword
     }
 
     private void listen() {
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemToggleReal().
+                addActionListener(this);
         panel.getTree().addKeyListener(this);
     }
 

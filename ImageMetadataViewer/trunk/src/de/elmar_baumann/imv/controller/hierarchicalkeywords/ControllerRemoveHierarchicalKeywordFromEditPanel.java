@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
@@ -34,14 +33,6 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
 
     private final HierarchicalKeywordsPanel panelKeywords;
 
-    public ControllerRemoveHierarchicalKeywordFromEditPanel() {
-        panelKeywords = HierarchicalKeywordsDialog.INSTANCE.getPanel();
-        // Has to be called only one times (the popup menu is a singleton)!
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRemoveFromEditPanel().
-                addActionListener(this);
-        listen();
-    }
-
     public ControllerRemoveHierarchicalKeywordFromEditPanel(
             HierarchicalKeywordsPanel panelKeywords) {
         this.panelKeywords = panelKeywords;
@@ -49,6 +40,8 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
     }
 
     private void listen() {
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRemoveFromEditPanel().
+                addActionListener(this);
         panelKeywords.getTree().addKeyListener(this);
     }
 

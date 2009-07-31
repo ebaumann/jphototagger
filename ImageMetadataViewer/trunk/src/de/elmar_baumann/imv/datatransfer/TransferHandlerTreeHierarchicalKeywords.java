@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.datatransfer;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -15,7 +15,7 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
- * Handles drags and drops for the {@link HierarchicalKeywordsDialog}'s tree.
+ * Handles drags and drops for a {@link HierarchicalKeywordsPanel}'s tree.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-11
@@ -65,11 +65,13 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
 
     @Override
     public boolean importData(TransferSupport transferSupport) {
+        assert transferSupport.getComponent() instanceof JTree :
+                "Not a JTree: " + transferSupport.getComponent();
         JTree.DropLocation dropLocation =
                 (JTree.DropLocation) transferSupport.getDropLocation();
         Object dropObject = dropLocation.getPath().getLastPathComponent();
-        TreeModel model = HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().
-                getModel();
+        JTree tree = ((JTree) transferSupport.getComponent());
+        TreeModel model = tree.getModel();
         if (dropObject instanceof DefaultMutableTreeNode &&
                 model instanceof TreeModelHierarchicalKeywords) {
             DefaultMutableTreeNode dropNode =
@@ -77,23 +79,27 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
             TreeModelHierarchicalKeywords tm =
                     (TreeModelHierarchicalKeywords) model;
             if (isDragFromListKeywords(transferSupport.getTransferable())) {
-                addKeyword(
-                        tm, (DefaultMutableTreeNode) dropObject, transferSupport);
+                addKeyword(tm, dropNode, transferSupport);
             } else {
                 moveKeyword(transferSupport, tm, dropNode);
             }
+            tree.expandPath(new TreePath(dropNode.getPath()));
         }
         return true;
     }
 
-    private void addKeyword(TreeModelHierarchicalKeywords treeModel,
-            DefaultMutableTreeNode node, TransferSupport transferSupport) {
+    private void addKeyword(
+            TreeModelHierarchicalKeywords treeModel,
+            DefaultMutableTreeNode node,
+            TransferSupport transferSupport) {
+
         treeModel.addKeyword(node,
-                TransferHandlerListKeywords.toKeyword(transferSupport.
-                getTransferable()));
+                TransferHandlerListKeywords.toKeyword(
+                transferSupport.getTransferable()));
     }
 
-    private void moveKeyword(TransferSupport transferSupport,
+    private void moveKeyword(
+            TransferSupport transferSupport,
             TreeModelHierarchicalKeywords treeModel,
             DefaultMutableTreeNode dropNode) {
         try {

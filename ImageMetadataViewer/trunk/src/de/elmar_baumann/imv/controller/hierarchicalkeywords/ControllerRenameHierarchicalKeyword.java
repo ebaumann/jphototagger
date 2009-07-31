@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionEvent;
@@ -36,20 +35,14 @@ public class ControllerRenameHierarchicalKeyword
     private final DatabaseHierarchicalKeywords db =
             DatabaseHierarchicalKeywords.INSTANCE;
 
-    public ControllerRenameHierarchicalKeyword() {
-        panel = HierarchicalKeywordsDialog.INSTANCE.getPanel();
-        // Has to be called only one times (the popup menu is a singleton)!
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRename().
-                addActionListener(this);
-        listen();
-    }
-
     public ControllerRenameHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
         panel = _panel;
         listen();
     }
 
     private void listen() {
+        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRename().
+                addActionListener(this);
         panel.getTree().addKeyListener(this);
     }
 
