@@ -54,34 +54,27 @@ public class ControllerToggleRealHierarchicalKeyword
 
     private void toggleReal() {
         TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        if (path == null) {
-            MessageDisplayer.error(panel.getTree(),
-                    "ControllerToggleRealHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
-        } else {
-            Object node = path.getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode keywordNode =
-                        (DefaultMutableTreeNode) node;
-                Object userObject = keywordNode.getUserObject();
-                if (userObject instanceof HierarchicalKeyword) {
-                    HierarchicalKeyword keyword =
-                            (HierarchicalKeyword) userObject;
-                    TreeModel tm = panel.getTree().getModel();
-                    if (tm instanceof TreeModelHierarchicalKeywords) {
-                        keyword.setReal(!keyword.isReal());
-                        ((TreeModelHierarchicalKeywords) tm).changed(
-                                (DefaultMutableTreeNode) node, keyword);
-                    } else {
-                        AppLog.logWarning(
-                                ControllerToggleRealHierarchicalKeyword.class,
-                                Bundle.getString(
-                                "ControllerToggleRealHierarchicalKeyword.Error.Model")); // NOI18N
-                    }
+        Object node = path.getLastPathComponent();
+        if (node instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) node;
+            Object userObject = treeNode.getUserObject();
+            if (userObject instanceof HierarchicalKeyword) {
+                HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
+                TreeModel tm = panel.getTree().getModel();
+                if (tm instanceof TreeModelHierarchicalKeywords) {
+                    keyword.setReal(!keyword.isReal());
+                    ((TreeModelHierarchicalKeywords) tm).changed(
+                            (DefaultMutableTreeNode) node, keyword);
                 } else {
-                    MessageDisplayer.error(panel.getTree(),
-                            "ControllerToggleRealHierarchicalKeyword.Error.Node", // NOI18N
-                            node);
-                }
+                    AppLog.logWarning(
+                            ControllerToggleRealHierarchicalKeyword.class,
+                            Bundle.getString(
+                            "ControllerToggleRealHierarchicalKeyword.Error.Model")); // NOI18N
+                    }
+            } else {
+                MessageDisplayer.error(panel.getTree(),
+                        "ControllerToggleRealHierarchicalKeyword.Error.Node", // NOI18N
+                        node);
             }
         }
     }

@@ -62,16 +62,11 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
 
     private void addToEditPanel() {
         TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        if (path == null) {
-            MessageDisplayer.error(panelKeywords.getTree(),
-                    "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoPathSelected"); // NOI18N
-        } else {
-            Object node = path.getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                List<String> keywordNames = new ArrayList<String>();
-                addParentKeywords((DefaultMutableTreeNode) node, keywordNames);
-                addToEditPanel(keywordNames);
-            }
+        Object node = path.getLastPathComponent();
+        if (node instanceof DefaultMutableTreeNode) {
+            List<String> keywordNames = new ArrayList<String>();
+            addParentKeywords((DefaultMutableTreeNode) node, keywordNames);
+            addToEditPanel(keywordNames);
         }
     }
 

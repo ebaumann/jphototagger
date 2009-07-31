@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.HierarchicalKeywordsTreePathExpander;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
@@ -83,7 +84,7 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
             } else {
                 moveKeyword(transferSupport, tm, dropNode);
             }
-            tree.expandPath(new TreePath(dropNode.getPath()));
+            HierarchicalKeywordsTreePathExpander.expand(dropNode);
         }
         return true;
     }

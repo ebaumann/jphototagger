@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
@@ -58,21 +57,14 @@ public class ControllerAddHierarchicalKeyword
 
     private void add() {
         TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        if (path == null) {
-            MessageDisplayer.error(panel.getTree(),
-                    "ControllerAddHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
-        } else {
-            Object node = path.getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode keywordNode =
-                        (DefaultMutableTreeNode) node;
-                Object userObject = keywordNode.getUserObject();
-                if (userObject instanceof HierarchicalKeyword) {
-                    add(keywordNode, (HierarchicalKeyword) userObject);
-                } else if (isRootNode(node)) {
-                    add((DefaultMutableTreeNode) panel.getTree().getModel().
-                            getRoot(), null);
-                }
+        Object node = path.getLastPathComponent();
+        if (node instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) node;
+            Object userObject = treeNode.getUserObject();
+            if (userObject instanceof HierarchicalKeyword) {
+                add(treeNode, (HierarchicalKeyword) userObject);
+            } else if (isRootNode(node)) {
+                add(treeNode, null);
             }
         }
     }
@@ -91,13 +83,13 @@ public class ControllerAddHierarchicalKeyword
                 Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"), // NOI18N
                 true);
         JTree tree = panel.getTree();
-        String name = ControllerRenameHierarchicalKeyword.getName(newKeyword,
-                DatabaseHierarchicalKeywords.INSTANCE, tree);
+        String name = ControllerRenameHierarchicalKeyword.getName(
+                newKeyword, DatabaseHierarchicalKeywords.INSTANCE, tree);
         if (name != null && !name.trim().isEmpty()) {
             TreeModel tm = tree.getModel();
             if (tm instanceof TreeModelHierarchicalKeywords) {
                 ((TreeModelHierarchicalKeywords) tm).addKeyword(parentNode, name);
-                tree.expandPath(new TreePath(parentNode.getPath()));
+                HierarchicalKeywordsTreePathExpander.expand(parentNode);
             } else {
                 AppLog.logWarning(ControllerAddHierarchicalKeyword.class,
                         Bundle.getString(

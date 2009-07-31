@@ -55,22 +55,16 @@ public class ControllerRemoveHierarchicalKeyword
 
     private void delete() {
         TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        if (path == null) {
-            MessageDisplayer.error(panel.getTree(),
-                    "ControllerDeleteHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
-        } else {
-            Object node = path.getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode keywordNode =
-                        (DefaultMutableTreeNode) node;
-                Object userObject = keywordNode.getUserObject();
-                if (userObject instanceof HierarchicalKeyword) {
-                    delete(keywordNode, (HierarchicalKeyword) userObject);
-                } else {
-                    MessageDisplayer.error(panel.getTree(),
-                            "ControllerDeleteHierarchicalKeyword.Error.Node", // NOI18N
-                            node);
-                }
+        Object node = path.getLastPathComponent();
+        if (node instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) node;
+            Object userObject = treeNode.getUserObject();
+            if (userObject instanceof HierarchicalKeyword) {
+                delete(treeNode, (HierarchicalKeyword) userObject);
+            } else {
+                MessageDisplayer.error(panel.getTree(),
+                        "ControllerDeleteHierarchicalKeyword.Error.Node", // NOI18N
+                        node);
             }
         }
     }

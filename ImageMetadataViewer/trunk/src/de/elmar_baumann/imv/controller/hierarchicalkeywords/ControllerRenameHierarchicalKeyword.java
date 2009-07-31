@@ -60,22 +60,16 @@ public class ControllerRenameHierarchicalKeyword
 
     private void rename() {
         TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        if (path == null) {
-            MessageDisplayer.error(panel.getTree(),
-                    "ControllerRenameHierarchicalKeyword.Error.NoPathSelected"); // NOI18N
-        } else {
-            Object node = path.getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode keywordNode =
-                        (DefaultMutableTreeNode) node;
-                Object userObject = keywordNode.getUserObject();
-                if (userObject instanceof HierarchicalKeyword) {
-                    renameKeyword(keywordNode, (HierarchicalKeyword) userObject);
-                } else {
-                    MessageDisplayer.error(panel.getTree(),
-                            "ControllerRenameHierarchicalKeyword.Error.Node", // NOI18N
-                            node);
-                }
+        Object node = path.getLastPathComponent();
+        if (node instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode keywordNode =
+                    (DefaultMutableTreeNode) node;
+            Object userObject = keywordNode.getUserObject();
+            if (userObject instanceof HierarchicalKeyword) {
+                renameKeyword(keywordNode, (HierarchicalKeyword) userObject);
+            } else {
+                MessageDisplayer.error(panel.getTree(),
+                        "ControllerRenameHierarchicalKeyword.Error.Node", node); // NOI18N
             }
         }
     }

@@ -59,16 +59,11 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
 
     private void removeFromEditPanel() {
         TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        if (path == null) {
-            MessageDisplayer.error(panelKeywords.getTree(),
-                    "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.NoPathSelected"); // NOI18N
-        } else {
-            Object node = path.getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                String keyword = getKeyword((DefaultMutableTreeNode) node);
-                if (keyword != null) {
-                    removeFromEditPanel(keyword);
-                }
+        Object node = path.getLastPathComponent();
+        if (node instanceof DefaultMutableTreeNode) {
+            String keyword = getKeyword((DefaultMutableTreeNode) node);
+            if (keyword != null) {
+                removeFromEditPanel(keyword);
             }
         }
     }
