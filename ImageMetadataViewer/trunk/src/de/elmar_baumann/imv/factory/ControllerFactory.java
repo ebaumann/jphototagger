@@ -35,14 +35,8 @@ import de.elmar_baumann.imv.controller.metadata.ControllerEmptyMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.search.ControllerAdvancedSearch;
 import de.elmar_baumann.imv.controller.filesystem.ControllerAutocopyDirectory;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHighlightHierarchicalKeywords;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerShowHierarchicalKeywordsDialog;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerToggleRealHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerPickReject;
 import de.elmar_baumann.imv.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.imv.controller.search.ControllerFastSearch;
@@ -73,8 +67,6 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsDatabaseChanges;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsPanelPersistence;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerToggleKeywordOverlay;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
-import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 
 /**
  * Erzeugt alle Controller.
@@ -153,14 +145,6 @@ public final class ControllerFactory {
             new ControllerFavoritesRenameFilesystemFolder();
             new ControllerFavoritesDeleteFilesystemFolder();
             new ControllerRefreshThumbnailsPanel();
-            HierarchicalKeywordsPanel hkwPanel =
-                    HierarchicalKeywordsDialog.INSTANCE.getPanel();
-            new ControllerRenameHierarchicalKeyword(hkwPanel);
-            new ControllerRemoveHierarchicalKeyword(hkwPanel);
-            new ControllerAddHierarchicalKeyword(hkwPanel);
-            new ControllerToggleRealHierarchicalKeyword(hkwPanel);
-            new ControllerAddHierarchicalKeywordsToEditPanel(hkwPanel);
-            new ControllerRemoveHierarchicalKeywordFromEditPanel(hkwPanel);
             new ControllerPickReject();
             new ControllerHighlightHierarchicalKeywords();
             new ControllerShowHierarchicalKeywordsDialog();

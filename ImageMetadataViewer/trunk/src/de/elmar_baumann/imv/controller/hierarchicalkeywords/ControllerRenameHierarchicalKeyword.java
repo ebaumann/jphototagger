@@ -41,8 +41,8 @@ public class ControllerRenameHierarchicalKeyword
     }
 
     private void listen() {
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRename().
-                addActionListener(this);
+        // Listening to singleton popup menu via ActionListenerFactory#
+        // listenToPopupMenuHierarchicalKeywords()
         panel.getTree().addKeyListener(this);
     }
 

@@ -35,8 +35,8 @@ public class ControllerToggleRealHierarchicalKeyword
     }
 
     private void listen() {
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemToggleReal().
-                addActionListener(this);
+        // Listening to singleton popup menu via ActionListenerFactory#
+        // listenToPopupMenuHierarchicalKeywords()
         panel.getTree().addKeyListener(this);
     }
 

@@ -43,8 +43,8 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
     }
 
     private void listen() {
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemAddToEditPanel().
-                addActionListener(this);
+        // Listening to singleton popup menu via ActionListenerFactory#
+        // listenToPopupMenuHierarchicalKeywords()
         panelKeywords.getTree().addKeyListener(this);
     }
 

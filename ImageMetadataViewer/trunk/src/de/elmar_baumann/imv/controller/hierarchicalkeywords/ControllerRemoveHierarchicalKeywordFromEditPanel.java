@@ -40,8 +40,8 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
     }
 
     private void listen() {
-        PopupMenuHierarchicalKeywords.INSTANCE.getMenuItemRemoveFromEditPanel().
-                addActionListener(this);
+        // Listening to singleton popup menu via ActionListenerFactory#
+        // listenToPopupMenuHierarchicalKeywords()
         panelKeywords.getTree().addKeyListener(this);
     }
 
