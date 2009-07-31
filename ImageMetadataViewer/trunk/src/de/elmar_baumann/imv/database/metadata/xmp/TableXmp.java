@@ -37,5 +37,6 @@ public final class TableXmp extends Table {
         addColumn(ColumnXmpPhotoshopSource.INSTANCE);
         addColumn(ColumnXmpPhotoshopState.INSTANCE);
         addColumn(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
+        addColumn(ColumnXmpRating.INSTANCE);
     }
 }

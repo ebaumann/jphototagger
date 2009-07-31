@@ -20,6 +20,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +56,7 @@ public final class MetadataEditTemplate {
     private final StringBuffer photoshopInstructions = new StringBuffer();
     private final StringBuffer photoshopCredit = new StringBuffer();
     private final StringBuffer photoshopSource = new StringBuffer();
+    private final StringBuffer rating = new StringBuffer();
     private final Map<Column, StringBuffer> valueOfColumn =
             new HashMap<Column, StringBuffer>();
 
@@ -86,6 +88,7 @@ public final class MetadataEditTemplate {
                 photoshopInstructions);
         valueOfColumn.put(ColumnXmpPhotoshopCredit.INSTANCE, photoshopCredit);
         valueOfColumn.put(ColumnXmpPhotoshopSource.INSTANCE, photoshopSource);
+        valueOfColumn.put(ColumnXmpRating.INSTANCE, rating);
     }
 
     public MetadataEditTemplate() {
@@ -277,6 +280,14 @@ public final class MetadataEditTemplate {
                 photoshopTransmissionReference);
     }
 
+    public String getRating() {
+        return rating.toString();
+    }
+
+    public void setRating(String rating) {
+        this.rating.replace(0, this.rating.length(), rating);
+    }
+
     /**
      * Liefert, ob keine Daten enthalten sind.
      * 
@@ -301,7 +312,8 @@ public final class MetadataEditTemplate {
                 photoshopTransmissionReference.length() == 0 &&
                 photoshopInstructions.length() == 0 &&
                 photoshopCredit.length() == 0 &&
-                photoshopSource.length() == 0;
+                photoshopSource.length() == 0 &&
+                rating.length() == 0;
     }
 
     /**

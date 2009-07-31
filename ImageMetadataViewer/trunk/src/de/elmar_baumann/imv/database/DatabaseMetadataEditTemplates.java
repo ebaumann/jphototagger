@@ -65,8 +65,9 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ", photoshopInstructions" + // NOI18N -- 18 --
                     ", photoshopCredit" + // NOI18N -- 19 --
                     ", photoshopSource" + // NOI18N -- 20 --
+                    ", rating" + // NOI18N -- 21 --
                     ")" + // NOI18N
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setMetadataEditTemplate(stmt, template);
             AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             stmt.executeUpdate();
@@ -146,6 +147,9 @@ public class DatabaseMetadataEditTemplates extends Database {
         stmt.setBytes(20, template.getPhotoshopSource() == null
                           ? null
                           : template.getPhotoshopSource().getBytes());
+        stmt.setBytes(21, template.getRating() == null
+                          ? null
+                          : template.getRating().getBytes());
     }
 
     /**
@@ -182,6 +186,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ", photoshopInstructions" + // NOI18N -- 18 --
                     ", photoshopCredit" + // NOI18N -- 19 --
                     ", photoshopSource" + // NOI18N -- 20 --
+                    ", rating" + // NOI18N -- 21 --
                     " FROM metadata_edit_templates" + // NOI18N
                     " WHERE name IS NOT NULL"; // NOI18N
             AppLog.logFinest(getClass(), sql);
@@ -210,6 +215,8 @@ public class DatabaseMetadataEditTemplates extends Database {
                 template.setPhotoshopInstructions(new String(rs.getBytes(18)));
                 template.setPhotoshopCredit(new String(rs.getBytes(19)));
                 template.setPhotoshopSource(new String(rs.getBytes(20)));
+                template.setRating(rs.getBytes(21) == null ? "" :
+                        new String(rs.getBytes(21)));
                 templates.add(template);
             }
             stmt.close();
@@ -256,9 +263,10 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ", photoshopInstructions = ?" + // NOI18N -- 18 --
                     ", photoshopCredit = ?" + // NOI18N -- 19 --
                     ", photoshopSource = ?" + // NOI18N -- 20 --
-                    " WHERE name = ?"); // NOI18N -- 21 --
+                    ", rating= ?" + // NOI18N -- 21 --
+                    " WHERE name = ?"); // NOI18N -- 22 --
             setMetadataEditTemplate(stmt, template);
-            stmt.setString(21, template.getName());
+            stmt.setString(22, template.getName());
             AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();

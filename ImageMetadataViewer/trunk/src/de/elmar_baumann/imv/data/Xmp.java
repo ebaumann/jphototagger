@@ -25,6 +25,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.generics.Pair;
@@ -455,6 +456,24 @@ public final class Xmp implements TextEntryListener {
             String photoshopTransmissionReference) {
         valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
                 photoshopTransmissionReference);
+    }
+
+    /**
+     * Returns the XMP rating.
+     *
+     * @return value of rating or null if not set
+     */
+    public Long getRating() {
+        return longValueOf(ColumnXmpRating.INSTANCE);
+    }
+
+    /**
+     * Sets the XMP rating.
+     *
+     * @param rating value of rating not null
+     */
+    public void setRating(Long rating) {
+        valueOfColumn.put(ColumnXmpRating.INSTANCE, rating);
     }
 
     /**

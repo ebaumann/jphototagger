@@ -64,6 +64,16 @@ final class UpdateTablesAddColumns {
                 "real", // NOI18N
                 "idx_hierarchical_subjects_real", // NOI18N
                 false))); // NOI18N
+        columns.add(new ColumnInfo(
+                "xmp", // NOI18N
+                "rating", // NOI18N
+                "BIGINT", // NOI18N
+                null));
+        columns.add(new ColumnInfo(
+                "metadata_edit_templates", // NOI18N
+                "rating", // NOI18N
+                "BOOLEAN", // NOI18N
+                null));
     }
 
     void update(Connection connection) throws SQLException {

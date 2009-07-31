@@ -62,7 +62,7 @@ public final class DatabaseTables extends Database {
             createXmpTables(connection, stmt);
             createExifTables(connection, stmt);
             createCollectionsTables(connection, stmt);
-            createSavedSerachesTables(connection, stmt);
+            createSavedSearchesTables(connection, stmt);
             createAutoScanDirectoriesTable(connection, stmt);
             createMetadataEditTemplateTable(connection, stmt);
             createFavoriteDirectoriesTable(connection, stmt);
@@ -121,6 +121,7 @@ public final class DatabaseTables extends Database {
                     ", photoshop_source VARCHAR_IGNORECASE(32)" + // NOI18N
                     ", photoshop_state VARCHAR_IGNORECASE(32)" + // NOI18N
                     ", photoshop_transmissionReference VARCHAR_IGNORECASE(32)" + // NOI18N
+                    ", rating BIGINT" + // NOI18N
                     ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
                     ");"); // NOI18N
             stmt.execute(
@@ -241,7 +242,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createSavedSerachesTables(Connection connection, Statement stmt)
+    private void createSavedSearchesTables(Connection connection, Statement stmt)
             throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "saved_searches")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE saved_searches" + // NOI18N
@@ -330,6 +331,7 @@ public final class DatabaseTables extends Database {
                     ", photoshopTransmissionReference BINARY" + // NOI18N
                     ", photoshopInstructions BINARY" + // NOI18N
                     ", photoshopCredit BINARY" + // NOI18N
+                    ", rating BINARY" +  // NOI18N
                     ", photoshopSource BINARY" + ");"); // NOI18N
             stmt.execute(
                     "CREATE UNIQUE INDEX idx_metadata_edit_templates_name ON metadata_edit_templates (name)"); // NOI18N
