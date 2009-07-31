@@ -93,12 +93,16 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     private void checkDirty() {
         if (isDirty()) {
-            addInputToRepeatableTextEntries();
-            SaveEditedMetadata.saveMetadata(filenamesXmp);
-            setDirty(false);
+            save();
             setFocusToLastFocussedComponent();
             SelectedFile.INSTANCE.setFile(new File(""), null); // NOI18N
         }
+    }
+
+    private void save() {
+        addInputToRepeatableTextEntries();
+        SaveEditedMetadata.saveMetadata(filenamesXmp);
+        setDirty(false);
     }
 
     private void addInputToRepeatableTextEntries() {
