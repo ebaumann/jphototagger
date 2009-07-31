@@ -42,20 +42,19 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
     }
 
     private void render(Object userObject, int row) {
-        setOpaque(false);
+        boolean highlight = false;
         if (userObject instanceof HierarchicalKeyword) {
             HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
             boolean real = keyword.isReal() == null
                            ? false
                            : keyword.isReal();
-            boolean highlight =
+            highlight =
                     keyword.isReal() && isKeyword(keyword.getKeyword());
             setText(keyword.getKeyword());
             setIcon(real
                     ? ICON_REAL
                       : ICON_HELPER);
             if (highlight) {
-                setOpaque(true);
                 setForeground(
                         AppColors.COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
                 setBackground(
@@ -64,7 +63,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
                 setIcon(ICON_REAL_HIGHLIGHTED);
             }
         }
-        setOpaque(row == popupHighLightRow);
+        setOpaque(row == popupHighLightRow || highlight);
         if (row == popupHighLightRow) {
             setForeground(AppColors.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
             setBackground(AppColors.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
