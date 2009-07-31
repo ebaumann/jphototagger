@@ -105,6 +105,12 @@ public final class EditMetadataPanelsArray implements FocusListener,
         setDirty(false);
     }
 
+    private void saveIfDirty() {
+        if (isDirty()) {
+            save();
+        }
+    }
+
     private void addInputToRepeatableTextEntries() {
         for (JPanel panel : panels) {
             if (panel instanceof EditRepeatableTextEntryPanel) {
