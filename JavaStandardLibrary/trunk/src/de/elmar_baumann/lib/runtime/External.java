@@ -110,8 +110,8 @@ public final class External {
         byte[] returnBytes = null;
         try {
             InputStream stream = s.equals(Stream.STANDARD_OUT)
-                                 ? process.getInputStream()
-                                 : process.getErrorStream();
+                    ? process.getInputStream()
+                    : process.getErrorStream();
             byte[] buffer = new byte[buffersize];
             int bytesRead = -1;
             boolean finished = false;
@@ -192,14 +192,25 @@ public final class External {
         }
     }
 
-    public static String[] parseQuotedCommandLine(String command) throws IOException {
+    public static String[] parseQuotedCommandLine(String command)
+            throws IOException {
+
+        // http://gcc.gnu.org/ml/java-patches/2000-q3/msg00026.html:
+        // "\XXX (octal esacpe) are converted to the appropriate char values"
+        //
+        // On Windows systems, where the backslash is a path delimiter, the
+        // tokenizer converts e.g. \200 in F:\2009 to '\u0080'. This results in
+        // an invalid path. Let's escaping all backslashes, because it's not
+        // plausible, that a command string has an octal escape, that shall be
+        // replaced by one unicode character.
+        command = command.replace("\\", "\\\\");
         String[] cmd_array = new String[0];
         String[] new_cmd_array;
         StreamTokenizer st = new StreamTokenizer(new StringReader(command));
         st.resetSyntax();
-        st.wordChars('\u0000','\uFFFF');
+        st.wordChars('\u0000', '\uFFFF');
         st.whitespaceChars(' ', ' ');
-        st.quoteChar('\"');
+        st.quoteChar('"');
         for (int i = 0; st.nextToken() != StreamTokenizer.TT_EOF; i++) {
             new_cmd_array = new String[i + 1];
             new_cmd_array[i] = st.sval;
