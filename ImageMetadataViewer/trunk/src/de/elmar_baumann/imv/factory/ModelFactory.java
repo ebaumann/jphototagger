@@ -28,6 +28,7 @@ import de.elmar_baumann.lib.thirdparty.SortedListModel;
 import java.awt.Cursor;
 import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.ListModel;
 import javax.swing.tree.TreeModel;
 
 /**
@@ -88,10 +89,19 @@ public final class ModelFactory {
     }
 
     private void setListModelKeywords(final AppPanel appPanel) {
-        JList list = appPanel.getListKeywords();
-        Cursor listCursor = setWaitCursor(list);
-        list.setModel(new SortedListModel(new ListModelKeywords()));
-        list.setCursor(listCursor);
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                JList list = appPanel.getListKeywords();
+                Cursor listCursor = setWaitCursor(list);
+                ListModel model = new ListModelKeywords();
+                list.setModel(new SortedListModel(model));
+                list.setCursor(listCursor);
+            }
+        });
+        thread.setName("Creating keywords model @ " + getClass().getName()); // NOI18N
+        thread.start();
     }
 
     private void setTableModels(final AppPanel appPanel) {
