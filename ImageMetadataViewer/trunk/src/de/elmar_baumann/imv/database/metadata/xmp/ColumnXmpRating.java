@@ -20,6 +20,8 @@ public final class ColumnXmpRating extends Column {
             "rating", // NOI18N
             DataType.BIGINT);
 
+        setLength(1);
+
         setDescription(Bundle.getString("ColumnXmpRating.Description")); // NOI18N
         setLongerDescription(Bundle.getString("ColumnXmpRating.LongerDescription")); // NOI18N
     }
