@@ -29,6 +29,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -80,6 +81,7 @@ public final class ColumnIds {
                 ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
         COLUMN_OF_ID.put(26, ColumnCollectionnamesName.INSTANCE);
         COLUMN_OF_ID.put(27, ColumnSavedSearchesName.INSTANCE);
+        COLUMN_OF_ID.put(28, ColumnXmpRating.INSTANCE);
 
         Set<Integer> keys = COLUMN_OF_ID.keySet();
         for (Integer key : keys) {

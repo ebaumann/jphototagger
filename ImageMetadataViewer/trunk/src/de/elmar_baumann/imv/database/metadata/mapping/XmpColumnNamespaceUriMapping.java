@@ -21,6 +21,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,6 +76,7 @@ public final class XmpColumnNamespaceUriMapping {
         NAMESPACE_URI_OF_COLUMN.put(
                 ColumnXmpPhotoshopTransmissionReference.INSTANCE,
                 XMPConst.NS_PHOTOSHOP);
+        NAMESPACE_URI_OF_COLUMN.put(ColumnXmpRating.INSTANCE, XMPConst.NS_XMP);
     }
 
     /**

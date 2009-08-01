@@ -21,6 +21,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,6 +83,8 @@ public final class IptcXmpMapping {
                 ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.BYLINE_TITLE,
                 ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.URGENCY,
+                ColumnXmpRating.INSTANCE);
 
         for (IPTCEntryMeta iptcEntryMeta :
                 XMP_COLUMN_OF_IPTC_ENTRY_META.keySet()) {

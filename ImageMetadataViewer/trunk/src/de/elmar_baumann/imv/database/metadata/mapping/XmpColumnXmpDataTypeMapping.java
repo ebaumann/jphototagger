@@ -20,6 +20,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,6 +81,8 @@ public final class XmpColumnXmpDataTypeMapping {
                 XmpValueType.BAG_TEXT);
         XMP_VALUE_TYPE_OF_COLUMN.put(
                 ColumnXmpPhotoshopTransmissionReference.INSTANCE,
+                XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpRating.INSTANCE,
                 XmpValueType.TEXT);
     }
 

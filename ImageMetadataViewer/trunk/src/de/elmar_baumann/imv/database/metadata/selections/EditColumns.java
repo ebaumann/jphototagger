@@ -20,6 +20,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -76,6 +77,8 @@ public final class EditColumns {
             ColumnXmpPhotoshopInstructions.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_COLUMN.put(
             ColumnXmpPhotoshopCaptionwriter.INSTANCE, notRepeatableHintSmall);
+        EDIT_HINT_OF_COLUMN.put(
+            ColumnXmpRating.INSTANCE, notRepeatableHintSmall);
     }
 
     public static Set<Column> get() {

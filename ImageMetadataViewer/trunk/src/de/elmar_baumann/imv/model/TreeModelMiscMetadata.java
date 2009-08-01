@@ -12,6 +12,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -55,6 +56,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
         XMP_COLUMNS.add(ColumnXmpDcCreator.INSTANCE);
         XMP_COLUMNS.add(ColumnXmpDcRights.INSTANCE);
         XMP_COLUMNS.add(ColumnXmpPhotoshopSource.INSTANCE);
+        XMP_COLUMNS.add(ColumnXmpRating.INSTANCE);
 
         COLUMN_USER_OBJECTS.add(EXIF_USER_OBJECT);
         COLUMN_USER_OBJECTS.add(XMP_USER_OBJECT);

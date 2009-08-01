@@ -463,8 +463,8 @@ public final class Xmp implements TextEntryListener {
      *
      * @return value of rating or null if not set
      */
-    public Long getRating() {
-        return longValueOf(ColumnXmpRating.INSTANCE);
+    public String getRating() {
+        return stringValueOf(ColumnXmpRating.INSTANCE);
     }
 
     /**
@@ -472,7 +472,7 @@ public final class Xmp implements TextEntryListener {
      *
      * @param rating value of rating not null
      */
-    public void setRating(Long rating) {
+    public void setRating(String rating) {
         valueOfColumn.put(ColumnXmpRating.INSTANCE, rating);
     }
 

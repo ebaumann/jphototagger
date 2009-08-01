@@ -24,6 +24,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,7 @@ public final class DatabaseInfoRecordCountColumns {
         COLUMNS.add(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopInstructions.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        COLUMNS.add(ColumnXmpRating.INSTANCE);
         COLUMNS.add(ColumnExifDateTimeOriginal.INSTANCE);
         COLUMNS.add(ColumnExifFocalLength.INSTANCE);
         COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);

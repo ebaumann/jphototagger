@@ -616,6 +616,9 @@ public final class XmpMetadata {
                         "photoshop:TransmissionReference")) { // NOI18N
                     xmp.setPhotoshopTransmissionReference(xmpPropertyInfo.
                             getValue().toString());
+                } else if (xmpPropertyInfo.getPath().startsWith(
+                        "xap:Rating")) { // NOI18N
+                    xmp.setRating(xmpPropertyInfo.getValue().toString());
                 }
             }
             setLastModified(xmpType, xmp, imageFilename);

@@ -63,6 +63,8 @@ public final class IptcEntryXmpPathStartMapping {
         XMP_PATH_START_OF_IPTC_ENTRY_META.put(
                 IPTCEntryMeta.ORIGINAL_TRANSMISSION_REFERENCE,
                 "photoshop:TransmissionReference"); // NOI18N
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(
+                IPTCEntryMeta.URGENCY, "xap:Rating"); // NOI18N
     }
 
     /**
