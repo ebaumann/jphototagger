@@ -141,6 +141,10 @@
 			<title>Datei &gt; Bilder von der Kamera-Speicherkarte kopieren</title>
 		</page>
 		<page>
+			<url>action_import_keywords.html</url>
+			<title>Datei &gt; Importieren &gt; Stichwörter</title>
+		</page>
+		<page>
 			<url>action_dialog_settings.html</url>
 			<title>Bearbeiten &gt; Einstellungen</title>
 		</page>

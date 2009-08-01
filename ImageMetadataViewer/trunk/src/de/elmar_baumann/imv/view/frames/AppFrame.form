@@ -52,6 +52,30 @@
                 </Property>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator11">
+            </MenuItem>
+            <Menu class="javax.swing.JMenu" name="menuImport">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_import.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuImport.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemImportKeywords">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_keyword.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemImportKeywords.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JSeparator" name="jSeparator4">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExit">

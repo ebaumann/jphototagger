@@ -206,6 +206,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemHierarchicalKeywords;
     }
 
+    public JMenuItem getMenuItemImportKeywords() {
+        return menuItemImportKeywords;
+    }
+
     public JMenuItem getMenuItemExit() {
         return menuItemExit;
     }
@@ -225,6 +229,9 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemMaintainDatabase = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         menuItemCopyFromAutocopyDirectory = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JSeparator();
+        menuImport = new javax.swing.JMenu();
+        menuItemImportKeywords = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
@@ -298,6 +305,16 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemCopyFromAutocopyDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_card.png"))); // NOI18N
         menuItemCopyFromAutocopyDirectory.setText(Bundle.getString("AppFrame.menuItemCopyFromAutocopyDirectory.text")); // NOI18N
         menuFile.add(menuItemCopyFromAutocopyDirectory);
+        menuFile.add(jSeparator11);
+
+        menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_import.png"))); // NOI18N
+        menuImport.setText(Bundle.getString("AppFrame.menuImport.text")); // NOI18N
+
+        menuItemImportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword.png"))); // NOI18N
+        menuItemImportKeywords.setText(Bundle.getString("AppFrame.menuItemImportKeywords.text")); // NOI18N
+        menuImport.add(menuItemImportKeywords);
+
+        menuFile.add(menuImport);
         menuFile.add(jSeparator4);
 
         menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -513,6 +530,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -526,6 +544,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuImport;
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
@@ -548,6 +567,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemHierarchicalKeywords;
+    private javax.swing.JMenuItem menuItemImportKeywords;
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;

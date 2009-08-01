@@ -34,6 +34,31 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     }
 
     /**
+     * Returns a child with a specific name
+     * ({@link HierarchicalKeyword#getKeyword()}.
+     *
+     * @param  parent parent node
+     * @param  name   name
+     * @return        first child node with that name or null if no child has
+     *                that name
+     */
+    public DefaultMutableTreeNode findChildByName(
+            DefaultMutableTreeNode parent, String name) {
+        for (Enumeration e = parent.children(); e.hasMoreElements();) {
+            DefaultMutableTreeNode child =
+                    (DefaultMutableTreeNode) e.nextElement();
+            Object userObject = child.getUserObject();
+            if (userObject instanceof HierarchicalKeyword) {
+                if (((HierarchicalKeyword) userObject).getKeyword().
+                        equalsIgnoreCase(name)) {
+                    return child;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds a keyword to a node.
      *
      * @param parentNode parent node; the keyword becomes a child
