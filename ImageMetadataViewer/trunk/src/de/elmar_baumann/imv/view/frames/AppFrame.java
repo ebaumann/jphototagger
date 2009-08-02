@@ -210,6 +210,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemImportKeywords;
     }
 
+    public JMenuItem getMenuItemExportKeywords() {
+        return menuItemExportKeywords;
+    }
+
     public JMenuItem getMenuItemExit() {
         return menuItemExit;
     }
@@ -232,6 +236,8 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator11 = new javax.swing.JSeparator();
         menuImport = new javax.swing.JMenu();
         menuItemImportKeywords = new javax.swing.JMenuItem();
+        menuExport = new javax.swing.JMenu();
+        menuItemExportKeywords = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
@@ -315,6 +321,15 @@ public final class AppFrame extends javax.swing.JFrame {
         menuImport.add(menuItemImportKeywords);
 
         menuFile.add(menuImport);
+
+        menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_export.png"))); // NOI18N
+        menuExport.setText(Bundle.getString("AppFrame.menuExport.text")); // NOI18N
+
+        menuItemExportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword.png"))); // NOI18N
+        menuItemExportKeywords.setText(Bundle.getString("AppFrame.menuItemExportKeywords.text")); // NOI18N
+        menuExport.add(menuItemExportKeywords);
+
+        menuFile.add(menuExport);
         menuFile.add(jSeparator4);
 
         menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -541,6 +556,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
+    private javax.swing.JMenu menuExport;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
@@ -549,6 +565,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
     private javax.swing.JMenuItem menuItemExit;
+    private javax.swing.JMenuItem menuItemExportKeywords;
     private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
     private javax.swing.JMenuItem menuItemGotoCategories;
     private javax.swing.JMenuItem menuItemGotoCollections;

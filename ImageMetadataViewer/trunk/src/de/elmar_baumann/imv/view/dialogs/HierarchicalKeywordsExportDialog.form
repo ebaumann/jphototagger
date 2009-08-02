@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsImportDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsExportDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -38,16 +38,16 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="comboBoxImporter" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboBoxExporter" min="-2" max="-2" attributes="0"/>
                           <Component id="labelFilename" pref="327" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="buttonChooseFile" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="8" max="32767" attributes="0"/>
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonImport" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonExport" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -60,7 +60,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelFormat" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboBoxImporter" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboBoxExporter" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -69,7 +69,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonImport" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonExport" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonChooseFile" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -82,14 +82,14 @@
     <Component class="javax.swing.JLabel" name="labelFormat">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsImportDialog.labelFormat.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsExportDialog.labelFormat.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboBoxImporter">
+    <Component class="javax.swing.JComboBox" name="comboBoxExporter">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="comboBoxModelImporter" type="code"/>
+          <Connection code="comboBoxModelExporter" type="code"/>
         </Property>
         <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new de.elmar_baumann.imv.view.renderer.ListCellRendererHierarchicalKeywordsImExporter()" type="code"/>
@@ -99,7 +99,7 @@
     <Component class="javax.swing.JLabel" name="labelInfoFilename">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsImportDialog.labelInfoFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsExportDialog.labelInfoFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -114,33 +114,33 @@
       <Properties>
         <Property name="mnemonic" type="int" value="100"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsImportDialog.buttonChooseFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsExportDialog.buttonChooseFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseFileActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonImport">
+    <Component class="javax.swing.JButton" name="buttonExport">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_import.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_export.png"/>
         </Property>
-        <Property name="mnemonic" type="int" value="105"/>
+        <Property name="mnemonic" type="int" value="101"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsImportDialog.buttonImport.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsExportDialog.buttonExport.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonImportActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExportActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
         <Property name="mnemonic" type="int" value="97"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsImportDialog.buttonCancel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="HierarchicalKeywordsExportDialog.buttonCancel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>

@@ -2,8 +2,9 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
-import de.elmar_baumann.imv.importer.HierarchicalKeywordsImporter;
-import de.elmar_baumann.imv.model.ComboBoxModelHierarchicalKeywordsImporters;
+import de.elmar_baumann.imv.app.MessageDisplayer;
+import de.elmar_baumann.imv.exporter.HierarchicalKeywordsExporter;
+import de.elmar_baumann.imv.model.ComboBoxModelHierarchicalKeywordsExporters;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
@@ -11,21 +12,21 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 /**
- * Modal dialog to import hierarchical keywords.
+ * Modal dialog to export hierarchical keywords.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009-08-01
+ * @version 2009-08-02
  */
-public class HierarchicalKeywordsImportDialog extends Dialog {
+public class HierarchicalKeywordsExportDialog extends Dialog {
 
-    private static final String KEY_PREV_IMPORT_FILE =
-            "HierarchicalKeywordsImportDialog.PrevImportFile";
+    private static final String KEY_PREV_EXPORT_FILE =
+            "HierarchicalKeywordsExportDialog.PrevExportFile";
     private boolean accepted;
     private File file;
-    private ComboBoxModelHierarchicalKeywordsImporters comboBoxModelImporter =
-            new ComboBoxModelHierarchicalKeywordsImporters();
+    private ComboBoxModelHierarchicalKeywordsExporters comboBoxModelExporter =
+            new ComboBoxModelHierarchicalKeywordsExporters();
 
-    public HierarchicalKeywordsImportDialog() {
+    public HierarchicalKeywordsExportDialog() {
         super((java.awt.Frame) null, true);
         initComponents();
         postInitComponents();
@@ -38,27 +39,27 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     }
 
     /**
-     * Returns wheter keywords shall be imported.
+     * Returns wheter keywords shall be exported.
      *
-     * @return true if keywords shall be imported
+     * @return true if keywords shall be exported
      */
     public boolean isAccepted() {
         return accepted;
     }
 
     /**
-     * Returns the selected importer.
+     * Returns the selected exporter.
      *
      * <em>Should be called only when {@link #isAccepted()} is true!</em>
      *
-     * @return importer or null if no importer was selected.
+     * @return exporter or null if no exporter was selected.
      */
-    public HierarchicalKeywordsImporter getImporter() {
-        assert accepted : "Import was not accepted!";
+    public HierarchicalKeywordsExporter getExporter() {
+        assert accepted : "Export was not accepted!";
         if (!accepted) return null;
-        Object item = comboBoxImporter.getSelectedItem();
-        return item instanceof HierarchicalKeywordsImporter
-               ? (HierarchicalKeywordsImporter) item
+        Object item = comboBoxExporter.getSelectedItem();
+        return item instanceof HierarchicalKeywordsExporter
+               ? (HierarchicalKeywordsExporter) item
                : null;
     }
 
@@ -72,46 +73,39 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
         super.setVisible(visible);
     }
 
-    @Override
-    protected void help() {
-        help(Bundle.getString("Help.Url.HierarchicalKeywordsImportDialog")); // NOI18N
-    }
-
     /**
-     * Returns the file to import.
+     * Returns the file to export into.
      *
      * <em>Should be called only when {@link #isAccepted()} is true!</em>
      *
-     * @return file or null if no file is to import
+     * @return file or null if no file is to export
      */
     public File getFile() {
-        assert accepted : "Import was not accepted!";
+        assert accepted : "Export was not accepted!";
         if (!accepted) return null;
         return file;
     }
 
     private void chooseFile() {
-        Object selItem = comboBoxImporter.getSelectedItem();
-        assert selItem instanceof HierarchicalKeywordsImporter :
+        Object selItem = comboBoxExporter.getSelectedItem();
+        assert selItem instanceof HierarchicalKeywordsExporter :
                 "Not an instance of " +
-                HierarchicalKeywordsImporter.class.getName() + ": " + selItem;
-        if (selItem instanceof HierarchicalKeywordsImporter) {
+                HierarchicalKeywordsExporter.class.getName() + ": " + selItem;
+        if (selItem instanceof HierarchicalKeywordsExporter) {
             JFileChooser fileChooser = new JFileChooser();
-            if (file != null && file.isFile()) {
+            if (file != null) {
                 fileChooser.setCurrentDirectory(file.getParentFile());
             }
             fileChooser.setFileFilter(
-                    ((HierarchicalKeywordsImporter) selItem).getFileFilter());
+                    ((HierarchicalKeywordsExporter) selItem).getFileFilter());
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setDialogTitle(getTitle());
-            if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selFile = fileChooser.getSelectedFile();
-                if (selFile.isFile()) {
-                    file = selFile;
-                    labelFilename.setText(file.getAbsolutePath());
-                }
+                file = selFile;
+                labelFilename.setText(file.getAbsolutePath());
             }
-            buttonImport.setEnabled(file != null && file.isFile());
+            buttonExport.setEnabled(file != null);
         }
 
     }
@@ -119,11 +113,12 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.getSizeAndLocation(this);
-        File prevImpFile = new File(settings.getString(KEY_PREV_IMPORT_FILE));
-        if (prevImpFile.isFile()) {
-            file = prevImpFile;
-            labelFilename.setText(prevImpFile.getAbsolutePath());
-            buttonImport.setEnabled(true);
+        File prevExpFile = new File(settings.getString(KEY_PREV_EXPORT_FILE));
+        if (prevExpFile.getParentFile() != null &&
+                prevExpFile.getParentFile().isDirectory()) {
+            file = prevExpFile;
+            labelFilename.setText(prevExpFile.getAbsolutePath());
+            buttonExport.setEnabled(true);
         }
     }
 
@@ -131,13 +126,25 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setSizeAndLocation(this);
         if (file != null && file.isFile()) {
-            settings.setString(file.getAbsolutePath(), KEY_PREV_IMPORT_FILE);
+            settings.setString(file.getAbsolutePath(), KEY_PREV_EXPORT_FILE);
         }
     }
 
-    private void handleImportActionPerformed() {
-        accepted = true;
-        setVisible(false);
+    private void handleExportActionPerformed() {
+        if (checkOverwrite()) {
+            accepted = true;
+            setVisible(false);
+        }
+    }
+
+    private boolean checkOverwrite() {
+        assert file != null : "File is null!";
+        if (file == null) return false;
+        if (!file.exists()) return true;
+        return MessageDisplayer.confirm(this,
+                "HierarchicalKeywordsExportDialog.Confirm.OverwriteFile",
+                MessageDisplayer.CancelButton.HIDE, file).equals(
+                MessageDisplayer.ConfirmAction.YES);
     }
 
     private void handleCancelActionPerformed() {
@@ -155,49 +162,49 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     private void initComponents() {
 
         labelFormat = new javax.swing.JLabel();
-        comboBoxImporter = new javax.swing.JComboBox();
+        comboBoxExporter = new javax.swing.JComboBox();
         labelInfoFilename = new javax.swing.JLabel();
         labelFilename = new javax.swing.JLabel();
         buttonChooseFile = new javax.swing.JButton();
-        buttonImport = new javax.swing.JButton();
+        buttonExport = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
-        setTitle(Bundle.getString("HierarchicalKeywordsImportDialog.title")); // NOI18N
+        setTitle(Bundle.getString("HierarchicalKeywordsExportDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelFormat.setText(Bundle.getString("HierarchicalKeywordsImportDialog.labelFormat.text")); // NOI18N
+        labelFormat.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelFormat.text")); // NOI18N
 
-        comboBoxImporter.setModel(comboBoxModelImporter);
-        comboBoxImporter.setRenderer(new de.elmar_baumann.imv.view.renderer.ListCellRendererHierarchicalKeywordsImExporter());
+        comboBoxExporter.setModel(comboBoxModelExporter);
+        comboBoxExporter.setRenderer(new de.elmar_baumann.imv.view.renderer.ListCellRendererHierarchicalKeywordsImExporter());
 
-        labelInfoFilename.setText(Bundle.getString("HierarchicalKeywordsImportDialog.labelInfoFilename.text")); // NOI18N
+        labelInfoFilename.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelInfoFilename.text")); // NOI18N
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         buttonChooseFile.setMnemonic('d');
-        buttonChooseFile.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
         });
 
-        buttonImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_import.png"))); // NOI18N
-        buttonImport.setMnemonic('i');
-        buttonImport.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonImport.text")); // NOI18N
-        buttonImport.setEnabled(false);
-        buttonImport.addActionListener(new java.awt.event.ActionListener() {
+        buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_export.png"))); // NOI18N
+        buttonExport.setMnemonic('e');
+        buttonExport.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonExport.text")); // NOI18N
+        buttonExport.setEnabled(false);
+        buttonExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonImportActionPerformed(evt);
+                buttonExportActionPerformed(evt);
             }
         });
 
         buttonCancel.setMnemonic('a');
-        buttonCancel.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -217,14 +224,14 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
                             .addComponent(labelInfoFilename))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxImporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxExporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonChooseFile)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonImport)))
+                        .addComponent(buttonExport)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,14 +240,14 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFormat)
-                    .addComponent(comboBoxImporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxExporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelInfoFilename)
                     .addComponent(labelFilename))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonImport)
+                    .addComponent(buttonExport)
                     .addComponent(buttonCancel)
                     .addComponent(buttonChooseFile))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -255,9 +262,9 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
         writeProperties();
     }//GEN-LAST:event_formWindowClosing
 
-    private void buttonImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonImportActionPerformed
-        handleImportActionPerformed();
-    }//GEN-LAST:event_buttonImportActionPerformed
+    private void buttonExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportActionPerformed
+        handleExportActionPerformed();
+    }//GEN-LAST:event_buttonExportActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         handleCancelActionPerformed();
@@ -275,8 +282,8 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
 
             @Override
             public void run() {
-                HierarchicalKeywordsImportDialog dialog =
-                        new HierarchicalKeywordsImportDialog();
+                HierarchicalKeywordsExportDialog dialog =
+                        new HierarchicalKeywordsExportDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -291,8 +298,8 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseFile;
-    private javax.swing.JButton buttonImport;
-    private javax.swing.JComboBox comboBoxImporter;
+    private javax.swing.JButton buttonExport;
+    private javax.swing.JComboBox comboBoxExporter;
     private javax.swing.JLabel labelFilename;
     private javax.swing.JLabel labelFormat;
     private javax.swing.JLabel labelInfoFilename;
