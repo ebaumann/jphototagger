@@ -16,6 +16,7 @@ import de.elmar_baumann.imv.database.metadata.selections.EditHints;
 import de.elmar_baumann.imv.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.event.TextSelectionEvent;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
@@ -200,6 +201,13 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 } else {
                     textPanel.removeTextEntryListener(xmp);
                 }
+            } else if (panel instanceof RatingSelectionPanel) {
+                RatingSelectionPanel textPanel = (RatingSelectionPanel) panel;
+                if (add) {
+                    textPanel.addTextEntryListener(xmp);
+                } else {
+                    textPanel.removeTextEntryListener(xmp);
+                }
             }
         }
     }
@@ -278,8 +286,8 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 EditRepeatableTextEntryPanel editPanel =
                         (EditRepeatableTextEntryPanel) textEntry;
                 editPanel.setText(getCommonXmpCollection(xmpColumn));
-            } else if (textEntry instanceof EditTextEntryPanel) {
-                EditTextEntryPanel editPanel = (EditTextEntryPanel) textEntry;
+            } else if (textEntry instanceof TextEntry) {
+                TextEntry editPanel = (TextEntry) textEntry;
                 editPanel.setText(getCommonXmpString(xmpColumn));
             }
             textEntry.setDirty(false);
@@ -428,13 +436,18 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 }
                 panels.add(panel);
             } else {
-                EditTextEntryPanel panel = new EditTextEntryPanel(column);
-                panel.textAreaEdit.addFocusListener(this);
-                panel.textAreaEdit.addKeyListener(this);
-                panel.textAreaEdit.setRows(large
+                if (column.equals(ColumnXmpRating.INSTANCE)) {
+                    RatingSelectionPanel panel = new RatingSelectionPanel(column);
+                    panels.add(panel);
+                } else {
+                    EditTextEntryPanel panel = new EditTextEntryPanel(column);
+                    panel.textAreaEdit.addFocusListener(this);
+                    panel.textAreaEdit.addKeyListener(this);
+                    panel.textAreaEdit.setRows(large
                                            ? 2
                                            : 1);
-                panels.add(panel);
+                    panels.add(panel);
+                }
             }
         }
     }
