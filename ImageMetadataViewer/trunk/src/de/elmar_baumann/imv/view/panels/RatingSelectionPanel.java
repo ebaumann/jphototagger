@@ -155,8 +155,8 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         buttonStar4 = new javax.swing.JButton();
         buttonStar5 = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(96, 32));
-        setPreferredSize(new java.awt.Dimension(96, 32));
+        setMinimumSize(new java.awt.Dimension(102, 32));
+        setPreferredSize(new java.awt.Dimension(102, 32));
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText("Prompt:");
@@ -182,6 +182,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 6);
         add(buttonNoRating, gridBagConstraints);
 
         buttonStar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"))); // NOI18N
