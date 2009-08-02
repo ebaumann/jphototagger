@@ -386,7 +386,10 @@ public final class XmpMetadata {
         if (metadataValue != null) {
             if (metadataValue instanceof String) {
                 String value = (String) metadataValue;
-                if (XmpColumnXmpDataTypeMapping.isText(column)) {
+                // 2009-08-02: No side effects if value is empty
+                // ("orphaned data"), because previous metadata was deleted
+                if (XmpColumnXmpDataTypeMapping.isText(column) &&
+                        !value.trim().isEmpty()) {
                     xmpMeta.setProperty(namespaceUri, propertyName, value);
                 } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
                         column)) {
