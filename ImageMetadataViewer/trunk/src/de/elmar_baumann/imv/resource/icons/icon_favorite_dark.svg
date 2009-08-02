@@ -74,18 +74,6 @@
        inkscape:vp_z="16 : 8 : 1"
        inkscape:persp3d-origin="8 : 5.3333333 : 1"
        id="perspective2391" />
-    <filter
-       inkscape:collect="always"
-       id="filter3413"
-       x="-0.11960461"
-       width="1.2392092"
-       y="-0.1203967"
-       height="1.2407934">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.69788486"
-         id="feGaussianBlur3415" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -95,9 +83,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="35.04598"
-     inkscape:cx="9.3612299"
+     inkscape:cx="-0.77714134"
      inkscape:cy="8.2881142"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
@@ -173,22 +161,6 @@
        d="M 8,1 L 6,6 L 1,8 L 6,10 L 8,15 L 10,10 L 15,8 L 10,6 L 8,1 z"
        id="path3299"
        sodipodi:nodetypes="ccccccccc" />
-    <path
-       sodipodi:type="star"
-       style="fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
-       id="path3305"
-       sodipodi:sides="5"
-       sodipodi:cx="-7.247601"
-       sodipodi:cy="-1.8119003"
-       sodipodi:r1="5.7980447"
-       sodipodi:r2="2.8990226"
-       sodipodi:arg1="0.78165286"
-       sodipodi:arg2="1.4099714"
-       inkscape:flatsided="false"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="M -3.132438,2.2725526 L -6.7833732,1.0497119 L -9.8604912,3.3640177 L -9.8257017,-0.48610653 L -12.977619,-2.6974599 L -9.3051827,-3.8541269 L -8.1760567,-7.5351242 L -5.9411558,-4.3998595 L -2.0914002,-4.4634875 L -4.3825918,-1.3691204 L -3.132438,2.2725526 z"
-       transform="translate(-2.1395088,11.424184)" />
   </g>
   <g
      inkscape:groupmode="layer"
