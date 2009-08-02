@@ -710,8 +710,9 @@ public final class DatabaseImageFiles extends Database {
                 ", photoshop_source" + // NOI18N -- 16 --
                 ", photoshop_state" + // NOI18N -- 17 --
                 ", photoshop_transmissionReference" + // NOI18N -- 18 --
+                ", rating" + // NOI18N -- 19 --
                 ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
     }
 
     private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmp)
@@ -734,6 +735,7 @@ public final class DatabaseImageFiles extends Database {
         stmt.setString(16, xmp.getPhotoshopSource());
         stmt.setString(17, xmp.getPhotoshopState());
         stmt.setString(18, xmp.getPhotoshopTransmissionReference());
+        stmt.setLong(19, xmp.getRatingLong());
     }
 
     private void updateXmp(Connection connection, long idFile, Xmp xmp)
@@ -836,6 +838,7 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp.photoshop_transmissionReference" + // NOI18N -- 17 --
                 ", xmp_dc_subjects.subject" + // NOI18N -- 18 --
                 ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 19 --
+                ", xmp.rating" + // NOI18N -- 20 --
                 " FROM" + // NOI18N
                 " files INNER JOIN xmp" + // NOI18N
                 " ON files.id = xmp.id_files" + // NOI18N
@@ -888,6 +891,7 @@ public final class DatabaseImageFiles extends Database {
                 if (value != null) {
                     xmp.addPhotoshopSupplementalCategory(value);
                 }
+                xmp.setRating(rs.getString(20));
             }
             stmt.close();
         } catch (SQLException ex) {

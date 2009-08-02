@@ -121,6 +121,8 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
                 node.setUserObject(Short.valueOf(string));
             } else if (dataType.equals(Column.DataType.REAL)) {
                 node.setUserObject(Double.valueOf(string));
+            } else if (dataType.equals(Column.DataType.BIGINT)) {
+                node.setUserObject(Long.valueOf(string));
             } else {
                 assert false : "Unregognized data type: " + dataType; // NOI18N
             }

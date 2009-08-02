@@ -459,6 +459,21 @@ public final class Xmp implements TextEntryListener {
     }
 
     /**
+     * Returns the XMP rating as Long.
+     *
+     * @return value of rating or null if not set
+     */
+    @SuppressWarnings("empty-statement")
+    public long getRatingLong() {
+        long val = 0;
+        try {
+            val = Integer.valueOf(stringValueOf(
+                    ColumnXmpRating.INSTANCE)).intValue();
+        } catch (NumberFormatException e) {};
+        return val;
+    }
+
+    /**
      * Returns the XMP rating.
      *
      * @return value of rating or null if not set
