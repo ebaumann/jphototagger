@@ -32,9 +32,9 @@ public final class ControllerShowTextSelectionDialog
     }
 
     private void showDialog() {
-        // App frame's menu item text as title
-        TextSelectionDialog.INSTANCE.setTitle(
-                Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
-        TextSelectionDialog.INSTANCE.setVisible(true);
+        if (!TextSelectionDialog.INSTANCE.isVisible()) {
+            TextSelectionDialog.INSTANCE.setVisible(true);
+        }
+        // Is already always in front
     }
 }

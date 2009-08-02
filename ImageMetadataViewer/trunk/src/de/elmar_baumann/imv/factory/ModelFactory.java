@@ -21,7 +21,7 @@ import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
 import de.elmar_baumann.imv.model.TreeModelTimeline;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.ViewUtil;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.imv.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.thirdparty.SortedListModel;
@@ -82,10 +82,20 @@ public final class ModelFactory {
     }
 
     private void setListModelCategories(final AppPanel appPanel) {
-        JList list = appPanel.getListCategories();
-        Cursor listCursor = setWaitCursor(list);
-        list.setModel(new SortedListModel(new ListModelCategories()));
-        list.setCursor(listCursor);
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                JList listAppPanel = appPanel.getListCategories();
+                Cursor listAppPanelCursor = setWaitCursor(listAppPanel);
+                ListModel model = new SortedListModel(new ListModelCategories());
+                listAppPanel.setModel(model);
+                InputHelperDialog.INSTANCE.setModelCategories(model);
+                listAppPanel.setCursor(listAppPanelCursor);
+            }
+        });
+        thread.setName("Creating categories model @ " + getClass().getName()); // NOI18N
+        thread.start();
     }
 
     private void setListModelKeywords(final AppPanel appPanel) {
@@ -93,11 +103,12 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                JList list = appPanel.getListKeywords();
-                Cursor listCursor = setWaitCursor(list);
-                ListModel model = new ListModelKeywords();
-                list.setModel(new SortedListModel(model));
-                list.setCursor(listCursor);
+                JList listAppPanel = appPanel.getListKeywords();
+                Cursor listAppPanelCursor = setWaitCursor(listAppPanel);
+                ListModel model = new SortedListModel(new ListModelKeywords());
+                listAppPanel.setModel(model);
+                InputHelperDialog.INSTANCE.setModelKeywords(model);
+                listAppPanel.setCursor(listAppPanelCursor);
             }
         });
         thread.setName("Creating keywords model @ " + getClass().getName()); // NOI18N
@@ -152,7 +163,7 @@ public final class ModelFactory {
 
     private void setTreeModelHierarchicalKeywords() {
         TreeModel m = new TreeModelHierarchicalKeywords();
-        HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().setModel(m);
+        InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(m);
         GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().setModel(m);
     }
 

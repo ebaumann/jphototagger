@@ -13,7 +13,7 @@ import de.elmar_baumann.imv.controller.search.ControllerShowAdvancedSearchDialog
 import de.elmar_baumann.imv.controller.metadata.ControllerShowUpdateMetadataDialog;
 import de.elmar_baumann.imv.controller.misc.ControllerShowUserSettingsDialog;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.imv.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
@@ -57,7 +57,7 @@ public final class ActionListenerFactory {
      */
     private void listenToPopupMenuHierarchicalKeywords() {
         HierarchicalKeywordsPanel hkwPanel =
-                HierarchicalKeywordsDialog.INSTANCE.getPanel();
+                InputHelperDialog.INSTANCE.getPanelKeywords();
         ControllerRenameHierarchicalKeyword cRename =
                 new ControllerRenameHierarchicalKeyword(hkwPanel);
         ControllerRemoveHierarchicalKeyword cRemove =

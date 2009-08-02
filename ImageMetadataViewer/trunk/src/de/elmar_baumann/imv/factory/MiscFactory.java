@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.ScheduledTasks;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.imv.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuFavorites;
@@ -21,19 +21,17 @@ import de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories;
 import javax.swing.tree.TreeCellRenderer;
 
 /**
- * Methods causing the form designer fail to display the AppFrame are called
- * here.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-16
  */
-public final class LateFactory {
+public final class MiscFactory {
 
-    static final LateFactory INSTANCE = new LateFactory();
+    static final MiscFactory INSTANCE = new MiscFactory();
     private boolean init = false;
 
     synchronized void init() {
-        Util.checkInit(LateFactory.class, init);
+        Util.checkInit(MiscFactory.class, init);
         if (!init) {
             init = true;
             AppPanel appPanel = GUI.INSTANCE.getAppPanel();
@@ -66,7 +64,7 @@ public final class LateFactory {
         new TreeCellPopupHighlighter(appPanel.getTreeHierarchicalKeywords(),
                 PopupMenuHierarchicalKeywords.INSTANCE);
         new TreeCellPopupHighlighter(
-                HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree(),
+                InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
                 PopupMenuHierarchicalKeywords.INSTANCE);
         new ListItemPopupHighlighter(appPanel.getListImageCollections(),
                 PopupMenuImageCollections.INSTANCE);

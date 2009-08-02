@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.event.listener.impl.MouseListenerSavedSearches;
 import de.elmar_baumann.imv.event.listener.impl.MouseListenerFavorites;
 import de.elmar_baumann.imv.event.listener.impl.MouseListenerHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.imv.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 
 /**
@@ -40,7 +40,7 @@ public final class MouseListenerFactory {
                     new MouseListenerHierarchicalKeywords();
             appPanel.getTreeHierarchicalKeywords().addMouseListener(
                     mouseListenerHierarchicalKeywords);
-            HierarchicalKeywordsDialog.INSTANCE.getPanel().getTree().
+            InputHelperDialog.INSTANCE.getPanelKeywords().getTree().
                     addMouseListener(mouseListenerHierarchicalKeywords);
         }
     }

@@ -32,12 +32,6 @@ public final class AppFrame extends javax.swing.JFrame {
             new HashMap<JMenuItem, GoTo>();
     private AppPanel appPanel;
 
-    public AppFrame() {
-        GUI.INSTANCE.setAppFrame(this);
-        initComponents();
-        postInitComponents();
-    }
-
     private void initSortMenuItemsMap() {
         menuItemOfSort.put(FileSort.NAMES_ASCENDING,
                 radioButtonMenuItemSortFilenameAscending);
@@ -99,6 +93,12 @@ public final class AppFrame extends javax.swing.JFrame {
         XMP_METADATA,
         HIERARCHICAL_KEYWORDS,
     };
+
+    public AppFrame() {
+        GUI.INSTANCE.setAppFrame(this);
+        initComponents();
+        postInitComponents();
+    }
 
     private void postInitComponents() {
         addAppPanel();
@@ -202,8 +202,8 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemLastEditedWords;
     }
 
-    public JMenuItem getMenuItemHierarchicalKeywords() {
-        return menuItemHierarchicalKeywords;
+    public JMenuItem getMenuItemInputHelper() {
+        return menuItemInputHelper;
     }
 
     public JMenuItem getMenuItemImportKeywords() {
@@ -286,7 +286,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions = new javax.swing.JMenuItem();
         menuWindow = new javax.swing.JMenu();
         menuItemLastEditedWords = new javax.swing.JMenuItem();
-        menuItemHierarchicalKeywords = new javax.swing.JMenuItem();
+        menuItemInputHelper = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
@@ -518,10 +518,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
         menuWindow.add(menuItemLastEditedWords);
 
-        menuItemHierarchicalKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
-        menuItemHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword.png"))); // NOI18N
-        menuItemHierarchicalKeywords.setText(Bundle.getString("AppFrame.menuItemHierarchicalKeywords.text")); // NOI18N
-        menuWindow.add(menuItemHierarchicalKeywords);
+        menuItemInputHelper.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
+        menuItemInputHelper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_edit.png"))); // NOI18N
+        menuItemInputHelper.setText(Bundle.getString("AppFrame.menuItemInputHelper.text")); // NOI18N
+        menuWindow.add(menuItemInputHelper);
 
         menuBar.add(menuWindow);
 
@@ -540,7 +540,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         setJMenuBar(menuBar);
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;
     private javax.swing.JSeparator jSeparator1;
@@ -583,8 +582,8 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
-    private javax.swing.JMenuItem menuItemHierarchicalKeywords;
     private javax.swing.JMenuItem menuItemImportKeywords;
+    private javax.swing.JMenuItem menuItemInputHelper;
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;

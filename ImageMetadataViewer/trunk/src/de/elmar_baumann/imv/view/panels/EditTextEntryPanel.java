@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerDropEditItemsString;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -182,6 +183,7 @@ public final class EditTextEntryPanel
         textAreaEdit.setLineWrap(true);
         textAreaEdit.setRows(1);
         scrollPane.setViewportView(textAreaEdit);
+        textAreaEdit.setTransferHandler(new TransferHandlerDropEditItemsString());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

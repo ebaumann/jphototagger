@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.imv.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -35,7 +35,7 @@ public final class ControllerHighlightHierarchicalKeywords
     private final HierarchicalKeywordsPanel appHkPanel =
             appPanel.getPanelHierarchicalKeywords();
     private final HierarchicalKeywordsPanel dlgHkPanel =
-            HierarchicalKeywordsDialog.INSTANCE.getPanel();
+            InputHelperDialog.INSTANCE.getPanelKeywords();
     private final JTree treeAppPanel = appHkPanel.getTree();
     private final JTree treeDialog = dlgHkPanel.getTree();
 

@@ -1,14 +1,14 @@
 package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsDialog;
+import de.elmar_baumann.imv.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Listens to the menu item {@link AppFrame#getMenuItemHierarchicalKeywords()}
- * and shows the {@link HierarchicalKeywordsDialog} on action performed.
+ * Listens to the menu item {@link AppFrame#getMenuItemInputHelper()}
+ * and shows the {@link InputHelperDialog} on action performed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-30
@@ -21,7 +21,7 @@ public final class ControllerShowHierarchicalKeywordsDialog
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemHierarchicalKeywords().
+        GUI.INSTANCE.getAppFrame().getMenuItemInputHelper().
                 addActionListener(this);
     }
 
@@ -31,7 +31,7 @@ public final class ControllerShowHierarchicalKeywordsDialog
     }
 
     private void showDialog() {
-        HierarchicalKeywordsDialog dlg = HierarchicalKeywordsDialog.INSTANCE;
+        InputHelperDialog dlg = InputHelperDialog.INSTANCE;
         if (dlg.isVisible()) {
             dlg.toFront();
         } else {

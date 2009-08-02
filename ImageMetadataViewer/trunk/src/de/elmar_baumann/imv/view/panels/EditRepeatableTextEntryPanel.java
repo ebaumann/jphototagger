@@ -5,6 +5,8 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerDropEditItemsString;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerDropListItemsString;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -26,6 +28,8 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -41,7 +45,10 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public final class EditRepeatableTextEntryPanel
         extends javax.swing.JPanel
-        implements TextEntry, ActionListener, DocumentListener {
+        implements TextEntry,
+        ActionListener,
+        DocumentListener,
+        ListDataListener {
 
     private final DefaultListModel model = new DefaultListModel();
     private Column column;
@@ -49,6 +56,7 @@ public final class EditRepeatableTextEntryPanel
     private boolean editable = true;
     private boolean dirty = false;
     private Suggest suggest;
+    private boolean ignoreIntervalAdded;
     private TextEntryListenerSupport textEntryListenerSupport =
             new TextEntryListenerSupport();
 
@@ -62,6 +70,7 @@ public final class EditRepeatableTextEntryPanel
         textFieldInput.setInputVerifier(
                 new InputVerifierMaxLength(column.getLength()));
         textFieldInput.getDocument().addDocumentListener(this);
+        model.addListDataListener(this);
         setPropmt();
     }
 
@@ -115,8 +124,8 @@ public final class EditRepeatableTextEntryPanel
         this.suggest = suggest;
         buttonSuggestion.setEnabled(editable && suggest != null);
         buttonSuggestion.setToolTipText(suggest == null
-                                          ? "" // NOI18N
-                                          : suggest.getDescription());
+                ? "" // NOI18N
+                : suggest.getDescription());
     }
 
     /**
@@ -158,7 +167,6 @@ public final class EditRepeatableTextEntryPanel
         notifyTextRemoved(column, text);
         dirty = true;
     }
-
 
     /**
      * Adds text to the list <em>whithout</em> replacing existing words in the
@@ -248,8 +256,8 @@ public final class EditRepeatableTextEntryPanel
         buttonRemoveSelection.setEnabled(editable);
         buttonSuggestion.setEnabled(editable && suggest != null);
         list.setBackground(editable
-                           ? textFieldInput.getBackground()
-                           : getBackground());
+                ? textFieldInput.getBackground()
+                : getBackground());
     }
 
     @Override
@@ -362,6 +370,7 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private int addToList(Collection<String> texts) {
+        ignoreIntervalAdded = true;
         int countAdded = 0;
         for (String text : texts) {
             String trimmedText = text.trim();
@@ -374,6 +383,7 @@ public final class EditRepeatableTextEntryPanel
         if (countAdded > 0) {
             ComponentUtil.forceRepaint(getParent().getParent());
         }
+        ignoreIntervalAdded = false;
         return countAdded;
     }
 
@@ -426,7 +436,8 @@ public final class EditRepeatableTextEntryPanel
 
     private boolean checkSelected(int selCount) {
         if (selCount <= 0) {
-            MessageDisplayer.error(this, "EditRepeatableTextEntryPanel.Error.Select"); // NOI18N
+            MessageDisplayer.error(this,
+                    "EditRepeatableTextEntryPanel.Error.Select"); // NOI18N
             return false;
         }
         return true;
@@ -450,6 +461,28 @@ public final class EditRepeatableTextEntryPanel
 
     private void notifyTextChanged(Column column, String oldText, String newText) {
         textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
+    }
+
+    @Override
+    public void intervalAdded(ListDataEvent e) {
+        if (ignoreIntervalAdded) return;
+        // drop
+        int index0 = e.getIndex0();
+        int index1 = e.getIndex1();
+        for (int i = index0; i <= index1; i++) {
+            notifyTextAdded(column, model.get(i).toString());
+            dirty = true;
+        }
+    }
+
+    @Override
+    public void intervalRemoved(ListDataEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void contentsChanged(ListDataEvent e) {
+        // ignore
     }
 
     /** This method is called from within the constructor to
@@ -509,6 +542,8 @@ public final class EditRepeatableTextEntryPanel
         list.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
         list.setCellRenderer(new ListCellRendererKeywordsEdit());
         list.setComponentPopupMenu(popupMenuList);
+        list.setDragEnabled(true);
+        list.setDropMode(javax.swing.DropMode.INSERT);
         list.setFocusable(false);
         list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);
@@ -523,6 +558,7 @@ public final class EditRepeatableTextEntryPanel
             }
         });
         scrollPane.setViewportView(list);
+        list.setTransferHandler(new TransferHandlerDropListItemsString());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -546,6 +582,7 @@ public final class EditRepeatableTextEntryPanel
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(textFieldInput, gridBagConstraints);
+        textFieldInput.setTransferHandler(new TransferHandlerDropEditItemsString());
 
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
