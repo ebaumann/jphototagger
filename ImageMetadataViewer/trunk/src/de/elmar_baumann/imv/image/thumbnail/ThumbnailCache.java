@@ -42,30 +42,6 @@ public class ThumbnailCache {
     private Image noPreviewThumbnail = IconUtil.getIconImage(
             Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
 
-    /*
-    // must be called from synchronized function
-    private void maybeCleanupCache() {
-        if (fileCache.size() <= MAX_ENTRIES) {
-            return;
-        }
-        List<CacheIndirection> removeItems =
-                new ArrayList<CacheIndirection>(fileCache.values());
-        Collections.sort(removeItems, new CacheIndirectionAgeComparator());
-        CacheIndirection ci;
-        for (int index = 0; index < MAX_ENTRIES / 10; index++) {
-            ci = removeItems.get(index);
-            synchronized(ci) {
-                // check if this image is probably in a prefetch queue and remove it
-                if (ci.thumbnail == null || ci.subjects == null) {
-                    imageWQ.remove(ci.file);
-                    subjectWQ.remove(ci.file);
-                }
-                fileCache.remove(ci.file);
-            }
-        }
-    }
-     */
-
     // based on http://www.exampledepot.com/egs/java.lang/WorkQueue.html
     private class WorkQueue {
         // fixme: maybe use better data structure here with efficient contains()
