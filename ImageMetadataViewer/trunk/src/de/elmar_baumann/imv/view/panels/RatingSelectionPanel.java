@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
+import de.elmar_baumann.imv.resource.Bundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -168,7 +169,8 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
 
-        buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_remove.png"))); // NOI18N
+        buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_favorite_dark_crossed.png"))); // NOI18N
+        buttonNoRating.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);
         buttonNoRating.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -183,6 +185,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         add(buttonNoRating, gridBagConstraints);
 
         buttonStar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"))); // NOI18N
+        buttonStar1.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
         buttonStar1.setBorder(null);
         buttonStar1.setContentAreaFilled(false);
         buttonStar1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -197,6 +200,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         add(buttonStar1, gridBagConstraints);
 
         buttonStar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"))); // NOI18N
+        buttonStar2.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
         buttonStar2.setBorder(null);
         buttonStar2.setContentAreaFilled(false);
         buttonStar2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -211,6 +215,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         add(buttonStar2, gridBagConstraints);
 
         buttonStar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"))); // NOI18N
+        buttonStar3.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
         buttonStar3.setBorder(null);
         buttonStar3.setContentAreaFilled(false);
         buttonStar3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -225,6 +230,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         add(buttonStar3, gridBagConstraints);
 
         buttonStar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"))); // NOI18N
+        buttonStar4.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
         buttonStar4.setBorder(null);
         buttonStar4.setContentAreaFilled(false);
         buttonStar4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -239,6 +245,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         add(buttonStar4, gridBagConstraints);
 
         buttonStar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"))); // NOI18N
+        buttonStar5.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
         buttonStar5.setBorder(null);
         buttonStar5.setContentAreaFilled(false);
         buttonStar5.addMouseListener(new java.awt.event.MouseAdapter() {
