@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
@@ -189,9 +190,11 @@ public abstract class ThumbnailsPanel extends JPanel
     private int clickInSelection = -1;
     private boolean keywordsOverlay;
     public ThumbnailCache thumbCache = new ThumbnailCache(this);
+    Image starImage[] = new Image[5];
 
     public ThumbnailsPanel() {
         computeFontHeight();
+        loadRatingImages();
         setBackground(COLOR_BACKGROUND_PANEL);
         listen();
     }
@@ -200,6 +203,15 @@ public abstract class ThumbnailsPanel extends JPanel
         FONT_PIXEL_HEIGHT = getFontMetrics(FONT).getHeight();
         FONT_PIXEL_DESCENT = getFontMetrics(FONT).getDescent() +
                              getFontMetrics(FONT).getLeading() / 2;
+    }
+
+    private void loadRatingImages() {
+        for (int i = 0; i < 5; i++) {
+            starImage[i] = new ImageIcon(getClass().getResource(
+                    "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_" +
+                            Integer.toString(i + 1) + ".png")).
+                    getImage();
+        }
     }
 
     private void listen() {
@@ -836,6 +848,8 @@ public abstract class ThumbnailsPanel extends JPanel
         paintThumbnailTextAt(g, index, topLeft.x, topLeft.y);
         if (isKeywordsOverlay()) {
             paintThumbnailKeywordsAt(g, index, topLeft.x, topLeft.y);
+            // fixme: call when working or for testing
+            //paintThumbnailStarsAt(g, index, topLeft.x, topLeft.y);
         }
     }
 
@@ -946,6 +960,18 @@ public abstract class ThumbnailsPanel extends JPanel
         g.setClip(oldShape);
     }
 
+    private void paintThumbnailStarsAt(Graphics g, int index,
+            int areaX, int areaY) {
+        // fixme: determine real rating from a cache
+        int stars = index % 6; //getStars(index);  // we need another cache for this
+        if (stars > 0) {
+            int i = Math.min(4, stars - 1);
+            g.drawImage(starImage[i],
+                        areaX + getThumbnailAreaWidth() -
+                                starImage[i].getWidth(null),
+                        areaY, null);
+        }
+    }
 
     private void paintPanelFocusBorder(Graphics g) {
         if (hasFocus()) {
