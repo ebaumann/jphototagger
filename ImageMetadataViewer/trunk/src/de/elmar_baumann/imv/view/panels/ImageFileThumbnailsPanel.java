@@ -154,6 +154,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
         this.files.addAll(files);
         thumbCache.setFiles(files);
+        subjectCache.setFiles(files);
         this.content = content;
 
         InfoSettingThumbnails info = new InfoSettingThumbnails();
@@ -209,6 +210,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         if (index >= 0) {
             files.set(index, newFile);
             thumbCache.updateFiles(index, newFile);
+            subjectCache.updateFiles(index, newFile);
             repaint();
         }
     }
@@ -370,8 +372,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         files.clear();
         files.addAll(newOrderedFiles);
         thumbCache.setFiles(files);
-        List<Integer> indicesToRemoveFromCache = getIndicesToEndFrom(Math.min(
-                index, selectedIndices.get(0)));
+        subjectCache.setFiles(files);
         clearSelection();
     }
 
@@ -402,7 +403,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     protected List<String> getKeywords(int index) {
-        return thumbCache.getSubjects(index);
+        return subjectCache.getSubjects(index);
     }
 
     @Override

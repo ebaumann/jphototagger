@@ -1,8 +1,9 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.cache.SubjectCache;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.imv.image.thumbnail.ThumbnailCache;
+import de.elmar_baumann.imv.cache.ThumbnailCache;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import de.elmar_baumann.lib.util.MathUtil;
 import java.awt.Color;
@@ -190,6 +191,7 @@ public abstract class ThumbnailsPanel extends JPanel
     private int clickInSelection = -1;
     private boolean keywordsOverlay;
     public ThumbnailCache thumbCache = new ThumbnailCache(this);
+    public SubjectCache subjectCache = new SubjectCache(this);
     Image starImage[] = new Image[5];
 
     public ThumbnailsPanel() {
@@ -821,13 +823,17 @@ public abstract class ThumbnailsPanel extends JPanel
             paintPanelFocusBorder(g);
 
             // prefetch for scrolling down a bit
-            thumbCache.prefetchThumbnails(lastIndex + 1,
-                                          lastIndex + thumbnailCountPerRow * 5,
-                                          isKeywordsOverlay());
+            thumbCache.prefetchThumbnails(
+                    lastIndex + 1, lastIndex + thumbnailCountPerRow * 5);
             // prefetch for scrolling up a bit
-            thumbCache.prefetchThumbnails(firstIndex - thumbnailCountPerRow * 5,
-                                          firstIndex - 1,
-                                          isKeywordsOverlay());
+            thumbCache.prefetchThumbnails(
+                    firstIndex - thumbnailCountPerRow * 5, firstIndex - 1);
+            if (isKeywordsOverlay()) {
+                subjectCache.prefetchSubjects(
+                        lastIndex + 1, lastIndex + thumbnailCountPerRow * 5);
+                subjectCache.prefetchSubjects(
+                        firstIndex - thumbnailCountPerRow * 5, firstIndex - 1);
+            }
         }
     }
 
@@ -1097,6 +1103,7 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     protected void removeFromCache(int index) {
         thumbCache.removeEntry(index);
+        subjectCache.removeEntry(index);
         repaint();
     }
 
