@@ -41,7 +41,7 @@
     <Component class="javax.swing.JButton" name="buttonNoRating">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_favorite_dark_crossed.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_remove.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonNoRating.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -63,7 +63,7 @@
     <Component class="javax.swing.JButton" name="buttonStar1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar1.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -85,7 +85,7 @@
     <Component class="javax.swing.JButton" name="buttonStar2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar2.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -107,7 +107,7 @@
     <Component class="javax.swing.JButton" name="buttonStar3">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar3.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -129,7 +129,7 @@
     <Component class="javax.swing.JButton" name="buttonStar4">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar4.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -151,7 +151,7 @@
     <Component class="javax.swing.JButton" name="buttonStar5">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_favorite_dark.png"/>
+          <Image iconType="3" name="/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar5.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
