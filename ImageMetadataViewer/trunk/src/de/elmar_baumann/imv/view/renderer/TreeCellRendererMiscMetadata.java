@@ -95,7 +95,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
             setText(col.getDescription());
         } else if (userObject instanceof String) {
             setText((String) userObject);
-        } else if (userObject instanceof Short) {
+        } else if (userObject instanceof Short || userObject instanceof Long) {
             setText(shortFormat.format(userObject));
         } else if (userObject instanceof Double) {
             setText(doubleFormat.format(userObject) + getTextPostfix(
