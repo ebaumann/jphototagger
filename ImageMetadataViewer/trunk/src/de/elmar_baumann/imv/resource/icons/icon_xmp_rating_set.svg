@@ -13,9 +13,9 @@
    id="svg2383"
    sodipodi:version="0.32"
    inkscape:version="0.46"
-   sodipodi:docname="icon_favorite.svg"
+   sodipodi:docname="icon_xmp_rating_set.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_favorite.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_set.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons"
@@ -94,17 +94,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="28.875"
+     inkscape:zoom="30.125"
      inkscape:cx="8"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="1266"
-     inkscape:window-height="675"
-     inkscape:window-x="22"
-     inkscape:window-y="22"
+     inkscape:window-width="1045"
+     inkscape:window-height="695"
+     inkscape:window-x="242"
+     inkscape:window-y="28"
      showguides="true"
      inkscape:guide-bbox="true">
     <inkscape:grid
@@ -136,8 +136,8 @@
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
           </cc:Agent>
         </dc:publisher>
-        <dc:title>Favorite</dc:title>
-        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_favorite.svg</dc:identifier>
+        <dc:title>XMP Rating Set</dc:title>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_xmp_rating_set.svg</dc:identifier>
         <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <cc:license
@@ -146,10 +146,9 @@
         <dc:subject>
           <rdf:Bag>
             <rdf:li>icon</rdf:li>
-            <rdf:li>folder</rdf:li>
           </rdf:Bag>
         </dc:subject>
-        <dc:date>2008-10-25</dc:date>
+        <dc:date>2008-08-02</dc:date>
       </cc:Work>
       <cc:Work
          rdf:about="">

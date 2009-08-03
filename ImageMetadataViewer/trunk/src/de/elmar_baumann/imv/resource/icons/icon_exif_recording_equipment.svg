@@ -14,9 +14,9 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons"
-   sodipodi:docname="icon_exif.svg"
+   sodipodi:docname="icon_exif_recording_equipment.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_exif.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_exif_recording_equipment.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -37,16 +37,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="28.875"
-     inkscape:cx="8.4690038"
+     inkscape:cx="-7.8268398"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="909"
+     inkscape:window-width="791"
      inkscape:window-height="675"
-     inkscape:window-x="358"
-     inkscape:window-y="138" />
+     inkscape:window-x="187"
+     inkscape:window-y="202" />
   <metadata
      id="metadata2176">
     <rdf:RDF>
@@ -70,9 +70,9 @@
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
           </cc:Agent>
         </dc:publisher>
-        <dc:title>EXIF metadata</dc:title>
+        <dc:title>EXIF Recording equipment</dc:title>
         <dc:coverage>computer program, icon</dc:coverage>
-        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_exif.svg</dc:identifier>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_exif_recording_equipment.svg</dc:identifier>
         <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
         <cc:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
@@ -80,6 +80,7 @@
           <rdf:Bag>
             <rdf:li>icon</rdf:li>
             <rdf:li>EXIF</rdf:li>
+            <rdf:li>EXIF Recording Equipment</rdf:li>
             <rdf:li>metadata</rdf:li>
           </rdf:Bag>
         </dc:subject>
@@ -91,16 +92,29 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
-    <text
-       xml:space="preserve"
-       style="font-size:9.14023876000000080px;font-style:normal;font-weight:normal;fill:#0000e1;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="0.12974617"
-       y="9.398139"
-       id="text4772"
-       transform="scale(0.7658443,1.3057484)"><tspan
-         sodipodi:role="line"
-         id="tspan4774"
-         x="0.12974617"
-         y="9.398139">EXIF</tspan></text>
+    <rect
+       style="opacity:1;fill:#aaaaaa;fill-opacity:1;stroke:#777777;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2159"
+       width="13.100495"
+       height="8.7836637"
+       x="1.5"
+       y="5.7163363" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#cad0ed;fill-opacity:0.94117647;stroke:#777777;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3134"
+       sodipodi:cx="7.5232673"
+       sodipodi:cy="10.729208"
+       sodipodi:rx="3.1534653"
+       sodipodi:ry="3.1534653"
+       d="M 10.676733 10.729208 A 3.1534653 3.1534653 0 1 1  4.369802,10.729208 A 3.1534653 3.1534653 0 1 1  10.676733 10.729208 z"
+       transform="matrix(0.8776753,0,0,0.8633896,1.4158258,0.8350283)" />
+    <rect
+       style="opacity:1;fill:#fdfd1f;fill-opacity:0.94117647;stroke:#777777;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3136"
+       width="4.5148516"
+       height="2.6386137"
+       x="9"
+       y="3" />
   </g>
 </svg>
