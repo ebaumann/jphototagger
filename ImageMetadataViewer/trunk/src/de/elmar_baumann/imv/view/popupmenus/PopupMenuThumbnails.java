@@ -33,7 +33,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     public static final PopupMenuThumbnails INSTANCE = new PopupMenuThumbnails();
     private final JMenu menuPrograms = new JMenu(Bundle.getString(
-            "PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps.text")); // NOI18N
+            "PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps")); // NOI18N
+    private final JMenu menuRating = new JMenu(Bundle.getString(
+            "PopupMenuThumbnails.DisplayName.menuRating")); // NOI18N
     private final JMenuItem itemUpdateMetadata = new JMenuItem();
     private final JMenuItem itemUpdateThumbnail = new JMenuItem();
     private final JMenuItem itemIptcToXmp = new JMenuItem();
@@ -52,6 +54,12 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final JMenuItem itemRefresh = new JMenuItem();
     private final JMenuItem itemPick = new JMenuItem();
     private final JMenuItem itemReject = new JMenuItem();
+    private final JMenuItem itemRating0 = new JMenuItem();
+    private final JMenuItem itemRating1 = new JMenuItem();
+    private final JMenuItem itemRating2 = new JMenuItem();
+    private final JMenuItem itemRating3 = new JMenuItem();
+    private final JMenuItem itemRating4 = new JMenuItem();
+    private final JMenuItem itemRating5 = new JMenuItem();
     // End menu items
     private final List<ActionListener> actionListenersOpenFilesWithOtherApp =
             new ArrayList<ActionListener>();
@@ -61,6 +69,17 @@ public final class PopupMenuThumbnails extends JPopupMenu
             new HashMap<JMenuItem, String>();
     private final Map<JMenuItem, Icon> ICON_OF_ITEM =
             new HashMap<JMenuItem, Icon>();
+    private final Map<JMenuItem, Long> RATING_OF_ITEM =
+            new HashMap<JMenuItem, Long>();
+
+    private void initRatingOfItem() {
+        RATING_OF_ITEM.put(itemRating0, Long.valueOf(0));
+        RATING_OF_ITEM.put(itemRating1, Long.valueOf(1));
+        RATING_OF_ITEM.put(itemRating2, Long.valueOf(2));
+        RATING_OF_ITEM.put(itemRating3, Long.valueOf(3));
+        RATING_OF_ITEM.put(itemRating4, Long.valueOf(4));
+        RATING_OF_ITEM.put(itemRating5, Long.valueOf(5));
+    }
 
     private void initItemTexts() {
         TEXT_OF_ITEM.put(itemUpdateMetadata, Bundle.getString(
@@ -102,6 +121,18 @@ public final class PopupMenuThumbnails extends JPopupMenu
                 "PopupMenuThumbnails.DisplayName.Action.Pick")); // NOI18N
         TEXT_OF_ITEM.put(itemReject, Bundle.getString(
                 "PopupMenuThumbnails.DisplayName.Action.Reject")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating0, Bundle.getString(
+                "PopupMenuThumbnails.DisplayName.Rating0")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating1, Bundle.getString(
+                "PopupMenuThumbnails.DisplayName.Rating1")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating2, Bundle.getString(
+                "PopupMenuThumbnails.DisplayName.Rating2")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating3, Bundle.getString(
+                "PopupMenuThumbnails.DisplayName.Rating3")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating4, Bundle.getString(
+                "PopupMenuThumbnails.DisplayName.Rating4")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating5, Bundle.getString(
+                "PopupMenuThumbnails.DisplayName.Rating5")); // NOI18N
     }
 
     private void initItemIcons() {
@@ -135,9 +166,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
         ICON_OF_ITEM.put(itemIptcToXmp, AppIcons.getIcon("icon_iptc.png")); // NOI18N
         ICON_OF_ITEM.put(itemPick, AppIcons.getIcon("icon_picked.png")); // NOI18N
         ICON_OF_ITEM.put(itemReject, AppIcons.getIcon("icon_rejected.png")); // NOI18N
+        ICON_OF_ITEM.put(menuRating, AppIcons.getIcon("icon_xmp_rating_set.png")); // NOI18N
     }
 
     private void addItems() {
+        addRatingItems();
         add(itemUpdateThumbnail);
         add(itemUpdateMetadata);
         add(itemIptcToXmp);
@@ -146,6 +179,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         add(itemOpenFilesWithStandardApp);
         add(menuPrograms);
         add(new JSeparator());
+        add(menuRating);
         add(itemPick);
         add(itemReject);
         add(new JSeparator());
@@ -163,6 +197,15 @@ public final class PopupMenuThumbnails extends JPopupMenu
         add(itemFileSystemDeleteFiles);
         add(new JSeparator());
         add(itemRefresh);
+    }
+
+    private void addRatingItems() {
+        menuRating.add(itemRating0);
+        menuRating.add(itemRating1);
+        menuRating.add(itemRating2);
+        menuRating.add(itemRating3);
+        menuRating.add(itemRating4);
+        menuRating.add(itemRating5);
     }
 
     private PopupMenuThumbnails() {
@@ -282,6 +325,34 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return itemReject;
     }
 
+    public JMenuItem getItemRating0() {
+        return itemRating0;
+    }
+
+    public JMenuItem getItemRating1() {
+        return itemRating1;
+    }
+
+    public JMenuItem getItemRating2() {
+        return itemRating2;
+    }
+
+    public JMenuItem getItemRating3() {
+        return itemRating3;
+    }
+
+    public JMenuItem getItemRating4() {
+        return itemRating4;
+    }
+
+    public JMenuItem getItemRating5() {
+        return itemRating5;
+    }
+
+    public Long getRatingOfItem(JMenuItem item) {
+        return RATING_OF_ITEM.get(item);
+    }
+
     public synchronized void addActionListenerOpenFilesWithOtherApp(
             ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
@@ -298,6 +369,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void init() {
+        initRatingOfItem();
         initItemTexts();
         initItemIcons();
         addItems();
@@ -335,5 +407,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
                 KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
         itemPick.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0));
         itemReject.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, 0));
+        itemRating0.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0));
+        itemRating1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0));
+        itemRating2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0));
+        itemRating3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0));
+        itemRating4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0));
+        itemRating5.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0));
     }
 }

@@ -255,6 +255,32 @@ public final class EditMetadataPanelsArray implements FocusListener,
         }
     }
 
+    /**
+     * Sets the rating if the rating panel is present.
+     *
+     * @param  rating rating
+     * @throws        NullPointerException if rating is null
+     */
+    public void setRating(Long rating) {
+        if (rating == null)
+            throw new NullPointerException("rating == null"); // NOI18N
+        assert isEditable();
+        if (!isEditable()) return;
+
+        JPanel panelToSet = null;
+        int size = panels.size();
+        for (int i = 0; panelToSet == null && i < size; i++) {
+            JPanel panel = panels.get(i);
+            if (((TextEntry) panel).getColumn().equals(ColumnXmpRating.INSTANCE)) {
+                panelToSet = panel;
+            }
+        }
+        if (panelToSet instanceof RatingSelectionPanel) {
+            RatingSelectionPanel ratingPanel = (RatingSelectionPanel) panelToSet;
+            ratingPanel.setTextAndNotify(Long.toString(rating));
+        }
+    }
+
     public Collection<Pair<String, Xmp>> getFilenamesXmp() {
         return filenamesXmp;
     }

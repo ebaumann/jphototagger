@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
@@ -14,8 +15,9 @@ import javax.swing.JButton;
  * @author  Martin Pohlack  <martinp@gmx.de>
  * @version 2009-08-01
  */
+public class RatingSelectionPanel extends javax.swing.JPanel implements
+        TextEntry {
 
-public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntry {
     private ImageIcon star;
     private ImageIcon dark_star;
     private boolean dirty = false;
@@ -29,8 +31,12 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
     public RatingSelectionPanel(Column column) {
         this.column = column;
 
-        star = new ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_set.png"));
-        dark_star = new ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_not_set.png"));
+        star = new ImageIcon(getClass().getResource(
+                "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_set.png"));
+        dark_star =
+                new ImageIcon(
+                getClass().getResource(
+                "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_not_set.png"));
         initComponents();
         buttons[0] = buttonStar1;
         buttons[1] = buttonStar2;
@@ -64,8 +70,12 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
     public void setText(String text) {
         int val = 0;
         try {
-            val = Integer.valueOf(text).intValue();
-        } catch (NumberFormatException e) {};
+            if (text != null && !text.trim().isEmpty()) {
+                val = Integer.valueOf(text).intValue();
+            }
+        } catch (NumberFormatException e) {
+            AppLog.logSevere(getClass(), e);
+        }
         value = val;
         for (int i = 0; i < buttons.length; i++) {
             if (i >= val) {
@@ -75,6 +85,18 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
             }
         }
         dirty = false;
+    }
+
+    /**
+     * Sets the text and notifies change listener. Also sets the dirty flag.
+     *
+     * @param text text
+     */
+    public void setTextAndNotify(String text) {
+        String oldText = getText();
+        setText(text);
+        dirty = true;
+        notifyTextChanged(column, oldText, text);
     }
 
     @Override
@@ -302,7 +324,6 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
         dirty = true;
         notifyTextChanged(column, oldVal, getText());
     }//GEN-LAST:event_buttonStar5MousePressed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNoRating;
     private javax.swing.JButton buttonStar1;

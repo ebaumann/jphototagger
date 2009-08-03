@@ -408,10 +408,14 @@ public final class XmpMetadata {
                                 getArrayPropertyOptions(column), value, null);
                     }
                 }
+            } else if (metadataValue instanceof Long) {
+                Long value = (Long) metadataValue;
+                xmpMeta.setProperty(
+                        namespaceUri, propertyName, Long.toString(value));
             } else {
                 AppLog.logWarning(XmpMetadata.class, Bundle.getString(
-                        "XmpMetadata.Error.WriteSetMetadata") + metadataValue. // NOI18N
-                        toString());
+                        "XmpMetadata.Error.WriteSetMetadata", // NOI18N
+                        metadataValue.getClass()));
             }
         }
     }
