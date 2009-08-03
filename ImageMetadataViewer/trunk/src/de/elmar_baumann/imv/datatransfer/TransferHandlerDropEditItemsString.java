@@ -29,12 +29,7 @@ public final class TransferHandlerDropEditItemsString extends TransferHandler {
 
     @Override
     public boolean importData(TransferHandler.TransferSupport transferSupport) {
-        if (!transferSupport.isDrop()) {
-            return false;
-        }
-
         Component c = transferSupport.getComponent();
-
         Transferable t = transferSupport.getTransferable();
         String data;
         try {
@@ -43,7 +38,10 @@ public final class TransferHandlerDropEditItemsString extends TransferHandler {
             AppLog.logSevere(getClass(), ex);
             return false;
         }
+        return insertStringTokens(data, c);
+    }
 
+    public boolean insertStringTokens(String data, Component c) {
         JTextField textField = null;
         JTextArea textArea = null;
         if (c instanceof JTextField) {
@@ -52,20 +50,36 @@ public final class TransferHandlerDropEditItemsString extends TransferHandler {
             textArea = (JTextArea) c;
         }
         if (textArea == null && textField == null) return false;
-
-        StringTokenizer tokenizer = new StringTokenizer(
-                data, TransferHandlerDragListItemsString.DELIMITER);
+        StringTokenizer tokenizer =
+                new StringTokenizer(data,
+                TransferHandlerDragListItemsString.DELIMITER);
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
             if (!token.equals(TransferHandlerDragListItemsString.PREFIX)) {
                 if (textField != null) {
-                    textField.setText(token);
+                    setText(textField, token);
                 } else if (textArea != null) {
-                    textArea.setText(token);
+                    setText(textArea, token);
                 }
                 return true;
             }
         }
         return true;
+    }
+
+    private void setText(JTextArea textArea, String text) {
+        if (textArea.getSelectedText() == null) {
+            textArea.setText(textArea.getText() + text);
+        } else {
+            textArea.setText(text);
+        }
+    }
+
+    private void setText(JTextField textField, String text) {
+        if (textField.getSelectedText() == null) {
+            textField.setText(textField.getText() + text);
+        } else {
+            textField.setText(text);
+        }
     }
 }
