@@ -823,15 +823,15 @@ public abstract class ThumbnailsPanel extends JPanel
             paintPanelFocusBorder(g);
 
             // prefetch for scrolling down a bit
-            thumbCache.prefetchThumbnails(
+            thumbCache.prefetch(
                     lastIndex + 1, lastIndex + thumbnailCountPerRow * 5);
             // prefetch for scrolling up a bit
-            thumbCache.prefetchThumbnails(
+            thumbCache.prefetch(
                     firstIndex - thumbnailCountPerRow * 5, firstIndex - 1);
             if (isKeywordsOverlay()) {
-                subjectCache.prefetchSubjects(
+                subjectCache.prefetch(
                         lastIndex + 1, lastIndex + thumbnailCountPerRow * 5);
-                subjectCache.prefetchSubjects(
+                subjectCache.prefetch(
                         firstIndex - thumbnailCountPerRow * 5, firstIndex - 1);
             }
         }

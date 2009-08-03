@@ -9,8 +9,6 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.SwingUtilities;
 
 /**
@@ -18,49 +16,12 @@ import javax.swing.SwingUtilities;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class ThumbnailCache {
-
-    private ThumbnailsPanel panel;
-    /* carefull, don't set too high.  Although hard memory overruns will be
-     * prevented by the SoftReferences, I have seen
-     * "java.lang.OutOfMemoryError: GC overhead limit exceeded" things with
-     * values of 3500.
-     */
-    private final int MAX_ENTRIES = 1500;
+public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
     private Image dummyThumbnail = IconUtil.getIconImage(
             Bundle.getString("ThumbnailCache.Path.DummyThumbnail"));
     private Image dummyThumbnailScaled = null;
     private Image noPreviewThumbnail = IconUtil.getIconImage(
             Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
-
-    private WorkQueue imageWQ = new WorkQueue();
-    public static int currentAge = 0;
-
-    private class ThumbnailCacheIndirection extends CacheIndirection {
-        public Image thumbnail;
-        public Image scaled;
-
-        public ThumbnailCacheIndirection(File _file) {
-            super(_file);
-            thumbnail = null;
-            scaled = null;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return thumbnail == null;
-        }
-    }
-
-    /**
-     * Mapping from file to all kinds of cached data
-     */
-    private final SoftCacheMap<ThumbnailCacheIndirection> fileCache =
-            new SoftCacheMap<ThumbnailCacheIndirection>(MAX_ENTRIES, imageWQ);
-    /**
-     * Mapping from index to filename
-     */
-    private List<File> files = new ArrayList<File>();
 
     private static class ThumbnailFetcher implements Runnable {
 
@@ -91,15 +52,12 @@ public class ThumbnailCache {
     }
 
     public ThumbnailCache(ThumbnailsPanel _panel) {
-        panel = _panel;
+        super(_panel);
 
-        ThumbnailFetcher tf = new ThumbnailFetcher(imageWQ, this);
+        ThumbnailFetcher tf = new ThumbnailFetcher(workQueue, this);
         new Thread(tf, "ThumbnailFetcher1").start();
     }
 
-    /**
-     * Interface for producers.
-     */
     /**
      * Creates a new entry in the cache with the two keys index and filename.
      *
@@ -108,22 +66,16 @@ public class ThumbnailCache {
      * @param file
      * @param prefetch
      */
+    @Override
     public synchronized void generateEntry(File file, boolean prefetch) {
         ThumbnailCacheIndirection ci = new ThumbnailCacheIndirection(file);
         updateUsageTime(ci);
         fileCache.put(file, ci);
         if (prefetch) {
-            imageWQ.append(file);
+            workQueue.append(file);
         } else {
-            imageWQ.push(file);
+            workQueue.push(file);
         }
-    }
-
-    public synchronized void removeEntry(int index) {
-        if (index < 0 || index >= files.size()) {
-            return;
-        }
-        fileCache.remove(files.get(index));
     }
 
     public synchronized void updateThumbnail(Image image, final File file) {
@@ -144,24 +96,6 @@ public class ThumbnailCache {
         });
     }
 
-    /**
-     * Interface for consumers.
-     */
-    /**
-     * Provide a new mapping for indices to filenames.
-     *
-     * @param _files Ordered list of filenames
-     */
-    public void setFiles(List<File> _files) {
-        files.clear();
-        files.addAll(_files);
-    }
-
-    public void updateFiles(int index, File newFile) {
-        // fixme: we must also rename the objects content
-        files.set(index, newFile);
-    }
-
     public synchronized Image getThumbnail(int index) {
         return getThumbnail(files.get(index));
     }
@@ -179,26 +113,6 @@ public class ThumbnailCache {
         return ci.thumbnail;
     }
 
-    public void prefetchThumbnails(int indexLow, int indexHigh) {
-        for (int i = indexLow; i <= indexHigh; i++) {
-            prefetchThumbnail(i);
-        }
-    }
-
-    public synchronized void prefetchThumbnail(int index) {
-        if (index < 0 || index >= files.size()) {
-            return;
-        }
-        prefetchThumbnail(files.get(index));
-    }
-
-    public synchronized void prefetchThumbnail(File file) {
-        if (fileCache.containsKey(file)) {
-            return;  // we have this already
-        }
-        generateEntry(file, true);
-    }
-
     public synchronized Image getScaledThumbnail(int index, int length) {
         return getScaledThumbnail(files.get(index), length);
     }
@@ -214,7 +128,7 @@ public class ThumbnailCache {
 
         if (ci.thumbnail == null) {
             if (! generated) {
-                imageWQ.push(file);  // push to front again, is current
+                workQueue.push(file);  // push to front again, is current
             }
             if (dummyThumbnailScaled == null ||
                 ! correctlyScaled(dummyThumbnailScaled, length)) {
@@ -269,9 +183,5 @@ public class ThumbnailCache {
         g2.dispose();
 
         return scaled;
-    }
-
-    private void updateUsageTime(CacheIndirection ci) {
-        ci.usageTime = currentAge++;
     }
 }
