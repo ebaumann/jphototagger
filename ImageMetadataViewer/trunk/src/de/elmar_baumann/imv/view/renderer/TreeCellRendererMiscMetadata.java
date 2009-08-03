@@ -2,12 +2,16 @@ package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
+import de.elmar_baumann.imv.database.metadata.selections.ColumnIcons;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.model.TreeModelMiscMetadata;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -58,22 +62,40 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         Object parentUserObject = parentNode == null
                                   ? null
                                   : parentNode.getUserObject();
-        setIcon(userObject, parentNode, (TreeNode) tree.getModel().getRoot(),
+        setIcon(userObject,
+                parentUserObject,
+                parentNode,
+                (TreeNode) tree.getModel().getRoot(),
                 leaf);
         setText(userObject, parentUserObject);
 
         return this;
     }
 
-    private void setIcon(Object userObject, DefaultMutableTreeNode parentNode,
-            TreeNode root, boolean leaf) {
+    private void setIcon(
+            Object userObject,
+            Object parentUserObject,
+            DefaultMutableTreeNode parentNode,
+            TreeNode root,
+            boolean leaf) {
+
         if (userObject instanceof Column) {
             setColumnIcon((Column) userObject);
         } else if (leaf) {
-            setIcon(ICON_DETAIL);
+            Icon iconDetail = getIconDetail(parentUserObject);
+            setIcon(iconDetail == null
+                    ? ICON_DETAIL
+                    : iconDetail);
         } else if (parentNode != null && parentNode.equals(root)) {
             setIcon(ICON_MISC_METADATA);
         }
+    }
+
+    private Icon getIconDetail(Object userObject) {
+        if (userObject instanceof Column) {
+            return ColumnIcons.getIcon((Column) userObject);
+        }
+        return null;
     }
 
     private void setColumnIcon(Column column) {
@@ -86,7 +108,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         }
     }
 
-    private void setText(Object userObject, Object parenUObject) {
+    private void setText(Object userObject, Object parentUserObject) {
         if (userObject == null) return;
         DecimalFormat shortFormat = new DecimalFormat("#"); // NOI18N
         DecimalFormat doubleFormat = new DecimalFormat("#.#"); // NOI18N
@@ -98,8 +120,11 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         } else if (userObject instanceof Short || userObject instanceof Long) {
             setText(shortFormat.format(userObject));
         } else if (userObject instanceof Double) {
-            setText(doubleFormat.format(userObject) + getTextPostfix(
-                    parenUObject));
+            setText(doubleFormat.format(userObject) +
+                    getTextPostfix(parentUserObject));
+        } else if (userObject instanceof Long) {
+            setText(Long.toString((Long) userObject) +
+                    getTextPostfix(parentUserObject));
         } else {
             assert false : "Unrecognized data type: " + // NOI18N
                     userObject.getClass().getName();
@@ -111,6 +136,9 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
             Column column = (Column) userObject;
             if (column.equals(ColumnExifFocalLength.INSTANCE)) {
                 return " mm"; // NOI18N
+            } else if (column.equals(ColumnXmpRating.INSTANCE)) {
+                return Bundle.getString(
+                        "TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
             }
         }
         return ""; // NOI18N
