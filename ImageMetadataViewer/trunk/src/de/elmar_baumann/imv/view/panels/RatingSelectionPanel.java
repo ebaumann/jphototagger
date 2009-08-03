@@ -47,7 +47,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements TextEntr
     @Override
     public String getText() {
         if (value <= 0) {
-            return "";
+            return null;
         } else {
             return String.valueOf(value);
         }

@@ -621,7 +621,12 @@ public final class XmpMetadata {
                             getValue().toString());
                 } else if (xmpPropertyInfo.getPath().startsWith(
                         "xap:Rating")) { // NOI18N
-                    xmp.setRating(xmpPropertyInfo.getValue().toString());
+                    try {
+                        xmp.setRating(Long.valueOf(
+                                xmpPropertyInfo.getValue().toString()));
+                    } catch (Exception ex) {
+                        AppLog.logSevere(XmpMetadata.class, ex);
+                    }
                 }
             }
             setLastModified(xmpType, xmp, imageFilename);

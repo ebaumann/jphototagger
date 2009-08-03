@@ -287,8 +287,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                         (EditRepeatableTextEntryPanel) textEntry;
                 editPanel.setText(getCommonXmpCollection(xmpColumn));
             } else if (textEntry instanceof TextEntry) {
-                TextEntry editPanel = (TextEntry) textEntry;
-                editPanel.setText(getCommonXmpString(xmpColumn));
+                textEntry.setText(getCommonXmpString(xmpColumn));
             }
             textEntry.setDirty(false);
         }
@@ -331,22 +330,19 @@ public final class EditMetadataPanelsArray implements FocusListener,
     private String getCommonXmpString(Column column) {
         assert filenamesXmp.size() >= 1 : "No files!"; // NOI18N
         if (filenamesXmp.size() == 1) {
-            Object value = filenamesXmp.get(0).getSecond().getValue(column);
-            assert value == null || value instanceof String : value;
-            if (value instanceof String) {
-                return ((String) value).trim();
-            } else {
-                return ""; // NOI18N
-            }
+            String value = toString(filenamesXmp.get(0).getSecond().getValue(
+                    column));
+            return value == null
+                   ? "" // NOI18N
+                   : value.trim();
         }
         // more then 1 file
         Stack<String> strings = new Stack<String>();
         for (Pair<String, Xmp> pair : filenamesXmp) {
             Xmp xmp = pair.getSecond();
-            Object value = xmp.getValue(column);
-            assert value == null || value instanceof String : value;
-            if (value instanceof String) {
-                strings.push(((String) value).trim());
+            String value = toString(xmp.getValue(column));
+            if (value != null) {
+                strings.push(value.trim());
             }
         }
         if (strings.size() != filenamesXmp.size()) return ""; // NOI18N
@@ -357,6 +353,18 @@ public final class EditMetadataPanelsArray implements FocusListener,
             }
         }
         return string;
+    }
+
+    private String toString(Object value) {
+        if (value == null) return null;
+        if (value instanceof String) {
+            return (String) value;
+        } else if (value instanceof Long) {
+            return Long.toOctalString((Long) value);
+        } else {
+            assert false : "No string conversion implemented for " + value;
+        }
+        return null;
     }
 
     private void addPanels() {
@@ -437,15 +445,16 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 panels.add(panel);
             } else {
                 if (column.equals(ColumnXmpRating.INSTANCE)) {
-                    RatingSelectionPanel panel = new RatingSelectionPanel(column);
+                    RatingSelectionPanel panel =
+                            new RatingSelectionPanel(column);
                     panels.add(panel);
                 } else {
                     EditTextEntryPanel panel = new EditTextEntryPanel(column);
                     panel.textAreaEdit.addFocusListener(this);
                     panel.textAreaEdit.addKeyListener(this);
                     panel.textAreaEdit.setRows(large
-                                           ? 2
-                                           : 1);
+                                               ? 2
+                                               : 1);
                     panels.add(panel);
                 }
             }
