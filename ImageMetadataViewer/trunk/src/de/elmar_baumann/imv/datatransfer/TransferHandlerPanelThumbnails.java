@@ -1,16 +1,25 @@
 package de.elmar_baumann.imv.datatransfer;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
+import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Component;
 import java.awt.Point;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
@@ -30,22 +39,26 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
      * Delimiter between the filenames in the transfered string.
      */
     static final String DELIMITER = "\n"; // NOI18N
+    private static final Map<String, Column> COLUMN_OF_PREFIX =
+            new HashMap<String, Column>();
     private static final List<Content> CONTENT_IS_A_FILESYSTEM_DIRECTORY =
             new ArrayList<Content>();
 
     static {
         CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(Content.DIRECTORY);
         CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(Content.FAVORITE);
+
+        COLUMN_OF_PREFIX.put(TransferHandlerDragListItemsString.PREFIX_KEYWORDS,
+                ColumnXmpDcSubjectsSubject.INSTANCE);
+        COLUMN_OF_PREFIX.put(
+                TransferHandlerDragListItemsString.PREFIX_CATEGORIES,
+                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
     }
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-        Component c = transferSupport.getComponent();
-        if (c instanceof ImageFileThumbnailsPanel) {
-            return ((ImageFileThumbnailsPanel) c).getContent().equals(
-                    Content.IMAGE_COLLECTION);
-        }
-        return false;
+        return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor) &&
+                checkMetadata(transferSupport);
     }
 
     @Override
@@ -65,8 +78,20 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         final ImageFileThumbnailsPanel panel =
                 (ImageFileThumbnailsPanel) transferSupport.getComponent();
         if (panel.getSelectionCount() > 0) {
-            moveSelectedImages(transferSupport, panel);
+            if (!insertMetadata(transferSupport) && isImageCollection(
+                    transferSupport)) {
+                moveSelectedImages(transferSupport, panel);
+            }
             return true;
+        }
+        return false;
+    }
+
+    public boolean isImageCollection(final TransferSupport transferSupport) {
+        Component c = transferSupport.getComponent();
+        if (c instanceof ImageFileThumbnailsPanel) {
+            return ((ImageFileThumbnailsPanel) c).getContent().equals(
+                    Content.IMAGE_COLLECTION);
         }
         return false;
     }
@@ -99,5 +124,69 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         return element == null
                ? null
                : element.toString();
+    }
+
+    private boolean checkMetadata(TransferSupport transferSupport) {
+        Component c = transferSupport.getComponent();
+        if (c instanceof ImageFileThumbnailsPanel) {
+            Transferable t = transferSupport.getTransferable();
+            String data = null;
+            try {
+                data = (String) t.getTransferData(DataFlavor.stringFlavor);
+            } catch (Exception ex) {
+                AppLog.logSevere(getClass(), ex);
+            }
+            if (!TransferHandlerDragListItemsString.startsWithPrefix(data))
+                return true;
+            if (!GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().
+                    isEditable()) return false;
+            Point p = transferSupport.getDropLocation().getDropPoint();
+            ImageFileThumbnailsPanel panel = (ImageFileThumbnailsPanel) c;
+            return panel.isSelected(panel.getDropIndex(p.x, p.y));
+        }
+        return true;
+    }
+
+    private boolean insertMetadata(TransferSupport transferSupport) {
+        Transferable t = transferSupport.getTransferable();
+        String data = null;
+        try {
+            data = (String) t.getTransferData(DataFlavor.stringFlavor);
+        } catch (Exception ex) {
+            AppLog.logSevere(getClass(), ex);
+            return false;
+        }
+        if (data == null) return false;
+        if (!isKeywordsOrCategoriesString(data)) return false;
+        StringTokenizer tokenizer = new StringTokenizer(
+                data, TransferHandlerDragListItemsString.DELIMITER);
+        EditMetadataPanelsArray editPanels =
+                GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
+        if (!editPanels.isEditable()) return true; // We had metadata
+        Column column = COLUMN_OF_PREFIX.get(getPrefix(data));
+        while (tokenizer.hasMoreTokens()) {
+            String token = tokenizer.nextToken();
+            if (!isKeywordsOrCategoriesString(token)) {
+                editPanels.addText(column, token);
+            }
+        }
+        return true;
+    }
+
+    private String getPrefix(String s) {
+        return s.substring(
+                0, s.indexOf(TransferHandlerDragListItemsString.DELIMITER));
+    }
+
+    private boolean isKeywordsOrCategoriesString(String s) {
+        return isKeywordsString(s) || isCategoriesString(s);
+    }
+
+    private boolean isKeywordsString(String s) {
+        return s.startsWith(TransferHandlerDragListItemsString.PREFIX_KEYWORDS);
+    }
+
+    private boolean isCategoriesString(String s) {
+        return s.startsWith(TransferHandlerDragListItemsString.PREFIX_CATEGORIES);
     }
 }

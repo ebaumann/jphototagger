@@ -108,7 +108,7 @@
                     <Property name="dragEnabled" type="boolean" value="true"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listKeywords.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString());"/>
+                    <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listKeywords.setTransferHandler(de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString.KEYWORDS);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -157,7 +157,7 @@
                     <Property name="dragEnabled" type="boolean" value="true"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listCategories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString());"/>
+                    <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listCategories.setTransferHandler(de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString.CATEGORIES);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

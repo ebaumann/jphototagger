@@ -228,6 +228,33 @@ public final class EditMetadataPanelsArray implements FocusListener,
         return null;
     }
 
+    /**
+     * Adds text to a panel if it's an instance of
+     * {@link EditRepeatableTextEntryPanel} and if {@link #isEditable()} is
+     * true.
+     *
+     * @param column column
+     * @param text   text to add
+     */
+    public void addText(Column column, String text) {
+        assert isEditable() : "Panels are not editable!";
+        if (!isEditable()) return;
+        JPanel panelToAdd = null;
+        int size = panels.size();
+        for (int i = 0; panelToAdd == null && i < size; i++) {
+            JPanel panel = panels.get(i);
+            if (((TextEntry) panel).getColumn().equals(column)) {
+                panelToAdd = panel;
+            }
+        }
+        assert panelToAdd != null : "Invalid column: " + column;
+        assert panelToAdd instanceof EditRepeatableTextEntryPanel :
+                "Not a panel for repeatable values: " + panelToAdd;
+        if (panelToAdd instanceof EditRepeatableTextEntryPanel) {
+            ((EditRepeatableTextEntryPanel) panelToAdd).addText(text);
+        }
+    }
+
     public Collection<Pair<String, Xmp>> getFilenamesXmp() {
         return filenamesXmp;
     }

@@ -15,14 +15,47 @@ import javax.swing.TransferHandler;
 public final class TransferHandlerDragListItemsString extends TransferHandler {
 
     /**
-     * Every exported string starts with this prefix
+     * Every exported string starts with this prefix if dragged from a keywords
+     * list
      */
-    public static final String PREFIX =
-            TransferHandlerDragListItemsString.class.getName();
+    public static final String PREFIX_KEYWORDS =
+            TransferHandlerDragListItemsString.class.getName() + "_KEYWORDS";
+    /**
+     * Every exported string starts with this prefix if dragged from a
+     * categories list
+     */
+    public static final String PREFIX_CATEGORIES =
+            TransferHandlerDragListItemsString.class.getName() + "_CATEGORIES";
+    /**
+     * Every exported string starts with this prefix if dragged from a
+     * any other list
+     */
+    public static final String PREFIX_ANY =
+            TransferHandlerDragListItemsString.class.getName() + "_ANY";
     /**
      * Delimiter between transferred strings
      */
     public static final String DELIMITER = "|";
+    /**
+     * Transfer handler for keyword lists
+     */
+    public static final TransferHandlerDragListItemsString KEYWORDS =
+            new TransferHandlerDragListItemsString(PREFIX_KEYWORDS);
+    /**
+     * Transfer handler for keyword lists
+     */
+    public static final TransferHandlerDragListItemsString CATEGORIES =
+            new TransferHandlerDragListItemsString(PREFIX_CATEGORIES);
+    /**
+     * Transfer handler for keyword lists
+     */
+    public static final TransferHandlerDragListItemsString ANY =
+            new TransferHandlerDragListItemsString(PREFIX_ANY);
+    private final String prefix;
+
+    private TransferHandlerDragListItemsString(String prefix) {
+        this.prefix = prefix;
+    }
 
     /**
      * Returns all selected items in a string started with {@link #PREFIX} and
@@ -43,14 +76,26 @@ public final class TransferHandlerDragListItemsString extends TransferHandler {
         return null;
     }
 
+    public static boolean isPrefix(String s) {
+        return s.equals(PREFIX_KEYWORDS) ||
+                s.equals(PREFIX_CATEGORIES) ||
+                s.equals(PREFIX_ANY);
+    }
+
+    public static boolean startsWithPrefix(String s) {
+        return s.startsWith(PREFIX_KEYWORDS + DELIMITER) ||
+                s.startsWith(PREFIX_CATEGORIES + DELIMITER) ||
+                s.startsWith(PREFIX_ANY + DELIMITER);
+    }
+
     private String toString(Object[] values) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX);
+        sb.append(prefix);
         for (Object o : values) {
             sb.append(DELIMITER +
                     (o == null
-                    ? ""
-                    : o.toString()));
+                     ? ""
+                     : o.toString()));
         }
         return sb.toString();
     }

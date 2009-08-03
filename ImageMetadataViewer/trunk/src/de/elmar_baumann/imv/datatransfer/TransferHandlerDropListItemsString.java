@@ -12,7 +12,7 @@ import javax.swing.TransferHandler;
 
 /**
  * Imports into a {@link ListModel} of strings strings exported via a
- * {@link TransferHandlerDragListItemsString}.
+ * {@link TransferHandlerDragListItemsString#ANY}.
  * 
  * The list model has to be <em>of the type {@link DefaultListModel}</em> and
  * it's elements {@link String}s.
@@ -30,8 +30,8 @@ public final class TransferHandlerDropListItemsString extends TransferHandler {
             Object o = transferSupport.getTransferable().getTransferData(
                     DataFlavor.stringFlavor);
             if (o instanceof String) {
-                return ((String) o).startsWith(
-                        TransferHandlerDragListItemsString.PREFIX);
+                return TransferHandlerDragListItemsString.startsWithPrefix(
+                        (String) o);
             }
         } catch (Exception ex) {
             AppLog.logSevere(getClass(), ex);
@@ -66,10 +66,10 @@ public final class TransferHandlerDropListItemsString extends TransferHandler {
         StringTokenizer tokenizer = new StringTokenizer(
                 data, TransferHandlerDragListItemsString.DELIMITER);
         while (tokenizer.hasMoreTokens()) {
-            String item = tokenizer.nextToken();
-            if (!item.equals(TransferHandlerDragListItemsString.PREFIX) &&
-                    !listModel.contains(item)) {
-                listModel.addElement(item);
+            String token = tokenizer.nextToken();
+            if (!TransferHandlerDragListItemsString.isPrefix(token) &&
+                    !listModel.contains(token)) {
+                listModel.addElement(token);
             }
         }
         return true;

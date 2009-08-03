@@ -118,7 +118,7 @@ public class InputHelperDialog extends Dialog {
         listKeywords.setCellRenderer(new ListCellRendererKeywords());
         listKeywords.setDragEnabled(true);
         scrollPaneKeywords.setViewportView(listKeywords);
-        listKeywords.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString());
+        listKeywords.setTransferHandler(de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString.KEYWORDS);
 
         javax.swing.GroupLayout panelKeywordsLayout = new javax.swing.GroupLayout(panelKeywords);
         panelKeywords.setLayout(panelKeywordsLayout);
@@ -137,7 +137,7 @@ public class InputHelperDialog extends Dialog {
         listCategories.setCellRenderer(new ListCellRendererCategories());
         listCategories.setDragEnabled(true);
         scrollPaneCategories.setViewportView(listCategories);
-        listCategories.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString());
+        listCategories.setTransferHandler(de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString.CATEGORIES);
 
         javax.swing.GroupLayout panelCategoriesLayout = new javax.swing.GroupLayout(panelCategories);
         panelCategories.setLayout(panelCategoriesLayout);
