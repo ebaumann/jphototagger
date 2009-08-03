@@ -80,13 +80,13 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
         if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)) {
             checkImageInserted(event.getImageFile());
         } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
-            checkImageDeleted(event.getImageFile());
+            checkImageDeleted(event.getOldImageFile());
         } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
             ImageFile imageFile = event.getImageFile();
             if (imageFile != null && (imageFile.isInsertExifIntoDb()
                     || imageFile.isInsertXmpIntoDb())) {
                 checkImageInserted(event.getImageFile());
-                checkImageDeleted(event.getImageFile());
+                checkImageDeleted(event.getOldImageFile());
             }
         }
     }
