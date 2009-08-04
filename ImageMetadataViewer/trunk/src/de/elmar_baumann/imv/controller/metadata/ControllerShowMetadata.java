@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataTableModels;
 import de.elmar_baumann.imv.data.SelectedFile;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -323,6 +324,11 @@ public final class ControllerShowMetadata implements DatabaseListener,
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
+        // ignore
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
         // ignore
     }
 }

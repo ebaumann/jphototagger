@@ -13,6 +13,7 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -31,8 +32,9 @@ import javax.swing.tree.DefaultTreeModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12
  */
-public final class TreeModelMiscMetadata extends DefaultTreeModel implements
-        DatabaseListener {
+public final class TreeModelMiscMetadata
+        extends DefaultTreeModel
+        implements DatabaseListener {
 
     private static final DefaultMutableTreeNode ROOT = new DefaultMutableTreeNode(
             Bundle.getString("TreeModelMiscMetadata.Root.DisplayName")); // NOI18N
@@ -244,6 +246,11 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
+        // ignore
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
         // ignore
     }
 }

@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -96,6 +97,11 @@ public final class ListModelCategories extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
+        // ignore
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
         // ignore
     }
 }

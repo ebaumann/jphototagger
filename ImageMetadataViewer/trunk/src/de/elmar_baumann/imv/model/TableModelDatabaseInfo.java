@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.model;
 import de.elmar_baumann.imv.database.DatabaseStatistics;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.DatabaseInfoRecordCountColumns;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -130,6 +131,11 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
+        // ignore
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
         // ignore
     }
 }

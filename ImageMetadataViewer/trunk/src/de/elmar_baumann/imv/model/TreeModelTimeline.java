@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -88,6 +89,11 @@ public final class TreeModelTimeline extends DefaultTreeModel implements
 
     @Override
     public void actionPerformed(DatabaseProgramEvent event) {
+        // ignore
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
         // ignore
     }
 }

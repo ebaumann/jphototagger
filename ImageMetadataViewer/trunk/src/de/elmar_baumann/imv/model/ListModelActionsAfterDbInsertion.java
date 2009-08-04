@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.imv.database.DatabasePrograms;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -120,6 +121,11 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseImageEvent action) {
+        // ignore
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
         // ignore
     }
 }

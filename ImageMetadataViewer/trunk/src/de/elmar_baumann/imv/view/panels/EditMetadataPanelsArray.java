@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.SuggestHierarchicalKeywords;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.helper.SaveEditedMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
@@ -679,6 +680,11 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     @Override
     public void keyReleased(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
         // ignore
     }
 }

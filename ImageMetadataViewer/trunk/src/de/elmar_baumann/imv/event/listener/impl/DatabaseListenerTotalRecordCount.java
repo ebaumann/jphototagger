@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.event.listener.impl;
 
 import de.elmar_baumann.imv.database.DatabaseStatistics;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -74,5 +75,10 @@ public final class DatabaseListenerTotalRecordCount implements DatabaseListener 
         for (JLabel label : labels) {
             label.setText(count.toString());
         }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
+        // ignore
     }
 }

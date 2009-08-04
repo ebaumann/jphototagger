@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.database;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Program;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
@@ -10,6 +11,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -21,11 +23,11 @@ import java.util.Set;
  */
 public class Database {
 
-    private static final Set<DatabaseListener> DATABASE_LISTENER =
+    private static final Set<DatabaseListener> DATABASE_LISTENERS =
             new LinkedHashSet<DatabaseListener>();
 
     public synchronized void addDatabaseListener(DatabaseListener listener) {
-        DATABASE_LISTENER.add(listener);
+        DATABASE_LISTENERS.add(listener);
     }
 
     protected synchronized void notifyDatabaseListener(
@@ -33,7 +35,7 @@ public class Database {
 
         DatabaseImageEvent event = new DatabaseImageEvent(type);
         event.setImageFile(imageFile);
-        for (DatabaseListener listener : DATABASE_LISTENER) {
+        for (DatabaseListener listener : DATABASE_LISTENERS) {
             listener.actionPerformed(event);
         }
     }
@@ -45,7 +47,7 @@ public class Database {
         DatabaseImageEvent event = new DatabaseImageEvent(type);
         event.setImageFile(newImageFile);
         event.setOldImageFile(oldImageFile);
-        for (DatabaseListener listener : DATABASE_LISTENER) {
+        for (DatabaseListener listener : DATABASE_LISTENERS) {
             listener.actionPerformed(event);
         }
     }
@@ -55,8 +57,19 @@ public class Database {
 
         DatabaseProgramEvent event = new DatabaseProgramEvent(type);
         event.setProgram(program);
-        for (DatabaseListener listener : DATABASE_LISTENER) {
+        for (DatabaseListener listener : DATABASE_LISTENERS) {
             listener.actionPerformed(event);
+        }
+    }
+
+    protected synchronized void notifyDatabaseListener(
+            DatabaseImageCollectionEvent.Type type,
+            String collectionName,
+            Collection<String> filenames) {
+        DatabaseImageCollectionEvent evt =
+                new DatabaseImageCollectionEvent(type, collectionName, filenames);
+        for (DatabaseListener listener : DATABASE_LISTENERS) {
+            listener.actionPerformed(evt);
         }
     }
 

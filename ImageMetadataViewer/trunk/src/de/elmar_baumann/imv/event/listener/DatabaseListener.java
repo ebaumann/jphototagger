@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.event.listener;
 
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.DatabaseProgramEvent;
 
@@ -23,4 +24,11 @@ public interface DatabaseListener {
      * @param event event
      */
     public void actionPerformed(DatabaseProgramEvent event);
+
+    /**
+     * An image collection event occured.
+     *
+     * @param event event
+     */
+    public void actionPerformed(DatabaseImageCollectionEvent event);
 }

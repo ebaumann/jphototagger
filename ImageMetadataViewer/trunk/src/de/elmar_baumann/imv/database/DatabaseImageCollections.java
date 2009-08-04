@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -163,6 +164,8 @@ public final class DatabaseImageCollections extends Database {
             added = true;
             stmtName.close();
             stmtColl.close();
+            notifyDatabaseListener(
+                    Type.COLLECTION_INSERTED, collectionName, filenames);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
@@ -188,9 +191,13 @@ public final class DatabaseImageCollections extends Database {
                     "DELETE FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionname);
             AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
+            List<String> affectedFiles = // Prior to executing!
+                    getFilenamesOfImageCollection(collectionname);
             stmt.executeUpdate();
             deleted = true;
             stmt.close();
+            notifyDatabaseListener(
+                    Type.COLLECTION_DELETED, collectionname, affectedFiles);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageCollections.class, ex);
         } finally {
@@ -217,7 +224,9 @@ public final class DatabaseImageCollections extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM collections" + // NOI18N
                     " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
+            List<String> affectedFiles = new ArrayList<String>(filenames.size());
             for (String filename : filenames) {
+                int prevDelCount = delCount;
                 long idCollectionName = getIdCollectionName(
                         connection, collectionName);
                 long idFile = DatabaseImageFiles.INSTANCE.getIdFile(
@@ -226,10 +235,15 @@ public final class DatabaseImageCollections extends Database {
                 stmt.setLong(2, idFile);
                 AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
                 delCount += stmt.executeUpdate();
+                if (prevDelCount < delCount) {
+                    affectedFiles.add(filename);
+                }
                 reorderCollectionSequenceNumber(connection, collectionName);
             }
             connection.commit();
             stmt.close();
+            notifyDatabaseListener(
+                    Type.IMAGES_DELETED, collectionName, affectedFiles);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
@@ -267,6 +281,8 @@ public final class DatabaseImageCollections extends Database {
                         connection, collectionName);
                 int sequence_number = getMaxCollectionSequenceNumber(
                         connection, collectionName) + 1;
+                List<String> affectedFiles =
+                        new ArrayList<String>(filenames.size());
                 for (String filename : filenames) {
                     if (!isImageInCollection(connection, collectionName,
                             filename)) {
@@ -278,10 +294,13 @@ public final class DatabaseImageCollections extends Database {
                         AppLog.logFiner(
                                 DatabaseImageCollections.class, stmt.toString());
                         stmt.executeUpdate();
+                        affectedFiles.add(filename);
                     }
                 }
                 reorderCollectionSequenceNumber(connection, collectionName);
                 stmt.close();
+                notifyDatabaseListener(
+                        Type.IMAGES_INSERTED, collectionName, affectedFiles);
             } else {
                 return insertImageCollection(collectionName, filenames);
             }
