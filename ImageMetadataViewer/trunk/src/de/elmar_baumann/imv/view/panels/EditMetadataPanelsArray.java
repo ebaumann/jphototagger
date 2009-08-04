@@ -574,8 +574,11 @@ public final class EditMetadataPanelsArray implements FocusListener,
             container.scrollRectToVisible(parent.getBounds());
         } else if (inputSource instanceof TabLeavingTextArea) {
             TabLeavingTextArea textArea = (TabLeavingTextArea) inputSource;
-            parent = textArea.getParent().getParent().getParent();
-            container.scrollRectToVisible(parent.getBounds());
+            if (textArea.getParent().getParent() != null &&
+                    textArea.getParent().getParent().getParent() != null) {
+                parent = textArea.getParent().getParent().getParent();
+                container.scrollRectToVisible(parent.getBounds());
+            }
         }
     }
 

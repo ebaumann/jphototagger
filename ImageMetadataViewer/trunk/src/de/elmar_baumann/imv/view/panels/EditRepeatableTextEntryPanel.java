@@ -46,9 +46,9 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public final class EditRepeatableTextEntryPanel
         extends javax.swing.JPanel
         implements TextEntry,
-        ActionListener,
-        DocumentListener,
-        ListDataListener {
+                   ActionListener,
+                   DocumentListener,
+                   ListDataListener {
 
     private final DefaultListModel model = new DefaultListModel();
     private Column column;
@@ -124,8 +124,8 @@ public final class EditRepeatableTextEntryPanel
         this.suggest = suggest;
         buttonSuggestion.setEnabled(editable && suggest != null);
         buttonSuggestion.setToolTipText(suggest == null
-                ? "" // NOI18N
-                : suggest.getDescription());
+                                        ? "" // NOI18N
+                                        : suggest.getDescription());
     }
 
     /**
@@ -256,8 +256,8 @@ public final class EditRepeatableTextEntryPanel
         buttonRemoveSelection.setEnabled(editable);
         buttonSuggestion.setEnabled(editable && suggest != null);
         list.setBackground(editable
-                ? textFieldInput.getBackground()
-                : getBackground());
+                           ? textFieldInput.getBackground()
+                           : getBackground());
     }
 
     @Override
@@ -381,7 +381,12 @@ public final class EditRepeatableTextEntryPanel
             }
         }
         if (countAdded > 0) {
-            ComponentUtil.forceRepaint(getParent().getParent());
+            if (getParent() != null) {
+                ComponentUtil.forceRepaint(getParent());
+                if (getParent().getParent() != null) {
+                    ComponentUtil.forceRepaint(getParent().getParent());
+                }
+            }
         }
         ignoreIntervalAdded = false;
         return countAdded;
