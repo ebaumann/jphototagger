@@ -349,6 +349,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return itemRating5;
     }
 
+    public JMenu getMenuRating() {
+        return menuRating;
+    }
+
     public Long getRatingOfItem(JMenuItem item) {
         return RATING_OF_ITEM.get(item);
     }

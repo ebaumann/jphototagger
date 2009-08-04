@@ -98,6 +98,8 @@ public final class ControllerMenuItemEnabler
                 popupThumbnails.getItemPick());
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getItemReject());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getMenuRating());
     }
 
     private void setEnabled() {
