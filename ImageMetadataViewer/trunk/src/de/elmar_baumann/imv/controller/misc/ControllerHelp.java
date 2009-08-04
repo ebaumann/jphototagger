@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.misc;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
 import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 /**
- * Kontrolliert die Aktion: Hilfe anzeigen.
+ * 
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
@@ -44,7 +45,12 @@ public final class ControllerHelp implements ActionListener,
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        showHelp();
+        if (e.getSource().equals(GUI.INSTANCE.getAppFrame().getMenuItemHelp())) {
+            showHelp();
+        } else if (e.getSource().equals(GUI.INSTANCE.getAppFrame().
+                getMenuItemAcceleratorKeys())) {
+            showAcceleratorKeyHelp();
+        }
     }
 
     private void setCurrentUrl(HelpBrowserEvent action) {
@@ -61,6 +67,15 @@ public final class ControllerHelp implements ActionListener,
         if (!currentUrl.isEmpty()) {
             help.setStartUrl(currentUrl);
         }
+        helpToFront();
+    }
+
+    private void showAcceleratorKeyHelp() {
+        help.setStartUrl(Bundle.getString("Help.Url.AcceleratorKeys"));
+        helpToFront();
+    }
+
+    public void helpToFront() {
         if (help.isVisible()) {
             help.toFront();
         } else {

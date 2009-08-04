@@ -218,6 +218,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemExit;
     }
 
+    public JMenuItem getMenuItemAcceleratorKeys() {
+        return menuItemAcceleratorKeys;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -289,6 +293,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
+        menuItemAcceleratorKeys = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JSeparator();
         menuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -532,6 +538,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemHelp.setText(Bundle.getString("AppFrame.menuItemHelp.text")); // NOI18N
         menuHelp.add(menuItemHelp);
 
+        menuItemAcceleratorKeys.setText(bundle.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
+        menuHelp.add(menuItemAcceleratorKeys);
+        menuHelp.add(jSeparator12);
+
         menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_app_small.png"))); // NOI18N
         menuItemAbout.setText(Bundle.getString("AppFrame.menuItemAbout.text")); // NOI18N
         menuHelp.add(menuItemAbout);
@@ -545,6 +555,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -561,6 +572,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuImport;
     private javax.swing.JMenuItem menuItemAbout;
+    private javax.swing.JMenuItem menuItemAcceleratorKeys;
     private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
     private javax.swing.JMenuItem menuItemExit;

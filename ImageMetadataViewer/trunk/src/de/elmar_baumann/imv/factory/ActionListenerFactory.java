@@ -37,7 +37,9 @@ public final class ActionListenerFactory {
 
             appFrame.getMenuItemAbout().addActionListener(
                     new ControllerAboutApp());
-            appFrame.getMenuItemHelp().addActionListener(new ControllerHelp());
+            ControllerHelp ctrlHelp = new ControllerHelp();
+            appFrame.getMenuItemHelp().addActionListener(ctrlHelp);
+            appFrame.getMenuItemAcceleratorKeys().addActionListener(ctrlHelp);
             appFrame.getMenuItemMaintainDatabase().addActionListener(
                     new ControllerMaintainDatabase());
             appFrame.getMenuItemScanDirectory().addActionListener(

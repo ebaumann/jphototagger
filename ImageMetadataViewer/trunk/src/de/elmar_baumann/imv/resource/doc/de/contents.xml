@@ -180,6 +180,10 @@
 			<url>dialog_input_helpers.html</url>
 			<title>Fenster &gt; Eingabehilfen</title>
 		</page>
+		<page>
+			<url>accelerator_keys.html</url>
+			<title>Hilfe &gt; Tastenkombinationen</title>
+		</page>
 	</node>
 	<node>
 		<title>Einstellungen-Dialog</title>
