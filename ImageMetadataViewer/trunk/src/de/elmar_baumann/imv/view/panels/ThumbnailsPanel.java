@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.cache.SubjectCache;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.cache.ThumbnailCache;
+import de.elmar_baumann.imv.cache.XmpCache;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import de.elmar_baumann.lib.util.MathUtil;
 import java.awt.Color;
@@ -191,7 +192,7 @@ public abstract class ThumbnailsPanel extends JPanel
     private int clickInSelection = -1;
     private boolean keywordsOverlay;
     public ThumbnailCache thumbCache = new ThumbnailCache(this);
-    public SubjectCache subjectCache = new SubjectCache(this);
+    public XmpCache xmpCache = new XmpCache(this);
     Image starImage[] = new Image[5];
 
     public ThumbnailsPanel() {
@@ -358,6 +359,14 @@ public abstract class ThumbnailsPanel extends JPanel
      * @return      keywords
      */
     protected abstract List<String> getKeywords(int index);
+
+    /**
+     * Delivers rating for a thumbnail at a specific index.
+     *
+     * @param index Thumbnail index
+     * @return      rating
+     */
+    protected abstract int getRating(int index);
 
     /**
      * Returns the index of a specific file.
@@ -829,9 +838,9 @@ public abstract class ThumbnailsPanel extends JPanel
             thumbCache.prefetch(
                     firstIndex - thumbnailCountPerRow * 5, firstIndex - 1);
             if (isKeywordsOverlay()) {
-                subjectCache.prefetch(
+                xmpCache.prefetch(
                         lastIndex + 1, lastIndex + thumbnailCountPerRow * 5);
-                subjectCache.prefetch(
+                xmpCache.prefetch(
                         firstIndex - thumbnailCountPerRow * 5, firstIndex - 1);
             }
         }
@@ -854,8 +863,7 @@ public abstract class ThumbnailsPanel extends JPanel
         paintThumbnailTextAt(g, index, topLeft.x, topLeft.y);
         if (isKeywordsOverlay()) {
             paintThumbnailKeywordsAt(g, index, topLeft.x, topLeft.y);
-            // fixme: call when working or for testing
-            //paintThumbnailStarsAt(g, index, topLeft.x, topLeft.y);
+            paintThumbnailStarsAt(g, index, topLeft.x, topLeft.y);
         }
     }
 
@@ -968,8 +976,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void paintThumbnailStarsAt(Graphics g, int index,
             int areaX, int areaY) {
-        // fixme: determine real rating from a cache
-        int stars = index % 6; //getStars(index);  // we need another cache for this
+        int stars = getRating(index);
         if (stars > 0) {
             int i = Math.min(4, stars - 1);
             g.drawImage(starImage[i],
@@ -1103,7 +1110,7 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     protected void removeFromCache(int index) {
         thumbCache.removeEntry(index);
-        subjectCache.removeEntry(index);
+        xmpCache.removeEntry(index);
         repaint();
     }
 

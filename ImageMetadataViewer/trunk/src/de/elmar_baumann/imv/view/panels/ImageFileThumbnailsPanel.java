@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
+import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerPanelThumbnails;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
@@ -154,7 +155,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
         this.files.addAll(files);
         thumbCache.setFiles(files);
-        subjectCache.setFiles(files);
+        xmpCache.setFiles(files);
         this.content = content;
 
         InfoSettingThumbnails info = new InfoSettingThumbnails();
@@ -210,7 +211,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         if (index >= 0) {
             files.set(index, newFile);
             thumbCache.updateFiles(index, newFile);
-            subjectCache.updateFiles(index, newFile);
+            xmpCache.updateFiles(index, newFile);
             repaint();
         }
     }
@@ -372,7 +373,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         files.clear();
         files.addAll(newOrderedFiles);
         thumbCache.setFiles(files);
-        subjectCache.setFiles(files);
+        xmpCache.setFiles(files);
         clearSelection();
     }
 
@@ -403,7 +404,28 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     @Override
     protected List<String> getKeywords(int index) {
-        return subjectCache.getSubjects(index);
+        Xmp xmp = xmpCache.getXmp(index);
+
+        if (xmp == null) {
+            return null;
+        }
+
+        return xmp.getDcSubjects();
+    }
+
+    @Override
+    protected int getRating(int index) {
+        Xmp xmp = xmpCache.getXmp(index);
+        if (xmp == null) {
+            return 0;
+        }
+
+        Long rating = xmp.getRating();
+        if (rating == null) {
+            return 0;
+        }
+
+        return xmp.getRating().intValue();
     }
 
     @Override

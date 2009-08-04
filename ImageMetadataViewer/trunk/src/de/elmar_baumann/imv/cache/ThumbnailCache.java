@@ -44,7 +44,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                     if (image == null) {  // no image available from db
                         image = cache.noPreviewThumbnail;
                     }
-                    cache.updateThumbnail(image, file);
+                    cache.update(image, file);
                 } catch (InterruptedException e) {
                 }
             }
@@ -53,9 +53,8 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
 
     public ThumbnailCache(ThumbnailsPanel _panel) {
         super(_panel);
-
-        ThumbnailFetcher tf = new ThumbnailFetcher(workQueue, this);
-        new Thread(tf, "ThumbnailFetcher1").start();
+        new Thread(new ThumbnailFetcher(workQueue, this),
+                "ThumbnailFetcher").start();
     }
 
     /**
@@ -78,7 +77,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
         }
     }
 
-    public synchronized void updateThumbnail(Image image, final File file) {
+    public synchronized void update(Image image, final File file) {
         if (! fileCache.containsKey(file)) {
             return;  // stale entry
         }

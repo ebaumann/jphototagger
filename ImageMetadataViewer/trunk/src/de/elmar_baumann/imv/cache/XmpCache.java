@@ -1,9 +1,9 @@
 package de.elmar_baumann.imv.cache;
 
+import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import java.io.File;
-import java.util.List;
 import javax.swing.SwingUtilities;
 
 /**
@@ -11,16 +11,16 @@ import javax.swing.SwingUtilities;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class SubjectCache extends Cache<SubjectCacheIndirection> {
+public class XmpCache extends Cache<XmpCacheIndirection> {
 
-    private static class SubjectFetcher implements Runnable {
+    private static class XmpFetcher implements Runnable {
 
         private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         private WorkQueue wq;
-        private SubjectCache cache;
+        private XmpCache cache;
 
-        SubjectFetcher(WorkQueue subjectWQ, SubjectCache _cache) {
-            wq = subjectWQ;
+        XmpFetcher(WorkQueue _wq, XmpCache _cache) {
+            wq = _wq;
             cache = _cache;
         }
 
@@ -36,17 +36,15 @@ public class SubjectCache extends Cache<SubjectCacheIndirection> {
                 if (file == null) {
                     continue;
                 }
-                List<String> subjects = db.getDcSubjectsOfFile(file.
-                        getAbsolutePath());
-                cache.update(subjects, file);
+                Xmp xmp = db.getXmpOfFile(file.getAbsolutePath());
+                cache.update(xmp, file);
             }
         }
     }
 
-    public SubjectCache(ThumbnailsPanel _panel) {
+    public XmpCache(ThumbnailsPanel _panel) {
         super(_panel);
-        new Thread(new SubjectFetcher(workQueue, this),
-                "SubjectFetcher").start();
+        new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start();
     }
 
     /**
@@ -55,15 +53,13 @@ public class SubjectCache extends Cache<SubjectCacheIndirection> {
     /**
      * Creates a new entry in the cache with the two keys index and filename.
      *
-     * Requests for the real image and the subjects are put into their
-     * respective work queues
+     * Requests for Xmp objects are put into their respective work queues
      * @param file
-     * @param wqsubjects
      * @param prefetch
      */
     @Override
     public synchronized void generateEntry(File file, boolean prefetch) {
-        SubjectCacheIndirection ci = new SubjectCacheIndirection(file);
+        XmpCacheIndirection ci = new XmpCacheIndirection(file);
         updateUsageTime(ci);
         fileCache.put(file, ci);
         if (prefetch) {
@@ -73,13 +69,13 @@ public class SubjectCache extends Cache<SubjectCacheIndirection> {
         }
     }
 
-    public synchronized void update(List<String> subjects, final File file) {
+    public synchronized void update(Xmp xmp, final File file) {
         if (!fileCache.containsKey(file)) {
             return;  // stale entry
         }
-        SubjectCacheIndirection ci = fileCache.get(file);
+        XmpCacheIndirection ci = fileCache.get(file);
         updateUsageTime(ci);
-        ci.subjects = subjects;
+        ci.xmp = xmp;
         fileCache.maybeCleanupCache();
         SwingUtilities.invokeLater(new Runnable() {
 
@@ -93,22 +89,22 @@ public class SubjectCache extends Cache<SubjectCacheIndirection> {
     /**
      * Interface for consumers.
      */
-    public synchronized List<String> getSubjects(int index) {
-        return getSubjects(files.get(index));
+    public synchronized Xmp getXmp(int index) {
+        return getXmp(files.get(index));
     }
 
-    public synchronized List<String> getSubjects(File file) {
+    public synchronized Xmp getXmp(File file) {
         if (!fileCache.containsKey(file)) {
             generateEntry(file, false);
             return null;
         }
-        SubjectCacheIndirection ci = fileCache.get(file);
+        XmpCacheIndirection ci = fileCache.get(file);
         updateUsageTime(ci);
 
-        if (ci.subjects == null) {
+        if (ci.xmp == null) {
             workQueue.push(file);
             return null;
         }
-        return ci.subjects;
+        return ci.xmp;
     }
 }
