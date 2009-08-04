@@ -167,6 +167,12 @@ public final class PopupMenuThumbnails extends JPopupMenu
         ICON_OF_ITEM.put(itemPick, AppIcons.getIcon("icon_picked.png")); // NOI18N
         ICON_OF_ITEM.put(itemReject, AppIcons.getIcon("icon_rejected.png")); // NOI18N
         ICON_OF_ITEM.put(menuRating, AppIcons.getIcon("icon_xmp_rating_set.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating0, AppIcons.getIcon("icon_xmp_rating_remove.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating1, AppIcons.getIcon("icon_xmp_rating_1.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating2, AppIcons.getIcon("icon_xmp_rating_2.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating3, AppIcons.getIcon("icon_xmp_rating_3.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating4, AppIcons.getIcon("icon_xmp_rating_4.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating5, AppIcons.getIcon("icon_xmp_rating_5.png")); // NOI18N
     }
 
     private void addItems() {
