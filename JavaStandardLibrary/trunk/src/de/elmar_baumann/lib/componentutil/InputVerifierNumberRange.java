@@ -48,30 +48,33 @@ public final class InputVerifierNumberRange extends InputVerifier {
     private boolean lengthOk(JComponent component) {
         assert component != null : component;
 
-        Double value = getValue(component);
+        String string = getString(component);
+        if (string.isEmpty()) return true;
+
+        Double value = toDouble(string);
         if (value == null) return false;
         return value >= min && value <= max;
     }
 
-    private Double getValue(JComponent component) {
-        String string = null;
+    private String getString(JComponent component) {
         if (component instanceof JTextField) {
-            string = ((JTextField) component).getText();
+            return (((JTextField) component).getText()).trim();
         } else if (component instanceof JTextArea) {
-            string = ((JTextArea) component).getText();
+            return (((JTextArea) component).getText()).trim();
         } else {
             assert false : "Unknown component: " +
                     component.getClass().toString(); // NOI18N
         }
-        Double value = null;
+        return "";
+    }
+
+    private Double toDouble(String string) {
         try {
-            if (string != null) {
-                value = Double.valueOf(string);
-            }
+            return Double.valueOf(string);
         } catch (Exception ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex);
         }
-        return value;
+        return null;
     }
 
     private void errorMessage(JComponent input) {
