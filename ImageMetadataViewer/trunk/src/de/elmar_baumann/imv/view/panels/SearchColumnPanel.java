@@ -85,11 +85,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setInputVerifier() {
-        InputVerifier verifier =
-                InputVerifierFactory.getInputVerifyerOf(getColumn());
-        if (verifier != null) {
-            textFieldValue.setInputVerifier(verifier);
-        }
+        textFieldValue.setInputVerifier(
+                InputVerifierFactory.getInputVerifyerOf(getColumn()));
     }
 
     private Column getColumn() {
