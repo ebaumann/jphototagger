@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.ProgressEvent;
@@ -738,10 +739,12 @@ public final class DatabaseImageFiles extends Database {
         stmt.setString(17, xmp.getPhotoshopState());
         stmt.setString(18, xmp.getPhotoshopTransmissionReference());
         Long rating = xmp.getRating();
-        if (rating == null || rating == 0) {
+        if (rating == null || rating <= ColumnXmpRating.getMinValue()) {
             stmt.setNull(19, java.sql.Types.BIGINT);
         } else {
-            stmt.setLong(19, xmp.getRating());
+            stmt.setLong(19, rating <= ColumnXmpRating.getMaxValue()
+                             ? rating
+                             : ColumnXmpRating.getMaxValue());
         }
     }
 
@@ -910,9 +913,12 @@ public final class DatabaseImageFiles extends Database {
                     xmp.addPhotoshopSupplementalCategory(value);
                 }
                 long rating = rs.getLong(21);
-                xmp.setRating(rs.wasNull() || rating == 0
+                xmp.setRating(rs.wasNull() ||
+                        rating <= ColumnXmpRating.getMinValue()
                               ? null
-                              : rating);
+                              : rating <= ColumnXmpRating.getMaxValue()
+                                ? rating
+                                : ColumnXmpRating.getMaxValue());
                 if (!filename.equals(prevFilename)) {
                     list.add(new Pair<String, Xmp>(filename, xmp));
                 }
@@ -1026,9 +1032,12 @@ public final class DatabaseImageFiles extends Database {
                     xmp.addPhotoshopSupplementalCategory(value);
                 }
                 long rating = rs.getLong(20);
-                xmp.setRating(rs.wasNull() || rating == 0
+                xmp.setRating(rs.wasNull() ||
+                        rating <= ColumnXmpRating.getMinValue()
                               ? null
-                              : rating);
+                              : rating <= ColumnXmpRating.getMaxValue()
+                                ? rating
+                                : ColumnXmpRating.getMaxValue());
             }
             stmt.close();
         } catch (SQLException ex) {
