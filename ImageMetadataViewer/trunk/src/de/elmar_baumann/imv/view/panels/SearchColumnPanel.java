@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.data.SavedSearchPanel;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.ColumnIds;
 import de.elmar_baumann.imv.database.metadata.Comparator;
-import de.elmar_baumann.imv.database.metadata.MetadataUtil;
+import de.elmar_baumann.imv.database.metadata.FormatterFactory;
 import de.elmar_baumann.imv.database.metadata.Operator;
 import de.elmar_baumann.imv.database.metadata.selections.AdvancedSearchColumns;
 import de.elmar_baumann.imv.event.SearchEvent;
@@ -78,7 +78,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void setValueFormatter() {
         textFieldValue.setFormatterFactory(
-                MetadataUtil.getFormatterFactory((Column) comboBoxColumns.
+                FormatterFactory.getFormatterFactory((Column) comboBoxColumns.
                 getSelectedItem()));
     }
 

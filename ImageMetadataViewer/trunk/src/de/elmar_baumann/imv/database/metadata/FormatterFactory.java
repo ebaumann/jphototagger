@@ -15,7 +15,7 @@ import javax.swing.text.NumberFormatter;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-28
  */
-public final class MetadataUtil {
+public final class FormatterFactory {
 
     private static DefaultFormatterFactory integerFormatterFactory;
     private static DefaultFormatterFactory doubleFormatterFactory;
@@ -37,7 +37,7 @@ public final class MetadataUtil {
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##")); // NOI18N
         } catch (ParseException ex) {
-            AppLog.logSevere(MetadataUtil.class, ex);
+            AppLog.logSevere(FormatterFactory.class, ex);
         }
     }
 
@@ -55,6 +55,6 @@ public final class MetadataUtil {
         }
     }
 
-    private MetadataUtil() {
+    private FormatterFactory() {
     }
 }
