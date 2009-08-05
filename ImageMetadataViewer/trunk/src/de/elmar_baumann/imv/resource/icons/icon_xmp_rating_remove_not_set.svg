@@ -13,9 +13,9 @@
    id="svg2383"
    sodipodi:version="0.32"
    inkscape:version="0.46"
-   sodipodi:docname="icon_xmp_rating_remove.svg"
+   sodipodi:docname="icon_xmp_rating_remove_not_set.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_remove.png"
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_remove_not_set.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons"
@@ -74,18 +74,6 @@
        inkscape:vp_z="16 : 8 : 1"
        inkscape:persp3d-origin="8 : 5.3333333 : 1"
        id="perspective2391" />
-    <filter
-       height="1.2407934"
-       y="-0.1203967"
-       width="1.2392092"
-       x="-0.11960461"
-       id="filter3413"
-       inkscape:collect="always">
-      <feGaussianBlur
-         id="feGaussianBlur3415"
-         stdDeviation="0.69788486"
-         inkscape:collect="always" />
-    </filter>
     <inkscape:perspective
        id="perspective3240"
        inkscape:persp3d-origin="8 : 5.3333333 : 1"
@@ -239,7 +227,7 @@
           </cc:Agent>
         </dc:publisher>
         <dc:title>XMP Rating Remove</dc:title>
-        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_xmp_rating_remove.svg</dc:identifier>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_xmp_rating_remove_not_set.svg</dc:identifier>
         <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <cc:license
@@ -271,11 +259,11 @@
      inkscape:label="Cross"
      style="display:inline">
     <path
-       style="opacity:1;fill:#7777ff;fill-opacity:0;fill-rule:nonzero;stroke:#ff0000;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;color:#000000"
+       style="opacity:1;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;color:#000000"
        d="M 2.9750333,2.8984109 L 13,12.923378"
        id="path3228" />
     <path
-       style="opacity:1;fill:#7777ff;fill-opacity:0;fill-rule:nonzero;stroke:#ff0000;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="opacity:1;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        d="M 13,2.8984109 L 2.9750333,12.923378"
        id="path3230" />
   </g>

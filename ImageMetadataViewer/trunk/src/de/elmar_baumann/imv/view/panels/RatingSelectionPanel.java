@@ -1,12 +1,13 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.imv.resource.Bundle;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JButton;
 
 /*
@@ -18,8 +19,10 @@ import javax.swing.JButton;
 public class RatingSelectionPanel extends javax.swing.JPanel implements
         TextEntry {
 
-    private ImageIcon star;
-    private ImageIcon dark_star;
+    private final Icon star;
+    private final Icon dark_star;
+    private final Icon icon_rating_remove;
+    private final Icon icon_rating_remove_not_set;
     private boolean dirty = false;
     private Column column;
     private boolean editable;
@@ -31,12 +34,11 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
     public RatingSelectionPanel(Column column) {
         this.column = column;
 
-        star = new ImageIcon(getClass().getResource(
-                "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_set.png"));
-        dark_star =
-                new ImageIcon(
-                getClass().getResource(
-                "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_not_set.png"));
+        star = AppIcons.getIcon("icon_xmp_rating_set.png");
+        dark_star = AppIcons.getIcon("icon_xmp_rating_not_set.png");
+        icon_rating_remove = AppIcons.getIcon("icon_xmp_rating_remove.png");
+        icon_rating_remove_not_set =
+                AppIcons.getIcon("icon_xmp_rating_remove_not_set.png");
         initComponents();
         buttons[0] = buttonStar1;
         buttons[1] = buttonStar2;
@@ -84,6 +86,9 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
                 buttons[i].setIcon(star);
             }
         }
+        buttonNoRating.setIcon(value > 0
+                               ? icon_rating_remove_not_set
+                               : icon_rating_remove);
         dirty = false;
     }
 
@@ -191,7 +196,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
         gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
 
-        buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_remove.png"))); // NOI18N
+        buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_remove_not_set.png"))); // NOI18N
         buttonNoRating.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);
