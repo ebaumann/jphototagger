@@ -30,7 +30,7 @@ import de.elmar_baumann.imv.event.listener.TextSelectionListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.TextSelectionDialog;
-import de.elmar_baumann.lib.component.TabLeavingTextArea;
+import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -547,7 +547,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     private boolean isEditArea(Component c) {
-        return c instanceof TabLeavingTextArea || c instanceof JTextField;
+        return c instanceof TabOrEnterLeavingTextArea || c instanceof JTextField;
     }
 
     private void setTextToTextSelectionPanel(Component c) {
@@ -573,8 +573,8 @@ public final class EditMetadataPanelsArray implements FocusListener,
             JTextField textField = (JTextField) inputSource;
             parent = textField.getParent();
             container.scrollRectToVisible(parent.getBounds());
-        } else if (inputSource instanceof TabLeavingTextArea) {
-            TabLeavingTextArea textArea = (TabLeavingTextArea) inputSource;
+        } else if (inputSource instanceof TabOrEnterLeavingTextArea) {
+            TabOrEnterLeavingTextArea textArea = (TabOrEnterLeavingTextArea) inputSource;
             if (textArea.getParent().getParent() != null &&
                     textArea.getParent().getParent().getParent() != null) {
                 parent = textArea.getParent().getParent().getParent();

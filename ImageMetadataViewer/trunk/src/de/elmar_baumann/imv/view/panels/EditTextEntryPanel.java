@@ -4,12 +4,12 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.datatransfer.TransferHandlerDropEditItemsString;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
-import de.elmar_baumann.lib.component.TabLeavingTextArea;
+import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import java.awt.Color;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -166,7 +166,7 @@ public final class EditTextEntryPanel
 
         labelPrompt = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
-        textAreaEdit = textAreaEdit = new TabLeavingTextArea();
+        textAreaEdit = textAreaEdit = new TabOrEnterLeavingTextArea();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -183,7 +183,7 @@ public final class EditTextEntryPanel
         textAreaEdit.setLineWrap(true);
         textAreaEdit.setRows(1);
         scrollPane.setViewportView(textAreaEdit);
-        textAreaEdit.setTransferHandler(new TransferHandlerDropEditItemsString());
+        textAreaEdit.setTransferHandler(new TransferHandlerDropEdit());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

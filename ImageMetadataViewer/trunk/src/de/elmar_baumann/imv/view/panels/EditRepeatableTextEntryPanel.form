@@ -112,7 +112,7 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listKeyPressed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="list.setTransferHandler(new TransferHandlerDropListItemsString());"/>
+            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="list.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerDropList());"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -129,7 +129,7 @@
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-        <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="textFieldInput.setTransferHandler(new TransferHandlerDropEditItemsString());"/>
+        <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="textFieldInput.setTransferHandler(new de.elmar_baumann.imv.datatransfer.TransferHandlerDropEdit());"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">

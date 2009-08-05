@@ -1,10 +1,12 @@
 package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
+import de.elmar_baumann.imv.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
@@ -23,6 +25,7 @@ import java.util.StringTokenizer;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of
@@ -130,47 +133,72 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         Component c = transferSupport.getComponent();
         if (c instanceof ImageFileThumbnailsPanel) {
             Transferable t = transferSupport.getTransferable();
-            String data = null;
+            String string = null;
+            DefaultMutableTreeNode node = null;
             try {
-                data = (String) t.getTransferData(DataFlavor.stringFlavor);
+                Object transferData = t.getTransferData(DataFlavor.stringFlavor);
+                if (transferData instanceof String) {
+                    string = (String) transferData;
+                } else if (transferData instanceof DefaultMutableTreeNode) {
+                    node = (DefaultMutableTreeNode) transferData;
+                }
             } catch (Exception ex) {
                 AppLog.logSevere(getClass(), ex);
             }
-            if (!TransferHandlerDragListItemsString.startsWithPrefix(data))
+            if (node != null &&
+                    node.getUserObject() instanceof HierarchicalKeyword &&
+                    isDropOverSelectedThumbnail(transferSupport))
+                return true;
+            if (string == null) return false;
+            if (!TransferHandlerDragListItemsString.startsWithPrefix(string))
                 return true;
             if (!GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().
                     isEditable()) return false;
-            Point p = transferSupport.getDropLocation().getDropPoint();
-            ImageFileThumbnailsPanel panel = (ImageFileThumbnailsPanel) c;
-            return panel.isSelected(panel.getDropIndex(p.x, p.y));
+            return isDropOverSelectedThumbnail(transferSupport);
         }
         return true;
     }
 
     private boolean insertMetadata(TransferSupport transferSupport) {
+        if (!GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().isEditable())
+            return true;
         Transferable t = transferSupport.getTransferable();
-        String data = null;
+        String string = null;
+        DefaultMutableTreeNode node = null;
         try {
-            data = (String) t.getTransferData(DataFlavor.stringFlavor);
+            Object transferData = t.getTransferData(DataFlavor.stringFlavor);
+            if (transferData instanceof String) {
+                string = (String) transferData;
+            } else if (transferData instanceof DefaultMutableTreeNode) {
+                node = (DefaultMutableTreeNode) transferData;
+            }
         } catch (Exception ex) {
             AppLog.logSevere(getClass(), ex);
             return false;
         }
-        if (data == null) return false;
-        if (!isKeywordsOrCategoriesString(data)) return false;
-        StringTokenizer tokenizer = new StringTokenizer(
-                data, TransferHandlerDragListItemsString.DELIMITER);
+
+        if (string != null) {
+            importString(string);
+        } else if (node != null) {
+            HierarchicalKeywordsHelper.addKeywordsToEditPanel(node);
+        }
+        return true;
+    }
+
+    public void importString(String string) {
+        if (!isKeywordsOrCategoriesString(string)) return;
+        StringTokenizer tokenizer =
+                new StringTokenizer(string,
+                TransferHandlerDragListItemsString.DELIMITER);
         EditMetadataPanelsArray editPanels =
                 GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
-        if (!editPanels.isEditable()) return true; // We had metadata
-        Column column = COLUMN_OF_PREFIX.get(getPrefix(data));
+        Column column = COLUMN_OF_PREFIX.get(getPrefix(string));
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
             if (!isKeywordsOrCategoriesString(token)) {
                 editPanels.addText(column, token);
             }
         }
-        return true;
     }
 
     private String getPrefix(String s) {
@@ -188,5 +216,12 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     private boolean isCategoriesString(String s) {
         return s.startsWith(TransferHandlerDragListItemsString.PREFIX_CATEGORIES);
+    }
+
+    public boolean isDropOverSelectedThumbnail(TransferSupport transferSupport) {
+        Point p = transferSupport.getDropLocation().getDropPoint();
+        ImageFileThumbnailsPanel panel =
+                (ImageFileThumbnailsPanel) transferSupport.getComponent();
+        return panel.isSelected(panel.getDropIndex(p.x, p.y));
     }
 }

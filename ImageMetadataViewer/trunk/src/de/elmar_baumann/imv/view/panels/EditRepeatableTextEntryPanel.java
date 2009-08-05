@@ -5,8 +5,8 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.datatransfer.TransferHandlerDropEditItemsString;
-import de.elmar_baumann.imv.datatransfer.TransferHandlerDropListItemsString;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerDropEdit;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerDropList;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
 import de.elmar_baumann.imv.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -563,7 +563,7 @@ public final class EditRepeatableTextEntryPanel
             }
         });
         scrollPane.setViewportView(list);
-        list.setTransferHandler(new TransferHandlerDropListItemsString());
+        list.setTransferHandler(new TransferHandlerDropList());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -587,7 +587,7 @@ public final class EditRepeatableTextEntryPanel
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(textFieldInput, gridBagConstraints);
-        textFieldInput.setTransferHandler(new TransferHandlerDropEditItemsString());
+        textFieldInput.setTransferHandler(new TransferHandlerDropEdit());
 
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
