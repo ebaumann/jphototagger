@@ -381,16 +381,17 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         buttonSaveAs = new javax.swing.JButton();
         buttonReset = new javax.swing.JButton();
         buttonSearch = new javax.swing.JButton();
+        labelInfoDelete = new javax.swing.JLabel();
 
         javax.swing.GroupLayout panelColumnsLayout = new javax.swing.GroupLayout(panelColumns);
         panelColumns.setLayout(panelColumnsLayout);
         panelColumnsLayout.setHorizontalGroup(
             panelColumnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelColumn4, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
-            .addComponent(panelColumn3, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
-            .addComponent(panelColumn2, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
-            .addComponent(panelColumn1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
-            .addComponent(panelColumn5, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+            .addComponent(panelColumn5, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .addComponent(panelColumn4, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .addComponent(panelColumn3, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .addComponent(panelColumn2, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .addComponent(panelColumn1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
         );
         panelColumnsLayout.setVerticalGroup(
             panelColumnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,21 +460,28 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addComponent(buttonSearch))
         );
 
+        labelInfoDelete.setForeground(new java.awt.Color(0, 0, 255));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelColumns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(labelInfoDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelColumns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelInfoDelete)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -497,6 +505,7 @@ private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JButton buttonSaveAs;
     private javax.swing.JButton buttonSaveSearch;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JLabel labelInfoDelete;
     private javax.swing.JPanel panelButtons;
     private de.elmar_baumann.imv.view.panels.SearchColumnPanel panelColumn1;
     private de.elmar_baumann.imv.view.panels.SearchColumnPanel panelColumn2;

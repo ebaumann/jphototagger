@@ -19,7 +19,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="panelColumns" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="labelInfoDelete" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="panelButtons" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -28,8 +29,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="panelColumns" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="panelButtons" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="panelButtons" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelInfoDelete" min="-2" max="-2" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -40,11 +44,11 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelColumn4" alignment="0" pref="603" max="32767" attributes="2"/>
-              <Component id="panelColumn3" alignment="0" pref="603" max="32767" attributes="2"/>
-              <Component id="panelColumn2" alignment="0" pref="603" max="32767" attributes="2"/>
-              <Component id="panelColumn1" alignment="0" pref="603" max="32767" attributes="2"/>
-              <Component id="panelColumn5" alignment="0" pref="603" max="32767" attributes="2"/>
+              <Component id="panelColumn5" alignment="0" pref="594" max="32767" attributes="2"/>
+              <Component id="panelColumn4" alignment="0" pref="594" max="32767" attributes="2"/>
+              <Component id="panelColumn3" alignment="0" pref="594" max="32767" attributes="2"/>
+              <Component id="panelColumn2" alignment="0" pref="594" max="32767" attributes="2"/>
+              <Component id="panelColumn1" alignment="0" pref="594" max="32767" attributes="2"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -149,5 +153,15 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="labelInfoDelete">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AdvancedSearchPanel.labelInfoDelete.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
