@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.ColumnIds;
 import de.elmar_baumann.imv.database.metadata.Comparator;
 import de.elmar_baumann.imv.database.metadata.FormatterFactory;
+import de.elmar_baumann.imv.database.metadata.InputVerifierFactory;
 import de.elmar_baumann.imv.database.metadata.Operator;
 import de.elmar_baumann.imv.database.metadata.selections.AdvancedSearchColumns;
 import de.elmar_baumann.imv.event.SearchEvent;
@@ -18,6 +19,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.InputVerifier;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -47,7 +49,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void postInitComponents() {
         initModels();
-        setValueFormatter();
+        setFormatter();
     }
 
     /**
@@ -72,14 +74,26 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxOperators.setSelectedIndex(0);
         textFieldValue.setText(""); // NOI18N
         setChanged(false);
-        setValueFormatter();
+        setFormatter();
+        setInputVerifier();
         listenToActions = true;
     }
 
-    private void setValueFormatter() {
+    private void setFormatter() {
         textFieldValue.setFormatterFactory(
-                FormatterFactory.getFormatterFactory((Column) comboBoxColumns.
-                getSelectedItem()));
+                FormatterFactory.getFormatterFactory(getColumn()));
+    }
+
+    private void setInputVerifier() {
+        InputVerifier verifier =
+                InputVerifierFactory.getInputVerifyerOf(getColumn());
+        if (verifier != null) {
+            textFieldValue.setInputVerifier(verifier);
+        }
+    }
+
+    private Column getColumn() {
+        return (Column) comboBoxColumns.getSelectedItem();
     }
 
     private void checkKey(KeyEvent evt) {
@@ -416,7 +430,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void handleColumnChanged() {
         setChanged();
-        setValueFormatter();
+        setFormatter();
+        setInputVerifier();
     }
 
     /** This method is called from within the constructor to
