@@ -15,6 +15,7 @@ import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.types.SubstringPosition;
+import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
@@ -24,6 +25,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -820,6 +822,133 @@ public final class DatabaseImageFiles extends Database {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
         }
         return count;
+    }
+
+    private String getXmpOfFilesStatement(int fileCount) {
+        return " SELECT" + // NOI18N
+                " files.filename" + // NOI18N -- 1 --
+                ", xmp.dc_creator" + // NOI18N -- 2 --
+                ", xmp.dc_description" + // NOI18N -- 3 --
+                ", xmp.dc_rights" + // NOI18N -- 4 --
+                ", xmp.dc_title" + // NOI18N -- 5 --
+                ", xmp.iptc4xmpcore_countrycode" + // NOI18N -- 6 --
+                ", xmp.iptc4xmpcore_location" + // NOI18N -- 7  --
+                ", xmp.photoshop_authorsposition" + // NOI18N -- 8 --
+                ", xmp.photoshop_captionwriter" + // NOI18N -- 9 --
+                ", xmp.photoshop_category" + // NOI18N -- 10 --
+                ", xmp.photoshop_city" + // NOI18N -- 11 --
+                ", xmp.photoshop_country" + // NOI18N -- 12 --
+                ", xmp.photoshop_credit" + // NOI18N -- 13 --
+                ", xmp.photoshop_headline" + // NOI18N -- 14 --
+                ", xmp.photoshop_instructions" + // NOI18N -- 15 --
+                ", xmp.photoshop_source" + // NOI18N -- 16 --
+                ", xmp.photoshop_state" + // NOI18N -- 17 --
+                ", xmp.photoshop_transmissionReference" + // NOI18N -- 18 --
+                ", xmp_dc_subjects.subject" + // NOI18N -- 19 --
+                ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 20 --
+                ", xmp.rating" + // NOI18N -- 21 --
+                " FROM" + // NOI18N
+                " files INNER JOIN xmp" + // NOI18N
+                " ON files.id = xmp.id_files" + // NOI18N
+                " LEFT JOIN xmp_dc_subjects" + // NOI18N
+                " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
+                " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
+                " ON xmp.id = xmp_photoshop_supplementalcategories.id_xmp" + // NOI18N
+                " WHERE files.filename IN" + // NOI18N
+                " (" + getPlaceholder(fileCount) + ")"; // NOI18N
+    }
+
+    /**
+     * Returns XMP metadata of files.
+     *
+     * @param filenames filenames
+     * @return          XMP metadata where the first element of a pair is the
+     *                  name of a file and the second the XMP metadata of that
+     *                  file
+     */
+    public List<Pair<String, Xmp>> getXmpOfFiles(
+            Collection<? extends String> filenames) {
+        List<Pair<String, Xmp>> list = new ArrayList<Pair<String, Xmp>>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                    getXmpOfFilesStatement(filenames.size()));
+            setStrings(stmt, (String[]) filenames.toArray(), 1);
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            String prevFilename = "";
+            Xmp xmp = new Xmp();
+            while (rs.next()) {
+                String filename = rs.getString(1);
+                if (!filename.equals(prevFilename)) {
+                    xmp = new Xmp();
+                }
+                xmp.setDcCreator(rs.getString(2));
+                xmp.setDcDescription(rs.getString(3));
+                xmp.setDcRights(rs.getString(4));
+                xmp.setDcTitle(rs.getString(5));
+                xmp.setIptc4xmpcoreCountrycode(rs.getString(6));
+                xmp.setIptc4xmpcoreLocation(rs.getString(7));
+                xmp.setPhotoshopAuthorsposition(rs.getString(8));
+                xmp.setPhotoshopCaptionwriter(rs.getString(9));
+                xmp.setPhotoshopCategory(rs.getString(10));
+                xmp.setPhotoshopCity(rs.getString(11));
+                xmp.setPhotoshopCountry(rs.getString(12));
+                xmp.setPhotoshopCredit(rs.getString(13));
+                xmp.setPhotoshopHeadline(rs.getString(14));
+                xmp.setPhotoshopInstructions(rs.getString(15));
+                xmp.setPhotoshopSource(rs.getString(16));
+                xmp.setPhotoshopState(rs.getString(17));
+                xmp.setPhotoshopTransmissionReference(rs.getString(18));
+                String value = rs.getString(19);
+                if (value != null) {
+                    xmp.addDcSubject(value);
+                }
+                value = rs.getString(20);
+                if (value != null) {
+                    xmp.addPhotoshopSupplementalCategory(value);
+                }
+                long rating = rs.getLong(21);
+                xmp.setRating(rs.wasNull()
+                              ? null
+                              : rating);
+                if (!filename.equals(prevFilename)) {
+                    list.add(new Pair<String, Xmp>(filename, xmp));
+                }
+                prevFilename = filename;
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return list;
+    }
+
+    private void setStrings(
+            PreparedStatement stmt,
+            String[] strings,
+            int startIndex) throws SQLException {
+
+        assert startIndex >= 1 : "Invalid SQL statement position: " + startIndex;
+
+        int endIndex = startIndex + strings.length;
+        int stringIndex = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            stmt.setString(i, strings[stringIndex++]);
+        }
+    }
+
+    private static String getPlaceholder(int count) {
+        StringBuilder sb = new StringBuilder(count * 3 - 2); // 3: ", ?"
+        for (int i = 0; i < count; i++) {
+            sb.append(i > 0 && i < count
+                      ? ", ?"
+                      : "?");
+        }
+        return sb.toString();
     }
 
     private String getXmpOfFileStatement() {
