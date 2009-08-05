@@ -738,7 +738,7 @@ public final class DatabaseImageFiles extends Database {
         stmt.setString(17, xmp.getPhotoshopState());
         stmt.setString(18, xmp.getPhotoshopTransmissionReference());
         Long rating = xmp.getRating();
-        if (rating == null) {
+        if (rating == null || rating == 0) {
             stmt.setNull(19, java.sql.Types.BIGINT);
         } else {
             stmt.setLong(19, xmp.getRating());
@@ -910,7 +910,7 @@ public final class DatabaseImageFiles extends Database {
                     xmp.addPhotoshopSupplementalCategory(value);
                 }
                 long rating = rs.getLong(21);
-                xmp.setRating(rs.wasNull()
+                xmp.setRating(rs.wasNull() || rating == 0
                               ? null
                               : rating);
                 if (!filename.equals(prevFilename)) {
@@ -1026,7 +1026,7 @@ public final class DatabaseImageFiles extends Database {
                     xmp.addPhotoshopSupplementalCategory(value);
                 }
                 long rating = rs.getLong(20);
-                xmp.setRating(rs.wasNull()
+                xmp.setRating(rs.wasNull() || rating == 0
                               ? null
                               : rating);
             }
