@@ -11,6 +11,7 @@ import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
+import de.elmar_baumann.lib.util.ArrayUtil;
 import de.elmar_baumann.lib.util.Settings;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -26,7 +27,8 @@ import javax.swing.JProgressBar;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
+public final class UpdateMetadataOfDirectoriesPanel
+        extends javax.swing.JPanel
         implements CheckingForUpdateMetadataListener {
 
     private static final String KEY_LAST_DIRECTORY =
@@ -81,11 +83,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private void updateWillStart(int filecount) {
         setEnabledButtons(true);
         setEnabledCheckboxes(true);
-        setProgressBarPriorToStartUpdate(filecount);
+        setProgressBarPreStartUpdate(filecount);
         listDirectories.setEnabled(false);
     }
 
-    private void setProgressBarPriorToStartUpdate(int filecount) {
+    private void setProgressBarPreStartUpdate(int filecount) {
         progressBar.setValue(0);
         progressBar.setMinimum(0);
         progressBar.setMaximum(filecount);
@@ -123,8 +125,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private synchronized void interruptImageFileInsterter() {
         if (imageFileInserter != null) {
             imageFileInserter.cancel();
-            imageFileInserter.removeActionListener(this);
-            imageFileInserter = null;
         }
     }
 
@@ -180,6 +180,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                 labelCurrentFilename.setText(filename);
             }
         } else if (e.getType().equals(Type.CHECK_FINISHED)) {
+            imageFileInserter.removeActionListener(this);
+            imageFileInserter = null;
             updateFinished();
         }
     }
@@ -237,25 +239,16 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             progressBar.setString(Bundle.getString(
                     "UpdateMetadataOfDirectoriesPanel.Info.AddDirectories"));
             List<File> newDirectories =
-                    getNotAlreadyChoosenDirectoriesOf(directories);
-            if (newDirectories.size() > 0) {
-                newDirectories.addAll(directories);
-                removeAllDirectories();
-                addDirectories(newDirectories);
-                labelFilecount.setText(Integer.toHexString(getFileCount()));
-            }
+                    getNotDirectoriesNotInListFrom(directories);
+            ArrayUtil.addNotContainedElements(directories, newDirectories);
+            addDirectories(newDirectories);
+            labelFilecount.setText(Integer.toString(getFileCount()));
             progressBar.setString("");
             progressBar.setIndeterminate(false);
             buttonStart.setEnabled(listModelDirectories.getSize() > 0);
         }
 
-        private void removeAllDirectories() {
-            listModelDirectories.removeAllElements();
-            labelFilecount.setText("0"); // NOI18N
-        }
-
-        private List<File> getNotAlreadyChoosenDirectoriesOf(
-                List<File> directories) {
+        private List<File> getNotDirectoriesNotInListFrom(List<File> directories) {
             List<File> newDirectories = new ArrayList<File>();
             for (File directory : directories) {
                 if (!listModelDirectories.contains(directory)) {
@@ -273,19 +266,22 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                     ComparatorFilesNames.ASCENDING_IGNORE_CASE);
             for (File directory : directories) {
                 DirectoryInfo directoryInfo = new DirectoryInfo(directory);
-                if (directoryInfo.hasImageFiles()) {
+                if (directoryInfo.hasImageFiles() &&
+                        !listModelDirectories.contains(directoryInfo)) {
                     listModelDirectories.addElement(directoryInfo);
                 }
             }
         }
 
         private void addSubdirectories(List<File> directories) {
+            List<File> subdirectories = new ArrayList<File>();
             for (File dir : directories) {
-                directories.addAll(
+                subdirectories.addAll(
                         FileUtil.getSubdirectoriesRecursive(
                         dir,
                         UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
             }
+            ArrayUtil.addNotContainedElements(subdirectories, directories);
         }
     }
 
@@ -379,10 +375,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addComponent(checkBoxIncludeSubdirectories)
                     .addComponent(checkBoxForce)
-                    .addComponent(labelInfotext, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addComponent(labelInfotext, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonChooseDirectories)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -397,8 +393,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                         .addComponent(labelInfoFilecount)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                    .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
+                    .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -409,10 +405,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelInfoCurrentFilename))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelCurrentFilename, 0, 0, Short.MAX_VALUE)
+                    .addComponent(labelInfoCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
                 .addComponent(labelHeadingListDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
