@@ -18,10 +18,12 @@ public final class Exif {
     /**
      * Returns the date when the image was created.
      * 
-     * @return date
+     * @return date or null if not defined
      */
     public Date getDateTimeOriginal() {
-        return new Date(dateTimeOriginal.getTime());
+        return dateTimeOriginal == null
+                ? null
+                : new Date(dateTimeOriginal.getTime());
     }
 
     /**
