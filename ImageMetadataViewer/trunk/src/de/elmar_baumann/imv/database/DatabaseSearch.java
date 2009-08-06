@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.DatabaseMetadataUtil;
 import de.elmar_baumann.imv.database.metadata.Join;
+import de.elmar_baumann.imv.database.metadata.Join.Type;
 import de.elmar_baumann.imv.database.metadata.ParamStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -125,8 +126,8 @@ public final class DatabaseSearch extends Database {
                 searchColumns);
 
         sql.append((tablename.equals("xmp") // NOI18N
-                    ? Join.getSqlFilesXmpJoin(tablenames) // NOI18N
-                    : Join.getSqlFilesExifJoin(tablenames)) + // NOI18N
+                    ? Join.getSqlFilesXmpJoin(Type.INNER, Type.LEFT, tablenames) // NOI18N
+                    : Join.getSqlFilesExifJoin(Type.INNER, tablenames)) + // NOI18N
                 " WHERE "); // NOI18N
         boolean isFirstColumn = true;
         for (Column tableColumn : searchColumns) {
