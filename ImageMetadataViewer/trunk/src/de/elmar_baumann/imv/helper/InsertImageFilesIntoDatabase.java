@@ -159,7 +159,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             String filename = filenames.get(index);
             currentFilename = filename;
             ImageFile imageFile = getImageFile(filename);
-            updatePerformed(index + 1, index + 1 < count
+            updateCheckWillPerformed(index + 1, index + 1 < count
                                        ? filenames.get(index + 1)
                                        : filename);
             if (isUpdate(imageFile)) {
@@ -365,7 +365,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         notifyActionListeners(Type.CHECK_STARTED, null);
     }
 
-    private void updatePerformed(int value, String filename) {
+    private void updateCheckWillPerformed(int value, String filename) {
         informationMessagePerformed(filename);
         notifyActionListeners(Type.CHECKING_FILE, filename);
         if (progressBar != null) {
