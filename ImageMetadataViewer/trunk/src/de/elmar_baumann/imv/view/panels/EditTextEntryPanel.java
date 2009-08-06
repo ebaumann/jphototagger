@@ -52,7 +52,7 @@ public final class EditTextEntryPanel
 
     @Override
     public String getText() {
-        return textAreaEdit.getText();
+        return textAreaEdit.getText().trim();
     }
 
     @Override
