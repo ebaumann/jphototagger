@@ -118,7 +118,7 @@
 			<title>In einen Ordner kopieren</title>
 		</page>
 		<page>
-			<url>action_filesystem_rename.html</url>
+			<url>dialog_filesystem_rename.html</url>
 			<title>Auf dem Datenträger Umbenennen</title>
 		</page>
 		<page>
@@ -239,7 +239,7 @@
 			<title>Dialog Programmeigenschaften</title>
 		</page>
 		<page>
-			<url>dialog_filesystem_rename</url>
+			<url>dialog_filesystem_rename.html</url>
 			<title>Dialog: Umbenennen</title>
 		</page>
 	</node>
