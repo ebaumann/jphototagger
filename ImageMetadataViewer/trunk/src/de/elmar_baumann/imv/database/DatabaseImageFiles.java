@@ -7,6 +7,8 @@ import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.metadata.Join;
+import de.elmar_baumann.imv.database.metadata.exif.TableExif;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
@@ -25,6 +27,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -1757,5 +1760,50 @@ public final class DatabaseImageFiles extends Database {
             free(connection);
         }
         return exists;
+    }
+
+    /**
+     * Returns the names of files without specific metadata.
+     *
+     * @param   column column where it's table has to be either {@link TableExif}
+     *                 or {@link TableXmp}
+     * @return         names of files without metadata for that column
+     */
+    public List<String> getFilenamesWithoutMetadata(Column column) {
+        if (!checkIsExifOrXmpColumn(column)) return new ArrayList<String>();
+        List<String> files = new ArrayList<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String columnName = column.getName();
+            String tableName = column.getTable().getName();
+            String sql = "SELECT" + // NOI18N
+                    " files.filename" + // NOI18N
+                    " FROM" +
+                    (tableName.startsWith("exif")
+                     ? Join.getSqlFilesExifJoin(Arrays.asList(tableName))
+                     : Join.getSqlFilesXmpJoin(Arrays.asList(tableName))) +
+                    " WHERE " + tableName + "." + columnName + " IS NULL";  // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                files.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return files;
+    }
+
+    private boolean checkIsExifOrXmpColumn(Column column) {
+        boolean isExifOrXmpColumn = column.getTable().getName().startsWith("exif") ||
+                column.getTable().getName().startsWith("xmp");
+        assert isExifOrXmpColumn : "Only EXIF or XMP table are valid, not: " +
+                column.getTable();
+        return isExifOrXmpColumn;
     }
 }

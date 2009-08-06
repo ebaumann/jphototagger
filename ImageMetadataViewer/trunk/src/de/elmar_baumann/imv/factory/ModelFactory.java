@@ -65,6 +65,7 @@ public final class ModelFactory {
         setListModelImageCollections(appPanel);
         setListModelCategories(appPanel);
         setListModelKeywords(appPanel);
+        setListModelNoMetadata(appPanel);
     }
 
     private void setListModelSavedSearches(final AppPanel appPanel) {
@@ -113,6 +114,11 @@ public final class ModelFactory {
         });
         thread.setName("Creating keywords model @ " + getClass().getName()); // NOI18N
         thread.start();
+    }
+
+    private void setListModelNoMetadata(AppPanel appPanel) {
+        appPanel.getListNoMetadata().setModel(
+                new de.elmar_baumann.imv.model.ListModelNoMetadata());
     }
 
     private void setTableModels(final AppPanel appPanel) {

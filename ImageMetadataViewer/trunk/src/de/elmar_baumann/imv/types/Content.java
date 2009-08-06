@@ -51,6 +51,10 @@ public enum Content {
      */
     MISC_METADATA,
     /**
+     * The displayed thumbnails are images without specific metadata
+     */
+    MISSING_METADATA,
+    /**
      * The displayed thumbnails are the images of a saved search.
      * The images can be located in multiple file system directories.
      */
@@ -97,6 +101,7 @@ public enum Content {
         SORTABLE_CONTENT.add(FAVORITE);
         SORTABLE_CONTENT.add(KEYWORD);
         SORTABLE_CONTENT.add(MISC_METADATA);
+        SORTABLE_CONTENT.add(MISSING_METADATA);
         SORTABLE_CONTENT.add(SAVED_SEARCH);
         SORTABLE_CONTENT.add(TIMELINE);
     }
