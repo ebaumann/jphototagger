@@ -157,14 +157,14 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             String filename = filenames.get(index);
             currentFilename = filename;
             ImageFile imageFile = getImageFile(filename);
+            progressPerformed(index + 1, index + 1 < count
+                                         ? filenames.get(index + 1)
+                                         : filename);
             if (isUpdate(imageFile)) {
                 logInsertImageFile(imageFile);
                 db.insertOrUpdateImageFile(imageFile);
                 runActionsAfterInserting(imageFile);
             }
-            progressPerformed(index + 1, index + 1 < count
-                                         ? filenames.get(index + 1)
-                                         : filename);
         }
         currentFilename = null;
         progressEnded(count);
