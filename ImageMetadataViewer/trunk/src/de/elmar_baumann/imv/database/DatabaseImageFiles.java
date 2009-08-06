@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.data.Timeline;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.Join;
+import de.elmar_baumann.imv.database.metadata.Join.Type;
 import de.elmar_baumann.imv.database.metadata.exif.TableExif;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
@@ -22,6 +23,7 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1370,8 +1372,9 @@ public final class DatabaseImageFiles extends Database {
                 " VALUES (?, ?, ?, ?, ?)"; // NOI18N
     }
 
-    private void setExifValues(PreparedStatement stmt, long idFile,
-            Exif exifData) throws SQLException {
+    private void setExifValues(
+            PreparedStatement stmt, long idFile, Exif exifData)
+            throws SQLException {
 
         stmt.setLong(1, idFile);
         String recordingEquipment = exifData.getRecordingEquipment();
@@ -1380,7 +1383,12 @@ public final class DatabaseImageFiles extends Database {
         } else {
             stmt.setString(2, recordingEquipment);
         }
-        stmt.setDate(3, exifData.getDateTimeOriginal());
+        Date date = exifData.getDateTimeOriginal();
+        if (date == null) {
+            stmt.setNull(2, java.sql.Types.DATE);
+        } else {
+            stmt.setDate(3, date);
+        }
         double focalLength = exifData.getFocalLength();
         if (focalLength > 0) {
             stmt.setDouble(4, focalLength);
@@ -1416,8 +1424,8 @@ public final class DatabaseImageFiles extends Database {
             throws SQLException {
 
         if (exifData != null && !exifData.isEmpty()) {
-            PreparedStatement stmt = connection.prepareStatement(
-                    getInsertIntoExifStatement());
+            PreparedStatement stmt =
+                    connection.prepareStatement(getInsertIntoExifStatement());
             setExifValues(stmt, idFile, exifData);
             AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             stmt.executeUpdate();
@@ -1781,8 +1789,10 @@ public final class DatabaseImageFiles extends Database {
                     " files.filename" + // NOI18N
                     " FROM" +
                     (tableName.startsWith("exif")
-                     ? Join.getSqlFilesExifJoin(Arrays.asList(tableName))
-                     : Join.getSqlFilesXmpJoin(Arrays.asList(tableName))) +
+                     ? Join.getSqlFilesExifJoin(Type.LEFT, Arrays.asList(
+                    tableName))
+                     : Join.getSqlFilesXmpJoin(Type.LEFT, Type.LEFT, Arrays.
+                    asList(tableName))) +
                     " WHERE " + tableName + "." + columnName + " IS NULL";  // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
@@ -1800,7 +1810,8 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private boolean checkIsExifOrXmpColumn(Column column) {
-        boolean isExifOrXmpColumn = column.getTable().getName().startsWith("exif") ||
+        boolean isExifOrXmpColumn = column.getTable().getName().startsWith(
+                "exif") ||
                 column.getTable().getName().startsWith("xmp");
         assert isExifOrXmpColumn : "Only EXIF or XMP table are valid, not: " +
                 column.getTable();
