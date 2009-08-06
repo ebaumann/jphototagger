@@ -19,9 +19,6 @@ public final class DatabaseStatistics extends Database {
 
     public static final DatabaseStatistics INSTANCE = new DatabaseStatistics();
 
-    private DatabaseStatistics() {
-    }
-
     /**
      * Liefert die Anzahl der Datensätze für verschiedene Spaltenwerte.
      *
@@ -238,5 +235,8 @@ public final class DatabaseStatistics extends Database {
             free(connection);
         }
         return count > 0;
+    }
+
+    private DatabaseStatistics() {
     }
 }
