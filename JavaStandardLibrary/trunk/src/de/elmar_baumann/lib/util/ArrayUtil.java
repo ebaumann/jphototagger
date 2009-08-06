@@ -172,6 +172,29 @@ public final class ArrayUtil {
         return tokenString.toString();
     }
 
+    /**
+     * Inserts into one collection all elements of another collection not
+     * contained in that collection.
+     *
+     * Uses {@link Collection#contains(java.lang.Object)} to compare elements.
+     *
+     * @param <T>    the collection's element type
+     * @param src    source collection to get elements from
+     * @param target target collection to put elements into
+     */
+    public static <T> void addNotContainedElements(
+            Collection<? extends T> src, Collection<? super T> target) {
+
+        assert src != target : "Collections equals!";
+        if (src == target) return;
+
+        for (T t : src) {
+            if (!target.contains(t)) {
+                target.add(t);
+            }
+        }
+    }
+
     private ArrayUtil() {
     }
 }
