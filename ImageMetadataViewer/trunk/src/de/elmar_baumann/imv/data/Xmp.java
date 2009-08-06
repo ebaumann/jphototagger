@@ -46,6 +46,13 @@ public final class Xmp implements TextEntryListener {
     private final Map<Column, Object> valueOfColumn =
             new HashMap<Column, Object>();
 
+    public Xmp() {
+    }
+
+    public Xmp(Xmp other) {
+        set(other);
+    }
+
     /**
      * Returns the XMP value of dc:creator (photographer).
      * 
@@ -714,6 +721,53 @@ public final class Xmp implements TextEntryListener {
         if (!list.contains(string)) {
             list.add(string);
         }
+    }
+
+    /**
+     * Sets the values of an other XMP object via deep copy.
+     *
+     * @param xmp Other XMP object
+     */
+    // All get() calls are returning null after clear(). Thus a column with a
+    // value of null has not to be set.
+    public void set(Xmp xmp) {
+        if (xmp == this) return;
+        valueOfColumn.clear();
+        for (Column column : xmp.valueOfColumn.keySet()) {
+            Object o = xmp.valueOfColumn.get(column);
+            if (isImmutable(o)) {
+                valueOfColumn.put(column, o);
+            } else if (o instanceof List) {
+                valueOfColumn.put(column, deepCopy((List) o));
+            } else if (o != null) {
+                assert false : "Unregognized data type of: " + o;
+            }
+        }
+    }
+
+    // If true o is not null
+    private boolean isImmutable(Object o) {
+        return o instanceof Boolean ||
+                o instanceof Character ||
+                o instanceof Byte ||
+                o instanceof Short ||
+                o instanceof Integer ||
+                o instanceof Long ||
+                o instanceof Float ||
+                o instanceof Double ||
+                o instanceof String;
+    }
+
+    private List<Object> deepCopy(List list) {
+        List<Object> copy = new ArrayList<Object>(list.size());
+        for (Object o : list) {
+            if (isImmutable(o)) {
+                copy.add(o);
+            } else { // Even null in a collection is not valid
+                assert false : "Unregognized data type of: " + o;
+            }
+        }
+        return copy;
     }
 
     @Override
