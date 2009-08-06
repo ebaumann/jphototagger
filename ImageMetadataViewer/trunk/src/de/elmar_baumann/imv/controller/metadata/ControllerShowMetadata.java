@@ -228,7 +228,10 @@ public final class ControllerShowMetadata implements DatabaseListener,
             if (metadata.contains(Metadata.XMP)) {
                 setXmpModels(file.getAbsolutePath());
             }
-            appPanel.getLabelMetadataFilename().setText(file.getName());
+            appPanel.getLabelMetadataFilename().setText(file.getName() +
+                    (XmpMetadata.hasImageASidecarFile(file.getAbsolutePath())
+                        ? ""
+                        : Bundle.getString("ControllerShowMetadata.Embedded")));
             resizeMetadataTables(metadata);
             repaintMetadataTables(metadata);
         }
