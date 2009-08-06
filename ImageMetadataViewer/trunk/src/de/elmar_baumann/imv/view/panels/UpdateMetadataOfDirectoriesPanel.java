@@ -4,14 +4,17 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
+import de.elmar_baumann.lib.util.Settings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
@@ -31,15 +34,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             "de.elmar_baumann.imv.view.ScanDirectoriesDialog.force"; // NOI18N
     private static final String KEY_SUBDIRECTORIES =
             "de.elmar_baumann.imv.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
-    private final DefaultListModel modelSelectedDirectoryList =
-            new DefaultListModel();
-    private List<File> selectedFiles = new ArrayList<File>();
+    private final DefaultListModel listModelDirectories = new DefaultListModel();
     private InsertImageFilesIntoDatabase imageFileInserter;
-    private File lastSelectedDirectory = new File(""); // NOI18N
-    private int countSelectedFiles = 0;
+    private File lastDirectory = new File(""); // NOI18N
     private ProgressBarProvider progressBarProvider;
 
-    /** Creates new form UpdateMetadataOfDirectoriesPanel */
     public UpdateMetadataOfDirectoriesPanel() {
         initComponents();
         progressBarProvider = new ProgressBarProvider(progressBar);
@@ -49,37 +48,62 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     public void willDispose() {
         interruptImageFileInsterter();
         writeProperties();
-        UserSettings.INSTANCE.getSettings().setString(
-                lastSelectedDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
-        UserSettings.INSTANCE.writeToFile();
     }
 
-    private void chooseDirectories() {
-        final DirectoryChooser dialog = new DirectoryChooser(null,
-                lastSelectedDirectory, getDirectoryChooserOptions());
-        dialog.setVisible(true);
-        if (dialog.accepted()) {
-            progressBar.setIndeterminate(true);
-            List<File> selDirs = dialog.getSelectedDirectories();
-            lastSelectedDirectory = selDirs.get(0);
-            AddDirectories addDirectories = new AddDirectories(selDirs);
-            addDirectories.start(); // unsets the progressbar indeterminate state
+    public void handleRemoveSelectedDirectories() {
+        removeSelectedDirectories();
+        buttonStart.setEnabled(!listModelDirectories.isEmpty());
+        labelFilecount.setText(Integer.toString(getFileCount()));
+    }
+
+    private void removeSelectedDirectories() {
+        for (Object selectedValue : listDirectories.getSelectedValues()) {
+            listModelDirectories.removeElement(selectedValue);
         }
     }
 
-    private void createImageFileInserter() {
+    private int getFileCount() {
+        int count = 0;
+        for (Object element : listModelDirectories.toArray()) {
+            count += ((DirectoryInfo) element).getImageFileCount();
+        }
+        return count;
+    }
+
+    private void startUpdate() {
+        List<File> selectedImageFiles = getSelectedImageFiles();
+        updateWillStart(selectedImageFiles.size());
+        createImageFileInserter(selectedImageFiles);
+        imageFileInserter.start();
+    }
+
+    private void updateWillStart(int filecount) {
+        setEnabledButtons(true);
+        setEnabledCheckboxes(true);
+        setProgressBarPriorToStartUpdate(filecount);
+        listDirectories.setEnabled(false);
+    }
+
+    private void setProgressBarPriorToStartUpdate(int filecount) {
+        progressBar.setValue(0);
+        progressBar.setMinimum(0);
+        progressBar.setMaximum(filecount);
+    }
+
+    private List<File> getSelectedImageFiles() {
+        List<File> imageFiles = new ArrayList<File>();
+        for (Object element : listModelDirectories.toArray()) {
+            imageFiles.addAll(((DirectoryInfo) element).getImageFiles());
+        }
+        return imageFiles;
+    }
+
+    private void createImageFileInserter(List<File> selectedImageFiles) {
         imageFileInserter = new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(selectedFiles),
+                FileUtil.getAsFilenames(selectedImageFiles),
                 getWhatToInsertIntoDatabase(),
                 progressBarProvider);
         imageFileInserter.addActionListener(this);
-    }
-
-    private Set<DirectoryChooser.Option> getDirectoryChooserOptions() {
-        return EnumSet.of(DirectoryChooser.Option.MULTI_SELECTION,
-                UserSettings.INSTANCE.isAcceptHiddenDirectories()
-                ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
-                : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     private EnumSet<InsertImageFilesIntoDatabase.Insert> getWhatToInsertIntoDatabase() {
@@ -91,71 +115,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                : EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
     }
 
-    private List<File> getAllImageFiles() {
-        List<File> imageFiles = new ArrayList<File>();
-        Object[] elements = modelSelectedDirectoryList.toArray();
-        if (elements != null) {
-            for (int index = 0; index < elements.length; index++) {
-                if (elements[index] instanceof DirectoryInfo) {
-                    DirectoryInfo directoryInfo =
-                            (DirectoryInfo) elements[index];
-                    imageFiles.addAll(directoryInfo.getImageFiles());
-                }
-            }
-        }
-        return imageFiles;
-    }
-
-    private List<File> getNotAlreadyChoosenDirectoriesFrom(
-            List<File> directories) {
-        List<File> newDirectories = new ArrayList<File>();
-        for (File directory : directories) {
-            if (!modelSelectedDirectoryList.contains(directory)) {
-                newDirectories.add(directory);
-            }
-        }
-        return newDirectories;
-    }
-
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxForce, KEY_FORCE);
-        UserSettings.INSTANCE.getSettings().getCheckBox(
-                checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
-        readCurrentDirectoryFromProperties();
-    }
-
-    private void removeSelectedDirectories() {
-        Object[] selectedObjects = listSelectedDirectories.getSelectedValues();
-        if (selectedObjects != null) {
-            for (int index = 0; index < selectedObjects.length; index++) {
-                Object selectedObject = selectedObjects[index];
-                if (selectedObject instanceof DirectoryInfo) {
-                    DirectoryInfo directoryInfo = (DirectoryInfo) selectedObject;
-                    modelSelectedDirectoryList.removeElement(directoryInfo);
-                    countSelectedFiles -= directoryInfo.getImageFileCount();
-                }
-            }
-            buttonStart.setEnabled(!modelSelectedDirectoryList.isEmpty());
-            setFileCountInfo();
-        }
-    }
-
-    private void empty() {
-        selectedFiles.clear();
-        modelSelectedDirectoryList.removeAllElements();
-        listSelectedDirectories.setEnabled(true);
-        countSelectedFiles = 0;
-        labelCountSelectedFiles.setText("0"); // NOI18N
-    }
-
-    private void startUpdate() {
-        setImageFilenames();
-        createImageFileInserter();
-        imageFileInserter.start();
-        updateStarted();
-    }
-
-    private void cancelUpdate() {
+    private void stopUpdate() {
         interruptImageFileInsterter();
         updateFinished();
     }
@@ -163,6 +123,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
     private synchronized void interruptImageFileInsterter() {
         if (imageFileInserter != null) {
             imageFileInserter.cancel();
+            imageFileInserter.removeActionListener(this);
             imageFileInserter = null;
         }
     }
@@ -171,90 +132,55 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         setEnabledButtons(false);
         setEnabledCheckboxes(false);
         labelCurrentFilename.setText("-"); // NOI18N
-        listSelectedDirectories.setEnabled(true);
+        listDirectories.setEnabled(true);
     }
 
-    private void updateStarted() {
-        setEnabledButtons(true);
-        setEnabledCheckboxes(true);
-        setProgressBarForUpdate();
-        listSelectedDirectories.setEnabled(false);
+    private void setEnabledButtons(boolean isUpdate) {
+        buttonChooseDirectories.setEnabled(!isUpdate);
+        buttonStart.setEnabled(!isUpdate);
+        buttonStop.setEnabled(isUpdate);
     }
 
-    private void setProgressBarForUpdate() {
-        progressBar.setValue(0);
-        progressBar.setMinimum(0);
-        progressBar.setMaximum(selectedFiles.size());
+    private void setEnabledCheckboxes(boolean isUpdate) {
+        checkBoxForce.setEnabled(!isUpdate);
+        checkBoxIncludeSubdirectories.setEnabled(!isUpdate);
     }
 
-    private void setFileCountInfo() {
-        labelCountSelectedFiles.setText(Integer.toString(countSelectedFiles));
+    private void readProperties() {
+        Settings settings = UserSettings.INSTANCE.getSettings();
+        settings.getCheckBox(checkBoxForce, KEY_FORCE);
+        settings.getCheckBox(checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
+        readLastDirectoryFromProperties();
     }
 
-    private void setImageFilenames() {
-        selectedFiles = getAllImageFiles();
-    }
-
-    private void addDirectories(List<File> directories) {
-        for (File directory : directories) {
-            DirectoryInfo directoryInfo = new DirectoryInfo(directory);
-            if (directoryInfo.hasImageFiles()) {
-                modelSelectedDirectoryList.addElement(directoryInfo);
-                countSelectedFiles += directoryInfo.getImageFileCount();
-            }
-            if (checkBoxIncludeSubdirectories.isSelected()) {
-                addSubdirectories(directory);
-            }
-        }
-    }
-
-    private void addSubdirectories(File directory) {
-        List<File> subdirectories = FileUtil.getSubdirectoriesRecursive(
-                directory,
-                UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
-        for (File dir : subdirectories) {
-            DirectoryInfo directoryInfo = new DirectoryInfo(dir);
-            if (directoryInfo.hasImageFiles()) {
-                modelSelectedDirectoryList.addElement(directoryInfo);
-                countSelectedFiles += directoryInfo.getImageFileCount();
-            }
-        }
-    }
-
-    private void readCurrentDirectoryFromProperties() {
-        String currentDirectoryname =
+    private void readLastDirectoryFromProperties() {
+        String lastDirectoryName =
                 UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
-        if (!currentDirectoryname.isEmpty()) {
-            File directory = new File(currentDirectoryname);
+        if (!lastDirectoryName.isEmpty()) {
+            File directory = new File(lastDirectoryName);
             if (directory.exists() && directory.isDirectory()) {
-                lastSelectedDirectory = directory;
+                lastDirectory = directory;
             }
-
         }
-    }
-
-    private void setEnabledButtons(boolean willCreateThumbnails) {
-        buttonChooseDirectory.setEnabled(!willCreateThumbnails);
-        buttonStart.setEnabled(!willCreateThumbnails);
-        buttonStop.setEnabled(willCreateThumbnails);
-    }
-
-    private void setEnabledCheckboxes(boolean willCreateThumbnails) {
-        checkBoxForce.setEnabled(!willCreateThumbnails);
-        checkBoxIncludeSubdirectories.setEnabled(!willCreateThumbnails);
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setCheckBox(checkBoxForce, KEY_FORCE);
-        UserSettings.INSTANCE.getSettings().setCheckBox(
-                checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+        Settings settings = UserSettings.INSTANCE.getSettings();
+        settings.setCheckBox(checkBoxForce, KEY_FORCE);
+        settings.setCheckBox(checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
+        settings.setSizeAndLocation(this);
+        settings.setString(lastDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 
+    /**
+     * Called from the current updater.
+     *
+     * @param e event containing the current filename
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == imageFileInserter && imageFileInserter != null) {
+        if (imageFileInserter != null && e.getSource() == imageFileInserter) {
             String filename = imageFileInserter.getCurrentFilename();
             assert filename != null : "Filename is null!";
             if (filename != null) {
@@ -270,6 +196,31 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         }
     }
 
+    private void chooseDirectories() {
+        final DirectoryChooser dialog = new DirectoryChooser(
+                null, lastDirectory, getDirectoryChooserOptions());
+        dialog.setVisible(true);
+        if (dialog.accepted()) {
+            progressBar.setIndeterminate(true);
+            List<File> selDirs = dialog.getSelectedDirectories();
+            lastDirectory = selDirs.get(0);
+            new AddDirectories(selDirs).start(); // unsets the progressbar indeterminate state
+        }
+    }
+
+    private Set<DirectoryChooser.Option> getDirectoryChooserOptions() {
+        return EnumSet.of(DirectoryChooser.Option.MULTI_SELECTION,
+                UserSettings.INSTANCE.isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
+    }
+
+    /**
+     * Adds directories to the list of selected directories. It's a thread so
+     * that the progress bar can display an indeterminate state while searching
+     * the image files of that directories. When finished, this class sets the
+     * indeterminate state to false and enables the start button.
+     */
     private class AddDirectories extends Thread {
 
         private final List<File> directories;
@@ -283,17 +234,56 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         public void run() {
             progressBar.setString(Bundle.getString(
                     "UpdateMetadataOfDirectoriesPanel.Info.AddDirectories"));
-            List<File> newDirectories = getNotAlreadyChoosenDirectoriesFrom(
-                    directories);
+            List<File> newDirectories =
+                    getNotAlreadyChoosenDirectoriesOf(directories);
             if (newDirectories.size() > 0) {
-                empty();
+                newDirectories.addAll(directories);
+                removeAllDirectories();
                 addDirectories(newDirectories);
-                setFileCountInfo();
+                labelFilecount.setText(Integer.toHexString(getFileCount()));
             }
             progressBar.setString("");
             progressBar.setIndeterminate(false);
-            buttonStart.setEnabled(
-                    listSelectedDirectories.getModel().getSize() > 0);
+            buttonStart.setEnabled(listModelDirectories.getSize() > 0);
+        }
+
+        private void removeAllDirectories() {
+            listModelDirectories.removeAllElements();
+            labelFilecount.setText("0"); // NOI18N
+        }
+
+        private List<File> getNotAlreadyChoosenDirectoriesOf(
+                List<File> directories) {
+            List<File> newDirectories = new ArrayList<File>();
+            for (File directory : directories) {
+                if (!listModelDirectories.contains(directory)) {
+                    newDirectories.add(directory);
+                }
+            }
+            return newDirectories;
+        }
+
+        private void addDirectories(List<File> directories) {
+            if (checkBoxIncludeSubdirectories.isSelected()) {
+                addSubdirectories(directories);
+            }
+            Collections.sort(directories,
+                    ComparatorFilesNames.ASCENDING_IGNORE_CASE);
+            for (File directory : directories) {
+                DirectoryInfo directoryInfo = new DirectoryInfo(directory);
+                if (directoryInfo.hasImageFiles()) {
+                    listModelDirectories.addElement(directoryInfo);
+                }
+            }
+        }
+
+        private void addSubdirectories(List<File> directories) {
+            for (File dir : directories) {
+                directories.addAll(
+                        FileUtil.getSubdirectoriesRecursive(
+                        dir,
+                        UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+            }
         }
     }
 
@@ -310,14 +300,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         progressBar = new javax.swing.JProgressBar();
         labelInfoCurrentFilename = new javax.swing.JLabel();
         labelCurrentFilename = new javax.swing.JLabel();
-        labelHeadingTreeChosenDirectories = new javax.swing.JLabel();
-        scrollPaneSelectedDirectories = new javax.swing.JScrollPane();
-        listSelectedDirectories = new javax.swing.JList();
-        labelInfoCountSelectedFiles = new javax.swing.JLabel();
-        labelCountSelectedFiles = new javax.swing.JLabel();
+        labelHeadingListDirectories = new javax.swing.JLabel();
+        scrollPaneListDirectories = new javax.swing.JScrollPane();
+        listDirectories = new javax.swing.JList();
+        labelInfoFilecount = new javax.swing.JLabel();
+        labelFilecount = new javax.swing.JLabel();
         checkBoxForce = new javax.swing.JCheckBox();
         checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
-        buttonChooseDirectory = new javax.swing.JButton();
+        buttonChooseDirectories = new javax.swing.JButton();
         buttonStop = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
@@ -332,33 +322,33 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
         labelCurrentFilename.setForeground(new java.awt.Color(51, 51, 255));
         labelCurrentFilename.setPreferredSize(new java.awt.Dimension(4, 20));
 
-        labelHeadingTreeChosenDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingTreeChosenDirectories.text")); // NOI18N
+        labelHeadingListDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
 
-        listSelectedDirectories.setModel(modelSelectedDirectoryList);
-        listSelectedDirectories.setCellRenderer(new de.elmar_baumann.imv.view.renderer.ListCellRendererDirectories());
-        listSelectedDirectories.addKeyListener(new java.awt.event.KeyAdapter() {
+        listDirectories.setModel(listModelDirectories);
+        listDirectories.setCellRenderer(new de.elmar_baumann.imv.view.renderer.ListCellRendererDirectories());
+        listDirectories.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                listSelectedDirectoriesKeyReleased(evt);
+                listDirectoriesKeyReleased(evt);
             }
         });
-        scrollPaneSelectedDirectories.setViewportView(listSelectedDirectories);
+        scrollPaneListDirectories.setViewportView(listDirectories);
 
-        labelInfoCountSelectedFiles.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoCountSelectedFiles.text")); // NOI18N
+        labelInfoFilecount.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
 
-        labelCountSelectedFiles.setForeground(new java.awt.Color(0, 153, 0));
-        labelCountSelectedFiles.setText("0");
-        labelCountSelectedFiles.setPreferredSize(new java.awt.Dimension(4, 20));
+        labelFilecount.setForeground(new java.awt.Color(0, 153, 0));
+        labelFilecount.setText("0");
+        labelFilecount.setPreferredSize(new java.awt.Dimension(4, 20));
 
         checkBoxForce.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
 
         checkBoxIncludeSubdirectories.setSelected(true);
         checkBoxIncludeSubdirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
 
-        buttonChooseDirectory.setMnemonic('v');
-        buttonChooseDirectory.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectory.text")); // NOI18N
-        buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
+        buttonChooseDirectories.setMnemonic('v');
+        buttonChooseDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
+        buttonChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChooseDirectoryActionPerformed(evt);
+                buttonChooseDirectoriesActionPerformed(evt);
             }
         });
 
@@ -392,7 +382,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                     .addComponent(checkBoxForce)
                     .addComponent(labelInfotext, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonChooseDirectory)
+                        .addComponent(buttonChooseDirectories)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -402,11 +392,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelInfoCountSelectedFiles)
+                        .addComponent(labelInfoFilecount)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCountSelectedFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelHeadingTreeChosenDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                    .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
+                        .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -421,13 +411,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                     .addComponent(labelCurrentFilename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelInfoCurrentFilename))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelHeadingTreeChosenDirectories)
+                .addComponent(labelHeadingListDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneSelectedDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCountSelectedFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelInfoCountSelectedFiles))
+                    .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelInfoFilecount))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxForce)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -436,42 +426,42 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonStart)
                     .addComponent(buttonStop)
-                    .addComponent(buttonChooseDirectory))
+                    .addComponent(buttonChooseDirectories))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void listSelectedDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listSelectedDirectoriesKeyReleased
+private void listDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listDirectoriesKeyReleased
     if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-        removeSelectedDirectories();
+        handleRemoveSelectedDirectories();
     }
-}//GEN-LAST:event_listSelectedDirectoriesKeyReleased
+}//GEN-LAST:event_listDirectoriesKeyReleased
 
-private void buttonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
+private void buttonChooseDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoriesActionPerformed
     chooseDirectories();
-}//GEN-LAST:event_buttonChooseDirectoryActionPerformed
+}//GEN-LAST:event_buttonChooseDirectoriesActionPerformed
 
 private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
     startUpdate();
 }//GEN-LAST:event_buttonStartActionPerformed
 
 private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
-    cancelUpdate();
+    stopUpdate();
 }//GEN-LAST:event_buttonStopActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonChooseDirectory;
+    private javax.swing.JButton buttonChooseDirectories;
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonStop;
     private javax.swing.JCheckBox checkBoxForce;
     private javax.swing.JCheckBox checkBoxIncludeSubdirectories;
-    private javax.swing.JLabel labelCountSelectedFiles;
     private javax.swing.JLabel labelCurrentFilename;
-    private javax.swing.JLabel labelHeadingTreeChosenDirectories;
-    private javax.swing.JLabel labelInfoCountSelectedFiles;
+    private javax.swing.JLabel labelFilecount;
+    private javax.swing.JLabel labelHeadingListDirectories;
     private javax.swing.JLabel labelInfoCurrentFilename;
+    private javax.swing.JLabel labelInfoFilecount;
     private javax.swing.JLabel labelInfotext;
-    private javax.swing.JList listSelectedDirectories;
+    private javax.swing.JList listDirectories;
     private javax.swing.JProgressBar progressBar;
-    private javax.swing.JScrollPane scrollPaneSelectedDirectories;
+    private javax.swing.JScrollPane scrollPaneListDirectories;
     // End of variables declaration//GEN-END:variables
 }

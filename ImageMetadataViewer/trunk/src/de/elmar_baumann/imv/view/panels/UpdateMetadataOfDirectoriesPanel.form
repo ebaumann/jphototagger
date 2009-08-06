@@ -25,7 +25,7 @@
                   <Component id="checkBoxForce" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="labelInfotext" alignment="0" pref="478" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonChooseDirectories" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -37,12 +37,12 @@
                       <Component id="labelCurrentFilename" pref="402" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelInfoCountSelectedFiles" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelInfoFilecount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelCountSelectedFiles" min="-2" pref="143" max="-2" attributes="0"/>
+                      <Component id="labelFilecount" min="-2" pref="143" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelHeadingTreeChosenDirectories" alignment="0" pref="478" max="32767" attributes="1"/>
-                  <Component id="scrollPaneSelectedDirectories" alignment="0" pref="478" max="32767" attributes="2"/>
+                  <Component id="labelHeadingListDirectories" alignment="0" pref="478" max="32767" attributes="1"/>
+                  <Component id="scrollPaneListDirectories" alignment="0" pref="478" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -61,13 +61,13 @@
                   <Component id="labelInfoCurrentFilename" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="labelHeadingTreeChosenDirectories" min="-2" max="-2" attributes="0"/>
+              <Component id="labelHeadingListDirectories" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="scrollPaneSelectedDirectories" pref="81" max="32767" attributes="0"/>
+              <Component id="scrollPaneListDirectories" pref="81" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelCountSelectedFiles" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="labelInfoCountSelectedFiles" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelFilecount" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="labelInfoFilecount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxForce" min="-2" max="-2" attributes="0"/>
@@ -77,7 +77,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonStart" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonStop" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonChooseDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonChooseDirectories" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -118,43 +118,43 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelHeadingTreeChosenDirectories">
+    <Component class="javax.swing.JLabel" name="labelHeadingListDirectories">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelHeadingTreeChosenDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="scrollPaneSelectedDirectories">
+    <Container class="javax.swing.JScrollPane" name="scrollPaneListDirectories">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="listSelectedDirectories">
+        <Component class="javax.swing.JList" name="listDirectories">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="modelSelectedDirectoryList" type="code"/>
+              <Connection code="listModelDirectories" type="code"/>
             </Property>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new de.elmar_baumann.imv.view.renderer.ListCellRendererDirectories()" type="code"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listSelectedDirectoriesKeyReleased"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listDirectoriesKeyReleased"/>
           </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="labelInfoCountSelectedFiles">
+    <Component class="javax.swing.JLabel" name="labelInfoFilecount">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelInfoCountSelectedFiles.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelCountSelectedFiles">
+    <Component class="javax.swing.JLabel" name="labelFilecount">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="99" red="0" type="rgb"/>
@@ -180,15 +180,15 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonChooseDirectory">
+    <Component class="javax.swing.JButton" name="buttonChooseDirectories">
       <Properties>
         <Property name="mnemonic" type="int" value="118"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonChooseDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDirectoryActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDirectoriesActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonStop">
