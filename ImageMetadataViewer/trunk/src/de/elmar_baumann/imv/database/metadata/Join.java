@@ -24,27 +24,6 @@ public final class Join {
 
     /**
      * Liefert den JOIN-Anteil eines SQL-Statements für eine Verknüpfung
-     * der files-Tabelle mit verschiedenen IPTC-Tabellen (LEFT JOIN).
-     * 
-     * @param tablenames Namen der Tabellen
-     * @return           JOIN-Statement
-     */
-    public static String getSqlFilesIptcJoin(List<String> tablenames) {
-        StringBuffer join = new StringBuffer(
-            " files INNER JOIN iptc on files.id = iptc.id_files"); // NOI18N
-
-        for (String tablename : tablenames) {
-            if (tablename.startsWith("iptc") && !tablename.equals("iptc")) { // NOI18N
-                join.append(" LEFT JOIN " + tablename + " ON iptc.id = " + // NOI18N
-                    tablename + ".id_iptc"); // NOI18N
-            }
-        }
-
-        return join.toString();
-    }
-
-    /**
-     * Liefert den JOIN-Anteil eines SQL-Statements für eine Verknüpfung
      * der xmp-Tabelle mit verschiedenen XMP-Tabellen (LEFT JOIN).
      * 
      * @param tablenames Namen der Tabellen
