@@ -1,6 +1,9 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent;
+import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent.Type;
+import de.elmar_baumann.imv.event.listener.CheckingForUpdateMetadataListener;
 import de.elmar_baumann.imv.io.DirectoryInfo;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
@@ -9,8 +12,6 @@ import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import de.elmar_baumann.lib.util.Settings;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
-        implements ActionListener {
+        implements CheckingForUpdateMetadataListener {
 
     private static final String KEY_LAST_DIRECTORY =
             "de.elmar_baumann.imv.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
@@ -117,7 +118,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
 
     private void stopUpdate() {
         interruptImageFileInsterter();
-        updateFinished();
     }
 
     private synchronized void interruptImageFileInsterter() {
@@ -126,13 +126,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
             imageFileInserter.removeActionListener(this);
             imageFileInserter = null;
         }
-    }
-
-    private void updateFinished() {
-        setEnabledButtons(false);
-        setEnabledCheckboxes(false);
-        labelCurrentFilename.setText("-"); // NOI18N
-        listDirectories.setEnabled(true);
     }
 
     private void setEnabledButtons(boolean isUpdate) {
@@ -179,14 +172,23 @@ public final class UpdateMetadataOfDirectoriesPanel extends javax.swing.JPanel
      * @param e event containing the current filename
      */
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (imageFileInserter != null && e.getSource() == imageFileInserter) {
-            String filename = imageFileInserter.getCurrentFilename();
+    public void actionPerformed(CheckForUpdateMetadataEvent e) {
+        if (e.getType().equals(Type.CHECKING_FILE)) {
+            String filename = e.getImageFilename();
             assert filename != null : "Filename is null!";
             if (filename != null) {
                 labelCurrentFilename.setText(filename);
             }
+        } else if (e.getType().equals(Type.CHECK_FINISHED)) {
+            updateFinished();
         }
+    }
+
+    private void updateFinished() {
+        setEnabledButtons(false);
+        setEnabledCheckboxes(false);
+        labelCurrentFilename.setText("-"); // NOI18N
+        listDirectories.setEnabled(true);
     }
 
     private class ProgressBarProvider extends MutualExcludedResource {
