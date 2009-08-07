@@ -55,7 +55,7 @@ public final class HierarchicalKeywordsHelper {
             }
             TreeNode parent = node.getParent();
             assert parent == null || parent instanceof DefaultMutableTreeNode :
-                    "Parent is not a DefaultMutableTreeNode: " + parent;
+                    "Not a DefaultMutableTreeNode: " + parent;
             node = parent instanceof DefaultMutableTreeNode
                    ? (DefaultMutableTreeNode) parent
                    : null;

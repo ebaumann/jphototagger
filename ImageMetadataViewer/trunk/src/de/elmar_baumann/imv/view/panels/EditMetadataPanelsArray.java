@@ -352,7 +352,8 @@ public final class EditMetadataPanelsArray implements FocusListener,
         assert filenamesXmp.size() >= 1 : "No files!"; // NOI18N
         if (filenamesXmp.size() == 1) {
             Object value = filenamesXmp.get(0).getSecond().getValue(column);
-            assert value == null || value instanceof List : value;
+            assert value == null || value instanceof List : "Not a List: " +
+                    value;
             if (value instanceof List) {
                 return (List) value;
             } else {
@@ -364,7 +365,8 @@ public final class EditMetadataPanelsArray implements FocusListener,
         for (Pair<String, Xmp> pair : filenamesXmp) {
             Xmp xmp = pair.getSecond();
             Object value = xmp.getValue(column);
-            assert value == null || value instanceof List : value;
+            assert value == null || value instanceof List : "Not a List: " +
+                    value;
             if (value instanceof List) {
                 lists.push((List) value);
             }
@@ -574,7 +576,8 @@ public final class EditMetadataPanelsArray implements FocusListener,
             parent = textField.getParent();
             container.scrollRectToVisible(parent.getBounds());
         } else if (inputSource instanceof TabOrEnterLeavingTextArea) {
-            TabOrEnterLeavingTextArea textArea = (TabOrEnterLeavingTextArea) inputSource;
+            TabOrEnterLeavingTextArea textArea =
+                    (TabOrEnterLeavingTextArea) inputSource;
             if (textArea.getParent().getParent() != null &&
                     textArea.getParent().getParent().getParent() != null) {
                 parent = textArea.getParent().getParent().getParent();

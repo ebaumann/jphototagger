@@ -46,7 +46,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
     private String currentFilename;
     private final Set<CheckingForUpdateMetadataListener> actionListeners =
-            Collections.synchronizedSet(new HashSet<CheckingForUpdateMetadataListener>());
+            Collections.synchronizedSet(
+            new HashSet<CheckingForUpdateMetadataListener>());
     private final List<String> filenames;
     private final EnumSet<Insert> what;
     private final MutualExcludedResource progressBarResource;
@@ -133,7 +134,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void notifyActionListeners(Type type, String filename) {
-        CheckForUpdateMetadataEvent event = new CheckForUpdateMetadataEvent(type, filename);
+        CheckForUpdateMetadataEvent event =
+                new CheckForUpdateMetadataEvent(type, filename);
         synchronized (actionListeners) {
             for (CheckingForUpdateMetadataListener listener : actionListeners) {
                 listener.actionPerformed(event);
@@ -160,8 +162,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             currentFilename = filename;
             ImageFile imageFile = getImageFile(filename);
             updateCheckWillPerformed(index + 1, index + 1 < count
-                                       ? filenames.get(index + 1)
-                                       : filename);
+                                                ? filenames.get(index + 1)
+                                                : filename);
             if (isUpdate(imageFile)) {
                 logInsertImageFile(imageFile);
                 db.insertOrUpdateImageFile(imageFile);
@@ -340,7 +342,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         if (progressBarResource != null) {
             Object o = progressBarResource.getResource(this);
             assert o == null || o instanceof JProgressBar :
-                    o + " is not a JPogressBar!"; // NOI18N
+                    "Not a JPogressBar: " + o; // NOI18N
             if (o instanceof JProgressBar) {
                 progressBar = (JProgressBar) o;
             } else if (o != null) {

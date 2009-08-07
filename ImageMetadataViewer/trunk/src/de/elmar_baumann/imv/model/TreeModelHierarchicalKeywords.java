@@ -124,15 +124,18 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         List<HierarchicalKeyword> delKeywords =
                 new ArrayList<HierarchicalKeyword>();
         Object o = keywordNode.getUserObject();
-        assert o instanceof HierarchicalKeyword : o;
+        assert o instanceof HierarchicalKeyword :
+                "Not a HierarchicalKeyword: " + o;
         for (Enumeration e = keywordNode.preorderEnumeration();
                 e.hasMoreElements();) {
             Object el = e.nextElement();
-            assert el instanceof DefaultMutableTreeNode : el;
+            assert el instanceof DefaultMutableTreeNode :
+                    "Not a DefaultMutableTreeNode: " + el;
             if (el instanceof DefaultMutableTreeNode) {
                 Object userObject =
                         ((DefaultMutableTreeNode) el).getUserObject();
-                assert userObject instanceof HierarchicalKeyword : userObject;
+                assert userObject instanceof HierarchicalKeyword :
+                        "Not a HierarchicalKeyword: " + userObject;
                 if (userObject instanceof HierarchicalKeyword) {
                     delKeywords.add((HierarchicalKeyword) userObject);
                 }

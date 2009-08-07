@@ -441,7 +441,7 @@ public final class Iptc {
     public Object getValue(IPTCEntryMeta iptcEntry) {
         Object value = valueOfEntryMeta.get(iptcEntry);
         assert value == null || value instanceof List || value instanceof String :
-                "Value is neither List nor String: " + value;
+                "Neither List nor String: " + value;
         return value == null
                ? null
                : value instanceof List

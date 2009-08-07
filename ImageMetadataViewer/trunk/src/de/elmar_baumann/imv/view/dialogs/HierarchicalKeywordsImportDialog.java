@@ -93,8 +93,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     private void chooseFile() {
         Object selItem = comboBoxImporter.getSelectedItem();
         assert selItem instanceof HierarchicalKeywordsImporter :
-                "Not an instance of " +
-                HierarchicalKeywordsImporter.class.getName() + ": " + selItem;
+                "Not a HierarchicalKeywordsImporter: " + selItem;
         if (selItem instanceof HierarchicalKeywordsImporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null && file.isFile()) {

@@ -51,12 +51,10 @@ public final class TransferHandlerDropList extends TransferHandler {
         if (!transferSupport.isDrop()) return false;
 
         Component c = transferSupport.getComponent();
-        assert c instanceof JList :
-                "Component is not a JList but a " + c.getClass();
+        assert c instanceof JList : "Not a JList: " + c;
 
         ListModel lm = ((JList) transferSupport.getComponent()).getModel();
-        assert lm instanceof DefaultListModel :
-                "List model is not a DefaultListModel but a " + lm.getClass();
+        assert lm instanceof DefaultListModel : "Not a DefaultListModel: " + lm;
         DefaultListModel listModel = (DefaultListModel) lm;
 
         Transferable t = transferSupport.getTransferable();

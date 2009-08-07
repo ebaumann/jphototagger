@@ -41,8 +41,7 @@ final class HierarchicalKeywordsExporterLightroom
         TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().
                 getModel();
         assert tm instanceof TreeModelHierarchicalKeywords :
-                "Model isn't an instance of " +
-                TreeModelHierarchicalKeywords.class + " but a " + tm.getClass();
+                "Not a TreeModelHierarchicalKeywords: " + tm;
         if (tm instanceof TreeModelHierarchicalKeywords) {
             Writer writer = null;
             try {
@@ -64,8 +63,8 @@ final class HierarchicalKeywordsExporterLightroom
             throws IOException {
         for (Enumeration e = root.children(); e.hasMoreElements();) {
             Object el = e.nextElement();
-            assert el instanceof DefaultMutableTreeNode : "Element is not a " +
-                    DefaultMutableTreeNode.class + " but a " + el.getClass();
+            assert el instanceof DefaultMutableTreeNode :
+                    "Not a DefaultMutableTreeNode: " + el;
 
             if (el instanceof DefaultMutableTreeNode) {
                 addChildren((DefaultMutableTreeNode) el, 0, writer);
@@ -77,8 +76,8 @@ final class HierarchicalKeywordsExporterLightroom
             DefaultMutableTreeNode node, int level, Writer writer)
             throws IOException {
         Object userObject = node.getUserObject();
-        assert userObject instanceof HierarchicalKeyword : "User object is not a" +
-                HierarchicalKeyword.class + " but a " + userObject.getClass();
+        assert userObject instanceof HierarchicalKeyword :
+                "Not a HierarchicalKeyword: " + userObject;
 
         boolean appended = false;
         if (userObject instanceof HierarchicalKeyword) {

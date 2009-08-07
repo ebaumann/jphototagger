@@ -522,8 +522,7 @@ public final class Xmp implements TextEntryListener {
                 list.add(newText);
                 valueOfColumn.put(column, list);
             }
-            assert o instanceof List :
-                    "o is not a " + List.class + " but a " + o.getClass();
+            assert o instanceof List : "Not a List: " + o;
             if (o instanceof List) {
                 List list = (List) o;
                 int index = list.indexOf(oldText);
@@ -616,8 +615,7 @@ public final class Xmp implements TextEntryListener {
     public Object getValue(Column xmpColumn) {
         Object o = valueOfColumn.get(xmpColumn);
         assert o == null || o instanceof List || o instanceof String ||
-                o instanceof Long :
-                "o is neither List nor String nor Long: " + o;
+                o instanceof Long : "Neither List nor String nor Long: " + o;
         return o instanceof List
                ? new ArrayList<String>((List) o)
                : o instanceof String || o instanceof Long

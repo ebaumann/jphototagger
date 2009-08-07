@@ -107,7 +107,8 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
                 panelKeywords.getTree().getModel().getRoot().equals(parent)) {
             return;
         }
-        assert parent instanceof DefaultMutableTreeNode : parent;
+        assert parent instanceof DefaultMutableTreeNode :
+                "Not a DefaultMutableTreeNode: " + parent;
         if (parent instanceof DefaultMutableTreeNode) {
             addParentKeywords((DefaultMutableTreeNode) parent, keywords);
         }

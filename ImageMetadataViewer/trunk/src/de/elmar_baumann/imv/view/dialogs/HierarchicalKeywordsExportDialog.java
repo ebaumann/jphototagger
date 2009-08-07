@@ -89,8 +89,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     private void chooseFile() {
         Object selItem = comboBoxExporter.getSelectedItem();
         assert selItem instanceof HierarchicalKeywordsExporter :
-                "Not an instance of " +
-                HierarchicalKeywordsExporter.class.getName() + ": " + selItem;
+                "Not a HierarchicalKeywordsExporter: " + selItem;
         if (selItem instanceof HierarchicalKeywordsExporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null) {

@@ -67,8 +67,7 @@ public final class ControllerHighlightHierarchicalKeywords
     private void setKeywords(JTree tree, Collection<String> keywords) {
         TreeCellRenderer r = tree.getCellRenderer();
         assert r instanceof TreeCellRendererHierarchicalKeywords :
-                "Renderer is not an instance of " +
-                TreeCellRendererHierarchicalKeywords.class + " but of " + r;
+                "Not a TreeCellRendererHierarchicalKeywords: " + r;
         if (r instanceof TreeCellRendererHierarchicalKeywords) {
             TreeUtil.expandAll(tree, true);
             ((TreeCellRendererHierarchicalKeywords) r).setKeywords(keywords);

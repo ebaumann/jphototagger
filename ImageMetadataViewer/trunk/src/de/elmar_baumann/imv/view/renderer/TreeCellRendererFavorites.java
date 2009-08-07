@@ -30,7 +30,8 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
                 row, hasFocus);
 
-        assert value instanceof DefaultMutableTreeNode;
+        assert value instanceof DefaultMutableTreeNode :
+                "Not a DefaultMutableTreeNode: " + value;
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
         Object userObject = node.getUserObject();
         render(userObject, row);

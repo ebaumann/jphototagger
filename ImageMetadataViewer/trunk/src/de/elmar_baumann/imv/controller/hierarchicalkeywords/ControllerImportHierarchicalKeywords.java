@@ -68,8 +68,7 @@ public final class ControllerImportHierarchicalKeywords
         @Override
         public void run() {
             assert treeModel instanceof TreeModelHierarchicalKeywords :
-                    "Model is not a " + TreeModelHierarchicalKeywords.class +
-                    " but a " + treeModel.getClass();
+                    "Not a TreeModelHierarchicalKeywords: " + treeModel;
             if (treeModel instanceof TreeModelHierarchicalKeywords) {
                 TreeModelHierarchicalKeywords model =
                         (TreeModelHierarchicalKeywords) treeModel;

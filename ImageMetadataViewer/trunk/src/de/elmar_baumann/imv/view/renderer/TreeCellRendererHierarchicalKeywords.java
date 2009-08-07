@@ -36,7 +36,8 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
         super.getTreeCellRendererComponent(
                 tree, value, sel, expanded, false, row, hasFocus);
 
-        assert value instanceof DefaultMutableTreeNode;
+        assert value instanceof DefaultMutableTreeNode :
+                "Not a DefaultMutableTreeNode: " + value;
         render(((DefaultMutableTreeNode) value).getUserObject(), row);
         return this;
     }
@@ -53,7 +54,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
             setText(keyword.getKeyword());
             setIcon(real
                     ? ICON_REAL
-                      : ICON_HELPER);
+                    : ICON_HELPER);
             if (highlight) {
                 setForeground(
                         AppColors.COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
