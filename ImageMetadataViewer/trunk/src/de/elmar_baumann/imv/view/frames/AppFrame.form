@@ -626,6 +626,13 @@
                 </Property>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemOpenPdfUserManual">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="AppFrame.menuItemOpenPdfUserManual.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemAcceleratorKeys">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">

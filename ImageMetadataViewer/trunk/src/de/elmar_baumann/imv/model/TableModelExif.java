@@ -165,7 +165,7 @@ public final class TableModelExif extends DefaultTableModel {
             } else {
                 settingsDialog.setVisible(true);
             }
-            settingsDialog.selectTab(SettingsMiscPanel.Tab.WEB_BROWSER);
+            settingsDialog.selectTab(SettingsMiscPanel.Tab.EXTERNAL_APPLICATIONS);
         }
 
         private void startWebBrowser(String webBrowser) {

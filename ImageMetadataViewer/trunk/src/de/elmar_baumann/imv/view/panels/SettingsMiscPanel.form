@@ -17,12 +17,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabbedPane" alignment="0" pref="525" max="32767" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabbedPane" alignment="0" pref="134" max="32767" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" pref="195" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -31,12 +31,12 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="panelWebBrowser">
+        <Container class="javax.swing.JPanel" name="panelExternalApplications">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Webbrowser">
+              <JTabbedPaneConstraints tabName="Externe Programme">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelWebBrowser.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -46,28 +46,61 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelWebBrowser" pref="500" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="labelInfoWebBrowser" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              <Component id="labelWebBrowser" pref="402" max="32767" attributes="0"/>
+                          </Group>
                           <Component id="buttonChooseWebBrowser" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="labelInfoPdfViewer" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="1"/>
+                              <Component id="labelPdfViewer" pref="402" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="buttonChoosePdfViewer" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelWebBrowser" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="labelWebBrowser" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="labelInfoWebBrowser" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonChooseWebBrowser" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="46" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelPdfViewer" min="-2" pref="23" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonChoosePdfViewer" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace pref="4" max="-2" attributes="0"/>
+                              <Component id="labelInfoPdfViewer" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
+            <Component class="javax.swing.JLabel" name="labelInfoWebBrowser">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoWebBrowser.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JLabel" name="labelWebBrowser">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -91,6 +124,36 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseWebBrowserActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="labelInfoPdfViewer">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoPdfViewer.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelPdfViewer">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonChoosePdfViewer">
+              <Properties>
+                <Property name="mnemonic" type="int" value="117"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChoosePdfViewer.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChoosePdfViewerActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelDatabaseDirectory">
@@ -110,13 +173,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelDatabaseDirectory" pref="500" max="32767" attributes="0"/>
+                          <Component id="labelDatabaseDirectory" pref="506" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="buttonSetStandardDatabaseDirectoryName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonChooseDatabaseDirectory" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="labelInfoDatabaseDirectory" alignment="1" pref="500" max="32767" attributes="0"/>
+                          <Component id="labelInfoDatabaseDirectory" alignment="1" pref="506" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -134,7 +197,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoDatabaseDirectory" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <EmptySpace pref="63" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -210,11 +273,11 @@
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="comboBoxLogfileFormatterClass" alignment="0" pref="308" max="32767" attributes="0"/>
-                                  <Component id="comboBoxLogLevel" alignment="0" pref="308" max="32767" attributes="0"/>
+                                  <Component id="comboBoxLogfileFormatterClass" alignment="0" pref="240" max="32767" attributes="0"/>
+                                  <Component id="comboBoxLogLevel" alignment="0" pref="240" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="labelInfoLogfile" alignment="0" pref="500" max="32767" attributes="0"/>
+                          <Component id="labelInfoLogfile" alignment="0" pref="506" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -235,7 +298,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoLogfile" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="28" max="32767" attributes="0"/>
+                      <EmptySpace pref="63" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -307,7 +370,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelAutocopyDirectory" pref="500" max="32767" attributes="0"/>
+                          <Component id="labelAutocopyDirectory" pref="506" max="32767" attributes="0"/>
                           <Component id="buttonChooseAutocopyDirectory" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -321,7 +384,7 @@
                       <Component id="labelAutocopyDirectory" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonChooseAutocopyDirectory" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="46" max="32767" attributes="0"/>
+                      <EmptySpace pref="84" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -370,7 +433,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="checkBoxIsAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" pref="508" max="32767" attributes="0"/>
+                          <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" pref="514" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -383,7 +446,7 @@
                       <Component id="checkBoxIsAcceptHiddenDirectories" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxTreeDirectoriesSelectLastDirectory" min="-2" pref="39" max="-2" attributes="0"/>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <EmptySpace pref="80" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

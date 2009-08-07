@@ -1,15 +1,27 @@
 package de.elmar_baumann.imv.controller.misc;
 
+import de.elmar_baumann.imv.Main;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppInfo;
+import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
+import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.imv.view.panels.SettingsMiscPanel.Tab;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
 import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
+import de.elmar_baumann.lib.runtime.External;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.net.URL;
+import java.util.Collections;
+import java.util.Locale;
+import javax.swing.JMenuItem;
 
 /**
  * 
@@ -25,6 +37,12 @@ public final class ControllerHelp implements ActionListener,
             ControllerHelp.class.getName() + ".CurrentURL"; // NOI18N
     private String currentUrl =
             UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
+    private final JMenuItem menuItemAcceleratorKeys =
+            GUI.INSTANCE.getAppFrame().getMenuItemAcceleratorKeys();
+    private final JMenuItem menuItemHelp =
+            GUI.INSTANCE.getAppFrame().getMenuItemHelp();
+    private final JMenuItem menuItemOpenPdfUserManual =
+            GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
 
     public ControllerHelp() {
         help.setContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
@@ -34,6 +52,7 @@ public final class ControllerHelp implements ActionListener,
 
     private void listen() {
         help.addActionListener(this);
+        menuItemOpenPdfUserManual.addActionListener(this);
     }
 
     @Override
@@ -45,11 +64,13 @@ public final class ControllerHelp implements ActionListener,
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(GUI.INSTANCE.getAppFrame().getMenuItemHelp())) {
+        Object source = e.getSource();
+        if (source.equals(menuItemHelp)) {
             showHelp();
-        } else if (e.getSource().equals(GUI.INSTANCE.getAppFrame().
-                getMenuItemAcceleratorKeys())) {
+        } else if (source.equals(menuItemAcceleratorKeys)) {
             showAcceleratorKeyHelp();
+        } else if (source.equals(menuItemOpenPdfUserManual)) {
+            openPdfUserManual();
         }
     }
 
@@ -81,5 +102,64 @@ public final class ControllerHelp implements ActionListener,
         } else {
             help.setVisible(true);
         }
+    }
+
+    private void openPdfUserManual() {
+        if (!checkPdfViewer()) return;
+        File manual = getPdfUserManualPath();
+        if (manual == null) {
+            MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile");
+            return;
+        }
+        External.execute(UserSettings.INSTANCE.getPdfViewer() + " " +
+                IoUtil.getQuotedForCommandline(Collections.singleton(manual),
+                "\""));
+    }
+
+    private boolean checkPdfViewer() {
+        File viewer = new File(UserSettings.INSTANCE.getPdfViewer());
+        if (!viewer.exists()) {
+            if (MessageDisplayer.confirm(null,
+                    "ControllerHelp.Error.NoPdfViewer",
+                    MessageDisplayer.CancelButton.HIDE).equals(
+                    MessageDisplayer.ConfirmAction.YES)) {
+                if (UserSettingsDialog.INSTANCE.isVisible()) {
+                    UserSettingsDialog.INSTANCE.toFront();
+                } else {
+                    UserSettingsDialog.INSTANCE.setVisible(true);
+                }
+                UserSettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns the PDF user manual file.
+     *
+     * @return file or null if the file does not exist
+     */
+    private static File getPdfUserManualPath() {
+        try {
+            File path = new File(Main.class.getProtectionDomain().getCodeSource().
+                    getLocation().getPath());
+            if (path.exists() && path.getParentFile() != null) {
+                File dir = path.getParentFile();
+                String pathPrefix =
+                        dir.getAbsolutePath() + File.separator + "Manual";
+                // Trying to get Locale specific manual
+                String pathLocaleSensitive = pathPrefix + "_" +
+                        Locale.getDefault().getLanguage() + ".pdf";
+                File fileLocaleSensitive = new File(pathLocaleSensitive);
+                if (fileLocaleSensitive.exists()) return fileLocaleSensitive;
+                // Trying to get default language manual
+                File fileDefault = new File(pathPrefix + "_de.pdf");
+                if (fileDefault.exists()) return fileDefault;
+            }
+        } catch (Exception ex) {
+            AppLog.logSevere(AppInfo.class, ex);
+        }
+        return null;
     }
 }

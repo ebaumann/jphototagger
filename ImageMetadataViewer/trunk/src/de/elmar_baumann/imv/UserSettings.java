@@ -68,6 +68,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String KEY_AUTOCOPY_DIRECTORY =
             "UserSettings.AutocopyDirectory"; // NOI18N
     private static final String KEY_WEB_BROWSER = "UserSettings.WebBrowser"; // NOI18N
+    private static final String KEY_PDF_VIEWER = "UserSettings.PdfViewer"; // NOI18N
     private static final String KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY =
             "UserSettings.TreeDirectoriesSelectLastDirectory"; // NOI18N
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS =
@@ -255,6 +256,15 @@ public final class UserSettings implements UserSettingsChangeListener {
      */
     public String getWebBrowser() {
         return settings.getString(KEY_WEB_BROWSER);
+    }
+
+    /**
+     * Returns the path to the PDF viewer.
+     *
+     * @return path (filename) or empty string if not defined
+     */
+    public String getPdfViewer() {
+        return settings.getString(KEY_PDF_VIEWER);
     }
 
     /**
@@ -577,6 +587,8 @@ public final class UserSettings implements UserSettingsChangeListener {
                     KEY_AUTOCOPY_DIRECTORY);
         } else if (type.equals(UserSettingsChangeEvent.Type.WEB_BROWSER)) {
             settings.setString(evt.getWebBrowser(), KEY_WEB_BROWSER);
+        } else if (type.equals(UserSettingsChangeEvent.Type.PDF_VIEWER)) {
+            settings.setString(evt.getPdfViewer(), KEY_PDF_VIEWER);
         } else if (type.equals(
                 UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)) {
             settings.setBoolean(evt.isTreeDirectoriesSelectLastDirectory(),

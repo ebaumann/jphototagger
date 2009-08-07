@@ -170,6 +170,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemHelp;
     }
 
+    public JMenuItem getMenuItemOpenPdfUserManual() {
+        return menuItemOpenPdfUserManual;
+    }
+
     public JMenuItem getMenuItemMaintainDatabase() {
         return menuItemMaintainDatabase;
     }
@@ -304,6 +308,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
+        menuItemOpenPdfUserManual = new javax.swing.JMenuItem();
         menuItemAcceleratorKeys = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JSeparator();
         menuItemAbout = new javax.swing.JMenuItem();
@@ -562,6 +567,9 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemHelp.setText(Bundle.getString("AppFrame.menuItemHelp.text")); // NOI18N
         menuHelp.add(menuItemHelp);
 
+        menuItemOpenPdfUserManual.setText(Bundle.getString("AppFrame.menuItemOpenPdfUserManual.text")); // NOI18N
+        menuHelp.add(menuItemOpenPdfUserManual);
+
         menuItemAcceleratorKeys.setText(bundle.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
         menuHelp.add(menuItemAcceleratorKeys);
         menuHelp.add(jSeparator12);
@@ -624,6 +632,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemInputHelper;
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
+    private javax.swing.JMenuItem menuItemOpenPdfUserManual;
     private javax.swing.JMenuItem menuItemPasteMetadata;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
     private javax.swing.JMenuItem menuItemRenameInXmp;

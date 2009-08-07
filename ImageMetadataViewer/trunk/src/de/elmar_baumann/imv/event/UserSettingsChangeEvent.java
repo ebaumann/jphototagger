@@ -23,6 +23,7 @@ public final class UserSettingsChangeEvent {
     private File defaultImageOpenApp;
     private String externalThumbnailCreationCommand;
     private String webBrowser;
+    private String pdfViewer;
     private String iptcCharset;
     private String databaseDirectoryName;
     private File autoCopyDirectory;
@@ -66,6 +67,7 @@ public final class UserSettingsChangeEvent {
         NO_FAST_SEARCH_COLUMNS,
         OTHER_IMAGE_OPEN_APPS,
         WEB_BROWSER,
+        PDF_VIEWER,
         TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
         MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
         SCAN_FOR_EMBEDDED_XMP,
@@ -224,6 +226,14 @@ public final class UserSettingsChangeEvent {
 
     public void setWebBrowser(String webBrowser) {
         this.webBrowser = webBrowser;
+    }
+
+    public String getPdfViewer() {
+        return pdfViewer;
+    }
+
+    public void setPdfViewer(String pdfViewer) {
+        this.pdfViewer = pdfViewer;
     }
 
     public String getDatabaseDirectoryName() {
