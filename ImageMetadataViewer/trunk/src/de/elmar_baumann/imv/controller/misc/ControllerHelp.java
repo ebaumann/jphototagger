@@ -123,12 +123,12 @@ public final class ControllerHelp implements ActionListener,
                     "ControllerHelp.Error.NoPdfViewer",
                     MessageDisplayer.CancelButton.HIDE).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
+                UserSettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
                 if (UserSettingsDialog.INSTANCE.isVisible()) {
                     UserSettingsDialog.INSTANCE.toFront();
                 } else {
                     UserSettingsDialog.INSTANCE.setVisible(true);
                 }
-                UserSettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
             }
             return false;
         }
