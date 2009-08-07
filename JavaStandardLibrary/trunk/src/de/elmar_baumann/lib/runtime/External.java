@@ -36,7 +36,7 @@ public final class External {
     public static void execute(String command) {
         Runtime runtime = Runtime.getRuntime();
         try {
-            runtime.exec(command);
+            runtime.exec(parseQuotedCommandLine(command));
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
                     ex);
