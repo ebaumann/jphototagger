@@ -882,7 +882,7 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                     getXmpOfFilesStatement(filenames.size()));
-            setStrings(stmt, (String[]) filenames.toArray(), 1);
+            setStrings(stmt, filenames.toArray(new String[0]), 1);
             AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             String prevFilename = "";
