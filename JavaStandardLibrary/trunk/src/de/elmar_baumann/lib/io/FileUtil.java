@@ -335,7 +335,7 @@ public final class FileUtil {
 
         List<File> fileList = new ArrayList<File>(objects.size());
         for (Object o : objects) {
-            assert o instanceof File : o + " is not a file!"; // NOI18N
+            assert o instanceof File : "Not a file: " + o; // NOI18N
             if (o instanceof File) {
                 fileList.add((File) o);
             }

@@ -200,7 +200,7 @@ public final class TreeUtil {
      */
     public static TreePath getTreePath(MouseEvent e) {
         Object source = e.getSource();
-        assert source instanceof JTree;
+        assert source instanceof JTree : "Not a JTree: " + source;
         if (source instanceof JTree) {
             int mousePosX = e.getX();
             int mousePosY = e.getY();
