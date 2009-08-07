@@ -135,6 +135,7 @@ public final class UserSettingsDialog extends Dialog {
 
     public void selectTab(
             de.elmar_baumann.imv.view.panels.SettingsMiscPanel.Tab tab) {
+        selectTab(Tab.MISC);
         panelMisc.selectTab(tab);
     }
 
