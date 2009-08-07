@@ -12,13 +12,15 @@ VK_5            CTRL_MASK               Go to (select) favorite directories tree
 VK_6            CTRL_MASK               Go to (select) keywords list
 VK_7            CTRL_MASK               Go to (select) timeline tree
 VK_8            CTRL_MASK               Go to (select) misc metadata tree
-VK_C            ALT_MASK | CTRL_MASK    Copy images from autocopy directory into current directory
+VK_C            ALT_MASK                Copy images from autocopy directory into current directory
+VK_C            ALT_MASK | CTRL_MASK    Copy XMP metadata of selected images
 VK_D            CTRL_MASK               Maintain Database
 VK_I            ALT_MASK | CTRL_MASK    Convert IPTC metadata to XMP metadata
 VK_O            CTRL_MASK               Toggle keyword overlay
 VK_Q            CTRL_MASK               Quit application (Exit)
 VK_S            CTRL_MASK               Scan directories and refresh database
 VK_S            ALT_MASK | CTRL_MASK    Change settings
+VK_V            ALT_MASK | CTRL_MASK    Paste copied XMP metadata into selected images
 VK_X            ALT_MASK | CTRL_MASK    Delete/Rename metadata of selected images
 VK_PLUS         CTRL_MASK               Zoom in thumbnails
 VK_MINUS        CTRL_MASK               Zoom out thumbnails

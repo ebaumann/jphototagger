@@ -1,0 +1,3814 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>'Handbuch des Programms "Bilder"', 2009-08-07 18:31:27 +02:00</title>
+</head>
+<body>
+
+        <h1>Was erledigt dieses Programm?</h1>
+
+        <p>Das Programm <strong>Bilder</strong> hilft Ihnen, Ihre Bilder zu
+            kennzeichnen (<strong>&quot;taggen&quot;</strong>) und schnell zu
+            finden.
+        </p>
+
+        <p>Ihnen stehen unter anderem folgende Eingabehilfen zur Verfügung:</p>
+
+        <ul>
+            <li>Automatische Vervollständigung Ihrer Eingaben
+            </li>
+            <li>Kopieren von <a href="glossary_metadata.html">Metadaten</a> und
+                Einfügen in andere Bilder
+            </li>
+            <li>Hierarchische Stichwörter: Auf Wunsch werden einem Stichwort
+                übergeordnete Stichwörter ebenfalls eingefügt, beispielsweise
+                <code>Landschaft</code>, falls Sie <code>Baum</code> zuordnen
+            </li>
+            <li>Ziehen und Fallenlassen (Drag&amp;Drop) von Stichwörtern und
+                Kategorien auf Bilder
+            </li>
+            <li>Einfügen von Vorlagen: Feste Stichwortsätze, Ihre Anschrift, ...
+            </li>
+        </ul>
+
+        <p> Die Bilder können Sie:</p>
+        <ul>
+            <li>öffnen mit beliebig vielen Programmen, z.B. einem
+                Bildbearbeitungs- oder Betrachtungsprogramm
+            </li>
+            <li>an beliebig viele Skripte (&quot;Batch-Dateien&quot;) schicken.
+                Diese Skripte könnten die Bilder schärfen, drehen, hochladen auf
+                einen Webserver oder zu einem Belichtungsservice, ...
+            </li>
+        </ul>
+
+        <h2>Wie werden Bilder gefunden?</h2>
+
+        <p>Gefunden werden die Bilder über verschiedene Merkmale wie
+            Stichwörter, Kategorien und Aufnahmeorte. Diese Daten werden als
+            <strong>Metadaten</strong> bezeichnet und Sie
+            können die Metadaten im Programm <strong>Bilder</strong> eingeben.
+            Damit Sie möglichst wenig Arbeit haben, können Sie Vorlagen
+            speichern mit immer wieder benutzten Angaben, z.B. Ihre Kontaktdaten
+            und das Copyright. Haben Sie mehrere Bilder ausgewählt, werden Ihre
+            Eingaben für alle Bilder gespeichert. Ihre bisherigen Eingaben
+            werden vorgeschlagen, während Sie neue Begriffe eingeben.
+        </p>
+
+        <h2>Wo werden die Metadaten gespeichert?</h2>
+
+        <p>Was Sie eingeben, wird in eine
+            <a href="glossary_sidecar_file.html">XMP-Filialdatei</a> gespeichert.
+            Das ist eine Datei mit dem gleichen Namen wie das Bild und der
+            Endung <code>xmp</code>. Heißt ein Bild <code>Blume.jpg</code>, ist
+            seine Filialdatei <code>Blume.xmp</code>. Alle Filialdateien sind im
+            gleichen Ordner gespeichert wie das Bild. Zusätzlich werden Ihre
+            Eingaben in eine <strong>Datenbank</strong> geschrieben und so
+            schnell gefunden.</p>
+
+        <p>Auch die <strong>Vorschaubilder</strong> sind im gleichen Ordner
+            gespeichert wie die Datenbank, damit sie schnell angezeigt werden.
+        </p>
+
+        <p>Wurden ein Bild oder seine Filialdatei aktualisiert außerhalb dieses
+            Programms, werden das Vorschaubild und/oder die Metadaten in der
+            Datenbank automatisch erneuert.
+        </p>
+
+        <p>Falls Sie die Metadaten zusätzlich in Ihren Bildern haben wollen,
+            erreichen Sie das mit einem Skript
+            (<a href="tip_action_embed_xmp.html">Beispiel-Skript</a>).
+        </p>
+
+        <h2>Vorteile der XMP-Filialdateien</h2>
+
+        <p>Die Filialdateien und XMP haben die Vorteile:
+        </p>
+
+        <ul>
+            <li>Ihre <strong>Bilder werden nicht verändert</strong>,
+                insbesondere <em>nicht</em> beschädigt.
+            </li>
+            <li>Die Metadaten sind <strong>schneller</strong> geschrieben.
+                XMP in die Bilder zu schreiben dauert länger, Bilddateien sind
+                sehr viel größer als XMP-Textdateien und leer
+                gelassener Platz nach den XMP-Daten - falls das Schreibprogramm
+                daran dachte - ist begrenzt. So muss jedesmal das (ganze) Bild
+                neu geschrieben werden. Im schlimmsten Fall könnte es dabei
+                beschädigt werden.
+            </li>
+            <li>Ist die <strong>Datenbank</strong> beschädigt, können Sie diese
+                <strong>automatisch erneuern</strong> lassen anhand der
+                XMP-Filialdateien.
+            </li>
+            <li><strong>Ändern Sie häufiger die Metadaten</strong>,
+                beispielsweise indem Sie Tippfehler korrigieren, Ihre Adresse
+                ändern, Stichwörter einer neuen Ordnung angleichen, werden nur
+                kleine Dateien modifiziert. Das <strong>verringert signifikant
+                    den Speicherplatz auf Sicherungsmedien</strong>
+                (<strong>Backupmedien</strong> wie externe Festplatten oder
+                beschreibbare DVDs): Statt Gigabytes von 16 Bit TIFF-Dateien
+                werden Kilobytes an Textdateien gesichert - eine
+                Versionsverwaltung, die nur die Unterschiede von
+                Binärdateiversionen speichert, dürften die wenigsten nutzen zum
+                Sichern ihrer Bilder.
+            </li>
+        </ul>
+
+        <h2>Weitere Metadaten-Anzeigen</h2>
+
+        <p>Es werden zusätzlich <strong>IPTC</strong>-Daten angezeigt. Diese
+            können Sie nach
+            <a href="action_metadata_iptc_to_xmp.html">XMP kopieren</a>.
+            <a href="glossary_iptc.html">IPTC</a> ist ein älterer Standard und
+            die Daten stehen in den Bildern.
+        </p>
+
+        <p>In Bildern enthaltene - <strong>eingebettete - XMP-Daten</strong>
+            werden angezeigt, falls keine XMP-Filialdatei existiert und können
+            ebenfalls in XMP-Filialdateien exportiert werden.
+        </p>
+
+        <p>Außerdem werden <a href="glossary_exif.html">EXIF</a>-Daten angezeigt
+            und nach einigen kann gesucht werden. Die EXIF-Daten schreibt Ihre
+            Kamera in die Bilder: Aufnahmedatum, Brennweite, Verschlusszeit, ...
+        </p>
+
+
+        <h1>Erste Schritte</h1>
+
+        <p>Stellen Sie bitte zuerst das Programm ein über das Menü
+            <strong>Bearbeiten &gt; Einstellungen</strong>. Es öffnet sich der
+            <strong>Einstellungen-Dialog</strong>. Haben Sie alles eingestellt,
+            können Sie Bilder in die Datenbank einlesen lassen und anschließend
+            danach suchen.
+        </p>
+
+        <h2>Bilder einlesen</h2>
+
+        <p>Einmal eingelesen, werden die Vorschaubilder schneller angezeigt. Das
+            Einlesen kann auf verschiedene Weisen geschehen:
+        </p>
+
+        <ul>
+            <li>Wählen Sie links den
+                <a href="mainwindow_panel_folder.html">Kartenreiter Ordner</a>
+                aus und klicken mit der Maus dort auf ein ein Ordnersymbol
+            </li>
+            <li>Benutzen das Menü
+                <a href="action_metadata_scan_directories.html">Datei &gt;
+                Ordner einlesen</a>
+            </li>
+            <li>Öffnen Sie den Einstellungen-Dialog: <strong>Bearbeiten &gt;
+                Einstellungen</strong> und klicken auf den
+                <a href="dialog_settings_tasks.html">Kartenreiter
+                Automatisieren</a>. Dort können Sie alle Ordner mit Bildern
+                hinzufügen. Haben Sie eine ganze Festplatte mit Bildern, wählen
+                Sie diese aus und setzen ein Häckchen, dass alle Ordner darunter
+                mit eingeschlossen werden sollen. Zukünftig werden alle
+                Änderungen automatisch erkannt und Bilder, die noch nicht in der
+                Datenbank sind, werden dort eingefügt.
+            </li>
+            <li>Alle Bilder, die (gerade) angezeigt werden, werden nach
+                Aktualisierungen untersucht:
+                <a href="mainwindow_panel_collections.html">Bildsammlungen</a>,
+                <a href="mainwindow_panel_saved_searches.html">Suchen</a>,
+                <a href="mainwindow_panel_favorite_folders.html">Favoriten-Ordner</a>,
+                <a href="mainwindow_panel_categories.html">Kategorien</a>
+            </li>
+        </ul>
+
+        <p>Erst nach dem Einlesen kann nach Bildern gesucht werden, die bereits
+            <a href="glossary_metadata.html">Metadaten</a> enthalten. Metadaten,
+            die Sie ins Programm <strong>Bilder</strong> eingeben und dort
+            abspeichern, werden sofort in die Datenbank geschrieben und bei eine
+            Suche berücksichtigt.
+        </p>
+
+        <p>Sind in Ihren Bildern <a href="glossary_iptc.html">IPTC</a>-Daten
+            eingebettet, können Sie diese
+            <a href="action_metadata_iptc_to_xmp.html">übernehmen lassen</a>.
+            Das gleiche gilt für
+            <a href="action_metadata_embedded_xmp_to_xmp_sidecar_file.html">eingebettete
+            XMP-Daten</a>. Diese lassen sich auch
+            <a href="dialog_settings_performance.html">automatisch
+            übernehmen</a>.
+        </p>
+
+
+        <h1>Das Programmfenster</h1>
+
+        <p>Das Programmfenster ist aufgeteilt in vier Bereiche:
+        </p>
+
+        <ol>
+            <li>Links: Auswahl von Bildern mit bestimmten Eigenschaften
+            </li>
+            <li>Mitte: Anzeige von ausgewählten oder gefundenen
+                Vorschaubildern
+            </li>
+            <li>Rechts: Anzeige und Eingabe der
+                <a href="glossary_metadata.html">Metadaten</a>
+            </li>
+            <li>Unten: Vorschaubilder zoomen, Protokolldatei öffnen, Ausgabe
+                öffnen, Schnellsuche und Fortschrittsanzeigen
+            </li>
+        </ol>
+
+        <p><img src="img/mainwindow.gif"
+                    width="812"
+                    height="495"
+                    alt="" />
+        </p>
+
+        <h2>Vorschaubildfläche vergrößern</h2>
+
+        <p>Oben links und rechts des Vorschaubildfensters sind je zwei kleine
+            Dreiecke eingezeichnet. Klicken Sie auf das Dreieck, dessen Spitze
+            nach außen zeigt, wird das Vorschaubildfenster in diese Richtung
+            vergrößert, auf der linken Seite werden die Auswahlkartenreiter
+            überdeckt, auf der rechten Seite die Metadatenkartenreiter. Durch
+            Klicken auf den Pfeil nach innen wird das Vorschaubildfenster wieder
+            verkleinert.
+        </p>
+
+        <p>Geben Sie beispielsweise Stichwörter ein, können Sie die linke Seite
+            vergrößern und sehen so mehr Vorschaubilder.
+        </p>
+
+        <h2>Auswählen von Bildern</h2>
+
+        <p>Alle Befehle gelten für eine Auswahl, werden nur auf diese
+            angewendet. Die Vorschaubilder in der Mitte können Sie mit der Maus
+            auswählen:
+        </p>
+
+        <ul>
+            <li>Klick mit der linken Maustaste wählt <strong>ein</strong>
+                Bild aus
+            </li>
+            <li>Klick mit der linken Maustaste bei gedrückter
+                <kbd>Strg</kbd>-Taste (Steuerung) auf ein <em>nicht</em>
+                ausgewähltes Bild fügt dieses einer Auswahl
+                <strong>hinzu</strong>
+            </li>
+            <li>Klick mit der linken Maustaste bei gedrückter
+                <kbd>Strg</kbd>-Taste (Steuerung) auf ein <em>ausgewähltes</em>
+                Bild <strong>entfernt</strong> dieses von einer Auswahl
+            </li>
+            <li>Klick mit der linken Maustaste auf ein Bild und ein weiterer
+                Klick ein paar Bilder danach oder davor bei gleichzeitig
+                gedrückter <kbd>UMSCHALT</kbd>-Taste (<kbd>SHIFT</kbd>) wählt die
+                geklickten Bilder aus und alle dazwischen
+            </li>
+            <li>Ist die Fenstermitte aktiv (dünner weißer Rahmen), wählt die
+                Tastenkombination <kbd>Strg+A</kbd> <strong>alle</strong>
+                Bilder aus
+            </li>
+            <li>Klick mit der linken Maustaste neben ein Bild wählt
+                <strong>alle ab</strong>
+            </li>
+        </ul>
+
+        <h2>Größe der Vorschaubilder</h2>
+
+        <p>Mit dem Regler unten links können Sie die Größe der Vorschaubilder
+            einstellen zwischen 10 % und 100 % der eingelesenen Größe in
+            Schritten von 10 %. Gute Qualität erzielen Sie, wenn Sie die
+            Vorschaubilder groß
+            <a href="dialog_settings_thumbnails.html">einlesen lassen</a> und
+            für mehr Übersicht verkleinern.
+        </p>
+
+        <p><img src="img/slider-thumbnailsize.gif"
+                    width="216"
+                    height="47"
+                    alt="" />
+        </p>
+
+        <h2>Fortschrittsanzeigen</h2>
+
+        <p>Die Fortschrittsanzeigen verdeutlichen, wie weit bestimmte Aufgaben
+            erledigt sind. Die rechte obere zeigt den Fortschritt
+            <a href="dialog_settings_tasks.html">automatisierter Aufgaben</a>
+            an, die darunter, was Sie veranlassten, beispielsweise das Drehen
+            von Vorschaubildern, und die linke, wie weit die Vorschaubilder der
+            Fenstermitte in die Datenbank eingelesen wurden.
+        </p>
+
+        <p><img src="img/progressbars.gif"
+                    width="414"
+                    height="100"
+                    alt="" />
+        </p>
+
+        <h2>Suchen</h2>
+
+        <p>Sie können in das Eingabefeld am unteren Fensterrand einen Suchtext
+            eingeben. Nachdem Sie die <kbd>Enter</kbd>-Taste (<kbd>Return</kbd>)
+            gedrückt haben, wird nach dem Text gesucht, den Sie eingegeben
+            haben. Ihre Eingaben werden automatisch vervollständigt anhand
+            gepseicherter <a href="glossary_metadata.html">Metadaten</a>.
+            <strong>Tipp:</strong> Mit der Tastenkombination <kbd>Strg+F</kbd>
+            springen Sie schnell in das Suchen-Eingabefeld.
+        </p>
+
+        <p><img src="img/fastsearch.gif"
+                    width="229"
+                    height="27"
+                    alt="" />
+        </p>
+
+        <h2>Protokolldatei (Logdatei)</h2>
+
+        <p>Die Schaltfläche mit dem grünen Häkchen links von
+            <strong>Suchen</strong> öffnet die Protokolldatei. Dies kann wichtig
+            sein, falls ein <strong>rotes Kreuz</strong> anzeigt wird anstelle
+            des grünen Häkchens: Dann verlief etwas, wie es nicht sollte.
+        </p>
+
+        <h2>Ausgabe</h2>
+
+        <p>Die Schaltfläche <strong>Ausgabe</strong> öffnet ein Fenster mit den
+            Texten, die von <strong>Bilder</strong> in die Ausgabe des
+            Betriebssystems geschrieben wurden.
+        </p>
+
+        <h2>Kontextmenüs</h2>
+
+        <p>Klicken Sie mit der <strong>rechten</strong> Maustaste, klappen
+            manchmal Kontextmenüs auf neben dem Mauszeiger und zeigen Optionen
+            für das, was sie auswählten (&quot;markierten&quot;) im aktiven
+            Fenster. Bedingungen:
+        </p>
+
+        <ul>
+            <li>Es ist etwas ausgewählt: Links ein Ordnersymbol, das Symbol
+                einer gespeicherten Suche, einer Bildsammlung, ...
+            </li>
+            <li>Es gibt für die Auswahl ein Kontextmenü
+            </li>
+        </ul>
+
+        <p>Sie wählen zuerst mit der linken Maustaste etwas aus und klicken dann
+            die rechte. Unten sind zwei Kontextmenüs abgebildet.
+        </p>
+
+        <h3>Beispiele</h3>
+
+        <p>Ist das Fenster mit den Vorschaubildern ausgewählt, wird das
+            Kontextmenü für die Vorschaubilder angezeigt.
+        </p>
+
+        <p><img src="img/contextmenu-thumbnails.gif"
+                    width="271"
+                    height="437"
+                    alt="" />
+            <br /><strong>Kontextmenü im Fenster mit den Vorschaubildern</strong>
+        </p>
+
+        <p>Ist das Fenster mit den
+            <a href="mainwindow_panel_saved_searches.html">gespeicherten
+            Suchen</a> ausgewählt, öffnet sich das Kontextmenü mit Aktionen für
+            gespeicherte Suchen.
+        </p>
+
+        <p>
+            <img src="img/contextmenu-saved-searches.gif"
+                 width="159"
+                 height="89"
+                 alt="" />
+            <br /><strong>Kontextmenü im Fenster mit den gespeicherten Suchen</strong>
+        </p>
+
+
+        <h1>Kartenreiter &quot;Ordner&quot;</h1>
+
+        <p>Im Kartenreiter <strong>Ordner</strong> sehen Sie die Ordner Ihres
+            Computers. Klicken Sie mit der linken Maustaste auf einen Ordner,
+            <em>in dem Bilder sind</em>, werden Vorschauen davon angezeigt im
+            mittleren Fensterbereich.
+        </p>
+
+        <p><img src="img/tree-folders.gif"
+                    width="254"
+                    height="324"
+                    alt="" />
+        </p>
+
+        <p>Haben Sie einen Ordner ausgewählt und klicken mit der rechten
+            Maustaste darauf, öffnet sich ein Kontextmenü mit verschiedenen
+            Aktionen.
+        </p>
+
+        <p><img src="img/contextmenu-folders.gif"
+                    width="245"
+                    height="114"
+                    alt="" />
+        </p>
+
+
+        <h1>Kartenreiter &quot;Suchen&quot;</h1>
+
+        <p>Im Kartenreiter <strong>Suchen</strong> sehen Sie Ihre
+            <a href="dialog_advanced_search.html">gespeicherten Suchen</a>. Eine
+            gespeicherte Suche enthält stets die aktuellen Bilder mit bestimmten
+            Eigenschaften, beispielsweise alle Bilder, auf denen Ihr Freund zu
+            sehen ist.
+        </p>
+
+        <p><img src="img/list-saved-searches.gif"
+                    width="246"
+                    height="139"
+                    alt="" />
+        </p>
+
+        <p>Klicken Sie mit der linken Maustaste auf eine Suche, werden in der
+            Mitte gefundene Vorschaubilder angezeigt. Die rechte Maustaste zeigt
+            ein Kontextmenü mit verschiedenen Optionen wie das Umbenennen oder
+            Bearbeiten einer Suche.
+        </p>
+
+        <p><img src="img/contextmenu-saved-searches.gif"
+                    width="159"
+                    height="89"
+                    alt="" />
+        </p>
+
+
+        <h1>Kartenreiter &quot;Bildsammlungen&quot;</h1>
+
+        <p>Im Kartenreiter <strong>Bildsammlungen</strong> können Sie
+            Bildsammlungen auswählen. Eine Bildsammlung ist eine beliebige
+            Auswahl von Bildern, beispielsweise alle Bilder Ihrer letzten Reise,
+            Ihre besten Landschaftsfotos, Fotos, die Sie demnächst ausdrucken
+            wollen. Sie können die Reihenfolge der Bilder in einer Bildsammlung
+            ändern durch Ziehen und Ablegen.
+        </p>
+
+        <p><img src="img/list-collections.gif"
+                width="243"
+                height="211"
+                alt="" />
+        </p>
+
+        <p>Klicken Sie mit der linken Maustaste auf eine Bildsammlung, werden in
+            der Fenstermitte Vorschaubilder dieser Sammlung angezeigt. Die
+            rechte Maustaste zeigt ein Kontextmenü mit verschiedenen Optionen.
+        </p>
+
+        <p><img src="img/contextmenu-collections.gif"
+                width="241"
+                height="47"
+                alt="" />
+        </p>
+
+        <h2>Die Bildsammlung  &quot;Zuletzt importiert&quot;</h2>
+
+        <p>In die Bildsammlung <strong>Zuletzt importiert</strong> werden
+            automatisch die Bilder eingefügt, die Sie von einer
+            Kameraspeicherkarte
+            <a href="action_filesystem_autocopy_directory.html">kopierten</a>.
+        </p>
+
+        <h2>Die Bildsammlung  &quot;Ausgewählt&quot;</h2>
+
+        <p>Wählen Sie Bilder aus und drücken anschließend die Taste <kbd>P</kbd>
+            (englisch: &quot;Pick&quot;), werden die Bilder in die Bildsammlung
+            <strong>Ausgewählt</strong> eingefügt. Sie können auch das
+            Kontextmenü des Vorschaubildfensters benutzen: <strong>Hinzufügen
+                zu Ausgewählt</strong>.
+        </p>
+
+        <p>Hier können Sie Bilder sammeln, die Sie in Erwägung ziehen für einen
+            bestimmten Zweck, z.B. zum Behalten nach einem Import von der
+            Kameraspeicherkarte, für ein Fotobuch, zur Veröffentlichung im Web
+            etc. Nach und nach füllen Sie die Sammlung und entfernen wieder
+            ungeeignete Bilder mit der Taste <kbd>Entf</kbd>.
+        </p>
+
+        <p>Benötigen Sie den Inhalt nicht mehr oder wollen die Bildsammlung
+            erneut befüllen, können Sie die Bilder auswählen und entfernen mit
+            der Taste <kbd>Entf</kbd>; von der Festplatte werden diese so
+            <em>nicht</em> gelöscht.
+        </p>
+
+        <h2>Die Bildsammlung  &quot;Verworfen&quot;</h2>
+
+        <p>Wählen Sie Bilder aus und drücken anschließend die Taste <kbd>R</kbd>
+            (englisch: &quot;Reject&quot;), werden die Bilder in die Bildsammlung
+            <strong>Verworfen</strong> eingefügt. Sie können auch das
+            Kontextmenü des Vorschaubildfensters benutzen: <strong>Hinzufügen
+                zu Verworfen</strong>.
+        </p>
+
+        <p>Hier können Sie Bilder sammeln, die Sie nicht mehr wollen, aber noch
+            einmal überprüfen möchten, bevor Sie diese von der Festplatte
+            löschen. Nach und nach füllen Sie die Sammlung und entfernen wieder
+            Bilder, die Sie doch behalten wollen, mit der Taste <kbd>Entf</kbd>.
+        </p>
+
+        <p>Von der Festplatte löschen Sie die Bilder über das Kontextmenü des
+            Vorschaubildfensters: <strong>Vom Datenträger löschen</strong>.
+        </p>
+
+
+        <h1>Kartenreiter &quot;Kategorien&quot;</h1>
+
+        <p>Im Kartenreiter <strong>Kategorien</strong> sehen Sie alle
+            Kategorien, die Sie in die
+            <a href="glossary_xmp.html">XMP</a>-<a href="glossary_metadata.html">Metadaten</a>
+            eingaben.
+        </p>
+
+        <p><img src="img/list-categories.gif"
+                    width="243"
+                    height="157"
+                    alt="" />
+        </p>
+
+        <p>Klicken Sie mit der linken Maustaste auf eine Kategorie, werden in
+            der Fenstermitte alle Bilder mit dieser Kategorie angezeigt. Es gibt
+            <em>kein</em> Kontextmenü für Kategorien.
+        </p>
+
+
+        <h1>Kartenreiter &quot;Stichwörter&quot;</h1>
+
+        <p>Im Kartenreiter <strong>Stichwörter</strong> werden alle Stichwörter
+            angezeigt, die Sie Ihren Bildern zuordneten. Klicken Sie auf ein
+            Stichwort, werden alle Bilder mit diesem Stichwort angezeigt.
+        </p>
+
+        <p><img src="img/list-keywords.gif"
+                    width="246"
+                    height="176"
+                    alt="" />
+        </p>
+
+        <p>Es gibt <em>kein</em> Kontextmenü für diesen Kartenreiter.
+        </p>
+
+
+        <h1>Kartenreiter &quot;Favoriten-Ordner&quot;</h1>
+
+        <p>Der Kartenreiter <strong>Favoriten-Ordner</strong> zeigt Lesezeichen
+            für alle Ordner, die Sie häufig benötigen und deswegen hier abgelegt
+            haben. Der Vorteil gegenüber dem
+            <a href="mainwindow_panel_folder.html">Ordner-Kartenreiter</a> ist:
+        </p>
+
+        <ul>
+            <li>Sie müssen nicht mehrmals klicken und Unter-Ordner öffnen
+            </li>
+            <li>Sie können einen beliebigen Namen vergeben
+            </li>
+            <li>Sie können die Lesezeichen nach Ihren Bedürfnissen
+                anordnen (sortieren)
+            </li>
+        </ul>
+
+        <p><img src="img/tree-favorite-folders.gif"
+                    width="219"
+                    height="284"
+                    alt="" />
+        </p>
+
+        <p>Klicken Sie mit der linken Maustaste auf ein Lesezeichen, werden
+            Vorschaubilder angezeigt für alle Bilder dieses Ordners. Mit der
+            rechten Maustaste erhalten Sie ein Kontextmenü mit verschiedenen
+            Optionen wie dem Bearbeiten, Verschieben oder Löschen des
+            Favoriten-Ordners (aus dem Kartenreiter, <em>nicht</em> aus dem
+            Dateisystem).
+        </p>
+
+        <p><img src="img/contextmenu-favorite-folders.gif"
+                    width="259"
+                    height="221"
+                    alt="" />
+        </p>
+
+
+        <h1>Kartenreiter &quot;Zeitleiste&quot;</h1>
+
+        <p>Im Kartenreiter <strong>Zeitleiste</strong> werden alle Zeitpunkte
+            angezeigt, an denen Sie Bilder fotografierten (und nur diese).
+            Wählen Sie ein Jahr aus, werden alle Bilder dieses Jahres angezeigt,
+            bei einem Monat alle Bilder dieses Monats und bei einem Tag alle
+            Bilder dieses Tages.
+        </p>
+
+        <p><strong>Voraussetzung:</strong> Die Bilder wurden eingelesen in die
+            Datenbank und enthalten EXIF-Metadaten, in denen der
+            Aufnahmezeitpunkt steht.
+        </p>
+
+        <p>Bilder in der Datenbank ohne EXIF-Metadaten mit dem Aufnahmezeitpunkt
+            sind zusammengefasst unter dem Symbol <strong>Ohne
+            EXIF-Datum</strong>. Das sind Bilder ohne EXIF-Metadaten oder mit
+            EXIF-Metadaten ohne Aufnahmezeitpunkt.
+        </p>
+
+        <p><img src="img/tree-timeline.gif"
+                    width="217"
+                    height="382"
+                    alt="" />
+        </p>
+
+        <p>Es gibt <em>kein</em> Kontextmenü für diesen Kartenreiter.
+        </p>
+
+
+        <h1>Kartenreiter &quot;Verschiedenes&quot;</h1>
+
+        <p>Im Kartenreiter <strong>Verschiedenes</strong> werden ausgewählte
+            Metadaten angezeigt, die nicht in den anderen Kartenreitern
+            vorkommen. Dieser könnte zukünftig erweitert werden.
+        </p>
+
+        <h2>Fototechnik</h2>
+
+        <p>Unter <strong>Fototechnik</strong> stehen Daten, die Ihre Kameras in
+            die Bilder schrieben.
+        </p>
+
+        <p><strong>Voraussetzung:</strong> Die Bilder wurden eingelesen in die
+            Datenbank und enthalten EXIF-Metadaten, in denen die einzelnen
+            Attribute stehen, die folgend aufgelistet werden:
+        </p>
+
+        <h3>Kamera</h3>
+
+        <p>Unter dem Symbol <strong>Kamera</strong> sehen Sie die verschiedenen
+            Kameras, die in der Datenbank gespeichert sind. Klicken Sie auf
+            ein Kamerasymbol, werden alle Bilder angezeigt, die Sie mit dieser
+            Kamera fotografierten.
+        </p>
+
+        <h3>Brennweite</h3>
+
+        <p>Unter dem Symbol <strong>Brennweite</strong> sehen Sie die
+            verschiedenen Brennweiten, die in der Datenbank gespeichert sind.
+            Klicken Sie auf ein Brennweitensymbol, werden alle Bilder angezeigt,
+            die Sie mit dieser Brennweite fotografierten.
+        </p>
+
+        <h3>ISO</h3>
+
+        <p>Unter dem Symbol <strong>ISO</strong> sehen Sie die verschiedenen
+            ISO-Werte, die in der Datenbank gespeichert sind. Klicken Sie auf
+            ein ISO-Symbol, werden alle Bilder angezeigt, die Sie mit dieser
+            ISO-Einstellung fotografierten.
+        </p>
+
+        <h2>Angaben zu den Bildern</h2>
+
+        <p>Unter <strong>Angaben zu den Bildern</strong> stehen Metadaten, die
+            Sie oder andere in die Bilder schrieben und die nicht bereits in
+            einem anderen Kartenreiter angezeigt werden.
+        </p>
+
+        <p><strong>Voraussetzung:</strong> Die Bilder wurden eingelesen in die
+            Datenbank und enthalten Metadaten, in denen die einzelnen Attribute
+            stehen, die folgend aufgelistet werden:
+        </p>
+
+        <h3>Aufnahmeort</h3>
+
+        <p>Unter <strong>Aufnahmeort</strong> stehen alle verschiedenen
+            Aufnahmeorte. Klicken Sie einen Aufnahmeort an, werden alle Bilder
+            angezeigt, die dort fotografiert wurden.
+        </p>
+
+        <h3>Fotograf/Name</h3>
+
+        <p>Unter <strong>Fotograf</strong> stehen alle verschiedenen Fotografen.
+            Klicken Sie einen Fotografen an, werden alle Bilder angezeigt, die
+            dieser Fotograf fotografierte.
+        </p>
+
+        <h3>Copyright</h3>
+
+        <p>Unter <strong>Copyright</strong> stehen alle verschiedenen Rechte am
+            Bild. Klicken Sie eine Copyright an, werden alle Bilder angezeigt,
+            die dieses Copyright besitzen.
+        </p>
+
+        <h3>Eigentümer</h3>
+
+        <p>Unter <strong>Eigentümer</strong> stehen alle verschiedenen
+            Eigentümer der Bilder. Klicken Sie einen Eigentümer an, werden seine
+            Bilder angezeigt.
+        </p>
+
+        <p><img src="img/tree-misc-metadata.gif"
+                    width="250"
+                    height="381"
+                    alt="" />
+        </p>
+
+        <p>Es gibt <em>kein</em> Kontextmenü für diesen Kartenreiter.
+        </p>
+
+
+        <h1>Kartenreiter &quot;Ohne Metadaten&quot;</h1>
+
+        <p>Im Kartenreiter <strong>Ohne Metadaten</strong> finden Sie Bilder in
+            der <strong>Datenbank</strong>, denen noch keine Metadaten
+            zugeordnet wurden, beispielsweise Bilder ohne Stichwörter oder ohne
+            Kurzbeschreibung.
+        </p>
+
+        <p><img src="img/tree-no-metadata.gif"
+                    width="241"
+                    height="251"
+                    alt="" />
+        </p>
+
+        <p>Es gibt <em>kein</em> Kontextmenü für diesen Kartenreiter.
+        </p>
+
+
+        <h1>Kartenreiter &quot;IPTC&quot;</h1>
+
+        <p>Im Kartenreiter <strong>IPTC</strong> sehen Sie
+            <a href="glossary_iptc.html">IPTC</a>-Daten, die andere Programme
+            in die Bilder schrieben. Daten mit farbigem Hintergrund werden in
+            die Datenbank geschrieben und Sie können danach suchen, falls Sie
+            das
+            <a href="dialog_settings_performance.html">eingestellt haben</a>.
+        </p>
+
+        <p><img src="img/table-iptc.gif"
+                    width="412"
+                    height="239"
+                    alt="" />
+        </p>
+
+
+        <h1>Kartenreiter &quot;EXIF&quot;</h1>
+
+        <p>Im Kartenreiter <a href="glossary_exif.html">EXIF</a> sehen Sie Daten,
+            die Ihre Digitalkamera in das Bild schrieb, das Sie auswählten im
+            Vorschaubild-Fenster. Daten mit farbigem Hintergrund werden in die
+            Datenbank geschrieben und Sie können danach suchen.
+        </p>
+
+        <p>Sind GPS-Daten eingebettet, können Sie ein Satellitenfoto anzeigen
+            lassen vom Aufnahmenstandort durch Betätigen der Schaltfläche
+            <strong>Google Maps</strong>, sofern eine Verbindung zum Internet
+            besteht.
+        </p>
+
+        <p><img src="img/table-exif.gif"
+                    width="436"
+                    height="523"
+                    alt="" />
+        </p>
+
+
+        <h1>Kartenreiter &quot;XMP&quot;</h1>
+
+        <p>Im Kartenreiter <a href="glossary_xmp.html">XMP</a> sehen Sie Daten,
+            die Sie mit dem Programm <strong>Bilder</strong> in
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            schrieben oder mit anderen Programmen wie <strong>Adobe Photoshop
+            Lightroom</strong>. Daten mit farbigem Hintergrund werden in die
+            Datenbank geschrieben und Sie können danach suchen.
+        </p>
+
+        <p>Gibt es keine XMP-Filialdateien und es sind XMP-Daten eingebettet in
+            die Bilddatei, werden diese angezeigt. Sie können diese auch in die
+            Datenbank
+            <a href="dialog_settings_performance.html">speichern lassen</a>.
+        </p>
+
+        <p><img src="img/tables-xmp.gif"
+                    width="442"
+                    height="250"
+                    alt="" />
+        </p>
+
+        <p>XMP-Daten können sehr umfangreich sein und sind deshalb auf
+            verschiedene Kartenreiter verteilt, je
+            <strong>XMP-Namensraum</strong> einer. Folgende Namensräume werden
+            angezeigt:
+        </p>
+
+        <ul>
+            <li><strong>Camera Raw</strong> Entwicklungseinstellungen, die die
+                Programme <strong>Adobe Camera Raw</strong> und <strong>Adobe
+                Photoshop Lightroom</strong> in XMP-Filialdateien schreiben
+            </li>
+            <li><strong>Dublin Core</strong>:
+                <a href="glossary_metadata.html">Metadaten</a> wie Stichwörter,
+                Fotograf, Copyright
+            </li>
+            <li><strong>EXIF</strong>: Technische Daten, die Digitalkameras in
+                Bilder schreiben
+            </li>
+            <li><strong>IPTC</strong>: Ein Teil der
+                <a href="glossary_iptc.html">IPTC</a>-Daten
+            </li>
+            <li><strong>Lightroom</strong>: Metadaten, die das Programm
+                <strong>Adobe Photoshop Lightroom</strong> in XMP-Dateien
+                schreibt, zurzeit hierarchische Stichwörter
+            </li>
+            <li><strong>Photoshop</strong>: Metadaten, die Photoshop als IPTC
+                in Bilder schreibt
+            </li>
+            <li><strong>Sonstige</strong>: Daten früherer XMP-Spezifikationen
+            </li>
+            <li><strong>TIFF</strong>: Einige technische Daten über Kamera und
+                Bild
+            </li>
+        </ul>
+
+
+        <h1>Kartenreiter &quot;Bearbeiten&quot;</h1>
+
+        <p>Über den Kartenreiter <strong>Bearbeiten</strong> können Sie die
+            <a href="glossary_metadata.html">Metadaten</a> eines oder mehrerer
+            Bilder <strong>gleichzeitig</strong> bearbeiten. Sie benötigen:
+        </p>
+
+        <ul>
+            <li>Schreibrechte im Bilder-Ordner
+            </li>
+            <li>Schreibrechte für existierende
+                <a href="glossary_xmp.html">XMP</a>-Dateien
+            </li>
+        </ul>
+
+        <p>Ohne Schreibrechte sind die Eingabefelder dunkler und es steht am
+            Ende im Kartenreiter <strong>Bearbeiten</strong>, dass Bearbeiten
+            nicht möglich ist.
+        </p>
+
+        <p><img src="img/panel-edit.gif"
+                width="368"
+                height="130"
+                alt="" />
+        </p>
+
+        <p>Ihre Daten werden gespeichert - in
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            geschrieben, falls Sie ein anderes Bild auswählen oder das
+            Programm beenden.
+        </p>
+
+        <p>Die Schaltflächen links klappen Eingabefelder ein, falls sie ein
+            Minus-Zeichen haben und aus bei einem Plus-Zeichen. Sie sparen
+            Platz durch Einklappen der Felder, in die Sie nur selten eingeben.
+        </p>
+
+        <h2>Daten eingeben</h2>
+
+        <p><img src="img/panel-edit-textfield.gif"
+                width="320"
+                height="42"
+                alt="" />
+        </p>
+
+        <p>Mit der <strong>Tabulator</strong>-Taste gehen Sie von Eingabefeld
+            zu Eingabefeld. Ihnen wird in jedem Eingabefeld Text vorgeschlagen,
+            den Sie dort einmal eingaben, falls er in der Datenbank steht.
+        </p>
+
+        <p><img src="img/panel-edit-prompt-tooltip.gif"
+                width="320"
+                height="53"
+                alt="" />
+        </p>
+
+        <p>Zeigen Sie mit der Maus etwas länger auf die Überschrift eines
+            Eingabefelds, erscheint ein Werkzeugtipp (Tooltip) mit weiteren
+            Informationen, was in das Eingabefeld hineingeschrieben werden soll.
+        </p>
+
+        <h2>Mehrfache Daten eingeben</h2>
+
+        <p>Folgende Daten können mehrfach vorkommen:
+        </p>
+
+        <ul>
+            <li>Stichwörter
+            </li>
+            <li>Weitere Kategorien
+            </li>
+        </ul>
+
+        <p><img src="img/panel-edit-edit-area.gif"
+                width="357"
+                height="79"
+                alt="" />
+        </p>
+
+        <p>Ein Bereich mit mehrfachen Daten ist zweigeteilt: Oben ist eine Liste
+            mit den bisherigen Eingaben, unten ein einzeiliges Eingabefeld.
+        </p>
+
+        <p>Geben Sie Daten in das einzeilige Eingabefeld ein und drücken die
+            <kbd>Enter</kbd>-Taste oder klicken mit der Maus auf die
+            <kbd>Plus</kbd>-Schaltfläche (<strong>+</strong>), wird Ihre
+            Eingabe in die Liste übernommen, falls sie dort nicht existiert.
+        </p>
+
+        <p>Wollen Sie Einträge aus der Liste <strong>löschen</strong>, wählen
+            Sie einen Eintrag aus oder mehrere und klicken auf die
+            <strong>Minus</strong>-Schaltfläche (<strong>-</strong>). Sie können
+            auch das Kontextmenü benutzen (rechte Maustaste).
+        </p>
+
+        <p>Wollen Sie einen Eintrag in der Liste <strong>umbenennen</strong>
+            oder mehrere, wählen Sie die Einträge aus, klicken mit der rechten
+            Maustaste und wählen aus dem Kontextmenü "Umbenennen".
+        </p>
+
+        <h2>Die Metadaten eines Bilds bearbeiten</h2>
+
+        <p>Wählen Sie (genau) <strong>ein</strong> Bild aus, werden dessen
+            Metadaten angezeigt. Durch Entfernen aus den Eingabefeldern und
+            Listen <strong>löschen</strong> Sie Daten.
+        </p>
+
+        <h2>Die Metadaten mehrerer Bilder bearbeiten</h2>
+
+        <p>Wählen Sie mehrere Bilder aus, werden die <em>gemeinsamen</em>
+            Metadaten angezeigt.
+        </p>
+
+        <p>Ist ein Feld leer und Sie geben Text ein, wird er allen Bildern
+            zugewiesen, der bisherige Text wird ersetzt, falls dieser nur
+            einmal vorkommt, wie der Name des Fotografen, das Copyright, der
+            Aufnahmeort.
+        </p>
+        <p>Geben Sie Text ein in Felder mit sich wiederholenden Metadaten -
+            Stichwörter und weitere Kategorien - wird dieser allen ausgewählten
+            Bildern hinzugefügt, sofern er dort nicht existiert.
+        </p>
+
+        <p>Was Sie umbenennen oder löschen, wird in den Metadaten aller
+            ausgewählten Bilder umbenannt oder gelöscht.
+        </p>
+
+        <h2>Vorlagen</h2>
+
+        <p><img src="img/panel-edit-save.gif"
+                width="319"
+                height="154"
+                alt="" />
+            <img src="img/panel-edit-templates.gif"
+                 width="317"
+                 height="153"
+                 alt="" />
+        </p>
+
+        <p>Vorlagen sind Metadaten, die Sie immer wieder benötigen. Einmal
+            abgespeichert mit der Tastenkombination <kbd>Alt+V</kbd> oder
+            Mausklick auf die Schaltfläche <strong>Als Vorlage
+                speichern</strong>, werden sie in die Eingabefelder eingefügt durch
+            die Tastenkombination <kbd>Alt+E</kbd> oder Klick auf die
+            Schaltfläche <strong>Vorlage einfügen</strong> im Kartenreiter
+            <strong>Bearbeiten</strong>. Der Name der <em>aktuellen</em>
+            Vorlage wird angezeigt im Dropdown-Listenfeld des Kartenreiters
+            <strong>Vorlagen</strong>.
+        </p>
+
+        <p>Für eine Vorlage eignen sich besonders Copyright, Adresse des
+            Fotografen und Stichwörter, die Sie immer wieder benutzen.
+        </p>
+
+        <p>Die Bedeutung der anderen Schaltflächen, in den Klammern stehen die
+            Tastenkombinationen:
+        </p>
+
+        <dl>
+            <dt>Leeren <kbd>(Alt+L)</kbd>
+            </dt>
+            <dd>Leert alle Eingabefelder
+            </dd>
+            <dt>Aktualisieren <kbd>(Alt+A)</kbd>
+            </dt>
+            <dd>Frischt die aktuelle Vorlage auf mit den Daten der
+                Eingabefelder
+            </dd>
+            <dt>Löschen <kbd>(Alt+Ö)</kbd>
+            </dt>
+            <dd>Löscht die aktuelle Vorlage
+            </dd>
+            <dt>Umbenennen <kbd>Alt+M</kbd>
+            </dt>
+            <dd>Benennt die aktuelle Vorlage um
+            </dd>
+        </dl>
+
+        <p><em>Die Tastenkombinationen funktionieren nur, wenn der Kartenreiter
+                mit den entsprechenden Schaltflächen ausgewählt ist.</em>
+        </p>
+
+        <h2>Tipps zur Eingabe von Metadaten</h2>
+
+        <ul>
+            <li>Benutzen Sie Vorlagen.
+            </li>
+            <li>Benutzen Sie den Dialog
+                <a href="dialog_edit_metadata_text_selection.html">
+                    &quot;Zuletzt eingegebene Begriffe&quot;</a>.
+            </li>
+            <li>Haben Sie viele Bilder fotografiert, wählen Sie vorher alle aus,
+                die die gleichen Stichwörter, Kategorien etc. erhalten sollen.
+                Dann geben Sie die Stichwörter, Kategorien und den Rest ein. Das
+                wiederholen Sie für andere Stichwörter, Kategorien, etc.
+            </li>
+        </ul>
+
+
+        <h1>Kartenreiter &quot;Stichwortbaum&quot;</h1>
+
+        <p>Hierarchische Stichwörter können anderen Stichwörtern über- und
+            untergeordnet sein. In der Abbildung unten ist
+            <strong>Landschaft</strong> folgenden Stichwörtern übergeordnet:
+            <strong>Bach</strong>, <strong>Baum</strong> und
+            <strong>Himmel</strong>. Das Stichwort <strong>Baum</strong> ist
+            <strong>Birke</strong> und <strong>Buche</strong> übergeordnet.
+        </p>
+
+        <p><img src="img/panel-edit-keyword-tree.gif"
+                width="282"
+                height="190"
+                alt="" />
+        </p>
+
+        <p>Tippen Sie im Kartenreiter
+            <a href="mainwindow_panel_edit.html">Bearbeiten</a> ein Stichwort
+            ein und drücken die Tasten <kbd>Strg+K</kbd>, wird ein Dialog
+            angezeigt, der alle übergeordneten Stichwörter des eingegebenen
+            Stichworts anzeigt. Diese können Sie eintragen lassen. Anstelle
+            <kbd>Strg+K</kbd> können Sie die Schaltfläche mit dem
+            <strong>K</strong> betätigen. <strong>K</strong> steht für
+            <strong>Keyword</strong>, dem englischen Begriff für Stichwort
+            (Schlüsselwort). In der Abbildung unten ist diese Schaltfläche rot
+            umrandet.
+        </p>
+
+        <p><img src="img/hierarchical_keywords_input.gif"
+                width="328"
+                height="95"
+                alt="" />
+        </p>
+
+        <p>Sie können alle Stichwörter eintragen lassen, einzelne oder keine.
+            Wollen Sie nur einzelne eintragen lassen, wählen Sie diese aus im
+            Dialog und betätigen die Schaltfläche <strong>Markierte auswählen
+            </strong>.
+        </p>
+
+        <p><img src="img/hierarchical_keywords_selection.gif"
+                width="446"
+                height="196"
+                alt="" />
+        </p>
+
+        <h2>&quot;Echte Stichwörter&quot;</h2>
+
+        <p>Jedes neu angelegte Stichwort ein &quot;echtes&quot;: Es wird für
+            eine Übernahme vorgeschlagen. Wollen Sie ein Stichwort nur zum
+            Ordnen benutzen, wählen Sie es aus, klicken die rechte Maustaste
+            und wählen aus dem Kontextmenü: <strong>Umschalten: Echt</strong>.
+            Aus einem &quot;echten&quot; Schlüsselwort wird eines, das Sie zum
+            Ordnen benutzen können und umgekehrt.
+        </p>
+
+        <p>In der ersten oberen Abbildung ist das Stichwort
+            <strong>Favoritenbäume</strong> eines, das nur der Ordnung dient,
+            beispielsweise für einen schnellen Zugriff. Es wird <em>nicht</em>
+            zur Übernahme vorgeschlagen. Geben Sie ins Stichwort-Eingabefeld
+            <strong>Buche</strong> ein, werden nur die übergeordneten
+            Stichwörter <strong>Baum</strong> und <strong>Landschaft</strong>
+            zur Auswahl angeboten.
+        </p>
+
+        <h2>Hinzufügen von Stichwörtern zu ausgewählten Bildern</h2>
+
+        <p>Wählen Sie ein Stichwort aus, klicken mit der rechten Maustaste und
+            wählen <strong>Hinzufügen zu ausgewählten Bildern</strong>.
+            Das ausgewählte Stichwort und seine übergeordneten Stichwörter
+            werden darauf hin eingetragen in den Kartenreiter
+            <strong>Bearbeiten</strong>. Sie können auch die Tastenkombination
+            <kbd>Strg+B</kbd> drücken.
+        </p>
+
+        <h2>Stichwörter organisieren</h2>
+
+        <h3>Stichwort hinzufügen</h3>
+
+        <p>Sie können ein neues Stichwort auf folgende Arten hinzufügen:
+        </p>
+
+        <ul>
+            <li>Ziehen Sie mit der Maus ein Stichwort aus dem Kartenreiter
+                <a href="mainwindow_panel_keywords.html">Stichwörter</a> und
+                lassen Sie es auf ein Stichwort fallen. Es wird diesem
+                untergeordnet.
+            </li>
+            <li>Wählen Sie ein Stichwort aus und betätigen die rechte Maustaste.
+                Im aufklappenden Menü wählen Sie den Eintrag <strong>Neu</strong>.
+                Das neue Stichwort wird dem ausgewählten Stichwort untergeordnet.
+            </li>
+            <li>
+                Wählen Sie ein Stichwort aus und drücken die beiden Tasten
+                <kbd>Strg+N</kbd>. Das neue Stichwort wird dem ausgewählten
+                Stichwort untergeordnet.
+            </li>
+        </ul>
+
+        <h3>Stichwort umbenennen</h3>
+
+        <p>Sie ändern den Namen eines Stichworts auf zwei Arten:
+        </p>
+
+        <ul>
+            <li>Wählen Sie ein Stichwort aus und betätigen die rechte Maustaste.
+                Im aufklappenden Menü wählen Sie den Eintrag
+                <strong>Umbenennen</strong>.
+            </li>
+            <li>Wählen Sie ein Stichwort aus und drücken die Taste <kbd>F2</kbd>
+            </li>
+        </ul>
+
+        <h3>Stichwort löschen</h3>
+
+        <p>Sie löschen ein Stichwort auf zwei Arten:
+        </p>
+
+        <ul>
+            <li>Wählen Sie ein Stichwort aus und betätigen die rechte Maustaste.
+                Im aufklappenden Menü wählen Sie den Eintrag
+                <strong>Entfernen</strong>.
+            </li>
+            <li>Wählen Sie ein Stichwort aus und drücken die Taste <kbd>Entf</kbd>
+            </li>
+        </ul>
+
+        <h2>Stichwort verschieben</h2>
+
+        <p>Klicken Sie mit der linken Maustaste auf ein Stichwort, ziehen es
+            zu einem anderen Stichwort und lassen es dort fallen.
+        </p>
+
+        <h2>Hinweis</h2>
+
+        <p><em>Die hierarchischen Stichwörter werden nicht als Hierarchie in die
+                Filialdateien geschrieben, sondern einzeln, da es keinen
+                Standard gibt, der garantiert, dass andere Programme die
+                Hierarchie (richtig) einlesen.</em>
+        </p>
+
+
+        <h1>Vorschaubild aktualisieren</h1>
+
+        <p>Dieser Befehl aktualisiert im den
+            <a href="facts_database_location.html">Datenbankordner</a>
+            untergeordneten Ordner <code>thumbnails</code> die
+            <strong>Vorschaubilder</strong> der ausgewählten Bilder.
+        </p>
+
+        <p>Sinnvoll ist das:
+        </p>
+
+        <ul>
+            <li>zum <strong>Testen</strong> eines eigenen Programms, das
+                Vorschaubilder erzeugt
+                (<a href="dialog_settings_thumbnails.html">siehe
+                Einstellungen-Dialog</a>)
+            </li>
+            <li>nachdem Sie die <strong>maximale Seitenlänge eines
+                Vorschaubilds</strong> änderten und anschließend nicht im
+                <a href="dialog_settings_thumbnails.html">Einstellungen-Dialog</a>
+                alle Vorschaubilder neu berechnen ließen
+            </li>
+            <li>falls die Vorschaubilder noch nicht berechnet wurden und Sie
+                nicht warten wollen, bis das automatisch geschieht
+            </li>
+        </ul>
+
+
+        <h1>Metadaten aktualisieren</h1>
+
+        <p>Dieser Befehl aktualisiert in der <strong>Datenbank</strong> die
+            <a href="glossary_xmp.html">XMP</a>- und
+            <a href="glossary_exif.html">EXIF</a>-<a href="glossary_metadata.html">Metadaten</a>
+            der ausgewählten Bilder. Sinnvoll ist das, falls die Metadaten
+            <em>außerhalb</em> des Programms <strong>Bilder</strong> modifiziert
+            wurden und Sie nicht warten wollen, bis die Datenbank automatisch
+            aktualisiert wird.
+        </p>
+
+
+        <h1>Aus der Datenbank entfernen</h1>
+
+        <p>Mit diesem Befehl entfernen Sie die <strong>ausgewählten</strong>
+            Bilder <strong>aus der Datenbank</strong>, <em>nicht</em> von der
+            Festplatte. Das ist (lediglich) sinnvoll, wenn Sie
+            <em>außerhalb</em> des Programms diese Bilder löschten oder
+            verschoben.
+        </p>
+
+        <p>Sie können das auch (bequemer) erledigen lassen über das Menü
+            <a href="action_database_maintain.html">Datei &gt; Datenbank</a>,
+            Kartenreiter <strong>Wartung</strong> oder
+            <a href="dialog_settings_tasks.html">automatisiert</a>.
+        </p>
+
+
+        <h1>Öffnen</h1>
+
+        <p>Dieser Befehl öffnet die ausgewählten Bilder mit dem
+            Standard-Programm (für Doppelklicks), das Sie im
+            Einstellungen-Dialog
+            <a href="dialog_settings_programs.html">definierten</a>.
+        </p>
+
+
+        <h1>Öffnen mit</h1>
+
+        <p>Dieser Befehl öffnet die ausgewählten Bilder mit einem der weiteren
+            Programme, die Sie im Einstellungen-Dialog
+            <a href="dialog_settings_programs.html">definierten</a>.
+        </p>
+
+
+        <h1>Neue Bildsammlung erstellen</h1>
+
+        <p>Mit diesem Befehl erzeugen Sie eine neue Bildsammlung aus den
+            <strong>ausgewählten</strong> Bildern. Sie erscheint im Kartenreiter
+            <a href="mainwindow_panel_collections.html">Bildsammlungen</a>.
+        </p>
+
+
+        <h1>Einer Bildsammlung hinzufügen</h1>
+
+        <p>Mit diesem Befehl fügen Sie einer existierenden Bildsammlung
+            die <strong>ausgewählten</strong> Bilder hinzu.
+        </p>
+
+        <p><img src="img/dialog-add-to-collection.gif"
+                    width="400"
+                    height="282"
+                    alt="" />
+        </p>
+
+
+        <h1>Aus der Bildsammlung entfernen</h1>
+
+        <p>Mit diesem Befehl entfernen Sie die <strong>ausgewählten</strong>
+            Bilder aus einer Bildsammlung, <em>sofern gerade eine Bildsammlung
+            angezeigt wird</em>.
+        </p>
+
+
+        <h1>Vorschaubilder drehen</h1>
+
+        <p>Mit diesen Befehlen drehen Sie die ausgewählten
+            <em>Vorschaubilder</em> <strong>im Uhrzeigersinn</strong> um 90,
+            180 oder 270&deg;. Die Bilddatei wird <em>nicht</em> verändert, nur
+            das Vorschaubild im Datenbankordner.
+        </p>
+
+
+        <h1>In einen Ordner kopieren</h1>
+
+        <p>Dieser Befehl öffnet einen Dialog, mit dem Sie alle
+            <strong>ausgewählten</strong> Bilder in einen Ordner kopieren
+            können, beispielsweise zum Hochladen an ein Fotolabor oder auf einen
+            Webserver.
+        </p>
+
+        <p><img src="img/dialog-copy-to-directory.gif"
+                    width="495"
+                    height="238"
+                    alt="" />
+        </p>
+
+
+        <h1>Dialog: Umbenennen</h1>
+
+        <p>Dieser Befehl gibt den <strong>ausgewählten</strong> Bildern einen
+            neuen Namen auf dem Datenträger. Sie können jede ausgewählte Datei
+            einzeln umbenennen oder alle auf einmal mit einer Schablone.
+        </p>
+
+        <h2>Dateien einzeln umbenennen (Kartenreiter &quot;Namen eingeben&quot;)
+        </h2>
+
+        <p>Hier geben Sie für jede Datei einen neuen Namen ein, der Dialog zeigt
+            nach jeder Umbenennung die nächste ausgewählte Datei an.
+        </p>
+
+        <p><img src="img/dialog-rename-input-each-filename.gif"
+                    width="571"
+                    height="435"
+                    alt="" />
+        </p>
+
+        <h2>Dateien umbenennen mit einer Schablone (Kartenreiter &quot;Schablone
+            benutzen&quot;)
+        </h2>
+
+        <p>Mit der Schablone können Sie alle ausgewählten Dateien auf einmal
+            einheitlich umbenennen lassen anhand einer Schablone. Sie können
+            <em>bis</em> zu drei Bestandteile des Namens bestimmen:
+        </p>
+
+        <ul>
+            <li><strong>Exakter Wortlaut</strong>: Tragen Sie unten ins Textfeld
+                etwas ein und es erscheint unverändert in allen Dateinamen.
+            </li>
+            <li><strong>Ziffernfolge</strong>: Startet mit der oben
+                eingestellten <strong>Anfangsziffer</strong>, wird hochgezählt
+                mit der oben eingestellten <strong>Schrittweite</strong> und hat
+                so viele Ziffern wie in der <strong>Ziffernanzahl</strong>
+                definiert. Ist die Anfangsziffer 1, die Schrittweite 1 und die
+                Ziffernanzahl 3, wird für das erste Bild <code>001</code>
+                vergeben, für das zweite <code>002</code>, für das dritte
+                <code>003</code> usw. Erhöhen Sie die Schrittweite auf 2, hat
+                das erste Bild die Ziffernfolge <code>001</code>, das zweite
+                <code>003</code> und das dritte <code>005</code>.
+            </li>
+            <li><strong>Dateiname ohne Endung</strong>: Übernimmt den
+                Dateinamen, wie er ist. So bleibt er im Original erhalten, Sie
+                könnten aber beispielsweise das Datum voranstellen.
+            </li>
+            <li><strong>Aufnahmedatum</strong>: Übernimmt das Datum aus den
+                <a href="glossary_exif.html">EXIF</a>-Daten, falls möglich, sonst
+                wird das Datum der letzten Dateimodifikation benutzt.
+            </li>
+            <li><strong>Nichts</strong>: Lässt diesen Namensbestandteil frei.
+            </li>
+        </ul>
+
+        <p>Unten im <strong>Beispiel</strong> sehen Sie, wie die erste der
+            ausgewählten Bilddateien nach dem Umbenennen heißt.
+        </p>
+
+        <p><img src="img/dialog-rename-template.gif"
+                    width="571"
+                    height="435"
+                    alt="" />
+        </p>
+
+
+        <h1>Auf dem Datenträger verschieben</h1>
+
+        <p>Dieser Befehl <strong>verschiebt</strong> die
+            <strong>ausgewählten</strong> Bilder in einen <strong>anderen
+            Ordner</strong> auf dem Datenträger.
+        </p>
+
+        <p><img src="img/dialog-move-to-directory.gif"
+                    width="488"
+                    height="194"
+                    alt="" />
+        </p>
+
+
+        <h1>Vom Datenträger löschen</h1>
+
+        <p>Dieser Befehl löscht (unwiderruflich!) die ausgewählten Bilder
+            <strong>vom Datenträger</strong>: Einer Festplatte, einem USB-Stick
+            usw.
+        </p>
+
+
+        <h1>Menübefehl: Datei &gt; Ordner einlesen</h1>
+
+        <p>Über diesen Dialog können Sie Ordner nach Bildern durchsuchen lassen
+            und so die Datenbank mit
+            <a href="glossary_metadata.html">Metadaten</a> aktualisieren.
+        </p>
+
+        <p><img src="img/dialog-scan-directories.gif"
+                    width="671"
+                    height="337"
+                    alt="" />
+        </p>
+
+
+        <h1>Menübefehl: Datei &gt; Datenbank</h1>
+
+        <p>Dieser Menübefehl öffnet einen Dialog mit Informationen über die
+            Datenbank und Möglichkeiten zur Wartung.
+        </p>
+
+        <h2>Info</h2>
+
+        <p>Auf dem <strong>Info</strong>-Kartenreiter sehen Sie, welche Daten
+            enthalten sind in wie vielen Datensätzen. In der Abbildung unten
+            <!--TODO PERMANENT: Falls sich die Abbildung ändert, die Zahl anpassen-->
+            gibt es 50.670 Datensätze mit Stichwörtern. Die Spalte
+            <strong>Was</strong> zeigt die Art der Daten an, die Spalte
+            <strong>Unterschiedliche</strong>, wie viele unterschiedliche
+            Daten dieser Art es gibt und die Spalte <strong>Insgesamt</strong>,
+            in wievielen Datensätzen Daten dieser Art enthalten sind.
+            Beispielsweise könnten Kategorien in 1.000 Datensätzen gespeichert
+            sein, aber es gibt nur 50 unterschiedliche Kategorien, falls mehrere
+            Bilder gleichen Kategorien zugeordnet sind, was praktisch immer der
+            Fall ist (sofern Sie Kategorien benutzen).
+        </p>
+
+        <p>Die <strong>Anzahl aller Bilder</strong> in der Datenbank stehen
+            neben dem Dateinamen.
+        </p>
+
+        <!--TODO PERMANENT: Siehe oben (Zahl der Stichwörter anpassen im Text-->
+        <p><img src="img/dialog-database-info.gif"
+                    width="492"
+                    height="354"
+                    alt="" />
+        </p>
+
+        <h2>Wartung</h2>
+
+        <p>Der Kartenreiter Wartung bietet an, <strong>Datensätze zu
+            entfernen</strong>, für die es keine Bilder mehr gibt. Das ist
+            sinnvoll, sonst werden bei Suchen nicht mehr existierende Bilder
+            berücksichtigt.
+        </p>
+
+        <p><strong>Nicht mehr benötigte Vorschaubilder löschen</strong> löscht
+            Vorschaubilder, für die in der Datenbank keine Bilddateien
+            gespeichert sind. Diese belegen unnötig Platz auf der Festplatte.
+        </p>
+
+        <p>Das <strong>Komprimieren</strong> der Datenbank verkleinert ihre
+            Dateigröße. Dies ist in der Regel nicht nötig, kann aber sinnvoll
+            sein nach Programmupdates, bei denen die Datenbank modifiziert wurde
+            oder nachdem Sie sehr viele Metadaten verändert oder gelöscht
+            haben.
+        </p>
+
+        <p><img src="img/dialog-database-maintain.gif"
+                    width="569"
+                    height="359"
+                    alt="" />
+        </p>
+
+
+        <h1>Bilder von der Kamera-Speicherkarte kopieren</h1>
+
+        <p>Sie können Bilder von der Kamera-Speicherkarte in einen Ordner
+            kopieren lassen unter zwei Voraussetzungen:
+        </p>
+
+        <ol>
+            <li>Sie benutzen einen Kartenleser oder die Kamera meldet sich
+                <strong>als Laufwerk</strong> an
+            </li>
+            <li>Im <strong>Einstellungen-Dialog</strong> (Menü
+                <strong>Bearbeiten &gt; Einstellungen</strong>) haben Sie haben
+                den Ordner mit dem Inhalt der Speicherkarte
+                <a href="dialog_settings_misc.html">eingestellt</a>
+            </li>
+        </ol>
+
+        <p><strong>Alle Bilder</strong> auf der Speicherkarte werden in einen
+            Ordner kopiert mit dem
+            <a href="action_filesystem_copy.html">Kopieren-Dialog</a>.
+        </p>
+
+        <p><em>Die kopierten Bilder werden nicht automatisch in die Datenbank
+                aufgenommen. Wählen Sie dazu erst den Ordner (erneut) aus, in den
+            die Dateien kopiert wurden.</em>
+        </p>
+
+
+        <h1>Stichwörter importieren</h1>
+
+        <p>Mit diesem Dialog können Sie Stichwörter importieren, die ein anderes
+            Programm exportiert hat. Die importierten Stichwörter werden
+            eingefügt in den
+            <a href="dialog_hierarchical_keywords.html">Stichwortbaum</a>, falls
+            sie dort nicht existieren, und Sie können diese von dort aus später
+            Ihren Bildern zuweisen.
+        </p>
+
+        <p><img src="img/dialog_import_keywords.gif"
+                width="433"
+                height="136"
+                alt="" />
+        </p>
+
+        <h2>Unterstützte Formate</h2>
+
+        <ul>
+            <li>Adobe Lightroom Photoshop
+            </li>
+        </ul>
+
+        <h2>Beschreibung der Formate</h2>
+
+        <p>Die Formatbeschreibung ist nur wichtig für Sie, falls Ihr Programm
+            ein anderes Format erzeugt und Sie dieses konvertieren wollen in
+            eines, das importiert werden kann.
+        </p>
+
+        <h3>Adobe Lightroom Photoshop</h3>
+
+        <ul>
+            <li>Textdatei
+            </li>
+            <li>Datei-Endung <code>.txt</code>
+            </li>
+            <li>Zeichenkodierung UTF-8
+            </li>
+            <li>Die Stichwörter stehen zeilenweise untereinander (alphabetisch
+                aufsteigend sortiert)
+            </li>
+            <li>Untergeordnete Stichwörter stehen um ein Tabulatorzeichen weiter
+                eingerückt als das Stichwort in der Zeile zuvor:
+                <ul>
+                    <li>Wurzelstichwörter stehen gleich am Zeilenanfang und sind
+                        nicht eingerückt durch ein Tabulatorzeichen
+                    </li>
+                    <li>Den Wurzelstichwörtern untergeordnete Stichwörter sind
+                        eingerückt mit einem Tabulatorzeichen
+                    </li>
+                    <li>Untergeordneten Stichwörtern untergeordnete Stichwörter
+                        sind ein Tabulatorzeichen weiter eingerückt als diese
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Beispiel</h4>
+
+        <p>Im Beispiel sei ein Tabulator 4 Zeichen &quot;lang&quot;
+        </p>
+
+        <pre>
+Geroldshausen
+Landschaft
+    Baum
+    Himmel
+        Wolke
+    Wasser
+        Fluss
+            Donau
+            Main
+            Rhein
+Maibaum
+Nürtingen
+        </pre>
+
+
+        <h1>Menübefehl: Bearbeiten &gt; Einstellungen</h1>
+
+        <p>Öffnet den <strong>Einstellungen-Dialog</strong>.
+        </p>
+
+
+        <h1>Erweiterte Suche</h1>
+
+        <p>Mit der erweiterten Suche können Sie fast alles finden, was in der
+            Datenbank gespeichert ist. Sie definieren, wie gesucht werden soll,
+            und speichern Suchen, die sie zukünftig schnell benutzen.
+        </p>
+
+        <p><img src="img/dialog-advanced-search.gif"
+                    width="672"
+                    height="227"
+                    alt="" />
+        </p>
+
+        <p>Im zweiten Dropdown-Listenfeld von links wählen Sie aus,
+            <strong>was</strong> Sie suchen: Aufnahmezeit, Bildbeschreibung,
+            Fotograf, ... Im folgenden Dropdown-Listenfeld wählen Sie aus,
+            worauf der folgende Suchtext passen soll:
+        </p>
+
+        <ul>
+            <li><strong>ist gleich</strong>: Der Suchbegriff steht <strong>genau
+                so</strong> in der Datenbank. SQL: <strong>=</strong>.
+            </li>
+            <li><strong>passt auf</strong>: Der Suchbegriff entspricht einem
+                <strong>Muster</strong>. In der Regel benutzen Sie
+                Prozentzeichen vor und nach dem Suchbegriff. Anstelle des
+                Prozentzeichens können keine oder beliebig viele Zeichen stehen.
+                <code>Ei%</code> passt auf alles, das mit <code>Ei</code>
+                anfängt: <code>Ei, Eier, Einser, Eis, ...</code>
+                <code>%en</code> passt auf Begriffe mit <code>en</code> am Ende:
+                <code>Einsen, Wiesen, Burgen, ...</code> und <code>%eier%</code>
+                auf alles, das irgendwo <code>eier</code> enthält: <code>Eier,
+                Schlaumeier, Eierbecher, Zweierbeziehung, ...</code>. SQL:
+                <strong>LIKE</strong>.
+            </li>
+            <li><strong>ungleich</strong>: Alles andere als der Suchbegriff (das
+                Gegenteil von <code>ist gleich</code>, <strong>nicht</strong>):
+                Alle Bilder, die nicht mit 50 mm Brennweite fotografiert wurden,
+                alle Bilder, die nicht von Heinz fotografiert wurden, ... SQL:
+                <strong>&lt;&gt;</strong>.
+            </li>
+            <li><strong>größer</strong>: Größer als der Suchbegriff
+                (<strong>mehr als</strong>). Wird in der Regel für Zahlen
+                benutzt: Welche Bilder wurden mit mehr als 200 ISO fotografiert,
+                welche mit längerer Brennweite als 50 mm, welche nach dem
+                01. Januar 2002? SQL: <strong>&gt;</strong>.
+            </li>
+            <li><strong>größer oder gleich</strong>:  Ist wie größer, schließt
+                aber den Suchbegriff mit ein (<strong>mindestens</strong>).
+                Größer als der 01. Januar 2000 findet erst Bilder ab dem 02.
+                Januar 2000, größer gleich ab dem 01. Januar 2000. SQL:
+                <strong>&gt;=</strong>.
+            </li>
+            <li><strong>kleiner</strong>:  Kleiner als der Suchbegriff
+                (<strong>weniger als</strong>): Welche Bilder wurden vor dem 01.
+                Januar 2000 fotografiert, welche mit weniger als 400 ISO? SQL:
+                <strong>&lt;</strong>.
+            </li>
+            <li><strong>kleiner oder gleich</strong>:  Wie kleiner, der
+                Suchbegriff wird aber mit eingeschlossen
+                (<strong>höchstens</strong>): Welche Bilder wurden bis
+                einschließlich 24.12.2007 fotografiert? SQL:
+                <strong>&lt;=</strong>.
+            </li>
+        </ul>
+
+        <p>Groß- und Kleinschreibung sind egal: Sie können nach
+            <strong>meyer</strong> suchen oder nach <strong>Meyer</strong>,
+            gefunden werden die gleichen Bilder.
+        </p>
+
+        <h2>Eingabeformate</h2>
+
+        <p>Der Dialog versucht, für die Eingabefelder nur passende Formate
+            zuzulassen. Geben Sie beispielsweise Buchstaben ein für eine
+            ISO-Zahl, werden diese nicht angenommen. Ist ein Punkt zu sehen,
+            steht dieser für ein Komma und Sie geben Zahlen so ein, dass ganze
+            Zahlen vor dem Punkt enden. Mit den Pfeiltasten können Sie den
+            Eingabecursor positionieren. Beispiele sehen Sie in folgender
+            Abbildung:
+        </p>
+
+        <p><img src="img/dialog-advanced-search_formatted_fields.gif"
+                    width="92"
+                    height="153"
+                    alt="" />
+        </p>
+
+        <p>In der Abbildung oben ist das erste Eingabefeld ein Feld für
+            Kommazahlen. Ganze Zahlen enden vor dem Punkt, wie die 35 im dritten
+            Feld, im zweiten ist die Zahl 7,8 zu sehen (Der Punkt bedeutet ein
+            Komma). Das vorletzte Feld dient der Eingabe eines Datums in der
+            Form Jahr-Monat-Tag, so wie im letzten Eingabefeld zu sehen ist am
+            Beispiel des 10. März 2008.
+        </p>
+
+        <h2>Suche nach Datum</h2>
+
+        <p>Das Datumsformat ist: <code>YYYY-MM-DD</code>: Das Jahr vierstellig,
+            danach ein Bindestrich, folgend der Monat zweistellig, wieder ein
+            Bindestrich und zuletzt der Tag zweistellig. Für den 24.12.2007
+            geben Sie ein <code>2007-12-24</code>. Sie können auch den
+            <strong>Kalender</strong> benutzen (Schaltfläche rechts).
+        </p>
+
+        <h2>Mehrere Suchbegriffe (Verknüpfungen)</h2>
+
+        <p>Suchbegriffe können Sie verknüpfen mit <strong>und</strong> sowie
+            mit <strong>oder</strong>. <strong>Und</strong> bedeutet, der
+            folgende Begriff muss auf jeden Fall in der Datenbank stehen,
+            <strong>oder</strong> findet den folgenden Suchbegriff unabhängig
+            vom vorhergehenden. Beispiele:
+        </p>
+
+        <ul>
+            <li><code>Kamera ist gleich Nikon D300 <strong>und</strong>
+                Aufnahmeort ist gleich München</code> findet Bilder, die mit der
+                Nikon D300 in München fotografiert wurden
+            </li>
+            <li><code>Kamera ist gleich Nikon D300 <strong>oder</strong>
+                Aufnahmeort ist gleich München</code> findet alle Bilder, die
+                mit der Nikon D300 überall auf der Welt fotografiert wurden und
+                zusätzlich alle Bilder, die in München mit jeder beliebigen
+                Kamera fotografiert wurden
+            </li>
+            <li> <code>Datum größer gleich 2005-01-01 <strong>und</strong> Datum
+                kleiner gleich 2005-12-31</code> findet alle Bilder, die im Jahr
+                2005 fotografiert wurden
+            </li>
+            <li><code>Datum größer 2005-12-31 <strong>oder</strong> Datum
+                kleiner 2005-01-01</code> findet alle Bilder vor 2005 und nach
+                2005, also alle, die nicht 2005 fotografiert wurden
+            </li>
+        </ul>
+
+        <p>Mit mehreren Suchbegriffen lassen sich versehentlich unlösbare
+            Aufgaben stellen: <code>Stichwort ist gleich Baum UND Stichwort ist
+            gleich Himmel</code> wird nie Bilder finden, da ein Stichwort
+            entweder &quot;Baum&quot; heißt <em>oder</em> &quot;Himmel&quot;.
+        </p>
+
+        <h2>Klammern</h2>
+
+        <p>Mit Klammern lassen sich Probleme lösen wie: Finde alle Bilder, die
+            vom Fotografen <code>Peter</code> oder vom Fotografen
+            <code>Heinz</code> im Jahr <code>2006</code> fotografiert wurden.
+            Die Anfrage <code>Fotograf ist gleich Peter oder Fotograf ist gleich
+           Heinz und Aufnahmezeit größer gleich 2006-01-01 und Aufnahmezeit
+            kleiner gleich 2006-12-31</code> findet zwar alle Bilder, die Peter
+            und Heinz 2006 fotografierten, aber auch alle Bilder, die 2006 von
+            irgendwem (anders) fotografiert wurden. Mit Klammern lässt sich die
+            Abfrage richtig formulieren: <code>(Fotograf ist gleich Peter oder
+           Fotograf ist gleich Heinz) und Aufnahmezeit größer gleich 2006-01-01
+            und Aufnahmezeit kleiner gleich 2006-12-31</code>.
+        </p>
+
+        <p><em>Werden Klammern falsch gesetzt, erzeugt das einen Fehler und am
+                unteren Fensterrand erscheint auf der Logdatei-Schaltfläche ein
+            rotes Kreuz!</em>
+        </p>
+
+        <h2>Suchen speichern</h2>
+
+        <p>Speichern Sie wichtige Suchen! Alle gespeicherten Suchen sehen Sie
+            links im Programmfenster durch Klick auf den
+            <a href="mainwindow_panel_saved_searches.html">Kartenreiter
+            Suchen</a>. Dort lassen sie sich ändern, löschen und neu erzeugen
+            durch Klick mit der <strong>rechten</strong> Maustaste auf eine
+            gespeicherte Suche. Klicken Sie mit der <strong>linken</strong>
+            Maustaste auf den Namen einer gespeicherten Suche, erscheinen alle
+            gefundenen Bilder.
+        </p>
+
+
+        <h1>Metadaten kopieren</h1>
+
+        <p>Dieser Befehl kopiert die gemeinsamen Metadaten der ausgewählten
+            Bilder in die <strong>Metadaten-Zwischenablage</strong>. Diese
+            wird <em>nicht</em> überschrieben durch Einfügen anderen Inhalts
+            in die System-Zwischenablage. Die kopierten Metadaten lassen sich
+            <a href="action_paste_metadata.html">einfügen</a> in andere Bilder.
+        </p>
+
+        <h1>Metadaten einfügen</h1>
+
+        <p>Dieser Befehl fügt <a href="action_copy_metadata.html">kopierte</a>
+            XMP-Metadaten ein in die ausgewählten Bilder. Sich <em>nicht</em>
+            wiederholende Werte werden <strong>ersetzt</strong> durch die aus
+            der Zwischenablage, sich wiederholende werden existierenden
+            <strong>hinzugefügt</strong>.
+        </p>
+
+
+        <h1>Menübefehl: Werkzeuge &gt; IPTC-Daten nach XMP</h1>
+
+        <p>Mit diesem Menübefehl öffnen Sie einen Dialog, bei dem Sie einen
+            Ordner auswählen können, in den alle
+            <a href="glossary_iptc.html">IPTC</a>-Daten der Bilder in
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            geschrieben werden. <strong>Existiert</strong> eine XMP-Filialdatei,
+            wird so verfahren:
+        </p>
+
+        <ul>
+            <li>Gibt es für einen IPTC-Eintrag <em>keinen</em>
+                <a href="glossary_xmp.html">XMP</a>-Eintrag, wird der
+                IPTC-Eintrag übernommen
+            </li>
+            <li>Gibt es für einen IPTC-Eintrag einen XMP-Eintrag, wird der
+                XMP-Eintrag belassen
+            </li>
+            <li>Stichwörter und Kategorien werden angehängt, falls sie noch
+                nicht in der XMP-Filialdatei existieren
+            </li>
+        </ul>
+
+        <p><img src="img/dialog-iptc-to-xmp.gif"
+                    width="617"
+                    height="215"
+                    alt="" />
+        </p>
+
+
+        <h1>Menübefehl: Werkzeuge &gt; Eingebettete XMP-Daten in Filialdateien
+        schreiben</h1>
+
+        <p>Mit diesem Menübefehl öffnen Sie einen Dialog, bei dem Sie einen oder
+            mehrere Ordner auswählen können, in denen in Bilder eingebettete
+            <a href="glossary_xmp.html">XMP</a>-Daten in
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            geschrieben werden für Bilder, <em>die noch keine Filialdatei
+            haben</em>.
+        </p>
+
+        <p><img src="img/dialog-embedded-xmp-to-xmp-sidecar-file.gif"
+                    width="480"
+                    height="400"
+                    alt="" />
+        </p>
+
+
+        <h1>Menübefehl: Werkzeuge &gt; XMP-Daten suchen und ersetzen</h1>
+
+        <p>Mit diesem Befehl können Sie in allen <strong>ausgewählten</strong>
+            Bildern einzelne <a href="glossary_xmp.html">XMP</a>-Metdaten
+            ersetzen, beispielsweise das falsche Jahr in einem Copyright oder
+            Tippfehler. Zusätzlich wird die <strong>Datenbank</strong> mit den
+            neuen Daten aktualisiert. Es werden nur <strong>genaue
+            Entsprechungen</strong> ersetzt.
+        </p>
+
+        <p>Lassen Sie das Ersetzen-Eingabefeld leer, wird der Begriff aus allen
+            ausgewählten
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            <strong>gelöscht</strong>.
+        </p>
+
+        <h2>Tipp</h2>
+
+        <p>Wollen Sie <strong>alle Vorkommen</strong> eines Begriffs ersetzen,
+            <a href="dialog_advanced_search.html">suchen</a> Sie diesen und es
+            werden alle treffenden Bilder angezeigt. Klicken Sie in die
+            Vorschaubildanzeige und tippen <kbd>Strg + A</kbd> zum Auswählen
+            aller Bilder.
+        </p>
+
+        <p><img src="img/replace_xmp.gif"
+                    width="422"
+                    height="216"
+                    alt="" />
+        </p>
+
+
+        <h1>Menübefehl: Werkzeuge &gt; In der Datenbank Dateinamen umbenennen</h1>
+
+        <p>Dieser Menübefehl öffnet einen Dialog mit dessen Hilfe Sie Dateinamen
+            <strong>in der Datenbank</strong> umbenennen können.
+        </p>
+
+        <p>Sollten Sie die Bilder verschoben haben oder befinden diese sich
+            nun auf einem Laufwerk mit anderem Buchstaben, können Sie so schnell
+            die Dateinamen anpassen.
+        </p>
+
+        <h2>Diese Zeichenfolge (gesucht)</h2>
+
+        <p>Hier geben Sie ein, was sich änderte:
+        </p>
+
+        <ul>
+            <li>Änderte sich der Laufwerksbuchstabe z.B. von <code>C:</code>
+                auf <code>D:</code>, geben Sie <code>C:</code> ein
+            </li>
+            <li>Änderte sich der Ordnername, geben Sie den alten am besten
+                zwischen zwei Pfadtrennern ein, z.B. <code>/Alter Name/</code>
+                unter Linux und <code>\Alter Name\</code> unter Windows
+            </li>
+        </ul>
+
+        <h2>ersetzen durch</h2>
+
+        <p>Hier geben Sie ein, wie die Ersatz-Zeichenfolge lautet:</p>
+
+        <ul>
+            <li>Änderte sich der Laufwerksbuchstabe z.B. von <code>C:</code>
+                auf <code>D:</code>, geben Sie <code>D:</code> ein
+            </li>
+            <li>Änderte sich der Ordnername, geben Sie den neuen am besten
+                zwischen zwei Pfadtrennern ein, z.B. <code>/Neuer Name/</code>
+                unter Linux und <code>\Neuer Name\</code> unter Windows
+            </li>
+        </ul>
+
+        <h2>Dateinamen finden, in denen die gesuchte Zeichenfolge</h2>
+
+        <p>Hier schränken Sie ein, in welchen Dateinamen ersetzt wird:
+        </p>
+
+        <ul>
+            <li><strong>am Anfang des Dateinamens steht</strong> trifft zu auf
+                Dateien, in deren Namen die gesuchte Zeichenkette am Anfang
+                steht. Das ist die geeignete Wahl, falls sich
+                Laufwerksbuchstaben änderten oder Wurzelordner oder genau ein
+                Ordner.
+            </li>
+            <li><strong>in der Mitte des Dateinamens steht</strong> trifft zu
+                auf Dateien, in deren Namen die gesuchte Zeichenkette nicht am
+                Anfang steht und nicht am Ende. Das ist die geeignete Wahl,
+                falls Sie mehrere Ordner umbenannten, beispielsweise alle
+                Ordner von <code>img</code> nach <code>Bilder</code>.
+            </li>
+            <li><strong>am Ende des Dateinamens steht</strong> trifft zu auf
+                Dateien, in deren Namen die gesuchte Zeichenkette am Ende steht.
+                Eine mögliche Anwendung wäre, falls Sie beispielsweise die
+                Endung Ihrer TIFF-Bilder umbenannten von <code>tiff</code> nach
+                <code>tif</code> (mit einem &quot;f&quot;).
+            </li>
+            <li><strong>irgendwo im Dateinamen steht (Anfang, Mitte,
+                Ende)</strong> trifft zu auf Dateien, in deren Namen die
+                gesuchte Zeichenkette irgendwo steht. Das kann am Anfang, in der
+                Mitte oder am Ende sein. Nützlich ist diese Option, falls ein
+                gleicher Ordnername doppelt auftrat und doppelt gleich umbenannt
+                wurde, z.B. von <code>/Daten/Bilder/Egon/Bilder</code> nach
+                <code>/Daten/Images/Egon/Images</code>.
+            </li>
+            <li><strong>identisch ist mit dem Dateinamen</strong> trifft zu auf
+                genau eine Datei und ist eher unüblich. Es könnte sein, dass
+                diese Datei auf einem externen Laufwerk ist und Sie dieses im
+                Augenblick nicht anschließen können.
+            </li>
+        </ul>
+
+        <p><strong>Tipp:</strong> Sichern Sie die
+            <a href="facts_database_location.html">Datenbankdateien</a> vorher;
+            kopieren Sie diese beispielsweise in einen weiteren Ordner, während
+            das Programm <strong>Bilder</strong> <em>nicht</em> gestartet ist.
+            So können Sie bei unerwünschten Ergebnissen die Kopien in den
+            Datenbankordner zurückkopieren (während das Programm
+            <strong>Bilder</strong> <em>nicht</em> gestartet ist) und das
+            Umbenennen mit anderen Eingaben wiederholen.
+        </p>
+
+        <p>Solange die Dateien umbenannt werden, können Sie <em>nicht</em>
+            weiter arbeiten mit dem Programm <strong>Bilder</strong>. Das
+            Umbenennen sollte schnell erledigt sein. Auf meinem 5 Jahre alten
+            Rechner dauerte das Umbenennen von mehr als 15.000 Bildern etwa
+            1 Sekunde mit den Eingaben, die unten abgebildet sind
+            (<code>/home/elmar/bilder/</code> wurde ersetzt durch
+            <code>/mnt/bilder/</code>).
+        </p>
+
+        <p><img src="img/dialog-rename-filenames-in-db.gif"
+                    width="499"
+                    height="352"
+                    alt="" />
+        </p>
+
+
+        <h1>Aktionen</h1>
+
+        <p>Über <strong>Aktionen</strong> fügen Sie mit dem Dialog
+            <a href="dialog_program_properties.html">Programmeigenschaften</a>
+            Aktionen hinzu, beispielsweise zum Rotieren von Bildern oder
+            Anzeigen einer Diaschau.
+        </p>
+
+        <p>Mit der Funktionstaste <kbd>F4</kbd> erscheint der Aktionen-Dialog
+            oder über das Menü <strong>Werkzeuge</strong>. Mit einem Doppelklick
+            auf diese wird die Aktion für alle ausgewählten Dateien ausgeführt.
+            Alternativ können Sie auf die Schaltfläche
+            <strong>Ausführen</strong> klicken oder die Tastenkombination
+            <kbd>Alt+A</kbd> drücken.
+        </p>
+
+        <p>Der Dialog kann offen bleiben, während Sie mit dem Programm
+            <strong>Bilder</strong> weiterarbeiten.
+        </p>
+
+        <p><img src="img/dialog_actions.gif"
+                    width="397"
+                    height="229"
+                    alt="" />
+        </p>
+
+        <p><strong>Siehe auch:</strong>
+            <a href="dialog_settings_programs.html">Bilder öffnen</a> im
+            Einstellungen-Dialog und <a href="tip_use_scripts.html">Tipp:
+            Mehr Funktionen hinzufügen</a>.
+        </p>
+
+
+        <h1>Dialog: Zuletzt eingegebene Begriffe</h1>
+
+        <p>Dieser Dialog zeigt Ihnen an, welche Begriffe Sie zuletzt eingaben
+            in die Felder des Kartenreiters
+            <a href="mainwindow_panel_edit.html">Bearbeiten</a>.
+        </p>
+
+        <p>Sie können den Dialog anzeigen mit der Funktionstaste <kbd>F4</kbd>.
+            Er ist so lange zu sehen, bis Sie ihn wieder schließen.
+        </p>
+
+        <p>Mit den Tasten <kbd>ALT + TAB</kbd> (Tabulator) wechseln Sie während
+            des Bearbeitens zu diesen Dialog. Drücken Sie <kbd>Alt + A</kbd>
+            oder <kbd>Alt + B</kbd> usw. - den Buchstaben in den eckigen
+            Klammern - wird der Begriff eingefügt. Der zuletzt eingegebene
+            Begriff ist immer dem Buchstaben <code>A</code> zugeordnet, der
+            vorletzte <code>B</code> usw. Mit <kbd>ALT + TAB</kbd> gelangen Sie
+            zurück zum Bearbeiten-Kartenreiter.
+        </p>
+
+        <p><img src="img/dialog_edit_metadata_text_selection.gif"
+                    width="361"
+                    height="123"
+                    alt="" />
+        </p>
+
+
+        <h1>Eingabehilfen</h1>
+
+        <p>Eingabhilfen fügen Wörter hinzu in Eingabefelder des
+            <a href="mainwindow_panel_edit.html">Kartenreiters Bearbeiten</a>.
+        </p>
+
+        <p><img src="img/dialog-input-helpers.gif"
+                width="310"
+                height="431"
+                alt="" />
+        </p>
+
+        <h2>Stichwortbaum</h2>
+
+        <p>Die Arbeit mit dem Stichwortbaum ist
+            <a href="mainwindow_panel_hierarchical_keywords.html">hier</a>
+            beschrieben.
+        </p>
+
+        <p>Sie können ein Stichwort auswählen und auf eine beliebige Liste des
+            Bearbeiten-Kartenreiters ziehen oder auf ein beliebiges Eingabefeld.
+            Es werden das Stichwort und seine echten Elternstichwörter
+            übernommen, in Eingabefelder nur das erste, in Listen alle
+            ausgewählten, sofern diese dort nicht existieren.
+        </p>
+
+        <p>Alternativ können Sie ein Stichwort auf <strong>ausgewählte</strong>
+            Bilder fallen lassen. In diesem Fall wird die Stichwortliste aller
+            ausgewählten Bilder ergänzt mit dem fallen gelassenen Stichwort und
+            seinen echten Elternstichwörtern.
+        </p>
+
+        <h2>Stichwörter</h2>
+
+        <p>Sie können eines oder mehrer Stichwörter auswählen und auf eine
+            beliebige Liste des Bearbeiten-Kartenreiters ziehen oder auf ein
+            beliebiges Eingabefeld. Sind mehrere Stichwörter ausgewählt, wird
+            in Eingabefelder nur das erste übernommen, in Listen
+            alle ausgewählten.
+        </p>
+
+        <p>Alternativ können Sie die Stichwörter auf <strong>ausgewählte</strong>
+            Bilder fallen lassen. In diesem Fall wird die Stichwortliste aller
+            ausgewählten Bilder ergänzt mit den fallen gelassenen Stichwörtern.
+        </p>
+
+        <h2>Kategorien</h2>
+
+        <p>Sie können eines oder mehrer Kategorien auswählen und auf eine
+            beliebige Liste des Bearbeiten-Kartenreiters ziehen oder auf ein
+            beliebiges Eingabefeld. Sind mehrere Kategorien ausgewählt, wird
+            in Eingabefelder nur die erste übernommen, in Listen
+            alle ausgewählten.
+        </p>
+
+        <p>Alternativ können Sie die Kategorien auf <strong>ausgewählte</strong>
+            Bilder fallen lassen. In diesem Fall wird die Liste der weiteren
+            Kategorien aller ausgewählten Bilder ergänzt mit den fallen
+            gelassenen Kategorien.
+        </p>
+
+
+        <h1>Tastenkombinationen und Funktionstasten</h1>
+
+        <h2>Überall</h2>
+
+        <table border="1px"><!--Style definition in header ignored through current renderer-->
+            <tr>
+                <th>Tasten</th>
+                <th>Was geschieht?</th>
+            </tr>
+            <tr>
+                <td><kbd>Alt+1</kbd></td><td><strong>IPTC</strong>-Metadaten auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Alt+2</kbd></td><td><strong>EXIF</strong>-Metadaten auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Alt+3</kbd></td><td><strong>XMP</strong>-Metadaten auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Alt+4</kbd></td><td><strong>Hierarchische Stichwörter</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+0</kbd></td><td>Ins <strong>Vorschaubildfenster</strong> wechseln</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+1</kbd></td><td>Kartenreiter <strong>Ordner</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+2</kbd></td><td>Kartenreiter <strong>Gespeicherte Suchen</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+3</kbd></td><td>Kartenreiter <strong>Bildsammlungen</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+4</kbd></td><td>Kartenreiter <strong>Kategorien</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+5</kbd></td><td>Kartenreiter <strong>Favoriten-Ordner</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+6</kbd></td><td>Kartenreiter <strong>Stichwörter</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+7</kbd></td><td>Kartenreiter <strong>Zeitleiste</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+8</kbd></td><td>Kartenreiter <strong>Verschiedenes</strong> auswählen</td>
+            </tr>
+            <tr>
+                <td><kbd>Alt+C</kbd></td><td>Bilder von der Kamera-Speicherkarte kopieren in den aktuellen Ordner</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+Alt+C</kbd></td><td>XMP Metadaten der ausgewählten Bilder kopieren in die Metadaten-Zwischenablage</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+D</kbd></td><td>Datenbank warten</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+Alt+I</kbd></td><td>IPTC-Metadaten konvertieren nach XMP</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+O</kbd></td><td>Stichwörter ein- und ausblenden in die Vorschaubilder</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+Q</kbd></td><td>Programm beenden</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+S</kbd></td><td>Ordner nach neuen/veränderten/gelöschten Bildern durchsuchen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+Alt+S</kbd></td><td>Einstellungen ändern</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+Alt+V</kbd></td><td>Kopierte XMP Metadaten einfügen in die ausgewählten Bilder</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+Alt+X</kbd></td><td>Metadaten ausgewählter Bilder umbenennen/löschen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+Plus</kbd></td><td>Vorschaubilder vergrößern, falls kleiner als 100 % angezeigt</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+Minus</kbd></td><td>Vorschaubilder verkleinern</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+F</kbd></td><td>Bilder finden (suchen)</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+E</kbd></td><td>Metadaten der ausgewählten Bilder bearbeiten</td>
+            </tr>
+            <tr>
+                <td><kbd>F1</kbd></td><td>Hilfe anzeigen für den aktuellen Kontext</td>
+            </tr>
+            <tr>
+                <td><kbd>F3</kbd></td><td>Erweiterte Bildsuche</td>
+            </tr>
+            <tr>
+                <td><kbd>F4</kbd></td><td>Aktionen anzeigen</td>
+            </tr>
+            <tr>
+                <td><kbd>F7</kbd></td><td>Zuletzt eingegebene Metadaten anzeigen</td>
+            </tr>
+            <tr>
+                <td><kbd>F9</kbd></td><td>Eingabe-Unterstützungsdialog anzeigen</td>
+            </tr>
+        </table>
+
+        <h2>Vorschaubildfenster</h2>
+
+        <table border="1px"><!--Style definition in header ignored through current renderer-->
+            <tr>
+                <th>Tasten</th>
+                <th>Was geschieht?</th>
+            </tr>
+            <tr>
+                <td><kbd>0</kbd></td><td>Bewertungen entfernen von den ausgewählten Bildern</td>
+            </tr>
+            <tr>
+                <td><kbd>1</kbd></td><td>Ausgewählte Bilder bewerten mit einem Stern</td>
+            </tr>
+            <tr>
+                <td><kbd>2</kbd></td><td>Ausgewählte Bilder bewerten mit zwei Sternen</td>
+            </tr>
+            <tr>
+                <td><kbd>3</kbd></td><td>Ausgewählte Bilder bewerten mit drei Sternen</td>
+            </tr>
+            <tr>
+                <td><kbd>4</kbd></td><td>Ausgewählte Bilder bewerten mit vier Sternen</td>
+            </tr>
+            <tr>
+                <td><kbd>5</kbd></td><td>Ausgewählte Bilder bewerten mit fünf Sternen</td>
+            </tr>
+            <tr>
+                <td><kbd>P</kbd></td><td>Ausgewählte Bilder annehmen</td>
+            </tr>
+            <tr>
+                <td><kbd>R</kbd></td><td>Ausgewählte Bilder ablehnen</td>
+            </tr>
+            <tr>
+                <td><kbd>Entf</kbd></td><td>Ausgewählte Bilder löschen aus dem Ordner oder entfernen aus einer Bildsammlung</td>
+            </tr>
+            <tr>
+                <td><kbd>F2</kbd></td><td>Ausgewählte Bilder umbenennen</td>
+            </tr>
+            <tr>
+                <td><kbd>F5</kbd></td><td>Ansicht aktualisieren</td>
+            </tr>
+        </table>
+
+        <h2>Kartenreiter Ordner</h2>
+
+        <table border="1px"><!--Style definition in header ignored through current renderer-->
+            <tr>
+                <th>Tasten</th>
+                <th>Was geschieht?</th>
+            </tr>
+            <tr>
+                <td><kbd>Strg+N</kbd></td><td>Neuen Ordner anlegen unterhalb des ausgewählten Ordners</td>
+            </tr>
+            <tr>
+                <td><kbd>Entf</kbd></td><td>Ausgewählten Ordner löschen</td>
+            </tr>
+            <tr>
+                <td><kbd>F2</kbd></td><td>Ausgewählten Ordner umbenennen</td>
+            </tr>
+            <tr>
+                <td><kbd>F5</kbd></td><td>Ansicht aktualisieren</td>
+            </tr>
+        </table>
+
+        <h2>Kartenreiter Favoriten-Ordner</h2>
+
+        <table border="1px"><!--Style definition in header ignored through current renderer-->
+            <tr>
+                <th>Tasten</th>
+                <th>Was geschieht?</th>
+            </tr>
+            <tr>
+                <td><kbd>Strg+E</kbd></td><td>Ausgewählten Favoritenordner bearbeiten (umbenennen, anderen Ordner zuweisen)</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+I</kbd></td><td>Neuen Favoritenordner einfügen</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+N</kbd></td><td>Neuen Ordner anlegen im Dateisystem unterhalb des ausgewählten Ordners</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+O</kbd></td><td>Ausgewählten Ordner öffnen im Kartenreiter <strong>Ordner</strong></td>
+            </tr>
+            <tr>
+                <td><kbd>Entf</kbd></td><td>Ausgewählten Ordner löschen</td>
+            </tr>
+            <tr>
+                <td><kbd>F2</kbd></td><td>Ausgewählten Ordner umbenennen</td>
+            </tr>
+            <tr>
+                <td><kbd>F5</kbd></td><td>Ansicht aktualisieren</td>
+            </tr>
+        </table>
+
+        <h2>Kartenreiter Stichwortbaum</h2>
+
+        <table border="1px"><!--Style definition in header ignored through current renderer-->
+            <tr>
+                <th>Tasten</th>
+                <th>Was geschieht?</th>
+            </tr>
+            <tr>
+                <td><kbd>Strg+B</kbd></td><td>Ausgewähltes Stichwort und seine Eltern hinzufügen zu den ausgewählten Bildern</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+N</kbd></td><td>Neues Stichwort hinzufügen unterhalb des ausgewählten Stichworts</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+R</kbd></td><td>Ausgewähltes Stichwort umschalten zwischen Hilfs-/Echtes Stichwort</td>
+            </tr>
+            <tr>
+                <td><kbd>Rückschritt-Taste</kbd></td><td>Ausgewähltes Stichwort entfernen aus den ausgewählten Bildern</td>
+            </tr>
+            <tr>
+                <td><kbd>Entf</kbd></td><td>Ausgewähltes Stichwort löschen inklusive seiner Kinder</td>
+            </tr>
+            <tr>
+                <td><kbd>F2</kbd></td><td>Ausgewähltes Stichwort umbenennen</td>
+            </tr>
+        </table>
+
+        <h2>Kartenreiter Bildsammlungen</h2>
+
+        <table border="1px"><!--Style definition in header ignored through current renderer-->
+            <tr>
+                <th>Tasten</th>
+                <th>Was geschieht?</th>
+            </tr>
+            <tr>
+                <td><kbd>Entf</kbd></td><td>Ausgewählte Bildsammlung löschen</td>
+            </tr>
+            <tr>
+                <td><kbd>F2</kbd></td><td>Ausgewählte Bildsammlung umbenennen</td>
+            </tr>
+        </table>
+
+        <h2>Kartenreiter Suchen</h2>
+
+        <table border="1px"><!--Style definition in header ignored through current renderer-->
+            <tr>
+                <th>Tasten</th>
+                <th>Was geschieht?</th>
+            </tr>
+            <tr>
+                <td><kbd>Strg+E</kbd></td><td>Ausgewählte Suche bearbeiten</td>
+            </tr>
+            <tr>
+                <td><kbd>Strg+N</kbd></td><td>Neue Suche einfügen</td>
+            </tr>
+            <tr>
+                <td><kbd>Entf</kbd></td><td>Ausgewählte Suche löschen</td>
+            </tr>
+            <tr>
+                <td><kbd>F2</kbd></td><td>Ausgewählte Suche umbenennen</td>
+            </tr>
+        </table>
+
+
+        <h1>Einstellungen-Dialog &gt; Bilder öffnen</h1>
+
+        <h2>Bei Doppelklick auf ein Vorschaubild öffnet folgendes Programm das
+        Bild</h2>
+
+        <p>Wählen Sie ein Programm aus durch Klick auf die Schaltfläche
+            <code>Programm auswählen</code>, das bei Doppelklick auf ein
+            Vorschaubild die Original-Bilddatei öffnen soll. Das kann ein
+            Bildbetrachter sein oder eine Bildbearbeitung.
+        </p>
+
+        <h2>Weitere Programme zum Öffnen von Bildern</h2>
+
+        <p>Hier können Sie mehrere Programme hinzufügen, die zum Öffnen von
+            Bildern angeboten werden vom Kontextmenü im Fenster mit den
+            Vorschaubildern.
+        </p>
+
+        <p><img src="img/settings-programs.gif"
+                    width="686"
+                    height="415"
+                    alt="" />
+        </p>
+
+        <p>Sie können das gleiche Programm mehrmals eintragen mit verschiedenen
+            Aufrufparametern. Zum Hinzufügen wird Ihnen der Dialog
+            <a href="dialog_program_properties.html">Programmeigenschaften</a>
+            angeboten.
+        </p>
+
+        <p><strong>Siehe auch:</strong>
+            <a href="dialog_actions.html">Dialog Aktionen</a> und
+            <a href="tip_use_scripts.html">Tipp: Mehr Funktionen
+            hinzufügen</a>.
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; Schnellsuche</h1>
+
+        <p>Die Schnellsuche ist das Eingabefeld am <strong>unteren
+            Fensterrand</strong> des Programms. Sie funktioniert (erst), nachdem
+            Sie hier ausgewählt haben, <strong>wonach</strong> Sie suchen
+            wollen. Die Schnellsuche findet alle Bilder, die <strong>einen
+            Teil</strong> des Suchbegriffs enthalten in <strong>irgendeinem
+            Feld</strong> der angekreuzten
+            <a href="glossary_metadata.html">Metadaten</a>
+            (SQL-<strong>ODER</strong>-Suche mit <strong>LIKE
+            %Suchbegriff%</strong>). Groß- und Kleinschreibung sind egal. Geben
+            Sie <code>katze</code> ein, werden <code>Katze</code> und
+            <code>Hauskatze</code> gefunden.
+        </p>
+
+        <p>Sollten Sie viele Felder ankreuzen, ist mehr zu durchsuchen und die
+            Suche dauert länger. <strong>Gefunden werden (nur) Bilder, die in
+            die Datenbank eingelesen wurden.</strong>
+        </p>
+
+        <p><img src="img/settings-fastsearch.gif"
+                    width="724"
+                    height="424"
+                    alt="" />
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; Vorschaubilder</h1>
+
+        <h2>Maximale Seitenlänge berechneter Vorschaubilder in Pixel</h2>
+
+        <p>Die Vorschaubilder werden so groß berechnet wie Sie hier angeben.
+            <strong>Ändern</strong> Sie die Größe (später), sollten Sie die
+            Vorschaubilder neu berechnen lassen. Klicken Sie dazu auf die
+            Schaltfläche <strong>Alle neu berechnen</strong>. Während der
+            Aktualisierung können Sie den Einstellungen-Dialog schließen und
+            weiterarbeiten. Der Fortschritt wird in einem anderen Dialog
+            angezeigt, den Sie nicht schließen sollten, außer Sie wollen keine
+            weiteren Vorschaubilder berechnen lassen.
+        </p>
+
+        <h2>In den Bildern enthaltene Vorschaubilder benutzen</h2>
+
+        <p>Kreuzen Sie hier an, werden die Vorschaubilder geladen, die in den
+            Bildern eingebettet sind. Das geht schneller, als die Vorschaubilder
+            zu berechnen, aber manchmal sind die eingebetteten Vorschaubilder
+            von geringer Qualität.
+        </p>
+
+        <h2>Eigenes Programm zum Erzeugen der Vorschaubilder</h2>
+
+        <p>Die Vorschaubilder werden berechnet mit <strong>Imagero</strong>
+            (<code>http://reader.imagero.com/</code>). Sie können diese mit
+            einem beliebigen anderen Programm erzeugen lassen, sofern dies
+            <strong>JPEG</strong>s an die <strong>Standardausgabe</strong>
+            liefern kann. Ein anderes Programm ist sinnvoll, falls:
+        </p>
+
+        <ul>
+            <li>Sie bei RAW-Dateien <em>nicht</em> die eingebetteten
+                Vorschaubilder haben wollen
+            </li>
+            <li>Ihr Programm besonders hochwertige Vorschaubilder liefert
+            </li>
+            <li>Ihr Programm Vorschaubilder schneller liefert
+            </li>
+        </ul>
+
+        <p>In dieser Hilfe gibt es ein
+            <a href="tip_thumbnail_creating_script.html">Beispiel</a>.
+        </p>
+
+        <p><img src="img/settings-thumbnails.gif"
+                    width="721"
+                    height="380"
+                    alt="" />
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; IPTC</h1>
+
+        <h2>Zeichensatz der IPTC-Daten</h2>
+
+        <p>Stellen Sie hier ein, mit welchem Zeichensatz die
+            <a href="glossary_iptc.html">IPTC</a>-Daten kodiert sind. Leider
+            schreiben dies nicht alle Programme (fehlerfrei) in die IPTC-Daten.
+            Ist der Zeichensatz falsch, werden beispielsweise Umlaute verkehrt
+            angezeigt und Sie können nicht danach suchen, außer, Sie geben die
+            gleichen <q>Hieroglyphen</q> ein, die falsch angezeigt werden.
+        </p>
+
+        <p><img src="img/settings-iptc.gif"
+                    width="719"
+                    height="472"
+                    alt="" />
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; Automatisieren</h1>
+
+        <h2>Datenbank aktualisieren</h2>
+
+        <p>Sie können Ordner auswählen, die automatisch nach neuen und in der
+            Datenbank nicht existierenden
+            <a href="glossary_metadata.html">Metadaten</a> durchsucht werden und
+            mit denen die Datenbank aktualisiert wird.
+        </p>
+
+        <h2>Nach dem Start nicht mehr existierende Bilder aus der Datenbank entfernen</h2>
+
+        <p>Setzen sie hier ein Häkchen, wird nach dem Start für jedes Bild in
+            der Datenbank geprüft, ob es noch im Dateisystem existiert. Ist das
+            nicht der Fall, wird es aus der Datenbank gelöscht. So erscheint es
+            nicht ungewollt bei Suchen, in den Stichwörtern, Kategorien und
+            Bildsammlungen.
+        </p>
+
+        <p><em>Diese Option sollten Sie deaktivieren, falls</em>:</p>
+
+        <ul>
+            <li>Ordner nicht immer verfügbar sind, beispielsweise unter
+                <strong>Linux</strong> nicht eingebunden ins Dateisystem
+                (&quot;mount&quot;) oder unter Windows, falls Sie Bilder
+                auf externen Festplatten oder DVDs archivieren
+            </li>
+            <li>Sie für einen bestimmten Zeitraum Ordner mit archivierten
+                Bildern umbenennen, aber anschließend wieder den alten Namen
+                vergeben
+            </li>
+        </ul>
+
+        <p><img src="img/settings-tasks.gif"
+                    width="686"
+                    height="415"
+                    alt="" />
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; Leistung</h1>
+
+        <h2>Rechenzeit</h2>
+
+        <h3>Maximale Wartezeit in Sekunden, bis externe Programme beendet werden</h3>
+
+        <p>Hier geben Sie ein, nach wievielen Sekunden ein externes Programm
+            beendet wird. Das ist von Belang, falls Sie die Vorschaubilder von
+            einem externen Programm erzeugen lassen und eigene Skripte einsetzen
+            zum Verarbeiten von Bildern. Sollte ein Programm nach dieser Zeit
+            nicht fertig sein, wird es beendet.
+        </p>
+
+        <h3>In Bildern nach eingebetteten IPTC/XMP-Metadaten suchen, falls keine
+            Filialdatei existiert
+        </h3>
+
+        <p>Aktivieren Sie diese Option, falls <strong>zum Aktualisieren der
+            Metadaten in der Datenbank</strong> in Bilddateien <em>ohne
+            XMP-Filialdatei</em> nach eingebetteten XMP-Metadaten gesucht werden
+            soll. Haben viele Bilder keine Filialdatei <em>und</em> keine
+            eingebetteten XMP-Informationen, dauert das Aktualisieren der
+            Datebank sehr lange, da alle Bilder komplett durchsucht werden.
+            Wurden keine eingebettete XMP-Metadaten gefunden, wird darin nach
+            IPTC-Daten gesucht, falls diese Option aktiviert ist. Hat ein Bild
+            XMP-Informationen <em>und</em> stehen diese am Dateianfang, ist das
+            Einlesen schnell, da nur so lange eingelesen wird, bis das Ende der
+            XMP-Daten erreicht ist.
+        </p>
+
+        <p>Aktivieren Sie diese Aktion nur, falls:
+        </p>
+
+        <ul>
+            <li>für fast alle Bilder Filialdateien existieren
+            </li>
+            <li>fast alle Bilder eingebettete XMP-Metadaten haben
+            </li>
+        </ul>
+
+        <p>Aktivieren Sie diese Option <em>nicht</em>, falls Sie viele Bilder
+            ohne Filialdateien haben und wenige mit eingebetteten XMP-Metadaten,
+            da das Einlesen der Verzeichnisse unnötig verzögert wird.
+        </p>
+
+        <p><strong>Angezeigt</strong> werden unabhängig von dieser Option
+            eingebettete IPTC-Metadaten immer und eingebettete XMP-Metadaten,
+            falls keine Filialdatei existiert.
+        </p>
+
+        <p>Ist diese Aktion deaktiviert, können Sie trotzdem eingebettete
+            IPTC- und XMP-Metadaten in die Datenbank schreiben lassen:
+        </p>
+
+        <ol>
+            <li>Wählen Sie die Bilder mit den eingebetteten IPTC-/XMP-Metadaten
+                aus
+            </li>
+            <li>Klicken Sie mit der rechten Maustaste auf eines der ausgewählten
+                Bilder
+            </li>
+            <li>Wählen Sie aus dem aufklappenden Kontextmenü die Option
+                <strong>Metadaten aktualisieren</strong>
+            </li>
+        </ol>
+
+        <p>Sie können auch Filialdateien
+            <a href="action_metadata_embedded_xmp_to_xmp_sidecar_file.html">erzeugen
+            lassen aus eingebetteten XMP-Metadaten</a> sowie
+            <a href="action_metadata_iptc_to_xmp.html">aus eingebetteten
+            IPTC-Metadaten</a>.
+        </p>
+
+        <p>Schließlich ist es möglich, diese Option ein- und auszuschalten vor
+            dem Einlesen einzelner Ordner, falls in einigen Ordnern ohne
+            Filialdateien viele Bilder mit eingebetteten XMP-Metadaten sind, in
+            anderen nicht.
+        </p>
+
+        <p><img src="img/settings-performance.gif"
+                    width="686"
+                    height="415"
+                    alt="" />
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; Ausschließen</h1>
+
+        <p>Hier können Sie <strong>reguläre Ausdrücke</strong> eingeben für
+            Bilder, die <em>nicht</em> angezeigt werden sollen.
+        </p>
+
+        <p>Informieren Sie sich über reguläre Ausdrücke im Web, falls Sie diese
+            nicht kennen. Für die meisten Fälle reicht die Zeichenfolge
+            <strong>Punkt + Stern</strong> (<code>.*</code>), die bedeutet: Hier
+            kann nichts stehen oder beliebig viel. Wollen Sie alle Bilder im
+            Ordner <code>Testfotos</code> ausschließen, erreichen Sie das durch
+            den regulären Ausdruck:
+        </p>
+
+        <pre>.*Testfotos.*</pre>
+
+        <p>Wählen Sie einen ausgeschlossenen Ordner an, werden dessen Bilder
+            nicht mehr angezeigt. Hängen Sie allen Vorschaubildern auf dem
+            Datenträger vor der Endung <code>-vorschau</code> an, können Sie
+            diese ausblenden mit dem regulären Ausdruck:
+        </p>
+
+        <pre>.*-vorschau.*</pre>
+
+        <p>oder genauer eine mit mehreren 3 Zeichen-Dateiendungen:
+        </p>
+
+        <pre>.*-vorschau\....$</pre>
+
+        <p>Sie sollten auf die Schaltfläche <strong>Datenbank
+            aktualisieren</strong> klicken, nachdem Sie reguläre Ausdrücke
+            hinzufügten, damit Bilder aus der Datenbank gelöscht werden, die auf
+            die regulären Ausdrücke passen, sonst erscheinen diese bei Suchen,
+            Stichwörtern, Kategorien und Bildsammlungen.
+        </p>
+
+        <h2>Hinweis zu Windows</h2>
+
+        <p>Ordnernamen unter Windows werden durch Backslashes ("\") getrennt.
+            Falls Sie einen Backslash eingeben wollen zum Trennen zweier
+            Ordnernamen, schreiben Sie statt dessen zwei Backslashes: Statt
+            <code>.*\Ordner\Unterordner\.*</code> geben Sie ein:
+            <code>.*\\Ordner\\Unterordner\\.*</code>. Andernfalls wird Ihr
+            regulärer Ausdruck falsch interpretiert.
+        </p>
+
+        <p><img src="img/settings-excludepattern.gif"
+                    width="719"
+                    height="472"
+                    alt="" />
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; Bearbeiten</h1>
+
+        <p>Hier wählen Sie alle <a href="glossary_metadata.html">Metadaten</a>
+            aus, die Sie <strong>bearbeiten</strong> und abspeichern lassen
+            möchten. Beim nächsten Programmstart werden Ihnen nur noch diese
+            angeboten.
+        </p>
+
+        <p>Sind Sie beispielsweise nicht daran interessiert, Ihren Bildern eine
+            Auftragskennung zuzuweisen, entfernen Sie das Häkchen davor.
+            Zukünftig können Sie schneller eingeben, da dieses Feld nicht mehr
+            angesprungen wird. Zusätzlich können Sie schneller zugreifen auf die
+            beiden Kartenreiter <strong>Bearbeiten</strong> und
+            <strong>Vorlagen</strong> am Ende der Metadaten-Eingabefelder.
+        </p>
+
+        <p><img src="img/settings-edit.gif"
+                    width="686"
+                    height="415"
+                    alt="" />
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; Sonstiges</h1>
+
+        <h2>Webbrowser</h2>
+
+        <p>Hier wählen Sie einen Webbrowser aus, der aufgerufen wird, falls Sie
+            mit dem Internet verbunden werden müssen, beispielsweise zum
+            Anzeigen von Satellitenbildern des Aufnahmeorts bei GPS-Daten im
+            Bild.
+        </p>
+
+        <p><img src="img/settings-misc-webbrowser.gif"
+                    width="654"
+                    height="103"
+                    alt="" />
+        </p>
+
+        <h2>Datenbankordner</h2>
+
+        <p>Sie können die Datenbank in einem anderen Ordner anlegen lassen.
+            Wollen Sie Ihre bisherigen Daten übernehmen, kopieren Sie aus dem
+            aktuellen Datenbankordner, der im Dialog angezeigt wird, folgende
+            Dateien <em>nach Beenden</em> von <strong>Bilder</strong> und
+            <em>vor einem Neustart</em>:
+        </p>
+
+        <ul>
+            <li>Den Ordner <code>thumbnails</code>, dieser enthält die
+                Vorschaubilder
+            </li>
+            <li>Alle Dateien, die mit <code>database</code> starten, z.B.
+                <code>database.data</code>
+            </li>
+        </ul>
+
+        <p>So können z.B. mehrere <em>- nicht gleichzeitig! -</em> die selbe
+            Datenbank benutzen und bearbeiten oder Sie wählen einen Ordner aus,
+            der täglich automatisch gesichert wird, sodass das Backup der
+            Datenbank gewährleistet ist.
+        </p>
+
+        <p><img src="img/settings-misc-db-location.gif"
+                    width="651"
+                    height="110"
+                    alt="" />
+        </p>
+
+        <h2>Protokoll</h2>
+
+        <h3>Was / wie viel soll protokolliert werden?</h3>
+
+        <p>Der Programmablauf wird protokolliert und das Protokoll in eine
+            Logdatei geschrieben. Diese kann angezeigt werden durch Klick auf
+            eine Schaltfläche am unteren Fensterrand. Sie hat ein grünes
+            Häkchen, falls alles ok ist und ein rotes Kreuz, falls Fehler
+            auftraten. Bedeutungen der Auswahl:
+        </p>
+
+        <ul>
+            <li><strong>WARNUNG</strong>: Nur wichtige Fehler und weniger
+                wichtige werden protokolliert. Warnungen werden bei anderen
+                Einstellungen zusätzlich protokolliert außer bei
+                <strong>SCHWERWIEGEND</strong>.
+            </li>
+            <li><strong>SCHWERWIEGEND</strong>: Nur wichtige Fehler werden
+                protokolliert. Schwer wiegendes wird bei allen anderen
+                Einstellungen zusätzlich protokolliert.
+            </li>
+            <li><strong>INFO</strong>: Informative Ausgaben, beispielsweise
+                welche Verzeichnisse gerade automatisch eingelesen werden. Dies
+                ist die Grunddeinstellung.
+            </li>
+            <li><strong>KONFIG</strong>: Ausgaben betreffend die Konfiguration,
+                für den Benutzer eines Programms meist unwichtig.
+            </li>
+            <li><strong>FEIN</strong>: Detaillierte Ausgaben, insbesondere
+                SQL-Statements, die die Datenbank aktualisieren
+            </li>
+            <li><strong>FEINER</strong>: Noch detailliertere Ausgaben,
+                auch SQL-Statements, die die Datenbank abfragen und
+                <em>nicht</em> modifizieren
+            </li>
+            <li><strong>AM FEINSTEN</strong>: Detailliertere Informationen über
+                den Programmablauf
+            </li>
+        </ul>
+
+        <p>Wählen Sie <strong>WARNUNG</strong> oder <strong>INFO</strong>,
+            solange keine Probleme bestehen und zur Fehlerbehebung
+            <strong>AM FEINSTEN</strong>. Meldungen anderer Kategorien als
+            <strong>WARNUNG</strong> oder <strong>SCHWERWIEGEND</strong> werden
+            in die <strong>Standardausgabe</strong> des Betriebssystems
+            geschrieben, andernfalls würde die Protokolldatei viele Megabyte
+            groß. Die Standardausgabe sehen Sie im Fenster
+            <strong>Systemausgabe</strong>, zu erreichen über die Schaltfläche
+            <strong>Ausgabe</strong> am unteren Fensterrand.
+        </p>
+
+        <h3>Format</h3>
+
+        <ul>
+            <li><strong>Strukturiert:</strong> Nachrichten können sortiert
+                werden nach ihrer Kategorie, jede Nachricht kann einzeln
+                ausgewählt werden und betrachtet im Detail und Sie können
+                filtern und suchen innerhalb der Nachrichten. Dies ist die
+                Grundeinstellung.
+            </li>
+            <li><strong>Textzeilen:</strong> Die Nachrichten werden Zeile für
+                Zeile untereinander angezeigt. Sie können die Zeilen
+                betrachten und haben sonst keine weitere Optionen. Bei dieser
+                Einstellung benötigt das Protokollieren am wenigsten
+                Speicherplatz.
+            </li>
+        </ul>
+
+        <p><img src="img/settings-misc-logfile.gif"
+                    width="464"
+                    height="105"
+                    alt="" />
+        </p>
+
+        <h2>Kamera-Speicherkarte</h2>
+
+        <p>Hier können Sie einen Ordner auswählen, von dem alle Bilder auf einer
+            Speicherkarte <a href="action_filesystem_autocopy_directory.html">in
+            einen Ordner kopiert</a> werden.
+        </p>
+
+        <p>Wählen Sie den Ordner aus, in dem der Inhalt Ihrer
+            Kamera-Speicherkarte angezeigt wird, wenn Sie Ihre Kamera mit dem
+            Rechner verbinden oder die Karte in einen Kartenleser einführen:
+            Unter Windows einen Laufwerksbuchstaben, unter Linux einen Ordner,
+            beispielsweise <code>/mnt/compactflash</code>. Das Laufwerk oder der
+            Ordner werden nach Bildern durchsucht einschließlich aller
+            untergeordneten Ordner.
+        </p>
+
+        <p><img src="img/settings-misc-autcopyfolder.gif"
+                    width="655"
+                    height="115"
+                    alt="" />
+        </p>
+
+        <h2>Verschiedenes</h2>
+
+        <h3>Versteckte Ordner einlesen und anzeigen</h3>
+
+        <p>Wollen Sie Bilder archivieren, die in versteckten Ordnern gespeichert
+            sind, kreuzen Sie dieses Kästchen an.
+        </p>
+
+        <h3>Versuchen, nach Programmstart im Kartenreiter
+            <strong>Ordner</strong> zuletzt ausgewählten Ordner anzuzeigen
+        </h3>
+
+        <p>Ist diese Option angekreuzt, wird versucht, nach dem Start den Ordner
+            auszuwählen, der beim Beenden von <strong>Bilder</strong> im
+            Kartenreiter <strong>Ordner</strong> ausgewählt war. Hat ein
+            Laufwerk viele Ordner, kann dies den Start verzögern. Unter dem
+            Betriebssystem Windows kommt es aus unterschiedlichen Gründen zur
+            Verzögerung, beispielsweise wenn ein Laufwerksbuchstabe mit einem
+            Netzlaufwerk verknüpft war und dieses nicht erreicht werden kann.
+        </p>
+
+        <p><img src="img/settings-misc-misc.gif"
+                    width="656"
+                    height="107"
+                    alt="" />
+        </p>
+
+        <p><img src="img/settings-misc.gif"
+                    width="686"
+                    height="415"
+                    alt="" />
+        </p>
+
+
+        <h1>Einstellungen-Dialog &gt; Aktionen</h1>
+
+        <h2>Aktionen nach Einfügen der Metadaten in die Datenbank</h2>
+
+        <p>Hier können Sie eine oder mehrere Aktionen bestimmen, die ausgeführt
+            werden, nachdem ein Bild in die Datenbank geschrieben wurde. Mehr
+            über Aktionen steht auf der Hilfeseite
+            <a href="dialog_actions.html">Aktionen</a>.
+        </p>
+
+        <p>Die Aktionen werden in der <strong>Reihenfolge</strong> ausgeführt,
+            in der sie in diesem Dialog erscheinen.
+        </p>
+
+        <p><em>Ändert eine Aktion das Datum / die Uhrzeit eines Bilds oder einer
+                Filialdatei, sollte es anschließend Datum und Uhrzeit der letzten
+                Änderung wieder auf den gleichen Wert zurücksetzen wie vor der
+                Bearbeitung, da die Datenbank und die Bilder sonst endlos
+            aktualsisiert würden!</em>
+        </p>
+
+        <p>Diese Option wurde hauptsächlich entwickelt, damit Metadaten
+            unabhängig vom Programm <strong>Bilder</strong> eingebettet werden
+            können in die Bilddateien: <strong>Bilder</strong> schreibt nur
+            XMP-Filialdateien, damit das Original nicht verändert oder
+            beschädigt wird. <a href="tip_action_embed_xmp.html">Hier ein
+            Beispiel-Skript zum Einbetten von XMP-Metdadaten</a>.
+        </p>
+
+        <h3>Immer ausführen</h3>
+
+        <p>Die Aktion wird immer ausgeführt, nachdem ein Bild in die Datenbank
+            eingefügt oder in ihr modifiziert wurde.
+        </p>
+
+        <h3>Nur ausführen, falls XMP-Metadaten vorhanden sind</h3>
+
+        <p>Die Aktion wird ausgeführt, nachdem ein Bild in die Datenbank
+            eingefügt oder in ihr modifiziert wurde, <em>falls</em> es
+            XMP Metadaten enthält (in einer Filialdatei oder eingebettet, falls
+            <a href="dialog_settings_performance.html">eingebettete
+            Metadaten übernommen</a> werden sollen).
+        </p>
+
+        <p><img src="img/settings-actions.gif"
+                    width="686"
+                    height="415"
+                    alt="" />
+        </p>
+
+
+        <h1>Dialog Programmeigenschaften</h1>
+
+        <p>Im Dialog <strong>Programmeigenschaften</strong> stellen Sie
+            die Eigenschaften der Programme ein, die Sie einfügten ins
+            Kontextmenü des Vorschaubildfensters über den
+            <a href="dialog_settings_programs.html">Einstellungen-Dialog</a>
+            oder im  <a href="dialog_actions.html">Aktionen-Dialog</a>
+            hinzufügten.
+        </p>
+
+        <h2>Angaben zum Programm</h2>
+
+        <ul>
+            <li><strong>Programmdatei:</strong> Name des Programms oder Skripts
+                (Batchdatei). Sie können das Programm über einen Dialog
+                auswählen.
+            </li>
+            <li><strong>Name im Menü:</strong> Der Name, den Sie hier eingeben,
+                erscheint im Kontextmenü des Vorschaubildfensters oder im
+                Aktionen-Dialog.
+            </li>
+            <li><strong>Programm verändert das Bild gleich nach Aufruf:</strong>
+                Setzen Sie hier ein Häkchen, falls ein Programm oder Skript das
+                Bild sofort ändert, beispielsweise rotiert. Ist ein Häkchen
+                gesetzt, werden das Vorschaubild und die Metadaten nach Aufruf
+                des Programms (neu) in die Datenbank geschrieben.
+            </li>
+        </ul>
+
+        <h2>Programmparameter</h2>
+
+        <ul>
+            <li><strong>Zusätzliche Parameter vor Dateinamen:</strong> Falls Ihr
+                Programm die Parameter vor dem/den Dateinamen wünscht, geben Sie
+                diese hier ein. Geben Sie zum Beispiel ein: <code>-rotate 90
+                -sharpen</code>, wird das Programm so aufgerufen: <code>Programm
+                -rotate 90 -sharpen Bild.jpg</code>.
+            </li>
+            <li><strong>Zusätzliche Parameter nach Dateinamen:</strong> Falls
+                Ihr Programm die Parameter nach dem/den Dateinamen wünscht,
+                geben Sie diese hier ein. Geben Sie zum Beispiel ein:
+                <code>-rotate 90 -sharpen</code>, wird das Programm so
+                aufgerufen: <code>Programm Bild.jpg  -rotate 90 -sharpen</code>.
+            </li>
+        </ul>
+
+        <p>Tragen Sie in beide Felder Parameter ein, wird das Programm mit den
+            Parametern davor <em>und</em> danach aufgerufen, z.B. <code>Programm
+            -parameter_vor Bild_1.jpg Bild_2.jpg -parameter_nach</code>.
+        </p>
+
+        <h2>Parameter eingeben vor dem Ausführen</h2>
+
+        <ul>
+            <li><strong>Vor dem Ausführen (weitere) Parameter eingeben:</strong>
+                Setzen Sie hier ein Häkchen, können Sie weitere Parameter in
+                einen Dialog eingeben, bevor das Programm aufgerufen wird. Diese
+                Parameter werden dem Programm <em>zusätzlich</em> überreicht zu
+                den in diesem Dialog definierten.
+            </li>
+            <li><strong>Bei jeder einzelnen Datei nachfragen, wenn mehrere
+                ausgewählt sind:</strong> Haben Sie das Häkchen gesetzt, wie im
+                vorherigen Punkt beschrieben, und mehrere Dateien ausgewählt,
+                können Sie einmalig von Hand Parameter eingeben (kein Häkchen),
+                die für alle Dateien gelten oder vor jeder Datei individuelle
+                Parameter eingeben (Häkchen), sofern Sie diese einzeln
+                abarbeiten lassen, siehe unten.
+            </li>
+        </ul>
+
+        <h2>Bei Auswahl mehrerer Dateien</h2>
+
+        <ul>
+            <li><strong>Programm einmal aufrufen und alle Dateien gleichzeitig
+                überreichen:</strong> Haben Sie diese Option aktiviert, wird das
+                Programm einmal aufgerufen mit allen Dateien als Parameter, z.B.
+                <code>Programm Bild_1, Bild_2, Bild_3</code>
+            </li>
+            <li><strong>Programm für jede Datei einzeln aufrufen:</strong> Ist
+                diese Option aktiviert, wird das Programm für jedes Bild
+                einzelnen aufgerufen, z.B. <code>Programm Bild_1; Programm
+                Bild_2; Programm Bild_3</code>.
+            </li>
+        </ul>
+
+        <p><img src="img/dialog_program_properties.gif"
+                    width="473"
+                    height="531"
+                    alt="" />
+        </p>
+
+
+        <h1>Dialog: Umbenennen</h1>
+
+        <p>Dieser Befehl gibt den <strong>ausgewählten</strong> Bildern einen
+            neuen Namen auf dem Datenträger. Sie können jede ausgewählte Datei
+            einzeln umbenennen oder alle auf einmal mit einer Schablone.
+        </p>
+
+        <h2>Dateien einzeln umbenennen (Kartenreiter &quot;Namen eingeben&quot;)
+        </h2>
+
+        <p>Hier geben Sie für jede Datei einen neuen Namen ein, der Dialog zeigt
+            nach jeder Umbenennung die nächste ausgewählte Datei an.
+        </p>
+
+        <p><img src="img/dialog-rename-input-each-filename.gif"
+                    width="571"
+                    height="435"
+                    alt="" />
+        </p>
+
+        <h2>Dateien umbenennen mit einer Schablone (Kartenreiter &quot;Schablone
+            benutzen&quot;)
+        </h2>
+
+        <p>Mit der Schablone können Sie alle ausgewählten Dateien auf einmal
+            einheitlich umbenennen lassen anhand einer Schablone. Sie können
+            <em>bis</em> zu drei Bestandteile des Namens bestimmen:
+        </p>
+
+        <ul>
+            <li><strong>Exakter Wortlaut</strong>: Tragen Sie unten ins Textfeld
+                etwas ein und es erscheint unverändert in allen Dateinamen.
+            </li>
+            <li><strong>Ziffernfolge</strong>: Startet mit der oben
+                eingestellten <strong>Anfangsziffer</strong>, wird hochgezählt
+                mit der oben eingestellten <strong>Schrittweite</strong> und hat
+                so viele Ziffern wie in der <strong>Ziffernanzahl</strong>
+                definiert. Ist die Anfangsziffer 1, die Schrittweite 1 und die
+                Ziffernanzahl 3, wird für das erste Bild <code>001</code>
+                vergeben, für das zweite <code>002</code>, für das dritte
+                <code>003</code> usw. Erhöhen Sie die Schrittweite auf 2, hat
+                das erste Bild die Ziffernfolge <code>001</code>, das zweite
+                <code>003</code> und das dritte <code>005</code>.
+            </li>
+            <li><strong>Dateiname ohne Endung</strong>: Übernimmt den
+                Dateinamen, wie er ist. So bleibt er im Original erhalten, Sie
+                könnten aber beispielsweise das Datum voranstellen.
+            </li>
+            <li><strong>Aufnahmedatum</strong>: Übernimmt das Datum aus den
+                <a href="glossary_exif.html">EXIF</a>-Daten, falls möglich, sonst
+                wird das Datum der letzten Dateimodifikation benutzt.
+            </li>
+            <li><strong>Nichts</strong>: Lässt diesen Namensbestandteil frei.
+            </li>
+        </ul>
+
+        <p>Unten im <strong>Beispiel</strong> sehen Sie, wie die erste der
+            ausgewählten Bilddateien nach dem Umbenennen heißt.
+        </p>
+
+        <p><img src="img/dialog-rename-template.gif"
+                    width="571"
+                    height="435"
+                    alt="" />
+        </p>
+
+
+        <h1>Tipp: Nutzen Sie die Hilfe</h1>
+
+        <p>Nutzen Sie diese Hilfe. Sie rufen die Hilfe auf mit der Taste
+            <kbd>F1</kbd> im Programfenster und in den Dialogen.
+        </p>
+
+
+        <h1>Tipp: Öffnen Sie bei Fehlern die Logdatei</h1>
+
+        <p>Fehler werden angzeigt durch ein rotes Kreuz auf der Schaltfläche am
+            unteren Fensterrand:
+        </p>
+
+        <p><img src="img/logfile-button-error.gif"
+                    width="19"
+                    height="15"
+                    alt="" />
+        </p>
+
+        <p>Klicken Sie auf die Schaltfläche, wird die Logdatei geöffnet. In ihr
+            steht mehr über den Fehler. Ist alles in Ordnung oder nachdem Sie
+            die Logdatei angeschaut haben, hat die Schaltfläche ein grünes Häkchen:
+        </p>
+
+        <p><img src="img/logfile-button-ok.gif"
+                    width="19"
+                    height="15"
+                    alt="" />
+        </p>
+
+
+        <h1>Tipp: Tastenkombinationen</h1>
+
+        <p>Nutzen Sie Tastenkombinationen! So arbeiten Sie schneller.
+            Kombination bedeutet, Sie drücken <em>gleichzeitig</em> zwei oder
+            drei Tasten und ein Befehl wird ausgeführt.
+        </p>
+
+        <h2>Wie erfahre ich, welche Tastenkombinationen es gibt?</h2>
+
+        <ul>
+            <li>Die Kombinationen stehen in den Menüs rechts neben dem Befehl.
+                 Ausgeführt werden Tastenkombinationen durch Drücken der Taste
+                 <kbd>Strg</kbd> und gleichzeitig einer anderen Taste. Manchmal
+                 ist die Taste <kbd>Alt</kbd> zu drücken anstelle
+                 <kbd>Strg</kbd>, manchmal beide zusammen.
+            </li>
+            <li>In dieser Hilfe gibt es eine
+                <a href="accelerator_keys.html">Liste</a> mit allen
+                Tastenkombinationen.
+            </li>
+        </ul>
+
+        <h2>Alternative Begriffe</h2>
+
+        <p><strong>Tastenkombinationen</strong> werden unterschiedlich
+            bezeichnet:
+        </p>
+
+        <ul>
+            <li>Tastenkürzel
+            </li>
+            <li>Tastaturkombination
+            </li>
+            <li>Tastaturbefehl
+            </li>
+            <li>Tastensequenz
+            </li>
+            <li>Hotkey
+            </li>
+            <li>Shortcut
+            </li>
+        </ul>
+
+        <h2>Beispiele</h2>
+
+        <p>Sie wollen Stichwörter für ein Bild einfügen: Mit <kbd>Strg+E</kbd>
+            springen Sie direkt zur Eingabe. Suchen Sie ein Bild, springen Sie
+            mit <kbd>Strg+F</kbd> direkt ins Suchen-Feld. Zurück zu den
+            Vorschaubildern gelangen Sie mit <kbd>Strg+0</kbd> (Null).
+        </p>
+
+
+        <h1>Tipp: Einstellungen überprüfen</h1>
+
+        <p>Überprüfen Sie gelegentlich Ihre Einstellungen über das Menü
+            <strong>Bearbeiten &gt; Einstellungen</strong>, Tastenkombination
+            <kbd>Strg + ALT + S</kbd>.
+        </p>
+
+
+        <h1>Tipp: Suchen speichern</h1>
+
+        <p><a href="dialog_advanced_search.html">Speichern</a> Sie wichtige
+            Suchen! So finden Sie schnell Bilder mit bestimmten Eigenschaften.
+        </p>
+
+        <p>Eine gespeicherte Suche ist eine Vorlage für eine ähnliche neue.
+        </p>
+
+
+        <h1>Programm zum Erzeugen von Vorschaubildern</h1>
+
+        <p>Sie können im Einstellungen-Dialog ein Programm zum Erzeugen von
+            Vorschaubildern
+            <a href="dialog_settings_thumbnails.html">definieren</a>. Hier ist
+            ein Skript, mit dem ich unter <strong>Linux</strong> Vorschaubilder
+            erzeugen lasse:
+        </p>
+
+        <pre>
+#!/bin/sh
+#
+# Author : Elmar Baumann &lt;eb@elmar-baumann.de&gt;
+# Date   : 2008/08/02
+# Doc    : Von einem Bild ein JPEG-Thumbnail ausgeben auf die Standardausgabe
+#          1. Parameter: Bilddateiname
+#          2. Parameter: Länge der längeren Thumbnailseite in Pixel
+#
+#          Benötigte Programme: - ImageMagick, davon identify und convert
+#                               - dcraw
+#
+################################################################################
+
+# Leerzeichen in Dateinamen erlauben
+IFS="
+"
+
+# Name der Bilddatei, für die das Thumbnail erzeugt werden soll (1. Parameter)
+image_filename=$1
+
+# Länge der längeren Thumbnailseite in Pixel (2. Parameter)
+length=$2
+
+# Speicherort für die Ausgabe von dcraw
+temp_dir=$HOME/tmp
+
+# Dateiname des von dcraw ausgegebenen temporären Bilds
+temp_filename=$temp_dir/$(basename $0).$$.ppm
+
+# So viele Pixel muss die längere Thumbnailseite mindestens haben
+MIN_LENGTH=50
+
+# Endungen aller Dateinamen, die keine RAW-Datei benennen
+not_raw_filename_suffixes="gif
+jpeg
+jpg
+png
+tif
+tiff"
+
+################################################################################
+
+function check_params() {
+    if [ -z $image_filename ] || [ -z $length ]
+    then
+    echo "Falsche Parameteranzahl (1. Bilddatei, 2. Länge)!" &gt;&amp;2
+    exit 1
+    fi
+    if [ $length -lt $MIN_LENGTH ]
+    then
+    echo "Thumbnaillänge muss mindestens $MIN_LENGTH sein!" &gt;&amp;2
+    exit 2
+    fi
+}
+
+function check_files() {
+    if ! [ -f $image_filename ]
+    then
+    echo "Bilddatei '$image_filename' existiert nicht!" &gt;&amp;2
+    exit 3
+    fi
+    if ! [ -d $temp_dir ]
+    then
+    echo "Temporärverzeichnis '$temp_dir' existiert nicht!" &gt;&amp;2
+    exit 4
+    fi
+    touch $temp_filename
+    if [ $? -ne 0 ]
+    then
+    echo "$temp_dir lässt sich nicht beschreiben!" &gt;&amp;2
+    exit 5
+    fi
+    rm $temp_filename
+}
+
+function is_raw_file() {
+    local filename_suffix=$(echo $image_filename | sed 's%.*\.\(.*\)%\1%')
+    echo $not_raw_filename_suffixes | grep -qivw $filename_suffix
+    echo $?
+}
+
+function is_landscape() {
+    local filename=$1
+    width=$(identify -format '%w' $filename)
+    height=$(identify -format '%h' $filename)
+    test $width -gt $height
+    echo $?
+}
+
+function image_to_stdout() {
+    local filename=$1
+    local length_cmd="x${length}"
+
+    if [ $(is_landscape $filename) -eq 0 ]
+    then
+    length_cmd="${length}x"
+    fi
+
+    convert $filename -resize $length_cmd -unsharp 0.5x0.5+1.0+0.1 jpg:-
+}
+
+# dcraw-Parameter:
+# -c Ausgabe auf stdout
+# -h half-size color image (schneller)
+
+function raw_to_stdout() {
+    dcraw -c -h $image_filename &gt; $temp_filename
+    image_to_stdout $temp_filename
+    rm $temp_filename
+}
+
+function thumbnail_to_stdout() {
+    if [ $(is_raw_file) -eq 0 ]
+    then
+    raw_to_stdout
+    else
+    image_to_stdout $image_filename
+    fi
+}
+
+function tear_down {
+    if [ -f $temp_filename ]
+    then
+    rm $temp_filename
+    fi
+}
+
+check_params
+check_files
+thumbnail_to_stdout
+tear_down
+        </pre>
+
+
+        <h1>Tipp: XMP-Metadaten einbetten über ein Skript</h1>
+
+        <p>Sie können über ein Skript XMP-Metdaten in eine Bilddatei einbetten
+            lassen. Am bequemsten ist es, Sie
+            <a href="dialog_settings_actions.html">stellen das ein</a>.
+            Hier als Beispiel ein Bash-Skript für <strong>Linux</strong>, das
+            die Daten der XMP-Filialdateien einbettet in die Bilddateien:
+        </p>
+        <pre>
+#!/bin/sh
+#
+# Datum: 2009/06/07
+# Autor: Elmar Baumann &lt;eb@elmar-baumann.de&gt;
+#
+# Aufruf: embedxmp.sh &lt;Bilddatei&gt;
+#
+# Bettet in Bilddateien XMP-Metadaten ein, die in XMP-Filialdateien stehen. Eine
+# XMP-Filialdatei ist im gleichen Verzeichnis wie die Bilddatei und hat den
+# gleichen Basisnamen, die Endung heißt ".xmp". Heißt ein Bild "Rose.jpg", so
+# heißt seine Filialdatei "Rose.jpg".
+#
+# Voraussetzungen: Bash, basename, exiftool-Executable
+#                  (http://www.sno.phy.queensu.ca/~phil/exiftool/). Es ist die
+#                  Konstante EXIFTOOL anzupassen: Der Pfad zur ausführbaren
+#                  Datei "exiftool".
+#
+################################################################################
+
+IFS="
+"
+
+THIS=$(basename $0)
+EXIFTOOL=/usr/bin/exiftool
+EXIF_TOOL_BACKUP_SUFFIX='_original'
+TIMESTAMP_FILE=${HOME}/tmp/${THIS}.$$
+EXIT_VALUE=0
+
+if ! [ -x $EXIFTOOL ]
+then
+    echo "${THIS}: Das Program ${EXIFTOOL} existiert nicht (in diesem Verzeichnis) oder ist nicht ausführbar!" 1>&2
+    exit 1
+fi
+
+if [ -z $1 ]
+then
+    echo "${THIS}: Bilddateiname fehlt (Parameter 1)!" 1>&2
+    exit 1
+fi
+
+IMAGE_FILE=$1
+
+if ! [ -f $IMAGE_FILE ]
+then
+    echo "${THIS}: Bilddatei '${IMAGE_FILE}' existiert nicht!" 1>&2
+    exit 1
+fi
+
+touch $TIMESTAMP_FILE
+if [ $? -ne 0 ]
+then
+    echo "${THIS}: Temporäre Datei '${TIMESTAMP_FILE}' kann nicht erzeugt werden!" 1>&2
+    exit 1
+fi
+
+SIDECAR_FILE=${IMAGE_FILE%*.*}.xmp
+
+if ! [ -f $SIDECAR_FILE ]
+then
+    echo "${THIS}: XMP-Filialdatei '${SIDECAR_FILE}' existiert nicht!" 1>&2
+    exit 1
+fi
+
+touch --reference=${IMAGE_FILE} ${TIMESTAMP_FILE}
+
+$EXIFTOOL \
+    -tagsFromFile \
+    ${SIDECAR_FILE} \
+    ${IMAGE_FILE}
+
+if [ $? -eq 0 ]
+then
+    # Zeile im Anschluss an diesen Kommentar kommentieren, falls nicht das
+    # Risiko eingegangen werden soll, dass ExifTool ein beschädigtes Bild
+    # erzeugt und dann kein Backup mehr existiert
+    rm ${IMAGE_FILE}${EXIF_TOOL_BACKUP_SUFFIX}
+    touch --reference=${TIMESTAMP_FILE} ${IMAGE_FILE}
+else
+    echo "Fehler beim Ausführen von ${EXIFTOOL} -tagsFromFile -preserve ${SIDECAR_FILE} ${IMAGE_FILE}!"
+    EXIT_VALUE=1
+fi
+
+rm ${TIMESTAMP_FILE}
+exit ${EXIT_VALUE}
+        </pre>
+
+
+        <h1>Tipp: Mehr Funktionen hinzufügen</h1>
+
+        <p>Sie können dem Programm <strong>Bilder</strong> mehr Funktionen
+            hinzufügen durch Nutzen anderer Programme oder selbst geschriebener
+            Skripte (Batch-Dateien) im
+            <a href="dialog_actions.html">Aktionen-Dialog</a> oder im
+            Kontextmenü des Vorschaubildfensters
+            (<a href="dialog_settings_programs.html">Einstellungen-Dialog</a>).
+            Beispiele:
+        </p>
+
+        <ul>
+            <li>Drehen von Bildern
+            </li>
+            <li>Ändern einer falsch eingestellten Uhrzeit in den EXIF-Daten
+            </li>
+            <li>Anzeigen einer Diaschau
+            </li>
+            <li>Hochladen auf einen Webserver
+            </li>
+            <li>Eine DVD brennen
+            </li>
+            <li>...
+            </li>
+        </ul>
+
+        <h2>Empfehlungen</h2>
+
+        <p>Folgende Programme eignen sich gut dafür:
+        </p>
+
+        <ul>
+            <li><strong>ExifTool:</strong>
+                <code>http://www.sno.phy.queensu.ca/~phil/exiftool/</code>
+                (Bearbeiten von EXIF, IPTC und XMP)
+            </li>
+            <li><strong>ImageMagick:</strong>
+                <code>http://imagemagick.org/</code>
+            </li>
+            <li><strong>IrfanView:</strong>
+                <code>http://www.irfanview.com/</code>
+            </li>
+            <li><strong>XnView:</strong>
+                <code>http://pagesperso-orange.fr/pierre.g/xnview/de_xnview.html</code>
+            </li>
+        </ul>
+
+        <h2>Beispiel-Sktripte</h2>
+
+        <p>Beispiel-Sktripte sind im Verzeichnis <code>scripts</code> im
+            Installationsordner des Programms <strong>Bilder</strong>. <em>Diese
+                Skripte können bei einer Installation überschrieben werden.
+                Speichern Sie Skripte, die Sie benutzen, in einem anderen
+            Verzeichnis!</em>
+        </p>
+
+
+        <h1>Mehr Arbeitsspeicher</h1>
+
+        <p>Sollte der Arbeitsspeicher nicht ausreichen für
+            <strong>Bilder</strong>, können Sie mehr zur Verfügung stellen.
+            Ergänzen Sie die Startdatei bei <strong>Heap Overflows</strong>:
+        </p>
+
+        <pre>java <strong>-Xms30m -Xmx500m</strong> -jar Bilder.jar
+        </pre>
+
+        <p>So stellen Sie Anfangs 30 Megabyte zur Verfügung und
+            <strong>Bilder</strong> kann - falls erforderlich - bis zu 500
+            Megabyte benutzen.
+        </p>
+
+        <p>Gibt es einen <strong>Thread Stack Overflow</strong>, kann der Stack
+            vergrößert werden mit dem Parameter <strong>-Xss</strong>
+            gefolgt von einer Megabyte-Angabe.
+        </p>
+
+
+        <h1>Welche Metadaten werden gelesen?</h1>
+
+        <p>Folgende <a href="glossary_metadata.html">Metadaten</a> werden
+            gelesen und <strong>rechts</strong> im Programmfenster angzeigt:
+        </p>
+
+        <ul>
+            <li><a href="glossary_iptc.html">IPTC</a>, wenn eingebettet in die
+                Bilddatei
+            </li>
+            <li><a href="glossary_exif.html">EXIF</a>, wenn eingebettet in die
+                Bilddatei
+            </li>
+            <li><a href="glossary_xmp.html">XMP</a>, wenn eingebettet in die
+                Bilddatei oder von Filialdateien (Sidecarfiles) - diese werden
+                bevorzugt, sollte XMP eingebettet sein - und zwar von
+                <strong>Adobe Photoshop Lightroom</strong> geschrieben oder von
+                Programmen, die XMP auf die gleiche Weise schreiben.
+            </li>
+        </ul>
+
+
+        <h1>Welche Metadaten werden angezeigt?</h1>
+
+        <p>Wird <strong>ein</strong> (einziges) Bild ausgewählt, werden dessen
+            <a href="glossary_iptc.html">IPTC</a>-,
+            <a href="glossary_exif.html">EXIF</a>- und
+            <a href="glossary_xmp.html">XMP</a>-Metadaten angezeigt, <em>gelesen
+            aus</em> der <strong>Bilddatei</strong> oder
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>. Sie
+            sehen stets die aktuellen Daten.
+        </p>
+
+        <p><strong>Die <a href="glossary_metadata.html">Metadaten</a> in der
+            Datenbank werden (nur) für die Suche benutzt.</strong>
+        </p>
+
+
+        <h1>Was ist in der Datenbank gespeichert?</h1>
+
+        <p>In der Datenbank gespeichert sind eine <em>Auswahl</em> an
+            <a href="glossary_metadata.html">Metadaten</a> und einige weitere
+            Daten:
+        </p>
+
+        <h2>Aus den <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            oder in Bilddateien eingebettetem XMP:
+        </h2>
+
+        <ul>
+            <li>dc:subject
+            </li>
+            <li>dc:creator
+            </li>
+            <li>dc:rights
+            </li>
+            <li>dc:description
+            </li>
+            <li>Iptc4xmpCore:Location
+            </li>
+            <li>dc:title
+            </li>
+            <li>Iptc4xmpCore:CountryCode
+            </li>
+            <li>photoshop:Headline
+            </li>
+            <li>photoshop:CaptionWriter
+            </li>
+            <li>photoshop:Category
+            </li>
+            <li>photoshop:SupplementalCategories
+            </li>
+            <li>photoshop:City
+            </li>
+            <li>photoshop:State
+            </li>
+            <li>photoshop:Country
+            </li>
+            <li>photoshop:TransmissionReference
+            </li>
+            <li>photoshop:Instructions
+            </li>
+            <li>photoshop:Credit
+            </li>
+            <li>photoshop:Source
+            </li>
+            <li>photoshop:AuthorsPosition
+            </li>
+        </ul>
+
+        <h2>Aus den <a href="glossary_exif.html">EXIF</a>-Daten der Bilddatei:
+        </h2>
+        <ul>
+            <li>DateTimeOriginal
+            </li>
+            <li>FocalLength
+            </li>
+            <li>ISOSpeedRatings
+            </li>
+            <li>Model
+            </li>
+        </ul>
+
+        <h2>Weitere Daten in der Datenbank</h2>
+
+        <ul>
+            <li>Automatisch einzulesende Ordner
+            </li>
+            <li>Bildsammlungen
+            </li>
+            <li>Reguläre Ausdrücke zum Ausschließen von Bilddateien
+            </li>
+            <li>Vorlagen zum Bearbeiten von Metadaten
+            </li>
+            <li>Weitere Programme zum Öffnen und Bearbeiten von Bildern
+            </li>
+            <li>Gespeicherte Suchen
+            </li>
+            <li>Aktionen, die ausgeführt werden, nachdem ein Bild in die
+                Datenbank eingefügt wurde oder in ihr aktualisiert
+            </li>
+        </ul>
+
+        <h2>Nicht in der Datenbank</h2>
+
+        <p>Die <strong>Vorschaubilder</strong> sind gespeichert im Ordner
+            <code>thumbnails</code> unterhalb des Ordners mit den
+            Datenbank-Dateien.
+        </p>
+
+        <p>Alles andere, beispielsweise das Standardprogramm zum Öffnen von
+            Bildern oder die Spalten für die Schnellsuche, ist in der
+            Einstellungen-Datei gespeichert (<code>Settings.properties</code>)
+            im <a href="facts_database_location.html">Benutzerordner</a>.
+        </p>
+        
+
+        <h1>Wie oft werden Bilder in die Datenbank geschrieben?</h1>
+
+        <p><strong>Automatisch</strong> werden nur Dateien eingelesen und in die
+            Datenbank geschrieben, die:
+        </p>
+
+        <ul>
+            <li>deren Endung hinweist auf ein Dateiformat, das dem Programm
+                <strong>Bilder</strong> bekannt ist
+            </li>
+            <li>die noch nicht in der Datenbank gespeichert sind
+            </li>
+            <li>die in der Datenbank gespeichert sind und deren <strong>letztes
+                Änderungsdatum</strong> <em>anders</em> ist als zum Zeitpunkt
+                des letzten Einlesens
+            </li>
+        </ul>
+
+
+        <h1>Wo ist die Datenbank?</h1>
+
+        <p>Die Datenbank ist im Betriebssystem-Benutzerordner gespeichert, dort
+            im untergeordneten Ordner
+            <code>.de.elmar_baumann/ImageMetaDataViewer</code> (Punkt am
+            Anfang). Die Datenbankdateien starten mit <code>database</code>.
+        </p>
+
+        <p>In diesem Ordner sind auch die Programmeinstellungen gespeichert
+            sowie die Logdatei.
+        </p>
+
+        <p><strong>Sie sollten diesen Ordner regelmäßig sichern!</strong>
+            <em>Während der Sicherung sollte das Programm 'Bilder' nicht
+            gestartet sein!</em>
+        </p>
+
+        <h2>Benutzerordner unter Windows</h2>
+
+        <p>Unter Windows ist der Benutzerordner häufig
+            <code>C:\Dokumente und Einstellungen\Benutzername</code>, z.B.
+            <code>C:\Dokumente und Einstellungen\elmar</code>.
+        </p>
+
+        <h2>Benutzerordner unter Linux</h2>
+
+        <p>Unter Linux ist der Benutzerordner in der Regel
+            <code>/home/benutzername</code>, z.B. <code>/home/elmar</code>.
+        </p>
+
+        <h2>Datenbankordner ändern</h2>
+
+        <p>Sie können den Datenbankordner ändern mit dem
+            <strong>Einstellungen-Dialog</strong>, Kartenreiter
+            <a href="dialog_settings_misc.html">Sonstiges</a>.
+        </p>
+
+
+        <h1>Warum XMP-Filialdateien?</h1>
+
+        <p><a href="glossary_metadata.html">Metadaten</a> lassen sich direkt in
+            die Bilddateien schreiben mit dem Vorteil, dass Metadaten und Bilder
+            immer zusammen bleiben. Aus folgenden Gründen arbeitet das Programm
+            <strong>Bilder</strong> mit
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>:
+        </p>
+
+        <ul>
+            <li>Die Bilddateien werden nicht verändert, insbesondere nicht
+                beschädigt
+            </li>
+            <li>Änderungen sind schneller in eine kleine
+                <a href="glossary_xmp.html">XMP</a>-Datei geschrieben als in eine
+                große Bilddatei
+            </li>
+            <li>Ändern Sie häufiger Metadaten, beispielsweise Ihre (E-Mail-)
+                Adresse oder ein falsch getipptes Stichwort, ist das Backup
+                sehr viel kleiner und spart Zeit und Kosten vor allem bei
+                hochwertigen DVD-Rohlingen als Backupmedium
+            </li>
+            <li>In Bildern, die Sie weitergeben, stehen keine Daten, die andere
+                nicht sehen sollen
+            </li>
+            <li>Einfache Textdateien sind &quot;robuster&quot; als Datenbanken:
+                <ul>
+                    <li>sie sind nicht so leicht zu &quot;beschädigen&quot;
+                    </li>
+                    <li>sie können heute und zukünftig auf allen
+                        Betriebssystemen gelesen und ausgewertet werden, ein
+                        einfacher Texteditor reicht
+                    </li>
+                    <li>sie ermöglichen, defekte Datenbanken
+                        wiederherzustellen
+                    </li>
+                </ul>
+            </li>
+            <li>Folgendes gilt auch für in die Bilder eingebettete XMP-Metadaten:
+                XMP ist ein offener und erweiterbarer Standard, der von anderen
+                Programmen gelesen werden kann, z.B. von <strong>Adobe Photoshop
+                Lightroom</strong>. Die in einem Programm eingegebenen Metadaten
+                können von anderen Programmen benutzt werden und Sie können
+                jetzt mit mehreren Programmen arbeiten oder später das Programm
+                wechseln.
+            </li>
+        </ul>
+
+        <p>Der Nachteil ist, Sie müssen die XMP-Dateien mit den Bildern kopieren
+            (sichern) oder verschieben, sollen die Metadaten erhalten bleiben.
+            Zurzeit liest nur <strong>Adobe Photoshop Lightroom</strong> die
+            Metadaten aus den XMP-Dateien. Dies könnte sich zukünftig ändern.
+        </p>
+
+        <p>Falls Sie die Metadaten zusätzlich in Ihren Bildern haben wollen,
+            erreichen Sie das mit einem
+            <a href="tip_action_embed_xmp.html">Skript</a>.
+        </p>
+
+
+        <h1>Glossar: EXIF</h1>
+
+        <p><strong>EXIF</strong> ist die Abkürzung für <strong>Exchangeable
+            Image File Format</strong>: Digitalkameras schreiben in Bilddateien
+            zusätzlich zu den Pixeln (Bildpunkten) zahlreiche Daten wie
+            Vorschaubilder (Thumbnails), Blende, Verschlusszeit,
+            Objektivbrennweite und Datum.
+        </p>
+
+        <p>URL für eine PDF-Datei des Standards:
+            <code>http://www.exif.org/Exif2-2.PDF</code>
+        </p>
+
+
+        <h1>Glossar: IPTC</h1>
+
+        <p><strong>IPTC</strong> ist das Akronym für <strong>International Press
+            Telecommunications Council</strong>. Diese legte gemeinsam mit der
+            <strong>Newspaper Association of America</strong> einen Standard
+            fest, in dem steht, wie und welche
+            <a href="glossary_metadata.html">Metadaten</a> in Bilddateien
+            gespeichert werden.
+        </p>
+
+        <p>URL für eine PDF-Datei des Standards:
+            <code>http://www.iptc.org/IIM/4.1/specification/IIMV4.1.pdf</code>.
+        </p>
+
+
+        <h1>Glossar: Metadaten</h1>
+
+        <p>Metadaten sind (weitere) Daten zum Bild (&quot;Daten über die
+            Bilddaten&quot;):
+        </p>
+
+        <ul>
+            <li>Bildbeschreibung
+            </li>
+            <li>Stichwörter
+            </li>
+            <li>Kategorien
+            </li>
+            <li>Fotograf
+            </li>
+            <li>...
+            </li>
+        </ul>
+
+        <p>Das Programm <strong>Bilder</strong> kennt folgende Metadatenformate:
+        </p>
+
+        <ul>
+            <li><a href="glossary_exif.html">EXIF</a></li>
+            <li><a href="glossary_iptc.html">IPTC</a></li>
+            <li><a href="glossary_xmp.html">XMP</a></li>
+        </ul>
+
+
+        <h1>Glossar: XMP</h1>
+
+        <p><strong>XMP</strong> ist die Abkürzung von <strong>Extensible
+            Metadata Platform</strong> und ein Standard zum
+            Speichern von <a href="glossary_metadata.html">Metadaten</a>. Diese
+            werden im <strong>XML</strong>-Format in die Bilddatei geschrieben
+            oder in <a href="glossary_sidecar_file.html">Filialdateien</a>.
+        </p>
+
+        <p>URL für eine PDF-Datei des Standards:
+            <code>http://partners.adobe.com/public/developer/en/xmp/sdk/XMPspecification.pdf</code>
+        </p>
+
+
+        <h1>Glossar: XMP-Filialdatei</h1>
+
+        <p>Eine <strong>XMP-Filialdatei</strong> ist eine
+            <a href="glossary_xmp.html">XMP-Datei</a> (Textdatei) im gleichen
+            Ordner wie die Bilddatei und hat den gleichen Namen, nur die Endung
+            lautet <code>xmp</code>: <code>bild-01.xmp</code> ist die
+            Filialdatei von <code>bild-01.nef</code> (von
+            <code>bild-01.jpg</code>, von <code>bild-01.tiff</code>, ...). Sie
+            enthält <a href="glossary_metadata.html">Metadaten</a> über das
+            zugehörige Bild.
+        </p>
+

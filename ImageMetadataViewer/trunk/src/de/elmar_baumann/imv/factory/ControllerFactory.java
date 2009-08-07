@@ -40,6 +40,7 @@ import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHighlightH
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerImportHierarchicalKeywords;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerShowHierarchicalKeywordsDialog;
 import de.elmar_baumann.imv.controller.imagecollection.ControllerPickReject;
+import de.elmar_baumann.imv.controller.metadata.ControllerCopyPasteMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.imv.controller.search.ControllerFastSearch;
 import de.elmar_baumann.imv.controller.misc.ControllerGoTo;
@@ -157,6 +158,7 @@ public final class ControllerFactory {
             new ControllerExportHierarchicalKeywords();
             new ControllerSetRating();
             new ControllerNoMetadataItemSelected();
+            new ControllerCopyPasteMetadata();
             init = true;
         }
     }

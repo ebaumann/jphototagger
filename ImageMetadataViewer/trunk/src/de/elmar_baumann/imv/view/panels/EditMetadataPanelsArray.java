@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLifeCycle;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.SuggestHierarchicalKeywords;
 import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.helper.SaveEditedMetadata;
@@ -240,19 +241,100 @@ public final class EditMetadataPanelsArray implements FocusListener,
     public void addText(Column column, String text) {
         assert isEditable() : "Panels are not editable!";
         if (!isEditable()) return;
-        JPanel panelToAdd = null;
+        JPanel panelAdd = null;
         int size = panels.size();
-        for (int i = 0; panelToAdd == null && i < size; i++) {
+        for (int i = 0; panelAdd == null && i < size; i++) {
             JPanel panel = panels.get(i);
             if (((TextEntry) panel).getColumn().equals(column)) {
-                panelToAdd = panel;
+                panelAdd = panel;
             }
         }
-        assert panelToAdd != null : "Invalid column: " + column;
-        assert panelToAdd instanceof EditRepeatableTextEntryPanel :
-                "Not a panel for repeatable values: " + panelToAdd;
-        if (panelToAdd instanceof EditRepeatableTextEntryPanel) {
-            ((EditRepeatableTextEntryPanel) panelToAdd).addText(text);
+        assert panelAdd instanceof EditRepeatableTextEntryPanel :
+                "Not a panel for repeatable values: " + panelAdd;
+        if (panelAdd instanceof EditRepeatableTextEntryPanel) {
+            ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
+        }
+    }
+
+    /**
+     * Returns the current entries as a XMP object.
+     *
+     * @return XMP object
+     */
+    public Xmp getXmp() {
+        Xmp xmp = new Xmp();
+        for (JPanel panel : panels) {
+            if (panel instanceof EditTextEntryPanel) {
+                EditTextEntryPanel p = (EditTextEntryPanel) panel;
+                xmp.setValue(p.getColumn(), p.getText());
+            } else if (panel instanceof EditRepeatableTextEntryPanel) {
+                EditRepeatableTextEntryPanel p =
+                        (EditRepeatableTextEntryPanel) panel;
+                Column column = p.getColumn();
+                xmp.setValue(column, p.getText());
+                for (String text : p.getRepeatableText()) {
+                    xmp.setValue(column, text);
+                }
+            } else if (panel instanceof RatingSelectionPanel) {
+                RatingSelectionPanel p = (RatingSelectionPanel) panel;
+                try {
+                    // Only one call possible, so try catch within a loop is ok
+                    String s = p.getText();
+                    if (s != null && !s.isEmpty()) {
+                        xmp.setRating(Long.getLong(s));
+                    }
+                } catch (Exception ex) {
+                    AppLog.logSevere(getClass(), ex);
+                }
+            } else {
+                assert false : "Unknown panel type: " + panel;
+            }
+        }
+        return xmp;
+    }
+
+    /**
+     * Sets a XMP object to the edit panels.
+     *
+     * Adds repeating values and replaces not repeating values.
+     *
+     * @param xmp xmp object
+     */
+    public void setXmp(Xmp xmp) {
+        assert isEditable() : "Not editable";
+        if (!isEditable()) return;
+        for (JPanel panel : panels) {
+            if (panel instanceof EditTextEntryPanel) {
+                EditTextEntryPanel p = (EditTextEntryPanel) panel;
+                Object value = xmp.getValue(p.getColumn());
+                if (value != null) {
+                    p.setText(value.toString());
+                    p.setDirty(true);
+                }
+            } else if (panel instanceof EditRepeatableTextEntryPanel) {
+                EditRepeatableTextEntryPanel p =
+                        (EditRepeatableTextEntryPanel) panel;
+                Column column = p.getColumn();
+                Object value = xmp.getValue(column);
+                assert value == null || value instanceof Collection :
+                        "Not a collection: " + value;
+                if (value instanceof Collection) {
+                    Collection collection = (Collection) value;
+                    for (Object o : collection) {
+                        assert o != null : "Null!";
+                        p.addText(o.toString()); // addText() sets the dirty flag
+                    }
+                }
+            } else if (panel instanceof RatingSelectionPanel) {
+                RatingSelectionPanel p = (RatingSelectionPanel) panel;
+                Long rating = xmp.getRating();
+                if (rating != null) {
+                    p.setText(Long.toString(rating));
+                    p.setDirty(true);
+                }
+            } else {
+                assert false : "Unknown panel type: " + panel;
+            }
         }
     }
 
@@ -598,7 +680,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     /**
-     * When the XMP was changed and the data was not edited settin the new
+     * When the XMP was changed and the data was not edited setting the new
      * XMP data.
      *
      * @param imageFile image file with new XMP data

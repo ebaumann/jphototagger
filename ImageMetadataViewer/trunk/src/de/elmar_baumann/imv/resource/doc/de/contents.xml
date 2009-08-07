@@ -157,6 +157,14 @@
             <title>Bearbeiten &gt; Suchen</title>
         </page>
         <page>
+            <url>action_copy_metadata.html</url>
+            <title>Bearbeiten &gt; Metadaten kopieren</title>
+        </page>
+        <page>
+            <url>action_paste_metadata.html</url>
+            <title>Bearbeiten &gt; Metadaten einfügen</title>
+        </page>
+        <page>
             <url>action_metadata_iptc_to_xmp.html</url>
             <title>Werkzeuge &gt; IPTC-Daten nach XMP</title>
         </page>
