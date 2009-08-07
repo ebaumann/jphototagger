@@ -62,7 +62,7 @@ public class SubjectCache extends Cache<SubjectCacheIndirection> {
      * @param prefetch
      */
     @Override
-    public synchronized void generateEntry(File file, boolean prefetch) {
+    protected synchronized void generateEntry(File file, boolean prefetch) {
         SubjectCacheIndirection ci = new SubjectCacheIndirection(file);
         updateUsageTime(ci);
         fileCache.put(file, ci);

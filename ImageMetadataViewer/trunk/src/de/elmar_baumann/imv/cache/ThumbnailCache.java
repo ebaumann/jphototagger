@@ -66,7 +66,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
      * @param prefetch
      */
     @Override
-    public synchronized void generateEntry(File file, boolean prefetch) {
+    protected synchronized void generateEntry(File file, boolean prefetch) {
         ThumbnailCacheIndirection ci = new ThumbnailCacheIndirection(file);
         updateUsageTime(ci);
         fileCache.put(file, ci);

@@ -55,6 +55,18 @@ public class WorkQueue {
     }
 
     /**
+     * Retrieve the next item to work on from head of queue or null of
+     * none available.  Does not block.
+     *
+     * @return File to open next.
+     * @throws InterruptedException
+     */
+    public synchronized File poll() {
+        return queue.pollFirst();
+    }
+
+
+    /**
      * Remove an image from a queue.
      *
      * @param file

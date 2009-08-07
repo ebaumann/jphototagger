@@ -79,5 +79,5 @@ public abstract class Cache<CI extends CacheIndirection> {
         fileCache.remove(files.get(index));
     }
 
-    abstract public void generateEntry(File file, boolean prefetch);
+    abstract protected void generateEntry(File file, boolean prefetch);
 }
