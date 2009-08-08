@@ -104,7 +104,7 @@ public final class External {
             if (exitValue != 0)
                 Logger.getLogger(External.class.getName()).log(Level.WARNING,
                         Bundle.getString("External.Warning.ExitValue", exitValue));
-            boolean finished = exitValue != 0;
+            boolean finished = false;
             while (!finished) {
                 bytesRead = stream.read(buffer, 0, buffersize);
                 if (bytesRead > 0) {
