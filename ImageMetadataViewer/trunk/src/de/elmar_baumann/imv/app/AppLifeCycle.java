@@ -40,6 +40,7 @@ public final class AppLifeCycle {
     public synchronized void started(AppFrame appFrame) {
         assert !started;
         if (!started) {
+            started = true;
             this.appFrame = appFrame;
             Thread thread = new Thread(MetaFactory.INSTANCE);
             thread.setName("Initializing meta factory" + " @ " + // NOI18N
