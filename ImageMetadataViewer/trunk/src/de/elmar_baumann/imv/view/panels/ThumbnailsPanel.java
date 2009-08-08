@@ -81,7 +81,6 @@ public abstract class ThumbnailsPanel extends JPanel
      * Height of the text font for text below the thumbnails in points
      */
     private static final int FONT_HEIGHT = 10;
-
     /**
      * Height of the text font for text below the thumbnails in pixels,
      * computed from FONT_HEIGHT.
@@ -204,15 +203,14 @@ public abstract class ThumbnailsPanel extends JPanel
     private void computeFontHeight() {
         FONT_PIXEL_HEIGHT = getFontMetrics(FONT).getHeight();
         FONT_PIXEL_DESCENT = getFontMetrics(FONT).getDescent() +
-                             getFontMetrics(FONT).getLeading() / 2;
+                getFontMetrics(FONT).getLeading() / 2;
     }
 
     private void loadRatingImages() {
         for (int i = 0; i < 5; i++) {
             starImage[i] = new ImageIcon(getClass().getResource(
                     "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_" +
-                            Integer.toString(i + 1) + ".png")).
-                    getImage();
+                    Integer.toString(i + 1) + ".png")).getImage();
         }
     }
 
@@ -274,7 +272,7 @@ public abstract class ThumbnailsPanel extends JPanel
     private float getRelativeScrollPosition() {
         if (viewport != null) {
             int middle = viewport.getViewRect().y +
-                         viewport.getExtentSize().height / 2;
+                    viewport.getExtentSize().height / 2;
             return (float) middle / (float) getHeight();
         }
         return (float) 0.0;
@@ -282,8 +280,8 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void setRelativeScrollPosition(float p) {
         if (viewport != null) {
-            int newY = ((int)(p * getHeight())) -
-                       viewport.getExtentSize().height / 2;
+            int newY = ((int) (p * getHeight())) -
+                    viewport.getExtentSize().height / 2;
             viewport.setViewPosition(new Point(0, Math.max(0, newY)));
         }
     }
@@ -824,17 +822,17 @@ public abstract class ThumbnailsPanel extends JPanel
             g.setFont(FONT);
             for (int index = firstIndex; index < lastIndex; index++) {
                 if (index % thumbnailCountPerRow >= firstColumn &&
-                    index % thumbnailCountPerRow <= lastColumn) {
+                        index % thumbnailCountPerRow <= lastColumn) {
                     paintThumbnail(index, g);
                 }
             }
             paintPanelFocusBorder(g);
 
-            int prefetchLowStart  = Math.max(0,
+            int prefetchLowStart = Math.max(0,
                     firstIndex - thumbnailCountPerRow * 5);
-            int prefetchLowEnd    = Math.max(0, firstIndex - 1);
+            int prefetchLowEnd = Math.max(0, firstIndex - 1);
             int prefechtHighStart = Math.min(thumbnailCount, lastIndex + 1);
-            int prefetchHighEnd   = Math.min(thumbnailCount,
+            int prefetchHighEnd = Math.min(thumbnailCount,
                     lastIndex + thumbnailCountPerRow * 5);
             // prefetch for scrolling down a bit
             thumbCache.prefetch(prefechtHighStart, prefetchHighEnd);
@@ -886,7 +884,7 @@ public abstract class ThumbnailsPanel extends JPanel
                 PADDING_THUMBNAIL * 2,
                 PADDING_THUMBNAIL * 2);
         g.setColor(borderColor);
-        g.drawRoundRect (
+        g.drawRoundRect(
                 thumbnailAreaX,
                 thumbnailAreaY,
                 thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
@@ -937,7 +935,7 @@ public abstract class ThumbnailsPanel extends JPanel
                    ? COLOR_TEXT_HIGHLIGHTED
                    : COLOR_TEXT);
         g.drawString(text, xText,
-                     areaY + getThumbnailAreaHeight() - FONT_PIXEL_DESCENT);
+                areaY + getThumbnailAreaHeight() - FONT_PIXEL_DESCENT);
         g.setColor(oldColor);
     }
 
@@ -967,9 +965,9 @@ public abstract class ThumbnailsPanel extends JPanel
         Iterator<String> is = text.iterator();
         for (int i = 0; is.hasNext(); i++) {
             g.drawString(is.next(),
-                         areaX + WIDHT_BORDER_THUMBNAIL,
-                         areaY + WIDHT_BORDER_THUMBNAIL +
-                             (i + 1) * FONT_PIXEL_HEIGHT - FONT_PIXEL_DESCENT);
+                    areaX + WIDHT_BORDER_THUMBNAIL,
+                    areaY + WIDHT_BORDER_THUMBNAIL +
+                    (i + 1) * FONT_PIXEL_HEIGHT - FONT_PIXEL_DESCENT);
         }
         g.setColor(oldColor);
         g.setClip(oldShape);
@@ -981,9 +979,9 @@ public abstract class ThumbnailsPanel extends JPanel
         if (stars > 0) {
             int i = Math.min(4, stars - 1);
             g.drawImage(starImage[i],
-                        areaX + getThumbnailAreaWidth() -
-                                starImage[i].getWidth(null),
-                        areaY, null);
+                    areaX + getThumbnailAreaWidth() -
+                    starImage[i].getWidth(null),
+                    areaY, null);
         }
     }
 
@@ -1041,7 +1039,6 @@ public abstract class ThumbnailsPanel extends JPanel
     @Override
     public void componentResized(ComponentEvent e) {
         setCountPerRow();
-        setSize(getWidth(), getCalculatedHeight());
     }
 
     private void setCountPerRow() {
