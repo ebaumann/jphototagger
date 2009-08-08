@@ -75,6 +75,22 @@ public final class KeyEventUtil {
                 e.getModifiers() == KeyEvent.CTRL_MASK;
     }
 
+    /**
+     * Returns whether the Shift key was down.
+     *
+     * Motivation: {@link KeyEvent#getModifiers()} does not always return
+     * {@link KeyEvent#SHIFT_DOWN_MASK} when the Shift key was down so that
+     * also {@link KeyEvent#SHIFT_MASK} has to be compared against the modifiers
+     * return value.
+     *
+     * @param  e key event
+     * @return   true if the Shift key was down
+     */
+    public static boolean isShiftDown(KeyEvent e) {
+        return e.getModifiers() == KeyEvent.SHIFT_MASK ||
+                e.getModifiers() == KeyEvent.SHIFT_DOWN_MASK;
+    }
+
     private KeyEventUtil() {
     }
 }
