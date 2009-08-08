@@ -63,37 +63,21 @@ public final class External {
      */
     public static Pair<byte[], byte[]> executeGetOutput(
             String command, long maxMilliseconds) {
-        if (command == null) {
-            throw new NullPointerException("command == null"); // NOI18N
-        }
+        if (command == null) throw new NullPointerException("command == null"); // NOI18N
 
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
         try {
             process = runtime.exec(parseQuotedCommandLine(command));
-            String errorMessage =
-                    Bundle.getString("External.ExecuteGetOutput.ErrorMessage", // NOI18N
-                    maxMilliseconds, command);
-            InputStreamCloser closerStdOut = new InputStreamCloser(
-                    process.getInputStream(), maxMilliseconds, errorMessage);
-            InputStreamCloser closerStdErr = new InputStreamCloser(
-                    process.getErrorStream(), maxMilliseconds, errorMessage);
-            Thread threadCloseStdOut = new Thread(closerStdOut);
-            Thread threadCloseStdErr = new Thread(closerStdErr);
-            threadCloseStdOut.start();
-            threadCloseStdErr.start();
+            ProcessDestroyer processDestroyer =
+                    new ProcessDestroyer(process, maxMilliseconds, command);
+            Thread threadProcessDestroyer = new Thread(processDestroyer);
+            threadProcessDestroyer.start();
             Pair<byte[], byte[]> streamContent = new Pair<byte[], byte[]>(
                     getStream(process, Stream.STANDARD_OUT),
                     getStream(process, Stream.STANDARD_ERROR));
-            boolean closed = closerStdOut.ready();
-            closed = closed || closerStdErr.ready();
-            if (closed) {
-                byte[] errorMessageBytes = errorMessage.getBytes();
-                byte[] second = appendToByteArray(streamContent.getSecond(),
-                        errorMessageBytes, errorMessageBytes.length);
-                streamContent = new Pair<byte[], byte[]>(
-                        streamContent.getFirst(), second);
-            }
+            processDestroyer.processFinished();
+            if (processDestroyer.destroyed()) return null;
             return streamContent;
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
@@ -110,18 +94,24 @@ public final class External {
         byte[] returnBytes = null;
         try {
             InputStream stream = s.equals(Stream.STANDARD_OUT)
-                    ? process.getInputStream()
-                    : process.getErrorStream();
+                                 ? process.getInputStream()
+                                 : process.getErrorStream();
             byte[] buffer = new byte[buffersize];
             int bytesRead = -1;
-            boolean finished = false;
 
+            process.waitFor();
+            int exitValue = process.exitValue();
+            if (exitValue != 0)
+                Logger.getLogger(External.class.getName()).log(Level.WARNING,
+                        Bundle.getString("External.Warning.ExitValue", exitValue));
+            boolean finished = exitValue != 0;
             while (!finished) {
                 bytesRead = stream.read(buffer, 0, buffersize);
                 if (bytesRead > 0) {
                     if (returnBytes == null) {
                         returnBytes = new byte[bytesRead];
-                        System.arraycopy(buffer, 0, returnBytes, 0, bytesRead);
+                        System.arraycopy(buffer, 0, returnBytes, 0,
+                                bytesRead);
                     } else {
                         returnBytes = appendToByteArray(returnBytes, buffer,
                                 bytesRead);
@@ -129,15 +119,9 @@ public final class External {
                 }
                 finished = bytesRead < 0;
             }
-            try {
-                process.waitFor();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(External.class.getName()).log(Level.SEVERE,
-                        null, ex);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
-                    ex);
+        } catch (Exception ex) {
+            Logger.getLogger(
+                    External.class.getName()).log(Level.SEVERE, null, ex);
         }
         return returnBytes;
     }
@@ -150,44 +134,45 @@ public final class External {
         return newArray;
     }
 
-    private static class InputStreamCloser implements Runnable {
+    private static class ProcessDestroyer implements Runnable {
 
-        private final InputStream is;
-        private final long millisecondsToClose;
-        private final String errorMessage;
-        private volatile boolean ready;
-        private boolean closed = false;
+        private final Process process;
+        private final long millisecondsWait;
+        private final String command;
+        private volatile boolean processFinished;
+        private boolean destroyed = false;
 
-        public InputStreamCloser(InputStream is, long millisecondsToClose,
-                String errorMessage) {
-            this.is = is;
-            this.millisecondsToClose = millisecondsToClose;
-            this.errorMessage = errorMessage;
+        public ProcessDestroyer(
+                Process process, long millisecondsWait, String command) {
+            this.process = process;
+            this.millisecondsWait = millisecondsWait;
+            this.command = command;
         }
 
-        public boolean ready() {
-            ready = true;
-            return closed;
+        public boolean destroyed() {
+            return destroyed;
+        }
+
+        public void processFinished() {
+            processFinished = true;
         }
 
         @Override
         public void run() {
             try {
-                Thread.sleep(millisecondsToClose);
+                Thread.sleep(millisecondsWait);
             } catch (InterruptedException ex) {
-                Logger.getLogger(External.class.getName()).log(Level.SEVERE,
-                        null, ex);
+                Logger.getLogger(
+                        getClass().getName()).log(Level.SEVERE, null, ex);
             }
-            if (!ready) {
-                try {
-                    is.close();
-                    closed = true;
-                    Logger.getLogger(External.class.getName()).log(Level.SEVERE,
-                            errorMessage);
-                } catch (IOException ex) {
-                    Logger.getLogger(External.class.getName()).log(Level.SEVERE,
-                            null, ex);
-                }
+            if (!processFinished) {
+                process.destroy();
+                destroyed = true;
+                String errorMessage = Bundle.getString(
+                        "External.ExecuteGetOutput.ErrorMessage", // NOI18N
+                        millisecondsWait, command);
+                Logger.getLogger(
+                        getClass().getName()).log(Level.SEVERE, errorMessage);
             }
         }
     }
