@@ -856,7 +856,7 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 20 --
                 ", xmp.rating" + // NOI18N -- 21 --
                 " FROM" + // NOI18N
-                " files INNER JOIN xmp" + // NOI18N
+                " files LEFT JOIN xmp" + // NOI18N
                 " ON files.id = xmp.id_files" + // NOI18N
                 " LEFT JOIN xmp_dc_subjects" + // NOI18N
                 " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
@@ -880,8 +880,8 @@ public final class DatabaseImageFiles extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                    getXmpOfFilesStatement(filenames.size()));
+            String sql = getXmpOfFilesStatement(filenames.size());
+            PreparedStatement stmt = connection.prepareStatement(sql);
             setStrings(stmt, filenames.toArray(new String[0]), 1);
             AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
