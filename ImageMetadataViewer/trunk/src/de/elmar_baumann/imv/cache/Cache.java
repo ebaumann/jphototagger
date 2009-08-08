@@ -26,7 +26,7 @@ public abstract class Cache<CI extends CacheIndirection> {
             new SoftCacheMap<CI>(MAX_ENTRIES, workQueue);
 
     protected void updateUsageTime(CacheIndirection ci) {
-        ci.usageTime = SubjectCache.currentAge++;
+        ci.usageTime = currentAge++;
     }
 
     Cache(ThumbnailsPanel _panel) {
