@@ -814,15 +814,15 @@ public abstract class ThumbnailsPanel extends JPanel
         if (thumbnailCount > 0) {
             Rectangle rectClip = g.getClipBounds();
             int firstIndex = getFirstPaintIndexAtHeight(rectClip.y);
-            int lastIndex = getLastPaintIndexAtHeight(rectClip.y +
-                    rectClip.height);
+            int lastIndex = Math.min(
+                    getLastPaintIndexAtHeight(rectClip.y + rectClip.height),
+                    thumbnailCount);
             int firstColumn = Math.max(0,
                     getCountHorizontalLeftFromX(rectClip.x));
             int lastColumn = Math.min(thumbnailCountPerRow - 1,
                     getCountHorizontalRightFromX(rectClip.x + rectClip.width));
             g.setFont(FONT);
-            for (int index = firstIndex; index < lastIndex && index <
-                    thumbnailCount; index++) {
+            for (int index = firstIndex; index < lastIndex; index++) {
                 if (index % thumbnailCountPerRow >= firstColumn &&
                     index % thumbnailCountPerRow <= lastColumn) {
                     paintThumbnail(index, g);
@@ -830,17 +830,19 @@ public abstract class ThumbnailsPanel extends JPanel
             }
             paintPanelFocusBorder(g);
 
+            int prefetchLowStart  = Math.max(0,
+                    firstIndex - thumbnailCountPerRow * 5);
+            int prefetchLowEnd    = Math.max(0, firstIndex - 1);
+            int prefechtHighStart = Math.min(thumbnailCount, lastIndex + 1);
+            int prefetchHighEnd   = Math.min(thumbnailCount,
+                    lastIndex + thumbnailCountPerRow * 5);
             // prefetch for scrolling down a bit
-            thumbCache.prefetch(
-                    lastIndex + 1, lastIndex + thumbnailCountPerRow * 5);
+            thumbCache.prefetch(prefechtHighStart, prefetchHighEnd);
             // prefetch for scrolling up a bit
-            thumbCache.prefetch(
-                    firstIndex - thumbnailCountPerRow * 5, firstIndex - 1);
+            thumbCache.prefetch(prefetchLowStart, prefetchLowEnd);
             if (isKeywordsOverlay()) {
-                xmpCache.prefetch(
-                        lastIndex + 1, lastIndex + thumbnailCountPerRow * 5);
-                xmpCache.prefetch(
-                        firstIndex - thumbnailCountPerRow * 5, firstIndex - 1);
+                xmpCache.prefetch(prefechtHighStart, prefetchHighEnd);
+                xmpCache.prefetch(prefetchLowStart, prefetchLowEnd);
             }
         }
     }
