@@ -28,24 +28,23 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
             cache = _cache;
         }
 
-        @Override
-        public void run() {
-            while (true) {
-                File file;
-                try {
-                    file = wq.fetch();
-                } catch (InterruptedException e) {
-                    continue;
-                }
-                if (file == null) {
-                    continue;
-                }
-                Xmp xmp = db.getXmpOfFile(file.getAbsolutePath());
-                cache.update(xmp, file);
-            }
-        }
+//        @Override
+//        public void run() {
+//            while (true) {
+//                File file;
+//                try {
+//                    file = wq.fetch();
+//                } catch (InterruptedException e) {
+//                    continue;
+//                }
+//                if (file == null) {
+//                    continue;
+//                }
+//                Xmp xmp = db.getXmpOfFile(file.getAbsolutePath());
+//                cache.update(xmp, file);
+//            }
+//        }
         
-/*
         @Override
         public void run() {
             Collection<String> files = new HashSet<String>();
@@ -75,7 +74,6 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
                 continue;
             }
         }
-*/
     }
 
     public XmpCache(ThumbnailsPanel _panel) {
