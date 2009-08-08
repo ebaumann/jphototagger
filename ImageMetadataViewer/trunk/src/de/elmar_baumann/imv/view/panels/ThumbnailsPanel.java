@@ -1047,7 +1047,6 @@ public abstract class ThumbnailsPanel extends JPanel
     private void setCountPerRow() {
         int width = getWidth();
         int tnAreaWidth = getThumbnailAreaWidth();
-        int prevCount = thumbnailCountPerRow;
         double count =
                 (double) (width - MARGIN_THUMBNAIL) /
                 (double) (tnAreaWidth + MARGIN_THUMBNAIL);
