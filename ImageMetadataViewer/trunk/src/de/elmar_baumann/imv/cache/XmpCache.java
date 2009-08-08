@@ -63,11 +63,20 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
                     files.add(file.getAbsolutePath());
                 }
                 assert ! (file == null && files.size() == 0) : "Should not happen";
-                if (file == null || files.size() >= 16) {
+                if (file == null || files.size() >= 64) {
                     List<Pair<String, Xmp>> res = db.getXmpOfFiles(files);
-                    assert files.size() == res.size() : "We should have received all results";
+                    // send updates to request results
                     for (Pair<String, Xmp> p : res) {
-                        cache.update(p.getSecond(), new File(p.getFirst()));
+                        String temp = p.getFirst();
+                        cache.update(p.getSecond(), new File(temp), true);
+                        files.remove(temp);
+                    }
+                    // if we have files left, there was nothing in the DB, we
+                    // fabricate empty xmp objects for them, in order not to
+                    // have to ask the DB again
+                    for (String f : files) {
+                        Xmp xmp = new Xmp();
+                        cache.update(xmp, new File(f), false);
                     }
                     files.clear();
                 }
@@ -103,7 +112,7 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
         }
     }
 
-    public synchronized void update(Xmp xmp, final File file) {
+    public synchronized void update(Xmp xmp, final File file, boolean repaint) {
         if (!fileCache.containsKey(file)) {
             return;  // stale entry
         }
@@ -111,13 +120,15 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
         updateUsageTime(ci);
         ci.xmp = xmp;
         fileCache.maybeCleanupCache();
-        SwingUtilities.invokeLater(new Runnable() {
+        if (repaint) {
+            SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                panel.repaint(file);
-            }
-        });
+                @Override
+                public void run() {
+                    panel.repaint(file);
+                }
+            });
+        }
     }
 
     /**
