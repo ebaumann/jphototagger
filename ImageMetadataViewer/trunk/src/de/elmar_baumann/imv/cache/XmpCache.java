@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
 /**
@@ -64,6 +66,12 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
                 }
                 assert ! (file == null && files.size() == 0) : "Should not happen";
                 if (file == null || files.size() >= 64) {
+                    if (files.size() > 1) {
+                        try {
+                            // wait a bit to allow ThumbnailCache to get some disk bandwidth
+                            Thread.sleep(10);
+                        } catch (InterruptedException ex) {}
+                    }
                     List<Pair<String, Xmp>> res = db.getXmpOfFiles(files);
                     // send updates to request results
                     for (Pair<String, Xmp> p : res) {
