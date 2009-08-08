@@ -111,7 +111,7 @@ public final class ControllerHelp implements ActionListener,
             MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile");
             return;
         }
-        External.execute(UserSettings.INSTANCE.getPdfViewer() + " " +
+        External.execute("\"" + UserSettings.INSTANCE.getPdfViewer() + "\" " +
                 IoUtil.getQuotedForCommandline(Collections.singleton(manual),
                 "\""));
     }
