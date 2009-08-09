@@ -107,10 +107,7 @@ public final class ControllerHelp implements ActionListener,
     private void openPdfUserManual() {
         if (!checkPdfViewer()) return;
         File manual = getPdfUserManualPath();
-        if (manual == null) {
-            MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile");
-            return;
-        }
+        if (manual == null) return;
         External.execute("\"" + UserSettings.INSTANCE.getPdfViewer() + "\" " +
                 IoUtil.getQuotedForCommandline(Collections.singleton(manual),
                 "\""));
@@ -141,25 +138,30 @@ public final class ControllerHelp implements ActionListener,
      * @return file or null if the file does not exist
      */
     private static File getPdfUserManualPath() {
+        String manualPath = "";
         try {
-            File path = new File(Main.class.getProtectionDomain().getCodeSource().
+            File jarPath = new File(Main.class.getProtectionDomain().
+                    getCodeSource().
                     getLocation().getPath());
-            if (path.exists() && path.getParentFile() != null) {
-                File dir = path.getParentFile();
+            if (jarPath.exists() && jarPath.getParentFile() != null) {
+                File dir = jarPath.getParentFile();
                 String pathPrefix =
                         dir.getAbsolutePath() + File.separator + "Manual";
                 // Trying to get Locale specific manual
-                String pathLocaleSensitive = pathPrefix + "_" +
+                manualPath = pathPrefix + "_" +
                         Locale.getDefault().getLanguage() + ".pdf";
-                File fileLocaleSensitive = new File(pathLocaleSensitive);
+                File fileLocaleSensitive = new File(manualPath);
                 if (fileLocaleSensitive.exists()) return fileLocaleSensitive;
                 // Trying to get default language manual
-                File fileDefault = new File(pathPrefix + "_de.pdf");
+                manualPath = pathPrefix + "_de.pdf";
+                File fileDefault = new File(manualPath);
                 if (fileDefault.exists()) return fileDefault;
             }
         } catch (Exception ex) {
             AppLog.logSevere(AppInfo.class, ex);
         }
+        MessageDisplayer.error(
+                null, "ControllerHelp.Error.NoPdfFile", manualPath);
         return null;
     }
 }
