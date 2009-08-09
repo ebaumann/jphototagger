@@ -171,7 +171,7 @@ public abstract class ThumbnailsPanel extends JPanel
     /**
      * Total count of thumbnails
      */
-    private int thumbnailCount = 0;
+    protected int thumbnailCount = 0;
     /**
      * Count of thumbnails horicontal
      */
@@ -387,9 +387,8 @@ public abstract class ThumbnailsPanel extends JPanel
      * 
      * @param count Anzahl
      */
-    protected void setNewThumbnails(int count) {
+    protected void setNewThumbnails() {
         empty();
-        thumbnailCount = count;
         forceRepaint();
         notifyThumbnailsChanged();
     }
@@ -801,8 +800,7 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     public void forceRepaint() {
-        invalidate();
-        validate();
+        revalidate();
         repaint();
     }
 

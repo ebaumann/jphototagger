@@ -148,18 +148,22 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @param files    files
      * @param content  content description of the files
      */
-    public synchronized void setFiles(List<File> files, Content content) {
-        this.files.clear();
-        if (!content.equals(Content.IMAGE_COLLECTION)) {
-            Collections.sort(files, fileSort.getComparator());
+    public void setFiles(List<File> files, Content content) {
+        synchronized(this) {
+            this.files.clear();
+            if (!content.equals(Content.IMAGE_COLLECTION)) {
+                Collections.sort(files, fileSort.getComparator());
+            }
+            this.files.addAll(files);
+            thumbCache.setFiles(files);
+            xmpCache.setFiles(files);
+            this.content = content;
+            thumbnailCount = files.size();
         }
-        this.files.addAll(files);
-        thumbCache.setFiles(files);
-        xmpCache.setFiles(files);
-        this.content = content;
 
         InfoSettingThumbnails info = new InfoSettingThumbnails();
-        setNewThumbnails(files.size());
+        // fixme: double forceRepaint()
+        setNewThumbnails();
         if (hadFiles) scrollToTop();
         hadFiles = true;
         setMissingFilesFlags();
