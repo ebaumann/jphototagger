@@ -99,7 +99,6 @@ public final class External {
             byte[] buffer = new byte[buffersize];
             int bytesRead = -1;
 
-            process.waitFor();
             int exitValue = process.exitValue();
             if (exitValue != 0)
                 Logger.getLogger(External.class.getName()).log(Level.WARNING,
@@ -119,6 +118,7 @@ public final class External {
                 }
                 finished = bytesRead < 0;
             }
+            process.waitFor();
         } catch (Exception ex) {
             Logger.getLogger(
                     External.class.getName()).log(Level.SEVERE, null, ex);
