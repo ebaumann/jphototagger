@@ -141,8 +141,13 @@ public final class ControllerHelp implements ActionListener,
         String manualPath = "";
         try {
             File jarPath = new File(Main.class.getProtectionDomain().
-                    getCodeSource().
-                    getLocation().getPath());
+                    getCodeSource().getLocation().getPath());
+            AppLog.logFinest(ControllerHelp.class,
+                    Bundle.getString("ControllerHelp.ManualPath.JarPath",
+                    jarPath));
+            AppLog.logFinest(ControllerHelp.class,
+                    Bundle.getString("ControllerHelp.ManualPath.ParentDir",
+                    jarPath.getParentFile()));
             if (jarPath.exists() && jarPath.getParentFile() != null) {
                 File dir = jarPath.getParentFile();
                 String pathPrefix =
