@@ -99,10 +99,6 @@ public final class External {
             byte[] buffer = new byte[buffersize];
             int bytesRead = -1;
 
-            int exitValue = process.exitValue();
-            if (exitValue != 0)
-                Logger.getLogger(External.class.getName()).log(Level.WARNING,
-                        Bundle.getString("External.Warning.ExitValue", exitValue));
             boolean finished = false;
             while (!finished) {
                 bytesRead = stream.read(buffer, 0, buffersize);
