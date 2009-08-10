@@ -301,6 +301,10 @@
             <title>Welche Metadaten werden angezeigt?</title>
         </page>
         <page>
+            <url>facts_editable_metadata.html</url>
+            <title>Welche Metadaten können bearbeitet werden?</title>
+        </page>
+        <page>
             <url>facts_what_metadata_is_in_database.html</url>
             <title>Was ist in der Datenbank gespeichert?</title>
         </page>
