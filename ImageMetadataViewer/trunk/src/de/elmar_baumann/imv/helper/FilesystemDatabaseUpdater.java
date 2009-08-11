@@ -29,6 +29,21 @@ import java.util.EnumSet;
  */
 public final class FilesystemDatabaseUpdater implements FileSystemActionListener {
 
+    boolean wait;
+
+    public FilesystemDatabaseUpdater() {
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param wait if true, wait until completion. If false, start a new
+     *             thread. Default: false (new thread)
+     */
+    public FilesystemDatabaseUpdater(boolean wait) {
+        this.wait = wait;
+    }
+
     @Override
     public void actionPerformed(FileSystemEvent action, File src, File target) {
 
@@ -56,7 +71,11 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
                 Arrays.asList(file.getAbsolutePath()),
                 EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),
                 null);
-        UserTasks.INSTANCE.add(inserter);
+        if (wait) {
+            inserter.run();
+        } else {
+            UserTasks.INSTANCE.add(inserter);
+        }
     }
 
     private void removeFileFromDatabase(File file) {
