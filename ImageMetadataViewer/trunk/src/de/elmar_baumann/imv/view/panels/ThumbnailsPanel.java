@@ -384,8 +384,6 @@ public abstract class ThumbnailsPanel extends JPanel
 
     /**
      * Setzt neue Thumbnails.
-     * 
-     * @param count Anzahl
      */
     protected void setNewThumbnails() {
         empty();
