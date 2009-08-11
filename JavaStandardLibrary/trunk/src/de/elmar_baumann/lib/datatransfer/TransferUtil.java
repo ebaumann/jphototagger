@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.datatransfer;
 
+import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -266,6 +267,23 @@ public final class TransferUtil {
                 DataFlavor.javaFileListFlavor) ||
                 isDataFlavorSupported(transferable.getTransferDataFlavors(),
                 DataFlavor.stringFlavor);
+    }
+
+    /**
+     * Returns whether the system clipboard maybe containing files.
+     *
+     * @return true if the system clipboard mayb containing files
+     */
+    public static boolean systemClipboardMaybeContainFiles() {
+        try {
+            return maybeContainFileData(
+                    Toolkit.getDefaultToolkit().getSystemClipboard().getContents(
+                    TransferUtil.class));
+        } catch (Exception ex) {
+            Logger.getLogger(
+                    TransferUtil.class.getName()).log(Level.SEVERE, "", ex);
+        }
+        return false;
     }
 
     /**
