@@ -1,7 +1,9 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.AutomaticTask;
 import de.elmar_baumann.imv.view.panels.ProgressBarAutomaticTasks;
@@ -45,6 +47,8 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
     }
 
     private synchronized void updateMetadata() {
+        AppLog.logInfo(getClass(), Bundle.getString(
+                "ControllerCreateMetadataOfCurrentThumbnails.Info.Update"));
         AutomaticTask.INSTANCE.setTask(new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(thumbnailsPanel.getFiles()),
                 EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),
