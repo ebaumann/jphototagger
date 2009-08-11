@@ -91,7 +91,8 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
             dialog.setSourceFiles(files);
             new CopyTask(dialog).start();
-            dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater());
+            dialog.addFileSystemActionListener(
+                    new FilesystemDatabaseUpdater(true));
             dialog.setVisible(true);
         } else {
             informationMessageNoFilesFound();

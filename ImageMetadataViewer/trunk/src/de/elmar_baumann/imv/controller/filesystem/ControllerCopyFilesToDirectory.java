@@ -44,7 +44,8 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
         if (files.size() > 0) {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
             dialog.setSourceFiles(files);
-            dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater());
+            dialog.addFileSystemActionListener(
+                    new FilesystemDatabaseUpdater(true));
             dialog.setVisible(true);
         } else {
             AppLog.logWarning(ControllerCopyFilesToDirectory.class,

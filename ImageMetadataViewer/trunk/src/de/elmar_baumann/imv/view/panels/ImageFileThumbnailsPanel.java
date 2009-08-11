@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
@@ -106,6 +107,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     private void notifyRefreshListeners() {
         synchronized (refreshListenersOfContent) {
+            AppLog.logInfo(getClass(),
+                    Bundle.getString("ImageFileThumbnailsPanel.Info.Refresh"));
             for (RefreshListener listener : refreshListenersOfContent.get(
                     content)) {
                 listener.refresh();
@@ -149,7 +152,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
      * @param content  content description of the files
      */
     public void setFiles(List<File> files, Content content) {
-        synchronized(this) {
+        synchronized (this) {
             this.files.clear();
             if (!content.equals(Content.IMAGE_COLLECTION)) {
                 Collections.sort(files, fileSort.getComparator());

@@ -234,6 +234,23 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemPasteMetadata;
     }
 
+    public JMenuItem getMenuItemCopyToClipboard() {
+        return menuItemCopyToClipboard;
+    }
+
+    public JMenuItem getMenuItemPasteFromClipboard() {
+        return menuItemPasteFromClipboard;
+    }
+
+    public JMenuItem getMenuItemCutToClipboard() {
+        return menuItemCutToClipboard;
+    }
+
+    public JMenu getMenuEdit() {
+        return menuEdit;
+    }
+
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -261,6 +278,10 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         menuItemSearch = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JSeparator();
+        menuItemCopyToClipboard = new javax.swing.JMenuItem();
+        menuItemCutToClipboard = new javax.swing.JMenuItem();
+        menuItemPasteFromClipboard = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JSeparator();
         menuItemCopyMetadata = new javax.swing.JMenuItem();
         menuItemPasteMetadata = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
@@ -375,6 +396,26 @@ public final class AppFrame extends javax.swing.JFrame {
         menuEdit.add(menuItemSearch);
         menuEdit.add(jSeparator13);
 
+        menuItemCopyToClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemCopyToClipboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_copy_to_clipboard.png"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        menuItemCopyToClipboard.setText(bundle.getString("AppFrame.menuItemCopyToClipboard.text")); // NOI18N
+        menuItemCopyToClipboard.setEnabled(false);
+        menuEdit.add(menuItemCopyToClipboard);
+
+        menuItemCutToClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemCutToClipboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_cut_to_clipboard.png"))); // NOI18N
+        menuItemCutToClipboard.setText(bundle.getString("AppFrame.menuItemCutToClipboard.text")); // NOI18N
+        menuItemCutToClipboard.setEnabled(false);
+        menuEdit.add(menuItemCutToClipboard);
+
+        menuItemPasteFromClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemPasteFromClipboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_paste_from_clipboard.png"))); // NOI18N
+        menuItemPasteFromClipboard.setText(bundle.getString("AppFrame.menuItemPasteFromClipboard.text")); // NOI18N
+        menuItemPasteFromClipboard.setEnabled(false);
+        menuEdit.add(menuItemPasteFromClipboard);
+        menuEdit.add(jSeparator14);
+
         menuItemCopyMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemCopyMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_copy_metadata.png"))); // NOI18N
         menuItemCopyMetadata.setText(Bundle.getString("AppFrame.menuItemCopyMetadata.text")); // NOI18N
@@ -419,7 +460,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuItemThumbnailSizeIncrease.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_PLUS, java.awt.event.InputEvent.CTRL_MASK));
         menuItemThumbnailSizeIncrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_size_increase.png"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
         menuItemThumbnailSizeIncrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeIncrease.text")); // NOI18N
         menuView.add(menuItemThumbnailSizeIncrease);
 
@@ -589,6 +629,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -609,6 +650,8 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
     private javax.swing.JMenuItem menuItemCopyMetadata;
+    private javax.swing.JMenuItem menuItemCopyToClipboard;
+    private javax.swing.JMenuItem menuItemCutToClipboard;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportKeywords;
     private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
@@ -633,6 +676,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
+    private javax.swing.JMenuItem menuItemPasteFromClipboard;
     private javax.swing.JMenuItem menuItemPasteMetadata;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
     private javax.swing.JMenuItem menuItemRenameInXmp;

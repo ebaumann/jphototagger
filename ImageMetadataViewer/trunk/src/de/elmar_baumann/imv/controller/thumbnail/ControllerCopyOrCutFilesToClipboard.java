@@ -1,77 +1,84 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
+import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.FileAction;
+import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.TransferHandler;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JMenuItem;
 
 /**
- * Copies or cuts the selected files in the thumbnails panel into the system
- * clipboard.
+ * Listens to {@link AppFrame#getMenuItemCopyToClipboard()},
+ * {@link AppFrame#getMenuItemCutToClipboard()} and on action
+ * performed this class copies or cuts the selected files into the clipboard.
+ * 
+ * Enables or disables that menu items based on selection.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-26
  */
-public final class ControllerCopyOrCutFilesToClipboard implements KeyListener {
+public final class ControllerCopyOrCutFilesToClipboard
+        implements ActionListener, ThumbnailsPanelListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final JMenuItem menuItemCopy =
+            GUI.INSTANCE.getAppFrame().getMenuItemCopyToClipboard();
+    private final JMenuItem menuItemCut =
+            GUI.INSTANCE.getAppFrame().getMenuItemCutToClipboard();
 
     public ControllerCopyOrCutFilesToClipboard() {
         listen();
     }
 
     private void listen() {
-        thumbnailsPanel.addKeyListener(this);
+        menuItemCopy.addActionListener(this);
+        menuItemCut.addActionListener(this);
+        thumbnailsPanel.addThumbnailsPanelListener(this);
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isCopy(e) || KeyEventUtil.isCut(e) &&
-                thumbnailsPanel.getSelectionCount() > 0) {
-            setFileAction(e);
-            transferSelectedFiles(getTransferAction(e));
+    public void actionPerformed(ActionEvent e) {
+        if (thumbnailsPanel.getSelectionCount() > 0) {
+            setFileAction(e.getSource());
+            transferSelectedFiles();
+            GUI.INSTANCE.getAppFrame().getMenuItemPasteFromClipboard().
+                    setEnabled(
+                    true);
         }
     }
 
-    private void transferSelectedFiles(int action) {
+    public void setFileAction(Object source) {
+        if (source == menuItemCopy) {
+            thumbnailsPanel.setFileAction(FileAction.COPY);
+        } else if (source == menuItemCut) {
+            thumbnailsPanel.setFileAction(FileAction.CUT);
+        } else {
+            assert false : "Invalid source: " + source;
+        }
+    }
+
+    private void transferSelectedFiles() {
         Clipboard clipboard =
                 Toolkit.getDefaultToolkit().getSystemClipboard();
         ClipboardUtil.copyToClipboard(thumbnailsPanel.getSelectedFiles(),
                 clipboard, null);
-        // Does not work with system's file manager
-//        TransferHandler transferHandler = thumbnailsPanel.getTransferHandler();
-//        if (transferHandler != null) {
-//            transferHandler.exportToClipboard(thumbnailsPanel, clipboard, action);
-//        }
-    }
-
-    private int getTransferAction(KeyEvent e) {
-        assert KeyEventUtil.isCopy(e) || KeyEventUtil.isCut(e) : e;
-        return KeyEventUtil.isCopy(e)
-               ? TransferHandler.COPY
-               : TransferHandler.MOVE;
-    }
-
-    private void setFileAction(KeyEvent e) {
-        thumbnailsPanel.setFileAction(KeyEventUtil.isCopy(e)
-                                      ? FileAction.COPY
-                                      : FileAction.CUT);
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
+    public void thumbnailsSelectionChanged() {
+        final boolean imagesSelected = thumbnailsPanel.getSelectionCount() > 0;
+        menuItemCopy.setEnabled(imagesSelected);
+        menuItemCut.setEnabled(imagesSelected); // ignore possibility of write protected files
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void thumbnailsChanged() {
         // ignore
     }
 }

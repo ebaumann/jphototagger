@@ -99,7 +99,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
-        dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater());
+        dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
         addProgressListener(dialog);
         dialog.copy(true, CopyFiles.Options.CONFIRM_OVERWRITE);
     }

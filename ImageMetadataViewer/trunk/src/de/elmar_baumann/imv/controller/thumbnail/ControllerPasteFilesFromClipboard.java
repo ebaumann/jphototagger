@@ -1,48 +1,58 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.datatransfer.TransferHandlerTreeDirectories;
+import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.ViewUtil;
+import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import de.elmar_baumann.lib.datatransfer.TransferUtil;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 /**
- * Listen to key events in the {@link ImageFileThumbnailsPanel} and when
- * {@link KeyEventUtil#isPaste(java.awt.event.KeyEvent)} is true and
- * the thumbnail panel's content
- * {@link Content#canInsertImagesFromFileSystem()} is true image files from
- * the clipboard are pasted into the directory of the displayed thumbnails.
+ * Listens to {@link AppFrame#getMenuItemPasteFromClipboard()} and on action
+ * performed this class pastes the images in the clipboard into the current
+ * directory.
+ *
+ * Enables the menu items based on the content (when it's a single directory).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-27
  */
-public final class ControllerPasteFilesFromClipboard implements KeyListener {
+public final class ControllerPasteFilesFromClipboard
+        implements ActionListener, MenuListener, ThumbnailsPanelListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final JMenuItem menuItemPaste =
+            GUI.INSTANCE.getAppFrame().getMenuItemPasteFromClipboard();
 
     public ControllerPasteFilesFromClipboard() {
         listen();
     }
 
     private void listen() {
-        thumbnailsPanel.addKeyListener(this);
+        menuItemPaste.addActionListener(this);
+        thumbnailsPanel.addThumbnailsPanelListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuEdit().addMenuListener(this);
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isPaste(e) &&
-                thumbnailsPanel.getContent().canInsertImagesFromFileSystem()) {
+    public void actionPerformed(ActionEvent e) {
+        if (thumbnailsPanel.getContent().canInsertImagesFromFileSystem()) {
             insertFiles(getDirectory());
+            menuItemPaste.setEnabled(false);
         }
     }
 
@@ -87,12 +97,32 @@ public final class ControllerPasteFilesFromClipboard implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void thumbnailsSelectionChanged() {
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void thumbnailsChanged() {
+        menuItemPaste.setEnabled(canPasteFiles());
+    }
+
+    private boolean canPasteFiles() {
+        return thumbnailsPanel.getContent().canInsertImagesFromFileSystem() &&
+                TransferUtil.systemClipboardMaybeContainFiles();
+    }
+
+    @Override
+    public void menuSelected(MenuEvent e) {
+        menuItemPaste.setEnabled(canPasteFiles());
+    }
+
+    @Override
+    public void menuDeselected(MenuEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void menuCanceled(MenuEvent e) {
         // ignore
     }
 }

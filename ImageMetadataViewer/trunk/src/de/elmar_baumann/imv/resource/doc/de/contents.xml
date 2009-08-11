@@ -157,6 +157,18 @@
             <title>Bearbeiten &gt; Suchen</title>
         </page>
         <page>
+            <url>action_copy_to_clipboard.html</url>
+            <title>Bearbeiten &gt; Kopieren</title>
+        </page>
+        <page>
+            <url>action_cut_to_clipboard.html</url>
+            <title>Bearbeiten &gt; Ausschneiden</title>
+        </page>
+        <page>
+            <url>action_paste_from_clipboard.html</url>
+            <title>Bearbeiten &gt; Einfügen</title>
+        </page>
+        <page>
             <url>action_copy_metadata.html</url>
             <title>Bearbeiten &gt; Metadaten kopieren</title>
         </page>
