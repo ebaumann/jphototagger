@@ -7,11 +7,11 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
+import de.elmar_baumann.imv.helper.FilesystemDatabaseUpdater;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -23,7 +23,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import javax.swing.ListModel;
@@ -92,6 +91,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
             dialog.setSourceFiles(files);
             new CopyTask(dialog).start();
+            dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater());
             dialog.setVisible(true);
         } else {
             informationMessageNoFilesFound();
@@ -169,7 +169,6 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             ListModel listModel = GUI.INSTANCE.getAppPanel().
                     getListImageCollections().getModel();
             if (listModel instanceof ListModelImageCollections) {
-                insertImageFilesIntoDb();
                 if (insertPrevCollectionIntoDb()) {
                     selectPrevImportCollection();
                 }
@@ -190,19 +189,6 @@ public final class ControllerAutocopyDirectory implements ActionListener {
                     setSelectedValue(
                     AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT,
                     true);
-        }
-
-        private void insertImageFilesIntoDb() {
-            InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
-                    FileUtil.getAsFilenames(copiedFiles),
-                    EnumSet.of(
-                    InsertImageFilesIntoDatabase.Insert.EXIF,
-                    InsertImageFilesIntoDatabase.Insert.THUMBNAIL,
-                    InsertImageFilesIntoDatabase.Insert.XMP),
-                    null);
-            // No thread, have to wait until completion before inserting image
-            // files as image collection is valid
-            insert.run();
         }
     }
 }

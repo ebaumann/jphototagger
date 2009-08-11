@@ -3,7 +3,9 @@ package de.elmar_baumann.imv.view.dialogs;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.MessageDisplayer;
+import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.ProgressEvent;
+import de.elmar_baumann.imv.event.listener.FileSystemActionListener;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -17,6 +19,7 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +38,9 @@ public final class CopyToDirectoryDialog
             "de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
     private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp"; // NOI18N
     private final Set<ProgressListener> progressListeners =
-            new HashSet<ProgressListener>();
+            Collections.synchronizedSet(new HashSet<ProgressListener>());
+    private final Set<FileSystemActionListener> fileSystemActionListeners =
+            Collections.synchronizedSet(new HashSet<FileSystemActionListener>());
     private CopyFiles copyTask;
     private boolean copy = false;
     private boolean writeProperties = true;
@@ -50,29 +55,51 @@ public final class CopyToDirectoryDialog
         registerKeyStrokes();
     }
 
-    public synchronized void addProgressListener(ProgressListener listener) {
+    public void addProgressListener(ProgressListener listener) {
         progressListeners.add(listener);
     }
 
-    public synchronized void removeProgressListener(ProgressListener listener) {
+    public void removeProgressListener(ProgressListener listener) {
         progressListeners.remove(listener);
     }
 
-    private synchronized void notifyProgressListenerStarted(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressStarted(evt);
+    public void addFileSystemActionListener(FileSystemActionListener listener) {
+        fileSystemActionListeners.add(listener);
+    }
+
+    public void removeFileSystemActionListener(FileSystemActionListener listener) {
+        fileSystemActionListeners.remove(listener);
+    }
+
+    public void notifyFileSystemActionListenersCopied(File src, File target) {
+        synchronized (fileSystemActionListeners) {
+            for (FileSystemActionListener listener : fileSystemActionListeners) {
+                listener.actionPerformed(FileSystemEvent.COPY, src, target);
+            }
         }
     }
 
-    private synchronized void notifyProgressListenerPerformed(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressPerformed(evt);
+    private void notifyProgressListenerStarted(ProgressEvent evt) {
+        synchronized (progressListeners) {
+            for (ProgressListener listener : progressListeners) {
+                listener.progressStarted(evt);
+            }
         }
     }
 
-    private synchronized void notifyProgressListenerEnded(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressEnded(evt);
+    private void notifyProgressListenerPerformed(ProgressEvent evt) {
+        synchronized (progressListeners) {
+            for (ProgressListener listener : progressListeners) {
+                listener.progressPerformed(evt);
+            }
+        }
+    }
+
+    private void notifyProgressListenerEnded(ProgressEvent evt) {
+        synchronized (progressListeners) {
+            for (ProgressListener listener : progressListeners) {
+                listener.progressEnded(evt);
+            }
         }
     }
 
@@ -289,9 +316,10 @@ public final class CopyToDirectoryDialog
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         @SuppressWarnings("unchecked")
-        String filename = ((Pair<File, File>) evt.getInfo()).getFirst().
-                getAbsolutePath();
-        labelCurrentFilename.setText(filename);
+        Pair<File, File> files = (Pair<File, File>) evt.getInfo();
+        labelCurrentFilename.setText(files.getFirst().getAbsolutePath());
+        notifyFileSystemActionListenersCopied(
+                files.getFirst(), files.getSecond());
         notifyProgressListenerPerformed(evt);
     }
 

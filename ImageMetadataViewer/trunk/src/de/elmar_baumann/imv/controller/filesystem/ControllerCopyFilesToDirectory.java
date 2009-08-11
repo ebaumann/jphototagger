@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.helper.FilesystemDatabaseUpdater;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
@@ -43,6 +44,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
         if (files.size() > 0) {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
             dialog.setSourceFiles(files);
+            dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater());
             dialog.setVisible(true);
         } else {
             AppLog.logWarning(ControllerCopyFilesToDirectory.class,
