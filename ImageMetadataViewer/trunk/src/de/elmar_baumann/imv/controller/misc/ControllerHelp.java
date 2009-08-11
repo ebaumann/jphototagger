@@ -51,7 +51,7 @@ public final class ControllerHelp implements ActionListener,
     }
 
     private void listen() {
-        help.addActionListener(this);
+        help.addHelpBrowserListener(this);
         menuItemOpenPdfUserManual.addActionListener(this);
     }
 
