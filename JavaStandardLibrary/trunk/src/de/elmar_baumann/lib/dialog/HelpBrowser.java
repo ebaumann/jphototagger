@@ -59,6 +59,7 @@ public final class HelpBrowser extends Dialog
     private MenuItem itemNext;
     private String startUrl;
     private String baseUrl;
+    private boolean settingPath;
     public static final HelpBrowser INSTANCE = new HelpBrowser();
 
     private HelpBrowser() {
@@ -186,6 +187,7 @@ public final class HelpBrowser extends Dialog
                 urlHistory.size()) {
             currentHistoryIndex++;
             setUrl(urlHistory.get(currentHistoryIndex));
+            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
             setButtonStatus();
         }
     }
@@ -195,6 +197,7 @@ public final class HelpBrowser extends Dialog
                 urlHistory.size()) {
             currentHistoryIndex--;
             setUrl(urlHistory.get(currentHistoryIndex));
+            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
             setButtonStatus();
         }
     }
@@ -283,6 +286,17 @@ public final class HelpBrowser extends Dialog
         }
     }
 
+    private void setSelectionPath(String lastPathComponent) {
+        Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(
+                lastPathComponent);
+        assert path != null;
+        if (path != null) {
+            settingPath = true;
+            tree.setSelectionPath(new TreePath(path));
+            settingPath = false;
+        }
+    }
+
     /**
      * Returns the last path component of an URL.
      * 
@@ -300,7 +314,7 @@ public final class HelpBrowser extends Dialog
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath()) {
+        if (!settingPath && e.isAddedPath()) {
             Object o = e.getNewLeadSelectionPath().getLastPathComponent();
             if (o instanceof HelpPage) {
                 HelpPage helpPage = (HelpPage) o;
