@@ -67,7 +67,7 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
     @Override
     public boolean importData(TransferSupport transferSupport) {
         assert transferSupport.getComponent() instanceof JTree :
-                "Not a JTree: " + transferSupport.getComponent();
+                "Not a JTree: " + transferSupport.getComponent(); // NOI18N
         JTree.DropLocation dropLocation =
                 (JTree.DropLocation) transferSupport.getDropLocation();
         Object dropObject = dropLocation.getPath().getLastPathComponent();

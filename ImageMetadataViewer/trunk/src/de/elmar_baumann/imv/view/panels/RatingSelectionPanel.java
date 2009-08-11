@@ -34,11 +34,11 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
     public RatingSelectionPanel(Column column) {
         this.column = column;
 
-        star = AppIcons.getIcon("icon_xmp_rating_set.png");
-        dark_star = AppIcons.getIcon("icon_xmp_rating_not_set.png");
-        icon_rating_remove = AppIcons.getIcon("icon_xmp_rating_remove.png");
+        star = AppIcons.getIcon("icon_xmp_rating_set.png"); // NOI18N
+        dark_star = AppIcons.getIcon("icon_xmp_rating_not_set.png"); // NOI18N
+        icon_rating_remove = AppIcons.getIcon("icon_xmp_rating_remove.png"); // NOI18N
         icon_rating_remove_not_set =
-                AppIcons.getIcon("icon_xmp_rating_remove_not_set.png");
+                AppIcons.getIcon("icon_xmp_rating_remove_not_set.png"); // NOI18N
         initComponents();
         buttons[0] = buttonStar1;
         buttons[1] = buttonStar2;
@@ -147,7 +147,7 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
 
     @Override
     public TextEntry clone() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet."); // NOI18N
         // fixme: do we really want to return this?
         //return new TextEntryContent(getText(), column);
     }
@@ -290,42 +290,42 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
 
     private void buttonNoRatingMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonNoRatingMousePressed
         String oldVal = getText();
-        setText("");
+        setText(""); // NOI18N
         dirty = true;
         notifyTextChanged(column, oldVal, getText());
     }//GEN-LAST:event_buttonNoRatingMousePressed
 
     private void buttonStar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar1MousePressed
         String oldVal = getText();
-        setText("1");
+        setText("1"); // NOI18N
         dirty = true;
         notifyTextChanged(column, oldVal, getText());
     }//GEN-LAST:event_buttonStar1MousePressed
 
     private void buttonStar2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar2MousePressed
         String oldVal = getText();
-        setText("2");
+        setText("2"); // NOI18N
         dirty = true;
         notifyTextChanged(column, oldVal, getText());
     }//GEN-LAST:event_buttonStar2MousePressed
 
     private void buttonStar3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar3MousePressed
         String oldVal = getText();
-        setText("3");
+        setText("3"); // NOI18N
         dirty = true;
         notifyTextChanged(column, oldVal, getText());
     }//GEN-LAST:event_buttonStar3MousePressed
 
     private void buttonStar4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar4MousePressed
         String oldVal = getText();
-        setText("4");
+        setText("4"); // NOI18N
         dirty = true;
         notifyTextChanged(column, oldVal, getText());
     }//GEN-LAST:event_buttonStar4MousePressed
 
     private void buttonStar5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar5MousePressed
         String oldVal = getText();
-        setText("5");
+        setText("5"); // NOI18N
         dirty = true;
         notifyTextChanged(column, oldVal, getText());
     }//GEN-LAST:event_buttonStar5MousePressed

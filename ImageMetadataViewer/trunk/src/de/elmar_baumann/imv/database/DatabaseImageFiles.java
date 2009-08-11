@@ -885,7 +885,7 @@ public final class DatabaseImageFiles extends Database {
             setStrings(stmt, filenames.toArray(new String[0]), 1);
             AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
             ResultSet rs = stmt.executeQuery();
-            String prevFilename = "";
+            String prevFilename = ""; // NOI18N
             Xmp xmp = new Xmp();
             while (rs.next()) {
                 String filename = rs.getString(1);
@@ -943,7 +943,7 @@ public final class DatabaseImageFiles extends Database {
             String[] strings,
             int startIndex) throws SQLException {
 
-        assert startIndex >= 1 : "Invalid SQL statement position: " + startIndex;
+        assert startIndex >= 1 : "Invalid SQL statement position: " + startIndex; // NOI18N
 
         int endIndex = startIndex + strings.length;
         int stringIndex = 0;
@@ -956,8 +956,8 @@ public final class DatabaseImageFiles extends Database {
         StringBuilder sb = new StringBuilder(count * 3 - 2); // 3: ", ?"
         for (int i = 0; i < count; i++) {
             sb.append(i > 0 && i < count
-                      ? ", ?"
-                      : "?");
+                      ? ", ?" // NOI18N
+                      : "?"); // NOI18N
         }
         return sb.toString();
     }
@@ -1787,8 +1787,8 @@ public final class DatabaseImageFiles extends Database {
             String tableName = column.getTable().getName();
             String sql = "SELECT" + // NOI18N
                     " files.filename" + // NOI18N
-                    " FROM" +
-                    (tableName.startsWith("exif")
+                    " FROM" + // NOI18N
+                    (tableName.startsWith("exif") // NOI18N
                      ? Join.getSqlFilesExifJoin(Type.LEFT, Arrays.asList(
                     tableName))
                      : Join.getSqlFilesXmpJoin(Type.LEFT, Type.LEFT, Arrays.
@@ -1811,9 +1811,9 @@ public final class DatabaseImageFiles extends Database {
 
     private boolean checkIsExifOrXmpColumn(Column column) {
         boolean isExifOrXmpColumn = column.getTable().getName().startsWith(
-                "exif") ||
-                column.getTable().getName().startsWith("xmp");
-        assert isExifOrXmpColumn : "Only EXIF or XMP table are valid, not: " +
+                "exif") || // NOI18N
+                column.getTable().getName().startsWith("xmp"); // NOI18N
+        assert isExifOrXmpColumn : "Only EXIF or XMP table are valid, not: " + // NOI18N
                 column.getTable();
         return isExifOrXmpColumn;
     }

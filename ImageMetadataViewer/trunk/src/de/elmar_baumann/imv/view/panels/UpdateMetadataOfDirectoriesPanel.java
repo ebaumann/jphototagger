@@ -175,7 +175,7 @@ public final class UpdateMetadataOfDirectoriesPanel
     public void actionPerformed(CheckForUpdateMetadataEvent e) {
         if (e.getType().equals(Type.CHECKING_FILE)) {
             String filename = e.getImageFilename();
-            assert filename != null : "Filename is null!";
+            assert filename != null : "Filename is null!"; // NOI18N
             if (filename != null) {
                 labelCurrentFilename.setText(filename);
             }
@@ -231,19 +231,19 @@ public final class UpdateMetadataOfDirectoriesPanel
 
         public AddDirectories(List<File> directories) {
             this.directories = new ArrayList<File>(directories);
-            setName("Searching new image files @ " + getClass().getName());
+            setName("Searching new image files @ " + getClass().getName()); // NOI18N
         }
 
         @Override
         public void run() {
             progressBar.setString(Bundle.getString(
-                    "UpdateMetadataOfDirectoriesPanel.Info.AddDirectories"));
+                    "UpdateMetadataOfDirectoriesPanel.Info.AddDirectories")); // NOI18N
             List<File> newDirectories =
                     getNotDirectoriesNotInListFrom(directories);
             ArrayUtil.addNotContainedElements(directories, newDirectories);
             addDirectories(newDirectories);
             labelFilecount.setText(Integer.toString(getFileCount()));
-            progressBar.setString("");
+            progressBar.setString(""); // NOI18N
             progressBar.setIndeterminate(false);
             buttonStart.setEnabled(listModelDirectories.getSize() > 0);
         }

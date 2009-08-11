@@ -19,7 +19,7 @@ import javax.swing.JFileChooser;
 public class HierarchicalKeywordsImportDialog extends Dialog {
 
     private static final String KEY_PREV_IMPORT_FILE =
-            "HierarchicalKeywordsImportDialog.PrevImportFile";
+            "HierarchicalKeywordsImportDialog.PrevImportFile"; // NOI18N
     private boolean accepted;
     private File file;
     private ComboBoxModelHierarchicalKeywordsImporters comboBoxModelImporter =
@@ -54,7 +54,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
      * @return importer or null if no importer was selected.
      */
     public HierarchicalKeywordsImporter getImporter() {
-        assert accepted : "Import was not accepted!";
+        assert accepted : "Import was not accepted!"; // NOI18N
         if (!accepted) return null;
         Object item = comboBoxImporter.getSelectedItem();
         return item instanceof HierarchicalKeywordsImporter
@@ -85,7 +85,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
      * @return file or null if no file is to import
      */
     public File getFile() {
-        assert accepted : "Import was not accepted!";
+        assert accepted : "Import was not accepted!"; // NOI18N
         if (!accepted) return null;
         return file;
     }
@@ -93,7 +93,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     private void chooseFile() {
         Object selItem = comboBoxImporter.getSelectedItem();
         assert selItem instanceof HierarchicalKeywordsImporter :
-                "Not a HierarchicalKeywordsImporter: " + selItem;
+                "Not a HierarchicalKeywordsImporter: " + selItem; // NOI18N
         if (selItem instanceof HierarchicalKeywordsImporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null && file.isFile()) {

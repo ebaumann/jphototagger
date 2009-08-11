@@ -64,8 +64,8 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             copy(dir);
         } else if (confirmSetAutocopyDirectory(
                 dir == null
-                ? "ControllerAutocopyDirectory.Confirm.DefineDirectoryWasNull"
-                : "ControllerAutocopyDirectory.Confirm.DefineDirectoryHasChanged")) {
+                ? "ControllerAutocopyDirectory.Confirm.DefineDirectoryWasNull" // NOI18N
+                : "ControllerAutocopyDirectory.Confirm.DefineDirectoryHasChanged")) { // NOI18N
             setAutocopyDirectory();
         }
     }

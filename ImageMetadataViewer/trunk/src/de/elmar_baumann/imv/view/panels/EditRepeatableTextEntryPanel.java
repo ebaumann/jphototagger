@@ -155,7 +155,7 @@ public final class EditRepeatableTextEntryPanel
 
     @Override
     public void empty(boolean dirty) {
-        textFieldInput.setText("");
+        textFieldInput.setText(""); // NOI18N
         model.removeAllElements();
         this.dirty = dirty;
     }

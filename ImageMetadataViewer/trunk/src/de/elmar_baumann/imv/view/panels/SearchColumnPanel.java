@@ -242,20 +242,20 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
             StringBuffer buffer = new StringBuffer();
             buffer.append(toggleButtonBracketLeft1.isSelected()
-                          ? " ("
+                          ? " (" // NOI18N
                           : ""); // NOI18N
             if (!isFirst) {
                 buffer.append(" " + relation.toSqlString()); // NOI18N
             }
             buffer.append(toggleButtonBracketLeft2.isSelected()
-                          ? " ("
+                          ? " (" // NOI18N
                           : ""); // NOI18N
-            buffer.append(" " + column.getTable().getName() + "." + column.
+            buffer.append(" " + column.getTable().getName() + "." + column. // NOI18N
                     getName()); // NOI18N
             buffer.append(" " + operator.toSqlString()); // NOI18N
             buffer.append(" ?"); // NOI18N
             buffer.append(toggleButtonBracketRight.isSelected()
-                          ? ")"
+                          ? ")" // NOI18N
                           : ""); // NOI18N
 
             return buffer.toString();

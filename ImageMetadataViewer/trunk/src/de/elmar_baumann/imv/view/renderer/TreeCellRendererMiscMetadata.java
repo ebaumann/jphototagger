@@ -138,7 +138,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
                 return " mm"; // NOI18N
             } else if (column.equals(ColumnXmpRating.INSTANCE)) {
                 return Bundle.getString(
-                        "TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
+                        "TreeCellRendererMiscMetadata.PostfixColumnXmpRating"); // NOI18N
             }
         }
         return ""; // NOI18N

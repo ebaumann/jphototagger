@@ -61,7 +61,7 @@ public final class ControllerDeleteImageCollection
     private void deleteCollection(final String collectionName) {
         if (!ListModelImageCollections.checkIsNotSpecialCollection(
                 collectionName,
-                "ControllerDeleteImageCollection.Error.SpecialCollection"))
+                "ControllerDeleteImageCollection.Error.SpecialCollection")) // NOI18N
             return;
         if (collectionName != null) {
             if (ModifyImageCollections.deleteImageCollection(

@@ -180,7 +180,7 @@ public final class CopyToDirectoryDialog
                     buttonStart.setEnabled(true);
                 } else {
                     MessageDisplayer.error(this,
-                            "CopyToDirectoryDialog.TargetDirNotWritable",
+                            "CopyToDirectoryDialog.TargetDirNotWritable", // NOI18N
                             targetDirectory);
                 }
             }

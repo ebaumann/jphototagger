@@ -108,7 +108,7 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
             return;
         }
         assert parent instanceof DefaultMutableTreeNode :
-                "Not a DefaultMutableTreeNode: " + parent;
+                "Not a DefaultMutableTreeNode: " + parent; // NOI18N
         if (parent instanceof DefaultMutableTreeNode) {
             addParentKeywords((DefaultMutableTreeNode) parent, keywords);
         }

@@ -94,7 +94,7 @@ public final class DatabasePrograms extends Database {
     private void setId(Connection connection, Program program) throws
             SQLException {
         Statement stmt = connection.createStatement();
-        String sql = "SELECT MAX(id) FROM programs";
+        String sql = "SELECT MAX(id) FROM programs"; // NOI18N
         AppLog.logFinest(getClass(), sql);
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {

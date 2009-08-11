@@ -230,8 +230,8 @@ public final class ControllerShowMetadata implements DatabaseListener,
             }
             appPanel.getLabelMetadataFilename().setText(file.getName() +
                     (XmpMetadata.hasImageASidecarFile(file.getAbsolutePath())
-                        ? ""
-                        : Bundle.getString("ControllerShowMetadata.Embedded")));
+                        ? "" // NOI18N
+                        : Bundle.getString("ControllerShowMetadata.Embedded"))); // NOI18N
             resizeMetadataTables(metadata);
             repaintMetadataTables(metadata);
         }

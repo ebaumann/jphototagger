@@ -135,8 +135,8 @@ public final class ParamStatement {
     @Override
     public String toString() {
         String sqlString = sql == null
-                           ? "Sql: null"
-                           : "Sql: " + sql;
+                           ? "Sql: null" // NOI18N
+                           : "Sql: " + sql; // NOI18N
         return sqlString + " Values:" + getValuesString(" "); // NOI18N
     }
 

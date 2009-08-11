@@ -99,7 +99,7 @@ public final class IoUtil {
     public static boolean lockLogWarning(File file, Object owner) {
         if (!FileLock.INSTANCE.lock(file, owner)) {
             AppLog.logWarning(owner.getClass(),
-                    Bundle.getString("IoUtil.Error.lock",
+                    Bundle.getString("IoUtil.Error.lock", // NOI18N
                     file, owner, FileLock.INSTANCE.getOwner(file)));
             return false;
         }

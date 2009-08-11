@@ -31,7 +31,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
                 row, hasFocus);
 
         assert value instanceof DefaultMutableTreeNode :
-                "Not a DefaultMutableTreeNode: " + value;
+                "Not a DefaultMutableTreeNode: " + value; // NOI18N
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
         Object userObject = node.getUserObject();
         render(userObject, row);

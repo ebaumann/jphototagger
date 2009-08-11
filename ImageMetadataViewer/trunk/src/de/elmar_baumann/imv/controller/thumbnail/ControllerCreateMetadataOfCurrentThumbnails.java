@@ -48,7 +48,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
 
     private synchronized void updateMetadata() {
         AppLog.logInfo(getClass(), Bundle.getString(
-                "ControllerCreateMetadataOfCurrentThumbnails.Info.Update"));
+                "ControllerCreateMetadataOfCurrentThumbnails.Info.Update")); // NOI18N
         AutomaticTask.INSTANCE.setTask(new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(thumbnailsPanel.getFiles()),
                 EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),

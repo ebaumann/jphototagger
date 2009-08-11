@@ -20,7 +20,7 @@ import javax.swing.JFileChooser;
 public class HierarchicalKeywordsExportDialog extends Dialog {
 
     private static final String KEY_PREV_EXPORT_FILE =
-            "HierarchicalKeywordsExportDialog.PrevExportFile";
+            "HierarchicalKeywordsExportDialog.PrevExportFile"; // NOI18N
     private boolean accepted;
     private File file;
     private ComboBoxModelHierarchicalKeywordsExporters comboBoxModelExporter =
@@ -55,7 +55,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
      * @return exporter or null if no exporter was selected.
      */
     public HierarchicalKeywordsExporter getExporter() {
-        assert accepted : "Export was not accepted!";
+        assert accepted : "Export was not accepted!"; // NOI18N
         if (!accepted) return null;
         Object item = comboBoxExporter.getSelectedItem();
         return item instanceof HierarchicalKeywordsExporter
@@ -81,7 +81,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
      * @return file or null if no file is to export
      */
     public File getFile() {
-        assert accepted : "Export was not accepted!";
+        assert accepted : "Export was not accepted!"; // NOI18N
         if (!accepted) return null;
         return file;
     }
@@ -89,7 +89,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     private void chooseFile() {
         Object selItem = comboBoxExporter.getSelectedItem();
         assert selItem instanceof HierarchicalKeywordsExporter :
-                "Not a HierarchicalKeywordsExporter: " + selItem;
+                "Not a HierarchicalKeywordsExporter: " + selItem; // NOI18N
         if (selItem instanceof HierarchicalKeywordsExporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null) {
@@ -137,11 +137,11 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     }
 
     private boolean checkOverwrite() {
-        assert file != null : "File is null!";
+        assert file != null : "File is null!"; // NOI18N
         if (file == null) return false;
         if (!file.exists()) return true;
         return MessageDisplayer.confirm(this,
-                "HierarchicalKeywordsExportDialog.Confirm.OverwriteFile",
+                "HierarchicalKeywordsExportDialog.Confirm.OverwriteFile", // NOI18N
                 MessageDisplayer.CancelButton.HIDE, file).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }

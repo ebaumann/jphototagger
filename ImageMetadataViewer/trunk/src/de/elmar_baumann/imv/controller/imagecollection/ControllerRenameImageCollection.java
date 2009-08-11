@@ -68,7 +68,7 @@ public final class ControllerRenameImageCollection
     private void renameImageCollection(final String oldName) {
         if (oldName != null) {
             if (!ListModelImageCollections.checkIsNotSpecialCollection(oldName,
-                    "ListModelImageCollections.Error.RenameSpecialCollection"))
+                    "ListModelImageCollections.Error.RenameSpecialCollection")) // NOI18N
                 return;
             final String newName =
                     ModifyImageCollections.renameImageCollection(oldName);

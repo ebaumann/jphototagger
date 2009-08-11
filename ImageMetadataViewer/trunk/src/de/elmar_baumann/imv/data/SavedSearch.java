@@ -122,7 +122,7 @@ public final class SavedSearch {
             string = paramStatement.getName();
         }
         return (string == null
-                ? ""
+                ? "" // NOI18N
                 : string); // NOI18N
     }
 
@@ -142,7 +142,7 @@ public final class SavedSearch {
     }
 
     private List<SavedSearchPanel> getDeepCopyPanels() {
-        assert panels != null : "panels field is null!";
+        assert panels != null : "panels field is null!"; // NOI18N
         List<SavedSearchPanel> copy =
                 new ArrayList<SavedSearchPanel>(panels.size());
         for (SavedSearchPanel panel : panels) {
@@ -152,7 +152,7 @@ public final class SavedSearch {
     }
 
     private void setDeepCopyPanels(List<SavedSearchPanel> p) {
-        assert p != null : "panels parameter is null!";
+        assert p != null : "panels parameter is null!"; // NOI18N
         panels = new ArrayList<SavedSearchPanel>(p.size());
         for (SavedSearchPanel panel : p) {
             panels.add(new SavedSearchPanel(panel));

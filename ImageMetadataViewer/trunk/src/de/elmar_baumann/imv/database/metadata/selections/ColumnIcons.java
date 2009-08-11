@@ -29,21 +29,21 @@ public final class ColumnIcons {
 
     static {
         ICON_OF_COLUMN.put(ColumnXmpRating.INSTANCE,
-                AppIcons.getIcon("icon_xmp_rating_set.png"));
+                AppIcons.getIcon("icon_xmp_rating_set.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE,
-                AppIcons.getIcon("icon_xmp_dc_rights.png"));
+                AppIcons.getIcon("icon_xmp_dc_rights.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE,
-                AppIcons.getIcon("icon_xmp_dc_creator.png"));
+                AppIcons.getIcon("icon_xmp_dc_creator.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE,
-                AppIcons.getIcon("icon_xmp_source.png"));
+                AppIcons.getIcon("icon_xmp_source.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                AppIcons.getIcon("icon_xmp_iptc4_core_location.png"));
+                AppIcons.getIcon("icon_xmp_iptc4_core_location.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnExifIsoSpeedRatings.INSTANCE,
-                AppIcons.getIcon("icon_exif_iso_speed_ratings.png"));
+                AppIcons.getIcon("icon_exif_iso_speed_ratings.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnExifFocalLength.INSTANCE,
-                AppIcons.getIcon("icon_exif_focal_length.png"));
+                AppIcons.getIcon("icon_exif_focal_length.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnExifRecordingEquipment.INSTANCE,
-                AppIcons.getIcon("icon_exif_recording_equipment.png"));
+                AppIcons.getIcon("icon_exif_recording_equipment.png")); // NOI18N
     }
 
     /**

@@ -8,8 +8,6 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
 /**
@@ -64,7 +62,7 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
                 if (file != null) {
                     files.add(file.getAbsolutePath());
                 }
-                assert ! (file == null && files.size() == 0) : "Should not happen";
+                assert ! (file == null && files.size() == 0) : "Should not happen"; // NOI18N
                 if (file == null || files.size() >= 64) {
                     if (files.size() > 1) {
                         try {
@@ -95,7 +93,7 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
 
     public XmpCache(ThumbnailsPanel _panel) {
         super(_panel);
-        new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start();
+        new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start(); // NOI18N
     }
 
     /**
@@ -141,6 +139,9 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
 
     /**
      * Interface for consumers.
+     *
+     * @param  index index
+     * @return       XMP metadata
      */
     public synchronized Xmp getXmp(int index) {
         return getXmp(files.get(index));

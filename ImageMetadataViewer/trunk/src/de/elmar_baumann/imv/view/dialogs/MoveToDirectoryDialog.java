@@ -150,7 +150,7 @@ public final class MoveToDirectoryDialog extends Dialog
                     buttonStart.setEnabled(true);
                 } else {
                     MessageDisplayer.error(this,
-                            "MoveToDirectoryDialog.TargetDirNotWritable",
+                            "MoveToDirectoryDialog.TargetDirNotWritable", // NOI18N
                             targetDirectory);
                 }
             }

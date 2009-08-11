@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 public final class AutomaticTask {
 
     public static final AutomaticTask INSTANCE = new AutomaticTask();
-    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
+    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel"; // NOI18N
     private Runnable runnable;
 
     private AutomaticTask() {

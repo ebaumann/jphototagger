@@ -56,7 +56,7 @@ public final class ControllerCopyPasteMetadata
     }
 
     private void paste() {
-        assert xmp != null : "xmp is null!";
+        assert xmp != null : "xmp is null!"; // NOI18N
         if (xmp == null) return;
         EditMetadataPanelsArray editPanel =
                 GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
@@ -71,7 +71,7 @@ public final class ControllerCopyPasteMetadata
                 getSelectionCount();
         if (selCount <= 0) {
             MessageDisplayer.error(
-                    null, "ControllerCopyPasteMetadata.Error.NoSelection");
+                    null, "ControllerCopyPasteMetadata.Error.NoSelection"); // NOI18N
             return false;
         }
         return true;
@@ -80,7 +80,7 @@ public final class ControllerCopyPasteMetadata
     private boolean checkCanEdit(EditMetadataPanelsArray editPanel) {
         if (!editPanel.isEditable()) {
             MessageDisplayer.error(
-                    null, "ControllerCopyPasteMetadata.Error.NotEditable");
+                    null, "ControllerCopyPasteMetadata.Error.NotEditable"); // NOI18N
             return false;
         }
         return true;

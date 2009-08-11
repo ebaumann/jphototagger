@@ -209,8 +209,8 @@ public abstract class ThumbnailsPanel extends JPanel
     private void loadRatingImages() {
         for (int i = 0; i < 5; i++) {
             starImage[i] = new ImageIcon(getClass().getResource(
-                    "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_" +
-                    Integer.toString(i + 1) + ".png")).getImage();
+                    "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_" + // NOI18N
+                    Integer.toString(i + 1) + ".png")).getImage(); // NOI18N
         }
     }
 

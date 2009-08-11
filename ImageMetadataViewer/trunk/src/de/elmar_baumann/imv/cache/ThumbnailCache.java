@@ -54,7 +54,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
     public ThumbnailCache(ThumbnailsPanel _panel) {
         super(_panel);
         new Thread(new ThumbnailFetcher(workQueue, this),
-                "ThumbnailFetcher").start();
+                "ThumbnailFetcher").start(); // NOI18N
     }
 
     /**

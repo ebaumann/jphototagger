@@ -31,11 +31,11 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
     {
         ICON_OF_VALUE.put(
                 AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT,
-                AppIcons.getIcon("icon_card.png"));
+                AppIcons.getIcon("icon_card.png")); // NOI18N
         ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED,
-                AppIcons.getIcon("icon_picked.png"));
+                AppIcons.getIcon("icon_picked.png")); // NOI18N
         ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED,
-                AppIcons.getIcon("icon_rejected.png"));
+                AppIcons.getIcon("icon_rejected.png")); // NOI18N
     }
 
     @Override

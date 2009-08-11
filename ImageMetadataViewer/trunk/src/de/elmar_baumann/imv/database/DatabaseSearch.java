@@ -132,9 +132,9 @@ public final class DatabaseSearch extends Database {
         boolean isFirstColumn = true;
         for (Column tableColumn : searchColumns) {
             sql.append((!isFirstColumn
-                        ? " OR "
+                        ? " OR " // NOI18N
                         : "") + // NOI18N
-                    tableColumn.getTable().getName() + "." +
+                    tableColumn.getTable().getName() + "." + // NOI18N
                     tableColumn.getName() + // NOI18N
                     " LIKE ?"); // NOI18N
             isFirstColumn = false;

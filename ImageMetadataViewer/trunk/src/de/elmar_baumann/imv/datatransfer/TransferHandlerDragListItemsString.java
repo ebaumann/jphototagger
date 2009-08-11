@@ -19,23 +19,23 @@ public final class TransferHandlerDragListItemsString extends TransferHandler {
      * list
      */
     public static final String PREFIX_KEYWORDS =
-            TransferHandlerDragListItemsString.class.getName() + "_KEYWORDS";
+            TransferHandlerDragListItemsString.class.getName() + "_KEYWORDS"; // NOI18N
     /**
      * Every exported string starts with this prefix if dragged from a
      * categories list
      */
     public static final String PREFIX_CATEGORIES =
-            TransferHandlerDragListItemsString.class.getName() + "_CATEGORIES";
+            TransferHandlerDragListItemsString.class.getName() + "_CATEGORIES"; // NOI18N
     /**
      * Every exported string starts with this prefix if dragged from a
      * any other list
      */
     public static final String PREFIX_ANY =
-            TransferHandlerDragListItemsString.class.getName() + "_ANY";
+            TransferHandlerDragListItemsString.class.getName() + "_ANY"; // NOI18N
     /**
      * Delimiter between transferred strings
      */
-    public static final String DELIMITER = "|";
+    public static final String DELIMITER = "|"; // NOI18N
     /**
      * Transfer handler for keyword lists
      */
@@ -94,7 +94,7 @@ public final class TransferHandlerDragListItemsString extends TransferHandler {
         for (Object o : values) {
             sb.append(DELIMITER +
                     (o == null
-                     ? ""
+                     ? "" // NOI18N
                      : o.toString()));
         }
         return sb.toString();

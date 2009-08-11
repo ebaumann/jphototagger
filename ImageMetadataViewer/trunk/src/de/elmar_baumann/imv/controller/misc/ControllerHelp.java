@@ -92,7 +92,7 @@ public final class ControllerHelp implements ActionListener,
     }
 
     private void showAcceleratorKeyHelp() {
-        help.setStartUrl(Bundle.getString("Help.Url.AcceleratorKeys"));
+        help.setStartUrl(Bundle.getString("Help.Url.AcceleratorKeys")); // NOI18N
         helpToFront();
     }
 
@@ -108,16 +108,16 @@ public final class ControllerHelp implements ActionListener,
         if (!checkPdfViewer()) return;
         File manual = getPdfUserManualPath();
         if (manual == null) return;
-        External.execute("\"" + UserSettings.INSTANCE.getPdfViewer() + "\" " +
+        External.execute("\"" + UserSettings.INSTANCE.getPdfViewer() + "\" " + // NOI18N
                 IoUtil.getQuotedForCommandline(Collections.singleton(manual),
-                "\""));
+                "\"")); // NOI18N
     }
 
     private boolean checkPdfViewer() {
         File viewer = new File(UserSettings.INSTANCE.getPdfViewer());
         if (!viewer.exists()) {
             if (MessageDisplayer.confirm(null,
-                    "ControllerHelp.Error.NoPdfViewer",
+                    "ControllerHelp.Error.NoPdfViewer", // NOI18N
                     MessageDisplayer.CancelButton.HIDE).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
                 UserSettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
@@ -138,27 +138,27 @@ public final class ControllerHelp implements ActionListener,
      * @return file or null if the file does not exist
      */
     private static File getPdfUserManualPath() {
-        String manualPath = "";
+        String manualPath = ""; // NOI18N
         try {
             File jarPath = new File(Main.class.getProtectionDomain().
                     getCodeSource().getLocation().getPath());
             AppLog.logFinest(ControllerHelp.class,
-                    Bundle.getString("ControllerHelp.ManualPath.JarPath",
+                    Bundle.getString("ControllerHelp.ManualPath.JarPath", // NOI18N
                     jarPath));
             AppLog.logFinest(ControllerHelp.class,
-                    Bundle.getString("ControllerHelp.ManualPath.ParentDir",
+                    Bundle.getString("ControllerHelp.ManualPath.ParentDir", // NOI18N
                     jarPath.getParentFile()));
             if (jarPath.exists() && jarPath.getParentFile() != null) {
                 File dir = jarPath.getParentFile();
                 String pathPrefix =
-                        dir.getAbsolutePath() + File.separator + "Manual";
+                        dir.getAbsolutePath() + File.separator + "Manual"; // NOI18N
                 // Trying to get Locale specific manual
-                manualPath = pathPrefix + "_" +
-                        Locale.getDefault().getLanguage() + ".pdf";
+                manualPath = pathPrefix + "_" + // NOI18N
+                        Locale.getDefault().getLanguage() + ".pdf"; // NOI18N
                 File fileLocaleSensitive = new File(manualPath);
                 if (fileLocaleSensitive.exists()) return fileLocaleSensitive;
                 // Trying to get default language manual
-                manualPath = pathPrefix + "_de.pdf";
+                manualPath = pathPrefix + "_de.pdf"; // NOI18N
                 File fileDefault = new File(manualPath);
                 if (fileDefault.exists()) return fileDefault;
             }
@@ -166,7 +166,7 @@ public final class ControllerHelp implements ActionListener,
             AppLog.logSevere(AppInfo.class, ex);
         }
         MessageDisplayer.error(
-                null, "ControllerHelp.Error.NoPdfFile", manualPath);
+                null, "ControllerHelp.Error.NoPdfFile", manualPath); // NOI18N
         return null;
     }
 }

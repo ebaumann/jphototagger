@@ -239,7 +239,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
      * @param text   text to add
      */
     public void addText(Column column, String text) {
-        assert isEditable() : "Panels are not editable!";
+        assert isEditable() : "Panels are not editable!"; // NOI18N
         if (!isEditable()) return;
         JPanel panelAdd = null;
         int size = panels.size();
@@ -250,7 +250,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
             }
         }
         assert panelAdd instanceof EditRepeatableTextEntryPanel :
-                "Not a panel for repeatable values: " + panelAdd;
+                "Not a panel for repeatable values: " + panelAdd; // NOI18N
         if (panelAdd instanceof EditRepeatableTextEntryPanel) {
             ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
         }
@@ -287,7 +287,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                     AppLog.logSevere(getClass(), ex);
                 }
             } else {
-                assert false : "Unknown panel type: " + panel;
+                assert false : "Unknown panel type: " + panel; // NOI18N
             }
         }
         return xmp;
@@ -301,7 +301,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
      * @param xmp xmp object
      */
     public void setXmp(Xmp xmp) {
-        assert isEditable() : "Not editable";
+        assert isEditable() : "Not editable"; // NOI18N
         if (!isEditable()) return;
         for (JPanel panel : panels) {
             if (panel instanceof EditTextEntryPanel) {
@@ -317,11 +317,11 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 Column column = p.getColumn();
                 Object value = xmp.getValue(column);
                 assert value == null || value instanceof Collection :
-                        "Not a collection: " + value;
+                        "Not a collection: " + value; // NOI18N
                 if (value instanceof Collection) {
                     Collection collection = (Collection) value;
                     for (Object o : collection) {
-                        assert o != null : "Null!";
+                        assert o != null : "Null!"; // NOI18N
                         p.addText(o.toString()); // addText() sets the dirty flag
                     }
                 }
@@ -333,7 +333,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                     p.setDirty(true);
                 }
             } else {
-                assert false : "Unknown panel type: " + panel;
+                assert false : "Unknown panel type: " + panel; // NOI18N
             }
         }
     }
@@ -434,7 +434,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         assert filenamesXmp.size() >= 1 : "No files!"; // NOI18N
         if (filenamesXmp.size() == 1) {
             Object value = filenamesXmp.get(0).getSecond().getValue(column);
-            assert value == null || value instanceof List : "Not a List: " +
+            assert value == null || value instanceof List : "Not a List: " + // NOI18N
                     value;
             if (value instanceof List) {
                 return (List) value;
@@ -447,7 +447,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         for (Pair<String, Xmp> pair : filenamesXmp) {
             Xmp xmp = pair.getSecond();
             Object value = xmp.getValue(column);
-            assert value == null || value instanceof List : "Not a List: " +
+            assert value == null || value instanceof List : "Not a List: " + // NOI18N
                     value;
             if (value instanceof List) {
                 lists.push((List) value);
@@ -500,7 +500,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         } else if (value instanceof Long) {
             return Long.toOctalString((Long) value);
         } else {
-            assert false : "No string conversion implemented for " + value;
+            assert false : "No string conversion implemented for " + value; // NOI18N
         }
         return null;
     }

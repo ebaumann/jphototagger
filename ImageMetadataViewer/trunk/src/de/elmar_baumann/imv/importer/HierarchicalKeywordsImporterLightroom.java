@@ -26,13 +26,13 @@ final class HierarchicalKeywordsImporterLightroom
 
     public static final HierarchicalKeywordsImporterLightroom INSTANCE =
             new HierarchicalKeywordsImporterLightroom();
-    private static final Icon icon = AppIcons.getIcon("icon_lightroom.png");
+    private static final Icon icon = AppIcons.getIcon("icon_lightroom.png"); // NOI18N
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
      */
-    private static final String SYNONYM_START_CHAR = "{";
-    private static final String CHILD_START_CHAR = "\t";
+    private static final String SYNONYM_START_CHAR = "{"; // NOI18N
+    private static final String CHILD_START_CHAR = "\t"; // NOI18N
 
     @Override
     public Collection<List<String>> getPaths(File file) {
@@ -114,8 +114,8 @@ final class HierarchicalKeywordsImporterLightroom
     }
 
     private String removeBrackets(String line) {
-        boolean hasStartBracket = line.startsWith("[");
-        boolean hasEndBracket = line.endsWith("]");
+        boolean hasStartBracket = line.startsWith("["); // NOI18N
+        boolean hasEndBracket = line.endsWith("]"); // NOI18N
         // proably more efficient than calculating start and end index and
         // returning a substring in one call
         return hasStartBracket && hasEndBracket
@@ -141,13 +141,13 @@ final class HierarchicalKeywordsImporterLightroom
 
     @Override
     public FileFilter getFileFilter() {
-        return new FileNameExtensionFilter(getDescription(), "txt");
+        return new FileNameExtensionFilter(getDescription(), "txt"); // NOI18N
     }
 
     @Override
     public String getDescription() {
         return Bundle.getString(
-                "HierarchicalKeywordsImporterLightroom.Description");
+                "HierarchicalKeywordsImporterLightroom.Description"); // NOI18N
     }
 
     @Override
@@ -182,7 +182,7 @@ final class HierarchicalKeywordsImporterLightroom
 
         public Node getChildAt(int index) {
             assert index >= 0 && index < children.size() :
-                    "Invalid index: " + index + ". Has to be between 0 and " +
+                    "Invalid index: " + index + ". Has to be between 0 and " + // NOI18N
                     (children.size() - 1);
             return index >= 0 && index < children.size()
                    ? children.get(index)
@@ -208,8 +208,8 @@ final class HierarchicalKeywordsImporterLightroom
         }
 
         public void addNode(int level, String string) {
-            assert level >= 1 : "Level has to be 1 and not " + level;
-            assert string != null : "String is null!";
+            assert level >= 1 : "Level has to be 1 and not " + level; // NOI18N
+            assert string != null : "String is null!"; // NOI18N
             if (level == 1) {
                 root.addChild(new Node(string));
             } else if (level > 1) {
@@ -218,7 +218,7 @@ final class HierarchicalKeywordsImporterLightroom
                 do {
                     child = child.getChildAt(child.getChildCount() - 1);
                 } while (child != null && currentLevel++ < level);
-                assert child != null : "Child is null!";
+                assert child != null : "Child is null!"; // NOI18N
                 if (child != null) {
                     child.addChild(new Node(string));
                 }

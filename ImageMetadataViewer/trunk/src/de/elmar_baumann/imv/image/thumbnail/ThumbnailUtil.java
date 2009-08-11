@@ -345,7 +345,7 @@ public final class ThumbnailUtil {
             fos = new FileOutputStream(tnFile);
             fos.getChannel().lock();
             ByteArrayInputStream is =
-                    ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
+                    ImageUtil.getByteArrayInputStream(thumbnail, "jpeg"); // NOI18N
             if (is != null) {
                 int nextByte;
                 while ((nextByte = is.read()) != -1) {

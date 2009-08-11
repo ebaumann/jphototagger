@@ -335,7 +335,7 @@ public final class MetadataEditTemplate {
     public String getValueOfColumn(Column column) {
         StringBuffer value = valueOfColumn.get(column);
         return value == null
-               ? ""
+               ? "" // NOI18N
                : value.toString(); // NOI18N
     }
 

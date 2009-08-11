@@ -57,7 +57,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     public void selectTab(Tab tab) {
         assert componentOfTab.containsKey(tab) :
-                "Missing key " + tab + " in " + componentOfTab;
+                "Missing key " + tab + " in " + componentOfTab; // NOI18N
         tabbedPane.setSelectedComponent(componentOfTab.get(tab));
     }
 

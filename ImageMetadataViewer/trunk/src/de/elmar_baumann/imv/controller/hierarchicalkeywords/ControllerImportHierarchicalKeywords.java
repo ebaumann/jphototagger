@@ -44,7 +44,7 @@ public final class ControllerImportHierarchicalKeywords
         dlg.setVisible(true);
         if (dlg.isAccepted()) {
             HierarchicalKeywordsImporter importer = dlg.getImporter();
-            assert importer != null : "Importer is null!";
+            assert importer != null : "Importer is null!"; // NOI18N
             if (importer != null) {
                 new ImportTask(importer.getPaths(dlg.getFile())).start();
             }
@@ -60,7 +60,7 @@ public final class ControllerImportHierarchicalKeywords
 
         public ImportTask(Collection<List<String>> paths) {
             this.paths = paths;
-            setName("Importing keywords @ " + getClass().getName());
+            setName("Importing keywords @ " + getClass().getName()); // NOI18N
             progressBar = (JProgressBar) ProgressBarUserTasks.INSTANCE.
                     getResource(this);
         }
@@ -68,7 +68,7 @@ public final class ControllerImportHierarchicalKeywords
         @Override
         public void run() {
             assert treeModel instanceof TreeModelHierarchicalKeywords :
-                    "Not a TreeModelHierarchicalKeywords: " + treeModel;
+                    "Not a TreeModelHierarchicalKeywords: " + treeModel; // NOI18N
             if (treeModel instanceof TreeModelHierarchicalKeywords) {
                 TreeModelHierarchicalKeywords model =
                         (TreeModelHierarchicalKeywords) treeModel;

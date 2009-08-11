@@ -98,7 +98,7 @@ public final class TextEntryContent implements TextEntry {
 
     @Override
     public void empty(boolean dirty) {
-        text = "";
+        text = ""; // NOI18N
         // ignore dirty
     }
 }

@@ -18,8 +18,8 @@ public final class Join {
      */
     public enum Type {
 
-        INNER("INNER JOIN"),
-        LEFT("LEFT JOIN");
+        INNER("INNER JOIN"), // NOI18N
+        LEFT("LEFT JOIN"); // NOI18N
         private final String string;
 
         private Type(String string) {
@@ -64,7 +64,7 @@ public final class Join {
 
         for (String tablename : tablenames) {
             if (tablename.startsWith("xmp") && !tablename.equals("xmp")) { // NOI18N
-                sb.append(" " + typeXmp.toString() + " " + tablename +
+                sb.append(" " + typeXmp.toString() + " " + tablename + // NOI18N
                         " ON xmp.id = " + tablename + ".id_xmp"); // NOI18N
             }
         }

@@ -73,7 +73,7 @@ public final class EditTextEntryPanel
 
     @Override
     public void empty(boolean dirty) {
-        textAreaEdit.setText("");
+        textAreaEdit.setText(""); // NOI18N
         this.dirty = dirty;
     }
 

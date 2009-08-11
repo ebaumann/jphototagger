@@ -374,7 +374,7 @@ public final class DatabaseSavedSearches extends Database {
             Connection connection, SavedSearch savedSearch)
             throws SQLException {
         assert savedSearch.getParamStatement() != null :
-                "Searches statement is null!";
+                "Searches statement is null!"; // NOI18N
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT" + // NOI18N
                 " saved_searches_values.value" + // NOI18N
@@ -402,7 +402,7 @@ public final class DatabaseSavedSearches extends Database {
     private void setSavedSearchPanels(
             Connection connection, SavedSearch savedSearch)
             throws SQLException {
-        assert savedSearch.getParamStatement() != null : "Statement is null!";
+        assert savedSearch.getParamStatement() != null : "Statement is null!"; // NOI18N
         PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
                 " saved_searches_panels.panel_index" + // NOI18N -- 1 --
                 ", saved_searches_panels.bracket_left_1" + // NOI18N -- 2 --

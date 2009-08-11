@@ -374,7 +374,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             progressBar.setValue(value);
             progressBar.setToolTipText(filename);
             if (progressBar.isStringPainted()) {
-                progressBar.setString(value + "/" + filenames.size());
+                progressBar.setString(value + "/" + filenames.size()); // NOI18N
             }
         }
     }

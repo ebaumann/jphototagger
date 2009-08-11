@@ -37,7 +37,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
                 tree, value, sel, expanded, false, row, hasFocus);
 
         assert value instanceof DefaultMutableTreeNode :
-                "Not a DefaultMutableTreeNode: " + value;
+                "Not a DefaultMutableTreeNode: " + value; // NOI18N
         render(((DefaultMutableTreeNode) value).getUserObject(), row);
         return this;
     }
@@ -72,7 +72,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
     }
 
     private boolean isKeyword(Object value) {
-        assert value != null : "value is null!";
+        assert value != null : "value is null!"; // NOI18N
         synchronized (keywords) {
             return keywords.contains(value.toString());
         }
