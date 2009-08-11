@@ -43,16 +43,18 @@ public final class TransferUtil {
     }
 
     /**
-     * Returns the selected items in a {@link java.awt.datatransfer.StringSelection}.
+     * Returns the selected items in a
+     * {@link java.awt.datatransfer.StringSelection}.
+     *
      * Each item is separated by a delimiter.
      * 
      * @param  list       list
      * @param  delimiter  delimiter between the item strings
-     * @return <code>StringSelection</code>: A String within value strings,
-     *         separated by <code>delimiter</code>
+     * @return            <code>StringSelection</code>: A String within value
+     *                    strings, separated by <code>delimiter</code>
      */
-    public static Transferable getSelectedItemStringsTransferable(JList list,
-            String delimiter) {
+    public static Transferable getSelectedItemStringsTransferable(
+            JList list, String delimiter) {
         if (list == null)
             throw new NullPointerException("list == null"); // NOI18N
         if (delimiter == null)
@@ -73,7 +75,9 @@ public final class TransferUtil {
     }
 
     /**
-     * Returns the Integers of a list in a {@link java.awt.datatransfer.StringSelection}.
+     * Returns the Integers of a list in a
+     * {@link java.awt.datatransfer.StringSelection}.
+     *
      * Each integer is separated by a delimiter.
      * 
      * @param  list      list
@@ -81,8 +85,8 @@ public final class TransferUtil {
      * @return <code>StringSelection</code>: A String within integer token
      *         separated by <code>delimiter</code>
      */
-    public static Transferable getIntegerListTransferable(List<Integer> list,
-            String delimiter) {
+    public static Transferable getIntegerListTransferable(
+            List<Integer> list, String delimiter) {
         if (list == null)
             throw new NullPointerException("list == null"); // NOI18N
         if (delimiter == null)
@@ -101,13 +105,15 @@ public final class TransferUtil {
     }
 
     /**
-     * Returns the Strings of a list in a {@link java.awt.datatransfer.StringSelection}.
+     * Returns the Strings of a list in a
+     * {@link java.awt.datatransfer.StringSelection}.
+     *
      * Each string is separated by a delimiter.
      * 
      * @param  list      list
-     * @param delimiter  delimiter
-     * @return <code>StringSelection</code>: A String within integer token
-     *         separated by <code>delimiter</code>
+     * @param  delimiter delimiter
+     * @return           <code>StringSelection</code>: A String within integer
+     *                   token separated by <code>delimiter</code>
      */
     public static Transferable getStringListTransferable(List<String> list,
             String delimiter) {
@@ -143,7 +149,7 @@ public final class TransferUtil {
      * <code>file:///home/elmar/workspace</code>. Linux file managers like
      * Konqueror and Nautilus sends such transfer data.
      * 
-     * @param  transferable  transferable
+     * @param  transferable transferable
      * @return files
      */
     public static List<File> getFilesFromUriList(Transferable transferable) {
@@ -161,8 +167,8 @@ public final class TransferUtil {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(
+                    TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -171,9 +177,9 @@ public final class TransferUtil {
      * Returns a list of files from a string within file names, e.g.
      * <code>/home/elmar/workspace</code>.
      * 
-     * @param  transferable  transferable
-     * @param  delimiter     delimiter which separates the file names
-     * @return files
+     * @param  transferable transferable
+     * @param  delimiter    delimiter which separates the file names
+     * @return              files
      */
     public static List<File> getFilesFromTokenString(Transferable transferable,
             String delimiter) {
@@ -185,13 +191,13 @@ public final class TransferUtil {
         List<File> list = new ArrayList<File>();
         try {
             String data = (String) transferable.getTransferData(STRING_FLAVOR);
-            for (StringTokenizer st = new StringTokenizer(data, delimiter); st.
-                    hasMoreTokens();) {
+            for (StringTokenizer st = new StringTokenizer(data, delimiter);
+                    st.hasMoreTokens();) {
                 list.add(new File(st.nextToken().trim()));
             }
         } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(
+                    TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -200,8 +206,8 @@ public final class TransferUtil {
      * Returns a list of files in a transferable which supports
      * {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}.
      * 
-     * @param  transferable  transferable
-     * @return list of files
+     * @param  transferable transferable
+     * @return              list of files
      */
     public static List<File> getFilesFromJavaFileList(Transferable transferable) {
         if (transferable == null)
@@ -216,8 +222,8 @@ public final class TransferUtil {
                 list.add((File) i.next());
             }
         } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(
+                    TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -251,22 +257,36 @@ public final class TransferUtil {
     }
 
     /**
-     * Returns wheter a transferable contains file data. This is true, if
-     * it supports {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}
-     * or {@link java.awt.datatransfer.DataFlavor#stringFlavor}. The second
-     * case is the reason for <em>maybe</em>.
+     * Returns wheter a transferable contains file data.
      * 
-     * @param  transferable  transferable
-     * @return true, if the transferable maybe contain file data
+     * @param  transferable transferable
+     * @return              true, if the transferable maybe contain file data
      */
     public static boolean maybeContainFileData(Transferable transferable) {
         if (transferable == null)
             throw new NullPointerException("transferable == null"); // NOI18N
 
-        return isDataFlavorSupported(transferable.getTransferDataFlavors(),
-                DataFlavor.javaFileListFlavor) ||
-                isDataFlavorSupported(transferable.getTransferDataFlavors(),
-                DataFlavor.stringFlavor);
+        return containsFiles(transferable);
+    }
+
+    private static boolean containsFiles(Transferable transferable) {
+        final DataFlavor[] flavors = transferable.getTransferDataFlavors();
+        try {
+            if (isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
+                return ((java.util.List) transferable.getTransferData(
+                        FILE_LIST_FLAVOR)).size() > 0;
+            } else if (isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
+                return ((String) transferable.getTransferData(URI_LIST_FLAVOR)).
+                        startsWith("file:");
+            } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
+                return new File((String) transferable.getTransferData(
+                        STRING_FLAVOR)).exists();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(
+                    TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
@@ -276,9 +296,8 @@ public final class TransferUtil {
      */
     public static boolean systemClipboardMaybeContainFiles() {
         try {
-            return maybeContainFileData(
-                    Toolkit.getDefaultToolkit().getSystemClipboard().getContents(
-                    TransferUtil.class));
+            return maybeContainFileData(Toolkit.getDefaultToolkit().
+                    getSystemClipboard().getContents(TransferUtil.class));
         } catch (Exception ex) {
             Logger.getLogger(
                     TransferUtil.class.getName()).log(Level.SEVERE, "", ex);
@@ -289,12 +308,12 @@ public final class TransferUtil {
     /**
      * Returns whether a flavor is in a flavor array.
      * 
-     * @param  flavors  flavor array
-     * @param  flavor   flavor to search
-     * @return true if found (supported)
+     * @param  flavors flavor array
+     * @param  flavor  flavor to search
+     * @return true    if found (supported)
      */
-    public static boolean isDataFlavorSupported(DataFlavor[] flavors,
-            DataFlavor flavor) {
+    public static boolean isDataFlavorSupported(
+            DataFlavor[] flavors, DataFlavor flavor) {
         if (flavor == null)
             throw new NullPointerException("flavor == null"); // NOI18N
 
