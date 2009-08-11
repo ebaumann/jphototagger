@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.controller.directories;
 
 import de.elmar_baumann.imv.event.listener.RefreshListener;
-import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -10,9 +9,7 @@ import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
-import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
-import java.util.EnumSet;
 import java.util.List;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -77,7 +74,6 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
                 imageFilteredDirectory.setDirectory(selectedDirectory);
                 List<File> files = ImageFilteredDirectory.
                         getImageFilesOfDirectory(selectedDirectory);
-                updateDatabase(files);
                 thumbnailsPanel.setFiles(files,
                         Content.DIRECTORY);
                 setMetadataEditable();
@@ -98,14 +94,6 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
             if (thumbnailsPanel.getSelectionCount() <= 0) {
                 editPanels.setEditable(false);
             }
-        }
-
-        private void updateDatabase(List<File> files) {
-            // No separate thread, it's already running in a thread
-            new InsertImageFilesIntoDatabase(
-                    FileUtil.getAsFilenames(files),
-                    EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),
-                    null).run();
         }
     }
 }
