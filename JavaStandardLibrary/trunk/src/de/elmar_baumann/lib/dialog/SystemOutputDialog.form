@@ -48,6 +48,9 @@
   </Layout>
   <SubComponents>
     <Component class="de.elmar_baumann.lib.component.SystemOutputPanel" name="panelSystemOutput">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new de.elmar_baumann.lib.component.SystemOutputPanel()"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

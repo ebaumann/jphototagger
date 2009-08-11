@@ -79,11 +79,7 @@ public class SystemOutputDialog extends Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        try {
-            panelSystemOutput = new de.elmar_baumann.lib.component.SystemOutputPanel();
-        } catch (java.io.IOException e1) {
-            e1.printStackTrace();
-        }
+        panelSystemOutput = new de.elmar_baumann.lib.component.SystemOutputPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("SystemOutputDialog.title")); // NOI18N
