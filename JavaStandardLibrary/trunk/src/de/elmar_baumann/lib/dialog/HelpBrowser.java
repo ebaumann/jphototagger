@@ -51,7 +51,7 @@ public final class HelpBrowser extends Dialog
     private static final String DISPLAY_NAME_ACTION_NEXT =
             Bundle.getString("HelpBrowser.Action.Next"); // NOI18N
     private final LinkedList<URL> urlHistory = new LinkedList<URL>();
-    private final List<HelpBrowserListener> actionListeners =
+    private final List<HelpBrowserListener> helpBrowserListeners =
             new ArrayList<HelpBrowserListener>();
     private int currentHistoryIndex = -1;
     private PopupMenu popupMenu;
@@ -88,8 +88,8 @@ public final class HelpBrowser extends Dialog
      * 
      * @param listener  listener
      */
-    public synchronized void addActionListener(HelpBrowserListener listener) {
-        actionListeners.add(listener);
+    public synchronized void addHelpBrowserListener(HelpBrowserListener listener) {
+        helpBrowserListeners.add(listener);
     }
 
     /**
@@ -97,14 +97,15 @@ public final class HelpBrowser extends Dialog
      * 
      * @param listener  listener
      */
-    public synchronized void removeActionListener(HelpBrowserListener listener) {
-        actionListeners.remove(listener);
+    public synchronized void removeHelpBrowserListener(
+            HelpBrowserListener listener) {
+        helpBrowserListeners.remove(listener);
     }
 
     private synchronized void notifyUrlChanged(URL url) {
         HelpBrowserEvent action = new HelpBrowserEvent(this,
                 HelpBrowserEvent.Type.URL_CHANGED, url);
-        for (HelpBrowserListener listener : actionListeners) {
+        for (HelpBrowserListener listener : helpBrowserListeners) {
             listener.actionPerformed(action);
         }
     }
