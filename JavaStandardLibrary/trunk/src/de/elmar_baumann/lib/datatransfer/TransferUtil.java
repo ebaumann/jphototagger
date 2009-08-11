@@ -277,7 +277,7 @@ public final class TransferUtil {
                         FILE_LIST_FLAVOR)).size() > 0;
             } else if (isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
                 return ((String) transferable.getTransferData(URI_LIST_FLAVOR)).
-                        startsWith("file:");
+                        startsWith("file:"); // NOI18N
             } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
                 return new File((String) transferable.getTransferData(
                         STRING_FLAVOR)).exists();
@@ -300,7 +300,7 @@ public final class TransferUtil {
                     getSystemClipboard().getContents(TransferUtil.class));
         } catch (Exception ex) {
             Logger.getLogger(
-                    TransferUtil.class.getName()).log(Level.SEVERE, "", ex);
+                    TransferUtil.class.getName()).log(Level.SEVERE, "", ex); // NOI18N
         }
         return false;
     }

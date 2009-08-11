@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
  */
 public final class MenuUtil {
 
-    private static final String AMPERSAND = "&";
+    private static final String AMPERSAND = "&"; // NOI18N
 
     /**
      * Calls {@link #setMnemonics(javax.swing.JMenuItem)} for every menu in a

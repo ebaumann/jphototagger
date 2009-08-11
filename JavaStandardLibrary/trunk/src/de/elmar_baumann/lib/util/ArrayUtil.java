@@ -185,7 +185,7 @@ public final class ArrayUtil {
     public static <T> void addNotContainedElements(
             Collection<? extends T> src, Collection<? super T> target) {
 
-        assert src != target : "Collections equals!";
+        assert src != target : "Collections equals!"; // NOI18N
         if (src == target) return;
 
         for (T t : src) {

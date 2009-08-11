@@ -200,7 +200,7 @@ public final class TreeUtil {
      */
     public static TreePath getTreePath(MouseEvent e) {
         Object source = e.getSource();
-        assert source instanceof JTree : "Not a JTree: " + source;
+        assert source instanceof JTree : "Not a JTree: " + source; // NOI18N
         if (source instanceof JTree) {
             int mousePosX = e.getX();
             int mousePosY = e.getY();
@@ -423,7 +423,7 @@ public final class TreeUtil {
 
     public static void deselectAll(JTree tree) {
         TreeSelectionModel m = tree.getSelectionModel();
-        assert m != null : "Selection model is null!";
+        assert m != null : "Selection model is null!"; // NOI18N
         if (m != null) {
             m.clearSelection();
         }

@@ -184,7 +184,7 @@ public final class External {
         // an invalid path. Let's escaping all backslashes, because it's not
         // plausible, that a command string has an octal escape, that shall be
         // replaced by one unicode character.
-        command = command.replace("\\", "\\\\");
+        command = command.replace("\\", "\\\\"); // NOI18N
         String[] cmd_array = new String[0];
         String[] new_cmd_array;
         StreamTokenizer st = new StreamTokenizer(new StringReader(command));

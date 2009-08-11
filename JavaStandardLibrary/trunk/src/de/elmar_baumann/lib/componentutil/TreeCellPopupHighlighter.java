@@ -30,7 +30,7 @@ public final class TreeCellPopupHighlighter
 
     private final JTree tree;
     private static final String METHOD_NAME_HIGHLIGHT_INDEX =
-            "setHighlightIndexForPopup";
+            "setHighlightIndexForPopup"; // NOI18N
 
     /**
      * Creates a new instance.

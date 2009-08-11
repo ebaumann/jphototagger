@@ -30,7 +30,7 @@ public final class InputVerifierNumberRange extends InputVerifier {
      */
     public InputVerifierNumberRange(double min, double max) {
         if (max < min) throw new IllegalArgumentException(
-                    "Maximum is less than minimum! " + max + " < " + min);
+                    "Maximum is less than minimum! " + max + " < " + min); // NOI18N
 
         this.min = min;
         this.max = max;
@@ -62,17 +62,17 @@ public final class InputVerifierNumberRange extends InputVerifier {
         } else if (component instanceof JTextArea) {
             return (((JTextArea) component).getText()).trim();
         } else {
-            assert false : "Unknown component: " +
+            assert false : "Unknown component: " + // NOI18N
                     component.getClass().toString(); // NOI18N
         }
-        return "";
+        return ""; // NOI18N
     }
 
     private Double toDouble(String string) {
         try {
             return Double.valueOf(string);
         } catch (Exception ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex); // NOI18N
         }
         return null;
     }

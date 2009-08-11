@@ -31,7 +31,7 @@ public final class ListItemPopupHighlighter
 
     private final JList list;
     private static final String METHOD_NAME_HIGHLIGHT_INDEX =
-            "setHighlightIndexForPopup";
+            "setHighlightIndexForPopup"; // NOI18N
 
     /**
      * Creates a new instance.

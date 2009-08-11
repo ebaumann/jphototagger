@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public final class SerialExecutor implements Executor {
 
     private final Queue<Runnable> runnables = new ArrayDeque<Runnable>();
-    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
+    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel"; // NOI18N
     private final Executor executor;
     private Runnable active;
 
