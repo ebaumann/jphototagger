@@ -1,14 +1,12 @@
 package de.elmar_baumann.lib.component;
 
-import java.awt.Color;
 import java.io.IOException;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-// Most parts of code from http://www.exampledepot.com/egs/javax.swing.text/ta_Console.html
+// Most parts of code from http://unserializableone.blogspot.com/2009/01/redirecting-systemout-and-systemerr-to.html
 /**
  * Writes an the system's standard output to a text area.
  *
@@ -21,30 +19,15 @@ public class SystemOutputPanel extends JPanel {
 
     private static volatile int MAX_CHAR_COUNT = 100000;
     private static volatile int MAX_CHARS_EXESS = 1000;
-    private final PipedInputStream piOut;
-    private final PipedInputStream piErr;
-    private final PipedOutputStream poOut;
-    private final PipedOutputStream poErr;
-
-    private enum Type {
-
-        OUT, ERR
-    };
+    private boolean capture;
 
     /**
      * Default constructor.
      *
      * Call later {@link #caputure()}.
-     * @throws IOException
      */
-    public SystemOutputPanel() throws IOException {
+    public SystemOutputPanel() {
         initComponents();
-        piOut = new PipedInputStream();
-        poOut = new PipedOutputStream(piOut);
-        piErr = new PipedInputStream();
-        poErr = new PipedOutputStream(piErr);
-        new ReaderThread(piOut, Type.OUT).start();
-        new ReaderThread(piErr, Type.ERR).start();
     }
 
     /**
@@ -52,69 +35,48 @@ public class SystemOutputPanel extends JPanel {
      * Redirects it via {@link System#setOut(java.io.PrintStream)} and
      * {@link System#setErr(java.io.PrintStream)}.
      */
-    public void caputure() {
-        System.setOut(new PrintStream(poOut, true));
-        System.setErr(new PrintStream(poErr, true));
-    }
-
-    public void setTextForeground(Color color) {
-        textArea.setForeground(color);
-    }
-
-    public void setTextBackground(Color color) {
-        textArea.setBackground(color);
-    }
-
-    public void setInitText(String text) {
-        textArea.append(text);
-    }
-
-    private class ReaderThread extends Thread {
-
-        private final PipedInputStream pi;
-        private final Type type;
-
-        ReaderThread(PipedInputStream pi, Type type) {
-            this.pi = pi;
-            this.type = type;
-            setPriority(MIN_PRIORITY);
-            setName("Reading System." + (type.equals(Type.OUT) // NOI18N
-                                         ? "out" // NOI18N
-                                         : "err") + // NOI18N
-                    " @ " + SystemOutputPanel.class.getName()); // NOI18N
+    public synchronized void caputure() {
+        if (!capture) {
+            redirectSystemStreams();
         }
+    }
 
-        @Override
-        public void run() {
-            final byte[] buf = new byte[1024];
-            try {
-                while (true) {
-                    final int len = pi.read(buf);
-                    if (len == -1) {
-                        break;
-                    }
-                    SwingUtilities.invokeLater(new Runnable() {
+    private void updateTextArea(final String text) {
+        SwingUtilities.invokeLater(new Runnable() {
 
-                        @Override
-                        public void run() {
-                            textArea.append(new String(buf, 0, len));
-
-                            // Make sure the last line is always visible
-                            textArea.setCaretPosition(textArea.getDocument().
-                                    getLength());
-
-                            // Keep the text area down to a certain character size
-                            int excess = textArea.getDocument().getLength() -
-                                    MAX_CHAR_COUNT;
-                            if (excess >= MAX_CHARS_EXESS) {
-                                textArea.replaceRange("", 0, excess); // NOI18N
-                            }
-                        }
-                    });
+            @Override
+            public void run() {
+                textArea.append(text);
+                textArea.setCaretPosition(textArea.getDocument().getLength());
+                int excess = textArea.getDocument().getLength() - MAX_CHAR_COUNT;
+                if (excess >= MAX_CHARS_EXESS) {
+                    textArea.replaceRange("", 0, excess); // NOI18N
                 }
-            } catch (Exception e) {
             }
-        }
+        });
+    }
+
+    private void redirectSystemStreams() {
+        OutputStream out = new OutputStream() {
+
+            @Override
+            public void write(int b) throws IOException {
+                updateTextArea(String.valueOf((char) b));
+            }
+
+            @Override
+            public void write(byte[] b, int off, int len) throws IOException {
+                updateTextArea(new String(b, off, len));
+            }
+
+            @Override
+            public void write(byte[] b) throws IOException {
+                write(b, 0, b.length);
+            }
+        };
+
+        System.setOut(new PrintStream(out, true));
+        System.setErr(new PrintStream(out, true));
     }
 
     /** This method is called from within the constructor to
