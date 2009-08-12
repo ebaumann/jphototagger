@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.UserTasks;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
 import java.util.ArrayList;
@@ -57,9 +56,9 @@ public final class RenameXmpMetadata extends Thread
     }
 
     private void logRename(String columnName, String oldValue, String newValue) {
-        AppLog.logInfo(RenameXmpMetadata.class, Bundle.getString(
+        AppLog.logInfo(RenameXmpMetadata.class,
                 "RenameXmpMetadata.Info.StartRename", // NOI18N
-                columnName, oldValue, newValue));
+                columnName, oldValue, newValue);
     }
 
     @Override

@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
@@ -103,9 +102,8 @@ public final class CopyFiles implements Runnable {
     }
 
     private void logCopyFile(String sourceFilename, String targetFilename) {
-        AppLog.logInfo(CopyFiles.class, Bundle.getString(
-                "CopyFiles.Info.StartCopy", // NOI18N
-                sourceFilename, targetFilename));
+        AppLog.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy", // NOI18N
+                sourceFilename, targetFilename);
     }
 
     private synchronized void notifyStart() {

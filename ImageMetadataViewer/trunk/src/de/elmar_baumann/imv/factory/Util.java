@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.resource.Bundle;
 
 /**
  * Factorie's utils.
@@ -20,9 +19,9 @@ final class Util {
      */
     static void checkInit(Class c, boolean init) {
         if (init) {
-            AppLog.logWarning(Util.class, Bundle.getString(
+            AppLog.logWarning(Util.class,
                     "Util.Error.InitCalledMoreThanOneTimes", // NOI18N
-                    c.getName()));
+                    c.getName());
         }
     }
 

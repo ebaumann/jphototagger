@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.DeleteOption;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
@@ -59,9 +58,9 @@ public final class DeleteImageFiles {
     private static void errorMessageDelete(File file,
             EnumSet<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
-            AppLog.logWarning(ControllerDeleteFiles.class, Bundle.getString(
+            AppLog.logWarning(ControllerDeleteFiles.class,
                     "FileSystemDeleteImageFiles.Error.Delete", // NOI18N
-                    file.getAbsolutePath()));
+                    file.getAbsolutePath());
         }
     }
 

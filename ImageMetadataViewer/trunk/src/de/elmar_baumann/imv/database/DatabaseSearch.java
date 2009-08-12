@@ -45,7 +45,8 @@ public final class DatabaseSearch extends Database {
                             paramStatement.getValues()[i]);
                 }
             }
-            AppLog.logFinest(DatabaseSearch.class, preparedStatement.toString());
+            AppLog.logFinest(DatabaseSearch.class, AppLog.USE_STRING,
+                    preparedStatement.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 filenames.add(resultSet.getString(1));
@@ -95,8 +96,8 @@ public final class DatabaseSearch extends Database {
                 for (int i = 0; i < searchColumns.size(); i++) {
                     preparedStatement.setString(i + 1, "%" + searchString + "%"); // NOI18N
                 }
-                AppLog.logFinest(
-                        DatabaseSearch.class, preparedStatement.toString());
+                AppLog.logFinest(DatabaseSearch.class, AppLog.USE_STRING,
+                        preparedStatement.toString());
                 ResultSet resultSet = preparedStatement.executeQuery();
                 String string;
                 while (resultSet.next()) {

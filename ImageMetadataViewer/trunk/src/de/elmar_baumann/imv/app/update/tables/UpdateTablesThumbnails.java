@@ -153,7 +153,8 @@ final class UpdateTablesThumbnails extends Database {
                 try {
                     long id = Long.parseLong(file.getName());
                     stmt.setLong(1, id);
-                    AppLog.logFinest(UpdateTablesThumbnails.class, sql);
+                    AppLog.logFinest(UpdateTablesThumbnails.class,
+                            AppLog.USE_STRING, sql);
                     ResultSet rs = stmt.executeQuery();
                     if (rs.next()) {
                         String filename = rs.getString(1);

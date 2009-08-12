@@ -86,8 +86,8 @@ public final class CompressDatabase implements Runnable {
     }
 
     private void logCompressDatabase() {
-        AppLog.logInfo(CompressDatabase.class, Bundle.getString(
-                "DatabaseCompress.Info.StartCompress")); // NOI18N
+        AppLog.logInfo(CompressDatabase.class,
+                "DatabaseCompress.Info.StartCompress"); // NOI18N
     }
 
     private synchronized void notifyEnded() {

@@ -142,9 +142,8 @@ public final class ModifyImageCollections {
     }
 
     private static void logAddImageCollection(String name) {
-        AppLog.logInfo(ModifyImageCollections.class, Bundle.getString(
-                "ImageCollectionToDatabase.Info.StartInsert", // NOI18N
-                name));
+        AppLog.logInfo(ModifyImageCollections.class,
+                "ImageCollectionToDatabase.Info.StartInsert", name); // NOI18N
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {

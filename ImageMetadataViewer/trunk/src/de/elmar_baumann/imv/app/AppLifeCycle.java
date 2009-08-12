@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.factory.MetaFactory;
 import de.elmar_baumann.imv.helper.Cleanup;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -147,8 +146,8 @@ public final class AppLifeCycle {
         long timeoutMilliSeconds = 120 * 1000;
         long checkIntervalMilliSeconds = 2000;
         if (saveObjects.size() > 0) {
-            AppLog.logInfo(getClass(), Bundle.getString(
-                    "AppLifeCycle.Info.SaveObjectsExisting", saveObjects)); // NOI18N
+            AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting",
+                    saveObjects); // NOI18N
             while (saveObjects.size() > 0 &&
                     elapsedMilliseconds < timeoutMilliSeconds) {
                 try {

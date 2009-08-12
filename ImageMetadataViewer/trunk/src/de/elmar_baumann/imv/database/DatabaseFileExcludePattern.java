@@ -43,7 +43,8 @@ public final class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO file_exclude_pattern (pattern) VALUES (?)"); // NOI18N
             stmt.setString(1, pattern);
-            AppLog.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
+            AppLog.logFiner(DatabaseFileExcludePattern.class, AppLog.USE_STRING,
+                    stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -71,7 +72,8 @@ public final class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
-            AppLog.logFiner(DatabaseFileExcludePattern.class, stmt.toString());
+            AppLog.logFiner(DatabaseFileExcludePattern.class, AppLog.USE_STRING,
+                    stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -99,7 +101,8 @@ public final class DatabaseFileExcludePattern extends Database {
                     connection.prepareStatement(
                     "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
             stmt.setString(1, pattern);
-            AppLog.logFinest(DatabaseFileExcludePattern.class, stmt.toString());
+            AppLog.logFinest(DatabaseFileExcludePattern.class,
+                    AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -128,7 +131,7 @@ public final class DatabaseFileExcludePattern extends Database {
                     "SELECT pattern" + // NOI18N
                     " FROM file_exclude_pattern" + // NOI18N
                     " ORDER BY pattern ASC"; // NOI18N
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs =
                     stmt.executeQuery(sql);
             while (rs.next()) {
@@ -164,7 +167,7 @@ public final class DatabaseFileExcludePattern extends Database {
             PreparedStatement stmtUpdate =
                     connection.prepareStatement(sqlUpdate);
             String sqlQuery = "SELECT filename FROM files"; // NOI18N
-            AppLog.logFinest(getClass(), sqlQuery);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sqlQuery);
             ResultSet rs = stmtQuery.executeQuery(sqlQuery);
             int patternCount = patterns.size();
             int progress = 0;
@@ -181,7 +184,8 @@ public final class DatabaseFileExcludePattern extends Database {
                     if (filename.matches(pattern)) {
                         stmtUpdate.setString(1, filename);
                         deletedFiles.add(filename);
-                        AppLog.logFiner(getClass(), stmtUpdate.toString());
+                        AppLog.logFiner(getClass(), AppLog.USE_STRING,
+                                stmtUpdate.toString());
                         int affectedRows = stmtUpdate.executeUpdate();
                         count += affectedRows;
                         if (affectedRows > 0) {

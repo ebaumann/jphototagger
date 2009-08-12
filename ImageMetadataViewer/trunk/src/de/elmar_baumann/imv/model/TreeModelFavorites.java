@@ -177,9 +177,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 addDirectory(directory);
             } else {
                 AppLog.logWarning(TreeModelFavorites.class,
-                        Bundle.getString(
                         "TreeModelFavorites.Error.DbDirectoryDoesNotExist", // NOI18N
-                        directory.getDirectoryName()));
+                        directory.getDirectoryName());
                 db.deleteFavoriteDirectory(directory.getFavoriteName());
             }
         }

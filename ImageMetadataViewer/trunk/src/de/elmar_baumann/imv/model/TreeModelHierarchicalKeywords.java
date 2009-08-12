@@ -210,8 +210,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             }
         }
         AppLog.logWarning(TreeModelHierarchicalKeywords.class,
-                Bundle.getString(
-                "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode)); // NOI18N
+                "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode); // NOI18N
         return false;
     }
 

@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -68,8 +67,7 @@ public class ControllerToggleRealHierarchicalKeyword
                 } else {
                     AppLog.logWarning(
                             ControllerToggleRealHierarchicalKeyword.class,
-                            Bundle.getString(
-                            "ControllerToggleRealHierarchicalKeyword.Error.Model")); // NOI18N
+                            "ControllerToggleRealHierarchicalKeyword.Error.Model"); // NOI18N
                     }
             } else {
                 MessageDisplayer.error(panel.getTree(),

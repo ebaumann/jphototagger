@@ -107,8 +107,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     private void notifyRefreshListeners() {
         synchronized (refreshListenersOfContent) {
-            AppLog.logInfo(getClass(),
-                    Bundle.getString("ImageFileThumbnailsPanel.Info.Refresh")); // NOI18N
+            AppLog.logInfo(getClass(), "ImageFileThumbnailsPanel.Info.Refresh"); // NOI18N
             for (RefreshListener listener : refreshListenersOfContent.get(
                     content)) {
                 listener.refresh();

@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.database;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.SubstringPosition;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +32,7 @@ public final class DatabaseMaintainance extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             AppLog.logInfo(DatabaseMaintainance.class,
-                    Bundle.getString("DatabaseMaintainance.Info.Shutdown")); // NOI18N
+                    "DatabaseMaintainance.Info.Shutdown"); // NOI18N
             stmt.executeUpdate("SHUTDOWN"); // NOI18N
         } catch (SQLException ex) {
             AppLog.logSevere(Database.class, ex);
@@ -93,7 +92,8 @@ public final class DatabaseMaintainance extends Database {
                     SubstringPosition.getSqlFilterOperator(pos) + " ?"; // NOI18N;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, SubstringPosition.getSqlFilter(pos, search));
-            AppLog.logFiner(DatabaseMaintainance.class, stmt.toString());
+            AppLog.logFiner(DatabaseMaintainance.class, AppLog.USE_STRING,
+                    stmt.toString());
             affectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();

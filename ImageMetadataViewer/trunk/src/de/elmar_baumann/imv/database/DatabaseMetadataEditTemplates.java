@@ -69,7 +69,8 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ")" + // NOI18N
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setMetadataEditTemplate(stmt, template);
-            AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFiner(DatabaseMetadataEditTemplates.class,
+                    AppLog.USE_STRING, stmt.toString());
             stmt.executeUpdate();
             connection.commit();
             inserted = true;
@@ -189,7 +190,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ", rating" + // NOI18N -- 21 --
                     " FROM metadata_edit_templates" + // NOI18N
                     " WHERE name IS NOT NULL"; // NOI18N
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 MetadataEditTemplate template = new MetadataEditTemplate();
@@ -215,7 +216,9 @@ public class DatabaseMetadataEditTemplates extends Database {
                 template.setPhotoshopInstructions(new String(rs.getBytes(18)));
                 template.setPhotoshopCredit(new String(rs.getBytes(19)));
                 template.setPhotoshopSource(new String(rs.getBytes(20)));
-                template.setRating(rs.getBytes(21) == null ? "" : // NOI18N
+                template.setRating(rs.getBytes(21) == null
+                                   ? ""
+                                   : // NOI18N
                         new String(rs.getBytes(21)));
                 templates.add(template);
             }
@@ -267,7 +270,8 @@ public class DatabaseMetadataEditTemplates extends Database {
                     " WHERE name = ?"); // NOI18N -- 22 --
             setMetadataEditTemplate(stmt, template);
             stmt.setString(22, template.getName());
-            AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFiner(DatabaseMetadataEditTemplates.class,
+                    AppLog.USE_STRING, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
@@ -302,7 +306,8 @@ public class DatabaseMetadataEditTemplates extends Database {
                     " WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFiner(DatabaseMetadataEditTemplates.class,
+                    AppLog.USE_STRING, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             renamed = count > 0;
@@ -331,7 +336,8 @@ public class DatabaseMetadataEditTemplates extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM metadata_edit_templates WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFiner(DatabaseMetadataEditTemplates.class, stmt.toString());
+            AppLog.logFiner(DatabaseMetadataEditTemplates.class,
+                    AppLog.USE_STRING, stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
@@ -355,7 +361,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                     " FROM metadata_edit_templates" + // NOI18N
                     " WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFinest(getClass(), stmt.toString());
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;

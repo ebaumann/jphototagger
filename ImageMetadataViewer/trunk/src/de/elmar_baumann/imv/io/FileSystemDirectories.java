@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.io;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import java.io.File;
@@ -90,16 +89,16 @@ public final class FileSystemDirectories {
     }
 
     private static void logDelete(File directory, int countDeletedInDatabase) {
-        AppLog.logInfo(FileSystemDirectories.class, Bundle.getString(
+        AppLog.logInfo(FileSystemDirectories.class,
                 "FileSystemDirectories.Info.Delete", // NOI18N
-                directory, countDeletedInDatabase));
+                directory, countDeletedInDatabase);
     }
 
     private static void logInfoRenamed(File directory, File newDirectory,
             int countRenamedInDatabase) {
-        AppLog.logInfo(FileSystemDirectories.class, Bundle.getString(
+        AppLog.logInfo(FileSystemDirectories.class,
                 "FileSystemDirectories.Info.Rename", // NOI18N
-                directory, newDirectory, countRenamedInDatabase));
+                directory, newDirectory, countRenamedInDatabase);
     }
 
     private FileSystemDirectories() {

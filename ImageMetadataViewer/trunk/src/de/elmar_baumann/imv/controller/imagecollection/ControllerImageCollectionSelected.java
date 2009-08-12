@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.controller.imagecollection;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
@@ -71,8 +70,7 @@ public final class ControllerImageCollectionSelected implements
                     showImageCollection(selectedValue.toString());
                 } else {
                     AppLog.logWarning(ControllerImageCollectionSelected.class,
-                            Bundle.getString(
-                            "ControllerImageCollectionSelected.Error.SelectedValueIsNull")); // NOI18N
+                            "ControllerImageCollectionSelected.Error.SelectedValueIsNull"); // NOI18N
                 }
                 setMetadataEditable();
                 info.hide();

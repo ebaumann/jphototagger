@@ -10,7 +10,6 @@ import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.helper.FilesystemDatabaseUpdater;
 import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
@@ -50,7 +49,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (stop) {
             AppLog.logWarning(ControllerAutocopyDirectory.class,
-                    Bundle.getString("ControllerAutocopyDirectory.Error.Stopped")); // NOI18N
+                    "ControllerAutocopyDirectory.Error.Stopped"); // NOI18N
         } else {
             copy();
         }

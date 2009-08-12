@@ -43,7 +43,7 @@ public final class DatabaseContent extends Database {
                     " WHERE " + // NOI18N
                     columnName +
                     " IS NOT NULL"; // NOI18N
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet resultSet = stmt.executeQuery(sql);
 
             while (resultSet.next()) {

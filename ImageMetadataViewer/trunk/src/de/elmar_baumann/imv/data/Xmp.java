@@ -27,7 +27,6 @@ import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSupplemental
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.event.listener.TextEntryListener;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.List;
 import java.util.HashMap;
@@ -589,10 +588,8 @@ public final class Xmp implements TextEntryListener {
                         }
                     }
                 } else {
-                    AppLog.logWarning(Xmp.class,
-                            Bundle.getString("Xmp.Error.SetIptc") + // NOI18N
-                            iptcValue + " (" + // NOI18N
-                            xmpColumn + ")"); // NOI18N
+                    AppLog.logWarning(
+                            Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);// NOI18N
                 }
             }
         }

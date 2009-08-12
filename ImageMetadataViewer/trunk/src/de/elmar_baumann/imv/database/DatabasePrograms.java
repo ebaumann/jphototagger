@@ -57,7 +57,8 @@ public final class DatabasePrograms extends Database {
                     ")" + // NOI18N
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setValuesInsert(stmt, program);
-            AppLog.logFiner(DatabasePrograms.class, stmt.toString());
+            AppLog.logFiner(DatabasePrograms.class, AppLog.USE_STRING,
+                    stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -95,7 +96,7 @@ public final class DatabasePrograms extends Database {
             SQLException {
         Statement stmt = connection.createStatement();
         String sql = "SELECT MAX(id) FROM programs"; // NOI18N
-        AppLog.logFinest(getClass(), sql);
+        AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {
             program.setId(rs.getLong(1) + 1);
@@ -130,7 +131,8 @@ public final class DatabasePrograms extends Database {
                     " WHERE id = ?"); // NOI18N
             setValuesUpdate(stmt, program);
             stmt.setLong(11, program.getId());
-            AppLog.logFiner(DatabasePrograms.class, stmt.toString());
+            AppLog.logFiner(DatabasePrograms.class, AppLog.USE_STRING,
+                    stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -180,7 +182,8 @@ public final class DatabasePrograms extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM programs WHERE id = ?"); // NOI18N
             stmt.setLong(1, program.getId());
-            AppLog.logFiner(DatabasePrograms.class, stmt.toString());
+            AppLog.logFiner(DatabasePrograms.class, AppLog.USE_STRING,
+                    stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             // Hack because of dirty design of this table (no cascade possible)
@@ -212,7 +215,8 @@ public final class DatabasePrograms extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     getSelectProgramStmt(WhereFilter.ACTION));
             stmt.setBoolean(1, action);
-            AppLog.logFinest(DatabasePrograms.class, stmt.toString());
+            AppLog.logFinest(DatabasePrograms.class, AppLog.USE_STRING,
+                    stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 programs.add(getSelctedProgram(rs));
@@ -292,7 +296,8 @@ public final class DatabasePrograms extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     getSelectProgramStmt(WhereFilter.ID));
             stmt.setLong(1, id);
-            AppLog.logFinest(DatabasePrograms.class, stmt.toString());
+            AppLog.logFinest(DatabasePrograms.class, AppLog.USE_STRING,
+                    stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 program = getSelctedProgram(rs);
@@ -318,7 +323,7 @@ public final class DatabasePrograms extends Database {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT COUNT(*) FROM programs WHERE action = FALSE"); // NOI18N
-            AppLog.logFinest(getClass(), stmt.toString());
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);

@@ -92,8 +92,7 @@ public class ControllerAddHierarchicalKeyword
                 HierarchicalKeywordsTreePathExpander.expand(parentNode);
             } else {
                 AppLog.logWarning(ControllerAddHierarchicalKeyword.class,
-                        Bundle.getString(
-                        "ControllerAddHierarchicalKeyword.Error.Model")); // NOI18N
+                        "ControllerAddHierarchicalKeyword.Error.Model"); // NOI18N
             }
         }
     }

@@ -333,9 +333,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void errorMessageNullThumbnail(String filename) {
-        AppLog.logWarning(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.Error.NullThumbnail", // NOI18N
-                filename));
+        AppLog.logWarning(InsertImageFilesIntoDatabase.class,
+                "InsertImageFilesIntoDatabase.Error.NullThumbnail", filename); // NOI18N
     }
 
     private void getProgressBar() {
@@ -390,15 +389,15 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void informationMessagePerformed(String filename) {
-        AppLog.logFinest(InsertImageFilesIntoDatabase.class, Bundle.getString(
+        AppLog.logFinest(InsertImageFilesIntoDatabase.class,
                 "InsertImageFilesIntoDatabase.Info.CheckImageForModifications", // NOI18N
-                filename));
+                filename);
     }
 
     private void informationMessageEnd(int filecount) {
-        AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
+        AppLog.logInfo(InsertImageFilesIntoDatabase.class,
                 "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished", // NOI18N
-                filecount));
+                filecount);
     }
 
     private void logInsertImageFile(ImageFile data) {
@@ -419,8 +418,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             "InsertImageFilesIntoDatabase.Info.StartInsert.No") // NOI18N
             : Bundle.getString(
             "InsertImageFilesIntoDatabase.Info.StartInsert.Yes")}; // NOI18N
-        AppLog.logInfo(InsertImageFilesIntoDatabase.class, Bundle.getString(
-                "InsertImageFilesIntoDatabase.Info.StartInsert", // NOI18N
-                params));
+        AppLog.logInfo(InsertImageFilesIntoDatabase.class,
+                "InsertImageFilesIntoDatabase.Info.StartInsert", params); // NOI18N
     }
 }

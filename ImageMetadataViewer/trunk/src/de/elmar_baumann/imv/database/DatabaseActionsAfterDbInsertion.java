@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Program;
-import de.elmar_baumann.imv.resource.Bundle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,8 +48,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                     " VALUES (?, ?)"); // NOI18N
             stmt.setLong(1, action.getId());
             stmt.setInt(2, order);
-            AppLog.logFiner(
-                    DatabaseActionsAfterDbInsertion.class, stmt.toString());
+            AppLog.logFiner(DatabaseActionsAfterDbInsertion.class,
+                    AppLog.USE_STRING, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -79,8 +78,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                     connection.prepareStatement(
                     "DELETE FROM actions_after_db_insertion WHERE id_programs = ?"); // NOI18N
             stmt.setLong(1, action.getId());
-            AppLog.logFiner(
-                    DatabaseActionsAfterDbInsertion.class, stmt.toString());
+            AppLog.logFiner(DatabaseActionsAfterDbInsertion.class,
+                    AppLog.USE_STRING, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
@@ -108,7 +107,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                     " id_programs" + // NOI18N -- 1 --
                     " FROM actions_after_db_insertion" + // NOI18N
                     " ORDER BY action_order ASC"; // NOI18N
-            AppLog.logFinest(DatabaseActionsAfterDbInsertion.class, sql);
+            AppLog.logFinest(DatabaseActionsAfterDbInsertion.class,
+                    AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 long idProgram = rs.getLong(1);
@@ -116,9 +116,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                         DatabasePrograms.INSTANCE.getProgram(idProgram);
                 if (program == null) {
                     AppLog.logWarning(DatabaseActionsAfterDbInsertion.class,
-                            Bundle.getString(
                             "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist", // NOI18N
-                            idProgram));
+                            idProgram);
                 } else {
                     programs.add(program);
                 }
@@ -148,7 +147,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                     " FROM actions_after_db_insertion" + // NOI18N
                     " WHERE id_programs = ?"); // NOI18N
             stmt.setLong(1, action.getId());
-            AppLog.logFinest(getClass(), stmt.toString());
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -187,8 +186,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             for (Program action : actions) {
                 stmt.setInt(1, index++);
                 stmt.setLong(2, action.getId());
-                AppLog.logFiner(
-                        DatabaseActionsAfterDbInsertion.class, stmt.toString());
+                AppLog.logFiner(DatabaseActionsAfterDbInsertion.class,
+                        AppLog.USE_STRING, stmt.toString());
                 countAffected += stmt.executeUpdate();
             }
             connection.commit();

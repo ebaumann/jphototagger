@@ -39,7 +39,7 @@ public final class DatabaseMetadata extends Database {
         boolean exists = false;
         Statement stmt = connection.createStatement();
         String sql = "select * from " + tableName + " WHERE 1 = 0"; // NOI18N "WHERE 1 = 0": speed, memory!
-        AppLog.logFinest(getClass(), sql);
+        AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
         ResultSet rs = stmt.executeQuery(sql);
         ResultSetMetaData rsmd = rs.getMetaData();
         int columns = rsmd.getColumnCount();

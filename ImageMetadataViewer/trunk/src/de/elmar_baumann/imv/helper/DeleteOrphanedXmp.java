@@ -95,7 +95,7 @@ public final class DeleteOrphanedXmp
 
     private void logDeleteRecords() {
         AppLog.logInfo(DeleteOrphanedXmp.class,
-            Bundle.getString("RecordsWithNotExistingFilesDeleter.Info.StartRemove")); // NOI18N
+            "RecordsWithNotExistingFilesDeleter.Info.StartRemove"); // NOI18N
     }
 
     private void setMessagesFiles() {

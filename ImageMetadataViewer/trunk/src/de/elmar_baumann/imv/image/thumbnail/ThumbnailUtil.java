@@ -13,7 +13,6 @@ import de.elmar_baumann.imv.database.metadata.exif.ExifThumbnailUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.types.FileType;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.util.ImageTransform;
 import de.elmar_baumann.lib.image.util.ImageUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -76,8 +75,8 @@ public final class ThumbnailUtil {
         Image thumbnail = null;
         ImageReader reader = null;
         try {
-            AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                    "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file)); // NOI18N
+            AppLog.logInfo(ThumbnailUtil.class,
+                    "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file); // NOI18N
             reader = ReaderFactory.createReader(file);
             if (reader instanceof JpegReader) {
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
@@ -99,9 +98,8 @@ public final class ThumbnailUtil {
 
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
-            AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                    "ThumbnailUtil.GetScaledImageImagero.Info", // NOI18N
-                    file, maxLength));
+            AppLog.logInfo(ThumbnailUtil.class,
+                    "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);// NOI18N
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions procOptions = new ImageProcOptions();
 
@@ -120,9 +118,7 @@ public final class ThumbnailUtil {
 
     private static void logExternalAppCommand(String cmd) {
         AppLog.logFinest(ThumbnailUtil.class,
-                Bundle.getString(
-                "ThumbnailUtil.Info.ExternalAppCreationCommand", // NOI18N
-                cmd));
+                "ThumbnailUtil.Info.ExternalAppCreationCommand", cmd); // NOI18N
     }
 
     private static Image getRotatedThumbnail(File file) {
@@ -134,8 +130,8 @@ public final class ThumbnailUtil {
                     ExifThumbnailUtil.getThumbnailRotationAngle(
                     ExifMetadata.getExifEntries(file));
             if (rotateAngle != 0) {
-                AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                        "ThumbnailUtil.GetRotatedThumbnail.Information", file)); // NOI18N
+                AppLog.logInfo(ThumbnailUtil.class,
+                        "ThumbnailUtil.GetRotatedThumbnail.Information", file); // NOI18N
                 rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
             }
         }
@@ -159,9 +155,9 @@ public final class ThumbnailUtil {
         }
         Image image = null;
 
-        AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
+        AppLog.logInfo(ThumbnailUtil.class,
                 "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", // NOI18N
-                file, maxLength));
+                file, maxLength);
         String cmd = command.replace("%s", IoUtil.getQuotedForCommandline( // NOI18N
                 Collections.singletonList(file), "")). // NOI18N
                 replace("%i", new Integer(maxLength).toString()); // NOI18N
@@ -197,16 +193,14 @@ public final class ThumbnailUtil {
                            ? "" // NOI18N
                            : new String(stderr).trim());
         if (!errorMsg.isEmpty()) {
-            errorMsg = Bundle.getString(
-                    "ThumbnailUtil.Error.ExternalProgram", // NOI18N
-                    imageFile, errorMsg);
-            AppLog.logWarning(ThumbnailUtil.class, errorMsg);
+            AppLog.logWarning(ThumbnailUtil.class,
+                    "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg); // NOI18N
         }
     }
 
     public static Image getScaledImage(File file, int maxLength) {
-        AppLog.logInfo(ThumbnailUtil.class, Bundle.getString(
-                "ThumbnailUtil.GetScaledImage.Information", file, maxLength)); // NOI18N
+        AppLog.logInfo(ThumbnailUtil.class,
+                "ThumbnailUtil.GetScaledImage.Information", file, maxLength); // NOI18N
         BufferedImage image = loadImage(file);
         BufferedImage scaledImage = null;
         if (image != null) {
@@ -363,8 +357,8 @@ public final class ThumbnailUtil {
     }
 
     private static void logWriteThumbnail(File tnFile) {
-        AppLog.logInfo(ThumbnailUtil.class,
-                Bundle.getString("ThumbnailUtil.Info.WriteThumbnail", tnFile)); // NOI18N
+        AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.Info.WriteThumbnail",
+                tnFile); // NOI18N
     }
 
     public static boolean deleteThumbnail(String hash) {
@@ -395,7 +389,7 @@ public final class ThumbnailUtil {
         }
         return thumbnail;
     }
-    
+
     private static void closeReader(ImageReader reader) {
         if (reader != null) {
             reader.close();
@@ -421,6 +415,7 @@ public final class ThumbnailUtil {
             }
         }
     }
+
     /**
      * Compute final name of thumbnail on disk.
      *

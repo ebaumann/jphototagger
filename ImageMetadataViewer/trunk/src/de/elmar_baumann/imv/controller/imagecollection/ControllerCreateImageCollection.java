@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.controller.imagecollection;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.comparator.ComparatorStringAscending;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -82,9 +81,8 @@ public final class ControllerCreateImageCollection
                 }
             });
         } else {
-            AppLog.logWarning(ControllerCreateImageCollection.class, Bundle.
-                    getString(
-                    "ControllerCreateImageCollection.Error.Create")); // NOI18N
+            AppLog.logWarning(ControllerCreateImageCollection.class,
+                    "ControllerCreateImageCollection.Error.Create"); // NOI18N
         }
     }
 

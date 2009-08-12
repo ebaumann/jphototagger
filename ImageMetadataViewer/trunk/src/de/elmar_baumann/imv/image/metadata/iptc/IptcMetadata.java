@@ -7,7 +7,6 @@ import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Iptc;
-import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +31,7 @@ public final class IptcMetadata {
         if (imageFile != null && imageFile.exists()) {
             try {
                 AppLog.logInfo(IptcMetadata.class,
-                        Bundle.getString("IptcMetadata.Info.GetMetadata", // NOI18N
-                        imageFile));
+                        "IptcMetadata.Info.GetMetadata", imageFile); // NOI18N
                 IPTCEntryCollection collection =
                         MetadataUtils.getIPTC(imageFile);
                 if (collection != null) {

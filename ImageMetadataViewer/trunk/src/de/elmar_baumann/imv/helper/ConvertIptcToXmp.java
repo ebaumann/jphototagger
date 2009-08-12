@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
 import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.resource.Bundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,8 +77,8 @@ public final class ConvertIptcToXmp implements Runnable {
     }
 
     private void logWriteXmpFile(String imageFilename) {
-        AppLog.logInfo(ConvertIptcToXmp.class, Bundle.getString(
-                "IptcToXmp.Info.StartWriteXmpFile", imageFilename)); // NOI18N
+        AppLog.logInfo(ConvertIptcToXmp.class,
+                "IptcToXmp.Info.StartWriteXmpFile", imageFilename); // NOI18N
     }
 
     private synchronized void notifyStart() {

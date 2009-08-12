@@ -36,7 +36,7 @@ public final class DatabaseImageCollections extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql = "SELECT name FROM collection_names ORDER BY name"; // NOI18N
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 names.add(rs.getString(1));
@@ -69,7 +69,8 @@ public final class DatabaseImageCollections extends Database {
                     "UPDATE collection_names SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageCollections.class, AppLog.USE_STRING,
+                    stmt.toString());
             count = stmt.executeUpdate();
             List<String> info = new ArrayList<String>();
             info.add(oldName);
@@ -102,7 +103,8 @@ public final class DatabaseImageCollections extends Database {
                     " WHERE collection_names.name = ?" + // NOI18N
                     " ORDER BY collections.sequence_number ASC"); // NOI18N
             stmt.setString(1, collectionName);
-            AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageCollections.class, AppLog.USE_STRING,
+                    stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
@@ -145,7 +147,8 @@ public final class DatabaseImageCollections extends Database {
                     ", sequence_number)" + // NOI18N -- 3 --
                     " VALUES (?, ?, ?)"); // NOI18N
             stmtName.setString(1, collectionName);
-            AppLog.logFiner(DatabaseImageCollections.class, stmtName.toString());
+            AppLog.logFiner(DatabaseImageCollections.class, AppLog.USE_STRING,
+                    stmtName.toString());
             stmtName.executeUpdate();
             long idCollectionName = getIdCollectionName(connection,
                     collectionName);
@@ -156,8 +159,8 @@ public final class DatabaseImageCollections extends Database {
                 stmtColl.setLong(1, idCollectionName);
                 stmtColl.setLong(2, idFile);
                 stmtColl.setInt(3, sequence_number++);
-                AppLog.logFiner(
-                        DatabaseImageCollections.class, stmtColl.toString());
+                AppLog.logFiner(DatabaseImageCollections.class,
+                        AppLog.USE_STRING, stmtColl.toString());
                 stmtColl.executeUpdate();
             }
             connection.commit();
@@ -190,7 +193,8 @@ public final class DatabaseImageCollections extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionname);
-            AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageCollections.class, AppLog.USE_STRING,
+                    stmt.toString());
             List<String> affectedFiles = // Prior to executing!
                     getFilenamesOfImageCollection(collectionname);
             stmt.executeUpdate();
@@ -233,7 +237,8 @@ public final class DatabaseImageCollections extends Database {
                         connection, filename);
                 stmt.setLong(1, idCollectionName);
                 stmt.setLong(2, idFile);
-                AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
+                AppLog.logFiner(DatabaseImageCollections.class,
+                        AppLog.USE_STRING, stmt.toString());
                 delCount += stmt.executeUpdate();
                 if (prevDelCount < delCount) {
                     affectedFiles.add(filename);
@@ -291,8 +296,8 @@ public final class DatabaseImageCollections extends Database {
                         stmt.setLong(1, idFiles);
                         stmt.setLong(2, idCollectionNames);
                         stmt.setInt(3, sequence_number++);
-                        AppLog.logFiner(
-                                DatabaseImageCollections.class, stmt.toString());
+                        AppLog.logFiner(DatabaseImageCollections.class,
+                                AppLog.USE_STRING, stmt.toString());
                         stmt.executeUpdate();
                         affectedFiles.add(filename);
                     }
@@ -325,7 +330,8 @@ public final class DatabaseImageCollections extends Database {
                 " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
                 " AND collection_names.name = ?"); // NOI18N
         stmt.setString(1, collectionName);
-        AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageCollections.class, AppLog.USE_STRING,
+                stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             max = rs.getInt(1);
@@ -342,7 +348,8 @@ public final class DatabaseImageCollections extends Database {
                 "SELECT id_files FROM collections WHERE id_collectionnnames = ?" + // NOI18N
                 " ORDER BY collections.sequence_number ASC"); // NOI18N
         stmtIdFiles.setLong(1, idCollectionName);
-        AppLog.logFinest(DatabaseImageCollections.class, stmtIdFiles.toString());
+        AppLog.logFinest(DatabaseImageCollections.class, AppLog.USE_STRING,
+                stmtIdFiles.toString());
         ResultSet rs = stmtIdFiles.executeQuery();
         List<Long> idFiles = new ArrayList<Long>();
         while (rs.next()) {
@@ -356,7 +363,8 @@ public final class DatabaseImageCollections extends Database {
             stmt.setInt(1, sequenceNumer++);
             stmt.setLong(2, idCollectionName);
             stmt.setLong(3, idFile);
-            AppLog.logFiner(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFiner(DatabaseImageCollections.class, AppLog.USE_STRING,
+                    stmt.toString());
             stmt.executeUpdate();
         }
         stmtIdFiles.close();
@@ -377,7 +385,8 @@ public final class DatabaseImageCollections extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT COUNT(*) FROM collection_names WHERE name = ?"); // NOI18N
             stmt.setString(1, collectionName);
-            AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
+            AppLog.logFinest(DatabaseImageCollections.class, AppLog.USE_STRING,
+                    stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -403,7 +412,7 @@ public final class DatabaseImageCollections extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql = "SELECT COUNT(*) FROM collection_names"; // NOI18N
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -429,7 +438,7 @@ public final class DatabaseImageCollections extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql = "SELECT COUNT(*) FROM collections"; // NOI18N
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -456,7 +465,8 @@ public final class DatabaseImageCollections extends Database {
                 " WHERE collection_names.name = ? AND files.filename = ?"); // NOI18N
         stmt.setString(1, collectionName);
         stmt.setString(2, filename);
-        AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageCollections.class, AppLog.USE_STRING,
+                stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             isInCollection = rs.getInt(1) > 0;
@@ -472,7 +482,8 @@ public final class DatabaseImageCollections extends Database {
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM collection_names WHERE name = ?"); // NOI18N
         stmt.setString(1, collectionname);
-        AppLog.logFinest(DatabaseImageCollections.class, stmt.toString());
+        AppLog.logFinest(DatabaseImageCollections.class, AppLog.USE_STRING,
+                stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);

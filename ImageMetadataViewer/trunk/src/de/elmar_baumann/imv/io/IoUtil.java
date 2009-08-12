@@ -3,7 +3,6 @@ package de.elmar_baumann.imv.io;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.io.FileLock;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.runtime.External;
@@ -32,8 +31,7 @@ public final class IoUtil {
             String separator = " "; // NOI18N
             String openCommand = appPath + separator + arguments;
             try {
-                AppLog.logInfo(IoUtil.class,
-                        Bundle.getString("IoUtil.Info.Execute", openCommand)); // NOI18N
+                AppLog.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand); // NOI18N
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(
                         openCommand));
             } catch (IOException ex) {
@@ -99,8 +97,8 @@ public final class IoUtil {
     public static boolean lockLogWarning(File file, Object owner) {
         if (!FileLock.INSTANCE.lock(file, owner)) {
             AppLog.logWarning(owner.getClass(),
-                    Bundle.getString("IoUtil.Error.lock", // NOI18N
-                    file, owner, FileLock.INSTANCE.getOwner(file)));
+                    "IoUtil.Error.lock", file, owner, // NOI18N
+                    FileLock.INSTANCE.getOwner(file));
             return false;
         }
         return true;

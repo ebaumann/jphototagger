@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.RenameFileEvent;
 import de.elmar_baumann.imv.event.listener.RenameFileListener;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.RenameDialog;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -77,8 +76,8 @@ public final class ControllerRenameFiles
     public void actionPerformed(final RenameFileEvent action) {
         File oldFile = action.getOldFile();
         File newFile = action.getNewFile();
-        AppLog.logInfo(ControllerRenameFiles.class, Bundle.getString(
-                "ControllerRenameFiles.Info.Rename", oldFile, newFile)); // NOI18N
+        AppLog.logInfo(ControllerRenameFiles.class,
+                "ControllerRenameFiles.Info.Rename", oldFile, newFile); // NOI18N
         db.updateRenameImageFilename(
                 oldFile.getAbsolutePath(), newFile.getAbsolutePath());
         SwingUtilities.invokeLater(new Runnable() {

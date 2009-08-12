@@ -46,7 +46,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
                     "SELECT id, id_parent, subject, real" + // NOI18N
                     " FROM hierarchical_subjects"; // NOI18N
             Statement stmt = connection.createStatement();
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Long idParent = rs.getLong(2);
@@ -93,7 +93,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
                 stmt.setBoolean(3, keyword.isReal());
             }
             stmt.setLong(4, keyword.getId());
-            AppLog.logFiner(DatabaseHierarchicalKeywords.class, stmt.toString());
+            AppLog.logFiner(DatabaseHierarchicalKeywords.class,
+                    AppLog.USE_STRING, stmt.toString());
             updated = stmt.executeUpdate() == 1;
             stmt.close();
         } catch (Exception ex) {
@@ -141,7 +142,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
             } else {
                 stmt.setBoolean(4, keyword.isReal());
             }
-            AppLog.logFiner(DatabaseHierarchicalKeywords.class, stmt.toString());
+            AppLog.logFiner(DatabaseHierarchicalKeywords.class,
+                    AppLog.USE_STRING, stmt.toString());
             inserted = stmt.executeUpdate() == 1;
             if (inserted) {
                 keyword.setId(nextId);
@@ -174,8 +176,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
                     "DELETE FROM hierarchical_subjects WHERE id = ?"); // NOI18N
             for (HierarchicalKeyword keyword : keywords) {
                 stmt.setLong(1, keyword.getId());
-                AppLog.logFiner(
-                        DatabaseHierarchicalKeywords.class, stmt.toString());
+                AppLog.logFiner(DatabaseHierarchicalKeywords.class,
+                        AppLog.USE_STRING, stmt.toString());
                 stmt.executeUpdate();
             }
             connection.commit();
@@ -199,7 +201,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
                 " WHERE id = ?"; // NOI18N
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setLong(1, id);
-        AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
+        AppLog.logFinest(DatabaseHierarchicalKeywords.class, AppLog.USE_STRING,
+                stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             Long idParent = rs.getLong(2);
@@ -230,7 +233,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
                     " WHERE id_parent = ? ORDER BY subject ASC"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setLong(1, idParent);
-            AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
+            AppLog.logFinest(DatabaseHierarchicalKeywords.class,
+                    AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Long idPar = rs.getLong(2);
@@ -263,7 +267,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
                     " FROM hierarchical_subjects" + // NOI18N
                     " WHERE id_parent IS NULL ORDER BY subject ASC"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
-            AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
+            AppLog.logFinest(DatabaseHierarchicalKeywords.class,
+                    AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Long idParent = rs.getLong(2);
@@ -286,7 +291,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
         String sql =
                 "SELECT MAX(id) FROM hierarchical_subjects"; // NOI18N
         Statement stmt = connection.createStatement();
-        AppLog.logFinest(DatabaseHierarchicalKeywords.class, sql);
+        AppLog.logFinest(DatabaseHierarchicalKeywords.class, AppLog.USE_STRING,
+                sql);
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {
             id = rs.getLong(1) + 1;
@@ -323,7 +329,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
                 stmt.setLong(1, keyword.getIdParent());
             }
             stmt.setString(2, keyword.getKeyword());
-            AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
+            AppLog.logFinest(DatabaseHierarchicalKeywords.class,
+                    AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -374,7 +381,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
                     " WHERE subject = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, keywordName);
-            AppLog.logFinest(DatabaseHierarchicalKeywords.class, stmt.toString());
+            AppLog.logFinest(DatabaseHierarchicalKeywords.class,
+                    AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 long idParent = rs.getLong(1);

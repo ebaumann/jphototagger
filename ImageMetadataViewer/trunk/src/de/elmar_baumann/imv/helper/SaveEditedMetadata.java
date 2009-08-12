@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.imv.tasks.UserTasks;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
@@ -39,8 +38,7 @@ public final class SaveEditedMetadata extends Thread {
             UserTasks.INSTANCE.add(updater);
         } else {
             AppLog.logWarning(SaveEditedMetadata.class,
-                    Bundle.getString(
-                    "SaveEditedMetadata.Error.NoImageFilesSelected")); // NOI18N
+                    "SaveEditedMetadata.Error.NoImageFilesSelected"); // NOI18N
         }
     }
 

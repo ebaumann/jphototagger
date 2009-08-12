@@ -20,7 +20,6 @@ import de.elmar_baumann.imv.database.metadata.mapping.XmpColumnXmpPathStartMappi
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.database.metadata.selections.XmpInDatabase;
 import de.elmar_baumann.imv.io.IoUtil;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
@@ -219,13 +218,12 @@ public final class XmpMetadata {
         String sidecarFilename =
                 getSidecarFilenameOfImageFileIfExists(imageFilename);
         if (sidecarFilename == null) {
-            AppLog.logInfo(XmpMetadata.class, Bundle.getString(
-                    "XmpMetadata.Info.ReadEmbeddedXmp", imageFilename)); // NOI18N
+            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp", // NOI18N
+                    imageFilename);
             xmpString = XmpFileReader.readFile(imageFilename);
         } else {
-            AppLog.logInfo(XmpMetadata.class, Bundle.getString(
-                    "XmpMetadata.Info.ReadSidecarFile", // NOI18N
-                    sidecarFilename, imageFilename));
+            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadSidecarFile", // NOI18N
+                    sidecarFilename, imageFilename);
             xmpString = FileUtil.getFileContentAsString(
                     new File(sidecarFilename), "UTF-8"); // NOI18N
         }
@@ -413,9 +411,9 @@ public final class XmpMetadata {
                 xmpMeta.setProperty(
                         namespaceUri, propertyName, Long.toString(value));
             } else {
-                AppLog.logWarning(XmpMetadata.class, Bundle.getString(
+                AppLog.logWarning(XmpMetadata.class,
                         "XmpMetadata.Error.WriteSetMetadata", // NOI18N
-                        metadataValue.getClass()));
+                        metadataValue.getClass());
             }
         }
     }

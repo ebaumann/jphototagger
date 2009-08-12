@@ -131,9 +131,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                     }
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
-                            Bundle.getString(
-                            "ControllerMetadataTemplates.Error.WrongObject") + // NOI18N
-                            o);
+                            "ControllerMetadataTemplates.Error.WrongObject", o); // NOI18N
                 }
             }
         });
@@ -167,9 +165,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                     model.updateTemplate(newTemplate);
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
-                            Bundle.getString(
-                            "ControllerMetadataTemplates.Error.WrongObject") + // NOI18N
-                            o);
+                            "ControllerMetadataTemplates.Error.WrongObject", o); // NOI18N
                 }
             }
         });
@@ -186,8 +182,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
                     editPanels.setMetadataEditTemplate(template);
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
-                            Bundle.getString(
-                            "ControllerMetadataTemplates.Error.InsertTemplateIsNull")); // NOI18N
+                            "ControllerMetadataTemplates.Error.InsertTemplateIsNull"); // NOI18N
                 }
             }
         });

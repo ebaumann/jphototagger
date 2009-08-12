@@ -295,9 +295,9 @@ public final class MoveToDirectoryDialog extends Dialog
     @Override
     public void actionFailed(FileSystemEvent action, FileSystemError error,
             File src, File target) {
-        AppLog.logWarning(MoveToDirectoryDialog.class, Bundle.getString(
+        AppLog.logWarning(MoveToDirectoryDialog.class,
                 "MoveToDirectoryDialog.Error.Logfile", src, target, // NOI18N
-                error.getLocalizedMessage()));
+                error.getLocalizedMessage());
         errors = true;
     }
 

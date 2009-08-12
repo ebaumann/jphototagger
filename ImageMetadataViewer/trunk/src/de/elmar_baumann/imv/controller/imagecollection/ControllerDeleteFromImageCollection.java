@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.controller.imagecollection;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.controller.filesystem.ControllerDeleteFiles;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
@@ -82,8 +81,7 @@ public final class ControllerDeleteFromImageCollection
                     }
                 } else {
                     AppLog.logWarning(ControllerDeleteFromImageCollection.class,
-                            Bundle.getString(
-                            "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull")); // NOI18N
+                            "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull"); // NOI18N
                 }
             }
         });

@@ -93,8 +93,8 @@ public final class StartPrograms {
         }
 
         private void logCommand(String command) {
-            AppLog.logInfo(StartPrograms.class, Bundle.getString(
-                    "ProgramStarter.Info.ExecuteCommand", command)); // NOI18N
+            AppLog.logInfo(StartPrograms.class,
+                    "ProgramStarter.Info.ExecuteCommand", command); // NOI18N
         }
 
         private void processAll() {
@@ -170,10 +170,8 @@ public final class StartPrograms {
                               ? "" // NOI18N
                               : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
-                message =
-                        Bundle.getString("ProgramStarter.Error.Program") + // NOI18N
-                        message;
-                AppLog.logWarning(Execute.class, message);
+                AppLog.logWarning(
+                        Execute.class, "ProgramStarter.Error.Program", message); // NOI18N
             }
         }
 

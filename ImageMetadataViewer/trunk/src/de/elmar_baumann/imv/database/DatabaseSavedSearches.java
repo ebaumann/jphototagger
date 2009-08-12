@@ -55,7 +55,8 @@ public final class DatabaseSavedSearches extends Database {
                 stmt.setString(1, paramStmt.getName());
                 stmt.setBytes(2, paramStmt.getSql().getBytes());
                 stmt.setBoolean(3, paramStmt.isQuery());
-                AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
+                AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                        stmt.toString());
                 stmt.executeUpdate();
                 long id = getIdSavedSearch(connection, paramStmt.getName());
                 insertSavedSearchValues(connection, id, paramStmt.getValues());
@@ -92,7 +93,8 @@ public final class DatabaseSavedSearches extends Database {
                 String value = values.get(index);
                 stmt.setString(2, value);
                 stmt.setInt(3, index);
-                AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
+                AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                        stmt.toString());
                 stmt.executeUpdate();
             }
             stmt.close();
@@ -129,7 +131,8 @@ public final class DatabaseSavedSearches extends Database {
                 stmt.setInt(7, panel.getComparatorId());
                 stmt.setString(8, panel.getValue());
                 stmt.setBoolean(9, panel.isBracketRightSelected());
-                AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
+                AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                        stmt.toString());
                 stmt.executeUpdate();
             }
             stmt.close();
@@ -142,7 +145,8 @@ public final class DatabaseSavedSearches extends Database {
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
         stmt.setString(1, name);
-        AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
+        AppLog.logFinest(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
@@ -163,7 +167,7 @@ public final class DatabaseSavedSearches extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql = "SELECT COUNT(*) FROM saved_searches"; // NOI18N
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -224,7 +228,8 @@ public final class DatabaseSavedSearches extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
+            AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                    stmt.toString());
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
@@ -255,7 +260,8 @@ public final class DatabaseSavedSearches extends Database {
                     "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            AppLog.logFiner(DatabaseSavedSearches.class, stmt.toString());
+            AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                    stmt.toString());
             int count = stmt.executeUpdate();
             renamed = count > 0;
             if (renamed) {
@@ -306,7 +312,8 @@ public final class DatabaseSavedSearches extends Database {
                     ", is_query" + // NOI18N -- 3 --
                     " FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
+            AppLog.logFinest(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                    stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 savedSearch = new SavedSearch();
@@ -346,7 +353,7 @@ public final class DatabaseSavedSearches extends Database {
                     ", sql_string" + // NOI18N -- 2 --
                     ", is_query" + // NOI18N -- 3 --
                     " FROM saved_searches ORDER BY name"; // NOI18N
-            AppLog.logFinest(getClass(), sql);
+            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql); // NOI18N
             while (rs.next()) {
                 SavedSearch savedSearch = new SavedSearch();
@@ -384,7 +391,8 @@ public final class DatabaseSavedSearches extends Database {
                 " AND saved_searches.name = ?" + // NOI18N
                 " ORDER BY saved_searches_values.value_index ASC"); // NOI18N
         stmt.setString(1, savedSearch.getParamStatement().getName());
-        AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
+        AppLog.logFinest(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                stmt.toString());
         ResultSet rs = stmt.executeQuery();
         List<String> values = new ArrayList<String>();
         while (rs.next()) {
@@ -418,7 +426,8 @@ public final class DatabaseSavedSearches extends Database {
                 " AND saved_searches.name = ?" + // NOI18N
                 " ORDER BY saved_searches_panels.panel_index ASC"); // NOI18N
         stmt.setString(1, savedSearch.getParamStatement().getName());
-        AppLog.logFinest(DatabaseSavedSearches.class, stmt.toString());
+        AppLog.logFinest(DatabaseSavedSearches.class, AppLog.USE_STRING,
+                stmt.toString());
         ResultSet rs = stmt.executeQuery();
         List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
         while (rs.next()) {

@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionEvent;
@@ -82,8 +81,7 @@ public class ControllerRemoveHierarchicalKeyword
             }
         } else {
             AppLog.logWarning(ControllerRemoveHierarchicalKeyword.class,
-                    Bundle.getString(
-                    "ControllerDeleteHierarchicalKeyword.Error.Model")); // NOI18N
+                    "ControllerDeleteHierarchicalKeyword.Error.Model"); // NOI18N
         }
     }
 
