@@ -417,6 +417,19 @@ public final class ThumbnailUtil {
     }
 
     /**
+     * Returns the thumbnail file for an image file.
+     *
+     * Shortcut for: {@code getThumbnailfile(getMd5File(imageFilename))}.
+     *
+     * @param  imageFilename filename of the image file (full path)
+     * @return               thumbnail file (may not exists, check with
+     *                       {@link File#exists()})
+     */
+    public static File getThumbnailFileOfImageFile(String imageFilename) {
+        return getThumbnailfile(getMd5File(imageFilename));
+    }
+
+    /**
      * Compute final name of thumbnail on disk.
      *
      * @param  hash hash
