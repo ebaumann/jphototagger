@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.misc;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLoggingSystem;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.ErrorListener;
 import de.elmar_baumann.imv.event.listener.impl.ErrorListeners;
@@ -57,7 +58,7 @@ public final class ControllerLogfileDialog implements ActionListener,
     private void showLogfileDialog() {
         LogfileDialog dialog = new LogfileDialog(
                 null,
-                AppLog.getLogfileName(),
+                AppLoggingSystem.getCurrentLogfileName(),
                 UserSettings.INSTANCE.getLogfileFormatterClass());
         dialog.setVisible(true);
         setError(false);

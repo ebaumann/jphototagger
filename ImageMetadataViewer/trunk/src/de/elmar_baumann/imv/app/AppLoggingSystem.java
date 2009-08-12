@@ -21,6 +21,10 @@ import java.util.logging.StreamHandler;
  */
 public final class AppLoggingSystem {
 
+    private static final int MAX_LOGFILE_SIZE_IN_BYTES = 1000000;
+    private static final int MAX_LOGFILE_COUNT = 5;
+    private static final boolean APPEND_OUTPUT_TO_LOGFILE = false;
+
     /**
      * Initializes the application's logging system.
      */
@@ -46,7 +50,11 @@ public final class AppLoggingSystem {
     private static void addFileLogHandler(Logger logger) throws IOException,
             SecurityException, InstantiationException, IllegalAccessException,
             SecurityException {
-        Handler fileHandler = new FileHandler(AppLog.getLogfileName());
+        Handler fileHandler = new FileHandler(
+                getLogfilePrefix() + "%g." + getLogfileSuffix(),
+                MAX_LOGFILE_SIZE_IN_BYTES,
+                MAX_LOGFILE_COUNT,
+                APPEND_OUTPUT_TO_LOGFILE);
         fileHandler.setLevel(Level.WARNING);
         fileHandler.setFormatter((Formatter) UserSettings.INSTANCE.
                 getLogfileFormatterClass().newInstance());
@@ -61,6 +69,24 @@ public final class AppLoggingSystem {
             stdoutHandler.setLevel(usersLevel);
             logger.addHandler(stdoutHandler);
         }
+    }
+
+    /**
+     * Returns the name of the current log file (complete path).
+     *
+     * @return log file name
+     */
+    public static String getCurrentLogfileName() {
+        return getLogfilePrefix() + "0." + getLogfileSuffix();
+    }
+
+    private static String getLogfilePrefix() {
+        return UserSettings.INSTANCE.getSettingsDirectoryName() +
+                File.separator + "imagemetadataviewerlog";  // NOI18N
+    }
+
+    private static String getLogfileSuffix() {
+        return "xml";
     }
 
     private AppLoggingSystem() {

@@ -1,9 +1,7 @@
 package de.elmar_baumann.imv.app;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.ErrorEvent;
 import de.elmar_baumann.imv.event.listener.impl.ErrorListeners;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,18 +75,8 @@ public final class AppLog {
 
     private static void log(Class c, Level level, Exception ex) {
         Logger.getLogger(c.getName()).log(level, null, ex);
-        ErrorListeners.INSTANCE.notifyErrorListener(new ErrorEvent(
-                ex.getMessage(), c));
-    }
-
-    /**
-     * Returns the name of the log file (complete path).
-     *
-     * @return log file name
-     */
-    public static String getLogfileName() {
-        return UserSettings.INSTANCE.getSettingsDirectoryName() +
-                File.separator + "imagemetadataviewerlog.xml";  // NOI18N
+        ErrorListeners.INSTANCE.notifyErrorListener(
+                new ErrorEvent(ex.getMessage(), c));
     }
 
     private AppLog() {
