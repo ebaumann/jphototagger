@@ -201,9 +201,14 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private boolean isUpdateThumbnail(String filename) {
-        return what.contains(Insert.THUMBNAIL) ||
+        return !existsThumbnail(filename) ||
+                what.contains(Insert.THUMBNAIL) ||
                 (what.contains(Insert.OUT_OF_DATE) &&
                 !isImageFileUpToDate(filename));
+    }
+
+    private boolean existsThumbnail(String filename) {
+        return ThumbnailUtil.getThumbnailFileOfImageFile(filename).exists();
     }
 
     private boolean isUpdateExif(String filename) {
