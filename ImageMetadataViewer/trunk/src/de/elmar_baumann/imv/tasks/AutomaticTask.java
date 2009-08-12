@@ -16,9 +16,6 @@ public final class AutomaticTask {
     private static final String ALT_METHOD_NAME_INTERRUPT = "cancel"; // NOI18N
     private Runnable runnable;
 
-    private AutomaticTask() {
-    }
-
     /**
      * Sets a new automatic task and calls {@link Thread#interrupt()} to the
      * currently running task if it's an instance of
@@ -33,8 +30,8 @@ public final class AutomaticTask {
      * @param runnable runnable
      */
     public synchronized void setTask(Runnable runnable) {
-        this.runnable = runnable;
         shutdown();
+        this.runnable = runnable;
         startTask(runnable);
     }
 
@@ -92,5 +89,8 @@ public final class AutomaticTask {
             return ((Thread) runnable).getName();
         }
         return "Automatic task @ " + getClass().getName(); // NOI18N
+    }
+
+    private AutomaticTask() {
     }
 }
