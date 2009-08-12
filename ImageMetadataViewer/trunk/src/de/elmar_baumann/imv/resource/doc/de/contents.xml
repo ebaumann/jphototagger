@@ -137,7 +137,7 @@
             <title>Datei &gt; Ordner einlesen</title>
         </page>
         <page>
-            <url>action_database_maintain.html</url>
+            <url>dialog_maintain_database.html</url>
             <title>Datei &gt; Datenbank</title>
         </page>
         <page>

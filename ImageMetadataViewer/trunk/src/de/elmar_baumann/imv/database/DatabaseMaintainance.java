@@ -1,19 +1,12 @@
 package de.elmar_baumann.imv.database;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.event.ProgressEvent;
-import de.elmar_baumann.imv.event.listener.ProgressListener;
-import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.SubstringPosition;
-import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -69,90 +62,6 @@ public final class DatabaseMaintainance extends Database {
             free(connection);
         }
         return success;
-    }
-
-    /**
-     * Deletes from the thumbnail's folder all thumbnails without a image file
-     * in the database.
-     *
-     * @param  listener listener: gets the progress and can cancel the
-     *         operation through calling {@link ProgressEvent#stop()}.
-     *         {@link ProgressEvent#getInfo()} returns the count deleted deleted
-     *         thumbnails.
-     * @return count of deleted thumbnails
-     */
-    public int deleteOrphanedThumbnails(ProgressListener listener) {
-        int delCount = 0;
-        Connection connection = null;
-        ProgressEvent progressEvent = new ProgressEvent(this, ""); // NOI18N
-        try {
-            try {
-                File[] thumbnailFiles = getThumbnailFiles();
-                if (thumbnailFiles != null) {
-                    connection = getConnection();
-                    String sql = "SELECT COUNT(*) FROM files WHERE id = ?"; // NOI18N
-                    PreparedStatement stmt = connection.prepareStatement(sql);
-                    int fileCount = thumbnailFiles.length;
-                    progressEvent =
-                            new ProgressEvent(this, 0, fileCount, 0, ""); // NOI18N
-                    listener.progressStarted(progressEvent);
-                    boolean stop = progressEvent.isStop();
-                    int index = 0;
-                    while (!stop && index < fileCount) {
-                        File thumbnailFile = thumbnailFiles[index];
-                        long fileId = getImageIdFromThumbnailFile(thumbnailFile);
-                        stmt.setLong(1, fileId);
-                        AppLog.logFinest(getClass(), stmt.toString());
-                        ResultSet rs = stmt.executeQuery();
-                        if (rs.next()) {
-                            if (rs.getLong(1) <= 0) {
-                                logThumbnailDeleted(thumbnailFile);
-                                if (ThumbnailUtil.deleteThumbnail(fileId))
-                                    delCount++;
-                            }
-                        }
-                        index++;
-                        progressEvent.setValue(index);
-                        progressEvent.setInfo(Integer.valueOf(delCount));
-                        listener.progressPerformed(progressEvent);
-                        stop = progressEvent.isStop();
-                    }
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                AppLog.logSevere(DatabaseMaintainance.class, ex);
-            } finally {
-                free(connection);
-            }
-        } catch (Exception ex) {
-            AppLog.logSevere(DatabaseMaintainance.class, ex);
-        }
-        listener.progressEnded(progressEvent);
-        return delCount;
-    }
-
-    private long getImageIdFromThumbnailFile(File thumbnailFile) {
-        try {
-            return Long.valueOf(thumbnailFile.getName());
-        } catch (Exception ex) {
-            AppLog.logSevere(DatabaseMaintainance.class, ex);
-        }
-        return -1;
-    }
-
-    private File[] getThumbnailFiles() {
-        File tnDir =
-                new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
-        return tnDir.isDirectory()
-               ? tnDir.listFiles(new RegexFileFilter(".*[0-9].*", ";")) // NOI18N
-               : new File[]{};
-    }
-
-    private void logThumbnailDeleted(File thumbnailFile) {
-        AppLog.logInfo(DatabaseMaintainance.class,
-                Bundle.getString(
-                "DatabaseMaintainance.Info.DeleteThumbnailsWithoutImageFiles", // NOI18N
-                thumbnailFile.getAbsolutePath()));
     }
 
     /**

@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.cache;
 
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.image.util.IconUtil;
@@ -40,7 +41,8 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                 File file = null;
                 try {
                     file = wq.fetch();
-                    Image image = db.getThumbnail(file.getAbsolutePath());
+                    Image image = ThumbnailUtil.getThumbnail(
+                            ThumbnailUtil.getMd5File(file.getAbsolutePath()));
                     if (image == null) {  // no image available from db
                         image = cache.noPreviewThumbnail;
                     }

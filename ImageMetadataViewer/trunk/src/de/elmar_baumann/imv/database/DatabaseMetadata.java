@@ -21,7 +21,7 @@ public final class DatabaseMetadata extends Database {
     private DatabaseMetadata() {
     }
 
-    boolean existsTable(Connection connection, String tablename) throws
+    public boolean existsTable(Connection connection, String tablename) throws
             SQLException {
         boolean exists = false;
         DatabaseMetaData dbm = connection.getMetaData();
@@ -34,7 +34,7 @@ public final class DatabaseMetadata extends Database {
         return exists;
     }
 
-    boolean existsColumn(Connection connection, String tableName,
+    public boolean existsColumn(Connection connection, String tableName,
             String columnName) throws SQLException {
         boolean exists = false;
         Statement stmt = connection.createStatement();

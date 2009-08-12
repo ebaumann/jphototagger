@@ -1,7 +1,9 @@
-package de.elmar_baumann.imv.database;
+package de.elmar_baumann.imv.app.update.tables;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.data.Program;
+import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.sql.Connection;

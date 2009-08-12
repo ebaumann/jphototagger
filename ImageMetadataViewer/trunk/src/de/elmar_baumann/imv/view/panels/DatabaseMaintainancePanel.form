@@ -70,18 +70,21 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="checkBoxCompressDatabase" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkBoxDeleteUnusedThumbnails" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" alignment="0" pref="366" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" pref="366" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="checkBoxCompressDatabase" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelFinishedCompressDatabase" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelFinishedDeleteUnusedThumbnails" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelFinishedCompressDatabase" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -90,22 +93,16 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="labelFinishedDeleteUnusedThumbnails" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkBoxDeleteUnusedThumbnails" alignment="2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="labelFinishedCompressDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxCompressDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,24 +120,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase">
-          <Properties>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[16, 16]"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="checkBoxDeleteUnusedThumbnails">
-          <Properties>
-            <Property name="mnemonic" type="int" value="108"/>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/imv/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteUnusedThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDeleteUnusedThumbnailsActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelFinishedDeleteUnusedThumbnails">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[16, 16]"/>

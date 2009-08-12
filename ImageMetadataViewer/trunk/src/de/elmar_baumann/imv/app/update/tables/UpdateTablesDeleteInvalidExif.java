@@ -1,4 +1,4 @@
-package de.elmar_baumann.imv.database;
+package de.elmar_baumann.imv.app.update.tables;
 
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;

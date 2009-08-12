@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.database;
 
+import de.elmar_baumann.imv.app.update.tables.UpdateTables;
 import de.elmar_baumann.imv.app.AppLock;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;

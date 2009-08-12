@@ -1,5 +1,6 @@
-package de.elmar_baumann.imv.database;
+package de.elmar_baumann.imv.app.update.tables;
 
+import de.elmar_baumann.imv.database.Database;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -9,14 +10,14 @@ import java.sql.SQLException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-23
  */
-final class UpdateTables extends Database {
+public final class UpdateTables extends Database {
 
-    static final UpdateTables INSTANCE = new UpdateTables();
+    public static final UpdateTables INSTANCE = new UpdateTables();
 
     private UpdateTables() {
     }
 
-    void update(Connection connection) throws SQLException {
+    public void update(Connection connection) throws SQLException {
         new UpdateTablesDropColumns().update(connection);
         new UpdateTablesRenameColumns().update(connection);
         new UpdateTablesAddColumns().update(connection);

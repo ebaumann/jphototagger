@@ -50,27 +50,6 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns the database ID of a filename.
-     *
-     * @param  connection connection
-     * @param  filename   filename
-     * @return            database ID or -1 if the filename does not exist
-     */
-    long getIdFile(Connection connection, String filename) throws SQLException {
-        long id = -1;
-        PreparedStatement stmt = connection.prepareStatement(
-                "SELECT id FROM files WHERE filename = ?"); // NOI18N
-        stmt.setString(1, filename);
-        AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            id = rs.getLong(1);
-        }
-        stmt.close();
-        return id;
-    }
-
-    /**
      * Renames a file.
      *
      * @param  oldFilename old filename
@@ -91,6 +70,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.setString(2, oldFilename);
             AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
             count = stmt.executeUpdate();
+            ThumbnailUtil.updateThumbnailName(oldFilename, newFilename);
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -175,7 +155,8 @@ public final class DatabaseImageFiles extends Database {
             preparedStatement.executeUpdate();
             long idFile = getIdFile(connection, filename);
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnail(idFile, imageFile.getThumbnail());
+                updateThumbnailFile(ThumbnailUtil.getMd5File(filename),
+                        imageFile.getThumbnail());
             }
             if (imageFile.isInsertXmpIntoDb()) {
                 insertXmp(connection, idFile, imageFile.getXmp());
@@ -208,7 +189,8 @@ public final class DatabaseImageFiles extends Database {
         imageFile.setExif(getExifOfFile(filename));
         imageFile.setFilename(filename);
         imageFile.setLastmodified(getLastModifiedImageFile(filename));
-        imageFile.setThumbnail(getThumbnail(filename));
+        imageFile.setThumbnail(
+                ThumbnailUtil.getThumbnail(ThumbnailUtil.getMd5File(filename)));
         imageFile.setXmp(getXmpOfFile(filename));
         return imageFile;
     }
@@ -255,7 +237,8 @@ public final class DatabaseImageFiles extends Database {
             stmt.executeUpdate();
             stmt.close();
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnail(idFile, imageFile.getThumbnail());
+                updateThumbnailFile(ThumbnailUtil.getMd5File(filename),
+                        imageFile.getThumbnail());
             }
             if (imageFile.isInsertXmpIntoDb()) {
                 updateXmp(connection, idFile, imageFile.getXmp());
@@ -300,7 +283,7 @@ public final class DatabaseImageFiles extends Database {
             notifyProgressListenerStart(listener, event);
             while (!event.isStop() && rs.next()) {
                 String filename = rs.getString(1);
-                updateThumbnail(getIdFile(connection, filename),
+                updateThumbnailFile(ThumbnailUtil.getMd5File(filename),
                         getThumbnailFromFile(filename));
                 updated++;
                 event.setValue(++count);
@@ -343,8 +326,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            long idFile = getIdFile(connection, filename);
-            updateThumbnail(idFile, thumbnail);
+            updateThumbnailFile(ThumbnailUtil.getMd5File(filename), thumbnail);
             return true;
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -354,9 +336,9 @@ public final class DatabaseImageFiles extends Database {
         return false;
     }
 
-    private void updateThumbnail(long idFile, Image thumbnail) {
+    private void updateThumbnailFile(String hash, Image thumbnail) {
         if (thumbnail != null) {
-            ThumbnailUtil.writeThumbnail(thumbnail, idFile);
+            ThumbnailUtil.writeThumbnail(thumbnail, hash);
         }
     }
 
@@ -418,36 +400,6 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns a file's thumbnail.
-     *
-     * @param  filename  filename
-     * @return           Thumbnail oder null on errors or if the thumbnail
-     *                   doesn't exist
-     */
-    public Image getThumbnail(String filename) {
-        Image thumbnail = null;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT id FROM files WHERE filename = ?"); // NOI18N
-            stmt.setString(1, filename);
-            AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                thumbnail = ThumbnailUtil.getThumbnail(rs.getLong(1));
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageFiles.class, ex);
-            thumbnail = null;
-        } finally {
-            free(connection);
-        }
-        return thumbnail;
-    }
-
-    /**
      * Entfernt eine Bilddatei aus der Datenbank.
      *
      * @param filenames Namen der zu löschenden Dateien
@@ -467,12 +419,12 @@ public final class DatabaseImageFiles extends Database {
                 oldImageFile.setFilename(filename);
                 oldImageFile.setExif(getExifOfFile(filename));
                 oldImageFile.setXmp(getXmpOfFile(filename));
-                long idFile = getIdFile(connection, filename);
                 AppLog.logFiner(DatabaseImageFiles.class, stmt.toString());
                 int countAffectedRows = stmt.executeUpdate();
                 countDeleted += countAffectedRows;
                 if (countAffectedRows > 0) {
-                    ThumbnailUtil.deleteThumbnail(idFile);
+                    ThumbnailUtil.deleteThumbnail(
+                            ThumbnailUtil.getMd5File(filename));
                     notifyDatabaseListener(
                             DatabaseImageEvent.Type.IMAGEFILE_DELETED,
                             oldImageFile, oldImageFile);
@@ -521,12 +473,12 @@ public final class DatabaseImageFiles extends Database {
                 filename = rs.getString(1);
                 File file = new File(filename);
                 if (!file.exists()) {
-                    long idFile = getIdFile(connection, filename);
                     int deletedRows =
                             deleteRowWithFilename(connection, filename);
                     countDeleted += deletedRows;
                     if (deletedRows > 0) {
-                        ThumbnailUtil.deleteThumbnail(idFile);
+                        ThumbnailUtil.deleteThumbnail(
+                                ThumbnailUtil.getMd5File(file));  // new type
                         ImageFile imageFile = new ImageFile();
                         imageFile.setFilename(filename);
                         notifyDatabaseListener(
@@ -1816,5 +1768,30 @@ public final class DatabaseImageFiles extends Database {
         assert isExifOrXmpColumn : "Only EXIF or XMP table are valid, not: " + // NOI18N
                 column.getTable();
         return isExifOrXmpColumn;
+    }
+
+    /**
+     * Returns the database ID of a filename.
+     *
+     * Intended for usage within other database methods.
+     *
+     * @param  connection   connection
+     * @param  filename     filename
+     * @return              database ID or -1 if the filename does not exist
+     * @throws SQLException on SQL errors
+     */
+    public long getIdFile(Connection connection, String filename) throws
+            SQLException {
+        long id = -1;
+        PreparedStatement stmt = connection.prepareStatement(
+                "SELECT id FROM files WHERE filename = ?"); // NOI18N
+        stmt.setString(1, filename);
+        AppLog.logFinest(DatabaseImageFiles.class, stmt.toString());
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            id = rs.getLong(1);
+        }
+        stmt.close();
+        return id;
     }
 }

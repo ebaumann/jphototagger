@@ -1,5 +1,6 @@
-package de.elmar_baumann.imv.database;
+package de.elmar_baumann.imv.app.update.tables;
 
+import de.elmar_baumann.imv.database.DatabaseMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.sql.Connection;
@@ -87,8 +88,8 @@ final class UpdateTablesAddColumns {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
         missingColumns.clear();
         for (ColumnInfo info : columns) {
-            if (!dbMeta.existsColumn(connection, info.getTableName(), info.
-                    getColumnName())) {
+            if (!dbMeta.existsColumn(
+                    connection, info.getTableName(), info.getColumnName())) {
                 missingColumns.add(info);
             }
         }
