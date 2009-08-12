@@ -465,7 +465,13 @@ public final class ThumbnailUtil {
 
         StringBuffer hex = new StringBuffer();
         for (int i = 0; i < result.length; i++) {
-            hex.append(Integer.toHexString(0xFF & result[i]));
+            if ((result[i] & 0xff) == 0) {
+                hex.append("00");
+            } else if ((result[i] & 0xff) < 0x10) {
+                hex.append("0" + Integer.toHexString(0xFF & result[i]));
+            } else {
+                hex.append(Integer.toHexString(0xFF & result[i]));
+            }
         }
         return hex.toString();
     }
