@@ -234,5 +234,6 @@ final class UpdateTablesThumbnails extends Database {
             long id, long current, long count, String message) {
         UPDATE_TABLES_MESSAGES.message(
                 Bundle.getString(message, id, current, count));
+        PROGRESS_DIALOG.setValue((int) current);
     }
 }
