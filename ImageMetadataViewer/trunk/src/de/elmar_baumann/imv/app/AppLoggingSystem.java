@@ -10,6 +10,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.logging.MemoryHandler;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 
@@ -37,17 +38,18 @@ public final class AppLoggingSystem {
             FileUtil.ensureDirectoryExists(new File(
                     UserSettings.INSTANCE.getSettingsDirectoryName()));
             Logger logger = Logger.getLogger("de.elmar_baumann"); // NOI18N
-            Level usersLevel = UserSettings.INSTANCE.getLogLevel();
-            addFileLogHandler(logger);
-            addStdoutLogHandler(usersLevel, logger);
-            logger.setLevel(usersLevel);
+            Level userLevel = UserSettings.INSTANCE.getLogLevel();
+            addMemoryLogHandlers(logger,
+                    addFileHandler(logger),
+                    addStdoutHandler(userLevel, logger));
+            logger.setLevel(userLevel);
             LogManager.getLogManager().addLogger(logger);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private static void addFileLogHandler(Logger logger) throws IOException,
+    private static Handler addFileHandler(Logger logger) throws IOException,
             SecurityException, InstantiationException, IllegalAccessException,
             SecurityException {
         Handler fileHandler = new FileHandler(
@@ -59,16 +61,28 @@ public final class AppLoggingSystem {
         fileHandler.setFormatter((Formatter) UserSettings.INSTANCE.
                 getLogfileFormatterClass().newInstance());
         logger.addHandler(fileHandler);
+        return fileHandler;
     }
 
-    private static void addStdoutLogHandler(Level usersLevel, Logger logger)
+    private static Handler addStdoutHandler(Level usersLevel, Logger logger)
             throws SecurityException {
-        if (usersLevel != Level.WARNING && usersLevel != Level.SEVERE) {
-            Handler stdoutHandler =
-                    new StreamHandler(System.out, new SimpleFormatter());
-            stdoutHandler.setLevel(usersLevel);
-            logger.addHandler(stdoutHandler);
-        }
+        Handler stdoutHandler =
+                new StreamHandler(System.out, new SimpleFormatter());
+        stdoutHandler.setLevel(usersLevel);
+        logger.addHandler(stdoutHandler);
+        return stdoutHandler;
+    }
+
+    private static void addMemoryLogHandlers(
+            Logger logger,
+            Handler fileHandler,
+            Handler stdoutHandler) {
+        Handler memoryHandlerFile =
+                new MemoryHandler(fileHandler, 1000, Level.SEVERE);
+        Handler memoryHandlerStdOut =
+                new MemoryHandler(stdoutHandler, 1000, Level.SEVERE);
+        logger.addHandler(memoryHandlerFile);
+        logger.addHandler(memoryHandlerStdOut);
     }
 
     /**
