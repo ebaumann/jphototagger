@@ -4,6 +4,8 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Formatter;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -25,23 +27,33 @@ public final class AppLoggingSystem {
     private static final int MAX_LOGFILE_SIZE_IN_BYTES = 1000000;
     private static final int MAX_LOGFILE_COUNT = 5;
     private static final boolean APPEND_OUTPUT_TO_LOGFILE = false;
+    private static final int MEMORY_HANDLER_LOG_RECORDS_COUNT = 1000;
+    private static final List<Handler> HANDLERS = new ArrayList<Handler>();
+    private static boolean init;
 
     /**
      * Initializes the application's logging system.
      */
-    public static void init() {
-        initLogger();
+    public synchronized static void init() {
+        assert !init;
+        if (!init) {
+            init = true;
+            Level userLevel = UserSettings.INSTANCE.getLogLevel();
+            ensureLogDirectoryExists();
+            createHandlers(userLevel);
+            createLogger(userLevel);
+        }
     }
 
-    private static void initLogger() {
+    private static void ensureLogDirectoryExists() {
+        FileUtil.ensureDirectoryExists(new File(
+                UserSettings.INSTANCE.getSettingsDirectoryName()));
+    }
+
+    private static void createLogger(Level userLevel) {
         try {
-            FileUtil.ensureDirectoryExists(new File(
-                    UserSettings.INSTANCE.getSettingsDirectoryName()));
             Logger logger = Logger.getLogger("de.elmar_baumann"); // NOI18N
-            Level userLevel = UserSettings.INSTANCE.getLogLevel();
-            addMemoryLogHandlers(logger,
-                    addFileHandler(logger),
-                    addStdoutHandler(userLevel, logger));
+            addHandlers(logger);
             logger.setLevel(userLevel);
             LogManager.getLogManager().addLogger(logger);
         } catch (Exception ex) {
@@ -49,40 +61,52 @@ public final class AppLoggingSystem {
         }
     }
 
-    private static Handler addFileHandler(Logger logger) throws IOException,
-            SecurityException, InstantiationException, IllegalAccessException,
-            SecurityException {
+    private static void addHandlers(Logger logger) {
+        for (Handler handler : HANDLERS) {
+            logger.addHandler(handler);
+        }
+    }
+
+    private static void createHandlers(Level userLevel) {
+        try {
+            createFileHandler();
+            createSystemOutHandler(userLevel);
+
+            // Has to be called after all other handlers were added!
+            createMemoryHandlers();
+        } catch (Exception ex) {
+            AppLog.logSevere(AppLoggingSystem.class, ex);
+        }
+    }
+
+    private static void createFileHandler()
+            throws
+            IOException,
+            InstantiationException,
+            IllegalAccessException {
         Handler fileHandler = new FileHandler(
                 getLogfilePrefix() + "%g." + getLogfileSuffix(),
                 MAX_LOGFILE_SIZE_IN_BYTES,
                 MAX_LOGFILE_COUNT,
                 APPEND_OUTPUT_TO_LOGFILE);
-        fileHandler.setLevel(Level.WARNING);
+        fileHandler.setLevel(Level.WARNING); // Ignoring user's settings
         fileHandler.setFormatter((Formatter) UserSettings.INSTANCE.
                 getLogfileFormatterClass().newInstance());
-        logger.addHandler(fileHandler);
-        return fileHandler;
+        HANDLERS.add(fileHandler);
     }
 
-    private static Handler addStdoutHandler(Level usersLevel, Logger logger)
-            throws SecurityException {
-        Handler stdoutHandler =
+    private static void createSystemOutHandler(Level userLevel) {
+        Handler systemOutHandler =
                 new StreamHandler(System.out, new SimpleFormatter());
-        stdoutHandler.setLevel(usersLevel);
-        logger.addHandler(stdoutHandler);
-        return stdoutHandler;
+        systemOutHandler.setLevel(userLevel);
+        HANDLERS.add(systemOutHandler);
     }
 
-    private static void addMemoryLogHandlers(
-            Logger logger,
-            Handler fileHandler,
-            Handler stdoutHandler) {
-        Handler memoryHandlerFile =
-                new MemoryHandler(fileHandler, 1000, Level.SEVERE);
-        Handler memoryHandlerStdOut =
-                new MemoryHandler(stdoutHandler, 1000, Level.SEVERE);
-        logger.addHandler(memoryHandlerFile);
-        logger.addHandler(memoryHandlerStdOut);
+    private static void createMemoryHandlers() {
+        for (Handler handler : new ArrayList<Handler>(HANDLERS)) {
+            HANDLERS.add(new MemoryHandler(
+                    handler, MEMORY_HANDLER_LOG_RECORDS_COUNT, Level.SEVERE));
+        }
     }
 
     /**
