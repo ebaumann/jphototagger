@@ -56,8 +56,7 @@ public final class MetaFactory implements Runnable {
     }
 
     private void startDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = (JProgressBar) progressBarProvider.
-                getResource(this);
+        JProgressBar progressbar = progressBarProvider.getResource(this);
         if (progressbar != null) {
             progressbar.setStringPainted(true);
             progressbar.setString(Bundle.getString("MetaFactory.Init")); // NOI18N
@@ -67,8 +66,7 @@ public final class MetaFactory implements Runnable {
     }
 
     private void stopDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = (JProgressBar) progressBarProvider.
-                getResource(this);
+        JProgressBar progressbar = progressBarProvider.getResource(this);
         if (progressbar != null) {
             progressbar.setIndeterminate(false);
             progressbar.setString(""); // NOI18N

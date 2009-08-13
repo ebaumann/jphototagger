@@ -51,7 +51,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             new HashSet<CheckingForUpdateMetadataListener>());
     private final List<String> filenames;
     private final EnumSet<Insert> what;
-    private final MutualExcludedResource progressBarResource;
+    private final MutualExcludedResource<? extends JProgressBar> progressBarResource;
     private boolean cancelled;
     private JProgressBar progressBar;
 
@@ -99,7 +99,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     public InsertImageFilesIntoDatabase(
             List<String> filenames,
             EnumSet<Insert> what,
-            MutualExcludedResource progressBarResource) {
+            MutualExcludedResource<? extends JProgressBar> progressBarResource) {
 
         this.filenames = new ArrayList<String>(filenames);
         this.what = what;
@@ -343,19 +343,6 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                 "InsertImageFilesIntoDatabase.Error.NullThumbnail", filename); // NOI18N
     }
 
-    private void getProgressBar() {
-        if (progressBarResource != null) {
-            Object o = progressBarResource.getResource(this);
-            assert o == null || o instanceof JProgressBar :
-                    "Not a JPogressBar: " + o; // NOI18N
-            if (o instanceof JProgressBar) {
-                progressBar = (JProgressBar) o;
-            } else if (o != null) {
-                progressBarResource.releaseResource(this);
-            }
-        }
-    }
-
     private void releaseProgressBar() {
         if (progressBar != null && progressBarResource != null) {
             progressBarResource.releaseResource(this);
@@ -363,7 +350,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void updateStarted(int filecount) {
-        getProgressBar();
+        progressBar = progressBarResource.getResource(this);
         if (progressBar != null) {
             progressBar.setMinimum(0);
             progressBar.setMaximum(filecount);

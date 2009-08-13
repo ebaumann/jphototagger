@@ -193,7 +193,8 @@ public final class UpdateMetadataOfDirectoriesPanel
         listDirectories.setEnabled(true);
     }
 
-    private class ProgressBarProvider extends MutualExcludedResource {
+    private class ProgressBarProvider
+            extends MutualExcludedResource<JProgressBar> {
 
         ProgressBarProvider(JProgressBar progressBar) {
             setResource(progressBar);

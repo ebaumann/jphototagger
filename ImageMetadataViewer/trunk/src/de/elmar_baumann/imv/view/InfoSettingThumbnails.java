@@ -20,7 +20,7 @@ public final class InfoSettingThumbnails {
      * Shows the information.
      */
     public InfoSettingThumbnails() {
-        progressBar = (JProgressBar) progressBarProvider.getResource(this);
+        progressBar = progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setStringPainted(true);
             progressBar.setString(Bundle.getString("InfoSettingThumbnails.Text")); // NOI18N

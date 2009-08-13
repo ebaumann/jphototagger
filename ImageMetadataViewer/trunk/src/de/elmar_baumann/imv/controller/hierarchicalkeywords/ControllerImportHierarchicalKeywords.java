@@ -61,8 +61,7 @@ public final class ControllerImportHierarchicalKeywords
         public ImportTask(Collection<List<String>> paths) {
             this.paths = paths;
             setName("Importing keywords @ " + getClass().getName()); // NOI18N
-            progressBar = (JProgressBar) ProgressBarUserTasks.INSTANCE.
-                    getResource(this);
+            progressBar = ProgressBarUserTasks.INSTANCE.getResource(this);
         }
 
         @Override

@@ -78,7 +78,7 @@ public final class SaveEditedMetadata extends Thread {
     }
 
     private void progressStarted(int maximum) {
-        progressBar = (JProgressBar) progressBarProvider.getResource(this);
+        progressBar = progressBarProvider.getResource(this);
         if (progressBar != null) {
             progressBar.setMinimum(0);
             progressBar.setMaximum(maximum);
