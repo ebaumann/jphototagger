@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.importer.HierarchicalKeywordsImporter;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.GUI;
@@ -62,6 +63,10 @@ public final class ControllerImportHierarchicalKeywords
             this.paths = paths;
             setName("Importing keywords @ " + getClass().getName()); // NOI18N
             progressBar = ProgressBarUserTasks.INSTANCE.getResource(this);
+            if (progressBar == null) {
+                AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+                    ProgressBarUserTasks.INSTANCE.getOwner());
+            }
         }
 
         @Override

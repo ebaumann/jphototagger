@@ -24,7 +24,7 @@ import javax.swing.JProgressBar;
 public final class SaveEditedMetadata extends Thread {
 
     private final Collection<Pair<String, Xmp>> filenamesXmp;
-    private final ProgressBarUserTasks progressBarProvider =
+    private final ProgressBarUserTasks progressBarRessource =
             ProgressBarUserTasks.INSTANCE;
     private JProgressBar progressBar;
 
@@ -78,8 +78,11 @@ public final class SaveEditedMetadata extends Thread {
     }
 
     private void progressStarted(int maximum) {
-        progressBar = progressBarProvider.getResource(this);
-        if (progressBar != null) {
+        progressBar = progressBarRessource.getResource(this);
+        if (progressBar == null) {
+            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+                    progressBarRessource.getOwner());
+        } else {
             progressBar.setMinimum(0);
             progressBar.setMaximum(maximum);
             progressBar.setValue(0);
@@ -99,7 +102,7 @@ public final class SaveEditedMetadata extends Thread {
             progressBar.setToolTipText(
                     AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS);
             progressBar = null;
-            progressBarProvider.releaseResource(this);
+            progressBarRessource.releaseResource(this);
         }
     }
 }

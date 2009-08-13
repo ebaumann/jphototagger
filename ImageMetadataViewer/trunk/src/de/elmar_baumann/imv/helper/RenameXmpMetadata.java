@@ -25,7 +25,7 @@ public final class RenameXmpMetadata extends Thread
     private final Column column;
     private final String oldValue;
     private final String newValue;
-    private final ProgressBarUserTasks progressBarProvider =
+    private final ProgressBarUserTasks progressBarRessource =
             ProgressBarUserTasks.INSTANCE;
     private JProgressBar progressBar;
 
@@ -63,8 +63,11 @@ public final class RenameXmpMetadata extends Thread
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        progressBar = progressBarProvider.getResource(this);
-        if (progressBar != null) {
+        progressBar = progressBarRessource.getResource(this);
+        if (progressBar == null) {
+            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+                    progressBarRessource.getOwner());
+        } else {
             progressBar.setMinimum(0);
             progressBar.setMaximum(evt.getMaximum());
             progressBar.setValue(0);
@@ -83,7 +86,7 @@ public final class RenameXmpMetadata extends Thread
         if (progressBar != null) {
             progressBar.setValue(evt.getMaximum());
             progressBar = null;
-            progressBarProvider.releaseResource(this);
+            progressBarRessource.releaseResource(this);
         }
     }
 }

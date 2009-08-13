@@ -350,8 +350,12 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void updateStarted(int filecount) {
+        if (progressBarResource == null) return;
         progressBar = progressBarResource.getResource(this);
-        if (progressBar != null) {
+        if (progressBar == null) {
+            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+                    progressBarResource.getOwner());
+        } else {
             progressBar.setMinimum(0);
             progressBar.setMaximum(filecount);
             progressBar.setValue(0);

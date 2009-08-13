@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.factory;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarAutomaticTasks;
@@ -19,7 +20,7 @@ public final class MetaFactory implements Runnable {
 
     public static final MetaFactory INSTANCE = new MetaFactory();
     private boolean init = false;
-    private final ProgressBarAutomaticTasks progressBarProvider =
+    private final ProgressBarAutomaticTasks progressBarRessource =
             ProgressBarAutomaticTasks.INSTANCE;
 
     @Override
@@ -56,22 +57,25 @@ public final class MetaFactory implements Runnable {
     }
 
     private void startDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = progressBarProvider.getResource(this);
-        if (progressbar != null) {
-            progressbar.setStringPainted(true);
-            progressbar.setString(Bundle.getString("MetaFactory.Init")); // NOI18N
-            progressbar.setIndeterminate(true);
-            progressBarProvider.releaseResource(this);
+        JProgressBar progressBar = progressBarRessource.getResource(this);
+        if (progressBar == null) {
+            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+                    progressBarRessource.getOwner());
+        } else {
+            progressBar.setStringPainted(true);
+            progressBar.setString(Bundle.getString("MetaFactory.Init")); // NOI18N
+            progressBar.setIndeterminate(true);
+            progressBarRessource.releaseResource(this);
         }
     }
 
     private void stopDisplayProgressInProgressbarBar() {
-        JProgressBar progressbar = progressBarProvider.getResource(this);
-        if (progressbar != null) {
-            progressbar.setIndeterminate(false);
-            progressbar.setString(""); // NOI18N
-            progressbar.setStringPainted(false);
-            progressBarProvider.releaseResource(this);
+        JProgressBar progressBar = progressBarRessource.getResource(this);
+        if (progressBar != null) {
+            progressBar.setIndeterminate(false);
+            progressBar.setString(""); // NOI18N
+            progressBar.setStringPainted(false);
+            progressBarRessource.releaseResource(this);
         }
     }
 }
