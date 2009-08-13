@@ -19,12 +19,13 @@ package de.elmar_baumann.lib.resource;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008-09-16
+ * @param <T> Type of resource
+ * @author    Elmar Baumann <eb@elmar-baumann.de>
+ * @version   2008-09-16
  */
-public class MutualExcludedResource {
+public class MutualExcludedResource<T> {
 
-    private Object resource = null;
+    private T resource = null;
     private boolean locked = false;
     private Object owner = null;
 
@@ -50,7 +51,7 @@ public class MutualExcludedResource {
      *         is not null, {@link #isAvailable()} returns <code>false</code>.
      * @see #isAvailable()
      */
-    public synchronized Object getResource(Object owner) {
+    public synchronized T getResource(Object owner) {
         if (owner == null)
             throw new NullPointerException("owner == null"); // NOI18N
 
@@ -65,17 +66,17 @@ public class MutualExcludedResource {
     /**
      * Releases (unlocks) the resource.
      * 
-     * @param  o     owner of the resource. Only the owner can release the
+     * @param  owner owner of the resource. Only the owner can release the
      *               resource.
      * @return true, if released. If the return value is true,
      *         {@link #isAvailable()} returns <code>true</code>.
      */
-    public synchronized boolean releaseResource(Object o) {
-        if (o == null)
+    public synchronized boolean releaseResource(Object owner) {
+        if (owner == null)
             throw new NullPointerException("o == null"); // NOI18N
 
-        if (isLocked() && o != null && o == getOwner()) {
-            owner = null;
+        if (isLocked() && owner != null && owner == getOwner()) {
+            this.owner = null;
             setLocked(false);
             return true;
         }
@@ -88,7 +89,7 @@ public class MutualExcludedResource {
      *
      * @param resource resource
      */
-    protected synchronized void setResource(Object resource) {
+    protected synchronized void setResource(T resource) {
         if (resource == null)
             throw new NullPointerException("resource == null"); // NOI18N
 
