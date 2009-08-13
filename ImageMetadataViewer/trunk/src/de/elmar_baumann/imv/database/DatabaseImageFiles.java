@@ -1181,7 +1181,10 @@ public final class DatabaseImageFiles extends Database {
                     stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                filenames.add(rs.getString(1));
+                String filename = rs.getString(1);
+                if (filename != null) { // only categories in rs or only supplem. cat.
+                    filenames.add(filename);
+                }
             }
             stmt.close();
         } catch (SQLException ex) {
