@@ -131,7 +131,7 @@ public class MutualExcludedResource<T> {
      *
      * @return owner or null if nobody owns the resource
      */
-    private synchronized Object getOwner() {
+    public synchronized Object getOwner() {
         return owner;
     }
 
