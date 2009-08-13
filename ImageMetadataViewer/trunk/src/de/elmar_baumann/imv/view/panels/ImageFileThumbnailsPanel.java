@@ -15,7 +15,6 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.types.SizeUnit;
-import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -146,7 +145,7 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
     /**
      * Sets the files to display. Previous desplayed files will be hided.
      * The new files will be displayed in the defined sort order.
-     * 
+     *
      * @param files    files
      * @param content  content description of the files
      */
@@ -163,14 +162,10 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
             thumbnailCount = files.size();
         }
 
-        InfoSettingThumbnails info = new InfoSettingThumbnails();
-        // fixme: double forceRepaint()
         setNewThumbnails();
         if (hadFiles) scrollToTop();
         hadFiles = true;
         setMissingFilesFlags();
-        forceRepaint();
-        info.hide();
     }
 
     /**
@@ -250,11 +245,14 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     private void setMissingFilesFlags() {
         int count = files.size();
+        boolean missing = false;
         for (int i = 0; i < count; i++) {
             if (!files.get(i).exists()) {
                 addFlag(i, ThumbnailFlag.ERROR_FILE_NOT_FOUND);
+                missing = true;
             }
         }
+        if (missing) repaint();
     }
 
     @Override
