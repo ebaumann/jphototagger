@@ -8,7 +8,6 @@ import de.elmar_baumann.imv.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
-import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.io.File;
@@ -58,8 +57,8 @@ public final class ControllerHighlightHierarchicalKeywords
                         db.getDcSubjectsOfFile(selFile.get(0).getAbsolutePath());
                 setKeywords(treeAppPanel, keywords);
                 setKeywords(treeDialog, keywords);
-                expandTreeNodes(appHkPanel);
-                expandTreeNodes(dlgHkPanel);
+                //expandTreeNodes(appHkPanel);
+                //expandTreeNodes(dlgHkPanel);
             }
         }
     }
@@ -69,7 +68,7 @@ public final class ControllerHighlightHierarchicalKeywords
         assert r instanceof TreeCellRendererHierarchicalKeywords :
                 "Not a TreeCellRendererHierarchicalKeywords: " + r; // NOI18N
         if (r instanceof TreeCellRendererHierarchicalKeywords) {
-            TreeUtil.expandAll(tree, true);
+            //TreeUtil.expandAll(tree, true);
             ((TreeCellRendererHierarchicalKeywords) r).setKeywords(keywords);
             tree.repaint();
         }

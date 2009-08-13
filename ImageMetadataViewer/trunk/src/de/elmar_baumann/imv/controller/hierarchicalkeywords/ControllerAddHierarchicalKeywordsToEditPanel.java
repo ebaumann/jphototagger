@@ -7,9 +7,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,7 +16,6 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
 
 /**
  * Listens to the menu item
@@ -32,42 +29,24 @@ import javax.swing.tree.TreePath;
  * @version 2009-07-15
  */
 public class ControllerAddHierarchicalKeywordsToEditPanel
+        extends ControllerHierarchicalKeywords
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel panelKeywords;
-
     public ControllerAddHierarchicalKeywordsToEditPanel(
-            HierarchicalKeywordsPanel panelKeywords) {
-        this.panelKeywords = panelKeywords;
-        listen();
-    }
-
-    private void listen() {
-        // Listening to singleton popup menu via ActionListenerFactory#
-        // listenToPopupMenuHierarchicalKeywords()
-        panelKeywords.getTree().addKeyListener(this);
+            HierarchicalKeywordsPanel panel) {
+        super(panel);
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_B)) {
-            addToEditPanel();
-        }
+    protected boolean myKey(KeyEvent e) {
+        return KeyEventUtil.isControl(e, KeyEvent.VK_B);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        addToEditPanel();
-    }
-
-    private void addToEditPanel() {
-        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        Object node = path.getLastPathComponent();
-        if (node instanceof DefaultMutableTreeNode) {
-            List<String> keywordNames = new ArrayList<String>();
-            addParentKeywords((DefaultMutableTreeNode) node, keywordNames);
-            addToEditPanel(keywordNames);
-        }
+    protected void localAction(DefaultMutableTreeNode node) {
+        List<String> keywordNames = new ArrayList<String>();
+        addParentKeywords(node, keywordNames);
+        addToEditPanel(keywordNames);
     }
 
     private void addToEditPanel(List<String> keywordNames) {
@@ -83,11 +62,11 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
                     editPanel.addText(keywordName);
                 }
             } else {
-                MessageDisplayer.error(panelKeywords.getTree(),
+                MessageDisplayer.error(getHKPanel().getTree(),
                         "ControllerAddHierarchicalKeywordsToEditPanel.Error.EditDisabled"); // NOI18N
             }
         } else {
-            MessageDisplayer.error(panelKeywords.getTree(),
+            MessageDisplayer.error(getHKPanel().getTree(),
                     "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoEditPanel"); // NOI18N
         }
     }
@@ -104,7 +83,7 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
         }
         TreeNode parent = node.getParent();
         if (parent == null ||
-                panelKeywords.getTree().getModel().getRoot().equals(parent)) {
+                getHKPanel().getTree().getModel().getRoot().equals(parent)) {
             return;
         }
         assert parent instanceof DefaultMutableTreeNode :
@@ -112,15 +91,5 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
         if (parent instanceof DefaultMutableTreeNode) {
             addParentKeywords((DefaultMutableTreeNode) parent, keywords);
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
     }
 }

@@ -6,16 +6,13 @@ import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
 
 /**
  * Listens to the menu item {@link HierarchicalKeywordsPanel#getMenuItemAdd()}
@@ -28,49 +25,30 @@ import javax.swing.tree.TreePath;
  * @version 2009-07-12
  */
 public class ControllerAddHierarchicalKeyword
+        extends ControllerHierarchicalKeywords
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel panel;
-
     public ControllerAddHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
-        panel = _panel;
-        listen();
-    }
-
-    private void listen() {
-        // Listening to singleton popup menu via ActionListenerFactory#
-        // listenToPopupMenuHierarchicalKeywords()
-        panel.getTree().addKeyListener(this);
+        super(_panel);
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_N)) {
-            add();
-        }
+    protected boolean myKey(KeyEvent e) {
+        return KeyEventUtil.isControl(e, KeyEvent.VK_N);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        add();
-    }
-
-    private void add() {
-        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        Object node = path.getLastPathComponent();
-        if (node instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) node;
-            Object userObject = treeNode.getUserObject();
-            if (userObject instanceof HierarchicalKeyword) {
-                add(treeNode, (HierarchicalKeyword) userObject);
-            } else if (isRootNode(node)) {
-                add(treeNode, null);
-            }
+    protected void localAction(DefaultMutableTreeNode node) {
+        Object userObject = node.getUserObject();
+        if (userObject instanceof HierarchicalKeyword) {
+            add(node, (HierarchicalKeyword) userObject);
+        } else if (isRootNode(node)) {
+            add(node, null);
         }
     }
 
     private boolean isRootNode(Object node) {
-        return panel.getTree().getModel().getRoot().equals(node);
+        return getHKPanel().getTree().getModel().getRoot().equals(node);
     }
 
     private void add(
@@ -82,7 +60,7 @@ public class ControllerAddHierarchicalKeyword
                       : parentKeyword.getId(),
                 Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"), // NOI18N
                 true);
-        JTree tree = panel.getTree();
+        JTree tree = getHKPanel().getTree();
         String name = ControllerRenameHierarchicalKeyword.getName(
                 newKeyword, DatabaseHierarchicalKeywords.INSTANCE, tree);
         if (name != null && !name.trim().isEmpty()) {
@@ -95,15 +73,5 @@ public class ControllerAddHierarchicalKeyword
                         "ControllerAddHierarchicalKeyword.Error.Model"); // NOI18N
             }
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
     }
 }

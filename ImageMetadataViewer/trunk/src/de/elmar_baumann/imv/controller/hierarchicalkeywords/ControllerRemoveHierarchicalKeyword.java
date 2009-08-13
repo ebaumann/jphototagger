@@ -5,14 +5,11 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
 
 /**
  * Listens to the menu item {@link HierarchicalKeywordsPanel#getMenuItemRemove()}
@@ -25,55 +22,36 @@ import javax.swing.tree.TreePath;
  * @version 2009-07-12
  */
 public class ControllerRemoveHierarchicalKeyword
+        extends ControllerHierarchicalKeywords
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel panel;
-
     public ControllerRemoveHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
-        panel = _panel;
-        listen();
-    }
-
-    private void listen() {
-        // Listening to singleton popup menu via ActionListenerFactory#
-        // listenToPopupMenuHierarchicalKeywords()
-        panel.getTree().addKeyListener(this);
+        super(_panel);
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DELETE) {
-            delete();
-        }
+    protected boolean myKey(KeyEvent e) {
+        return e.getKeyCode() == KeyEvent.VK_DELETE;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        delete();
-    }
-
-    private void delete() {
-        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        Object node = path.getLastPathComponent();
-        if (node instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) node;
-            Object userObject = treeNode.getUserObject();
-            if (userObject instanceof HierarchicalKeyword) {
-                delete(treeNode, (HierarchicalKeyword) userObject);
-            } else {
-                MessageDisplayer.error(panel.getTree(),
-                        "ControllerDeleteHierarchicalKeyword.Error.Node", // NOI18N
-                        node);
-            }
+    protected void localAction(DefaultMutableTreeNode node) {
+        Object userObject = node.getUserObject();
+        if (userObject instanceof HierarchicalKeyword) {
+            delete(node, (HierarchicalKeyword) userObject);
+        } else {
+            MessageDisplayer.error(getHKPanel().getTree(),
+                    "ControllerDeleteHierarchicalKeyword.Error.Node", // NOI18N
+                    node);
         }
     }
 
     private void delete(
             DefaultMutableTreeNode node, HierarchicalKeyword keyword) {
-        TreeModel tm = panel.getTree().getModel();
+        TreeModel tm = getHKPanel().getTree().getModel();
         if (tm instanceof TreeModelHierarchicalKeywords) {
             if (MessageDisplayer.confirm(
-                    panel,
+                    getHKPanel(),
                     "ControllerDeleteHierarchicalKeyword.Confirm.Delete", // NOI18N
                     MessageDisplayer.CancelButton.HIDE, keyword).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
@@ -83,15 +61,5 @@ public class ControllerRemoveHierarchicalKeyword
             AppLog.logWarning(ControllerRemoveHierarchicalKeyword.class,
                     "ControllerDeleteHierarchicalKeyword.Error.Model"); // NOI18N
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
     }
 }

@@ -7,15 +7,12 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
-import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 /**
  * Listens to the menu item
@@ -29,42 +26,24 @@ import javax.swing.tree.TreePath;
  * @version 2009-07-26
  */
 public class ControllerRemoveHierarchicalKeywordFromEditPanel
+        extends ControllerHierarchicalKeywords
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel panelKeywords;
-
     public ControllerRemoveHierarchicalKeywordFromEditPanel(
-            HierarchicalKeywordsPanel panelKeywords) {
-        this.panelKeywords = panelKeywords;
-        listen();
-    }
-
-    private void listen() {
-        // Listening to singleton popup menu via ActionListenerFactory#
-        // listenToPopupMenuHierarchicalKeywords()
-        panelKeywords.getTree().addKeyListener(this);
+            HierarchicalKeywordsPanel _panel) {
+        super(_panel);
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_BACK_SPACE)) {
-            removeFromEditPanel();
-        }
+    protected boolean myKey(KeyEvent e) {
+        return e.getKeyCode() == KeyEvent.VK_BACK_SPACE;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        removeFromEditPanel();
-    }
-
-    private void removeFromEditPanel() {
-        TreePath path = PopupMenuHierarchicalKeywords.INSTANCE.getTreePath();
-        Object node = path.getLastPathComponent();
-        if (node instanceof DefaultMutableTreeNode) {
-            String keyword = getKeyword((DefaultMutableTreeNode) node);
-            if (keyword != null) {
-                removeFromEditPanel(keyword);
-            }
+    protected void localAction(DefaultMutableTreeNode node) {
+        String keyword = getKeyword(node);
+        if (keyword != null) {
+            removeFromEditPanel(keyword);
         }
     }
 
@@ -79,11 +58,11 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
             } else {
-                MessageDisplayer.error(panelKeywords.getTree(),
+                MessageDisplayer.error(getHKPanel().getTree(),
                         "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.EditDisabled"); // NOI18N
             }
         } else {
-            MessageDisplayer.error(panelKeywords.getTree(),
+            MessageDisplayer.error(getHKPanel().getTree(),
                     "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.NoEditPanel"); // NOI18N
         }
     }
@@ -97,15 +76,5 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
             }
         }
         return null;
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
     }
 }
