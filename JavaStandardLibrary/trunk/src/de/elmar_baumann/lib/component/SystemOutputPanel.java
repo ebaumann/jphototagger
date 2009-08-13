@@ -1,5 +1,7 @@
 package de.elmar_baumann.lib.component;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -39,6 +41,15 @@ public class SystemOutputPanel extends JPanel {
         if (!capture) {
             redirectSystemStreams();
         }
+    }
+
+    private void copyToClipboard() {
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
+                new StringSelection(textArea.getText()), null);
+    }
+
+    private void deleteText() {
+        textArea.setText("");
     }
 
     private void updateTextArea(final String text) {
@@ -90,6 +101,8 @@ public class SystemOutputPanel extends JPanel {
 
         scrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
+        buttonDelete = new javax.swing.JButton();
+        buttonCopyToClipboard = new javax.swing.JButton();
 
         textArea.setColumns(1);
         textArea.setEditable(false);
@@ -100,18 +113,54 @@ public class SystemOutputPanel extends JPanel {
         textArea.setWrapStyleWord(true);
         scrollPane.setViewportView(textArea);
 
+        buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setToolTipText(bundle.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
+
+        buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
+        buttonCopyToClipboard.setToolTipText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
+        buttonCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCopyToClipboardActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(buttonDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonCopyToClipboard))
             .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonCopyToClipboard)
+                    .addComponent(buttonDelete)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonCopyToClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyToClipboardActionPerformed
+        copyToClipboard();
+    }//GEN-LAST:event_buttonCopyToClipboardActionPerformed
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        deleteText();
+    }//GEN-LAST:event_buttonDeleteActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCopyToClipboard;
+    private javax.swing.JButton buttonDelete;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
