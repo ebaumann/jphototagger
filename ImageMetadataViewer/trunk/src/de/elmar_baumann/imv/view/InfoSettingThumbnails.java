@@ -11,27 +11,44 @@ import de.elmar_baumann.lib.dialog.ProgressDialog;
  */
 public final class InfoSettingThumbnails {
 
-    private final ProgressDialog dlg = new ProgressDialog(null);
+    private final DialogDisplayer dlgDisplayer = new DialogDisplayer();
 
     /**
      * Shows the information.
      */
     public InfoSettingThumbnails() {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                dlg.setIndeterminate(true);
-                dlg.setInfoText(Bundle.getString("InfoSettingThumbnails.Info"));
-                dlg.setVisible(true);
-            }
-        }).start();
+        dlgDisplayer.start();
     }
 
     /**
      * Hides the information.
      */
     public void hide() {
-        dlg.setVisible(false);
+        dlgDisplayer.hide();
+    }
+
+    private class DialogDisplayer extends Thread {
+
+        private final ProgressDialog dlg = new ProgressDialog(null);
+        private boolean show = true;
+
+        @Override
+        public void run() {
+            synchronized (dlg) {
+                if (show) {
+                    dlg.setIndeterminate(true);
+                    dlg.setInfoText(
+                            Bundle.getString("InfoSettingThumbnails.Info"));
+                    dlg.setVisible(true);
+                }
+            }
+        }
+
+        public void hide() {
+            synchronized (dlg) {
+                show = false;
+                dlg.setVisible(false);
+            }
+        }
     }
 }
