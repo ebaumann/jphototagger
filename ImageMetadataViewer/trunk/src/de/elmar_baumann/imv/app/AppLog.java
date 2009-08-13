@@ -81,7 +81,7 @@ public final class AppLog {
      * @param params    optional params for the message string
      */
     public static void logWarning(Class c, String bundleKey, Object... params) {
-        log(c, Level.WARNING, Bundle.getString(bundleKey, params));
+        log(c, Level.WARNING, bundleKey, params);
         ErrorListeners.INSTANCE.notifyErrorListener(new ErrorEvent(bundleKey, c));
     }
 
