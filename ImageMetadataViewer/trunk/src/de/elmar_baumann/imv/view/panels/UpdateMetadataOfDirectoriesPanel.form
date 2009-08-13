@@ -34,7 +34,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoCurrentFilename" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelCurrentFilename" pref="402" max="32767" attributes="0"/>
+                      <Component id="labelCurrentFilename" pref="424" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoFilecount" min="-2" max="-2" attributes="0"/>

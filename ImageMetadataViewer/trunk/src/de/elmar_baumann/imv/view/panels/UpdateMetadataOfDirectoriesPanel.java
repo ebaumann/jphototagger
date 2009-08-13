@@ -111,11 +111,11 @@ public final class UpdateMetadataOfDirectoriesPanel
 
     private EnumSet<InsertImageFilesIntoDatabase.Insert> getWhatToInsertIntoDatabase() {
         return checkBoxForce.isSelected()
-               ? EnumSet.of(
+                ? EnumSet.of(
                 InsertImageFilesIntoDatabase.Insert.EXIF,
                 InsertImageFilesIntoDatabase.Insert.THUMBNAIL,
                 InsertImageFilesIntoDatabase.Insert.XMP)
-               : EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
+                : EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
     }
 
     private void stopUpdate() {
@@ -206,10 +206,9 @@ public final class UpdateMetadataOfDirectoriesPanel
                 null, lastDirectory, getDirectoryChooserOptions());
         dialog.setVisible(true);
         if (dialog.accepted()) {
-            progressBar.setIndeterminate(true);
             List<File> selDirs = dialog.getSelectedDirectories();
             lastDirectory = selDirs.get(0);
-            new AddDirectories(selDirs).start(); // unsets the progressbar indeterminate state
+            addNotContainedDirectories(selDirs);
         }
     }
 
@@ -220,70 +219,49 @@ public final class UpdateMetadataOfDirectoriesPanel
                 : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
-    /**
-     * Adds directories to the list of selected directories. It's a thread so
-     * that the progress bar can display an indeterminate state while searching
-     * the image files of that directories. When finished, this class sets the
-     * indeterminate state to false and enables the start button.
-     */
-    private class AddDirectories extends Thread {
+    private void addNotContainedDirectories(List<File> directories) {
+        List<File> newDirectories =
+                getNotDirectoriesNotInListFrom(directories);
+        ArrayUtil.addNotContainedElements(directories, newDirectories);
+        addDirectories(newDirectories);
+        labelFilecount.setText(Integer.toString(getFileCount()));
+        buttonStart.setEnabled(listModelDirectories.getSize() > 0);
+    }
 
-        private final List<File> directories;
-
-        public AddDirectories(List<File> directories) {
-            this.directories = new ArrayList<File>(directories);
-            setName("Searching new image files @ " + getClass().getName()); // NOI18N
-        }
-
-        @Override
-        public void run() {
-            progressBar.setString(Bundle.getString(
-                    "UpdateMetadataOfDirectoriesPanel.Info.AddDirectories")); // NOI18N
-            List<File> newDirectories =
-                    getNotDirectoriesNotInListFrom(directories);
-            ArrayUtil.addNotContainedElements(directories, newDirectories);
-            addDirectories(newDirectories);
-            labelFilecount.setText(Integer.toString(getFileCount()));
-            progressBar.setString(""); // NOI18N
-            progressBar.setIndeterminate(false);
-            buttonStart.setEnabled(listModelDirectories.getSize() > 0);
-        }
-
-        private List<File> getNotDirectoriesNotInListFrom(List<File> directories) {
-            List<File> newDirectories = new ArrayList<File>();
-            for (File directory : directories) {
-                if (!listModelDirectories.contains(directory)) {
-                    newDirectories.add(directory);
-                }
-            }
-            return newDirectories;
-        }
-
-        private void addDirectories(List<File> directories) {
-            if (checkBoxIncludeSubdirectories.isSelected()) {
-                addSubdirectories(directories);
-            }
-            Collections.sort(directories,
-                    ComparatorFilesNames.ASCENDING_IGNORE_CASE);
-            for (File directory : directories) {
-                DirectoryInfo directoryInfo = new DirectoryInfo(directory);
-                if (directoryInfo.hasImageFiles() &&
-                        !listModelDirectories.contains(directoryInfo)) {
-                    listModelDirectories.addElement(directoryInfo);
-                }
+    private List<File> getNotDirectoriesNotInListFrom(List<File> directories) {
+        List<File> newDirectories = new ArrayList<File>();
+        for (File directory : directories) {
+            if (!listModelDirectories.contains(directory)) {
+                newDirectories.add(directory);
             }
         }
+        return newDirectories;
+    }
 
-        private void addSubdirectories(List<File> directories) {
-            List<File> subdirectories = new ArrayList<File>();
-            for (File dir : directories) {
-                subdirectories.addAll(
-                        FileUtil.getSubdirectoriesRecursive(
-                        dir,
-                        UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
-            }
-            ArrayUtil.addNotContainedElements(subdirectories, directories);
+    private void addDirectories(List<File> directories) {
+        if (checkBoxIncludeSubdirectories.isSelected()) {
+            addSubdirectories(directories);
         }
+        Collections.sort(directories,
+                ComparatorFilesNames.ASCENDING_IGNORE_CASE);
+        for (File directory : directories) {
+            DirectoryInfo directoryInfo = new DirectoryInfo(directory);
+            if (directoryInfo.hasImageFiles() &&
+                    !listModelDirectories.contains(directoryInfo)) {
+                listModelDirectories.addElement(directoryInfo);
+            }
+        }
+    }
+
+    private void addSubdirectories(List<File> directories) {
+        List<File> subdirectories = new ArrayList<File>();
+        for (File dir : directories) {
+            subdirectories.addAll(
+                    FileUtil.getSubdirectoriesRecursive(
+                    dir,
+                    UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+        }
+        ArrayUtil.addNotContainedElements(subdirectories, directories);
     }
 
     /** This method is called from within the constructor to
