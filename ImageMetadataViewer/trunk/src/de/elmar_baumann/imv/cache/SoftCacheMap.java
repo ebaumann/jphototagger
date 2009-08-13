@@ -10,6 +10,7 @@ import java.util.TreeSet;
 
 /**
  *
+ * @param <C> 
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */

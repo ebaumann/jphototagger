@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.cache.PersistentThumbnails;
 import de.elmar_baumann.imv.data.Iptc;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabaseActionsAfterDbInsertion;
@@ -208,7 +209,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private boolean existsThumbnail(String filename) {
-        return ThumbnailUtil.getThumbnailFileOfImageFile(filename).exists();
+        return PersistentThumbnails.getThumbnailFileOfImageFile(filename).exists();
     }
 
     private boolean isUpdateExif(String filename) {

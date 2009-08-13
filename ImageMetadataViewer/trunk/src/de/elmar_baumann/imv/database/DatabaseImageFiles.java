@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.database;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.cache.PersistentThumbnails;
 import de.elmar_baumann.imv.data.Exif;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Timeline;
@@ -70,7 +71,7 @@ public final class DatabaseImageFiles extends Database {
             AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
                     stmt.toString());
             count = stmt.executeUpdate();
-            ThumbnailUtil.updateThumbnailName(oldFilename, newFilename);
+            PersistentThumbnails.updateThumbnailName(oldFilename, newFilename);
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -156,7 +157,7 @@ public final class DatabaseImageFiles extends Database {
             preparedStatement.executeUpdate();
             long idFile = getIdFile(connection, filename);
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnailFile(ThumbnailUtil.getMd5File(filename),
+                updateThumbnailFile(PersistentThumbnails.getMd5File(filename),
                         imageFile.getThumbnail());
             }
             if (imageFile.isInsertXmpIntoDb()) {
@@ -190,8 +191,8 @@ public final class DatabaseImageFiles extends Database {
         imageFile.setExif(getExifOfFile(filename));
         imageFile.setFilename(filename);
         imageFile.setLastmodified(getLastModifiedImageFile(filename));
-        imageFile.setThumbnail(
-                ThumbnailUtil.getThumbnail(ThumbnailUtil.getMd5File(filename)));
+        imageFile.setThumbnail(PersistentThumbnails.getThumbnail(
+                PersistentThumbnails.getMd5File(filename)));
         imageFile.setXmp(getXmpOfFile(filename));
         return imageFile;
     }
@@ -239,7 +240,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.executeUpdate();
             stmt.close();
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnailFile(ThumbnailUtil.getMd5File(filename),
+                updateThumbnailFile(PersistentThumbnails.getMd5File(filename),
                         imageFile.getThumbnail());
             }
             if (imageFile.isInsertXmpIntoDb()) {
@@ -285,7 +286,7 @@ public final class DatabaseImageFiles extends Database {
             notifyProgressListenerStart(listener, event);
             while (!event.isStop() && rs.next()) {
                 String filename = rs.getString(1);
-                updateThumbnailFile(ThumbnailUtil.getMd5File(filename),
+                updateThumbnailFile(PersistentThumbnails.getMd5File(filename),
                         getThumbnailFromFile(filename));
                 updated++;
                 event.setValue(++count);
@@ -328,7 +329,8 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            updateThumbnailFile(ThumbnailUtil.getMd5File(filename), thumbnail);
+            updateThumbnailFile(PersistentThumbnails.getMd5File(filename),
+                    thumbnail);
             return true;
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -340,7 +342,7 @@ public final class DatabaseImageFiles extends Database {
 
     private void updateThumbnailFile(String hash, Image thumbnail) {
         if (thumbnail != null) {
-            ThumbnailUtil.writeThumbnail(thumbnail, hash);
+            PersistentThumbnails.writeThumbnail(thumbnail, hash);
         }
     }
 
@@ -428,8 +430,8 @@ public final class DatabaseImageFiles extends Database {
                 int countAffectedRows = stmt.executeUpdate();
                 countDeleted += countAffectedRows;
                 if (countAffectedRows > 0) {
-                    ThumbnailUtil.deleteThumbnail(
-                            ThumbnailUtil.getMd5File(filename));
+                    PersistentThumbnails.deleteThumbnail(
+                            PersistentThumbnails.getMd5File(filename));
                     notifyDatabaseListener(
                             DatabaseImageEvent.Type.IMAGEFILE_DELETED,
                             oldImageFile, oldImageFile);
@@ -482,8 +484,8 @@ public final class DatabaseImageFiles extends Database {
                             deleteRowWithFilename(connection, filename);
                     countDeleted += deletedRows;
                     if (deletedRows > 0) {
-                        ThumbnailUtil.deleteThumbnail(
-                                ThumbnailUtil.getMd5File(file));  // new type
+                        PersistentThumbnails.deleteThumbnail(
+                                PersistentThumbnails.getMd5File(file));
                         ImageFile imageFile = new ImageFile();
                         imageFile.setFilename(filename);
                         notifyDatabaseListener(

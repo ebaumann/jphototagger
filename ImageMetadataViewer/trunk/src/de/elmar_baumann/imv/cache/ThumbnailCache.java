@@ -1,7 +1,5 @@
 package de.elmar_baumann.imv.cache;
 
-import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.image.util.IconUtil;
@@ -18,6 +16,7 @@ import javax.swing.SwingUtilities;
  * @version 2009-07-18
  */
 public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
+
     private Image dummyThumbnail = IconUtil.getIconImage(
             Bundle.getString("ThumbnailCache.Path.DummyThumbnail"));
     private Image dummyThumbnailScaled = null;
@@ -26,7 +25,6 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
 
     private static class ThumbnailFetcher implements Runnable {
 
-        private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         private WorkQueue wq;
         private final ThumbnailCache cache;
 
@@ -41,8 +39,9 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                 File file = null;
                 try {
                     file = wq.fetch();
-                    Image image = ThumbnailUtil.getThumbnail(
-                            ThumbnailUtil.getMd5File(file.getAbsolutePath()));
+                    Image image = PersistentThumbnails.getThumbnail(
+                            PersistentThumbnails.getMd5File(
+                            file.getAbsolutePath()));
                     if (image == null) {  // no image available from db
                         image = cache.noPreviewThumbnail;
                     }
@@ -80,7 +79,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
     }
 
     public synchronized void update(Image image, final File file) {
-        if (! fileCache.containsKey(file)) {
+        if (!fileCache.containsKey(file)) {
             return;  // stale entry
         }
         ThumbnailCacheIndirection ci = fileCache.get(file);
@@ -102,7 +101,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
     }
 
     public synchronized Image getThumbnail(File file) {
-        if (! fileCache.containsKey(file)) {
+        if (!fileCache.containsKey(file)) {
             generateEntry(file, false);
         }
         ThumbnailCacheIndirection ci = fileCache.get(file);
@@ -120,7 +119,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
 
     public synchronized Image getScaledThumbnail(File file, int length) {
         boolean generated = false;
-        if (! fileCache.containsKey(file)) {
+        if (!fileCache.containsKey(file)) {
             generateEntry(file, false);
             generated = true;
         }
@@ -128,11 +127,11 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
         updateUsageTime(ci);
 
         if (ci.thumbnail == null) {
-            if (! generated) {
+            if (!generated) {
                 workQueue.push(file);  // push to front again, is current
             }
             if (dummyThumbnailScaled == null ||
-                ! correctlyScaled(dummyThumbnailScaled, length)) {
+                    !correctlyScaled(dummyThumbnailScaled, length)) {
                 dummyThumbnailScaled = computeScaled(dummyThumbnail, length);
             }
             return dummyThumbnailScaled;

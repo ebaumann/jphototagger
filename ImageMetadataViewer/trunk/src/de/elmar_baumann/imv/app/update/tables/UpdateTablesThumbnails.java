@@ -2,9 +2,9 @@ package de.elmar_baumann.imv.app.update.tables;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.cache.PersistentThumbnails;
 import de.elmar_baumann.imv.database.Database;
 import de.elmar_baumann.imv.database.DatabaseMaintainance;
-import de.elmar_baumann.imv.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
@@ -120,7 +120,7 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(ThumbnailUtil.class, ex);
+            AppLog.logSevere(UpdateTablesThumbnails.class, ex);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, UpdateTablesThumbnails.class);
             closeStream(fos);
@@ -132,7 +132,7 @@ final class UpdateTablesThumbnails extends Database {
             try {
                 fis.close();
             } catch (Exception ex) {
-                AppLog.logSevere(ThumbnailUtil.class, ex);
+                AppLog.logSevere(UpdateTablesThumbnails.class, ex);
             }
         }
     }
@@ -159,7 +159,7 @@ final class UpdateTablesThumbnails extends Database {
                     if (rs.next()) {
                         String filename = rs.getString(1);
                         convertThumbnailName(
-                                id, ThumbnailUtil.getMd5File(filename));
+                                id, PersistentThumbnails.getMd5File(filename));
                     } else {
                         file.delete(); // orphaned thumbnail
                     }
@@ -189,7 +189,7 @@ final class UpdateTablesThumbnails extends Database {
 
     private static void convertThumbnailName(long oldId, String newHash) {
         File oldFile = getThumbnailfile(oldId);
-        File newFile = ThumbnailUtil.getThumbnailfile(newHash);
+        File newFile = PersistentThumbnails.getThumbnailfile(newHash);
         if (newFile.exists()) {
             oldFile.delete();
         } else {
