@@ -1,8 +1,7 @@
 package de.elmar_baumann.imv.view;
 
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.panels.ProgressBarAutomaticTasks;
-import javax.swing.JProgressBar;
+import de.elmar_baumann.lib.dialog.ProgressDialog;
 
 /**
  * Shows an information: Setting thumbnails.
@@ -12,30 +11,27 @@ import javax.swing.JProgressBar;
  */
 public final class InfoSettingThumbnails {
 
-    private final ProgressBarAutomaticTasks progressBarProvider =
-            ProgressBarAutomaticTasks.INSTANCE;
-    private final JProgressBar progressBar;
+    private final ProgressDialog dlg = new ProgressDialog(null);
 
     /**
      * Shows the information.
      */
     public InfoSettingThumbnails() {
-        progressBar = progressBarProvider.getResource(this);
-        if (progressBar != null) {
-            progressBar.setStringPainted(true);
-            progressBar.setString(Bundle.getString("InfoSettingThumbnails.Text")); // NOI18N
-            progressBar.setIndeterminate(true);
-        }
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                dlg.setIndeterminate(true);
+                dlg.setInfoText(Bundle.getString("InfoSettingThumbnails.Info"));
+                dlg.setVisible(true);
+            }
+        }).start();
     }
 
     /**
      * Hides the information.
      */
     public void hide() {
-        if (progressBar != null) {
-            progressBar.setIndeterminate(false);
-            progressBar.setStringPainted(false);
-            progressBarProvider.releaseResource(this);
-        }
+        dlg.setVisible(false);
     }
 }
