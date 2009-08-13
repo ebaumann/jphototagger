@@ -67,8 +67,8 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
     private void addChildren(DefaultMutableTreeNode parentNode) {
         Object parentUserObject = parentNode.getUserObject();
         File dir = parentUserObject instanceof File
-                   ? (File) parentUserObject
-                   : null;
+                ? (File) parentUserObject
+                : null;
         if (dir == null || !dir.isDirectory()) return;
         File[] subdirs = dir.listFiles(directoryFilter);
         if (subdirs == null) return;
@@ -125,8 +125,8 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
      */
     public void createNewDirectory(DefaultMutableTreeNode parentNode) {
         File dirOfParentNode = parentNode == null
-                               ? null
-                               : TreeFileSystemDirectories.getFile(parentNode);
+                ? null
+                : TreeFileSystemDirectories.getFile(parentNode);
         if (dirOfParentNode != null) {
             File newDir =
                     TreeFileSystemDirectories.createSubDirectory(dirOfParentNode);
@@ -157,13 +157,16 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
                 addChildren(node);
             }
         }
-        if (node != null) {
-            tree.expandPath(new TreePath(((DefaultMutableTreeNode) node.
-                    getParent()).getPath()));
-            if (select) {
-                TreePath path = new TreePath(node.getPath());
-                tree.setSelectionPath(path);
-                tree.scrollPathToVisible(path);
+        if (node != null && node.getParent() != null) {
+            DefaultMutableTreeNode parent =
+                    (DefaultMutableTreeNode) node.getParent();
+            if (parent.getPath() != null) {
+                tree.expandPath(new TreePath(parent.getPath()));
+                if (select) {
+                    TreePath path = new TreePath(node.getPath());
+                    tree.setSelectionPath(path);
+                    tree.scrollPathToVisible(path);
+                }
             }
         }
     }
