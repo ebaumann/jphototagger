@@ -79,7 +79,6 @@ public final class ControllerPasteFilesFromClipboard
                 TransferHandlerTreeDirectories.handleDroppedFiles(
                         getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();
-                thumbnailsPanel.refresh();
             }
 
             public int getEstimatedTransferHandlerAction() {
