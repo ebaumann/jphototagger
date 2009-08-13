@@ -157,6 +157,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     public void run() {
         int count = filenames.size();
         updateStarted(count); // NOI18N
+        int checkCount = 0;
         for (int index = 0; !isInterrupted() && !cancelled && index < count;
                 index++) {
             String filename = filenames.get(index);
@@ -170,9 +171,10 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                 db.insertOrUpdateImageFile(imageFile);
                 runActionsAfterInserting(imageFile);
             }
+            checkCount++;
         }
         currentFilename = null;
-        updateFinished(count);
+        updateFinished(checkCount);
     }
 
     private boolean isUpdate(ImageFile imageFile) {
