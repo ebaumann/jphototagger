@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
 import java.util.ArrayList;
@@ -66,10 +65,8 @@ public final class ControllerMiscMetadataItemSelected implements
 
         @Override
         public void run() {
-            InfoSettingThumbnails info = new InfoSettingThumbnails();
             Object lastPathComponent = treePath.getLastPathComponent();
             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
-            info.hide();
         }
 
         private void setFilesOfPossibleNodeToThumbnailsPanel(

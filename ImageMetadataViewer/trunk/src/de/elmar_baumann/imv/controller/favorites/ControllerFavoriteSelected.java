@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import java.io.File;
@@ -70,11 +69,9 @@ public final class ControllerFavoriteSelected implements
 
         @Override
         public void run() {
-            InfoSettingThumbnails info = new InfoSettingThumbnails();
             List<File> files = getFilesOfCurrentDirectory();
             thumbnailsPanel.setFiles(files, Content.FAVORITE);
             setMetadataEditable();
-            info.hide();
         }
 
         private List<File> getFilesOfCurrentDirectory() {

@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -64,7 +63,6 @@ public final class ControllerImageCollectionSelected implements
 
             @Override
             public void run() {
-                InfoSettingThumbnails info = new InfoSettingThumbnails();
                 Object selectedValue = list.getSelectedValue();
                 if (selectedValue != null) {
                     showImageCollection(selectedValue.toString());
@@ -73,7 +71,6 @@ public final class ControllerImageCollectionSelected implements
                             "ControllerImageCollectionSelected.Error.SelectedValueIsNull"); // NOI18N
                 }
                 setMetadataEditable();
-                info.hide();
             }
         });
         thread.setName("Image collection selected" + " @ " + // NOI18N

@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.Set;
@@ -60,13 +59,11 @@ public final class ControllerCategoryItemSelected implements
             @Override
             public void run() {
                 if (listCategories.getSelectedIndex() >= 0) {
-                    InfoSettingThumbnails info = new InfoSettingThumbnails();
                     String category = (String) listCategories.getSelectedValue();
                     Set<String> filenames = db.getFilenamesOfCategory(category);
 
                     thumbnailsPanel.setFiles(
                             FileUtil.getAsFiles(filenames), Content.CATEGORY);
-                    info.hide();
                 }
             }
         });

@@ -5,7 +5,6 @@ import de.elmar_baumann.imv.io.ImageFilteredDirectory;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
-import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
@@ -68,7 +67,6 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
         @Override
         public void run() {
             if (treeDirectories.getSelectionCount() > 0) {
-                InfoSettingThumbnails info = new InfoSettingThumbnails();
                 File selectedDirectory =
                         new File(getDirectorynameFromTree());
                 imageFilteredDirectory.setDirectory(selectedDirectory);
@@ -77,7 +75,6 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
                 thumbnailsPanel.setFiles(files,
                         Content.DIRECTORY);
                 setMetadataEditable();
-                info.hide();
             }
         }
 

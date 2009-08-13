@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.InfoSettingThumbnails;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
@@ -63,10 +62,8 @@ public final class ControllerKeywordItemSelected implements
 
         @Override
         public void run() {
-            InfoSettingThumbnails info = new InfoSettingThumbnails();
             setFilesToThumbnailsPanel();
             setMetadataEditable();
-            info.hide();
         }
 
         private void setFilesToThumbnailsPanel() {
