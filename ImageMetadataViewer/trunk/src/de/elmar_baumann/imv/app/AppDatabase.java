@@ -11,9 +11,15 @@ import de.elmar_baumann.imv.resource.Bundle;
  */
 public final class AppDatabase {
 
-    public static void init() {
-        informationMessageInitDatabase();
-        DatabaseTables.INSTANCE.createTables();
+    private static boolean init;
+
+    public synchronized static void init() {
+        assert !init;
+        if (!init) {
+            init = true;
+            informationMessageInitDatabase();
+            DatabaseTables.INSTANCE.createTables();
+        }
     }
 
     private static void informationMessageInitDatabase() {
