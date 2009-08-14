@@ -2,9 +2,10 @@ package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
-import de.elmar_baumann.lib.util.ArrayUtil;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.io.File;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -22,13 +23,12 @@ import javax.swing.TransferHandler;
  */
 public abstract class TransferHandlerListsDropThumbnails extends TransferHandler {
 
-    static final String DELIMITER_FILENAMES =
-            TransferHandlerPanelThumbnails.DELIMITER;
     static final String DELIMITER_ITEMS = "\n"; // NOI18N
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor);
+        return TransferUtil.maybeContainFileData(
+                transferSupport.getTransferable());
     }
 
     @Override
@@ -48,12 +48,11 @@ public abstract class TransferHandlerListsDropThumbnails extends TransferHandler
         if (!transferSupport.isDrop()) {
             return false;
         }
-        String data = null;
+        List<File> files = null;
         try {
             Transferable transferable = transferSupport.getTransferable();
-            data =
-                    (String) transferable.getTransferData(
-                    DataFlavor.stringFlavor);
+            files = (List<File>) transferable.getTransferData(
+                    DataFlavor.javaFileListFlavor);
         } catch (Exception ex) {
             AppLog.logSevere(TransferHandlerListsDropThumbnails.class, ex);
             return false;
@@ -61,9 +60,7 @@ public abstract class TransferHandlerListsDropThumbnails extends TransferHandler
         int listIndex =
                 ((JList.DropLocation) transferSupport.getDropLocation()).
                 getIndex();
-        List<String> filenames = ArrayUtil.stringTokenToList(data,
-                DELIMITER_FILENAMES);
-        handleDroppedThumbnails(listIndex, filenames);
+        handleDroppedThumbnails(listIndex, FileUtil.getAsFilenames(files));
         return true;
     }
 

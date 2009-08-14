@@ -9,12 +9,16 @@ import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JMenuItem;
+import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.event.MenuEvent;
@@ -31,7 +35,8 @@ import javax.swing.event.MenuListener;
  * @version 2008-10-27
  */
 public final class ControllerPasteFilesFromClipboard
-        implements ActionListener, MenuListener, ThumbnailsPanelListener {
+        implements ActionListener, KeyListener, MenuListener,
+        ThumbnailsPanelListener {
 
     private final ImageFileThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
@@ -46,6 +51,29 @@ public final class ControllerPasteFilesFromClipboard
         menuItemPaste.addActionListener(this);
         thumbnailsPanel.addThumbnailsPanelListener(this);
         GUI.INSTANCE.getAppFrame().getMenuEdit().addMenuListener(this);
+        thumbnailsPanel.addKeyListener(this);
+        GUI.INSTANCE.getAppPanel().getTreeDirectories().addKeyListener(this);
+        GUI.INSTANCE.getAppPanel().getTreeFavorites().addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (menuItemPaste.isEnabled()) return;
+        if (KeyEventUtil.isControl(e, KeyEvent.VK_V) && canPasteFiles()) {
+            Object source = e.getSource();
+            if (source == thumbnailsPanel) {
+                insertFiles(getDirectory());
+            } else if (isTreeSelection(source)) {
+                insertFiles(ViewUtil.getSelectedFile((JTree) source));
+            }
+        }
+    }
+
+    private boolean isTreeSelection(Object source) {
+        if (source instanceof JTree) {
+            return ((JTree) source).getSelectionCount() > 0;
+        }
+        return false;
     }
 
     @Override
@@ -85,8 +113,8 @@ public final class ControllerPasteFilesFromClipboard
                 Integer action =
                         thumbnailsPanel.getFileAction().getTransferHandlerAction();
                 return action == null
-                       ? TransferHandler.COPY
-                       : action;
+                        ? TransferHandler.COPY
+                        : action;
             }
 
             private void emptyClipboard() {
@@ -122,6 +150,16 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void menuCanceled(MenuEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         // ignore
     }
 }

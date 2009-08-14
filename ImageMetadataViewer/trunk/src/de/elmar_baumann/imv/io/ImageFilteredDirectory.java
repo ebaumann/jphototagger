@@ -51,16 +51,6 @@ public final class ImageFilteredDirectory {
     }
 
     /**
-     * Returns wheter a file is an image file.
-     *
-     * @param  file file
-     * @return      true if the file is an image file
-     */
-    public static boolean isImageFile(File file) {
-        return AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS.accept(file);
-    }
-
-    /**
      * Liefert alle Bilddateien eines Verzeichnisses.
      * 
      * @param  directory  Verzeichnis

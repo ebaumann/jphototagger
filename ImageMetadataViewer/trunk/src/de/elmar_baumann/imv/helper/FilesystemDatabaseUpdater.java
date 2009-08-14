@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.listener.FileSystemActionListener;
-import de.elmar_baumann.imv.io.ImageFilteredDirectory;
+import de.elmar_baumann.imv.io.ImageUtil;
 import de.elmar_baumann.imv.tasks.UserTasks;
 import java.io.File;
 import java.util.Arrays;
@@ -47,7 +47,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
     @Override
     public void actionPerformed(FileSystemEvent action, File src, File target) {
 
-        if (!ImageFilteredDirectory.isImageFile(src)) return;
+        if (!ImageUtil.isImageFile(src)) return;
         if (action.equals(FileSystemEvent.COPY)) {
             insertFileIntoDatabase(target);
         } else if (action.equals(FileSystemEvent.DELETE)) {
