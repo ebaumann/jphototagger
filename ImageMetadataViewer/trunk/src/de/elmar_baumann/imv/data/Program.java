@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.data;
 
 import de.elmar_baumann.imv.database.DatabasePrograms;
+import de.elmar_baumann.imv.io.IoUtil;
 import java.io.File;
 
 /**
@@ -13,6 +14,7 @@ import java.io.File;
 public final class Program {
 
     private long id = Long.MIN_VALUE;
+    private static final String EMPTY = "";
     private boolean action = false;
     private File file;
     private String alias;
@@ -121,19 +123,26 @@ public final class Program {
     }
 
     public String getCommandlineParameters(
-        String filenames,
-        String additionalParameters, boolean additionalParametersBeforeFilenames) {
+            String filenames,
+            String additionalParameters,
+            boolean additionalParametersBeforeFilenames) {
+
+        String sep = IoUtil.getDefaultCommandLineSeparator();
 
         String parametersBefore = (parametersBeforeFilename == null
-            ? "" : parametersBeforeFilename) + // NOI18N
-            (additionalParametersBeforeFilenames
-            ? " " + additionalParameters : ""); // NOI18N
+                ? EMPTY
+                : parametersBeforeFilename) +
+                (additionalParametersBeforeFilenames
+                ? sep + additionalParameters
+                : EMPTY);
         String parametersAfter = (parametersAfterFilename == null
-            ? "" : parametersAfterFilename) + // NOI18N
-            (additionalParametersBeforeFilenames
-            ? "" : " " + additionalParameters); // NOI18N
+                ? EMPTY
+                : parametersAfterFilename) +
+                (additionalParametersBeforeFilenames
+                ? EMPTY
+                : sep + additionalParameters);
 
-        return parametersBefore + " " + filenames + " " + parametersAfter; // NOI18N
+        return parametersBefore + sep + filenames + sep + parametersAfter;
     }
 
     @Override

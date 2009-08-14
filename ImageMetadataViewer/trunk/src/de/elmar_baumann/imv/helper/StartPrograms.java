@@ -12,7 +12,6 @@ import de.elmar_baumann.lib.runtime.External;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
@@ -110,9 +109,10 @@ public final class StartPrograms {
         }
 
         private String getProcessAllCommand() {
-            return program.getFile().getAbsolutePath() + " " + // NOI18N
+            return IoUtil.quoteForCommandLine(program.getFile()) +
+                    IoUtil.getDefaultCommandLineSeparator() +
                     program.getCommandlineParameters(
-                    IoUtil.getQuotedForCommandline(imageFiles, ""), // NOI18N
+                    IoUtil.quoteForCommandLine(imageFiles),
                     getAdditionalParameters(
                     Bundle.getString("ProgramStarter.GetInput.Title"), 2), // NOI18N
                     dialog.isParametersBeforeFilename());
@@ -134,10 +134,10 @@ public final class StartPrograms {
         }
 
         private String getProcessSingleCommand(File file, int count) {
-            return program.getFile().getAbsolutePath() + " " + // NOI18N
+            return IoUtil.quoteForCommandLine(program.getFile()) +
+                    IoUtil.getDefaultCommandLineSeparator() +
                     program.getCommandlineParameters(
-                    IoUtil.getQuotedForCommandline(
-                    Collections.singletonList(file), ""), // NOI18N
+                    IoUtil.quoteForCommandLine(file),
                     getAdditionalParameters(file.getAbsolutePath(), count + 1),
                     dialog.isParametersBeforeFilename());
         }
@@ -167,8 +167,8 @@ public final class StartPrograms {
         private void checkLogErrors(Pair<byte[], byte[]> output) {
             byte[] stderr = output.getSecond();
             String message = (stderr == null
-                              ? "" // NOI18N
-                              : new String(stderr).trim()); // NOI18N
+                    ? "" // NOI18N
+                    : new String(stderr).trim()); // NOI18N
             if (!message.isEmpty()) {
                 AppLog.logWarning(
                         Execute.class, "ProgramStarter.Error.Program", message); // NOI18N

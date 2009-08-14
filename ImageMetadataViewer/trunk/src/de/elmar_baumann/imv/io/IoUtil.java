@@ -9,6 +9,7 @@ import de.elmar_baumann.lib.runtime.External;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,20 +21,26 @@ import java.util.List;
  */
 public final class IoUtil {
 
+    private static final String QUOTE = "\""; // NOI18N
+    private static final String SEPARATOR = " "; // NOI18N
+    private static final String EMPTY = ""; // NOI18N
+
     /**
      * Executes an application and desplays a message dialog on errors.
+     *
+     * Does <em>not</em> quote any of the parameters.
      * 
      * @param appPath   path to the external application
      * @param arguments arguments added to the path
      */
     public static void execute(String appPath, String arguments) {
         if (!appPath.isEmpty()) {
-            String separator = " "; // NOI18N
-            String openCommand = appPath + separator + arguments;
+            String openCommand = appPath + getDefaultCommandLineSeparator() +
+                    arguments;
             try {
                 AppLog.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand); // NOI18N
-                Runtime.getRuntime().exec(External.parseQuotedCommandLine(
-                        openCommand));
+                Runtime.getRuntime().exec(
+                        External.parseQuotedCommandLine(openCommand));
             } catch (IOException ex) {
                 AppLog.logSevere(IoUtil.class, ex);
                 MessageDisplayer.error(null, "IoUtil.Error.OpenFile"); // NOI18N
@@ -59,23 +66,83 @@ public final class IoUtil {
     }
 
     /**
-     * Returns a String with space separated filenames, each enclosed in quotes.
-     * 
-     * @param  files  files
-     * @param  quote  qoute before and after each filename
-     * @return        string
+     * Returns the default quote string for quoting command line tokens.
+     *
+     * @return quote string
      */
-    public static String getQuotedForCommandline(
-            Collection<File> files, String quote) {
-        StringBuffer buffer = new StringBuffer();
+    public static String getDefaultCommandlineQuote() {
+        return QUOTE;
+    }
+
+    /**
+     * Returns the default separator string for separating command line tokens.
+     *
+     * @return separator string
+     */
+    public static String getDefaultCommandLineSeparator() {
+        return SEPARATOR;
+    }
+
+    public static String quoteForCommandLine(String string) {
+        String quote = getDefaultCommandlineQuote();
+        return quote + string + quote;
+    }
+
+    /**
+     * Quotes a string and a file with {@link #getDefaultCommandlineQuote()} and
+     * separates them with a space character.
+     *
+     * @param  string  usually the program path
+     * @param  file    usually the file to open with the program
+     * @return         quoted string
+     */
+    public static String quoteForCommandLine(String string, File file) {
+        String quote = getDefaultCommandlineQuote();
+        String separator = getDefaultCommandLineSeparator();
+        return quote + string + quote +
+                separator +
+                quote + file.getAbsolutePath() + quote;
+    }
+
+    /**
+     * Quotes each file with {@link #getDefaultCommandlineQuote()} and separates
+     * them with a space character.
+     *
+     * @param  files files
+     * @return       quoted string
+     */
+    public static String quoteForCommandLine(File... files) {
+        return getQuotedForCommandLine(
+                Arrays.asList(files),
+                getDefaultCommandLineSeparator(),
+                getDefaultCommandlineQuote());
+    }
+
+    /**
+     * Quotes each file of a collection with
+     * {@link #getDefaultCommandlineQuote()} and separates them with a space character.
+     *
+     * @param  files files
+     * @return       quoted string
+     */
+    public static String quoteForCommandLine(Collection<? extends File> files) {
+        return getQuotedForCommandLine(
+                files,
+                getDefaultCommandLineSeparator(),
+                getDefaultCommandlineQuote());
+    }
+
+    private static String getQuotedForCommandLine(
+            Collection<? extends File> files, String separator, String quote) {
+
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
         for (File file : files) {
-            if (buffer.length() == 0) {
-                buffer.append(quote + file.getAbsolutePath() + quote);
-            } else {
-                buffer.append(" " + quote + file.getAbsolutePath() + quote); // NOI18N
-            }
+            sb.append((index++ == 0
+                    ? EMPTY
+                    : separator) + quote + file.getAbsolutePath() + quote);
         }
-        return buffer.toString();
+        return sb.toString();
     }
 
     /**

@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
-import java.util.Collections;
 import java.util.Locale;
 import javax.swing.JMenuItem;
 
@@ -30,7 +29,7 @@ import javax.swing.JMenuItem;
  * @version 2008-09-12
  */
 public final class ControllerHelp implements ActionListener,
-                                             HelpBrowserListener {
+        HelpBrowserListener {
 
     private final HelpBrowser help = HelpBrowser.INSTANCE;
     private static final String KEY_CURRENT_URL =
@@ -108,9 +107,14 @@ public final class ControllerHelp implements ActionListener,
         if (!checkPdfViewer()) return;
         File manual = getPdfUserManualPath();
         if (manual == null) return;
-        External.execute("\"" + UserSettings.INSTANCE.getPdfViewer() + "\" " + // NOI18N
-                IoUtil.getQuotedForCommandline(Collections.singleton(manual),
-                "\"")); // NOI18N
+        External.execute(logAndGetPdfManualOpenCommand(manual));
+    }
+
+    private String logAndGetPdfManualOpenCommand(File manual) {
+        String command = IoUtil.quoteForCommandLine(
+                UserSettings.INSTANCE.getPdfViewer(), manual);
+        AppLog.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command);
+        return command;
     }
 
     private boolean checkPdfViewer() {
@@ -142,12 +146,7 @@ public final class ControllerHelp implements ActionListener,
         try {
             File jarPath = new File(Main.class.getProtectionDomain().
                     getCodeSource().getLocation().getPath());
-            AppLog.logFinest(ControllerHelp.class,
-                    "ControllerHelp.ManualPath.JarPath", // NOI18N
-                    jarPath);
-            AppLog.logFinest(ControllerHelp.class,
-                    "ControllerHelp.ManualPath.ParentDir", // NOI18N
-                    jarPath.getParentFile());
+            logJar(jarPath);
             if (jarPath.exists() && jarPath.getParentFile() != null) {
                 File dir = jarPath.getParentFile();
                 String pathPrefix =
@@ -156,10 +155,12 @@ public final class ControllerHelp implements ActionListener,
                 manualPath = pathPrefix + "_" + // NOI18N
                         Locale.getDefault().getLanguage() + ".pdf"; // NOI18N
                 File fileLocaleSensitive = new File(manualPath);
+                logIfNotExists(fileLocaleSensitive);
                 if (fileLocaleSensitive.exists()) return fileLocaleSensitive;
                 // Trying to get default language manual
                 manualPath = pathPrefix + "_de.pdf"; // NOI18N
                 File fileDefault = new File(manualPath);
+                logIfNotExists(fileDefault);
                 if (fileDefault.exists()) return fileDefault;
             }
         } catch (Exception ex) {
@@ -168,5 +169,30 @@ public final class ControllerHelp implements ActionListener,
         MessageDisplayer.error(
                 null, "ControllerHelp.Error.NoPdfFile", manualPath); // NOI18N
         return null;
+    }
+
+    private static void logJar(File jarPath) {
+        logJarFile(jarPath);
+        logJarDir(jarPath.getParentFile());
+        logIfNotExists(jarPath);
+        logIfNotExists(jarPath.getParentFile());
+    }
+
+    private static void logJarDir(File jarPath) {
+        AppLog.logFinest(ControllerHelp.class,
+                "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile()); // NOI18N
+    }
+
+    private static void logJarFile(File jarPath) {
+        AppLog.logFinest(ControllerHelp.class,
+                "ControllerHelp.ManualPath.JarPath", jarPath); // NOI18N
+    }
+
+    private static void logIfNotExists(File file) {
+        if (file == null) return;
+        if (!file.exists()) {
+            AppLog.logFinest(ControllerHelp.class,
+                    "ControllerHelp.Info.FileNotExists", file); // NOI18N
+        }
     }
 }

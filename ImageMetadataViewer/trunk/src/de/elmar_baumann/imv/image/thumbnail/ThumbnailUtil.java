@@ -11,7 +11,6 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.exif.ExifThumbnailUtil;
 import de.elmar_baumann.imv.image.metadata.exif.ExifMetadata;
-import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.types.FileType;
 import de.elmar_baumann.lib.image.util.ImageTransform;
 import de.elmar_baumann.lib.runtime.External;
@@ -26,7 +25,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -52,13 +50,13 @@ public final class ThumbnailUtil {
         if (!file.exists()) return null;
         Image thumbnail =
                 (embedded || FileType.isRawFile(file.getName())
-                 ? getRotatedThumbnail(file)
-                 : getScaledImageImagero(file, maxLength));
+                ? getRotatedThumbnail(file)
+                : getScaledImageImagero(file, maxLength));
         if (thumbnail == null) {
             thumbnail =
                     (embedded
-                     ? getScaledImageImagero(file, maxLength)
-                     : getRotatedThumbnail(file));
+                    ? getScaledImageImagero(file, maxLength)
+                    : getRotatedThumbnail(file));
         }
         return thumbnail;
     }
@@ -150,8 +148,7 @@ public final class ThumbnailUtil {
         AppLog.logInfo(ThumbnailUtil.class,
                 "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", // NOI18N
                 file, maxLength);
-        String cmd = command.replace("%s", IoUtil.getQuotedForCommandline( // NOI18N
-                Collections.singletonList(file), "")). // NOI18N
+        String cmd = command.replace("%s", file.getAbsolutePath()). // NOI18N
                 replace("%i", new Integer(maxLength).toString()); // NOI18N
         logExternalAppCommand(cmd);
         Pair<byte[], byte[]> output =
@@ -262,8 +259,8 @@ public final class ThumbnailUtil {
 
     private static double getScaleFactor(int width, int height, int maxWidth) {
         double longer = width > height
-                        ? width
-                        : height;
+                ? width
+                : height;
         return longer / (double) maxWidth;
     }
 
@@ -322,8 +319,8 @@ public final class ThumbnailUtil {
     private static void logStderr(File imageFile, Pair<byte[], byte[]> output) {
         byte[] stderr = output.getSecond();
         String errorMsg = (stderr == null
-                           ? "" // NOI18N
-                           : new String(stderr).trim());
+                ? "" // NOI18N
+                : new String(stderr).trim());
         if (!errorMsg.isEmpty()) {
             AppLog.logWarning(ThumbnailUtil.class,
                     "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg); // NOI18N
