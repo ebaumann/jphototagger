@@ -15,10 +15,10 @@ import java.util.logging.Logger;
 import javax.swing.JList;
 
 /**
- * 
+ * Utilities for data transfer.
  *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
+ * All functions with object reference parameters are throwing a
+ * {@link NullPointerException} if an object reference is null and it is
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -37,24 +37,23 @@ public final class TransferUtil {
         try {
             URI_LIST_FLAVOR = new DataFlavor(MIME_TYPE_URI_LIST);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(
+                    TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
-     * Returns the selected items in a
+     * Returns the selected items in a {@link JList} as a token string within a
      * {@link java.awt.datatransfer.StringSelection}.
      *
-     * Each item is separated by a delimiter.
-     * 
      * @param  list       list
      * @param  delimiter  delimiter between the item strings
-     * @return            <code>StringSelection</code>: A String within value
-     *                    strings, separated by <code>delimiter</code>
+     * @return            {@link StringSelection}: selected items as strings
+     *                    separated by <code>delimiter</code>
      */
     public static Transferable getSelectedItemStringsTransferable(
             JList list, String delimiter) {
+
         if (list == null)
             throw new NullPointerException("list == null"); // NOI18N
         if (delimiter == null)
@@ -65,11 +64,11 @@ public final class TransferUtil {
         for (int i = 0; i < values.length; i++) {
             Object val = values[i];
             buffer.append(val == null
-                          ? "" // NOI18N
-                          : val.toString());
+                    ? "" // NOI18N
+                    : val.toString());
             buffer.append(i != values.length - 1
-                          ? delimiter
-                          : ""); // NOI18N
+                    ? delimiter
+                    : ""); // NOI18N
         }
         return new StringSelection(buffer.toString());
     }
@@ -82,26 +81,27 @@ public final class TransferUtil {
      * 
      * @param  list      list
      * @param delimiter  delimiter
-     * @return <code>StringSelection</code>: A String within integer token
-     *         separated by <code>delimiter</code>
+     * @return           {@link StringSelection}: A String within integer token
+     *                   separated by <code>delimiter</code>
      */
     public static Transferable getIntegerListTransferable(
             List<Integer> list, String delimiter) {
+
         if (list == null)
             throw new NullPointerException("list == null"); // NOI18N
         if (delimiter == null)
             throw new NullPointerException("delimiter == null"); // NOI18N
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int size = list.size();
         for (int i = 0; i < size; i++) {
             Integer integer = list.get(i);
-            buffer.append(integer.toString());
-            buffer.append(i < size - 1
-                          ? delimiter
-                          : ""); // NOI18N
+            sb.append(integer.toString());
+            sb.append(i < size - 1
+                    ? delimiter
+                    : ""); // NOI18N
         }
-        return new StringSelection(buffer.toString());
+        return new StringSelection(sb.toString());
     }
 
     /**
@@ -115,8 +115,9 @@ public final class TransferUtil {
      * @return           <code>StringSelection</code>: A String within integer
      *                   token separated by <code>delimiter</code>
      */
-    public static Transferable getStringListTransferable(List<String> list,
-            String delimiter) {
+    public static Transferable getStringListTransferable(
+            List<String> list, String delimiter) {
+
         if (list == null)
             throw new NullPointerException("list == null"); // NOI18N
         if (delimiter == null)
@@ -128,8 +129,8 @@ public final class TransferUtil {
             String string = list.get(i);
             buffer.append(string);
             buffer.append(i < size - 1
-                          ? delimiter
-                          : ""); // NOI18N
+                    ? delimiter
+                    : ""); // NOI18N
         }
         return new StringSelection(buffer.toString());
     }
@@ -150,9 +151,10 @@ public final class TransferUtil {
      * Konqueror and Nautilus sends such transfer data.
      * 
      * @param  transferable transferable
-     * @return files
+     * @return              files
      */
     public static List<File> getFilesFromUriList(Transferable transferable) {
+
         if (transferable == null)
             throw new NullPointerException("transferable == null"); // NOI18N
 
@@ -181,8 +183,9 @@ public final class TransferUtil {
      * @param  delimiter    delimiter which separates the file names
      * @return              files
      */
-    public static List<File> getFilesFromTokenString(Transferable transferable,
-            String delimiter) {
+    public static List<File> getFilesFromTokenString(
+            Transferable transferable, String delimiter) {
+
         if (transferable == null)
             throw new NullPointerException("transferable == null"); // NOI18N
         if (delimiter == null)
@@ -206,10 +209,11 @@ public final class TransferUtil {
      * Returns a list of files in a transferable which supports
      * {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}.
      * 
-     * @param  transferable transferable
-     * @return              list of files
+     * @param   transferable transferable
+     * @return               list of files
      */
     public static List<File> getFilesFromJavaFileList(Transferable transferable) {
+
         if (transferable == null)
             throw new NullPointerException("transferable == null"); // NOI18N
 
@@ -235,10 +239,11 @@ public final class TransferUtil {
      * 
      * @param  transferable transferable
      * @param  delimiter    token delimiter if files names are in a token string
-     * @return files
+     * @return              files
      */
-    public static List<File> getFiles(Transferable transferable,
-            String delimiter) {
+    public static List<File> getFiles(
+            Transferable transferable, String delimiter) {
+
         if (transferable == null)
             throw new NullPointerException("transferable == null"); // NOI18N
         if (delimiter == null)
@@ -321,6 +326,22 @@ public final class TransferUtil {
             if (f.equals(flavor)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    /**
+     * Returns wheter transferable supports at least one data flavor.
+     *
+     * @param  transferable transferable
+     * @param  flavors      data flavors
+     * @return              true if that transferable supports at least on of
+     *                      that data flavors
+     */
+    public static boolean isADataFlavorSupported(
+            Transferable transferable, DataFlavor... flavors) {
+        for (DataFlavor flavor : flavors) {
+            if (transferable.isDataFlavorSupported(flavor)) return true;
         }
         return false;
     }
