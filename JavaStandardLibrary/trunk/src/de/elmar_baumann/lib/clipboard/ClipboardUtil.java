@@ -1,8 +1,7 @@
 package de.elmar_baumann.lib.clipboard;
 
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
-import de.elmar_baumann.lib.datatransfer.TransferableFileList;
-import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.datatransfer.TransferableFileCollection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
@@ -34,12 +33,14 @@ public final class ClipboardUtil {
      * @param files  files
      * @param owner  owner of the clipboard, can be null
      */
-    public static void copyToSystemClipboard(List<File> files,
-            ClipboardOwner owner) {
+    public static void copyToSystemClipboard(
+            List<File> files, ClipboardOwner owner) {
+
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
-        copyToClipboard(files, Toolkit.getDefaultToolkit().getSystemClipboard(),
-                owner);
+
+        copyToClipboard(
+                files, Toolkit.getDefaultToolkit().getSystemClipboard(), owner);
     }
 
     /**
@@ -49,28 +50,32 @@ public final class ClipboardUtil {
      * @param clipboard  clipboard
      * @param owner      owner of the clipboard, can be null
      */
-    public static void copyToClipboard(List<File> files, Clipboard clipboard,
-            ClipboardOwner owner) {
+    public static void copyToClipboard(
+            List<File> files, Clipboard clipboard, ClipboardOwner owner) {
+
         if (files == null)
             throw new NullPointerException("files == null"); // NOI18N
         if (clipboard == null)
             throw new NullPointerException("clipboard == null"); // NOI18N
+
         clipboard.setContents(
-                new TransferableFileList(FileUtil.fileCollectionToFileArray(files)),
-                owner);
+                new TransferableFileCollection(files), owner);
     }
 
     /**
-     * Returns a list of files the system clipboard.
+     * Returns a list of files from the system clipboard.
      * 
      * @param delimiterStringList  delimiter which separates file names if in 
      *                             the clipboard is a string with file names
-     * @return list of files or null if no files in the clipboard
+     * @return                     list of files or null if no files in the
+     *                             clipboard
      */
     public static List<File> getFilesFromSystemClipboard(
             String delimiterStringList) {
+
         if (delimiterStringList == null)
             throw new NullPointerException("delimiterStringList == null"); // NOI18N
+
         return getFilesFromClipboard(
                 Toolkit.getDefaultToolkit().getSystemClipboard(),
                 delimiterStringList);
@@ -82,10 +87,12 @@ public final class ClipboardUtil {
      * @param  clipboard            clipboard
      * @param  delimiterStringList  delimiter which separates file names if in 
      *                              the clipboard is a string with file names
-     * @return list of files or null if no files in the clipboard
+     * @return                      list of files or null if no files in the
+     *                              clipboard
      */
-    public static List<File> getFilesFromClipboard(Clipboard clipboard,
-            String delimiterStringList) {
+    public static List<File> getFilesFromClipboard(
+            Clipboard clipboard, String delimiterStringList) {
+
         if (clipboard == null)
             throw new NullPointerException("files == null"); // NOI18N
         if (delimiterStringList == null)
@@ -94,14 +101,17 @@ public final class ClipboardUtil {
         List<File> files = null;
         DataFlavor[] flavors = clipboard.getAvailableDataFlavors();
         Transferable transferable = clipboard.getContents(ClipboardUtil.class);
+
         if (TransferUtil.isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
             return TransferUtil.getFilesFromJavaFileList(transferable);
-        } else if (TransferUtil.isDataFlavorSupported(flavors,
-                URI_LIST_FLAVOR)) {
+
+        } else if (
+                TransferUtil.isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
             return TransferUtil.getFilesFromUriList(transferable);
+
         } else if (TransferUtil.isDataFlavorSupported(flavors, STRING_FLAVOR)) {
-            return TransferUtil.getFilesFromTokenString(transferable,
-                    delimiterStringList);
+            return TransferUtil.getFilesFromTokenString(
+                    transferable, delimiterStringList);
         }
         return files;
     }
