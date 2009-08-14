@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
 import de.elmar_baumann.imv.data.Xmp;
-import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerPanelThumbnails;
 import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
@@ -16,6 +15,7 @@ import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.types.FileAction;
 import de.elmar_baumann.imv.types.SizeUnit;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -39,7 +39,6 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
 
     private static final String KEY_THUMBNAIL_WIDTH =
             "ImageFileThumbnailsPanel.ThumbnailWidth"; // NOI18N
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOfContent =
             new HashMap<Content, List<RefreshListener>>();
     private final PopupMenuThumbnails popupMenu =
@@ -156,8 +155,6 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
                 Collections.sort(files, fileSort.getComparator());
             }
             this.files.addAll(files);
-            thumbCache.setFiles(files);
-            xmpCache.setFiles(files);
             this.content = content;
             thumbnailCount = files.size();
         }
@@ -211,8 +208,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         int index = files.indexOf(oldFile);
         if (index >= 0) {
             files.set(index, newFile);
-            thumbCache.updateFiles(index, newFile);
-            xmpCache.updateFiles(index, newFile);
+            thumbCache.updateFiles(oldFile, newFile);
+            xmpCache.updateFiles(oldFile, newFile);
             repaint();
         }
     }
@@ -279,6 +276,21 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         }
     }
 
+    /**
+     * Entfernt aus dem internen Bildcache ein Thumbnail und ImageFile und
+     * liest sie bei Bedarf - wenn sie gezeichnet werden müssen - erneut ein.
+     *
+     * @param index Index
+     */
+    protected void removeFromCache(int index) {
+        synchronized(this) {
+            File file = files.get(index);
+            thumbCache.removeEntry(file);
+            xmpCache.removeEntry(file);
+        }
+        repaint();
+    }
+    
     public synchronized void removeFromCache(File file) {
         int index = files.indexOf(file);
 
@@ -376,8 +388,6 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
                 filesWithoutMoved.size()));
         files.clear();
         files.addAll(newOrderedFiles);
-        thumbCache.setFiles(files);
-        xmpCache.setFiles(files);
         clearSelection();
     }
 
@@ -407,8 +417,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     @Override
-    protected List<String> getKeywords(int index) {
-        Xmp xmp = xmpCache.getXmp(index);
+    protected synchronized List<String> getKeywords(int index) {
+        Xmp xmp = xmpCache.getXmp(files.get(index));
 
         if (xmp == null) {
             return null;
@@ -418,8 +428,8 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
     }
 
     @Override
-    protected int getRating(int index) {
-        Xmp xmp = xmpCache.getXmp(index);
+    protected synchronized int getRating(int index) {
+        Xmp xmp = xmpCache.getXmp(files.get(index));
         if (xmp == null) {
             return 0;
         }
@@ -475,6 +485,24 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
         return sidecarfile == null
                ? "" // NOI18N
                : sidecarfile;
+    }
+
+    @Override
+    protected synchronized Image getScaledThumbnail(int index, int thumbnailWidth) {
+        return thumbCache.getScaledThumbnail(getFile(index), thumbnailWidth);
+    }
+
+    @Override
+    protected void prefetch(int low, int high, boolean xmp) {
+        File file;
+        for (int i = low; i <= high; i++) {
+            file = getFile(i);
+            assert file != null;
+            thumbCache.prefetch(file);
+            if (xmp) {
+                xmpCache.prefetch(file);
+            }
+        }
     }
 
     @Override

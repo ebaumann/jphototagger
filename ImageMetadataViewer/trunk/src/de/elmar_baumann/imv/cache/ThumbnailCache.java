@@ -96,10 +96,6 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
         });
     }
 
-    public synchronized Image getThumbnail(int index) {
-        return getThumbnail(files.get(index));
-    }
-
     public synchronized Image getThumbnail(File file) {
         if (!fileCache.containsKey(file)) {
             generateEntry(file, false);
@@ -111,10 +107,6 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
             return dummyThumbnail;
         }
         return ci.thumbnail;
-    }
-
-    public synchronized Image getScaledThumbnail(int index, int length) {
-        return getScaledThumbnail(files.get(index), length);
     }
 
     public synchronized Image getScaledThumbnail(File file, int length) {

@@ -802,6 +802,8 @@ public abstract class ThumbnailsPanel extends JPanel
         repaint();
     }
 
+    abstract protected void prefetch(int low, int high, boolean xmp);
+            
     @Override
     public synchronized void paintComponent(Graphics g) {
         paintPanelBackground(g);
@@ -827,17 +829,12 @@ public abstract class ThumbnailsPanel extends JPanel
             int prefetchLowStart = Math.max(0,
                     firstIndex - thumbnailCountPerRow * 5);
             int prefetchLowEnd = Math.max(0, firstIndex - 1);
-            int prefechtHighStart = Math.min(thumbnailCount, lastIndex + 1);
-            int prefetchHighEnd = Math.min(thumbnailCount,
+            int prefechtHighStart = Math.min(thumbnailCount - 1, lastIndex + 1);
+            int prefetchHighEnd = Math.min(thumbnailCount - 1,
                     lastIndex + thumbnailCountPerRow * 5);
-            // prefetch for scrolling down a bit
-            thumbCache.prefetch(prefechtHighStart, prefetchHighEnd);
-            // prefetch for scrolling up a bit
-            thumbCache.prefetch(prefetchLowStart, prefetchLowEnd);
-            if (isKeywordsOverlay()) {
-                xmpCache.prefetch(prefechtHighStart, prefetchHighEnd);
-                xmpCache.prefetch(prefetchLowStart, prefetchLowEnd);
-            }
+
+            prefetch(prefechtHighStart, prefetchHighEnd, isKeywordsOverlay());
+            prefetch(prefetchLowStart, prefetchLowEnd, isKeywordsOverlay());
         }
     }
 
@@ -848,9 +845,11 @@ public abstract class ThumbnailsPanel extends JPanel
         g.setColor(oldColor);
     }
 
+    abstract protected Image getScaledThumbnail(int index, int thumbnailWidth);
+
     private void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
-        Image thumbnail = thumbCache.getScaledThumbnail(index, thumbnailWidth);
+        Image thumbnail = getScaledThumbnail(index, thumbnailWidth);
 
         paintThumbnailBackground(g, topLeft.x, topLeft.y, isSelected(index));
         paintThumbnailFlag(index, g, topLeft.x, topLeft.y);
@@ -1093,18 +1092,6 @@ public abstract class ThumbnailsPanel extends JPanel
             if (indexToSelect >= thumbnailCount - 1) scrollToBottom();
             setSelected(indexToSelect);
         }
-    }
-
-    /**
-     * Entfernt aus dem internen Bildcache ein Thumbnail und ImageFile und
-     * liest sie bei Bedarf - wenn sie gezeichnet werden müssen - erneut ein.
-     * 
-     * @param index Index
-     */
-    protected void removeFromCache(int index) {
-        thumbCache.removeEntry(index);
-        xmpCache.removeEntry(index);
-        repaint();
     }
 
     /**
