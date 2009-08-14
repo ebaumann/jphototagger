@@ -2,7 +2,6 @@ package de.elmar_baumann.imv.cache;
 
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
-import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.Collection;
@@ -16,6 +15,12 @@ import javax.swing.SwingUtilities;
  * @version 2009-07-18
  */
 public class XmpCache extends Cache<XmpCacheIndirection> {
+
+    public static final XmpCache INSTANCE = new XmpCache();
+
+    private XmpCache() {
+        new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start(); // NOI18N
+    }
 
     private static class XmpFetcher implements Runnable {
 
@@ -73,11 +78,6 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
         }
     }
 
-    public XmpCache(ThumbnailsPanel _panel) {
-        super(_panel);
-        new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start(); // NOI18N
-    }
-
     /**
      * Interface for producers.
      */
@@ -113,7 +113,7 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
 
                 @Override
                 public void run() {
-                    panel.repaint(file);
+                    notifyUpdate(file);
                 }
             });
         }

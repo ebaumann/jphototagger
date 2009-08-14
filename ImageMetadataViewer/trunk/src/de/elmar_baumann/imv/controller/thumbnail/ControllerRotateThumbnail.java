@@ -75,7 +75,7 @@ public final class ControllerRotateThumbnail implements ActionListener {
                         getSelectedIndices();
                 for (Integer index : selectedIndices) {
                     Image thumbnail = ImageTransform.rotate(
-                            thumbnailsPanel.thumbCache.getThumbnail(index.intValue()),
+                            thumbnailsPanel.getThumbnail(index.intValue()),
                             rotateAngle);
                     if (thumbnail != null) {
                         String filename = thumbnailsPanel.getFile(

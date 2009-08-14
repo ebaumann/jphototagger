@@ -189,11 +189,13 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     private int clickInSelection = -1;
     private boolean keywordsOverlay;
-    public ThumbnailCache thumbCache = new ThumbnailCache(this);
-    public XmpCache xmpCache = new XmpCache(this);
+    public ThumbnailCache thumbCache = ThumbnailCache.INSTANCE;
+    public XmpCache xmpCache = XmpCache.INSTANCE;
     Image starImage[] = new Image[5];
 
     public ThumbnailsPanel() {
+        thumbCache.setPanel(this);
+        xmpCache.setPanel(this);
         computeFontHeight();
         loadRatingImages();
         setBackground(COLOR_BACKGROUND_PANEL);

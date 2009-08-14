@@ -487,6 +487,10 @@ public final class ImageFileThumbnailsPanel extends ThumbnailsPanel
                : sidecarfile;
     }
 
+    public synchronized Image getThumbnail(int index) {
+        return thumbCache.getThumbnail(getFile(index));
+    }
+
     @Override
     protected synchronized Image getScaledThumbnail(int index, int thumbnailWidth) {
         return thumbCache.getScaledThumbnail(getFile(index), thumbnailWidth);

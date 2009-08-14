@@ -1,7 +1,6 @@
 package de.elmar_baumann.imv.cache;
 
 import de.elmar_baumann.imv.resource.Bundle;
-import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -17,11 +16,18 @@ import javax.swing.SwingUtilities;
  */
 public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
 
+    public static final ThumbnailCache INSTANCE = new ThumbnailCache();
+
     private Image dummyThumbnail = IconUtil.getIconImage(
             Bundle.getString("ThumbnailCache.Path.DummyThumbnail"));
     private Image dummyThumbnailScaled = null;
     private Image noPreviewThumbnail = IconUtil.getIconImage(
             Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
+
+    private ThumbnailCache() {
+        new Thread(new ThumbnailFetcher(workQueue, this),
+                "ThumbnailFetcher").start(); // NOI18N
+    }
 
     private static class ThumbnailFetcher implements Runnable {
 
@@ -50,12 +56,6 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                 }
             }
         }
-    }
-
-    public ThumbnailCache(ThumbnailsPanel _panel) {
-        super(_panel);
-        new Thread(new ThumbnailFetcher(workQueue, this),
-                "ThumbnailFetcher").start(); // NOI18N
     }
 
     /**
@@ -91,7 +91,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
 
             @Override
             public void run() {
-                panel.repaint(file);
+                notifyUpdate(file);
             }
         });
     }

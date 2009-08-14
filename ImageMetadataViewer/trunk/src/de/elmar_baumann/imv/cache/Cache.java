@@ -9,9 +9,10 @@ import java.io.File;
  * @version 2009-07-18
  */
 public abstract class Cache<CI extends CacheIndirection> {
-    public static int currentAge = 0;
+    
+    protected static int currentAge = 0;
     protected final int MAX_ENTRIES = 1500;
-    protected ThumbnailsPanel panel;
+    private ThumbnailsPanel panel = null;
     protected WorkQueue workQueue = new WorkQueue();
     /**
      * Mapping from file to all kinds of cached data
@@ -23,8 +24,18 @@ public abstract class Cache<CI extends CacheIndirection> {
         ci.usageTime = currentAge++;
     }
 
-    Cache(ThumbnailsPanel _panel) {
+    Cache() {}
+
+    // set target for notifications
+    public void setPanel(ThumbnailsPanel _panel) {
         panel = _panel;
+    }
+
+    // fixme: we may need a more generic update and register mechanism
+    protected void notifyUpdate(File file) {
+        if (panel != null) {
+            panel.repaint(file);
+        }
     }
 
     public synchronized void prefetch(File file) {
