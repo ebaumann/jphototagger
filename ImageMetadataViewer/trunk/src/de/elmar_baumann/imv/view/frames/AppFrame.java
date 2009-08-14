@@ -607,9 +607,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemHelp.setText(Bundle.getString("AppFrame.menuItemHelp.text")); // NOI18N
         menuHelp.add(menuItemHelp);
 
+        menuItemOpenPdfUserManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_pdf_manual.png"))); // NOI18N
         menuItemOpenPdfUserManual.setText(Bundle.getString("AppFrame.menuItemOpenPdfUserManual.text")); // NOI18N
         menuHelp.add(menuItemOpenPdfUserManual);
 
+        menuItemAcceleratorKeys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyboard.png"))); // NOI18N
         menuItemAcceleratorKeys.setText(bundle.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
         menuHelp.add(menuItemAcceleratorKeys);
         menuHelp.add(jSeparator12);
