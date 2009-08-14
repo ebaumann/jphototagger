@@ -38,8 +38,8 @@ public final class External {
         try {
             runtime.exec(parseQuotedCommandLine(command));
         } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
-                    ex);
+            Logger.getLogger(
+                    External.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -80,8 +80,8 @@ public final class External {
             if (processDestroyer.destroyed()) return null;
             return streamContent;
         } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
-                    ex);
+            Logger.getLogger(
+                    External.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
