@@ -355,7 +355,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         if (progressBarResource == null) return;
         progressBar = progressBarResource.getResource(this);
         if (progressBar == null) {
-            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
                     progressBarResource.getOwner());
         } else {
             progressBar.setMinimum(0);

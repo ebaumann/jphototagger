@@ -80,7 +80,7 @@ public final class SaveEditedMetadata extends Thread {
     private void progressStarted(int maximum) {
         progressBar = progressBarRessource.getResource(this);
         if (progressBar == null) {
-            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
                     progressBarRessource.getOwner());
         } else {
             progressBar.setMinimum(0);

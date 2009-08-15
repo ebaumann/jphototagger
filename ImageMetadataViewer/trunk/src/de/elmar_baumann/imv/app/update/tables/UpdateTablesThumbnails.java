@@ -178,7 +178,7 @@ final class UpdateTablesThumbnails extends Database {
     private static File[] getThumbnailFiles() {
         File dir = new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
         if (!dir.isDirectory()) return new File[0];
-        return dir.listFiles(new RegexFileFilter("[0-9]+", ""));
+        return dir.listFiles(new RegexFileFilter("[0-9]+", "")); // NOI18N
     }
 
     private static File getThumbnailfile(long id) {

@@ -217,7 +217,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                 template.setPhotoshopCredit(new String(rs.getBytes(19)));
                 template.setPhotoshopSource(new String(rs.getBytes(20)));
                 template.setRating(rs.getBytes(21) == null
-                                   ? ""
+                                   ? "" // NOI18N
                                    : // NOI18N
                         new String(rs.getBytes(21)));
                 templates.add(template);

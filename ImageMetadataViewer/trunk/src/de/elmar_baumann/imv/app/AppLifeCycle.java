@@ -146,7 +146,7 @@ public final class AppLifeCycle {
         long timeoutMilliSeconds = 120 * 1000;
         long checkIntervalMilliSeconds = 2000;
         if (saveObjects.size() > 0) {
-            AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting",
+            AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", // NOI18N
                     saveObjects); // NOI18N
             while (saveObjects.size() > 0 &&
                     elapsedMilliseconds < timeoutMilliSeconds) {

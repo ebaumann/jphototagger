@@ -64,7 +64,7 @@ public final class ControllerImportHierarchicalKeywords
             setName("Importing keywords @ " + getClass().getName()); // NOI18N
             progressBar = ProgressBarUserTasks.INSTANCE.getResource(this);
             if (progressBar == null) {
-                AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+                AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
                     ProgressBarUserTasks.INSTANCE.getOwner());
             }
         }

@@ -65,7 +65,7 @@ public final class RenameXmpMetadata extends Thread
     public void progressStarted(ProgressEvent evt) {
         progressBar = progressBarRessource.getResource(this);
         if (progressBar == null) {
-            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
                     progressBarRessource.getOwner());
         } else {
             progressBar.setMinimum(0);

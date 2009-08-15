@@ -36,7 +36,7 @@ public final class PersistentThumbnails {
             fos = new FileOutputStream(tnFile);
             fos.getChannel().lock();
             ByteArrayInputStream is =
-                    ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
+                    ImageUtil.getByteArrayInputStream(thumbnail, "jpeg"); // NOI18N
             if (is != null) {
                 int nextByte;
                 while ((nextByte = is.read()) != -1) {
@@ -53,7 +53,7 @@ public final class PersistentThumbnails {
 
     private static void logWriteThumbnail(File tnFile) {
         AppLog.logInfo(PersistentThumbnails.class,
-                "ThumbnailUtil.Info.WriteThumbnail",
+                "ThumbnailUtil.Info.WriteThumbnail", // NOI18N
                 tnFile); // NOI18N
     }
 
@@ -108,7 +108,7 @@ public final class PersistentThumbnails {
     public static File getThumbnailfile(String hash) {
         String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
         FileUtil.ensureDirectoryExists(new File(dir));
-        return new File(dir + File.separator + hash + ".jpeg");
+        return new File(dir + File.separator + hash + ".jpeg"); // NOI18N
     }
 
     /* Adapts the thumbnail's name to changes in the name of the original file
@@ -123,7 +123,7 @@ public final class PersistentThumbnails {
      */
     public static String getMd5File(File file) {
         try {
-            return getMd5File("file://" + file.getCanonicalPath());
+            return getMd5File("file://" + file.getCanonicalPath()); // NOI18N
         } catch (IOException ex) {
             Logger.getLogger(PersistentThumbnails.class.getName()).log(
                     Level.SEVERE,
@@ -137,7 +137,7 @@ public final class PersistentThumbnails {
     public static String getMd5File(String cFilename) {
         MessageDigest md5;
         try {
-            md5 = MessageDigest.getInstance("MD5");
+            md5 = MessageDigest.getInstance("MD5"); // NOI18N
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(PersistentThumbnails.class.getName()).log(
                     Level.SEVERE,
@@ -145,15 +145,15 @@ public final class PersistentThumbnails {
             return null;
         }
         md5.reset();
-        md5.update(("file://" + cFilename).getBytes());
+        md5.update(("file://" + cFilename).getBytes()); // NOI18N
         byte[] result = md5.digest();
 
         StringBuffer hex = new StringBuffer();
         for (int i = 0; i < result.length; i++) {
             if ((result[i] & 0xff) == 0) {
-                hex.append("00");
+                hex.append("00"); // NOI18N
             } else if ((result[i] & 0xff) < 0x10) {
-                hex.append("0" + Integer.toHexString(0xFF & result[i]));
+                hex.append("0" + Integer.toHexString(0xFF & result[i])); // NOI18N
             } else {
                 hex.append(Integer.toHexString(0xFF & result[i]));
             }

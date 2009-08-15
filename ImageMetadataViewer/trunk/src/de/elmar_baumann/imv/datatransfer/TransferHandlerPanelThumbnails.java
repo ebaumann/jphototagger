@@ -122,7 +122,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     protected Transferable createTransferable(JComponent c) {
 
         assert c instanceof ImageFileThumbnailsPanel :
-                "Not a ImageFileThumbnailsPanel: " + c;
+                "Not an ImageFileThumbnailsPanel: " + c; // NOI18N
 
         return new TransferableFileCollection(ImageUtil.addSidecarFiles(
                 ((ImageFileThumbnailsPanel) c).getSelectedFiles()));
@@ -263,7 +263,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     private boolean importFiles(File targetDir, TransferSupport transferSupport) {
         if (targetDir == null) return false;
         List<File> srcFiles =
-                TransferUtil.getFiles(transferSupport.getTransferable(), "");
+                TransferUtil.getFiles(transferSupport.getTransferable(), ""); // NOI18N
         int dropAction = transferSupport.getDropAction();
         if (dropAction == TransferHandler.COPY) {
             ImageUtil.copyImageFiles(

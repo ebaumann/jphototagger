@@ -14,7 +14,7 @@ import java.io.File;
 public final class Program {
 
     private long id = Long.MIN_VALUE;
-    private static final String EMPTY = "";
+    private static final String EMPTY = ""; // NOI18N
     private boolean action = false;
     private File file;
     private String alias;

@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  */
 public final class AppLog {
 
-    public static final String USE_STRING = "AppLog.UseString";
+    public static final String USE_STRING = "AppLog.UseString"; // NOI18N
 
     /**
      * Logs a message with the class' logger and the log level

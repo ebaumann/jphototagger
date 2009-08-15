@@ -113,7 +113,7 @@ public final class ControllerHelp implements ActionListener,
     private String logAndGetPdfManualOpenCommand(File manual) {
         String command = IoUtil.quoteForCommandLine(
                 UserSettings.INSTANCE.getPdfViewer(), manual);
-        AppLog.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command);
+        AppLog.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command); // NOI18N
         return command;
     }
 

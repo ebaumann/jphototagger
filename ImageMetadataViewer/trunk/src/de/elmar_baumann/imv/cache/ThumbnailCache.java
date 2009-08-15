@@ -19,10 +19,10 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
 
     private Image dummyThumbnail = IconUtil.getIconImage(
-            Bundle.getString("ThumbnailCache.Path.DummyThumbnail"));
+            Bundle.getString("ThumbnailCache.Path.DummyThumbnail")); // NOI18N
     private Image dummyThumbnailScaled = null;
     private Image noPreviewThumbnail = IconUtil.getIconImage(
-            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
+            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")); // NOI18N
 
     private ThumbnailCache() {
         new Thread(new ThumbnailFetcher(workQueue, this),

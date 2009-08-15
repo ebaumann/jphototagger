@@ -59,7 +59,7 @@ public final class MetaFactory implements Runnable {
     private void startDisplayProgressInProgressbarBar() {
         JProgressBar progressBar = progressBarRessource.getResource(this);
         if (progressBar == null) {
-            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(),
+            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
                     progressBarRessource.getOwner());
         } else {
             progressBar.setStringPainted(true);
