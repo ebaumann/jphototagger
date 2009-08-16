@@ -95,12 +95,14 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
     }
 
     private void addItems() {
+        add(menuItemAddToEditPanel);
+        add(menuItemRemoveFromEditPanel);
+        addSeparator();
         add(menuItemAdd);
         add(menuItemRemove);
         add(menuItemRename);
         add(menuItemToggleReal);
-        add(menuItemAddToEditPanel);
-        add(menuItemRemoveFromEditPanel);
+
     }
 
     private void setIcons() {
