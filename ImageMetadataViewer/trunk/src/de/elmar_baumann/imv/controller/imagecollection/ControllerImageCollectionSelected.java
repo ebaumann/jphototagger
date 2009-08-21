@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JList;
@@ -29,7 +29,7 @@ public final class ControllerImageCollectionSelected implements
     private final DatabaseImageCollections db =
             DatabaseImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final EditMetadataPanelsArray editPanels =
             appPanel.getEditPanelsArray();

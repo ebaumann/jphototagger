@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.frames.AppFrame;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public final class ControllerMenuItemEnabler
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
     private final PopupMenuThumbnails popupThumbnails =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem itemOpenFilesWithStandardApp =
             popupThumbnails.getItemOpenFilesWithStandardApp();

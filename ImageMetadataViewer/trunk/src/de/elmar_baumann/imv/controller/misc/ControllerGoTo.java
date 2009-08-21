@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.misc;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.frames.AppFrame;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 public final class ControllerGoTo implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final EditMetadataPanelsArray editPanels =
             appPanel.getEditPanelsArray();

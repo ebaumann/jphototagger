@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.event.listener.ProgramActionListener;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.helper.StartPrograms;
 import de.elmar_baumann.imv.view.dialogs.ActionsDialog;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 
 /**
  * Executes actions of the dialog 
@@ -16,7 +16,7 @@ import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
  */
 public final class ControllerActionExecutor implements ProgramActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final ActionsDialog actionsDialog = ActionsDialog.INSTANCE;
     private final StartPrograms programStarter =

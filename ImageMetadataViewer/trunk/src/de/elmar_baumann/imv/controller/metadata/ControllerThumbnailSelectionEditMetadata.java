@@ -5,7 +5,7 @@ import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**
- * Listens to the {@link ImageFileThumbnailsPanel} for thumbnail selections.
+ * Listens to the {@link ThumbnailsPanel} for thumbnail selections.
  * If one or more thumbnails were selected, this controller enables or disables
  * edit metadata of the selcted thumbnails depending on write privileges in the
  * filesystem.
@@ -34,7 +34,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
             appPanel.getLabelMetadataInfoEditable();
     private final EditMetadataPanelsArray editPanels =
             appPanel.getEditPanelsArray();
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {

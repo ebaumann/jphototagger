@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerRefreshThumbnailsPanel implements ActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailspanel =
+    private final ThumbnailsPanel thumbnailspanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerRefreshThumbnailsPanel() {

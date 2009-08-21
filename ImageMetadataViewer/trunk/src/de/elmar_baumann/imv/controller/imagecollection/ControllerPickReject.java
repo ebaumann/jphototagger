@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.ViewUtil;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -19,7 +19,7 @@ import javax.swing.JList;
 import javax.swing.JMenuItem;
 
 /**
- * Listens to the menu item {@link ImageFileThumbnailsPanel} to key events
+ * Listens to the menu item {@link ThumbnailsPanel} to key events
  * and on action adds a new keyword below the selected keyword.
  * <p>
  * If the key <strong>P</strong> was pressed, this class adds the selected
@@ -35,7 +35,7 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerPickReject implements ActionListener, KeyListener {
 
-    private final ImageFileThumbnailsPanel panelThumbnails =
+    private final ThumbnailsPanel panelThumbnails =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem itemPick =
             PopupMenuThumbnails.INSTANCE.getItemPick();

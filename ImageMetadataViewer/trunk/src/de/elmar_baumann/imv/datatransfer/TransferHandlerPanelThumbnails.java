@@ -13,7 +13,7 @@ import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.types.ContentUtil;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.datatransfer.TransferableFileCollection;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -34,7 +34,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of
- * thumbnails from the {@link ImageFileThumbnailsPanel}.
+ * thumbnails from the {@link ThumbnailsPanel}.
  *
  * The selected files will be transferred as
  * {@link DataFlavor#javaFileListFlavor}.
@@ -61,18 +61,18 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         Component component = transferSupport.getComponent();
         return isImageFilePanel(component) &&
                 metadataTransferred(transferSupport) ||
-                isImageCollection((ImageFileThumbnailsPanel)component) ||
+                isImageCollection((ThumbnailsPanel)component) ||
                 canImportFiles(component) &&
                 Flavors.filesTransfered(transferSupport.getTransferable());
     }
 
     private boolean isImageFilePanel(Component component) {
-        return component instanceof ImageFileThumbnailsPanel;
+        return component instanceof ThumbnailsPanel;
     }
 
     private boolean canImportFiles(Component component) {
         return ContentUtil.isSingleDirectoryContent(
-                ((ImageFileThumbnailsPanel) component).getContent());
+                ((ThumbnailsPanel) component).getContent());
     }
 
     private File getCurrentDirectory() {
@@ -121,11 +121,11 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     @Override
     protected Transferable createTransferable(JComponent c) {
 
-        assert c instanceof ImageFileThumbnailsPanel :
-                "Not an ImageFileThumbnailsPanel: " + c; // NOI18N
+        assert c instanceof ThumbnailsPanel :
+                "Not an ThumbnailsPanel: " + c; // NOI18N
 
         return new TransferableFileCollection(ImageUtil.addSidecarFiles(
-                ((ImageFileThumbnailsPanel) c).getSelectedFiles()));
+                ((ThumbnailsPanel) c).getSelectedFiles()));
     }
 
     @Override
@@ -138,8 +138,8 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
         if (!transferSupport.isDrop()) return false;
 
-        ImageFileThumbnailsPanel panel =
-                (ImageFileThumbnailsPanel) transferSupport.getComponent();
+        ThumbnailsPanel panel =
+                (ThumbnailsPanel) transferSupport.getComponent();
         boolean imagesSelected = panel.getSelectionCount() > 0;
         boolean isStringData =
                 transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor);
@@ -160,7 +160,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         return false;
     }
 
-    public boolean isImageCollection(ImageFileThumbnailsPanel panel) {
+    public boolean isImageCollection(ThumbnailsPanel panel) {
         return panel.getContent().equals(Content.IMAGE_COLLECTION);
     }
 
@@ -170,7 +170,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     }
 
     private void moveSelectedImages(
-            TransferSupport transferSupport, ImageFileThumbnailsPanel panel) {
+            TransferSupport transferSupport, ThumbnailsPanel panel) {
         Point dropPoint = transferSupport.getDropLocation().getDropPoint();
         panel.moveSelectedToIndex(panel.getDropIndex(dropPoint.x, dropPoint.y));
         String imageCollectionName = getImageCollectionName();
@@ -255,8 +255,8 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     public boolean isDropOverSelectedThumbnail(TransferSupport transferSupport) {
         Point p = transferSupport.getDropLocation().getDropPoint();
-        ImageFileThumbnailsPanel panel =
-                (ImageFileThumbnailsPanel) transferSupport.getComponent();
+        ThumbnailsPanel panel =
+                (ThumbnailsPanel) transferSupport.getComponent();
         return panel.isSelected(panel.getDropIndex(p.x, p.y));
     }
 

@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
@@ -24,7 +24,7 @@ public final class ControllerThumbnailCountDisplay
     private final JSlider sliderThumbnailSize =
             appPanel.getSliderThumbnailSize();
     private final JLabel label = appPanel.getLabelStatusbar();
-    private final ImageFileThumbnailsPanel panelThumbnails =
+    private final ThumbnailsPanel panelThumbnails =
             appPanel.getPanelThumbnails();
     private int thumbnailCount = 0;
     private int thumbnailZoom = sliderThumbnailSize.getValue();

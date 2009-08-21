@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
- * Persistent stored (chached) thumbnails.
+ * Persistent stored (cached) thumbnails.
  *
  * @author  Martin Pohlack <martinp@gmx.de>, Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-13

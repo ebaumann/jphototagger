@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.rating;
 
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +13,7 @@ import java.util.Map;
 import javax.swing.JMenuItem;
 
 /**
- * Listens to key events in {@link ImageFileThumbnailsPanel} and if a key
+ * Listens to key events in {@link ThumbnailsPanel} and if a key
  * between the range 0..5 was pressed set's the rating to the
  * {@link EditMetadataPanelsArray}.
  * <p>

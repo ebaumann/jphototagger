@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.imagecollection;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.view.dialogs.ImageCollectionsDialog;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -20,7 +20,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
 
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {

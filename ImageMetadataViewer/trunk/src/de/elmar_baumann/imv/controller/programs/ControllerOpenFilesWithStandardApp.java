@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +20,7 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
 
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerOpenFilesWithStandardApp() {

@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.cache;
 
-import java.io.File;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -9,10 +8,10 @@ import java.util.Deque;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class WorkQueue {
+public class WorkQueue<E> {
     // fixme: maybe use better data structure here with efficient contains()
 
-    Deque<File> queue = new ArrayDeque<File>();
+    Deque<E> queue = new ArrayDeque<E>();
 
     /**
      * Add a new import work item to head of list
@@ -21,9 +20,9 @@ public class WorkQueue {
      * 
      * @param file
      */
-    public synchronized void push(File file) {
-        queue.remove(file);  // maybe remove ...
-        queue.push(file);    // and insert at head again
+    public synchronized void push(E e) {
+        queue.remove(e);  // maybe remove ...
+        queue.push(e);    // and insert at head again
         notify();
     }
 
@@ -34,9 +33,9 @@ public class WorkQueue {
      *
      * @param file
      */
-    public synchronized void append(File file) {
-        if (! queue.contains(file)) {
-            queue.add(file);    // append at end
+    public synchronized void append(E e) {
+        if (! queue.contains(e)) {
+            queue.add(e);    // append at end
             notify();
         }
     }
@@ -47,7 +46,7 @@ public class WorkQueue {
      * @return File to open next.
      * @throws InterruptedException
      */
-    public synchronized File fetch() throws InterruptedException {
+    public synchronized E fetch() throws InterruptedException {
         while (queue.isEmpty()) {
             wait();
         }
@@ -61,7 +60,7 @@ public class WorkQueue {
      * @return File to open next.
      * @throws InterruptedException
      */
-    public synchronized File poll() {
+    public synchronized E poll() {
         return queue.pollFirst();
     }
 
@@ -71,7 +70,7 @@ public class WorkQueue {
      *
      * @param file
      */
-    public synchronized void remove(File file) {
-        queue.remove(file);
+    public synchronized void remove(E e) {
+        queue.remove(e);
     }
 }

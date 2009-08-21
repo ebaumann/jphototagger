@@ -18,7 +18,7 @@ import de.elmar_baumann.imv.model.TableModelXmp;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.TableUtil;
 import java.io.File;
@@ -35,7 +35,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
 /**
- * Listens for selection changes in the {@link ImageFileThumbnailsPanel} and
+ * Listens for selection changes in the {@link ThumbnailsPanel} and
  * displays metadata in the metadata tables if <strong>one</strong> thumbnail
  * was selected. If multiple thumbnails or no thumbnail were selected, this
  * controller empties the metadata tables.
@@ -141,7 +141,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
 
     @Override
     public void thumbnailsSelectionChanged() {
-        final ImageFileThumbnailsPanel panel = appPanel.getPanelThumbnails();
+        final ThumbnailsPanel panel = appPanel.getPanelThumbnails();
         if (panel.getSelectionCount() == 1) {
             SwingUtilities.invokeLater(
                     new ShowMetadata(

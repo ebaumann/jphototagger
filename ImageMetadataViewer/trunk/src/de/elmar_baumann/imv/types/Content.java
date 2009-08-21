@@ -1,12 +1,12 @@
 package de.elmar_baumann.imv.types;
 
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Content type of the displayed thumbnails. In other words: The content of the
- * {@link ImageFileThumbnailsPanel}.
+ * {@link ThumbnailsPanel}.
  */
 public enum Content {
 

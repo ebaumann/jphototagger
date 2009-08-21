@@ -1,8 +1,9 @@
 package de.elmar_baumann.imv.controller.thumbnail;
 
+import de.elmar_baumann.imv.cache.PersistentThumbnails;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.image.util.ImageTransform;
 import java.awt.Image;
@@ -26,7 +27,7 @@ public final class ControllerRotateThumbnail implements ActionListener {
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+    private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
     private final Map<JMenuItem, Float> angleOfItem =
             new HashMap<JMenuItem, Float>();
@@ -75,7 +76,10 @@ public final class ControllerRotateThumbnail implements ActionListener {
                         getSelectedIndices();
                 for (Integer index : selectedIndices) {
                     Image thumbnail = ImageTransform.rotate(
-                            thumbnailsPanel.getThumbnail(index.intValue()),
+                            PersistentThumbnails.getThumbnail(
+                                    PersistentThumbnails.getMd5File(
+                                    thumbnailsPanel.getFile(index.intValue()).
+                                            getAbsolutePath())),
                             rotateAngle);
                     if (thumbnail != null) {
                         String filename = thumbnailsPanel.getFile(

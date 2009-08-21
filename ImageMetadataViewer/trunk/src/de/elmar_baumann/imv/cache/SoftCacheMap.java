@@ -18,14 +18,14 @@ public class SoftCacheMap<C extends CacheIndirection> {
     HashMap<File, SoftReference<C>> _map =
             new HashMap<File, SoftReference<C>>();
     private final int MAX_ENTRIES;
-    final WorkQueue w;
+    final WorkQueue<C> w;
 
-    public SoftCacheMap(int maxEntries, WorkQueue _w) {
+    public SoftCacheMap(int maxEntries, WorkQueue<C> _w) {
         MAX_ENTRIES = maxEntries;
         w = _w;
     }
 
-    C get(File k) {
+    public C get(File k) {
         SoftReference<C> sr = _map.get(k);
         if (sr == null) {
             return null;
@@ -33,7 +33,7 @@ public class SoftCacheMap<C extends CacheIndirection> {
         return sr.get();
     }
 
-    C put(File k, C v) {
+    public C put(File k, C v) {
         SoftReference<C> sr = _map.put(k, new SoftReference<C>(v));
         if (sr == null) {
             return null;
@@ -41,12 +41,16 @@ public class SoftCacheMap<C extends CacheIndirection> {
         return sr.get();
     }
 
-    C remove(File k) {
+    public C remove(File k) {
         SoftReference<C> sr = _map.remove(k);
         if (sr == null) {
             return null;
         }
         return sr.get();
+    }
+
+    public void clear() {
+        _map.clear();
     }
 
     int size() {
@@ -94,8 +98,8 @@ public class SoftCacheMap<C extends CacheIndirection> {
             }
             synchronized(ci) {
                 // check if this image is probably in a prefetch queue and remove it
-                if (ci.isEmpty()) {
-                    w.remove(ci.file);
+                if (ci.isEmpty() && w != null) {
+                    w.remove(ci);
                 }
                 _map.remove(ci.file);
             }

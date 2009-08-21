@@ -3,7 +3,7 @@ package de.elmar_baumann.imv.controller.programs;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.helper.StartPrograms;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 public final class ControllerOpenFilesWithOtherApp implements ActionListener {
 
     private final PopupMenuThumbnails popupMenu;
-    private final ImageFileThumbnailsPanel thumbnailsPanel;
+    private final ThumbnailsPanel thumbnailsPanel;
     private final StartPrograms executor;
 
     public ControllerOpenFilesWithOtherApp() {

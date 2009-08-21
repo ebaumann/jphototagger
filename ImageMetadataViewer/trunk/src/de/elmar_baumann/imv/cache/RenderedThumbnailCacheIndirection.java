@@ -8,12 +8,15 @@ import java.io.File;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class ThumbnailCacheIndirection extends CacheIndirection {
+public class RenderedThumbnailCacheIndirection extends CacheIndirection {
     public Image thumbnail;
+    public int length = 0;
+    public boolean keywords = false;  // fixme: make use of this
 
-    public ThumbnailCacheIndirection(File _file) {
+    public RenderedThumbnailCacheIndirection(File _file, int _length) {
         super(_file);
         thumbnail = null;
+        length = _length;
     }
 
     @Override

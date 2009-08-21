@@ -641,7 +641,10 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Container class="de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel" name="panelThumbnails">
+                        <Container class="de.elmar_baumann.imv.view.panels.ImageFile" name="panelThumbnails">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="AppPanel_panelThumbnails"/>
+                          </AuxValues>
 
                           <Layout>
                             <DimensionLayout dim="0">

@@ -7,12 +7,12 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.tasks.AutomaticTask;
 import de.elmar_baumann.imv.view.panels.ProgressBarAutomaticTasks;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.EnumSet;
 
 /**
- * Listens to the {@link ImageFileThumbnailsPanel} and when the displayed
+ * Listens to the {@link ThumbnailsPanel} and when the displayed
  * thumbnails were changed ({@link ThumbnailsPanelListener#thumbnailsChanged()})
  * this controller gives the new displayed files to an
  * {@link InsertImageFilesIntoDatabase} object which updates the database when
@@ -29,7 +29,7 @@ public final class ControllerCreateMetadataOfCurrentThumbnails
         implements ThumbnailsPanelListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
 
     public ControllerCreateMetadataOfCurrentThumbnails() {

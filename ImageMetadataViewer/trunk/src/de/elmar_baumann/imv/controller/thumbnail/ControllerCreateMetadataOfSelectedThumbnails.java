@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
 import de.elmar_baumann.imv.tasks.UserTasks;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -32,7 +32,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
             new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>>();
     private final PopupMenuThumbnails popupMenu =
             PopupMenuThumbnails.INSTANCE;
-    private final ImageFileThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
+    private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
             getAppPanel().getPanelThumbnails();
 
     /**

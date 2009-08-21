@@ -1,21 +1,34 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.cache.RenderedThumbnailCache;
+import de.elmar_baumann.imv.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
+import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.imv.cache.ThumbnailCache;
-import de.elmar_baumann.imv.cache.XmpCache;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerPanelThumbnails;
+import de.elmar_baumann.imv.event.ThumbnailUpdateEvent;
+import de.elmar_baumann.imv.event.listener.AppExitListener;
+import de.elmar_baumann.imv.event.listener.ThumbnailUpdateListener;
+import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.types.Content;
+import de.elmar_baumann.imv.types.FileAction;
+import de.elmar_baumann.imv.types.SizeUnit;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
+import de.elmar_baumann.imv.view.renderer.ThumbnailPanelRenderer;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import de.elmar_baumann.lib.util.MathUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -25,12 +38,14 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import javax.swing.ImageIcon;
+import java.util.Set;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
@@ -65,83 +80,25 @@ import javax.swing.TransferHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public abstract class ThumbnailsPanel extends JPanel
+public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener,
-        KeyListener {
+        KeyListener, ThumbnailUpdateListener, AppExitListener {
 
-    /**
-     * Width of a thumbnail flag in pixel
-     */
-    private static final int FLAG_WIDTH = 10;
-    /**
-     * Height of a thumbnail flag in pixel
-     */
-    private static final int FLAG_HEIGHT = 10;
-    /**
-     * Height of the text font for text below the thumbnails in points
-     */
-    private static final int FONT_HEIGHT = 10;
-    /**
-     * Height of the text font for text below the thumbnails in pixels,
-     * computed from FONT_HEIGHT.
-     */
-    private static int FONT_PIXEL_HEIGHT = -1;
-    private static int FONT_PIXEL_DESCENT = -1;
-    /**
-     * Color of the text below the thumbnails
-     */
-    private static final Color COLOR_TEXT = Color.lightGray;
     /**
      * Background color of this panel
      */
-    private static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
-    /**
-     * Background color of the space between a thumbnail and it's border
-     */
-    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL = new Color(
-            0, 0, 0);
-    /**
-     * Color of the border surrounding the thumbnails
-     */
-    private static final Color COLOR_BORDER_THUMBNAIL = new Color(64, 64, 64);
-    /**
-     * Color of the text below the thumbnails of a higlighted thumbnail. Depends
-     * on {@link #COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED}
-     */
-    private static final Color COLOR_TEXT_HIGHLIGHTED = new Color(255, 255, 168);
-    /**
-     * Color of the background surrounding a highlighted thumbnail. When
-     * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
-     */
-    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED = new Color(
-            112, 122, 148);
-    /**
-     * Color of the border surrounding the highlighted thumbnails.
-     */
-    private static final Color COLOR_BORDER_THUMBNAIL_HIGHLIGHTED =
-            new Color(128, 128, 164);
-    /**
-     * Font of the text below the thumbnails
-     */
-    private static final Font FONT = new Font("Arial", Font.PLAIN, FONT_HEIGHT);  // NOI18N
-    /**
-     * Maximimum character count of the text below the thumbnails when the
-     * width of a thumbnail is 150 pixels
-     */
-    private static final int MAX_CHAR_COUNT_PER_150_PX = 30;
+    public static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
     /**
      * Empty space surrounding a thumbnail outside it's border in pixel
      */
     private static final int MARGIN_THUMBNAIL = 3;
-    /**
-     * Empty space surrounding a thumbnail within the border (space between
-     * the thumbnail's image and the border) in pixel
-     */
-    private static final int PADDING_THUMBNAIL = 3;
-    /**
-     * Width of the border surrounding the thumbnails in pixel
-     */
-    private static final int WIDHT_BORDER_THUMBNAIL = 1;
+
+    private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
+
+    private static String getSidecarFilename(File file) {
+        String sidecarfile = XmpMetadata.getSidecarFilenameOfImageFileIfExists(file.getAbsolutePath());
+        return sidecarfile == null ? "" : sidecarfile;
+    }
     /**
      * Contains the flags of thumbnails at specific indices
      */
@@ -161,18 +118,6 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     private JViewport viewport;
     /**
-     * Maximum character count of the text below a thumbnail
-     */
-    private int maxCharCountText = 35;
-    /**
-     * Width of a thumbnail
-     */
-    private int thumbnailWidth = 0;
-    /**
-     * Total count of thumbnails
-     */
-    protected int thumbnailCount = 0;
-    /**
      * Count of thumbnails horicontal
      */
     private int thumbnailCountPerRow = 0;
@@ -189,31 +134,30 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     private int clickInSelection = -1;
     private boolean keywordsOverlay;
-    public ThumbnailCache thumbCache = ThumbnailCache.INSTANCE;
-    public XmpCache xmpCache = XmpCache.INSTANCE;
-    Image starImage[] = new Image[5];
+    public RenderedThumbnailCache renderedThumbnailCache =
+            RenderedThumbnailCache.INSTANCE;
+    ThumbnailPanelRenderer renderer = new ThumbnailPanelRenderer(this);
+    
+    private Content content = Content.UNDEFINED;
+    private ControllerDoubleklickThumbnail controllerDoubleklick;
+    private FileAction fileAction = FileAction.UNDEFINED;
+    private FileSort fileSort = FileSort.NAMES_ASCENDING;
+    private final List<File> files = Collections.synchronizedList(new ArrayList<File>());
+    private volatile boolean hadFiles;
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
+    private final Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
 
     public ThumbnailsPanel() {
-        thumbCache.setPanel(this);
-        xmpCache.setPanel(this);
-        computeFontHeight();
-        loadRatingImages();
+        initRefreshListeners();
+        controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
+        setDragEnabled(true);
+        setTransferHandler(new TransferHandlerPanelThumbnails());
+        readProperties();
+
+        renderedThumbnailCache.setRenderer(renderer);
+        renderedThumbnailCache.addThumbnailUpdateListener(this);
         setBackground(COLOR_BACKGROUND_PANEL);
         listen();
-    }
-
-    private void computeFontHeight() {
-        FONT_PIXEL_HEIGHT = getFontMetrics(FONT).getHeight();
-        FONT_PIXEL_DESCENT = getFontMetrics(FONT).getDescent() +
-                getFontMetrics(FONT).getLeading() / 2;
-    }
-
-    private void loadRatingImages() {
-        for (int i = 0; i < 5; i++) {
-            starImage[i] = new ImageIcon(getClass().getResource(
-                    "/de/elmar_baumann/imv/resource/icons/icon_xmp_rating_" + // NOI18N
-                    Integer.toString(i + 1) + ".png")).getImage(); // NOI18N
-        }
     }
 
     private void listen() {
@@ -229,13 +173,32 @@ public abstract class ThumbnailsPanel extends JPanel
         System.gc();
     }
 
+    private void rerender(int index) {
+        renderedThumbnailCache.rerender(getFile(index));
+    }
+
+    private void rerender(Collection<Integer> rerenderTargets) {
+        // some heuristic, for larger rerender requests clear the cache and
+        // recreate stuff lazily
+        if (rerenderTargets.size() > 700) {
+            renderedThumbnailCache.clear();
+            repaint();
+        } else {
+            for (Integer i : rerenderTargets) {
+                rerender(i.intValue());
+            }
+        }
+    }
+
     public void clearSelection() {
         if (selectedThumbnails.size() > 0) {
+            List<Integer> rerenderTargets =
+                    new ArrayList<Integer>(selectedThumbnails);
             synchronized (this) {
                 selectedThumbnails.clear();
             }
+            rerender(rerenderTargets);
             notifySelectionChanged();
-            repaint();
         }
     }
 
@@ -259,13 +222,11 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param width  width in pixel
      */
     public synchronized void setThumbnailWidth(int width) {
-        if (width != thumbnailWidth) {
+        if (width != renderer.getThumbnailWidth()) {
             float oldPosition = getRelativeScrollPosition();
-            thumbnailWidth = width;
+            renderer.setThumbnailWidth(width);
             setCountPerRow();
             setSize(getWidth(), getCalculatedHeight());
-            maxCharCountText = (int) (((double) MAX_CHAR_COUNT_PER_150_PX *
-                    (double) width / 150.0));
             setRelativeScrollPosition(oldPosition);
             repaint();
         }
@@ -299,11 +260,11 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     protected boolean isValidIndex(int thumbnailIndex) {
-        return thumbnailIndex >= 0 && thumbnailIndex < thumbnailCount;
+        return thumbnailIndex >= 0 && thumbnailIndex < files.size();
     }
 
     public synchronized int getThumbnailWidth() {
-        return thumbnailWidth;
+        return renderer.getThumbnailWidth();
     }
 
     /**
@@ -321,6 +282,9 @@ public abstract class ThumbnailsPanel extends JPanel
      * @param indices Indexe
      */
     public void setSelected(List<Integer> indices) {
+        Set<Integer> rerenderTargets =
+                new HashSet<Integer>(selectedThumbnails);
+        rerenderTargets.addAll(indices);
         synchronized (this) {
             selectedThumbnails.clear();
             selectedThumbnails.addAll(indices);
@@ -328,60 +292,9 @@ public abstract class ThumbnailsPanel extends JPanel
         if (indices.size() > 0) {
             Collections.sort(selectedThumbnails);
         }
+        rerender(rerenderTargets);
         notifySelectionChanged();
         repaint();
-    }
-
-    /**
-     * Fügt einen Beobachter hinzu.
-     * 
-     * @param listener Beobachter
-     */
-    public void addThumbnailsPanelListener(ThumbnailsPanelListener listener) {
-        synchronized (panelListeners) {
-            panelListeners.add(listener);
-        }
-    }
-
-    /**
-     * Liefert den Text für ein bestimmtes Thumbnail.
-     * 
-     * @param index Thumbnailindex
-     * @return      Titel
-     */
-    protected abstract String getText(int index);
-
-    /**
-     * Delivers keywords for a thumbnail at a specific index.
-     *
-     * @param index Thumbnail index
-     * @return      keywords
-     */
-    protected abstract List<String> getKeywords(int index);
-
-    /**
-     * Delivers rating for a thumbnail at a specific index.
-     *
-     * @param index Thumbnail index
-     * @return      rating
-     */
-    protected abstract int getRating(int index);
-
-    /**
-     * Returns the index of a specific file.
-     *
-     * @param  file  file
-     * @return Index or -1 if not displayed
-     */
-    public abstract int getIndexOf(File file);
-
-    /**
-     * Ein Popupmenü soll angezeigt werden. Per Default wird nichts übernommen.
-     * Spezialisierte Klassen können diese Operation überschreiben.
-     * 
-     * @param e Mausereignis
-     */
-    protected void showPopupMenu(MouseEvent e) {
     }
 
     /**
@@ -394,35 +307,21 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Unternimmt nichts, Nachkommen können auf einen Doppelklick reagieren.
-     * 
-     * @param index Index des angeklickten Thumbnails.
-     */
-    protected void doubleClickAt(int index) {
-    }
-
-    /**
-     * Unternimmt nichts, Nachkommen können ein Tooltip anzeigen
-     * 
-     * @param evt Mausereignis
-     */
-    protected void showToolTip(MouseEvent evt) {
-    }
-
-    /**
      * Setzt ein Thumbnail an einem bestimmten Index (neu). Der Cache wird mit
      * diesem Thumbnail aktualisiert.
      * 
      * @param index Index
      */
-    public synchronized void repaint(int index) {
+    protected synchronized void repaint(int index) {
         repaint(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
-                getThumbnailAreaWidth(), getThumbnailAreaHeight());
+                renderer.getThumbnailAreaWidth(),
+                renderer.getThumbnailAreaHeight());
     }
 
-    public synchronized void repaint(File file) {
-        int index = getIndexOf(file);
-
+    @Override
+    public synchronized void actionPerformed(ThumbnailUpdateEvent event) {
+        int index = getIndexOf(event.getSource());
+        //renderedThumbnailCache.remove(event.getSource());
         // drop stale update request
         if (index >= 0) {
             repaint(index);
@@ -469,8 +368,12 @@ public abstract class ThumbnailsPanel extends JPanel
         return flagOfThumbnail.get(index);
     }
 
+    public synchronized ThumbnailFlag getFlag(File file) {
+        return flagOfThumbnail.get(getIndexOf(file));
+    }
+
     private int getCountHorizontalLeftFromX(int x) {
-        return x / (getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
+        return x / (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
     }
 
     private int getCountHorizontalRightFromX(int x) {
@@ -478,21 +381,21 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private int getCountVerticalAboveY(int y) {
-        return y / (getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
+        return y / (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
     }
 
     private boolean isThumbnailAreaInWidth(int x) {
         int startExtPadding = getCountHorizontalLeftFromX(x) *
-                (getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
+                (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
         int endExtPadding = startExtPadding + MARGIN_THUMBNAIL;
-        return x < startExtPadding || (x > endExtPadding &&
-                endExtPadding + getThumbnailAreaWidth() + MARGIN_THUMBNAIL <=
+        return x < startExtPadding || (x > endExtPadding && endExtPadding +
+                renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL <=
                 getWidth());
     }
 
     private boolean isThumbnailAreaInHeight(int y) {
         int startExtPadding = getCountVerticalAboveY(y) *
-                (getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
+                (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
         int endExtPadding = startExtPadding + MARGIN_THUMBNAIL;
         return y < startExtPadding || y > endExtPadding;
     }
@@ -504,7 +407,7 @@ public abstract class ThumbnailsPanel extends JPanel
     protected int getIndexAtPoint(int x, int y) {
         if (isThumbnailArea(x, y)) {
             int tnOffset = (x - MARGIN_THUMBNAIL) /
-                    (getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
+                    (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
             int firstInRow = getFirstPaintIndexAtHeight(y);
             return firstInRow + tnOffset;
         }
@@ -523,7 +426,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private int getRowCountInHeight(int height) {
         return (int) ((height - MARGIN_THUMBNAIL) /
-                (getThumbnailAreaHeight() + MARGIN_THUMBNAIL) + 0.5);
+                (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL) + 0.5);
     }
 
     /**
@@ -536,6 +439,10 @@ public abstract class ThumbnailsPanel extends JPanel
         return selectedThumbnails.contains(index);
     }
 
+    public synchronized boolean isSelected(File file) {
+        return selectedThumbnails.contains(getIndexOf(file));
+    }
+    
     /**
      * Liefert die Anzahl der selektierten Thumbnails.
      * 
@@ -549,108 +456,40 @@ public abstract class ThumbnailsPanel extends JPanel
         int rowIndex = getRowIndexAt(index);
         int columnIndex = getColumnIndexAt(index);
         int x = MARGIN_THUMBNAIL + columnIndex *
-                (getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
+                (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
         int y = MARGIN_THUMBNAIL + rowIndex *
-                (getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
+                (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
         return new Point(x, y);
-    }
-
-    private int getThumbnailAreaHeight() {
-        return thumbnailWidth + 2 * PADDING_THUMBNAIL +
-                2 * WIDHT_BORDER_THUMBNAIL + FONT_PIXEL_HEIGHT;
-    }
-
-    private int getThumbnailAreaHeightNoText() {
-        return thumbnailWidth + 2 * PADDING_THUMBNAIL +
-                2 * WIDHT_BORDER_THUMBNAIL;
-    }
-
-    private int getThumbnailAreaWidth() {
-        return thumbnailWidth + 2 * PADDING_THUMBNAIL +
-                2 * WIDHT_BORDER_THUMBNAIL;
-    }
-
-    private int getThumbnailLeftIndent(Image thumbnail) {
-        int indentLeft = (int) ((double) ((getThumbnailAreaWidth() -
-                thumbnail.getWidth(this))) / 2.0 + 0.5);
-        if (indentLeft < 0) {
-            indentLeft = 0;
-        }
-        return indentLeft;
-    }
-
-    private int getThumbnailTopIndent(Image thumbnail) {
-        int indentTop = (getThumbnailAreaHeight() -
-                thumbnail.getHeight(this) - FONT_PIXEL_HEIGHT + 1) / 2;
-        if (indentTop < 0) {
-            indentTop = 0;
-        }
-        return indentTop;
-    }
-
-    private void handleKeyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        if (keyCode == KeyEvent.VK_RIGHT) {
-            setSelectedNext();
-            checkScrollDown();
-        } else if (keyCode == KeyEvent.VK_LEFT) {
-            setSelectedPrevious();
-            checkScrollUp();
-        } else if (keyCode == KeyEvent.VK_UP) {
-            setSelectedUp();
-            checkScrollUp();
-        } else if (keyCode == KeyEvent.VK_DOWN) {
-            setSelectedDown();
-            checkScrollDown();
-        } else if (keyCode == KeyEvent.VK_ENTER) {
-            handleMouseDoubleKlicked();
-        } else if ((e.getModifiers() & KeyEvent.CTRL_MASK) ==
-                KeyEvent.CTRL_MASK && keyCode == KeyEvent.VK_A) {
-            setSelectedAll(true);
-        } else if (keyCode == KeyEvent.VK_HOME) {
-            clearSelection();
-            scrollToTop();
-        } else if (keyCode == KeyEvent.VK_END) {
-            clearSelection();
-            scrollToBottom();
-        } else if (keyCode == KeyEvent.VK_PAGE_DOWN ||
-                keyCode == KeyEvent.VK_PAGE_UP) {
-            clearSelection();
-        }
-    }
-
-    private boolean isIndex(int index) {
-        return index >= 0 && index < thumbnailCount;
     }
 
     public synchronized int getDropIndex(int x, int y) {
         int maxBottom = MARGIN_THUMBNAIL + getRowCount() *
-                getThumbnailAreaHeight();
+                renderer.getThumbnailAreaHeight();
         int maxRight = MARGIN_THUMBNAIL + getColumnCount() *
-                getThumbnailAreaWidth();
+                renderer.getThumbnailAreaWidth();
         boolean inTnArea = x < maxRight && y < maxBottom;
         boolean xIsOut = x > maxRight;
         boolean yIsOut = y > maxBottom;
         return inTnArea
-                ? (y - MARGIN_THUMBNAIL) / getThumbnailAreaHeight() *
+                ? (y - MARGIN_THUMBNAIL) / renderer.getThumbnailAreaHeight() *
                 getColumnCount() +
-                (x - MARGIN_THUMBNAIL) / getThumbnailAreaWidth()
+                (x - MARGIN_THUMBNAIL) / renderer.getThumbnailAreaWidth()
                 : xIsOut && !yIsOut
-                ? (y - MARGIN_THUMBNAIL) / getThumbnailAreaHeight() *
+                ? (y - MARGIN_THUMBNAIL) / renderer.getThumbnailAreaHeight() *
                 getColumnCount() +
                 getColumnCount() - 1
                 : yIsOut
-                ? thumbnailCount - 1
+                ? files.size() - 1
                 : -1;
     }
 
     private int getColumnCount() {
         int width = getWidth();
-        int tnWidth = getThumbnailAreaWidth();
+        int tnWidth = renderer.getThumbnailAreaWidth();
         int count = (int) ((double) (width - MARGIN_THUMBNAIL) /
                 (double) tnWidth);
-        return count > thumbnailCount
-                ? thumbnailCount
+        return count > files.size()
+                ? files.size()
                 : count;
     }
 
@@ -726,11 +565,16 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private void setSelectedAll(boolean select) {
+        Set<Integer> rerenderTargets =
+                new HashSet<Integer>(selectedThumbnails);
         selectedThumbnails.clear();
         if (select) {
-            for (int index = 0; index < thumbnailCount; index++) {
+            for (int index = 0; index < files.size(); index++) {
                 selectedThumbnails.add(index);
             }
+            renderedThumbnailCache.clear();
+        } else {
+            rerender(rerenderTargets);
         }
         notifySelectionChanged();
         repaint();
@@ -740,6 +584,8 @@ public abstract class ThumbnailsPanel extends JPanel
         if (getSelectionCount() <= 0) {
             setSelected(index);
         } else {
+            Set<Integer> rerenderTargets =
+                    new HashSet<Integer>(selectedThumbnails);
             int firstSelected = getFirstSelectedIndex();
             selectedThumbnails.clear();
             int startIndex = index > firstSelected
@@ -751,14 +597,20 @@ public abstract class ThumbnailsPanel extends JPanel
             for (int i = startIndex; i <= endIndex; i++) {
                 selectedThumbnails.add(i);
             }
+            rerenderTargets.addAll(selectedThumbnails);
+            rerender(rerenderTargets);
             notifySelectionChanged();
             repaint();
         }
     }
 
     private void setSelected(int index) {
+        Set<Integer> rerenderTargets =
+                new HashSet<Integer>(selectedThumbnails);
         selectedThumbnails.clear();
         selectedThumbnails.add(index);
+        rerenderTargets.add(index);
+        rerender(rerenderTargets);
         notifySelectionChanged();
         repaint();
     }
@@ -767,16 +619,17 @@ public abstract class ThumbnailsPanel extends JPanel
         if (!isSelected(index)) {
             selectedThumbnails.add(index);
             Collections.sort(selectedThumbnails);
+            rerender(index);
             notifySelectionChanged();
-            repaint();
         }
     }
 
     private void removeSelection(int index) {
         if (isSelected(index)) {
             selectedThumbnails.remove(new Integer(index));
+            renderedThumbnailCache.remove(getFile(index));
+            rerender(index);
             notifySelectionChanged();
-            repaint();
         }
     }
 
@@ -804,22 +657,31 @@ public abstract class ThumbnailsPanel extends JPanel
         repaint();
     }
 
-    abstract protected void prefetch(int low, int high, boolean xmp);
-            
+    protected void prefetch(int low, int high, boolean xmp) {
+        File file;
+        for (int i = low; i <= high; i++) {
+            file = getFile(i);
+            assert file != null: "X: " + i + ", " + low + ", " + high + ".";
+            renderedThumbnailCache.prefetch(file,
+                    renderer.getThumbnailWidth(), xmp);
+        }
+    }
+
     @Override
     public synchronized void paintComponent(Graphics g) {
         paintPanelBackground(g);
-        if (thumbnailCount > 0) {
+        if (files.size() > 0) {
             Rectangle rectClip = g.getClipBounds();
-            int firstIndex = getFirstPaintIndexAtHeight(rectClip.y);
+            int firstIndex = Math.min(files.size(),
+                    getFirstPaintIndexAtHeight(rectClip.y));
             int lastIndex = Math.min(
                     getLastPaintIndexAtHeight(rectClip.y + rectClip.height),
-                    thumbnailCount);
+                    files.size());
             int firstColumn = Math.max(0,
                     getCountHorizontalLeftFromX(rectClip.x));
             int lastColumn = Math.min(thumbnailCountPerRow - 1,
                     getCountHorizontalRightFromX(rectClip.x + rectClip.width));
-            g.setFont(FONT);
+            //g.setFont(FONT);
             for (int index = firstIndex; index < lastIndex; index++) {
                 if (index % thumbnailCountPerRow >= firstColumn &&
                         index % thumbnailCountPerRow <= lastColumn) {
@@ -830,12 +692,12 @@ public abstract class ThumbnailsPanel extends JPanel
 
             int prefetchLowStart = Math.max(0,
                     firstIndex - thumbnailCountPerRow * 5);
-            int prefetchLowEnd = Math.max(0, firstIndex - 1);
-            int prefechtHighStart = Math.min(thumbnailCount - 1, lastIndex + 1);
-            int prefetchHighEnd = Math.min(thumbnailCount - 1,
+            int prefetchLowEnd = firstIndex - 1;
+            int prefetchHighStart = lastIndex;
+            int prefetchHighEnd = Math.min(files.size() - 1,
                     lastIndex + thumbnailCountPerRow * 5);
 
-            prefetch(prefechtHighStart, prefetchHighEnd, isKeywordsOverlay());
+            prefetch(prefetchHighStart, prefetchHighEnd, isKeywordsOverlay());
             prefetch(prefetchLowStart, prefetchLowEnd, isKeywordsOverlay());
         }
     }
@@ -847,138 +709,322 @@ public abstract class ThumbnailsPanel extends JPanel
         g.setColor(oldColor);
     }
 
-    abstract protected Image getScaledThumbnail(int index, int thumbnailWidth);
-
     private void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
-        Image thumbnail = getScaledThumbnail(index, thumbnailWidth);
-
-        paintThumbnailBackground(g, topLeft.x, topLeft.y, isSelected(index));
-        paintThumbnailFlag(index, g, topLeft.x, topLeft.y);
-        paintThumbnail(thumbnail, g, topLeft.x, topLeft.y);
-        paintThumbnailTextAt(g, index, topLeft.x, topLeft.y);
-        if (isKeywordsOverlay()) {
-            paintThumbnailKeywordsAt(g, index, topLeft.x, topLeft.y);
-            paintThumbnailStarsAt(g, index, topLeft.x, topLeft.y);
+        Image im = renderedThumbnailCache.getThumbnail(
+                getFile(index), renderer.getThumbnailWidth());
+        if (im != null) {
+            g.drawImage(im, topLeft.x, topLeft.y, viewport);
         }
     }
 
-    private void paintThumbnailBackground(Graphics g, int thumbnailAreaX,
-            int thumbnailAreaY, boolean isSelected) {
-        Color backgroundColor = isSelected
-                ? COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED
-                : COLOR_BACKGROUND_PADDING_THUMBNAIL;
-        Color borderColor = isSelected
-                ? COLOR_BORDER_THUMBNAIL_HIGHLIGHTED
-                : COLOR_BORDER_THUMBNAIL;
-        Color oldColor = g.getColor();
-        g.setColor(backgroundColor);
-        g.fillRoundRect(
-                thumbnailAreaX,
-                thumbnailAreaY,
-                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                PADDING_THUMBNAIL * 2,
-                PADDING_THUMBNAIL * 2);
-        g.setColor(borderColor);
-        g.drawRoundRect(
-                thumbnailAreaX,
-                thumbnailAreaY,
-                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                PADDING_THUMBNAIL * 2,
-                PADDING_THUMBNAIL * 2);
-        g.setColor(oldColor);
-    }
-
-    private void paintThumbnailFlag(
-            int index, Graphics g, int thumbnailAreaX, int thumbnailAreaY) {
-        ThumbnailFlag flag = getFlag(index);
-        if (flag != null) {
-            Color oldColor = g.getColor();
-            g.setColor(flag.getColor());
-            g.fillRect(
-                    thumbnailAreaX + thumbnailWidth +
-                    2 * PADDING_THUMBNAIL - FLAG_WIDTH,
-                    thumbnailAreaY + thumbnailWidth +
-                    2 * PADDING_THUMBNAIL - FLAG_HEIGHT,
-                    FLAG_WIDTH,
-                    FLAG_HEIGHT);
-            g.setColor(oldColor);
+    /**
+     * Adds a refresh listener for a specific content.
+     *
+     * @param listener  listener
+     * @param content   content
+     */
+    public void addRefreshListener(RefreshListener listener, Content content) {
+        synchronized (refreshListenersOfContent) {
+            refreshListenersOfContent.get(content).add(listener);
         }
     }
 
-    private void paintThumbnail(
-            Image thumbnail, Graphics g, int areaX, int areaY) {
-        int indentTop = getThumbnailTopIndent(thumbnail);
-        int indentLeft = getThumbnailLeftIndent(thumbnail);
-
-        g.drawImage(thumbnail, areaX + indentLeft, areaY + indentTop, this);
+    @Override
+    public void appWillExit() {
+        UserSettings.INSTANCE.getSettings().setInt(getThumbnailWidth(),
+                ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
+        UserSettings.INSTANCE.writeToFile();
     }
 
-    private void paintThumbnailTextAt(Graphics g, int index,
-            int areaX, int areaY) {
-        String text = getFormattedText(index);
-        int width = getThumbnailAreaWidth();
-        int lenTitle = g.getFontMetrics().stringWidth(text);
-        int space = width - lenTitle;
-        int xText =
-                space > 0
-                ? areaX + (int) ((double) space / 2.0 + 0.5)
-                : areaX;
-
-        Color oldColor = g.getColor();
-        g.setColor(isSelected(index)
-                ? COLOR_TEXT_HIGHLIGHTED
-                : COLOR_TEXT);
-        g.drawString(text, xText,
-                areaY + getThumbnailAreaHeight() - FONT_PIXEL_DESCENT);
-        g.setColor(oldColor);
-    }
-
-    private String getFormattedText(int index) {
-        String text = getText(index);
-        int charCountText = text.length();
-
-        if (charCountText <= maxCharCountText) {
-            return text;
+    private String createTooltipText(int index) {
+        if (isIndex(index)) {
+            File file = files.get(index);
+            if (!file.exists()) {
+                return file.getAbsolutePath();
+            }
+            ThumbnailFlag flag = getFlag(index);
+            String flagText = flag == null ? "" : flag.getString();
+            long length = file.length();
+            SizeUnit unit = SizeUnit.unit(length);
+            long unitLength = (long) (length / unit.bytes() + 0.5);
+            Date date = new Date(file.lastModified());
+            String unitString = unit.toString();
+            return Bundle.getString("ThumbnailsPanel.TooltipText", file, unitLength, unitString, date, date, getSidecarFilename(file), flagText);
+        } else {
+            return "";
         }
-
-        return "..." + text.substring(text.length() - maxCharCountText + 2); // NOI18N
     }
 
-    private void paintThumbnailKeywordsAt(Graphics g, int index,
-            int areaX, int areaY) {
-        List<String> text = getKeywords(index);
-        if (text == null || text.size() == 0) {
+    public synchronized Content getContent() {
+        return content;
+    }
+
+    /**
+     * Returns the file action.
+     *
+     * <em>This class is not responsible to take care of the file action! I.e.
+     * if the action is not longer valid, the caller must set it to a valid
+     * action type.</em>
+     *
+     * @return file action
+     */
+    public synchronized FileAction getFileAction() {
+        return fileAction;
+    }
+
+    /**
+     * Returns the number of Thumbnails.
+     *
+     * @return thumbnail count
+     */
+    /**
+     * Returns the number of Thumbnails.
+     *
+     * @return thumbnail count
+     */
+    public synchronized int getFileCount() {
+        return files.size();
+    }
+
+    /**
+     * Returns all displayed files.
+     *
+     * @return files
+     */
+    public synchronized List<File> getFiles() {
+        return new ArrayList<File>(files);
+    }
+
+    /**
+     * Returns the files with a specific index.
+     *
+     * @param  indices  file indices
+     * @return files of valid indices
+     */
+    public synchronized List<File> getFiles(List<Integer> indices) {
+        List<File> f = new ArrayList<File>();
+        for (Integer index : indices) {
+            if (isIndex(index)) {
+                f.add(files.get(index));
+            }
+        }
+        return f;
+    }
+
+    private List<Integer> getIndices(List<File> fileArray, boolean onlyIfExists) {
+        List<Integer> indices = new ArrayList<Integer>(fileArray.size());
+        for (File file : fileArray) {
+            int index = files.indexOf(file);
+            if (!onlyIfExists || (onlyIfExists && index >= 0)) {
+                indices.add(index);
+            }
+        }
+        return indices;
+    }
+
+    /**
+     * Returns the filenames of selected thumbnails.
+     *
+     * @return filenames
+     */
+    public synchronized List<File> getSelectedFiles() {
+        return getFiles(getSelectedIndices());
+    }
+
+    /**
+     * Returns the sort type.
+     *
+     * @return sort type
+     */
+    public synchronized FileSort getSort() {
+        return fileSort;
+    }
+
+    private void initRefreshListeners() {
+        for (Content c : Content.values()) {
+            refreshListenersOfContent.put(c, new ArrayList<RefreshListener>());
+        }
+    }
+
+    /**
+     * Returns wheter an index of a file is valid.
+     *
+     * @param  index index
+     * @return true if valid
+     */
+    public synchronized boolean isIndex(int index) {
+        return index >= 0 && index < files.size();
+    }
+
+    public synchronized void moveSelectedToIndex(int index) {
+        if (!isValidIndex(index)) {
             return;
         }
-        int width = getThumbnailAreaWidth();
-        int height = getThumbnailAreaHeightNoText();
-        Color oldColor = g.getColor();
-        g.setColor(COLOR_TEXT_HIGHLIGHTED);
-        Shape oldShape = g.getClip();
-        g.clipRect(areaX, areaY, width, height);
-        Iterator<String> is = text.iterator();
-        for (int i = 0; is.hasNext(); i++) {
-            g.drawString(is.next(),
-                    areaX + WIDHT_BORDER_THUMBNAIL,
-                    areaY + WIDHT_BORDER_THUMBNAIL +
-                    (i + 1) * FONT_PIXEL_HEIGHT - FONT_PIXEL_DESCENT);
+        List<Integer> selectedIndices = getSelectedIndices();
+        if (selectedIndices.size() <= 0) {
+            return;
         }
-        g.setColor(oldColor);
-        g.setClip(oldShape);
+        Collections.sort(selectedIndices);
+        if (selectedIndices.get(0) == index) {
+            return;
+        }
+        List<File> selFiles = getFiles(selectedIndices);
+        List<File> filesWithoutMoved = new ArrayList<File>(files);
+        int fileCount = filesWithoutMoved.size();
+        filesWithoutMoved.removeAll(selFiles);
+        List<File> newOrderedFiles = new ArrayList<File>(fileCount);
+        newOrderedFiles.addAll(filesWithoutMoved.subList(0, index));
+        newOrderedFiles.addAll(selFiles);
+        newOrderedFiles.addAll(filesWithoutMoved.subList(index, filesWithoutMoved.size()));
+        files.clear();
+        files.addAll(newOrderedFiles);
+        clearSelection();
     }
 
-    private void paintThumbnailStarsAt(Graphics g, int index,
-            int areaX, int areaY) {
-        int stars = getRating(index);
-        if (stars > 0) {
-            int i = Math.min(4, stars - 1);
-            g.drawImage(starImage[i],
-                    areaX + getThumbnailAreaWidth() -
-                    starImage[i].getWidth(null),
-                    areaY, null);
+    private void notifyRefreshListeners() {
+        synchronized (refreshListenersOfContent) {
+            AppLog.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
+            // NOI18N
+            for (RefreshListener listener : refreshListenersOfContent.get(content)) {
+                listener.refresh();
+            }
+        }
+    }
+
+    private void readProperties() {
+        int tnWidth = UserSettings.INSTANCE.getSettings().getInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
+        if (tnWidth > 0) {
+            setThumbnailWidth(tnWidth);
+        }
+    }
+
+    /**
+     * Calls <code>refresh()</code> by all added
+     * {@link de.elmar_baumann.imv.event.listener.RefreshListener} objects.
+     */
+    public synchronized void refresh() {
+        JViewport viewport = getViewport();
+        Point viewportPosition = null;
+        if (viewport != null) {
+            viewportPosition = viewport.getViewPosition();
+        }
+        notifyRefreshListeners();
+        // does set the images
+        if (viewport != null) {
+            viewport.setViewPosition(viewportPosition);
+        }
+    }
+
+    /**
+     * Removes files from the <strong>display</strong>, <em>not</em> from the
+     * file system.
+     *
+     * @param filesToRemove  files to remove
+     */
+    public synchronized void remove(List<File> filesToRemove) {
+        List<File> selectedFiles = getSelectedFiles();
+        if (files.removeAll(filesToRemove)) {
+            setFiles(files, content);
+            setSelected(getIndices(selectedFiles, true));
+            refresh();
+        }
+    }
+
+    /**
+     * Renames a file <strong>on the display</strong>, <em>not</em> in the
+     * file system.
+     *
+     * @param oldFile  old file
+     * @param newFile  new file
+     */
+    public synchronized void rename(File oldFile, File newFile) {
+        int index = files.indexOf(oldFile);
+        if (index >= 0) {
+            files.set(index, newFile);
+        }
+    }
+
+    /**
+     * Repaints a file.
+     *
+     * @param file  file
+     */
+    public synchronized void repaint(File file) {
+        repaint();
+    }
+
+    /**
+     * Sets the file action.
+     *
+     * @param fileAction  file action
+     */
+    public synchronized void setFileAction(FileAction fileAction) {
+        this.fileAction = fileAction;
+    }
+    /**
+     * Color of the background surrounding a highlighted thumbnail. When
+     * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
+     */
+
+    /**
+     * Sets the files to display. Previous desplayed files will be hided.
+     * The new files will be displayed in the defined sort order.
+     *
+     * @param files    files
+     * @param content  content description of the files
+     */
+    public void setFiles(List<File> files, Content content) {
+        synchronized (this) {
+            this.files.clear();
+            if (!content.equals(Content.IMAGE_COLLECTION)) {
+                Collections.sort(files, fileSort.getComparator());
+            }
+            this.files.addAll(files);
+            this.content = content;
+        }
+        setNewThumbnails();
+        if (hadFiles) {
+            scrollToTop();
+        }
+        hadFiles = true;
+        setMissingFilesFlags();
+    }
+
+    private void setMissingFilesFlags() {
+        int count = files.size();
+        boolean missing = false;
+        for (int i = 0; i < count; i++) {
+            if (!files.get(i).exists()) {
+                addFlag(i, ThumbnailFlag.ERROR_FILE_NOT_FOUND);
+                missing = true;
+            }
+        }
+        if (missing) {
+            repaint();
+        }
+    }
+
+    /**
+     * Sets a sort type, does <em>not</em> sort.
+     *
+     * @param fileSort  sort type
+     * @see #sort()
+     */
+    public synchronized void setSort(FileSort fileSort) {
+        this.fileSort = fileSort;
+    }
+
+    /**
+     * Sorts the files.
+     *
+     * @see #setSort(de.elmar_baumann.lib.comparator.FileSort)
+     */
+    public synchronized void sort() {
+        if (!content.equals(Content.IMAGE_COLLECTION)) {
+            List<File> selectedFiles = getSelectedFiles();
+            setFiles(new ArrayList<File>(files), content);
+            setSelected(getIndices(selectedFiles, true));
         }
     }
 
@@ -992,14 +1038,25 @@ public abstract class ThumbnailsPanel extends JPanel
     }
 
     private int getRowCount() {
-        double count = (double) thumbnailCount / (double) thumbnailCountPerRow;
-        return thumbnailCount > thumbnailCountPerRow
+        double count = (double) files.size() / (double) thumbnailCountPerRow;
+        return files.size() > thumbnailCountPerRow
                 ? (int) (MathUtil.isInteger(count)
                 ? count
                 : count + 1)
-                : thumbnailCount == 0
+                : files.size() == 0
                 ? 0
                 : 1;
+    }
+
+    /**
+     * Fügt einen Beobachter hinzu.
+     *
+     * @param listener Beobachter
+     */
+    public void addThumbnailsPanelListener(ThumbnailsPanelListener listener) {
+        synchronized (panelListeners) {
+            panelListeners.add(listener);
+        }
     }
 
     private void notifySelectionChanged() {
@@ -1030,7 +1087,8 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private int getCalculatedHeight() {
         return MARGIN_THUMBNAIL +
-                getRowCount() * (getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
+                getRowCount() * (renderer.getThumbnailAreaHeight() +
+                MARGIN_THUMBNAIL);
     }
 
     @Override
@@ -1040,7 +1098,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void setCountPerRow() {
         int width = getWidth();
-        int tnAreaWidth = getThumbnailAreaWidth();
+        int tnAreaWidth = renderer.getThumbnailAreaWidth();
         double count =
                 (double) (width - MARGIN_THUMBNAIL) /
                 (double) (tnAreaWidth + MARGIN_THUMBNAIL);
@@ -1079,7 +1137,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void setSelectedNext() {
         int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect = (indexSelectedThumbnail + 1) % thumbnailCount;
+        int indexToSelect = (indexSelectedThumbnail + 1) % files.size();
         if (indexSelectedThumbnail >= 0 && isIndex(indexToSelect)) {
             if (indexToSelect == 0) scrollToTop();
             setSelected(indexToSelect);
@@ -1088,10 +1146,10 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void setSelectedPrevious() {
         int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect = (indexSelectedThumbnail - 1) % thumbnailCount;
-        if (indexToSelect < 0) indexToSelect = thumbnailCount - 1;
+        int indexToSelect = (indexSelectedThumbnail - 1) % files.size();
+        if (indexToSelect < 0) indexToSelect = files.size() - 1;
         if (indexSelectedThumbnail >= 0 && isIndex(indexToSelect)) {
-            if (indexToSelect >= thumbnailCount - 1) scrollToBottom();
+            if (indexToSelect >= files.size() - 1) scrollToBottom();
             setSelected(indexToSelect);
         }
     }
@@ -1131,7 +1189,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void checkScrollUp() {
         if (viewport != null && getSelectedIndex() >= 0) {
-            int tnHeight = getThumbnailAreaHeight();
+            int tnHeight = renderer.getThumbnailAreaHeight();
             int topSel = getTopLeftOfTnIndex(getSelectedIndex()).y - tnHeight;
             int viewPosBottom = viewport.getViewPosition().y;
             if (topSel < viewPosBottom) {
@@ -1142,7 +1200,7 @@ public abstract class ThumbnailsPanel extends JPanel
 
     private void checkScrollDown() {
         if (viewport != null && getSelectedIndex() >= 0) {
-            int tnHeight = getThumbnailAreaHeight();
+            int tnHeight = renderer.getThumbnailAreaHeight();
             int bottomSel = getTopLeftOfTnIndex(getSelectedIndex()).y + tnHeight;
             int viewPosBottom =
                     viewport.getViewPosition().y + viewport.getHeight();
@@ -1155,7 +1213,7 @@ public abstract class ThumbnailsPanel extends JPanel
     private void scrollOneImageUp() {
         if (viewport != null) {
             Point p = viewport.getViewPosition();
-            int tnHeight = getThumbnailAreaHeight();
+            int tnHeight = renderer.getThumbnailAreaHeight();
             int y = p.y - tnHeight >= 0
                     ? p.y - tnHeight
                     : 0;
@@ -1167,7 +1225,7 @@ public abstract class ThumbnailsPanel extends JPanel
         if (viewport != null) {
             Point p = viewport.getViewPosition();
             viewport.setViewPosition(
-                    new Point(0, p.y + getThumbnailAreaHeight()));
+                    new Point(0, p.y + renderer.getThumbnailAreaHeight()));
         }
     }
 
@@ -1209,7 +1267,36 @@ public abstract class ThumbnailsPanel extends JPanel
 
     @Override
     public void keyPressed(KeyEvent e) {
-        handleKeyPressed(e);
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_F5) {
+            refresh();
+        } else if (keyCode == KeyEvent.VK_RIGHT) {
+            setSelectedNext();
+            checkScrollDown();
+        } else if (keyCode == KeyEvent.VK_LEFT) {
+            setSelectedPrevious();
+            checkScrollUp();
+        } else if (keyCode == KeyEvent.VK_UP) {
+            setSelectedUp();
+            checkScrollUp();
+        } else if (keyCode == KeyEvent.VK_DOWN) {
+            setSelectedDown();
+            checkScrollDown();
+        } else if (keyCode == KeyEvent.VK_ENTER) {
+            handleMouseDoubleKlicked();
+        } else if ((e.getModifiers() & KeyEvent.CTRL_MASK) ==
+                KeyEvent.CTRL_MASK && keyCode == KeyEvent.VK_A) {
+            setSelectedAll(true);
+        } else if (keyCode == KeyEvent.VK_HOME) {
+            clearSelection();
+            scrollToTop();
+        } else if (keyCode == KeyEvent.VK_END) {
+            clearSelection();
+            scrollToBottom();
+        } else if (keyCode == KeyEvent.VK_PAGE_DOWN ||
+                keyCode == KeyEvent.VK_PAGE_UP) {
+            clearSelection();
+        }
     }
 
     @Override
@@ -1233,6 +1320,43 @@ public abstract class ThumbnailsPanel extends JPanel
      */
     public void setKeywordsOverlay(boolean keywordsOverlay) {
         this.keywordsOverlay = keywordsOverlay;
+        renderedThumbnailCache.clear();
         repaint();
+    }
+
+    /**
+     * Returns the index of a specific file.
+     *
+     * @param  file  file
+     * @return Index or -1 if not displayed
+     */
+    public synchronized int getIndexOf(File file) {
+        return files.indexOf(file);
+    }
+
+    /**
+     * Returns a specific file.
+     *
+     * @param  index index
+     * @return file or null if the index is invalid
+     * @see    #isIndex(int)
+     */
+    public synchronized File getFile(int index) {
+        return isIndex(index)
+               ? files.get(index)
+               : null;
+    }
+
+    protected void doubleClickAt(int index) {
+        controllerDoubleklick.doubleClickAtIndex(index);
+    }
+
+    protected void showPopupMenu(MouseEvent e) {
+        popupMenu.show(this, e.getX(), e.getY());
+    }
+
+    protected void showToolTip(MouseEvent evt) {
+        int index = getIndexAtPoint(evt.getX(), evt.getY());
+        setToolTipText(createTooltipText(index));
     }
 }

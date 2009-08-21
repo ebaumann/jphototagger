@@ -20,7 +20,7 @@ import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -47,7 +47,7 @@ public final class ControllerFastSearch
     private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final List<Column> fastSearchColumns =
             UserSettings.INSTANCE.getFastSearchColumns();

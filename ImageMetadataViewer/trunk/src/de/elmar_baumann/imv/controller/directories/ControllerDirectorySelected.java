@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuDirectories;
 import java.io.File;
 import java.util.List;
@@ -31,7 +31,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     private final JTree treeDirectories = appPanel.getTreeDirectories();
     private final EditMetadataPanelsArray editPanels =
             appPanel.getEditPanelsArray();
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final ImageFilteredDirectory imageFilteredDirectory =
             new ImageFilteredDirectory();

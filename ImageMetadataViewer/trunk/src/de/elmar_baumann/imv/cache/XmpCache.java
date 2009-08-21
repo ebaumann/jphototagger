@@ -2,6 +2,8 @@ package de.elmar_baumann.imv.cache;
 
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
+import de.elmar_baumann.imv.event.ThumbnailUpdateEvent;
+import de.elmar_baumann.imv.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.Collection;
@@ -25,10 +27,10 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
     private static class XmpFetcher implements Runnable {
 
         private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-        private WorkQueue wq;
+        private WorkQueue<XmpCacheIndirection> wq;
         private XmpCache cache;
 
-        XmpFetcher(WorkQueue _wq, XmpCache _cache) {
+        XmpFetcher(WorkQueue<XmpCacheIndirection> _wq, XmpCache _cache) {
             wq = _wq;
             cache = _cache;
         }
@@ -40,12 +42,17 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
             while (true) {
                 if (files.size() < 1) {
                     try {
-                        file = wq.fetch();
+                        file = wq.fetch().file;
                     } catch (InterruptedException ex) {
                         continue;
                     }
                 } else {
-                    file = wq.poll();
+                    XmpCacheIndirection ci = wq.poll();
+                    if (ci != null) {
+                        file = ci.file;
+                    } else {
+                        file = null;
+                    }
                 }
                 if (file != null) {
                     files.add(file.getAbsolutePath());
@@ -90,13 +97,14 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
      */
     @Override
     protected synchronized void generateEntry(File file, boolean prefetch) {
+        assert file != null: "Received request with null file";
         XmpCacheIndirection ci = new XmpCacheIndirection(file);
         updateUsageTime(ci);
         fileCache.put(file, ci);
         if (prefetch) {
-            workQueue.append(file);
+            workQueue.append(ci);
         } else {
-            workQueue.push(file);
+            workQueue.push(ci);
         }
     }
 
@@ -126,17 +134,25 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
      * @return       XMP metadata
      */
     public synchronized Xmp getXmp(File file) {
-        if (!fileCache.containsKey(file)) {
+        XmpCacheIndirection ci = fileCache.get(file);
+        if (ci == null) {
             generateEntry(file, false);
             return null;
         }
-        XmpCacheIndirection ci = fileCache.get(file);
         updateUsageTime(ci);
 
         if (ci.xmp == null) {
-            workQueue.push(file);
+            workQueue.push(ci);
             return null;
         }
         return ci.xmp;
+    }
+
+    @Override
+    public void notifyUpdate(File file) {
+        for (ThumbnailUpdateListener l : updateListeners) {
+            l.actionPerformed(new ThumbnailUpdateEvent(file,
+                    ThumbnailUpdateEvent.Type.XMP_UPDATE));
+        }
     }
 }

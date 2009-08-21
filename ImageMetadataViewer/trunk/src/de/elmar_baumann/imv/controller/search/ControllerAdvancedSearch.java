@@ -11,7 +11,7 @@ import de.elmar_baumann.imv.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -32,7 +32,7 @@ public final class ControllerAdvancedSearch implements ActionListener,
 
     private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private final EditMetadataPanelsArray editPanels =

@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.view.ViewUtil;
 import de.elmar_baumann.imv.view.frames.AppFrame;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -38,7 +38,7 @@ public final class ControllerPasteFilesFromClipboard
         implements ActionListener, KeyListener, MenuListener,
         ThumbnailsPanelListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem menuItemPaste =
             GUI.INSTANCE.getAppFrame().getMenuItemPasteFromClipboard();

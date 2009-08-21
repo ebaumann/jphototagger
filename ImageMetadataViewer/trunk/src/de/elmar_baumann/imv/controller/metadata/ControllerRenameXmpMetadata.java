@@ -4,7 +4,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.helper.RenameXmpMetadata;
 import de.elmar_baumann.imv.view.dialogs.RenameXmpMetadataDialog;
 import de.elmar_baumann.imv.view.frames.AppFrame;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public final class ControllerRenameXmpMetadata implements ActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerRenameXmpMetadata() {

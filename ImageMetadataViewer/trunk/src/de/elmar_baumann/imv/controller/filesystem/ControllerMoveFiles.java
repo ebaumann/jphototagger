@@ -8,7 +8,7 @@ import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.MoveToDirectoryDialog;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +24,7 @@ import java.util.List;
 public final class ControllerMoveFiles implements ActionListener,
                                                   FileSystemActionListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 

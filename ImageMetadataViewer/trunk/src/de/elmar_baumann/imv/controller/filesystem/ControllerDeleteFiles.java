@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.helper.DeleteImageFiles;
 import de.elmar_baumann.imv.types.Content;
 import de.elmar_baumann.imv.types.DeleteOption;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -19,7 +19,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 /**
- * Listens to key events of {@link ImageFileThumbnailsPanel} and when the
+ * Listens to key events of {@link ThumbnailsPanel} and when the
  * <code>DEL</code> key was pressed deletes the selected files from the
  * file system if the panel's content is <em>not</em>
  * {@link Content#IMAGE_COLLECTION}.
@@ -30,7 +30,7 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerDeleteFiles implements ActionListener, KeyListener {
 
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final PopupMenuThumbnails popupMenu =

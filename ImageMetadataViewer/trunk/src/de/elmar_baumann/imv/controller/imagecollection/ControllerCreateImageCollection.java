@@ -6,7 +6,7 @@ import de.elmar_baumann.imv.model.ListModelImageCollections;
 import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -36,7 +36,7 @@ public final class ControllerCreateImageCollection
             PopupMenuThumbnails.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList list = appPanel.getListImageCollections();
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerCreateImageCollection() {

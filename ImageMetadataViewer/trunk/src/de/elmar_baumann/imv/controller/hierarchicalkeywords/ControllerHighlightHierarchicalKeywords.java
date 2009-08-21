@@ -7,9 +7,8 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.imv.view.renderer.TreeCellRendererHierarchicalKeywords;
-import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +17,7 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 
 /**
- * Listens to a {@link ImageFileThumbnailsPanel} and highlights in the tree
+ * Listens to a {@link ThumbnailsPanel} and highlights in the tree
  * of a  {@link HierarchicalKeywordsPanel} the keywords of the selected image.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -27,7 +26,7 @@ import javax.swing.tree.TreeCellRenderer;
 public final class ControllerHighlightHierarchicalKeywords
         implements ThumbnailsPanelListener {
 
-    private final ImageFileThumbnailsPanel tnPanel =
+    private final ThumbnailsPanel tnPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();

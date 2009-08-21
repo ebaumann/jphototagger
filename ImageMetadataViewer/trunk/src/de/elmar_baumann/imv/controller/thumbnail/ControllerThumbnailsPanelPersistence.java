@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.event.listener.AppExitListener;
 import de.elmar_baumann.imv.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.imv.resource.GUI;
-import de.elmar_baumann.imv.view.panels.ImageFileThumbnailsPanel;
+import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public final class ControllerThumbnailsPanelPersistence
             "de.elmar_baumann.imv.view.controller.ControllerThumbnailsPanelPersistence.Sort"; // NOI18N
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
             "de.elmar_baumann.imv.view.panels.controller.ViewportViewPosition"; // NOI18N
-    private final ImageFileThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private List<File> persistentSelectedFiles = new ArrayList<File>();
 
