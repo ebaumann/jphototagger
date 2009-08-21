@@ -117,7 +117,6 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
     @Override
     public void setEditable(boolean editable) {
         this.editable = editable;
-        // fixme
     }
 
     @Override

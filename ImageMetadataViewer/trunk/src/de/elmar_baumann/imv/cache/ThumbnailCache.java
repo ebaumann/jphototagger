@@ -93,13 +93,10 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
     }
 
     public synchronized Image getThumbnail(File file) {
-        if (!fileCache.containsKey(file)) {
+        ThumbnailCacheIndirection ci;
+        while (null == (ci = fileCache.get(file))) {
             generateEntry(file, false);
         }
-        ThumbnailCacheIndirection ci = fileCache.get(file);
-        // fixme: there is a race here between generation and retieval
-        //        generateEntry should return it, maybe just retry?
-        assert ci != null;
         updateUsageTime(ci);
 
         return ci.thumbnail;  // may return zero here if still loading

@@ -53,7 +53,6 @@ public abstract class Cache<CI extends CacheIndirection> {
             sci.file = newFile;
             fileCache.put(newFile, sci);
         }
-        // fixme: we need specialized update events
         notifyUpdate(oldFile);
     }
 
