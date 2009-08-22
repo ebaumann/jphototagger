@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.NavigableSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -53,15 +54,19 @@ public class SoftCacheMap<C extends CacheIndirection> {
         _map.clear();
     }
 
-    int size() {
+    public int size() {
         return _map.size();
     }
 
-    boolean containsKey(File k) {
+    public boolean containsKey(File k) {
         if (! _map.containsKey(k)) {
             return false;
         }
         return _map.get(k).get() != null;
+    }
+
+    public Set<File> keySet() {
+        return _map.keySet();
     }
 
     public void maybeCleanupCache() {
