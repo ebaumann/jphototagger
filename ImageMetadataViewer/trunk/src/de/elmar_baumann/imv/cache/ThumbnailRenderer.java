@@ -15,5 +15,6 @@ import java.io.File;
  * @version 2009-08-17
  */
 public interface ThumbnailRenderer {
-    public Image getRenderedThumbnail(Image scaled, File file, boolean dummy);
+    public Image getRenderedThumbnail(Image scaled,
+            RenderedThumbnailCacheIndirection rtci, boolean dummy);
 }

@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.controller.filesystem;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.cache.RenderedThumbnailCache;
 import de.elmar_baumann.imv.cache.ThumbnailCache;
 import de.elmar_baumann.imv.cache.XmpCache;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
@@ -88,6 +89,7 @@ public final class ControllerRenameFiles
             public void run() {
                 ThumbnailCache.INSTANCE.updateFiles(oldFile, newFile);
                 XmpCache.INSTANCE.updateFiles(oldFile, newFile);
+                RenderedThumbnailCache.INSTANCE.updateFiles(oldFile, newFile);
                 thumbnailsPanel.rename(action.getOldFile(), action.getNewFile());
             }
         });

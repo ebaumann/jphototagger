@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
+import de.elmar_baumann.imv.cache.RenderedThumbnailCacheIndirection;
 import de.elmar_baumann.imv.cache.ThumbnailRenderer;
 import de.elmar_baumann.imv.cache.XmpCache;
 import de.elmar_baumann.imv.data.ThumbnailFlag;
@@ -129,7 +130,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
     }
 
     @Override
-    public Image getRenderedThumbnail(Image scaled, File file, boolean dummy) {
+    public Image getRenderedThumbnail(Image scaled,
+            RenderedThumbnailCacheIndirection rtci, boolean dummy) {
         synchronized(panel) {
             int sw = scaled.getWidth(null);
             int sh = scaled.getHeight(null);
@@ -149,15 +151,18 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
 
             g2.setColor(ThumbnailsPanel.COLOR_BACKGROUND_PANEL);
             g2.fillRect(0, 0, w, h);
-            paintThumbnailBackground(g2, panel.isSelected(file));
-            paintThumbnailFlag(g2, file);
+            paintThumbnailBackground(g2, panel.isSelected(rtci.file));
+            paintThumbnailFlag(g2, rtci.file);
             paintThumbnail(scaled, g2);
             if (! dummy) {
-                paintThumbnailText(g2, file);
+                paintThumbnailText(g2, rtci.file);
+                rtci.renderedForKeywords = panel.isKeywordsOverlay();
+                boolean actualOverlay = false;
                 if (panel.isKeywordsOverlay()) {
-                    paintThumbnailKeywords(g2, file);
-                    paintThumbnailStars(g2, file);
+                    actualOverlay = paintThumbnailKeywords(g2, rtci.file);
+                    actualOverlay |= paintThumbnailStars(g2, rtci.file);
                 }
+                rtci.hasKeywords = actualOverlay;
             }
             g2.dispose();
             return bi;
@@ -222,10 +227,10 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
         g.setColor(oldColor);
     }
 
-    private void paintThumbnailKeywords(Graphics g, File file) {
+    private boolean paintThumbnailKeywords(Graphics g, File file) {
         List<String> keywords = getKeywords(file);
         if (keywords == null || keywords.size() == 0) {
-            return;
+            return false;
         }
         int width = getThumbnailAreaWidth();
         int height = getThumbnailAreaHeightNoText();
@@ -280,16 +285,19 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
 
         // copy over
         g.drawImage(bi2, 0, 0, null);  // fixme: is null ok here?
+        return true;
     }
 
-    private void paintThumbnailStars(Graphics g, File file) {
+    private boolean paintThumbnailStars(Graphics g, File file) {
         int stars = getRating(file);
         if (stars > 0) {
             int i = Math.min(4, stars - 1);
             g.drawImage(starImage[i],
                     getThumbnailAreaWidth() - starImage[i].getWidth(null),
                     0, null);
+            return true;
         }
+        return false;
     }
 
     private String getFormattedText(File file) {

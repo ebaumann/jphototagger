@@ -45,7 +45,8 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
      * Mapping from file to all kinds of cached data
      */
     protected final SoftCacheMap<RenderedThumbnailCacheIndirection> fileCache =
-            new SoftCacheMap<RenderedThumbnailCacheIndirection>(MAX_ENTRIES, null);
+            new SoftCacheMap<RenderedThumbnailCacheIndirection>(MAX_ENTRIES,
+            workQueue);
     private ThumbnailPanelRenderer renderer = null;
 
     private RenderedThumbnailCache() {
@@ -59,7 +60,7 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
         t.start();
     }
 
-    public synchronized void update(Image image, final File file, int length,
+    private synchronized void update(Image image, final File file, int length,
             boolean repaint) {
         RenderedThumbnailCacheIndirection ci = fileCache.get(file);
         if (ci == null) {
@@ -83,6 +84,24 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     public void rerender(File file) {
         generateEntry(file, renderer.getThumbnailWidth(), false);
+    }
+
+    public synchronized void rerenderAll(boolean overlay) {
+        int count = 0, skipped = 0;
+        for (File file : fileCache.keySet()) {
+            count++;
+            RenderedThumbnailCacheIndirection ci = fileCache.get(file);
+            if (overlay && ci != null && ci.renderedForKeywords) {
+                skipped++;
+                continue;
+            }
+            if (! overlay && ci != null && ! ci.hasKeywords) {
+                skipped++;
+                continue;
+            }
+            generateEntry(file, renderer.getThumbnailWidth(), false);
+        }
+        System.out.printf("rerenderAll %d %d\n", count, skipped);
     }
 
     private static class ThumbnailRenderer implements Runnable {
@@ -112,11 +131,11 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
                                     rtci.length);
                         }
                         im = cache.scaledDummyThumbnail;
-                        im = cache.renderer.getRenderedThumbnail(im, rtci.file,
+                        im = cache.renderer.getRenderedThumbnail(im, rtci,
                                 true);
                     } else {
                         im = cache.computeScaled(im, rtci.length);
-                        im = cache.renderer.getRenderedThumbnail(im, rtci.file,
+                        im = cache.renderer.getRenderedThumbnail(im, rtci,
                                 false);
                     }
                     cache.update(im, rtci.file, rtci.length, true);
@@ -159,18 +178,30 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
      * If null is return now, every observer will get an update once the
      * newly computed thumbnail is ready.
      */
-    public synchronized Image getThumbnail(File file, int length) {
+    public synchronized Image getThumbnail(File file, int length,
+            boolean overlay) {
         RenderedThumbnailCacheIndirection ci;
         while (null == (ci = fileCache.get(file))) {
             generateEntry(file, length, false);
         }
         updateUsageTime(ci);
 
-        if (ci.thumbnail == null || ci.length == length) {
+        // if null ... request is in flight, update will follow
+        // check for correct size and overlay attributes, deliver image if
+        // exact match
+        if (ci.thumbnail == null || ci.length == length &&
+                (overlay == false && ci.hasKeywords == false ||
+                overlay == true && ci.renderedForKeywords == true)) {
             return ci.thumbnail;  // we may return null, or the correct image
         }
-        // recreate, we had the wrong size, return null for now
+        // recreate, we had the wrong size or overlay type
         generateEntry(file, length, false);
+        // if we match everything except overlay, return old image for now,
+        // but enqueue update request for real update soon, prevents flicker
+        // in GUI
+        if (ci.length == length) {
+            return ci.thumbnail;
+        }
         return null;
     }
 
@@ -226,15 +257,20 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     @Override
     public void actionPerformed(ThumbnailUpdateEvent event) {
-        // fixme: we could check whether we are currently displaying
-        //        Metadata and only react to those events if we do
+        RenderedThumbnailCacheIndirection ci;
+        // drop event if we got an empty xmp update for an image without
+        // keywords, because it would not change
+        if (event.getType() == ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE &&
+                (ci = fileCache.get(event.getSource())) != null &&
+                ci.hasKeywords == false) {
+            return;
+        }
         remove(event.getSource());
         notifyUpdate(event);
     }
 
     public void updateFiles(File oldFile, File newFile) {
         remove(oldFile);
-        thumbCache.updateFiles(oldFile, newFile);
     }
 
     public void prefetch(File file, int length, boolean xmp) {

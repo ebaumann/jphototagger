@@ -173,11 +173,11 @@ public class ThumbnailsPanel extends JPanel
         System.gc();
     }
 
-    private void rerender(int index) {
+    private synchronized void rerender(int index) {
         renderedThumbnailCache.rerender(getFile(index));
     }
 
-    private void rerender(Collection<Integer> rerenderTargets) {
+    private synchronized void rerender(Collection<Integer> rerenderTargets) {
         // some heuristic, for larger rerender requests clear the cache and
         // recreate stuff lazily
         if (rerenderTargets.size() > 700) {
@@ -573,11 +573,13 @@ public class ThumbnailsPanel extends JPanel
                 selectedThumbnails.add(index);
             }
             renderedThumbnailCache.clear();
+            notifySelectionChanged();
+            repaint();
         } else {
             rerender(rerenderTargets);
+            notifySelectionChanged();
         }
-        notifySelectionChanged();
-        repaint();
+
     }
 
     private void enhanceSelectionTo(int index) {
@@ -627,7 +629,7 @@ public class ThumbnailsPanel extends JPanel
     private void removeSelection(int index) {
         if (isSelected(index)) {
             selectedThumbnails.remove(new Integer(index));
-            renderedThumbnailCache.remove(getFile(index));
+            //renderedThumbnailCache.remove(getFile(index));
             rerender(index);
             notifySelectionChanged();
         }
@@ -712,7 +714,8 @@ public class ThumbnailsPanel extends JPanel
     private void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
         Image im = renderedThumbnailCache.getThumbnail(
-                getFile(index), renderer.getThumbnailWidth());
+                getFile(index), renderer.getThumbnailWidth(),
+                isKeywordsOverlay());
         if (im != null) {
             g.drawImage(im, topLeft.x, topLeft.y, viewport);
         }
@@ -1320,9 +1323,9 @@ public class ThumbnailsPanel extends JPanel
      */
     public void setKeywordsOverlay(boolean keywordsOverlay) {
         this.keywordsOverlay = keywordsOverlay;
-        renderedThumbnailCache.clear();
+        //renderedThumbnailCache.rerenderAll(keywordsOverlay);
         repaint();
-    }
+      }
 
     /**
      * Returns the index of a specific file.

@@ -21,6 +21,8 @@ public final class ThumbnailUpdateEvent {
         THUMBNAIL_UPDATE,
         /** New XMP metadata available */
         XMP_UPDATE,
+        /** New empty XMP metadata available */
+        XMP_EMPTY_UPDATE,
         /** New rendered thumbnail data available */
         RENDERED_THUMBNAIL_UPDATE,
     };

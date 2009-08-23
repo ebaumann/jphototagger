@@ -108,7 +108,7 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
         }
     }
 
-    public synchronized void update(Xmp xmp, final File file, boolean repaint) {
+    public synchronized void update(final Xmp xmp, final File file, boolean repaint) {
         if (!fileCache.containsKey(file)) {
             return;  // stale entry
         }
@@ -121,7 +121,11 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
 
                 @Override
                 public void run() {
-                    notifyUpdate(file);
+                    if (xmp.isEmpty()) {
+                        notifyUpdate(file, ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE);
+                    } else {
+                        notifyUpdate(file);
+                    }
                 }
             });
         }
@@ -146,6 +150,12 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
             return null;
         }
         return ci.xmp;
+    }
+
+    public void notifyUpdate(File file, ThumbnailUpdateEvent.Type type) {
+        for (ThumbnailUpdateListener l : updateListeners) {
+            l.actionPerformed(new ThumbnailUpdateEvent(file, type));
+        }
     }
 
     @Override

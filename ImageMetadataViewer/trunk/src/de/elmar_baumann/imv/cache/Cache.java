@@ -1,6 +1,5 @@
 package de.elmar_baumann.imv.cache;
 
-import de.elmar_baumann.imv.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.imv.event.listener.ThumbnailUpdateListener;
 import java.io.File;
 import java.util.HashSet;
