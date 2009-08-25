@@ -49,7 +49,7 @@ public class SystemOutputPanel extends JPanel {
     }
 
     private void deleteText() {
-        textArea.setText("");
+        textArea.setText(""); // NOI18N
     }
 
     private void updateTextArea(final String text) {
