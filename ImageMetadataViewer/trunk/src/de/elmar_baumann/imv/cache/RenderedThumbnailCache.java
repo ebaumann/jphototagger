@@ -101,7 +101,6 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
             }
             generateEntry(file, renderer.getThumbnailWidth(), false);
         }
-        System.out.printf("rerenderAll %d %d\n", count, skipped);
     }
 
     private static class ThumbnailRenderer implements Runnable {
