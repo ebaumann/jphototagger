@@ -41,7 +41,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                 File file = null;
                 try {
                     file = wq.fetch().file;
-                    assert file != null: "found null entry";
+                    assert file != null: "found null entry"; // NOI18N
                     Image image = PersistentThumbnails.getThumbnail(
                             PersistentThumbnails.getMd5File(
                             file.getAbsolutePath()));

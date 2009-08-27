@@ -97,7 +97,7 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
      */
     @Override
     protected synchronized void generateEntry(File file, boolean prefetch) {
-        assert file != null: "Received request with null file";
+        assert file != null: "Received request with null file"; // NOI18N
         XmpCacheIndirection ci = new XmpCacheIndirection(file);
         updateUsageTime(ci);
         fileCache.put(file, ci);
