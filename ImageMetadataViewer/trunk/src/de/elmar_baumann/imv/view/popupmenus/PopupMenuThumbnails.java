@@ -6,15 +6,21 @@ import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.imv.plugin.Plugin;
 import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.lib.util.Lookup;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -34,6 +40,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
     public static final PopupMenuThumbnails INSTANCE = new PopupMenuThumbnails();
     private final JMenu menuPrograms = new JMenu(Bundle.getString(
             "PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps")); // NOI18N
+    private final JMenu menuPlugins = new JMenu(Bundle.getString(
+            "PopupMenuThumbnails.DisplayName.MenuPlugins")); // NOI18N
     private final JMenu menuRating = new JMenu(Bundle.getString(
             "PopupMenuThumbnails.DisplayName.menuRating")); // NOI18N
     private final JMenuItem itemUpdateMetadata = new JMenuItem();
@@ -185,6 +193,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
         add(menuPrograms);
+        addPluginItems();
         add(new JSeparator());
         add(menuRating);
         add(itemPick);
@@ -204,6 +213,17 @@ public final class PopupMenuThumbnails extends JPopupMenu
         add(itemFileSystemDeleteFiles);
         add(new JSeparator());
         add(itemRefresh);
+    }
+
+    private void addPluginItems() {
+        add(menuPlugins);
+        Logger logger = Logger.getLogger("de.elmar_baumann.imv.plugin");
+        Properties properties = UserSettings.INSTANCE.getProperties();
+        for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
+            plugin.setProperties(properties);
+            plugin.setLogger(logger);
+            menuPlugins.add(plugin);
+        }
     }
 
     private void addRatingItems() {
@@ -316,6 +336,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return menuPrograms;
     }
 
+    public JMenu getMenuPlugins() {
+        return menuPlugins;
+    }
+
     public JMenuItem getItemRefresh() {
         return itemRefresh;
     }
@@ -362,6 +386,18 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     public Long getRatingOfItem(JMenuItem item) {
         return RATING_OF_ITEM.get(item);
+    }
+
+    public Set<JMenuItem> getPluginMenuItems() {
+        Set<JMenuItem> items = new HashSet<JMenuItem>();
+        int itemCount = menuPlugins.getItemCount();
+        for (int i = 0; i < itemCount; i++) {
+            JMenuItem item = menuPlugins.getItem(i);
+            if (item != null && item.getAction() instanceof Plugin) {
+                items.add(item);
+            }
+        }
+        return items;
     }
 
     public synchronized void addActionListenerOpenFilesWithOtherApp(

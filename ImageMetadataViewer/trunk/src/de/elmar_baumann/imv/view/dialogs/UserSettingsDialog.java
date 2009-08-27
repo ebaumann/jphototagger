@@ -60,6 +60,8 @@ public final class UserSettingsDialog extends Dialog {
         MISC,
         /** Actions */
         ACTIONS,
+        /** Plugins */
+        PLUGINS,
     };
 
     private UserSettingsDialog() {
@@ -88,6 +90,7 @@ public final class UserSettingsDialog extends Dialog {
         indexOfTab.put(Tab.EDIT, 7);
         indexOfTab.put(Tab.MISC, 8);
         indexOfTab.put(Tab.ACTIONS, 9);
+        indexOfTab.put(Tab.PLUGINS, 10);
 
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);
@@ -201,6 +204,7 @@ public final class UserSettingsDialog extends Dialog {
         panelEditColumns = new de.elmar_baumann.imv.view.panels.SettingsEditColumnsPanel();
         panelMisc = new de.elmar_baumann.imv.view.panels.SettingsMiscPanel();
         panelActions = new de.elmar_baumann.imv.view.panels.SettingsActionsPanel();
+        panelPlugins = new de.elmar_baumann.imv.view.panels.SettingsPluginsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("UserSettingsDialog.title")); // NOI18N
@@ -220,6 +224,8 @@ public final class UserSettingsDialog extends Dialog {
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelEditColumns.TabConstraints.tabTitle"), panelEditColumns); // NOI18N
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
         tabbedPane.addTab(Bundle.getString("UserSettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        tabbedPane.addTab(bundle.getString("UserSettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -227,14 +233,14 @@ public final class UserSettingsDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 654, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 362, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -273,6 +279,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private de.elmar_baumann.imv.view.panels.SettingsIptcPanel panelIptc;
     private de.elmar_baumann.imv.view.panels.SettingsMiscPanel panelMisc;
     private de.elmar_baumann.imv.view.panels.SettingsPerformancePanel panelPerformance;
+    private de.elmar_baumann.imv.view.panels.SettingsPluginsPanel panelPlugins;
     private de.elmar_baumann.imv.view.panels.SettingsProgramsPanel panelPrograms;
     private de.elmar_baumann.imv.view.panels.SettingsTasksPanel panelTasks;
     private de.elmar_baumann.imv.view.panels.SettingsThumbnailsPanel panelThumbnails;

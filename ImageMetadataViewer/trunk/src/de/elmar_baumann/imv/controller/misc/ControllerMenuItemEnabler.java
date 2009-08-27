@@ -100,6 +100,8 @@ public final class ControllerMenuItemEnabler
                 popupThumbnails.getItemReject());
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getMenuRating());
+        itemsRequiresSelectedImages.add(
+                popupThumbnails.getMenuPlugins());
     }
 
     private void setEnabled() {

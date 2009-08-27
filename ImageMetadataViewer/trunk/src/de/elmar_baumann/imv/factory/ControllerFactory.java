@@ -64,6 +64,7 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerPasteFilesFromClipboa
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import de.elmar_baumann.imv.controller.metadata.ControllerRenameXmpMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerShowTextSelectionDialog;
+import de.elmar_baumann.imv.controller.misc.ControllerPlugins;
 import de.elmar_baumann.imv.controller.nometadata.ControllerNoMetadataItemSelected;
 import de.elmar_baumann.imv.controller.rating.ControllerSetRating;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerRotateThumbnail;
@@ -159,6 +160,7 @@ public final class ControllerFactory {
             new ControllerSetRating();
             new ControllerNoMetadataItemSelected();
             new ControllerCopyPasteMetadata();
+            new ControllerPlugins();
             init = true;
         }
     }
