@@ -59,6 +59,7 @@ public final class DatabaseTables extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             Statement stmt = connection.createStatement();
+            createAppTable(connection, stmt); // prior to all other tables!
             createFilesTable(connection, stmt);
             createXmpTables(connection, stmt);
             createExifTables(connection, stmt);
@@ -442,5 +443,24 @@ public final class DatabaseTables extends Database {
     private String getExceptionMessage(SQLException ex) {
         return Bundle.getString("DatabaseTables.Error", // NOI18N
                 ex.getLocalizedMessage());
+    }
+
+    /**
+     * Creates the table for internal application usage such as update
+     * information etc.
+     * 
+     * @param connection connection
+     * @param stmt       sql statement
+     * @throws           SQLException on sql errors
+     */
+    private void createAppTable(Connection connection, Statement stmt)
+            throws SQLException {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "application")) { // NOI18N
+            stmt.execute("CREATE CACHED TABLE application " + // NOI18N
+                    " (" + // NOI18N
+                    "key VARCHAR(128) PRIMARY KEY" + // NOI18N
+                    ", value BINARY" + // NOI18N
+                    ");"); // NOI18N
+        }
     }
 }
