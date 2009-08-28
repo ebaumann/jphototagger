@@ -21,7 +21,7 @@ import java.util.Set;
 final class UpdateTablesDeleteInvalidExif {
 
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private final ProgressDialog dialog = messages.getProgressDialog();
+    private final ProgressDialog progress = messages.getProgressDialog();
     private static final Set<Column> COLUMNS_NOT_POSITIVE = new HashSet<Column>();
 
 
@@ -31,11 +31,12 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     void update(Connection connection) throws SQLException {
-        dialog.setIndeterminate(true);
+        progress.setIndeterminate(true);
         messages.message(Bundle.getString(
                 "UpdateTablesDeleteInvalidExif.Info.update")); // NOI18N
         setNull(connection);
-        dialog.setIndeterminate(false);
+        progress.setIndeterminate(false);
+        messages.message(""); // NOI18N
     }
 
     private void setNull(Connection connection) throws SQLException {
