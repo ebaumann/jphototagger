@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.image.util;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -54,6 +55,37 @@ public final class ImageUtil {
                     ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return stream;
+    }
+
+    /**
+     * Returns the new dimensions of an image if the image shall be scaled.
+     *
+     * @param img      image to scale
+     * @param maxWidth the new width of the longer image side
+     * @return         new dimensions or null if they couldn't be calculated
+     */
+    public static Dimension getNewDimensions(BufferedImage img, int maxWidth) {
+        int width = img.getWidth();
+        int height = img.getHeight();
+        assert width > 0 && height > 0 :
+                "Width " + width + " height " + height + " have to be > 0!";
+        if (width <= 0 || height <= 0) return null;
+        boolean isLandscape = width > height;
+        double aspectRatio = (double) width / (double) height;
+        int lenOtherSide = isLandscape
+                           ? (int) ((double) maxWidth / aspectRatio + 0.5)
+                           : (int) ((double) maxWidth * aspectRatio + 0.5);
+        int newWidth = isLandscape
+                       ? maxWidth
+                       : lenOtherSide;
+        int newHeight = isLandscape
+                        ? lenOtherSide
+                        : maxWidth;
+        assert newWidth > 0 && newHeight > 0 :
+                "Width " + newWidth + " height " + newHeight +
+                " have to be > 0!";
+        if (newWidth <= 0 || newHeight <= 0) return null;
+        return new Dimension(newWidth, newHeight);
     }
 
     private ImageUtil() {
