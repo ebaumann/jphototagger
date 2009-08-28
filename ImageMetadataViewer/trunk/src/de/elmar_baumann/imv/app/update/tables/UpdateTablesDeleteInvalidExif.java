@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.app.update.tables;
 
+import de.elmar_baumann.imv.database.DatabaseApplication;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifIsoSpeedRatings;
@@ -20,10 +21,12 @@ import java.util.Set;
  */
 final class UpdateTablesDeleteInvalidExif {
 
+    private static final String KEY_REMOVED_INVALID_EXIF =
+            "Removed_Invalid_EXIF_1"; // NOI18N Never change this!
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog progress = messages.getProgressDialog();
-    private static final Set<Column> COLUMNS_NOT_POSITIVE = new HashSet<Column>();
-
+    private static final Set<Column> COLUMNS_NOT_POSITIVE =
+            new HashSet<Column>();
 
     static {
         COLUMNS_NOT_POSITIVE.add(ColumnExifFocalLength.INSTANCE);
@@ -31,12 +34,15 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     void update(Connection connection) throws SQLException {
+        if (DatabaseApplication.INSTANCE.getBoolean(KEY_REMOVED_INVALID_EXIF))
+            return;
         progress.setIndeterminate(true);
         messages.message(Bundle.getString(
                 "UpdateTablesDeleteInvalidExif.Info.update")); // NOI18N
         setNull(connection);
         progress.setIndeterminate(false);
         messages.message(""); // NOI18N
+        DatabaseApplication.INSTANCE.setBoolean(KEY_REMOVED_INVALID_EXIF, true);
     }
 
     private void setNull(Connection connection) throws SQLException {
