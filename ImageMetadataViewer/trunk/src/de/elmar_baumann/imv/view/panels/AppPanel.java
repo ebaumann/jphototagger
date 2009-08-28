@@ -183,19 +183,11 @@ public final class AppPanel extends javax.swing.JPanel implements
         return progressBarAutomaticTasks;
     }
 
-    /**
-     * Liefert die Progressbar für die aktuellen Tasks.
-     * <em>Auf keinen Fall von hier abholen, sondern von
-     * {@link de.elmar_baumann.imv.resource.ProgressBarCurrentTasks}!
-     * </em>
-     * 
-     * @return  Progressbar
-     */
     JProgressBar getProgressBarUserTasks() {
         return progressBarUserTasks;
     }
 
-    public JProgressBar getProgressBarScheduledTasks() {
+    JProgressBar getProgressBarScheduledTasks() {
         return progressBarScheduledTasks;
     }
 
