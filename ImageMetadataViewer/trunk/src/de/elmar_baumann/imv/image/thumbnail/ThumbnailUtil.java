@@ -272,7 +272,7 @@ public final class ThumbnailUtil {
      * @param image Das zu skalierende Image.
      * @return Das skalierte Image.
      */
-    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight,
+    public static BufferedImage scaleImage(int scaledWidth, int scaledHeight,
             BufferedImage image) {
         BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight,
                 BufferedImage.TYPE_INT_RGB);
