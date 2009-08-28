@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.cache.PersistentThumbnails;
 import de.elmar_baumann.imv.database.Database;
+import de.elmar_baumann.imv.database.DatabaseApplication;
 import de.elmar_baumann.imv.database.DatabaseMaintainance;
 import de.elmar_baumann.imv.io.IoUtil;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -33,25 +34,23 @@ import javax.swing.ImageIcon;
  */
 final class UpdateTablesThumbnails extends Database {
 
-    private static final UpdateTablesMessages UPDATE_TABLES_MESSAGES =
-            UpdateTablesMessages.INSTANCE;
-    private static final ProgressDialog PROGRESS_DIALOG =
-            UPDATE_TABLES_MESSAGES.getProgressDialog();
+    private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 =
+            "Updated_Thumbnails_Names_Hash_1"; // NOI18N Never change this!
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
+    private final ProgressDialog progress = messages.getProgressDialog();
     private static final int FETCH_MAX_ROWS = 1000;
 
-    static void update(Connection connection) throws SQLException {
+    void update(Connection connection) throws SQLException {
         writeThumbnailsFromTableIntoFilesystem(connection);
         convertThumbnailIdNamesIntoHashNames(connection);
     }
 
-    public static void writeThumbnailsFromTableIntoFilesystem(
-            Connection connection)
+    public void writeThumbnailsFromTableIntoFilesystem(Connection connection)
             throws SQLException {
         int count = getCount(connection);
         int current = 1;
         setProgressDialogRange(count);
-        for (int offset = 0; offset < count;
-                offset += FETCH_MAX_ROWS) {
+        for (int offset = 0; offset < count; offset += FETCH_MAX_ROWS) {
             current = updateRows(connection, current, count);
         }
         if (count > 0) {
@@ -59,7 +58,7 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private static int updateRows(Connection connection, int current, int count)
+    private int updateRows(Connection connection, int current, int count)
             throws SQLException {
         String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " + // NOI18N
                 "id, thumbnail FROM files WHERE thumbnail IS NOT NULL"; // NOI18N
@@ -72,14 +71,14 @@ final class UpdateTablesThumbnails extends Database {
             setMessageCurrentFile(id, current, count,
                     "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table"); // NOI18N
             writeThumbnail(inputStream, id);
-            PROGRESS_DIALOG.setValue(current++);
+            progress.setValue(current++);
         }
         clean(stmt, rs);
         return current;
     }
 
-    private static void setThumbnailNull(Connection connection, long id) throws
-            SQLException {
+    private void setThumbnailNull(Connection connection, long id)
+            throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE files SET thumbnail = NULL WHERE id = ?"); // NOI18N
         stmt.setLong(1, id);
@@ -88,7 +87,7 @@ final class UpdateTablesThumbnails extends Database {
         stmt.close();
     }
 
-    private static void writeThumbnail(InputStream inputStream, long id) {
+    private void writeThumbnail(InputStream inputStream, long id) {
         if (inputStream != null) {
             try {
                 int bytecount = inputStream.available();
@@ -103,7 +102,7 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    public static void writeThumbnail(Image thumbnail, long id) {
+    public void writeThumbnail(Image thumbnail, long id) {
         FileOutputStream fos = null;
         File tnFile = getThumbnailfile(id);
         try {
@@ -127,7 +126,7 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private static void closeStream(FileOutputStream fis) {
+    private void closeStream(FileOutputStream fis) {
         if (fis != null) {
             try {
                 fis.close();
@@ -140,9 +139,10 @@ final class UpdateTablesThumbnails extends Database {
     /**
      * Convert all thumbnail names to new format using hashes.
      */
-    private static void convertThumbnailIdNamesIntoHashNames(
-            Connection connection) {
+    private void convertThumbnailIdNamesIntoHashNames(Connection connection) {
         try {
+            if (DatabaseApplication.INSTANCE.getBoolean(
+                    KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) return;
             File[] thumbnailFiles = getThumbnailFiles();
             int filecount = thumbnailFiles.length;
             setProgressDialogRange(filecount);
@@ -170,24 +170,26 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
             stmt.close();
+            DatabaseApplication.INSTANCE.setBoolean(
+                    KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (SQLException ex) {
             AppLog.logSevere(UpdateTablesThumbnails.class, ex);
         }
     }
 
-    private static File[] getThumbnailFiles() {
+    private File[] getThumbnailFiles() {
         File dir = new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
         if (!dir.isDirectory()) return new File[0];
         return dir.listFiles(new RegexFileFilter("[0-9]+", "")); // NOI18N
     }
 
-    private static File getThumbnailfile(long id) {
+    private File getThumbnailfile(long id) {
         String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
         FileUtil.ensureDirectoryExists(new File(dir));
         return new File(dir + File.separator + id);
     }
 
-    private static void convertThumbnailName(long oldId, String newHash) {
+    private void convertThumbnailName(long oldId, String newHash) {
         File oldFile = getThumbnailfile(oldId);
         File newFile = PersistentThumbnails.getThumbnailfile(newHash);
         if (newFile.exists()) {
@@ -197,14 +199,14 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private static void clean(Statement stmt, ResultSet rs) throws SQLException {
+    private void clean(Statement stmt, ResultSet rs) throws SQLException {
         stmt.close();
         stmt = null;
         rs = null;
         System.gc();
     }
 
-    private static int getCount(Connection connection) throws SQLException {
+    private int getCount(Connection connection) throws SQLException {
         int count = 0;
         Statement stmt = connection.createStatement();
         String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL"; // NOI18N
@@ -215,25 +217,24 @@ final class UpdateTablesThumbnails extends Database {
         return count;
     }
 
-    private static void compress() {
-        UPDATE_TABLES_MESSAGES.message(Bundle.getString(
+    private void compress() {
+        messages.message(Bundle.getString(
                 "UpdateTablesThumbnails.Info.CompressDatabase")); // NOI18N
-        PROGRESS_DIALOG.setIndeterminate(true);
+        progress.setIndeterminate(true);
         DatabaseMaintainance.INSTANCE.compressDatabase();
-        PROGRESS_DIALOG.setIndeterminate(false);
+        progress.setIndeterminate(false);
     }
 
-    private static void setProgressDialogRange(long count) {
-        PROGRESS_DIALOG.setIndeterminate(false);
-        PROGRESS_DIALOG.setMinimum(0);
-        PROGRESS_DIALOG.setMaximum((int) count);
-        PROGRESS_DIALOG.setValue(0);
+    private void setProgressDialogRange(long count) {
+        progress.setIndeterminate(false);
+        progress.setMinimum(0);
+        progress.setMaximum((int) count);
+        progress.setValue(0);
     }
 
-    private static void setMessageCurrentFile(
+    private void setMessageCurrentFile(
             long id, long current, long count, String message) {
-        UPDATE_TABLES_MESSAGES.message(
-                Bundle.getString(message, id, current, count));
-        PROGRESS_DIALOG.setValue((int) current);
+        messages.message(Bundle.getString(message, id, current, count));
+        progress.setValue((int) current);
     }
 }

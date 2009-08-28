@@ -24,7 +24,7 @@ public final class UpdateTables extends Database {
         new UpdateTablesXmpLastModified().update(connection);
         new UpdateTablesPrograms().update(connection);
         new UpdateTablesDeleteInvalidExif().update(connection);
-        UpdateTablesThumbnails.update(connection);
+        new UpdateTablesThumbnails().update(connection);
         UpdateTablesMessages.INSTANCE.getProgressDialog().setVisible(false);
     }
 }
