@@ -43,12 +43,15 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                 try {
                     file = wq.fetch().file;
                     Image image = null;
-                    if (file != null) {
+                    if (file == null) {
+                        AppLog.logWarning(ThumbnailFetcher.class,
+                                "ThumbnailFetcher.Info.FileIsNull", file); // NOI18N
+                    } else {
                         String tnFilename = PersistentThumbnails.getMd5File(
                                 file.getAbsolutePath());
                         if (tnFilename == null) {
                             AppLog.logWarning(ThumbnailFetcher.class,
-                                    "ThumbnailFetcher.Info.NoTnFilename", file);
+                                    "ThumbnailFetcher.Info.NoTnFilename", file); // NOI18N
                         } else {
                             image =
                                     PersistentThumbnails.getThumbnail(tnFilename);
