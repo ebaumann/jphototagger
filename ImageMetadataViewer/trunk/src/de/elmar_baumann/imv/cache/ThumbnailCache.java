@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.cache;
 
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.imv.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -41,10 +42,19 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                 File file = null;
                 try {
                     file = wq.fetch().file;
-                    assert file != null: "found null entry"; // NOI18N
-                    Image image = PersistentThumbnails.getThumbnail(
-                            PersistentThumbnails.getMd5File(
-                            file.getAbsolutePath()));
+                    assert file != null : "found null entry"; // NOI18N
+                    Image image = null;
+                    if (file != null) {
+                        String tnFilename = PersistentThumbnails.getMd5File(
+                                file.getAbsolutePath());
+                        if (tnFilename == null) {
+                            AppLog.logWarning(ThumbnailFetcher.class,
+                                    "ThumbnailFetcher.Info.NoTnFilename", file);
+                        } else {
+                            image =
+                                    PersistentThumbnails.getThumbnail(tnFilename);
+                        }
+                    }
                     if (image == null) {  // no image available from db
                         image = cache.noPreviewThumbnail;
                     }
