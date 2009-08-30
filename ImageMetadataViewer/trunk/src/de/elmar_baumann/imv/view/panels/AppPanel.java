@@ -664,7 +664,6 @@ public final class AppPanel extends javax.swing.JPanel implements
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        listKeywords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listKeywords.setCellRenderer(new ListCellRendererKeywords());
         listKeywords.setDragEnabled(true);
         listKeywords.setName("listKeywords"); // NOI18N
@@ -785,11 +784,11 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 225, Short.MAX_VALUE)
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
 
         scrollPaneThumbnails.setViewportView(panelThumbnails);
