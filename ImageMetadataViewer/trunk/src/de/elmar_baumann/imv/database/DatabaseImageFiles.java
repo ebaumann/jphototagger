@@ -1313,15 +1313,59 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
             String sql =
                     " SELECT DISTINCT files.filename FROM" + // NOI18N
-                    " xmp_dc_subjects LEFT JOIN xmp" + // NOI18N
+                    " xmp_dc_subjects INNER JOIN xmp" + // NOI18N
                     " ON xmp_dc_subjects.id_xmp = xmp.id" + // NOI18N
-                    " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
+                    " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
                     " WHERE xmp_dc_subjects.subject = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
-
             stmt.setString(1, dcSubject);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(
+                    DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return filenames;
+    }
+
+    /**
+     * Returns all images which have all subjects of a list.
+     *
+     * E.g. If You are searching for an image with a tree AND a cloud AND
+     * a car the list contains these three words.
+     *
+     * Because it's faster, call {@link #getFilenamesOfDcSubject()} if You are
+     * searching for only one subject.
+     *
+     * @param  dcSubjects subjects
+     * @return            images containing all of theses subjects
+     */
+    public Set<String> getFilenamesOfAllDcSubjects(
+            List<? extends String> dcSubjects) {
+        Set<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            int count = dcSubjects.size();
+            String sql =
+                    " SELECT files.filename FROM" + // NOI18N
+                    " xmp_dc_subjects INNER JOIN xmp" + // NOI18N
+                    " ON xmp_dc_subjects.id_xmp = xmp.id" + // NOI18N
+                    " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
+                    " WHERE xmp_dc_subjects.subject IN " + // NOI18N
+                    Util.getParamsInParentheses(count) +
+                    " GROUP BY files.filename" +
+                    " HAVING COUNT(*) = " + count; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            Util.setStringParams(stmt, dcSubjects, 0);
+            AppLog.logFinest(
+                    DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
