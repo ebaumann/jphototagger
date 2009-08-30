@@ -202,6 +202,20 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
+    /* Also clears the selection, but takes the new indices of the selection
+     * as arguments, if files have been reordered etc.
+     */
+    private void clearSelection(List<Integer> indices) {
+        if (indices.size() > 0) {
+            synchronized (this) {
+                selectedThumbnails.clear();
+            }
+            rerender(indices);
+            notifySelectionChanged();
+        }
+    }
+
+
     private int getFirstSelectedIndex() {
         if (selectedThumbnails.size() > 0) {
             return selectedThumbnails.get(0);
@@ -463,24 +477,18 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized int getDropIndex(int x, int y) {
-        int maxBottom = MARGIN_THUMBNAIL + getRowCount() *
-                renderer.getThumbnailAreaHeight();
-        int maxRight = MARGIN_THUMBNAIL + getColumnCount() *
-                renderer.getThumbnailAreaWidth();
-        boolean inTnArea = x < maxRight && y < maxBottom;
-        boolean xIsOut = x > maxRight;
-        boolean yIsOut = y > maxBottom;
-        return inTnArea
-                ? (y - MARGIN_THUMBNAIL) / renderer.getThumbnailAreaHeight() *
-                getColumnCount() +
-                (x - MARGIN_THUMBNAIL) / renderer.getThumbnailAreaWidth()
-                : xIsOut && !yIsOut
-                ? (y - MARGIN_THUMBNAIL) / renderer.getThumbnailAreaHeight() *
-                getColumnCount() +
-                getColumnCount() - 1
-                : yIsOut
-                ? files.size() - 1
-                : -1;
+        int row = Math.max(0,
+                (y - MARGIN_THUMBNAIL) /
+                (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL));
+        int col = Math.max(0, Math.min(getColumnCount(),
+                (x - MARGIN_THUMBNAIL) /
+                (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL)));
+        if (row < 0 || col < 0) {
+            return -1;
+        }
+        int index = Math.min(row * getColumnCount() + col, files.size() - 1);
+
+        return index;
     }
 
     private int getColumnCount() {
@@ -882,7 +890,8 @@ public class ThumbnailsPanel extends JPanel
         newOrderedFiles.addAll(filesWithoutMoved.subList(index, filesWithoutMoved.size()));
         files.clear();
         files.addAll(newOrderedFiles);
-        clearSelection();
+        clearSelection(getIndices(selFiles, true));
+        repaint();
     }
 
     private void notifyRefreshListeners() {
