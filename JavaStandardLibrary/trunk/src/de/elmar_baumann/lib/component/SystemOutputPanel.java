@@ -108,11 +108,10 @@ public class SystemOutputPanel extends JPanel {
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setTabSize(4);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
-        textArea.setToolTipText(bundle.getString("SystemOutputPanel.textArea.toolTipText")); // NOI18N
         textArea.setWrapStyleWord(true);
         scrollPane.setViewportView(textArea);
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
         buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setToolTipText(bundle.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +137,7 @@ public class SystemOutputPanel extends JPanel {
                 .addComponent(buttonDelete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCopyToClipboard))
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

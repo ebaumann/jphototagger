@@ -23,7 +23,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonCopyToClipboard" min="-2" max="-2" attributes="0"/>
           </Group>
-          <Component id="scrollPane" alignment="0" pref="179" max="32767" attributes="0"/>
+          <Component id="scrollPane" alignment="0" pref="204" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -53,9 +53,6 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="tabSize" type="int" value="4"/>
-            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="SystemOutputPanel.textArea.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-            </Property>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
           </Properties>
         </Component>
