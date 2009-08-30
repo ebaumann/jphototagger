@@ -31,10 +31,12 @@ public final class DatabaseStatistics extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
+            String columnName = column.getName();
             String sql = "SELECT COUNT(*) FROM (SELECT DISTINCT " + // NOI18N
-                    column.getName() + // NOI18N
+                    columnName +
                     " FROM " + // NOI18N
                     column.getTable().getName() +
+                    " WHERE " + columnName + " IS NOT NULL" + // NOI18N
                     ")"; // NOI18N
             AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
             ResultSet rs = stmt.executeQuery(sql);
