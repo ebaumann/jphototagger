@@ -41,6 +41,7 @@ public final class DatabaseTables extends Database {
         TABLE_NAMES.add("programs"); // NOI18N
         TABLE_NAMES.add("actions_after_db_insertion"); // NOI18N
         TABLE_NAMES.add("hierarchical_subjects"); // NOI18N
+        TABLE_NAMES.add("application"); // NOI18N
     }
 
     public static List<String> getTableNames() {
