@@ -11,6 +11,7 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.Join;
 import de.elmar_baumann.imv.database.metadata.Join.Type;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
+import de.elmar_baumann.imv.database.metadata.file.TableFiles;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
@@ -1344,7 +1345,7 @@ public final class DatabaseImageFiles extends Database {
      * searching for only one subject.
      *
      * @param  dcSubjects subjects
-     * @return            images containing all of theses subjects
+     * @return            images containing all of these subjects
      */
     public Set<String> getFilenamesOfAllDcSubjects(
             List<? extends String> dcSubjects) {
@@ -1360,10 +1361,56 @@ public final class DatabaseImageFiles extends Database {
                     " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
                     " WHERE xmp_dc_subjects.subject IN " + // NOI18N
                     Util.getParamsInParentheses(count) +
-                    " GROUP BY files.filename" +
+                    " GROUP BY files.filename" + // NOI18N
                     " HAVING COUNT(*) = " + count; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             Util.setStringParams(stmt, dcSubjects, 0);
+            AppLog.logFinest(
+                    DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return filenames;
+    }
+
+    /**
+     * Returns all images which have all words of a list in a column.
+     *
+     * E.g. If You are searching for an image with a tree AND a cloud AND
+     * a car the list contains these three words.
+     *
+     * @param  words  search words
+     * @param  column column to search. The table of that column has to be
+     *                joinable with {@link TableFiles} through a column
+     *                <code>id_files</code>!
+     * @return        images containing all of these terms in that column
+     */
+    public Set<String> getFilenamesOfAll(
+            Column column, List<? extends String> words) {
+        Set<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String tableName = column.getTable().getName();
+            String columnName = column.getName();
+            int count = words.size();
+            String sql =
+                    " SELECT files.filename FROM " + // NOI18N
+                    tableName + " INNER JOIN files" + // NOI18N
+                    " ON " + tableName + ".id_files = files.id" + // NOI18N
+                    " WHERE" + tableName + "." + columnName + " IN " + // NOI18N
+                    Util.getParamsInParentheses(count) +
+                    " GROUP BY files.filename" + // NOI18N
+                    " HAVING COUNT(*) = " + count; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            Util.setStringParams(stmt, words, 0);
             AppLog.logFinest(
                     DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();

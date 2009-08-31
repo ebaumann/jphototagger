@@ -5,8 +5,10 @@ import de.elmar_baumann.imv.data.AutoCompleteData;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.data.AutoCompleteUtil;
+import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
 import de.elmar_baumann.imv.event.listener.DatabaseListener;
@@ -15,6 +17,7 @@ import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.listener.RefreshListener;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.imv.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.UserSettingsDialog;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -24,11 +27,18 @@ import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTree;
@@ -42,11 +52,18 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @version 2008-10-05
  */
 public final class ControllerFastSearch
-        implements UserSettingsChangeListener, DatabaseListener, RefreshListener {
+        implements
+        ActionListener,
+        DatabaseListener,
+        UserSettingsChangeListener,
+        RefreshListener {
 
+    private static final String DELIMITER_SEARCH_WORDS = ";";
     private final DatabaseSearch db = DatabaseSearch.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
+    private final JComboBox comboboxFastSearch =
+            appPanel.getComboBoxFastSearch();
     private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
     private final List<Column> fastSearchColumns =
@@ -58,8 +75,7 @@ public final class ControllerFastSearch
             appPanel.getEditPanelsArray();
 
     public ControllerFastSearch() {
-        textFieldSearch.setEnabled(
-                UserSettings.INSTANCE.getFastSearchColumns().size() > 0);
+        setEnabledSearchTextField();
         decorateTextFieldSearch();
         listen();
     }
@@ -85,18 +101,26 @@ public final class ControllerFastSearch
             }
         });
 
+        comboboxFastSearch.addActionListener(this);
+
         db.addDatabaseListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
     }
 
     @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == comboboxFastSearch) {
+            setEnabledSearchTextField();
+        }
+    }
+
+    @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         if (evt.getType().equals(
-                UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
-            textFieldSearch.setEnabled(true);
-        } else if (evt.getType().equals(
+                UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS) ||
+                evt.getType().equals(
                 UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
-            textFieldSearch.setEnabled(false);
+            setEnabledSearchTextField();
         }
     }
 
@@ -157,14 +181,67 @@ public final class ControllerFastSearch
 
             @Override
             public void run() {
-                if (!searchText.trim().isEmpty()) {
+                String userInput = searchText.trim();
+                if (!userInput.isEmpty()) {
                     clearSelection();
-                    List<String> filenames =
-                            db.searchFilenamesLikeOr(UserSettings.INSTANCE.
-                            getFastSearchColumns(), searchText.trim());
-                    thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                            Content.SAVED_SEARCH);
+                    List<String> filenames = searchFilenames(userInput);
+                    if (filenames != null) {
+                        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                                Content.SAVED_SEARCH);
+                    }
                 }
+            }
+
+            private List<String> searchFilenames(String userInput) {
+                if (isSearchAllDefinedColumns()) {
+                    return db.searchFilenamesLikeOr(
+                            UserSettings.INSTANCE.getFastSearchColumns(),
+                            userInput);
+                } else {
+                    List<String> searchWords = getSearchWords(userInput);
+                    Column searchColumn = getSearchColumn();
+                    if (searchColumn == null) return null;
+                    if (searchWords.size() == 1) {
+                        return db.searchFilenamesLikeOr(
+                                Arrays.asList(searchColumn),
+                                userInput);
+                    } else if (searchWords.size() > 1) {
+                        if (searchColumn.equals(
+                                ColumnXmpDcSubjectsSubject.INSTANCE)) {
+                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.
+                                    getFilenamesOfAllDcSubjects(searchWords));
+                        } else {
+                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.
+                                    getFilenamesOfAll(
+                                    searchColumn, searchWords));
+                        }
+                    } else {
+                        return null;
+                    }
+                }
+            }
+
+            private List<String> getSearchWords(String userInput) {
+                List<String> words = new ArrayList<String>();
+                StringTokenizer st = new StringTokenizer(userInput,
+                        DELIMITER_SEARCH_WORDS);
+                while (st.hasMoreTokens()) {
+                    words.add(st.nextToken());
+                }
+                return words;
+            }
+
+            private Column getSearchColumn() {
+                assert !isSearchAllDefinedColumns() :
+                        "More than one search column!"; // NOI18N
+                if (isSearchAllDefinedColumns()) return null;
+                ComboBoxModel model = comboboxFastSearch.getModel();
+                assert model instanceof ComboBoxModelFastSearch :
+                        "Unknown model: " + model;
+                if (model instanceof ComboBoxModelFastSearch) {
+                    return (Column) comboboxFastSearch.getSelectedItem();
+                }
+                return null;
             }
         });
     }
@@ -180,6 +257,19 @@ public final class ControllerFastSearch
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }
+    }
+
+    private boolean isSearchAllDefinedColumns() {
+        Object selItem = comboboxFastSearch.getSelectedItem();
+        return selItem != null &&
+                selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);
+    }
+
+    private void setEnabledSearchTextField() {
+        textFieldSearch.setEnabled(
+                isSearchAllDefinedColumns()
+                ? UserSettings.INSTANCE.getFastSearchColumns().size() > 0
+                : true);
     }
 
     @Override
