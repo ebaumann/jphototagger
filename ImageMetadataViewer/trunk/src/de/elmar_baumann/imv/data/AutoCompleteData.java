@@ -19,8 +19,8 @@ public final class AutoCompleteData {
 
     private final DatabaseContent db = DatabaseContent.INSTANCE;
     private final Set<Column> columns;
-    private final List<String> content = Collections.synchronizedList(
-            new LinkedList<String>());
+    private final List<String> content =
+            Collections.synchronizedList(new LinkedList<String>());
 
     /**
      * Standardkonstruktor.
@@ -29,8 +29,8 @@ public final class AutoCompleteData {
      * {@link de.elmar_baumann.imv.UserSettings#getFastSearchColumns()}.
      */
     public AutoCompleteData() {
-        columns = new LinkedHashSet<Column>(UserSettings.INSTANCE.
-                getFastSearchColumns());
+        columns = new LinkedHashSet<Column>(
+                UserSettings.INSTANCE.getFastSearchColumns());
         addColumnsContent();
     }
 
