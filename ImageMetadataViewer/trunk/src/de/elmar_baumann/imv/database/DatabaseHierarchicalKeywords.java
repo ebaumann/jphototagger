@@ -344,6 +344,37 @@ public final class DatabaseHierarchicalKeywords extends Database {
         return exists;
     }
 
+    /**
+     * Returns whether a specific root keyword exists.
+     *
+     * @param  keyword keyword
+     * @return         true if that keyword exists
+     */
+    public boolean existsRootKeyword(String keyword) {
+        boolean exists = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT COUNT(*) FROM hierarchical_subjects" + // NOI18N
+                    " WHERE  subject = ? AND id_parent IS NULL"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, keyword);
+            AppLog.logFinest(DatabaseHierarchicalKeywords.class,
+                    AppLog.USE_STRING, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalKeywords.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exists;
+    }
+
     public enum Select {
 
         /**
