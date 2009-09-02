@@ -169,8 +169,9 @@ public final class ModelFactory {
 
     private void setTreeModelHierarchicalKeywords() {
         TreeModel m = new TreeModelHierarchicalKeywords();
-        InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(m);
+        GUI.INSTANCE.getAppPanel().getTreeSelHierarchicalKeywords().setModel(m);
         GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().setModel(m);
+        InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(m);
     }
 
     private void setTreeModelMiscMetadata(final AppPanel appPanel) {

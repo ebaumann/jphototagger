@@ -11,7 +11,6 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.Join;
 import de.elmar_baumann.imv.database.metadata.Join.Type;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
-import de.elmar_baumann.imv.database.metadata.file.TableFiles;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
@@ -1363,6 +1362,46 @@ public final class DatabaseImageFiles extends Database {
                     Util.getParamsInParentheses(count) +
                     " GROUP BY files.filename" + // NOI18N
                     " HAVING COUNT(*) = " + count; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            Util.setStringParams(stmt, dcSubjects, 0);
+            AppLog.logFinest(
+                    DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return filenames;
+    }
+
+    /**
+     * Returns all images which have at least one of subjects in a list.
+     *
+     * Because it's faster, call {@link #getFilenamesOfDcSubject()} if You are
+     * searching for only one subject.
+     *
+     * @param  dcSubjects subjects
+     * @return            images containing one or more of these subjects
+     */
+    public Set<String> getFilenamesOfDcSubjects(
+            List<? extends String> dcSubjects) {
+        Set<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            int count = dcSubjects.size();
+            String sql =
+                    " SELECT DISTINCT files.filename FROM" + // NOI18N
+                    " xmp_dc_subjects INNER JOIN xmp" + // NOI18N
+                    " ON xmp_dc_subjects.id_xmp = xmp.id" + // NOI18N
+                    " INNER JOIN files ON xmp.id_files = files.id" + // NOI18N
+                    " WHERE xmp_dc_subjects.subject IN " + // NOI18N
+                    Util.getParamsInParentheses(count); // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             Util.setStringParams(stmt, dcSubjects, 0);
             AppLog.logFinest(
