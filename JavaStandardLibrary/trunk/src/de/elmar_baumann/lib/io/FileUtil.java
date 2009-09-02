@@ -407,6 +407,31 @@ public final class FileUtil {
         return (directory.delete());
     }
 
+    /**
+     * Returns a not existing file.
+     * 
+     * @param  file suggested file
+     * @return      file in the same path with a unique number prepending the
+     *              suffix
+     */
+    public static File getNotExistingFile(File file) {
+        File newFile = file;
+        int index = 0;
+        while (newFile.exists()) {
+            String path = file.getAbsolutePath();
+            int suffixPos = path.lastIndexOf(".");
+            if (suffixPos > 0) {
+                String suffix = path.substring(suffixPos + 1);
+                String prefix = path.substring(0, suffixPos);
+                path = prefix + "_" + Integer.valueOf(index++) + "." + suffix;
+            } else {
+                path += "_" + Integer.valueOf(index++);
+            }
+            newFile = new File(path);
+        }
+        return newFile;
+    }
+
     private FileUtil() {
     }
 }
