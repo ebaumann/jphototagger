@@ -31,9 +31,28 @@ public final class CopyFiles implements Runnable {
     public enum Options {
 
         /** Overwrite existing files only if confirmed */
-        CONFIRM_OVERWRITE,
+        CONFIRM_OVERWRITE(0),
         /** Overwrite existing files without confirm */
-        FORCE_OVERWRITE
+        FORCE_OVERWRITE(1),
+        /** Rename the source file if the target file exists */
+        RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS(2),
+        ;
+        private final int index;
+        private Options(int index) {
+            this.index = index;
+        }
+
+        public int getInt() {
+            return index;
+        }
+
+        public static Options fromInt(int index) {
+            for (Options o : values()) {
+                if (o.getInt() == index) return o;
+            }
+            assert false : "Invalid index: " + index;
+            return CONFIRM_OVERWRITE;
+        }
     }
 
     /**
@@ -87,7 +106,7 @@ public final class CopyFiles implements Runnable {
             if (checkDifferent(filePair) && checkOverwrite(filePair)) {
                 try {
                     File sourceFile = filePair.getFirst();
-                    File targetFile = filePair.getSecond();
+                    File targetFile = getTargetFile(filePair);
                     logCopyFile(sourceFile.getAbsolutePath(), targetFile.
                             getAbsolutePath());
                     FileUtil.copyFile(sourceFile, targetFile);
@@ -99,6 +118,15 @@ public final class CopyFiles implements Runnable {
             notifyPerformed(i, filePair);
         }
         notifyEnded();
+    }
+
+    private File getTargetFile(Pair<File, File> files) {
+        File targetFile = files.getSecond();
+        if (options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS) &&
+                targetFile.exists()) {
+            targetFile = FileUtil.getNotExistingFile(targetFile);
+        }
+        return targetFile;
     }
 
     private void logCopyFile(String sourceFilename, String targetFilename) {
@@ -133,7 +161,8 @@ public final class CopyFiles implements Runnable {
     }
 
     private boolean checkOverwrite(Pair<File, File> filePair) {
-        if (options.equals(Options.FORCE_OVERWRITE)) {
+        if (options.equals(Options.FORCE_OVERWRITE) ||
+                options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS)) {
             return true;
         }
         File target = filePair.getSecond();

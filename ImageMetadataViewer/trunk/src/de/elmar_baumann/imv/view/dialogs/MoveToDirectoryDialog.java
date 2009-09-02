@@ -10,6 +10,7 @@ import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
+import de.elmar_baumann.imv.helper.CopyFiles;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.io.FileSystemMove;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -113,7 +114,9 @@ public final class MoveToDirectoryDialog extends Dialog
 
     private synchronized void start() {
         reset();
-        moveTask = new FileSystemMove(sourceFiles, targetDirectory);
+        moveTask = new FileSystemMove(sourceFiles, targetDirectory,
+                UserSettings.INSTANCE.getCopyMoveFilesOptions().equals(
+                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         addListenerToMoveTask();
         Thread thread = new Thread(moveTask);
         thread.setName("Moving files to directory " + targetDirectory. // NOI18N

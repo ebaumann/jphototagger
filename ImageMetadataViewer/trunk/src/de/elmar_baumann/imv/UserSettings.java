@@ -8,6 +8,7 @@ import de.elmar_baumann.imv.database.metadata.ColumnUtil;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
 import de.elmar_baumann.imv.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.imv.helper.CopyFiles;
 import de.elmar_baumann.imv.types.Filename;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
@@ -79,6 +80,8 @@ public final class UserSettings implements UserSettingsChangeListener {
             "UserSettings.ExecuteActionsAfterImageChangeInDbAlways"; // NOI18N
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP =
             "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp"; // NOI18N
+    private static final String KEY_OPTIONS_COPY_MOVE_FILES =
+            "UserSettings.CopyMoveFiles"; // NOI18N
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // NOI18N NEVER CHANGE!
     private static final String PROPERTIES_FILENAME = "Settings.properties"; // NOI18N NEVER CHANGE!
     private final Properties properties = new Properties();
@@ -381,6 +384,18 @@ public final class UserSettings implements UserSettingsChangeListener {
     }
 
     /**
+     * Returns the options when copying or moving files.
+     *
+     * @return options. Default: <code>CONFIRM_OVERWRITE</code>
+     */
+    public CopyFiles.Options getCopyMoveFilesOptions() {
+        return properties.containsKey(KEY_OPTIONS_COPY_MOVE_FILES)
+               ? CopyFiles.Options.fromInt(
+                settings.getInt(KEY_OPTIONS_COPY_MOVE_FILES))
+               : CopyFiles.Options.CONFIRM_OVERWRITE;
+    }
+
+    /**
      * Returns wheter actions shall be executed always after changing images in
      * the database, e.g. a user defined action which embeds XMP into the image
      * files.
@@ -617,6 +632,10 @@ public final class UserSettings implements UserSettingsChangeListener {
                     KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
             settings.setBoolean(true,
                     KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        } else if (type.equals(
+                UserSettingsChangeEvent.Type.OPTIONS_COPY_MOVE_FILES)) {
+            settings.setInt(evt.getOptionsCopyMoveFiles().getInt(),
+                    KEY_OPTIONS_COPY_MOVE_FILES);
         }
         writeToFile();
     }

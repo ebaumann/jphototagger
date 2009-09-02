@@ -4,11 +4,11 @@
  */
 package de.elmar_baumann.imv.io;
 
+import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppFileFilter;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
-import de.elmar_baumann.imv.helper.CopyFiles;
 import de.elmar_baumann.imv.helper.FilesystemDatabaseUpdater;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.GUI;
@@ -74,7 +74,7 @@ public final class ImageUtil {
         dialog.setSourceFiles(sourceFiles);
         dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
         addProgressListener(dialog);
-        dialog.copy(true, CopyFiles.Options.CONFIRM_OVERWRITE);
+        dialog.copy(true, UserSettings.INSTANCE.getCopyMoveFilesOptions());
     }
 
     /**

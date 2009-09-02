@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.view.panels;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
+import de.elmar_baumann.imv.helper.CopyFiles;
 import de.elmar_baumann.imv.model.ComboBoxModelLogfileFormatter;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
@@ -193,6 +194,19 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         notifyChangeListener(evt);
     }
 
+    private void handleActionPerformedCopyMoveFiles() {
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
+                UserSettingsChangeEvent.Type.OPTIONS_COPY_MOVE_FILES, this);
+        evt.setOptionsCopyMoveFiles(radioButtonCopyMoveFileConfirmOverwrite.
+                isSelected()
+                                    ? CopyFiles.Options.CONFIRM_OVERWRITE
+                                    : radioButtonCopyMoveFileRenameIfExists.
+                isSelected()
+                                      ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
+                                      : CopyFiles.Options.CONFIRM_OVERWRITE);
+        notifyChangeListener(evt);
+    }
+
     private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
@@ -223,6 +237,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 settings.isTreeDirectoriesSelectLastDirectory());
         labelDatabaseDirectory.setText(UserSettings.INSTANCE.
                 getDatabaseDirectoryName());
+        radioButtonCopyMoveFileConfirmOverwrite.setSelected(
+                settings.getCopyMoveFilesOptions().equals(
+                CopyFiles.Options.CONFIRM_OVERWRITE));
+        radioButtonCopyMoveFileRenameIfExists.setSelected(
+                settings.getCopyMoveFilesOptions().equals(
+                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         setIconDatabaseDirectory();
     }
 
@@ -266,6 +286,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupCopyMoveFiles = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
         panelExternalApplications = new javax.swing.JPanel();
         labelInfoWebBrowser = new javax.swing.JLabel();
@@ -291,6 +312,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         panelMisc = new javax.swing.JPanel();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
         checkBoxTreeDirectoriesSelectLastDirectory = new javax.swing.JCheckBox();
+        panelCopyMoveFiles = new javax.swing.JPanel();
+        radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
+        radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
 
         labelInfoWebBrowser.setText(Bundle.getString("SettingsMiscPanel.labelInfoWebBrowser.text")); // NOI18N
 
@@ -409,7 +433,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                     .addComponent(buttonSetStandardDatabaseDirectoryName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoDatabaseDirectory)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.TabConstraints.tabTitle"), panelDatabaseDirectory); // NOI18N
@@ -467,7 +491,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                     .addComponent(labelLogLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoLogfile)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelLogfile.TabConstraints.tabTitle"), panelLogfile); // NOI18N
@@ -501,7 +525,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChooseAutocopyDirectory)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelAutoCopyDirectory.TabConstraints.tabTitle"), panelAutoCopyDirectory); // NOI18N
@@ -523,15 +547,55 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             }
         });
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsMiscPanel.panelCopyMoveFiles.border.title"))); // NOI18N
+
+        buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite);
+        radioButtonCopyMoveFileConfirmOverwrite.setText(bundle.getString("SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
+        radioButtonCopyMoveFileConfirmOverwrite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonCopyMoveFileConfirmOverwriteActionPerformed(evt);
+            }
+        });
+
+        buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
+        radioButtonCopyMoveFileRenameIfExists.setText(bundle.getString("SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
+        radioButtonCopyMoveFileRenameIfExists.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonCopyMoveFileRenameIfExistsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelCopyMoveFilesLayout = new javax.swing.GroupLayout(panelCopyMoveFiles);
+        panelCopyMoveFiles.setLayout(panelCopyMoveFilesLayout);
+        panelCopyMoveFilesLayout.setHorizontalGroup(
+            panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCopyMoveFilesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(radioButtonCopyMoveFileConfirmOverwrite)
+                    .addComponent(radioButtonCopyMoveFileRenameIfExists))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelCopyMoveFilesLayout.setVerticalGroup(
+            panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCopyMoveFilesLayout.createSequentialGroup()
+                .addComponent(radioButtonCopyMoveFileConfirmOverwrite)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioButtonCopyMoveFileRenameIfExists)
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panelMiscLayout = new javax.swing.GroupLayout(panelMisc);
         panelMisc.setLayout(panelMiscLayout);
         panelMiscLayout.setHorizontalGroup(
             panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMiscLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMiscLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
+                .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkBoxIsAcceptHiddenDirectories, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelMiscLayout.setVerticalGroup(
@@ -541,7 +605,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
@@ -550,11 +616,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -593,11 +659,20 @@ private void buttonSetStandardDatabaseDirectoryNameActionPerformed(java.awt.even
 private void buttonChoosePdfViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChoosePdfViewerActionPerformed
     handleActionPerformedChoosePdfViewer();
 }//GEN-LAST:event_buttonChoosePdfViewerActionPerformed
+
+private void radioButtonCopyMoveFileConfirmOverwriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
+    handleActionPerformedCopyMoveFiles();
+}//GEN-LAST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
+
+private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
+    handleActionPerformedCopyMoveFiles();
+}//GEN-LAST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseAutocopyDirectory;
     private javax.swing.JButton buttonChooseDatabaseDirectory;
     private javax.swing.JButton buttonChoosePdfViewer;
     private javax.swing.JButton buttonChooseWebBrowser;
+    private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetStandardDatabaseDirectoryName;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JCheckBox checkBoxTreeDirectoriesSelectLastDirectory;
@@ -614,10 +689,13 @@ private void buttonChoosePdfViewerActionPerformed(java.awt.event.ActionEvent evt
     private javax.swing.JLabel labelPdfViewer;
     private javax.swing.JLabel labelWebBrowser;
     private javax.swing.JPanel panelAutoCopyDirectory;
+    private javax.swing.JPanel panelCopyMoveFiles;
     private javax.swing.JPanel panelDatabaseDirectory;
     private javax.swing.JPanel panelExternalApplications;
     private javax.swing.JPanel panelLogfile;
     private javax.swing.JPanel panelMisc;
+    private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;
+    private javax.swing.JRadioButton radioButtonCopyMoveFileRenameIfExists;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

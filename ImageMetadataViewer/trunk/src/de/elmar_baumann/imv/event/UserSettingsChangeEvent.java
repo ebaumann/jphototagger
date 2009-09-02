@@ -1,6 +1,8 @@
 package de.elmar_baumann.imv.event;
 
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.helper.CopyFiles;
+import de.elmar_baumann.imv.helper.CopyFiles.Options;
 import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,6 +38,7 @@ public final class UserSettingsChangeEvent {
     private boolean scanForEmbeddedXmp;
     private boolean executeActionsAfterImageChangeInDbAlways;
     private boolean executeActionsAfterImageChangeInDbIfImageHasXmp;
+    private CopyFiles.Options optionsCopyMoveFiles;
     private Integer maxThumbnailWidth;
     private Integer maxSecondsToTerminateExternalPrograms;
     private Integer minutesToStartScheduledTasks;
@@ -71,6 +74,7 @@ public final class UserSettingsChangeEvent {
         TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
         MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
         SCAN_FOR_EMBEDDED_XMP,
+        OPTIONS_COPY_MOVE_FILES,
     }
 
     public UserSettingsChangeEvent(Type type, Object source) {
@@ -278,5 +282,13 @@ public final class UserSettingsChangeEvent {
             boolean executeActionAfterImageChangeInDbIfImageHasXmp) {
         this.executeActionsAfterImageChangeInDbIfImageHasXmp =
                 executeActionAfterImageChangeInDbIfImageHasXmp;
+    }
+
+    public Options getOptionsCopyMoveFiles() {
+        return optionsCopyMoveFiles;
+    }
+
+    public void setOptionsCopyMoveFiles(Options optionsCopyMoveFiles) {
+        this.optionsCopyMoveFiles = optionsCopyMoveFiles;
     }
 }

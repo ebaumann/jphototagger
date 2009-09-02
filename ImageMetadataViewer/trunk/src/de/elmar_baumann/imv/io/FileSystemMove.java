@@ -4,6 +4,7 @@ import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.FileSystemEvent;
 import de.elmar_baumann.imv.event.FileSystemError;
 import de.elmar_baumann.lib.generics.Pair;
+import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,29 +23,43 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
     private List<File> sourceFiles = new ArrayList<File>();
     private List<File> targetFiles = new ArrayList<File>();
+    private final boolean renameIfTargetFileExists;
     private File targetDirectory;
 
     /**
      * Moves sources files to a target directory.
      * 
-     * @param sourceFiles      source files
-     * @param targetDirectory  target directory
+     * @param sourceFiles              source files
+     * @param targetDirectory          target directory
+     * @param renameIfTargetFileExists renaming automatically the file if the
+     *                                 target file exists
      */
-    public FileSystemMove(List<File> sourceFiles, File targetDirectory) {
+    public FileSystemMove(
+            List<File> sourceFiles,
+            File targetDirectory,
+            boolean renameIfTargetFileExists) {
         this.sourceFiles = new ArrayList<File>(sourceFiles);
         this.targetDirectory = targetDirectory;
+        this.renameIfTargetFileExists = renameIfTargetFileExists;
         setTargetFiles();
     }
 
     /**
      * Moves source files to target files.
      * 
-     * @param sourceFiles  source files
-     * @param targetFiles  target files - size must be equals to sourceFiles
+     * @param sourceFiles              source files
+     * @param targetFiles              target files - size must be equals to
+     *                                 sourceFiles
+     * @param renameIfTargetFileExists renaming automatically the file if the
+     *                                 target file exists
      */
-    public FileSystemMove(List<File> sourceFiles, List<File> targetFiles) {
+    public FileSystemMove(
+            List<File> sourceFiles,
+            List<File> targetFiles,
+            boolean renameIfTargetFileExists) {
         this.sourceFiles = new ArrayList<File>(sourceFiles);
         this.targetFiles = new ArrayList<File>(targetFiles);
+        this.renameIfTargetFileExists = renameIfTargetFileExists;
     }
 
     private void setTargetFiles() {
@@ -66,7 +81,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
         for (int i = 0; !stop && i < size; i++) {
             File sourceFile = sourceFiles.get(i);
-            File targetFile = targetFiles.get(i);
+            File targetFile = getTargetFile(targetFiles.get(i));
             if (checkExists(sourceFile, targetFile)) {
                 boolean moved = sourceFile.renameTo(targetFile);
                 checkMoved(moved, sourceFile, targetFile);
@@ -77,6 +92,14 @@ public final class FileSystemMove extends FileSystem implements Runnable {
             stop = progressEvent.isStop();
         }
         notifyProgressListenerEnded(progressEvent);
+    }
+
+    private File getTargetFile(File file) {
+        File targetFile = file;
+        if (renameIfTargetFileExists && targetFile.exists()) {
+            targetFile = FileUtil.getNotExistingFile(targetFile);
+        }
+        return targetFile;
     }
 
     private boolean checkExists(File sourceFile, File targetFile) {

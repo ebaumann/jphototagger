@@ -129,9 +129,11 @@ public final class CopyToDirectoryDialog
     }
 
     private Options getCopyOptions() {
-        return checkBoxForceOverwrite.isSelected()
+        return radioButtonForceOverwrite.isSelected()
                ? CopyFiles.Options.FORCE_OVERWRITE
-               : CopyFiles.Options.CONFIRM_OVERWRITE;
+               : radioButtonRenameIfTargetFileExists.isSelected()
+                 ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
+                 : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
     private List<Pair<File, File>> getFiles(boolean addXmp) {
@@ -230,11 +232,13 @@ public final class CopyToDirectoryDialog
     public void copy(boolean addXmp, Options options) {
         if (targetDirectory.exists() && sourceFiles.size() > 0) {
             labelTargetDirectory.setText(targetDirectory.getAbsolutePath());
+            setOptionsToRadioButtons(options);
             setIconToLabelTargetDirectory();
             buttonChooseDirectory.setEnabled(false);
             buttonStart.setEnabled(false);
             checkBoxCopyXmp.setSelected(true);
-            checkBoxForceOverwrite.setSelected(false);
+            radioButtonForceOverwrite.setSelected(false);
+            radioButtonRenameIfTargetFileExists.setSelected(true);
             writeProperties = false;
             super.setVisible(true);
             ComponentUtil.centerScreen(this);
@@ -346,6 +350,14 @@ public final class CopyToDirectoryDialog
         checkClosing();
     }
 
+    private void setOptionsToRadioButtons(Options options) {
+        radioButtonForceOverwrite.setSelected(
+                options.equals(CopyFiles.Options.FORCE_OVERWRITE));
+        radioButtonRenameIfTargetFileExists.setSelected(
+                options.equals(
+                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -355,10 +367,12 @@ public final class CopyToDirectoryDialog
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupFileExists = new javax.swing.ButtonGroup();
         labelInfo = new javax.swing.JLabel();
         buttonChooseDirectory = new javax.swing.JButton();
         labelTargetDirectory = new javax.swing.JLabel();
-        checkBoxForceOverwrite = new javax.swing.JCheckBox();
+        radioButtonForceOverwrite = new javax.swing.JRadioButton();
+        radioButtonRenameIfTargetFileExists = new javax.swing.JRadioButton();
         checkBoxCopyXmp = new javax.swing.JCheckBox();
         progressBar = new javax.swing.JProgressBar();
         labelInfoCurrentFilename = new javax.swing.JLabel();
@@ -387,14 +401,17 @@ public final class CopyToDirectoryDialog
 
         labelTargetDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        checkBoxForceOverwrite.setMnemonic('x');
-        checkBoxForceOverwrite.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxForceOverwrite.text")); // NOI18N
+        buttonGroupFileExists.add(radioButtonForceOverwrite);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        radioButtonForceOverwrite.setText(bundle.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text")); // NOI18N
+
+        buttonGroupFileExists.add(radioButtonRenameIfTargetFileExists);
+        radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
 
         checkBoxCopyXmp.setMnemonic('x');
         checkBoxCopyXmp.setSelected(true);
         checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
         labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
@@ -428,50 +445,53 @@ public final class CopyToDirectoryDialog
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxCopyXmp)
-                    .addComponent(checkBoxForceOverwrite)
-                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
-                        .addComponent(buttonChooseDirectory))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                    .addComponent(radioButtonRenameIfTargetFileExists)
+                    .addComponent(radioButtonForceOverwrite)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelInfoIsThread)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
-                        .addComponent(buttonStop)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStart))
+                        .addComponent(labelInfo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(buttonChooseDirectory))
+                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)))
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelInfoIsThread)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(buttonStop)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonStart)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonChooseDirectory)
-                    .addComponent(labelInfo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelInfo)
+                    .addComponent(buttonChooseDirectory))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTargetDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkBoxForceOverwrite)
-                .addGap(2, 2, 2)
-                .addComponent(checkBoxCopyXmp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(radioButtonForceOverwrite)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioButtonRenameIfTargetFileExists)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxCopyXmp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelInfoCurrentFilename))
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelInfoCurrentFilename)
+                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelInfoIsThread)
                     .addComponent(buttonStart)
                     .addComponent(buttonStop))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonStart, buttonStop, progressBar});
@@ -517,15 +537,17 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseDirectory;
+    private javax.swing.ButtonGroup buttonGroupFileExists;
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonStop;
     private javax.swing.JCheckBox checkBoxCopyXmp;
-    private javax.swing.JCheckBox checkBoxForceOverwrite;
     private javax.swing.JLabel labelCurrentFilename;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelInfoCurrentFilename;
     private javax.swing.JLabel labelInfoIsThread;
     private javax.swing.JLabel labelTargetDirectory;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JRadioButton radioButtonForceOverwrite;
+    private javax.swing.JRadioButton radioButtonRenameIfTargetFileExists;
     // End of variables declaration//GEN-END:variables
 }
