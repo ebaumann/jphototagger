@@ -2,6 +2,7 @@ package de.elmar_baumann.lib.componentutil;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -223,6 +224,23 @@ public final class ListUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the strings of a list model.
+     *
+     * Calls <code>toString()</code> of every model element.
+     *
+     * @param  model model
+     * @return       strings of that model
+     */
+    public static List<String> toStringList(ListModel model) {
+        int size = model.getSize();
+        List<String> list = new ArrayList<String>(size);
+        for (int i = 0; i < size; i++) {
+            list.add(model.getElementAt(i).toString());
+        }
+        return list;
     }
 
     private ListUtil() {
