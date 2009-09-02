@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.app.MessageDisplayer;
-import de.elmar_baumann.imv.data.AutoCompleteData;
+import de.elmar_baumann.imv.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -52,7 +52,6 @@ public final class EditRepeatableTextEntryPanel
 
     private final DefaultListModel model = new DefaultListModel();
     private Column column;
-    private AutoCompleteData autoCompleteData;
     private boolean editable = true;
     private boolean dirty = false;
     private Suggest suggest;
@@ -80,15 +79,10 @@ public final class EditRepeatableTextEntryPanel
 
     @Override
     public void setAutocomplete() {
-        autoCompleteData = new AutoCompleteData(column);
         AutoCompleteDecorator.decorate(
                 textFieldInput,
-                autoCompleteData.getList(),
+                AutoCompleteDataOfColumn.INSTANCE.get(column).getData(),
                 false);
-    }
-
-    public AutoCompleteData getAutoCompleteData() {
-        return autoCompleteData;
     }
 
     /**

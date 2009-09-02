@@ -13,6 +13,10 @@
         <url>mainwindow.html</url>
         <title>Das Programmfenster</title>
     </page>
+    <page>
+        <url>fast_search.html</url>
+        <title>Die Schnellsuche</title>
+    </page>
     <node>
         <title>Die Auswahl-Kartenreiter</title>
         <page>

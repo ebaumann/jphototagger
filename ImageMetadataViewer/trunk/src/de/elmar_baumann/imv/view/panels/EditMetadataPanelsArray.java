@@ -4,13 +4,13 @@ import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.SuggestHierarchicalKeywords;
+import de.elmar_baumann.imv.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.imv.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.imv.helper.SaveEditedMetadata;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.MetadataEditTemplate;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.Xmp;
-import de.elmar_baumann.imv.data.AutoCompleteUtil;
 import de.elmar_baumann.imv.data.SelectedFile;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -708,13 +708,13 @@ public final class EditMetadataPanelsArray implements FocusListener,
         for (JPanel panel : panels) {
             if (panel instanceof EditTextEntryPanel) {
                 EditTextEntryPanel p = (EditTextEntryPanel) panel;
-                AutoCompleteUtil.addData(xmp, p.getColumn(), p.
-                        getAutoCompleteData());
+                AutoCompleteDataOfColumn.INSTANCE.addData(
+                        p.getColumn(), xmp.getValue(p.getColumn()));
             } else if (panel instanceof EditRepeatableTextEntryPanel) {
                 EditRepeatableTextEntryPanel p =
                         (EditRepeatableTextEntryPanel) panel;
-                AutoCompleteUtil.addData(xmp, p.getColumn(), p.
-                        getAutoCompleteData());
+                AutoCompleteDataOfColumn.INSTANCE.addData(
+                        p.getColumn(), xmp.getValue(p.getColumn()));
             }
         }
     }

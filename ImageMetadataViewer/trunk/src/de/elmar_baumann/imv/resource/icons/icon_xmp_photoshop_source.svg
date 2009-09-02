@@ -14,11 +14,11 @@
    id="svg2383"
    sodipodi:version="0.32"
    inkscape:version="0.46"
-   sodipodi:docname="icon_xmp_source.svg"
+   sodipodi:docname="icon_xmp_photoshop_source.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_xmp_source.png">
+   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_xmp_photoshop_source.png">
   <defs
      id="defs2385">
     <linearGradient
@@ -109,7 +109,7 @@
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
           </cc:Agent>
         </dc:publisher>
-        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_xmp_source.svg</dc:identifier>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_xmp_photoshop_source.svg</dc:identifier>
         <dc:title>XMP Source</dc:title>
         <dc:coverage>computer program, icon</dc:coverage>
         <dc:subject>

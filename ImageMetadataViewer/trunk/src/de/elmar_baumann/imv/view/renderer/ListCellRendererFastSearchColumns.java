@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.database.metadata.Column;
+import de.elmar_baumann.imv.database.metadata.selections.ColumnIcons;
 import de.elmar_baumann.imv.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.Component;
@@ -22,7 +23,9 @@ public final class ListCellRendererFastSearchColumns extends DefaultListCellRend
         JLabel label = (JLabel) super.getListCellRendererComponent(
                 list, value, index, isSelected, cellHasFocus);
         if (value instanceof Column) {
-            label.setText(((Column) value).getDescription());
+            Column column = (Column) value;
+            label.setText(column.getDescription());
+            label.setIcon(ColumnIcons.getIcon(column));
         } else if (value.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS)) {
             label.setText(Bundle.getString(
                     "ListCellRendererFastSearchColumns.Text.AllDefinedColumns")); // NOI18N

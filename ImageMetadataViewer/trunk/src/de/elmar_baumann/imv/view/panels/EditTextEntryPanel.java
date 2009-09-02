@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.data.AutoCompleteData;
+import de.elmar_baumann.imv.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.data.TextEntryContent;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -27,7 +27,6 @@ public final class EditTextEntryPanel
 
     private static final Color EDITABLE_COLOR = Color.WHITE;
     private Column column;
-    private AutoCompleteData autoCompleteData;
     private boolean dirty = false;
     private boolean editable;
     private TextEntryListenerSupport textEntryListenerSupport =
@@ -84,15 +83,10 @@ public final class EditTextEntryPanel
 
     @Override
     public void setAutocomplete() {
-        autoCompleteData = new AutoCompleteData(column);
         AutoCompleteDecorator.decorate(
                 textAreaEdit,
-                autoCompleteData.getList(),
+                AutoCompleteDataOfColumn.INSTANCE.get(column).getData(),
                 false);
-    }
-
-    public AutoCompleteData getAutoCompleteData() {
-        return autoCompleteData;
     }
 
     @Override

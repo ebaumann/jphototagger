@@ -1,10 +1,9 @@
 package de.elmar_baumann.imv.controller.search;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.data.AutoCompleteData;
+import de.elmar_baumann.imv.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.imv.data.ImageFile;
 import de.elmar_baumann.imv.data.Xmp;
-import de.elmar_baumann.imv.data.AutoCompleteUtil;
 import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.DatabaseSearch;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -43,6 +42,7 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
+import javax.swing.text.PlainDocument;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -70,7 +70,6 @@ public final class ControllerFastSearch
             UserSettings.INSTANCE.getFastSearchColumns();
     private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
     private final List<JList> selectionLists = appPanel.getSelectionLists();
-    private volatile AutoCompleteData searchAutoCompleteData;
     private final EditMetadataPanelsArray editPanels =
             appPanel.getEditPanelsArray();
 
@@ -111,6 +110,7 @@ public final class ControllerFastSearch
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == comboboxFastSearch) {
             setEnabledSearchTextField();
+            decorateTextFieldSearch();
         }
     }
 
@@ -127,16 +127,17 @@ public final class ControllerFastSearch
     @Override
     public void actionPerformed(DatabaseImageEvent event) {
         if (event.isTextMetadataAffected()) {
-            ImageFile data = event.getImageFile();
-            if (data != null && data.getXmp() != null) {
-                addAutoCompleteData(data.getXmp());
+            ImageFile imageFile = event.getImageFile();
+            if (imageFile != null && imageFile.getXmp() != null) {
+                addAutoCompleteData(imageFile.getXmp());
             }
         }
     }
 
     private void addAutoCompleteData(Xmp xmp) {
         for (Column column : fastSearchColumns) {
-            AutoCompleteUtil.addData(xmp, column, searchAutoCompleteData);
+            AutoCompleteDataOfColumn.INSTANCE.addData(
+                    column, xmp.getValue(column));
         }
     }
 
@@ -145,10 +146,12 @@ public final class ControllerFastSearch
 
             @Override
             public void run() {
-                searchAutoCompleteData = new AutoCompleteData();
+                textFieldSearch.setDocument(new PlainDocument()); // else the document seems to "collect" previous auto complete data
                 AutoCompleteDecorator.decorate(
                         textFieldSearch,
-                        searchAutoCompleteData.getList(),
+                        isSearchAllDefinedColumns()
+                        ? AutoCompleteDataOfColumn.INSTANCE.getFastSearchData().getData()
+                        : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).getData(),
                         false);
             }
         });
@@ -220,30 +223,29 @@ public final class ControllerFastSearch
                     }
                 }
             }
-
-            private List<String> getSearchWords(String userInput) {
-                List<String> words = new ArrayList<String>();
-                StringTokenizer st = new StringTokenizer(userInput,
-                        DELIMITER_SEARCH_WORDS);
-                while (st.hasMoreTokens()) {
-                    words.add(st.nextToken());
-                }
-                return words;
-            }
-
-            private Column getSearchColumn() {
-                assert !isSearchAllDefinedColumns() :
-                        "More than one search column!"; // NOI18N
-                if (isSearchAllDefinedColumns()) return null;
-                ComboBoxModel model = comboboxFastSearch.getModel();
-                assert model instanceof ComboBoxModelFastSearch :
-                        "Unknown model: " + model;
-                if (model instanceof ComboBoxModelFastSearch) {
-                    return (Column) comboboxFastSearch.getSelectedItem();
-                }
-                return null;
-            }
         });
+    }
+
+    private List<String> getSearchWords(String userInput) {
+        List<String> words = new ArrayList<String>();
+        StringTokenizer st =
+                new StringTokenizer(userInput, DELIMITER_SEARCH_WORDS);
+        while (st.hasMoreTokens()) {
+            words.add(st.nextToken().trim());
+        }
+        return words;
+    }
+
+    private Column getSearchColumn() {
+        assert !isSearchAllDefinedColumns() : "More than one search column!"; // NOI18N
+        if (isSearchAllDefinedColumns()) return null;
+        ComboBoxModel model = comboboxFastSearch.getModel();
+        assert model instanceof ComboBoxModelFastSearch :
+                "Unknown model: " + model;
+        if (model instanceof ComboBoxModelFastSearch) {
+            return (Column) comboboxFastSearch.getSelectedItem();
+        }
+        return null;
     }
 
     @Override

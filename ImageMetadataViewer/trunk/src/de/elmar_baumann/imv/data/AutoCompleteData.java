@@ -1,8 +1,8 @@
 package de.elmar_baumann.imv.data;
 
-import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.database.DatabaseContent;
 import de.elmar_baumann.imv.database.metadata.Column;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Model for Autocomplete.
- * 
+ * Contains autocomplete data (words, terms).
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-10
  */
@@ -23,53 +23,28 @@ public final class AutoCompleteData {
             Collections.synchronizedList(new LinkedList<String>());
 
     /**
-     * Standardkonstruktor.
+     * Creates a new instance of this class.
      * 
-     * Liest die Schnellsuchspalten ein mit
-     * {@link de.elmar_baumann.imv.UserSettings#getFastSearchColumns()}.
+     * @param columns columns. All words of
+     *               {@link DatabaseContent#getContent(de.elmar_baumann.imv.database.metadata.Column)}
+     *               will be added to the autocomplete data.
      */
-    public AutoCompleteData() {
-        columns = new LinkedHashSet<Column>(
-                UserSettings.INSTANCE.getFastSearchColumns());
-        addColumnsContent();
+    AutoCompleteData(Collection<? extends Column> columns) {
+        this.columns = new LinkedHashSet<Column>(columns);
+        content.addAll(db.getContent(this.columns));
     }
 
     /**
-     * Konstruktor.
+     * Adds a string to the autocomplete data if it does not already exist.
      * 
-     * @param column  Tabellenspalte, deren Inhalt für Autocomplete benötigt
-     *                wird
+     * @param string new string
      */
-    public AutoCompleteData(Column column) {
-        Set<Column> cols = new LinkedHashSet<Column>();
-        cols.add(column);
-        this.columns = cols;
-        addColumnsContent();
-    }
-
-    /**
-     * Adds a string to the autocomplete data if not already exists.
-     * 
-     * @param string  new string
-     */
-    public void addString(String string) {
-        if (!content.contains(string)) {
-            content.add(string);
-        }
-    }
-
-    private void addColumnsContent() {
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                content.addAll(db.getContent(columns));
+    void addString(String string) {
+        synchronized (content) {
+            if (!content.contains(string)) {
+                content.add(string);
             }
-        });
-        thread.setName("Adding auto complete data of columns" + " @ " + // NOI18N
-                getClass().getName());
-        thread.start();
-
+        }
     }
 
     /**
@@ -78,7 +53,7 @@ public final class AutoCompleteData {
      *
      * @return autocomplete data
      */
-    public List<String> getList() {
+    public List<String> getData() {
         return content;
     }
 }

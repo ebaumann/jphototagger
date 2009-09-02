@@ -5,9 +5,14 @@ import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.imv.database.metadata.exif.ColumnExifRecordingEquipment;
+import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcCreator;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
+import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import java.util.HashMap;
@@ -35,7 +40,7 @@ public final class ColumnIcons {
         ICON_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE,
                 AppIcons.getIcon("icon_xmp_dc_creator.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE,
-                AppIcons.getIcon("icon_xmp_source.png")); // NOI18N
+                AppIcons.getIcon("icon_xmp_photoshop_source.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
                 AppIcons.getIcon("icon_xmp_iptc4_core_location.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnExifIsoSpeedRatings.INSTANCE,
@@ -44,6 +49,16 @@ public final class ColumnIcons {
                 AppIcons.getIcon("icon_exif_focal_length.png")); // NOI18N
         ICON_OF_COLUMN.put(ColumnExifRecordingEquipment.INSTANCE,
                 AppIcons.getIcon("icon_exif_recording_equipment.png")); // NOI18N
+        ICON_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE,
+                AppIcons.getIcon("icon_keyword.png")); // NOI18N
+        ICON_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE,
+                AppIcons.getIcon("icon_xmp_dc_description.png")); // NOI18N
+        ICON_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE,
+                AppIcons.getIcon("icon_xmp_photoshop_headline.png")); // NOI18N
+        ICON_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE,
+                AppIcons.getIcon("icon_xmp_dc_title.png")); // NOI18N
+        ICON_OF_COLUMN.put(ColumnFilesFilename.INSTANCE,
+                AppIcons.getIcon("icon_file.png")); // NOI18N
     }
 
     /**
