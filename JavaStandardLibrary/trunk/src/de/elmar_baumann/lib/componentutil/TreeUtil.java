@@ -429,6 +429,34 @@ public final class TreeUtil {
         }
     }
 
+    /**
+     * Returns all children of a tree node - the complete subree.
+     *
+     * @param  model  model
+     * @param  parent parent node
+     * @return        children of that parent;
+     */
+    public static List<Object> getAllChildren(TreeModel model, Object parent) {
+        if (model == null)
+            throw new NullPointerException("model == null"); // NOI18N
+        if (parent == null)
+            throw new NullPointerException("parent == null"); // NOI18N
+
+        List<Object> children = new ArrayList<Object>();
+        addChildrenRecursive(model, parent, children);
+        return children;
+    }
+
+    private static void addChildrenRecursive(
+            TreeModel model, Object parent, List<Object> children) {
+        int childCount = model.getChildCount(parent);
+        for (int i = 0; i < childCount; i++) {
+            Object child = model.getChild(parent, i);
+            children.add(child);
+            addChildrenRecursive(model, child, children);
+        }
+    }
+
     private TreeUtil() {
     }
 }
