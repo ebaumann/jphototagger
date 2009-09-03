@@ -454,8 +454,6 @@ public final class AppPanel extends javax.swing.JPanel implements
                 singleSelecion);
         treeMiscMetadata.getSelectionModel().setSelectionMode(singleSelecion);
         treeTimeline.getSelectionModel().setSelectionMode(singleSelecion);
-        treeSelHierarchicalKeywords.getSelectionModel().setSelectionMode(
-                singleSelecion);
     }
 
     /** This method is called from within the constructor to

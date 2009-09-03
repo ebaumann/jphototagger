@@ -24,7 +24,8 @@ import javax.swing.tree.TreePath;
 public final class ControllerHierarchicalKeywordsSelection
         implements TreeSelectionListener {
 
-    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeSelHierarchicalKeywords();
+    private final JTree tree = GUI.INSTANCE.getAppPanel().
+            getTreeSelHierarchicalKeywords();
 
     public ControllerHierarchicalKeywordsSelection() {
         listen();
@@ -64,16 +65,17 @@ public final class ControllerHierarchicalKeywordsSelection
     }
 
     private List<Object> getSubtreeNodes() {
-        TreePath path = tree.getSelectionPath();
-        assert path != null;
-        if (path != null) {
-            Object parent = path.getLastPathComponent();
-            List<Object> children =
-                    TreeUtil.getAllChildren(tree.getModel(), parent);
-            children.add(parent);
+        TreePath[] paths = tree.getSelectionPaths();
+        assert paths != null;
+        if (paths != null) {
+            List<Object> children = new ArrayList<Object>();
+            for (TreePath path : paths) {
+                Object parent = path.getLastPathComponent();
+                children.addAll(TreeUtil.getAllChildren(tree.getModel(), parent));
+                children.add(parent);
+            }
             return children;
         }
         return null;
     }
-
 }
