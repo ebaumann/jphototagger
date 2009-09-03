@@ -38,6 +38,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
@@ -358,6 +359,14 @@ public final class AppPanel extends javax.swing.JPanel implements
         return comboBoxFastSearch;
     }
 
+    public JRadioButton getRadioButtonKeywordsMultipleSelAll() {
+        return radioButtonKeywordsMultipleSelAll;
+    }
+
+    public JRadioButton getRadioButtonKeywordsMultipleSelOne() {
+        return radioButtonKeywordsMultipleSelOne;
+    }
+
     private void initTableArrays() {
         initXmpTableArray();
         initMetadataTablesArray();
@@ -464,6 +473,7 @@ public final class AppPanel extends javax.swing.JPanel implements
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupKeywordsMultipleSel = new javax.swing.ButtonGroup();
         splitPaneMain = new javax.swing.JSplitPane();
         splitPaneMain.setDividerLocation(getDividerLocationMain());
         panelSelection = new javax.swing.JPanel();
@@ -486,6 +496,9 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelKeywords = new javax.swing.JPanel();
         scrollPaneKeywords = new javax.swing.JScrollPane();
         listKeywords = new javax.swing.JList();
+        panelKeywordsMultipleSelection = new javax.swing.JPanel();
+        radioButtonKeywordsMultipleSelAll = new javax.swing.JRadioButton();
+        radioButtonKeywordsMultipleSelOne = new javax.swing.JRadioButton();
         panelSelHierarchicalKeywords = new javax.swing.JPanel();
         scrollPaneSelHierarchicalKeywords = new javax.swing.JScrollPane();
         treeSelHierarchicalKeywords = new javax.swing.JTree();
@@ -686,19 +699,47 @@ public final class AppPanel extends javax.swing.JPanel implements
         scrollPaneKeywords.setViewportView(listKeywords);
         listKeywords.setTransferHandler(new TransferHandlerListKeywords());
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        panelKeywordsMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppPanel.panelKeywordsMultipleSelection.border.title"))); // NOI18N
+
+        buttonGroupKeywordsMultipleSel.add(radioButtonKeywordsMultipleSelAll);
+        radioButtonKeywordsMultipleSelAll.setText(bundle.getString("AppPanel.radioButtonKeywordsMultipleSelAll.text")); // NOI18N
+
+        buttonGroupKeywordsMultipleSel.add(radioButtonKeywordsMultipleSelOne);
+        radioButtonKeywordsMultipleSelOne.setText(bundle.getString("AppPanel.radioButtonKeywordsMultipleSelOne.text")); // NOI18N
+
+        javax.swing.GroupLayout panelKeywordsMultipleSelectionLayout = new javax.swing.GroupLayout(panelKeywordsMultipleSelection);
+        panelKeywordsMultipleSelection.setLayout(panelKeywordsMultipleSelectionLayout);
+        panelKeywordsMultipleSelectionLayout.setHorizontalGroup(
+            panelKeywordsMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelKeywordsMultipleSelectionLayout.createSequentialGroup()
+                .addGroup(panelKeywordsMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(radioButtonKeywordsMultipleSelAll)
+                    .addComponent(radioButtonKeywordsMultipleSelOne))
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+        panelKeywordsMultipleSelectionLayout.setVerticalGroup(
+            panelKeywordsMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelKeywordsMultipleSelectionLayout.createSequentialGroup()
+                .addComponent(radioButtonKeywordsMultipleSelAll)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioButtonKeywordsMultipleSelOne)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panelKeywordsLayout = new javax.swing.GroupLayout(panelKeywords);
         panelKeywords.setLayout(panelKeywordsLayout);
         panelKeywordsLayout.setHorizontalGroup(
             panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 115, Short.MAX_VALUE)
-            .addGroup(panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+            .addComponent(panelKeywordsMultipleSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
         );
         panelKeywordsLayout.setVerticalGroup(
             panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 106, Short.MAX_VALUE)
-            .addGroup(panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+            .addGroup(panelKeywordsLayout.createSequentialGroup()
+                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelKeywordsMultipleSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword.png")), panelKeywords); // NOI18N
@@ -723,7 +764,6 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addComponent(scrollPaneSelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
         tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelSelHierarchicalKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_tree.png")), panelSelHierarchicalKeywords); // NOI18N
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
@@ -1174,6 +1214,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
     private javax.swing.JButton buttonIptcToXmp;
     private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonStopScheduledTasks;
@@ -1195,6 +1236,7 @@ public final class AppPanel extends javax.swing.JPanel implements
     private javax.swing.JPanel panelImageCollections;
     private javax.swing.JPanel panelIptc;
     private javax.swing.JPanel panelKeywords;
+    private javax.swing.JPanel panelKeywordsMultipleSelection;
     private javax.swing.JPanel panelMetadata;
     private javax.swing.JPanel panelMetadataProgress;
     private javax.swing.JPanel panelMiscMetadata;
@@ -1213,6 +1255,8 @@ public final class AppPanel extends javax.swing.JPanel implements
     private javax.swing.JProgressBar progressBarAutomaticTasks;
     private javax.swing.JProgressBar progressBarScheduledTasks;
     private javax.swing.JProgressBar progressBarUserTasks;
+    private javax.swing.JRadioButton radioButtonKeywordsMultipleSelAll;
+    private javax.swing.JRadioButton radioButtonKeywordsMultipleSelOne;
     private javax.swing.JScrollPane scrollPaneCategories;
     private javax.swing.JScrollPane scrollPaneDirectories;
     private javax.swing.JScrollPane scrollPaneEditMetadata;
