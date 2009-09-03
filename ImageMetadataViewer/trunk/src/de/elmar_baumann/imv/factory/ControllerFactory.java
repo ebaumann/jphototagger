@@ -35,6 +35,7 @@ import de.elmar_baumann.imv.controller.metadata.ControllerEmptyMetadata;
 import de.elmar_baumann.imv.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.imv.controller.search.ControllerAdvancedSearch;
 import de.elmar_baumann.imv.controller.filesystem.ControllerAutocopyDirectory;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerInsertIntoHierarchicalKeywords;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerExportHierarchicalKeywords;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsSelection;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHighlightHierarchicalKeywords;
@@ -163,6 +164,7 @@ public final class ControllerFactory {
             new ControllerCopyPasteMetadata();
             new ControllerHierarchicalKeywordsSelection();
             new ControllerPlugins();
+            new ControllerInsertIntoHierarchicalKeywords();
             init = true;
         }
     }

@@ -56,5 +56,6 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
         UserSettings.INSTANCE.getSettings().setBoolean(
                 appFrame.getCheckBoxMenuItemKeywordOverlay().isSelected(),
                 KEY_SHOW_METADATA_OVERLAY);
+        UserSettings.INSTANCE.writeToFile();
     }
 }

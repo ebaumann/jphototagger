@@ -14,6 +14,10 @@
         <title>Das Programmfenster</title>
     </page>
     <page>
+        <url>thumbnail_flags.html</url>
+        <title>Kennzeichnungen in den Vorschaubildern</title>
+    </page>
+    <page>
         <url>fast_search.html</url>
         <title>Die Schnellsuche</title>
     </page>
@@ -201,8 +205,12 @@
             <title>Werkzeuge &gt; In der Datenbank Dateinamen umbenennen</title>
         </page>
         <page>
-            <url>dialog_actions.html</url>
-            <title>Werkzeuge &gt; Aktionen</title>
+            <url>action_copy_categories_to_hierarchical_keywords.html</url>
+            <title>Werkzeuge &gt; Kategorien kopieren in den Stichwortbaum</title>
+        </page>
+        <page>
+            <url>action_copy_keywords_to_hierarchical_keywords.html</url>
+            <title>Werkzeuge &gt; Stichwörter kopieren in den Stichwortbaum</title>
         </page>
         <page>
             <url>dialog_edit_metadata_text_selection.html</url>
@@ -211,6 +219,10 @@
         <page>
             <url>dialog_input_helpers.html</url>
             <title>Fenster &gt; Eingabehilfen</title>
+        </page>
+        <page>
+            <url>dialog_actions.html</url>
+            <title>Fenster &gt; Aktionen</title>
         </page>
         <page>
             <url>accelerator_keys.html</url>
@@ -339,6 +351,10 @@
         <page>
             <url>facts_why_xmp_sidecarfiles.html</url>
             <title>Warum XMP-Filialdateien?</title>
+        </page>
+        <page>
+            <url>facts_categories.html</url>
+            <title>Fakten: Kategorien</title>
         </page>
     </node>
     <node>

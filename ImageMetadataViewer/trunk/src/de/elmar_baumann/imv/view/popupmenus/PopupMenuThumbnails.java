@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -216,12 +217,15 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void addPluginItems() {
+        Icon iconPlugin = AppIcons.getIcon("icon_plugin.png");
+        menuPlugins.setIcon(iconPlugin);
         add(menuPlugins);
         Logger logger = Logger.getLogger("de.elmar_baumann.imv.plugin");
         Properties properties = UserSettings.INSTANCE.getProperties();
         for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
             plugin.setProperties(properties);
             plugin.setLogger(logger);
+            plugin.putValue(Action.SMALL_ICON, iconPlugin);
             menuPlugins.add(plugin);
         }
     }
