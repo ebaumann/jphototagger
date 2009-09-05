@@ -2,14 +2,18 @@ package de.elmar_baumann.imv.importer;
 
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.io.CharEncoding;
+import de.elmar_baumann.imv.io.FilenameSuffixes;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
@@ -32,81 +36,71 @@ final class HierarchicalKeywordsImporterLightroom
      * Lightroom versions
      */
     private static final String SYNONYM_START_CHAR = "{"; // NOI18N
-    private static final String CHILD_START_CHAR = "\t"; // NOI18N
+    private static final String ONE_LEVEL_INDENT_CHILD = "\t"; // NOI18N
+    private final Node root = new Node(null, -1, "ROOT");
 
     @Override
     public Collection<List<String>> getPaths(File file) {
-        if (file == null)
-            throw new NullPointerException("file == null"); // NOI18N
-
-        List<List<String>> paths = new ArrayList<List<String>>();
         try {
-            List<String> lines = readLines(file);
-            int linecount = lines.size();
-            for (int lineIndex = 0; lineIndex < linecount; lineIndex++) {
-                int nextIndex = addChildren(lineIndex, lines, paths);
-                if (nextIndex == lineIndex) { // Noting added
-                    String line = lines.get(lineIndex).trim();
-                    if (!isSynonym(line)) {
-                        List<String> keywords = new ArrayList<String>();
-                        keywords.add(removeBrackets(line));
-                        paths.add(keywords);
-                    }
-                } else {
-                    lineIndex = nextIndex - 1;
+            if (file == null)
+                throw new NullPointerException("file == null");
+            Node node = root;
+            for (String line : readLines(file)) {
+                if (!isSynonym(line) && node != null) {
+                    String keyword = removeBrackets(line.trim());
+                    int level = levelOfLine(line);
+                    node = node.addNode(level, keyword);
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(HierarchicalKeywordsImporterLightroom.class, ex);
+            AppLog.logSevere(getClass(), ex);
+        }
+        List<Node> leafs = new ArrayList<Node>();
+        addLeafs(root, leafs);
+        return pathsOfNodes(leafs);
+    }
+
+    private void addLeafs(Node node, Collection<? super Node> leafs) {
+        int childCount = node.getChildCount();
+        if (childCount == 0) {
+            leafs.add(node);
+        } else {
+            for (int i = 0; i < childCount; i++) {
+                addLeafs(node.getChildAt(i), leafs);
+            }
+        }
+    }
+
+    private Collection<List<String>> pathsOfNodes(
+            Collection<? extends Node> nodes) {
+        List<List<String>> paths = new ArrayList<List<String>>();
+        for (Node node : nodes) {
+            paths.add(pathOfNode(node));
         }
         return paths;
     }
 
-    private int addChildren(
-            int lineIndex, List<String> lines, List<List<String>> paths) {
-
-        if (lineIndex == lines.size() - 1) return lineIndex;
-        boolean hasChild = lines.get(lineIndex + 1).startsWith(CHILD_START_CHAR);
-        if (!hasChild) return lineIndex;
-
-        int toIndex = getNextParentIndex(lines, lineIndex + 1);
-        Tree tree = new Tree(removeBrackets(lines.get(lineIndex).trim()));
-        for (int i = lineIndex + 1; i < toIndex; i++) {
-            String line = lines.get(i);
-            int level = getChildStartCharCount(line);
-            if (!isSynonym(line.trim())) {
-                tree.addNode(level, removeBrackets(line.trim()));
-            }
+    private List<String> pathOfNode(Node node) {
+        List<String> path = new ArrayList<String>();
+        Node parent = node;
+        while (parent != root) {
+            path.add(parent.getString());
+            parent = parent.getParent();
         }
-        tree.addPaths(paths);
-        return toIndex;
+        Collections.reverse(path);
+        return path;
     }
 
-    private int getChildStartCharCount(String s) {
-        if (!s.startsWith(CHILD_START_CHAR)) return 0;
-        int length = s.length();
-        boolean isChildStartChar = true;
-        int count = 0;
-        for (count = 0; isChildStartChar && count < length; count++) {
-            isChildStartChar = s.substring(count, count + 1).equals(
-                    CHILD_START_CHAR);
+    private int levelOfLine(String line) {
+        if (!line.startsWith(ONE_LEVEL_INDENT_CHILD)) return 0;
+        int length = line.length();
+        boolean isLevelIndent = true;
+        int index = 0;
+        for (index = 0; isLevelIndent && index < length; index++) {
+            isLevelIndent = line.substring(index, index + 1).equals(
+                    ONE_LEVEL_INDENT_CHILD);
         }
-        return count > 0
-               ? count - 1
-               : 0;
-    }
-
-    private int getNextParentIndex(List<String> lines, int startIndex) {
-        boolean isChild = true;
-        int lineIndex = startIndex;
-        int lineCount = lines.size();
-        while (isChild && lineIndex < lineCount) {
-            if (!lines.get(lineIndex).startsWith(CHILD_START_CHAR)) {
-                return lineIndex;
-            }
-            lineIndex++;
-        }
-        return lineCount;
+        return index - 1;
     }
 
     private boolean isSynonym(String line) {
@@ -119,19 +113,22 @@ final class HierarchicalKeywordsImporterLightroom
         // proably more efficient than calculating start and end index and
         // returning a substring in one call
         return hasStartBracket && hasEndBracket
-               ? line.substring(1, line.length() - 1)
-               : hasStartBracket
-                 ? line.substring(1)
-                 : hasEndBracket
-                   ? line.substring(0, line.length() - 1)
-                   : line;
+                ? line.substring(1, line.length() - 1)
+                : hasStartBracket
+                ? line.substring(1)
+                : hasEndBracket
+                ? line.substring(0, line.length() - 1)
+                : line;
 
     }
 
     private List<String> readLines(File file)
             throws FileNotFoundException, IOException {
         List<String> lines = new ArrayList<String>();
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                new FileInputStream(file.getAbsolutePath()),
+                CharEncoding.LIGHTROOM_KEYWORDS));
         String line = null;
         while ((line = reader.readLine()) != null) {
             lines.add(line);
@@ -141,7 +138,8 @@ final class HierarchicalKeywordsImporterLightroom
 
     @Override
     public FileFilter getFileFilter() {
-        return new FileNameExtensionFilter(getDescription(), "txt"); // NOI18N
+        return new FileNameExtensionFilter(
+                getDescription(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
     }
 
     @Override
@@ -165,10 +163,14 @@ final class HierarchicalKeywordsImporterLightroom
 
     private class Node {
 
+        private final int level;
+        private final Node parent;
         private final List<Node> children = new ArrayList<Node>();
         private final String string;
 
-        public Node(String string) {
+        public Node(Node parent, int level, String string) {
+            this.parent = parent;
+            this.level = level;
             this.string = string;
         }
 
@@ -180,65 +182,49 @@ final class HierarchicalKeywordsImporterLightroom
             return children.size();
         }
 
+        public int getLevel() {
+            return level;
+        }
+
+        public Node getParent() {
+            return parent;
+        }
+
         public Node getChildAt(int index) {
-            assert index >= 0 && index < children.size() :
-                    "Invalid index: " + index + ". Has to be between 0 and " + // NOI18N
-                    (children.size() - 1);
+            assert index >= 0 && index < children.size() : index;
             return index >= 0 && index < children.size()
-                   ? children.get(index)
-                   : null;
+                    ? children.get(index)
+                    : null;
         }
 
         public String getString() {
             return string;
         }
 
-        public void addChild(Node child) {
-            children.add(child);
-        }
-    }
-
-    // Works only in this special case (Lightroom export file)!
-    private class Tree {
-
-        private final Node root;
-
-        public Tree(String root) {
-            this.root = new Node(root);
+        @Override
+        public String toString() {
+            return string;
         }
 
-        public void addNode(int level, String string) {
-            assert level >= 1 : "Level has to be 1 and not " + level; // NOI18N
-            assert string != null : "String is null!"; // NOI18N
-            if (level == 1) {
-                root.addChild(new Node(string));
-            } else if (level > 1) {
-                Node child = root;
-                int currentLevel = 2;
-                do {
-                    child = child.getChildAt(child.getChildCount() - 1);
-                } while (child != null && currentLevel++ < level);
-                assert child != null : "Child is null!"; // NOI18N
-                if (child != null) {
-                    child.addChild(new Node(string));
+        public Node addNode(int level, String string) {
+            assert isLevel(level) : level;
+            if (!isLevel(level)) return null;
+
+            Node newNode = null;
+            if (level == this.level + 1) {
+                newNode = new Node(this, level, string);
+                children.add(newNode);
+            } else {
+                assert parent != null;
+                if (parent != null) {
+                    newNode = parent.addNode(level, string);
                 }
             }
+            return newNode;
         }
 
-        private void addPaths(List<List<String>> paths) {
-            for (int i = 0; i < root.getChildCount(); i++) {
-                List<String> path = new ArrayList<String>();
-                path.add(root.getString());
-                addToPath(root.getChildAt(i), path);
-                paths.add(path);
-            }
-        }
-
-        private void addToPath(Node node, List<String> path) {
-            path.add(node.getString());
-            for (int i = 0; i < node.getChildCount(); i++) {
-                addToPath(node.getChildAt(i), path); // recursive
-            }
+        private boolean isLevel(int level) {
+            return level >= 0 && level <= this.level + 1;
         }
     }
 }

@@ -3,13 +3,16 @@ package de.elmar_baumann.imv.exporter;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
+import de.elmar_baumann.imv.io.CharEncoding;
+import de.elmar_baumann.imv.io.FilenameSuffixes;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Enumeration;
 import javax.swing.Icon;
@@ -44,8 +47,13 @@ final class HierarchicalKeywordsExporterLightroom
                 "Not a TreeModelHierarchicalKeywords: " + tm; // NOI18N
         if (tm instanceof TreeModelHierarchicalKeywords) {
             Writer writer = null;
+            String suffix = "." + FilenameSuffixes.LIGHTROOM_KEYWORDS;
             try {
-                writer = new BufferedWriter(new FileWriter(file));
+                if (!file.getName().endsWith(suffix)) {
+                    file = new File(file.getAbsolutePath() + suffix);
+                }
+                writer = new BufferedWriter(new OutputStreamWriter(
+            new FileOutputStream(file.getAbsolutePath()), CharEncoding.LIGHTROOM_KEYWORDS));
                 addChildrenToRoot((DefaultMutableTreeNode) tm.getRoot(), writer);
             } catch (Exception ex) {
                 AppLog.logSevere(getClass(), ex);
@@ -127,6 +135,7 @@ final class HierarchicalKeywordsExporterLightroom
 
     @Override
     public FileFilter getFileFilter() {
-        return new FileNameExtensionFilter(getDescription(), "txt"); // NOI18N
+        return new FileNameExtensionFilter(
+                getDescription(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
     }
 }

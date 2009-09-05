@@ -12,8 +12,10 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.JProgressBar;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  * Listens to the menu item {@link AppFrame#getMenuItemImportKeywords()} and
@@ -65,7 +67,7 @@ public final class ControllerImportHierarchicalKeywords
             progressBar = ProgressBarUserTasks.INSTANCE.getResource(this);
             if (progressBar == null) {
                 AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
-                    ProgressBarUserTasks.INSTANCE.getOwner());
+                        ProgressBarUserTasks.INSTANCE.getOwner());
             }
         }
 
@@ -93,7 +95,16 @@ public final class ControllerImportHierarchicalKeywords
                     setProgressBarNextValue();
                 }
                 releaseProgressBar();
+                expandRootSelHk();
             }
+        }
+
+        private void expandRootSelHk() {
+            JTree tree =
+                    GUI.INSTANCE.getAppPanel().getTreeSelHierarchicalKeywords();
+            Object root = tree.getModel().getRoot();
+            tree.expandPath(
+                    new TreePath(((DefaultMutableTreeNode) root).getPath()));
         }
 
         private void initProgressBar() {
