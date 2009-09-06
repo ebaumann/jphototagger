@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,22 +18,22 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-09-02
  */
-public final class ShowThumbnailsContainingAllKeywords implements Runnable {
+public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
     private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final EditMetadataPanelsArray editPanels =
             GUI.INSTANCE.getAppPanel().getEditPanelsArray();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final List<String> keywords;
+    private final List<List<String>> keywordLists;
 
     /**
      * Creates a new instance of this class.
      *
-     * @param keywords all keywords a image must have to be displayed
+     * @param keywordLists all keywords a image must have to be displayed
      */
-    public ShowThumbnailsContainingAllKeywords(List<String> keywords) {
-        this.keywords = new ArrayList<String>(keywords);
+    public ShowThumbnailsContainingAllKeywords2(List<List<String>> keywordLists) {
+        this.keywordLists = deepCopy(keywordLists);
     }
 
     @Override
@@ -43,26 +44,35 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     private void setFilesToThumbnailsPanel() {
         Set<String> filenames = getFilenamesOfKeywords();
-        if (filenames != null) {
-            thumbnailsPanel.setFiles(
-                    FileUtil.getAsFiles(filenames), Content.KEYWORD);
-        }
+        thumbnailsPanel.setFiles(
+                FileUtil.getAsFiles(filenames), Content.KEYWORD);
     }
 
     private Set<String> getFilenamesOfKeywords() {
-        // Faster when using 2 different DB queries if only 1 keyword is
-        // selected
-        if (keywords.size() == 1) {
-            return db.getFilenamesOfDcSubject(keywords.get(0));
-        } else if (keywords.size() > 1) {
-            return db.getFilenamesOfAllDcSubjects(keywords);
+        Set<String> filenames = new HashSet<String>();
+        for (List<String> keywordList : keywordLists) {
+            // Faster when using 2 different DB queries if only 1 keyword is
+            // selected
+            if (keywordList.size() == 1) {
+                filenames.addAll(db.getFilenamesOfDcSubject(keywordList.get(0)));
+            } else if (keywordLists.size() > 1) {
+                filenames.addAll(db.getFilenamesOfAllDcSubjects(keywordList));
+            }
         }
-        return null;
+        return filenames;
     }
 
     private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
         }
+    }
+
+    private List<List<String>> deepCopy(List<List<String>> kwLists) {
+        List<List<String>> copy = new ArrayList<List<String>>(kwLists.size());
+        for (List<String> kwList : kwLists) {
+            copy.add(new ArrayList<String>(kwList));
+        }
+        return copy;
     }
 }

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 
-import de.elmar_baumann.imv.controller.keywords.ShowThumbnailsContainingKeywords;
+import de.elmar_baumann.imv.controller.keywords.ShowThumbnailsContainingAllKeywords2;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
@@ -43,39 +43,70 @@ public final class ControllerHierarchicalKeywordsSelection
     }
 
     private void showThumbnailsOfSelKeywords() {
-        List<Object> nodes = getSubtreeNodes();
-        if (nodes != null) {
-            List<String> keywords = new ArrayList<String>(nodes.size());
-            for (Object node : nodes) {
-                if (node instanceof DefaultMutableTreeNode) {
-                    Object userObject =
-                            ((DefaultMutableTreeNode) node).getUserObject();
-                    if (userObject instanceof HierarchicalKeyword) {
-                        HierarchicalKeyword hk =
-                                (HierarchicalKeyword) userObject;
-                        if (hk.isReal()) {
-                            keywords.add(hk.getKeyword());
-                        }
+            SwingUtilities.invokeLater(
+                    new ShowThumbnailsContainingAllKeywords2(getKeywordPaths()));
+    }
+
+    private List<List<String>> getKeywordPaths() {
+        List<List<String>> keywordPaths = new ArrayList<List<String>>();
+        List<List<HierarchicalKeyword>> hkwp =
+                getKeywordPaths(getSubtreePaths(getSelectedTreeNodes()));
+        for (List<HierarchicalKeyword> kws : hkwp) {
+            List<String> stringKeywords = new ArrayList<String>();
+            for (HierarchicalKeyword kw : kws) {
+                stringKeywords.add(kw.getKeyword());
+            }
+            keywordPaths.add(stringKeywords);
+        }
+        return keywordPaths;
+    }
+
+    private List<List<HierarchicalKeyword>> getKeywordPaths(
+            List<List<DefaultMutableTreeNode>> nodePaths) {
+        List<List<HierarchicalKeyword>> paths =
+                new ArrayList<List<HierarchicalKeyword>>();
+        for (List<DefaultMutableTreeNode> nodePath : nodePaths) {
+            List<HierarchicalKeyword> keywordPath =
+                    new ArrayList<HierarchicalKeyword>();
+            for (DefaultMutableTreeNode node : nodePath) {
+                Object userObject = node.getUserObject();
+                assert userObject instanceof HierarchicalKeyword;
+                if (userObject instanceof HierarchicalKeyword) {
+                    HierarchicalKeyword hk = (HierarchicalKeyword) userObject;
+                    if (hk.isReal()) {
+                        keywordPath.add(hk);
                     }
                 }
             }
-            SwingUtilities.invokeLater(
-                    new ShowThumbnailsContainingKeywords(keywords));
+            paths.add(keywordPath);
         }
+        return paths;
+    }
+    
+    private List<List<DefaultMutableTreeNode>> getSubtreePaths(
+            List<DefaultMutableTreeNode> selectedNodes) {
+        List<List<DefaultMutableTreeNode>> paths =
+                new ArrayList<List<DefaultMutableTreeNode>>();
+        for (DefaultMutableTreeNode selectedNode : selectedNodes) {
+            paths.addAll(TreeUtil.getSubtreePaths(selectedNode));
+        }
+        return paths;
     }
 
-    private List<Object> getSubtreeNodes() {
-        TreePath[] paths = tree.getSelectionPaths();
-        assert paths != null;
-        if (paths != null) {
-            List<Object> children = new ArrayList<Object>();
-            for (TreePath path : paths) {
-                Object parent = path.getLastPathComponent();
-                children.addAll(TreeUtil.getAllChildren(tree.getModel(), parent));
-                children.add(parent);
+    private List<DefaultMutableTreeNode> getSelectedTreeNodes() {
+        TreePath[] selPaths = tree.getSelectionPaths();
+        List<DefaultMutableTreeNode> selNodes =
+                new ArrayList<DefaultMutableTreeNode>();
+        assert selPaths != null;
+        if (selPaths != null) {
+            for (TreePath path : selPaths) {
+                Object selNode = path.getLastPathComponent();
+                assert selNode instanceof DefaultMutableTreeNode : selNode;
+                if (selNode instanceof DefaultMutableTreeNode) {
+                    selNodes.add((DefaultMutableTreeNode) selNode);
+                }
             }
-            return children;
         }
-        return null;
+        return selNodes;
     }
 }
