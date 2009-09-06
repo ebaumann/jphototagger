@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.database.DatabaseImageFiles;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.event.ProgressEvent;
 import de.elmar_baumann.imv.event.listener.ProgressListener;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.UserTasks;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
 import java.util.ArrayList;
@@ -71,6 +72,9 @@ public final class RenameXmpMetadata extends Thread
             progressBar.setMinimum(0);
             progressBar.setMaximum(evt.getMaximum());
             progressBar.setValue(0);
+            progressBar.setStringPainted(true);
+            progressBar.setString(
+                    Bundle.getString("RenameXmpMetadata.ProgressBar.String")); // NOI18N
         }
     }
 
@@ -85,6 +89,7 @@ public final class RenameXmpMetadata extends Thread
     public void progressEnded(ProgressEvent evt) {
         if (progressBar != null) {
             progressBar.setValue(evt.getMaximum());
+            progressBar.setString(""); // NOI18N
             progressBar = null;
             progressBarRessource.releaseResource(this);
         }

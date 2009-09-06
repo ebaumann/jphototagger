@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase.Insert;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.tasks.UserTasks;
 import de.elmar_baumann.imv.view.panels.ProgressBarUserTasks;
 import de.elmar_baumann.lib.generics.Pair;
@@ -86,6 +87,9 @@ public final class SaveEditedMetadata extends Thread {
             progressBar.setMinimum(0);
             progressBar.setMaximum(maximum);
             progressBar.setValue(0);
+            progressBar.setStringPainted(true);
+            progressBar.setString(
+                    Bundle.getString("SaveEditedMetadata.ProgressBar.String")); // NOI18N
         }
     }
 
@@ -101,6 +105,7 @@ public final class SaveEditedMetadata extends Thread {
             progressBar.setValue(value);
             progressBar.setToolTipText(
                     AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS);
+            progressBar.setString(""); // NOI18N
             progressBar = null;
             progressBarRessource.releaseResource(this);
         }

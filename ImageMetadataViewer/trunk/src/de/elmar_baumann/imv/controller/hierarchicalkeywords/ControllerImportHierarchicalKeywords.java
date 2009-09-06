@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.importer.HierarchicalKeywordsImporter;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.dialogs.HierarchicalKeywordsImportDialog;
 import de.elmar_baumann.imv.view.frames.AppFrame;
@@ -112,6 +113,9 @@ public final class ControllerImportHierarchicalKeywords
                 progressBar.setMinimum(0);
                 progressBar.setMaximum(paths.size());
                 progressBar.setValue(0);
+                progressBar.setStringPainted(true);
+                progressBar.setString(Bundle.getString(
+                        "ControllerImportHierarchicalKeywords.ProgressBar.String")); // NOI18N
             }
         }
 
@@ -124,6 +128,7 @@ public final class ControllerImportHierarchicalKeywords
         private void releaseProgressBar() {
             if (progressBar != null) {
                 progressBar.setValue(paths.size());
+                progressBar.setString(""); // NOI18N
                 ProgressBarUserTasks.INSTANCE.releaseResource(this);
             }
         }
