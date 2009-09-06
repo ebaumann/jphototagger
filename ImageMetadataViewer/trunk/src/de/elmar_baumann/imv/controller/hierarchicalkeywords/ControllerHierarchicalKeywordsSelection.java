@@ -4,7 +4,6 @@ import de.elmar_baumann.imv.controller.keywords.ShowThumbnailsContainingAllKeywo
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTree;
