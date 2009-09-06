@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
@@ -100,8 +101,8 @@ public final class TreeUtil {
      * @param pathSeparator Separator zwischen den einzelnen Pfadbestandteilen
      * @return              Pfad oder null, wenn nicht gefunden
      */
-    public static TreePath getTreePath(TreeModel treeModel, String pathString,
-            String pathSeparator) {
+    public static TreePath getTreePath(
+            TreeModel treeModel, String pathString, String pathSeparator) {
         if (treeModel == null)
             throw new NullPointerException("treeModel == null"); // NOI18N
         if (pathString == null)
@@ -251,7 +252,10 @@ public final class TreeUtil {
      */
     public static void addNodesUserWithObject(
             Collection<? super DefaultMutableTreeNode> foundNodes,
-            DefaultMutableTreeNode rootNode, Object userObject, int maxCount) {
+            DefaultMutableTreeNode rootNode,
+            Object userObject,
+            int maxCount) {
+
         if (foundNodes == null)
             throw new NullPointerException("foundNodes == null"); // NOI18N
         if (rootNode == null)
@@ -454,6 +458,72 @@ public final class TreeUtil {
             Object child = model.getChild(parent, i);
             children.add(child);
             addChildrenRecursive(model, child, children);
+        }
+    }
+
+    /**
+     * Returns the user objects of tree nodes.
+     *
+     * @param  nodes tree nodes
+     * @return       user objects of that tree nodes
+     */
+    public static List<Object> getUserObjects(
+            Collection<? extends DefaultMutableTreeNode> nodes) {
+        List<Object> userObjects = new ArrayList<Object>();
+        for (DefaultMutableTreeNode node : nodes) {
+            userObjects.add(node.getUserObject());
+        }
+        return userObjects;
+    }
+
+    /**
+     * Returns all subtree paths of a tree node.
+     *
+     * <em>All subtree nodes have to be {@link DefaultMutableTreeNode}s!</em>
+     *
+     * @param  parent parent node
+     * @return        all paths with parent as root
+     */
+    public static List<List<DefaultMutableTreeNode>> getSubtreePaths(
+            DefaultMutableTreeNode parent) {
+
+        List<List<DefaultMutableTreeNode>> paths =
+                new ArrayList<List<DefaultMutableTreeNode>>();
+        List<DefaultMutableTreeNode> leafs =
+                new ArrayList<DefaultMutableTreeNode>();
+
+        addLeafs(parent, leafs);
+        for (DefaultMutableTreeNode leaf : leafs) {
+            paths.add(getPath(leaf, parent));
+        }
+        return paths;
+    }
+
+    private static List<DefaultMutableTreeNode> getPath(
+            DefaultMutableTreeNode from, DefaultMutableTreeNode to) {
+        List<DefaultMutableTreeNode> path =
+                new ArrayList<DefaultMutableTreeNode>();
+        DefaultMutableTreeNode node = from;
+        while (node != to) { // endless if this mehtod will not be used careful
+            path.add(node);
+            node = (DefaultMutableTreeNode) node.getParent();
+        }
+        path.add(to);
+        Collections.reverse(path);
+        return path;
+    }
+
+    private static void addLeafs(
+            DefaultMutableTreeNode parent, Collection<DefaultMutableTreeNode> leafs) {
+
+        int childCount = parent.getChildCount();
+
+        if (childCount == 0) {
+            leafs.add(parent);
+        } else {
+            for (int i = 0; i < childCount; i++) {
+                addLeafs((DefaultMutableTreeNode) parent.getChildAt(i), leafs); // recursive
+            }
         }
     }
 
