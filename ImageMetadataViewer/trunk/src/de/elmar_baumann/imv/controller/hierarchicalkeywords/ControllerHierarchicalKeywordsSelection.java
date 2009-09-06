@@ -43,14 +43,13 @@ public final class ControllerHierarchicalKeywordsSelection
     }
 
     private void showThumbnailsOfSelKeywords() {
-            SwingUtilities.invokeLater(
-                    new ShowThumbnailsContainingAllKeywords2(getKeywordPaths()));
+        SwingUtilities.invokeLater(
+                new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
     }
 
-    private List<List<String>> getKeywordPaths() {
+    private List<List<String>> getKeywordStringPaths() {
         List<List<String>> keywordPaths = new ArrayList<List<String>>();
-        List<List<HierarchicalKeyword>> hkwp =
-                getKeywordPaths(getSubtreePaths(getSelectedTreeNodes()));
+        List<List<HierarchicalKeyword>> hkwp = getKeywordPaths();
         for (List<HierarchicalKeyword> kws : hkwp) {
             List<String> stringKeywords = new ArrayList<String>();
             for (HierarchicalKeyword kw : kws) {
@@ -61,52 +60,25 @@ public final class ControllerHierarchicalKeywordsSelection
         return keywordPaths;
     }
 
-    private List<List<HierarchicalKeyword>> getKeywordPaths(
-            List<List<DefaultMutableTreeNode>> nodePaths) {
+    private List<List<HierarchicalKeyword>> getKeywordPaths() {
+        TreePath[] selPaths = tree.getSelectionPaths();
         List<List<HierarchicalKeyword>> paths =
                 new ArrayList<List<HierarchicalKeyword>>();
-        for (List<DefaultMutableTreeNode> nodePath : nodePaths) {
-            List<HierarchicalKeyword> keywordPath =
+        for (TreePath selPath : selPaths) {
+            DefaultMutableTreeNode selNode =
+                    (DefaultMutableTreeNode) selPath.getLastPathComponent();
+            List<HierarchicalKeyword> kwPath =
                     new ArrayList<HierarchicalKeyword>();
-            for (DefaultMutableTreeNode node : nodePath) {
-                Object userObject = node.getUserObject();
-                assert userObject instanceof HierarchicalKeyword;
+            for (Object userObject : selNode.getUserObjectPath()) {
                 if (userObject instanceof HierarchicalKeyword) {
-                    HierarchicalKeyword hk = (HierarchicalKeyword) userObject;
-                    if (hk.isReal()) {
-                        keywordPath.add(hk);
+                    HierarchicalKeyword kw = (HierarchicalKeyword) userObject;
+                    if (kw.isReal()) {
+                        kwPath.add(kw);
                     }
                 }
             }
-            paths.add(keywordPath);
+            paths.add(kwPath);
         }
         return paths;
-    }
-    
-    private List<List<DefaultMutableTreeNode>> getSubtreePaths(
-            List<DefaultMutableTreeNode> selectedNodes) {
-        List<List<DefaultMutableTreeNode>> paths =
-                new ArrayList<List<DefaultMutableTreeNode>>();
-        for (DefaultMutableTreeNode selectedNode : selectedNodes) {
-            paths.addAll(TreeUtil.getSubtreePaths(selectedNode));
-        }
-        return paths;
-    }
-
-    private List<DefaultMutableTreeNode> getSelectedTreeNodes() {
-        TreePath[] selPaths = tree.getSelectionPaths();
-        List<DefaultMutableTreeNode> selNodes =
-                new ArrayList<DefaultMutableTreeNode>();
-        assert selPaths != null;
-        if (selPaths != null) {
-            for (TreePath path : selPaths) {
-                Object selNode = path.getLastPathComponent();
-                assert selNode instanceof DefaultMutableTreeNode : selNode;
-                if (selNode instanceof DefaultMutableTreeNode) {
-                    selNodes.add((DefaultMutableTreeNode) selNode);
-                }
-            }
-        }
-        return selNodes;
     }
 }

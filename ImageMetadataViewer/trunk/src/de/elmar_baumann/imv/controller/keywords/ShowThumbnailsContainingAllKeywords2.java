@@ -55,7 +55,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
             // selected
             if (keywordList.size() == 1) {
                 filenames.addAll(db.getFilenamesOfDcSubject(keywordList.get(0)));
-            } else if (keywordLists.size() > 1) {
+            } else if (keywordList.size() > 1) {
                 filenames.addAll(db.getFilenamesOfAllDcSubjects(keywordList));
             }
         }
