@@ -19,6 +19,7 @@ import de.elmar_baumann.imv.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.imv.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.ProgressBarAutomaticTasks;
+import de.elmar_baumann.imv.view.panels.ProgressBarScheduledTasks;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import java.awt.Image;
@@ -368,6 +369,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             progressBar.setString(Bundle.getString(
                     progressBarResource == ProgressBarAutomaticTasks.INSTANCE ?
                         "InsertImageFilesIntoDatabase.ProgressBarAutomaticTasks.String" // NOI18N
+                        : progressBarResource == ProgressBarScheduledTasks.INSTANCE
+                        ? "InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String" // NOI18N
                         : "InsertImageFilesIntoDatabase.ProgressBarUserTasks.String")); // NOI18N
         }
         notifyActionListeners(Type.CHECK_STARTED, null);
