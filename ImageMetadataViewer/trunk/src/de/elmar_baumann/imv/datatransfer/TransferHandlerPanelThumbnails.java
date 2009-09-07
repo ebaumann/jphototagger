@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.datatransfer;
 
 import de.elmar_baumann.imv.app.AppLog;
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseImageCollections;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -61,7 +62,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         Component component = transferSupport.getComponent();
         return isImageFilePanel(component) &&
                 metadataTransferred(transferSupport) ||
-                isImageCollection((ThumbnailsPanel)component) ||
+                isImageCollection((ThumbnailsPanel) component) ||
                 canImportFiles(component) &&
                 Flavors.filesTransfered(transferSupport.getTransferable());
     }
@@ -133,6 +134,22 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         return TransferHandler.COPY_OR_MOVE;
     }
 
+    // Possible drop actions:
+    //
+    // * Drag from external application, e.g. a file manager
+    // * Drag whithin the thumbnails panel to order images (image collections)
+    // * Drag from another window whitin this application
+    //
+    // Bugs:
+    //   * If images are selected files can nether be imported from external
+    //     apps
+    //   * Dragged images of an image collection are only reordered if the data
+    //     flavor is not stringFlavor. This can be ensured throug this class
+    //     in #createTransferable()
+    //
+    // The problem, to decide what to do, should be used in future releases
+    // through unique (separate) data flavors whithin this application
+    //
     @Override
     public boolean importData(TransferSupport transferSupport) {
 
@@ -141,10 +158,15 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         ThumbnailsPanel panel =
                 (ThumbnailsPanel) transferSupport.getComponent();
         boolean imagesSelected = panel.getSelectionCount() > 0;
-        boolean isStringData =
+        boolean hasStringFlavor =
                 transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor);
 
-        if (imagesSelected && isStringData && insertMetadata(transferSupport))
+        if (!imagesSelected && hasStringFlavor && maybeMetadata(transferSupport)) {
+            errorMessageMetadataNoImagesSelected();
+            return false;
+        }
+
+        if (imagesSelected && hasStringFlavor && insertMetadata(transferSupport))
             return true;
 
         if (imagesSelected && isImageCollection(panel)) {
@@ -190,8 +212,20 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
             element = listImageCollections.getModel().getElementAt(index);
         }
         return element == null
-                ? null
-                : element.toString();
+               ? null
+               : element.toString();
+    }
+
+    private boolean maybeMetadata(TransferSupport transferSupport) {
+        Transferable t = transferSupport.getTransferable();
+        try {
+            Object transferData = t.getTransferData(DataFlavor.stringFlavor);
+            return transferData instanceof String ||
+                    transferData instanceof DefaultMutableTreeNode;
+        } catch (Exception ex) {
+            AppLog.logSevere(getClass(), ex);
+        }
+        return false;
     }
 
     private boolean insertMetadata(TransferSupport transferSupport) {
@@ -275,5 +309,10 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
             return true;
         }
         return false;
+    }
+
+    private void errorMessageMetadataNoImagesSelected() {
+        MessageDisplayer.error(GUI.INSTANCE.getAppPanel(),
+                "TransferHandlerPanelThumbnails.Error.MessageMetadataNoImagesSelected");
     }
 }
