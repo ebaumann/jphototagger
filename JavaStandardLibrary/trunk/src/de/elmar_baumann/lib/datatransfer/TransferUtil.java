@@ -64,11 +64,11 @@ public final class TransferUtil {
         for (int i = 0; i < values.length; i++) {
             Object val = values[i];
             buffer.append(val == null
-                    ? "" // NOI18N
-                    : val.toString());
+                          ? "" // NOI18N
+                          : val.toString());
             buffer.append(i != values.length - 1
-                    ? delimiter
-                    : ""); // NOI18N
+                          ? delimiter
+                          : ""); // NOI18N
         }
         return new StringSelection(buffer.toString());
     }
@@ -98,8 +98,8 @@ public final class TransferUtil {
             Integer integer = list.get(i);
             sb.append(integer.toString());
             sb.append(i < size - 1
-                    ? delimiter
-                    : ""); // NOI18N
+                      ? delimiter
+                      : ""); // NOI18N
         }
         return new StringSelection(sb.toString());
     }
@@ -129,8 +129,8 @@ public final class TransferUtil {
             String string = list.get(i);
             buffer.append(string);
             buffer.append(i < size - 1
-                    ? delimiter
-                    : ""); // NOI18N
+                          ? delimiter
+                          : ""); // NOI18N
         }
         return new StringSelection(buffer.toString());
     }
@@ -193,10 +193,13 @@ public final class TransferUtil {
 
         List<File> list = new ArrayList<File>();
         try {
-            String data = (String) transferable.getTransferData(STRING_FLAVOR);
-            for (StringTokenizer st = new StringTokenizer(data, delimiter);
-                    st.hasMoreTokens();) {
-                list.add(new File(st.nextToken().trim()));
+            Object o = transferable.getTransferData(STRING_FLAVOR);
+            if (o instanceof String) {
+                String data = (String) o;
+                for (StringTokenizer st = new StringTokenizer(data, delimiter);
+                        st.hasMoreTokens();) {
+                    list.add(new File(st.nextToken().trim()));
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(
