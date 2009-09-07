@@ -88,7 +88,7 @@ public final class RenameXmpMetadata extends Thread
     @Override
     public void progressEnded(ProgressEvent evt) {
         if (progressBar != null) {
-            progressBar.setValue(evt.getMaximum());
+            progressBar.setValue(0);
             progressBar.setString(""); // NOI18N
             progressBar = null;
             progressBarRessource.releaseResource(this);

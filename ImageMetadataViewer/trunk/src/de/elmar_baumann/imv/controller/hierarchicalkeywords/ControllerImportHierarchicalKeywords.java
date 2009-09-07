@@ -127,7 +127,7 @@ public final class ControllerImportHierarchicalKeywords
 
         private void releaseProgressBar() {
             if (progressBar != null) {
-                progressBar.setValue(paths.size());
+                progressBar.setValue(0);
                 progressBar.setString(""); // NOI18N
                 ProgressBarUserTasks.INSTANCE.releaseResource(this);
             }

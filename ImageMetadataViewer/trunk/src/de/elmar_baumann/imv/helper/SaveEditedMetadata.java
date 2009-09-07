@@ -66,7 +66,7 @@ public final class SaveEditedMetadata extends Thread {
             }
             progressPerformed(++index, filename);
         }
-        progressEnded(count);
+        progressEnded();
         AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
@@ -100,9 +100,9 @@ public final class SaveEditedMetadata extends Thread {
         }
     }
 
-    public void progressEnded(int value) {
+    public void progressEnded() {
         if (progressBar != null) {
-            progressBar.setValue(value);
+            progressBar.setValue(0);
             progressBar.setToolTipText(
                     AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS);
             progressBar.setString(""); // NOI18N

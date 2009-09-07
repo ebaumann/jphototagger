@@ -388,7 +388,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private void updateFinished(int filecount) {
         informationMessageEnd(filecount);
         if (progressBar != null) {
-            progressBar.setValue(filecount);
+            progressBar.setValue(0);
             progressBar.setToolTipText(""); // NOI18N
             progressBar.setString(""); // NOI18N
             releaseProgressBar();
