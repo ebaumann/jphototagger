@@ -59,6 +59,7 @@ public final class HelpBrowser extends Dialog
     private MenuItem itemNext;
     private String startUrl;
     private String baseUrl;
+    private String contentsUrl;
     private boolean settingPath;
     public static final HelpBrowser INSTANCE = new HelpBrowser();
 
@@ -151,10 +152,14 @@ public final class HelpBrowser extends Dialog
      * @param url URL, eg. <code>/de/elmar_baumann/imv/resource/doc/de/contents.xml</code>
      */
     public synchronized void setContentsUrl(String url) {
-        if (!isVisible()) {
-            tree.setModel(new TreeModelHelpContents(url));
-            setBaseUrl(url);
-        }
+        contentsUrl = url;
+        urlHistory.clear();
+        tree.setModel(new TreeModelHelpContents(url));
+        setBaseUrl(url);
+    }
+
+    public String getContentsUrl() {
+        return contentsUrl;
     }
 
     private synchronized void setBaseUrl(String url) {
@@ -187,7 +192,8 @@ public final class HelpBrowser extends Dialog
                 urlHistory.size()) {
             currentHistoryIndex++;
             setUrl(urlHistory.get(currentHistoryIndex));
-            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
+            setSelectionPath(getLastPathComponent(urlHistory.get(
+                    currentHistoryIndex)));
             setButtonStatus();
         }
     }
@@ -197,7 +203,8 @@ public final class HelpBrowser extends Dialog
                 urlHistory.size()) {
             currentHistoryIndex--;
             setUrl(urlHistory.get(currentHistoryIndex));
-            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
+            setSelectionPath(getLastPathComponent(urlHistory.get(
+                    currentHistoryIndex)));
             setButtonStatus();
         }
     }
