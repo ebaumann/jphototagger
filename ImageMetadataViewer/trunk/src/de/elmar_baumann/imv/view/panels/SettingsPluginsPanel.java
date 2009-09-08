@@ -1,10 +1,17 @@
 package de.elmar_baumann.imv.view.panels;
 
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.plugin.Plugin;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
+import de.elmar_baumann.lib.dialog.HelpBrowser;
+import java.awt.Component;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Dynamically adds panels of plugins ({@link Plugin#getSettingsPanel()}).
@@ -12,7 +19,11 @@ import javax.swing.JPanel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-27
  */
-public class SettingsPluginsPanel extends javax.swing.JPanel {
+public class SettingsPluginsPanel extends javax.swing.JPanel
+    implements ChangeListener {
+
+    private final Map<Component, String> helpContentsPathOfTab =
+            new HashMap<Component, String>();
 
     public SettingsPluginsPanel() {
         initComponents();
@@ -28,10 +39,38 @@ public class SettingsPluginsPanel extends javax.swing.JPanel {
                 Plugin plugin = (Plugin) action;
                 JPanel panel = plugin.getSettingsPanel();
                 if (panel != null) {
+                    helpContentsPathOfTab.put(panel, plugin.getHelpContentsPath());
                     tabbedPane.add(plugin.getName(), panel);
                 }
             }
         }
+        setEnabledHelpButton();
+        tabbedPane.addChangeListener(this);
+    }
+
+    private void showHelp() {
+        String helpContentsPath =
+                helpContentsPathOfTab.get(tabbedPane.getSelectedComponent());
+        if (helpContentsPath != null) {
+            HelpBrowser help = HelpBrowser.INSTANCE;
+            help.setContentsUrl(helpContentsPath);
+            help.setIconImages(AppIcons.getAppIcons());
+            if (help.isVisible()) {
+                help.toFront();
+            } else {
+                help.setVisible(true);
+            }
+        }
+    }
+
+    private void setEnabledHelpButton() {
+        buttonHelpPlugin.setEnabled(helpContentsPathOfTab.get(
+                tabbedPane.getSelectedComponent()) != null);
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        setEnabledHelpButton();
     }
 
     /** This method is called from within the constructor to
@@ -45,20 +84,41 @@ public class SettingsPluginsPanel extends javax.swing.JPanel {
 
         buttonGroupActionsAfterDatabaseInsertion = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
+        buttonHelpPlugin = new javax.swing.JButton();
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/imv/resource/properties/Bundle"); // NOI18N
+        buttonHelpPlugin.setText(bundle.getString("SettingsPluginsPanel.buttonHelpPlugin.text")); // NOI18N
+        buttonHelpPlugin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHelpPluginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(buttonHelpPlugin))
             .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonHelpPlugin))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonHelpPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpPluginActionPerformed
+        showHelp();
+    }//GEN-LAST:event_buttonHelpPluginActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupActionsAfterDatabaseInsertion;
+    private javax.swing.JButton buttonHelpPlugin;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

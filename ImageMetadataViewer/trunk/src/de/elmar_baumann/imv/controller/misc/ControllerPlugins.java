@@ -32,7 +32,7 @@ public final class ControllerPlugins implements ActionListener {
             item.addActionListener(this);
             Action action = item.getAction();
             if (action instanceof Plugin) {
-                ((Plugin) action).addProcessListener(new Listener());
+                ((Plugin) action).addPluginListener(new Listener());
             }
         }
     }

@@ -29,7 +29,7 @@ import javax.swing.JMenuItem;
  * @version 2008-09-12
  */
 public final class ControllerHelp implements ActionListener,
-        HelpBrowserListener {
+                                             HelpBrowserListener {
 
     private final HelpBrowser help = HelpBrowser.INSTANCE;
     private static final String KEY_CURRENT_URL =
@@ -44,8 +44,6 @@ public final class ControllerHelp implements ActionListener,
             GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
 
     public ControllerHelp() {
-        help.setContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
-        help.setIconImages(AppIcons.getAppIcons());
         listen();
     }
 
@@ -85,12 +83,16 @@ public final class ControllerHelp implements ActionListener,
 
     private void showHelp() {
         if (!currentUrl.isEmpty()) {
+            help.setContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+            help.setIconImages(AppIcons.getAppIcons());
             help.setStartUrl(currentUrl);
         }
         helpToFront();
     }
 
     private void showAcceleratorKeyHelp() {
+        help.setContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        help.setIconImages(AppIcons.getAppIcons());
         help.setStartUrl(Bundle.getString("Help.Url.AcceleratorKeys")); // NOI18N
         helpToFront();
     }
