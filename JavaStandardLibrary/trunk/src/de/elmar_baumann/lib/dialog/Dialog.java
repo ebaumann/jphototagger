@@ -28,6 +28,7 @@ public class Dialog extends JDialog {
 
     private ActionListener actionListenerEscape;
     private ActionListener actionListenerHelp;
+    private String helpContentsUrl = "";
     private String helpPageUrl;
     private final HelpBrowser help = HelpBrowser.INSTANCE;
 
@@ -36,7 +37,8 @@ public class Dialog extends JDialog {
         init();
     }
 
-    public Dialog(Window owner, String title, ModalityType modalityType, GraphicsConfiguration gc) {
+    public Dialog(Window owner, String title, ModalityType modalityType,
+            GraphicsConfiguration gc) {
         super(owner, title, modalityType, gc);
         init();
     }
@@ -61,7 +63,8 @@ public class Dialog extends JDialog {
         init();
     }
 
-    public Dialog(Dialog owner, String title, boolean modal, GraphicsConfiguration gc) {
+    public Dialog(Dialog owner, String title, boolean modal,
+            GraphicsConfiguration gc) {
         super(owner, title, modal, gc);
         init();
     }
@@ -86,7 +89,8 @@ public class Dialog extends JDialog {
         init();
     }
 
-    public Dialog(Frame owner, String title, boolean modal, GraphicsConfiguration gc) {
+    public Dialog(Frame owner, String title, boolean modal,
+            GraphicsConfiguration gc) {
         super(owner, title, modal, gc);
         init();
     }
@@ -121,7 +125,7 @@ public class Dialog extends JDialog {
     protected void setHelpContentsUrl(String url) {
         if (url == null)
             throw new NullPointerException("url == null"); // NOI18N
-        help.setContentsUrl(url);
+        helpContentsUrl = url;
     }
 
     /**
@@ -158,6 +162,9 @@ public class Dialog extends JDialog {
     protected void help(String url) {
         if (url == null)
             throw new NullPointerException("url == null"); // NOI18N
+        if (!help.getContentsUrl().equals(helpContentsUrl)) {
+            help.setContentsUrl(helpContentsUrl);
+        }
         if (help.isVisible()) {
             help.showUrl(url);
             help.toFront();
@@ -187,10 +194,13 @@ public class Dialog extends JDialog {
         for (Component component : getComponents()) {
             if (component instanceof JComponent) {
                 JComponent jComponent = (JComponent) component;
-                KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+                KeyStroke strokeEscape = KeyStroke.getKeyStroke(
+                        KeyEvent.VK_ESCAPE, 0);
                 KeyStroke strokeHelp = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
-                jComponent.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
-                jComponent.registerKeyboardAction(actionListenerHelp, strokeHelp, JComponent.WHEN_IN_FOCUSED_WINDOW);
+                jComponent.registerKeyboardAction(actionListenerEscape,
+                        strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
+                jComponent.registerKeyboardAction(actionListenerHelp, strokeHelp,
+                        JComponent.WHEN_IN_FOCUSED_WINDOW);
             }
         }
     }
@@ -217,8 +227,10 @@ public class Dialog extends JDialog {
         KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         KeyStroke strokeHelp = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
         JRootPane pane = new JRootPane();
-        pane.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
-        pane.registerKeyboardAction(actionListenerHelp, strokeHelp, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        pane.registerKeyboardAction(actionListenerEscape, strokeEscape,
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
+        pane.registerKeyboardAction(actionListenerHelp, strokeHelp,
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
         return pane;
     }
 }
