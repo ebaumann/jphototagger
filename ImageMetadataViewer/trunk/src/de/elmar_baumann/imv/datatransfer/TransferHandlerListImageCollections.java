@@ -27,8 +27,12 @@ public final class TransferHandlerListImageCollections extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(Flavors.THUMBNAILS_PANEL_FLAVOR)
-                && transferSupport.isDataFlavorSupported(DataFlavor.javaFileListFlavor);
+        return transferSupport.isDataFlavorSupported(
+                Flavors.THUMBNAILS_PANEL_FLAVOR) &&
+                transferSupport.isDataFlavorSupported(
+                DataFlavor.javaFileListFlavor) &&
+                ((JList.DropLocation) transferSupport.getDropLocation()).
+                getIndex() >= 0;
     }
 
     @Override
@@ -97,12 +101,12 @@ public final class TransferHandlerListImageCollections extends TransferHandler {
     }
 
     private List<File> getImageFiles(List<File> list) {
-       List<File> imageFiles = new ArrayList<File>(list.size() / 2);
-       for (File file : list) {
-           if (ImageUtil.isImageFile(file)) {
-               imageFiles.add(file);
-           }
-       }
-       return imageFiles;
+        List<File> imageFiles = new ArrayList<File>(list.size() / 2);
+        for (File file : list) {
+            if (ImageUtil.isImageFile(file)) {
+                imageFiles.add(file);
+            }
+        }
+        return imageFiles;
     }
 }
