@@ -2,6 +2,8 @@ package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.datatransfer.Flavors;
+import de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.renderer.ListCellRendererCategories;
@@ -118,7 +120,7 @@ public class InputHelperDialog extends Dialog {
         listKeywords.setCellRenderer(new ListCellRendererKeywords());
         listKeywords.setDragEnabled(true);
         scrollPaneKeywords.setViewportView(listKeywords);
-        listKeywords.setTransferHandler(de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString.KEYWORDS);
+        listKeywords.setTransferHandler(new TransferHandlerDragListItems(Flavors.KEYWORDS_FLAVOR));
 
         javax.swing.GroupLayout panelKeywordsLayout = new javax.swing.GroupLayout(panelKeywords);
         panelKeywords.setLayout(panelKeywordsLayout);
@@ -137,7 +139,7 @@ public class InputHelperDialog extends Dialog {
         listCategories.setCellRenderer(new ListCellRendererCategories());
         listCategories.setDragEnabled(true);
         scrollPaneCategories.setViewportView(listCategories);
-        listCategories.setTransferHandler(de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItemsString.CATEGORIES);
+        listCategories.setTransferHandler(new TransferHandlerDragListItems(Flavors.CATEGORIES_FLAVOR));
 
         javax.swing.GroupLayout panelCategoriesLayout = new javax.swing.GroupLayout(panelCategories);
         panelCategories.setLayout(panelCategoriesLayout);

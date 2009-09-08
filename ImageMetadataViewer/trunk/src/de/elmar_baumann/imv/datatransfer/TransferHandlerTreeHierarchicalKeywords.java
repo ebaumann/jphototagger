@@ -25,34 +25,23 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-        Transferable transferable = transferSupport.getTransferable();
-        if (!transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-            return false;
-        }
-        if (((JTree.DropLocation) transferSupport.getDropLocation()).getPath() ==
-                null) {
-            return false;
-        }
-        if (!TransferHandlerListKeywords.hasKeyword(transferable) &&
-                !hasHierarchicalKeyword(transferable)) {
-            return false;
-        }
-        return true;
+        return Flavors.hasKeywords(transferSupport) &&
+                ((JTree.DropLocation) transferSupport.getDropLocation()).getPath() !=
+                null;
     }
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        if (c instanceof JTree) {
-            JTree tree = (JTree) c;
-            TreePath selPath = tree.getSelectionPath();
-            if (selPath != null) {
-                Object node = selPath.getLastPathComponent();
-                if (node instanceof DefaultMutableTreeNode) {
-                    Object userObject =
-                            ((DefaultMutableTreeNode) node).getUserObject();
-                    if (userObject instanceof HierarchicalKeyword) {
-                        return new TransferableObject(node);
-                    }
+        JTree tree = (JTree) c;
+        TreePath selPath = tree.getSelectionPath();
+        if (selPath != null) {
+            Object node = selPath.getLastPathComponent();
+            if (node instanceof DefaultMutableTreeNode) {
+                Object userObject =
+                        ((DefaultMutableTreeNode) node).getUserObject();
+                if (userObject instanceof HierarchicalKeyword) {
+                    return new TransferableObject(
+                            node, Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
                 }
             }
         }
@@ -66,8 +55,7 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
 
     @Override
     public boolean importData(TransferSupport transferSupport) {
-        assert transferSupport.getComponent() instanceof JTree :
-                "Not a JTree: " + transferSupport.getComponent(); // NOI18N
+        if (!transferSupport.isDrop()) return false;
         JTree.DropLocation dropLocation =
                 (JTree.DropLocation) transferSupport.getDropLocation();
         Object dropObject = dropLocation.getPath().getLastPathComponent();
@@ -79,9 +67,9 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
                     (DefaultMutableTreeNode) dropObject;
             TreeModelHierarchicalKeywords tm =
                     (TreeModelHierarchicalKeywords) model;
-            if (isDragFromListKeywords(transferSupport.getTransferable())) {
-                addKeyword(tm, dropNode, transferSupport);
-            } else {
+            if (Flavors.hasKeywords(transferSupport)) {
+                addKeywords(tm, dropNode, transferSupport);
+            } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
                 moveKeyword(transferSupport, tm, dropNode);
             }
             HierarchicalKeywordsTreePathExpander.expand(dropNode);
@@ -89,14 +77,17 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
         return true;
     }
 
-    private void addKeyword(
+    private void addKeywords(
             TreeModelHierarchicalKeywords treeModel,
             DefaultMutableTreeNode node,
             TransferSupport transferSupport) {
 
-        treeModel.addKeyword(node,
-                TransferHandlerListKeywords.toKeyword(
-                transferSupport.getTransferable()));
+        Object[] keywords = TransferHandlerListKeywords.getKeywords(
+                transferSupport.getTransferable());
+        if (keywords == null) return;
+        for (Object keyword : keywords) {
+            treeModel.addKeyword(node, keyword.toString());
+        }
     }
 
     private void moveKeyword(
@@ -104,29 +95,16 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
             TreeModelHierarchicalKeywords treeModel,
             DefaultMutableTreeNode dropNode) {
         try {
-            Object o = transferSupport.getTransferable().
-                    getTransferData(DataFlavor.stringFlavor);
-            if (o instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode sourceNode = (DefaultMutableTreeNode) o;
-                Object userObject = sourceNode.getUserObject();
-                if (userObject instanceof HierarchicalKeyword) {
-                    treeModel.move(sourceNode, dropNode,
-                            (HierarchicalKeyword) userObject);
-                }
+            DefaultMutableTreeNode sourceNode = (DefaultMutableTreeNode) transferSupport.getTransferable().
+                    getTransferData(Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
+            Object userObject = sourceNode.getUserObject();
+            if (userObject instanceof HierarchicalKeyword) {
+                treeModel.move(sourceNode, dropNode,
+                        (HierarchicalKeyword) userObject);
             }
         } catch (Exception ex) {
             AppLog.logSevere(TransferHandlerTreeHierarchicalKeywords.class, ex);
         }
-    }
-
-    private boolean isDragFromListKeywords(Transferable transferable) {
-        try {
-            Object o = transferable.getTransferData(DataFlavor.stringFlavor);
-            return o instanceof String;
-        } catch (Exception ex) {
-            AppLog.logSevere(TransferHandlerTreeHierarchicalKeywords.class, ex);
-        }
-        return false;
     }
 
     @Override

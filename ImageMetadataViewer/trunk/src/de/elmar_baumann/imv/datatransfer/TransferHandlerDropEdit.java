@@ -1,13 +1,11 @@
 package de.elmar_baumann.imv.datatransfer;
 
-import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.helper.HierarchicalKeywordsHelper;
 import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.List;
-import java.util.StringTokenizer;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.TransferHandler;
@@ -15,7 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Imports into an {@link JTextField} and {@link JTextArea} strings exported via
- * a {@link TransferHandlerDragListItemsString} or from a
+ * a {@link TransferHandlerDragListItems} or from a
  * {@link DefaultMutableTreeNode} with an {@link HierarchicalKeyword} as user
  * object when it's data flavor is {@link DataFlavor#stringFlavor}.
  * 
@@ -30,58 +28,49 @@ public final class TransferHandlerDropEdit extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor);
+        return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor) ||
+                Flavors.hasCategories(transferSupport) || Flavors.
+                hasHierarchicalKeywords(transferSupport) || Flavors.hasKeywords(
+                transferSupport);
     }
 
     @Override
     public boolean importData(TransferHandler.TransferSupport transferSupport) {
         Component c = transferSupport.getComponent();
-        Transferable t = transferSupport.getTransferable();
-        DefaultMutableTreeNode node = null;
         String string = null;
-        try {
-            Object transferData = t.getTransferData(DataFlavor.stringFlavor);
-            if (transferData instanceof String) {
-                string = (String) transferData;
-            } else if (transferData instanceof DefaultMutableTreeNode) {
-                node = (DefaultMutableTreeNode) transferData;
-            }
-        } catch (Exception ex) {
-            AppLog.logSevere(getClass(), ex);
-            return false;
+        Transferable transferable = transferSupport.getTransferable();
+        if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+            string = Support.getString(transferable);
+        } else if (Flavors.hasCategories(transferSupport)) {
+            string = getFirstString(Support.getCategories(transferable));
+        } else if (Flavors.hasKeywords(transferSupport)) {
+            string = getFirstString(Support.getKeywords(transferable));
+        } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
+            string = getFirstString(
+                    Support.getHierarchicalKeywordsNode(transferable));
         }
-        JTextArea textArea = null;
-        JTextField textField = null;
+        if (string == null) return false;
         if (c instanceof JTextArea) {
-            textArea = (JTextArea) c;
+            setText((JTextArea) c, string);
         } else if (c instanceof JTextField) {
-            textField = (JTextField) c;
-        }
-        if (node != null) {
-            importKeywords(node, textArea, textField);
+            setText((JTextField) c, string);
         } else {
-            importString(string, textArea, textField);
+            return false;
         }
         return true;
     }
 
-    public void importString(
-            String string, JTextArea textArea, JTextField textField) {
-        if (textArea == null && textField == null) return;
-        StringTokenizer tokenizer =
-                new StringTokenizer(string,
-                TransferHandlerDragListItemsString.DELIMITER);
-        while (tokenizer.hasMoreTokens()) {
-            String token = tokenizer.nextToken();
-            if (!TransferHandlerDragListItemsString.isPrefix(token)) {
-                if (textArea != null) {
-                    setText(textArea, token);
-                } else if (textField != null) {
-                    setText(textField, token);
-                }
-                return;
-            }
-        }
+    private String getFirstString(Object[] array) {
+        if (array == null || array.length == 0 || array[0] == null) return null;
+        return array[0].toString();
+    }
+
+    private String getFirstString(DefaultMutableTreeNode node) {
+        if (node == null) return null;
+        List<String> keywords =
+                HierarchicalKeywordsHelper.getKeywordStrings(node, true);
+        if (keywords.size() == 0) return null;
+        return keywords.get(0);
     }
 
     private void setText(JTextArea textArea, String text) {
@@ -97,20 +86,6 @@ public final class TransferHandlerDropEdit extends TransferHandler {
             textField.setText(textField.getText() + text);
         } else {
             textField.setText(text);
-        }
-    }
-
-    private void importKeywords(
-            DefaultMutableTreeNode node,
-            JTextArea textArea,
-            JTextField textField) {
-        List<String> keywords =
-                HierarchicalKeywordsHelper.getKeywordStrings(node, true);
-        if (keywords.size() <= 0) return;
-        if (textArea != null) {
-            setText(textArea, keywords.get(0));
-        } else if (textField != null) {
-            setText(textField, keywords.get(0));
         }
     }
 }
