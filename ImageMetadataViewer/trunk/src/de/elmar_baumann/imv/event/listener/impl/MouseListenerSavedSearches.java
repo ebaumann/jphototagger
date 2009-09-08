@@ -21,14 +21,16 @@ public final class MouseListenerSavedSearches extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        int index = ListUtil.getItemIndex(e);
         if (MouseEventUtil.isPopupTrigger(e)) {
-            boolean isItem = index >= 0;
+            int index = ListUtil.getItemIndex(e);
             JList list = (JList) e.getSource();
-            Object element = list.getModel().getElementAt(index);
-            if (element instanceof SavedSearch) {
-                SavedSearch savedSearch = (SavedSearch) element;
-                popupMenu.setSavedSearch(savedSearch);
+            boolean isItem = index >= 0;
+            if (isItem) {
+                Object element = list.getModel().getElementAt(index);
+                if (element instanceof SavedSearch) {
+                    SavedSearch savedSearch = (SavedSearch) element;
+                    popupMenu.setSavedSearch(savedSearch);
+                }
             }
             popupMenu.getItemEdit().setEnabled(isItem);
             popupMenu.getItemDelete().setEnabled(isItem);
