@@ -2,14 +2,10 @@ package de.elmar_baumann.lib.datatransfer;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * Transferable for objects of an arbitrary type. The data flavor returned by
- * {@link #getTransferDataFlavors()} is
- * {@link java.awt.datatransfer.DataFlavor#stringFlavor}.
+ * Transferable for objects of an arbitrary type.
  *
  * <em>The objects have to implement the Interface {@link Serializable}!</em>
  *
@@ -19,57 +15,50 @@ import java.io.Serializable;
 public final class TransferableObject implements Transferable {
 
     private final Object data;
-    private final DataFlavor[] flavors = new DataFlavor[1];
-
-    {
-        flavors[0] = DataFlavor.stringFlavor;
-    }
+    private final DataFlavor[] dataFlavors;
 
     /**
      * Creates a new instance of this class.
      *
-     * @param data data object returned by
-     *             {@link #getTransferData(java.awt.datatransfer.DataFlavor)}.
-     *             The object has to implement the Interface
-     *             {@link Serializable}!
+     * @param data        data object returned by
+     *                    {@link #getTransferData(java.awt.datatransfer.DataFlavor)}.
+     *                    The object has to implement the Interface
+     *                    {@link Serializable}!
+     * @param dataFlavors data flavors supported data flavors of that object
+     *                    This class creates too {@link DataFlavor} with
+     *                    the class of that object as representation class and
+     *                    <code>application/x-java-serialized-object</code> as
+     *                    MIME type
      */
-    public TransferableObject(Object data) {
-        super();
+    public TransferableObject(Object data, DataFlavor... dataFlavors) {
         this.data = data;
+        this.dataFlavors = new DataFlavor[dataFlavors.length + 1];
+        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0, dataFlavors.length);
+        this.dataFlavors[dataFlavors.length] =
+                new DataFlavor(data.getClass(), null);
     }
 
-    /**
-     * Returns {@link java.awt.datatransfer.DataFlavor#stringFlavor}.
-     *
-     * @return string flavor
-     */
     @Override
     public DataFlavor[] getTransferDataFlavors() {
-        return flavors;
+        return dataFlavors;
     }
 
-    /**
-     * Returns true.
-     *
-     * @param  flavor data flavor
-     * @return true
-     */
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
-        return true;
+        for (DataFlavor dataFlavor : dataFlavors) {
+            if (flavor.equals(dataFlavor)) return true;
+        }
+        return false;
     }
 
     /**
-     * Returns the data set via constructor.
+     * Returns the data object set via constructor.
      *
      * @param  flavor data flavor
-     * @return data object
-     * @throws UnsupportedFlavorException
-     * @throws IOException
+     * @return        data object
      */
     @Override
-    public Object getTransferData(DataFlavor flavor)
-            throws UnsupportedFlavorException, IOException {
+    public Object getTransferData(DataFlavor flavor) {
         return data;
     }
 }
