@@ -115,7 +115,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     private void moveSelectedImages(
             TransferSupport transferSupport, ThumbnailsPanel panel) {
         Point dropPoint = transferSupport.getDropLocation().getDropPoint();
-        panel.moveSelectedToIndex(panel.getDropIndex(dropPoint.x, dropPoint.y));
+        panel.moveSelectedToIndex(panel.getDnDIndex(dropPoint.x, dropPoint.y));
         String imageCollectionName = getImageCollectionName();
         if (imageCollectionName != null) {
             DatabaseImageCollections.INSTANCE.insertImageCollection(
@@ -175,7 +175,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         Point p = transferSupport.getDropLocation().getDropPoint();
         ThumbnailsPanel panel =
                 (ThumbnailsPanel) transferSupport.getComponent();
-        return panel.isSelected(panel.getDropIndex(p.x, p.y));
+        return panel.isSelected(panel.getDnDIndex(p.x, p.y));
     }
 
     private boolean importFiles(File targetDir, TransferSupport transferSupport) {

@@ -153,6 +153,8 @@ public class ThumbnailsPanel extends JPanel
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerPanelThumbnails());
         readProperties();
+        // hack to activate Drag events
+        //new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, this, true, null);
 
         renderedThumbnailCache.setRenderer(renderer);
         renderedThumbnailCache.addThumbnailUpdateListener(this);
@@ -170,14 +172,10 @@ public class ThumbnailsPanel extends JPanel
     private void empty() {
         clearSelection();
         flagOfThumbnail.clear();
-        System.gc();
     }
 
     private synchronized void rerender(int index) {
-        File file = getFile(index);
-        if (file != null) {
-            renderedThumbnailCache.rerender(file);
-        }
+        renderedThumbnailCache.rerender(getFile(index));
     }
 
     private synchronized void rerender(Collection<Integer> rerenderTargets) {
@@ -318,7 +316,6 @@ public class ThumbnailsPanel extends JPanel
      * Setzt neue Thumbnails.
      */
     protected void setNewThumbnails() {
-        empty();
         forceRepaint();
         notifyThumbnailsChanged();
     }
@@ -479,7 +476,11 @@ public class ThumbnailsPanel extends JPanel
         return new Point(x, y);
     }
 
-    public synchronized int getDropIndex(int x, int y) {
+    public synchronized int getDnDIndex(MouseEvent e) {
+        return getDnDIndex(e.getX(), e.getY());
+    }
+
+    public synchronized int getDnDIndex(int x, int y) {
         int row = Math.max(0,
                 (y - MARGIN_THUMBNAIL) /
                 (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL));
@@ -942,6 +943,7 @@ public class ThumbnailsPanel extends JPanel
         if (files.removeAll(filesToRemove)) {
             setFiles(files, content);
             setSelected(getIndices(selectedFiles, true));
+            renderedThumbnailCache.remove(filesToRemove);
             refresh();
         }
     }
@@ -983,13 +985,14 @@ public class ThumbnailsPanel extends JPanel
      */
 
     /**
-     * Sets the files to display. Previous desplayed files will be hided.
+     * Sets the files to display. Previous desplayed files will be hidden.
      * The new files will be displayed in the defined sort order.
      *
      * @param files    files
      * @param content  content description of the files
      */
     public void setFiles(List<File> files, Content content) {
+        empty();
         synchronized (this) {
             this.files.clear();
             if (!content.equals(Content.IMAGE_COLLECTION)) {

@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.SwingUtilities;
@@ -120,6 +121,7 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
                 RenderedThumbnailCacheIndirection rtci = null;
                 try {
                     rtci = wq.fetch();
+                    assert(rtci.file != null);
                     Image im = cache.thumbCache.getThumbnail(rtci.file);
                     if (im == null) {  // no data available yet
                         if (cache.scaledDummyThumbnail == null ||
@@ -206,6 +208,7 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     protected synchronized void generateEntry(File file, int length,
             boolean prefetch) {
+        assert(file != null);
         RenderedThumbnailCacheIndirection ci =
                 new RenderedThumbnailCacheIndirection(file, length);
         fileCache.put(file, ci);
@@ -214,6 +217,12 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
             workQueue.append(ci);
         } else {
             workQueue.push(ci);
+        }
+    }
+
+    public synchronized void remove(Collection<File> list) {
+        for (File file : list) {
+            remove(file);
         }
     }
 
