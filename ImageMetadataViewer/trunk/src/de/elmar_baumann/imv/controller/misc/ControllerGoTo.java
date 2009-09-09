@@ -48,6 +48,8 @@ public final class ControllerGoTo implements ActionListener {
                 appPanel.getTabSelectionSavedSearches());
         componentOfGoTo.put(AppFrame.GoTo.KEYWORDS,
                 appPanel.getTabSelectionKeywords());
+        componentOfGoTo.put(AppFrame.GoTo.HIERARCHICAL_KEYWORDS_SEL,
+                appPanel.getTabSelectionHierarchicalKeywords());
         componentOfGoTo.put(AppFrame.GoTo.TIMELINE,
                 appPanel.getTabSelectionTimeline());
         componentOfGoTo.put(AppFrame.GoTo.MISC_METADATA,
@@ -75,6 +77,8 @@ public final class ControllerGoTo implements ActionListener {
         tabbedPaneOfGoTo.put(AppFrame.GoTo.SAVED_SEARCHES,
                 appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.KEYWORDS,
+                appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoTo.put(AppFrame.GoTo.HIERARCHICAL_KEYWORDS_SEL,
                 appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.TIMELINE,
                 appPanel.getTabbedPaneSelection());

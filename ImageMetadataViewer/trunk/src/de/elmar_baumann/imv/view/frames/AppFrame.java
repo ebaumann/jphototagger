@@ -63,6 +63,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfGoto.put(GoTo.IPTC_METADATA, menuItemGotoIptcMetadata);
         menuItemOfGoto.put(GoTo.SAVED_SEARCHES, menuItemGotoSavedSearches);
         menuItemOfGoto.put(GoTo.KEYWORDS, menuItemGotoKeywords);
+        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS_SEL,
+                menuItemGotoHierarchicalKeywordsSel);
         menuItemOfGoto.put(GoTo.TIMELINE, menuItemGotoTimeline);
         menuItemOfGoto.put(GoTo.MISC_METADATA, menuItemGotoMiscMetadata);
         menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
@@ -85,6 +87,7 @@ public final class AppFrame extends javax.swing.JFrame {
         SAVED_SEARCHES,
         IMAGE_COLLECTIONS,
         KEYWORDS,
+        HIERARCHICAL_KEYWORDS_SEL,
         TIMELINE,
         MISC_METADATA,
         THUMBNAILS_PANEL,
@@ -319,6 +322,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoKeywords = new javax.swing.JMenuItem();
         menuItemGotoTimeline = new javax.swing.JMenuItem();
         menuItemGotoMiscMetadata = new javax.swing.JMenuItem();
+        menuItemGotoHierarchicalKeywordsSel = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JSeparator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JSeparator();
@@ -538,6 +542,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoMiscMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_misc_metadata.png"))); // NOI18N
         menuItemGotoMiscMetadata.setText(Bundle.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
+
+        menuItemGotoHierarchicalKeywordsSel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoHierarchicalKeywordsSel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_tree.png"))); // NOI18N
+        menuItemGotoHierarchicalKeywordsSel.setText(Bundle.getString("AppFrame.menuItemGotoHierarchicalKeywordsSel.text")); // NOI18N
+        menuGoto.add(menuItemGotoHierarchicalKeywordsSel);
         menuGoto.add(jSeparator8);
 
         menuItemGotoThumbnailsPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_MASK));
@@ -589,11 +598,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemRenameFilenamesInDb.setText(Bundle.getString("AppFrame.menuItemRenameFilenamesInDb.text")); // NOI18N
         menuTools.add(menuItemRenameFilenamesInDb);
 
-        menuItemCopyCategoriesToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword.png"))); // NOI18N
+        menuItemCopyCategoriesToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_tree.png"))); // NOI18N
         menuItemCopyCategoriesToHierarchicalKeywords.setText(bundle.getString("AppFrame.menuItemCopyCategoriesToHierarchicalKeywords.text")); // NOI18N
         menuTools.add(menuItemCopyCategoriesToHierarchicalKeywords);
 
-        menuItemCopyKeywordsToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_keyword.png"))); // NOI18N
+        menuItemCopyKeywordsToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_tree.png"))); // NOI18N
         menuItemCopyKeywordsToHierarchicalKeywords.setText(bundle.getString("AppFrame.menuItemCopyKeywordsToHierarchicalKeywords.text")); // NOI18N
         menuTools.add(menuItemCopyKeywordsToHierarchicalKeywords);
 
@@ -685,6 +694,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoFastSearch;
     private javax.swing.JMenuItem menuItemGotoFavoriteDirectories;
     private javax.swing.JMenuItem menuItemGotoHierarchicalKeywords;
+    private javax.swing.JMenuItem menuItemGotoHierarchicalKeywordsSel;
     private javax.swing.JMenuItem menuItemGotoIptcMetadata;
     private javax.swing.JMenuItem menuItemGotoKeywords;
     private javax.swing.JMenuItem menuItemGotoMiscMetadata;

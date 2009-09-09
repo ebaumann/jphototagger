@@ -167,6 +167,10 @@ public final class AppPanel extends javax.swing.JPanel implements
         return panelKeywords;
     }
 
+    public JPanel getTabSelectionHierarchicalKeywords() {
+        return panelSelHierarchicalKeywords;
+    }
+
     public JPanel getTabSelectionCategories() {
         return panelCategories;
     }
