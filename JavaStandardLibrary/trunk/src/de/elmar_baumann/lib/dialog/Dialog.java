@@ -162,7 +162,8 @@ public class Dialog extends JDialog {
     protected void help(String url) {
         if (url == null)
             throw new NullPointerException("url == null"); // NOI18N
-        if (!help.getContentsUrl().equals(helpContentsUrl)) {
+        if (help.getContentsUrl() == null ||
+                !help.getContentsUrl().equals(helpContentsUrl)) {
             help.setContentsUrl(helpContentsUrl);
         }
         if (help.isVisible()) {
