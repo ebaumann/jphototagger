@@ -169,7 +169,7 @@ public class Dialog extends JDialog {
             help.showUrl(url);
             help.toFront();
         } else {
-            help.setStartUrl(url);
+            help.setDisplayUrl(url);
             help.setVisible(true);
         }
     }

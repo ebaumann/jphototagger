@@ -135,11 +135,11 @@ public final class HelpBrowser extends Dialog
     /**
      * Sets the URL of the page to be initial displayed. It has to be relative
      * and exist in the contents XML-File set with
-     * {@link #setStartUrl(java.lang.String)}.
+     * {@link #setDisplayUrl(java.lang.String)}.
      * 
      * @param url  URL, eg. <code>firststeps.html</code>
      */
-    public synchronized void setStartUrl(String url) {
+    public synchronized void setDisplayUrl(String url) {
         startUrl = url;
     }
 
