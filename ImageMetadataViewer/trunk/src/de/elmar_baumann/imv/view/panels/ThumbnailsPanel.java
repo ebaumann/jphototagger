@@ -174,7 +174,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized void rerender(int index) {
-        renderedThumbnailCache.rerender(getFile(index));
+        File file = getFile(index);
+        if (file != null) {
+            renderedThumbnailCache.rerender(file);
+        }
     }
 
     private synchronized void rerender(Collection<Integer> rerenderTargets) {
