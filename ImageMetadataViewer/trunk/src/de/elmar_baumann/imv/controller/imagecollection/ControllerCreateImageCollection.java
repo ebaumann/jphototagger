@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.helper.ModifyImageCollections;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuImageCollections;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -32,10 +33,12 @@ import javax.swing.SwingUtilities;
 public final class ControllerCreateImageCollection
         implements ActionListener, KeyListener {
 
-    private final PopupMenuThumbnails popupMenu =
+    private final PopupMenuThumbnails popupMenuThumbnails =
             PopupMenuThumbnails.INSTANCE;
+    private final PopupMenuImageCollections popupMenuImageCollections =
+            PopupMenuImageCollections.INSTANCE;
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList list = appPanel.getListImageCollections();
+    private final JList listImageCollections = appPanel.getListImageCollections();
     private final ThumbnailsPanel thumbnailsPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
@@ -44,8 +47,9 @@ public final class ControllerCreateImageCollection
     }
 
     private void listen() {
-        popupMenu.getItemCreateImageCollection().addActionListener(this);
-        list.addKeyListener(this);
+        popupMenuThumbnails.getItemCreateImageCollection().addActionListener(this);
+        popupMenuImageCollections.getItemCreate().addActionListener(this);
+        listImageCollections.addKeyListener(this);
     }
 
     @Override
@@ -69,7 +73,7 @@ public final class ControllerCreateImageCollection
 
                 @Override
                 public void run() {
-                    ListModel model = list.getModel();
+                    ListModel model = listImageCollections.getModel();
                     if (model instanceof ListModelImageCollections) {
                         ListUtil.insertSorted((ListModelImageCollections) model,
                                 collectionName,
