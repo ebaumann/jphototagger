@@ -919,15 +919,15 @@ public class ThumbnailsPanel extends JPanel
      * {@link de.elmar_baumann.imv.event.listener.RefreshListener} objects.
      */
     public synchronized void refresh() {
-        JViewport viewport = getViewport();
+        JViewport vp = getViewport();
         Point viewportPosition = null;
-        if (viewport != null) {
-            viewportPosition = viewport.getViewPosition();
+        if (vp != null) {
+            viewportPosition = vp.getViewPosition();
         }
         notifyRefreshListeners();
         // does set the images
-        if (viewport != null) {
-            viewport.setViewPosition(viewportPosition);
+        if (vp != null) {
+            vp.setViewPosition(viewportPosition);
         }
     }
 
