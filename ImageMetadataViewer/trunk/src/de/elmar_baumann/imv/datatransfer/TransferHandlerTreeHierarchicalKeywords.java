@@ -6,7 +6,6 @@ import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import javax.swing.JComponent;
 import javax.swing.JTree;
@@ -99,8 +98,8 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
                     getTransferData(Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
             Object userObject = sourceNode.getUserObject();
             if (userObject instanceof HierarchicalKeyword) {
-                treeModel.move(sourceNode, dropNode,
-                        (HierarchicalKeyword) userObject);
+                treeModel.move(
+                        sourceNode, dropNode, (HierarchicalKeyword) userObject);
             }
         } catch (Exception ex) {
             AppLog.logSevere(TransferHandlerTreeHierarchicalKeywords.class, ex);
@@ -110,21 +109,5 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
     @Override
     protected void exportDone(JComponent c, Transferable data, int action) {
         // ignore
-    }
-
-    private boolean hasHierarchicalKeyword(Transferable transferable) {
-        try {
-            Object o =
-                    transferable.getTransferData(DataFlavor.stringFlavor);
-            if (o instanceof DefaultMutableTreeNode) {
-                Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
-                if (userObject instanceof HierarchicalKeyword) {
-                    return true;
-                }
-            }
-        } catch (Exception ex) {
-            AppLog.logSevere(TransferHandlerTreeHierarchicalKeywords.class, ex);
-        }
-        return false;
     }
 }
