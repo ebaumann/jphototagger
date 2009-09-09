@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.datatransfer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.helper.HierarchicalKeywordsHelper;
 import java.awt.datatransfer.Transferable;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
@@ -73,10 +74,11 @@ public final class TransferHandlerDropList extends TransferHandler {
 
     private boolean importHierarchicalKeywords(
             DefaultListModel listModel, Transferable transferable) {
-        DefaultMutableTreeNode node =
-                Support.getHierarchicalKeywordsNode(transferable);
-        if (node == null) return false;
-        importHierarchicalKeywords(node, listModel);
+        List<DefaultMutableTreeNode> nodes =
+                Support.getHierarchicalKeywordsNodes(transferable);
+        for (DefaultMutableTreeNode node : nodes) {
+            importHierarchicalKeywords(node, listModel);
+        }
         return true;
     }
 

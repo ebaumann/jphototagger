@@ -24,7 +24,7 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
     private void postInitComponents() {
         tree.getSelectionModel().setSelectionMode(
-                TreeSelectionModel.SINGLE_TREE_SELECTION);
+                TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
     }
 
     public JTree getTree() {

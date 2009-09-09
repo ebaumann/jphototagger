@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.datatransfer;
 import de.elmar_baumann.imv.app.AppLog;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -50,17 +51,18 @@ public final class Support {
     }
 
     /**
-     * Returns a transferred hierarchical keywords node.
+     * Returns the transferred hierarchical keywords nodes.
      *
      * <em>The data flavor has to be {@link #HIERARCHICAL_KEYWORDS_FLAVOR}!</em>
      *
      * @param  transferable transferable
      * @return              hierarchical keywords node or null on errors
      */
-    public static DefaultMutableTreeNode getHierarchicalKeywordsNode(
+    @SuppressWarnings("unchecked")
+    public static List<DefaultMutableTreeNode> getHierarchicalKeywordsNodes(
             Transferable transferable) {
         try {
-            return (DefaultMutableTreeNode) transferable.getTransferData(
+            return (List<DefaultMutableTreeNode>) transferable.getTransferData(
                     Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
         } catch (Exception ex) {
             AppLog.logSevere(Flavors.class, ex);

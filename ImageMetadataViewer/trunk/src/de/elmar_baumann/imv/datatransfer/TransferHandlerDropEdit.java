@@ -47,7 +47,7 @@ public final class TransferHandlerDropEdit extends TransferHandler {
             string = getFirstString(Support.getKeywords(transferable));
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
             string = getFirstString(
-                    Support.getHierarchicalKeywordsNode(transferable));
+                    Support.getHierarchicalKeywordsNodes(transferable));
         }
         if (string == null) return false;
         if (c instanceof JTextArea) {
@@ -65,10 +65,10 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         return array[0].toString();
     }
 
-    private String getFirstString(DefaultMutableTreeNode node) {
-        if (node == null) return null;
+    private String getFirstString(List<DefaultMutableTreeNode> nodes) {
+        if (nodes.size() <= 0) return null;
         List<String> keywords =
-                HierarchicalKeywordsHelper.getKeywordStrings(node, true);
+                HierarchicalKeywordsHelper.getKeywordStrings(nodes.get(0), true);
         if (keywords.size() == 0) return null;
         return keywords.get(0);
     }

@@ -133,8 +133,8 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
             element = listImageCollections.getModel().getElementAt(index);
         }
         return element == null
-               ? null
-               : element.toString();
+                ? null
+                : element.toString();
     }
 
     private boolean insertMetadata(TransferSupport transferSupport) {
@@ -146,8 +146,9 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         } else if (Flavors.hasKeywords(transferSupport)) {
             importStrings(Flavors.KEYWORDS_FLAVOR, Support.getKeywords(t));
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
-            DefaultMutableTreeNode node = Support.getHierarchicalKeywordsNode(t);
-            if (node != null) {
+            List<DefaultMutableTreeNode> nodes =
+                    Support.getHierarchicalKeywordsNodes(t);
+            for (DefaultMutableTreeNode node : nodes) {
                 HierarchicalKeywordsHelper.addKeywordsToEditPanel(node);
             }
         } else {
@@ -161,10 +162,10 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         EditMetadataPanelsArray editPanels =
                 GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
         Column column = dataFlavor.equals(Flavors.CATEGORIES_FLAVOR)
-                        ? ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE
-                        : dataFlavor.equals(Flavors.KEYWORDS_FLAVOR)
-                          ? ColumnXmpDcSubjectsSubject.INSTANCE
-                          : null;
+                ? ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE
+                : dataFlavor.equals(Flavors.KEYWORDS_FLAVOR)
+                ? ColumnXmpDcSubjectsSubject.INSTANCE
+                : null;
         for (Object string : strings) {
             editPanels.addText(column, string.toString());
         }
