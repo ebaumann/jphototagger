@@ -28,9 +28,11 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
  */
-public final class ControllerHelp implements ActionListener,
-                                             HelpBrowserListener {
+public final class ControllerHelp
+        implements ActionListener, HelpBrowserListener {
 
+    private static final String HELP_CONTENTS_URL =
+            Bundle.getString("Help.Url.Contents");
     private final HelpBrowser help = HelpBrowser.INSTANCE;
     private static final String KEY_CURRENT_URL =
             ControllerHelp.class.getName() + ".CurrentURL"; // NOI18N
@@ -81,19 +83,25 @@ public final class ControllerHelp implements ActionListener,
         }
     }
 
+    private void initHelp() {
+        help.setIconImages(AppIcons.getAppIcons());
+        if (help.getContentsUrl() == null ||
+                !help.getContentsUrl().equals(HELP_CONTENTS_URL)) {
+            help.setContentsUrl(HELP_CONTENTS_URL);
+        }
+    }
+
     private void showHelp() {
+        initHelp();
         if (!currentUrl.isEmpty()) {
-            help.setContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
-            help.setIconImages(AppIcons.getAppIcons());
-            help.setStartUrl(currentUrl);
+            help.setDisplayUrl(currentUrl);
         }
         helpToFront();
     }
 
     private void showAcceleratorKeyHelp() {
-        help.setContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
-        help.setIconImages(AppIcons.getAppIcons());
-        help.setStartUrl(Bundle.getString("Help.Url.AcceleratorKeys")); // NOI18N
+        initHelp();
+        help.setDisplayUrl(Bundle.getString("Help.Url.AcceleratorKeys")); // NOI18N
         helpToFront();
     }
 
