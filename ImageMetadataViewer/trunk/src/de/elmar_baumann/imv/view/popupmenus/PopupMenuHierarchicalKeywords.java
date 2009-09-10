@@ -36,6 +36,12 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
     private static final String DISPLAY_NAME_ACTION_REMOVE_FROM_EDIT_PANEL =
             Bundle.getString(
             "PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveFromEditPanel"); // NOI18N
+    private static final String DISPLAY_NAME_ACTION_CUT =
+            Bundle.getString(
+            "PopupMenuHierarchicalKeywords.DisplayName.ActionCut"); // NOI18N
+    private static final String DISPLAY_NAME_ACTION_PASTE =
+            Bundle.getString(
+            "PopupMenuHierarchicalKeywords.DisplayName.ActionPaste"); // NOI18N
     private final JMenuItem menuItemAdd =
             new JMenuItem(DISPLAY_NAME_ACTION_ADD_KEYWORD);
     private final JMenuItem menuItemAddToEditPanel =
@@ -48,6 +54,10 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
             new JMenuItem(DISPLAY_NAME_ACTION_TOGGLE_REAL);
     private final JMenuItem menuItemRemoveFromEditPanel =
             new JMenuItem(DISPLAY_NAME_ACTION_REMOVE_FROM_EDIT_PANEL);
+    private final JMenuItem menuItemCut =
+            new JMenuItem(DISPLAY_NAME_ACTION_CUT);
+    private final JMenuItem menuItemPaste =
+            new JMenuItem(DISPLAY_NAME_ACTION_PASTE);
     public static final PopupMenuHierarchicalKeywords INSTANCE =
             new PopupMenuHierarchicalKeywords();
     private TreePath path;
@@ -76,6 +86,14 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
         return menuItemRemoveFromEditPanel;
     }
 
+    public JMenuItem getMenuItemCut() {
+        return menuItemCut;
+    }
+
+    public JMenuItem getMenuItemPaste() {
+        return menuItemPaste;
+    }
+
     private PopupMenuHierarchicalKeywords() {
         init();
     }
@@ -102,7 +120,9 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
         add(menuItemRemove);
         add(menuItemRename);
         add(menuItemToggleReal);
-
+        addSeparator();
+        add(menuItemCut);
+        add(menuItemPaste);
     }
 
     private void setIcons() {
@@ -113,6 +133,8 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
                 "icon_keyword_real_helper.png")); // NOI18N
         menuItemAddToEditPanel.setIcon(AppIcons.getIcon("icon_edit.png")); // NOI18N
         menuItemRemoveFromEditPanel.setIcon(AppIcons.getIcon("icon_delete.png")); // NOI18N
+        menuItemCut.setIcon(AppIcons.getIcon("icon_cut_to_clipboard.png")); // NOI18N
+        menuItemPaste.setIcon(AppIcons.getIcon("icon_paste_from_clipboard.png")); // NOI18N
     }
 
     private void setAccelerators() {
@@ -128,5 +150,9 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
                 KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         menuItemRemoveFromEditPanel.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
+        menuItemCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
+                java.awt.event.InputEvent.CTRL_MASK));
+        menuItemPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,
+                java.awt.event.InputEvent.CTRL_MASK));
     }
 }

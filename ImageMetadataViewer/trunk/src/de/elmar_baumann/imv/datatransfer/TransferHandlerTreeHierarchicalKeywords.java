@@ -119,7 +119,7 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
         }
     }
 
-    private void moveKeywords(
+    public static void moveKeywords(
             TransferSupport transferSupport,
             TreeModelHierarchicalKeywords treeModel,
             DefaultMutableTreeNode dropNode) {

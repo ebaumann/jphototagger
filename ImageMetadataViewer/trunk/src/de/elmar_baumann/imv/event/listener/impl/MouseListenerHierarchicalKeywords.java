@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.event.listener.impl;
 
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.HierarchicalKeywordTreeNodesClipboard;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -46,5 +47,8 @@ public final class MouseListenerHierarchicalKeywords extends MouseAdapter {
         popupMenu.getMenuItemToggleReal().setEnabled(hkNode);
         popupMenu.getMenuItemAddToEditPanel().setEnabled(hkNode);
         popupMenu.getMenuItemRemoveFromEditPanel().setEnabled(hkNode);
+        popupMenu.getMenuItemCut().setEnabled(hkNode);
+        popupMenu.getMenuItemPaste().setEnabled(hkNode &&
+                HierarchicalKeywordTreeNodesClipboard.INSTANCE.hasContent());
     }
 }
