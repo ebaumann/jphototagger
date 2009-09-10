@@ -75,6 +75,8 @@ import de.elmar_baumann.imv.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsDatabaseChanges;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerThumbnailsPanelPersistence;
 import de.elmar_baumann.imv.controller.thumbnail.ControllerToggleKeywordOverlay;
+import de.elmar_baumann.imv.resource.Bundle;
+import de.elmar_baumann.imv.resource.GUI;
 
 /**
  * Erzeugt alle Controller.
@@ -90,6 +92,8 @@ public final class ControllerFactory {
     synchronized void init() {
         Util.checkInit(ControllerFactory.class, init);
         if (!init) {
+            GUI.INSTANCE.getAppPanel().showMessage(
+                    Bundle.getString("ControllerFactory.Init.Start"), 1000);
             new ControllerThumbnailsPanelPersistence();
             new ControllerItemsMutualExcludeSelection();
             new ControllerCategoryItemSelected();
@@ -166,6 +170,8 @@ public final class ControllerFactory {
             new ControllerPlugins();
             new ControllerInsertIntoHierarchicalKeywords();
             init = true;
+            GUI.INSTANCE.getAppPanel().showMessage(
+                    Bundle.getString("ControllerFactory.Init.Finished"), 1000);
         }
     }
 }
