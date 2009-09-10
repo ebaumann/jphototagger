@@ -109,16 +109,19 @@ public final class MessageDisplayer {
         /**
          * Returns the action type of an option type of {@link JOptionPane}.
          *
-         * @param  type option type
-         * @return      action or null if no action has that option type
+         * @param  type          option type
+         * @param  defaultAction action to return if type is invalid
+         * @return               action or <code>defaultAction</code> if no
+         *                       action has that option type
          */
-        public static ConfirmAction actionOfOptionType(int type) {
+        public static ConfirmAction actionOfOptionType(
+                int type, ConfirmAction defaultAction) {
             for (ConfirmAction action : values()) {
                 if (action.getOptionType() == type) {
                     return action;
                 }
             }
-            return null;
+            return defaultAction;
         }
     }
 
@@ -174,7 +177,10 @@ public final class MessageDisplayer {
                 getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
                 cancelButton.isShow()
                 ? JOptionPane.YES_NO_CANCEL_OPTION
-                : JOptionPane.YES_NO_OPTION));
+                : JOptionPane.YES_NO_OPTION),
+                cancelButton.isShow()
+                ? ConfirmAction.CANCEL
+                : ConfirmAction.NO);
     }
 
     private static void message(
@@ -193,8 +199,8 @@ public final class MessageDisplayer {
                 defaultTitleOfMessageType.keySet();
         String titlePropertyKey = propertyKey + ".Title"; // NOI18N
         return Bundle.containsKey(titlePropertyKey)
-               ? Bundle.getString(titlePropertyKey) // NOI18N
-               : defaultTitleOfMessageType.get(messageType);
+                ? Bundle.getString(titlePropertyKey) // NOI18N
+                : defaultTitleOfMessageType.get(messageType);
     }
 
     private MessageDisplayer() {
