@@ -13,7 +13,8 @@ import java.io.Serializable;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-10
  */
-public final class HierarchicalKeyword implements Serializable {
+public final class HierarchicalKeyword
+        implements Comparable<HierarchicalKeyword>, Serializable {
 
     private Long id;
     private Long idParent;
@@ -126,21 +127,28 @@ public final class HierarchicalKeyword implements Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + (this.id != null
-                            ? this.id.hashCode()
-                            : 0);
+                ? this.id.hashCode()
+                : 0);
         hash =
                 59 * hash +
                 (this.idParent != null
-                 ? this.idParent.hashCode()
-                 : 0);
+                ? this.idParent.hashCode()
+                : 0);
         hash = 59 * hash + (this.keyword != null
-                            ? this.keyword.hashCode()
-                            : 0);
+                ? this.keyword.hashCode()
+                : 0);
         return hash;
     }
 
     @Override
     public String toString() {
         return keyword;
+    }
+
+    @Override
+    public int compareTo(HierarchicalKeyword o) {
+        if (o == null) return 1;
+        if (o == this) return 0;
+        return o.getKeyword().compareToIgnoreCase(keyword);
     }
 }

@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
+import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -27,7 +28,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DatabaseHierarchicalKeywords.INSTANCE;
 
     public TreeModelHierarchicalKeywords() {
-        super(new DefaultMutableTreeNode(Bundle.getString(
+        super(new TreeNodeSortedChildren(Bundle.getString(
                 "TreeModelHierarchicalKeywords.DisplayName.Root"))); // NOI18N
         ROOT = (DefaultMutableTreeNode) getRoot();
         createTree();
@@ -81,7 +82,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                     null, idParent, keyword, true);
             if (db.insert(child)) {
                 DefaultMutableTreeNode childNode =
-                        new DefaultMutableTreeNode(child);
+                        new TreeNodeSortedChildren(child);
                 insertNodeInto(childNode, parentNode, parentNode.getChildCount());
             } else {
                 MessageDisplayer.error(null,
@@ -240,7 +241,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         Collection<HierarchicalKeyword> roots = db.getRoots();
         for (HierarchicalKeyword rootKeyword : roots) {
             DefaultMutableTreeNode rootNode =
-                    new DefaultMutableTreeNode(rootKeyword);
+                    new TreeNodeSortedChildren(rootKeyword);
             insertNodeInto(rootNode, ROOT, ROOT.getChildCount());
             insertChildren(rootNode);
         }
@@ -252,7 +253,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         Collection<HierarchicalKeyword> children =
                 db.getChildren(parent.getId());
         for (HierarchicalKeyword child : children) {
-            DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
+            DefaultMutableTreeNode childNode = new TreeNodeSortedChildren(child);
             insertNodeInto(childNode, parentNode, parentNode.getChildCount());
             insertChildren(childNode); // recursive
         }
