@@ -42,6 +42,9 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
     private static final String DISPLAY_NAME_ACTION_PASTE =
             Bundle.getString(
             "PopupMenuHierarchicalKeywords.DisplayName.ActionPaste"); // NOI18N
+    private static final String DISPLAY_NAME_ACTION_DISPLAY_IMAGES =
+            Bundle.getString(
+            "PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImages"); // NOI18N
     private final JMenuItem menuItemAdd =
             new JMenuItem(DISPLAY_NAME_ACTION_ADD_KEYWORD);
     private final JMenuItem menuItemAddToEditPanel =
@@ -58,6 +61,8 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
             new JMenuItem(DISPLAY_NAME_ACTION_CUT);
     private final JMenuItem menuItemPaste =
             new JMenuItem(DISPLAY_NAME_ACTION_PASTE);
+    private final JMenuItem menuItemDisplayImages =
+            new JMenuItem(DISPLAY_NAME_ACTION_DISPLAY_IMAGES);
     public static final PopupMenuHierarchicalKeywords INSTANCE =
             new PopupMenuHierarchicalKeywords();
     private TreePath path;
@@ -94,6 +99,10 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
         return menuItemPaste;
     }
 
+    public JMenuItem getMenuItemDisplayImages() {
+        return menuItemDisplayImages;
+    }
+
     private PopupMenuHierarchicalKeywords() {
         init();
     }
@@ -123,6 +132,8 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
         addSeparator();
         add(menuItemCut);
         add(menuItemPaste);
+        addSeparator();
+        add(menuItemDisplayImages);
     }
 
     private void setIcons() {
@@ -135,6 +146,7 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
         menuItemRemoveFromEditPanel.setIcon(AppIcons.getIcon("icon_delete.png")); // NOI18N
         menuItemCut.setIcon(AppIcons.getIcon("icon_cut_to_clipboard.png")); // NOI18N
         menuItemPaste.setIcon(AppIcons.getIcon("icon_paste_from_clipboard.png")); // NOI18N
+        menuItemDisplayImages.setIcon(AppIcons.getIcon("icon_thumbnails.png")); // NOI18N
     }
 
     private void setAccelerators() {

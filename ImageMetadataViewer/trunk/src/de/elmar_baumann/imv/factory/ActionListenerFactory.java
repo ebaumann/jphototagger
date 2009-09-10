@@ -3,6 +3,7 @@ package de.elmar_baumann.imv.factory;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerCutPasteHierarchicalKeyword;
+import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
@@ -75,6 +76,8 @@ public final class ActionListenerFactory {
                 new ControllerRemoveHierarchicalKeywordFromEditPanel(hkwPanel);
         ControllerCutPasteHierarchicalKeyword cCutPaste =
                 new ControllerCutPasteHierarchicalKeyword(hkwPanel);
+        ControllerHierarchicalKeywordsDisplayImages cShowImages =
+                new ControllerHierarchicalKeywordsDisplayImages(hkwPanel);
         PopupMenuHierarchicalKeywords popup =
                 PopupMenuHierarchicalKeywords.INSTANCE;
         popup.getMenuItemAdd().addActionListener(cAdd);
@@ -85,5 +88,6 @@ public final class ActionListenerFactory {
         popup.getMenuItemToggleReal().addActionListener(cToggleReal);
         popup.getMenuItemCut().addActionListener(cCutPaste);
         popup.getMenuItemPaste().addActionListener(cCutPaste);
+        popup.getMenuItemDisplayImages().addActionListener(cShowImages);
     }
 }

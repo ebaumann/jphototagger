@@ -2,12 +2,17 @@ package de.elmar_baumann.imv.helper;
 
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.GUI;
+import de.elmar_baumann.imv.view.panels.AppPanel;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * Helps with hierarchical keywords.
@@ -79,6 +84,36 @@ public final class HierarchicalKeywordsHelper {
             list.add(keyword.getKeyword());
         }
         return list;
+    }
+
+    /**
+     * Selects in {@link AppPanel#getTreeSelHierarchicalKeywords()} a node with
+     * a specific hierarchical keyword.
+     *
+     * @param tree    tree with {@link TreeModelHierarchicalKeywords} and all
+     *                nodes of the type {@link DefaultMutableTreeNode}
+     * @param keyword keyword to select
+     */
+    public static void selectNode(JTree tree, HierarchicalKeyword keyword) {
+        TreeModelHierarchicalKeywords model =
+                (TreeModelHierarchicalKeywords) tree.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        DefaultMutableTreeNode selNode = null;
+        for (Enumeration e = root.breadthFirstEnumeration();
+                selNode == null && e.hasMoreElements();) {
+            DefaultMutableTreeNode node =
+                    (DefaultMutableTreeNode) e.nextElement();
+            Object userObject = node.getUserObject();
+            if (userObject instanceof HierarchicalKeyword) {
+                HierarchicalKeyword hkw = (HierarchicalKeyword) userObject;
+                if (hkw.equals(keyword)) {
+                    selNode = node;
+                }
+            }
+        }
+        if (selNode != null) {
+            tree.setSelectionPath(new TreePath(selNode.getPath()));
+        }
     }
 
     private HierarchicalKeywordsHelper() {
