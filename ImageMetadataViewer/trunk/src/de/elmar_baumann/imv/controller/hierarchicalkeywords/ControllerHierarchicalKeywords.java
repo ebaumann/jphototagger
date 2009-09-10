@@ -1,5 +1,6 @@
 package de.elmar_baumann.imv.controller.hierarchicalkeywords;
 
+import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,7 @@ import javax.swing.tree.TreePath;
  */
 public abstract class ControllerHierarchicalKeywords
         implements ActionListener, KeyListener {
+
     private final HierarchicalKeywordsPanel panel;
 
     public ControllerHierarchicalKeywords(HierarchicalKeywordsPanel _panel) {
@@ -68,9 +70,9 @@ public abstract class ControllerHierarchicalKeywords
     }
 
     protected DefaultMutableTreeNode getSourceNode(KeyEvent e) {
-        if (e.getComponent() instanceof JTree)
-        {
-            JTree tree = (JTree)e.getComponent();
+        if (e.getComponent() instanceof JTree) {
+            JTree tree = (JTree) e.getComponent();
+            if (!checkSingleSelection(tree)) return null;
             Object node = tree.getSelectionPath().getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
                 return (DefaultMutableTreeNode) node;
@@ -87,5 +89,14 @@ public abstract class ControllerHierarchicalKeywords
     @Override
     public void keyReleased(KeyEvent e) {
         // ignore
+    }
+
+    private boolean checkSingleSelection(JTree tree) {
+        if (tree.getSelectionCount() != 1) {
+            MessageDisplayer.error(null,
+                    "ControllerHierarchicalKeywords.Error.MultiSelection");
+            return false;
+        }
+        return true;
     }
 }
