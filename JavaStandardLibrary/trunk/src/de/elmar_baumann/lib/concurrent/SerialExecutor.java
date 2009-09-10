@@ -17,10 +17,10 @@ import java.util.logging.Logger;
  */
 public final class SerialExecutor implements Executor {
 
-    private final Queue<Runnable> runnables = new ArrayDeque<Runnable>();
+    private final Queue<Exec> runnables = new ArrayDeque<Exec>();
     private static final String ALT_METHOD_NAME_INTERRUPT = "cancel"; // NOI18N
     private final Executor executor;
-    private Runnable active;
+    private Exec active;
 
     public SerialExecutor(Executor executor) {
         this.executor = executor;
@@ -40,20 +40,20 @@ public final class SerialExecutor implements Executor {
         interruptActive(active);
     }
 
-    private synchronized void interruptActive(Runnable active) {
+    private synchronized void interruptActive(Exec active) {
         if (active == null) return;
         Method methodCancel = null;
-        if (hasCancelMethod(active)) {
+        if (hasCancelMethod(active.r)) {
             try {
-                methodCancel = active.getClass().getMethod(
+                methodCancel = active.r.getClass().getMethod(
                         ALT_METHOD_NAME_INTERRUPT);
-                methodCancel.invoke(active);
+                methodCancel.invoke(active.r);
             } catch (Exception ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex); // NOI18N
             }
         }
-        if (methodCancel == null && active instanceof Thread) {
-            ((Thread) active).interrupt();
+        if (methodCancel == null && active.r instanceof Thread) {
+            ((Thread) active.r).interrupt();
         }
     }
 
@@ -82,17 +82,7 @@ public final class SerialExecutor implements Executor {
 
     @Override
     public synchronized void execute(final Runnable r) {
-        runnables.offer(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    r.run();
-                } finally {
-                    scheduleNext();
-                }
-            }
-        });
+        runnables.offer(new Exec(r));
         if (active == null) {
             scheduleNext();
         }
@@ -101,6 +91,24 @@ public final class SerialExecutor implements Executor {
     protected synchronized void scheduleNext() {
         if ((active = runnables.poll()) != null) {
             executor.execute(active);
+        }
+    }
+
+    private class Exec implements Runnable {
+
+        final Runnable r;
+
+        public Exec(Runnable r) {
+            this.r = r;
+        }
+
+        @Override
+        public void run() {
+            try {
+                r.run();
+            } finally {
+                scheduleNext();
+            }
         }
     }
 }
