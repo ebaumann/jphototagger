@@ -2,18 +2,15 @@ package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLog;
-import de.elmar_baumann.imv.database.DatabaseAutoscanDirectories;
-import de.elmar_baumann.imv.io.ImageFilteredDirectory;
+import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent;
+import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent.Type;
+import de.elmar_baumann.imv.event.listener.CheckingForUpdateMetadataListener;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
-import de.elmar_baumann.imv.view.panels.ProgressBarScheduledTasks;
+import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.concurrent.SerialExecutor;
-import de.elmar_baumann.lib.io.FileUtil;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Kontrolliert: Regelmäßiger Task, der Verzeichnisse nach modifizierten
@@ -23,32 +20,26 @@ import java.util.concurrent.Executors;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ScheduledTasks {
+public final class ScheduledTasks implements CheckingForUpdateMetadataListener {
 
     public static final ScheduledTasks INSTANCE =
             new ScheduledTasks();
-    private final List<String> systemDirectorySubstrings =
-            new ArrayList<String>();
     private final SerialExecutor executor =
             new SerialExecutor(Executors.newCachedThreadPool());
-    private static final long WAIT_BEFORE_PERFORM_MILLISECONDS =
-            UserSettings.INSTANCE.getMinutesToStartScheduledTasks() * 1000 * 60;
-
-    private ScheduledTasks() {
-        init();
-    }
+    private static final long MINUTES_WAIT_BEFORE_PERFORM =
+            UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
 
     /**
      * Runs the tasks.
      */
-    public void run() {
-        if (WAIT_BEFORE_PERFORM_MILLISECONDS <= 0) return;
+    public synchronized void run() {
+        if (MINUTES_WAIT_BEFORE_PERFORM <= 0) return;
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    Thread.sleep(WAIT_BEFORE_PERFORM_MILLISECONDS);
+                    TimeUnit.MINUTES.sleep(MINUTES_WAIT_BEFORE_PERFORM);
                     startUpdate();
                 } catch (Exception ex) {
                     AppLog.logSevere(getClass(), ex);
@@ -82,68 +73,33 @@ public final class ScheduledTasks {
      */
     public void shutdown() {
         executor.shutdown();
+        setEnabledStopButton(false);
     }
 
     private void startUpdate() {
-        List<File> directories = getDirectories();
-        if (!directories.isEmpty()) {
-            for (File directory : directories) {
-                if (!isSystemDirectory(directory.getAbsolutePath())) {
-                    executor.execute(new InsertImageFilesIntoDatabase(
-                            getImageFilenamesOfDirectory(directory),
-                            EnumSet.of(
-                            InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),
-                            ProgressBarScheduledTasks.INSTANCE));
-                }
-            }
+        List<InsertImageFilesIntoDatabase> updaters =
+                ScheduledTaskInsertImageFilesIntoDatabase.getThreads();
+        setEnabledStopButton(true);
+        for (InsertImageFilesIntoDatabase updater : updaters) {
+            executor.execute(updater);
+        }
+        if (updaters.size() > 0) {
+            updaters.get(updaters.size() - 1).addActionListener(this);
         }
     }
 
-    private List<String> getImageFilenamesOfDirectory(File directory) {
-        return FileUtil.getAsFilenames(
-                ImageFilteredDirectory.getImageFilesOfDirectory(directory));
-    }
-
-    private List<File> getDirectories() {
-        List<String> directoryNames =
-                DatabaseAutoscanDirectories.INSTANCE.getAutoscanDirectories();
-        addSubdirectoryNames(directoryNames);
-        Collections.sort(directoryNames);
-        Collections.reverse(directoryNames);
-        return FileUtil.getAsFiles(directoryNames);
-    }
-
-    private void addSubdirectoryNames(List<String> directoryNames) {
-        List<String> subdirectoryNames = new ArrayList<String>();
-        if (UserSettings.INSTANCE.isAutoscanIncludeSubdirectories()) {
-            for (String directoryName : directoryNames) {
-                subdirectoryNames.addAll(getAllSubdirectoryNames(directoryName));
-            }
-            directoryNames.addAll(subdirectoryNames);
+    @Override
+    public void actionPerformed(CheckForUpdateMetadataEvent evt) {
+        if (evt.getType().equals(Type.CHECK_FINISHED)) {
+            setEnabledStopButton(false);
         }
     }
 
-    private List<String> getAllSubdirectoryNames(String directoryName) {
-        return FileUtil.getAsFilenames(FileUtil.getSubdirectoriesRecursive(
-                new File(directoryName),
-                UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+    public void setEnabledStopButton(boolean enabled) {
+        GUI.INSTANCE.getAppPanel().getButtonStopScheduledTasks().setEnabled(
+                enabled);
     }
 
-    private void addSystemDirectorySubstrings() {
-        systemDirectorySubstrings.add("System Volume Information"); // NOI18N
-        systemDirectorySubstrings.add("RECYCLER"); // NOI18N
-    }
-
-    private boolean isSystemDirectory(String directoryName) {
-        for (String substring : systemDirectorySubstrings) {
-            if (directoryName.contains(substring)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void init() {
-        addSystemDirectorySubstrings();
+    private ScheduledTasks() {
     }
 }
