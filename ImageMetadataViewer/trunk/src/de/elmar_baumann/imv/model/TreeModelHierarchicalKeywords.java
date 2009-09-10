@@ -199,7 +199,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 if (removeNode != null) {
                     removeNodeFromParent(removeNode);
                 }
-                insertNodeInto(source, target, target.getChildCount());
+                insertNode(target, source);
             }
         }
     }
