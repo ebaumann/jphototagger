@@ -483,10 +483,10 @@ public final class AppPanel extends javax.swing.JPanel implements
                 MessagePopupPanel messagePanel = new MessagePopupPanel(message);
                 ThumbnailsPanel tnPanel =
                         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-                int x = progressBarAutomaticTasks.getLocationOnScreen().x + 4;
+                int x = progressBarAutomaticTasks.getLocationOnScreen().x + 1;
                 int y = progressBarAutomaticTasks.getLocationOnScreen().y + 1;
                 Dimension d = new Dimension(
-                        progressBarAutomaticTasks.getWidth() - 8,
+                        progressBarAutomaticTasks.getWidth() - 2    ,
                         progressBarAutomaticTasks.getHeight() - 2);
                 messagePanel.setPreferredSize(d);
                 messagePanel.setSize(d);
