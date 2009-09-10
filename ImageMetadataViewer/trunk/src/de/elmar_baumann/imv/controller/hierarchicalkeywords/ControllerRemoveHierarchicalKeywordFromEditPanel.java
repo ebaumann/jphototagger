@@ -7,7 +7,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,7 +16,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Listens to the menu item
- * {@link HierarchicalKeywordsPanel#getMenuItemRemoveFromEditPanel()}
+ * {@link PopupMenuHierarchicalKeywords#getMenuItemRemoveFromEditPanel()}
  * and on action removes the selected hierarchical keyword from the edit
  * panel.  If a keyword was already present it is removed again.
  *

@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,7 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 /**
- * Listens to the menu item {@link HierarchicalKeywordsPanel#getMenuItemRemove()}
+ * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getMenuItemRemove()}
  * and on action removes from the tree the selected hierarchical keyword.
  *
  * Also listens to key events into the tree and removes the selected

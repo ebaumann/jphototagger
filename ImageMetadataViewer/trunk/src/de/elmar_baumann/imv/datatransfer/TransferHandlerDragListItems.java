@@ -23,8 +23,7 @@ public final class TransferHandlerDragListItems extends TransferHandler {
     }
 
     /**
-     * Returns all selected items in a string started with {@link #PREFIX} and
-     * delimited by {@link #DELIMITER}.
+     * Returns all selected items.
      * 
      * @param  c component
      * @return   transferrable

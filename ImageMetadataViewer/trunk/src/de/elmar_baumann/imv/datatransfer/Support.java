@@ -17,7 +17,7 @@ public final class Support {
     /**
      * Returns the transferred keywords.
      *
-     * <em>The data flavor has to be {@link #KEYWORDS_FLAVOR}!</em>
+     * <em>The data flavor has to be {@link Flavors#KEYWORDS_FLAVOR}!</em>
      *
      * @param  transferable transferable
      * @return              keywords or null on errors
@@ -35,7 +35,7 @@ public final class Support {
     /**
      * Returns the transferred keywords.
      *
-     * <em>The data flavor has to be {@link #CATEGORIES_FLAVOR}!</em>
+     * <em>The data flavor has to be {@link Flavors#CATEGORIES_FLAVOR}!</em>
      *
      * @param  transferable transferable
      * @return              keywords or null on errors
@@ -53,7 +53,7 @@ public final class Support {
     /**
      * Returns the transferred hierarchical keywords nodes.
      *
-     * <em>The data flavor has to be {@link #HIERARCHICAL_KEYWORDS_FLAVOR}!</em>
+     * <em>The data flavor has to be {@link Flavors#HIERARCHICAL_KEYWORDS_FLAVOR}!</em>
      *
      * @param  transferable transferable
      * @return              hierarchical keywords node or null on errors

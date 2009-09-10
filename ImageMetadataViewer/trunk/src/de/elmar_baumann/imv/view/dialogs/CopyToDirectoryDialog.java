@@ -223,7 +223,7 @@ public final class CopyToDirectoryDialog
 
     /**
      * Makes this dialog visible and copies the files set with
-     * {@link #setSourceFiles(java.util.List)} if not empty into the directory
+     * {@link #setSourceFiles(Collection)} if not empty into the directory
      * set with {@link #setTargetDirectory(java.io.File)} if exists.
      *
      * @param addXmp  true if copy XMP sidecar files too

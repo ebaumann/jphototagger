@@ -20,8 +20,6 @@ import javax.swing.JMenuItem;
  * 
  * <em>Nur eine Instanz erzeugen!</em>
  * 
- * Der Aufruf von {@link #stop()} beendet alle noch wartenden Threads.
- *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */

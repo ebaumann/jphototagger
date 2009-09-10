@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 /**
  * Starts a {@link de.elmar_baumann.imv.view.dialogs.FileEditorDialog} with
- * an {@link de.elmar_baumann.imv.tasks.ExtractEmbeddedXmp} editor.
+ * an {@link de.elmar_baumann.imv.helper.ExtractEmbeddedXmp} editor.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-05-22

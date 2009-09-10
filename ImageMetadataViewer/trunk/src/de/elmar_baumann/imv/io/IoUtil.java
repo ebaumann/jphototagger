@@ -150,7 +150,7 @@ public final class IoUtil {
      * the lock) and logs a warning if the file couldn't be locked.
      * <p>
      * If a file couldn't be locked,
-     * {@link AppLog#logWarning(java.lang.Class, java.lang.String)} will be
+     * {@link AppLog#logWarning(java.lang.Class, java.lang.String, Object[])} will be
      * called.
      * <p>
      * Uses {@link FileLock#lock(java.io.File, java.lang.Object)}. <em>The

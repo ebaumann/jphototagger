@@ -170,7 +170,7 @@ public final class ImageFile {
      * @param  insert Is that to insert?
      * @return        true if <code>insert</code> is to insert into the database
      *                (that means at least one call was made to
-     *                {@link #addInsertIntoDb(de.elmar_baumann.imv.tasks.InsertImageFilesIntoDatabase.Insert)})
+     *                {@link #addInsertIntoDb(InsertImageFilesIntoDatabase.Insert)}
      *
      */
     public boolean isInsertIntoDb(InsertImageFilesIntoDatabase.Insert insert) {

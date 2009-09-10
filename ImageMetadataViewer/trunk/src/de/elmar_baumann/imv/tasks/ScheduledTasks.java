@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Kontrolliert: Regelmäßiger Task, der Verzeichnisse nach modifizierten
  * Metadaten scannt und bei Funden die Datenbank aktualisiert. Arbeitet
- * erst durch Aufruf von {@link #start()}.
+ * erst durch Aufruf von {@link #run()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

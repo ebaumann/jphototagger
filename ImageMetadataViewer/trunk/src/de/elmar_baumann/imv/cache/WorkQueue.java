@@ -5,6 +5,7 @@ import java.util.Deque;
 
 /**
  *
+ * @param <E>
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
@@ -18,7 +19,7 @@ public class WorkQueue<E> {
      * 
      * If the item was already in the queue, move to head.
      * 
-     * @param file
+     * @param e
      */
     public synchronized void push(E e) {
         queue.remove(e);  // maybe remove ...
@@ -31,7 +32,7 @@ public class WorkQueue<E> {
      *
      * If the item was already in the queue, do nothing.
      *
-     * @param file
+     * @param e
      */
     public synchronized void append(E e) {
         if (! queue.contains(e)) {
@@ -58,7 +59,6 @@ public class WorkQueue<E> {
      * none available.  Does not block.
      *
      * @return File to open next.
-     * @throws InterruptedException
      */
     public synchronized E poll() {
         return queue.pollFirst();
@@ -68,7 +68,7 @@ public class WorkQueue<E> {
     /**
      * Remove an image from a queue.
      *
-     * @param file
+     * @param e
      */
     public synchronized void remove(E e) {
         queue.remove(e);

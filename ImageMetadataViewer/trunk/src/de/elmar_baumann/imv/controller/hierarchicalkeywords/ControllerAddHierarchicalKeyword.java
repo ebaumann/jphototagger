@@ -6,6 +6,7 @@ import de.elmar_baumann.imv.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -15,7 +16,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 /**
- * Listens to the menu item {@link HierarchicalKeywordsPanel#getMenuItemAdd()}
+ * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getMenuItemAdd()}
  * and on action adds a new keyword below the selected keyword.
  *
  * Also listens to key events into the tree and adds a new keyword below the

@@ -5,6 +5,7 @@ import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,7 +14,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 /**
- * Listens to the menu item {@link HierarchicalKeywordsPanel#getMenuItemToggleReal()}
+ * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getMenuItemToggleReal()}
  * and toggles the real property of a keyword.
  *
  * @author  Martin Pohlack <martinp@gmx.de>

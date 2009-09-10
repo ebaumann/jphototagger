@@ -51,31 +51,6 @@ import javax.swing.JViewport;
 import javax.swing.TransferHandler;
 
 /**
- * Panel zum Anzeigen mehrerer Thumbnails mit einem Text darunter. Diese Klasse
- * übernimmt das Zeichnen und reagiert auf Ereignisse. Eine spezialisierte
- * Klasse liefert die Thumbnails sowie den Text, der unter die Thumbnails
- * gezeichnet werden soll.
- * 
- * Mit {@link #setNewThumbnails(int)} wird bekanntgegeben, dass und wie viele 
- * Thumbnails anzueigen sind. Mit {@link #getThumbnail(int)} erfragt diese
- * Klasse Thumbnails von spezialisierten Klassen mit Indizes zwischen 0 und 
- * Anzahl - 1.
- * 
- * Jedes Thumbnail ist eingebettet in eine Fläche, die definiert ist durch
- * ein "internes Polster" (<code>internalPadding</code>). Darum wird ein Rand
- * gezeichnet mit einer bestimmten Dicke (<code>thumbnailBorderWidth</code>).
- * 
- * Der Abstand zwischen den Thumbnails wird als "externes Polster" bezeichnet
- * (<code>externalPadding</code>). Der Text liegt darin.
- * 
- * Jedes Thumbnail wird gecached und es werden nur Thumbnails gezeichnet, die
- * sich innerhalb der Clip-Bounds befinden.
- * 
- * Zum Benutzen sind unbedingt folgende Operationen <em>als erstes</em> aufzurufen:
- * <ol>
- *     <li>{@link #setNewThumbnails(int)}</li>
- *     <li>{@link #setThumbnailWidth(int)}</li>
- * </ol>
  * 
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

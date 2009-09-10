@@ -7,6 +7,7 @@ import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.imv.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,7 +20,7 @@ import javax.swing.tree.TreeNode;
 
 /**
  * Listens to the menu item
- * {@link HierarchicalKeywordsPanel#getMenuItemAddToEditPanel()}
+ * {@link PopupMenuHierarchicalKeywords#getMenuItemAddToEditPanel()}
  * and on action inserts the selected hierarchical keyword and it's real parents
  * into the edit panel.
  *

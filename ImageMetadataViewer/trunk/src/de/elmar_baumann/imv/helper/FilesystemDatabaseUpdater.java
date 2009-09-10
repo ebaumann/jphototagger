@@ -17,7 +17,7 @@ import java.util.EnumSet;
  * {@link FileSystemActionListener} to a process copying/renaming/deleting
  * files. Example:
  *
- * @{@code
+ * {@code
  * CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
  * dialog.setSourceFiles(files);
  * dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater());

@@ -21,7 +21,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * Panel to select files for a {@link de.elmar_baumann.imv.tasks.FileEditor}.
+ * Panel to select files for a {@link de.elmar_baumann.imv.types.FileEditor}.
  * Starts a thread, let the editor edit all selected files and displays the
  * progress.
  *

@@ -28,7 +28,7 @@ public final class Flavors {
     private final class THUMBNAILS_PANEL {
     }
     /**
-     * {@link DataFlavor.javaFileListFlavor}
+     * {@link DataFlavor#javaFileListFlavor}
      */
     public static final DataFlavor FILE_LIST_FLAVOR =
             DataFlavor.javaFileListFlavor;

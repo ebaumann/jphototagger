@@ -10,7 +10,9 @@ import de.elmar_baumann.imv.data.Xmp;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.Join;
 import de.elmar_baumann.imv.database.metadata.Join.Type;
+import de.elmar_baumann.imv.database.metadata.exif.TableExif;
 import de.elmar_baumann.imv.database.metadata.file.ColumnFilesFilename;
+import de.elmar_baumann.imv.database.metadata.file.TableFiles;
 import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.imv.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.imv.event.DatabaseImageEvent;
@@ -1340,8 +1342,8 @@ public final class DatabaseImageFiles extends Database {
      * E.g. If You are searching for an image with a tree AND a cloud AND
      * a car the list contains these three words.
      *
-     * Because it's faster, call {@link #getFilenamesOfDcSubject()} if You are
-     * searching for only one subject.
+     * Because it's faster, call {@link #getFilenamesOfDcSubject(java.lang.String)}
+     * if You are searching for only one subject.
      *
      * @param  dcSubjects subjects
      * @return            images containing all of these subjects
@@ -1382,8 +1384,8 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns all images which have at least one of subjects in a list.
      *
-     * Because it's faster, call {@link #getFilenamesOfDcSubject()} if You are
-     * searching for only one subject.
+     * Because it's faster, call {@link #getFilenamesOfDcSubject(java.lang.String)}
+     * if You are searching for only one subject.
      *
      * @param  dcSubjects subjects
      * @return            images containing one or more of these subjects

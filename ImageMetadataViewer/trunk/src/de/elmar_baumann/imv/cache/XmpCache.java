@@ -134,8 +134,8 @@ public class XmpCache extends Cache<XmpCacheIndirection> {
     /**
      * Interface for consumers.
      *
-     * @param  index index
-     * @return       XMP metadata
+     * @param  file file
+     * @return      XMP metadata
      */
     public synchronized Xmp getXmp(File file) {
         XmpCacheIndirection ci = fileCache.get(file);

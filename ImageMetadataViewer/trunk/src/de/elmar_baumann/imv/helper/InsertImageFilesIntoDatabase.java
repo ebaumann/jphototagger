@@ -94,7 +94,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * @param what                what to insert
      * @param progressBarResource a resource with an <code>JProgressBar</code>
      *                            as
-     *                            {@link MutualExcludedResource#getResource(java.lang.Object)
+     *                            {@link MutualExcludedResource#getResource(java.lang.Object)}
      *                            or null if this class shall not display the
      *                            progress
      */
@@ -130,7 +130,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * Removes an action listener.
      *
      * @param listener action listener
-     * @see   #addActionListener(java.awt.event.ActionListener)
+     * @see   #addActionListener(CheckingForUpdateMetadataListener)
      */
     public void removeActionListener(CheckingForUpdateMetadataListener listener) {
         actionListeners.remove(listener);
