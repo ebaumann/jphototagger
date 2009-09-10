@@ -2,6 +2,7 @@ package de.elmar_baumann.imv.view.panels;
 
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppInit;
+import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
@@ -48,6 +49,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.JViewport;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -469,6 +472,57 @@ public final class AppPanel extends javax.swing.JPanel implements
                 singleSelecion);
         treeMiscMetadata.getSelectionModel().setSelectionMode(singleSelecion);
         treeTimeline.getSelectionModel().setSelectionMode(singleSelecion);
+    }
+
+    public void showMessage(final String message, final long milliseconds) {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                PopupFactory factory = PopupFactory.getSharedInstance();
+                MessagePopupPanel messagePanel = new MessagePopupPanel(message);
+                ThumbnailsPanel tnPanel =
+                        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+                int x = progressBarAutomaticTasks.getLocationOnScreen().x + 4;
+                int y = progressBarAutomaticTasks.getLocationOnScreen().y + 1;
+                Dimension d = new Dimension(
+                        progressBarAutomaticTasks.getWidth() - 8,
+                        progressBarAutomaticTasks.getHeight() - 2);
+                messagePanel.setPreferredSize(d);
+                messagePanel.setSize(d);
+                ProgressBarAutomaticTasks.INSTANCE.releaseResource(this);
+                Popup popup = factory.getPopup(tnPanel, messagePanel, x, y);
+                popup.show();
+                Thread thread = new Thread(new HidePopup(popup, milliseconds));
+                thread.setName("Hiding message popup @ " + getClass().getName()); // NOI18N
+                thread.setPriority(Thread.MIN_PRIORITY);
+                thread.start();
+            }
+        });
+        thread.setPriority(Thread.MIN_PRIORITY);
+        thread.setName("Showing message popup @ " + ViewUtil.class.getName()); // NOI18N
+        thread.start();
+    }
+
+    private static class HidePopup implements Runnable {
+
+        private final Popup popup;
+        private final long milliseconds;
+
+        public HidePopup(Popup popup, long milliseconds) {
+            this.popup = popup;
+            this.milliseconds = milliseconds;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(milliseconds);
+            } catch (InterruptedException ex) {
+                AppLog.logSevere(ViewUtil.class, ex);
+            }
+            popup.hide();
+        }
     }
 
     /** This method is called from within the constructor to
