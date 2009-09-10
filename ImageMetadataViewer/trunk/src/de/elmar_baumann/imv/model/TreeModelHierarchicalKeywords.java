@@ -76,19 +76,25 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 userObject instanceof HierarchicalKeyword : parentNode;
         if (parentIsRoot || userObject instanceof HierarchicalKeyword) {
             Long idParent = parentIsRoot
-                            ? null
-                            : ((HierarchicalKeyword) userObject).getId();
+                    ? null
+                    : ((HierarchicalKeyword) userObject).getId();
             HierarchicalKeyword child = new HierarchicalKeyword(
                     null, idParent, keyword, true);
             if (db.insert(child)) {
-                DefaultMutableTreeNode childNode =
-                        new TreeNodeSortedChildren(child);
-                insertNodeInto(childNode, parentNode, parentNode.getChildCount());
+                insertNode(parentNode, new TreeNodeSortedChildren(child));
             } else {
                 MessageDisplayer.error(null,
                         "TreeModelHierarchicalKeywords.Error.DbInsert", keyword); // NOI18N
             }
         }
+    }
+
+    private void insertNode(
+            DefaultMutableTreeNode parent, DefaultMutableTreeNode child) {
+        parent.add(child);
+        int childIndex = parent.getIndex(child);
+        fireTreeNodesInserted(this, parent.getPath(), new int[]{childIndex},
+                new Object[]{child});
     }
 
     private boolean checkKeywordExists(
@@ -242,7 +248,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         for (HierarchicalKeyword rootKeyword : roots) {
             DefaultMutableTreeNode rootNode =
                     new TreeNodeSortedChildren(rootKeyword);
-            insertNodeInto(rootNode, ROOT, ROOT.getChildCount());
+            insertNode(ROOT, rootNode);
             insertChildren(rootNode);
         }
     }
@@ -254,7 +260,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 db.getChildren(parent.getId());
         for (HierarchicalKeyword child : children) {
             DefaultMutableTreeNode childNode = new TreeNodeSortedChildren(child);
-            insertNodeInto(childNode, parentNode, parentNode.getChildCount());
+            insertNode(parentNode, childNode);
             insertChildren(childNode); // recursive
         }
     }
