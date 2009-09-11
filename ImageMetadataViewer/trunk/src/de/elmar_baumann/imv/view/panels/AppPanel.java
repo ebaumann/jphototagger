@@ -1097,7 +1097,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         new ControllerAddHierarchicalKeywordsToEditPanel(panelHierarchicalKeywords);
         new ControllerRemoveHierarchicalKeywordFromEditPanel(panelHierarchicalKeywords);
         new ControllerCutPasteHierarchicalKeyword(panelHierarchicalKeywords);
-        new ControllerHierarchicalKeywordsDisplayImages(panelHierarchicalKeywords);
+        new de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages(panelHierarchicalKeywords);
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
         panelMetadata.setLayout(panelMetadataLayout);
@@ -1169,7 +1169,7 @@ public final class AppPanel extends javax.swing.JPanel implements
 
         buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
         buttonStopScheduledTasks.setAlignmentY(0.0F);
-        buttonStopScheduledTasks.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(175, 175, 175)));
+        buttonStopScheduledTasks.setBorder(null);
         buttonStopScheduledTasks.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_stop_scheduled_tasks_disabled.png"))); // NOI18N
         buttonStopScheduledTasks.setEnabled(false);
         buttonStopScheduledTasks.setMaximumSize(new java.awt.Dimension(16, 16));

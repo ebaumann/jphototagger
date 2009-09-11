@@ -1,6 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.UserSettings;
+import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent;
 import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent.Type;
@@ -8,38 +9,52 @@ import de.elmar_baumann.imv.event.listener.CheckingForUpdateMetadataListener;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.concurrent.SerialExecutor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JButton;
 
 /**
- * Kontrolliert: Regelmäßiger Task, der Verzeichnisse nach modifizierten
- * Metadaten scannt und bei Funden die Datenbank aktualisiert. Arbeitet
- * erst durch Aufruf von {@link #run()}.
+ * Runs scheduled tasks after {@link UserSettings#getMinutesToStartScheduledTasks()}.
+ *
+ * To work initially, {@link #run()} has to be called.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ScheduledTasks implements CheckingForUpdateMetadataListener {
+public final class ScheduledTasks implements ActionListener,
+                                             CheckingForUpdateMetadataListener {
 
-    public static final ScheduledTasks INSTANCE =
-            new ScheduledTasks();
+    public static final ScheduledTasks INSTANCE = new ScheduledTasks();
     private final SerialExecutor executor =
             new SerialExecutor(Executors.newCachedThreadPool());
-    private static final long MINUTES_WAIT_BEFORE_PERFORM =
+    private final JButton button =
+            GUI.INSTANCE.getAppPanel().getButtonStopScheduledTasks();
+    private final long MINUTES_WAIT_BEFORE_PERFORM =
             UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
+    private volatile boolean isRunning = false;
+
+    private enum ButtonState {
+
+        START,
+        STOP
+    }
 
     /**
-     * Runs the tasks.
+     * Runs the tasks after {@link UserSettings#getMinutesToStartScheduledTasks()}.
      */
     public synchronized void run() {
-        if (MINUTES_WAIT_BEFORE_PERFORM <= 0) return;
+        if (isRunning || MINUTES_WAIT_BEFORE_PERFORM <= 0) return;
+        isRunning = true;
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
                     TimeUnit.MINUTES.sleep(MINUTES_WAIT_BEFORE_PERFORM);
+                    setStart();
                     startUpdate();
                 } catch (Exception ex) {
                     AppLog.logSevere(getClass(), ex);
@@ -73,13 +88,12 @@ public final class ScheduledTasks implements CheckingForUpdateMetadataListener {
      */
     public void shutdown() {
         executor.shutdown();
-        setEnabledStopButton(false);
+        setButtonState(ButtonState.START);
     }
 
     private void startUpdate() {
         List<InsertImageFilesIntoDatabase> updaters =
                 ScheduledTaskInsertImageFilesIntoDatabase.getThreads();
-        setEnabledStopButton(true);
         for (InsertImageFilesIntoDatabase updater : updaters) {
             executor.execute(updater);
         }
@@ -91,15 +105,46 @@ public final class ScheduledTasks implements CheckingForUpdateMetadataListener {
     @Override
     public void actionPerformed(CheckForUpdateMetadataEvent evt) {
         if (evt.getType().equals(Type.CHECK_FINISHED)) {
-            setEnabledStopButton(false);
+            setButtonState(ButtonState.START);
+            isRunning = false;
         }
     }
 
-    public void setEnabledStopButton(boolean enabled) {
-        GUI.INSTANCE.getAppPanel().getButtonStopScheduledTasks().setEnabled(
-                enabled);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        synchronized (button) {
+            if (isRunning) {
+                shutdown();
+            } else {
+                setStart();
+                startUpdate();
+            }
+        }
+    }
+
+    private void setStart() {
+        synchronized (button) {
+            isRunning = true;
+            setButtonState(ButtonState.STOP);
+        }
+    }
+
+    private void setButtonState(ButtonState state) {
+        button.setEnabled(true);
+        if (state.equals(ButtonState.START)) {
+            button.setIcon(AppIcons.getIcon("icon_start_scheduled_tasks.png"));
+        } else if (state.equals(ButtonState.STOP)) {
+            button.setIcon(AppIcons.getIcon(
+                    "icon_stop_scheduled_tasks_enabled.png"));
+        } else {
+            assert false : "Unhandled state!";
+        }
     }
 
     private ScheduledTasks() {
+        if (MINUTES_WAIT_BEFORE_PERFORM <= 0) {
+            setButtonState(ButtonState.START);
+        }
+        button.addActionListener(this);
     }
 }
