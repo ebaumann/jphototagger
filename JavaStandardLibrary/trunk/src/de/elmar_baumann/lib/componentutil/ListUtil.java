@@ -102,8 +102,8 @@ public final class ListUtil {
         int size = model.getSize();
         for (int i = 0; i < size; i++) {
             buffer.append(model.get(i).toString() + (i < size - 1
-                                                     ? delim
-                                                     : "")); // NOI18N
+                    ? delim
+                    : "")); // NOI18N
         }
         return buffer.toString();
     }
@@ -241,6 +241,33 @@ public final class ListUtil {
             list.add(model.getElementAt(i).toString());
         }
         return list;
+    }
+
+    /**
+     * Selects in a list a specific element.
+     *
+     * @param list       list
+     * @param element    element to select. Uses <code>equals()</code> to
+     *                   compare this element with the list's model elements
+     * @param startIndex index of the first element to compare
+     * @return           index of selected element or -1 if no element was
+     *                   selected
+     */
+    public static int select(JList list, Object element, int startIndex) {
+        int selIndex = -1;
+        ListModel model = list.getModel();
+        int size = model.getSize();
+        for (int i = startIndex; selIndex == -1 && i < size; i++) {
+            Object o = model.getElementAt(i);
+            if (element.equals(o)) {
+                selIndex = i;
+            }
+        }
+        if (selIndex >= 0) {
+            list.setSelectedIndex(selIndex);
+            list.ensureIndexIsVisible(selIndex);
+        }
+        return selIndex;
     }
 
     private ListUtil() {
