@@ -1167,6 +1167,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         progressBarScheduledTasks.setName("progressBarScheduledTasks"); // NOI18N
 
         buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
+        buttonStopScheduledTasks.setToolTipText(bundle.getString("AppPanel.buttonStopScheduledTasks.toolTipText")); // NOI18N
         buttonStopScheduledTasks.setAlignmentY(0.0F);
         buttonStopScheduledTasks.setBorder(null);
         buttonStopScheduledTasks.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/imv/resource/icons/icon_stop_scheduled_tasks_disabled.png"))); // NOI18N

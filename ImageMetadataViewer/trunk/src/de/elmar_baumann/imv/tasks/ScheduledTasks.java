@@ -7,13 +7,17 @@ import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent;
 import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent.Type;
 import de.elmar_baumann.imv.event.listener.CheckingForUpdateMetadataListener;
 import de.elmar_baumann.imv.helper.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.lib.concurrent.SerialExecutor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import javax.swing.Icon;
 import javax.swing.JButton;
 
 /**
@@ -25,7 +29,7 @@ import javax.swing.JButton;
  * @version 2008-10-05
  */
 public final class ScheduledTasks implements ActionListener,
-                                             CheckingForUpdateMetadataListener {
+        CheckingForUpdateMetadataListener {
 
     public static final ScheduledTasks INSTANCE = new ScheduledTasks();
     private final SerialExecutor executor =
@@ -34,7 +38,22 @@ public final class ScheduledTasks implements ActionListener,
             GUI.INSTANCE.getAppPanel().getButtonStopScheduledTasks();
     private final long MINUTES_WAIT_BEFORE_PERFORM =
             UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
+    private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE =
+            new HashMap<ButtonState, Icon>();
+    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE =
+            new HashMap<ButtonState, String>();
     private volatile boolean isRunning = false;
+
+    static {
+        ICON_OF_BUTTON_STATE.put(ButtonState.START,
+                AppLookAndFeel.getIcon("icon_start_scheduled_tasks.png"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START,
+                Bundle.getString("ScheduledTasks.TooltipText.Start"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.STOP,
+                Bundle.getString("ScheduledTasks.TooltipText.Stop"));
+        ICON_OF_BUTTON_STATE.put(ButtonState.STOP,
+                AppLookAndFeel.getIcon("icon_stop_scheduled_tasks_enabled.png"));
+    }
 
     private enum ButtonState {
 
@@ -89,6 +108,7 @@ public final class ScheduledTasks implements ActionListener,
     public void shutdown() {
         executor.shutdown();
         setButtonState(ButtonState.START);
+        isRunning = false;
     }
 
     private void startUpdate() {
@@ -131,14 +151,8 @@ public final class ScheduledTasks implements ActionListener,
 
     private void setButtonState(ButtonState state) {
         button.setEnabled(true);
-        if (state.equals(ButtonState.START)) {
-            button.setIcon(AppLookAndFeel.getIcon("icon_start_scheduled_tasks.png"));
-        } else if (state.equals(ButtonState.STOP)) {
-            button.setIcon(AppLookAndFeel.getIcon(
-                    "icon_stop_scheduled_tasks_enabled.png"));
-        } else {
-            assert false : "Unhandled state!";
-        }
+        button.setIcon(ICON_OF_BUTTON_STATE.get(state));
+        button.setToolTipText(TOOLTIP_TEXT_OF_BUTTON_STATE.get(state));
     }
 
     private ScheduledTasks() {
