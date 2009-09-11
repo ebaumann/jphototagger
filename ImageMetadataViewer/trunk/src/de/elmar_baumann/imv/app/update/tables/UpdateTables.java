@@ -22,6 +22,7 @@ public final class UpdateTables extends Database {
         new UpdateTablesRenameColumns().update(connection);
         new UpdateTablesAddColumns().update(connection);
         new UpdateTablesIndexes().update(connection);
+        new UpdateTablesPrimaryKeys().update(connection);
         new UpdateTablesXmpLastModified().update(connection);
         new UpdateTablesPrograms().update(connection);
         new UpdateTablesDeleteInvalidExif().update(connection);
