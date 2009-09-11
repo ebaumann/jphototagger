@@ -234,12 +234,13 @@ public final class DatabaseTables extends Database {
                     "id_collectionnnames BIGINT" + // NOI18N
                     ", id_files BIGINT" + // NOI18N
                     ", sequence_number INTEGER" + // NOI18N
-                    ", PRIMARY KEY (id_collectionnnames, id_files)" + // NOI18N
                     ", FOREIGN KEY (id_collectionnnames) REFERENCES collection_names (id) ON DELETE CASCADE" + // NOI18N
                     ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" + // NOI18N
                     ");"); // NOI18N
             stmt.execute(
-                    "CREATE UNIQUE INDEX idx_collections_id ON collections (id_collectionnnames, id_files)"); // NOI18N
+                    "CREATE INDEX idx_collections_id_collectionnnames ON collections (id_collectionnnames)"); // NOI18N
+            stmt.execute(
+                    "CREATE INDEX idx_collections_id_files ON collections (id_files)"); // NOI18N
             stmt.execute(
                     "CREATE INDEX idx_collections_sequence_number ON collections (sequence_number)"); // NOI18N
         }
