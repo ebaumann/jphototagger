@@ -22,6 +22,29 @@
         <title>Die Schnellsuche</title>
     </page>
     <node>
+        <title>Schnell arbeiten (Zeit sparen)</title>
+        <page>
+            <url>tip_work_fast_order_hierarchical_keywords.html</url>
+            <title>Stichwörter im Stichwortbaum ordnen</title>
+        </page>
+        <page>
+            <url>tip_work_fast_move_into_hierarchical_keywords.html</url>
+            <title>Stichwortbaum: Stichwörter schnell in den Vordergrund bringen</title>
+        </page>
+        <page>
+            <url>tip_work_fast_moving_in_lists.html</url>
+            <title>Listeninhalte (Stichwörter, ...) schnell in den Vordergrund bringen</title>
+        </page>
+        <page>
+            <url>tip_work_fast_fix_typos.html</url>
+            <title>Tippfehler bei vielen Bildern korrigieren</title>
+        </page>
+        <page>
+            <url>tip_work_fast_add_hierarchical_keywords.html</url>
+            <title>Vergessene übergeordnete Stichwörter zuordnen</title>
+        </page>
+    </node>
+    <node>
         <title>Die Auswahl-Kartenreiter</title>
         <page>
             <url>mainwindow_panel_folder.html</url>
