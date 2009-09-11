@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.app.AppLookAndFeel;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import java.awt.Component;
@@ -22,10 +22,10 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellRenderer {
 
-    private static final Icon ICON_REAL = AppIcons.getIcon("icon_keyword.png"); // NOI18N
+    private static final Icon ICON_REAL = AppLookAndFeel.getIcon("icon_keyword.png"); // NOI18N
     private static final Icon ICON_REAL_HIGHLIGHTED =
-            AppIcons.getIcon("icon_keyword_hk_highlighted.png"); // NOI18N
-    private static final Icon ICON_HELPER = AppIcons.getIcon("icon_folder.png"); // NOI18N
+            AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png"); // NOI18N
+    private static final Icon ICON_HELPER = AppLookAndFeel.getIcon("icon_folder.png"); // NOI18N
     private final List<String> keywords = new ArrayList<String>();
     private int popupHighLightRow = -1;
 

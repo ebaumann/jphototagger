@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -122,7 +122,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         if (action) {
             setActionTexts();
         } else {

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.event.ProgramEvent;
@@ -31,7 +31,7 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
     }
 
     private void postInitComponents() {
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         panelActions.addActionListener(this);
         registerKeyStrokes();
     }

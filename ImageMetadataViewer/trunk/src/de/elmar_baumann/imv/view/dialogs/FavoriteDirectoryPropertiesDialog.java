@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.DatabaseFavoriteDirectories;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
-    private static final List<Image> APP_ICONS = AppIcons.getAppIcons();
+    private static final List<Image> APP_ICONS = AppLookAndFeel.getAppIcons();
     private static final String KEY_LAST_DIRECTORY =
             "de.elmar_baumann.imv.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory"; // NOI18N
     private final DatabaseFavoriteDirectories db =

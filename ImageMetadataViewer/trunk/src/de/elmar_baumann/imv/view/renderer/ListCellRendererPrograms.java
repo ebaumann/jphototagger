@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.Program;
 import java.awt.Component;
@@ -21,7 +21,7 @@ public final class ListCellRendererPrograms extends DefaultListCellRenderer {
 
     private static final FileSystemView FILE_SYSTEM_VIEW =
             FileSystemView.getFileSystemView();
-    private static final Icon ICON_ERROR = AppIcons.getIcon("icon_error.png"); // NOI18N
+    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png"); // NOI18N
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

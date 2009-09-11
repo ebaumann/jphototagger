@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.lib.thirdparty.DateChooserDialog;
 import de.elmar_baumann.imv.data.SavedSearchPanel;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -372,7 +372,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setDate() {
-        GregorianCalendar cal = DateChooserDialog.showDialog(this, AppIcons.
+        GregorianCalendar cal = DateChooserDialog.showDialog(this, AppLookAndFeel.
                 getAppIcons());
         if (cal != null) {
             String year = Integer.toString(cal.get(Calendar.YEAR));

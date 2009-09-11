@@ -2,7 +2,7 @@ package de.elmar_baumann.imv.controller.misc;
 
 import de.elmar_baumann.imv.Main;
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
@@ -84,7 +84,7 @@ public final class ControllerHelp
     }
 
     private void initHelp() {
-        help.setIconImages(AppIcons.getAppIcons());
+        help.setIconImages(AppLookAndFeel.getAppIcons());
         if (help.getContentsUrl() == null ||
                 !help.getContentsUrl().equals(HELP_CONTENTS_URL)) {
             help.setContentsUrl(HELP_CONTENTS_URL);

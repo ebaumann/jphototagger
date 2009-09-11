@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.frames;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.app.AppLifeCycle;
 import de.elmar_baumann.lib.comparator.FileSort;
@@ -108,7 +108,7 @@ public final class AppFrame extends javax.swing.JFrame {
         MenuUtil.setMnemonics(menuBar);
         initSortMenuItemsMap();
         initGotoMenuItemsMap();
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         AppLifeCycle.INSTANCE.started(this);
     }
 

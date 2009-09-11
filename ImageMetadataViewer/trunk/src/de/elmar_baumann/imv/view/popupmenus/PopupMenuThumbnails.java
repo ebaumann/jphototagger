@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.data.Program;
 import de.elmar_baumann.imv.database.DatabasePrograms;
 import de.elmar_baumann.imv.event.UserSettingsChangeEvent;
@@ -145,44 +145,44 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void initItemIcons() {
-        ICON_OF_ITEM.put(itemAddToImageCollection, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemAddToImageCollection, AppLookAndFeel.getIcon(
                 "icon_imagecollection_add_to.png")); // NOI18N
-        ICON_OF_ITEM.put(itemCreateImageCollection, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemCreateImageCollection, AppLookAndFeel.getIcon(
                 "icon_imagecollection.png")); // NOI18N
-        ICON_OF_ITEM.put(itemDeleteFromImageCollection, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemDeleteFromImageCollection, AppLookAndFeel.getIcon(
                 "icon_imagecollection_remove_from.png")); // NOI18N
-        ICON_OF_ITEM.put(itemDeleteImageFromDatabase, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemDeleteImageFromDatabase, AppLookAndFeel.getIcon(
                 "icon_database_delete_from.png")); // NOI18N
-        ICON_OF_ITEM.put(itemFileSystemCopyToDirectory, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemFileSystemCopyToDirectory, AppLookAndFeel.getIcon(
                 "icon_copy_to_folder.png")); // NOI18N
-        ICON_OF_ITEM.put(itemFileSystemDeleteFiles, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemFileSystemDeleteFiles, AppLookAndFeel.getIcon(
                 "icon_delete.png")); // NOI18N
-        ICON_OF_ITEM.put(itemFileSystemMoveFiles, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemFileSystemMoveFiles, AppLookAndFeel.getIcon(
                 "icon_move_to_folder.png")); // NOI18N
-        ICON_OF_ITEM.put(itemFileSystemRenameFiles, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemFileSystemRenameFiles, AppLookAndFeel.getIcon(
                 "icon_rename.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRotateThumbnai180, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemRotateThumbnai180, AppLookAndFeel.getIcon(
                 "icon_rotate_180.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRotateThumbnail270, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemRotateThumbnail270, AppLookAndFeel.getIcon(
                 "icon_rotate_270.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRotateThumbnai90, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemRotateThumbnai90, AppLookAndFeel.getIcon(
                 "icon_rotate_90.png")); // NOI18N
-        ICON_OF_ITEM.put(itemUpdateMetadata, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemUpdateMetadata, AppLookAndFeel.getIcon(
                 "icon_metadata_refresh.png")); // NOI18N
-        ICON_OF_ITEM.put(itemUpdateThumbnail, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemUpdateThumbnail, AppLookAndFeel.getIcon(
                 "icon_image_refresh.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRefresh, AppIcons.getIcon("icon_refresh.png")); // NOI18N
-        ICON_OF_ITEM.put(itemIptcToXmp, AppIcons.getIcon("icon_iptc.png")); // NOI18N
-        ICON_OF_ITEM.put(itemPick, AppIcons.getIcon("icon_picked.png")); // NOI18N
-        ICON_OF_ITEM.put(itemReject, AppIcons.getIcon("icon_rejected.png")); // NOI18N
-        ICON_OF_ITEM.put(menuRating, AppIcons.getIcon("icon_xmp_rating_set.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating0, AppIcons.getIcon(
+        ICON_OF_ITEM.put(itemRefresh, AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
+        ICON_OF_ITEM.put(itemIptcToXmp, AppLookAndFeel.getIcon("icon_iptc.png")); // NOI18N
+        ICON_OF_ITEM.put(itemPick, AppLookAndFeel.getIcon("icon_picked.png")); // NOI18N
+        ICON_OF_ITEM.put(itemReject, AppLookAndFeel.getIcon("icon_rejected.png")); // NOI18N
+        ICON_OF_ITEM.put(menuRating, AppLookAndFeel.getIcon("icon_xmp_rating_set.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating0, AppLookAndFeel.getIcon(
                 "icon_xmp_rating_remove.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating1, AppIcons.getIcon("icon_xmp_rating_1.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating2, AppIcons.getIcon("icon_xmp_rating_2.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating3, AppIcons.getIcon("icon_xmp_rating_3.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating4, AppIcons.getIcon("icon_xmp_rating_4.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating5, AppIcons.getIcon("icon_xmp_rating_5.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating1, AppLookAndFeel.getIcon("icon_xmp_rating_1.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating2, AppLookAndFeel.getIcon("icon_xmp_rating_2.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating3, AppLookAndFeel.getIcon("icon_xmp_rating_3.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating4, AppLookAndFeel.getIcon("icon_xmp_rating_4.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating5, AppLookAndFeel.getIcon("icon_xmp_rating_5.png")); // NOI18N
     }
 
     private void addItems() {
@@ -217,7 +217,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void addPluginItems() {
-        Icon iconPlugin = AppIcons.getIcon("icon_plugin.png");
+        Icon iconPlugin = AppLookAndFeel.getIcon("icon_plugin.png");
         menuPlugins.setIcon(iconPlugin);
         add(menuPlugins);
         Logger logger = Logger.getLogger("de.elmar_baumann.imv.plugin");

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.exporter;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.io.CharEncoding;
@@ -32,7 +32,7 @@ final class HierarchicalKeywordsExporterLightroom
 
     public static final HierarchicalKeywordsExporterLightroom INSTANCE =
             new HierarchicalKeywordsExporterLightroom();
-    private static final Icon icon = AppIcons.getIcon("icon_lightroom.png"); // NOI18N
+    private static final Icon icon = AppLookAndFeel.getIcon("icon_lightroom.png"); // NOI18N
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions

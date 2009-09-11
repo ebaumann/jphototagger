@@ -2,17 +2,19 @@ package de.elmar_baumann.imv.app;
 
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.Icon;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
 /**
- * Sets the look and feel of this application.
+ * Look and feel of this application.
  * 
- * Currently only the font weights are set (bold or not) to look consistent
- * under certain operation systems.
- *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-06
  */
@@ -83,7 +85,61 @@ public final class AppLookAndFeel {
      */
     public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST =
             COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE;
+    /**
+     * Path where all icons stored
+     */
+    private static final String PATH_ICONS =
+            "/de/elmar_baumann/imv/resource/icons"; // NOI18N
+    /**
+     * Path to the small application's icon (16 x 16 pixels)
+     */
+    private static final String PATH_APP_ICON_SMALL =
+            PATH_ICONS + "/icon_app_small.png";  // NOI18N
+    /**
+     * Path to the medium sized application's icon (32 x 32 pixels)
+     */
+    private static final String PATH_APP_ICON_MEDIUM =
+            PATH_ICONS + "/icon_app_medium.png";  // NOI18N
+    private static List<String> appIconPaths = new ArrayList<String>();
+    private static List<Image> appIcons = new ArrayList<Image>();
 
+    static {
+        appIconPaths.add(PATH_APP_ICON_SMALL);
+        appIconPaths.add(PATH_APP_ICON_MEDIUM);
+    }
+
+    static {
+        appIcons.add(IconUtil.getIconImage(PATH_APP_ICON_SMALL));
+        appIcons.add(IconUtil.getIconImage(PATH_APP_ICON_MEDIUM));
+    }
+
+    /**
+     * Returns the application's icons (small and medium sized).
+     *
+     * @return icons
+     */
+    public static List<Image> getAppIcons() {
+        return appIcons;
+    }
+
+    /**
+     * Returns the paths to the application's icons (small and medium sized).
+     *
+     * @return Pfade
+     */
+    public static List<String> getAppIconPaths() {
+        return appIconPaths;
+    }
+
+    /**
+     * Returns an icon located in the application's icon path.
+     *
+     * @param  name  name of the icon file
+     * @return icon
+     */
+    public static Icon getIcon(String name) {
+        return IconUtil.getImageIcon(PATH_ICONS + "/" + name); // NOI18N
+    }
     /**
      * CSS of the table row headers
      */
@@ -108,7 +164,7 @@ public final class AppLookAndFeel {
     public static void set() {
         LookAndFeelUtil.setSystemLookAndFeel();
         setFonts();
-        SystemOutputDialog.INSTANCE.setIconImages(AppIcons.getAppIcons());
+        SystemOutputDialog.INSTANCE.setIconImages(getAppIcons());
     }
 
     private static void setFonts() {
@@ -154,8 +210,8 @@ public final class AppLookAndFeel {
     private static void setFontWeight(String key, boolean bold) {
         Font defaultFont = UIManager.getFont(key);
         int weight = bold
-                     ? Font.BOLD
-                     : Font.PLAIN;
+                ? Font.BOLD
+                : Font.PLAIN;
         if (defaultFont != null) {
             Font plainFont = new Font(defaultFont.getName(),
                     defaultFont.isItalic()

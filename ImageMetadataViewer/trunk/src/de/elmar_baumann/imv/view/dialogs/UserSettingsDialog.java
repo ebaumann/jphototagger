@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.types.Persistence;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -73,7 +73,7 @@ public final class UserSettingsDialog extends Dialog {
     private void postInitComponents() {
         initMaps();
         initPersistentPanels();
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         readProperties();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();

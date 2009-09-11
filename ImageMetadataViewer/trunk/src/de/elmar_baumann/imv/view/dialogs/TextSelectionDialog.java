@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.TextSelectionPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -25,7 +25,7 @@ public class TextSelectionDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         registerKeyStrokes();
     }
 

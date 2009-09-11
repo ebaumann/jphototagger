@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.database.metadata.Column;
 import de.elmar_baumann.imv.database.metadata.selections.EditColumns;
@@ -29,7 +29,7 @@ public final class RenameXmpMetadataDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         setModel();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();

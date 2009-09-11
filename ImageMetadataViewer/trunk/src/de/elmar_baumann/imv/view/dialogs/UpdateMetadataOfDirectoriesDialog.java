@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import java.awt.Frame;
@@ -25,7 +25,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();

@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.controller.filesystem.FilenameFormatDate;
@@ -60,7 +60,7 @@ public final class RenameDialog extends Dialog {
     private void postInitComponents() {
         listenerProvider = ListenerProvider.INSTANCE;
         renameFileListeners = listenerProvider.getRenameFileListeners();
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         setComboBoxModels();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.TextEntry;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -34,11 +34,11 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
     public RatingSelectionPanel(Column column) {
         this.column = column;
 
-        star = AppIcons.getIcon("icon_xmp_rating_set.png"); // NOI18N
-        dark_star = AppIcons.getIcon("icon_xmp_rating_not_set.png"); // NOI18N
-        icon_rating_remove = AppIcons.getIcon("icon_xmp_rating_remove.png"); // NOI18N
+        star = AppLookAndFeel.getIcon("icon_xmp_rating_set.png"); // NOI18N
+        dark_star = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png"); // NOI18N
+        icon_rating_remove = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png"); // NOI18N
         icon_rating_remove_not_set =
-                AppIcons.getIcon("icon_xmp_rating_remove_not_set.png"); // NOI18N
+                AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png"); // NOI18N
         initComponents();
         buttons[0] = buttonStar1;
         buttons[1] = buttonStar2;

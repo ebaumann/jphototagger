@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.app.AppLookAndFeel;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
 import java.awt.Color;
@@ -22,7 +22,7 @@ import javax.swing.JList;
 public final class ListCellRendererImageCollections extends DefaultListCellRenderer {
 
     private static final Icon ICON_DEFAULT =
-            AppIcons.getIcon("icon_imagecollection.png"); // NOI18N
+            AppLookAndFeel.getIcon("icon_imagecollection.png"); // NOI18N
     private static final Color COLOR_FOREGROUND_PREV_IMPORT = Color.BLUE;
     private static final Map<Object, Icon> ICON_OF_VALUE =
             new HashMap<Object, Icon>();
@@ -31,11 +31,11 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
     {
         ICON_OF_VALUE.put(
                 AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT,
-                AppIcons.getIcon("icon_card.png")); // NOI18N
+                AppLookAndFeel.getIcon("icon_card.png")); // NOI18N
         ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED,
-                AppIcons.getIcon("icon_picked.png")); // NOI18N
+                AppLookAndFeel.getIcon("icon_picked.png")); // NOI18N
         ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED,
-                AppIcons.getIcon("icon_rejected.png")); // NOI18N
+                AppLookAndFeel.getIcon("icon_rejected.png")); // NOI18N
     }
 
     @Override

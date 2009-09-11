@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
@@ -15,7 +15,7 @@ import javax.swing.JList;
  */
 public final class ListCellRendererKeywordsEdit extends DefaultListCellRenderer {
 
-    private static final Icon ICON = AppIcons.getIcon("icon_keyword_list.png"); // NOI18N
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword_list.png"); // NOI18N
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

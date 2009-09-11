@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.data.SavedSearch;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.InputEvent;
@@ -87,10 +87,10 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
     }
 
     private void setIcons() {
-        itemCreate.setIcon(AppIcons.getIcon("icon_add.png")); // NOI18N
-        itemDelete.setIcon(AppIcons.getIcon("icon_remove.png")); // NOI18N
-        itemEdit.setIcon(AppIcons.getIcon("icon_edit.png")); // NOI18N
-        itemRename.setIcon(AppIcons.getIcon("icon_rename.png")); // NOI18N
+        itemCreate.setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
+        itemDelete.setIcon(AppLookAndFeel.getIcon("icon_remove.png")); // NOI18N
+        itemEdit.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
+        itemRename.setIcon(AppLookAndFeel.getIcon("icon_rename.png")); // NOI18N
     }
 
     private void setAccelerators() {

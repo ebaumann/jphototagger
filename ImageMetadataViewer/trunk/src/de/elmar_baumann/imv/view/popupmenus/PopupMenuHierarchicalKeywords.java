@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import java.awt.event.InputEvent;
@@ -137,16 +137,16 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
     }
 
     private void setIcons() {
-        menuItemAdd.setIcon(AppIcons.getIcon("icon_add.png")); // NOI18N
-        menuItemRemove.setIcon(AppIcons.getIcon("icon_remove.png")); // NOI18N
-        menuItemRename.setIcon(AppIcons.getIcon("icon_rename.png")); // NOI18N
-        menuItemToggleReal.setIcon(AppIcons.getIcon(
+        menuItemAdd.setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
+        menuItemRemove.setIcon(AppLookAndFeel.getIcon("icon_remove.png")); // NOI18N
+        menuItemRename.setIcon(AppLookAndFeel.getIcon("icon_rename.png")); // NOI18N
+        menuItemToggleReal.setIcon(AppLookAndFeel.getIcon(
                 "icon_keyword_real_helper.png")); // NOI18N
-        menuItemAddToEditPanel.setIcon(AppIcons.getIcon("icon_edit.png")); // NOI18N
-        menuItemRemoveFromEditPanel.setIcon(AppIcons.getIcon("icon_delete.png")); // NOI18N
-        menuItemCut.setIcon(AppIcons.getIcon("icon_cut_to_clipboard.png")); // NOI18N
-        menuItemPaste.setIcon(AppIcons.getIcon("icon_paste_from_clipboard.png")); // NOI18N
-        menuItemDisplayImages.setIcon(AppIcons.getIcon("icon_thumbnails.png")); // NOI18N
+        menuItemAddToEditPanel.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
+        menuItemRemoveFromEditPanel.setIcon(AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
+        menuItemCut.setIcon(AppLookAndFeel.getIcon("icon_cut_to_clipboard.png")); // NOI18N
+        menuItemPaste.setIcon(AppLookAndFeel.getIcon("icon_paste_from_clipboard.png")); // NOI18N
+        menuItemDisplayImages.setIcon(AppLookAndFeel.getIcon("icon_thumbnails.png")); // NOI18N
     }
 
     private void setAccelerators() {

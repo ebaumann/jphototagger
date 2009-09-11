@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.controller.misc;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.AppLoggingSystem;
@@ -32,8 +32,8 @@ public final class ControllerLogfileDialog implements ActionListener,
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonLogfileDialog =
             appPanel.getButtonLogfileDialog();
-    private static final Icon ICON_OK = AppIcons.getIcon("icon_ok.png"); // NOI18N
-    private static final Icon ICON_ERROR = AppIcons.getIcon("icon_error.png"); // NOI18N
+    private static final Icon ICON_OK = AppLookAndFeel.getIcon("icon_ok.png"); // NOI18N
+    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png"); // NOI18N
 
     public ControllerLogfileDialog() {
         buttonLogfileDialog.setIcon(ICON_OK);

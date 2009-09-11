@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.renderer;
 
 import de.elmar_baumann.imv.app.AppLookAndFeel;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
@@ -16,7 +16,7 @@ import javax.swing.JList;
  */
 public final class ListCellRendererSavedSearches extends DefaultListCellRenderer {
 
-    private static final Icon ICON = AppIcons.getIcon("icon_search.png"); // NOI18N
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_search.png"); // NOI18N
     private int popupHighLightRow = -1;
 
     @Override

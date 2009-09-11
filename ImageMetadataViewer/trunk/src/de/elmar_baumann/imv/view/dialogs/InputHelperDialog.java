@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.datatransfer.Flavors;
 import de.elmar_baumann.imv.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.imv.resource.Bundle;
@@ -36,7 +36,7 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers")); // NOI18N
         registerKeyStrokes();

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.panels;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.plugin.Plugin;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
@@ -54,7 +54,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
         if (helpContentsPath != null) {
             HelpBrowser help = HelpBrowser.INSTANCE;
             help.setContentsUrl(helpContentsPath);
-            help.setIconImages(AppIcons.getAppIcons());
+            help.setIconImages(AppLookAndFeel.getAppIcons());
             if (help.isVisible()) {
                 help.toFront();
             } else {

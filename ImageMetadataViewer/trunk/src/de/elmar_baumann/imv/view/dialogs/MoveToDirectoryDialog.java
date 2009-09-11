@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.MessageDisplayer;
@@ -49,7 +49,7 @@ public final class MoveToDirectoryDialog extends Dialog
     public MoveToDirectoryDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }

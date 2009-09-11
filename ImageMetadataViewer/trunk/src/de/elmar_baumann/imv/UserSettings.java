@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppInfo;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.database.metadata.Column;
@@ -95,7 +95,7 @@ public final class UserSettings implements UserSettingsChangeListener {
         propertiesToFile.readFromFile();
         settings.removeEmptyKeys();
         Resources.INSTANCE.setProperties(properties);
-        Resources.INSTANCE.setFramesIconImagesPath(AppIcons.getAppIconPaths());
+        Resources.INSTANCE.setFramesIconImagesPath(AppLookAndFeel.getAppIconPaths());
     }
 
     /**

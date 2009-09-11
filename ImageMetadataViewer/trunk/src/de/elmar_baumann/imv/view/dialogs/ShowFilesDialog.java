@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
@@ -23,7 +23,7 @@ public class ShowFilesDialog extends Dialog {
     }
 
     private void postInitComponents(List<File> files) {
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
         setFiles(files);

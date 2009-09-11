@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.view.dialogs;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import java.awt.Component;
@@ -46,7 +46,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     private void postInitComponents() {
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
         list.addListSelectionListener(this);
@@ -152,7 +152,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
     private class Renderer extends DefaultListCellRenderer {
 
-        private final Icon ICON = AppIcons.getIcon("icon_keyword.png"); // NOI18N
+        private final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png"); // NOI18N
 
         @Override
         public Component getListCellRendererComponent(JList list, Object value,

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -123,11 +123,11 @@ public final class PopupMenuDirectories extends JPopupMenu {
     }
 
     private void setIcons() {
-        itemAddToFavorites.setIcon(AppIcons.getIcon("icon_favorite.png")); // NOI18N
-        itemCreateDirectory.setIcon(AppIcons.getIcon("icon_folder_add.png")); // NOI18N
-        itemDeleteDirectory.setIcon(AppIcons.getIcon("icon_folder_delete.png")); // NOI18N
-        itemRenameDirectory.setIcon(AppIcons.getIcon("icon_folder_rename.png")); // NOI18N
-        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png")); // NOI18N
+        itemAddToFavorites.setIcon(AppLookAndFeel.getIcon("icon_favorite.png")); // NOI18N
+        itemCreateDirectory.setIcon(AppLookAndFeel.getIcon("icon_folder_add.png")); // NOI18N
+        itemDeleteDirectory.setIcon(AppLookAndFeel.getIcon("icon_folder_delete.png")); // NOI18N
+        itemRenameDirectory.setIcon(AppLookAndFeel.getIcon("icon_folder_rename.png")); // NOI18N
+        itemRefresh.setIcon(AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
     }
 
     private void setAccelerators() {

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.dialogs;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.UserSettings;
 import de.elmar_baumann.imv.app.MessageDisplayer;
 import de.elmar_baumann.imv.event.FileSystemEvent;
@@ -50,7 +50,7 @@ public final class CopyToDirectoryDialog
     public CopyToDirectoryDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
-        setIconImages(AppIcons.getAppIcons());
+        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
         registerKeyStrokes();
     }

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.popupmenus;
 
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.resource.Bundle;
 import java.awt.event.InputEvent;
@@ -154,18 +154,18 @@ public final class PopupMenuFavorites extends JPopupMenu {
     }
 
     private void setIcons() {
-        itemDeleteFavorite.setIcon(AppIcons.getIcon("icon_remove.png")); // NOI18N
-        itemInsertFavorite.setIcon(AppIcons.getIcon("icon_add.png")); // NOI18N
-        itemMoveDown.setIcon(AppIcons.getIcon("icon_move_down.png")); // NOI18N
-        itemMoveUp.setIcon(AppIcons.getIcon("icon_move_up.png")); // NOI18N
-        itemOpenInFolders.setIcon(AppIcons.getIcon("icon_folder.png")); // NOI18N
-        itemRefresh.setIcon(AppIcons.getIcon("icon_refresh.png")); // NOI18N
-        itemAddFilesystemFolder.setIcon(AppIcons.getIcon("icon_folder_add.png")); // NOI18N
+        itemDeleteFavorite.setIcon(AppLookAndFeel.getIcon("icon_remove.png")); // NOI18N
+        itemInsertFavorite.setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
+        itemMoveDown.setIcon(AppLookAndFeel.getIcon("icon_move_down.png")); // NOI18N
+        itemMoveUp.setIcon(AppLookAndFeel.getIcon("icon_move_up.png")); // NOI18N
+        itemOpenInFolders.setIcon(AppLookAndFeel.getIcon("icon_folder.png")); // NOI18N
+        itemRefresh.setIcon(AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
+        itemAddFilesystemFolder.setIcon(AppLookAndFeel.getIcon("icon_folder_add.png")); // NOI18N
         itemRenameFilesystemFolder.setIcon(
-                AppIcons.getIcon("icon_folder_rename.png")); // NOI18N
+                AppLookAndFeel.getIcon("icon_folder_rename.png")); // NOI18N
         itemDeleteFilesystemFolder.setIcon(
-                AppIcons.getIcon("icon_folder_delete.png")); // NOI18N
-        itemUpdateFavorite.setIcon(AppIcons.getIcon("icon_edit.png")); // NOI18N
+                AppLookAndFeel.getIcon("icon_folder_delete.png")); // NOI18N
+        itemUpdateFavorite.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
     }
 
     private void setAccelerators() {

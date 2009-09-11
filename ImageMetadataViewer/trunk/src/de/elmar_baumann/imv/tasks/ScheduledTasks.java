@@ -1,7 +1,7 @@
 package de.elmar_baumann.imv.tasks;
 
 import de.elmar_baumann.imv.UserSettings;
-import de.elmar_baumann.imv.app.AppIcons;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent;
 import de.elmar_baumann.imv.event.CheckForUpdateMetadataEvent.Type;
@@ -132,9 +132,9 @@ public final class ScheduledTasks implements ActionListener,
     private void setButtonState(ButtonState state) {
         button.setEnabled(true);
         if (state.equals(ButtonState.START)) {
-            button.setIcon(AppIcons.getIcon("icon_start_scheduled_tasks.png"));
+            button.setIcon(AppLookAndFeel.getIcon("icon_start_scheduled_tasks.png"));
         } else if (state.equals(ButtonState.STOP)) {
-            button.setIcon(AppIcons.getIcon(
+            button.setIcon(AppLookAndFeel.getIcon(
                     "icon_stop_scheduled_tasks_enabled.png"));
         } else {
             assert false : "Unhandled state!";
