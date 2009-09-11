@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.app.AppColors;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppLog;
 import de.elmar_baumann.imv.data.FavoriteDirectory;
 import de.elmar_baumann.imv.data.Timeline;
@@ -64,8 +64,8 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
         }
         setOpaque(row == popupHighLightRow);
         if (row == popupHighLightRow) {
-            setForeground(AppColors.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
-            setBackground(AppColors.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
+            setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
+            setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
         }
     }
 

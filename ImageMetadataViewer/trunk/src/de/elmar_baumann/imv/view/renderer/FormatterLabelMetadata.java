@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.app.AppColors;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import java.awt.Font;
 import javax.swing.JLabel;
 
@@ -24,11 +24,11 @@ public class FormatterLabelMetadata {
     protected static void setDefaultCellColors(JLabel cellLabel,
             boolean isSelected) {
         cellLabel.setForeground(isSelected
-                                ? AppColors.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
-                                : AppColors.COLOR_FOREGROUND_TABLE_TEXT_DEFAULT);
+                                ? AppLookAndFeel.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
+                                : AppLookAndFeel.COLOR_FOREGROUND_TABLE_TEXT_DEFAULT);
         cellLabel.setBackground(isSelected
-                                ? AppColors.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
-                                : AppColors.COLOR_BACKGROUND_TABLE_TEXT_DEFAULT);
+                                ? AppLookAndFeel.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
+                                : AppLookAndFeel.COLOR_BACKGROUND_TABLE_TEXT_DEFAULT);
         cellLabel.setOpaque(true);
     }
 
@@ -63,12 +63,12 @@ public class FormatterLabelMetadata {
             boolean isSelected) {
         cellLabel.setForeground(
                 isSelected
-                ? AppColors.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
-                : AppColors.COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE);
+                ? AppLookAndFeel.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
+                : AppLookAndFeel.COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE);
         cellLabel.setBackground(
                 isSelected
-                ? AppColors.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
-                : AppColors.COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE);
+                ? AppLookAndFeel.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
+                : AppLookAndFeel.COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE);
     }
 
     private void initFonts(JLabel cellLabel) {

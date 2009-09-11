@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.app.AppColors;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
@@ -57,17 +57,17 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
                     : ICON_HELPER);
             if (highlight) {
                 setForeground(
-                        AppColors.COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
+                        AppLookAndFeel.COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
                 setBackground(
-                        AppColors.COLOR_BACKGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
+                        AppLookAndFeel.COLOR_BACKGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
                 // Necessary here and not obove
                 setIcon(ICON_REAL_HIGHLIGHTED);
             }
         }
         setOpaque(row == popupHighLightRow || highlight);
         if (row == popupHighLightRow) {
-            setForeground(AppColors.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
-            setBackground(AppColors.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
+            setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
+            setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
         }
     }
 

@@ -1,6 +1,6 @@
 package de.elmar_baumann.imv.view.renderer;
 
-import de.elmar_baumann.imv.app.AppColors;
+import de.elmar_baumann.imv.app.AppLookAndFeel;
 import de.elmar_baumann.imv.app.AppIcons;
 import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.model.ListModelImageCollections;
@@ -48,8 +48,8 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
             label.setForeground(COLOR_FOREGROUND_PREV_IMPORT);
         }
         if (index == popupHighLightRow) {
-            label.setForeground(AppColors.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
-            label.setBackground(AppColors.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
+            label.setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
+            label.setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
             label.setOpaque(true);
         }
         label.setIcon(getIconOfValue(value));
