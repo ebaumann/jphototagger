@@ -76,8 +76,7 @@ public final class ActionListenerFactory {
                 new ControllerRemoveHierarchicalKeywordFromEditPanel(hkwPanel);
         ControllerCutPasteHierarchicalKeyword cCutPaste =
                 new ControllerCutPasteHierarchicalKeyword(hkwPanel);
-        ControllerHierarchicalKeywordsDisplayImages cShowImages =
-                new ControllerHierarchicalKeywordsDisplayImages(hkwPanel);
+        new ControllerHierarchicalKeywordsDisplayImages();
         PopupMenuHierarchicalKeywords popup =
                 PopupMenuHierarchicalKeywords.INSTANCE;
         popup.getMenuItemAdd().addActionListener(cAdd);
@@ -88,6 +87,5 @@ public final class ActionListenerFactory {
         popup.getMenuItemToggleReal().addActionListener(cToggleReal);
         popup.getMenuItemCut().addActionListener(cCutPaste);
         popup.getMenuItemPaste().addActionListener(cCutPaste);
-        popup.getMenuItemDisplayImages().addActionListener(cShowImages);
     }
 }

@@ -45,6 +45,9 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
     private static final String DISPLAY_NAME_ACTION_DISPLAY_IMAGES =
             Bundle.getString(
             "PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImages"); // NOI18N
+    private static final String DISPLAY_NAME_ACTION_DISPLAY_IMAGES_KW =
+            Bundle.getString(
+            "PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImagesKw"); // NOI18N
     private final JMenuItem menuItemAdd =
             new JMenuItem(DISPLAY_NAME_ACTION_ADD_KEYWORD);
     private final JMenuItem menuItemAddToEditPanel =
@@ -63,6 +66,8 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
             new JMenuItem(DISPLAY_NAME_ACTION_PASTE);
     private final JMenuItem menuItemDisplayImages =
             new JMenuItem(DISPLAY_NAME_ACTION_DISPLAY_IMAGES);
+    private final JMenuItem menuItemDisplayImagesKw =
+            new JMenuItem(DISPLAY_NAME_ACTION_DISPLAY_IMAGES_KW);
     public static final PopupMenuHierarchicalKeywords INSTANCE =
             new PopupMenuHierarchicalKeywords();
     private TreePath path;
@@ -103,6 +108,10 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
         return menuItemDisplayImages;
     }
 
+    public JMenuItem getMenuItemDisplayImagesKw() {
+        return menuItemDisplayImagesKw;
+    }
+
     private PopupMenuHierarchicalKeywords() {
         init();
     }
@@ -134,6 +143,7 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
         add(menuItemPaste);
         addSeparator();
         add(menuItemDisplayImages);
+        add(menuItemDisplayImagesKw);
     }
 
     private void setIcons() {
@@ -147,6 +157,7 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
         menuItemCut.setIcon(AppLookAndFeel.getIcon("icon_cut_to_clipboard.png")); // NOI18N
         menuItemPaste.setIcon(AppLookAndFeel.getIcon("icon_paste_from_clipboard.png")); // NOI18N
         menuItemDisplayImages.setIcon(AppLookAndFeel.getIcon("icon_thumbnails.png")); // NOI18N
+        menuItemDisplayImagesKw.setIcon(AppLookAndFeel.getIcon("icon_thumbnails.png")); // NOI18N
     }
 
     private void setAccelerators() {

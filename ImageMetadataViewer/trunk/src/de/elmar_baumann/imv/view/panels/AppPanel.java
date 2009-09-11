@@ -7,7 +7,6 @@ import de.elmar_baumann.imv.app.AppTexts;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerCutPasteHierarchicalKeyword;
-import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
 import de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
@@ -1097,7 +1096,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         new ControllerAddHierarchicalKeywordsToEditPanel(panelHierarchicalKeywords);
         new ControllerRemoveHierarchicalKeywordFromEditPanel(panelHierarchicalKeywords);
         new ControllerCutPasteHierarchicalKeyword(panelHierarchicalKeywords);
-        new de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages(panelHierarchicalKeywords);
+        new de.elmar_baumann.imv.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages();
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
         panelMetadata.setLayout(panelMetadataLayout);

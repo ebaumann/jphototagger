@@ -4,10 +4,11 @@ import de.elmar_baumann.imv.data.HierarchicalKeyword;
 import de.elmar_baumann.imv.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.imv.resource.GUI;
 import de.elmar_baumann.imv.view.panels.AppPanel;
-import de.elmar_baumann.imv.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.imv.view.popupmenus.PopupMenuHierarchicalKeywords;
+import de.elmar_baumann.lib.componentutil.ListUtil;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import javax.swing.JMenuItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -19,25 +20,42 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2009-07-12
  */
 public class ControllerHierarchicalKeywordsDisplayImages
-        extends ControllerHierarchicalKeywords
         implements ActionListener {
 
-    public ControllerHierarchicalKeywordsDisplayImages(
-            HierarchicalKeywordsPanel _panel) {
-        super(_panel);
+    private final PopupMenuHierarchicalKeywords popup =
+            PopupMenuHierarchicalKeywords.INSTANCE;
+    private final JMenuItem itemHk = popup.getMenuItemDisplayImages();
+    private final JMenuItem itemKw = popup.getMenuItemDisplayImagesKw();
+
+    public ControllerHierarchicalKeywordsDisplayImages() {
+        listen();
+    }
+
+    private void listen() {
+        itemHk.addActionListener(this);
+        itemKw.addActionListener(this);
     }
 
     @Override
-    protected boolean myKey(KeyEvent e) {
-        return false;
+    public void actionPerformed(ActionEvent e) {
+        HierarchicalKeyword keyword = getKeyword();
+        if (keyword == null) return;
+        Object source = e.getSource();
+        if (source == itemHk) {
+            showImages(keyword);
+        } else if (source == itemKw) {
+            showImages(keyword.getKeyword());
+        }
     }
 
-    @Override
-    protected void localAction(DefaultMutableTreeNode node) {
+    private HierarchicalKeyword getKeyword() {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) popup.getTreePath().
+                getLastPathComponent();
         Object userObject = node.getUserObject();
         if (userObject instanceof HierarchicalKeyword) {
-            showImages((HierarchicalKeyword) userObject);
+            return (HierarchicalKeyword) userObject;
         }
+        return null;
     }
 
     private void showImages(HierarchicalKeyword hierarchicalKeyword) {
@@ -47,5 +65,12 @@ public class ControllerHierarchicalKeywordsDisplayImages
         HierarchicalKeywordsHelper.selectNode(
                 appPanel.getTreeSelHierarchicalKeywords(),
                 hierarchicalKeyword);
+    }
+
+    private void showImages(String keyword) {
+        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        appPanel.getTabbedPaneSelection().setSelectedComponent(
+                appPanel.getTabSelectionKeywords());
+        ListUtil.select(appPanel.getListKeywords(), keyword, 0);
     }
 }
