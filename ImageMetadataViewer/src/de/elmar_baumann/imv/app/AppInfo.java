@@ -30,34 +30,30 @@ import de.elmar_baumann.lib.util.Version;
 public final class AppInfo {
 
     /**
-     * Name of this project
+     * ("Historical") Name of this project.
+     *
+     * This is also the name of the user settings subdirectory (properties file)
+     * and the default thumbnails' parent directory. When changing, the first or
+     * second action in the main() mehtod has to be renaming that directory from
+     * the old to the new name. Also check the code accessing this field.
      */
-    private static final String PROJECT_NAME = "ImageMetaDataViewer"; // NOI18N NEVER CHANGE!
+    public static final String PROJECT_NAME = "ImageMetaDataViewer"; // NOI18N WHEN CHANGING SEE COMMENT ABOVE!
     /**
      * The application's version
      */
-    public static final String APP_VERSION = "0.6.52 2009-09-11";  // NOI18N
+    public static final String APP_VERSION = "0.7.0 2009-09-14";  // NOI18N
     /**
      * The application's name
      */
-    public static final String APP_NAME = "Bilder";  // NOI18N
+    public static final String APP_NAME = "JPhotoTagger";  // NOI18N
     /**
      * Title of the application
      */
-    public static final String APP_DESCRIPTION = Bundle.getString("AppTitle"); // NOI18N
+    public static final String APP_DESCRIPTION = Bundle.getString("AppDescription"); // NOI18N
     /**
      * Minimum required Java version
      */
     public static final Version MIN_JAVA_VERSION = new Version(1, 6);
-
-    /**
-     * Returns the long name of this project.
-     *
-     * @return project name
-     */
-    public static String getProjectName() {
-        return PROJECT_NAME;
-    }
 
     private AppInfo() {
     }

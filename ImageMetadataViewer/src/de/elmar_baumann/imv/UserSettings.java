@@ -105,8 +105,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     private final Properties properties = new Properties();
     private final Settings settings = new Settings(properties);
     private final PropertiesFile propertiesToFile = new PropertiesFile(
-            DOMAIN_NAME, AppInfo.getProjectName(), PROPERTIES_FILENAME,
-            properties);
+            DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
     public static final UserSettings INSTANCE = new UserSettings();
 
     private UserSettings() {

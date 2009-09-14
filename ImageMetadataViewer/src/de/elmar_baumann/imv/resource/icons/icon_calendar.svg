@@ -15,7 +15,7 @@
    inkscape:version="0.46"
    sodipodi:docname="icon_calendar.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_calendar.png"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_calendar.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -67,7 +67,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
         <dc:creator>
           <cc:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>

@@ -18,7 +18,7 @@
    inkscape:export-filename="D:/test/t/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icon/icon_card.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
-   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons">
+   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons">
   <defs
      id="defs3742">
     <inkscape:perspective
@@ -66,7 +66,7 @@
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
         <dc:rights>
           <cc:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>

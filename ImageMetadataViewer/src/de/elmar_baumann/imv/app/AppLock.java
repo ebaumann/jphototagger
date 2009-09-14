@@ -34,7 +34,7 @@ public final class AppLock {
 
     private static final String LOCKFILE_NAME =
             UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator +
-            AppInfo.getProjectName() + ".lck"; // NOI18N
+            AppInfo.PROJECT_NAME + ".lck"; // NOI18N
 
     /**
      * Returns whether the application ist locked.

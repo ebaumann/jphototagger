@@ -13,10 +13,10 @@
    id="svg3134"
    sodipodi:version="0.32"
    inkscape:version="0.46"
-   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons"
+   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons"
    sodipodi:docname="icon_size_decrease.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_size_decrease.png"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_size_decrease.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -76,7 +76,7 @@
         </dc:publisher>
         <dc:title>Magnifying glass</dc:title>
         <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_search.svg</dc:identifier>
-        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <cc:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />

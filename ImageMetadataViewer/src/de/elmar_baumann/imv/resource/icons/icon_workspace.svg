@@ -82,7 +82,7 @@
         </dc:publisher>
         <dc:title>Workspace</dc:title>
         <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_workspace.svg</dc:identifier>
-        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <cc:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />

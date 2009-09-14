@@ -14,10 +14,10 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    version="1.0"
-   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/images"
+   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/images"
    sodipodi:docname="dnd_cursor_tn_panel.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/images/dnd_cursor_tn_panel.png"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/images/dnd_cursor_tn_panel.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -82,7 +82,7 @@
           </cc:Agent>
         </dc:publisher>
         <dc:identifier>de.elmar_baumann.imv.resource.images.dnd_cursor_tn_panel.svg</dc:identifier>
-        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
         <dc:subject>
           <rdf:Bag>
             <rdf:li>cursor</rdf:li>

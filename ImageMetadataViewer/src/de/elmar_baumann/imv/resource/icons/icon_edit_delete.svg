@@ -16,10 +16,10 @@
    inkscape:version="0.45.1"
    sodipodi:docname="icon_edit_delete.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_edit_delete.png"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons/icon_edit_delete.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
-   sodipodi:docbase="/home/elmar/projekte/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons">
+   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/ImageMetadataViewer/src/de/elmar_baumann/imv/resource/icons">
   <defs
      id="defs3885">
     <inkscape:perspective
@@ -75,7 +75,7 @@
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
           </ns:Agent>
         </dc:publisher>
-        <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <ns:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
