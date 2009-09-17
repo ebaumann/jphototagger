@@ -40,10 +40,6 @@ public class InputHelperDialog extends Dialog {
 
     public static final InputHelperDialog INSTANCE =
             new InputHelperDialog();
-    private static final String KEY_LIST_KEYWORDS =
-            "InputHelperDialog.ListKeywords"; // NOI18N
-    private static final String KEY_LIST_CATEGORIES =
-            "InputHelperDialog.ListCategories"; // NOI18N
     private static final String KEY_SEL_INDEX_TABBED_PANE =
             "InputHelperDialog.SelIndexTabbedPane"; // NOI18N
 
@@ -71,8 +67,6 @@ public class InputHelperDialog extends Dialog {
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         panelHierarchicalKeywords.readProperties();
-        settings.getListContent(listKeywords, KEY_LIST_KEYWORDS);
-        settings.getListContent(listCategories, KEY_LIST_CATEGORIES);
         int selIndexTabbedPane = settings.getInt(KEY_SEL_INDEX_TABBED_PANE);
         if (selIndexTabbedPane >= 0) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
@@ -83,8 +77,6 @@ public class InputHelperDialog extends Dialog {
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setSizeAndLocation(this);
-        settings.setListContent(listKeywords, KEY_LIST_KEYWORDS);
-        settings.setListContent(listCategories, KEY_LIST_CATEGORIES);
         settings.setInt(tabbedPane.getSelectedIndex(), KEY_SEL_INDEX_TABBED_PANE);
         panelHierarchicalKeywords.writeProperties();
         UserSettings.INSTANCE.writeToFile();
