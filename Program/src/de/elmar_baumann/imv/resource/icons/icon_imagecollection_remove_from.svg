@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:ns="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16px"
+   height="16px"
+   id="svg2160"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/imv/resource/icons"
+   sodipodi:docname="icon_imagecollection_remove_from.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/imv/resource/icons/icon_imagecollection_remove_from.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs2162">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       id="perspective9" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="34.75"
+     inkscape:cx="8"
+     inkscape:cy="8"
+     inkscape:current-layer="layer2"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     gridtolerance="10000"
+     inkscape:window-width="892"
+     inkscape:window-height="761"
+     inkscape:window-x="104"
+     inkscape:window-y="109"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata2165">
+    <rdf:RDF>
+      <ns:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <ns:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </ns:Agent>
+        </dc:creator>
+        <dc:rights>
+          <ns:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </ns:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <ns:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </ns:Agent>
+        </dc:publisher>
+        <dc:title>Image</dc:title>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_imagecollection.svg</dc:identifier>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:coverage>computer program, icon</dc:coverage>
+        <ns:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:description>Image Collection</dc:description>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>image</rdf:li>
+            <rdf:li>image collection</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:date>2008-10-25</dc:date>
+      </ns:Work>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Remove From Image Collection</dc:title>
+        <dc:date>2009-06-28</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-Baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-Baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-Baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_imagecollection_remove_from.svg</dc:identifier>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>image collection</rdf:li>
+            <rdf:li>remove</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:coverage>icon, computer program</dc:coverage>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Collection"
+     inkscape:groupmode="layer"
+     style="opacity:0.5">
+    <rect
+       style="opacity:0.98000004;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2168"
+       width="13.028623"
+       height="11.028623"
+       x="1.4856886"
+       y="2.485688" />
+    <rect
+       style="opacity:0.98000004;fill:#aaaaaa;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3141"
+       width="8"
+       height="6"
+       x="4"
+       y="5" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Add">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.36599994;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3139"
+       width="4"
+       height="9"
+       x="8"
+       y="-16"
+       transform="matrix(0,1,-1,0,0,0)" />
+  </g>
+</svg>

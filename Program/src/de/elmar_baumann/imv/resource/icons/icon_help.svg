@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16px"
+   height="16px"
+   id="svg6631"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="icon_help.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/imv/resource/icons/icon_help.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs6633">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       id="perspective6639" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="28.875"
+     inkscape:cx="-7.8268398"
+     inkscape:cy="8"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="850"
+     inkscape:window-height="675"
+     inkscape:window-x="201"
+     inkscape:window-y="105" />
+  <metadata
+     id="metadata6636">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Question mark</dc:title>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_help.svg</dc:identifier>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:coverage>computer program, icon</dc:coverage>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:description>Help</dc:description>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>help</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:date>2008-11-06</dc:date>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <path
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#dbdd00;fill-opacity:1;stroke:#777777;stroke-width:0.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Times New Roman;-inkscape-font-specification:Times New Roman Bold;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 7.8911793,10.281097 L 7.4907886,10.281097 C 7.4777635,9.5584457 7.5119431,9.0180817 7.5933277,8.6600032 C 7.6747034,8.3019366 7.8862917,7.808773 8.2280933,7.180511 C 8.5698848,6.5522638 8.7944939,6.047707 8.9019215,5.6668391 C 9.0093375,5.285989 9.0630484,4.8156119 9.0630543,4.2557063 C 9.0630484,3.3898321 8.8937777,2.7518119 8.5552418,2.3416438 C 8.216695,1.9315002 7.8163048,1.7264223 7.3540699,1.7264094 C 7.0025035,1.7264223 6.7062799,1.8208232 6.465398,2.0096126 C 6.2831032,2.1528542 6.1919575,2.3025936 6.1919605,2.4588313 C 6.1919575,2.56301 6.2538064,2.7257703 6.3775074,2.9471126 C 6.6574518,3.4484258 6.7974256,3.8748576 6.7974293,4.2264094 C 6.7974256,4.5454299 6.6883762,4.8123567 6.4702808,5.0271907 C 6.2521788,5.2420438 5.9803691,5.3494655 5.6548511,5.3494563 C 5.2902657,5.3494655 4.9842764,5.2208849 4.7368824,4.9637141 C 4.4894852,4.7065625 4.3657874,4.3663936 4.3657886,3.9432063 C 4.3657874,3.1749886 4.6978183,2.5011611 5.3618824,1.9217219 C 6.025942,1.3423081 6.9536755,1.0525948 8.1450855,1.0525813 C 9.4081001,1.0525948 10.370013,1.3537013 11.030828,1.9559016 C 11.691626,2.5581272 12.02203,3.2856655 12.022039,4.1385188 C 12.02203,4.7570182 11.852759,5.3283067 11.514226,5.852386 C 11.175676,6.3764828 10.52138,6.9575369 9.5513355,7.5955501 C 8.9002881,8.0252441 8.4722286,8.4077307 8.2671558,8.743011 C 8.0620728,9.078303 7.9367474,9.5909978 7.8911793,10.281097 L 7.8911793,10.281097 z M 7.7837574,11.706878 C 8.2199502,11.706881 8.5910436,11.859875 8.8970386,12.165862 C 9.2030222,12.471854 9.3560168,12.842947 9.356023,13.279144 C 9.3560168,13.715342 9.2030222,14.088063 8.8970386,14.397308 C 8.5910436,14.706552 8.2199502,14.861174 7.7837574,14.861175 C 7.3475553,14.861174 6.9764619,14.706552 6.6704761,14.397308 C 6.3644833,14.088063 6.2114887,13.715342 6.2114918,13.279144 C 6.2114887,12.842947 6.3644833,12.471854 6.6704761,12.165862 C 6.9764619,11.859875 7.3475553,11.706881 7.7837574,11.706878 L 7.7837574,11.706878 z"
+       id="text6641" />
+  </g>
+</svg>

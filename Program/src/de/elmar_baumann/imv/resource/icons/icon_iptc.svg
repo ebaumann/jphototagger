@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16px"
+   height="16px"
+   id="svg4912"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="icon_iptc.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/imv/resource/icons/icon_iptc.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
+   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/imv/resource/icons">
+  <defs
+     id="defs4914">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       id="perspective4920" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="28.875"
+     inkscape:cx="-7.8268398"
+     inkscape:cy="8"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1162"
+     inkscape:window-height="675"
+     inkscape:window-x="118"
+     inkscape:window-y="136" />
+  <metadata
+     id="metadata4917">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>IPTC metadata</dc:title>
+        <dc:identifier>de.elmar_baumann.imv.resource.icons.</dc:identifier>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:coverage>computer program, icon</dc:coverage>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>IPTC</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:date>2008-11-06</dc:date>
+      </cc:Work>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <text
+       xml:space="preserve"
+       style="font-size:10.34451008px;font-style:normal;font-weight:bold;fill:#5050af;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="3.2621057"
+       y="7.5411882"
+       id="text4922"
+       transform="scale(0.9666963,1.034451)"><tspan
+         sodipodi:role="line"
+         x="3.2621057"
+         y="7.5411882"
+         id="tspan4926">IP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9.29601002px;font-style:normal;font-weight:bold;fill:#5050af;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="1.9162276"
+       y="14.407642"
+       id="text5439"
+       transform="scale(0.9385325,1.0654932)"><tspan
+         sodipodi:role="line"
+         id="tspan5441"
+         x="1.9162276"
+         y="14.407642">TC</tspan></text>
+  </g>
+</svg>
