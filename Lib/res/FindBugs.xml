@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.7" sequence="0" timestamp="1232898458000" analysisTimestamp="1232903217993" release="">
+  <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="JavaStandardLibrary">
+    <Jar>/mnt/daten/projekte/JavaStandardLibrary/dist/jsl.jar</Jar>
+    <SrcDir>/mnt/daten/projekte/JavaStandardLibrary/src</SrcDir>
+    <SuppressionFilter>
+      <LastVersion value="-1" relOp="NEQ"/>
+    </SuppressionFilter>
+  </Project>
+  <BugInstance type="NP_LOAD_OF_KNOWN_NULL_VALUE" priority="2" abbrev="NP" category="STYLE">
+    <Class classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil">
+      <SourceLine classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" sourcefile="LookAndFeelUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/LookAndFeelUtil.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" name="getColorFromProperty" signature="(Ljava/lang/String;)Ljava/awt/Color;" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" start="83" end="99" startBytecode="0" endBytecode="63" sourcefile="LookAndFeelUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/LookAndFeelUtil.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" start="83" end="83" startBytecode="14" endBytecode="14" sourcefile="LookAndFeelUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/LookAndFeelUtil.java"/>
+  </BugInstance>
+  <BugInstance type="WMI_WRONG_MAP_ITERATOR" priority="2" abbrev="WMI" category="PERFORMANCE">
+    <Class classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil">
+      <SourceLine classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" sourcefile="LookAndFeelUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/LookAndFeelUtil.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" name="setCustomColors" signature="(Ljava/io/InputStream;)V" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" start="68" end="80" startBytecode="0" endBytecode="285" sourcefile="LookAndFeelUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/LookAndFeelUtil.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" start="75" end="75" startBytecode="61" endBytecode="61" sourcefile="LookAndFeelUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/LookAndFeelUtil.java"/>
+  </BugInstance>
+  <BugInstance type="NP_LOAD_OF_KNOWN_NULL_VALUE" priority="2" abbrev="NP" category="STYLE">
+    <Class classname="de.elmar_baumann.lib.componentutil.TableUtil">
+      <SourceLine classname="de.elmar_baumann.lib.componentutil.TableUtil" sourcefile="TableUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/TableUtil.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.componentutil.TableUtil" name="setColumnWidth" signature="(ILjavax/swing/table/TableColumn;)V" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.componentutil.TableUtil" start="69" end="71" startBytecode="0" endBytecode="12" sourcefile="TableUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/TableUtil.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.componentutil.TableUtil" start="69" end="69" startBytecode="14" endBytecode="14" sourcefile="TableUtil.java" sourcepath="de/elmar_baumann/lib/componentutil/TableUtil.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE">
+    <Class classname="de.elmar_baumann.lib.datatransfer.TransferableFileList">
+      <SourceLine classname="de.elmar_baumann.lib.datatransfer.TransferableFileList" sourcefile="TransferableFileList.java" sourcepath="de/elmar_baumann/lib/datatransfer/TransferableFileList.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.datatransfer.TransferableFileList" name="getTransferDataFlavors" signature="()[Ljava/awt/datatransfer/DataFlavor;" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.datatransfer.TransferableFileList" start="40" end="40" startBytecode="0" endBytecode="45" sourcefile="TransferableFileList.java" sourcepath="de/elmar_baumann/lib/datatransfer/TransferableFileList.java"/>
+    </Method>
+    <Field classname="de.elmar_baumann.lib.datatransfer.TransferableFileList" name="flavors" signature="[Ljava/awt/datatransfer/DataFlavor;" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.datatransfer.TransferableFileList" sourcefile="TransferableFileList.java" sourcepath="de/elmar_baumann/lib/datatransfer/TransferableFileList.java"/>
+    </Field>
+    <SourceLine classname="de.elmar_baumann.lib.datatransfer.TransferableFileList" start="40" end="40" startBytecode="3" endBytecode="3" sourcefile="TransferableFileList.java" sourcepath="de/elmar_baumann/lib/datatransfer/TransferableFileList.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE">
+    <Class classname="de.elmar_baumann.lib.datatransfer.TransferableObject">
+      <SourceLine classname="de.elmar_baumann.lib.datatransfer.TransferableObject" sourcefile="TransferableObject.java" sourcepath="de/elmar_baumann/lib/datatransfer/TransferableObject.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.datatransfer.TransferableObject" name="getTransferDataFlavors" signature="()[Ljava/awt/datatransfer/DataFlavor;" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.datatransfer.TransferableObject" start="31" end="31" startBytecode="0" endBytecode="46" sourcefile="TransferableObject.java" sourcepath="de/elmar_baumann/lib/datatransfer/TransferableObject.java"/>
+    </Method>
+    <Field classname="de.elmar_baumann.lib.datatransfer.TransferableObject" name="flavors" signature="[Ljava/awt/datatransfer/DataFlavor;" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.datatransfer.TransferableObject" sourcefile="TransferableObject.java" sourcepath="de/elmar_baumann/lib/datatransfer/TransferableObject.java"/>
+    </Field>
+    <SourceLine classname="de.elmar_baumann.lib.datatransfer.TransferableObject" start="31" end="31" startBytecode="4" endBytecode="4" sourcefile="TransferableObject.java" sourcepath="de/elmar_baumann/lib/datatransfer/TransferableObject.java"/>
+  </BugInstance>
+  <BugInstance type="DM_NUMBER_CTOR" priority="2" abbrev="Bx" category="PERFORMANCE">
+    <Class classname="de.elmar_baumann.lib.dialog.LogfileDialog">
+      <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.dialog.LogfileDialog" name="checkSize" signature="()Z" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" start="161" end="179" startBytecode="0" endBytecode="224" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="&lt;init&gt;" signature="(I)V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Integer" start="602" end="604" startBytecode="0" endBytecode="41" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="valueOf" signature="(I)V" isStatic="false" role="SHOULD_CALL">
+      <SourceLine classname="java.lang.Integer" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" start="171" end="171" startBytecode="78" endBytecode="78" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+  </BugInstance>
+  <BugInstance type="GC_UNRELATED_TYPES" priority="1" abbrev="GC" category="CORRECTNESS">
+    <Class classname="de.elmar_baumann.lib.dialog.LogfileDialog">
+      <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.dialog.LogfileDialog" name="isSupportedFormat" signature="(Ljava/util/logging/Formatter;)Z" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" start="377" end="377" startBytecode="0" endBytecode="4" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+    </Method>
+    <Type descriptor="Ljava/util/logging/Formatter;" role="TYPE_FOUND">
+      <SourceLine classname="java.util.logging.Formatter" start="31" end="136" sourcefile="Formatter.java" sourcepath="java/util/logging/Formatter.java"/>
+    </Type>
+    <Type descriptor="Ljava/lang/Class;" role="TYPE_EXPECTED">
+      <SourceLine classname="java.lang.Class" start="99" end="3098" sourcefile="Class.java" sourcepath="java/lang/Class.java"/>
+    </Type>
+    <Method classname="java.util.Map" name="containsKey" signature="(Ljava/lang/Object;)Z" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.util.Map" sourcefile="Map.java" sourcepath="java/util/Map.java"/>
+    </Method>
+    <Field classname="de.elmar_baumann.lib.dialog.LogfileDialog" name="paneIndexOfFormatterClass" signature="Ljava/util/Map;" isStatic="false" role="FIELD_INVOKED_ON">
+      <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+    </Field>
+    <LocalVariable name="f" register="1" pc="4" role="LOCAL_VARIABLE_ARGUMENT"/>
+    <Method classname="java.lang.Object" name="equals" signature="(Ljava/lang/Object;)Z" isStatic="false" role="METHOD_EQUALS_USED">
+      <SourceLine classname="java.lang.Object" start="134" end="134" startBytecode="0" endBytecode="34" sourcefile="Object.java" sourcepath="java/lang/Object.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" start="377" end="377" startBytecode="5" endBytecode="5" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+  </BugInstance>
+  <BugInstance type="ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND" priority="2" abbrev="ICAST" category="CORRECTNESS">
+    <Class classname="de.elmar_baumann.lib.dialog.LogfileDialog">
+      <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.dialog.LogfileDialog" name="checkSize" signature="()Z" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" start="161" end="179" startBytecode="0" endBytecode="224" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.dialog.LogfileDialog" start="171" end="171" startBytecode="75" endBytecode="75" sourcefile="LogfileDialog.java" sourcepath="de/elmar_baumann/lib/dialog/LogfileDialog.java"/>
+  </BugInstance>
+  <BugInstance type="ICAST_IDIV_CAST_TO_DOUBLE" priority="2" abbrev="ICAST" category="STYLE">
+    <UserAnnotation/>
+    <Class classname="de.elmar_baumann.lib.image.ImageTransform">
+      <SourceLine classname="de.elmar_baumann.lib.image.ImageTransform" sourcefile="ImageTransform.java" sourcepath="de/elmar_baumann/lib/image/ImageTransform.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.image.ImageTransform" name="tilt" signature="(Ljava/awt/image/BufferedImage;D)Ljava/awt/image/BufferedImage;" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.image.ImageTransform" start="39" end="51" startBytecode="0" endBytecode="320" sourcefile="ImageTransform.java" sourcepath="de/elmar_baumann/lib/image/ImageTransform.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.image.ImageTransform" start="48" end="48" startBytecode="115" endBytecode="115" sourcefile="ImageTransform.java" sourcepath="de/elmar_baumann/lib/image/ImageTransform.java"/>
+    <SourceLine classname="de.elmar_baumann.lib.image.ImageTransform" start="48" end="48" startBytecode="120" endBytecode="120" sourcefile="ImageTransform.java" sourcepath="de/elmar_baumann/lib/image/ImageTransform.java" role="SOURCE_LINE_ANOTHER_INSTANCE"/>
+  </BugInstance>
+  <BugInstance type="DM_STRING_CTOR" priority="2" abbrev="Dm" category="PERFORMANCE">
+    <Class classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader">
+      <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" name="&lt;clinit&gt;" signature="()V" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="26" end="31" startBytecode="0" endBytecode="159" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="30" end="30" startBytecode="103" endBytecode="103" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="31" end="31" startBytecode="118" endBytecode="118" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java" role="SOURCE_LINE_ANOTHER_INSTANCE"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE">
+    <Class classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader">
+      <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" name="existsXmp" signature="(Ljava/lang/String;)Z" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="98" end="112" startBytecode="0" endBytecode="40" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/Reader;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.Reader" start="49" end="232" sourcefile="Reader.java" sourcepath="java/io/Reader.java"/>
+    </Type>
+    <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="98" end="98" startBytecode="0" endBytecode="0" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+  </BugInstance>
+  <BugInstance type="RR_NOT_CHECKED" priority="2" abbrev="RR" category="BAD_PRACTICE">
+    <Class classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader">
+      <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" name="getMatchIndex" signature="(Ljava/io/RandomAccessFile;I[B)I" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="117" end="153" startBytecode="0" endBytecode="551" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    </Method>
+    <Method classname="java.io.RandomAccessFile" name="read" signature="([BII)I" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.io.RandomAccessFile" start="322" end="322" startBytecode="0" endBytecode="31" sourcefile="RandomAccessFile.java" sourcepath="java/io/RandomAccessFile.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="130" end="130" startBytecode="86" endBytecode="86" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+  </BugInstance>
+  <BugInstance type="RR_NOT_CHECKED" priority="2" abbrev="RR" category="BAD_PRACTICE">
+    <Class classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader">
+      <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" name="getXmp" signature="(Ljava/lang/String;II)Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="76" end="87" startBytecode="0" endBytecode="287" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+    </Method>
+    <Method classname="java.io.RandomAccessFile" name="read" signature="([BII)I" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.io.RandomAccessFile" start="322" end="322" startBytecode="0" endBytecode="31" sourcefile="RandomAccessFile.java" sourcepath="java/io/RandomAccessFile.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" start="80" end="80" startBytecode="39" endBytecode="39" sourcefile="XmpFileReader.java" sourcepath="de/elmar_baumann/lib/image/metadata/xmp/XmpFileReader.java"/>
+  </BugInstance>
+  <BugInstance type="NM_SAME_SIMPLE_NAME_AS_INTERFACE" priority="2" abbrev="Nm" category="BAD_PRACTICE">
+    <Class classname="de.elmar_baumann.lib.io.FileFilter">
+      <SourceLine classname="de.elmar_baumann.lib.io.FileFilter" sourcefile="FileFilter.java" sourcepath="de/elmar_baumann/lib/io/FileFilter.java"/>
+    </Class>
+    <Class classname="java.io.FileFilter">
+      <SourceLine classname="java.io.FileFilter" sourcefile="FileFilter.java" sourcepath="java/io/FileFilter.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE" priority="2" abbrev="RV" category="BAD_PRACTICE">
+    <Class classname="de.elmar_baumann.lib.io.FileUtil">
+      <SourceLine classname="de.elmar_baumann.lib.io.FileUtil" sourcefile="FileUtil.java" sourcepath="de/elmar_baumann/lib/io/FileUtil.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.io.FileUtil" name="copyFile" signature="(Ljava/io/File;Ljava/io/File;)V" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.io.FileUtil" start="148" end="168" startBytecode="0" endBytecode="340" sourcefile="FileUtil.java" sourcepath="de/elmar_baumann/lib/io/FileUtil.java"/>
+    </Method>
+    <Method classname="java.io.File" name="setLastModified" signature="(J)Z" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.io.File" start="1258" end="1263" startBytecode="0" endBytecode="80" sourcefile="File.java" sourcepath="java/io/File.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.io.FileUtil" start="164" end="164" startBytecode="72" endBytecode="72" sourcefile="FileUtil.java" sourcepath="de/elmar_baumann/lib/io/FileUtil.java"/>
+    <SourceLine classname="de.elmar_baumann.lib.io.FileUtil" start="164" end="164" startBytecode="114" endBytecode="114" sourcefile="FileUtil.java" sourcepath="de/elmar_baumann/lib/io/FileUtil.java" role="SOURCE_LINE_ANOTHER_INSTANCE"/>
+  </BugInstance>
+  <BugInstance type="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE" priority="2" abbrev="RV" category="BAD_PRACTICE">
+    <Class classname="de.elmar_baumann.lib.io.FileUtil">
+      <SourceLine classname="de.elmar_baumann.lib.io.FileUtil" sourcefile="FileUtil.java" sourcepath="de/elmar_baumann/lib/io/FileUtil.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.io.FileUtil" name="ensureFileExists" signature="(Ljava/lang/String;)Z" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.io.FileUtil" start="83" end="96" startBytecode="0" endBytecode="225" sourcefile="FileUtil.java" sourcepath="de/elmar_baumann/lib/io/FileUtil.java"/>
+    </Method>
+    <Method classname="java.io.File" name="createNewFile" signature="()Z" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.io.File" start="881" end="883" startBytecode="0" endBytecode="58" sourcefile="File.java" sourcepath="java/io/File.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.io.FileUtil" start="89" end="89" startBytecode="34" endBytecode="34" sourcefile="FileUtil.java" sourcepath="de/elmar_baumann/lib/io/FileUtil.java"/>
+  </BugInstance>
+  <BugInstance type="FI_PUBLIC_SHOULD_BE_PROTECTED" priority="2" abbrev="FI" category="MALICIOUS_CODE">
+    <Class classname="de.elmar_baumann.lib.model.TreeModelDirectories">
+      <SourceLine classname="de.elmar_baumann.lib.model.TreeModelDirectories" sourcefile="TreeModelDirectories.java" sourcepath="de/elmar_baumann/lib/model/TreeModelDirectories.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.model.TreeModelDirectories" name="finalize" signature="()V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.model.TreeModelDirectories" start="413" end="415" startBytecode="0" endBytecode="62" sourcefile="TreeModelDirectories.java" sourcepath="de/elmar_baumann/lib/model/TreeModelDirectories.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="RU_INVOKE_RUN" priority="2" abbrev="Ru" category="MT_CORRECTNESS">
+    <Class classname="de.elmar_baumann.lib.model.TreeModelDirectories">
+      <SourceLine classname="de.elmar_baumann.lib.model.TreeModelDirectories" sourcefile="TreeModelDirectories.java" sourcepath="de/elmar_baumann/lib/model/TreeModelDirectories.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.model.TreeModelDirectories" name="getChildCount" signature="(Ljava/lang/Object;)I" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.model.TreeModelDirectories" start="72" end="85" startBytecode="0" endBytecode="321" sourcefile="TreeModelDirectories.java" sourcepath="de/elmar_baumann/lib/model/TreeModelDirectories.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.model.TreeModelDirectories" start="82" end="82" startBytecode="91" endBytecode="91" sourcefile="TreeModelDirectories.java" sourcepath="de/elmar_baumann/lib/model/TreeModelDirectories.java"/>
+  </BugInstance>
+  <BugInstance type="DM_NUMBER_CTOR" priority="2" abbrev="Bx" category="PERFORMANCE">
+    <Class classname="de.elmar_baumann.lib.persistence.PersistentSettings">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.persistence.PersistentSettings" name="setTabbedPane" signature="(Ljavax/swing/JTabbedPane;Ljava/lang/String;Lde/elmar_baumann/lib/persistence/PersistentSettingsHints;)V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="716" end="729" startBytecode="0" endBytecode="274" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="&lt;init&gt;" signature="(I)V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Integer" start="602" end="604" startBytecode="0" endBytecode="41" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="valueOf" signature="(I)V" isStatic="false" role="SHOULD_CALL">
+      <SourceLine classname="java.lang.Integer" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="716" end="716" startBytecode="8" endBytecode="8" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+  </BugInstance>
+  <BugInstance type="DM_NUMBER_CTOR" priority="2" abbrev="Bx" category="PERFORMANCE">
+    <Class classname="de.elmar_baumann.lib.persistence.PersistentSettings">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.persistence.PersistentSettings" name="setTable" signature="(Ljavax/swing/JTable;Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="984" end="995" startBytecode="0" endBytecode="278" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="&lt;init&gt;" signature="(I)V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Integer" start="602" end="604" startBytecode="0" endBytecode="41" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="valueOf" signature="(I)V" isStatic="false" role="SHOULD_CALL">
+      <SourceLine classname="java.lang.Integer" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="991" end="991" startBytecode="56" endBytecode="56" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+  </BugInstance>
+  <BugInstance type="OBL_UNSATISFIED_OBLIGATION" priority="2" abbrev="OBL" category="EXPERIMENTAL">
+    <Class classname="de.elmar_baumann.lib.persistence.PersistentSettings">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.persistence.PersistentSettings" name="readFromFile" signature="()V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="894" end="902" startBytecode="0" endBytecode="207" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Method>
+    <Class classname="java.io.InputStream" role="CLASS_REFTYPE">
+      <SourceLine classname="java.io.InputStream" sourcefile="InputStream.java" sourcepath="java/io/InputStream.java"/>
+    </Class>
+    <Int value="1" role="INT_OBLIGATIONS_REMAINING"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="894" end="894" startBytecode="8" endBytecode="8" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_OBLIGATION_CREATED"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="895" end="895" startBytecode="12" endBytecode="12" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="897" end="897" startBytecode="27" endBytecode="27" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="898" end="898" startBytecode="28" endBytecode="28" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="901" end="901" startBytecode="45" endBytecode="45" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="902" end="902" startBytecode="66" endBytecode="66" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <String value="{InputStream x 1}" role="STRING_REMAINING_OBLIGATIONS"/>
+  </BugInstance>
+  <BugInstance type="OBL_UNSATISFIED_OBLIGATION" priority="2" abbrev="OBL" category="EXPERIMENTAL">
+    <Class classname="de.elmar_baumann.lib.persistence.PersistentSettings">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.persistence.PersistentSettings" name="writeToFile" signature="()Z" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="881" end="888" startBytecode="0" endBytecode="178" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Method>
+    <Class classname="java.io.OutputStream" role="CLASS_REFTYPE">
+      <SourceLine classname="java.io.OutputStream" sourcefile="OutputStream.java" sourcepath="java/io/OutputStream.java"/>
+    </Class>
+    <Int value="1" role="INT_OBLIGATIONS_REMAINING"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="881" end="881" startBytecode="8" endBytecode="8" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_OBLIGATION_CREATED"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="882" end="882" startBytecode="12" endBytecode="12" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="885" end="885" startBytecode="53" endBytecode="53" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="886" end="886" startBytecode="54" endBytecode="54" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="888" end="888" startBytecode="71" endBytecode="71" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java" role="SOURCE_LINE_PATH_CONTINUES"/>
+    <String value="{OutputStream x 1}" role="STRING_REMAINING_OBLIGATIONS"/>
+  </BugInstance>
+  <BugInstance type="REC_CATCH_EXCEPTION" priority="2" abbrev="REC" category="STYLE">
+    <Class classname="de.elmar_baumann.lib.persistence.PersistentSettings">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.persistence.PersistentSettings" name="setComponent" signature="(Ljava/awt/Component;Lde/elmar_baumann/lib/persistence/PersistentSettingsHints;)V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="635" end="683" startBytecode="0" endBytecode="876" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="678" end="678" startBytecode="415" endBytecode="415" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+  </BugInstance>
+  <BugInstance type="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE" priority="2" abbrev="RV" category="BAD_PRACTICE">
+    <Class classname="de.elmar_baumann.lib.persistence.PersistentSettings">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.persistence.PersistentSettings" name="ensureFileExists" signature="()V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="955" end="963" startBytecode="0" endBytecode="152" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+    </Method>
+    <Method classname="java.io.File" name="createNewFile" signature="()Z" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.io.File" start="881" end="883" startBytecode="0" endBytecode="58" sourcefile="File.java" sourcepath="java/io/File.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.PersistentSettings" start="958" end="958" startBytecode="20" endBytecode="20" sourcefile="PersistentSettings.java" sourcepath="de/elmar_baumann/lib/persistence/PersistentSettings.java"/>
+  </BugInstance>
+  <BugInstance type="DM_STRING_CTOR" priority="2" abbrev="Dm" category="PERFORMANCE">
+    <Class classname="de.elmar_baumann.lib.persistence.Recent">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.Recent" sourcefile="Recent.java" sourcepath="de/elmar_baumann/lib/persistence/Recent.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.persistence.Recent" name="read" signature="(Ljava/util/Properties;)V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.persistence.Recent" start="146" end="159" startBytecode="0" endBytecode="324" sourcefile="Recent.java" sourcepath="de/elmar_baumann/lib/persistence/Recent.java"/>
+    </Method>
+    <SourceLine classname="de.elmar_baumann.lib.persistence.Recent" start="154" end="154" startBytecode="86" endBytecode="86" sourcefile="Recent.java" sourcepath="de/elmar_baumann/lib/persistence/Recent.java"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" abbrev="DLS" category="STYLE">
+    <Class classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$1">
+      <SourceLine classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$1" sourcefile="DateChooserDialog.java" sourcepath="de/elmar_baumann/lib/thirdparty/DateChooserDialog.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$1" name="actionPerformed" signature="(Ljava/awt/event/ActionEvent;)V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$1" start="123" end="130" startBytecode="0" endBytecode="29" sourcefile="DateChooserDialog.java" sourcepath="de/elmar_baumann/lib/thirdparty/DateChooserDialog.java"/>
+    </Method>
+    <LocalVariable name="mon" register="2" pc="24" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$1" start="124" end="124" startBytecode="23" endBytecode="23" sourcefile="DateChooserDialog.java" sourcepath="de/elmar_baumann/lib/thirdparty/DateChooserDialog.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.NO_LOADS" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.METHOD_RESULT" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.BASE_VALUE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="mon"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" abbrev="DLS" category="STYLE">
+    <Class classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$2">
+      <SourceLine classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$2" sourcefile="DateChooserDialog.java" sourcepath="de/elmar_baumann/lib/thirdparty/DateChooserDialog.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$2" name="actionPerformed" signature="(Ljava/awt/event/ActionEvent;)V" isStatic="false">
+      <SourceLine classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$2" start="149" end="156" startBytecode="0" endBytecode="29" sourcefile="DateChooserDialog.java" sourcepath="de/elmar_baumann/lib/thirdparty/DateChooserDialog.java"/>
+    </Method>
+    <LocalVariable name="mon" register="2" pc="24" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="de.elmar_baumann.lib.thirdparty.DateChooserDialog$2" start="150" end="150" startBytecode="23" endBytecode="23" sourcefile="DateChooserDialog.java" sourcepath="de/elmar_baumann/lib/thirdparty/DateChooserDialog.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.NO_LOADS" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.METHOD_RESULT" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.BASE_VALUE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="mon"/>
+  </BugInstance>
+  <BugInstance type="DMI_INVOKING_TOSTRING_ON_ARRAY" priority="2" abbrev="DMI" category="CORRECTNESS">
+    <Class classname="de.elmar_baumann.lib.util.ArrayUtil">
+      <SourceLine classname="de.elmar_baumann.lib.util.ArrayUtil" sourcefile="ArrayUtil.java" sourcepath="de/elmar_baumann/lib/util/ArrayUtil.java"/>
+    </Class>
+    <Method classname="de.elmar_baumann.lib.util.ArrayUtil" name="toStringArray" signature="([Ljava/lang/Object;)[Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="de.elmar_baumann.lib.util.ArrayUtil" start="93" end="106" startBytecode="0" endBytecode="237" sourcefile="ArrayUtil.java" sourcepath="de/elmar_baumann/lib/util/ArrayUtil.java"/>
+    </Method>
+    <LocalVariable name="objectArray" register="0" pc="71" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="de.elmar_baumann.lib.util.ArrayUtil" start="99" end="99" startBytecode="71" endBytecode="71" sourcefile="ArrayUtil.java" sourcepath="de/elmar_baumann/lib/util/ArrayUtil.java"/>
+  </BugInstance>
+  <BugInstance type="NM_CLASS_NOT_EXCEPTION" priority="2" abbrev="Nm" category="BAD_PRACTICE">
+    <Class classname="de.elmar_baumann.lib.util.logging.LogfileRecordException">
+      <SourceLine classname="de.elmar_baumann.lib.util.logging.LogfileRecordException" sourcefile="LogfileRecordException.java" sourcepath="de/elmar_baumann/lib/util/logging/LogfileRecordException.java"/>
+    </Class>
+  </BugInstance>
+  <Errors></Errors>
+  <FindBugsSummary timestamp="Sun, 25 Jan 2009 16:47:38 +0100" total_classes="102" total_bugs="29" total_size="4417" num_packages="24" vm_version="11.0-b16" cpu_seconds="19.40" clock_seconds="135.15" peak_mbytes="119.25" alloc_mbytes="992.31" gc_seconds="3.58" priority_2="28" priority_1="1">
+    <PackageStats package="de.elmar_baumann.lib.clipboard" total_bugs="0" total_types="1" total_size="42">
+      <ClassStats class="de.elmar_baumann.lib.clipboard.ClipboardUtil" sourceFile="ClipboardUtil.java" interface="false" size="42" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.component" total_bugs="0" total_types="6" total_size="163">
+      <ClassStats class="de.elmar_baumann.lib.component.CheckList" sourceFile="CheckList.java" interface="false" size="82" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.component.CheckList$1" sourceFile="CheckList.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.component.CheckList$CellRenderer" sourceFile="CheckList.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.component.CheckListBeanInfo" sourceFile="CheckListBeanInfo.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.component.InputVerifierMaxLength" sourceFile="InputVerifierMaxLength.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.component.TabLeavingTextArea" sourceFile="TabLeavingTextArea.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.component.text" total_bugs="0" total_types="1" total_size="15">
+      <ClassStats class="de.elmar_baumann.lib.component.text.MaxLengthDocument" sourceFile="MaxLengthDocument.java" interface="false" size="15" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.componentutil" total_bugs="3" total_types="6" total_size="284" priority_2="3">
+      <ClassStats class="de.elmar_baumann.lib.componentutil.ComboBoxUtil" sourceFile="ComboBoxUtil.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.componentutil.ComponentUtil" sourceFile="ComponentUtil.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.componentutil.ListUtil" sourceFile="ListUtil.java" interface="false" size="62" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.componentutil.LookAndFeelUtil" sourceFile="LookAndFeelUtil.java" interface="false" size="53" bugs="2" priority_2="2"/>
+      <ClassStats class="de.elmar_baumann.lib.componentutil.TableUtil" sourceFile="TableUtil.java" interface="false" size="31" bugs="1" priority_2="1"/>
+      <ClassStats class="de.elmar_baumann.lib.componentutil.TreeUtil" sourceFile="TreeUtil.java" interface="false" size="103" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.datatransfer" total_bugs="2" total_types="3" total_size="136" priority_2="2">
+      <ClassStats class="de.elmar_baumann.lib.datatransfer.TransferUtil" sourceFile="TransferUtil.java" interface="false" size="90" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.datatransfer.TransferableFileList" sourceFile="TransferableFileList.java" interface="false" size="31" bugs="1" priority_2="1"/>
+      <ClassStats class="de.elmar_baumann.lib.datatransfer.TransferableObject" sourceFile="TransferableObject.java" interface="false" size="15" bugs="1" priority_2="1"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.dialog" total_bugs="3" total_types="27" total_size="1165" priority_2="2" priority_1="1">
+      <ClassStats class="de.elmar_baumann.lib.dialog.Dialog" sourceFile="Dialog.java" interface="false" size="111" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.Dialog$1" sourceFile="Dialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.Dialog$2" sourceFile="Dialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.DirectoryChooser" sourceFile="DirectoryChooser.java" interface="false" size="132" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.DirectoryChooser$1" sourceFile="DirectoryChooser.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.DirectoryChooser$2" sourceFile="DirectoryChooser.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.DirectoryChooser$3" sourceFile="DirectoryChooser.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.DirectoryChooser$4" sourceFile="DirectoryChooser.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.DirectoryChooser$5" sourceFile="DirectoryChooser.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.DirectoryChooser$5$1" sourceFile="DirectoryChooser.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.HelpBrowser" sourceFile="HelpBrowser.java" interface="false" size="270" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.HelpBrowser$1" sourceFile="HelpBrowser.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.HelpBrowser$2" sourceFile="HelpBrowser.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.HelpBrowser$3" sourceFile="HelpBrowser.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.HelpBrowser$4" sourceFile="HelpBrowser.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.LogfileDialog" sourceFile="LogfileDialog.java" interface="false" size="393" bugs="3" priority_2="2" priority_1="1"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.LogfileDialog$1" sourceFile="LogfileDialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.LogfileDialog$2" sourceFile="LogfileDialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.LogfileDialog$3" sourceFile="LogfileDialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.LogfileDialog$4" sourceFile="LogfileDialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.LogfileDialog$5" sourceFile="LogfileDialog.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.LogfileDialog$5$1" sourceFile="LogfileDialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.ProgressDialog" sourceFile="ProgressDialog.java" interface="false" size="95" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.ProgressDialog$1" sourceFile="ProgressDialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.ProgressDialog$2" sourceFile="ProgressDialog.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.ProgressDialog$3" sourceFile="ProgressDialog.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.dialog.ProgressDialog$3$1" sourceFile="ProgressDialog.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.event" total_bugs="0" total_types="5" total_size="49">
+      <ClassStats class="de.elmar_baumann.lib.event.HelpBrowserAction" sourceFile="HelpBrowserAction.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.event.HelpBrowserAction$Type" sourceFile="HelpBrowserAction.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.event.HelpBrowserListener" sourceFile="HelpBrowserListener.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.event.KeyEventUtil" sourceFile="KeyEventUtil.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.event.MouseEventUtil" sourceFile="MouseEventUtil.java" interface="false" size="10" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.image" total_bugs="1" total_types="2" total_size="79" priority_2="1">
+      <ClassStats class="de.elmar_baumann.lib.image.ImagePanel" sourceFile="ImagePanel.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.image.ImageTransform" sourceFile="ImageTransform.java" interface="false" size="58" bugs="1" priority_2="1"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.image.icon" total_bugs="0" total_types="1" total_size="39">
+      <ClassStats class="de.elmar_baumann.lib.image.icon.IconUtil" sourceFile="IconUtil.java" interface="false" size="39" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.image.metadata.xmp" total_bugs="4" total_types="1" total_size="81" priority_2="4">
+      <ClassStats class="de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader" sourceFile="XmpFileReader.java" interface="false" size="81" bugs="4" priority_2="4"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.image.util" total_bugs="0" total_types="1" total_size="18">
+      <ClassStats class="de.elmar_baumann.lib.image.util.ImageUtil" sourceFile="ImageUtil.java" interface="false" size="18" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.io" total_bugs="3" total_types="3" total_size="204" priority_2="3">
+      <ClassStats class="de.elmar_baumann.lib.io.DirectoryFilter" sourceFile="DirectoryFilter.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.io.FileFilter" sourceFile="FileFilter.java" interface="false" size="34" bugs="1" priority_2="1"/>
+      <ClassStats class="de.elmar_baumann.lib.io.FileUtil" sourceFile="FileUtil.java" interface="false" size="157" bugs="2" priority_2="2"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.lang" total_bugs="0" total_types="1" total_size="17">
+      <ClassStats class="de.elmar_baumann.lib.lang.Util" sourceFile="Util.java" interface="false" size="17" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.model" total_bugs="2" total_types="6" total_size="381" priority_2="2">
+      <ClassStats class="de.elmar_baumann.lib.model.TableModelLogfiles" sourceFile="TableModelLogfiles.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.model.TreeModelDirectories" sourceFile="TreeModelDirectories.java" interface="false" size="230" bugs="2" priority_2="2"/>
+      <ClassStats class="de.elmar_baumann.lib.model.TreeModelDirectories$1" sourceFile="TreeModelDirectories.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.model.TreeModelDirectories$AddSubdirectories" sourceFile="TreeModelDirectories.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.model.TreeModelDirectories$ScanForDirectoryUpdates" sourceFile="TreeModelDirectories.java" interface="false" size="60" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.model.TreeModelHelpContents" sourceFile="TreeModelHelpContents.java" interface="false" size="28" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.persistence" total_bugs="7" total_types="4" total_size="667" priority_2="7">
+      <ClassStats class="de.elmar_baumann.lib.persistence.PersistentAppSizes" sourceFile="PersistentAppSizes.java" interface="false" size="75" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.persistence.PersistentSettings" sourceFile="PersistentSettings.java" interface="false" size="484" bugs="6" priority_2="6"/>
+      <ClassStats class="de.elmar_baumann.lib.persistence.PersistentSettingsHints" sourceFile="PersistentSettingsHints.java" interface="false" size="41" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.persistence.Recent" sourceFile="Recent.java" interface="false" size="67" bugs="1" priority_2="1"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.renderer" total_bugs="0" total_types="4" total_size="85">
+      <ClassStats class="de.elmar_baumann.lib.renderer.ListCellRendererFileSystem" sourceFile="ListCellRendererFileSystem.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.renderer.TableCellRendererLogfileDialog" sourceFile="TableCellRendererLogfileDialog.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.renderer.TreeCellRendererDirectories" sourceFile="TreeCellRendererDirectories.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents" sourceFile="TreeCellRendererHelpContents.java" interface="false" size="22" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.resource" total_bugs="0" total_types="4" total_size="90">
+      <ClassStats class="de.elmar_baumann.lib.resource.Bundle" sourceFile="Bundle.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.resource.LogLevelIcons" sourceFile="LogLevelIcons.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.resource.MutualExcludedResource" sourceFile="MutualExcludedResource.java" interface="false" size="36" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.resource.Settings" sourceFile="Settings.java" interface="false" size="17" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.runtime" total_bugs="0" total_types="2" total_size="57">
+      <ClassStats class="de.elmar_baumann.lib.runtime.External" sourceFile="External.java" interface="false" size="44" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.runtime.External$Stream" sourceFile="External.java" interface="false" size="13" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.template" total_bugs="0" total_types="1" total_size="24">
+      <ClassStats class="de.elmar_baumann.lib.template.Pair" sourceFile="Pair.java" interface="false" size="24" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.thirdparty" total_bugs="2" total_types="7" total_size="208" priority_2="2">
+      <ClassStats class="de.elmar_baumann.lib.thirdparty.DateChooserDialog" sourceFile="DateChooserDialog.java" interface="false" size="151" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.thirdparty.DateChooserDialog$1" sourceFile="DateChooserDialog.java" interface="false" size="11" bugs="1" priority_2="1"/>
+      <ClassStats class="de.elmar_baumann.lib.thirdparty.DateChooserDialog$2" sourceFile="DateChooserDialog.java" interface="false" size="11" bugs="1" priority_2="1"/>
+      <ClassStats class="de.elmar_baumann.lib.thirdparty.DateChooserDialog$3" sourceFile="DateChooserDialog.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.thirdparty.DateChooserDialog$4" sourceFile="DateChooserDialog.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.thirdparty.DateChooserDialog$5" sourceFile="DateChooserDialog.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.thirdparty.DateChooserDialog$6" sourceFile="DateChooserDialog.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.types" total_bugs="0" total_types="1" total_size="13">
+      <ClassStats class="de.elmar_baumann.lib.types.SortType" sourceFile="SortType.java" interface="false" size="13" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.util" total_bugs="1" total_types="6" total_size="137" priority_2="1">
+      <ClassStats class="de.elmar_baumann.lib.util.ArrayUtil" sourceFile="ArrayUtil.java" interface="false" size="43" bugs="1" priority_2="1"/>
+      <ClassStats class="de.elmar_baumann.lib.util.ComparatorFilesLastModified" sourceFile="ComparatorFilesLastModified.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.ComparatorFilesNames" sourceFile="ComparatorFilesNames.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.ComparatorFilesSuffixes" sourceFile="ComparatorFilesSuffixes.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.CompareCase" sourceFile="CompareCase.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.CompareOrder" sourceFile="CompareOrder.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.util.help" total_bugs="0" total_types="5" total_size="182">
+      <ClassStats class="de.elmar_baumann.lib.util.help.HelpIndexParser" sourceFile="HelpIndexParser.java" interface="false" size="68" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.help.HelpIndexParser$1" sourceFile="HelpIndexParser.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.help.HelpIndexParser$2" sourceFile="HelpIndexParser.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.help.HelpNode" sourceFile="HelpNode.java" interface="false" size="70" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.help.HelpPage" sourceFile="HelpPage.java" interface="false" size="27" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="de.elmar_baumann.lib.util.logging" total_bugs="1" total_types="4" total_size="281" priority_2="1">
+      <ClassStats class="de.elmar_baumann.lib.util.logging.LogfileParser" sourceFile="LogfileParser.java" interface="false" size="113" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.logging.LogfileRecord" sourceFile="LogfileRecord.java" interface="false" size="109" bugs="0"/>
+      <ClassStats class="de.elmar_baumann.lib.util.logging.LogfileRecordException" sourceFile="LogfileRecordException.java" interface="false" size="32" bugs="1" priority_2="1"/>
+      <ClassStats class="de.elmar_baumann.lib.util.logging.LogfileRecordFrame" sourceFile="LogfileRecordFrame.java" interface="false" size="27" bugs="0"/>
+    </PackageStats>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>
