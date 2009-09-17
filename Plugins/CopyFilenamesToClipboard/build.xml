@@ -74,11 +74,11 @@
     <target name="-post-jar">
         <copy
             file="dist/CopyFilenamesToClipboard.jar"
-            todir="../../Program/javalibs"
+            todir="../../Program/lib"
         />
         <zip
             basedir="src"
-            destfile="../../Program/javalibs/CopyFilenamesToClipboard-src.zip"
+            destfile="../../Program/lib/CopyFilenamesToClipboard-src.zip"
         />
     </target>
 </project>

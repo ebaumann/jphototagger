@@ -44,7 +44,7 @@ is divided into following sections:
         <property file="nbproject/private/private.properties"/>
     </target>
     <target depends="-pre-init,-init-private" name="-init-libraries">
-        <property location="javalibs/nblibraries.properties" name="libraries.1.path"/>
+        <property location="lib/nblibraries.properties" name="libraries.1.path"/>
         <dirname file="${libraries.1.path}" property="libraries.1.dir.nativedirsep"/>
         <pathconvert dirsep="/" property="libraries.1.dir">
             <path path="${libraries.1.dir.nativedirsep}"/>

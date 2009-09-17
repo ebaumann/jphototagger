@@ -70,11 +70,11 @@
     <target name="-post-jar">
         <copy
             file="dist/jsl.jar"
-            todir="../Program/javalibs"
+            todir="../Program/lib"
         />
         <zip
             basedir="src"
-            destfile="../Program/javalibs/jsl-src.zip"
+            destfile="../Program/lib/jsl-src.zip"
         />
     </target>
 </project>

@@ -74,11 +74,11 @@
     <target name="-post-jar">
         <copy
             file="dist/Plugin.jar"
-            todir="../Program/javalibs"
+            todir="../Program/lib"
         />
         <zip
             basedir="src"
-            destfile="../Program/javalibs/Plugin-src.zip"
+            destfile="../Program/lib/Plugin-src.zip"
         />
     </target>
 </project>
