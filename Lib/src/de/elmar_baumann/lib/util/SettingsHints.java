@@ -90,7 +90,7 @@ public final class SettingsHints {
      * werden soll.
      * 
      * @param member Attribut, genauer Pfad, z.B.
-     *               <code>de.elmar_baumann.imv.view.AppPanel.tableXmp</code>
+     *               <code>de.elmar_baumann.jpt.view.AppPanel.tableXmp</code>
      *               Default: Kein Attribut ist ausgeschlossen.
      */
     public void addExclude(String member) {
@@ -106,7 +106,7 @@ public final class SettingsHints {
      * {@link PersistentSettingsHints#isExcludedMember(java.lang.String)}.
      * 
      * @param member Attribut, genauer Pfad, z.B.
-     *               <code>de.elmar_baumann.imv.view.AppPanel.tableXmp</code>
+     *               <code>de.elmar_baumann.jpt.view.AppPanel.tableXmp</code>
      * @return       true, wenn der Inhalt des Attributs gespeichert werden soll
      */
     boolean isSet(String member) {

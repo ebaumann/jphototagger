@@ -43,7 +43,7 @@ public final class Resources {
      * dialogs.
      * <p>
      * Each path is a single icon image, e.g.
-     * <code>"/de/elmar_baumann/imv/resource/help.png"</code>.
+     * <code>"/de/elmar_baumann/jpt/resource/help.png"</code>.
      * 
      * @return paths
      */
@@ -56,7 +56,7 @@ public final class Resources {
      * dialogs.
      * <p>
      *  Each path is a single icon image, e.g.
-     * <code>"/de/elmar_baumann/imv/resource/help.png"</code>.
+     * <code>"/de/elmar_baumann/jpt/resource/help.png"</code>.
      * 
      * @param paths paths
      */

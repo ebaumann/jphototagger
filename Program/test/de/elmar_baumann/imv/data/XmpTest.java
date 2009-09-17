@@ -1,11 +1,12 @@
-package de.elmar_baumann.imv.data;
+package de.elmar_baumann.jpt.data;
 
+import de.elmar_baumann.jpt.data.Xmp;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import de.elmar_baumann.imv.database.metadata.Column;
-import de.elmar_baumann.imv.database.metadata.mapping.IptcXmpMapping;
-import de.elmar_baumann.imv.database.metadata.mapping.XmpRepeatableValues;
-import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcCreator;
-import de.elmar_baumann.imv.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.mapping.IptcXmpMapping;
+import de.elmar_baumann.jpt.database.metadata.mapping.XmpRepeatableValues;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.Arrays;
 import java.util.List;

@@ -167,7 +167,7 @@ public final class HelpBrowser extends Dialog
      * <code>/de/elmar_baumann/lib/resource/dtd/helpindex.dtd</code>
      * All paths to help pages within this file have to be relative.
      * 
-     * @param url URL, eg. <code>/de/elmar_baumann/imv/resource/doc/de/contents.xml</code>
+     * @param url URL, eg. <code>/de/elmar_baumann/jpt/resource/doc/de/contents.xml</code>
      */
     public synchronized void setContentsUrl(String url) {
         contentsUrl = url;

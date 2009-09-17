@@ -43,7 +43,7 @@ fi
 PROJECT_DIR="${PROJECTDIR}/JPhotoTagger/Program"
 
 # Directory of the language specific documentation directory
-DOC_DIR="${PROJECT_DIR}/src/de/elmar_baumann/imv/resource/doc/${LANG}"
+DOC_DIR="${PROJECT_DIR}/src/de/elmar_baumann/jpt/resource/doc/${LANG}"
 
 # Target directory of the generate PDF user manual used by mkdis.sh for the ZIP
 # archive and InnoSetup script JPhotoTagger.iss

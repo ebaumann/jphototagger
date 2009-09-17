@@ -22,7 +22,7 @@ while (<>) {
 }
 
 foreach my $line (@lines) {
-    next if $line =~ /\//  # Paths "/de/elmar_baumann/imv/icon.png"
+    next if $line =~ /\//  # Paths "/de/elmar_baumann/jpt/icon.png"
         || $line =~ /\"\./ # ".bla"
         || $line =~ /\.\./ # ".."
         ;

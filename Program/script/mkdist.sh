@@ -7,7 +7,7 @@ PROJECT=JPhotoTagger
 THIS_PROJECT_DIR=${PROJECTDIR}/${PROJECT}/Program
 ZIPFILE=${INTERNETSITE_LOCAL_DIR}/fotografie/download/JPhotoTagger.zip
 SCRIPT_DIR=${THIS_PROJECT_DIR}/script
-APP_VERSION_FILE=${THIS_PROJECT_DIR}/src/de/elmar_baumann/imv/app/AppInfo.java
+APP_VERSION_FILE=${THIS_PROJECT_DIR}/src/de/elmar_baumann/jpt/app/AppInfo.java
 HTML_PROJECT_FILE=${INTERNETSITE_LOCAL_DIR}/fotografie/tipps/computer/lightroom/imagemetadataviewer.html
 TMP_FILE=${HOME}/tmp/$(basename $0)-$$
 

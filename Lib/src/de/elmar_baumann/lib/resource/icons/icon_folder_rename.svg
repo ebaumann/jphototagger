@@ -14,10 +14,10 @@
    id="svg2160"
    sodipodi:version="0.32"
    inkscape:version="0.46"
-   sodipodi:docbase="/home/elmar/projekte/Program/src/de/elmar_baumann/imv/resource/icons"
+   sodipodi:docbase="/home/elmar/projekte/Program/src/de/elmar_baumann/jpt/resource/icons"
    sodipodi:docname="icon_folder_rename.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/Program/src/de/elmar_baumann/imv/resource/icons/icon_folder_rename.png"
+   inkscape:export-filename="/home/elmar/projekte/Program/src/de/elmar_baumann/jpt/resource/icons/icon_folder_rename.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -196,7 +196,7 @@
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
           </cc:Agent>
         </dc:publisher>
-        <dc:identifier>de.elmar_baumann.imv.resource.icons.icon_folder_add.svg</dc:identifier>
+        <dc:identifier>de.elmar_baumann.jpt.resource.icons.icon_folder_add.svg</dc:identifier>
         <dc:source>http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html</dc:source>
         <dc:subject>
           <rdf:Bag>
