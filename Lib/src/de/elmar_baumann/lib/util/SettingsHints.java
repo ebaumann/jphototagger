@@ -40,7 +40,6 @@ public final class SettingsHints {
     public enum Option {
 
         NONE,
-
         /**
          * The content of {@link javax.swing.JComboBox}es shall be written to
          * the properties
@@ -72,12 +71,15 @@ public final class SettingsHints {
         DONT_SET_TABBED_PANE_CONTENT,
     }
 
-    boolean isOption(Option option) {
-        return options.contains(option);
+    /**
+     * Creates a new instance with {@link Option#NONE}.
+     */
+    public SettingsHints() {
+        this.options = EnumSet.of(Option.NONE);
     }
 
     /**
-     * Constructor.
+     * Creates a new instance with specific options.
      *
      * @param options options
      */
@@ -114,6 +116,10 @@ public final class SettingsHints {
             throw new NullPointerException("member == null"); // NOI18N
 
         return !isExclude(member);
+    }
+
+    boolean isOption(Option option) {
+        return options.contains(option);
     }
 
     private boolean isExclude(String member) {
