@@ -11,7 +11,7 @@
 IFS="
 "
 
-JSL_SRC=${PROJECTDIR}/JavaStandardLibrary/src
+JSL_SRC=${PROJECTDIR}/Lib/src
 IMV_SRC=${PROJECTDIR}/JPhotoTagger/Program/src
 COMMENT_PATTERN='// NOI18N'
 

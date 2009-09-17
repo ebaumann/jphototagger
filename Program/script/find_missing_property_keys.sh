@@ -10,7 +10,7 @@
 IFS="
 "
 
-JSL_SRC=${PROJECTDIR}/JavaStandardLibrary/src
+JSL_SRC=${PROJECTDIR}/Lib/src
 IMV_SRC=${PROJECTDIR}/JPhotoTagger/Program/src
 JSL_PROP_FILE=${JSL_SRC}/de/elmar_baumann/lib/resource/properties/Bundle.properties
 IMV_PROP_FILE=${IMV_SRC}/de/elmar_baumann/imv/resource/properties/Bundle.properties
