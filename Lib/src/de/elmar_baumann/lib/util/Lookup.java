@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.ServiceLoader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Looks for implementations of a Java service.
@@ -65,8 +67,12 @@ public final class Lookup {
 
         Collection<T> result = new ArrayList<T>();
 
-        for (T service : ServiceLoader.load(clazz)) {
-            result.add(service);
+        try {
+            for (T service : ServiceLoader.load(clazz)) {
+                result.add(service);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Lookup.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return result;
