@@ -28,9 +28,9 @@ import java.util.logging.Logger;
 /**
  * Looks for implementations of a Java service.
  *
- * For details see {@link http://java.sun.com/j2se/1.4.2/docs/guide/jar/jar.html#Service%20Provider}.
+ * For details see http://java.sun.com/j2se/1.4.2/docs/guide/jar/jar.html#Service%20Provider.
  *
- * Inspired by {@link http://bits.netbeans.org/dev/javadoc/org-openide-util/org/openide/util/Lookup.html}.
+ * Inspired by http://bits.netbeans.org/dev/javadoc/org-openide-util/org/openide/util/Lookup.html.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-27

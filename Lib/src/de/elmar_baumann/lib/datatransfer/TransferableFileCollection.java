@@ -97,7 +97,7 @@ public final class TransferableFileCollection implements Transferable {
      *                token string shall be returned: The string contains names
      *                of files, every name is prepended by <code>file://</code>,
      *                the names are delimited by "\r\n"
-     * @return
+     * @return        transfer data
      * @throws        UnsupportedFlavorException if the flavor is not supported
      */
     @Override
