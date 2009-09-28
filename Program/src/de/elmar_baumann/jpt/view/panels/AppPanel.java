@@ -83,8 +83,8 @@ public final class AppPanel extends javax.swing.JPanel implements
             "AppPanel.DividerLocationMain"; // NOI18N
     private static final String KEY_DIVIDER_LOCATION_THUMBNAILS =
             "AppPanel.DividerLocationThumbnails"; // NOI18N
-    private static final int MIN_DIVIDER_LOCATION_MAIN = 100;
-    private static final int MIN_DIVIDER_LOCATION_THUMBNAILS = 200;
+    private static final int DEFAULT_DIVIDER_LOCATION_MAIN = 100;
+    private static final int DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
     private final List<JTable> xmpTables = new ArrayList<JTable>();
     private final List<JTable> metadataTables = new ArrayList<JTable>();
     private final List<JTree> selectionTrees = new ArrayList<JTree>();
@@ -449,6 +449,10 @@ public final class AppPanel extends javax.swing.JPanel implements
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setComponent(this, getPersistentSettingsHints());
+        settings.setInt(splitPaneMain.getDividerLocation(),
+                KEY_DIVIDER_LOCATION_MAIN);
+        settings.setInt(splitPaneThumbnailsMetadata.getDividerLocation(),
+                KEY_DIVIDER_LOCATION_THUMBNAILS);
         ViewUtil.writeTreeDirectoriesToProperties();
         UserSettings.INSTANCE.writeToFile();
     }
@@ -468,18 +472,17 @@ public final class AppPanel extends javax.swing.JPanel implements
     private int getDividerLocationThumbnails() {
         int location = UserSettings.INSTANCE.getSettings().getInt(
                 KEY_DIVIDER_LOCATION_THUMBNAILS);
-        return location > MIN_DIVIDER_LOCATION_THUMBNAILS
-               ? location
-               : MIN_DIVIDER_LOCATION_THUMBNAILS;
+        return location >= 0
+                ? location
+                : DEFAULT_DIVIDER_LOCATION_THUMBNAILS;
     }
 
     private int getDividerLocationMain() {
         int location = UserSettings.INSTANCE.getSettings().getInt(
                 KEY_DIVIDER_LOCATION_MAIN);
-        if (location <= splitPaneMain.getDividerSize()) location = 0;
         return location >= 0
-               ? location
-               : MIN_DIVIDER_LOCATION_MAIN;
+                ? location
+                : DEFAULT_DIVIDER_LOCATION_MAIN;
     }
 
     private void setDisableTreeMultipleSelection() {
@@ -503,7 +506,7 @@ public final class AppPanel extends javax.swing.JPanel implements
                 int x = progressBarAutomaticTasks.getLocationOnScreen().x + 1;
                 int y = progressBarAutomaticTasks.getLocationOnScreen().y + 1;
                 Dimension d = new Dimension(
-                        progressBarAutomaticTasks.getWidth() - 2    ,
+                        progressBarAutomaticTasks.getWidth() - 2,
                         progressBarAutomaticTasks.getHeight() - 2);
                 messagePanel.setPreferredSize(d);
                 messagePanel.setSize(d);
