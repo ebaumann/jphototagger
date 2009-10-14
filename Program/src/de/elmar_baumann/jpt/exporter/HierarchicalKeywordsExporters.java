@@ -19,9 +19,7 @@
 package de.elmar_baumann.jpt.exporter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Contains instances of all {@link HierarchicalKeywordsExporter}
@@ -32,10 +30,11 @@ import java.util.Set;
  */
 public final class HierarchicalKeywordsExporters {
 
-    private static final Set<HierarchicalKeywordsExporter> exporters =
-            new HashSet<HierarchicalKeywordsExporter>();
+    private static final List<HierarchicalKeywordsExporter> exporters =
+            new ArrayList<HierarchicalKeywordsExporter>();
 
     static {
+        exporters.add(HierarchicalKeywordsExporterJpt.INSTANCE);
         exporters.add(HierarchicalKeywordsExporterLightroom.INSTANCE);
     }
 

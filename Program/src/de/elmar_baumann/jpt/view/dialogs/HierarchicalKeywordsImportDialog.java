@@ -38,6 +38,8 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
 
     private static final String KEY_PREV_IMPORT_FILE =
             "HierarchicalKeywordsImportDialog.PrevImportFile"; // NOI18N
+    private static final String KEY_SEL_IMPORTER_INDEX =
+            "HierarchicalKeywordsImportDialog.SelectedImporterIndex";
     private boolean accepted;
     private File file;
     private ComboBoxModelHierarchicalKeywordsImporters comboBoxModelImporter =
@@ -136,6 +138,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.getSizeAndLocation(this);
+        settings.getSelectedIndex(comboBoxImporter, KEY_SEL_IMPORTER_INDEX);
         File prevImpFile = new File(settings.getString(KEY_PREV_IMPORT_FILE));
         if (prevImpFile.isFile()) {
             file = prevImpFile;
@@ -147,6 +150,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setSizeAndLocation(this);
+        settings.setSelectedIndex(comboBoxImporter, KEY_SEL_IMPORTER_INDEX);
         if (file != null && file.isFile()) {
             settings.setString(file.getAbsolutePath(), KEY_PREV_IMPORT_FILE);
         }

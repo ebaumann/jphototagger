@@ -19,9 +19,7 @@
 package de.elmar_baumann.jpt.importer;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Contains instances of all {@link HierarchicalKeywordsImporter}
@@ -32,10 +30,11 @@ import java.util.Set;
  */
 public final class HierarchicalKeywordsImporters {
 
-    private static final Set<HierarchicalKeywordsImporter> importers =
-            new HashSet<HierarchicalKeywordsImporter>();
+    private static final List<HierarchicalKeywordsImporter> importers =
+            new ArrayList<HierarchicalKeywordsImporter>();
 
     static {
+        importers.add(HierarchicalKeywordsImporterJpt.INSTANCE);
         importers.add(HierarchicalKeywordsImporterLightroom.INSTANCE);
     }
 

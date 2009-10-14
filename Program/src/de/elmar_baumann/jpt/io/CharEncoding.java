@@ -28,9 +28,14 @@ public final class CharEncoding {
 
     /**
      * Character encoding of exported Adobe Photoshop Lightroom hierarchical
-     * keywords.
+     * keywords
      */
     public static final String LIGHTROOM_KEYWORDS = "UTF8";
+
+    /**
+     * Character encoding of exported JPhotoTagger hierarchical keywords
+     */
+    public static final String JPT_KEYWORDS = "UTF8";
 
     private CharEncoding() {
     }

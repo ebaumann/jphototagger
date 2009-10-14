@@ -74,7 +74,7 @@ public final class InsertHierarchicalKeywords extends Thread {
 
         for (String keyword : keywords) {
             if (!db.existsRootKeyword(keyword)) {
-                modelHk.addKeyword(rootHk, keyword);
+                modelHk.addKeyword(rootHk, keyword, true);
                 inserted = true;
             }
         }

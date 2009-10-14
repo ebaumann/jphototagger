@@ -26,6 +26,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.HierarchicalKeywordsImportDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUserTasks;
+import de.elmar_baumann.lib.generics.Pair;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -68,19 +69,23 @@ public final class ControllerImportHierarchicalKeywords
             HierarchicalKeywordsImporter importer = dlg.getImporter();
             assert importer != null : "Importer is null!"; // NOI18N
             if (importer != null) {
-                new ImportTask(importer.getPaths(dlg.getFile())).start();
+                Collection<List<Pair<String, Boolean>>> paths =
+                        importer.getPaths(dlg.getFile());
+                if (paths != null) {
+                    new ImportTask(paths).start();
+                }
             }
         }
     }
 
     private class ImportTask extends Thread {
 
-        private final Collection<List<String>> paths;
+        private final Collection<List<Pair<String, Boolean>>> paths;
         private final TreeModel treeModel = GUI.INSTANCE.getAppPanel().
                 getTreeHierarchicalKeywords().getModel();
         private final JProgressBar progressBar;
 
-        public ImportTask(Collection<List<String>> paths) {
+        public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             this.paths = paths;
             setName("Importing keywords @ " + getClass().getName()); // NOI18N
             progressBar = ProgressBarUserTasks.INSTANCE.getResource(this);
@@ -98,15 +103,17 @@ public final class ControllerImportHierarchicalKeywords
                 TreeModelHierarchicalKeywords model =
                         (TreeModelHierarchicalKeywords) treeModel;
                 initProgressBar();
-                for (List<String> path : paths) {
+                for (List<Pair<String, Boolean>> path : paths) {
                     DefaultMutableTreeNode node =
                             (DefaultMutableTreeNode) model.getRoot();
-                    for (String keyword : path) {
+                    for (Pair<String, Boolean> keyword : path) {
                         DefaultMutableTreeNode existingNode =
-                                model.findChildByName(node, keyword);
+                                model.findChildByName(node, keyword.getFirst());
                         if (existingNode == null) {
-                            model.addKeyword(node, keyword);
-                            node = model.findChildByName(node, keyword);
+                            model.addKeyword(node, keyword.getFirst(),
+                                    keyword.getSecond());
+                            node = model.findChildByName(
+                                    node, keyword.getFirst());
                         } else {
                             node = existingNode;
                         }
@@ -132,7 +139,8 @@ public final class ControllerImportHierarchicalKeywords
                 progressBar.setMaximum(paths.size());
                 progressBar.setValue(0);
                 progressBar.setStringPainted(true);
-                progressBar.setString(Bundle.getString(
+                progressBar.setString(
+                        Bundle.getString(
                         "ControllerImportHierarchicalKeywords.ProgressBar.String")); // NOI18N
             }
         }

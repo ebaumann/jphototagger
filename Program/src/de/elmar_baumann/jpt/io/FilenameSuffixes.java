@@ -28,9 +28,14 @@ public final class FilenameSuffixes {
 
     /**
      * Filename suffix of exported Adobe Photoshop Lightroom hierarchical
-     * keywords.
+     * keywords
      */
     public static final String LIGHTROOM_KEYWORDS = "txt";
+
+    /**
+     * Filename suffix of exported JPhotoTagger hierarchical keywords
+     */
+    public static final String JPT_KEYWORDS = "xml";
 
     private FilenameSuffixes() {
     }

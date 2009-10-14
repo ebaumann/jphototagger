@@ -82,9 +82,10 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
      *
      * @param parentNode parent node; the keyword becomes a child
      * @param keyword    keyword to add
+     * @param real       true if the keyword is a real keyword
      */
     public synchronized void addKeyword(
-            DefaultMutableTreeNode parentNode, String keyword) {
+            DefaultMutableTreeNode parentNode, String keyword, boolean real) {
         if (!checkKeywordExists(parentNode, keyword)) {
             return;
         }
@@ -97,7 +98,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                     ? null
                     : ((HierarchicalKeyword) userObject).getId();
             HierarchicalKeyword child = new HierarchicalKeyword(
-                    null, idParent, keyword, true);
+                    null, idParent, keyword, real);
             if (db.insert(child)) {
                 insertNode(parentNode, new TreeNodeSortedChildren(child));
             } else {

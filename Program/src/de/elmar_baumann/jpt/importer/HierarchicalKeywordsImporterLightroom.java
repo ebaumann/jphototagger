@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,10 +59,8 @@ final class HierarchicalKeywordsImporterLightroom
     private final Node root = new Node(null, -1, "ROOT");
 
     @Override
-    public Collection<List<String>> getPaths(File file) {
+    public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
         try {
-            if (file == null)
-                throw new NullPointerException("file == null");
             Node node = root;
             for (String line : readLines(file)) {
                 if (!isSynonym(line) && node != null) {
@@ -89,20 +88,21 @@ final class HierarchicalKeywordsImporterLightroom
         }
     }
 
-    private Collection<List<String>> pathsOfNodes(
+    private Collection<List<Pair<String, Boolean>>> pathsOfNodes(
             Collection<? extends Node> nodes) {
-        List<List<String>> paths = new ArrayList<List<String>>();
+        List<List<Pair<String, Boolean>>> paths =
+                new ArrayList<List<Pair<String, Boolean>>>();
         for (Node node : nodes) {
             paths.add(pathOfNode(node));
         }
         return paths;
     }
 
-    private List<String> pathOfNode(Node node) {
-        List<String> path = new ArrayList<String>();
+    private List<Pair<String, Boolean>> pathOfNode(Node node) {
+        List<Pair<String, Boolean>> path = new ArrayList<Pair<String, Boolean>>();
         Node parent = node;
         while (parent != root) {
-            path.add(parent.getString());
+            path.add(new Pair<String, Boolean>(parent.getString(), true));
             parent = parent.getParent();
         }
         Collections.reverse(path);

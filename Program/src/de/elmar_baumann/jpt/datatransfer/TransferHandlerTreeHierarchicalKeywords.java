@@ -133,7 +133,7 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
                 transferSupport.getTransferable());
         if (keywords == null) return;
         for (Object keyword : keywords) {
-            treeModel.addKeyword(node, keyword.toString());
+            treeModel.addKeyword(node, keyword.toString(), true);
         }
     }
 

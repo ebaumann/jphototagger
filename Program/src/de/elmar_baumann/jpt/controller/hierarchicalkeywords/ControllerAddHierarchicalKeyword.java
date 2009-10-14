@@ -85,7 +85,7 @@ public class ControllerAddHierarchicalKeyword
         if (name != null && !name.trim().isEmpty()) {
             TreeModel tm = tree.getModel();
             if (tm instanceof TreeModelHierarchicalKeywords) {
-                ((TreeModelHierarchicalKeywords) tm).addKeyword(parentNode, name);
+                ((TreeModelHierarchicalKeywords) tm).addKeyword(parentNode, name, true);
                 HierarchicalKeywordsTreePathExpander.expand(parentNode);
             } else {
                 AppLog.logWarning(ControllerAddHierarchicalKeyword.class,

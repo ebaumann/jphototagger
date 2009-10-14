@@ -18,9 +18,9 @@
  */
 package de.elmar_baumann.jpt.importer;
 
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.Collection;
-import java.util.IllegalFormatException;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
@@ -34,18 +34,37 @@ import javax.swing.filechooser.FileFilter;
 public interface HierarchicalKeywordsImporter {
 
     /**
-     * Returns all keyword paths.
-     *
+     * Returns all keyword paths to the leaf nodes.
+     * <p>
      * Every path is a list. The first string in a path - the first list element
      * - is the root keyword (no parent) and the following keywords - string
      * elements in the list - are children where a string following a string is
      * a child of the previous string.
-     * 
+     * <p>
+     * E.g. the tree
+     *
+     * {@code
+     * Landscape
+     *     Tree
+     *         Beech
+     *         Birch
+     * Building
+     * }
+     * <p>
+     * has these lists, elements delimited by a comma:
+     * {@code
+     * Landscape, Tree
+     * Landscape, Tree, Beech
+     * Landscape, Tree, Birch
+     * Building
+     * }
+     *
      * @param  file file with keywords to import
-     * @return      keyword paths
-     * @throws      IllegalFormatException if the file format is invalid
+     * @return      keyword paths. The first element in the pair is the keyword,
+     *              the second is true, if the keyword is a real keyword and
+     *              false if it's a helper. Null on errors.
      */
-    public Collection<List<String>> getPaths(File file);
+    public Collection<List<Pair<String, Boolean>>> getPaths(File file);
 
     /**
      * Returns the filter of files that can be imported.

@@ -26,6 +26,7 @@ import de.elmar_baumann.jpt.model.ComboBoxModelHierarchicalKeywordsExporters;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
+import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import javax.swing.JFileChooser;
 
@@ -43,6 +44,8 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     private File file;
     private ComboBoxModelHierarchicalKeywordsExporters comboBoxModelExporter =
             new ComboBoxModelHierarchicalKeywordsExporters();
+    private static final String KEY_SEL_EXPORTER_INDEX =
+            "HierarchicalKeywordsExportDialog.SelectedExporterIndex"; // NOI18N
 
     public HierarchicalKeywordsExportDialog() {
         super((java.awt.Frame) null, true);
@@ -130,6 +133,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.getSizeAndLocation(this);
+        settings.getSelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
         File prevExpFile = new File(settings.getString(KEY_PREV_EXPORT_FILE));
         if (prevExpFile.getParentFile() != null &&
                 prevExpFile.getParentFile().isDirectory()) {
@@ -142,6 +146,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setSizeAndLocation(this);
+        settings.setSelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
         if (file != null && file.isFile()) {
             settings.setString(file.getAbsolutePath(), KEY_PREV_EXPORT_FILE);
         }
