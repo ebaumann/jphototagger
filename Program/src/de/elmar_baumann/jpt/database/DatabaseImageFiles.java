@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -1974,5 +1975,35 @@ public final class DatabaseImageFiles extends Database {
         }
         stmt.close();
         return id;
+    }
+
+    /**
+     * Returns all thumbnail files.
+     *
+     * @return files
+     */
+    public Set<File> getAllThumbnailFiles() {
+        Set<File> files = new HashSet<File>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql = "SELECT filename FROM files";  // NOI18N
+            Statement stmt = connection.createStatement();
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            File file = null;
+            String hash = null;
+            while (rs.next()) {
+                hash = PersistentThumbnails.getMd5File(rs.getString(1));
+                file = PersistentThumbnails.getThumbnailfile(hash);
+                files.add(file);
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return files;
     }
 }

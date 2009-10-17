@@ -22,10 +22,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelMaintainMessages" alignment="1" max="32767" attributes="0"/>
                   <Component id="panelMaintainanceTasks" alignment="1" max="32767" attributes="2"/>
-                  <Component id="progressBar" alignment="1" pref="462" max="32767" attributes="2"/>
+                  <Component id="progressBar" alignment="1" pref="506" max="32767" attributes="2"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonDeleteMessages" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="203" max="32767" attributes="0"/>
+                      <EmptySpace pref="208" max="32767" attributes="0"/>
                       <Component id="buttonAbortAction" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
@@ -50,7 +50,7 @@
                   <Component id="buttonAbortAction" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonDeleteMessages" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,18 +73,27 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" pref="366" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" pref="408" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="checkBoxCompressDatabase" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelFinishedCompressDatabase" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="checkBoxCompressDatabase" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
+                          <Component id="checkBoxDeleteOrphanedThumbnails" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="225" max="32767" attributes="0"/>
+                          <Component id="labelFinishedDeleteOrphanedThumbnails" linkSize="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelFinishedCompressDatabase" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -94,13 +103,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelFinishedDeleteRecordsOfNotExistingFilesInDatabase" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="labelFinishedCompressDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelFinishedCompressDatabase" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxCompressDatabase" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="checkBoxDeleteOrphanedThumbnails" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelFinishedDeleteOrphanedThumbnails" linkSize="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -144,6 +158,23 @@
             </Property>
           </Properties>
         </Component>
+        <Component class="javax.swing.JCheckBox" name="checkBoxDeleteOrphanedThumbnails">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDeleteOrphanedThumbnailsActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelFinishedDeleteOrphanedThumbnails">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[16, 16]"/>
+            </Property>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelMaintainMessages">
@@ -162,7 +193,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrollPaneMessages" pref="430" max="32767" attributes="0"/>
+                  <Component id="scrollPaneMessages" pref="472" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -170,7 +201,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="scrollPaneMessages" pref="43" max="32767" attributes="0"/>
+                  <Component id="scrollPaneMessages" pref="47" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
