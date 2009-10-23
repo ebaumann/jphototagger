@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.io.IoUtil;
@@ -27,7 +26,6 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.dialogs.ProgramInputParametersDialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
-import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -117,13 +115,8 @@ public final class StartPrograms {
         private void processAll() {
             String command = getProcessAllCommand();
             logCommand(command);
-            Pair<byte[], byte[]> output = External.executeGetOutput(command,
-                    UserSettings.INSTANCE.
-                    getMaxSecondsToTerminateExternalPrograms() * 1000);
-            if (output != null) {
-                checkLogErrors(output);
-                setValueToProgressBar(imageFiles.size());
-            }
+            External.execute(command);
+            setValueToProgressBar(imageFiles.size());
         }
 
         private String getProcessAllCommand() {
@@ -141,13 +134,8 @@ public final class StartPrograms {
             for (File file : imageFiles) {
                 String command = getProcessSingleCommand(file, count);
                 logCommand(command);
-                Pair<byte[], byte[]> output = External.executeGetOutput(command,
-                        UserSettings.INSTANCE.
-                        getMaxSecondsToTerminateExternalPrograms() * 1000);
-                if (output != null) {
-                    checkLogErrors(output);
-                    setValueToProgressBar(++count);
-                }
+                External.execute(command);
+                setValueToProgressBar(++count);
             }
         }
 
@@ -179,17 +167,6 @@ public final class StartPrograms {
         private synchronized void nextExecutor() {
             if (!queue.isEmpty()) {
                 queue.poll().start();
-            }
-        }
-
-        private void checkLogErrors(Pair<byte[], byte[]> output) {
-            byte[] stderr = output.getSecond();
-            String message = (stderr == null
-                    ? "" // NOI18N
-                    : new String(stderr).trim()); // NOI18N
-            if (!message.isEmpty()) {
-                AppLog.logWarning(
-                        Execute.class, "ProgramStarter.Error.Program", message); // NOI18N
             }
         }
 

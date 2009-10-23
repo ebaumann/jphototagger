@@ -367,7 +367,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle(AppInfo.APP_NAME + " " + AppInfo.APP_VERSION);
+        setTitle(AppInfo.APP_NAME);
 
         menuFile.setText(Bundle.getString("AppFrame.menuFile.text")); // NOI18N
 
