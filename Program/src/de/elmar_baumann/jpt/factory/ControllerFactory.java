@@ -77,7 +77,7 @@ import de.elmar_baumann.jpt.controller.search.ControllerEditSavedSearch;
 import de.elmar_baumann.jpt.controller.search.ControllerRenameSavedSearch;
 import de.elmar_baumann.jpt.controller.search.ControllerSavedSearchSelected;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerCopyOrCutFilesToClipboard;
-import de.elmar_baumann.jpt.controller.thumbnail.ControllerCreateMetadataOfCurrentThumbnails;
+import de.elmar_baumann.jpt.controller.thumbnail.ControllerCreateMetadataOfDisplayedThumbnails;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerCreateMetadataOfSelectedThumbnails;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerPasteFilesFromClipboard;
@@ -134,7 +134,7 @@ public final class ControllerFactory {
             new ControllerOpenFilesWithStandardApp();
             new ControllerOpenFilesWithOtherApp();
             new ControllerDeleteThumbnailsFromDatabase();
-            new ControllerCreateMetadataOfCurrentThumbnails();
+            new ControllerCreateMetadataOfDisplayedThumbnails();
             new ControllerLogfileDialog();
             new ControllerFastSearch();
             new ControllerAdvancedSearch();

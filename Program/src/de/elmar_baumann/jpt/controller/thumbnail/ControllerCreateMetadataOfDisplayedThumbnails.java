@@ -43,14 +43,14 @@ import java.util.EnumSet;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-29
  */
-public final class ControllerCreateMetadataOfCurrentThumbnails
+public final class ControllerCreateMetadataOfDisplayedThumbnails
         implements ThumbnailsPanelListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
 
-    public ControllerCreateMetadataOfCurrentThumbnails() {
+    public ControllerCreateMetadataOfDisplayedThumbnails() {
         listen();
     }
 
