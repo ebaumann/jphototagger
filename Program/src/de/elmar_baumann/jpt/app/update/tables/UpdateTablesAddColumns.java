@@ -75,6 +75,16 @@ final class UpdateTablesAddColumns {
                 "BOOLEAN", // NOI18N
                 null));
         columns.add(new ColumnInfo(
+                "programs", // NOI18N
+                "use_pattern", // NOI18N
+                "BOOLEAN", // NOI18N
+                null));
+        columns.add(new ColumnInfo(
+                "programs", // NOI18N
+                "pattern", // NOI18N
+                "BINARY", // NOI18N
+                null));
+        columns.add(new ColumnInfo(
                 "hierarchical_subjects", // NOI18N
                 "real", // NOI18N
                 "BOOLEAN", // NOI18N

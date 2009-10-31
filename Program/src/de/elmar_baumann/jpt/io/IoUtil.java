@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.AppFileFilter;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.lib.io.FileLock;
+import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.runtime.External;
 import java.io.File;
@@ -39,9 +40,14 @@ import java.util.List;
  */
 public final class IoUtil {
 
-    private static final String QUOTE = "\""; // NOI18N
-    private static final String SEPARATOR = " "; // NOI18N
-    private static final String EMPTY = ""; // NOI18N
+    private static final String QUOTE                = "\""; // NOI18N
+    private static final String SEPARATOR            = " ";  // NOI18N
+    private static final String EMPTY                = "";   // NOI18N
+    private static final String PATTERN_FS_PATH      = "%s"; // NOI18N
+    private static final String PATTERN_FS_ROOT      = "%d"; // NOI18N
+    private static final String PATTERN_FS_DIR_PATH  = "%p"; // NOI18N
+    private static final String PATTERN_FS_FILE_NAME = "%n"; // NOI18N
+    private static final String PATTERN_FS_FILE_EXT  = "%x"; // NOI18N
 
     /**
      * Executes an application and desplays a message dialog on errors.
@@ -57,8 +63,7 @@ public final class IoUtil {
                     arguments;
             try {
                 AppLog.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand); // NOI18N
-                Runtime.getRuntime().exec(
-                        External.parseQuotedCommandLine(openCommand));
+                Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (IOException ex) {
                 AppLog.logSevere(IoUtil.class, ex);
                 MessageDisplayer.error(null, "IoUtil.Error.OpenFile"); // NOI18N
@@ -117,9 +122,7 @@ public final class IoUtil {
     public static String quoteForCommandLine(String string, File file) {
         String quote = getDefaultCommandlineQuote();
         String separator = getDefaultCommandLineSeparator();
-        return quote + string + quote +
-                separator +
-                quote + file.getAbsolutePath() + quote;
+        return quote + string + quote + separator + quote + file.getAbsolutePath() + quote;
     }
 
     /**
@@ -148,6 +151,35 @@ public final class IoUtil {
                 files,
                 getDefaultCommandLineSeparator(),
                 getDefaultCommandlineQuote());
+    }
+
+    /**
+     * Substitudes in a string placeholders with portions of a filename:
+     * <ul>
+     * <li>%s with the absolute path of the file</li>
+     * <li>%d with {@link FileUtil#getRootName(java.lang.String)}</li>
+     * <li>%p with {@link FileUtil#getDirPath(java.io.File)}</li>
+     * <li>%n with {@link FileUtil#getPrefix(java.lang.String)}</li>
+     * <li>%x with {@link FileUtil#getSuffix(java.lang.String)}</li>
+     * </ul>
+     *
+     * @param  file    file
+     * @param  pattern pattern
+     * @return         string with replaced
+     */
+    public static String substitudePattern(File file, String pattern) {
+        String path      = file.getAbsolutePath();
+        String root      = FileUtil.getRootName(path);
+        String dirPath   = FileUtil.getDirPath(file);
+        String name      = FileUtil.getPrefix(file.getName());
+        String extension = FileUtil.getSuffix(file.getName());
+
+        return pattern.replace(PATTERN_FS_DIR_PATH , dirPath).
+                replace(PATTERN_FS_FILE_EXT , extension).
+                replace(PATTERN_FS_FILE_NAME, name).
+                replace(PATTERN_FS_PATH     , path).
+                replace(PATTERN_FS_ROOT     , root)
+                ;
     }
 
     private static String getQuotedForCommandLine(

@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.data;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.io.IoUtil;
 import java.io.File;
+import java.util.List;
 
 /**
  * External program to start within the application. It is written persistent 
@@ -38,6 +39,8 @@ public final class Program {
     private String alias;
     private String parametersBeforeFilename;
     private String parametersAfterFilename;
+    private String pattern;
+    private boolean usePattern;
     private boolean inputBeforeExecute = false;
     private boolean inputBeforeExecutePerFile = false;
     private boolean singleFileProcessing = false;
@@ -140,11 +143,27 @@ public final class Program {
         this.changeFile = changeFile;
     }
 
-    public String getCommandlineParameters(
-            String filenames,
-            String additionalParameters,
-            boolean additionalParametersBeforeFilenames) {
+    public String getPattern() {
+        return pattern;
+    }
 
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
+
+    public boolean isUsePattern() {
+        return usePattern;
+    }
+
+    public void setUsePattern(boolean usePattern) {
+        this.usePattern = usePattern;
+    }
+
+    public String getCommandlineParameters(
+            List<File> files,
+            String     additionalParameters,
+            boolean    additionalParametersBeforeFilenames
+            ) {
         String sep = IoUtil.getDefaultCommandLineSeparator();
 
         String parametersBefore = (parametersBeforeFilename == null
@@ -160,7 +179,7 @@ public final class Program {
                 ? EMPTY
                 : sep + additionalParameters);
 
-        return parametersBefore + sep + filenames + sep + parametersAfter;
+        return parametersBefore + sep + IoUtil.quoteForCommandLine(files) + sep + parametersAfter;
     }
 
     @Override

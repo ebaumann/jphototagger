@@ -91,7 +91,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="1">
                           <Component id="labelFilePrompt" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="256" max="32767" attributes="0"/>
+                          <EmptySpace pref="258" max="32767" attributes="0"/>
                           <Component id="buttonChooseFile" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="labelFile" alignment="0" pref="431" max="32767" attributes="0"/>
@@ -195,15 +195,21 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="checkBoxUsePattern" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonInfoUsePattern" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="scrollPaneParametersBeforeFilename" alignment="0" pref="431" max="32767" attributes="2"/>
                       <Component id="labelParametersBeforeFilename" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="labelParametersAfterFilename" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneParametersBeforeFilename" alignment="0" pref="431" max="32767" attributes="2"/>
-                      <Component id="scrollPaneParametersAfterFilename" alignment="0" pref="431" max="32767" attributes="2"/>
+                      <Component id="scrollPaneParametersAfterFilename" alignment="1" pref="431" max="32767" attributes="2"/>
+                      <Component id="scrollPaneUsePattern" alignment="0" pref="431" max="32767" attributes="2"/>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -212,12 +218,19 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelParametersBeforeFilename" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneParametersBeforeFilename" pref="33" max="32767" attributes="0"/>
+                  <Component id="scrollPaneParametersBeforeFilename" pref="23" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="labelParametersAfterFilename" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneParametersAfterFilename" pref="34" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="1"/>
+                  <Component id="scrollPaneParametersAfterFilename" pref="23" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="checkBoxUsePattern" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonInfoUsePattern" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="scrollPaneUsePattern" pref="23" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -244,7 +257,7 @@
                 <Property name="rows" type="int" value="1"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="textAreaParametersBeforeFilename = new TabOrEnterLeavingTextArea();"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea();"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -270,7 +283,46 @@
                 <Property name="rows" type="int" value="1"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="textAreaParametersAfterFilename  = new TabOrEnterLeavingTextArea();"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea();"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JCheckBox" name="checkBoxUsePattern">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxUsePattern.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxUsePatternActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonInfoUsePattern">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonInfoUsePattern.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonInfoUsePatternActionPerformed"/>
+          </Events>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="scrollPaneUsePattern">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="textAreaUsePattern">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="1"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea();"/>
               </AuxValues>
             </Component>
           </SubComponents>

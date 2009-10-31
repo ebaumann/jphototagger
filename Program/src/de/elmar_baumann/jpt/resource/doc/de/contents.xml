@@ -380,6 +380,10 @@
             <title>Fakten: Kategorien</title>
         </page>
     </node>
+    <page>
+        <url>parameter_substitution.html</url>
+        <title>Parameter, die ersetzt werden durch Zeichenketten</title>
+    </page>
     <node>
         <title>Glossar</title>
         <page>

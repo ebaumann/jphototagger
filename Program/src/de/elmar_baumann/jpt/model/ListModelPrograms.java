@@ -63,8 +63,7 @@ public final class ListModelPrograms extends DefaultListModel {
             int index = indexOf(program);
             fireContentsChanged(this, index, index);
         } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Update", // NOI18N
-                    program.getAlias());
+            MessageDisplayer.error(null, "ListModelPrograms.Error.Update", program.getAlias()); // NOI18N
         }
     }
 

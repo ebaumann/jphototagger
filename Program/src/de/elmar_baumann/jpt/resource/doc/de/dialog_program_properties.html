@@ -39,24 +39,39 @@
 
         <h2>Programmparameter</h2>
 
-        <ul>
-            <li><strong>Zusätzliche Parameter vor Dateinamen:</strong> Falls Ihr
-                Programm die Parameter vor dem/den Dateinamen wünscht, geben Sie
-                diese hier ein. Geben Sie zum Beispiel ein: <code>-rotate 90
+        <h3>Zusätzliche Parameter vor Dateinamen</h3>
+
+        <p>Falls Ihr
+            Programm die Parameter vor dem/den Dateinamen wünscht, geben Sie
+            diese hier ein. Geben Sie zum Beispiel ein: <code>-rotate 90
                 -sharpen</code>, wird das Programm so aufgerufen: <code>Programm
-                -rotate 90 -sharpen Bild.jpg</code>.
-            </li>
-            <li><strong>Zusätzliche Parameter nach Dateinamen:</strong> Falls
-                Ihr Programm die Parameter nach dem/den Dateinamen wünscht,
-                geben Sie diese hier ein. Geben Sie zum Beispiel ein:
-                <code>-rotate 90 -sharpen</code>, wird das Programm so
-                aufgerufen: <code>Programm Bild.jpg  -rotate 90 -sharpen</code>.
-            </li>
-        </ul>
+                -rotate 90 -sharpen Bild.jpg</code>.</p>
+
+        <h3>Zusätzliche Parameter nach Dateinamen</h3>
+
+        <p>Falls
+            Ihr Programm die Parameter nach dem/den Dateinamen wünscht,
+            geben Sie diese hier ein. Geben Sie zum Beispiel ein:
+            <code>-rotate 90 -sharpen</code>, wird das Programm so
+            aufgerufen: <code>Programm Bild.jpg  -rotate 90 -sharpen</code>.
+        </p>
 
         <p>Tragen Sie in beide Felder Parameter ein, wird das Programm mit den
             Parametern davor <em>und</em> danach aufgerufen, z.B. <code>Programm
             -parameter_vor Bild_1.jpg Bild_2.jpg -parameter_nach</code>.
+        </p>
+
+        <h3>Frei definiert (deaktiviert die zusätzlichen Parameter oben)</h3>
+
+        <p>Hier können Sie beliebige Parameter eintragen, die dem
+            Programmaufruf folgen. Dabei können Sie Dateinamen in Bestandteile
+            <q>zerlegen</q>, wie, steht im Dokument über
+            <a href="parameter_substitution.html">Parametersubstitution</a>.
+        </p>
+
+        <p>Falls Sie diese Option wählen, werden die zusätlichen Parameter vor
+            und nach dem Dateinamen ignoriert. Außerdem wird das Programm
+            für jede Datei einzeln aufgerufen.
         </p>
 
         <h2>Parameter eingeben vor dem Ausführen</h2>
@@ -94,8 +109,8 @@
         </ul>
 
         <p><img src="img/dialog_program_properties.gif"
-                    width="473"
-                    height="531"
+                    width="499"
+                    height="612"
                     alt="" />
         </p>
 

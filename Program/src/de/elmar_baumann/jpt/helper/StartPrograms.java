@@ -28,6 +28,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
@@ -98,7 +99,10 @@ public final class StartPrograms {
         @Override
         public void run() {
             initProgressBar();
-            if (program.isSingleFileProcessing()) {
+            if (program.isUsePattern()) {
+                processPattern();
+            }
+            else if (program.isSingleFileProcessing()) {
                 processSingle();
             } else {
                 processAll();
@@ -112,6 +116,22 @@ public final class StartPrograms {
                     "ProgramStarter.Info.ExecuteCommand", command); // NOI18N
         }
 
+        private void processPattern() {
+            int count = 0;
+            for (File file : imageFiles) {
+                String command = getProcessPatternCommand(file);
+                logCommand(command);
+                External.execute(command);
+                setValueToProgressBar(++count);
+            }
+        }
+
+        private String getProcessPatternCommand(File file) {
+            return IoUtil.quoteForCommandLine(program.getFile()) +
+                    IoUtil.getDefaultCommandLineSeparator() +
+                    IoUtil.substitudePattern(file, program.getPattern());
+        }
+
         private void processAll() {
             String command = getProcessAllCommand();
             logCommand(command);
@@ -122,11 +142,9 @@ public final class StartPrograms {
         private String getProcessAllCommand() {
             return IoUtil.quoteForCommandLine(program.getFile()) +
                     IoUtil.getDefaultCommandLineSeparator() +
-                    program.getCommandlineParameters(
-                    IoUtil.quoteForCommandLine(imageFiles),
-                    getAdditionalParameters(
-                    Bundle.getString("ProgramStarter.GetInput.Title"), 2), // NOI18N
-                    dialog.isParametersBeforeFilename());
+                    program.getCommandlineParameters(imageFiles,
+                        getAdditionalParameters(Bundle.getString("ProgramStarter.GetInput.Title"), 2), // NOI18N
+                        dialog.isParametersBeforeFilename());
         }
 
         private void processSingle() {
@@ -143,18 +161,16 @@ public final class StartPrograms {
             return IoUtil.quoteForCommandLine(program.getFile()) +
                     IoUtil.getDefaultCommandLineSeparator() +
                     program.getCommandlineParameters(
-                    IoUtil.quoteForCommandLine(file),
-                    getAdditionalParameters(file.getAbsolutePath(), count + 1),
-                    dialog.isParametersBeforeFilename());
+                        Arrays.asList(file),
+                        getAdditionalParameters(file.getAbsolutePath(), count + 1),
+                        dialog.isParametersBeforeFilename());
         }
 
         private String getAdditionalParameters(String filename, int count) {
-            if (!program.isInputBeforeExecute()) {
-                return ""; // NOI18N
-            }
-            if ((!program.isInputBeforeExecutePerFile() && count > 1)) {
-                return dialog.getParameters();
-            }
+            if (program.isUsePattern()) return "";
+            if (!program.isInputBeforeExecute()) return ""; // NOI18N
+            if ((!program.isInputBeforeExecutePerFile() && count > 1)) return dialog.getParameters();
+
             dialog.setProgram(program.getAlias());
             dialog.setFilename(filename);
             dialog.setVisible(true);

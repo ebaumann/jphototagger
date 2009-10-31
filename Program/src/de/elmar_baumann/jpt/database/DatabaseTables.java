@@ -404,6 +404,8 @@ public final class DatabaseTables extends Database {
                     ", single_file_processing BOOLEAN" + // NOI18N
                     ", change_file BOOLEAN" + // NOI18N
                     ", sequence_number INTEGER" + // NOI18N
+                    ", use_pattern BOOLEAN" + // NOI18N
+                    ", pattern BINARY" + // NOI18N
                     ");"); // NOI18N
             stmt.execute("CREATE UNIQUE INDEX idx_programs_id ON programs (id)"); // NOI18N
             stmt.execute(

@@ -450,6 +450,103 @@ public final class FileUtil {
         return newFile;
     }
 
+    /**
+     * Returns the root of a file.
+     * <p>
+     * The Windows file name <code>"C:\Programs\MyProg\Readme.txt"</code>
+     * has the root name <code>"C:\"</code>, the Unix file name
+     * <code>"/home/me/Readme.txt"</code> has the root name <code>"/"</code>.
+     *
+     * @param  file file
+     * @return      root file of the file or the file itself if it has no
+     *              parents
+     */
+    public static File getRoot(File file) {
+        File root   = file.getParentFile();
+        File parent = root;
+        while (parent != null) {
+            if (parent != null) {
+                root = parent;
+                parent = parent.getParentFile();
+            }
+        }
+        return root == null
+                ? file
+                : root;
+    }
+
+    /**
+     * Returns the absolute path name of a filename.
+     * <p>
+     * Shorthand for creating a file and calling {@link #getRoot(java.io.File)}.
+     *
+     * @param  filename name of the file
+     * @return          name of the file's root
+     */
+    public static String getRootName(String filename) {
+        return getRoot(new File(filename)).getAbsolutePath();
+    }
+
+    /**
+     * Returns the directory path of a file.
+     * <p>
+     * The directory path is path of the parent file without the root.
+     * 
+     * @param  file file
+     * @return      directory path
+     */
+    public static String getDirPath(File file) {
+        String parent = file.getParent();
+        if (parent == null) return "";
+        String root = getRootName(file.getAbsolutePath());
+        if (parent.startsWith(root) && parent.length() > root.length()) {
+            return parent.substring(root.length());
+        }
+        return "";
+    }
+
+    /**
+     * Returns the suffix of a filename.
+     * <p>
+     * The suffix is the substring after the last dot in the filename.
+     *
+     * @param  filename filename without path, e.g. <code>"info.txt"</code>
+     * @return          suffix or empty string if the filename has no dot or
+     *                  the dot is the first or last character within the
+     *                  filename
+     */
+    public static String getSuffix(String filename) {
+        if (hasSuffix(filename)) {
+            return filename.substring(filename.lastIndexOf(".") + 1);
+        }
+        return "";
+    }
+
+    private static boolean hasSuffix(String filename) {
+        int index = filename.lastIndexOf(".");
+        int len   = filename.length();
+        return index > 0 && index < len - 1;
+    }
+
+    /**
+     * Returns the prefix of a filename.
+     * <p>
+     * The prefix is the substring before the last dot in a filename. If the
+     * last dot is the first or last character within the string, the prefix is
+     * equal to the filename.
+     *
+     * @param  filename filename without path, e.g. <code>"info.txt"</code>
+     * @return          prefix or filename if the last
+     */
+    public static String getPrefix(String filename) {
+        int index = filename.lastIndexOf(".");
+        int len   = filename.length();
+        if (index == 0 || index == len - 1) {
+            return filename;
+        }
+        return filename.substring(0, filename.lastIndexOf("."));
+    }
+
     private FileUtil() {
     }
 }
