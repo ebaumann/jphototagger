@@ -102,7 +102,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         editPanelsArray = new EditMetadataPanelsArray(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
         setBackgroundColorTablesScrollPanes();
-        setDisableTreeMultipleSelection();
+        setTreesSingleSelection();
         initArrays();
         tableExif.addMouseListener(new TableButtonMouseListener(tableExif));
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
@@ -485,13 +485,16 @@ public final class AppPanel extends javax.swing.JPanel implements
                 : DEFAULT_DIVIDER_LOCATION_MAIN;
     }
 
-    private void setDisableTreeMultipleSelection() {
-        int singleSelecion = TreeSelectionModel.SINGLE_TREE_SELECTION;
-        treeDirectories.getSelectionModel().setSelectionMode(singleSelecion);
-        treeFavorites.getSelectionModel().setSelectionMode(
-                singleSelecion);
-        treeMiscMetadata.getSelectionModel().setSelectionMode(singleSelecion);
-        treeTimeline.getSelectionModel().setSelectionMode(singleSelecion);
+    private void setTreesSingleSelection() {
+        setSingleSelection(treeDirectories);
+        setSingleSelection(treeFavorites);
+        setSingleSelection(treeMiscMetadata);
+        setSingleSelection(treeTimeline);
+        setSingleSelection(treeSelHierarchicalKeywords);
+    }
+
+    private void setSingleSelection(JTree tree) {
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
     }
 
     public void showMessage(final String message, final long milliseconds) {
