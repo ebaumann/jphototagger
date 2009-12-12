@@ -30,9 +30,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="278" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="tabbedPane" alignment="1" pref="278" max="32767" attributes="0"/>
+                  <Component id="labelInfo" alignment="0" pref="278" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -41,7 +44,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="378" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="312" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="labelInfo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -85,7 +90,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneKeywords" alignment="0" pref="353" max="32767" attributes="0"/>
+                  <Component id="scrollPaneKeywords" alignment="0" pref="285" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -134,7 +139,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneCategories" alignment="0" pref="353" max="32767" attributes="0"/>
+                  <Component id="scrollPaneCategories" alignment="0" pref="285" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -166,5 +171,12 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="labelInfo">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="InputHelperDialog.labelInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
