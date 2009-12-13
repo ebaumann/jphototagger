@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.database.metadata.Comparator;
 import de.elmar_baumann.jpt.database.metadata.FormatterFactory;
 import de.elmar_baumann.jpt.database.metadata.InputVerifierFactory;
 import de.elmar_baumann.jpt.database.metadata.Operator;
+import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.jpt.database.metadata.selections.AdvancedSearchColumns;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
@@ -37,7 +38,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.InputVerifier;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -447,6 +447,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setChanged();
         setFormatter();
         setInputVerifier();
+        setEnabledCalendarButton();
+    }
+
+    private void setEnabledCalendarButton() {
+        buttonCalendar.setEnabled(
+                modelColumns.getSelectedItem().equals(ColumnExifDateTimeOriginal.INSTANCE));
     }
 
     /** This method is called from within the constructor to
