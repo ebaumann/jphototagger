@@ -71,9 +71,9 @@ public final class SettingsIptcPanel extends javax.swing.JPanel
         labelIptcCharset.setText(Bundle.getString("SettingsIptcPanel.labelIptcCharset.text")); // NOI18N
 
         comboBoxIptcCharset.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISO-8859-1", "UTF-8" }));
-        comboBoxIptcCharset.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                comboBoxIptcCharsetPropertyChange(evt);
+        comboBoxIptcCharset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxIptcCharsetActionPerformed(evt);
             }
         });
 
@@ -99,9 +99,10 @@ public final class SettingsIptcPanel extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void comboBoxIptcCharsetPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetPropertyChange
-    handleActionComboBoxIptcCharset();
-}//GEN-LAST:event_comboBoxIptcCharsetPropertyChange
+    private void comboBoxIptcCharsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetActionPerformed
+        handleActionComboBoxIptcCharset();
+    }//GEN-LAST:event_comboBoxIptcCharsetActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboBoxIptcCharset;
     private javax.swing.JLabel labelIptcCharset;
