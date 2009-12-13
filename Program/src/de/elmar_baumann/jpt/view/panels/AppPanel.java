@@ -43,6 +43,7 @@ import de.elmar_baumann.jpt.view.renderer.ListCellRendererSavedSearches;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererMiscMetadata;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererTimeline;
+import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
 import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.SettingsHints;
@@ -527,6 +528,17 @@ public final class AppPanel extends javax.swing.JPanel implements
         thread.start();
     }
 
+    private void handleToggleButtonHierarchicalKeywords() {
+        boolean selected = buttonToggleExpandAllNodesHierKw.isSelected();
+        TreeUtil.expandAll(treeSelHierarchicalKeywords, selected);
+        buttonToggleExpandAllNodesHierKw.setText(
+                selected
+                ? Bundle.getString(
+                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected") // NOI18N
+                : Bundle.getString(
+                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected")); // NOI18N
+    }
+
     private static class HidePopup implements Runnable {
 
         private final Popup popup;
@@ -585,6 +597,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelSelHierarchicalKeywords = new javax.swing.JPanel();
         scrollPaneSelHierarchicalKeywords = new javax.swing.JScrollPane();
         treeSelHierarchicalKeywords = new javax.swing.JTree();
+        buttonToggleExpandAllNodesHierKw = new javax.swing.JToggleButton();
         panelTimeline = new javax.swing.JPanel();
         scrollPaneTimeline = new javax.swing.JScrollPane();
         treeTimeline = new javax.swing.JTree();
@@ -669,7 +682,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelDirectoriesLayout.setVerticalGroup(
             panelDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelDirectories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_folder.png")), panelDirectories); // NOI18N
@@ -692,7 +705,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelSavedSearchesLayout.setVerticalGroup(
             panelSavedSearchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSavedSearches.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png")), panelSavedSearches); // NOI18N
@@ -717,7 +730,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelImageCollectionsLayout.setVerticalGroup(
             panelImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelImageCollections.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_imagecollection.png")), panelImageCollections); // NOI18N
@@ -741,7 +754,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelCategoriesLayout.setVerticalGroup(
             panelCategoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelCategories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_category.png")), panelCategories); // NOI18N
@@ -766,7 +779,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelFavoritesLayout.setVerticalGroup(
             panelFavoritesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelFavorites.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_favorite.png")), panelFavorites); // NOI18N
@@ -815,12 +828,12 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelKeywordsLayout.setHorizontalGroup(
             panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelKeywordsMultipleSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+            .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
         );
         panelKeywordsLayout.setVerticalGroup(
             panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelKeywordsLayout.createSequentialGroup()
-                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelKeywordsMultipleSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -832,19 +845,33 @@ public final class AppPanel extends javax.swing.JPanel implements
         treeNode1.add(treeNode2);
         treeSelHierarchicalKeywords.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         treeSelHierarchicalKeywords.setCellRenderer(new TreeCellRendererHierarchicalKeywords());
-        treeSelHierarchicalKeywords.setRootVisible(false);
         treeSelHierarchicalKeywords.setShowsRootHandles(true);
         scrollPaneSelHierarchicalKeywords.setViewportView(treeSelHierarchicalKeywords);
+
+        buttonToggleExpandAllNodesHierKw.setText(bundle.getString("AppPanel.buttonToggleExpandAllNodesHierKw.text")); // NOI18N
+        buttonToggleExpandAllNodesHierKw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonToggleExpandAllNodesHierKwActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSelHierarchicalKeywordsLayout = new javax.swing.GroupLayout(panelSelHierarchicalKeywords);
         panelSelHierarchicalKeywords.setLayout(panelSelHierarchicalKeywordsLayout);
         panelSelHierarchicalKeywordsLayout.setHorizontalGroup(
             panelSelHierarchicalKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSelHierarchicalKeywordsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonToggleExpandAllNodesHierKw)
+                .addContainerGap())
+            .addComponent(scrollPaneSelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
         );
         panelSelHierarchicalKeywordsLayout.setVerticalGroup(
             panelSelHierarchicalKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSelHierarchicalKeywordsLayout.createSequentialGroup()
+                .addComponent(scrollPaneSelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonToggleExpandAllNodesHierKw)
+                .addContainerGap())
         );
 
         tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelSelHierarchicalKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png")), panelSelHierarchicalKeywords); // NOI18N
@@ -868,7 +895,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelTimelineLayout.setVerticalGroup(
             panelTimelineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelTimeline.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_timeline.png")), panelTimeline); // NOI18N
@@ -892,7 +919,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelMiscMetadataLayout.setVerticalGroup(
             panelMiscMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelMiscMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png")), panelMiscMetadata); // NOI18N
@@ -911,9 +938,9 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelNoMetadataLayout.setVerticalGroup(
             panelNoMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 115, Short.MAX_VALUE)
+            .addGap(0, 106, Short.MAX_VALUE)
             .addGroup(panelNoMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
         );
 
         tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelNoMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_no_metadata.png")), panelNoMetadata); // NOI18N
@@ -924,7 +951,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 120, Short.MAX_VALUE)
             .addGroup(panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tabbedPaneSelection, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                .addComponent(tabbedPaneSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 120, Short.MAX_VALUE))
         );
         panelSelectionLayout.setVerticalGroup(
             panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -945,11 +972,11 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 247, Short.MAX_VALUE)
+            .addGap(0, 275, Short.MAX_VALUE)
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 289, Short.MAX_VALUE)
+            .addGap(0, 290, Short.MAX_VALUE)
         );
 
         scrollPaneThumbnails.setViewportView(panelThumbnails);
@@ -958,9 +985,9 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelThumbnailsContent.setLayout(panelThumbnailsContentLayout);
         panelThumbnailsContentLayout.setHorizontalGroup(
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 251, Short.MAX_VALUE)
+            .addGap(0, 278, Short.MAX_VALUE)
             .addGroup(panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
         );
         panelThumbnailsContentLayout.setVerticalGroup(
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -992,16 +1019,16 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelIptc.setLayout(panelIptcLayout);
         panelIptcLayout.setHorizontalGroup(
             panelIptcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneIptc, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+            .addComponent(scrollPaneIptc, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
             .addGroup(panelIptcLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonIptcToXmp)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelIptcLayout.setVerticalGroup(
             panelIptcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIptcLayout.createSequentialGroup()
-                .addComponent(scrollPaneIptc, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addComponent(scrollPaneIptc, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonIptcToXmp)
                 .addContainerGap())
@@ -1097,7 +1124,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         );
         panelScrollPaneEditMetadataLayout.setVerticalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelTabEditMetadataLayout = new javax.swing.GroupLayout(panelTabEditMetadata);
@@ -1134,7 +1161,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addGroup(panelMetadataLayout.createSequentialGroup()
                 .addComponent(labelMetadataFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
         );
 
         splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
@@ -1143,9 +1170,9 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
         panelThumbnailsMetadataLayout.setHorizontalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 447, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE))
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1196,9 +1223,6 @@ public final class AppPanel extends javax.swing.JPanel implements
         buttonStopScheduledTasks.setBorder(null);
         buttonStopScheduledTasks.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_stop_scheduled_tasks_disabled.png"))); // NOI18N
         buttonStopScheduledTasks.setEnabled(false);
-        buttonStopScheduledTasks.setMaximumSize(new java.awt.Dimension(16, 16));
-        buttonStopScheduledTasks.setMinimumSize(new java.awt.Dimension(16, 16));
-        buttonStopScheduledTasks.setPreferredSize(new java.awt.Dimension(16, 16));
 
         javax.swing.GroupLayout panelMetadataProgressLayout = new javax.swing.GroupLayout(panelMetadataProgress);
         panelMetadataProgress.setLayout(panelMetadataProgressLayout);
@@ -1207,13 +1231,13 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMetadataProgressLayout.createSequentialGroup()
                 .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonStopScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(buttonStopScheduledTasks))
         );
         panelMetadataProgressLayout.setVerticalGroup(
             panelMetadataProgressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMetadataProgressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonStopScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(buttonStopScheduledTasks))
         );
 
         labelStatusbar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1249,7 +1273,7 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addComponent(buttonSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(progressBarAutomaticTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                    .addComponent(progressBarAutomaticTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                     .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1263,7 +1287,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStatusbarLayout.createSequentialGroup()
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(panelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelMetadataProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -1286,7 +1310,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                    .addComponent(splitPaneMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                     .addComponent(panelStatusbar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1299,12 +1323,18 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonToggleExpandAllNodesHierKwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesHierKwActionPerformed
+        handleToggleButtonHierarchicalKeywords();
+    }//GEN-LAST:event_buttonToggleExpandAllNodesHierKwActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
     private javax.swing.JButton buttonIptcToXmp;
     private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonStopScheduledTasks;
     private javax.swing.JButton buttonSystemOutput;
+    private javax.swing.JToggleButton buttonToggleExpandAllNodesHierKw;
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelSearch;
