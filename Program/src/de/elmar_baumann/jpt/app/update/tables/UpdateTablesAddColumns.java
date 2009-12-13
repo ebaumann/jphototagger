@@ -101,11 +101,12 @@ final class UpdateTablesAddColumns {
         columns.add(new ColumnInfo(
                 "metadata_edit_templates", // NOI18N
                 "rating", // NOI18N
-                "BOOLEAN", // NOI18N
+                "BINARY", // NOI18N
                 null));
     }
 
     void update(Connection connection) throws SQLException {
+        fixBugs(connection);
         setColumns(connection);
         if (missingColumns.size() > 0) {
             addColumns(connection);
@@ -147,5 +148,37 @@ final class UpdateTablesAddColumns {
         messages.message(Bundle.getString(
                 "UpdateTablesAddColumns.Info.AddColumns", // NOI18N
                 tableName, columnName));
+    }
+
+    private void fixBugs(Connection connection) throws SQLException {
+        fixBugsMetaDataEditTemplates(connection);
+    }
+
+    private void fixBugsMetaDataEditTemplates(Connection connection) throws SQLException {
+        final String tableName  = "metadata_edit_templates";
+        final String columnName = "rating";
+        if (!DatabaseMetadata.INSTANCE.existsColumn(connection, tableName, columnName)) {
+            return;
+        }
+        List<DatabaseMetadata.ColumnInfo> infos =
+                DatabaseMetadata.INSTANCE.getColumnInfo(connection, tableName, columnName);
+        boolean hasInfo = infos.size() == 1;
+        assert  hasInfo : infos.size();
+        if (hasInfo) {
+            DatabaseMetadata.ColumnInfo info    = infos.get(0);
+            boolean                     typeOk  = info.DATA_TYPE == java.sql.Types.BINARY;
+            boolean                     indexOk = info.ORDINAL_POSITION == 21;
+            boolean                     isOk    = typeOk && indexOk;
+            if (!isOk) {
+                messages.message(Bundle.getString("UpdateTablesAddColumns.Info.DropColumnMetaDataEditTemplates",
+                        tableName, columnName, typeOk, indexOk));
+                dropColumn(connection, tableName, columnName);
+            }
+        }
+    }
+
+    void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("ALTER TABLE " + tableName + " DROP "+columnName);
     }
 }

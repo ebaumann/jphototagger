@@ -394,10 +394,17 @@ public final class EditMetadataPanelsArray implements FocusListener,
     public void setMetadataEditTemplate(MetadataEditTemplate template) {
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
-            String value = template.getValueOfColumn(textEntry.getColumn());
-            if (!value.isEmpty()) {
-                textEntry.setText(value);
-                textEntry.setDirty(true);
+            Object value = template.getValueOfColumn(textEntry.getColumn());
+            if (value instanceof String) {
+                String string = (String) value;
+                if (!string.isEmpty()) {
+                    textEntry.setText(string);
+                    textEntry.setDirty(true);
+                }
+            } else if (value instanceof Collection) {
+                @SuppressWarnings("unchecked")
+                Collection<String> strings = (Collection<String>) value;
+                ((EditRepeatableTextEntryPanel) textEntry).setText(strings);
             }
         }
     }
@@ -412,9 +419,14 @@ public final class EditMetadataPanelsArray implements FocusListener,
         MetadataEditTemplate template = new MetadataEditTemplate();
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
-            String value = textEntry.getText().trim();
-            if (!value.isEmpty()) {
-                template.setValueOfColumn(textEntry.getColumn(), value);
+            if (textEntry instanceof EditRepeatableTextEntryPanel) {
+                EditRepeatableTextEntryPanel repeatableEntry = (EditRepeatableTextEntryPanel) textEntry;
+                template.setValueOfColumn(textEntry.getColumn(), repeatableEntry.getRepeatableText());
+            } else {
+                String value = textEntry.getText();
+                if (value != null && !value.trim().isEmpty()) {
+                    template.setValueOfColumn(textEntry.getColumn(), value.trim());
+                }
             }
         }
         return template;

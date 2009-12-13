@@ -43,29 +43,19 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-22
  */
-public final class ControllerMetadataTemplates implements ActionListener,
-                                                          MetadataEditPanelListener {
+public final class ControllerMetadataTemplates
+    implements ActionListener, MetadataEditPanelListener {
 
-    private final DatabaseMetadataEditTemplates db =
-            DatabaseMetadataEditTemplates.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
-    private final JComboBox comboBoxMetadataTemplates = appPanel.
-            getComboBoxMetadataTemplates();
-    private final ComboBoxModelMetadataEditTemplates model =
-            (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.
-            getModel();
-    private final JButton buttonMetadataTemplateCreate =
-            appPanel.getButtonMetadataTemplateCreate();
-    private final JButton buttonMetadataTemplateUpdate =
-            appPanel.getButtonMetadataTemplateUpdate();
-    private final JButton buttonMetadataTemplateDelete =
-            appPanel.getButtonMetadataTemplateDelete();
-    private final JButton buttonMetadataTemplateInsert =
-            appPanel.getButtonMetadataTemplateInsert();
-    private final JButton buttonMetadataTemplateRename =
-            appPanel.getButtonMetadataTemplateRename();
+    private final DatabaseMetadataEditTemplates      db                           = DatabaseMetadataEditTemplates.INSTANCE;
+    private final AppPanel                           appPanel                     = GUI.INSTANCE.getAppPanel();
+    private final EditMetadataPanelsArray            editPanels                   = appPanel.getEditPanelsArray();
+    private final JComboBox                          comboBoxMetadataTemplates    = appPanel.getComboBoxMetadataTemplates();
+    private final ComboBoxModelMetadataEditTemplates model                        = (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.getModel();
+    private final JButton                            buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
+    private final JButton                            buttonMetadataTemplateUpdate = appPanel.getButtonMetadataTemplateUpdate();
+    private final JButton                            buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();
+    private final JButton                            buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
+    private final JButton                            buttonMetadataTemplateRename = appPanel.getButtonMetadataTemplateRename();
 
     public ControllerMetadataTemplates() {
         listen();
@@ -88,8 +78,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
         buttonMetadataTemplateUpdate.setEnabled(itemSelected);
         buttonMetadataTemplateDelete.setEnabled(itemSelected);
         buttonMetadataTemplateRename.setEnabled(itemSelected);
-        buttonMetadataTemplateInsert.setEnabled(itemSelected &&
-                editPanels.isEditable());
+        buttonMetadataTemplateInsert.setEnabled(itemSelected && editPanels.isEditable());
     }
 
     @Override
@@ -127,8 +116,7 @@ public final class ControllerMetadataTemplates implements ActionListener,
             public void run() {
                 final String name = getNewName();
                 if (name != null) {
-                    MetadataEditTemplate template = editPanels.
-                            getMetadataEditTemplate();
+                    MetadataEditTemplate template = editPanels.getMetadataEditTemplate();
                     template.setName(name);
                     model.insertTemplate(template);
                 }

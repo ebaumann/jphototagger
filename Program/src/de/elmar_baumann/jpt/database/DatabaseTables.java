@@ -334,27 +334,28 @@ public final class DatabaseTables extends Database {
                 "metadata_edit_templates")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" + // NOI18N
                     " (" + // NOI18N
-                    "name VARCHAR_IGNORECASE(256)" + // NOI18N
-                    ", dcSubjects BINARY" + // NOI18N
-                    ", dcTitle BINARY" + // NOI18N
-                    ", photoshopHeadline BINARY" + // NOI18N
-                    ", dcDescription BINARY" + // NOI18N
-                    ", photoshopCaptionwriter BINARY" + // NOI18N
-                    ", iptc4xmpcoreLocation BINARY" + // NOI18N
-                    ", iptc4xmpcoreCountrycode BINARY" + // NOI18N
-                    ", photoshopCategory BINARY" + // NOI18N
-                    ", photoshopSupplementalCategories BINARY" + // NOI18N
-                    ", dcRights BINARY" + // NOI18N
-                    ", dcCreator BINARY" + // NOI18N
-                    ", photoshopAuthorsposition BINARY" + // NOI18N
-                    ", photoshopCity BINARY" + // NOI18N
-                    ", photoshopState BINARY" + // NOI18N
-                    ", photoshopCountry BINARY" + // NOI18N
-                    ", photoshopTransmissionReference BINARY" + // NOI18N
-                    ", photoshopInstructions BINARY" + // NOI18N
-                    ", photoshopCredit BINARY" + // NOI18N
-                    ", rating BINARY" +  // NOI18N
-                    ", photoshopSource BINARY" + ");"); // NOI18N
+                    "name VARCHAR_IGNORECASE(256)" +             //  1 NOI18N
+                    ", dcSubjects BINARY" +                      //  2 NOI18N
+                    ", dcTitle BINARY" +                         //  3 NOI18N
+                    ", photoshopHeadline BINARY" +               //  4 NOI18N
+                    ", dcDescription BINARY" +                   //  5 NOI18N
+                    ", photoshopCaptionwriter BINARY" +          //  6 NOI18N
+                    ", iptc4xmpcoreLocation BINARY" +            //  7 NOI18N
+                    ", iptc4xmpcoreCountrycode BINARY" +         //  8 NOI18N
+                    ", photoshopCategory BINARY" +               //  9 NOI18N
+                    ", photoshopSupplementalCategories BINARY" + // 10 NOI18N
+                    ", dcRights BINARY" +                        // 11 NOI18N
+                    ", dcCreator BINARY" +                       // 12 NOI18N
+                    ", photoshopAuthorsposition BINARY" +        // 13 NOI18N
+                    ", photoshopCity BINARY" +                   // 14 NOI18N
+                    ", photoshopState BINARY" +                  // 15 NOI18N
+                    ", photoshopCountry BINARY" +                // 16 NOI18N
+                    ", photoshopTransmissionReference BINARY" +  // 17 NOI18N
+                    ", photoshopInstructions BINARY" +           // 18 NOI18N
+                    ", photoshopCredit BINARY" +                 // 19 NOI18N
+                    ", photoshopSource BINARY" +                 // 20 NOI18N
+                    ", rating BINARY" +                          // 21 NOI18N
+                    ");"); // NOI18N
             stmt.execute(
                     "CREATE UNIQUE INDEX idx_metadata_edit_templates_name ON metadata_edit_templates (name)"); // NOI18N
         }
