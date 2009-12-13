@@ -77,16 +77,17 @@ public final class ControllerThumbnailSelectionEditMetadata implements
 
             @Override
             public void run() {
+                boolean canEdit = false;
                 if (thumbnailsPanel.getSelectionCount() > 0) {
-                    boolean canEdit = canEdit();
+                    canEdit = canEdit();
                     setEnabled(canEdit);
                     editPanels.setFilenames(FileUtil.getAsFilenames(thumbnailsPanel.
                             getSelectedFiles()));
-                    setInfoLabel(canEdit);
                 } else {
                     appPanel.getEditPanelsArray().emptyPanels(false);
                     setEnabled(false);
                 }
+                setInfoLabel(canEdit);
             }
         });
     }
