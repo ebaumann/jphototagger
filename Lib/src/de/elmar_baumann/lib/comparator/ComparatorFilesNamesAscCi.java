@@ -22,26 +22,17 @@ import java.io.File;
 import java.util.Comparator;
 
 /**
- * Sorting of files.
- * 
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * Compares the absolute path names of two files ascending case insensitive.
+ *
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2009-12-14
  */
-public enum FileSort {
+public final class ComparatorFilesNamesAscCi
+        extends    ClassNameEquality
+        implements Comparator<File> {
 
-    NAMES_ASCENDING          (new ComparatorFilesNamesAscCi()),
-    NAMES_DESCENDING         (new ComparatorFilesNamesDescCi()),
-    TYPES_ASCENDING          (new ComparatorFilesSuffixesAscCi()),
-    TYPES_DESCENDING         (new ComparatorFilesSuffixesDescCi()),
-    LAST_MODIFIED_ASCENDING  (new ComparatorFilesLastModifiedAsc()),
-    LAST_MODIFIED_DESCENDING (new ComparatorFilesLastModifiedDesc());
-
-    private final Comparator<File> comparator;
-
-    private FileSort(Comparator<File> comparator) {
-        this.comparator = comparator;
-    }
-
-    public Comparator<File> getComparator() {
-        return comparator;
+    @Override
+    public int compare(File leftFile, File rightFile) {
+        return leftFile.getAbsolutePath().compareToIgnoreCase(rightFile.getAbsolutePath());
     }
 }

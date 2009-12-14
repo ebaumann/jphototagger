@@ -26,6 +26,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.lib.componentutil.MenuUtil;
+import java.io.File;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JCheckBoxMenuItem;
@@ -40,55 +43,42 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public final class AppFrame extends javax.swing.JFrame {
 
-    private final Map<FileSort, JRadioButtonMenuItem> menuItemOfSort =
-            new HashMap<FileSort, JRadioButtonMenuItem>();
-    private final Map<JRadioButtonMenuItem, FileSort> sortOfMenuItem =
-            new HashMap<JRadioButtonMenuItem, FileSort>();
-    private final Map<GoTo, JMenuItem> menuItemOfGoto =
-            new HashMap<GoTo, JMenuItem>();
-    private final Map<JMenuItem, GoTo> gotoOfMenuItem =
-            new HashMap<JMenuItem, GoTo>();
-    private AppPanel appPanel;
+    private final Map<Comparator<File>, JRadioButtonMenuItem> menuItemOfSortCmp = new HashMap<Comparator<File>, JRadioButtonMenuItem>();
+    private final Map<JRadioButtonMenuItem, Comparator<File>> sortCmpOfMenuItem = new HashMap<JRadioButtonMenuItem, Comparator<File>>();
+    private final Map<GoTo, JMenuItem>                        menuItemOfGoto    = new HashMap<GoTo, JMenuItem>();
+    private final Map<JMenuItem, GoTo>                        gotoOfMenuItem    = new HashMap<JMenuItem, GoTo>();
+    private AppPanel                                          appPanel;
 
     private void initSortMenuItemsMap() {
-        menuItemOfSort.put(FileSort.NAMES_ASCENDING,
-                radioButtonMenuItemSortFilenameAscending);
-        menuItemOfSort.put(FileSort.NAMES_DESCENDING,
-                radioButtonMenuItemSortFilenameDescending);
-        menuItemOfSort.put(FileSort.LAST_MODIFIED_ASCENDING,
-                radioButtonMenuItemSortLastModifiedAscending);
-        menuItemOfSort.put(FileSort.LAST_MODIFIED_DESCENDING,
-                radioButtonMenuItemSortLastModifiedDescending);
-        menuItemOfSort.put(FileSort.TYPES_ASCENDING,
-                radioButtonMenuItemSortFileTypeAscending);
-        menuItemOfSort.put(FileSort.TYPES_DESCENDING,
-                radioButtonMenuItemSortFileTypeDescending);
+        menuItemOfSortCmp.put(FileSort.NAMES_ASCENDING.getComparator()         , radioButtonMenuItemSortFilenameAscending);
+        menuItemOfSortCmp.put(FileSort.NAMES_DESCENDING.getComparator()        , radioButtonMenuItemSortFilenameDescending);
+        menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_ASCENDING.getComparator() , radioButtonMenuItemSortLastModifiedAscending);
+        menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_DESCENDING.getComparator(), radioButtonMenuItemSortLastModifiedDescending);
+        menuItemOfSortCmp.put(FileSort.TYPES_ASCENDING.getComparator()         , radioButtonMenuItemSortFileTypeAscending);
+        menuItemOfSortCmp.put(FileSort.TYPES_DESCENDING.getComparator()        , radioButtonMenuItemSortFileTypeDescending);
 
-        for (FileSort sort : menuItemOfSort.keySet()) {
-            sortOfMenuItem.put(menuItemOfSort.get(sort), sort);
+        for (Comparator<File> comparator : menuItemOfSortCmp.keySet()) {
+            sortCmpOfMenuItem.put(menuItemOfSortCmp.get(comparator), comparator);
         }
     }
 
     private void initGotoMenuItemsMap() {
-        menuItemOfGoto.put(GoTo.CATEGORIES, menuItemGotoCategories);
-        menuItemOfGoto.put(GoTo.IMAGE_COLLECTIONS, menuItemGotoCollections);
-        menuItemOfGoto.put(GoTo.DIRECTORIES, menuItemGotoDirectories);
-        menuItemOfGoto.put(GoTo.EDIT_PANELS, menuItemGotoEdit);
-        menuItemOfGoto.put(GoTo.EXIF_METADATA, menuItemGotoExifMetadata);
-        menuItemOfGoto.put(GoTo.FAST_SEARCH, menuItemGotoFastSearch);
-        menuItemOfGoto.put(GoTo.FAVORITE_DIRECTORIES,
-                menuItemGotoFavoriteDirectories);
-        menuItemOfGoto.put(GoTo.IPTC_METADATA, menuItemGotoIptcMetadata);
-        menuItemOfGoto.put(GoTo.SAVED_SEARCHES, menuItemGotoSavedSearches);
-        menuItemOfGoto.put(GoTo.KEYWORDS, menuItemGotoKeywords);
-        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS_SEL,
-                menuItemGotoHierarchicalKeywordsSel);
-        menuItemOfGoto.put(GoTo.TIMELINE, menuItemGotoTimeline);
-        menuItemOfGoto.put(GoTo.MISC_METADATA, menuItemGotoMiscMetadata);
-        menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
-        menuItemOfGoto.put(GoTo.XMP_METADATA, menuItemGotoXmpMetadata);
-        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS,
-                menuItemGotoHierarchicalKeywords);
+        menuItemOfGoto.put(GoTo.CATEGORIES               , menuItemGotoCategories);
+        menuItemOfGoto.put(GoTo.IMAGE_COLLECTIONS        , menuItemGotoCollections);
+        menuItemOfGoto.put(GoTo.DIRECTORIES              , menuItemGotoDirectories);
+        menuItemOfGoto.put(GoTo.EDIT_PANELS              , menuItemGotoEdit);
+        menuItemOfGoto.put(GoTo.EXIF_METADATA            , menuItemGotoExifMetadata);
+        menuItemOfGoto.put(GoTo.FAST_SEARCH              , menuItemGotoFastSearch);
+        menuItemOfGoto.put(GoTo.FAVORITE_DIRECTORIES     , menuItemGotoFavoriteDirectories);
+        menuItemOfGoto.put(GoTo.IPTC_METADATA            , menuItemGotoIptcMetadata);
+        menuItemOfGoto.put(GoTo.SAVED_SEARCHES           , menuItemGotoSavedSearches);
+        menuItemOfGoto.put(GoTo.KEYWORDS                 , menuItemGotoKeywords);
+        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS_SEL, menuItemGotoHierarchicalKeywordsSel);
+        menuItemOfGoto.put(GoTo.TIMELINE                 , menuItemGotoTimeline);
+        menuItemOfGoto.put(GoTo.MISC_METADATA            , menuItemGotoMiscMetadata);
+        menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL         , menuItemGotoThumbnailsPanel);
+        menuItemOfGoto.put(GoTo.XMP_METADATA             , menuItemGotoXmpMetadata);
+        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS    , menuItemGotoHierarchicalKeywords);
 
         for (GoTo gt : menuItemOfGoto.keySet()) {
             gotoOfMenuItem.put(menuItemOfGoto.get(gt), gt);
@@ -167,12 +157,16 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemOfGoto.get(gt);
     }
 
-    public JRadioButtonMenuItem getMenuItemOfSort(FileSort sort) {
-        return menuItemOfSort.get(sort);
+    public JRadioButtonMenuItem getMenuItemOfSortCmp(Comparator<File> sortCmp) {
+        return menuItemOfSortCmp.get(sortCmp);
     }
 
-    public FileSort getSortOfMenuItem(JRadioButtonMenuItem item) {
-        return sortOfMenuItem.get(item);
+    public Collection<JRadioButtonMenuItem> getSortMenuItems() {
+        return menuItemOfSortCmp.values();
+    }
+
+    public Comparator<File> getSortCmpOfMenuItem(JRadioButtonMenuItem item) {
+        return sortCmpOfMenuItem.get(item);
     }
 
     public JMenuItem getMenuItemAbout() {

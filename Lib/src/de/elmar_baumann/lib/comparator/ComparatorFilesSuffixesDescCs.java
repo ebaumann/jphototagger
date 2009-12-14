@@ -18,30 +18,25 @@
  */
 package de.elmar_baumann.lib.comparator;
 
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.Comparator;
 
 /**
- * Sorting of files.
- * 
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * Compares the suffixes of two files descending case sensitive.
+ *
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2009-12-14
  */
-public enum FileSort {
+public final class ComparatorFilesSuffixesDescCs
+        extends    ClassNameEquality
+        implements Comparator<File> {
 
-    NAMES_ASCENDING          (new ComparatorFilesNamesAscCi()),
-    NAMES_DESCENDING         (new ComparatorFilesNamesDescCi()),
-    TYPES_ASCENDING          (new ComparatorFilesSuffixesAscCi()),
-    TYPES_DESCENDING         (new ComparatorFilesSuffixesDescCi()),
-    LAST_MODIFIED_ASCENDING  (new ComparatorFilesLastModifiedAsc()),
-    LAST_MODIFIED_DESCENDING (new ComparatorFilesLastModifiedDesc());
+    @Override
+    public int compare(File leftFile, File rightFile) {
 
-    private final Comparator<File> comparator;
-
-    private FileSort(Comparator<File> comparator) {
-        this.comparator = comparator;
-    }
-
-    public Comparator<File> getComparator() {
-        return comparator;
+        Pair<String, String> suffixes = Util.getCmpSuffixes(leftFile, rightFile, false);
+        
+        return suffixes.getFirst().compareTo(suffixes.getSecond()) * -1;
     }
 }

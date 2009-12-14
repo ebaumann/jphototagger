@@ -23,12 +23,12 @@ import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -40,16 +40,12 @@ import java.util.List;
 public final class ControllerThumbnailsPanelPersistence
         implements ThumbnailsPanelListener, AppExitListener {
 
-    private boolean propertiesRead = false;
-    private static final String KEY_SELECTED_FILES =
-            "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles"; // NOI18N
-    private static final String KEY_SORT =
-            "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort"; // NOI18N
-    private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
-            "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition"; // NOI18N
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private List<File> persistentSelectedFiles = new ArrayList<File>();
+    private static final String   KEY_SELECTED_FILES                         = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles"; // NOI18N
+    private static final String   KEY_SORT                                   = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort"; // NOI18N
+    private static final String   KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition"; // NOI18N
+    private boolean               propertiesRead                             = false;
+    private final ThumbnailsPanel thumbnailsPanel                            = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private List<File>            persistentSelectedFiles                    = new ArrayList<File>();
 
     public ControllerThumbnailsPanelPersistence() {
         listen();
@@ -70,7 +66,7 @@ public final class ControllerThumbnailsPanelPersistence
     public void thumbnailsChanged() {
         checkFirstChange();
         UserSettings.INSTANCE.getSettings().setString(
-                thumbnailsPanel.getSort().name(), KEY_SORT);
+                thumbnailsPanel.getFileSortComparator().getClass().getName(), KEY_SORT);
     }
 
     private void checkFirstChange() {
@@ -106,12 +102,13 @@ public final class ControllerThumbnailsPanelPersistence
         readSortFromProperties();
     }
 
+    @SuppressWarnings("unchecked")
     private void readSortFromProperties() {
+        if (!UserSettings.INSTANCE.getProperties().containsKey(KEY_SORT)) return;
         String name = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
         try {
-            if (!name.isEmpty()) {
-                thumbnailsPanel.setSort(FileSort.valueOf(name));
-            }
+                thumbnailsPanel.setFileSortComparator(
+                        (Comparator<File>) Class.forName(name).newInstance());
         } catch (Exception ex) {
             AppLog.logSevere(ControllerThumbnailsPanelPersistence.class, ex);
         }

@@ -58,6 +58,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -134,7 +135,7 @@ public class ThumbnailsPanel extends JPanel
     private Content content = Content.UNDEFINED;
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileAction fileAction = FileAction.UNDEFINED;
-    private FileSort fileSort = FileSort.NAMES_ASCENDING;
+    private Comparator<File> fileSortComparator = FileSort.NAMES_ASCENDING.getComparator();
     private final List<File> files = Collections.synchronizedList(new ArrayList<File>());
     private volatile boolean hadFiles;
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
@@ -841,12 +842,12 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Returns the sort type.
+     * Returns the sort comparator.
      *
      * @return sort type
      */
-    public synchronized FileSort getSort() {
-        return fileSort;
+    public synchronized Comparator<File> getFileSortComparator() {
+        return fileSortComparator;
     }
 
     private void initRefreshListeners() {
@@ -989,7 +990,7 @@ public class ThumbnailsPanel extends JPanel
         synchronized (this) {
             this.files.clear();
             if (!content.equals(Content.IMAGE_COLLECTION)) {
-                Collections.sort(files, fileSort.getComparator());
+                Collections.sort(files, fileSortComparator);
             }
             this.files.addAll(files);
             this.content = content;
@@ -1017,19 +1018,19 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Sets a sort type, does <em>not</em> sort.
+     * Sets a file sort comparator, does <em>not</em> sort.
+     * This is done via {@link #sort()}.
      *
-     * @param fileSort  sort type
-     * @see #sort()
+     * @param comparator comparator
      */
-    public synchronized void setSort(FileSort fileSort) {
-        this.fileSort = fileSort;
+    public synchronized void setFileSortComparator(Comparator<File> comparator) {
+        fileSortComparator = comparator;
     }
 
     /**
      * Sorts the files.
      *
-     * @see #setSort(de.elmar_baumann.lib.comparator.FileSort)
+     * @see #setFileSortComparator(java.util.Comparator)
      */
     public synchronized void sort() {
         if (!content.equals(Content.IMAGE_COLLECTION)) {

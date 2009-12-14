@@ -18,12 +18,13 @@
  */
 package de.elmar_baumann.jpt.controller.thumbnail;
 
-import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Comparator;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingUtilities;
 
@@ -35,13 +36,12 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerSortThumbnails implements ActionListener {
 
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
+    private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final AppFrame        appFrame        = GUI.INSTANCE.getAppFrame();
 
     public ControllerSortThumbnails() {
         listen();
-        appFrame.getMenuItemOfSort(thumbnailsPanel.getSort()).setSelected(true);
+        appFrame.getMenuItemOfSortCmp(thumbnailsPanel.getFileSortComparator()).setSelected(true);
     }
 
     private void listen() {
@@ -49,8 +49,8 @@ public final class ControllerSortThumbnails implements ActionListener {
     }
 
     private void listenToActionSources() {
-        for (FileSort sort : FileSort.values()) {
-            appFrame.getMenuItemOfSort(sort).addActionListener(this);
+        for (JRadioButtonMenuItem item : appFrame.getSortMenuItems()) {
+            item.addActionListener(this);
         }
     }
 
@@ -65,18 +65,18 @@ public final class ControllerSortThumbnails implements ActionListener {
             @Override
             public void run() {
                 JRadioButtonMenuItem item = (JRadioButtonMenuItem) e.getSource();
-                FileSort sort = appFrame.getSortOfMenuItem(item);
-                setSelectedMenuItems(sort);
-                thumbnailsPanel.setSort(sort);
+                Comparator<File> sortCmp = appFrame.getSortCmpOfMenuItem(item);
+                setSelectedMenuItems(sortCmp);
+                thumbnailsPanel.setFileSortComparator(sortCmp);
                 thumbnailsPanel.sort();
             }
         });
     }
 
-    private void setSelectedMenuItems(FileSort sort) {
-        for (FileSort sortType : FileSort.values()) {
-            appFrame.getMenuItemOfSort(sortType).setSelected(
-                    sortType.equals(sort));
+    private void setSelectedMenuItems(Comparator<File> sortCmp) {
+        for (JRadioButtonMenuItem item : appFrame.getSortMenuItems()) {
+            Comparator<File> itemCmp = appFrame.getSortCmpOfMenuItem(item);
+            item.setSelected(itemCmp.equals(sortCmp));
         }
     }
 }

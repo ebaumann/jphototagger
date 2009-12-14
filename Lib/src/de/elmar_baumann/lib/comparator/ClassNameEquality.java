@@ -1,5 +1,5 @@
 /*
- * JavaStandardLibrary JSL - subproject of JPhotoTagger
+ * JPhotoTagger tags and finds images fast
  * Copyright (C) 2009 by the developer team, resp. Elmar Baumann<eb@elmar-baumann.de>
  *
  * This program is free software; you can redistribute it and/or
@@ -18,30 +18,21 @@
  */
 package de.elmar_baumann.lib.comparator;
 
-import java.io.File;
-import java.util.Comparator;
-
 /**
- * Sorting of files.
  * 
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ *
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2009-12-14
  */
-public enum FileSort {
+public class ClassNameEquality {
 
-    NAMES_ASCENDING          (new ComparatorFilesNamesAscCi()),
-    NAMES_DESCENDING         (new ComparatorFilesNamesDescCi()),
-    TYPES_ASCENDING          (new ComparatorFilesSuffixesAscCi()),
-    TYPES_DESCENDING         (new ComparatorFilesSuffixesDescCi()),
-    LAST_MODIFIED_ASCENDING  (new ComparatorFilesLastModifiedAsc()),
-    LAST_MODIFIED_DESCENDING (new ComparatorFilesLastModifiedDesc());
-
-    private final Comparator<File> comparator;
-
-    private FileSort(Comparator<File> comparator) {
-        this.comparator = comparator;
+    @Override
+    public boolean equals(Object obj) {
+        return Util.classNamesEquals(obj, this);
     }
 
-    public Comparator<File> getComparator() {
-        return comparator;
+    @Override
+    public int hashCode() {
+        return Util.classNameHashCode(getClass());
     }
 }
