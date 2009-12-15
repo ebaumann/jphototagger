@@ -16,10 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.lib.comparator;
+package de.elmar_baumann.lib.util;
 
 /**
- * 
+ * Object equality if the class name is equals.
+ * <p>
+ * Motivation: Comparing different instances of stateless classes via
+ * <code>equals()</code>.
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-14
@@ -28,11 +32,14 @@ public class ClassNameEquality {
 
     @Override
     public boolean equals(Object obj) {
-        return Util.classNamesEquals(obj, this);
+        if (obj == this) return true;
+        if (obj == null) return false;
+
+        return getClass().getName().equals(obj.getClass().getName());
     }
 
     @Override
     public int hashCode() {
-        return Util.classNameHashCode(getClass());
+        return getClass().getName().hashCode();
     }
 }

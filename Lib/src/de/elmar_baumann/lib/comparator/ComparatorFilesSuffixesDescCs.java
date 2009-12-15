@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.lib.comparator;
 
+import de.elmar_baumann.lib.util.ClassNameEquality;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.Comparator;

@@ -29,19 +29,6 @@ import java.io.File;
  */
 final class Util {
 
-    static boolean classNamesEquals(Object o1, Object o2) {
-        if (o1 == o2) return true;
-
-        // Only one of both object references is null
-        if (o1 == null && o2 != null || o1 != null && o2 == null) return false;
-
-        return o1.getClass().getName().equals(o2.getClass().getName());
-    }
-
-    static int classNameHashCode(Class clazz) {
-        return clazz.getName().hashCode();
-    }
-
     static Pair<String, String> getCmpSuffixes(File leftFile, File rightFile, boolean ignoreCase) {
         String leftSuffix  = Util.filenameSuffix(leftFile);
         String rightSuffix = Util.filenameSuffix(rightFile);
