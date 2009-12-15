@@ -38,14 +38,12 @@ import javax.swing.event.ChangeListener;
 public final class ControllerThumbnailCountDisplay
         implements ThumbnailsPanelListener, ChangeListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JSlider sliderThumbnailSize =
-            appPanel.getSliderThumbnailSize();
-    private final JLabel label = appPanel.getLabelStatusbar();
-    private final ThumbnailsPanel panelThumbnails =
-            appPanel.getPanelThumbnails();
-    private int thumbnailCount = 0;
-    private int thumbnailZoom = sliderThumbnailSize.getValue();
+    private final AppPanel        appPanel            = GUI.INSTANCE.getAppPanel();
+    private final JSlider         sliderThumbnailSize = appPanel.getSliderThumbnailSize();
+    private final JLabel          label               = appPanel.getLabelStatusbar();
+    private final ThumbnailsPanel panelThumbnails     = appPanel.getPanelThumbnails();
+    private int thumbnailCount                        = 0;
+    private int thumbnailZoom                         = sliderThumbnailSize.getValue();
 
     public ControllerThumbnailCountDisplay() {
         listen();
@@ -86,9 +84,11 @@ public final class ControllerThumbnailCountDisplay
 
             @Override
             public void run() {
-                label.setText(Bundle.getString(
+                String info = Bundle.getString(
                         "ControllerThumbnailCountDisplay.Info", // NOI18N
-                        thumbnailCount, thumbnailZoom));
+                        thumbnailCount, thumbnailZoom);
+                label.setText(info);
+                label.setToolTipText(info);
             }
         });
     }

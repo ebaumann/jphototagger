@@ -76,20 +76,16 @@ public final class ControllerFastSearch
         UserSettingsChangeListener,
         RefreshListener {
 
-    private static final String DELIMITER_SEARCH_WORDS = ";";
-    private final DatabaseSearch db = DatabaseSearch.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private final JComboBox comboboxFastSearch =
-            appPanel.getComboBoxFastSearch();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
-    private final List<Column> fastSearchColumns =
-            UserSettings.INSTANCE.getFastSearchColumns();
-    private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
-    private final List<JList> selectionLists = appPanel.getSelectionLists();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
+    private static final String                  DELIMITER_SEARCH_WORDS = ";";
+    private final        DatabaseSearch          db                     = DatabaseSearch.INSTANCE;
+    private final        AppPanel                appPanel               = GUI.INSTANCE.getAppPanel();
+    private final        JTextField              textFieldSearch        = appPanel.getTextFieldSearch();
+    private final        JComboBox               comboboxFastSearch     = appPanel.getComboBoxFastSearch();
+    private final        ThumbnailsPanel         thumbnailsPanel        = appPanel.getPanelThumbnails();
+    private final        List<Column>            fastSearchColumns      = UserSettings.INSTANCE.getFastSearchColumns();
+    private final        List<JTree>             selectionTrees         = appPanel.getSelectionTrees();
+    private final        List<JList>             selectionLists         = appPanel.getSelectionLists();
+    private final        EditMetadataPanelsArray editPanels             = appPanel.getEditPanelsArray();
 
     public ControllerFastSearch() {
         setEnabledSearchTextField();
@@ -118,6 +114,8 @@ public final class ControllerFastSearch
             }
         });
 
+        appPanel.getButtonSearch().addActionListener(this);
+
         comboboxFastSearch.addActionListener(this);
 
         db.addDatabaseListener(this);
@@ -129,6 +127,8 @@ public final class ControllerFastSearch
         if (e.getSource() == comboboxFastSearch) {
             setEnabledSearchTextField();
             decorateTextFieldSearch();
+        } else if (e.getSource() == appPanel.getButtonSearch()) {
+            search();
         }
     }
 
