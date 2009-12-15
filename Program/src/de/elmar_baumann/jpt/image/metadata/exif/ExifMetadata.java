@@ -26,6 +26,7 @@ import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.types.FileType;
 import java.io.File;
 import java.io.IOException;
@@ -246,6 +247,8 @@ public final class ExifMetadata {
 
     /**
      * Returns the milliseconds since 1970 of the time when the image was taken.
+     * <p>
+     * Reads the EXIF information of the file.
      *
      * @param  imageFile image file
      * @return milliseconds. If the image file has no EXIF metadata or no
@@ -254,6 +257,26 @@ public final class ExifMetadata {
      */
     public static long timestampDateTimeOriginal(File imageFile) {
         Exif exif = getExif(imageFile);
+        if (exif == null || exif.getDateTimeOriginal() == null) {
+            return imageFile.lastModified();
+        }
+        return exif.getDateTimeOriginal().getTime();
+    }
+
+    /**
+     * Returns the milliseconds since 1970 of the time when the image was taken.
+     * <p>
+     * Gets the EXIF information from the database. If in the database is no
+     * EXIF information, the file's timestamp will be used, regardless whether
+     * the file contains EXIF information.
+     *
+     * @param  imageFile image file
+     * @return milliseconds. If the image file has no EXIF metadata or no
+     *         date time original information whithin the EXIF metadata the last
+     *         modification time of the file will be returned
+     */
+    public static long timestampDateTimeOriginalDb(File imageFile) {
+        Exif exif = DatabaseImageFiles.INSTANCE.getExifOfFile(imageFile.getAbsolutePath());
         if (exif == null || exif.getDateTimeOriginal() == null) {
             return imageFile.lastModified();
         }
