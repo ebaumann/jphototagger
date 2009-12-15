@@ -244,6 +244,22 @@ public final class ExifMetadata {
         }
     }
 
+    /**
+     * Returns the milliseconds since 1970 of the time when the image was taken.
+     *
+     * @param  imageFile image file
+     * @return milliseconds. If the image file has no EXIF metadata or no
+     *         date time original information whithin the EXIF metadata the last
+     *         modification time of the file will be returned
+     */
+    public static long timestampDateTimeOriginal(File imageFile) {
+        Exif exif = getExif(imageFile);
+        if (exif == null || exif.getDateTimeOriginal() == null) {
+            return imageFile.lastModified();
+        }
+        return exif.getDateTimeOriginal().getTime();
+    }
+
     private ExifMetadata() {
     }
 }

@@ -259,6 +259,22 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JSeparator" name="jSeparator2">
                 </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFileTypeAscending">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFileTypeDescending">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JSeparator" name="jSeparator3">
+                </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortLastModifiedAscending">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -273,19 +289,19 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JSeparator" name="jSeparator3">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator15">
                 </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFileTypeAscending">
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifDateTimeOriginalAscending">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFileTypeDescending">
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifDateTimeOriginalDescending">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>

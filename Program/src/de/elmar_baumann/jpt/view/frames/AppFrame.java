@@ -21,6 +21,8 @@ package de.elmar_baumann.jpt.view.frames;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
+import de.elmar_baumann.jpt.comparator.ComparatorExifDateTimeOriginalAsc;
+import de.elmar_baumann.jpt.comparator.ComparatorExifDateTimeOriginalDesc;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -56,6 +58,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_DESCENDING.getComparator(), radioButtonMenuItemSortLastModifiedDescending);
         menuItemOfSortCmp.put(FileSort.TYPES_ASCENDING.getComparator()         , radioButtonMenuItemSortFileTypeAscending);
         menuItemOfSortCmp.put(FileSort.TYPES_DESCENDING.getComparator()        , radioButtonMenuItemSortFileTypeDescending);
+        menuItemOfSortCmp.put(new ComparatorExifDateTimeOriginalAsc()          , radioButtonMenuItemSortExifDateTimeOriginalAscending);
+        menuItemOfSortCmp.put(new ComparatorExifDateTimeOriginalDesc()         , radioButtonMenuItemSortExifDateTimeOriginalDescending);
 
         for (Comparator<File> comparator : menuItemOfSortCmp.keySet()) {
             sortCmpOfMenuItem.put(menuItemOfSortCmp.get(comparator), comparator);
@@ -312,11 +316,14 @@ public final class AppFrame extends javax.swing.JFrame {
         radioButtonMenuItemSortFilenameAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortFilenameDescending = new javax.swing.JRadioButtonMenuItem();
         jSeparator2 = new javax.swing.JSeparator();
-        radioButtonMenuItemSortLastModifiedAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortLastModifiedDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator3 = new javax.swing.JSeparator();
         radioButtonMenuItemSortFileTypeAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
+        jSeparator3 = new javax.swing.JSeparator();
+        radioButtonMenuItemSortLastModifiedAscending = new javax.swing.JRadioButtonMenuItem();
+        radioButtonMenuItemSortLastModifiedDescending = new javax.swing.JRadioButtonMenuItem();
+        jSeparator15 = new javax.swing.JPopupMenu.Separator();
+        radioButtonMenuItemSortExifDateTimeOriginalAscending = new javax.swing.JRadioButtonMenuItem();
+        radioButtonMenuItemSortExifDateTimeOriginalDescending = new javax.swing.JRadioButtonMenuItem();
         jSeparator6 = new javax.swing.JSeparator();
         menuItemThumbnailSizeIncrease = new javax.swing.JMenuItem();
         menuItemThumbnailSizeDecrease = new javax.swing.JMenuItem();
@@ -468,18 +475,25 @@ public final class AppFrame extends javax.swing.JFrame {
         menuSort.add(radioButtonMenuItemSortFilenameDescending);
         menuSort.add(jSeparator2);
 
-        radioButtonMenuItemSortLastModifiedAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
-        menuSort.add(radioButtonMenuItemSortLastModifiedAscending);
-
-        radioButtonMenuItemSortLastModifiedDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
-        menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
-        menuSort.add(jSeparator3);
-
         radioButtonMenuItemSortFileTypeAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFileTypeAscending);
 
         radioButtonMenuItemSortFileTypeDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFileTypeDescending);
+        menuSort.add(jSeparator3);
+
+        radioButtonMenuItemSortLastModifiedAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortLastModifiedAscending);
+
+        radioButtonMenuItemSortLastModifiedDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
+        menuSort.add(jSeparator15);
+
+        radioButtonMenuItemSortExifDateTimeOriginalAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalAscending);
+
+        radioButtonMenuItemSortExifDateTimeOriginalDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text")); // NOI18N
+        menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalDescending);
 
         menuView.add(menuSort);
         menuView.add(jSeparator6);
@@ -671,6 +685,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
+    private javax.swing.JSeparator jSeparator15;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -734,6 +749,8 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;
+    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifDateTimeOriginalAscending;
+    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifDateTimeOriginalDescending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeAscending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeDescending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilenameAscending;

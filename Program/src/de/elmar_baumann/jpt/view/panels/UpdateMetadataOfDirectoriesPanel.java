@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.event.listener.CheckingForUpdateMetadataListener;
 import de.elmar_baumann.jpt.io.DirectoryInfo;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
-import de.elmar_baumann.lib.comparator.ComparatorFilesNames;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
@@ -260,8 +260,7 @@ public final class UpdateMetadataOfDirectoriesPanel
         if (checkBoxIncludeSubdirectories.isSelected()) {
             addSubdirectories(directories);
         }
-        Collections.sort(directories,
-                ComparatorFilesNames.ASCENDING_IGNORE_CASE);
+        Collections.sort(directories, FileSort.NAMES_ASCENDING.getComparator());
         for (File directory : directories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(directory);
             if (directoryInfo.hasImageFiles() &&
