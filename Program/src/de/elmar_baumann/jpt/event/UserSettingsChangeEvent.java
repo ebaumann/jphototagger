@@ -38,43 +38,44 @@ import java.util.logging.Level;
  */
 public final class UserSettingsChangeEvent {
 
-    private Type type;
-    private Object source;
-    private File defaultImageOpenApp;
-    private String externalThumbnailCreationCommand;
-    private String webBrowser;
-    private String pdfViewer;
-    private String iptcCharset;
-    private String databaseDirectoryName;
-    private File autoCopyDirectory;
-    private boolean acceptHiddenDirectories;
-    private boolean autoscanIncludeSubdirectories;
-    private boolean createThumbnailsWithExternalApp;
-    private boolean useEmbeddedThumbnails;
-    private boolean noFastSearchColumns;
-    private boolean treeDirectoriesSelectLastDirectory;
-    private boolean scanForEmbeddedXmp;
-    private boolean executeActionsAfterImageChangeInDbAlways;
-    private boolean executeActionsAfterImageChangeInDbIfImageHasXmp;
+    private boolean           acceptHiddenDirectories;
+    private boolean           autoscanIncludeSubdirectories;
+    private boolean           createThumbnailsWithExternalApp;
+    private boolean           displaySearchButton;
+    private boolean           executeActionsAfterImageChangeInDbAlways;
+    private boolean           executeActionsAfterImageChangeInDbIfImageHasXmp;
+    private boolean           noFastSearchColumns;
+    private boolean           scanForEmbeddedXmp;
+    private boolean           treeDirectoriesSelectLastDirectory;
+    private boolean           useEmbeddedThumbnails;
+    private Class             logfileFormatterClass;
     private CopyFiles.Options optionsCopyMoveFiles;
-    private Integer maxThumbnailWidth;
-    private Integer maxSecondsToTerminateExternalPrograms;
-    private Integer minutesToStartScheduledTasks;
-    private Level logLevel;
-    private Class logfileFormatterClass;
-    private List<Column> fastSearchColumns;
-    private List<Column> editColumns;
+    private File              autoCopyDirectory;
+    private File              defaultImageOpenApp;
+    private Integer           maxSecondsToTerminateExternalPrograms;
+    private Integer           maxThumbnailWidth;
+    private Integer           minutesToStartScheduledTasks;
+    private Level             logLevel;
+    private List<Column>      editColumns;
+    private List<Column>      fastSearchColumns;
+    private Object            source;
+    private String            databaseDirectoryName;
+    private String            externalThumbnailCreationCommand;
+    private String            iptcCharset;
+    private String            pdfViewer;
+    private String            webBrowser;
+    private Type              type;
 
     public enum Type {
-
-        AUTOSCAN_DIRECTORIES,
         AUTOCOPY_DIRECTORY,
+        AUTOSCAN_DIRECTORIES,
         DATABASE_DIRECTORY,
         DEFAULT_IMAGE_OPEN_APP,
+        DISPLAY_SEARCH_BUTTON,
         EDIT_COLUMNS,
-        EXTERNAL_THUMBNAIL_CREATION_COMMAND,
         EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS,
         EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP,
+        EXTERNAL_THUMBNAIL_CREATION_COMMAND,
         FAST_SEARCH_COLUMNS,
         IPTC_CHARSET,
         IS_ACCEPT_HIDDEN_DIRECTORIES,
@@ -83,16 +84,16 @@ public final class UserSettingsChangeEvent {
         IS_USE_EMBEDDED_THUMBNAILS,
         LOGFILE_FORMATTER_CLASS,
         LOG_LEVEL,
+        MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
         MAX_THUMBNAIL_WIDTH,
         MINUTES_TO_START_SCHEDULED_TASKS,
         NO_FAST_SEARCH_COLUMNS,
-        OTHER_IMAGE_OPEN_APPS,
-        WEB_BROWSER,
-        PDF_VIEWER,
-        TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
-        MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
-        SCAN_FOR_EMBEDDED_XMP,
         OPTIONS_COPY_MOVE_FILES,
+        OTHER_IMAGE_OPEN_APPS,
+        PDF_VIEWER,
+        SCAN_FOR_EMBEDDED_XMP,
+        TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
+        WEB_BROWSER,
     }
 
     public UserSettingsChangeEvent(Type type, Object source) {
@@ -221,8 +222,7 @@ public final class UserSettingsChangeEvent {
         return minutesToStartScheduledTasks;
     }
 
-    public void setMinutesToStartScheduledTasks(
-            Integer minutesToStartScheduledTasks) {
+    public void setMinutesToStartScheduledTasks(Integer minutesToStartScheduledTasks) {
         this.minutesToStartScheduledTasks = minutesToStartScheduledTasks;
     }
 
@@ -288,18 +288,23 @@ public final class UserSettingsChangeEvent {
 
     public void setExecuteActionsAfterImageChangeInDbAlways(
             boolean executeActionAfterImageChangeInDbAlways) {
-        this.executeActionsAfterImageChangeInDbAlways =
-                executeActionAfterImageChangeInDbAlways;
+        this.executeActionsAfterImageChangeInDbAlways = executeActionAfterImageChangeInDbAlways;
     }
 
     public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
         return executeActionsAfterImageChangeInDbIfImageHasXmp;
     }
 
-    public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
-            boolean executeActionAfterImageChangeInDbIfImageHasXmp) {
-        this.executeActionsAfterImageChangeInDbIfImageHasXmp =
-                executeActionAfterImageChangeInDbIfImageHasXmp;
+    public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean executeActionAfterImageChangeInDbIfImageHasXmp) {
+        this.executeActionsAfterImageChangeInDbIfImageHasXmp = executeActionAfterImageChangeInDbIfImageHasXmp;
+    }
+
+    public boolean isDisplaySearchButton() {
+        return displaySearchButton;
+    }
+
+    public void setDisplaySearchButton(boolean displaySearchButton) {
+        this.displaySearchButton = displaySearchButton;
     }
 
     public Options getOptionsCopyMoveFiles() {

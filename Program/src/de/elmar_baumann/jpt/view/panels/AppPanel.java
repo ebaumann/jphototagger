@@ -100,6 +100,7 @@ public final class AppPanel extends javax.swing.JPanel implements
     }
 
     private void postInitComponents() {
+        displaySearchButton();
         editPanelsArray = new EditMetadataPanelsArray(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
         setBackgroundColorTablesScrollPanes();
@@ -107,6 +108,12 @@ public final class AppPanel extends javax.swing.JPanel implements
         initArrays();
         tableExif.addMouseListener(new TableButtonMouseListener(tableExif));
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
+    }
+
+    private void displaySearchButton() {
+        if (!UserSettings.INSTANCE.isDisplaySearchButton()) {
+            panelSearch.remove(buttonSearch);
+        }
     }
 
     private void initArrays() {

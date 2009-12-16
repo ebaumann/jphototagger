@@ -134,11 +134,11 @@ public final class ControllerFastSearch
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(
-                UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS) ||
-                evt.getType().equals(
-                UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
-            setEnabledSearchTextField();
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS) ||
+                evt.getType().equals(UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
+            if (isSearchAllDefinedColumns()) {
+                textFieldSearch.setEnabled(evt.getType().equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS));
+            }
         }
     }
 
@@ -224,17 +224,15 @@ public final class ControllerFastSearch
                     if (searchColumn == null) return null;
                     if (searchWords.size() == 1) {
                         return db.searchFilenamesLikeOr(
-                                Arrays.asList(searchColumn),
-                                userInput);
+                                Arrays.asList(searchColumn), userInput);
                     } else if (searchWords.size() > 1) {
                         if (searchColumn.equals(
                                 ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.
-                                    getFilenamesOfAllDcSubjects(searchWords));
+                            return new ArrayList<String>(
+                                    DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(searchWords));
                         } else {
                             return new ArrayList<String>(DatabaseImageFiles.INSTANCE.
-                                    getFilenamesOfAll(
-                                    searchColumn, searchWords));
+                                    getFilenamesOfAll(searchColumn, searchWords));
                         }
                     } else {
                         return null;
@@ -246,8 +244,7 @@ public final class ControllerFastSearch
 
     private List<String> getSearchWords(String userInput) {
         List<String> words = new ArrayList<String>();
-        StringTokenizer st =
-                new StringTokenizer(userInput, DELIMITER_SEARCH_WORDS);
+        StringTokenizer st = new StringTokenizer(userInput, DELIMITER_SEARCH_WORDS);
         while (st.hasMoreTokens()) {
             words.add(st.nextToken().trim());
         }
@@ -258,8 +255,7 @@ public final class ControllerFastSearch
         assert !isSearchAllDefinedColumns() : "More than one search column!"; // NOI18N
         if (isSearchAllDefinedColumns()) return null;
         ComboBoxModel model = comboboxFastSearch.getModel();
-        assert model instanceof ComboBoxModelFastSearch :
-                "Unknown model: " + model;
+        assert model instanceof ComboBoxModelFastSearch : "Unknown model: " + model;
         if (model instanceof ComboBoxModelFastSearch) {
             return (Column) comboboxFastSearch.getSelectedItem();
         }
@@ -286,8 +282,7 @@ public final class ControllerFastSearch
     }
 
     private void setEnabledSearchTextField() {
-        textFieldSearch.setEnabled(
-                isSearchAllDefinedColumns()
+        textFieldSearch.setEnabled(isSearchAllDefinedColumns()
                 ? UserSettings.INSTANCE.getFastSearchColumns().size() > 0
                 : true);
     }
