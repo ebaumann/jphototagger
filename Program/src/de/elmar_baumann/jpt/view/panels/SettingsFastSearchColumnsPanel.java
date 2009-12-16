@@ -60,8 +60,8 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     @Override
     public void readProperties() {
         list.setSelectedItemsWithText(
-            ColumnUtil.getDescriptionsOfColumns(
-            UserSettings.INSTANCE.getFastSearchColumns()), true);
+            ColumnUtil.getDescriptionsOfColumns(UserSettings.INSTANCE.getFastSearchColumns()), true);
+        checkBoxDisplaySearchButton.setSelected(UserSettings.INSTANCE.isDisplaySearchButton());
     }
 
     @Override
@@ -71,6 +71,16 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     @Override
     public void actionPerformed(ActionEvent e) {
         listenerProvider.notifyUserSettingsChangeListener(getUserSettingsChangeEvent());
+    }
+
+    private void handleActionPerformedCheckBoxDisplaySearchButton() {
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.DISPLAY_SEARCH_BUTTON, this);
+        evt.setDisplaySearchButton(checkBoxDisplaySearchButton.isSelected());
+        notifyChangeListener(evt);
+    }
+
+    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
+        listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private UserSettingsChangeEvent getUserSettingsChangeEvent() {
@@ -94,8 +104,17 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
 
         labelFastSearchColumns = new javax.swing.JLabel();
         scrollPaneFastSearchColumns = new JScrollPane(list);
+        checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
 
         labelFastSearchColumns.setText(Bundle.getString("SettingsFastSearchColumnsPanel.labelFastSearchColumns.text")); // NOI18N
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        checkBoxDisplaySearchButton.setText(bundle.getString("SettingsFastSearchColumnsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
+        checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDisplaySearchButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -103,28 +122,31 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelFastSearchColumns)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelFastSearchColumns)
+                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelFastSearchColumns)
-                .addContainerGap(106, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(38, 38, 38)
-                    .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneFastSearchColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkBoxDisplaySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplaySearchButtonActionPerformed
+        handleActionPerformedCheckBoxDisplaySearchButton();
+}//GEN-LAST:event_checkBoxDisplaySearchButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JLabel labelFastSearchColumns;
     private javax.swing.JScrollPane scrollPaneFastSearchColumns;
     // End of variables declaration//GEN-END:variables
