@@ -38,8 +38,7 @@ import java.util.List;
  */
 public final class DatabaseSavedSearches extends Database {
 
-    public static final DatabaseSavedSearches INSTANCE =
-            new DatabaseSavedSearches();
+    public static final DatabaseSavedSearches INSTANCE = new DatabaseSavedSearches();
 
     private DatabaseSavedSearches() {
     }
@@ -66,15 +65,14 @@ public final class DatabaseSavedSearches extends Database {
                 connection.setAutoCommit(false);
                 PreparedStatement stmt = connection.prepareStatement(
                         "INSERT INTO saved_searches" + // NOI18N
-                        " (name" + // NOI18N -- 1 --
+                        " (name" +       // NOI18N -- 1 --
                         ", sql_string" + // NOI18N -- 2 --
-                        ", is_query)" + // NOI18N -- 3 --
+                        ", is_query)" +  // NOI18N -- 3 --
                         " VALUES (?, ?, ?)"); // NOI18N
-                stmt.setString(1, paramStmt.getName());
-                stmt.setBytes(2, paramStmt.getSql().getBytes());
+                stmt.setString( 1, paramStmt.getName());
+                stmt.setBytes(  2, paramStmt.getSql().getBytes());
                 stmt.setBoolean(3, paramStmt.isQuery());
-                AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                        stmt.toString());
+                logFiner(stmt);
                 stmt.executeUpdate();
                 long id = getIdSavedSearch(connection, paramStmt.getName());
                 insertSavedSearchValues(connection, id, paramStmt.getValues());
@@ -111,8 +109,7 @@ public final class DatabaseSavedSearches extends Database {
                 String value = values.get(index);
                 stmt.setString(2, value);
                 stmt.setInt(3, index);
-                AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                        stmt.toString());
+                logFiner(stmt);
                 stmt.executeUpdate();
             }
             stmt.close();
@@ -130,27 +127,26 @@ public final class DatabaseSavedSearches extends Database {
                     "INSERT INTO" + // NOI18N
                     " saved_searches_panels (" + // NOI18N
                     "id_saved_searches" + // NOI18N -- 1 --
-                    ", panel_index" + // NOI18N -- 2 --
-                    ", bracket_left_1" + // NOI18N -- 3 --
-                    ", operator_id" + // NOI18N -- 4 --
-                    ", bracket_left_2" + // NOI18N -- 5 --
-                    ", column_id" + // NOI18N -- 6 --
-                    ", comparator_id" + // NOI18N -- 7 --
-                    ", value" + // NOI18N -- 8 --
-                    ", bracket_right)" + // NOI18N -- 9 --
+                    ", panel_index" +     // NOI18N -- 2 --
+                    ", bracket_left_1" +  // NOI18N -- 3 --
+                    ", operator_id" +     // NOI18N -- 4 --
+                    ", bracket_left_2" +  // NOI18N -- 5 --
+                    ", column_id" +       // NOI18N -- 6 --
+                    ", comparator_id" +   // NOI18N -- 7 --
+                    ", value" +           // NOI18N -- 8 --
+                    ", bracket_right)" +  // NOI18N -- 9 --
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
-            stmt.setLong(1, idSavedSearch);
+            stmt.setLong(       1, idSavedSearch);
             for (SavedSearchPanel panel : panels) {
-                stmt.setInt(2, panel.getPanelIndex());
+                stmt.setInt(    2, panel.getPanelIndex());
                 stmt.setBoolean(3, panel.isBracketLeft1Selected());
-                stmt.setInt(4, panel.getOperatorId());
+                stmt.setInt(    4, panel.getOperatorId());
                 stmt.setBoolean(5, panel.isBracketLeft2Selected());
-                stmt.setInt(6, panel.getColumnId());
-                stmt.setInt(7, panel.getComparatorId());
-                stmt.setString(8, panel.getValue());
+                stmt.setInt(    6, panel.getColumnId());
+                stmt.setInt(    7, panel.getComparatorId());
+                stmt.setString( 8, panel.getValue());
                 stmt.setBoolean(9, panel.isBracketRightSelected());
-                AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                        stmt.toString());
+                logFiner(stmt);
                 stmt.executeUpdate();
             }
             stmt.close();
@@ -163,8 +159,7 @@ public final class DatabaseSavedSearches extends Database {
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
         stmt.setString(1, name);
-        AppLog.logFinest(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                stmt.toString());
+        logFinest(stmt);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
@@ -185,7 +180,7 @@ public final class DatabaseSavedSearches extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql = "SELECT COUNT(*) FROM saved_searches"; // NOI18N
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
+            logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -246,8 +241,7 @@ public final class DatabaseSavedSearches extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                    stmt.toString());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
@@ -278,8 +272,7 @@ public final class DatabaseSavedSearches extends Database {
                     "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            AppLog.logFiner(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                    stmt.toString());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             renamed = count > 0;
             if (renamed) {
@@ -325,21 +318,20 @@ public final class DatabaseSavedSearches extends Database {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT" + // NOI18N
-                    " name" + // NOI18N -- 1 --
+                    " name" +        // NOI18N -- 1 --
                     ", sql_string" + // NOI18N -- 2 --
-                    ", is_query" + // NOI18N -- 3 --
+                    ", is_query" +   // NOI18N -- 3 --
                     " FROM saved_searches WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFinest(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                    stmt.toString());
+            logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 savedSearch = new SavedSearch();
                 SavedSearchParamStatement paramStmt =
                         new SavedSearchParamStatement();
-                paramStmt.setName(rs.getString(1));
+                paramStmt.setName(         rs.getString(1));
                 paramStmt.setSql(new String(rs.getBytes(2)));
-                paramStmt.setQuery(rs.getBoolean(3));
+                paramStmt.setQuery(       rs.getBoolean(3));
                 savedSearch.setParamStatement(paramStmt);
                 setSavedSearchValues(connection, savedSearch);
                 setSavedSearchPanels(connection, savedSearch);
@@ -367,11 +359,11 @@ public final class DatabaseSavedSearches extends Database {
             Statement stmt = connection.createStatement();
             String sql =
                     "SELECT" + // NOI18N
-                    " name" + // NOI18N -- 1 --
+                    " name" +        // NOI18N -- 1 --
                     ", sql_string" + // NOI18N -- 2 --
-                    ", is_query" + // NOI18N -- 3 --
+                    ", is_query" +   // NOI18N -- 3 --
                     " FROM saved_searches ORDER BY name"; // NOI18N
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
+            logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql); // NOI18N
             while (rs.next()) {
                 SavedSearch savedSearch = new SavedSearch();
@@ -409,8 +401,7 @@ public final class DatabaseSavedSearches extends Database {
                 " AND saved_searches.name = ?" + // NOI18N
                 " ORDER BY saved_searches_values.value_index ASC"); // NOI18N
         stmt.setString(1, savedSearch.getParamStatement().getName());
-        AppLog.logFinest(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                stmt.toString());
+        logFinest(stmt);
         ResultSet rs = stmt.executeQuery();
         List<String> values = new ArrayList<String>();
         while (rs.next()) {
@@ -430,33 +421,32 @@ public final class DatabaseSavedSearches extends Database {
             throws SQLException {
         assert savedSearch.getParamStatement() != null : "Statement is null!"; // NOI18N
         PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
-                " saved_searches_panels.panel_index" + // NOI18N -- 1 --
+                " saved_searches_panels.panel_index" +     // NOI18N -- 1 --
                 ", saved_searches_panels.bracket_left_1" + // NOI18N -- 2 --
-                ", saved_searches_panels.operator_id" + // NOI18N -- 3 --
+                ", saved_searches_panels.operator_id" +    // NOI18N -- 3 --
                 ", saved_searches_panels.bracket_left_2" + // NOI18N -- 4 --
-                ", saved_searches_panels.column_id" + // NOI18N -- 5 --
-                ", saved_searches_panels.comparator_id" + // NOI18N -- 6 --
-                ", saved_searches_panels.value" + // NOI18N -- 7 --
-                ", saved_searches_panels.bracket_right" + // NOI18N -- 8 --
+                ", saved_searches_panels.column_id" +      // NOI18N -- 5 --
+                ", saved_searches_panels.comparator_id" +  // NOI18N -- 6 --
+                ", saved_searches_panels.value" +          // NOI18N -- 7 --
+                ", saved_searches_panels.bracket_right" +  // NOI18N -- 8 --
                 " FROM" + // NOI18N
                 " saved_searches_panels INNER JOIN saved_searches" + // NOI18N
                 " ON saved_searches_panels.id_saved_searches = saved_searches.id" + // NOI18N
                 " AND saved_searches.name = ?" + // NOI18N
                 " ORDER BY saved_searches_panels.panel_index ASC"); // NOI18N
         stmt.setString(1, savedSearch.getParamStatement().getName());
-        AppLog.logFinest(DatabaseSavedSearches.class, AppLog.USE_STRING,
-                stmt.toString());
+        logFinest(stmt);
         ResultSet rs = stmt.executeQuery();
         List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
         while (rs.next()) {
             SavedSearchPanel panel = new SavedSearchPanel();
-            panel.setPanelIndex(rs.getInt(1));
+            panel.setPanelIndex(              rs.getInt(1));
             panel.setBracketLeft1Selected(rs.getBoolean(2));
-            panel.setOperatorId(rs.getInt(3));
+            panel.setOperatorId(              rs.getInt(3));
             panel.setBracketLeft2Selected(rs.getBoolean(4));
-            panel.setColumnId(rs.getInt(5));
-            panel.setComparatorId(rs.getInt(6));
-            panel.setValue(rs.getString(7));
+            panel.setColumnId(                rs.getInt(5));
+            panel.setComparatorId(            rs.getInt(6));
+            panel.setValue(                rs.getString(7));
             panel.setBracketRightSelected(rs.getBoolean(8));
             panels.add(panel);
         }

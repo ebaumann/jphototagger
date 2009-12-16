@@ -56,7 +56,7 @@ public final class DatabaseApplication extends Database {
             String sql = "SELECT COUNT(*) FROM application WHERE key = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, key);
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt);
+            logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             int count = 0;
 
@@ -87,7 +87,7 @@ public final class DatabaseApplication extends Database {
             String sql = "DELETE FROM application WHERE key = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, key);
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt);
+            logFinest(stmt);
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
@@ -112,7 +112,7 @@ public final class DatabaseApplication extends Database {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(getQueryStmt());
             stmt.setString(1, key);
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt);
+            logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -150,7 +150,7 @@ public final class DatabaseApplication extends Database {
             if (!existsKey(key)) {
                 stmt.setString(2, key);
             }
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt);
+            logFinest(stmt);
             int count = stmt.executeUpdate();
             stmt.close();
             assert count > 0 : "Not updated: " + key; // NOI18N

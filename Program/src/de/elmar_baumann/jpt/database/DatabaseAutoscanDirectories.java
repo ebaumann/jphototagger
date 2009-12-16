@@ -58,8 +58,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                         connection.prepareStatement(
                         "INSERT INTO autoscan_directories (directory) VALUES (?)"); // NOI18N
                 stmt.setString(1, directoryName);
-                AppLog.logFiner(DatabaseAutoscanDirectories.class,
-                        AppLog.USE_STRING, stmt.toString());
+                logFiner(stmt);
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
                 stmt.close();
@@ -90,8 +89,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             for (String directoryName : directoryNames) {
                 if (!existsAutoscanDirectory(directoryName)) {
                     stmt.setString(1, directoryName);
-                    AppLog.logFiner(DatabaseAutoscanDirectories.class,
-                            AppLog.USE_STRING, stmt.toString());
+                    logFiner(stmt);
                     stmt.executeUpdate();
                 }
             }
@@ -122,8 +120,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
-            AppLog.logFiner(DatabaseAutoscanDirectories.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             deleted = count > 0;
             stmt.close();
@@ -151,8 +148,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                     connection.prepareStatement(
                     "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?"); // NOI18N
             stmt.setString(1, directoryName);
-            AppLog.logFinest(DatabaseAutoscanDirectories.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -180,7 +176,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             String sql =
                     "SELECT directory FROM autoscan_directories" + // NOI18N
                     " ORDER BY directory ASC"; // NOI18N
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
+            logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 directories.add(rs.getString(1));

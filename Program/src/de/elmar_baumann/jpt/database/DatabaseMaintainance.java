@@ -110,8 +110,7 @@ public final class DatabaseMaintainance extends Database {
                     SubstringPosition.getSqlFilterOperator(pos) + " ?"; // NOI18N;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, SubstringPosition.getSqlFilter(pos, search));
-            AppLog.logFiner(DatabaseMaintainance.class, AppLog.USE_STRING,
-                    stmt.toString());
+            logFiner(stmt);
             affectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();

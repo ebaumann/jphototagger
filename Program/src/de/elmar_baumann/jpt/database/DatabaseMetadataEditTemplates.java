@@ -58,8 +58,8 @@ import java.util.StringTokenizer;
  */
 public class DatabaseMetadataEditTemplates extends Database {
 
-    private static final String DELIM_REPEATABLE_STRINGS = "\t";
-    public static final DatabaseMetadataEditTemplates INSTANCE = new DatabaseMetadataEditTemplates();
+    private static final String                        DELIM_REPEATABLE_STRINGS = "\t";
+    public static final  DatabaseMetadataEditTemplates INSTANCE                 = new DatabaseMetadataEditTemplates();
 
     private DatabaseMetadataEditTemplates() {
     }
@@ -109,8 +109,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ")" + // NOI18N
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
             setMetadataEditTemplate(stmt, template);
-            AppLog.logFiner(DatabaseMetadataEditTemplates.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFiner(stmt);
             stmt.executeUpdate();
             connection.commit();
             inserted = true;
@@ -249,7 +248,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ", rating" +                          // NOI18N -- 21 --
                     " FROM metadata_edit_templates" + // NOI18N
                     " WHERE name IS NOT NULL"; // NOI18N
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
+            logFinest(sql);
             ResultSet rs   = stmt.executeQuery(sql);
             byte[]    bytes;
             while (rs.next()) {
@@ -321,32 +320,31 @@ public class DatabaseMetadataEditTemplates extends Database {
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE metadata_edit_templates" + // NOI18N
-                    " SET name = ?" + // NOI18N -- 1 --
-                    ", dcSubjects = ?" + // NOI18N -- 2 --
-                    ", dcTitle = ?" + // NOI18N -- 3 --
-                    ", photoshopHeadline = ?" + // NOI18N -- 4 --
-                    ", dcDescription = ?" + // NOI18N -- 5 --
-                    ", photoshopCaptionwriter = ?" + // NOI18N -- 6 --
-                    ", iptc4xmpcoreLocation = ?" + // NOI18N -- 7 --
-                    ", iptc4xmpcoreCountrycode = ?" + // NOI18N -- 8 --
-                    ", photoshopCategory = ?" + // NOI18N -- 9 --
+                    " SET name = ?" +                         // NOI18N --  1 --
+                    ", dcSubjects = ?" +                      // NOI18N --  2 --
+                    ", dcTitle = ?" +                         // NOI18N --  3 --
+                    ", photoshopHeadline = ?" +               // NOI18N --  4 --
+                    ", dcDescription = ?" +                   // NOI18N --  5 --
+                    ", photoshopCaptionwriter = ?" +          // NOI18N --  6 --
+                    ", iptc4xmpcoreLocation = ?" +            // NOI18N --  7 --
+                    ", iptc4xmpcoreCountrycode = ?" +         // NOI18N --  8 --
+                    ", photoshopCategory = ?" +               // NOI18N --  9 --
                     ", photoshopSupplementalCategories = ?" + // NOI18N -- 10 --
-                    ", dcRights = ?" + // NOI18N -- 11 --
-                    ", dcCreator = ?" + // NOI18N -- 12 --
-                    ", photoshopAuthorsposition = ?" + // NOI18N -- 13 --
-                    ", photoshopCity = ?" + // NOI18N -- 14 --
-                    ", photoshopState = ?" + // NOI18N -- 15 --
-                    ", photoshopCountry = ?" + // NOI18N -- 16 --
-                    ", photoshopTransmissionReference = ?" + // NOI18N -- 17 --
-                    ", photoshopInstructions = ?" + // NOI18N -- 18 --
-                    ", photoshopCredit = ?" + // NOI18N -- 19 --
-                    ", photoshopSource = ?" + // NOI18N -- 20 --
-                    ", rating= ?" + // NOI18N -- 21 --
-                    " WHERE name = ?"); // NOI18N -- 22 --
+                    ", dcRights = ?" +                        // NOI18N -- 11 --
+                    ", dcCreator = ?" +                       // NOI18N -- 12 --
+                    ", photoshopAuthorsposition = ?" +        // NOI18N -- 13 --
+                    ", photoshopCity = ?" +                   // NOI18N -- 14 --
+                    ", photoshopState = ?" +                  // NOI18N -- 15 --
+                    ", photoshopCountry = ?" +                // NOI18N -- 16 --
+                    ", photoshopTransmissionReference = ?" +  // NOI18N -- 17 --
+                    ", photoshopInstructions = ?" +           // NOI18N -- 18 --
+                    ", photoshopCredit = ?" +                 // NOI18N -- 19 --
+                    ", photoshopSource = ?" +                 // NOI18N -- 20 --
+                    ", rating= ?" +                           // NOI18N -- 21 --
+                    " WHERE name = ?");                       // NOI18N -- 22 --
             setMetadataEditTemplate(stmt, template);
             stmt.setString(22, template.getName());
-            AppLog.logFiner(DatabaseMetadataEditTemplates.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
@@ -381,8 +379,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                     " WHERE name = ?"); // NOI18N
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
-            AppLog.logFiner(DatabaseMetadataEditTemplates.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             renamed = count > 0;
@@ -411,8 +408,7 @@ public class DatabaseMetadataEditTemplates extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM metadata_edit_templates WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFiner(DatabaseMetadataEditTemplates.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
@@ -436,7 +432,7 @@ public class DatabaseMetadataEditTemplates extends Database {
                     " FROM metadata_edit_templates" + // NOI18N
                     " WHERE name = ?"); // NOI18N
             stmt.setString(1, name);
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt.toString());
+            logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;

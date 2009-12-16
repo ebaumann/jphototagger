@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -154,6 +155,22 @@ public class Database {
         if (listener != null) {
             listener.progressEnded(event);
         }
+    }
+
+    protected void logFiner(String sql) {
+        AppLog.logFiner(getClass(), AppLog.USE_STRING, sql);
+    }
+
+    protected void logFiner(PreparedStatement stmt) {
+        AppLog.logFiner(getClass(), AppLog.USE_STRING, stmt.toString());
+    }
+
+    protected void logFinest(String sql) {
+        AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
+    }
+
+    protected void logFinest(PreparedStatement stmt) {
+        AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt.toString());
     }
 
     protected Database() {

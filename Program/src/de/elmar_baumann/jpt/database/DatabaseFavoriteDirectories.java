@@ -36,8 +36,7 @@ import java.util.List;
  */
 public final class DatabaseFavoriteDirectories extends Database {
 
-    public static final DatabaseFavoriteDirectories INSTANCE =
-            new DatabaseFavoriteDirectories();
+    public static final DatabaseFavoriteDirectories INSTANCE = new DatabaseFavoriteDirectories();
 
     private DatabaseFavoriteDirectories() {
     }
@@ -63,15 +62,14 @@ public final class DatabaseFavoriteDirectories extends Database {
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO favorite_directories" + // NOI18N
-                    " (favorite_name" + // NOI18N -- 1 --
-                    ", directory_name" + // NOI18N -- 2 --
+                    " (favorite_name" +   // NOI18N -- 1 --
+                    ", directory_name" +  // NOI18N -- 2 --
                     ", favorite_index)" + // NOI18N -- 3 --
                     " VALUES (?, ?, ?)"); // NOI18N
             stmt.setString(1, favoriteDirectory.getFavoriteName());
             stmt.setString(2, favoriteDirectory.getDirectoryName());
-            stmt.setInt(3, favoriteDirectory.getIndex());
-            AppLog.logFiner(DatabaseFavoriteDirectories.class,
-                    AppLog.USE_STRING, stmt.toString());
+            stmt.setInt   (3, favoriteDirectory.getIndex());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             inserted = count > 0;
@@ -100,8 +98,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
-            AppLog.logFiner(DatabaseFavoriteDirectories.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
@@ -132,16 +129,15 @@ public final class DatabaseFavoriteDirectories extends Database {
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE favorite_directories SET" + // NOI18N
-                    " favorite_name = ?" + // NOI18N -- 1 --
-                    ", directory_name = ?" + // NOI18N --2  --
-                    ", favorite_index = ?" + // NOI18N -- 3 --
+                    " favorite_name = ?" +       // NOI18N -- 1 --
+                    ", directory_name = ?" +     // NOI18N -- 2 --
+                    ", favorite_index = ?" +     // NOI18N -- 3 --
                     " WHERE favorite_name = ?"); // NOI18N -- 4 --
             stmt.setString(1, favorite.getFavoriteName());
             stmt.setString(2, favorite.getDirectoryName());
-            stmt.setInt(3, favorite.getIndex());
+            stmt.setInt   (3, favorite.getIndex());
             stmt.setString(4, favoriteName);
-            AppLog.logFiner(DatabaseFavoriteDirectories.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
@@ -168,11 +164,11 @@ public final class DatabaseFavoriteDirectories extends Database {
             Statement stmt = connection.createStatement();
             String sql =
                     "SELECT favorite_name" + // NOI18N -- 1 --
-                    ", directory_name" + // NOI18N -- 2 --
-                    ", favorite_index" + // NOI18N -- 3 --
+                    ", directory_name" +     // NOI18N -- 2 --
+                    ", favorite_index" +     // NOI18N -- 3 --
                     " FROM favorite_directories" + // NOI18N
                     " ORDER BY favorite_index ASC"; // NOI18N
-            AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
+            logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 directories.add(new FavoriteDirectory(
@@ -203,8 +199,7 @@ public final class DatabaseFavoriteDirectories extends Database {
                     "SELECT COUNT(*) FROM favorite_directories" + // NOI18N
                     " WHERE favorite_name = ?"); // NOI18N
             stmt.setString(1, favoriteName);
-            AppLog.logFinest(DatabaseFavoriteDirectories.class,
-                    AppLog.USE_STRING, stmt.toString());
+            logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             int count = 0;
             if (rs.next()) {

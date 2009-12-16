@@ -55,22 +55,21 @@ public final class DatabaseSearch extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement =
+            PreparedStatement stmt =
                     connection.prepareStatement(paramStatement.getSql());
             if (paramStatement.getValues() != null) {
                 for (int i = 0; i < paramStatement.getValues().length; i++) {
-                    preparedStatement.setObject(i + 1,
+                    stmt.setObject(i + 1,
                             paramStatement.getValues()[i]);
                 }
             }
-            AppLog.logFinest(DatabaseSearch.class, AppLog.USE_STRING,
-                    preparedStatement.toString());
-            ResultSet resultSet = preparedStatement.executeQuery();
+            logFinest(stmt);
+            ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 filenames.add(resultSet.getString(1));
             }
             resultSet.close();
-            preparedStatement.close();
+            stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseSearch.class, ex);
             filenames.clear();
@@ -108,15 +107,14 @@ public final class DatabaseSearch extends Database {
             Connection connection = null;
             try {
                 connection = getConnection();
-                PreparedStatement preparedStatement = connection.
+                PreparedStatement stmt = connection.
                         prepareStatement(
                         getSqlSearchFilenamesLikeOr(searchColumns, tablename));
                 for (int i = 0; i < searchColumns.size(); i++) {
-                    preparedStatement.setString(i + 1, "%" + searchString + "%"); // NOI18N
+                    stmt.setString(i + 1, "%" + searchString + "%"); // NOI18N
                 }
-                AppLog.logFinest(DatabaseSearch.class, AppLog.USE_STRING,
-                        preparedStatement.toString());
-                ResultSet resultSet = preparedStatement.executeQuery();
+                logFinest(stmt);
+                ResultSet resultSet = stmt.executeQuery();
                 String string;
                 while (resultSet.next()) {
                     string = resultSet.getString(1);
@@ -125,7 +123,7 @@ public final class DatabaseSearch extends Database {
                     }
                 }
                 resultSet.close();
-                preparedStatement.close();
+                stmt.close();
             } catch (SQLException ex) {
                 AppLog.logSevere(DatabaseSearch.class, ex);
                 filenames.clear();
