@@ -28,9 +28,7 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Join;
 import de.elmar_baumann.jpt.database.metadata.Join.Type;
-import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
-import de.elmar_baumann.jpt.database.metadata.file.TableFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
@@ -89,8 +87,7 @@ public final class DatabaseImageFiles extends Database {
                     "UPDATE files SET filename = ? WHERE filename = ?"); // NOI18N
             stmt.setString(1, newFilename);
             stmt.setString(2, oldFilename);
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             count = stmt.executeUpdate();
             PersistentThumbnails.updateThumbnailName(oldFilename, newFilename);
             stmt.close();
@@ -123,8 +120,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             countDeleted = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
@@ -173,13 +169,11 @@ public final class DatabaseImageFiles extends Database {
             if (imageFile.isInsertXmpIntoDb()) {
                 preparedStatement.setLong(3, getLastmodifiedXmp(imageFile));
             }
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    preparedStatement.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, preparedStatement.toString());
             preparedStatement.executeUpdate();
             long idFile = getIdFile(connection, filename);
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnailFile(PersistentThumbnails.getMd5File(filename),
-                        imageFile.getThumbnail());
+                updateThumbnailFile(PersistentThumbnails.getMd5File(filename), imageFile.getThumbnail());
             }
             if (imageFile.isInsertXmpIntoDb()) {
                 insertXmp(connection, idFile, imageFile.getXmp());
@@ -189,8 +183,7 @@ public final class DatabaseImageFiles extends Database {
             }
             connection.commit();
             success = true;
-            notifyDatabaseListener(
-                    DatabaseImageEvent.Type.IMAGEFILE_INSERTED, imageFile);
+            notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_INSERTED, imageFile);
             preparedStatement.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -212,8 +205,7 @@ public final class DatabaseImageFiles extends Database {
         imageFile.setExif(getExifOfFile(filename));
         imageFile.setFilename(filename);
         imageFile.setLastmodified(getLastModifiedImageFile(filename));
-        imageFile.setThumbnail(PersistentThumbnails.getThumbnail(
-                PersistentThumbnails.getMd5File(filename)));
+        imageFile.setThumbnail(PersistentThumbnails.getThumbnail(PersistentThumbnails.getMd5File(filename)));
         imageFile.setXmp(getXmpOfFile(filename));
         return imageFile;
     }
@@ -256,13 +248,11 @@ public final class DatabaseImageFiles extends Database {
             stmt.setLong(imageFile.isInsertXmpIntoDb()
                          ? 3
                          : 2, idFile);
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             stmt.executeUpdate();
             stmt.close();
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnailFile(PersistentThumbnails.getMd5File(filename),
-                        imageFile.getThumbnail());
+                updateThumbnailFile(PersistentThumbnails.getMd5File(filename), imageFile.getThumbnail());
             }
             if (imageFile.isInsertXmpIntoDb()) {
                 updateXmp(connection, idFile, imageFile.getXmp());
@@ -272,8 +262,7 @@ public final class DatabaseImageFiles extends Database {
             }
             connection.commit();
             success = true;
-            notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_UPDATED,
-                    oldImageFile, imageFile);
+            notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_UPDATED, oldImageFile, imageFile);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
             rollback(connection);
@@ -307,8 +296,7 @@ public final class DatabaseImageFiles extends Database {
             notifyProgressListenerStart(listener, event);
             while (!event.isStop() && rs.next()) {
                 String filename = rs.getString(1);
-                updateThumbnailFile(PersistentThumbnails.getMd5File(filename),
-                        getThumbnailFromFile(filename));
+                updateThumbnailFile(PersistentThumbnails.getMd5File(filename), getThumbnailFromFile(filename));
                 updated++;
                 event.setValue(++count);
                 event.setInfo(filename);
@@ -331,7 +319,8 @@ public final class DatabaseImageFiles extends Database {
         File file = new File(filename);
         if (settings.isCreateThumbnailsWithExternalApp()) {
             return ThumbnailUtil.getThumbnailFromExternalApplication(
-                    file, settings.getExternalThumbnailCreationCommand(),
+                    file,
+                    settings.getExternalThumbnailCreationCommand(),
                     maxTnWidth);
         } else {
             return ThumbnailUtil.getThumbnail(file, maxTnWidth, useEmbeddedTn);
@@ -350,8 +339,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            updateThumbnailFile(PersistentThumbnails.getMd5File(filename),
-                    thumbnail);
+            updateThumbnailFile(PersistentThumbnails.getMd5File(filename), thumbnail);
             return true;
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -382,8 +370,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT lastmodified FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 lastModified = rs.getLong(1);
@@ -411,8 +398,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT COUNT(*) FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, filename);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -446,16 +432,12 @@ public final class DatabaseImageFiles extends Database {
                 oldImageFile.setFilename(filename);
                 oldImageFile.setExif(getExifOfFile(filename));
                 oldImageFile.setXmp(getXmpOfFile(filename));
-                AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                        stmt.toString());
+                AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
                 int countAffectedRows = stmt.executeUpdate();
                 countDeleted += countAffectedRows;
                 if (countAffectedRows > 0) {
-                    PersistentThumbnails.deleteThumbnail(
-                            PersistentThumbnails.getMd5File(filename));
-                    notifyDatabaseListener(
-                            DatabaseImageEvent.Type.IMAGEFILE_DELETED,
-                            oldImageFile, oldImageFile);
+                    PersistentThumbnails.getThumbnailFileOfImageFile(filename).delete();
+                    notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_DELETED, oldImageFile, oldImageFile);
                 }
             }
             stmt.close();
@@ -501,17 +483,13 @@ public final class DatabaseImageFiles extends Database {
                 filename = rs.getString(1);
                 File file = new File(filename);
                 if (!file.exists()) {
-                    int deletedRows =
-                            deleteRowWithFilename(connection, filename);
+                    int deletedRows = deleteRowWithFilename(connection, filename);
                     countDeleted += deletedRows;
                     if (deletedRows > 0) {
-                        PersistentThumbnails.deleteThumbnail(
-                                PersistentThumbnails.getMd5File(file));
+                        PersistentThumbnails.getThumbnailFileOfImageFile(filename).delete();
                         ImageFile imageFile = new ImageFile();
                         imageFile.setFilename(filename);
-                        notifyDatabaseListener(
-                                DatabaseImageEvent.Type.NOT_EXISTING_IMAGEFILES_DELETED,
-                                imageFile);
+                        notifyDatabaseListener(DatabaseImageEvent.Type.NOT_EXISTING_IMAGEFILES_DELETED, imageFile);
                     }
                 }
                 event.setValue(event.getValue() + 1);
@@ -535,8 +513,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM xmp WHERE id_files = ?"); // NOI18N
         stmt.setLong(1, idFile);
-        AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                stmt.toString());
+        AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
@@ -561,8 +538,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT xmp_lastmodified FROM files WHERE filename = ?"); // NOI18N
             stmt.setString(1, imageFilename);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 lastModified = rs.getLong(1);
@@ -592,8 +568,7 @@ public final class DatabaseImageFiles extends Database {
                     "UPDATE files SET xmp_lastmodified = ? WHERE filename = ?"); // NOI18N
             stmt.setLong(1, time);
             stmt.setString(2, imageFilename);
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             int count = stmt.executeUpdate();
             set = count > 0;
             stmt.close();
@@ -621,8 +596,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     getInsertIntoXmpStatement());
             setXmpValues(stmt, idFile, xmp);
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             stmt.executeUpdate();
             long idXmp = getIdXmpFromIdFile(connection, idFile);
             insertXmpDcSubjects(connection, idXmp, xmp.getDcSubjects());
@@ -675,8 +649,7 @@ public final class DatabaseImageFiles extends Database {
         for (String value : values) {
             stmt.setLong(1, id);
             stmt.setString(2, value);
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             stmt.executeUpdate();
         }
         stmt.close();
@@ -780,8 +753,7 @@ public final class DatabaseImageFiles extends Database {
             boolean abort = notifyProgressListenerStart(listener, event);
             while (!abort && rs.next()) {
                 filename = rs.getString(1);
-                if (XmpMetadata.getSidecarFilenameOfImageFileIfExists(filename) ==
-                        null) {
+                if (XmpMetadata.getSidecarFilenameOfImageFileIfExists(filename) == null) {
                     countDeleted += deleteXmpOfFilename(connection, filename);
                 }
                 event.setValue(event.getValue() + 1);
@@ -808,8 +780,7 @@ public final class DatabaseImageFiles extends Database {
                     " (SELECT xmp.id_files FROM xmp, files" + // NOI18N
                     " WHERE xmp.id_files = files.id AND files.filename = ?)"); // NOI18N
             stmt.setString(1, filename);
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             count = stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
@@ -869,8 +840,7 @@ public final class DatabaseImageFiles extends Database {
             String sql = getXmpOfFilesStatement(filenames.size());
             PreparedStatement stmt = connection.prepareStatement(sql);
             setStrings(stmt, filenames.toArray(new String[0]), 1);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             String prevFilename = ""; // NOI18N
             Xmp xmp = new Xmp();
@@ -995,8 +965,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     getXmpOfFileStatement());
             stmt.setString(1, filename);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 xmp.setDcCreator(rs.getString(1));
@@ -1088,8 +1057,7 @@ public final class DatabaseImageFiles extends Database {
             for (int i = 0; !abort && i < filecount; i++) {
                 String filename = filenames.get(i);
                 stmt.setString(2, filename);
-                AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                        stmt.toString());
+                AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     long idFile = rs.getLong(1);
@@ -1132,8 +1100,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM xmp WHERE id = ?"); // NOI18N
         stmt.setLong(1, idXmp);
-        AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                stmt.toString());
+        AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
         int count = stmt.executeUpdate();
         assert count > 0;
         stmt.close();
@@ -1198,8 +1165,7 @@ public final class DatabaseImageFiles extends Database {
 
             stmt.setString(1, category);
             stmt.setString(2, category);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String filename = rs.getString(1);
@@ -1239,8 +1205,7 @@ public final class DatabaseImageFiles extends Database {
 
             stmt.setString(1, name);
             stmt.setString(2, name);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             int count = 0;
             if (rs.next()) {
@@ -1340,8 +1305,7 @@ public final class DatabaseImageFiles extends Database {
                     " WHERE xmp_dc_subjects.subject = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, dcSubject);
-            AppLog.logFinest(
-                    DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
@@ -1385,8 +1349,7 @@ public final class DatabaseImageFiles extends Database {
                     " HAVING COUNT(*) = " + count; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             Util.setStringParams(stmt, dcSubjects, 0);
-            AppLog.logFinest(
-                    DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
@@ -1425,8 +1388,7 @@ public final class DatabaseImageFiles extends Database {
                     Util.getParamsInParentheses(count); // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             Util.setStringParams(stmt, dcSubjects, 0);
-            AppLog.logFinest(
-                    DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
@@ -1471,8 +1433,7 @@ public final class DatabaseImageFiles extends Database {
                     " HAVING COUNT(*) = " + count; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             Util.setStringParams(stmt, words, 0);
-            AppLog.logFinest(
-                    DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 filenames.add(rs.getString(1));
@@ -1553,8 +1514,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt =
                     connection.prepareStatement(getInsertIntoExifStatement());
             setExifValues(stmt, idFile, exifData);
-            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFiner(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             stmt.executeUpdate();
             stmt.close();
         }
@@ -1566,8 +1526,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM exif WHERE id_files = ?"); // NOI18N
         stmt.setLong(1, idFile);
-        AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                stmt.toString());
+        AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
@@ -1641,8 +1600,7 @@ public final class DatabaseImageFiles extends Database {
                     " ORDER BY files.filename ASC"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, sqlDate);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 files.add(new File(rs.getString(1)));
@@ -1778,8 +1736,7 @@ public final class DatabaseImageFiles extends Database {
                     " ORDER BY files.filename ASC"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, exactValue);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 files.add(new File(rs.getString(1)));
@@ -1807,8 +1764,7 @@ public final class DatabaseImageFiles extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     getExifOfFileStatement());
             stmt.setString(1, filename);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exif = new Exif();
@@ -1886,8 +1842,7 @@ public final class DatabaseImageFiles extends Database {
                     " WHERE " + column.getName() + // NOI18N
                     " = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             stmt.setObject(1, value);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -1927,8 +1882,7 @@ public final class DatabaseImageFiles extends Database {
                     asList(tableName))) +
                     " WHERE " + tableName + "." + columnName + " IS NULL";  // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
-            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                    stmt.toString());
+            AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 files.add(rs.getString(1));
@@ -1967,8 +1921,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = connection.prepareStatement(
                 "SELECT id FROM files WHERE filename = ?"); // NOI18N
         stmt.setString(1, filename);
-        AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING,
-                stmt.toString());
+        AppLog.logFinest(DatabaseImageFiles.class, AppLog.USE_STRING, stmt.toString());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             id = rs.getLong(1);
