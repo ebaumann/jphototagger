@@ -19,11 +19,9 @@
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 
 /**
  * 
@@ -33,15 +31,12 @@ import javax.swing.JButton;
  */
 public final class ControllerShowSystemOutput implements ActionListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JButton buttonSystemOutput = appPanel.getButtonSystemOutput();
-
     public ControllerShowSystemOutput() {
         listen();
     }
 
     private void listen() {
-        buttonSystemOutput.addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemOutputWindow().addActionListener(this);
     }
 
     @Override

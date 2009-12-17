@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
@@ -280,10 +279,6 @@ public final class AppPanel extends javax.swing.JPanel implements
 
     public JButton getButtonLogfileDialog() {
         return buttonLogfileDialog;
-    }
-
-    public JButton getButtonSystemOutput() {
-        return buttonSystemOutput;
     }
 
     public JButton getButtonEmptyMetadata() {
@@ -684,7 +679,6 @@ public final class AppPanel extends javax.swing.JPanel implements
         labelStatusbar = new javax.swing.JLabel();
         sliderThumbnailSize = new javax.swing.JSlider();
         buttonLogfileDialog = new javax.swing.JButton();
-        buttonSystemOutput = new javax.swing.JButton();
         progressBarAutomaticTasks = new javax.swing.JProgressBar();
         progressBarUserTasks = new javax.swing.JProgressBar();
         progressBarScheduledTasks = new javax.swing.JProgressBar();
@@ -890,7 +884,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelSelHierarchicalKeywordsLayout.setVerticalGroup(
             panelSelHierarchicalKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSelHierarchicalKeywordsLayout.createSequentialGroup()
-                .addComponent(scrollPaneSelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addComponent(scrollPaneSelHierarchicalKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelSelHierarchicalKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonToggleExpandAllNodesHierKw)
@@ -1252,7 +1246,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addGroup(panelMetadataLayout.createSequentialGroup()
                 .addComponent(labelMetadataFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.PREFERRED_SIZE, 269, Short.MAX_VALUE))
+                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
         );
 
         splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
@@ -1285,13 +1279,6 @@ public final class AppPanel extends javax.swing.JPanel implements
         buttonLogfileDialog.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         buttonLogfileDialog.setPreferredSize(new java.awt.Dimension(18, 18));
 
-        buttonSystemOutput.setMnemonic('u');
-        buttonSystemOutput.setText(Bundle.getString("AppPanel.buttonSystemOutput.text")); // NOI18N
-        buttonSystemOutput.setToolTipText(Bundle.getString("AppPanel.buttonSystemOutput.toolTipText")); // NOI18N
-        buttonSystemOutput.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        buttonSystemOutput.setEnabled(AppInit.isCaptureOutput());
-        buttonSystemOutput.setPreferredSize(new java.awt.Dimension(16, 16));
-
         progressBarAutomaticTasks.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY);
         progressBarAutomaticTasks.setName("progressBarAutomaticTasks"); // NOI18N
 
@@ -1315,11 +1302,9 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelStatusbarLayout.setHorizontalGroup(
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStatusbarLayout.createSequentialGroup()
-                .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1335,16 +1320,15 @@ public final class AppPanel extends javax.swing.JPanel implements
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addComponent(labelStatusbar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(buttonStopScheduledTasks)
                 .addComponent(progressBarScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(progressBarUserTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(progressBarAutomaticTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(progressBarAutomaticTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonLogfileDialog, buttonSystemOutput, progressBarAutomaticTasks, progressBarScheduledTasks, progressBarUserTasks});
+        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonLogfileDialog, progressBarAutomaticTasks, progressBarScheduledTasks, progressBarUserTasks});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1387,7 +1371,6 @@ public final class AppPanel extends javax.swing.JPanel implements
     private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonStopScheduledTasks;
-    private javax.swing.JButton buttonSystemOutput;
     private javax.swing.JToggleButton buttonToggleExpandAllNodesHierKw;
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JLabel labelMetadataFilename;

@@ -287,6 +287,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemCopyKeywordsToHierarchicalKeywords;
     }
 
+    public JMenuItem getMenuItemOutputWindow() {
+        return menuItemOutputWindow;
+    }
+
     public JMenu getMenuEdit() {
         return menuEdit;
     }
@@ -385,6 +389,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemLastEditedWords = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
+        jSeparator20 = new javax.swing.JPopupMenu.Separator();
+        menuItemOutputWindow = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemOpenPdfUserManual = new javax.swing.JMenuItem();
@@ -698,6 +704,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_action.png"))); // NOI18N
         menuItemActions.setText(Bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
         menuWindow.add(menuItemActions);
+        menuWindow.add(jSeparator20);
+
+        menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
+        menuWindow.add(menuItemOutputWindow);
 
         menuBar.add(menuWindow);
 
@@ -739,6 +749,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -786,6 +797,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
+    private javax.swing.JMenuItem menuItemOutputWindow;
     private javax.swing.JMenuItem menuItemPasteFromClipboard;
     private javax.swing.JMenuItem menuItemPasteMetadata;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
