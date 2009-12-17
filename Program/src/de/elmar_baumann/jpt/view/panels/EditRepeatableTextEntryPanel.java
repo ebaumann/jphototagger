@@ -34,16 +34,20 @@ import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListDataEvent;
@@ -62,20 +66,19 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @version 2008-09-18
  */
 public final class EditRepeatableTextEntryPanel
-        extends javax.swing.JPanel
+        extends    JPanel
         implements TextEntry,
                    ActionListener,
                    DocumentListener,
                    ListDataListener {
 
-    private final DefaultListModel model = new DefaultListModel();
-    private Column column;
-    private boolean editable = true;
-    private boolean dirty = false;
-    private Suggest suggest;
-    private boolean ignoreIntervalAdded;
-    private TextEntryListenerSupport textEntryListenerSupport =
-            new TextEntryListenerSupport();
+    private final DefaultListModel         model                    = new DefaultListModel();
+    private       Column                   column;
+    private       boolean                  editable                 = true;
+    private       boolean                  dirty                    = false;
+    private       Suggest                  suggest;
+    private       boolean                  ignoreIntervalAdded;
+    private       TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
 
     public EditRepeatableTextEntryPanel(Column column) {
         this.column = column;
@@ -84,8 +87,7 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private void postInitComponents() {
-        textFieldInput.setInputVerifier(
-                new InputVerifierMaxLength(column.getLength()));
+        textFieldInput.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
         textFieldInput.getDocument().addDocumentListener(this);
         model.addListDataListener(this);
         setPropmt();
@@ -135,9 +137,7 @@ public final class EditRepeatableTextEntryPanel
     public void setSuggest(Suggest suggest) {
         this.suggest = suggest;
         buttonSuggestion.setEnabled(editable && suggest != null);
-        buttonSuggestion.setToolTipText(suggest == null
-                                        ? "" // NOI18N
-                                        : suggest.getDescription());
+        buttonSuggestion.setToolTipText(suggest == null ? "" : suggest.getDescription()); // NOI18N
     }
 
     /**
@@ -149,7 +149,6 @@ public final class EditRepeatableTextEntryPanel
     @Override
     public void setText(String text) {
         assert false : "Don't call this (Called with text: '" + text + "')"; // NOI18N
-        // ignore
     }
 
     /**
@@ -301,10 +300,8 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private void setEnabledButtons() {
-        buttonAddInput.setEnabled(editable &&
-                !textFieldInput.getText().isEmpty());
-        buttonRemoveSelection.setEnabled(
-                editable && list.getSelectedIndex() >= 0);
+        buttonAddInput.setEnabled(editable && !textFieldInput.getText().isEmpty());
+        buttonRemoveSelection.setEnabled(editable && list.getSelectedIndex() >= 0);
     }
 
     @Override
@@ -500,6 +497,32 @@ public final class EditRepeatableTextEntryPanel
     @Override
     public void contentsChanged(ListDataEvent e) {
         // ignore
+    }
+
+    @Override
+    public List<Component> getInputComponents() {
+        return Arrays.asList(
+                (Component)textFieldInput,
+                (Component)list,
+                (Component)buttonAddInput,
+                (Component)buttonRemoveSelection,
+                (Component)buttonSuggestion);
+    }
+
+    @Override
+    public synchronized void addMouseListenerToInputComponents(MouseListener l) {
+        List<Component> inputComponents = getInputComponents();
+        for (Component component : inputComponents) {
+            component.addMouseListener(l);
+        }
+    }
+
+    @Override
+    public synchronized void removeMouseListenerFromInputComponents(MouseListener l) {
+        List<Component> inputComponents = getInputComponents();
+        for (Component component : inputComponents) {
+            component.removeMouseListener(l);
+        }
     }
 
     /** This method is called from within the constructor to

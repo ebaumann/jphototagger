@@ -19,6 +19,9 @@
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+import java.awt.Component;
+import java.awt.event.MouseListener;
+import java.util.List;
 
 /**
  * Ein Texteintrag und die IPTC- und XMP-Spalten, für die dieser gilt.
@@ -105,6 +108,12 @@ public interface TextEntry {
      * @param dirty  true if the text was changed
      */
     public void setDirty(boolean dirty);
+
+    public List<Component> getInputComponents();
     
     public TextEntry clone();
+
+    public void addMouseListenerToInputComponents(MouseListener l);
+
+    public void removeMouseListenerFromInputComponents(MouseListener l);
 }

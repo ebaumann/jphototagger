@@ -25,8 +25,13 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
+import java.awt.Component;
+import java.awt.event.MouseListener;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /*
  * RatingSelectionPanel.java
@@ -34,29 +39,28 @@ import javax.swing.JButton;
  * @author  Martin Pohlack  <martinp@gmx.de>
  * @version 2009-08-01
  */
-public class RatingSelectionPanel extends javax.swing.JPanel implements
-        TextEntry {
+public class RatingSelectionPanel 
+        extends    JPanel
+        implements TextEntry {
 
-    private final Icon star;
-    private final Icon dark_star;
-    private final Icon icon_rating_remove;
-    private final Icon icon_rating_remove_not_set;
-    private boolean dirty = false;
-    private Column column;
-    private boolean editable;
-    private int value = 0;
-    private JButton buttons[] = new JButton[5];
-    private TextEntryListenerSupport textEntryListenerSupport =
-            new TextEntryListenerSupport();
+    private final Icon                     star;
+    private final Icon                     dark_star;
+    private final Icon                     icon_rating_remove;
+    private final Icon                     icon_rating_remove_not_set;
+    private       boolean                  dirty                     = false;
+    private       Column                   column;
+    private       boolean                  editable;
+    private       int                      value                     = 0;
+    private       JButton                  buttons[]                 = new JButton[5];
+    private       TextEntryListenerSupport textEntryListenerSupport  = new TextEntryListenerSupport();
 
     public RatingSelectionPanel(Column column) {
         this.column = column;
 
-        star = AppLookAndFeel.getIcon("icon_xmp_rating_set.png"); // NOI18N
-        dark_star = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png"); // NOI18N
-        icon_rating_remove = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png"); // NOI18N
-        icon_rating_remove_not_set =
-                AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png"); // NOI18N
+        star                       = AppLookAndFeel.getIcon("icon_xmp_rating_set.png"); // NOI18N
+        dark_star                  = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png"); // NOI18N
+        icon_rating_remove         = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png"); // NOI18N
+        icon_rating_remove_not_set = AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png"); // NOI18N
         initComponents();
         buttons[0] = buttonStar1;
         buttons[1] = buttonStar2;
@@ -179,6 +183,32 @@ public class RatingSelectionPanel extends javax.swing.JPanel implements
 
     private void notifyTextChanged(Column column, String oldText, String newText) {
         textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
+    }
+
+    @Override
+    public List<Component> getInputComponents() {
+        return Arrays.asList(
+                (Component)buttonStar1,
+                (Component)buttonStar2,
+                (Component)buttonStar3,
+                (Component)buttonStar4,
+                (Component)buttonStar5);
+    }
+
+    @Override
+    public synchronized void addMouseListenerToInputComponents(MouseListener l) {
+        List<Component> inputComponents = getInputComponents();
+        for (Component component : inputComponents) {
+            component.addMouseListener(l);
+        }
+    }
+
+    @Override
+    public synchronized void removeMouseListenerFromInputComponents(MouseListener l) {
+        List<Component> inputComponents = getInputComponents();
+        for (Component component : inputComponents) {
+            component.removeMouseListener(l);
+        }
     }
 
     /** This method is called from within the constructor to

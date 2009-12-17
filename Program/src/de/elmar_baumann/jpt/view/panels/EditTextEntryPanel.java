@@ -29,6 +29,11 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.MouseListener;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -40,15 +45,15 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @version 2008-09-18
  */
 public final class EditTextEntryPanel
-        extends javax.swing.JPanel
-        implements TextEntry, DocumentListener {
+        extends    JPanel
+        implements TextEntry,
+                   DocumentListener {
 
-    private static final Color EDITABLE_COLOR = Color.WHITE;
-    private Column column;
-    private boolean dirty = false;
-    private boolean editable;
-    private TextEntryListenerSupport textEntryListenerSupport =
-            new TextEntryListenerSupport();
+    private static final   Color                    EDITABLE_COLOR = Color.WHITE;
+    private                Column                   column;
+    private                boolean                  dirty           = false;
+    private                boolean                  editable;
+    private                TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
 
     public EditTextEntryPanel(Column column) {
         this.column = column;
@@ -58,8 +63,7 @@ public final class EditTextEntryPanel
 
     private void postInitComponents() {
         setPropmt();
-        textAreaEdit.setInputVerifier(
-                new InputVerifierMaxLength(column.getLength()));
+        textAreaEdit.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
         textAreaEdit.getDocument().addDocumentListener(this);
     }
 
@@ -121,9 +125,7 @@ public final class EditTextEntryPanel
     public void setEditable(boolean editable) {
         this.editable = editable;
         textAreaEdit.setEditable(editable);
-        textAreaEdit.setBackground(editable
-                                   ? EDITABLE_COLOR
-                                   : getBackground());
+        textAreaEdit.setBackground(editable? EDITABLE_COLOR : getBackground());
     }
 
     @Override
@@ -164,6 +166,27 @@ public final class EditTextEntryPanel
 
     private void notifyTextChanged(Column column, String oldText, String newText) {
         textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
+    }
+
+    @Override
+    public List<Component> getInputComponents() {
+        return Arrays.asList((Component)textAreaEdit);
+    }
+
+    @Override
+    public synchronized void addMouseListenerToInputComponents(MouseListener l) {
+        List<Component> inputComponents = getInputComponents();
+        for (Component component : inputComponents) {
+            component.addMouseListener(l);
+        }
+    }
+
+    @Override
+    public synchronized void removeMouseListenerFromInputComponents(MouseListener l) {
+        List<Component> inputComponents = getInputComponents();
+        for (Component component : inputComponents) {
+            component.removeMouseListener(l);
+        }
     }
 
     /** This method is called from within the constructor to
