@@ -60,8 +60,7 @@ import java.util.Map;
  */
 public final class Xmp implements TextEntryListener {
 
-    private final Map<Column, Object> valueOfColumn =
-            new HashMap<Column, Object>();
+    private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     public Xmp() {
     }
@@ -137,11 +136,20 @@ public final class Xmp implements TextEntryListener {
      * @see    de.elmar_baumann.jpt.data.Iptc#getKeywords()
      */
     public List<String> getDcSubjects() {
-        List<String> list = stringListReferenceOf(
-                ColumnXmpDcSubjectsSubject.INSTANCE);
+        List<String> list = stringListReferenceOf(ColumnXmpDcSubjectsSubject.INSTANCE);
         return list == null
                ? null
                : new ArrayList<String>(list);
+    }
+
+    public void setDcSubjects(List<String> subjects) {
+        List<String> list = stringListReferenceOf(ColumnXmpDcSubjectsSubject.INSTANCE);
+        if (list == null) {
+            valueOfColumn.put(ColumnXmpDcSubjectsSubject.INSTANCE, new ArrayList<String>(subjects));
+        } else {
+            list.clear();
+            list.addAll(subjects);
+        }
     }
 
     /**
@@ -191,8 +199,7 @@ public final class Xmp implements TextEntryListener {
      * @param iptc4xmpcoreCountrycode value of Iptc4xmpCore:CountryCode (ISO country code)
      */
     public void setIptc4xmpcoreCountrycode(String iptc4xmpcoreCountrycode) {
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
-                iptc4xmpcoreCountrycode);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, iptc4xmpcoreCountrycode);
     }
 
     /**
@@ -213,8 +220,7 @@ public final class Xmp implements TextEntryListener {
      * @param iptc4xmpcoreLocation value of Iptc4xmpCore:Location
      */
     public void setIptc4xmpcoreLocation(String iptc4xmpcoreLocation) {
-        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                iptc4xmpcoreLocation);
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, iptc4xmpcoreLocation);
     }
 
     /**
@@ -235,8 +241,7 @@ public final class Xmp implements TextEntryListener {
      *        (position of the photographer)
      */
     public void setPhotoshopAuthorsposition(String photoshopAuthorsposition) {
-        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
-                photoshopAuthorsposition);
+        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, photoshopAuthorsposition);
     }
 
     /**
@@ -258,8 +263,7 @@ public final class Xmp implements TextEntryListener {
      *                               the description)
      */
     public void setPhotoshopCaptionwriter(String photoshopCaptionwriter) {
-        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
-                photoshopCaptionwriter);
+        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, photoshopCaptionwriter);
     }
 
     /**
@@ -384,8 +388,7 @@ public final class Xmp implements TextEntryListener {
      * @see                         de.elmar_baumann.jpt.data.Iptc#setSpecialInstructions(java.lang.String)
      */
     public void setPhotoshopInstructions(String photoshopInstructions) {
-        valueOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE,
-                photoshopInstructions);
+        valueOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE, photoshopInstructions);
     }
 
     /**
@@ -476,10 +479,8 @@ public final class Xmp implements TextEntryListener {
      *                                       photoshop:TransmissionReference
      * @see                                  de.elmar_baumann.jpt.data.Iptc#setOriginalTransmissionReference(java.lang.String)
      */
-    public void setPhotoshopTransmissionReference(
-            String photoshopTransmissionReference) {
-        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
-                photoshopTransmissionReference);
+    public void setPhotoshopTransmissionReference(String photoshopTransmissionReference) {
+        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, photoshopTransmissionReference);
     }
 
     /**

@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.controller.hierarchicalkeywords;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
+import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
@@ -41,8 +42,9 @@ import javax.swing.tree.TreeModel;
  * @version 2009-07-12
  */
 public class ControllerRemoveHierarchicalKeyword
-        extends ControllerHierarchicalKeywords
-        implements ActionListener, KeyListener {
+        extends    ControllerHierarchicalKeywords
+        implements ActionListener,
+                   KeyListener {
 
     public ControllerRemoveHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
         super(_panel);
@@ -74,6 +76,7 @@ public class ControllerRemoveHierarchicalKeyword
                     "ControllerDeleteHierarchicalKeyword.Confirm.Delete", // NOI18N
                     MessageDisplayer.CancelButton.HIDE, keyword).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
+                HierarchicalKeywordsHelper.deleteInFiles(keyword);
                 ((TreeModelHierarchicalKeywords) tm).removeKeyword(node);
             }
         } else {

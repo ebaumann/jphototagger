@@ -43,8 +43,7 @@ import java.util.List;
  */
 public final class DatabaseHierarchicalKeywords extends Database {
 
-    public static final DatabaseHierarchicalKeywords INSTANCE =
-            new DatabaseHierarchicalKeywords();
+    public static final DatabaseHierarchicalKeywords INSTANCE = new DatabaseHierarchicalKeywords();
 
     private DatabaseHierarchicalKeywords() {
     }
@@ -55,13 +54,11 @@ public final class DatabaseHierarchicalKeywords extends Database {
      * @return all hierarchical keywords
      */
     public Collection<HierarchicalKeyword> getAll() {
-        List<HierarchicalKeyword> keywords =
-                new ArrayList<HierarchicalKeyword>();
-        Connection connection = null;
+        List<HierarchicalKeyword> keywords    = new ArrayList<HierarchicalKeyword>();
+        Connection                connection = null;
         try {
             connection = getConnection();
-            String sql =
-                    "SELECT id, id_parent, subject, real" + // NOI18N
+            String sql = "SELECT id, id_parent, subject, real" + // NOI18N
                     " FROM hierarchical_subjects"; // NOI18N
             Statement stmt = connection.createStatement();
             logFinest(sql);
@@ -183,7 +180,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
      * @return          true if successfull
      */
     public boolean delete(Collection<HierarchicalKeyword> keywords) {
-        boolean deleted = false;
+        boolean    deleted    = false;
         Connection connection = null;
         try {
             connection = getConnection();
@@ -207,13 +204,11 @@ public final class DatabaseHierarchicalKeywords extends Database {
         return deleted;
     }
 
-    private HierarchicalKeyword getKeyword(long id, Connection connection)
-            throws SQLException {
+    private HierarchicalKeyword getKeyword(long id, Connection connection) throws SQLException {
         HierarchicalKeyword keyword = null;
-        String sql =
-                "SELECT id, id_parent, subject, real" + // NOI18N
-                " FROM hierarchical_subjects" + // NOI18N
-                " WHERE id = ?"; // NOI18N
+        String sql = "SELECT id, id_parent, subject, real" + // NOI18N
+                     " FROM hierarchical_subjects" + // NOI18N
+                     " WHERE id = ?"; // NOI18N
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setLong(1, id);
         logFinest(stmt);
@@ -226,6 +221,31 @@ public final class DatabaseHierarchicalKeywords extends Database {
         }
         stmt.close();
         return keyword;
+    }
+
+    /**
+     * Returns all parents of a keyword.
+     *
+     * @param  keyword keyword
+     * @return         Parents or empty List if the keyword has no parent
+     */
+    public List<HierarchicalKeyword> getParents(HierarchicalKeyword keyword) {
+        List<HierarchicalKeyword> parents    = new ArrayList<HierarchicalKeyword>();
+        Connection                connection = null;
+        try {
+            connection = getConnection();
+            Long idParent = keyword.getIdParent();
+            while (idParent != null) {
+                HierarchicalKeyword parent = getKeyword(idParent, connection);
+                parents.add(parent);
+                idParent = parent.getIdParent();
+            }
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalKeywords.class, ex);
+        } finally {
+            free(connection);
+        }
+        return parents;
     }
 
     /**
@@ -361,13 +381,35 @@ public final class DatabaseHierarchicalKeywords extends Database {
      * @return         true if that keyword exists
      */
     public boolean existsRootKeyword(String keyword) {
-        boolean exists = false;
+        boolean    exists     = false;
         Connection connection = null;
         try {
             connection = getConnection();
-            String sql =
-                    "SELECT COUNT(*) FROM hierarchical_subjects" + // NOI18N
-                    " WHERE  subject = ? AND id_parent IS NULL"; // NOI18N
+            String sql = "SELECT COUNT(*) FROM hierarchical_subjects" + // NOI18N
+                         " WHERE  subject = ? AND id_parent IS NULL"; // NOI18N
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, keyword);
+            logFinest(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalKeywords.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exists;
+    }
+
+    public boolean existsKeyword(String keyword) {
+        boolean    exists     = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql = "SELECT COUNT(*) FROM hierarchical_subjects" + // NOI18N
+                         " WHERE  subject = ?"; // NOI18N
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, keyword);
             logFinest(stmt);

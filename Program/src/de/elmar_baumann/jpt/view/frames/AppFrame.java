@@ -83,22 +83,21 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void initGotoMenuItemsMap() {
-        menuItemOfGoto.put(GoTo.CATEGORIES               , menuItemGotoCategories);
-        menuItemOfGoto.put(GoTo.DIRECTORIES              , menuItemGotoDirectories);
-        menuItemOfGoto.put(GoTo.EDIT_PANELS              , menuItemGotoEdit);
-        menuItemOfGoto.put(GoTo.EXIF_METADATA            , menuItemGotoExifMetadata);
-        menuItemOfGoto.put(GoTo.FAST_SEARCH              , menuItemGotoFastSearch);
-        menuItemOfGoto.put(GoTo.FAVORITE_DIRECTORIES     , menuItemGotoFavoriteDirectories);
-        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS    , menuItemGotoHierarchicalKeywords);
-        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS_SEL, menuItemGotoHierarchicalKeywordsSel);
-        menuItemOfGoto.put(GoTo.IMAGE_COLLECTIONS        , menuItemGotoCollections);
-        menuItemOfGoto.put(GoTo.IPTC_METADATA            , menuItemGotoIptcMetadata);
-        menuItemOfGoto.put(GoTo.KEYWORDS                 , menuItemGotoKeywords);
-        menuItemOfGoto.put(GoTo.MISC_METADATA            , menuItemGotoMiscMetadata);
-        menuItemOfGoto.put(GoTo.SAVED_SEARCHES           , menuItemGotoSavedSearches);
-        menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL         , menuItemGotoThumbnailsPanel);
-        menuItemOfGoto.put(GoTo.TIMELINE                 , menuItemGotoTimeline);
-        menuItemOfGoto.put(GoTo.XMP_METADATA             , menuItemGotoXmpMetadata);
+        menuItemOfGoto.put(GoTo.CATEGORIES           , menuItemGotoCategories);
+        menuItemOfGoto.put(GoTo.DIRECTORIES          , menuItemGotoDirectories);
+        menuItemOfGoto.put(GoTo.EDIT_PANELS          , menuItemGotoEdit);
+        menuItemOfGoto.put(GoTo.EXIF_METADATA        , menuItemGotoExifMetadata);
+        menuItemOfGoto.put(GoTo.FAST_SEARCH          , menuItemGotoFastSearch);
+        menuItemOfGoto.put(GoTo.FAVORITE_DIRECTORIES , menuItemGotoFavoriteDirectories);
+        menuItemOfGoto.put(GoTo.HIERARCHICAL_KEYWORDS, menuItemGotoHierarchicalKeywords);
+        menuItemOfGoto.put(GoTo.IMAGE_COLLECTIONS    , menuItemGotoCollections);
+        menuItemOfGoto.put(GoTo.IPTC_METADATA        , menuItemGotoIptcMetadata);
+        menuItemOfGoto.put(GoTo.KEYWORDS             , menuItemGotoKeywords);
+        menuItemOfGoto.put(GoTo.MISC_METADATA        , menuItemGotoMiscMetadata);
+        menuItemOfGoto.put(GoTo.SAVED_SEARCHES       , menuItemGotoSavedSearches);
+        menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL     , menuItemGotoThumbnailsPanel);
+        menuItemOfGoto.put(GoTo.TIMELINE             , menuItemGotoTimeline);
+        menuItemOfGoto.put(GoTo.XMP_METADATA         , menuItemGotoXmpMetadata);
 
         for (GoTo gt : menuItemOfGoto.keySet()) {
             gotoOfMenuItem.put(menuItemOfGoto.get(gt), gt);
@@ -114,7 +113,6 @@ public final class AppFrame extends javax.swing.JFrame {
         FAST_SEARCH,
         FAVORITE_DIRECTORIES,
         HIERARCHICAL_KEYWORDS,
-        HIERARCHICAL_KEYWORDS_SEL,
         IMAGE_COLLECTIONS,
         IPTC_METADATA,
         KEYWORDS,
@@ -369,7 +367,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoKeywords = new javax.swing.JMenuItem();
         menuItemGotoTimeline = new javax.swing.JMenuItem();
         menuItemGotoMiscMetadata = new javax.swing.JMenuItem();
-        menuItemGotoHierarchicalKeywordsSel = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JSeparator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JSeparator();
@@ -624,11 +621,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoMiscMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png"))); // NOI18N
         menuItemGotoMiscMetadata.setText(Bundle.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
-
-        menuItemGotoHierarchicalKeywordsSel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoHierarchicalKeywordsSel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png"))); // NOI18N
-        menuItemGotoHierarchicalKeywordsSel.setText(Bundle.getString("AppFrame.menuItemGotoHierarchicalKeywordsSel.text")); // NOI18N
-        menuGoto.add(menuItemGotoHierarchicalKeywordsSel);
         menuGoto.add(jSeparator8);
 
         menuItemGotoThumbnailsPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_MASK));
@@ -781,7 +773,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoFastSearch;
     private javax.swing.JMenuItem menuItemGotoFavoriteDirectories;
     private javax.swing.JMenuItem menuItemGotoHierarchicalKeywords;
-    private javax.swing.JMenuItem menuItemGotoHierarchicalKeywordsSel;
     private javax.swing.JMenuItem menuItemGotoIptcMetadata;
     private javax.swing.JMenuItem menuItemGotoKeywords;
     private javax.swing.JMenuItem menuItemGotoMiscMetadata;

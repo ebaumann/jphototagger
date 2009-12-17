@@ -49,12 +49,18 @@ public final class HierarchicalKeyword
      * @param keyword   keyword
      * @param real      true if this keyword is a real keyword
      */
-    public HierarchicalKeyword(
-            Long id, Long idParent, String keyword, Boolean real) {
+    public HierarchicalKeyword(Long id, Long idParent, String keyword, Boolean real) {
         this.id = id;
         this.idParent = idParent;
         this.keyword = keyword;
         this.real = real;
+    }
+
+    public HierarchicalKeyword(HierarchicalKeyword keyword) {
+        id           = keyword.id;
+        idParent     = keyword.idParent;
+        this.keyword = keyword.keyword;
+        real         = keyword.real;
     }
 
     /**

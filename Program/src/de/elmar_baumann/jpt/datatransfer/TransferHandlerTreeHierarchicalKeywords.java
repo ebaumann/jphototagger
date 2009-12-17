@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.HierarchicalKeywordsTreePathExpander;
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
+import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
@@ -148,9 +149,12 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
             for (DefaultMutableTreeNode sourceNode : sourceNodes) {
                 Object userObject = sourceNode.getUserObject();
                 if (userObject instanceof HierarchicalKeyword) {
-                    treeModel.move(
-                            sourceNode, dropNode,
-                            (HierarchicalKeyword) userObject);
+                    HierarchicalKeyword sourceKeyword = (HierarchicalKeyword) userObject;
+                    HierarchicalKeyword srcCopy = new HierarchicalKeyword(sourceKeyword);
+                    treeModel.move(sourceNode, dropNode, sourceKeyword);
+                    HierarchicalKeywordsHelper.moveInFiles(
+                            HierarchicalKeywordsHelper.getParentKeywordNames(
+                                    srcCopy, true), sourceKeyword); // sourceKeyword's new parent ID was set through treeModel.move()
                 }
             }
         } catch (Exception ex) {

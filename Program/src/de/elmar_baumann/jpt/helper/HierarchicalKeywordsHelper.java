@@ -19,14 +19,23 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
+import de.elmar_baumann.jpt.data.Xmp;
+import de.elmar_baumann.jpt.database.DatabaseHierarchicalKeywords;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.lib.generics.Pair;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -49,8 +58,7 @@ public final class HierarchicalKeywordsHelper {
      *             {@link DefaultMutableTreeNode}!</em>
      */
     public static void addKeywordsToEditPanel(DefaultMutableTreeNode node) {
-        EditMetadataPanelsArray editPanels =
-                GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
+        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
         for (String keyword : getKeywordStrings(node, true)) {
             editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
         }
@@ -95,8 +103,7 @@ public final class HierarchicalKeywordsHelper {
      * @param real true if only real keywords shall be added
      * @return     all keywords as strings
      */
-    public static List<String> getKeywordStrings(
-            DefaultMutableTreeNode node, boolean real) {
+    public static List<String> getKeywordStrings(DefaultMutableTreeNode node, boolean real) {
         List<String> list = new ArrayList<String>();
         for (HierarchicalKeyword keyword : getKeywords(node, real)) {
             list.add(keyword.getKeyword());
@@ -117,11 +124,9 @@ public final class HierarchicalKeywordsHelper {
                 (TreeModelHierarchicalKeywords) tree.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         DefaultMutableTreeNode selNode = null;
-        for (Enumeration e = root.breadthFirstEnumeration();
-                selNode == null && e.hasMoreElements();) {
-            DefaultMutableTreeNode node =
-                    (DefaultMutableTreeNode) e.nextElement();
-            Object userObject = node.getUserObject();
+        for (Enumeration e = root.breadthFirstEnumeration(); selNode == null && e.hasMoreElements();) {
+            DefaultMutableTreeNode node       = (DefaultMutableTreeNode) e.nextElement();
+            Object                 userObject = node.getUserObject();
             if (userObject instanceof HierarchicalKeyword) {
                 HierarchicalKeyword hkw = (HierarchicalKeyword) userObject;
                 if (hkw.equals(keyword)) {
@@ -131,6 +136,176 @@ public final class HierarchicalKeywordsHelper {
         }
         if (selNode != null) {
             tree.setSelectionPath(new TreePath(selNode.getPath()));
+        }
+    }
+
+    /**
+     * Deletes in XMP sidecar files a keyword and all it's children.
+     *
+     * @param keyword keyword
+     */
+    public static void deleteInFiles(HierarchicalKeyword keyword) {
+        Set<String> filenames = new HashSet<String>();
+        for (HierarchicalKeyword child : DatabaseHierarchicalKeywords.INSTANCE.getChildren(keyword.getId())) {
+            List<String> parentNames = getParentKeywordNames(child, true);
+
+            parentNames.add(child.getKeyword());
+            filenames.addAll(DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(parentNames));
+        }
+
+        if (filenames.size() > 0) {
+            new Replace(getWithChildNames(keyword), new ArrayList<String>(), filenames).start();
+        }
+    }
+
+    private static List<String> getWithChildNames(HierarchicalKeyword keyword) {
+        Collection<HierarchicalKeyword> children   = DatabaseHierarchicalKeywords.INSTANCE.getChildren(keyword.getId());
+        List<String>                    childNames = new ArrayList<String>();
+
+        childNames.add(keyword.getKeyword());
+        for (HierarchicalKeyword child : children) {
+            childNames.add(child.getKeyword());
+        }
+
+        return childNames;
+    }
+
+    /**
+     * Renames the parent keywords in all XMP sidecar files after moving
+     * a keyword to the new names and updates the database.
+     *
+     * @param parentKeywordNamesBeforeMove
+     * @param keywordAfterMove
+     */
+    public static void moveInFiles(List<String> parentKeywordNamesBeforeMove, HierarchicalKeyword keywordAfterMove) {
+        String       movedKeyword = keywordAfterMove.getKeyword();
+        List<String> oldKeywords  = new ArrayList<String>(parentKeywordNamesBeforeMove);
+        List<String> newKeywords  = getParentKeywordNames(keywordAfterMove, true);
+
+        oldKeywords.add(movedKeyword);
+        Collection<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(oldKeywords);
+        oldKeywords.remove(movedKeyword);
+
+        if (filenames.size() > 0) {
+            new Replace(oldKeywords, newKeywords, filenames).start();
+        }
+    }
+
+    /**
+     * Renames a keyword in all XMP sidecar files and updates the database.
+     *
+     * @param oldName old name
+     * @param keyword keyword with new name
+     */
+    public static void renameInFiles(String oldName, HierarchicalKeyword keyword) {
+        boolean equals = oldName.equalsIgnoreCase(keyword.getKeyword()); assert !equals;
+        if (equals) return;
+        List<String> keywords = getParentKeywordNames(keyword, true);
+
+        keywords.add(oldName);
+        Collection<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(keywords);
+        if (filenames.size() > 0) {
+            new Rename(oldName, keyword.getKeyword(), filenames).start();
+        }
+    }
+
+    /**
+     * Returns all names of the keyword's parents.
+     *
+     * @param  keyword keyword
+     * @param  real    true if only real keyword names shall be added
+     * @return         parent names
+     */
+    public static List<String> getParentKeywordNames(HierarchicalKeyword keyword, boolean real) {
+        List<String>              names   = new ArrayList<String>();
+        List<HierarchicalKeyword> parents = DatabaseHierarchicalKeywords.INSTANCE.getParents(keyword);
+        for (HierarchicalKeyword parent : parents) {
+            boolean add = !real || real && parent.isReal();
+            if  (add) {
+                names.add(parent.getKeyword());
+            }
+        }
+        return names;
+    }
+
+    private static class Rename extends Thread {
+        private final String             oldName;
+        private final String             newName;
+        private final Collection<String> filenames = new ArrayList<String>();
+
+        public Rename(String oldName, String newName, Collection<String> filenames) {
+            this.oldName = oldName;
+            this.newName = newName;
+            this.filenames.addAll(filenames);
+            setName("Renaming keywords in files @ " + getClass());
+        }
+
+        @Override
+        public void run() {
+            List<Pair<String, Xmp>> xmps = new ArrayList<Pair<String, Xmp>>();
+            for (String filename : filenames) {
+                Xmp xmp = XmpMetadata.getXmpOfImageFile(filename);
+                if (xmp != null) {
+                    List<String> keywords = xmp.getDcSubjects();
+                    keywords.remove(oldName);
+                    keywords.add(newName);
+                    xmp.setDcSubjects(keywords);
+                    xmps.add(new Pair<String, Xmp>(filename, xmp));
+                }
+            }
+            SaveEditedMetadata.saveMetadata(xmps);
+            new CheckExists(Arrays.asList(oldName)).run(); // No separate thread
+        }
+    }
+
+    private static class Replace extends Thread {
+        private final List<String>       toReplace   = new ArrayList<String>();
+        private final List<String>       replacement = new ArrayList<String>();
+        private final Collection<String> filenames   = new ArrayList<String>();
+
+        public Replace(Collection<String> toReplace, Collection<String> replacement, Collection<String> filenames) {
+            this.toReplace.addAll(toReplace);
+            this.replacement.addAll(replacement);
+            this.filenames.addAll(filenames);
+            setName("Replacing keywords in files @ " + getClass());
+        }
+
+        @Override
+        public void run() {
+            List<Pair<String, Xmp>> xmps = new ArrayList<Pair<String, Xmp>>();
+            for (String filename : filenames) {
+                Xmp xmp = XmpMetadata.getXmpOfImageFile(filename);
+                if (xmp != null) {
+                    List<String> keywords = xmp.getDcSubjects();
+                    keywords.removeAll(toReplace);
+                    keywords.addAll(replacement);
+                    xmp.setDcSubjects(keywords);
+                    xmps.add(new Pair<String, Xmp>(filename, xmp));
+                }
+            }
+            SaveEditedMetadata.saveMetadata(xmps);
+            new CheckExists(toReplace).run(); // No separate thread
+        }
+    }
+
+    private static class CheckExists extends Thread {
+        private final List<String> keywords = new ArrayList<String>();
+
+        public CheckExists(Collection<String> keywords) {
+            this.keywords.addAll(keywords);
+            setName("Checking keywords existence in keywords tree @ " + getClass());
+        }
+
+        @Override
+        public void run() {
+            for (String keyword : keywords) {
+                if (!DatabaseHierarchicalKeywords.INSTANCE.existsKeyword(keyword)
+                        && DatabaseImageFiles.INSTANCE.exists(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)) {
+                    JTree                         treeKeywords = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords();
+                    TreeModelHierarchicalKeywords model        = (TreeModelHierarchicalKeywords)treeKeywords.getModel();
+                    model.addKeyword((DefaultMutableTreeNode) model.getRoot(), keyword, true);
+                }
+            }
         }
     }
 

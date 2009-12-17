@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.database.DatabaseHierarchicalKeywords;
+import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
@@ -46,11 +47,11 @@ import javax.swing.tree.TreeModel;
  * @version 2009-07-12
  */
 public class ControllerRenameHierarchicalKeyword
-        extends ControllerHierarchicalKeywords
-        implements ActionListener, KeyListener {
+        extends    ControllerHierarchicalKeywords
+        implements ActionListener,
+                   KeyListener {
 
-    private final DatabaseHierarchicalKeywords db =
-            DatabaseHierarchicalKeywords.INSTANCE;
+    private final DatabaseHierarchicalKeywords db = DatabaseHierarchicalKeywords.INSTANCE;
 
     public ControllerRenameHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
         super(_panel);
@@ -72,13 +73,14 @@ public class ControllerRenameHierarchicalKeyword
         }
     }
 
-    private void renameKeyword(
-            DefaultMutableTreeNode node, HierarchicalKeyword keyword) {
+    private void renameKeyword(DefaultMutableTreeNode node, HierarchicalKeyword keyword) {
         TreeModel tm = getHKPanel().getTree().getModel();
         if (tm instanceof TreeModelHierarchicalKeywords) {
             String newName = getName(keyword, db, getHKPanel().getTree());
             if (newName != null && !newName.trim().isEmpty()) {
+                String oldName = keyword.getKeyword();
                 keyword.setKeyword(newName);
+                HierarchicalKeywordsHelper.renameInFiles(oldName, keyword);
                 ((TreeModelHierarchicalKeywords) tm).changed(node, keyword);
             }
         } else {

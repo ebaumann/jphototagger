@@ -139,12 +139,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="1" pref="175" max="32767" attributes="2"/>
+                          <Component id="scrollPaneDirectories" alignment="1" pref="236" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="0" pref="87" max="32767" attributes="0"/>
+                          <Component id="scrollPaneDirectories" alignment="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -192,12 +192,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="175" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSavedSearches" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="87" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSavedSearches" alignment="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -244,12 +244,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="175" max="32767" attributes="0"/>
+                          <Component id="scrollPaneImageCollections" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="87" max="32767" attributes="0"/>
+                          <Component id="scrollPaneImageCollections" alignment="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -300,12 +300,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneCategories" alignment="0" pref="175" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCategories" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneCategories" alignment="0" pref="87" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCategories" alignment="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -355,12 +355,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavorites" alignment="0" pref="175" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavorites" alignment="0" pref="87" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -403,176 +403,215 @@
                     </Constraint>
                   </Constraints>
 
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelKeywordsMultipleSelection" alignment="0" max="32767" attributes="0"/>
-                          <Component id="scrollPaneKeywords" alignment="0" pref="175" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="scrollPaneKeywords" pref="22" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panelKeywordsMultipleSelection" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneKeywords">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JList" name="listKeywords">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="Lade..."/>
-                              </StringArray>
-                            </Property>
-                            <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new ListCellRendererKeywords()" type="code"/>
-                            </Property>
-                            <Property name="dragEnabled" type="boolean" value="true"/>
-                            <Property name="name" type="java.lang.String" value="listKeywords" noResource="true"/>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listKeywords.setTransferHandler(new TransferHandlerListKeywords());"/>
-                          </AuxValues>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="panelKeywordsMultipleSelection">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Mehrfachauswahl: Bilder enthalten">
-                              <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.panelKeywordsMultipleSelection.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </TitledBorder>
-                          </Border>
-                        </Property>
-                      </Properties>
+                    <Container class="javax.swing.JPanel" name="panelSelHierarchicalKeywords">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                          <CardConstraints cardName="keywordsTree"/>
+                        </Constraint>
+                      </Constraints>
 
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="radioButtonKeywordsMultipleSelAll" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="radioButtonKeywordsMultipleSelOne" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Component id="scrollPaneSelHierarchicalKeywords" alignment="0" pref="236" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonDisplayFlatKeywords" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="buttonToggleExpandAllNodesHierKw" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="radioButtonKeywordsMultipleSelAll" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="radioButtonKeywordsMultipleSelOne" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="scrollPaneSelHierarchicalKeywords" pref="142" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="buttonToggleExpandAllNodesHierKw" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonDisplayFlatKeywords" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JRadioButton" name="radioButtonKeywordsMultipleSelAll">
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneSelHierarchicalKeywords">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JTree" name="treeSelHierarchicalKeywords">
+                              <Properties>
+                                <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
+                                  <TreeModel code="Laden...&#xa;    Laden..."/>
+                                </Property>
+                                <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new TreeCellRendererHierarchicalKeywords()" type="code"/>
+                                </Property>
+                                <Property name="showsRootHandles" type="boolean" value="true"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Component class="javax.swing.JToggleButton" name="buttonToggleExpandAllNodesHierKw">
                           <Properties>
-                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                              <ComponentRef name="buttonGroupKeywordsMultipleSel"/>
-                            </Property>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.radioButtonKeywordsMultipleSelAll.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.buttonToggleExpandAllNodesHierKw.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonToggleExpandAllNodesHierKwActionPerformed"/>
+                          </Events>
                         </Component>
-                        <Component class="javax.swing.JRadioButton" name="radioButtonKeywordsMultipleSelOne">
+                        <Component class="javax.swing.JButton" name="buttonDisplayFlatKeywords">
                           <Properties>
-                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                              <ComponentRef name="buttonGroupKeywordsMultipleSel"/>
-                            </Property>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.radioButtonKeywordsMultipleSelOne.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.buttonDisplayFlatKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDisplayFlatKeywordsActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="panelSelHierarchicalKeywords">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Stichwortbaum">
-                        <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.panelSelHierarchicalKeywords.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_tree.png"/>
-                        </Property>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
+                    <Container class="javax.swing.JPanel" name="panelFlatKeywords">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                          <CardConstraints cardName="flatKeywords"/>
+                        </Constraint>
+                      </Constraints>
 
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="29" max="32767" attributes="0"/>
-                              <Component id="buttonToggleExpandAllNodesHierKw" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="panelKeywordsMultipleSelection" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="buttonDisplayKeywordsTree" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="scrollPaneKeywords" alignment="0" pref="236" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="scrollPaneSelHierarchicalKeywords" alignment="0" pref="175" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="scrollPaneSelHierarchicalKeywords" pref="44" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonToggleExpandAllNodesHierKw" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="scrollPaneKeywords" pref="57" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="panelKeywordsMultipleSelection" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonDisplayKeywordsTree" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneSelHierarchicalKeywords">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                        </DimensionLayout>
+                      </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JTree" name="treeSelHierarchicalKeywords">
+                        <Container class="javax.swing.JScrollPane" name="scrollPaneKeywords">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JList" name="listKeywords">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                  <StringArray count="1">
+                                    <StringItem index="0" value="Lade..."/>
+                                  </StringArray>
+                                </Property>
+                                <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new ListCellRendererKeywords()" type="code"/>
+                                </Property>
+                                <Property name="dragEnabled" type="boolean" value="true"/>
+                                <Property name="name" type="java.lang.String" value="listKeywords" noResource="true"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listKeywords.setTransferHandler(new TransferHandlerListKeywords());"/>
+                              </AuxValues>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelKeywordsMultipleSelection">
                           <Properties>
-                            <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
-                              <TreeModel code="Laden...&#xa;    Laden..."/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Mehrfachauswahl: Bilder enthalten">
+                                  <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.panelKeywordsMultipleSelection.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                </TitledBorder>
+                              </Border>
                             </Property>
-                            <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new TreeCellRendererHierarchicalKeywords()" type="code"/>
-                            </Property>
-                            <Property name="showsRootHandles" type="boolean" value="true"/>
                           </Properties>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="radioButtonKeywordsMultipleSelAll" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="radioButtonKeywordsMultipleSelOne" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="radioButtonKeywordsMultipleSelAll" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="radioButtonKeywordsMultipleSelOne" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JRadioButton" name="radioButtonKeywordsMultipleSelAll">
+                              <Properties>
+                                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                  <ComponentRef name="buttonGroupKeywordsMultipleSel"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.radioButtonKeywordsMultipleSelAll.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="radioButtonKeywordsMultipleSelOne">
+                              <Properties>
+                                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                  <ComponentRef name="buttonGroupKeywordsMultipleSel"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.radioButtonKeywordsMultipleSelOne.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Component class="javax.swing.JButton" name="buttonDisplayKeywordsTree">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.buttonDisplayKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDisplayKeywordsTreeActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JToggleButton" name="buttonToggleExpandAllNodesHierKw">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.buttonToggleExpandAllNodesHierKw.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonToggleExpandAllNodesHierKwActionPerformed"/>
-                      </Events>
-                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="panelTimeline">
@@ -592,12 +631,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTimeline" alignment="0" pref="175" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTimeline" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTimeline" alignment="0" pref="87" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTimeline" alignment="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -642,12 +681,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="175" max="32767" attributes="0"/>
+                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="87" max="32767" attributes="0"/>
+                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -692,17 +731,17 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="175" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="236" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneNoMetadata" alignment="0" pref="175" max="32767" attributes="0"/>
+                              <Component id="scrollPaneNoMetadata" alignment="0" pref="236" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="87" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="182" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneNoMetadata" alignment="1" pref="87" max="32767" attributes="0"/>
+                              <Component id="scrollPaneNoMetadata" alignment="1" pref="182" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -741,9 +780,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="424" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="363" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="424" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="363" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -784,9 +823,9 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="255" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="203" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneThumbnails" alignment="0" pref="255" max="32767" attributes="0"/>
+                              <Component id="scrollPaneThumbnails" alignment="0" pref="203" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -812,12 +851,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="252" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="199" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="290" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="289" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -836,8 +875,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelMetadataFilename" alignment="0" pref="161" max="32767" attributes="2"/>
-                          <Component id="tabbedPaneMetadata" alignment="0" pref="161" max="32767" attributes="2"/>
+                          <Component id="labelMetadataFilename" alignment="0" pref="152" max="32767" attributes="2"/>
+                          <Component id="tabbedPaneMetadata" alignment="0" pref="152" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -845,7 +884,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelMetadataFilename" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tabbedPaneMetadata" pref="268" max="32767" attributes="0"/>
+                              <Component id="tabbedPaneMetadata" pref="269" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -891,7 +930,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="scrollPaneIptc" alignment="0" pref="169" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneIptc" alignment="0" pref="147" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonIptcToXmp" min="-2" max="-2" attributes="0"/>
@@ -902,7 +941,7 @@
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="scrollPaneIptc" pref="143" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneIptc" pref="166" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonIptcToXmp" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1221,12 +1260,12 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="156" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="147" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="187" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="208" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -1297,11 +1336,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="sliderThumbnailSize" min="-2" pref="118" max="-2" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="progressBarAutomaticTasks" pref="71" max="32767" attributes="2"/>
+                  <Component id="progressBarAutomaticTasks" pref="74" max="32767" attributes="2"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="progressBarUserTasks" pref="72" max="32767" attributes="2"/>
+                  <Component id="progressBarUserTasks" pref="74" max="32767" attributes="2"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="progressBarScheduledTasks" pref="73" max="32767" attributes="0"/>
+                  <Component id="progressBarScheduledTasks" pref="75" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
               </Group>

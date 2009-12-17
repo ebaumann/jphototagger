@@ -109,7 +109,6 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
-        jLabel1 = new javax.swing.JLabel();
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -127,29 +126,21 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText(bundle.getString("HierarchicalKeywordsPanel.jLabel1.text")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(112, Short.MAX_VALUE)
                 .addComponent(buttonToggleExpandAllNodes)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(scrollPane)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonToggleExpandAllNodes)
                 .addContainerGap())
         );
@@ -161,7 +152,6 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
