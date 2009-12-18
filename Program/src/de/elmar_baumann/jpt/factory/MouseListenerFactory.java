@@ -18,18 +18,14 @@
  */
 package de.elmar_baumann.jpt.factory;
 
-import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerDirectories;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerImageCollections;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerSavedSearches;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerFavorites;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerHierarchicalKeywords;
-import de.elmar_baumann.jpt.event.listener.impl.MouseListenerProgressBarScheduledTasks;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.panels.ProgressBarScheduledTasks;
-import javax.swing.JProgressBar;
 
 /**
  * Erzeugt und verbindet MouseListener.
@@ -46,36 +42,15 @@ public final class MouseListenerFactory {
         Util.checkInit(MouseListenerFactory.class, init);
         if (!init) {
             init = true;
-            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-            appPanel.getTreeDirectories().addMouseListener(
-                    new MouseListenerDirectories());
-            appPanel.getListSavedSearches().addMouseListener(
-                    new MouseListenerSavedSearches());
-            appPanel.getListImageCollections().addMouseListener(
-                    new MouseListenerImageCollections());
-            appPanel.getTreeFavorites().addMouseListener(
-                    new MouseListenerFavorites());
-            addMouseListenerProgressBarScheduledTasks();
-            MouseListenerHierarchicalKeywords mouseListenerHierarchicalKeywords =
-                    new MouseListenerHierarchicalKeywords();
-            appPanel.getTreeHierarchicalKeywords().addMouseListener(
-                    mouseListenerHierarchicalKeywords);
-            InputHelperDialog.INSTANCE.getPanelKeywords().getTree().
-                    addMouseListener(mouseListenerHierarchicalKeywords);
-        }
-    }
+            AppPanel                          appPanel                          = GUI.INSTANCE.getAppPanel();
+            MouseListenerHierarchicalKeywords mouseListenerHierarchicalKeywords = new MouseListenerHierarchicalKeywords();
 
-    private void addMouseListenerProgressBarScheduledTasks() {
-        Object owner = MouseListenerFactory.class;
-        JProgressBar progressBar =
-                ProgressBarScheduledTasks.INSTANCE.getResource(owner);
-        if (progressBar == null) {
-            AppLog.logWarning(MouseListenerFactory.class,
-                    "MouseListenerFactory.Warning.ProgressBarScheduledTasksNoMousListener"); // NOI18N
-        } else {
-            progressBar.addMouseListener(
-                    new MouseListenerProgressBarScheduledTasks());
-            ProgressBarScheduledTasks.INSTANCE.releaseResource(owner);
+            appPanel.getTreeDirectories()                          .addMouseListener(new MouseListenerDirectories());
+            appPanel.getListSavedSearches()                        .addMouseListener(new MouseListenerSavedSearches());
+            appPanel.getListImageCollections()                     .addMouseListener(new MouseListenerImageCollections());
+            appPanel.getTreeFavorites()                            .addMouseListener(new MouseListenerFavorites());
+            appPanel.getTreeHierarchicalKeywords()                 .addMouseListener(mouseListenerHierarchicalKeywords);
+            InputHelperDialog.INSTANCE.getPanelKeywords().getTree().addMouseListener(mouseListenerHierarchicalKeywords);
         }
     }
 }

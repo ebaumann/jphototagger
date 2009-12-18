@@ -87,8 +87,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
         InsertImageFilesIntoDatabase inserter =
                 new InsertImageFilesIntoDatabase(
                 Arrays.asList(file.getAbsolutePath()),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),
-                null);
+                EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
         if (wait) {
             inserter.run();
         } else {

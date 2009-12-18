@@ -26,14 +26,14 @@ package de.elmar_baumann.jpt.event;
  */
 public final class ProgressEvent {
 
-    private final Object source;
-    private final int maximum;
-    private final int minimum;
-    private final boolean indeterminate;
-    private int value;
-    private final long milliSecondsRemaining;
-    private Object info;
-    private boolean stop = false;
+    private final Object  source;
+    private       int     maximum;
+    private       int     minimum;
+    private       boolean indeterminate;
+    private       int     value;
+    private       long    milliSecondsRemaining;
+    private       Object  info;
+    private       boolean stop;
 
     /**
      * Konstruktor für Ereignisse mit bekanntem Umfang (Minimum, Maximum und
@@ -52,13 +52,11 @@ public final class ProgressEvent {
      * @param info    Beliebige Information
      */
     public ProgressEvent(Object source, int minimum, int maximum, int value, Object info) {
-        this.source = source;
-        this.minimum = minimum;
-        this.maximum = maximum;
-        this.value = value;
-        this.info = info;
-        indeterminate = false;
-        milliSecondsRemaining = -1;
+        this.source   = source;
+        this.minimum  = minimum;
+        this.maximum  = maximum;
+        this.value    = value;
+        this.info     = info;
     }
 
     /**
@@ -76,13 +74,12 @@ public final class ProgressEvent {
      * @param info                   Beliebige Information
      */
     public ProgressEvent(Object source, int minimum, int maximum, int value, long milliSecondsRemaining, Object info) {
-        this.source = source;
-        this.minimum = minimum;
-        this.maximum = maximum;
-        this.value = value;
+        this.source                = source;
+        this.minimum               = minimum;
+        this.maximum               = maximum;
+        this.value                 = value;
         this.milliSecondsRemaining = milliSecondsRemaining;
-        this.info = info;
-        indeterminate = false;
+        this.info                  = info;
     }
 
     /**
@@ -97,12 +94,9 @@ public final class ProgressEvent {
      * @param info    Beliebige Information
      */
     public ProgressEvent(Object source, Object info) {
-        this.source = source;
-        this.info = info;
+        this.source   = source;
+        this.info     = info;
         indeterminate = true;
-        minimum = -1;
-        maximum = -1;
-        milliSecondsRemaining = -1;
     }
 
     /**
@@ -200,5 +194,25 @@ public final class ProgressEvent {
      */
     public boolean isIndeterminate() {
         return indeterminate;
+    }
+
+    public void setIndeterminate(boolean indeterminate) {
+        this.indeterminate = indeterminate;
+    }
+
+    public void setMaximum(int maximum) {
+        this.maximum = maximum;
+    }
+
+    public void setMilliSecondsRemaining(long milliSecondsRemaining) {
+        this.milliSecondsRemaining = milliSecondsRemaining;
+    }
+
+    public void setMinimum(int minimum) {
+        this.minimum = minimum;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
     }
 }

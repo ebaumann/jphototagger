@@ -30,16 +30,16 @@ import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent;
 import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent.Type;
+import de.elmar_baumann.jpt.event.ProgressEvent;
+import de.elmar_baumann.jpt.event.ProgressListenerSupport;
 import de.elmar_baumann.jpt.event.listener.CheckingForUpdateMetadataListener;
+import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.view.panels.ProgressBarAutomaticTasks;
-import de.elmar_baumann.jpt.view.panels.ProgressBarScheduledTasks;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +48,6 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.JProgressBar;
 
 /**
  * Writes image file metadata into the database if out of date or not existing.
@@ -58,22 +57,17 @@ import javax.swing.JProgressBar;
  */
 public final class InsertImageFilesIntoDatabase extends Thread {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final int maxThumbnailLength =
-            UserSettings.INSTANCE.getMaxThumbnailLength();
-    private final boolean useEmbeddedThumbnails =
-            UserSettings.INSTANCE.isUseEmbeddedThumbnails();
-    private final String externalThumbnailCreationCommand =
-            UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
-    private String currentFilename;
-    private final Set<CheckingForUpdateMetadataListener> actionListeners =
-            Collections.synchronizedSet(
-            new HashSet<CheckingForUpdateMetadataListener>());
-    private final List<String> filenames;
-    private final EnumSet<Insert> what;
-    private final MutualExcludedResource<? extends JProgressBar> progressBarResource;
-    private boolean cancelled;
-    private JProgressBar progressBar;
+    private final DatabaseImageFiles                     db                               = DatabaseImageFiles.INSTANCE;
+    private final int                                    maxThumbnailLength               = UserSettings.INSTANCE.getMaxThumbnailLength();
+    private final boolean                                useEmbeddedThumbnails            = UserSettings.INSTANCE.isUseEmbeddedThumbnails();
+    private final String                                 externalThumbnailCreationCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
+    private final ProgressListenerSupport                progressListenerSupport          = new ProgressListenerSupport();
+    private final Set<CheckingForUpdateMetadataListener> updateMetadataListeners          = Collections.synchronizedSet(new HashSet<CheckingForUpdateMetadataListener>());
+    private       ProgressEvent                          progressEvent                    = new ProgressEvent(this, null);
+    private final List<String>                           filenames;
+    private final EnumSet<Insert>                        what;
+    private       String                                 currentFilename;
+    private       boolean                                cancelled;
 
     /**
      * Metadata to insert.
@@ -108,22 +102,12 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     /**
      * Constructor.
      * 
-     * @param filenames           names of the <em>image</em> files to be updated
-     * @param what                what to insert
-     * @param progressBarResource a resource with an <code>JProgressBar</code>
-     *                            as
-     *                            {@link MutualExcludedResource#getResource(java.lang.Object)}
-     *                            or null if this class shall not display the
-     *                            progress
+     * @param filenames names of the <em>image</em> files to be updated
+     * @param what      which image metadata to insert
      */
-    public InsertImageFilesIntoDatabase(
-            List<String> filenames,
-            EnumSet<Insert> what,
-            MutualExcludedResource<? extends JProgressBar> progressBarResource) {
-
+    public InsertImageFilesIntoDatabase(List<String> filenames, EnumSet<Insert> what) {
         this.filenames = new ArrayList<String>(filenames);
-        this.what = what;
-        this.progressBarResource = progressBarResource;
+        this.what      = what;
         setName("Inserting image files into database @ " + getClass().getName()); // NOI18N
     }
 
@@ -136,32 +120,39 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     /**
-     * Adds an action listener. It will be called when a file was processed.
+     * Adds a listener. It will be called when a file was processed.
      *
-     * @param listener action listener
+     * @param listener listener
      */
-    public void addActionListener(CheckingForUpdateMetadataListener listener) {
-        actionListeners.add(listener);
+    public void addUpdateMetadataListener(CheckingForUpdateMetadataListener listener) {
+        updateMetadataListeners.add(listener);
     }
 
     /**
-     * Removes an action listener.
+     * Removes a listener.
      *
      * @param listener action listener
-     * @see   #addActionListener(CheckingForUpdateMetadataListener)
+     * @see   #addUpdateMetadataListener(CheckingForUpdateMetadataListener)
      */
-    public void removeActionListener(CheckingForUpdateMetadataListener listener) {
-        actionListeners.remove(listener);
+    public void removeUpdateMetadataListener(CheckingForUpdateMetadataListener listener) {
+        updateMetadataListeners.remove(listener);
     }
 
-    private void notifyActionListeners(Type type, String filename) {
-        CheckForUpdateMetadataEvent event =
-                new CheckForUpdateMetadataEvent(type, filename);
-        synchronized (actionListeners) {
-            for (CheckingForUpdateMetadataListener listener : actionListeners) {
+    private void notifyUpdateMetadataListener(Type type, String filename) {
+        CheckForUpdateMetadataEvent event = new CheckForUpdateMetadataEvent(type, filename);
+        synchronized (updateMetadataListeners) {
+            for (CheckingForUpdateMetadataListener listener : updateMetadataListeners) {
                 listener.actionPerformed(event);
             }
         }
+    }
+
+    public void addProgressListener(ProgressListener listener) {
+        progressListenerSupport.addProgressListener(listener);
+    }
+
+    public void removeProgressListener(ProgressListener listener) {
+        progressListenerSupport.removeProgressListener(listener);
     }
 
     /**
@@ -176,14 +167,13 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     @Override
     public void run() {
         int count = filenames.size();
-        updateStarted(count); // NOI18N
+        notifyStarted();
         int checkCount = 0;
-        for (int index = 0; !isInterrupted() && !cancelled && index < count;
-                index++) {
+        for (int index = 0; !isInterrupted() && !cancelled && index < count; index++) {
             String filename = filenames.get(index);
             currentFilename = filename;
             ImageFile imageFile = getImageFile(filename);
-            updateCheckWillPerformed(index + 1, index + 1 < count
+            notifyPerformed(index + 1, index + 1 < count
                                                 ? filenames.get(index + 1)
                                                 : filename);
             if (isUpdate(imageFile)) {
@@ -194,7 +184,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             checkCount++;
         }
         currentFilename = null;
-        updateFinished(checkCount);
+        notifyEnded(checkCount);
     }
 
     private boolean isUpdate(ImageFile imageFile) {
@@ -208,8 +198,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         imageFile.setFilename(filename);
         imageFile.setLastmodified(new File(filename).lastModified());
         if (isUpdateThumbnail(filename)) {
-            imageFile.addInsertIntoDb(
-                    InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
+            imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
             setThumbnail(imageFile);
         }
         if (isUpdateXmp(filename)) {
@@ -247,24 +236,25 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private boolean isImageFileUpToDate(String filename) {
-        long dbTime = db.getLastModifiedImageFile(filename);
+        long dbTime   = db.getLastModifiedImageFile(filename);
         long fileTime = new File(filename).lastModified();
+
         return fileTime == dbTime;
     }
 
     private boolean isXmpFileUpToDate(String imageFilename) {
-        String sidecarFileName =
-                XmpMetadata.getSidecarFilenameOfImageFileIfExists(imageFilename);
+        String sidecarFileName = XmpMetadata.getSidecarFilenameOfImageFileIfExists(imageFilename);
+
         return sidecarFileName == null
                ? isEmbeddedXmpUpToDate(imageFilename)
                : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
     }
 
-    private boolean isXmpSidecarFileUpToDate(
-            String imageFilename, String sidecarFilename) {
+    private boolean isXmpSidecarFileUpToDate(String imageFilename, String sidecarFilename) {
         assert FileUtil.existsFile(new File(sidecarFilename));
-        long dbTime = db.getLastModifiedXmp(imageFilename);
+        long dbTime   = db.getLastModifiedXmp(imageFilename);
         long fileTime = new File(sidecarFilename).lastModified();
+
         return fileTime == dbTime;
     }
 
@@ -272,23 +262,22 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         if (!UserSettings.INSTANCE.isScanForEmbeddedXmp()) {
             return true;
         }
-        long dbTime = db.getLastModifiedXmp(imageFilename);
+        long dbTime   = db.getLastModifiedXmp(imageFilename);
         long fileTime = new File(imageFilename).lastModified();
         if (dbTime == fileTime) {
             return true;
         }
-        boolean hasEmbeddedXmp =
-                XmpMetadata.getEmbeddedXmp(imageFilename) != null; // slow if large image file whitout XMP
-        // Avoid unneccesary 2nd calls
-        if (!hasEmbeddedXmp) {
+        boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFilename) != null; // slow if large image file whitout XMP
+        
+        if (!hasEmbeddedXmp) { // Avoid unneccesary 2nd calls
             db.setLastModifiedXmp(imageFilename, fileTime);
         }
         return !hasEmbeddedXmp || fileTime == dbTime;
     }
 
     private void setThumbnail(ImageFile imageFile) {
-        String filename = imageFile.getFilename();
-        Image thumbnail = null;
+        String filename  = imageFile.getFilename();
+        Image  thumbnail = null;
         File file = new File(filename);
         if (UserSettings.INSTANCE.isCreateThumbnailsWithExternalApp()) {
             thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
@@ -312,7 +301,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private void setXmp(ImageFile imageFile) {
         String imageFilename = imageFile.getFilename();
-        Xmp xmp = XmpMetadata.getXmpOfImageFile(imageFilename);
+        Xmp    xmp           = XmpMetadata.getXmpOfImageFile(imageFilename);
         if (xmp == null) {
             xmp = getXmpFromIptc(imageFilename);
         }
@@ -343,9 +332,9 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private void runActionsAfterInserting(ImageFile imageFile) {
         if (!isRunActionsAfterInserting(imageFile)) return;
-        File imgFile = imageFile.getFile();
-        List<Program> actions =
-                DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        File          imgFile = imageFile.getFile();
+        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+
         for (Program action : actions) {
             StartPrograms programStarter = new StartPrograms(null);
             programStarter.startProgram(action, Collections.singletonList(
@@ -365,53 +354,26 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                 "InsertImageFilesIntoDatabase.Error.NullThumbnail", filename); // NOI18N
     }
 
-    private void releaseProgressBar() {
-        if (progressBar != null && progressBarResource != null) {
-            progressBar.setString(""); // NOI18N
-            progressBarResource.releaseResource(this);
-            progressBar = null;
-        }
+    private void notifyStarted() {
+        notifyUpdateMetadataListener(Type.CHECK_STARTED, null);
+        progressEvent.setMinimum(0);
+        progressEvent.setMaximum(filenames.size());
+        progressEvent.setValue(0);
+        progressListenerSupport.notifyStarted(progressEvent);
     }
 
-    private void updateStarted(int filecount) {
-        if (progressBarResource == null) return;
-        progressBar = progressBarResource.getResource(this);
-        if (progressBar == null) {
-            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
-                    progressBarResource.getOwner());
-        } else {
-            progressBar.setMinimum(0);
-            progressBar.setMaximum(filecount);
-            progressBar.setValue(0);
-            progressBar.setStringPainted(true);
-            progressBar.setString(Bundle.getString(
-                    progressBarResource == ProgressBarAutomaticTasks.INSTANCE ?
-                        "InsertImageFilesIntoDatabase.ProgressBarAutomaticTasks.String" // NOI18N
-                        : progressBarResource == ProgressBarScheduledTasks.INSTANCE
-                        ? "InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String" // NOI18N
-                        : "InsertImageFilesIntoDatabase.ProgressBarUserTasks.String")); // NOI18N
-        }
-        notifyActionListeners(Type.CHECK_STARTED, null);
-    }
-
-    private void updateCheckWillPerformed(int value, String filename) {
+    private void notifyPerformed(int value, String filename) {
         informationMessagePerformed(filename);
-        notifyActionListeners(Type.CHECKING_FILE, filename);
-        if (progressBar != null) {
-            progressBar.setValue(value);
-            progressBar.setToolTipText(filename);
-        }
+        notifyUpdateMetadataListener(Type.CHECKING_FILE, filename);
+        progressEvent.setValue(value);
+        progressEvent.setInfo(filename);
+        progressListenerSupport.notifyPerformed(progressEvent);
     }
 
-    private void updateFinished(int filecount) {
-        informationMessageEnd(filecount);
-        if (progressBar != null) {
-            progressBar.setValue(0);
-            progressBar.setToolTipText(""); // NOI18N
-            progressBar.setString(""); // NOI18N
-            releaseProgressBar();
-        }
-        notifyActionListeners(Type.CHECK_FINISHED, null);
+    private void notifyEnded(int filecount) {
+        informationMessageEnded(filecount);
+        notifyUpdateMetadataListener(Type.CHECK_FINISHED, null);
+        progressListenerSupport.notifyEnded(progressEvent);
     }
 
     private void informationMessagePerformed(String filename) {
@@ -420,7 +382,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                 filename);
     }
 
-    private void informationMessageEnd(int filecount) {
+    private void informationMessageEnded(int filecount) {
         AppLog.logInfo(InsertImageFilesIntoDatabase.class,
                 "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished", // NOI18N
                 filecount);

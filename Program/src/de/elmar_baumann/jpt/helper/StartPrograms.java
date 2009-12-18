@@ -205,8 +205,7 @@ public final class StartPrograms {
                 InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
                         FileUtil.getAbsolutePathnames(imageFiles),
                         EnumSet.of(
-                        InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),
-                        null);
+                        InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
                 updater.run(); // no subsequent thread
             }
         }

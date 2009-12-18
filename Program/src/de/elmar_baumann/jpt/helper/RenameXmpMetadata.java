@@ -21,14 +21,11 @@ package de.elmar_baumann.jpt.helper;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.event.ProgressEvent;
-import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.tasks.UserTasks;
-import de.elmar_baumann.jpt.view.panels.ProgressBarUserTasks;
+import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JProgressBar;
 
 /**
  * 
@@ -36,17 +33,12 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class RenameXmpMetadata extends Thread
-        implements ProgressListener {
+public final class RenameXmpMetadata extends Thread {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final List<String> filenames;
-    private final Column column;
-    private final String oldValue;
-    private final String newValue;
-    private final ProgressBarUserTasks progressBarRessource =
-            ProgressBarUserTasks.INSTANCE;
-    private JProgressBar progressBar;
+    private final Column       column;
+    private final String       oldValue;
+    private final String       newValue;
 
     public static synchronized void update(
             List<String> filenames,
@@ -54,62 +46,38 @@ public final class RenameXmpMetadata extends Thread
             String oldValue,
             String newValue) {
 
-        UserTasks.INSTANCE.add(new RenameXmpMetadata(
-                filenames, column, oldValue, newValue));
+        UserTasks.INSTANCE.add(
+                new RenameXmpMetadata(filenames, column, oldValue, newValue));
     }
 
-    private RenameXmpMetadata(List<String> filenames, Column column,
-            String oldValue, String newValue) {
+    private RenameXmpMetadata(
+            List<String> filenames,
+            Column column,
+            String oldValue,
+            String newValue) {
+
         this.filenames = new ArrayList<String>(filenames);
-        this.column = column;
-        this.oldValue = oldValue;
-        this.newValue = newValue;
-        setName("Renaming XMP metadata " + column + " @ " + // NOI18N
-                getClass().getName());
+        this.column    = column;
+        this.oldValue  = oldValue;
+        this.newValue  = newValue;
+
+        setName("Renaming XMP metadata " + column + " @ " + getClass()); // NOI18N
     }
 
     @Override
     public void run() {
         logRename(column.getName(), oldValue, newValue);
-        db.renameXmpMetadata(filenames, column, oldValue, newValue, this);
+        DatabaseImageFiles.INSTANCE.renameXmpMetadata(
+                filenames,
+                column,
+                oldValue,
+                newValue,
+                new ProgressBarUpdater(Bundle.getString("RenameXmpMetadata.ProgressBar.String")));
     }
 
     private void logRename(String columnName, String oldValue, String newValue) {
         AppLog.logInfo(RenameXmpMetadata.class,
                 "RenameXmpMetadata.Info.StartRename", // NOI18N
                 columnName, oldValue, newValue);
-    }
-
-    @Override
-    public void progressStarted(ProgressEvent evt) {
-        progressBar = progressBarRessource.getResource(this);
-        if (progressBar == null) {
-            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
-                    progressBarRessource.getOwner());
-        } else {
-            progressBar.setMinimum(0);
-            progressBar.setMaximum(evt.getMaximum());
-            progressBar.setValue(0);
-            progressBar.setStringPainted(true);
-            progressBar.setString(
-                    Bundle.getString("RenameXmpMetadata.ProgressBar.String")); // NOI18N
-        }
-    }
-
-    @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (progressBar != null) {
-            progressBar.setValue(evt.getValue());
-        }
-    }
-
-    @Override
-    public void progressEnded(ProgressEvent evt) {
-        if (progressBar != null) {
-            progressBar.setValue(0);
-            progressBar.setString(""); // NOI18N
-            progressBar = null;
-            progressBarRessource.releaseResource(this);
-        }
     }
 }

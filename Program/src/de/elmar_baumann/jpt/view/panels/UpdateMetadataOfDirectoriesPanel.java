@@ -21,14 +21,15 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent;
 import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent.Type;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.CheckingForUpdateMetadataListener;
+import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.io.DirectoryInfo;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import de.elmar_baumann.lib.util.Settings;
 import java.awt.event.KeyEvent;
@@ -39,30 +40,26 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.DefaultListModel;
-import javax.swing.JProgressBar;
+import javax.swing.JPanel;
 
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class UpdateMetadataOfDirectoriesPanel
-        extends javax.swing.JPanel
-        implements CheckingForUpdateMetadataListener {
+        extends    JPanel
+        implements CheckingForUpdateMetadataListener,
+                   ProgressListener {
 
-    private static final String KEY_LAST_DIRECTORY =
-            "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
-    private static final String KEY_FORCE =
-            "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.force"; // NOI18N
-    private static final String KEY_SUBDIRECTORIES =
-            "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
-    private final DefaultListModel listModelDirectories = new DefaultListModel();
-    private InsertImageFilesIntoDatabase imageFileInserter;
-    private File lastDirectory = new File(""); // NOI18N
-    private ProgressBarProvider progressBarProvider;
+    private static final String                       KEY_LAST_DIRECTORY   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
+    private static final String                       KEY_FORCE            = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.force"; // NOI18N
+    private static final String                       KEY_SUBDIRECTORIES   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
+    private final        DefaultListModel             listModelDirectories = new DefaultListModel();
+    private              File                         lastDirectory        = new File(""); // NOI18N
+    private              InsertImageFilesIntoDatabase imageFileInserter;
 
     public UpdateMetadataOfDirectoriesPanel() {
         initComponents();
-        progressBarProvider = new ProgressBarProvider(progressBar);
         readProperties();
     }
 
@@ -122,9 +119,10 @@ public final class UpdateMetadataOfDirectoriesPanel
     private void createImageFileInserter(List<File> selectedImageFiles) {
         imageFileInserter = new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(selectedImageFiles),
-                getWhatToInsertIntoDatabase(),
-                progressBarProvider);
-        imageFileInserter.addActionListener(this);
+                getWhatToInsertIntoDatabase());
+
+        imageFileInserter.addProgressListener(this);
+        imageFileInserter.addUpdateMetadataListener(this);
     }
 
     private EnumSet<InsertImageFilesIntoDatabase.Insert> getWhatToInsertIntoDatabase() {
@@ -198,7 +196,7 @@ public final class UpdateMetadataOfDirectoriesPanel
                 labelCurrentFilename.setText(filename);
             }
         } else if (e.getType().equals(Type.CHECK_FINISHED)) {
-            imageFileInserter.removeActionListener(this);
+            imageFileInserter.removeUpdateMetadataListener(this);
             imageFileInserter = null;
             updateFinished();
         }
@@ -211,12 +209,21 @@ public final class UpdateMetadataOfDirectoriesPanel
         listDirectories.setEnabled(true);
     }
 
-    private class ProgressBarProvider
-            extends MutualExcludedResource<JProgressBar> {
+    @Override
+    public void progressStarted(ProgressEvent evt) {
+        progressBar.setMinimum(evt.getMinimum());
+        progressBar.setMaximum(evt.getMaximum());
+        progressBar.setValue(evt.getValue());
+    }
 
-        ProgressBarProvider(JProgressBar progressBar) {
-            setResource(progressBar);
-        }
+    @Override
+    public void progressPerformed(ProgressEvent evt) {
+        progressBar.setValue(evt.getValue());
+    }
+
+    @Override
+    public void progressEnded(ProgressEvent evt) {
+        progressBar.setValue(evt.getValue());
     }
 
     private void chooseDirectories() {

@@ -20,13 +20,12 @@ package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.tasks.UserTasks;
-import de.elmar_baumann.jpt.view.panels.ProgressBarUserTasks;
+import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,13 +41,11 @@ import javax.swing.JProgressBar;
  */
 public final class SaveEditedMetadata extends Thread {
 
-    private final Collection<Pair<String, Xmp>> filenamesXmp;
-    private final ProgressBarUserTasks progressBarRessource =
-            ProgressBarUserTasks.INSTANCE;
-    private JProgressBar progressBar;
+    private static final String                        PROGRESSBAR_STRING = Bundle.getString("SaveEditedMetadata.ProgressBar.String"); // NOI18N
+    private final        Collection<Pair<String, Xmp>> filenamesXmp;
+    private              JProgressBar                  progressBar;
 
-    public synchronized static void saveMetadata(
-            Collection<Pair<String, Xmp>> filenamesXmp) {
+    public synchronized static void saveMetadata(Collection<Pair<String, Xmp>> filenamesXmp) {
 
         final int fileCount = filenamesXmp.size();
 
@@ -56,8 +53,7 @@ public final class SaveEditedMetadata extends Thread {
             SaveEditedMetadata updater = new SaveEditedMetadata(filenamesXmp);
             UserTasks.INSTANCE.add(updater);
         } else {
-            AppLog.logWarning(SaveEditedMetadata.class,
-                    "SaveEditedMetadata.Error.NoImageFilesSelected"); // NOI18N
+            AppLog.logWarning(SaveEditedMetadata.class, "SaveEditedMetadata.Error.NoImageFilesSelected"); // NOI18N
         }
     }
 
@@ -70,62 +66,56 @@ public final class SaveEditedMetadata extends Thread {
 
     @Override
     public void run() {
-        int count = filenamesXmp.size();
-        progressStarted(count);
         // Ignore isInterrupted() because saving user input has high priority
-        int index = 0;
+        int fileIndex = 0;
         for (Pair<String, Xmp> pair : filenamesXmp) {
-            String filename = pair.getFirst();
-            Xmp xmp = pair.getSecond();
-            String sidecarFilename =
-                    XmpMetadata.suggestSidecarFilenameForImageFile(filename);
+            String filename        = pair.getFirst();
+            Xmp    xmp             = pair.getSecond();
+            String sidecarFilename = XmpMetadata.suggestSidecarFilenameForImageFile(filename);
+
             if (XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp)) {
                 updateDatabase(filename);
             }
-            progressPerformed(++index, filename);
+            updateProgressBar(++fileIndex);
         }
-        progressEnded();
+        releaseProgressBar();
         AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
     private void updateDatabase(String filename) {
         InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
                 Arrays.asList(filename),
-                EnumSet.of(Insert.XMP),
-                null);
+                EnumSet.of(Insert.XMP));
         updater.run();
     }
 
-    private void progressStarted(int maximum) {
-        progressBar = progressBarRessource.getResource(this);
-        if (progressBar == null) {
-            AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
-                    progressBarRessource.getOwner());
-        } else {
+    private void getProgressBar() {
+        if (progressBar != null) return;
+        progressBar = ProgressBar.INSTANCE.getResource(this);
+    }
+
+    private void updateProgressBar(int value) {
+        getProgressBar();
+        if (progressBar != null) {
             progressBar.setMinimum(0);
-            progressBar.setMaximum(maximum);
-            progressBar.setValue(0);
-            progressBar.setStringPainted(true);
-            progressBar.setString(
-                    Bundle.getString("SaveEditedMetadata.ProgressBar.String")); // NOI18N
-        }
-    }
-
-    private void progressPerformed(int value, String filename) {
-        if (progressBar != null) {
+            progressBar.setMaximum(filenamesXmp.size());
             progressBar.setValue(value);
-            progressBar.setToolTipText(filename);
+            if (!progressBar.isStringPainted()) {
+                progressBar.setStringPainted(true);
+            }
+            if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
+                progressBar.setString(PROGRESSBAR_STRING);
+            }
         }
     }
 
-    public void progressEnded() {
+    private void releaseProgressBar() {
         if (progressBar != null) {
+            if (progressBar.isStringPainted()) {
+                progressBar.setString("");
+            }
             progressBar.setValue(0);
-            progressBar.setToolTipText(
-                    AppTexts.TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS);
-            progressBar.setString(""); // NOI18N
-            progressBar = null;
-            progressBarRessource.releaseResource(this);
         }
+        ProgressBar.INSTANCE.releaseResource(this);
     }
 }

@@ -95,8 +95,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     private void updateDatabase(String imageFilename) {
         InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
                 Arrays.asList(imageFilename),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP),
-                null);
+                EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
         insert.run(); // Shall run in this thread!
     }
 }

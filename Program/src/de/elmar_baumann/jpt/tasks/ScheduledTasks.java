@@ -136,7 +136,7 @@ public final class ScheduledTasks implements ActionListener,
             executor.execute(updater);
         }
         if (updaters.size() > 0) {
-            updaters.get(updaters.size() - 1).addActionListener(this);
+            updaters.get(updaters.size() - 1).addUpdateMetadataListener(this);
         }
     }
 

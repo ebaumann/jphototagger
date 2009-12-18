@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.controller.thumbnail;
 
+import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.ProgressBarUserTasks;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
@@ -90,12 +91,14 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         }
     }
 
-    private void updateMetadata(
-            EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
+    private void updateMetadata(EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
 
-        UserTasks.INSTANCE.add(new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
-                what,
-                ProgressBarUserTasks.INSTANCE));
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
+                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), what);
+
+        inserter.addProgressListener(new ProgressBarUpdater(
+                Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarUserTasks.String")));
+
+        UserTasks.INSTANCE.add(inserter);
     }
 }

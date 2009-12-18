@@ -19,11 +19,12 @@
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.AutomaticTask;
-import de.elmar_baumann.jpt.view.panels.ProgressBarAutomaticTasks;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -64,12 +65,16 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
     }
 
     private synchronized void updateMetadata() {
-        AppLog.logInfo(getClass(),
-                "ControllerCreateMetadataOfCurrentThumbnails.Info.Update"); // NOI18N
-        AutomaticTask.INSTANCE.setTask(new InsertImageFilesIntoDatabase(
+        AppLog.logInfo(getClass(), "ControllerCreateMetadataOfCurrentThumbnails.Info.Update"); // NOI18N
+
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(thumbnailsPanel.getFiles()),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),
-                ProgressBarAutomaticTasks.INSTANCE));
+                EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+
+        inserter.addProgressListener(new ProgressBarUpdater(
+                Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String"))); // NOI18N
+
+        AutomaticTask.INSTANCE.setTask(inserter);
     }
 
     @Override

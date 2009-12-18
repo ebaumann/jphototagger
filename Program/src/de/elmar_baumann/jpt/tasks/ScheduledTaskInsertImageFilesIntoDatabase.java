@@ -20,9 +20,10 @@ package de.elmar_baumann.jpt.tasks;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories;
+import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
-import de.elmar_baumann.jpt.view.panels.ProgressBarScheduledTasks;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -61,11 +62,15 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
         if (!directories.isEmpty()) {
             for (File directory : directories) {
                 if (!isSystemDirectory(directory.getAbsolutePath())) {
-                    updaters.add(new InsertImageFilesIntoDatabase(
+                    InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                             getImageFilenamesOfDirectory(directory),
                             EnumSet.of(
-                            InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE),
-                            ProgressBarScheduledTasks.INSTANCE));
+                            InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+
+                    inserter.addProgressListener(new ProgressBarUpdater(
+                            Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String")));
+
+                    updaters.add(inserter);
                 }
             }
         }

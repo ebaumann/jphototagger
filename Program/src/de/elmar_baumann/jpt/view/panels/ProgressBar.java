@@ -23,19 +23,16 @@ import de.elmar_baumann.lib.resource.MutualExcludedResource;
 import javax.swing.JProgressBar;
 
 /**
- * Synchronized access to
- * {@link AppPanel#getProgressBarUserTasks()}.
+ * Synchronized access to {@link AppPanel#getProgressBar()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008-09-29
+ * @version 2009-06-16
  */
-public final class ProgressBarUserTasks
-        extends MutualExcludedResource<JProgressBar> {
+public final class ProgressBar extends MutualExcludedResource<JProgressBar> {
 
-    public static final ProgressBarUserTasks INSTANCE =
-            new ProgressBarUserTasks();
+    public static final ProgressBar INSTANCE = new ProgressBar();
 
-    private ProgressBarUserTasks() {
-        setResource(GUI.INSTANCE.getAppPanel().getProgressBarUserTasks());
+    private ProgressBar() {
+        setResource(GUI.INSTANCE.getAppPanel().getProgressBar());
     }
 }

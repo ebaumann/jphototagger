@@ -18,14 +18,13 @@
  */
 package de.elmar_baumann.jpt.controller.hierarchicalkeywords;
 
-import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.importer.HierarchicalKeywordsImporter;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.HierarchicalKeywordsImportDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
-import de.elmar_baumann.jpt.view.panels.ProgressBarUserTasks;
+import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.generics.Pair;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,16 +43,16 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-public final class ControllerImportHierarchicalKeywords
-        implements ActionListener {
+public final class ControllerImportHierarchicalKeywords implements ActionListener {
+
+    private static final String PROGRESSBAR_STRING = Bundle.getString("ControllerImportHierarchicalKeywords.ProgressBar.String"); // NOI18N
 
     public ControllerImportHierarchicalKeywords() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemImportKeywords().addActionListener(
-                this);
+        GUI.INSTANCE.getAppFrame().getMenuItemImportKeywords().addActionListener(this);
     }
 
     @Override
@@ -62,15 +61,13 @@ public final class ControllerImportHierarchicalKeywords
     }
 
     private void importKeywords() {
-        HierarchicalKeywordsImportDialog dlg =
-                new HierarchicalKeywordsImportDialog();
+        HierarchicalKeywordsImportDialog dlg = new HierarchicalKeywordsImportDialog();
         dlg.setVisible(true);
         if (dlg.isAccepted()) {
             HierarchicalKeywordsImporter importer = dlg.getImporter();
             assert importer != null : "Importer is null!"; // NOI18N
             if (importer != null) {
-                Collection<List<Pair<String, Boolean>>> paths =
-                        importer.getPaths(dlg.getFile());
+                Collection<List<Pair<String, Boolean>>> paths = importer.getPaths(dlg.getFile());
                 if (paths != null) {
                     new ImportTask(paths).start();
                 }
@@ -81,44 +78,38 @@ public final class ControllerImportHierarchicalKeywords
     private class ImportTask extends Thread {
 
         private final Collection<List<Pair<String, Boolean>>> paths;
-        private final TreeModel treeModel = GUI.INSTANCE.getAppPanel().
-                getTreeHierarchicalKeywords().getModel();
-        private final JProgressBar progressBar;
+        private final TreeModel                               treeModel  = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().getModel();
+        private       JProgressBar                            progressBar;
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             this.paths = paths;
             setName("Importing keywords @ " + getClass().getName()); // NOI18N
-            progressBar = ProgressBarUserTasks.INSTANCE.getResource(this);
-            if (progressBar == null) {
-                AppLog.logInfo(getClass(), "ProgressBar.Locked", getClass(), // NOI18N
-                        ProgressBarUserTasks.INSTANCE.getOwner());
-            }
+        }
+
+        private void getProgressBar() {
+            if (progressBar != null) return;
+            progressBar = ProgressBar.INSTANCE.getResource(this);
         }
 
         @Override
         public void run() {
-            assert treeModel instanceof TreeModelHierarchicalKeywords :
-                    "Not a TreeModelHierarchicalKeywords: " + treeModel; // NOI18N
+            assert treeModel instanceof TreeModelHierarchicalKeywords : treeModel;
             if (treeModel instanceof TreeModelHierarchicalKeywords) {
-                TreeModelHierarchicalKeywords model =
-                        (TreeModelHierarchicalKeywords) treeModel;
-                initProgressBar();
+                TreeModelHierarchicalKeywords model = (TreeModelHierarchicalKeywords) treeModel;
+                updateProgressBar(0);
+                int progressValue = 0;
                 for (List<Pair<String, Boolean>> path : paths) {
-                    DefaultMutableTreeNode node =
-                            (DefaultMutableTreeNode) model.getRoot();
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) model.getRoot();
                     for (Pair<String, Boolean> keyword : path) {
-                        DefaultMutableTreeNode existingNode =
-                                model.findChildByName(node, keyword.getFirst());
+                        DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getFirst());
                         if (existingNode == null) {
-                            model.addKeyword(node, keyword.getFirst(),
-                                    keyword.getSecond());
-                            node = model.findChildByName(
-                                    node, keyword.getFirst());
+                            model.addKeyword(node, keyword.getFirst(), keyword.getSecond());
+                            node = model.findChildByName(node, keyword.getFirst());
                         } else {
                             node = existingNode;
                         }
                     }
-                    setProgressBarNextValue();
+                    updateProgressBar(++progressValue);
                 }
                 releaseProgressBar();
                 expandRootSelHk();
@@ -126,37 +117,35 @@ public final class ControllerImportHierarchicalKeywords
         }
 
         private void expandRootSelHk() {
-            JTree tree =
-                    GUI.INSTANCE.getAppPanel().getTreeSelHierarchicalKeywords();
+            JTree  tree = GUI.INSTANCE.getAppPanel().getTreeSelHierarchicalKeywords();
             Object root = tree.getModel().getRoot();
-            tree.expandPath(
-                    new TreePath(((DefaultMutableTreeNode) root).getPath()));
+
+            tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
         }
 
-        private void initProgressBar() {
+        private void updateProgressBar(int value) {
+            getProgressBar();
             if (progressBar != null) {
                 progressBar.setMinimum(0);
                 progressBar.setMaximum(paths.size());
-                progressBar.setValue(0);
-                progressBar.setStringPainted(true);
-                progressBar.setString(
-                        Bundle.getString(
-                        "ControllerImportHierarchicalKeywords.ProgressBar.String")); // NOI18N
-            }
-        }
-
-        private void setProgressBarNextValue() {
-            if (progressBar != null) {
-                progressBar.setValue(progressBar.getValue() + 1);
+                progressBar.setValue(value);
+                if (!progressBar.isStringPainted()) {
+                    progressBar.setStringPainted(true);
+                }
+                if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
+                    progressBar.setString(PROGRESSBAR_STRING);
+                }
             }
         }
 
         private void releaseProgressBar() {
             if (progressBar != null) {
+                if (progressBar.isStringPainted()) {
+                    progressBar.setString("");
+                }
                 progressBar.setValue(0);
-                progressBar.setString(""); // NOI18N
-                ProgressBarUserTasks.INSTANCE.releaseResource(this);
             }
+            ProgressBar.INSTANCE.releaseResource(this);
         }
     }
 }
