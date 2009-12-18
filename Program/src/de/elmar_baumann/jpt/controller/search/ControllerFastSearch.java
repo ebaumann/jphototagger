@@ -36,7 +36,7 @@ import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
@@ -177,8 +177,8 @@ public final class ControllerFastSearch
 
     private void checkEnabled() {
         if (!textFieldSearch.isEnabled()) {
-            UserSettingsDialog settingsDialog = UserSettingsDialog.INSTANCE;
-            settingsDialog.selectTab(UserSettingsDialog.Tab.FAST_SEARCH);
+            SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
+            settingsDialog.selectTab(SettingsDialog.Tab.FAST_SEARCH);
             if (settingsDialog.isVisible()) {
                 settingsDialog.toFront();
             } else {

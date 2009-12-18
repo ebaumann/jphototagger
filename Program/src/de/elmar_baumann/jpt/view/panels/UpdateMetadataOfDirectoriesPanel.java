@@ -163,8 +163,7 @@ public final class UpdateMetadataOfDirectoriesPanel
     }
 
     private void readLastDirectoryFromProperties() {
-        String lastDirectoryName =
-                UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
+        String lastDirectoryName = UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
         if (!lastDirectoryName.isEmpty()) {
             File directory = new File(lastDirectoryName);
             if (directory.exists() && directory.isDirectory()) {

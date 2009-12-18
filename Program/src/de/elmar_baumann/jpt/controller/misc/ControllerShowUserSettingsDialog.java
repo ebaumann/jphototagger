@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.misc;
 
-import de.elmar_baumann.jpt.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,7 +36,7 @@ public final class ControllerShowUserSettingsDialog implements ActionListener {
     }
 
     private void showDialog() {
-        UserSettingsDialog settingsDialog = UserSettingsDialog.INSTANCE;
+        SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
         if (settingsDialog.isVisible()) {
             settingsDialog.toFront();
         } else {

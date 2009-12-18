@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent.Type;
 import de.elmar_baumann.jpt.event.listener.CheckingForUpdateMetadataListener;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.lib.concurrent.SerialExecutor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,32 +49,22 @@ import javax.swing.JButton;
 public final class ScheduledTasks implements ActionListener,
         CheckingForUpdateMetadataListener {
 
-    public static final ScheduledTasks INSTANCE = new ScheduledTasks();
-    private final SerialExecutor executor =
-            new SerialExecutor(Executors.newCachedThreadPool());
-    private final JButton button =
-            GUI.INSTANCE.getAppPanel().getButtonStopScheduledTasks();
-    private final long MINUTES_WAIT_BEFORE_PERFORM =
-            UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
-    private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE =
-            new HashMap<ButtonState, Icon>();
-    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE =
-            new HashMap<ButtonState, String>();
-    private volatile boolean isRunning = false;
+    public static final  ScheduledTasks           INSTANCE                     = new ScheduledTasks();
+    private final        SerialExecutor           executor                     = new SerialExecutor(Executors.newCachedThreadPool());
+    private final        JButton                  button                       = SettingsDialog.INSTANCE.getButtonScheduledTasks();
+    private final        long                     MINUTES_WAIT_BEFORE_PERFORM  = UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
+    private static final Map<ButtonState, Icon>   ICON_OF_BUTTON_STATE         = new HashMap<ButtonState, Icon>();
+    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE = new HashMap<ButtonState, String>();
+    private volatile     boolean                  isRunning;
 
     static {
-        ICON_OF_BUTTON_STATE.put(ButtonState.START,
-                AppLookAndFeel.getIcon("icon_start_scheduled_tasks.png"));
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START,
-                Bundle.getString("ScheduledTasks.TooltipText.Start"));
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.STOP,
-                Bundle.getString("ScheduledTasks.TooltipText.Stop"));
-        ICON_OF_BUTTON_STATE.put(ButtonState.STOP,
-                AppLookAndFeel.getIcon("icon_stop_scheduled_tasks_enabled.png"));
+        ICON_OF_BUTTON_STATE.put        (ButtonState.START, AppLookAndFeel.getIcon("icon_start_scheduled_tasks.png"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START, Bundle.getString("ScheduledTasks.TooltipText.Start"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.STOP , Bundle.getString("ScheduledTasks.TooltipText.Stop"));
+        ICON_OF_BUTTON_STATE.put        (ButtonState.STOP , AppLookAndFeel.getIcon("icon_stop_scheduled_tasks_enabled.png"));
     }
 
     private enum ButtonState {
-
         START,
         STOP
     }
@@ -130,8 +120,7 @@ public final class ScheduledTasks implements ActionListener,
     }
 
     private void startUpdate() {
-        List<InsertImageFilesIntoDatabase> updaters =
-                ScheduledTaskInsertImageFilesIntoDatabase.getThreads();
+        List<InsertImageFilesIntoDatabase> updaters = ScheduledTaskInsertImageFilesIntoDatabase.getThreads();
         for (InsertImageFilesIntoDatabase updater : updaters) {
             executor.execute(updater);
         }

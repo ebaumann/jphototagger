@@ -27,7 +27,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel.Tab;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
@@ -152,11 +152,11 @@ public final class ControllerHelp
                     "ControllerHelp.Error.NoPdfViewer", // NOI18N
                     MessageDisplayer.CancelButton.HIDE).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
-                UserSettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
-                if (UserSettingsDialog.INSTANCE.isVisible()) {
-                    UserSettingsDialog.INSTANCE.toFront();
+                SettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
+                if (SettingsDialog.INSTANCE.isVisible()) {
+                    SettingsDialog.INSTANCE.toFront();
                 } else {
-                    UserSettingsDialog.INSTANCE.setVisible(true);
+                    SettingsDialog.INSTANCE.setVisible(true);
                 }
             }
             return false;

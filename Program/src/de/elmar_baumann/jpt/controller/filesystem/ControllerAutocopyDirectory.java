@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog;
-import de.elmar_baumann.jpt.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel;
 import de.elmar_baumann.lib.generics.Pair;
@@ -88,7 +88,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void setAutocopyDirectory() {
-        UserSettingsDialog dialog = UserSettingsDialog.INSTANCE;
+        SettingsDialog dialog = SettingsDialog.INSTANCE;
         dialog.selectTab(SettingsMiscPanel.Tab.AUTOCOPY_DIRECTORY);
         if (dialog.isVisible()) {
             dialog.toFront();

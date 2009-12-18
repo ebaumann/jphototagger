@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.programs;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
@@ -66,8 +66,8 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
 
     private boolean checkOpenAppIsDefined() {
         if (UserSettings.INSTANCE.getDefaultImageOpenApp().isEmpty()) {
-            UserSettingsDialog dialog = UserSettingsDialog.INSTANCE;
-            dialog.selectTab(UserSettingsDialog.Tab.PROGRAMS);
+            SettingsDialog dialog = SettingsDialog.INSTANCE;
+            dialog.selectTab(SettingsDialog.Tab.PROGRAMS);
             if (dialog.isVisible()) {
                 dialog.toFront();
             } else {

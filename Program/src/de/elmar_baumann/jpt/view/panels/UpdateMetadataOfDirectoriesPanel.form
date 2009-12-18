@@ -20,10 +20,10 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="progressBar" alignment="0" pref="500" max="32767" attributes="2"/>
+                  <Component id="progressBar" alignment="0" pref="522" max="32767" attributes="2"/>
                   <Component id="checkBoxIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxForce" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelInfotext" alignment="0" pref="500" max="32767" attributes="0"/>
+                  <Component id="labelInfotext" alignment="0" pref="522" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonChooseDirectories" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -41,8 +41,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelFilecount" min="-2" pref="143" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelHeadingListDirectories" alignment="0" pref="500" max="32767" attributes="1"/>
-                  <Component id="scrollPaneListDirectories" alignment="0" pref="500" max="32767" attributes="2"/>
+                  <Component id="labelHeadingListDirectories" alignment="0" pref="522" max="32767" attributes="1"/>
+                  <Component id="scrollPaneListDirectories" alignment="0" pref="522" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>

@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadataToDisplay;
 import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.Translation;
-import de.elmar_baumann.jpt.view.dialogs.UserSettingsDialog;
+import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel;
 import de.elmar_baumann.lib.runtime.External;
 import java.awt.event.ActionEvent;
@@ -177,7 +177,7 @@ public final class TableModelExif extends DefaultTableModel {
         }
 
         private void setWebBrowser() {
-            UserSettingsDialog settingsDialog = UserSettingsDialog.INSTANCE;
+            SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
             if (settingsDialog.isVisible()) {
                 settingsDialog.toFront();
             } else {
