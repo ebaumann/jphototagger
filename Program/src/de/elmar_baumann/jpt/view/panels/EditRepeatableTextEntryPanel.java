@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.TextEntryContent;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropList;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
@@ -73,12 +74,17 @@ public final class EditRepeatableTextEntryPanel
                    ListDataListener {
 
     private final DefaultListModel         model                    = new DefaultListModel();
-    private       Column                   column;
+    private       Column                   column                   = ColumnXmpDcSubjectsSubject.INSTANCE;
     private       boolean                  editable                 = true;
     private       boolean                  dirty                    = false;
     private       Suggest                  suggest;
     private       boolean                  ignoreIntervalAdded;
     private       TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+
+    public EditRepeatableTextEntryPanel() {
+        initComponents();
+        postInitComponents();
+    }
 
     public EditRepeatableTextEntryPanel(Column column) {
         this.column = column;
@@ -95,6 +101,10 @@ public final class EditRepeatableTextEntryPanel
 
     private void setPropmt() {
         labelPrompt.setText(column.getDescription());
+    }
+
+    public void setPrompt(String text) {
+        labelPrompt.setText(text);
     }
 
     @Override

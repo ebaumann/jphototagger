@@ -72,7 +72,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
                 EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
 
         inserter.addProgressListener(new ProgressBarUpdater(
-                Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String"))); // NOI18N
+                Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarAutomaticTasks.String"))); // NOI18N
 
         AutomaticTask.INSTANCE.setTask(inserter);
     }

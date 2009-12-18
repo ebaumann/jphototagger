@@ -37,7 +37,7 @@ public final class Util {
      * @return       parameters in parantheses, e.g. <code>"(?, ?, ?)"</code>
      *               if count equals 3
      */
-    static String getParamsInParentheses(int count) {
+    public static String getParamsInParentheses(int count) {
         assert count > 0 : "Count has to be > 0: " + count; // NOI18N
         if (count <= 0) return ""; // NOI18N
         StringBuilder sb = new StringBuilder(count * 2);
