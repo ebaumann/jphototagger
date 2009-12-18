@@ -91,7 +91,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
         if (pick && isPickCollection() || !pick && isRejectCollection()) return;
         if (panelThumbnails.getSelectionCount() > 0) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
-            GUI.INSTANCE.getAppPanel().showMessage(getPopupMessage(pick), 1000);
+            GUI.INSTANCE.getAppPanel().showMessage(getPopupMessage(pick), false, 1000);
             addToCollection(
                     pick
                     ? AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED

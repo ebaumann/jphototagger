@@ -111,8 +111,7 @@ public final class ControllerFactory {
     synchronized void init() {
         Util.checkInit(ControllerFactory.class, init);
         if (!init) {
-            GUI.INSTANCE.getAppPanel().showMessage(
-                    Bundle.getString("ControllerFactory.Init.Start"), 1000);
+            GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Start"), false, 1000);
             new ControllerThumbnailsPanelPersistence();
             new ControllerItemsMutualExcludeSelection();
             new ControllerCategoryItemSelected();
@@ -190,8 +189,7 @@ public final class ControllerFactory {
             new ControllerInsertIntoHierarchicalKeywords();
             new ControllerHierarchicalKeywordsDbUpdates();
             init = true;
-            GUI.INSTANCE.getAppPanel().showMessage(
-                    Bundle.getString("ControllerFactory.Init.Finished"), 1000);
+            GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Finished"), false, 1000);
         }
     }
 }

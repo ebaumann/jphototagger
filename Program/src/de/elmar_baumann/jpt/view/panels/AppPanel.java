@@ -47,9 +47,9 @@ import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
 import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -67,8 +67,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.JViewport;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -506,33 +504,12 @@ public final class AppPanel extends javax.swing.JPanel implements
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
     }
 
-    public void showMessage(final String message, final long milliseconds) {
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                PopupFactory factory = PopupFactory.getSharedInstance();
-                MessagePopupPanel messagePanel = new MessagePopupPanel(message);
-                ThumbnailsPanel tnPanel =
-                        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-                int x = progressBar.getLocationOnScreen().x + 1;
-                int y = progressBar.getLocationOnScreen().y + 1;
-                Dimension d = new Dimension(
-                        progressBar.getWidth() - 2,
-                        progressBar.getHeight() - 2);
-                messagePanel.setPreferredSize(d);
-                messagePanel.setSize(d);
-                ProgressBar.INSTANCE.releaseResource(this);
-                Popup popup = factory.getPopup(tnPanel, messagePanel, x, y);
-                popup.show();
-                Thread thread = new Thread(new HidePopup(popup, milliseconds));
-                thread.setName("Hiding message popup @ " + getClass().getName()); // NOI18N
-                thread.setPriority(Thread.MIN_PRIORITY);
-                thread.start();
-            }
-        });
+    public void showMessage(String message, boolean error, final long milliseconds) {
+        labelInfo.setForeground(error ? Color.RED : Color.BLACK);
+        labelInfo.setText(message);
+        Thread thread = new Thread(new HideInfoMessage(milliseconds));
+        thread.setName("Hiding message popup @ " + getClass().getName()); // NOI18N
         thread.setPriority(Thread.MIN_PRIORITY);
-        thread.setName("Showing message popup @ " + ViewUtil.class.getName()); // NOI18N
         thread.start();
     }
 
@@ -554,13 +531,11 @@ public final class AppPanel extends javax.swing.JPanel implements
         UserSettings.INSTANCE.writeToFile();
     }
 
-    private static class HidePopup implements Runnable {
+    private class HideInfoMessage implements Runnable {
 
-        private final Popup popup;
         private final long milliseconds;
 
-        public HidePopup(Popup popup, long milliseconds) {
-            this.popup = popup;
+        public HideInfoMessage(long milliseconds) {
             this.milliseconds = milliseconds;
         }
 
@@ -571,7 +546,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             } catch (InterruptedException ex) {
                 AppLog.logSevere(ViewUtil.class, ex);
             }
-            popup.hide();
+            labelInfo.setText("");
         }
     }
 
