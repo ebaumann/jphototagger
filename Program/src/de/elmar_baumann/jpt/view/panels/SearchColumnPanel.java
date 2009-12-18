@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
+import de.elmar_baumann.jpt.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.lib.thirdparty.DateChooserDialog;
 import de.elmar_baumann.jpt.data.SavedSearchPanel;
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -38,6 +39,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -48,17 +50,15 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class SearchColumnPanel extends javax.swing.JPanel {
 
-    private final List<SearchListener> searchListener =
-            new ArrayList<SearchListener>();
-    private final ListCellRendererTableColumns columnRenderer =
-            new ListCellRendererTableColumns();
-    private DefaultComboBoxModel modelOperators;
-    private DefaultComboBoxModel modelColumns;
-    private DefaultComboBoxModel modelComparators;
-    private boolean isFirst = false;
-    private boolean isOperatorsEnabled = true;
-    private boolean listenToActions = true;
-    private boolean changed = false;
+    private final List<SearchListener>         searchListener     = new ArrayList<SearchListener>();
+    private final ListCellRendererTableColumns columnRenderer     = new ListCellRendererTableColumns();
+    private       DefaultComboBoxModel         modelOperators;
+    private       DefaultComboBoxModel         modelColumns;
+    private       DefaultComboBoxModel         modelComparators;
+    private       boolean                      isFirst            = false;
+    private       boolean                      isOperatorsEnabled = true;
+    private       boolean                      listenToActions    = true;
+    private       boolean                      changed            = false;
 
     public SearchColumnPanel() {
         initComponents();
@@ -94,6 +94,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setChanged(false);
         setFormatter();
         setInputVerifier();
+        setAutoComplete();
         listenToActions = true;
     }
 
@@ -105,6 +106,14 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private void setInputVerifier() {
         textFieldValue.setInputVerifier(
                 InputVerifierFactory.getInputVerifyerOf(getColumn()));
+    }
+
+    private void setAutoComplete() {
+        Column column = getColumn();
+        AutoCompleteDecorator.decorate(
+                textFieldValue,
+                AutoCompleteDataOfColumn.INSTANCE.get(column).getData(),
+                false);
     }
 
     private Column getColumn() {
@@ -160,9 +169,9 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void initModels() {
-        listenToActions = false;
-        modelOperators = new DefaultComboBoxModel();
-        modelColumns = new DefaultComboBoxModel();
+        listenToActions  = false;
+        modelOperators   = new DefaultComboBoxModel();
+        modelColumns     = new DefaultComboBoxModel();
         modelComparators = new DefaultComboBoxModel();
 
         initOperatorsModel();
@@ -253,28 +262,20 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public String getSqlString() {
         if (hasSql()) {
-            Operator relation = (Operator) modelOperators.getSelectedItem();
-            Column column = (Column) modelColumns.getSelectedItem();
-            Comparator operator =
-                    (Comparator) modelComparators.getSelectedItem();
+            Operator   relation = (Operator) modelOperators.getSelectedItem();
+            Column     column   = (Column) modelColumns.getSelectedItem();
+            Comparator operator = (Comparator) modelComparators.getSelectedItem();
 
             StringBuffer buffer = new StringBuffer();
-            buffer.append(toggleButtonBracketLeft1.isSelected()
-                          ? " (" // NOI18N
-                          : ""); // NOI18N
+            buffer.append(toggleButtonBracketLeft1.isSelected() ? " (" : ""); // NOI18N
             if (!isFirst) {
                 buffer.append(" " + relation.toSqlString()); // NOI18N
             }
-            buffer.append(toggleButtonBracketLeft2.isSelected()
-                          ? " (" // NOI18N
-                          : ""); // NOI18N
-            buffer.append(" " + column.getTable().getName() + "." + column. // NOI18N
-                    getName()); // NOI18N
+            buffer.append(toggleButtonBracketLeft2.isSelected() ? " (" : ""); // NOI18N
+            buffer.append(" " + column.getTable().getName() + "." + column.getName()); // NOI18N
             buffer.append(" " + operator.toSqlString()); // NOI18N
             buffer.append(" ?"); // NOI18N
-            buffer.append(toggleButtonBracketRight.isSelected()
-                          ? ")" // NOI18N
-                          : ""); // NOI18N
+            buffer.append(toggleButtonBracketRight.isSelected() ? ")" : ""); // NOI18N
 
             return buffer.toString();
         }
@@ -322,20 +323,13 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     public SavedSearchPanel getSavedSearchData() {
         listenToActions = false;
         SavedSearchPanel savedSearchPanel = new SavedSearchPanel();
-        savedSearchPanel.setBracketRightSelected(
-                toggleButtonBracketRight.isSelected());
-        savedSearchPanel.setColumnId(ColumnIds.getId(
-                (Column) comboBoxColumns.getModel().getSelectedItem()));
-        savedSearchPanel.setComparatorId(
-                ((Comparator) comboBoxComparators.getModel().getSelectedItem()).
-                getId());
-        savedSearchPanel.setBracketLeft1Selected(
-                toggleButtonBracketLeft1.isSelected());
-        savedSearchPanel.setBracketLeft2Selected(
-                toggleButtonBracketLeft2.isSelected());
-        savedSearchPanel.setOperatorId(
-                ((Operator) comboBoxOperators.getModel().getSelectedItem()).
-                getId());
+        savedSearchPanel.setBracketRightSelected(toggleButtonBracketRight.isSelected());
+        savedSearchPanel.setColumnId(ColumnIds.getId((Column) comboBoxColumns.getModel().getSelectedItem()));
+        savedSearchPanel.setComparatorId(((Comparator) comboBoxComparators.getModel().getSelectedItem()).getId());
+        savedSearchPanel.setBracketLeft1Selected(toggleButtonBracketLeft1.isSelected());
+        savedSearchPanel.setBracketLeft2Selected(toggleButtonBracketLeft2.isSelected());
+        savedSearchPanel.setOperatorId(((Operator) comboBoxOperators.getModel().getSelectedItem()).getId());
+
         String value = textFieldValue.getText();
         savedSearchPanel.setValue(value.isEmpty()
                                   ? null
@@ -351,18 +345,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public void setSavedSearchData(SavedSearchPanel savedSearchPanel) {
         listenToActions = false;
-        toggleButtonBracketRight.setSelected(
-                savedSearchPanel.isBracketRightSelected());
-        comboBoxColumns.getModel().setSelectedItem(
-                ColumnIds.getColumn(savedSearchPanel.getColumnId()));
-        comboBoxComparators.getModel().setSelectedItem(
-                Comparator.get(savedSearchPanel.getComparatorId()));
-        toggleButtonBracketLeft1.setSelected(
-                savedSearchPanel.isBracketLeft1Selected());
-        toggleButtonBracketLeft2.setSelected(
-                savedSearchPanel.isBracketLeft2Selected());
-        comboBoxOperators.getModel().setSelectedItem(
-                Operator.get(savedSearchPanel.getOperatorId()));
+        toggleButtonBracketRight.setSelected(savedSearchPanel.isBracketRightSelected());
+        comboBoxColumns         .getModel().setSelectedItem(ColumnIds.getColumn(savedSearchPanel.getColumnId()));
+        comboBoxComparators     .getModel().setSelectedItem(Comparator.get(savedSearchPanel.getComparatorId()));
+        toggleButtonBracketLeft1           .setSelected    (savedSearchPanel.isBracketLeft1Selected());
+        toggleButtonBracketLeft2           .setSelected    (savedSearchPanel.isBracketLeft2Selected());
+        comboBoxOperators       .getModel().setSelectedItem(Operator.get(savedSearchPanel.getOperatorId()));
         if (savedSearchPanel.hasValue()) {
             textFieldValue.setText(savedSearchPanel.getValue());
         }
@@ -390,14 +378,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setDate() {
-        GregorianCalendar cal = DateChooserDialog.showDialog(this, AppLookAndFeel.
-                getAppIcons());
+        GregorianCalendar cal = DateChooserDialog.showDialog(this, AppLookAndFeel.getAppIcons());
         if (cal != null) {
-            String year = Integer.toString(cal.get(Calendar.YEAR));
-            String month = getDateFormatted(Integer.toString(cal.get(
-                    Calendar.MONTH)));
-            String day = getDateFormatted(Integer.toString(cal.get(
-                    Calendar.DAY_OF_MONTH)));
+            String year  = Integer.toString(cal.get(Calendar.YEAR));
+            String month = getDateFormatted(Integer.toString(cal.get(Calendar.MONTH)));
+            String day   = getDateFormatted(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+
             textFieldValue.setText(year + "-" + month + "-" + day); // NOI18N
             setChanged(true);
         }
@@ -447,6 +433,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setChanged();
         setFormatter();
         setInputVerifier();
+        setAutoComplete();
         setEnabledCalendarButton();
     }
 
