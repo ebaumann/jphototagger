@@ -269,10 +269,6 @@ public final class AppPanel extends javax.swing.JPanel implements
         return listNoMetadata;
     }
 
-    public JButton getButtonLogfileDialog() {
-        return buttonLogfileDialog;
-    }
-
     public JButton getButtonEmptyMetadata() {
         return editActionsPanel.buttonEmptyMetadata;
     }
@@ -319,6 +315,10 @@ public final class AppPanel extends javax.swing.JPanel implements
 
     public JLabel getLabelThumbnailInfo() {
         return labelThumbnailInfo;
+    }
+
+    public JLabel getLabelInfo() {
+        return labelInfo;
     }
 
     public JLabel getLabelMetadataFilename() {
@@ -670,7 +670,6 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelStatusbar = new javax.swing.JPanel();
         labelThumbnailInfo = new javax.swing.JLabel();
         labelInfo = new javax.swing.JLabel();
-        buttonLogfileDialog = new javax.swing.JButton();
         sliderThumbnailSize = new javax.swing.JSlider();
         buttonStopScheduledTasks = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
@@ -1260,10 +1259,6 @@ public final class AppPanel extends javax.swing.JPanel implements
 
         labelThumbnailInfo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        buttonLogfileDialog.setToolTipText(Bundle.getString("AppPanel.buttonLogfileDialog.toolTipText")); // NOI18N
-        buttonLogfileDialog.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        buttonLogfileDialog.setPreferredSize(new java.awt.Dimension(18, 18));
-
         sliderThumbnailSize.setMajorTickSpacing(5);
         sliderThumbnailSize.setMinimum(10);
         sliderThumbnailSize.setSnapToTicks(true);
@@ -1291,9 +1286,7 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                 .addGap(30, 30, 30)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(buttonStopScheduledTasks)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
@@ -1305,11 +1298,8 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(buttonStopScheduledTasks)
-                .addComponent(labelInfo)
-                .addComponent(buttonLogfileDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(labelInfo))
         );
-
-        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonLogfileDialog, progressBar});
 
         panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelInfo, labelThumbnailInfo});
 
@@ -1351,7 +1341,6 @@ public final class AppPanel extends javax.swing.JPanel implements
     private javax.swing.JButton buttonDisplayKeywordsTree;
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
     private javax.swing.JButton buttonIptcToXmp;
-    private javax.swing.JButton buttonLogfileDialog;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonStopScheduledTasks;
     private javax.swing.JToggleButton buttonToggleExpandAllNodesHierKw;

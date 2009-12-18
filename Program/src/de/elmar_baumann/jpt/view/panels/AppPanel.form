@@ -1333,9 +1333,7 @@
                   <Component id="labelInfo" pref="96" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="sliderThumbnailSize" min="-2" max="-2" attributes="1"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonLogfileDialog" min="-2" pref="20" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="progressBar" pref="96" max="32767" attributes="2"/>
@@ -1346,11 +1344,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="labelThumbnailInfo" linkSize="7" alignment="2" min="-2" pref="14" max="-2" attributes="1"/>
-                  <Component id="progressBar" linkSize="6" alignment="2" min="-2" max="-2" attributes="1"/>
+                  <Component id="progressBar" alignment="2" min="-2" max="-2" attributes="1"/>
                   <Component id="sliderThumbnailSize" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonStopScheduledTasks" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="labelInfo" linkSize="7" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonLogfileDialog" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1362,21 +1359,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelInfo">
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonLogfileDialog">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.buttonLogfileDialog.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                <EtchetBorder/>
-              </Border>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[18, 18]"/>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JSlider" name="sliderThumbnailSize">
           <Properties>

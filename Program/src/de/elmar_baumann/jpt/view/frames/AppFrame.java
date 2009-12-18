@@ -291,6 +291,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemOutputWindow;
     }
 
+    public JMenuItem getMenuItemDisplayLogfile() {
+        return menuItemDisplayLogfile;
+    }
+
     public JMenu getMenuEdit() {
         return menuEdit;
     }
@@ -391,6 +395,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
         menuItemOutputWindow = new javax.swing.JMenuItem();
+        jSeparator21 = new javax.swing.JPopupMenu.Separator();
+        menuItemDisplayLogfile = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemOpenPdfUserManual = new javax.swing.JMenuItem();
@@ -708,6 +714,10 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
         menuWindow.add(menuItemOutputWindow);
+        menuWindow.add(jSeparator21);
+
+        menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
+        menuWindow.add(menuItemDisplayLogfile);
 
         menuBar.add(menuWindow);
 
@@ -750,6 +760,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator20;
+    private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -773,6 +784,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemCopyMetadata;
     private javax.swing.JMenuItem menuItemCopyToClipboard;
     private javax.swing.JMenuItem menuItemCutToClipboard;
+    private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportKeywords;
     private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
