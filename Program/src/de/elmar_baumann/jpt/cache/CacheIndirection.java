@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.cache;
 import java.io.File;
 
 /**
+ * Base class for container object contained in the caches
  *
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
