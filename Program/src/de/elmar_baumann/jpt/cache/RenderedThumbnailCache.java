@@ -35,7 +35,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * This cache contains scaled and fully rendered thumbnails.  Images can be
- * directly draw be the ThumbnailsPanel, they contain all kinds of markup and
+ * directly draw by the ThumbnailsPanel, they contain all kinds of markup and
  * overlays.
  *
  * Fixme: refactor common stuff between this and Cache into a common ancestor

@@ -28,6 +28,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
+ * Map containing SoftReferences for dropping mapped-to stuff in case of
+ * memory shortage.
  *
  * @param <C> 
  * @author Martin Pohlack <martinp@gmx.de>
