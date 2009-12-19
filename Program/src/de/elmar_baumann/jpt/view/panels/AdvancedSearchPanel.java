@@ -42,7 +42,9 @@ import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
+import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -101,6 +103,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private boolean checkIsSearchValid() {
+        if (isCustomSql()) return true;
+
         boolean valid = existsKeywords();
         int     count = searchColumnPanels.size();
         int     index = 0;
@@ -144,17 +148,31 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private SavedSearchParamStatement getParamStatementData() {
+    private SavedSearchParamStatement getSavedSearchParamStmt() {
+        if (isCustomSql()) {
+            return getCustomSqlParamStatement();
+        }
+
         SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
         ParamStatement            stmt      = getSql();
 
         paramStmt.setQuery(stmt.isQuery());
-        paramStmt.setSql(stmt.getSql());
+        paramStmt.setSql  (stmt.getSql());
 
         List<String> values = stmt.getValuesAsStringList();
         paramStmt.setValues(values.size() > 0
                             ? values
                             : null);
+
+        return paramStmt;
+    }
+
+    private SavedSearchParamStatement getCustomSqlParamStatement() {
+        SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
+
+        paramStmt.setQuery  (true);
+        paramStmt.setSql    (textAreaCustomSqlQuery.getText().trim());
+
         return paramStmt;
     }
 
@@ -162,7 +180,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         SearchEvent event       = new SearchEvent(SearchEvent.Type.START);
         SavedSearch savedSearch = new SavedSearch();
 
-        savedSearch.setParamStatement(getParamStatementData());
+        savedSearch.setParamStatement(getSavedSearchParamStmt());
         event.setData(savedSearch);
         for (SearchListener listener : searchListeners) {
             listener.actionPerformed(event);
@@ -195,11 +213,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
      * @param search Gespeicherte Suche
      */
     public void setSavedSearch(SavedSearch search) {
-        resetColumns();
+        clearInput(true);
         isSavedSearch = true;
         setSearchName(search.getName());
         setSavedSearchToPanels(search.getPanels());
         setKeywordsToPanel(search);
+        setCustomSqlToPanel(search);
     }
 
     private void setSavedSearchToPanels(List<SavedSearchPanel> savedSearchPanels) {
@@ -247,7 +266,24 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         return count;
     }
+
+    private void setCustomSqlToPanel(SavedSearch search) {
+        if (existsSimpleSqlValue() || existsKeywords()) return;
+
+        SavedSearchParamStatement stmt = search.getParamStatement();
+
+        if (stmt.getSql() == null) return;
+
+        textAreaCustomSqlQuery.setText(stmt.getSql());
+    }
     
+    private boolean existsSimpleSqlValue() {
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            if (!panel.getValue().trim().isEmpty()) return true;
+        }
+        return false;
+    }
+
     private void ensureColumnCount(int count) {
         int currentCount = searchColumnPanels.size();
 
@@ -289,10 +325,21 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private void resetColumns() {
+    private void clearInput(boolean allPanels) {
         checkChanged();
-        for (SearchColumnPanel panel : searchColumnPanels) {
-            panel.reset();
+
+        Component selComponent = tabbedPane.getSelectedComponent();
+
+        if (allPanels || selComponent == panelSimpleSql) {
+            for (SearchColumnPanel panel : searchColumnPanels) {
+                panel.reset();
+            }
+        } 
+        if (allPanels || selComponent == panelKeywords) {
+            panelKeywordsInput.setText(new ArrayList<String>());
+        } 
+        if (allPanels || selComponent == panelCustomSql) {
+            textAreaCustomSqlQuery.setText("");
         }
     }
 
@@ -357,11 +404,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private SavedSearch getSavedSearch(String name) {
-        SavedSearch               savedSearch        = new SavedSearch();
-        SavedSearchParamStatement paramStatementData = getParamStatementData();
+        SavedSearch               savedSearch          = new SavedSearch();
+        SavedSearchParamStatement savedSearchParamStmt = getSavedSearchParamStmt();
 
-        paramStatementData.setName(name);
-        savedSearch.setParamStatement(paramStatementData);
+        savedSearchParamStmt.setName(name);
+        savedSearch.setParamStatement(savedSearchParamStmt);
         savedSearch.setPanels(getSavedSearchPanels());
 
         return savedSearch;
@@ -436,6 +483,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private boolean existsKeywords() {
         return !getKeywords().isEmpty();
+    }
+
+    private boolean isCustomSql() {
+        return !textAreaCustomSqlQuery.getText().trim().isEmpty();
     }
 
     private List<String> getKeywords() {
@@ -551,6 +602,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         labelInfoKeywords = new javax.swing.JLabel();
         panelKeywordsInput = new de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel();
         panelKeywordsInput.setPrompt("");
+        panelCustomSql = new javax.swing.JPanel();
+        labelCustomSqlInfo = new javax.swing.JLabel();
+        scrollPaneCustomSqlQuery = new javax.swing.JScrollPane();
+        textAreaCustomSqlQuery = new TabOrEnterLeavingTextArea();
         labelInfoDelete = new javax.swing.JLabel();
         panelButtons = new javax.swing.JPanel();
         buttonSaveSearch = new javax.swing.JButton();
@@ -599,14 +654,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleSqlLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSimpleSqlLayout.setVerticalGroup(
             panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSimpleSqlLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -622,7 +677,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             .addGroup(panelKeywordsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                    .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                     .addComponent(labelInfoKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -632,11 +687,41 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(labelInfoKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+
+        labelCustomSqlInfo.setText(bundle.getString("AdvancedSearchPanel.labelCustomSqlInfo.text")); // NOI18N
+
+        textAreaCustomSqlQuery.setColumns(20);
+        textAreaCustomSqlQuery.setLineWrap(true);
+        textAreaCustomSqlQuery.setRows(2);
+        scrollPaneCustomSqlQuery.setViewportView(textAreaCustomSqlQuery);
+
+        javax.swing.GroupLayout panelCustomSqlLayout = new javax.swing.GroupLayout(panelCustomSql);
+        panelCustomSql.setLayout(panelCustomSqlLayout);
+        panelCustomSqlLayout.setHorizontalGroup(
+            panelCustomSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCustomSqlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCustomSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrollPaneCustomSqlQuery, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                    .addComponent(labelCustomSqlInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        panelCustomSqlLayout.setVerticalGroup(
+            panelCustomSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCustomSqlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelCustomSqlInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneCustomSqlQuery, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -760,7 +845,7 @@ private void buttonSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_buttonSaveAsActionPerformed
 
 private void buttonResetColumnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonResetColumnsActionPerformed
-    resetColumns();
+    clearInput(false);
 }//GEN-LAST:event_buttonResetColumnsActionPerformed
 
 private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
@@ -782,6 +867,7 @@ private void buttonRemoveColumnActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JButton buttonSaveAs;
     private javax.swing.JButton buttonSaveSearch;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JLabel labelCustomSqlInfo;
     private javax.swing.JLabel labelInfoDelete;
     private javax.swing.JLabel labelInfoKeywords;
     private javax.swing.JPanel panelButtons;
@@ -791,10 +877,13 @@ private void buttonRemoveColumnActionPerformed(java.awt.event.ActionEvent evt) {
     private de.elmar_baumann.jpt.view.panels.SearchColumnPanel panelColumn4;
     private de.elmar_baumann.jpt.view.panels.SearchColumnPanel panelColumn5;
     private javax.swing.JPanel panelColumns;
+    private javax.swing.JPanel panelCustomSql;
     private javax.swing.JPanel panelKeywords;
     private de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel panelKeywordsInput;
     private javax.swing.JPanel panelSimpleSql;
     private javax.swing.JScrollPane scrollPaneColumns;
+    private javax.swing.JScrollPane scrollPaneCustomSqlQuery;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTextArea textAreaCustomSqlQuery;
     // End of variables declaration//GEN-END:variables
 }

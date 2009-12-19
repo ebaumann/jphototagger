@@ -193,6 +193,40 @@
                 Begründung steht weiter oben.
         </p>
 
+        <h2>Kartenreiter <q>Eigenes SQL</q></h2>
+
+        <p><em>Dieser Kartenreiter ist nur für Experten gedacht, die sich
+            auskennen mit SQL und die Datenbankstruktur von JPhotoTagger
+            kennen!</em> Die Gültigkeit einer Abfrage wird <em>nicht</em>
+            geprüft!
+        </p>
+
+        <p>Da JPhotoTagger seine Datenbank stets aus den XML-Filialdateien
+            aktualisiert, ist die Datenbankstruktur darauf ausgelegt, und nicht
+            optimal normalisiert, sodass die Abfragen etwas komplexer ausfallen.
+            Hier ist ein UML-Diagramm im SVG-Format, das die Beziehungen der
+            Tabellen darstellt:
+            <code>http://kenai.com/projects/jphototagger/sources/srcrepo/content/Support/res/developers/uml/database.svg</code>.
+            Die Tabellenstrukturen stehen in folgender Quellcode-Datei:
+            <code>http://kenai.com/projects/jphototagger/sources/srcrepo/content/Program/src/de/elmar_baumann/jpt/database/DatabaseTables.java</code>.
+        </p>
+
+        <p>Sie können alle SQL-Abfragen anzeigen, die <strong>JPhotoTagger</strong>
+            ausführt: Stellen Sie das <a href="dialog_settings_misc.html">Protokoll</a>
+            ein auf <strong>AM FEINSTEN</strong> und öffnen es über das Menü
+            <strong>Fenster &gt; Programm-Ausgaben</strong>.
+        </p>
+
+        <p><img src="img/dialog-advanced-search_custom_sql.png"
+                    width="762"
+                    height="280"
+                    alt="" />
+        </p>
+
+        <p>Ist das Texteingabefeld dieses Kartenreiters ausgefüllt, werden
+            Eingaben in andere Kartenreiter ignoriert.
+        </p>
+
         <h2>Suchen speichern</h2>
 
         <p>Speichern Sie wichtige Suchen! Alle gespeicherten Suchen sehen Sie

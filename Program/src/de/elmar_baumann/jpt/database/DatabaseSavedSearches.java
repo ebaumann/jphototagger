@@ -95,7 +95,7 @@ public final class DatabaseSavedSearches extends Database {
             Connection connection, long idSavedSearch, List<String> values)
             throws SQLException {
 
-        if (idSavedSearch > 0 && values.size() > 0) {
+        if (idSavedSearch > 0 && values != null && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO saved_searches_values (" + // NOI18N
                     "id_saved_searches" + // NOI18N
