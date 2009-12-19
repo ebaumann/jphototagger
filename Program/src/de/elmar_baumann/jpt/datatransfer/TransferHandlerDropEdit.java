@@ -46,17 +46,19 @@ public final class TransferHandlerDropEdit extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
+
         return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor) ||
-                Flavors.hasCategories(transferSupport) || Flavors.
-                hasHierarchicalKeywords(transferSupport) || Flavors.hasKeywords(
-                transferSupport);
+                Flavors.hasCategories(transferSupport) || 
+                Flavors.hasHierarchicalKeywords(transferSupport) ||
+                Flavors.hasKeywords(transferSupport);
     }
 
     @Override
     public boolean importData(TransferHandler.TransferSupport transferSupport) {
-        Component c = transferSupport.getComponent();
-        String string = null;
+        Component    component    = transferSupport.getComponent();
+        String       string       = null;
         Transferable transferable = transferSupport.getTransferable();
+
         if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
             string = Support.getString(transferable);
         } else if (Flavors.hasCategories(transferSupport)) {
@@ -64,14 +66,13 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         } else if (Flavors.hasKeywords(transferSupport)) {
             string = getFirstString(Support.getKeywords(transferable));
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
-            string = getFirstString(
-                    Support.getHierarchicalKeywordsNodes(transferable));
+            string = getStrings(Support.getHierarchicalKeywordsNodes(transferable));
         }
         if (string == null) return false;
-        if (c instanceof JTextArea) {
-            setText((JTextArea) c, string);
-        } else if (c instanceof JTextField) {
-            setText((JTextField) c, string);
+        if (component instanceof JTextArea) {
+            setText((JTextArea) component, string);
+        } else if (component instanceof JTextField) {
+            setText((JTextField) component, string);
         } else {
             return false;
         }
@@ -83,12 +84,21 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         return array[0].toString();
     }
 
-    private String getFirstString(List<DefaultMutableTreeNode> nodes) {
+    private String getStrings(List<DefaultMutableTreeNode> nodes) {
         if (nodes.size() <= 0) return null;
-        List<String> keywords =
-                HierarchicalKeywordsHelper.getKeywordStrings(nodes.get(0), true);
+        
+        List<String> keywords = HierarchicalKeywordsHelper.getKeywordStrings(nodes.get(0), true);
+        
         if (keywords.size() == 0) return null;
-        return keywords.get(0);
+
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for (String keyword : keywords) {
+            sb.append(index++ == 0 ? "" : ";");
+            sb.append(keyword);
+        }
+
+        return sb.toString();
     }
 
     private void setText(JTextArea textArea, String text) {
