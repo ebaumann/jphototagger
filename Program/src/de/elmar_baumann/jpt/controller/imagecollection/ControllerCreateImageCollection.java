@@ -94,7 +94,7 @@ public final class ControllerCreateImageCollection
                     if (model instanceof ListModelImageCollections) {
                         ListUtil.insertSorted((ListModelImageCollections) model,
                                 collectionName,
-                                ComparatorStringAscending.IGNORE_CASE,
+                                ComparatorStringAscending.INSTANCE,
                                 ListModelImageCollections.
                                 getSpecialCollectionCount(),
                                 model.getSize() - 1);

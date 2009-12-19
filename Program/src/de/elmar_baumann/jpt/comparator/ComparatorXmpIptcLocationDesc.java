@@ -18,10 +18,11 @@
  */
 package de.elmar_baumann.jpt.comparator;
 
-import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.lib.util.ClassNameEquality;
 import java.io.File;
+import java.text.Collator;
 import java.util.Comparator;
 
 /**
@@ -29,26 +30,26 @@ import java.util.Comparator;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-16
  */
-public final class ComparatorExifFocalLengthDesc
+public final class ComparatorXmpIptcLocationDesc
         extends    ClassNameEquality
         implements Comparator<File> {
 
+    private Collator collator = Collator.getInstance();
+
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Exif exifLeft  = DatabaseImageFiles.INSTANCE.getExifOfFile(fileLeft.getAbsolutePath());
-        Exif exifRight = DatabaseImageFiles.INSTANCE.getExifOfFile(fileRight.getAbsolutePath());
+        Xmp    xmpLeft  = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileLeft.getAbsolutePath());
+        Xmp    xmpRight = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileRight.getAbsolutePath());
+        String locLeft  =  xmpLeft == null ? null : xmpLeft .getIptc4xmpcoreLocation();
+        String locRight = xmpRight == null ? null : xmpRight.getIptc4xmpcoreLocation();
 
-        return exifLeft == null && exifRight == null
+        return locLeft == null && locRight == null
                 ? 0
-                : exifLeft == null && exifRight != null
+                : locLeft == null && locRight != null
                 ? 1
-                : exifLeft != null && exifRight == null
+                : locLeft != null && locRight == null
                 ? -1
-                : exifRight.getFocalLength() > exifLeft.getFocalLength()
-                ? 1
-                : exifRight.getFocalLength() == exifLeft.getFocalLength()
-                ? 0
-                : -1
+                : collator.compare(locRight, locLeft)
                 ;
     }
 }

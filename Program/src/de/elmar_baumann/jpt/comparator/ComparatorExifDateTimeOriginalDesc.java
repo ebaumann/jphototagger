@@ -39,6 +39,7 @@ public final class ComparatorExifDateTimeOriginalDesc
     public int compare(File fileLeft, File fileRight) {
         long timeLeft  = ExifMetadata.timestampDateTimeOriginalDb(fileLeft);
         long timeRight = ExifMetadata.timestampDateTimeOriginalDb(fileRight);
+
         return timeLeft == timeRight
             ? 0
             : timeLeft > timeRight ? -1 : 1;

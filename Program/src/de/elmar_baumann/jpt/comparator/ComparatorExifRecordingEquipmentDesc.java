@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.lib.util.ClassNameEquality;
 import java.io.File;
+import java.text.Collator;
 import java.util.Comparator;
 
 /**
@@ -33,17 +34,22 @@ public final class ComparatorExifRecordingEquipmentDesc
         extends    ClassNameEquality
         implements Comparator<File> {
 
+    private Collator collator = Collator.getInstance();
+
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Exif exifLeft  = DatabaseImageFiles.INSTANCE.getExifOfFile(fileLeft.getAbsolutePath());
-        Exif exifRight = DatabaseImageFiles.INSTANCE.getExifOfFile(fileRight.getAbsolutePath());
-        return exifLeft == null && exifRight == null
+        Exif exifLeft    = DatabaseImageFiles.INSTANCE.getExifOfFile(fileLeft.getAbsolutePath());
+        Exif exifRight   = DatabaseImageFiles.INSTANCE.getExifOfFile(fileRight.getAbsolutePath());
+        String eqipLeft  = exifLeft  == null ? null : exifLeft .getRecordingEquipment();
+        String eqipRight = exifRight == null ? null : exifRight.getRecordingEquipment();
+
+        return eqipLeft == null && eqipRight == null
                 ? 0
-                : exifLeft == null && exifRight != null
-                ? -1
-                : exifLeft != null && exifRight == null
+                : eqipLeft == null && eqipRight != null
                 ? 1
-                : exifRight.getRecordingEquipment().compareToIgnoreCase(exifLeft.getRecordingEquipment())
+                : eqipLeft != null && eqipRight == null
+                ? -1
+                : collator.compare(eqipRight, eqipLeft)
                 ;
     }
 }

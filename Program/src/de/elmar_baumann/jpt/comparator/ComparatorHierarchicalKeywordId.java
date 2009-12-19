@@ -30,8 +30,7 @@ import java.util.Comparator;
 public final class ComparatorHierarchicalKeywordId
         implements Comparator<HierarchicalKeyword> {
 
-    public static ComparatorHierarchicalKeywordId INSTANCE =
-            new ComparatorHierarchicalKeywordId();
+    public static ComparatorHierarchicalKeywordId INSTANCE = new ComparatorHierarchicalKeywordId();
 
     @Override
     public int compare(HierarchicalKeyword o1, HierarchicalKeyword o2) {

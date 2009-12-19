@@ -37,6 +37,7 @@ public final class ComparatorExifFocalLengthAsc
     public int compare(File fileLeft, File fileRight) {
         Exif exifLeft  = DatabaseImageFiles.INSTANCE.getExifOfFile(fileLeft.getAbsolutePath());
         Exif exifRight = DatabaseImageFiles.INSTANCE.getExifOfFile(fileRight.getAbsolutePath());
+
         return exifLeft == null && exifRight == null
                 ? 0
                 : exifLeft == null && exifRight != null

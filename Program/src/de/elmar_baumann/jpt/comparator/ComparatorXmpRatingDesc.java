@@ -35,15 +35,18 @@ public final class ComparatorXmpRatingDesc
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Xmp xmpLeft  = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileLeft.getAbsolutePath());
-        Xmp xmpRight = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileRight.getAbsolutePath());
-        return xmpLeft == null && xmpRight == null
+        Xmp  xmpLeft     = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileLeft.getAbsolutePath());
+        Xmp  xmpRight    = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileRight.getAbsolutePath());
+        Long ratingLeft  = xmpLeft .getRating();
+        Long ratingRight = xmpRight.getRating();
+
+        return ratingLeft == null && ratingRight == null
                 ? 0
-                : xmpLeft == null && xmpRight != null
+                : ratingLeft == null && ratingRight != null
                 ? 1
-                : xmpLeft != null && xmpRight == null
+                : ratingLeft != null && ratingRight == null
                 ? -1
-                : (int) (xmpRight.getRating() - xmpLeft.getRating())
+                : (int) (ratingRight - ratingLeft)
                 ;
     }
 }

@@ -67,7 +67,7 @@ public final class ListModelImageCollections extends DefaultListModel {
         if (index >= 0) {
             remove(index);
             ListUtil.insertSorted(this, newName,
-                    ComparatorStringAscending.IGNORE_CASE,
+                    ComparatorStringAscending.INSTANCE,
                     getSpecialCollectionCount(),
                     getSize() - 1);
         }

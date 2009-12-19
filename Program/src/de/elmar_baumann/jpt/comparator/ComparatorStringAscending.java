@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.comparator;
 
+import java.text.Collator;
 import java.util.Comparator;
 
 /**
@@ -28,20 +29,19 @@ import java.util.Comparator;
  */
 public final class ComparatorStringAscending implements Comparator<String> {
 
-    public static final ComparatorStringAscending CASE_SENSITIVE =
-            new ComparatorStringAscending(false);
-    public static final ComparatorStringAscending IGNORE_CASE =
-            new ComparatorStringAscending(true);
-    private final boolean ignoreCase;
-
-    private ComparatorStringAscending(boolean ignoreCase) {
-        this.ignoreCase = ignoreCase;
-    }
+    public static final ComparatorStringAscending INSTANCE = new ComparatorStringAscending();
+    private final       Collator                  collator = Collator.getInstance();
 
     @Override
-    public int compare(String o1, String o2) {
-        return ignoreCase
-               ? o1.compareToIgnoreCase(o2)
-               : o1.compareTo(o2);
+    public int compare(String s1, String s2) {
+
+        return s1 == null && s2 == null
+                ? 0
+                : s1 == null && s2 != null
+                ? -1
+                : s1 != null && s2 == null
+                ? 1
+                : collator.compare(s1, s2)
+               ;
     }
 }
