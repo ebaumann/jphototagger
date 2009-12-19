@@ -37,6 +37,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpId;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIdFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
+import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
@@ -48,8 +49,10 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -59,14 +62,15 @@ import javax.swing.JOptionPane;
 public final class AdvancedSearchPanel extends javax.swing.JPanel
         implements SearchListener, Persistence {
 
-    private static final int              MIN_COLUMN_COUNT        = 5;
-    private static final String           SQL_IDENTIFIER_KEYWORDS = "xmp_dc_subjects.subject IN";
-    private static final String           KEY_SELECTED_TAB_INDEX  = "AdvancedSearchPanel.SelectedTabIndex";
-    private final List<SearchColumnPanel> searchColumnPanels      = new LinkedList<SearchColumnPanel>();
-    private List<SearchListener>          searchListeners         = new ArrayList<SearchListener>();
-    private String                        searchName              = ""; // NOI18N
-    private boolean                       isSavedSearch           = false;
-    private ListenerProvider              listenerProvider;
+    private static final int                MIN_COLUMN_COUNT        = 5;
+    private static final String             SQL_IDENTIFIER_KEYWORDS = "xmp_dc_subjects.subject IN";
+    private static final String             KEY_SELECTED_TAB_INDEX  = "AdvancedSearchPanel.SelectedTabIndex";
+    private final List<SearchColumnPanel>   searchColumnPanels      = new LinkedList<SearchColumnPanel>();
+    private final Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
+    private List<SearchListener>            searchListeners         = new ArrayList<SearchListener>();
+    private String                          searchName              = ""; // NOI18N
+    private boolean                         isSavedSearch           = false;
+    private ListenerProvider                listenerProvider;
 
     public AdvancedSearchPanel() {
         initComponents();
@@ -81,6 +85,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         initSearchColumnPanelArray();
         listenToSearchPanels();
         panelKeywordsInput.setAutocomplete();
+        setDefaultInputOfComponent();
+    }
+
+    private void setDefaultInputOfComponent() {
+        defaultInputOfComponent.put(panelSimpleSql, searchColumnPanels.get(0).getTextFieldValue());
+        defaultInputOfComponent.put(panelKeywords , panelKeywordsInput.textFieldInput);
+        defaultInputOfComponent.put(panelCustomSql, textAreaCustomSqlQuery);
     }
 
     public void willDispose() {
@@ -100,6 +111,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     @Override
     public void writeProperties() {
         UserSettings.INSTANCE.getSettings().setInt(tabbedPane.getSelectedIndex(), KEY_SELECTED_TAB_INDEX);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private boolean checkIsSearchValid() {
@@ -219,6 +231,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         setSavedSearchToPanels(search.getPanels());
         setKeywordsToPanel(search);
         setCustomSqlToPanel(search);
+        if (existsSimpleSqlValue()) setSelectedComponent(panelSimpleSql);
     }
 
     private void setSavedSearchToPanels(List<SavedSearchPanel> savedSearchPanels) {
@@ -251,6 +264,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
 
         panelKeywordsInput.setText(keywords);
+
+        if (!existsSimpleSqlValue()) setSelectedComponent(panelKeywords);
     }
 
     private int getKeywordCount(String sql) {
@@ -275,6 +290,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         if (stmt.getSql() == null) return;
 
         textAreaCustomSqlQuery.setText(stmt.getSql());
+        setSelectedComponent(panelCustomSql);
+    }
+
+    private void setSelectedComponent(Component c) {
+        tabbedPane.setSelectedComponent(c);
+        writeProperties();
     }
     
     private boolean existsSimpleSqlValue() {
@@ -362,6 +383,16 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         }
         return false;
+    }
+
+    private void setFocusToInputInTab(Component selectedComponent) {
+        if (selectedComponent == null) return;
+
+        Component input = defaultInputOfComponent.get(selectedComponent);
+
+        if (input != null) {
+            input.requestFocusInWindow();
+        }
     }
 
     private void saveAs() {
@@ -598,6 +629,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelColumn3 = new de.elmar_baumann.jpt.view.panels.SearchColumnPanel();
         panelColumn4 = new de.elmar_baumann.jpt.view.panels.SearchColumnPanel();
         panelColumn5 = new de.elmar_baumann.jpt.view.panels.SearchColumnPanel();
+        buttonAddColumn = new javax.swing.JButton();
+        buttonRemoveColumn = new javax.swing.JButton();
+        labelInfoDelete = new javax.swing.JLabel();
         panelKeywords = new javax.swing.JPanel();
         labelInfoKeywords = new javax.swing.JLabel();
         panelKeywordsInput = new de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel();
@@ -606,16 +640,20 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         labelCustomSqlInfo = new javax.swing.JLabel();
         scrollPaneCustomSqlQuery = new javax.swing.JScrollPane();
         textAreaCustomSqlQuery = new TabOrEnterLeavingTextArea();
-        labelInfoDelete = new javax.swing.JLabel();
+        textAreaCustomSqlQuery.setTransferHandler(new TransferHandlerDropEdit());
         panelButtons = new javax.swing.JPanel();
         buttonSaveSearch = new javax.swing.JButton();
         buttonSaveAs = new javax.swing.JButton();
-        buttonRemoveColumn = new javax.swing.JButton();
-        buttonAddColumn = new javax.swing.JButton();
         buttonResetColumns = new javax.swing.JButton();
         buttonSearch = new javax.swing.JButton();
 
         setLayout(new java.awt.GridBagLayout());
+
+        tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabbedPaneStateChanged(evt);
+            }
+        });
 
         scrollPaneColumns.setBorder(null);
 
@@ -648,24 +686,58 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         scrollPaneColumns.setViewportView(panelColumns);
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
+        buttonAddColumn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddColumnActionPerformed(evt);
+            }
+        });
+
+        buttonRemoveColumn.setText(bundle.getString("AdvancedSearchPanel.buttonRemoveColumn.text")); // NOI18N
+        buttonRemoveColumn.setEnabled(false);
+        buttonRemoveColumn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveColumnActionPerformed(evt);
+            }
+        });
+
+        labelInfoDelete.setForeground(new java.awt.Color(0, 0, 255));
+        labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
+
         javax.swing.GroupLayout panelSimpleSqlLayout = new javax.swing.GroupLayout(panelSimpleSql);
         panelSimpleSql.setLayout(panelSimpleSqlLayout);
         panelSimpleSqlLayout.setHorizontalGroup(
             panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleSqlLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelSimpleSqlLayout.setVerticalGroup(
-            panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSimpleSqlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                .addGroup(panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneColumns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSimpleSqlLayout.createSequentialGroup()
+                        .addComponent(labelInfoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonRemoveColumn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonAddColumn)))
                 .addContainerGap())
         );
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        panelSimpleSqlLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAddColumn, buttonRemoveColumn});
+
+        panelSimpleSqlLayout.setVerticalGroup(
+            panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSimpleSqlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonAddColumn)
+                        .addComponent(buttonRemoveColumn))
+                    .addComponent(labelInfoDelete))
+                .addContainerGap())
+        );
+
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
 
         labelInfoKeywords.setText(bundle.getString("AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
@@ -677,7 +749,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             .addGroup(panelKeywordsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                    .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
                     .addComponent(labelInfoKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -687,7 +759,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(labelInfoKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -707,7 +779,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             .addGroup(panelCustomSqlLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCustomSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPaneCustomSqlQuery, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                    .addComponent(scrollPaneCustomSqlQuery, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
                     .addComponent(labelCustomSqlInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -717,7 +789,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(labelCustomSqlInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneCustomSqlQuery, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                .addComponent(scrollPaneCustomSqlQuery, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -734,17 +806,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         add(tabbedPane, gridBagConstraints);
 
-        labelInfoDelete.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(6, 10, 0, 0);
-        add(labelInfoDelete, gridBagConstraints);
-
         buttonSaveSearch.setMnemonic('p');
         buttonSaveSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -757,21 +818,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         buttonSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveAsActionPerformed(evt);
-            }
-        });
-
-        buttonRemoveColumn.setText(bundle.getString("AdvancedSearchPanel.buttonRemoveColumn.text")); // NOI18N
-        buttonRemoveColumn.setEnabled(false);
-        buttonRemoveColumn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRemoveColumnActionPerformed(evt);
-            }
-        });
-
-        buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
-        buttonAddColumn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAddColumnActionPerformed(evt);
             }
         });
 
@@ -796,43 +842,28 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelButtonsLayout.setHorizontalGroup(
             panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelButtonsLayout.createSequentialGroup()
-                .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonSaveSearch)
-                    .addComponent(buttonSaveAs))
+                .addComponent(buttonSaveSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonRemoveColumn)
-                    .addComponent(buttonAddColumn))
+                .addComponent(buttonSaveAs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonSearch)
-                    .addComponent(buttonResetColumns)))
+                .addComponent(buttonResetColumns)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonSearch))
         );
-
-        panelButtonsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAddColumn, buttonRemoveColumn, buttonResetColumns, buttonSaveAs, buttonSaveSearch, buttonSearch});
-
         panelButtonsLayout.setVerticalGroup(
             panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
-                    .addComponent(buttonSaveSearch)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonSaveAs)
-                        .addComponent(buttonRemoveColumn)))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
-                    .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonResetColumns)
-                        .addComponent(buttonAddColumn))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(buttonSearch)))
+            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(buttonSaveSearch)
+                .addComponent(buttonSaveAs)
+                .addComponent(buttonResetColumns)
+                .addComponent(buttonSearch))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 5);
         add(panelButtons, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -859,6 +890,10 @@ private void buttonAddColumnActionPerformed(java.awt.event.ActionEvent evt) {//G
 private void buttonRemoveColumnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveColumnActionPerformed
     removeColumn();
 }//GEN-LAST:event_buttonRemoveColumnActionPerformed
+
+private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbedPaneStateChanged
+    setFocusToInputInTab(tabbedPane.getSelectedComponent());
+}//GEN-LAST:event_tabbedPaneStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddColumn;

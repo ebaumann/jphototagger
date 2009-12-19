@@ -129,6 +129,9 @@
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldValueKeyTyped"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textFieldValue.setTransferHandler(new TransferHandlerDropEdit());"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleButtonBracketRight">
       <Properties>

@@ -10,17 +10,17 @@
 
         <h1>Erweiterte Suche</h1>
 
-        <p>Mit der erweiterten Suche können Sie fast alles finden, was in der
-            Datenbank gespeichert ist. Sie definieren, wie gesucht werden soll,
-            und <strong>speichern</strong> Suchen, die sie zukünftig schnell
-            benutzen.
+        <p>Mit der erweiterten Suche definieren Sie, was wie gesucht werden soll.
+            Sie können die Suche <strong>speichern</strong> und zukünftig
+            schnell ausführen durch Klicken auf den Suchnamen im Kartenreiter
+            <a href="mainwindow_panel_saved_searches.html">Suchen</a>.
         </p>
 
         <h2>Kartenreiter <q>Einfaches SQL</q></h2>
 
         <p><img src="img/dialog-advanced-search_simple_sql.png"
                     width="762"
-                    height="283"
+                    height="288"
                     alt="" />
         </p>
 
@@ -82,7 +82,7 @@
             gefunden werden die gleichen Bilder.
         </p>
 
-        <h2>Eingabeformate</h2>
+        <h3>Eingabeformate</h3>
 
         <p>Der Dialog versucht, für die Eingabefelder nur passende Formate
             zuzulassen. Geben Sie beispielsweise Buchstaben ein für eine
@@ -107,7 +107,7 @@
             Beispiel des 10. März 2008.
         </p>
 
-        <h2>Suche nach Datum</h2>
+        <h3>Suche nach Datum</h3>
 
         <p>Das Datumsformat ist: <code>YYYY-MM-DD</code>: Das Jahr vierstellig,
             danach ein Bindestrich, folgend der Monat zweistellig, wieder ein
@@ -116,7 +116,7 @@
             <strong>Kalender</strong> benutzen (Schaltfläche rechts).
         </p>
 
-        <h2>Mehrere Suchbegriffe (Verknüpfungen)</h2>
+        <h3>Mehrere Suchbegriffe (Verknüpfungen)</h3>
 
         <p>Suchbegriffe können Sie verknüpfen mit <strong>und</strong> sowie
             mit <strong>oder</strong>. <strong>Und</strong> bedeutet, der
@@ -154,7 +154,7 @@
             <strong>Stichwortsammlungen</strong>.
         </p>
 
-        <h2>Klammern</h2>
+        <h3>Klammern</h3>
 
         <p>Mit Klammern lassen sich Probleme lösen wie: Finde alle Bilder, die
             vom Fotografen <code>Peter</code> oder vom Fotografen
@@ -172,6 +172,20 @@
         <p><em>Werden Klammern falsch gesetzt, erzeugt das einen Fehler!</em>
         </p>
 
+        <h3>Spalten hinzufügen und Entfernen</h3>
+
+        <p>Falls Ihnen die Spalten nicht ausreichen, können Sie weitere
+            hinzufügen durch Betätigen der Schaltfläche <strong>Spalte
+            hinzufügen</strong>. Sollte der Dialog nicht ausreichend groß
+            gezogen sein oder wollen Sie diesen nicht größer ziehen, erscheint
+            eine Scroll-Leiste mit der Sie die Spalten nach oben und unten
+            schieben können.
+        </p>
+
+        <p>Mit der Schaltfläche <strong>Spalte entfernen</strong> können Sie
+            hinzugefügte Spalten entfernen (und nur diese).
+        </p>
+
         <h2>Kartenreiter <q>Stichwortsammlungen</q></h2>
 
         <p>Hier können Sie Stichwörter eintragen, von denen ein Bild
@@ -184,7 +198,7 @@
 
         <p><img src="img/dialog-advanced-search_keywords.png"
                     width="762"
-                    height="283"
+                    height="288"
                     alt="" />
         </p>
 
@@ -199,6 +213,17 @@
             auskennen mit SQL und die Datenbankstruktur von JPhotoTagger
             kennen!</em> Die Gültigkeit einer Abfrage wird <em>nicht</em>
             geprüft!
+        </p>
+
+        <p>Die Ergebnistabelle einer SQL-Abfrage muss <code>files</code> sein
+            mit der (einzigen, ersten) Spalte <code>filenames</code>: Die Namen
+            der gefundenen Bilddateien.
+        </p>
+
+        <p><img src="img/dialog-advanced-search_custom_sql.png"
+                    width="762"
+                    height="288"
+                    alt="" />
         </p>
 
         <p>Da JPhotoTagger seine Datenbank stets aus den XML-Filialdateien
@@ -217,12 +242,6 @@
             <strong>Fenster &gt; Programm-Ausgaben</strong>.
         </p>
 
-        <p><img src="img/dialog-advanced-search_custom_sql.png"
-                    width="762"
-                    height="280"
-                    alt="" />
-        </p>
-
         <p>Ist das Texteingabefeld dieses Kartenreiters ausgefüllt, werden
             Eingaben in andere Kartenreiter ignoriert.
         </p>
@@ -237,20 +256,6 @@
             gespeicherte Suche. Klicken Sie mit der <strong>linken</strong>
             Maustaste auf den Namen einer gespeicherten Suche, erscheinen alle
             gefundenen Bilder.
-        </p>
-
-        <h2>Spalten hinzufügen und Entfernen</h2>
-
-        <p>Falls Ihnen die Spalten nicht ausreichen, können Sie weitere
-            hinzufügen durch Betätigen der Schaltfläche <strong>Spalte
-            hinzufügen</strong>. Sollte der Dialog nicht ausreichend groß
-            gezogen sein oder wollen Sie diesen nicht größer ziehen, erscheint
-            eine Scroll-Leiste mit der Sie die Spalten nach oben und unten
-            schieben können.
-        </p>
-
-        <p>Mit der Schaltfläche <strong>Spalte entfernen</strong> können Sie
-            hinzugefügte Spalten entfernen (und nur diese).
         </p>
 
     </body>

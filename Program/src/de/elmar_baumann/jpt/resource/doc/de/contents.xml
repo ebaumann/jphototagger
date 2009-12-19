@@ -221,7 +221,7 @@
         </page>
         <page>
             <url>action_metadata_replace_in_xmp.html</url>
-            <title>Werkzeuge &gt; XMP-Daten suchen und ersetzen</title>
+            <title>Werkzeuge &gt; XMP-Daten in ausgewählten Bildern ersetzen</title>
         </page>
         <page>
             <url>action_database_rename_filenames.html</url>
@@ -229,11 +229,11 @@
         </page>
         <page>
             <url>action_copy_categories_to_hierarchical_keywords.html</url>
-            <title>Werkzeuge &gt; Kategorien kopieren in den Stichwortbaum</title>
+            <title>Werkzeuge &gt; Alle Kategorien kopieren in den Stichwortbaum</title>
         </page>
         <page>
             <url>action_copy_keywords_to_hierarchical_keywords.html</url>
-            <title>Werkzeuge &gt; Stichwörter kopieren in den Stichwortbaum</title>
+            <title>Werkzeuge &gt; Alle Stichwörter kopieren in den Stichwortbaum</title>
         </page>
         <page>
             <url>dialog_edit_metadata_text_selection.html</url>

@@ -30,6 +30,7 @@ import de.elmar_baumann.jpt.database.metadata.InputVerifierFactory;
 import de.elmar_baumann.jpt.database.metadata.Operator;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.jpt.database.metadata.selections.AdvancedSearchColumns;
+import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererTableColumns;
@@ -39,6 +40,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -210,6 +212,10 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
                 modelColumns.addElement(column);
             }
         }
+    }
+
+    public JTextField getTextFieldValue() {
+        return textFieldValue;
     }
 
     /**
@@ -457,6 +463,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxColumns = new javax.swing.JComboBox();
         comboBoxComparators = new javax.swing.JComboBox();
         textFieldValue = new javax.swing.JFormattedTextField();
+        textFieldValue.setTransferHandler(new TransferHandlerDropEdit());
         toggleButtonBracketRight = new javax.swing.JToggleButton();
         buttonCalendar = new javax.swing.JButton();
 
