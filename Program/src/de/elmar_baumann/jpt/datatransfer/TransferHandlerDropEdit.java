@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -62,9 +63,9 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
             string = Support.getString(transferable);
         } else if (Flavors.hasCategories(transferSupport)) {
-            string = getFirstString(Support.getCategories(transferable));
+            string = getStrings(Support.getCategories(transferable));
         } else if (Flavors.hasKeywords(transferSupport)) {
-            string = getFirstString(Support.getKeywords(transferable));
+            string = getStrings(Support.getKeywords(transferable));
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
             string = getStrings(Support.getHierarchicalKeywordsNodes(transferable));
         }
@@ -79,15 +80,27 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         return true;
     }
 
-    private String getFirstString(Object[] array) {
+    private String getStrings(Object[] array) {
         if (array == null || array.length == 0 || array[0] == null) return null;
-        return array[0].toString();
+
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for (Object o : array) {
+            sb.append(index++ == 0 ? "" : ";");
+            sb.append(o.toString());
+        }
+        
+        return sb.toString();
     }
 
     private String getStrings(List<DefaultMutableTreeNode> nodes) {
         if (nodes.size() <= 0) return null;
         
-        List<String> keywords = HierarchicalKeywordsHelper.getKeywordStrings(nodes.get(0), true);
+        List<String> keywords = new ArrayList<String>();
+        
+        for (DefaultMutableTreeNode node : nodes) {
+            keywords.addAll(HierarchicalKeywordsHelper.getKeywordStrings(node, true));
+        }
         
         if (keywords.size() == 0) return null;
 
