@@ -19,7 +19,12 @@
 package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
@@ -32,16 +37,39 @@ import javax.swing.SwingUtilities;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
+public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
+        implements DatabaseListener {
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
     private Image noPreviewThumbnail = IconUtil.getIconImage(
             Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")); // NOI18N
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private ThumbnailCache() {
+        db.addDatabaseListener(this);
         new Thread(new ThumbnailFetcher(workQueue, this),
                 "ThumbnailFetcher").start(); // NOI18N
     }
+
+    @Override
+    public void actionPerformed(DatabaseImageEvent event) {
+        switch (event.getType()) {
+            case THUMBNAIL_UPDATED:   // fall through
+            case IMAGEFILE_DELETED:   // fall through
+            case IMAGEFILE_INSERTED:  // fall through
+            case IMAGEFILE_UPDATED:
+                File file = event.getImageFile().getFile();
+                fileCache.remove(file);
+                notifyUpdate(file);
+                break;
+        }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {}
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {}
 
     private static class ThumbnailFetcher implements Runnable {
 
