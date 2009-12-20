@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Wie oft werden Bilder in die Datenbank geschrieben?</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Wie oft werden Bilder in die Datenbank geschrieben?</h1>
+
+        <p><strong>Automatisch</strong> werden nur Dateien eingelesen und in die
+            Datenbank geschrieben, die:
+        </p>
+
+        <ul>
+            <li>deren Endung hinweist auf ein Dateiformat, das dem Programm
+                <strong>Bilder</strong> bekannt ist
+            </li>
+            <li>die noch nicht in der Datenbank gespeichert sind
+            </li>
+            <li>die in der Datenbank gespeichert sind und deren <strong>letztes
+                Änderungsdatum</strong> <em>anders</em> ist als zum Zeitpunkt
+                des letzten Einlesens
+            </li>
+        </ul>
+
+    </body>
+</html>

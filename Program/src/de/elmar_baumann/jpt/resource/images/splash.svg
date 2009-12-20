@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="500"
+   height="300"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/images"
+   sodipodi:docname="splash.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/images/splash.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 150 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="500 : 150 : 1"
+       inkscape:persp3d-origin="250 : 100 : 1"
+       id="perspective28" />
+    <pattern
+       id="pattern4182"
+       height="135"
+       width="200"
+       patternUnits="userSpaceOnUse"
+       inkscape:collect="always"
+       patternTransform="translate(20.000003,19.999998)">
+      <image
+         id="image4184"
+         height="135"
+         width="200"
+         sodipodi:relref="splash-img-01.jpg"
+         xlink:href="splash-img-01.jpg" />
+    </pattern>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.38"
+     inkscape:cx="52.716807"
+     inkscape:cy="150"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer8"
+     width="500px"
+     height="300px"
+     objecttolerance="50"
+     showgrid="true"
+     gridtolerance="50"
+     guidetolerance="50"
+     inkscape:window-width="1280"
+     inkscape:window-height="1006"
+     inkscape:window-x="242"
+     inkscape:window-y="17"
+     inkscape:grid-bbox="false" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Splash Screen Image Metadata Viewer</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:identifier>de.elmar_baumann.jpt.resource.images.splash.svg</dc:identifier>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:language>English</dc:language>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>splash screen</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:coverage>computer program, icon</dc:coverage>
+        <cc:license
+           rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
+        <dc:date>2008-10-03</dc:date>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer8"
+     inkscape:label="Hintergrund">
+    <rect
+       style="opacity:1;fill:#fafafa;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5190"
+       width="500"
+       height="300"
+       x="0"
+       y="0"
+       inkscape:export-xdpi="54"
+       inkscape:export-ydpi="54" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="Bildstapel Bild 3" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Bildstapel Bild 2">
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 19.3,169.4 L 19.3,174.4 L 239.3,174.4 L 239.3,19.4 L 234.3,19.4"
+       id="path4194" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Bildstapel Bild 1">
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 15,165 L 15,170 L 235,170 L 235,15 L 230,15"
+       id="path4192" />
+  </g>
+  <g
+     inkscape:label="Bildstapel Bild oben"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2160"
+       width="220"
+       height="155"
+       x="10.704"
+       y="10.92437" />
+    <rect
+       y="20"
+       x="20"
+       id="rect4186"
+       height="135"
+       width="200"
+       style="fill:url(#pattern4182);stroke:none" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer7"
+     inkscape:label="Galerie">
+    <text
+       xml:space="preserve"
+       style="font-size:28;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Sans"
+       x="244.6582"
+       y="36.84082"
+       id="text3168"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="244.6582"
+         y="36.84082"
+         id="tspan4141">elmar-baumann.de</tspan></text>
+    <g
+       id="g2196"
+       transform="translate(-1.2605042,4.6218487)">
+      <text
+         sodipodi:linespacing="100%"
+         id="text5112"
+         y="73.107422"
+         x="248.00391"
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;opacity:0.98000004;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:17px"
+           y="73.107422"
+           x="248.00391"
+           id="tspan5114"
+           sodipodi:role="line" /><tspan
+           id="tspan6085"
+           y="98.767294"
+           x="248.00391"
+           sodipodi:role="line">imagero.com</tspan><tspan
+           id="tspan6087"
+           y="126.76729"
+           x="248.00391"
+           sodipodi:role="line">hsqldb.org</tspan></text>
+      <text
+         id="text2175"
+         y="66.422363"
+         x="245.89526"
+         style="font-size:17px;font-weight:bold;opacity:0.98000004;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:17px;font-family:Sans"
+           y="66.422363"
+           x="245.89526"
+           id="tspan2177"
+           sodipodi:role="line">This program is powered by:</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Menübefehl: Datei &gt; Datenbank</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Menübefehl: Datei &gt; Datenbank</h1>
+
+        <p>Dieser Menübefehl öffnet einen Dialog mit Informationen über die
+            Datenbank und Möglichkeiten zur Wartung.
+        </p>
+
+        <h2>Info</h2>
+
+        <p>Auf dem <strong>Info</strong>-Kartenreiter sehen Sie, welche Daten
+            enthalten sind in wie vielen Datensätzen. In der Abbildung unten
+            <!--TODO PERMANENT: Falls sich die Abbildung ändert, die Zahl anpassen-->
+            gibt es 55.194 Datensätze mit Stichwörtern. Die Spalte
+            <strong>Was</strong> zeigt die Art der Daten an, die Spalte
+            <strong>Unterschiedliche</strong>, wie viele unterschiedliche
+            Daten dieser Art es gibt und die Spalte <strong>Insgesamt</strong>,
+            in wievielen Datensätzen Daten dieser Art enthalten sind.
+            Beispielsweise könnten Kategorien in 1.000 Datensätzen gespeichert
+            sein, aber es gibt nur 50 unterschiedliche Kategorien, falls mehrere
+            Bilder gleichen Kategorien zugeordnet sind, was praktisch immer der
+            Fall ist (sofern Sie Kategorien benutzen).
+        </p>
+
+        <p>Die <strong>Anzahl aller Bilder</strong> in der Datenbank stehen
+            neben dem Dateinamen.
+        </p>
+
+        <!--TODO PERMANENT: Siehe oben (Zahl der Stichwörter anpassen im Text-->
+        <p><img src="img/dialog-database-info.gif"
+                    width="592"
+                    height="401"
+                    alt="" />
+        </p>
+
+        <h2>Wartung</h2>
+
+        <p>Der Kartenreiter Wartung bietet an, <strong>Datensätze zu
+            entfernen</strong>, für die es keine Bilder mehr gibt. Das ist
+            sinnvoll, sonst werden bei Suchen nicht mehr existierende Bilder
+            berücksichtigt.
+        </p>
+
+        <p>Das <strong>Komprimieren</strong> der Datenbank verkleinert ihre
+            Dateigröße. Dies ist in der Regel nicht nötig, kann aber sinnvoll
+            sein nach Programmupdates, bei denen die Datenbank modifiziert wurde
+            oder nachdem Sie sehr viele Metadaten verändert oder gelöscht
+            haben.
+        </p>
+
+        <p><strong>Verwaiste Vorschaubilder löschen</strong> entfernt
+            Vorschaubilder, für die keine Bilddateien in der Datenbank
+            existieren. Das kann der Fall sein, falls Sie außerhalb
+            <strong>JPhotoTagger</strong> Bilder verschoben oder löschten. So
+            geben Sie auf der Festplatte nicht benötigten Speicherplatz frei.
+        </p>
+
+        <p><img src="img/dialog-database-maintain.gif"
+                    width="592"
+                    height="401"
+                    alt="" />
+        </p>
+
+    </body>
+</html>

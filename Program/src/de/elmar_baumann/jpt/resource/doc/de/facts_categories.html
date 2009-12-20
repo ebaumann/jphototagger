@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Fakten: Kategorien</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Fakten: Kategorien</h1>
+
+        <p>Kategorien werden (nur) unterstützt, weil diese in den IPTC-Daten
+            stehen und über <a href="tip_use_scripts.html">Skripte</a> eventuell
+            wieder in die Bilder geschrieben werden.
+        </p>
+
+        <p>Ich (Elmar Baumann) finde, die IPTC-Kategorien sind ungünstig
+            definiert: Es gibt zwei Arten: Eine Kategorie und mehrere weitere
+            Kategorien. Diese Trennung erschwert den Datenbankentwurf und ist
+            unlogisch: Soll eine Kategorie dominieren, wäre dies besser ein
+            Attribut und kein eigener Datentyp. Außerdem sind IPTC-Kategorien
+            <em>nicht</em> hierarchisch. Programme wie <strong>Adobe Photoshop
+            Lightroom</strong> kennen keine Kategorien.
+        </p>
+
+        <p>Kategorien sind in <strong>JPhotoTagger</strong> zweitrangig,
+            benutzen Sie statt dessen
+            <a href="mainwindow_panel_hierarchical_keywords.html">hierarchische
+                Stichwörter</a>. Unter &quot;zweitrangig&quot; ist zu verstehen:
+        </p>
+
+        <ul>
+            <li>Es gibt keine Hierarchie, keinen Kategoriebaum
+            </li>
+            <li>Bei der <a href="fast_search.html">Schnellsuche</a> kann
+                <em>nicht</em> nach Bildern gesucht werden, die sowohl Kategorie
+                A als auch B zugeordnet sind
+            </li>
+        </ul>
+
+        <p>Sie können alle Kategorien in den Stichwortbaum kopieren lassen über
+            das Menü
+            <a href="action_copy_categories_to_hierarchical_keywords.html">
+                Werkzeuge &gt; Alle Kategorien kopieren in den Stichwortbaum</a>.
+        </p>
+
+    </body>
+</html>

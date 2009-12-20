@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>de.elmar_baumann.jpt.image.metadata.exif</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <p>EXIF metadata.</p>
+        <p>To display a new tag:</p>
+        <ul>
+            <li>Define a new <code>ExifTag</code></li>
+            <li>Add this tag to <code>ExifMetadataToDisplay#tagsToDisplay</code></li>
+            <li>Check for presence in <code>de.elmar_baumann.jpt.resource.ExifTagIdTagNameTranslations.properties</code> (all languages)</li>
+            <li>Format tag value in package <code>de.elmar_baumann.jpt.image.metadata.exif.format</code>:
+                <ul>
+                    <li>Create a formatter class derived from <code>ExifFormatter</code></li>
+                    <li>Create an instance of this class in <code>ExifFormatterFactory</code></li>
+                </ul>
+            </li>
+            <li>Define display order in <code>ExifIfdEntryDisplayComparator</code></li>
+        </ul>
+    </body>
+</html>
