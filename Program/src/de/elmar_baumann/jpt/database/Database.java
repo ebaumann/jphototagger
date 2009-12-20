@@ -50,9 +50,11 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
-            DatabaseImageEvent.Type type, ImageFile imageFile) {
+            DatabaseImageEvent.Type type,
+            ImageFile               imageFile) {
 
         DatabaseImageEvent event = new DatabaseImageEvent(type);
+
         event.setImageFile(imageFile);
         for (DatabaseListener listener : DATABASE_LISTENERS) {
             listener.actionPerformed(event);
@@ -60,10 +62,12 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
-            DatabaseImageEvent.Type type,
-            ImageFile oldImageFile, ImageFile newImageFile) {
+            DatabaseImageEvent.Type  type,
+            ImageFile                oldImageFile,
+            ImageFile                newImageFile) {
 
         DatabaseImageEvent event = new DatabaseImageEvent(type);
+
         event.setImageFile(newImageFile);
         event.setOldImageFile(oldImageFile);
         for (DatabaseListener listener : DATABASE_LISTENERS) {
@@ -72,9 +76,11 @@ public class Database {
     }
 
     protected synchronized void notifyDatabaseListener(
-            DatabaseProgramEvent.Type type, Program program) {
+            DatabaseProgramEvent.Type type,
+            Program                   program) {
 
         DatabaseProgramEvent event = new DatabaseProgramEvent(type);
+
         event.setProgram(program);
         for (DatabaseListener listener : DATABASE_LISTENERS) {
             listener.actionPerformed(event);
@@ -83,10 +89,12 @@ public class Database {
 
     protected synchronized void notifyDatabaseListener(
             DatabaseImageCollectionEvent.Type type,
-            String collectionName,
-            Collection<String> filenames) {
-        DatabaseImageCollectionEvent evt =
-                new DatabaseImageCollectionEvent(type, collectionName, filenames);
+            String                            collectionName,
+            Collection<String>                filenames) {
+
+        DatabaseImageCollectionEvent evt = new DatabaseImageCollectionEvent(
+                                               type, collectionName, filenames);
+
         for (DatabaseListener listener : DATABASE_LISTENERS) {
             listener.actionPerformed(evt);
         }
@@ -129,8 +137,9 @@ public class Database {
         }
     }
 
-    protected boolean notifyProgressListenerStart(ProgressListener listener,
-            ProgressEvent event) {
+    protected boolean notifyProgressListenerStart(
+            ProgressListener listener,
+            ProgressEvent    event) {
 
         if (listener != null) {
             listener.progressStarted(event);
@@ -139,8 +148,9 @@ public class Database {
         return false;
     }
 
-    protected boolean notifyProgressListenerPerformed(ProgressListener listener,
-            ProgressEvent event) {
+    protected boolean notifyProgressListenerPerformed(
+            ProgressListener listener,
+            ProgressEvent    event) {
 
         if (listener != null) {
             listener.progressPerformed(event);
@@ -149,8 +159,9 @@ public class Database {
         return false;
     }
 
-    protected void notifyProgressListenerEnd(ProgressListener listener,
-            ProgressEvent event) {
+    protected void notifyProgressListenerEnd(
+            ProgressListener listener,
+            ProgressEvent    event) {
 
         if (listener != null) {
             listener.progressEnded(event);

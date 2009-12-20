@@ -35,23 +35,16 @@ import javax.swing.KeyStroke;
  */
 public final class PopupMenuSavedSearches extends JPopupMenu {
 
-    private static final String DISPLAY_NAME_ACTION_DELETE =
-            Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_EDIT =
-            Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_NEW =
-            Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_RENAME =
-            Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"); // NOI18N
-    private final JMenuItem itemDelete =
-            new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
-    private final JMenuItem itemEdit = new JMenuItem(DISPLAY_NAME_ACTION_EDIT);
-    private final JMenuItem itemCreate = new JMenuItem(DISPLAY_NAME_ACTION_NEW);
-    private final JMenuItem itemRename =
-            new JMenuItem(DISPLAY_NAME_ACTION_RENAME);
-    private SavedSearch savedSearch;
-    public static final PopupMenuSavedSearches INSTANCE =
-            new PopupMenuSavedSearches();
+    private static final String                 DISPLAY_NAME_ACTION_DELETE = Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"); // NOI18N
+    private static final String                 DISPLAY_NAME_ACTION_EDIT   = Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit"); // NOI18N
+    private static final String                 DISPLAY_NAME_ACTION_NEW    = Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New"); // NOI18N
+    private static final String                 DISPLAY_NAME_ACTION_RENAME = Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"); // NOI18N
+    private final        JMenuItem              itemDelete                 = new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
+    private final        JMenuItem              itemEdit                   = new JMenuItem(DISPLAY_NAME_ACTION_EDIT);
+    private final        JMenuItem              itemCreate                 = new JMenuItem(DISPLAY_NAME_ACTION_NEW);
+    private final        JMenuItem              itemRename                 = new JMenuItem(DISPLAY_NAME_ACTION_RENAME);
+    private              SavedSearch            savedSearch;
+    public static final  PopupMenuSavedSearches INSTANCE                   = new PopupMenuSavedSearches();
 
     private PopupMenuSavedSearches() {
         init();
@@ -107,18 +100,14 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
     private void setIcons() {
         itemCreate.setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
         itemDelete.setIcon(AppLookAndFeel.getIcon("icon_remove.png")); // NOI18N
-        itemEdit.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
+        itemEdit  .setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
         itemRename.setIcon(AppLookAndFeel.getIcon("icon_rename.png")); // NOI18N
     }
 
     private void setAccelerators() {
-        itemCreate.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-        itemEdit.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
-        itemDelete.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        itemRename.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemCreate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        itemEdit  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
+        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
     }
 }

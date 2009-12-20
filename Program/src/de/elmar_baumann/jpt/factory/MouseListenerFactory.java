@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.event.listener.impl.MouseListenerImageCollections;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerSavedSearches;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerFavorites;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerHierarchicalKeywords;
+import de.elmar_baumann.jpt.event.listener.impl.MouseListenerTreeExpand;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -42,15 +43,19 @@ public final class MouseListenerFactory {
         Util.checkInit(MouseListenerFactory.class, init);
         if (!init) {
             init = true;
-            AppPanel                          appPanel                          = GUI.INSTANCE.getAppPanel();
-            MouseListenerHierarchicalKeywords mouseListenerHierarchicalKeywords = new MouseListenerHierarchicalKeywords();
+            AppPanel                          appPanel                     = GUI.INSTANCE.getAppPanel();
+            MouseListenerTreeExpand           listenerTreeExpand           = new MouseListenerTreeExpand();
+            MouseListenerHierarchicalKeywords listenerHierarchicalKeywords = new MouseListenerHierarchicalKeywords();
 
             appPanel.getTreeDirectories()                          .addMouseListener(new MouseListenerDirectories());
             appPanel.getListSavedSearches()                        .addMouseListener(new MouseListenerSavedSearches());
             appPanel.getListImageCollections()                     .addMouseListener(new MouseListenerImageCollections());
             appPanel.getTreeFavorites()                            .addMouseListener(new MouseListenerFavorites());
-            appPanel.getTreeHierarchicalKeywords()                 .addMouseListener(mouseListenerHierarchicalKeywords);
-            InputHelperDialog.INSTANCE.getPanelKeywords().getTree().addMouseListener(mouseListenerHierarchicalKeywords);
+            appPanel.getTreeMiscMetadata()                         .addMouseListener(listenerTreeExpand);
+            appPanel.getTreeTimeline()                             .addMouseListener(listenerTreeExpand);
+            appPanel.getTreeSelHierarchicalKeywords()              .addMouseListener(listenerTreeExpand);
+            appPanel.getTreeHierarchicalKeywords()                 .addMouseListener(listenerHierarchicalKeywords);
+            InputHelperDialog.INSTANCE.getPanelKeywords().getTree().addMouseListener(listenerHierarchicalKeywords);
         }
     }
 }

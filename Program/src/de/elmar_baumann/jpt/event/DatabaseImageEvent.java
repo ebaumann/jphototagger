@@ -53,7 +53,9 @@ public final class DatabaseImageEvent {
          */
         NOT_EXISTING_IMAGEFILES_DELETED,
         /**
-         * A thumbnail was updated
+         * A thumbnail was updated.<p>The only valid calls on the image file
+         * returned by {@link #getImageFile()} are {@link ImageFile#getFile()}
+         * and {@link ImageFile#getFilename()}, other methods may return null.
          */
         THUMBNAIL_UPDATED,
         /**
@@ -61,11 +63,10 @@ public final class DatabaseImageEvent {
          */
         XMP_UPDATED,
     };
-    private static final List<Type> TEXT_METADATA_EVENTS =
-            new ArrayList<Type>(5);
-    private ImageFile imageFile;
-    private ImageFile oldImageFile;
-    private Type type;
+    private static final List<Type> TEXT_METADATA_EVENTS = new ArrayList<Type>(5);
+    private              ImageFile  imageFile;
+    private              ImageFile  oldImageFile;
+    private              Type       type;
 
     static {
         TEXT_METADATA_EVENTS.add(Type.IMAGEFILE_DELETED);
