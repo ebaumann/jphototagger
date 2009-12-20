@@ -23,17 +23,17 @@ import java.io.File;
 import java.util.Comparator;
 
 /**
- * Compares the file names of two files ascending case sensitive.
+ * Compares the file names of two files descending case sensitive.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Martin Pohlack
  * @version 2009-12-20
  */
-public final class ComparatorFilesNamesAscCs
+public final class ComparatorFilesNamesDescCs
         extends    ClassNameEquality
         implements Comparator<File> {
 
     @Override
     public int compare(File leftFile, File rightFile) {
-        return leftFile.getName().compareTo(rightFile.getName());
+        return leftFile.getName().compareTo(rightFile.getName()) * -1;
     }
 }
