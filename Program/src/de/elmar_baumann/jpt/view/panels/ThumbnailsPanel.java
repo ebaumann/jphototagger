@@ -169,7 +169,9 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized void rerender(int index) {
-        renderedThumbnailCache.rerender(getFile(index));
+        File file = getFile(index);
+        assert file != null;
+        renderedThumbnailCache.rerender(file);
     }
 
     private synchronized void rerender(Collection<Integer> rerenderTargets) {
@@ -183,6 +185,22 @@ public class ThumbnailsPanel extends JPanel
                 rerender(i.intValue());
             }
         }
+    }
+
+    /* Convert index-based selection to a new set of files
+     */
+    public void convertSelection(List<File> oldFiles, List<File> newFiles) {
+        List<Integer> newSelection = new ArrayList<Integer>();
+        for (int i : selectedThumbnails) {
+            File file;
+            if (oldFiles.size() >= i) continue;
+            file = oldFiles.get(i);
+            int newI = newFiles.indexOf(file);
+            if (newI < 0) continue;
+            newSelection.add(new Integer(newI));
+        }
+        selectedThumbnails.clear();
+        selectedThumbnails.addAll(newSelection);
     }
 
     public void clearSelection() {
@@ -933,10 +951,10 @@ public class ThumbnailsPanel extends JPanel
      * @param filesToRemove  files to remove
      */
     public synchronized void remove(List<File> filesToRemove) {
-        List<File> selectedFiles = getSelectedFiles();
+        List<File> oldFiles = new ArrayList<File>(files);
         if (files.removeAll(filesToRemove)) {
+            convertSelection(oldFiles, files);
             setFiles(files, content);
-            setSelected(getIndices(selectedFiles, true));
             renderedThumbnailCache.remove(filesToRemove);
             refresh();
         }
