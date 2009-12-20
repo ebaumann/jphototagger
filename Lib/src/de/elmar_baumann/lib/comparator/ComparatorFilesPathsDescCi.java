@@ -23,17 +23,17 @@ import java.io.File;
 import java.util.Comparator;
 
 /**
- * Compares the absolute path names of two files descending case sensitive.
+ * Compares the absolute path names of two files descending case insensitive.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-14
  */
-public final class ComparatorFilesNamesDesCs
+public final class ComparatorFilesPathsDescCi
         extends    ClassNameEquality
         implements Comparator<File> {
 
     @Override
     public int compare(File leftFile, File rightFile) {
-        return leftFile.getAbsolutePath().compareTo(rightFile.getAbsolutePath()) * -1;
+        return leftFile.getAbsolutePath().compareToIgnoreCase(rightFile.getAbsolutePath()) * -1;
     }
 }

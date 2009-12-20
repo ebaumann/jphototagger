@@ -28,6 +28,8 @@ import java.util.Comparator;
  */
 public enum FileSort {
 
+    PATHS_ASCENDING          (new ComparatorFilesPathsAscCi()),
+    PATHS_DESCENDING         (new ComparatorFilesPathsDescCi()),
     NAMES_ASCENDING          (new ComparatorFilesNamesAscCi()),
     NAMES_DESCENDING         (new ComparatorFilesNamesDescCi()),
     TYPES_ASCENDING          (new ComparatorFilesSuffixesAscCi()),
