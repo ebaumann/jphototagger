@@ -424,7 +424,14 @@ public final class TreeUtil {
         expandAll(tree, new TreePath(root), expand);
     }
 
-    private static void expandAll(JTree tree, TreePath parent, boolean expand) {
+    /**
+     * Expands or collapses a path and all it's sub paths.
+     *
+     * @param tree   tree
+     * @param parent parent path
+     * @param expand true if expand, false if collapse
+     */
+    public static void expandAll(JTree tree, TreePath parent, boolean expand) {
         // Traverse children
         TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0) {
