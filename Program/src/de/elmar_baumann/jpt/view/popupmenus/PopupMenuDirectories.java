@@ -36,55 +36,22 @@ import javax.swing.tree.TreePath;
  */
 public final class PopupMenuDirectories extends JPopupMenu {
 
-    private static final String DISPLAY_NAME_ACTION_ADD_TO_FAVORITES =
-            Bundle.getString(
-            "PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_CREATE_FOLDER =
-            Bundle.getString(
-            "PopupMenuDirectories.DisplayName.Action.CreateDirectory"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_RENAME_FODER =
-            Bundle.getString(
-            "PopupMenuDirectories.DisplayName.Action.RenameDirectory"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_DELETE_FOLDER =
-            Bundle.getString(
-            "PopupMenuDirectories.DisplayName.Action.DeleteDirectory"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_REFRESH =
-            Bundle.getString("PopupMenuDirectories.DisplayName.Action.Refresh"); // NOI18N
-    private final JMenuItem itemAddToFavorites =
-            new JMenuItem(DISPLAY_NAME_ACTION_ADD_TO_FAVORITES);
-    private final JMenuItem itemCreateDirectory =
-            new JMenuItem(DISPLAY_NAME_ACTION_CREATE_FOLDER);
-    private final JMenuItem itemRenameDirectory =
-            new JMenuItem(DISPLAY_NAME_ACTION_RENAME_FODER);
-    private final JMenuItem itemDeleteDirectory =
-            new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FOLDER);
-    private final JMenuItem itemRefresh =
-            new JMenuItem(DISPLAY_NAME_ACTION_REFRESH);
-    private TreePath path;
-    private String directoryName;
-    private boolean treeSelected = false;
-    public static final PopupMenuDirectories INSTANCE =
-            new PopupMenuDirectories();
-
-    public JMenuItem getItemAddToFavorites() {
-        return itemAddToFavorites;
-    }
-
-    public JMenuItem getItemCreateDirectory() {
-        return itemCreateDirectory;
-    }
-
-    public JMenuItem getItemRenameDirectory() {
-        return itemRenameDirectory;
-    }
-
-    public JMenuItem getItemDeleteDirectory() {
-        return itemDeleteDirectory;
-    }
-
-    public JMenuItem getItemRefresh() {
-        return itemRefresh;
-    }
+    private static final String               DISPLAY_NAME_ACTION_ADD_TO_FAVORITES = Bundle.getString("PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"); // NOI18N
+    private static final String               DISPLAY_NAME_ACTION_CREATE_FOLDER    = Bundle.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory"); // NOI18N
+    private static final String               DISPLAY_NAME_ACTION_RENAME_FODER     = Bundle.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory"); // NOI18N
+    private static final String               DISPLAY_NAME_ACTION_DELETE_FOLDER    = Bundle.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory"); // NOI18N
+    private static final String               DISPLAY_NAME_ACTION_REFRESH          = Bundle.getString("PopupMenuDirectories.DisplayName.Action.Refresh"); // NOI18N
+    private final        JMenuItem            itemAddToFavorites                   = new JMenuItem(DISPLAY_NAME_ACTION_ADD_TO_FAVORITES);
+    private final        JMenuItem            itemCreateDirectory                  = new JMenuItem(DISPLAY_NAME_ACTION_CREATE_FOLDER);
+    private final        JMenuItem            itemRenameDirectory                  = new JMenuItem(DISPLAY_NAME_ACTION_RENAME_FODER);
+    private final        JMenuItem            itemDeleteDirectory                  = new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FOLDER);
+    private final        JMenuItem            itemRefresh                          = new JMenuItem(DISPLAY_NAME_ACTION_REFRESH);
+    private final        JMenuItem            menuItemExpandAllSubitems            = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final        JMenuItem            menuItemCollapseAllSubitems          = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private              TreePath             path;
+    private              String               directoryName;
+    private              boolean              treeSelected                         = false;
+    public static final  PopupMenuDirectories INSTANCE                             = new PopupMenuDirectories();
 
     /**
      * Liefert den ausgewählten Verzeichnisnamen.
@@ -112,6 +79,34 @@ public final class PopupMenuDirectories extends JPopupMenu {
         return path;
     }
 
+    public JMenuItem getItemAddToFavorites() {
+        return itemAddToFavorites;
+    }
+
+    public JMenuItem getItemCreateDirectory() {
+        return itemCreateDirectory;
+    }
+
+    public JMenuItem getItemRenameDirectory() {
+        return itemRenameDirectory;
+    }
+
+    public JMenuItem getItemDeleteDirectory() {
+        return itemDeleteDirectory;
+    }
+
+    public JMenuItem getItemRefresh() {
+        return itemRefresh;
+    }
+
+    public JMenuItem getMenuItemCollapseAllSubitems() {
+        return menuItemCollapseAllSubitems;
+    }
+
+    public JMenuItem getMenuItemExpandAllSubitems() {
+        return menuItemExpandAllSubitems;
+    }
+
     private PopupMenuDirectories() {
         init();
     }
@@ -137,25 +132,24 @@ public final class PopupMenuDirectories extends JPopupMenu {
         add(itemRenameDirectory);
         add(itemDeleteDirectory);
         add(new JSeparator());
+        add(menuItemExpandAllSubitems);
+        add(menuItemCollapseAllSubitems);
+        add(new JSeparator());
         add(itemRefresh);
     }
 
     private void setIcons() {
-        itemAddToFavorites.setIcon(AppLookAndFeel.getIcon("icon_favorite.png")); // NOI18N
+        itemAddToFavorites .setIcon(AppLookAndFeel.getIcon("icon_favorite.png")); // NOI18N
         itemCreateDirectory.setIcon(AppLookAndFeel.getIcon("icon_folder_add.png")); // NOI18N
         itemDeleteDirectory.setIcon(AppLookAndFeel.getIcon("icon_folder_delete.png")); // NOI18N
         itemRenameDirectory.setIcon(AppLookAndFeel.getIcon("icon_folder_rename.png")); // NOI18N
-        itemRefresh.setIcon(AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
+        itemRefresh        .setIcon(AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
     }
 
     private void setAccelerators() {
-        itemCreateDirectory.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-        itemDeleteDirectory.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        itemRenameDirectory.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemRefresh.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+        itemCreateDirectory.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        itemDeleteDirectory.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemRenameDirectory.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemRefresh        .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
     }
 }

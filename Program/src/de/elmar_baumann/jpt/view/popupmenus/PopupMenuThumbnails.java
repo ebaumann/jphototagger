@@ -56,48 +56,40 @@ import javax.swing.KeyStroke;
 public final class PopupMenuThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {
 
-    public static final PopupMenuThumbnails INSTANCE = new PopupMenuThumbnails();
-    private final JMenu menuPrograms = new JMenu(Bundle.getString(
-            "PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps")); // NOI18N
-    private final JMenu menuPlugins = new JMenu(Bundle.getString(
-            "PopupMenuThumbnails.DisplayName.MenuPlugins")); // NOI18N
-    private final JMenu menuRating = new JMenu(Bundle.getString(
-            "PopupMenuThumbnails.DisplayName.menuRating")); // NOI18N
-    private final JMenuItem itemUpdateMetadata = new JMenuItem();
-    private final JMenuItem itemUpdateThumbnail = new JMenuItem();
-    private final JMenuItem itemIptcToXmp = new JMenuItem();
-    private final JMenuItem itemCreateImageCollection = new JMenuItem();
-    private final JMenuItem itemAddToImageCollection = new JMenuItem();
-    private final JMenuItem itemDeleteFromImageCollection = new JMenuItem();
-    private final JMenuItem itemRotateThumbnai90 = new JMenuItem();
-    private final JMenuItem itemRotateThumbnai180 = new JMenuItem();
-    private final JMenuItem itemRotateThumbnail270 = new JMenuItem();
-    private final JMenuItem itemDeleteImageFromDatabase = new JMenuItem();
-    private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem();
-    private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem();
-    private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem();
-    private final JMenuItem itemFileSystemRenameFiles = new JMenuItem();
-    private final JMenuItem itemFileSystemMoveFiles = new JMenuItem();
-    private final JMenuItem itemRefresh = new JMenuItem();
-    private final JMenuItem itemPick = new JMenuItem();
-    private final JMenuItem itemReject = new JMenuItem();
-    private final JMenuItem itemRating0 = new JMenuItem();
-    private final JMenuItem itemRating1 = new JMenuItem();
-    private final JMenuItem itemRating2 = new JMenuItem();
-    private final JMenuItem itemRating3 = new JMenuItem();
-    private final JMenuItem itemRating4 = new JMenuItem();
-    private final JMenuItem itemRating5 = new JMenuItem();
+    public static final PopupMenuThumbnails     INSTANCE                             = new PopupMenuThumbnails();
+    private final       JMenu                   menuPrograms                         = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps")); // NOI18N
+    private final       JMenu                   menuPlugins                          = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuPlugins")); // NOI18N
+    private final       JMenu                   menuRating                           = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.menuRating")); // NOI18N
+    private final       JMenuItem               itemUpdateMetadata                   = new JMenuItem();
+    private final       JMenuItem               itemUpdateThumbnail                  = new JMenuItem();
+    private final       JMenuItem               itemIptcToXmp                        = new JMenuItem();
+    private final       JMenuItem               itemCreateImageCollection            = new JMenuItem();
+    private final       JMenuItem               itemAddToImageCollection             = new JMenuItem();
+    private final       JMenuItem               itemDeleteFromImageCollection        = new JMenuItem();
+    private final       JMenuItem               itemRotateThumbnai90                 = new JMenuItem();
+    private final       JMenuItem               itemRotateThumbnai180                = new JMenuItem();
+    private final       JMenuItem               itemRotateThumbnail270               = new JMenuItem();
+    private final       JMenuItem               itemDeleteImageFromDatabase          = new JMenuItem();
+    private final       JMenuItem               itemOpenFilesWithStandardApp         = new JMenuItem();
+    private final       JMenuItem               itemFileSystemCopyToDirectory        = new JMenuItem();
+    private final       JMenuItem               itemFileSystemDeleteFiles            = new JMenuItem();
+    private final       JMenuItem               itemFileSystemRenameFiles            = new JMenuItem();
+    private final       JMenuItem               itemFileSystemMoveFiles              = new JMenuItem();
+    private final       JMenuItem               itemRefresh                          = new JMenuItem();
+    private final       JMenuItem               itemPick                             = new JMenuItem();
+    private final       JMenuItem               itemReject                           = new JMenuItem();
+    private final       JMenuItem               itemRating0                          = new JMenuItem();
+    private final       JMenuItem               itemRating1                          = new JMenuItem();
+    private final       JMenuItem               itemRating2                          = new JMenuItem();
+    private final       JMenuItem               itemRating3                          = new JMenuItem();
+    private final       JMenuItem               itemRating4                          = new JMenuItem();
+    private final       JMenuItem               itemRating5                          = new JMenuItem();
     // End menu items
-    private final List<ActionListener> actionListenersOpenFilesWithOtherApp =
-            new ArrayList<ActionListener>();
-    private final Map<JMenuItem, Program> programOfMenuItem =
-            new HashMap<JMenuItem, Program>();
-    private final Map<JMenuItem, String> TEXT_OF_ITEM =
-            new HashMap<JMenuItem, String>();
-    private final Map<JMenuItem, Icon> ICON_OF_ITEM =
-            new HashMap<JMenuItem, Icon>();
-    private final Map<JMenuItem, Long> RATING_OF_ITEM =
-            new HashMap<JMenuItem, Long>();
+    private final       List<ActionListener>    actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
+    private final       Map<JMenuItem, Program> programOfMenuItem                    = new HashMap<JMenuItem, Program>();
+    private final       Map<JMenuItem, String>  TEXT_OF_ITEM                         = new HashMap<JMenuItem, String>();
+    private final       Map<JMenuItem, Icon>    ICON_OF_ITEM                         = new HashMap<JMenuItem, Icon>();
+    private final       Map<JMenuItem, Long>    RATING_OF_ITEM                       = new HashMap<JMenuItem, Long>();
 
     private void initRatingOfItem() {
         RATING_OF_ITEM.put(itemRating0, Long.valueOf(0));
@@ -109,98 +101,57 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void initItemTexts() {
-        TEXT_OF_ITEM.put(itemUpdateMetadata, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.UpdateMetadata")); // NOI18N
-        TEXT_OF_ITEM.put(itemUpdateThumbnail, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail")); // NOI18N
-        TEXT_OF_ITEM.put(itemIptcToXmp, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.IptcToXmp")); // NOI18N
-        TEXT_OF_ITEM.put(itemCreateImageCollection, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.CreateImageCollection")); // NOI18N
-        TEXT_OF_ITEM.put(itemAddToImageCollection, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.AddToImageCollection")); // NOI18N
-        TEXT_OF_ITEM.put(itemDeleteFromImageCollection,
-                Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.DeleteFromImageCollection")); // NOI18N
-        TEXT_OF_ITEM.put(itemRotateThumbnai90, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.Rotate.90")); // NOI18N
-        TEXT_OF_ITEM.put(itemRotateThumbnai180, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.Rotate.180")); // NOI18N
-        TEXT_OF_ITEM.put(itemRotateThumbnail270, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.Rotate.270")); // NOI18N
-        TEXT_OF_ITEM.put(itemOpenFilesWithStandardApp, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.OpenFiles")); // NOI18N
-        TEXT_OF_ITEM.put(itemDeleteImageFromDatabase,
-                Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.DeleteImageFromDatabase")); // NOI18N
-        TEXT_OF_ITEM.put(itemFileSystemCopyToDirectory,
-                Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.FileSystemCopyToDirectory")); // NOI18N
-        TEXT_OF_ITEM.put(itemFileSystemDeleteFiles, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.FileSystemDeleteFiles")); // NOI18N
-        TEXT_OF_ITEM.put(itemFileSystemRenameFiles, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.FileSystemRename")); // NOI18N
-        TEXT_OF_ITEM.put(itemFileSystemMoveFiles, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.FileSystemMove")); // NOI18N
-        TEXT_OF_ITEM.put(itemRefresh, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.Refresh")); // NOI18N
-        TEXT_OF_ITEM.put(itemPick, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.Pick")); // NOI18N
-        TEXT_OF_ITEM.put(itemReject, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Action.Reject")); // NOI18N
-        TEXT_OF_ITEM.put(itemRating0, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Rating0")); // NOI18N
-        TEXT_OF_ITEM.put(itemRating1, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Rating1")); // NOI18N
-        TEXT_OF_ITEM.put(itemRating2, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Rating2")); // NOI18N
-        TEXT_OF_ITEM.put(itemRating3, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Rating3")); // NOI18N
-        TEXT_OF_ITEM.put(itemRating4, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Rating4")); // NOI18N
-        TEXT_OF_ITEM.put(itemRating5, Bundle.getString(
-                "PopupMenuThumbnails.DisplayName.Rating5")); // NOI18N
+        TEXT_OF_ITEM.put(itemUpdateMetadata           , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateMetadata")); // NOI18N
+        TEXT_OF_ITEM.put(itemUpdateThumbnail          , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail")); // NOI18N
+        TEXT_OF_ITEM.put(itemIptcToXmp                , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.IptcToXmp")); // NOI18N
+        TEXT_OF_ITEM.put(itemCreateImageCollection    , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.CreateImageCollection")); // NOI18N
+        TEXT_OF_ITEM.put(itemAddToImageCollection     , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.AddToImageCollection")); // NOI18N
+        TEXT_OF_ITEM.put(itemDeleteFromImageCollection, Bundle.getString("PopupMenuThumbnails.DisplayName.Action.DeleteFromImageCollection")); // NOI18N
+        TEXT_OF_ITEM.put(itemRotateThumbnai90         , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Rotate.90")); // NOI18N
+        TEXT_OF_ITEM.put(itemRotateThumbnai180        , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Rotate.180")); // NOI18N
+        TEXT_OF_ITEM.put(itemRotateThumbnail270       , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Rotate.270")); // NOI18N
+        TEXT_OF_ITEM.put(itemOpenFilesWithStandardApp , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.OpenFiles")); // NOI18N
+        TEXT_OF_ITEM.put(itemDeleteImageFromDatabase  , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.DeleteImageFromDatabase")); // NOI18N
+        TEXT_OF_ITEM.put(itemFileSystemCopyToDirectory, Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemCopyToDirectory")); // NOI18N
+        TEXT_OF_ITEM.put(itemFileSystemDeleteFiles    , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemDeleteFiles")); // NOI18N
+        TEXT_OF_ITEM.put(itemFileSystemRenameFiles    , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemRename")); // NOI18N
+        TEXT_OF_ITEM.put(itemFileSystemMoveFiles      , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemMove")); // NOI18N
+        TEXT_OF_ITEM.put(itemRefresh                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Refresh")); // NOI18N
+        TEXT_OF_ITEM.put(itemPick                     , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Pick")); // NOI18N
+        TEXT_OF_ITEM.put(itemReject                   , Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Reject")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating0                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating0")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating1                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating1")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating2                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating2")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating3                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating3")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating4                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating4")); // NOI18N
+        TEXT_OF_ITEM.put(itemRating5                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating5")); // NOI18N
     }
 
     private void initItemIcons() {
-        ICON_OF_ITEM.put(itemAddToImageCollection, AppLookAndFeel.getIcon(
-                "icon_imagecollection_add_to.png")); // NOI18N
-        ICON_OF_ITEM.put(itemCreateImageCollection, AppLookAndFeel.getIcon(
-                "icon_imagecollection.png")); // NOI18N
-        ICON_OF_ITEM.put(itemDeleteFromImageCollection, AppLookAndFeel.getIcon(
-                "icon_imagecollection_remove_from.png")); // NOI18N
-        ICON_OF_ITEM.put(itemDeleteImageFromDatabase, AppLookAndFeel.getIcon(
-                "icon_database_delete_from.png")); // NOI18N
-        ICON_OF_ITEM.put(itemFileSystemCopyToDirectory, AppLookAndFeel.getIcon(
-                "icon_copy_to_folder.png")); // NOI18N
-        ICON_OF_ITEM.put(itemFileSystemDeleteFiles, AppLookAndFeel.getIcon(
-                "icon_delete.png")); // NOI18N
-        ICON_OF_ITEM.put(itemFileSystemMoveFiles, AppLookAndFeel.getIcon(
-                "icon_move_to_folder.png")); // NOI18N
-        ICON_OF_ITEM.put(itemFileSystemRenameFiles, AppLookAndFeel.getIcon(
-                "icon_rename.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRotateThumbnai180, AppLookAndFeel.getIcon(
-                "icon_rotate_180.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRotateThumbnail270, AppLookAndFeel.getIcon(
-                "icon_rotate_270.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRotateThumbnai90, AppLookAndFeel.getIcon(
-                "icon_rotate_90.png")); // NOI18N
-        ICON_OF_ITEM.put(itemUpdateMetadata, AppLookAndFeel.getIcon(
-                "icon_metadata_refresh.png")); // NOI18N
-        ICON_OF_ITEM.put(itemUpdateThumbnail, AppLookAndFeel.getIcon(
-                "icon_image_refresh.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRefresh, AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
-        ICON_OF_ITEM.put(itemIptcToXmp, AppLookAndFeel.getIcon("icon_iptc.png")); // NOI18N
-        ICON_OF_ITEM.put(itemPick, AppLookAndFeel.getIcon("icon_picked.png")); // NOI18N
-        ICON_OF_ITEM.put(itemReject, AppLookAndFeel.getIcon("icon_rejected.png")); // NOI18N
-        ICON_OF_ITEM.put(menuRating, AppLookAndFeel.getIcon("icon_xmp_rating_set.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating0, AppLookAndFeel.getIcon(
-                "icon_xmp_rating_remove.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating1, AppLookAndFeel.getIcon("icon_xmp_rating_1.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating2, AppLookAndFeel.getIcon("icon_xmp_rating_2.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating3, AppLookAndFeel.getIcon("icon_xmp_rating_3.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating4, AppLookAndFeel.getIcon("icon_xmp_rating_4.png")); // NOI18N
-        ICON_OF_ITEM.put(itemRating5, AppLookAndFeel.getIcon("icon_xmp_rating_5.png")); // NOI18N
+        ICON_OF_ITEM.put(itemAddToImageCollection     , AppLookAndFeel.getIcon("icon_imagecollection_add_to.png")); // NOI18N
+        ICON_OF_ITEM.put(itemCreateImageCollection    , AppLookAndFeel.getIcon("icon_imagecollection.png")); // NOI18N
+        ICON_OF_ITEM.put(itemDeleteFromImageCollection, AppLookAndFeel.getIcon("icon_imagecollection_remove_from.png")); // NOI18N
+        ICON_OF_ITEM.put(itemDeleteImageFromDatabase  , AppLookAndFeel.getIcon("icon_database_delete_from.png")); // NOI18N
+        ICON_OF_ITEM.put(itemFileSystemCopyToDirectory, AppLookAndFeel.getIcon("icon_copy_to_folder.png")); // NOI18N
+        ICON_OF_ITEM.put(itemFileSystemDeleteFiles    , AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
+        ICON_OF_ITEM.put(itemFileSystemMoveFiles      , AppLookAndFeel.getIcon("icon_move_to_folder.png")); // NOI18N
+        ICON_OF_ITEM.put(itemFileSystemRenameFiles    , AppLookAndFeel.getIcon("icon_rename.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRotateThumbnai180        , AppLookAndFeel.getIcon("icon_rotate_180.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRotateThumbnail270       , AppLookAndFeel.getIcon("icon_rotate_270.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRotateThumbnai90         , AppLookAndFeel.getIcon("icon_rotate_90.png")); // NOI18N
+        ICON_OF_ITEM.put(itemUpdateMetadata           , AppLookAndFeel.getIcon("icon_metadata_refresh.png")); // NOI18N
+        ICON_OF_ITEM.put(itemUpdateThumbnail          , AppLookAndFeel.getIcon("icon_image_refresh.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRefresh                  , AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
+        ICON_OF_ITEM.put(itemIptcToXmp                , AppLookAndFeel.getIcon("icon_iptc.png")); // NOI18N
+        ICON_OF_ITEM.put(itemPick                     , AppLookAndFeel.getIcon("icon_picked.png")); // NOI18N
+        ICON_OF_ITEM.put(itemReject                   , AppLookAndFeel.getIcon("icon_rejected.png")); // NOI18N
+        ICON_OF_ITEM.put(menuRating                   , AppLookAndFeel.getIcon("icon_xmp_rating_set.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating0                  , AppLookAndFeel.getIcon("icon_xmp_rating_remove.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating1                  , AppLookAndFeel.getIcon("icon_xmp_rating_1.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating2                  , AppLookAndFeel.getIcon("icon_xmp_rating_2.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating3                  , AppLookAndFeel.getIcon("icon_xmp_rating_3.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating4                  , AppLookAndFeel.getIcon("icon_xmp_rating_4.png")); // NOI18N
+        ICON_OF_ITEM.put(itemRating5                  , AppLookAndFeel.getIcon("icon_xmp_rating_5.png")); // NOI18N
     }
 
     private void addItems() {
@@ -238,7 +189,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         Icon iconPlugin = AppLookAndFeel.getIcon("icon_plugin.png");
         menuPlugins.setIcon(iconPlugin);
         add(menuPlugins);
-        Logger logger = Logger.getLogger("de.elmar_baumann.jpt.plugin");
+        Logger     logger     = Logger.getLogger("de.elmar_baumann.jpt.plugin");
         Properties properties = UserSettings.INSTANCE.getProperties();
         for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
             plugin.setProperties(properties);
@@ -276,8 +227,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
             for (Program program : programs) {
                 String alias = program.getAlias();
                 JMenuItem item = new JMenuItem(alias);
-                for (ActionListener listener :
-                        actionListenersOpenFilesWithOtherApp) {
+                for (ActionListener listener : actionListenersOpenFilesWithOtherApp) {
                     item.addActionListener(listener);
                 }
                 menuPrograms.add(item);
@@ -292,8 +242,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(
-                UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
             addOtherPrograms();
         }
     }
@@ -411,8 +360,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     public Set<JMenuItem> getPluginMenuItems() {
-        Set<JMenuItem> items = new HashSet<JMenuItem>();
-        int itemCount = menuPlugins.getItemCount();
+        Set<JMenuItem> items     = new HashSet<JMenuItem>();
+        int            itemCount = menuPlugins.getItemCount();
+
         for (int i = 0; i < itemCount; i++) {
             JMenuItem item = menuPlugins.getItem(i);
             if (item != null && item.getAction() instanceof Plugin) {
@@ -422,8 +372,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return items;
     }
 
-    public synchronized void addActionListenerOpenFilesWithOtherApp(
-            ActionListener listener) {
+    public synchronized void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
         addOtherPrograms();
     }
@@ -466,21 +415,17 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void setAccelerators() {
-        itemDeleteFromImageCollection.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        itemFileSystemDeleteFiles.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        itemFileSystemRenameFiles.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemRefresh.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
-        itemPick.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0));
-        itemReject.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, 0));
-        itemRating0.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0));
-        itemRating1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0));
-        itemRating2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0));
-        itemRating3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0));
-        itemRating4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0));
-        itemRating5.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0));
+        itemDeleteFromImageCollection.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemFileSystemDeleteFiles    .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemFileSystemRenameFiles    .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemRefresh                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+        itemPick                     .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0));
+        itemReject                   .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, 0));
+        itemRating0                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0));
+        itemRating1                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0));
+        itemRating2                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0));
+        itemRating3                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0));
+        itemRating4                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0));
+        itemRating5                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0));
     }
 }

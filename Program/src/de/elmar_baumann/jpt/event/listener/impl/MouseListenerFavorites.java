@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.data.FavoriteDirectory;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.JTree;
@@ -36,12 +35,18 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-23
  */
-public final class MouseListenerFavorites extends MouseAdapter {
+public final class MouseListenerFavorites extends MouseListenerTree {
 
     private final PopupMenuFavorites popupMenu = PopupMenuFavorites.INSTANCE;
 
+    public MouseListenerFavorites() {
+        listenExpandAllSubItems (popupMenu.getItemExpandAllSubitems()   , true);
+        listenCollapseAllSubItems(popupMenu.getItemCollapseAllSubitems(), true);
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
         if (MouseEventUtil.isPopupTrigger(e)) {
             TreePath path = TreeUtil.getTreePath(e);
             boolean isFavorite = false;

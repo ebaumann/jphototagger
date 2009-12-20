@@ -37,57 +37,31 @@ import javax.swing.tree.TreePath;
  */
 public final class PopupMenuFavorites extends JPopupMenu {
 
-    private static final String DISPLAY_NAME_ACTION_INSERT_FAVORITE =
-            Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.InsertFavorite"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_UPDATE_FAVORITE =
-            Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.UpdateFavorite"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_DELETE_FAVORITE =
-            Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.DeleteFavorite"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_MOVE_UP =
-            Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveUp"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_MOVE_DOWN =
-            Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveDown"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_ADD_FILESYSTEM_FOLDER =
-            Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_RENAME_FILESYSTEM_FOLDER =
-            Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_DELETE_FILESYSTEM_FOLDER =
-            Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_OPEN_IN_FOLDERS =
-            Bundle.getString(
-            "PopupMenuFavorites.DisplayName.Action.OpenInFolders"); // NOI18N
-    private static final String DISPLAY_NAME_ACTION_REFRESH =
-            Bundle.getString("PopupMenuFavorites.DisplayName.Action.Refresh"); // NOI18N
-    private final JMenuItem itemInsertFavorite =
-            new JMenuItem(DISPLAY_NAME_ACTION_INSERT_FAVORITE);
-    private final JMenuItem itemUpdateFavorite =
-            new JMenuItem(DISPLAY_NAME_ACTION_UPDATE_FAVORITE);
-    private final JMenuItem itemDeleteFavorite =
-            new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FAVORITE);
-    private final JMenuItem itemOpenInFolders =
-            new JMenuItem(DISPLAY_NAME_ACTION_OPEN_IN_FOLDERS);
-    private final JMenuItem itemRefresh =
-            new JMenuItem(DISPLAY_NAME_ACTION_REFRESH);
-    private final JMenuItem itemMoveUp =
-            new JMenuItem(DISPLAY_NAME_ACTION_MOVE_UP);
-    private final JMenuItem itemAddFilesystemFolder =
-            new JMenuItem(DISPLAY_NAME_ACTION_ADD_FILESYSTEM_FOLDER);
-    private final JMenuItem itemRenameFilesystemFolder =
-            new JMenuItem(DISPLAY_NAME_ACTION_RENAME_FILESYSTEM_FOLDER);
-    private final JMenuItem itemDeleteFilesystemFolder =
-            new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FILESYSTEM_FOLDER);
-    private final JMenuItem itemMoveDown =
-            new JMenuItem(DISPLAY_NAME_ACTION_MOVE_DOWN);
-    private TreePath treePath;
-    private FavoriteDirectory favoriteDirectory;
-    public static final PopupMenuFavorites INSTANCE =
-            new PopupMenuFavorites();
+    private static final String             DISPLAY_NAME_ACTION_INSERT_FAVORITE          = Bundle.getString("PopupMenuFavorites.DisplayName.Action.InsertFavorite"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_UPDATE_FAVORITE          = Bundle.getString("PopupMenuFavorites.DisplayName.Action.UpdateFavorite"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_DELETE_FAVORITE          = Bundle.getString("PopupMenuFavorites.DisplayName.Action.DeleteFavorite"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_MOVE_UP                  = Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveUp"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_MOVE_DOWN                = Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveDown"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_ADD_FILESYSTEM_FOLDER    = Bundle.getString("PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_RENAME_FILESYSTEM_FOLDER = Bundle.getString("PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_DELETE_FILESYSTEM_FOLDER = Bundle.getString("PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_OPEN_IN_FOLDERS          = Bundle.getString("PopupMenuFavorites.DisplayName.Action.OpenInFolders"); // NOI18N
+    private static final String             DISPLAY_NAME_ACTION_REFRESH                  = Bundle.getString("PopupMenuFavorites.DisplayName.Action.Refresh"); // NOI18N
+    private final        JMenuItem          itemInsertFavorite                           = new JMenuItem(DISPLAY_NAME_ACTION_INSERT_FAVORITE);
+    private final        JMenuItem          itemUpdateFavorite                           = new JMenuItem(DISPLAY_NAME_ACTION_UPDATE_FAVORITE);
+    private final        JMenuItem          itemDeleteFavorite                           = new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FAVORITE);
+    private final        JMenuItem          itemOpenInFolders                            = new JMenuItem(DISPLAY_NAME_ACTION_OPEN_IN_FOLDERS);
+    private final        JMenuItem          itemRefresh                                  = new JMenuItem(DISPLAY_NAME_ACTION_REFRESH);
+    private final        JMenuItem          itemMoveUp                                   = new JMenuItem(DISPLAY_NAME_ACTION_MOVE_UP);
+    private final        JMenuItem          itemAddFilesystemFolder                      = new JMenuItem(DISPLAY_NAME_ACTION_ADD_FILESYSTEM_FOLDER);
+    private final        JMenuItem          itemRenameFilesystemFolder                   = new JMenuItem(DISPLAY_NAME_ACTION_RENAME_FILESYSTEM_FOLDER);
+    private final        JMenuItem          itemDeleteFilesystemFolder                   = new JMenuItem(DISPLAY_NAME_ACTION_DELETE_FILESYSTEM_FOLDER);
+    private final        JMenuItem          itemMoveDown                                 = new JMenuItem(DISPLAY_NAME_ACTION_MOVE_DOWN);
+    private final        JMenuItem          itemExpandAllSubitems                        = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final        JMenuItem          itemCollapseAllSubitems                      = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private              TreePath           treePath;
+    private              FavoriteDirectory  favoriteDirectory;
+    public static final  PopupMenuFavorites INSTANCE                                     = new PopupMenuFavorites();
 
     public JMenuItem getItemDeleteFavorite() {
         return itemDeleteFavorite;
@@ -129,6 +103,14 @@ public final class PopupMenuFavorites extends JPopupMenu {
         return itemRenameFilesystemFolder;
     }
 
+    public JMenuItem getItemCollapseAllSubitems() {
+        return itemCollapseAllSubitems;
+    }
+
+    public JMenuItem getItemExpandAllSubitems() {
+        return itemExpandAllSubitems;
+    }
+
     public TreePath getTreePath() {
         return treePath;
     }
@@ -168,40 +150,33 @@ public final class PopupMenuFavorites extends JPopupMenu {
         add(itemRenameFilesystemFolder);
         add(itemDeleteFilesystemFolder);
         add(new JSeparator());
+        add(itemExpandAllSubitems);
+        add(itemCollapseAllSubitems);
+        add(new JSeparator());
         add(itemRefresh);
     }
 
     private void setIcons() {
-        itemDeleteFavorite.setIcon(AppLookAndFeel.getIcon("icon_remove.png")); // NOI18N
-        itemInsertFavorite.setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
-        itemMoveDown.setIcon(AppLookAndFeel.getIcon("icon_move_down.png")); // NOI18N
-        itemMoveUp.setIcon(AppLookAndFeel.getIcon("icon_move_up.png")); // NOI18N
-        itemOpenInFolders.setIcon(AppLookAndFeel.getIcon("icon_folder.png")); // NOI18N
-        itemRefresh.setIcon(AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
-        itemAddFilesystemFolder.setIcon(AppLookAndFeel.getIcon("icon_folder_add.png")); // NOI18N
-        itemRenameFilesystemFolder.setIcon(
-                AppLookAndFeel.getIcon("icon_folder_rename.png")); // NOI18N
-        itemDeleteFilesystemFolder.setIcon(
-                AppLookAndFeel.getIcon("icon_folder_delete.png")); // NOI18N
-        itemUpdateFavorite.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
+        itemDeleteFavorite        .setIcon(AppLookAndFeel.getIcon("icon_remove.png")); // NOI18N
+        itemInsertFavorite        .setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
+        itemMoveDown              .setIcon(AppLookAndFeel.getIcon("icon_move_down.png")); // NOI18N
+        itemMoveUp                .setIcon(AppLookAndFeel.getIcon("icon_move_up.png")); // NOI18N
+        itemOpenInFolders         .setIcon(AppLookAndFeel.getIcon("icon_folder.png")); // NOI18N
+        itemRefresh               .setIcon(AppLookAndFeel.getIcon("icon_refresh.png")); // NOI18N
+        itemAddFilesystemFolder   .setIcon(AppLookAndFeel.getIcon("icon_folder_add.png")); // NOI18N
+        itemRenameFilesystemFolder.setIcon(AppLookAndFeel.getIcon("icon_folder_rename.png")); // NOI18N
+        itemDeleteFilesystemFolder.setIcon(AppLookAndFeel.getIcon("icon_folder_delete.png")); // NOI18N
+        itemUpdateFavorite        .setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
     }
 
     private void setAccelerators() {
-        itemUpdateFavorite.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
-        itemInsertFavorite.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
-        itemOpenInFolders.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
-        itemAddFilesystemFolder.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-        itemDeleteFavorite.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        itemDeleteFilesystemFolder.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        itemRenameFilesystemFolder.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemRefresh.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+        itemUpdateFavorite        .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
+        itemInsertFavorite        .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
+        itemOpenInFolders         .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+        itemAddFilesystemFolder   .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        itemDeleteFavorite        .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemDeleteFilesystemFolder.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemRenameFilesystemFolder.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemRefresh               .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
     }
 }

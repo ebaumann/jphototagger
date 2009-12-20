@@ -20,7 +20,11 @@ package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
@@ -34,13 +38,31 @@ import javax.swing.SwingUtilities;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class XmpCache extends Cache<XmpCacheIndirection> {
+public class XmpCache extends Cache<XmpCacheIndirection>
+        implements DatabaseListener {
 
     public static final XmpCache INSTANCE = new XmpCache();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private XmpCache() {
+        db.addDatabaseListener(this);
         new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start(); // NOI18N
     }
+
+    @Override
+    public void actionPerformed(DatabaseImageEvent event) {
+        if (DatabaseImageEvent.Type.XMP_UPDATED == event.getType()) {
+            File file = event.getImageFile().getFile();
+            fileCache.remove(file);
+            notifyUpdate(file);
+        }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramEvent event) {}
+
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {}
 
     private static class XmpFetcher implements Runnable {
 

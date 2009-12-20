@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.event.listener.impl;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.JTree;
@@ -34,12 +33,18 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-24
  */
-public final class MouseListenerDirectories extends MouseAdapter {
+public final class MouseListenerDirectories extends MouseListenerTree {
 
     private final PopupMenuDirectories popupMenu = PopupMenuDirectories.INSTANCE;
 
+    public MouseListenerDirectories() {
+        listenExpandAllSubItems  (popupMenu.getMenuItemExpandAllSubitems()  , true);
+        listenCollapseAllSubItems(popupMenu.getMenuItemCollapseAllSubitems(), true);
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
         TreePath path = TreeUtil.getTreePath(e);
         if (path == null) return;
         if (MouseEventUtil.isPopupTrigger(e)) {

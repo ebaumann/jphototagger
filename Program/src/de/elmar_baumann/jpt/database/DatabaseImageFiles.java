@@ -284,26 +284,30 @@ public final class DatabaseImageFiles extends Database {
         int updated = 0;
         Connection connection = null;
         try {
-            int filecount = DatabaseStatistics.INSTANCE.getFileCount();
-            ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, ""); // NOI18N
+            int           filecount     = DatabaseStatistics.INSTANCE.getFileCount();
+            ProgressEvent progressEvent = new ProgressEvent(this, 0, filecount, 0, ""); // NOI18N
+            ImageFile     imageFile     = new ImageFile();
+
             connection = getConnection();
             connection.setAutoCommit(true);
-            String sql = "SELECT filename FROM files ORDER BY filename ASC"; // NOI18N
             Statement stmt = connection.createStatement();
+            String sql = "SELECT filename FROM files ORDER BY filename ASC"; // NOI18N
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             int count = 0;
-            notifyProgressListenerStart(listener, event);
-            while (!event.isStop() && rs.next()) {
+            notifyProgressListenerStart(listener, progressEvent);
+            while (!progressEvent.isStop() && rs.next()) {
                 String filename = rs.getString(1);
                 updateThumbnailFile(PersistentThumbnails.getMd5File(filename), getThumbnailFromFile(filename));
                 updated++;
-                event.setValue(++count);
-                event.setInfo(filename);
-                notifyProgressListenerPerformed(listener, event);
+                progressEvent.setValue(++count);
+                progressEvent.setInfo(filename);
+                notifyProgressListenerPerformed(listener, progressEvent);
+                imageFile.setFilename(filename);
+                notifyDatabaseListener(DatabaseImageEvent.Type.THUMBNAIL_UPDATED, imageFile);
             }
             stmt.close();
-            notifyProgressListenerEnd(listener, event);
+            notifyProgressListenerEnd(listener, progressEvent);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
         } finally {
@@ -340,6 +344,9 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             updateThumbnailFile(PersistentThumbnails.getMd5File(filename), thumbnail);
+            ImageFile imageFile = new ImageFile();
+            imageFile.setFilename(filename);
+            notifyDatabaseListener(DatabaseImageEvent.Type.THUMBNAIL_UPDATED, imageFile);
             return true;
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);

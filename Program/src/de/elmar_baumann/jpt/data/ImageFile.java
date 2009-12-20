@@ -33,14 +33,13 @@ import java.util.Set;
  */
 public final class ImageFile {
 
-    private String filename;
-    private long lastmodified = -1;
-    private Image thumbnail;
-    private Iptc iptc;
-    private Xmp xmp;
-    private Exif exif;
-    private Set<InsertImageFilesIntoDatabase.Insert> insertIntoDb =
-            new HashSet<InsertImageFilesIntoDatabase.Insert>();
+    private      String                                   filename;
+    private      long                                     lastmodified = -1;
+    private      Image                                    thumbnail;
+    private      Iptc                                     iptc;
+    private      Xmp                                      xmp;
+    private      Exif                                     exif;
+    private      Set<InsertImageFilesIntoDatabase.Insert> insertIntoDb  = new HashSet<InsertImageFilesIntoDatabase.Insert>();
 
     @Override
     public boolean equals(Object obj) {
@@ -79,6 +78,11 @@ public final class ImageFile {
         return filename;
     }
 
+    /**
+     * Shortcut for {@code new File(imageFile.getFilename())}.
+     * 
+     * @return new created file of {@link #getFilename()}
+     */
     public File getFile() {
         return new File(filename);
     }
@@ -204,8 +208,7 @@ public final class ImageFile {
     }
 
     public boolean isInsertThumbnailIntoDb() {
-        return insertIntoDb.contains(
-                InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
+        return insertIntoDb.contains(InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
     }
 
     public Set<Insert> getInsertIntoDb() {
@@ -219,19 +222,5 @@ public final class ImageFile {
      */
     public void addInsertIntoDb(InsertImageFilesIntoDatabase.Insert insert) {
         insertIntoDb.add(insert);
-    }
-
-    /**
-     * Liefert, ob keine Daten vorhanden sind.
-     * 
-     * @return true, wenn leer
-     */
-    public boolean isEmpty() {
-        return filename == null &&
-                lastmodified == -1 &&
-                thumbnail == null &&
-                iptc == null &&
-                xmp == null &&
-                exif == null;
     }
 }
