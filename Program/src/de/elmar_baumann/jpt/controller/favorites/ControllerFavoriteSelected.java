@@ -48,21 +48,17 @@ import javax.swing.tree.TreePath;
 public final class ControllerFavoriteSelected implements
         TreeSelectionListener, RefreshListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree treeFavoriteDirectories =
-            appPanel.getTreeFavorites();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
+    private final AppPanel                appPanel                = GUI.INSTANCE.getAppPanel();
+    private final JTree                   treeFavoriteDirectories = appPanel.getTreeFavorites();
+    private final ThumbnailsPanel         thumbnailsPanel         = appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels              = appPanel.getEditPanelsArray();
 
     public ControllerFavoriteSelected() {
         listen();
     }
 
     private void listen() {
-        treeFavoriteDirectories.getSelectionModel().addTreeSelectionListener(
-                this);
+        treeFavoriteDirectories.getSelectionModel().addTreeSelectionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.FAVORITE);
     }
 
@@ -97,8 +93,8 @@ public final class ControllerFavoriteSelected implements
             TreePath path = treeFavoriteDirectories.getSelectionPath();
             if (path != null) {
                 File dir = null;
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-                Object userObject = node.getUserObject();
+                DefaultMutableTreeNode node       = (DefaultMutableTreeNode) path.getLastPathComponent();
+                Object                 userObject = node.getUserObject();
                 if (userObject instanceof FavoriteDirectory) {
                     FavoriteDirectory favoriteDirectory = (FavoriteDirectory) userObject;
                     dir = favoriteDirectory.getDirectory();
@@ -106,11 +102,16 @@ public final class ControllerFavoriteSelected implements
                     dir = (File) userObject;
                 }
                 if (dir != null) {
-                    GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.FavoriteDirectory", dir));
+                    setTitle(dir);
                     return ImageFilteredDirectory.getImageFilesOfDirectory(dir);
                 }
             }
             return new ArrayList<File>();
+        }
+
+        private void setTitle(File dir) {
+            GUI.INSTANCE.getAppFrame().setTitle(
+                    Bundle.getString("AppFrame.Title.FavoriteDirectory", dir.getName()));
         }
 
         private void setMetadataEditable() {

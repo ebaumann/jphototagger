@@ -45,14 +45,10 @@ import javax.swing.event.ListSelectionListener;
 public final class ControllerImageCollectionSelected implements
         ListSelectionListener, RefreshListener {
 
-    private final DatabaseImageCollections db =
-            DatabaseImageCollections.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
-    private final JList list = appPanel.getListImageCollections();
+    private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels      = appPanel.getEditPanelsArray();
+    private final JList                   list            = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
         listen();
@@ -92,8 +88,7 @@ public final class ControllerImageCollectionSelected implements
                 setMetadataEditable();
             }
         });
-        thread.setName("Image collection selected" + " @ " + // NOI18N
-                getClass().getName());
+        thread.setName("Image collection selected" + " @ " + getClass()); // NOI18N
         thread.start();
     }
 
@@ -102,9 +97,15 @@ public final class ControllerImageCollectionSelected implements
 
             @Override
             public void run() {
-                List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
-                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Collection", collectionName));
+                List<String> filenames = DatabaseImageCollections.INSTANCE
+                        .getFilenamesOfImageCollection(collectionName);
+                setTitle();
                 thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.IMAGE_COLLECTION);
+            }
+
+            private void setTitle() {
+                GUI.INSTANCE.getAppFrame().setTitle(
+                        Bundle.getString("AppFrame.Title.Collection", collectionName));
             }
         });
     }

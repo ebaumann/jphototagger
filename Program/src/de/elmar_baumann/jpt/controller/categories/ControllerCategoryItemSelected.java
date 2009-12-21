@@ -43,11 +43,9 @@ import javax.swing.event.ListSelectionListener;
 public final class ControllerCategoryItemSelected implements
         ListSelectionListener, RefreshListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList listCategories = appPanel.getListCategories();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final JList           listCategories  = appPanel.getListCategories();
+    private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCategoryItemSelected() {
         listen();
@@ -78,12 +76,18 @@ public final class ControllerCategoryItemSelected implements
             @Override
             public void run() {
                 if (listCategories.getSelectedIndex() >= 0) {
-                    String category = (String) listCategories.getSelectedValue();
-                    Set<String> filenames = db.getFilenamesOfCategory(category);
+                    String      category  = (String) listCategories.getSelectedValue();
+                    Set<String> filenames =
+                            DatabaseImageFiles.INSTANCE.getFilenamesOfCategory(category);
 
-                    GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Category", category));
+                    setTitle(category);
                     thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.CATEGORY);
                 }
+            }
+
+            private void setTitle(String category) {
+                GUI.INSTANCE.getAppFrame().setTitle(
+                        Bundle.getString("AppFrame.Title.Category", category));
             }
         });
     }

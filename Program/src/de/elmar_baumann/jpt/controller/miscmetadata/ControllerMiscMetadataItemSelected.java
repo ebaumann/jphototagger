@@ -43,11 +43,9 @@ import javax.swing.tree.TreePath;
 public final class ControllerMiscMetadataItemSelected implements
         TreeSelectionListener, RefreshListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree tree = appPanel.getTreeMiscMetadata();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final JTree           tree            = appPanel.getTreeMiscMetadata();
+    private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerMiscMetadataItemSelected() {
         listen();
@@ -61,16 +59,16 @@ public final class ControllerMiscMetadataItemSelected implements
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
-            SwingUtilities.invokeLater(new ShowThumbnails(e.
-                    getNewLeadSelectionPath()));
+            SwingUtilities.invokeLater(
+                    new ShowThumbnails(e.getNewLeadSelectionPath()));
         }
     }
 
     @Override
     public void refresh() {
         if (tree.getSelectionCount() == 1) {
-            SwingUtilities.invokeLater(new ShowThumbnails(
-                    tree.getSelectionPath()));
+            SwingUtilities.invokeLater(
+                    new ShowThumbnails(tree.getSelectionPath()));
         }
     }
 
@@ -88,33 +86,41 @@ public final class ControllerMiscMetadataItemSelected implements
             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
         }
 
-        private void setFilesOfPossibleNodeToThumbnailsPanel(
-                Object lastPathComponent) {
+        private void setFilesOfPossibleNodeToThumbnailsPanel(Object lastPathComponent) {
             if (lastPathComponent instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode node =
-                        (DefaultMutableTreeNode) lastPathComponent;
-                setFilesOfNodeToThumbnailsPanel(node);
+                setFilesOfNodeToThumbnailsPanel((DefaultMutableTreeNode) lastPathComponent);
             }
         }
 
         private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
             if (node.isLeaf()) {
-                Object userObject = node.getUserObject();
+                Object userObject       = node.getUserObject();
                 Object parentUserObject = ((DefaultMutableTreeNode) node.getParent()).getUserObject();
                 if (parentUserObject instanceof Column) {
                     Column column = (Column) parentUserObject;
-                    GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata.Object", column.getDescription() + " " + userObject.toString()));
-                    thumbnailsPanel.setFiles(db.getFilesJoinTable(
+                    setTitle(column, userObject);
+                    thumbnailsPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesJoinTable(
                             column,
                             userObject.toString()),
                             Content.MISC_METADATA);
                 } else {
-                    GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata"));
+                    setTitle();
                 }
             } else {
                 thumbnailsPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);
-                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata"));
+                setTitle();
             }
+        }
+
+        private void setTitle() {
+            GUI.INSTANCE.getAppFrame().setTitle(
+                    Bundle.getString("AppFrame.Title.Metadata"));
+        }
+
+        private void setTitle(Column column, Object userObject) {
+            GUI.INSTANCE.getAppFrame().setTitle(
+                    Bundle.getString("AppFrame.Title.Metadata.Object",
+                    column.getDescription() + " " + userObject.toString()));
         }
     }
 }

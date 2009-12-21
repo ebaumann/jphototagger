@@ -38,12 +38,10 @@ import java.util.Set;
  */
 public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels =
-            GUI.INSTANCE.getAppPanel().getEditPanelsArray();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final List<String> keywords;
+    private final DatabaseImageFiles      db              = DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels      = GUI.INSTANCE.getAppPanel().getEditPanelsArray();
+    private final List<String>            keywords;
 
     /**
      * Creates a new instance of this class.
@@ -70,13 +68,24 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
     private Set<String> getFilenamesOfKeywords() {
         // Faster than using 2 different DB queries if only 1 keyword is selected
         if (keywords.size() == 1) {
-            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Keyword", keywords.get(0)));
+            setTitle(keywords.get(0));
             return db.getFilenamesOfDcSubject(keywords.get(0));
         } else if (keywords.size() > 1) {
-            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Keywords"));
+            setTitle(keywords);
             return db.getFilenamesOfAllDcSubjects(keywords);
         }
         return null;
+    }
+
+    private void setTitle(List<String> keywords) {
+        GUI.INSTANCE.getAppFrame().setTitle(
+                Bundle.getString("AppFrame.Title.Keywords.Path",
+                    Util.keywordPathString(keywords)));
+    }
+
+    private void setTitle(String keyword) {
+        GUI.INSTANCE.getAppFrame().setTitle(
+                Bundle.getString("AppFrame.Title.Keyword", keyword));
     }
 
     private void setMetadataEditable() {
