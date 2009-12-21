@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.categories;
 
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -80,8 +81,8 @@ public final class ControllerCategoryItemSelected implements
                     String category = (String) listCategories.getSelectedValue();
                     Set<String> filenames = db.getFilenamesOfCategory(category);
 
-                    thumbnailsPanel.setFiles(
-                            FileUtil.getAsFiles(filenames), Content.CATEGORY);
+                    GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Category", category));
+                    thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.CATEGORY);
                 }
             }
         });

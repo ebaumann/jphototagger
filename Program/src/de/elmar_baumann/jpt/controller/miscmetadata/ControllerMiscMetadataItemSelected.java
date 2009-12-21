@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.controller.miscmetadata;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -99,18 +100,20 @@ public final class ControllerMiscMetadataItemSelected implements
         private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
             if (node.isLeaf()) {
                 Object userObject = node.getUserObject();
-                Object parentUserObject =
-                        ((DefaultMutableTreeNode) node.getParent()).
-                        getUserObject();
+                Object parentUserObject = ((DefaultMutableTreeNode) node.getParent()).getUserObject();
                 if (parentUserObject instanceof Column) {
                     Column column = (Column) parentUserObject;
-                    thumbnailsPanel.setFiles(db.getFilesJoinTable(column,
+                    GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata.Object", column.getDescription() + " " + userObject.toString()));
+                    thumbnailsPanel.setFiles(db.getFilesJoinTable(
+                            column,
                             userObject.toString()),
                             Content.MISC_METADATA);
+                } else {
+                    GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata"));
                 }
             } else {
-                thumbnailsPanel.setFiles(new ArrayList<File>(),
-                        Content.MISC_METADATA);
+                thumbnailsPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);
+                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata"));
             }
         }
     }

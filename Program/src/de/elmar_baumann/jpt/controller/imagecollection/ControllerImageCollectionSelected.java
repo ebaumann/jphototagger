@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.controller.imagecollection;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -101,10 +102,9 @@ public final class ControllerImageCollectionSelected implements
 
             @Override
             public void run() {
-                List<String> filenames =
-                        db.getFilenamesOfImageCollection(collectionName);
-                thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                        Content.IMAGE_COLLECTION);
+                List<String> filenames = db.getFilenamesOfImageCollection(collectionName);
+                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Collection", collectionName));
+                thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.IMAGE_COLLECTION);
             }
         });
     }

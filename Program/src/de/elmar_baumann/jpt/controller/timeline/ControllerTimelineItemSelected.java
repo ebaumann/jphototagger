@@ -21,10 +21,12 @@ package de.elmar_baumann.jpt.controller.timeline;
 import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import java.text.DateFormat;
 import java.util.Calendar;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -105,12 +107,11 @@ public final class ControllerTimelineItemSelected implements
     private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
         if (node.equals(Timeline.getUnknownNode())) {
-            thumbnailsPanel.setFiles(db.getFilesOfUnknownExifDate(),
-                    Content.TIMELINE);
+            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timline.Unknown"));
+            thumbnailsPanel.setFiles(db.getFilesOfUnknownExifDate(), Content.TIMELINE);
         } else if (userObject instanceof Calendar) {
             Calendar cal = (Calendar) userObject;
-            DefaultMutableTreeNode parent =
-                    (DefaultMutableTreeNode) node.getParent();
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
             if (parent != null) {
                 boolean isYear = parent.equals(node.getRoot());
                 boolean isMonth = !isYear && node.getChildCount() > 0;
@@ -121,8 +122,9 @@ public final class ControllerTimelineItemSelected implements
                 int day = isMonth
                           ? -1
                           : cal.get(Calendar.DAY_OF_MONTH);
-                thumbnailsPanel.setFiles(db.getFilesOf(year, month, day),
-                        Content.TIMELINE);
+                DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
+                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timeline.Date", df.format(cal.getTime())));
+                thumbnailsPanel.setFiles(db.getFilesOf(year, month, day), Content.TIMELINE);
             }
         }
     }

@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.database.DatabaseSearch;
 import de.elmar_baumann.jpt.database.metadata.ParamStatement;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -104,8 +105,8 @@ public final class ControllerSavedSearchSelected
 
         private void searchParamStatement(ParamStatement stmt) {
             List<String> filenames = db.searchFilenames(stmt);
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                    Content.SAVED_SEARCH);
+            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.AdvancedSearch", stmt.getName()));
+            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
         }
 
         private void setMetadataEditable() {

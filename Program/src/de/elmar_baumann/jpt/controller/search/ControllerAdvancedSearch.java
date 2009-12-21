@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.database.DatabaseSearch;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -94,15 +95,13 @@ public final class ControllerAdvancedSearch implements ActionListener,
             public void run() {
                 SavedSearch savedSearch = e.getSavedSearch();
                 if (savedSearch != null) {
-                    SavedSearchParamStatement paramStmt =
-                            savedSearch.getParamStatement();
+                    SavedSearchParamStatement paramStmt = savedSearch.getParamStatement();
                     if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);
-                        List<String> filenames = db.searchFilenames(
-                                paramStmt.createStatement());
+                        List<String> filenames = db.searchFilenames(paramStmt.createStatement());
 
-                        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                                Content.SAVED_SEARCH);
+                        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
+                        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.AdvancedSearch", paramStmt.getName()));
                     }
                 }
             }
