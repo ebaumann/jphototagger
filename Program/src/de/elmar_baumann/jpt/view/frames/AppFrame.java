@@ -305,6 +305,14 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuEdit;
     }
 
+    @Override
+    public void setTitle(String title) {
+        if (title.equals(AppInfo.APP_NAME)) {
+            super.setTitle(AppInfo.APP_NAME);
+        } else {
+            super.setTitle(title + " - " + AppInfo.APP_NAME);
+        }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

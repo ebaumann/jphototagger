@@ -35,6 +35,7 @@ import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -207,8 +208,8 @@ public final class ControllerFastSearch
                     clearSelection();
                     List<String> filenames = searchFilenames(userInput);
                     if (filenames != null) {
-                        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                                Content.SAVED_SEARCH);
+                        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.FastSearch", userInput));
+                        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
                     }
                 }
             }

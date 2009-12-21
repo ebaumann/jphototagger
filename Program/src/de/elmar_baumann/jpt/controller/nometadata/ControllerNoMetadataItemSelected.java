@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.nometadata;
 
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -47,8 +48,7 @@ public final class ControllerNoMetadataItemSelected
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppPanel().getListNoMetadata().addListSelectionListener(
-                this);
+        GUI.INSTANCE.getAppPanel().getListNoMetadata().addListSelectionListener(this);
     }
 
     @Override
@@ -63,11 +63,9 @@ public final class ControllerNoMetadataItemSelected
         assert selValue == null || selValue instanceof Column :
                 "Not a Column: " + selValue; // NOI18N
         if (selValue instanceof Column) {
-            List<String> filenames = DatabaseImageFiles.INSTANCE.
-                    getFilenamesWithoutMetadata((Column) selValue);
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFiles(
-                    FileUtil.getAsFiles(filenames),
-                    Content.MISSING_METADATA);
+            List<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadata((Column) selValue);
+            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.WithoutMetadata", ((Column) selValue).getDescription()));
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFiles(FileUtil.getAsFiles(filenames), Content.MISSING_METADATA);
         }
     }
 }

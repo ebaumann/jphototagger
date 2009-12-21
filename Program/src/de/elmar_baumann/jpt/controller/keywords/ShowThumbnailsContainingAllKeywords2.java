@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.keywords;
 
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
@@ -62,8 +63,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
     private void setFilesToThumbnailsPanel() {
         Set<String> filenames = getFilenamesOfKeywords();
-        thumbnailsPanel.setFiles(
-                FileUtil.getAsFiles(filenames), Content.KEYWORD);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.KEYWORD);
     }
 
     private Set<String> getFilenamesOfKeywords() {
@@ -73,7 +73,9 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
             // selected
             if (keywordList.size() == 1) {
                 filenames.addAll(db.getFilenamesOfDcSubject(keywordList.get(0)));
+                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Keyword", keywordList.get(0)));
             } else if (keywordList.size() > 1) {
+                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Keywords"));
                 filenames.addAll(db.getFilenamesOfAllDcSubjects(keywordList));
             }
         }

@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -85,13 +86,11 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
         @Override
         public void run() {
             if (treeDirectories.getSelectionCount() > 0) {
-                File selectedDirectory =
-                        new File(getDirectorynameFromTree());
+                File selectedDirectory = new File(getDirectorynameFromTree());
                 imageFilteredDirectory.setDirectory(selectedDirectory);
-                List<File> files = ImageFilteredDirectory.
-                        getImageFilesOfDirectory(selectedDirectory);
-                thumbnailsPanel.setFiles(files,
-                        Content.DIRECTORY);
+                List<File> files = ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory);
+                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Directory", selectedDirectory.getName()));
+                thumbnailsPanel.setFiles(files, Content.DIRECTORY);
                 setMetadataEditable();
             }
         }
