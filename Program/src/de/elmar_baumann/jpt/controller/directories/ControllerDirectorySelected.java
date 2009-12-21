@@ -43,17 +43,15 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerDirectorySelected implements TreeSelectionListener,
-                                                          RefreshListener {
+public final class ControllerDirectorySelected
+        implements TreeSelectionListener,
+                   RefreshListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree treeDirectories = appPanel.getTreeDirectories();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
-    private final ImageFilteredDirectory imageFilteredDirectory =
-            new ImageFilteredDirectory();
+    private final AppPanel                appPanel               = GUI.INSTANCE.getAppPanel();
+    private final JTree                   treeDirectories        = appPanel.getTreeDirectories();
+    private final EditMetadataPanelsArray editPanels             = appPanel.getEditPanelsArray();
+    private final ThumbnailsPanel         thumbnailsPanel        = appPanel.getPanelThumbnails();
+    private final ImageFilteredDirectory  imageFilteredDirectory = new ImageFilteredDirectory();
 
     public ControllerDirectorySelected() {
         listen();
@@ -66,8 +64,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath() &&
-                !PopupMenuDirectories.INSTANCE.isTreeSelected()) {
+        if (e.isAddedPath() && !PopupMenuDirectories.INSTANCE.isTreeSelected()) {
             setFilesToThumbnailsPanel();
         }
     }
@@ -89,10 +86,15 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
                 File selectedDirectory = new File(getDirectorynameFromTree());
                 imageFilteredDirectory.setDirectory(selectedDirectory);
                 List<File> files = ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory);
-                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Directory", selectedDirectory.getName()));
+                setTitle(selectedDirectory);
                 thumbnailsPanel.setFiles(files, Content.DIRECTORY);
                 setMetadataEditable();
             }
+        }
+
+        private void setTitle(File selectedDirectory) {
+            GUI.INSTANCE.getAppFrame().setTitle(
+                    Bundle.getString("AppFrame.Title.Directory", selectedDirectory.getName()));
         }
 
         private String getDirectorynameFromTree() {

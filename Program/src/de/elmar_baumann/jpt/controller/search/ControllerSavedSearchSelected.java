@@ -44,13 +44,10 @@ import javax.swing.event.ListSelectionListener;
 public final class ControllerSavedSearchSelected
         implements ListSelectionListener, RefreshListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final DatabaseSearch db = DatabaseSearch.INSTANCE;
-    private final JList list = appPanel.getListSavedSearches();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
+    private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
+    private final JList                   list            = appPanel.getListSavedSearches();
+    private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels      = appPanel.getEditPanelsArray();
 
     public ControllerSavedSearchSelected() {
         listen();
@@ -94,8 +91,7 @@ public final class ControllerSavedSearchSelected
             if (selectedValue instanceof SavedSearch) {
                 SavedSearch savedSearch = (SavedSearch) selectedValue;
                 if (savedSearch.hasParamStatement()) {
-                    ParamStatement stmt =
-                            savedSearch.getParamStatement().createStatement();
+                    ParamStatement stmt = savedSearch.getParamStatement().createStatement();
                     if (stmt != null) {
                         searchParamStatement(stmt);
                     }
@@ -104,9 +100,14 @@ public final class ControllerSavedSearchSelected
         }
 
         private void searchParamStatement(ParamStatement stmt) {
-            List<String> filenames = db.searchFilenames(stmt);
-            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.AdvancedSearch", stmt.getName()));
+            List<String> filenames = DatabaseSearch.INSTANCE.searchFilenames(stmt);
+            setTitle(stmt.getName());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
+        }
+
+        private void setTitle(String name) {
+            GUI.INSTANCE.getAppFrame().setTitle(
+                    Bundle.getString("AppFrame.Title.AdvancedSearch.Saved", name));
         }
 
         private void setMetadataEditable() {

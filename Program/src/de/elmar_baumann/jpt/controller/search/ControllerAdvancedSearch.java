@@ -46,16 +46,14 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerAdvancedSearch implements ActionListener,
-                                                       SearchListener {
+public final class ControllerAdvancedSearch
+        implements ActionListener,
+                   SearchListener {
 
-    private final DatabaseSearch db = DatabaseSearch.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
-    private final List<JTree> selectionTrees = appPanel.getSelectionTrees();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
+    private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final List<JTree>             selectionTrees  = appPanel.getSelectionTrees();
+    private final EditMetadataPanelsArray editPanels      = appPanel.getEditPanelsArray();
 
     public ControllerAdvancedSearch() {
         listen();
@@ -79,12 +77,11 @@ public final class ControllerAdvancedSearch implements ActionListener,
     }
 
     private void showAdvancedSearchDialog() {
-        AdvancedSearchDialog dialogAdvancedSearch =
-                AdvancedSearchDialog.INSTANCE;
-        if (dialogAdvancedSearch.isVisible()) {
-            dialogAdvancedSearch.toFront();
+        AdvancedSearchDialog dlgAdvancedSearch = AdvancedSearchDialog.INSTANCE;
+        if (dlgAdvancedSearch.isVisible()) {
+            dlgAdvancedSearch.toFront();
         } else {
-            dialogAdvancedSearch.setVisible(true);
+            dlgAdvancedSearch.setVisible(true);
         }
     }
 
@@ -98,12 +95,21 @@ public final class ControllerAdvancedSearch implements ActionListener,
                     SavedSearchParamStatement paramStmt = savedSearch.getParamStatement();
                     if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);
-                        List<String> filenames = db.searchFilenames(paramStmt.createStatement());
+                        List<String> filenames = 
+                                DatabaseSearch.INSTANCE.searchFilenames(paramStmt.createStatement());
 
+                        setTitle(paramStmt.getName());
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
-                        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.AdvancedSearch", paramStmt.getName()));
                     }
                 }
+            }
+
+            private void setTitle(String name) {
+                GUI.INSTANCE.getAppFrame().setTitle(
+                        name == null
+                        ? Bundle.getString("AppFrame.Title.AdvancedSearch")
+                        : Bundle.getString("AppFrame.Title.AdvancedSearch.Saved",
+                        name));
             }
         });
     }

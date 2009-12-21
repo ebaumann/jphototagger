@@ -208,10 +208,15 @@ public final class ControllerFastSearch
                     clearSelection();
                     List<String> filenames = searchFilenames(userInput);
                     if (filenames != null) {
-                        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.FastSearch", userInput));
+                        setTitle(userInput);
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
                     }
                 }
+            }
+
+            private void setTitle(String userInput) {
+                GUI.INSTANCE.getAppFrame().setTitle(
+                        Bundle.getString("AppFrame.Title.FastSearch", userInput));
             }
 
             private List<String> searchFilenames(String userInput) {

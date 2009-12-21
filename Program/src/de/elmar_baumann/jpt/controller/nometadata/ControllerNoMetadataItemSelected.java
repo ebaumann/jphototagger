@@ -64,8 +64,13 @@ public final class ControllerNoMetadataItemSelected
                 "Not a Column: " + selValue; // NOI18N
         if (selValue instanceof Column) {
             List<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadata((Column) selValue);
-            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.WithoutMetadata", ((Column) selValue).getDescription()));
+            setTitle((Column) selValue);
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFiles(FileUtil.getAsFiles(filenames), Content.MISSING_METADATA);
         }
+    }
+
+    private void setTitle(Column column) {
+        GUI.INSTANCE.getAppFrame().setTitle(
+                Bundle.getString("AppFrame.Title.WithoutMetadata", column.getDescription()));
     }
 }

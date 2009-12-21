@@ -39,12 +39,10 @@ import java.util.Set;
  */
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels =
-            GUI.INSTANCE.getAppPanel().getEditPanelsArray();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final List<List<String>> keywordLists;
+    private final DatabaseImageFiles      db              = DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final EditMetadataPanelsArray editPanels      = GUI.INSTANCE.getAppPanel().getEditPanelsArray();
+    private final List<List<String>>      keywordLists;
 
     /**
      * Creates a new instance of this class.
@@ -68,18 +66,29 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
     private Set<String> getFilenamesOfKeywords() {
         Set<String> filenames = new HashSet<String>();
-        for (List<String> keywordList : keywordLists) {
+        for (List<String> keywords : keywordLists) {
             // Faster when using 2 different DB queries if only 1 keyword is
             // selected
-            if (keywordList.size() == 1) {
-                filenames.addAll(db.getFilenamesOfDcSubject(keywordList.get(0)));
-                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Keyword", keywordList.get(0)));
-            } else if (keywordList.size() > 1) {
-                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Keywords"));
-                filenames.addAll(db.getFilenamesOfAllDcSubjects(keywordList));
+            if (keywords.size() == 1) {
+                filenames.addAll(db.getFilenamesOfDcSubject(keywords.get(0)));
+                setTitle(keywords.get(0));
+            } else if (keywords.size() > 1) {
+                setTitle(keywords);
+                filenames.addAll(db.getFilenamesOfAllDcSubjects(keywords));
             }
         }
         return filenames;
+    }
+
+    private void setTitle(List<String> keywords) {
+        GUI.INSTANCE.getAppFrame().setTitle(
+                Bundle.getString("AppFrame.Title.Keywords.Path",
+                    Util.keywordPathString(keywords)));
+    }
+
+    private void setTitle(String keyword) {
+        GUI.INSTANCE.getAppFrame().setTitle(
+                Bundle.getString("AppFrame.Title.Keyword", keyword));
     }
 
     private void setMetadataEditable() {

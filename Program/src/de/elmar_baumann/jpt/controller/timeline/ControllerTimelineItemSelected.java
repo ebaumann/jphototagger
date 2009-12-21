@@ -27,6 +27,9 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -43,11 +46,9 @@ import javax.swing.tree.TreePath;
 public final class ControllerTimelineItemSelected implements
         TreeSelectionListener, RefreshListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree treeTimeline = appPanel.getTreeTimeline();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final JTree           treeTimeline    = appPanel.getTreeTimeline();
+    private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerTimelineItemSelected() {
         listen();
@@ -83,8 +84,7 @@ public final class ControllerTimelineItemSelected implements
 
                         @Override
                         public void run() {
-                            setFilesOfPossibleNodeToThumbnailsPanel(
-                                    lastPathComponent);
+                            setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
                         }
                     });
                 }
@@ -95,22 +95,19 @@ public final class ControllerTimelineItemSelected implements
         }
     }
 
-    private void setFilesOfPossibleNodeToThumbnailsPanel(
-            Object lastPathComponent) {
+    private void setFilesOfPossibleNodeToThumbnailsPanel(Object lastPathComponent) {
         if (lastPathComponent instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode node =
-                    (DefaultMutableTreeNode) lastPathComponent;
-            setFilesOfNodeToThumbnailsPanel(node);
+            setFilesOfNodeToThumbnailsPanel((DefaultMutableTreeNode) lastPathComponent);
         }
     }
 
     private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
         if (node.equals(Timeline.getUnknownNode())) {
-            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timline.Unknown"));
-            thumbnailsPanel.setFiles(db.getFilesOfUnknownExifDate(), Content.TIMELINE);
+            setTitle();
+            thumbnailsPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesOfUnknownExifDate(), Content.TIMELINE);
         } else if (userObject instanceof Calendar) {
-            Calendar cal = (Calendar) userObject;
+            Calendar               cal    = (Calendar) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
             if (parent != null) {
                 boolean isYear = parent.equals(node.getRoot());
@@ -122,10 +119,29 @@ public final class ControllerTimelineItemSelected implements
                 int day = isMonth
                           ? -1
                           : cal.get(Calendar.DAY_OF_MONTH);
-                DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
-                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timeline.Date", df.format(cal.getTime())));
-                thumbnailsPanel.setFiles(db.getFilesOf(year, month, day), Content.TIMELINE);
+                setTitle(isYear, year, isMonth, month, cal);
+                thumbnailsPanel.setFiles(
+                        DatabaseImageFiles.INSTANCE.getFilesOf(year, month, day), Content.TIMELINE);
             }
         }
+    }
+
+    private void setTitle() {
+        GUI.INSTANCE.getAppFrame().setTitle(
+                Bundle.getString("AppFrame.Title.Timline.Unknown"));
+    }
+
+    private void setTitle(boolean isYear, int year, boolean isMonth, int month, Calendar cal) {
+        NumberFormat yf = new DecimalFormat("####");
+        DateFormat   mf = new SimpleDateFormat("MMMMM");
+        DateFormat   df = DateFormat.getDateInstance(DateFormat.LONG);
+
+        GUI.INSTANCE.getAppFrame().
+                setTitle(Bundle.getString("AppFrame.Title.Timeline.Date",
+                isYear
+                ? yf.format(year)
+                : isMonth
+                ? mf.format(month) + " " + yf.format(year)
+                : df.format(cal.getTime())));
     }
 }
