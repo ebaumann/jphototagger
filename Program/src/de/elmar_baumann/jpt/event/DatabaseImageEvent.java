@@ -48,11 +48,6 @@ public final class DatabaseImageEvent {
          */
         IMAGEFILE_UPDATED,
         /**
-         * A in the filesystem not existing image file was deleted from the
-         * database
-         */
-        NOT_EXISTING_IMAGEFILES_DELETED,
-        /**
          * A thumbnail was updated.<p>The only valid calls on the image file
          * returned by {@link #getImageFile()} are {@link ImageFile#getFile()}
          * and {@link ImageFile#getFilename()}, other methods may return null.
@@ -72,7 +67,6 @@ public final class DatabaseImageEvent {
         TEXT_METADATA_EVENTS.add(Type.IMAGEFILE_DELETED);
         TEXT_METADATA_EVENTS.add(Type.IMAGEFILE_INSERTED);
         TEXT_METADATA_EVENTS.add(Type.IMAGEFILE_UPDATED);
-        TEXT_METADATA_EVENTS.add(Type.NOT_EXISTING_IMAGEFILES_DELETED);
         TEXT_METADATA_EVENTS.add(Type.XMP_UPDATED);
     }
 
