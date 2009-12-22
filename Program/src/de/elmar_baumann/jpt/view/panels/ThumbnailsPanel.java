@@ -944,6 +944,10 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
+    public synchronized boolean displaysFile(File file) {
+        return files.contains(file);
+    }
+
     /**
      * Removes files from the <strong>display</strong>, <em>not</em> from the
      * file system.

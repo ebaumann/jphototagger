@@ -24,8 +24,11 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -41,11 +44,10 @@ import java.util.Set;
  */
 public final class DeleteOrphanedThumbnails implements Runnable {
 
-    private final List<ProgressListener> listeners =
-            new ArrayList<ProgressListener>();
-    private int countFilesInDir = 0;
-    private int countDeleted = 0;
-    private int currentFileIndex = 0;
+    private final    List<ProgressListener> listeners        = new ArrayList<ProgressListener>();
+    private          int                    countFilesInDir  = 0;
+    private          int                    countDeleted     = 0;
+    private          int                    currentFileIndex = 0;
     private volatile boolean cancelled = false;
 
     public synchronized void addProgressListener(ProgressListener l) {
@@ -62,21 +64,25 @@ public final class DeleteOrphanedThumbnails implements Runnable {
 
     @Override
     public void run() {
-        Set<File> correctFiles = DatabaseImageFiles.INSTANCE.getAllThumbnailFiles();
-        File[] filesInDir = new File(
-                UserSettings.INSTANCE.getThumbnailsDirectoryName()).listFiles();
+        Set<File>       imageFilesExisting = DatabaseImageFiles.INSTANCE.getAllThumbnailFiles();
+        File[]          filesInDir         = new File(UserSettings.INSTANCE.getThumbnailsDirectoryName()).listFiles();
+        ThumbnailsPanel tnPanel            = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        boolean         isDelete           = false;
+        File            fileInDir          = null;
+
         countFilesInDir = filesInDir.length;
         notifyStarted();
-        boolean isDelete = false;
-        File fileInDir = null;
         for (int i = 0; !cancelled && i < countFilesInDir; i++) {
             currentFileIndex = i + 1;
             fileInDir = filesInDir[i];
-            isDelete = !correctFiles.contains(fileInDir);
+            isDelete = !imageFilesExisting.contains(fileInDir);
             if (isDelete && fileInDir.isFile()) {
                 logDelete(fileInDir);
                 fileInDir.delete();
                 countDeleted++;
+                if (tnPanel.displaysFile(fileInDir)) {
+                    tnPanel.remove(Arrays.asList(fileInDir));
+                }
             }
             notifyPerformed(fileInDir);
         }
