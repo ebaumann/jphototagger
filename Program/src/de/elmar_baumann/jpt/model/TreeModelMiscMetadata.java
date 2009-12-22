@@ -54,17 +54,13 @@ public final class TreeModelMiscMetadata
         extends DefaultTreeModel
         implements DatabaseListener {
 
-    private static final DefaultMutableTreeNode ROOT = new DefaultMutableTreeNode(
-            Bundle.getString("TreeModelMiscMetadata.Root.DisplayName")); // NOI18N
-    private static final Object EXIF_USER_OBJECT =
-            Bundle.getString("TreeModelMiscMetadata.ExifNode.DisplayName"); // NOI18N
-    private static final Object XMP_USER_OBJECT =
-            Bundle.getString("TreeModelMiscMetadata.XmpNode.DisplayName"); // NOI18N
-    private static final Set<Column> EXIF_COLUMNS = new LinkedHashSet<Column>();
-    private static final Set<Column> XMP_COLUMNS = new LinkedHashSet<Column>();
-    private static final Set<Object> COLUMN_USER_OBJECTS =
-            new LinkedHashSet<Object>();
-    private final DatabaseImageFiles db;
+    private static final DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(Bundle.getString("TreeModelMiscMetadata.Root.DisplayName")); // NOI18N
+    private static final Object                 EXIF_USER_OBJECT    = Bundle.getString("TreeModelMiscMetadata.ExifNode.DisplayName"); // NOI18N
+    private static final Object                 XMP_USER_OBJECT     = Bundle.getString("TreeModelMiscMetadata.XmpNode.DisplayName"); // NOI18N
+    private static final Set<Column>            EXIF_COLUMNS        = new LinkedHashSet<Column>();
+    private static final Set<Column>            XMP_COLUMNS         = new LinkedHashSet<Column>();
+    private static final Set<Object>            COLUMN_USER_OBJECTS = new LinkedHashSet<Object>();
+    private final        DatabaseImageFiles     db;
 
 
     static {
@@ -99,14 +95,20 @@ public final class TreeModelMiscMetadata
         DatabaseImageEvent.Type eventType = event.getType();
         if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)) {
             checkImageInserted(event.getImageFile());
-        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
+
+        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED) &&
+                event.getOldImageFile() != null) {
             checkImageDeleted(event.getOldImageFile());
+
         } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
             ImageFile imageFile = event.getImageFile();
-            if (imageFile != null && (imageFile.isInsertExifIntoDb()
-                    || imageFile.isInsertXmpIntoDb())) {
+            if (imageFile != null && 
+               (imageFile.isInsertExifIntoDb() || imageFile.isInsertXmpIntoDb())) {
+
                 checkImageInserted(event.getImageFile());
-                checkImageDeleted(event.getOldImageFile());
+                if (event.getOldImageFile() != null) {
+                    checkImageDeleted(event.getOldImageFile());
+                }
             }
         }
     }
@@ -122,10 +124,8 @@ public final class TreeModelMiscMetadata
     private void addColumnNodes(Object userObject, Set<Column> columns) {
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(userObject);
         for (Column column : columns) {
-            DefaultMutableTreeNode columnNode =
-                    new DefaultMutableTreeNode(column);
-            addChildren(columnNode, db.getAllDistinctValues(column),
-                    column.getDataType());
+            DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode(column);
+            addChildren(columnNode, db.getAllDistinctValues(column), column.getDataType());
             node.add(columnNode);
         }
         ROOT.add(node);
@@ -174,13 +174,11 @@ public final class TreeModelMiscMetadata
     private void checkExifDeleted(Exif exif) {
         String recordingEquipment = exif.getRecordingEquipment();
         if (recordingEquipment != null) {
-            checkDeleted(ColumnExifRecordingEquipment.INSTANCE,
-                    recordingEquipment);
+            checkDeleted(ColumnExifRecordingEquipment.INSTANCE, recordingEquipment);
         }
         short iso = exif.getIsoSpeedRatings();
         if (iso > 0) {
-            checkDeleted(ColumnExifIsoSpeedRatings.INSTANCE,
-                    Short.valueOf(iso));
+            checkDeleted(ColumnExifIsoSpeedRatings.INSTANCE, Short.valueOf(iso));
         }
         double f = exif.getFocalLength();
         if (f > 0) {
@@ -191,8 +189,7 @@ public final class TreeModelMiscMetadata
     private void checkDeleted(Column column, Object userObject) {
         DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
         if (node != null && !db.exists(column, userObject)) {
-            DefaultMutableTreeNode child = findNodeWithUserObject(node,
-                    userObject);
+            DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
             if (child != null) {
                 int index = node.getIndex(child);
                 node.remove(index);
@@ -224,13 +221,11 @@ public final class TreeModelMiscMetadata
     private void checkExifInserted(Exif exif) {
         String recordingEquipment = exif.getRecordingEquipment();
         if (recordingEquipment != null) {
-            checkInserted(ColumnExifRecordingEquipment.INSTANCE,
-                    recordingEquipment);
+            checkInserted(ColumnExifRecordingEquipment.INSTANCE, recordingEquipment);
         }
         short iso = exif.getIsoSpeedRatings();
         if (iso > 0) {
-            checkInserted(ColumnExifIsoSpeedRatings.INSTANCE,
-                    Short.valueOf(iso));
+            checkInserted(ColumnExifIsoSpeedRatings.INSTANCE, Short.valueOf(iso));
         }
         double f = exif.getFocalLength();
         if (f > 0) {
@@ -244,8 +239,7 @@ public final class TreeModelMiscMetadata
             DefaultMutableTreeNode child = findNodeWithUserObject(node,
                     userObject);
             if (child == null) {
-                DefaultMutableTreeNode newChild =
-                        new DefaultMutableTreeNode(userObject);
+                DefaultMutableTreeNode newChild = new DefaultMutableTreeNode(userObject);
                 node.add(newChild);
                 nodesWereInserted(node, new int[]{node.getIndex(newChild)});
             }
@@ -254,8 +248,7 @@ public final class TreeModelMiscMetadata
 
     private DefaultMutableTreeNode findNodeWithUserObject(
             DefaultMutableTreeNode rootNode, Object userObject) {
-        List<DefaultMutableTreeNode> foundNodes =
-                new ArrayList<DefaultMutableTreeNode>(1);
+        List<DefaultMutableTreeNode> foundNodes = new ArrayList<DefaultMutableTreeNode>(1);
         TreeUtil.addNodesUserWithObject(foundNodes, rootNode, userObject, 1);
         return foundNodes.size() > 0
                ? foundNodes.get(0)

@@ -41,16 +41,14 @@ import javax.swing.SwingUtilities;
 public final class ControllerThumbnailsDatabaseChanges
         implements DatabaseListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerThumbnailsDatabaseChanges() {
         listen();
     }
 
     private void listen() {
-        db.addDatabaseListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
     }
 
     @Override
@@ -70,10 +68,8 @@ public final class ControllerThumbnailsDatabaseChanges
                     XmpCache.INSTANCE.notifyUpdate(file);
                     ThumbnailCache.INSTANCE.remove(file);
                     ThumbnailCache.INSTANCE.notifyUpdate(file);
-                } else if (eventType.equals(
-                        DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
-                    List<File> deleted = Collections.singletonList(
-                            event.getImageFile().getFile());
+                } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
+                    List<File> deleted = Collections.singletonList(event.getImageFile().getFile());
                     thumbnailsPanel.remove(deleted);
                     // fixme: iterate over images and do same as above
                 }
