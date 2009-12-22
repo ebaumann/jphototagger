@@ -24,8 +24,8 @@ import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
@@ -37,18 +37,18 @@ import java.util.List;
 public final class DeleteOrphanedXmp
         implements Runnable, ProgressListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
-    private boolean notifyProgressEnded = false;
-    private String startMessage;
-    private String endMessage;
-    private boolean stop = false;
-    private int countDeleted = 0;
+    private final    Set<ProgressListener> progressListeners   = new HashSet<ProgressListener>();
+    private volatile boolean                notifyProgressEnded;
+    private volatile boolean                stop;
+    private volatile int                    countDeleted       = 0;
+    private          String                 startMessage;
+    private          String                 endMessage;
 
     @Override
     public void run() {
         setMessagesFiles();
         logDeleteRecords();
+        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         db.deleteNotExistingImageFiles(this);
         if (!stop) {
             setMessagesXmp();
