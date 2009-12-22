@@ -496,7 +496,7 @@ public final class DatabaseImageFiles extends Database {
                         PersistentThumbnails.getThumbnailFileOfImageFile(filename).delete();
                         ImageFile imageFile = new ImageFile();
                         imageFile.setFilename(filename);
-                        notifyDatabaseListener(DatabaseImageEvent.Type.NOT_EXISTING_IMAGEFILES_DELETED, imageFile);
+                        notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_DELETED, imageFile);
                     }
                 }
                 event.setValue(event.getValue() + 1);
@@ -744,8 +744,7 @@ public final class DatabaseImageFiles extends Database {
      */
     public int deleteOrphanedXmp(ProgressListener listener) {
         int countDeleted = 0;
-        ProgressEvent event = new ProgressEvent(this, 0,
-                DatabaseStatistics.INSTANCE.getXmpCount(), 0, null);
+        ProgressEvent progressEvent = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getXmpCount(), 0, null);
         Connection connection = null;
         try {
             connection = getConnection();
@@ -757,15 +756,15 @@ public final class DatabaseImageFiles extends Database {
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             String filename;
-            boolean abort = notifyProgressListenerStart(listener, event);
+            boolean abort = notifyProgressListenerStart(listener, progressEvent);
             while (!abort && rs.next()) {
                 filename = rs.getString(1);
                 if (XmpMetadata.getSidecarFilenameOfImageFileIfExists(filename) == null) {
                     countDeleted += deleteXmpOfFilename(connection, filename);
                 }
-                event.setValue(event.getValue() + 1);
-                notifyProgressListenerPerformed(listener, event);
-                abort = event.isStop();
+                progressEvent.setValue(progressEvent.getValue() + 1);
+                notifyProgressListenerPerformed(listener, progressEvent);
+                abort = progressEvent.isStop();
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -773,8 +772,8 @@ public final class DatabaseImageFiles extends Database {
         } finally {
             free(connection);
         }
-        event.setInfo(new Integer(countDeleted));
-        notifyProgressListenerEnd(listener, event);
+        progressEvent.setInfo(new Integer(countDeleted));
+        notifyProgressListenerEnd(listener, progressEvent);
         return countDeleted;
     }
 
