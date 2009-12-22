@@ -42,6 +42,7 @@ import de.elmar_baumann.jpt.view.renderer.ListCellRendererSavedSearches;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererMiscMetadata;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererTimeline;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
 import de.elmar_baumann.lib.util.Settings;
@@ -525,6 +526,11 @@ public final class AppPanel extends javax.swing.JPanel implements
         cl.show(panelKeywords, name);
         UserSettings.INSTANCE.getSettings().setString(name, KEY_KEYWORDS_VIEW);
         UserSettings.INSTANCE.writeToFile();
+    }
+
+    public void settingsRead() {
+        ComponentUtil.forceRepaint(comboBoxFastSearch);
+        textFieldSearch.requestFocusInWindow();
     }
 
     private class HideInfoMessage implements Runnable {

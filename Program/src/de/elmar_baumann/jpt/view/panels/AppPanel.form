@@ -122,12 +122,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="1" pref="236" max="32767" attributes="2"/>
+                          <Component id="scrollPaneDirectories" alignment="1" pref="230" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="0" pref="329" max="32767" attributes="0"/>
+                          <Component id="scrollPaneDirectories" alignment="0" pref="277" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -175,12 +175,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSavedSearches" alignment="0" pref="230" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="329" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSavedSearches" alignment="0" pref="277" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -227,12 +227,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Component id="scrollPaneImageCollections" alignment="0" pref="230" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="329" max="32767" attributes="0"/>
+                          <Component id="scrollPaneImageCollections" alignment="0" pref="277" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -283,12 +283,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneCategories" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCategories" alignment="0" pref="230" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneCategories" alignment="0" pref="329" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCategories" alignment="0" pref="277" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -338,12 +338,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavorites" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="230" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavorites" alignment="0" pref="329" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="277" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -403,15 +403,15 @@
                                   <Component id="buttonDisplayFlatKeywords" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="buttonToggleExpandAllNodesHierKw" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="56" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
-                              <Component id="scrollPaneSelHierarchicalKeywords" alignment="0" pref="236" max="32767" attributes="0"/>
+                              <Component id="scrollPaneSelHierarchicalKeywords" alignment="0" pref="230" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="scrollPaneSelHierarchicalKeywords" pref="289" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneSelHierarchicalKeywords" pref="234" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="buttonDisplayFlatKeywords" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -483,13 +483,13 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
-                              <Component id="scrollPaneKeywords" alignment="0" pref="236" max="32767" attributes="0"/>
+                              <Component id="scrollPaneKeywords" alignment="0" pref="230" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="scrollPaneKeywords" pref="203" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneKeywords" pref="149" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="panelKeywordsMultipleSelection" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -545,7 +545,7 @@
                                           <Component id="radioButtonKeywordsMultipleSelAll" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="radioButtonKeywordsMultipleSelOne" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                                      <EmptySpace pref="39" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -614,12 +614,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTimeline" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTimeline" alignment="0" pref="230" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTimeline" alignment="0" pref="329" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTimeline" alignment="0" pref="277" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -664,12 +664,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="230" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="329" max="32767" attributes="0"/>
+                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="277" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -714,17 +714,17 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="236" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="230" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneNoMetadata" alignment="0" pref="236" max="32767" attributes="0"/>
+                              <Component id="scrollPaneNoMetadata" alignment="0" pref="230" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="329" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="277" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneNoMetadata" alignment="1" pref="329" max="32767" attributes="0"/>
+                              <Component id="scrollPaneNoMetadata" alignment="1" pref="277" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -763,17 +763,17 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="646" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="652" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="646" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="652" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="469" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="476" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="0" pref="469" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="0" pref="476" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -806,17 +806,17 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="486" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="492" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneThumbnails" alignment="0" pref="486" max="32767" attributes="0"/>
+                              <Component id="scrollPaneThumbnails" alignment="0" pref="492" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="467" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="474" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneThumbnails" alignment="0" pref="467" max="32767" attributes="0"/>
+                              <Component id="scrollPaneThumbnails" alignment="0" pref="474" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -834,12 +834,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="484" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="489" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="465" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="471" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -867,7 +867,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelMetadataFilename" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tabbedPaneMetadata" pref="443" max="32767" attributes="0"/>
+                              <Component id="tabbedPaneMetadata" pref="449" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -913,7 +913,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="scrollPaneIptc" alignment="0" pref="147" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneIptc" alignment="0" pref="169" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonIptcToXmp" min="-2" max="-2" attributes="0"/>
@@ -924,7 +924,7 @@
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="scrollPaneIptc" pref="335" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneIptc" pref="324" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonIptcToXmp" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1248,7 +1248,7 @@
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="377" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="368" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -1318,7 +1318,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelThumbnailInfo" min="-2" pref="200" max="-2" attributes="1"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="labelInfo" pref="293" max="32767" attributes="0"/>
+                  <Component id="labelInfo" pref="283" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="sliderThumbnailSize" min="-2" pref="135" max="-2" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>

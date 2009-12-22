@@ -64,5 +64,6 @@ public final class MetaFactory implements Runnable {
         UserSettings.INSTANCE.getSettings().getComponent(
                 appPanel,
                 appPanel.getPersistentSettingsHints());
+        appPanel.settingsRead();
     }
 }
