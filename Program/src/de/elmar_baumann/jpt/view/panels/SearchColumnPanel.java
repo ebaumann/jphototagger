@@ -34,12 +34,17 @@ import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererTableColumns;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -98,6 +103,37 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setInputVerifier();
         setAutoComplete();
         listenToActions = true;
+    }
+
+    public void removeFirst() {
+
+        Dimension dim1 = new Dimension(toggleButtonBracketLeft1.getPreferredSize());
+        // 150: If not already displayed, size with 0 elements == pref. size
+        // Removed ComoboBox was displayed! JDK 1.6.13
+        Dimension dim2 = new Dimension(150, comboBoxOperators.getPreferredSize().height);
+
+        remove(toggleButtonBracketLeft1);
+        remove(comboBoxOperators);
+
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+
+        setSize(panel1, dim1);
+        setSize(panel2, dim2);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        add(panel1, gbc);
+        gbc.gridx = 1;
+        add(panel2, gbc);
+
+        ComponentUtil.forceRepaint(this);
+    }
+
+    private void setSize(Component c, Dimension d) {
+        c.setSize(d);
+        c.setPreferredSize(d);
+        c.setMinimumSize(d);
     }
 
     private void setFormatter() {

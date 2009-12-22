@@ -86,6 +86,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         listenToSearchPanels();
         panelKeywordsInput.setAutocomplete();
         setDefaultInputOfComponent();
+        searchColumnPanels.get(0).removeFirst();
     }
 
     private void setDefaultInputOfComponent() {
@@ -329,6 +330,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx   = 0;
+        gbc.anchor  = GridBagConstraints.EAST;
         gbc.fill    = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
@@ -661,26 +663,31 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         panelColumns.add(panelColumn1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         panelColumns.add(panelColumn2, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         panelColumns.add(panelColumn3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         panelColumns.add(panelColumn4, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         panelColumns.add(panelColumn5, gridBagConstraints);
 
