@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
@@ -130,17 +131,23 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
     private void addItems() {
         add(menuItemAddToEditPanel);
         add(menuItemRemoveFromEditPanel);
+
+        JMenu menuEdit = new JMenu(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.MenuEdit"));
+        menuEdit.add(menuItemAdd);
+        menuEdit.add(menuItemRemove);
+        menuEdit.add(menuItemRename);
+        menuEdit.add(menuItemToggleReal);
+        menuEdit.addSeparator();
+        menuEdit.add(menuItemCut);
+        menuEdit.add(menuItemPaste);
+
         addSeparator();
-        add(menuItemAdd);
-        add(menuItemRemove);
-        add(menuItemRename);
-        add(menuItemToggleReal);
+        add(menuEdit);
+
         addSeparator();
         add(menuItemExpandAllSubitems);
         add(menuItemCollapseAllSubitems);
-        addSeparator();
-        add(menuItemCut);
-        add(menuItemPaste);
+
         addSeparator();
         add(menuItemDisplayImages);
         add(menuItemDisplayImagesKw);

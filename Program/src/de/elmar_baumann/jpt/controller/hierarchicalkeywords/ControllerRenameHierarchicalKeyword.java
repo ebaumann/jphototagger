@@ -98,7 +98,7 @@ public class ControllerRenameHierarchicalKeyword
         String oldName = keyword.getKeyword();
         boolean confirmed = true;
         while (newName == null && confirmed) {
-            newName = JOptionPane.showInputDialog(tree, Bundle.getString(
+            newName = JOptionPane.showInputDialog(null, Bundle.getString(
                     "ControllerRenameHierarchicalKeyword.Input.Name", oldName), // NOI18N
                     oldName);
             confirmed = newName != null;

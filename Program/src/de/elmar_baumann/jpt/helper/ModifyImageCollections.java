@@ -231,7 +231,7 @@ public final class ModifyImageCollections {
 
     private static String getCollectionName(String defaultName) {
         String name = JOptionPane.showInputDialog(
-                GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                null,
                 Bundle.getString(
                 "ImageCollectionToDatabase.Input.CollectionName"), // NOI18N
                 defaultName);
