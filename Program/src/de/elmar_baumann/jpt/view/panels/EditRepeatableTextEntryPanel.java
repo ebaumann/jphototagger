@@ -608,7 +608,7 @@ public final class EditRepeatableTextEntryPanel
             }
         });
         scrollPane.setViewportView(list);
-        list.setTransferHandler(new TransferHandlerDropList());
+        list.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropList());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -632,12 +632,13 @@ public final class EditRepeatableTextEntryPanel
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(textFieldInput, gridBagConstraints);
-        textFieldInput.setTransferHandler(new TransferHandlerDropEdit());
+        textFieldInput.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
 
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
         buttonRemoveSelection.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
         buttonRemoveSelection.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
+        buttonRemoveSelection.setContentAreaFilled(false);
         buttonRemoveSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -648,6 +649,7 @@ public final class EditRepeatableTextEntryPanel
 
         buttonAddInput.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
         buttonAddInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
+        buttonAddInput.setContentAreaFilled(false);
         buttonAddInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -658,6 +660,7 @@ public final class EditRepeatableTextEntryPanel
 
         buttonSuggestion.setMnemonic('k');
         buttonSuggestion.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
+        buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
         buttonSuggestion.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonSuggestion.addActionListener(new java.awt.event.ActionListener() {

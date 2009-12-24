@@ -207,6 +207,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements
 
         setLayout(new java.awt.GridBagLayout());
 
+        buttonExpandCollapse.setContentAreaFilled(false);
         buttonExpandCollapse.setFocusable(false);
         buttonExpandCollapse.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonExpandCollapse.setPreferredSize(new java.awt.Dimension(16, 16));

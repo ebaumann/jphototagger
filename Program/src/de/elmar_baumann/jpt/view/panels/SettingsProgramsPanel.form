@@ -45,7 +45,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Programme zum &#xd6;ffnen von Bildern">
+            <TitledBorder title="Programme zum &#xd6;ffnen und Bearbeiten von Bildern">
               <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsProgramsPanel.panelBorder.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
@@ -55,23 +55,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="scrollPaneOtherPrograms" pref="471" max="32767" attributes="2"/>
                           <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="labelDefaultProgramFile" pref="339" max="32767" attributes="2"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="buttonChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="labelOtherPrograms" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="buttonRemoveOtherProgram" min="-2" max="-2" attributes="0"/>
@@ -85,6 +74,16 @@
                           <Component id="labelChooseDefaultProgram" max="32767" attributes="1"/>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="labelDefaultProgramFile" pref="339" max="32767" attributes="2"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="labelOtherPrograms" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="108" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
           </Group>
@@ -92,18 +91,18 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Component id="labelChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="labelDefaultProgramFile" min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="buttonChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="labelOtherPrograms" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrollPaneOtherPrograms" pref="123" max="32767" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="scrollPaneOtherPrograms" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonRemoveOtherProgram" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonAddOtherProgram" alignment="3" min="-2" max="-2" attributes="0"/>
