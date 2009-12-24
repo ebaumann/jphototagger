@@ -29,11 +29,11 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="labelDescription" alignment="1" pref="340" max="32767" attributes="0"/>
+                  <Component id="labelDescription" alignment="1" pref="409" max="32767" attributes="0"/>
                   <Component id="panelOptions" alignment="0" max="32767" attributes="0"/>
-                  <Component id="progressBar" alignment="1" pref="340" max="32767" attributes="0"/>
-                  <Component id="labelFilename" alignment="0" pref="340" max="32767" attributes="0"/>
-                  <Component id="labelInfo" alignment="0" pref="340" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="1" pref="409" max="32767" attributes="0"/>
+                  <Component id="labelFilename" alignment="0" pref="409" max="32767" attributes="0"/>
+                  <Component id="labelInfo" alignment="0" pref="409" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonShowFiles" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -51,7 +51,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="labelDescription" pref="13" max="32767" attributes="0"/>
+              <Component id="labelDescription" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Component id="panelOptions" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -59,7 +59,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelFilename" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="labelInfo" pref="27" max="32767" attributes="0"/>
+              <Component id="labelInfo" pref="25" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonStop" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -74,6 +74,11 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelDescription">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="FileEditorPanel.labelDescription.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="panelOptions">
       <Properties>
