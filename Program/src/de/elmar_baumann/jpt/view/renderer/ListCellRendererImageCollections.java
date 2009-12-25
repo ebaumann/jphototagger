@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import java.awt.Color;
@@ -39,30 +38,21 @@ import javax.swing.JList;
  */
 public final class ListCellRendererImageCollections extends DefaultListCellRenderer {
 
-    private static final Icon ICON_DEFAULT =
-            AppLookAndFeel.getIcon("icon_imagecollection.png");
-    private static final Color COLOR_FOREGROUND_PREV_IMPORT = Color.BLUE;
-    private static final Map<Object, Icon> ICON_OF_VALUE =
-            new HashMap<Object, Icon>();
-    private int popupHighLightRow = -1;
+    private static final Icon              ICON_DEFAULT                 = AppLookAndFeel.getIcon("icon_imagecollection.png");
+    private static final Color             COLOR_FOREGROUND_PREV_IMPORT = Color.BLUE;
+    private static final Map<Object, Icon> ICON_OF_VALUE                = new HashMap<Object, Icon>();
+    private              int               popupHighLightRow            = -1;
 
     {
-        ICON_OF_VALUE.put(
-                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT,
-                AppLookAndFeel.getIcon("icon_card.png"));
-        ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED,
-                AppLookAndFeel.getIcon("icon_picked.png"));
-        ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED,
-                AppLookAndFeel.getIcon("icon_rejected.png"));
+        ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT, AppLookAndFeel.getIcon("icon_card.png"));
+        ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED     , AppLookAndFeel.getIcon("icon_picked.png"));
+        ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED   , AppLookAndFeel.getIcon("icon_rejected.png"));
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(
-                list, value, index, isSelected, cellHasFocus);
-        if (ListModelImageCollections.isSpecialCollection(value.toString())
-                && !isSelected) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        if (ListModelImageCollections.isSpecialCollection(value.toString()) && !isSelected) {
             label.setForeground(COLOR_FOREGROUND_PREV_IMPORT);
         }
         if (index == popupHighLightRow) {
