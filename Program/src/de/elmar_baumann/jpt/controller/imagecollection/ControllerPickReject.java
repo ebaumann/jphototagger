@@ -110,8 +110,8 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
 
     private String getPopupMessage(boolean pick) {
         return pick
-                ? Bundle.getString("ControllerPickReject.Info.Pick") // NOI18N
-                : Bundle.getString("ControllerPickReject.Info.Reject"); // NOI18N
+                ? Bundle.getString("ControllerPickReject.Info.Pick")
+                : Bundle.getString("ControllerPickReject.Info.Reject");
     }
 
     private boolean isPickCollection() {

@@ -410,7 +410,7 @@ public final class LogfileRecord {
      */
     public boolean contains(String substring) {
         if (substring == null)
-            throw new NullPointerException("substring == null"); // NOI18N
+            throw new NullPointerException("substring == null"); //
 
         return containsSubstring(getMessage(), substring) ||
             containsSubstring(getClassname(), substring) ||

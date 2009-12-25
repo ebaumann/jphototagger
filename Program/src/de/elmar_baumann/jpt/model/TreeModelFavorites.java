@@ -57,8 +57,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener, AppExitListener {
 
     private static final String KEY_SELECTED_FAV_NAME =
-            "TreeModelFavorites.SelFavDir"; // NOI18N
-    private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir"; // NOI18N
+            "TreeModelFavorites.SelFavDir";
+    private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir";
     private final DefaultMutableTreeNode rootNode;
     private final DatabaseFavoriteDirectories db;
     private final JTree tree;
@@ -66,7 +66,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(
-                Bundle.getString("TreeModelFavorites.Root.DisplayName"))); // NOI18N
+                Bundle.getString("TreeModelFavorites.Root.DisplayName")));
         this.tree = tree;
         rootNode = (DefaultMutableTreeNode) getRoot();
         tree.addTreeWillExpandListener(this);
@@ -83,7 +83,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 addDirectory(favoriteDirectory);
             } else {
                 errorMessage(favoriteDirectory.getFavoriteName(), Bundle.
-                        getString("TreeModelFavorites.Error.ParamInsert")); // NOI18N
+                        getString("TreeModelFavorites.Error.ParamInsert"));
             }
         }
     }
@@ -109,7 +109,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             } else {
                 errorMessage(favoriteDirctory.getFavoriteName(), Bundle.
                         getString(
-                        "TreeModelFavorites.Error.ParamDelete")); // NOI18N
+                        "TreeModelFavorites.Error.ParamDelete"));
             }
         }
     }
@@ -126,7 +126,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 nodeChanged(oldNode);
             } else {
                 errorMessage(oldFavorite.getFavoriteName(), Bundle.getString(
-                        "TreeModelFavorites.Error.ParamUpdate")); // NOI18N
+                        "TreeModelFavorites.Error.ParamUpdate"));
             }
         }
     }
@@ -195,7 +195,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 addDirectory(directory);
             } else {
                 AppLog.logWarning(TreeModelFavorites.class,
-                        "TreeModelFavorites.Error.DbDirectoryDoesNotExist", // NOI18N
+                        "TreeModelFavorites.Error.DbDirectoryDoesNotExist",
                         directory.getDirectoryName());
                 db.deleteFavoriteDirectory(directory.getFavoriteName());
             }
@@ -325,7 +325,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private void errorMessage(String favoriteName, String cause) {
-        MessageDisplayer.error(null, "TreeModelFavorites.Error.Template", // NOI18N
+        MessageDisplayer.error(null, "TreeModelFavorites.Error.Template",
                 favoriteName, cause);
     }
 

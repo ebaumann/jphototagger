@@ -61,7 +61,7 @@ public final class RenameXmpMetadata extends Thread {
         this.oldValue  = oldValue;
         this.newValue  = newValue;
 
-        setName("Renaming XMP metadata " + column + " @ " + getClass()); // NOI18N
+        setName("Renaming XMP metadata " + column + " @ " + getClass());
     }
 
     @Override
@@ -77,7 +77,7 @@ public final class RenameXmpMetadata extends Thread {
 
     private void logRename(String columnName, String oldValue, String newValue) {
         AppLog.logInfo(RenameXmpMetadata.class,
-                "RenameXmpMetadata.Info.StartRename", // NOI18N
+                "RenameXmpMetadata.Info.StartRename",
                 columnName, oldValue, newValue);
     }
 }

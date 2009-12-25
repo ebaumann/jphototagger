@@ -117,7 +117,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelKeywords"), false, 1000);
             }
         });
-        thread.setName("Creating keywords model @ " + getClass().getName()); // NOI18N
+        thread.setName("Creating keywords model @ " + getClass().getName());
         thread.start();
     }
 
@@ -196,7 +196,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelMiscMetadata"), false, 1000);
             }
         });
-        thread.setName("Creating model of tree misc metadata" + " @ " + // NOI18N
+        thread.setName("Creating model of tree misc metadata" + " @ " +
                 getClass().getName());
         thread.start();
     }
@@ -215,7 +215,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelTimeline"), false, 1000);
             }
         });
-        thread.setName("Creating model of tree timeline" + " @ " + // NOI18N
+        thread.setName("Creating model of tree timeline" + " @ " +
                 getClass().getName());
         thread.start();
     }
@@ -235,7 +235,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelFavorites"), false, 1000);
             }
         });
-        thread.setName("Creating model of tree favorite directories" + " @ " + // NOI18N
+        thread.setName("Creating model of tree favorite directories" + " @ " +
                 getClass().getName());
         thread.start();
     }
@@ -259,7 +259,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelDirectories"), false, 1000);
             }
         });
-        thread.setName("Creating model of tree directories" + " @ " + getClass()); // NOI18N
+        thread.setName("Creating model of tree directories" + " @ " + getClass());
         thread.start();
     }
 }

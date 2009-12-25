@@ -55,7 +55,7 @@ public final class ControllerExportHierarchicalKeywords
         dlg.setVisible(true);
         if (dlg.isAccepted()) {
             HierarchicalKeywordsExporter exporter = dlg.getExporter();
-            assert exporter != null : "Exporter is null!"; // NOI18N
+            assert exporter != null : "Exporter is null!";
             if (exporter != null) {
                 exporter.export(dlg.getFile());
             }

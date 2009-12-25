@@ -94,7 +94,7 @@ public final class EditTextEntryPanel
 
     @Override
     public void empty(boolean dirty) {
-        textAreaEdit.setText(""); // NOI18N
+        textAreaEdit.setText(""); //
         this.dirty = dirty;
     }
 
@@ -140,19 +140,19 @@ public final class EditTextEntryPanel
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText()); // NOI18N
+        notifyTextChanged(column, "", textAreaEdit.getText()); //
         dirty = true;
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText()); // NOI18N
+        notifyTextChanged(column, "", textAreaEdit.getText()); //
         dirty = true;
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText()); // NOI18N
+        notifyTextChanged(column, "", textAreaEdit.getText()); //
         dirty = true;
     }
 
@@ -205,7 +205,7 @@ public final class EditTextEntryPanel
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text")); //
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

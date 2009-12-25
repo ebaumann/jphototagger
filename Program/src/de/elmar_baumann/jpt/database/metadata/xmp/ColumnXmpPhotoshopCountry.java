@@ -35,11 +35,11 @@ public final class ColumnXmpPhotoshopCountry extends Column {
     private ColumnXmpPhotoshopCountry() {
         super(
             TableXmp.INSTANCE,
-            "photoshop_country", // NOI18N
+            "photoshop_country",
             DataType.STRING);
 
         setLength(64);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopCountry.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCountry.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpPhotoshopCountry.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCountry.LongerDescription"));
     }
 }

@@ -34,9 +34,9 @@ public final class FilenameFormatFilenamePostfix extends FilenameFormat {
     @Override
     public String format() {
         String filename = getFile().getName();
-        int index = filename.lastIndexOf("."); // NOI18N
+        int index = filename.lastIndexOf(".");
         return index >= 0
                ? filename.substring(index)
-               : ""; // NOI18N
+               : "";
     }
 }

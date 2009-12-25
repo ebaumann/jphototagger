@@ -192,7 +192,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     private boolean importFiles(File targetDir, TransferSupport transferSupport) {
         if (targetDir == null) return false;
         List<File> srcFiles =
-                TransferUtil.getFiles(transferSupport.getTransferable(), ""); // NOI18N
+                TransferUtil.getFiles(transferSupport.getTransferable(), "");
         int dropAction = transferSupport.getDropAction();
         if (dropAction == TransferHandler.COPY) {
             ImageUtil.copyImageFiles(

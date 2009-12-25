@@ -45,7 +45,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); //
         registerKeyStrokes();
     }
 
@@ -80,7 +80,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.AdvancedSearchDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.AdvancedSearchDialog")); //
     }
 
     @Override
@@ -93,10 +93,10 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
         if (evt.getType().equals(SearchEvent.Type.NAME_CHANGED)) {
             String name = evt.getSearchName();
             String separator = name.isEmpty()
-                               ? "" // NOI18N
-                               : ": "; // NOI18N
-            setTitle(Bundle.getString("AdvancedSearchDialog.TitlePrefix") + // NOI18N
-                    separator + name); // NOI18N
+                               ? "" //
+                               : ": "; //
+            setTitle(Bundle.getString("AdvancedSearchDialog.TitlePrefix") + //
+                    separator + name); //
         }
     }
 
@@ -112,7 +112,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
         panel = new de.elmar_baumann.jpt.view.panels.AdvancedSearchPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("AdvancedSearchDialog.title")); // NOI18N
+        setTitle(Bundle.getString("AdvancedSearchDialog.title")); //
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 public final class Bundle {
 
     private static final ResourceBundle BUNDLE =
-        ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
 
     /**
      * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>
@@ -52,7 +52,7 @@ public final class Bundle {
         } catch (Exception ex) {
             AppLog.logSevere(Bundle.class, ex);
         }
-        return "?" + key + "?"; // NOI18N
+        return "?" + key + "?";
     }
 
     /**

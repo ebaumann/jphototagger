@@ -35,11 +35,11 @@ public final class ColumnXmpIptc4xmpcoreCountrycode extends Column {
     private ColumnXmpIptc4xmpcoreCountrycode() {
         super(
             TableXmp.INSTANCE,
-            "iptc4xmpcore_countrycode", // NOI18N
+            "iptc4xmpcore_countrycode",
             DataType.STRING);
 
         setLength(3);
-        setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.LongerDescription"));
     }
 }

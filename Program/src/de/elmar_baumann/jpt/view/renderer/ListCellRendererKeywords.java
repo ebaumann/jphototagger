@@ -33,7 +33,7 @@ import javax.swing.JList;
  */
 public final class ListCellRendererKeywords extends DefaultListCellRenderer {
 
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png"); // NOI18N
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

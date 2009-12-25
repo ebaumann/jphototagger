@@ -45,14 +45,14 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     public void add(Program action) {
-        assert action.isAction() : "Program is not an action!"; // NOI18N
+        assert action.isAction() : "Program is not an action!";
         if (!contains(action) &&
                 DatabaseActionsAfterDbInsertion.INSTANCE.insert(action,
                 getSize())) {
             addElement(action);
         } else {
             MessageDisplayer.error(null,
-                    "ListModelActionsAfterDbInsertion.Error.Add", // NOI18N
+                    "ListModelActionsAfterDbInsertion.Error.Add",
                     action.getAlias());
         }
     }
@@ -94,7 +94,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             if (!DatabaseActionsAfterDbInsertion.INSTANCE.reorder(getActions(),
                     0)) {
                 MessageDisplayer.error(null,
-                        "ListModelActionsAfterDbInsertion.Error.Swap", // NOI18N
+                        "ListModelActionsAfterDbInsertion.Error.Swap",
                         ((Program) get(indexFirstElement)).getAlias());
             }
         }
@@ -106,7 +106,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             removeElement(action);
         } else {
             MessageDisplayer.error(null,
-                    "ListModelActionsAfterDbInsertion.Error.Remove", // NOI18N
+                    "ListModelActionsAfterDbInsertion.Error.Remove",
                     action.getAlias());
         }
     }

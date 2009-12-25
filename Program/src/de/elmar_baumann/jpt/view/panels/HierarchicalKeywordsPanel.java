@@ -33,7 +33,7 @@ import javax.swing.tree.TreeSelectionModel;
 public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
     private static final String KEY_TREE =
-            "HierarchicalKeywordsPanel.Tree.SelectedNode"; // NOI18N
+            "HierarchicalKeywordsPanel.Tree.SelectedNode";
 
     public HierarchicalKeywordsPanel() {
         initComponents();
@@ -92,9 +92,9 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         buttonToggleExpandAllNodes.setText(
                 selected
                 ? Bundle.getString(
-                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected") // NOI18N
+                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
                 : Bundle.getString(
-                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected")); // NOI18N
+                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
     /** This method is called from within the constructor to
@@ -118,8 +118,8 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         scrollPane.setViewportView(tree);
         tree.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeHierarchicalKeywords());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        buttonToggleExpandAllNodes.setText(bundle.getString("HierarchicalKeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        buttonToggleExpandAllNodes.setText(bundle.getString("HierarchicalKeywordsPanel.buttonToggleExpandAllNodes.text"));
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonToggleExpandAllNodesActionPerformed(evt);

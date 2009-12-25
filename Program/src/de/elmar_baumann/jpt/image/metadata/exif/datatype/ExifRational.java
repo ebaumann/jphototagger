@@ -46,7 +46,7 @@ public final class ExifRational {
 
         if (!isRawValueByteCountOk(rawValue))
             throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + rawValue.length); // NOI18N
+                    "Illegal raw value byte count: " + rawValue.length);
 
         numerator = ExifDatatypeUtil.intFromRawValue(
                 Arrays.copyOfRange(rawValue, 0, 4),
@@ -55,10 +55,10 @@ public final class ExifRational {
                 Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
 
         if (isNegativ())
-            throw new IllegalArgumentException("Negativ expression: " + // NOI18N
-                    numerator + "/" + denominator); // NOI18N
+            throw new IllegalArgumentException("Negativ expression: " +
+                    numerator + "/" + denominator);
         if (denominator == 0)
-            throw new IllegalArgumentException("Illegal denominator: " + // NOI18N
+            throw new IllegalArgumentException("Illegal denominator: " +
                     denominator);
     }
 

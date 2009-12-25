@@ -37,7 +37,7 @@ import javax.swing.JFileChooser;
 public class HierarchicalKeywordsImportDialog extends Dialog {
 
     private static final String KEY_PREV_IMPORT_FILE =
-            "HierarchicalKeywordsImportDialog.PrevImportFile"; // NOI18N
+            "HierarchicalKeywordsImportDialog.PrevImportFile";
     private static final String KEY_SEL_IMPORTER_INDEX =
             "HierarchicalKeywordsImportDialog.SelectedImporterIndex";
     private boolean accepted;
@@ -54,7 +54,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
         registerKeyStrokes();
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 
     /**
@@ -74,7 +74,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
      * @return importer or null if no importer was selected.
      */
     public HierarchicalKeywordsImporter getImporter() {
-        assert accepted : "Import was not accepted!"; // NOI18N
+        assert accepted : "Import was not accepted!";
         if (!accepted) return null;
         Object item = comboBoxImporter.getSelectedItem();
         return item instanceof HierarchicalKeywordsImporter
@@ -94,7 +94,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.HierarchicalKeywordsImportDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.HierarchicalKeywordsImportDialog"));
     }
 
     /**
@@ -105,7 +105,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
      * @return file or null if no file is to import
      */
     public File getFile() {
-        assert accepted : "Import was not accepted!"; // NOI18N
+        assert accepted : "Import was not accepted!";
         if (!accepted) return null;
         return file;
     }
@@ -113,7 +113,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
     private void chooseFile() {
         Object selItem = comboBoxImporter.getSelectedItem();
         assert selItem instanceof HierarchicalKeywordsImporter :
-                "Not a HierarchicalKeywordsImporter: " + selItem; // NOI18N
+                "Not a HierarchicalKeywordsImporter: " + selItem;
         if (selItem instanceof HierarchicalKeywordsImporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null && file.isFile()) {
@@ -183,33 +183,33 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
         buttonImport = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
-        setTitle(Bundle.getString("HierarchicalKeywordsImportDialog.title")); // NOI18N
+        setTitle(Bundle.getString("HierarchicalKeywordsImportDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelFormat.setText(Bundle.getString("HierarchicalKeywordsImportDialog.labelFormat.text")); // NOI18N
+        labelFormat.setText(Bundle.getString("HierarchicalKeywordsImportDialog.labelFormat.text"));
 
         comboBoxImporter.setModel(comboBoxModelImporter);
         comboBoxImporter.setRenderer(new de.elmar_baumann.jpt.view.renderer.ListCellRendererHierarchicalKeywordsImExporter());
 
-        labelInfoFilename.setText(Bundle.getString("HierarchicalKeywordsImportDialog.labelInfoFilename.text")); // NOI18N
+        labelInfoFilename.setText(Bundle.getString("HierarchicalKeywordsImportDialog.labelInfoFilename.text"));
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         buttonChooseFile.setMnemonic('d');
-        buttonChooseFile.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonChooseFile.text"));
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
         });
 
-        buttonImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_import.png"))); // NOI18N
+        buttonImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_import.png")));
         buttonImport.setMnemonic('i');
-        buttonImport.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonImport.text")); // NOI18N
+        buttonImport.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonImport.text"));
         buttonImport.setEnabled(false);
         buttonImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,7 +218,7 @@ public class HierarchicalKeywordsImportDialog extends Dialog {
         });
 
         buttonCancel.setMnemonic('a');
-        buttonCancel.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString("HierarchicalKeywordsImportDialog.buttonCancel.text"));
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);

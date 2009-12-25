@@ -53,7 +53,7 @@ public final class ImageTransform {
      */
     public static Image rotate(Image img, double angle) {
         if (img == null)
-            throw new NullPointerException("img == null"); // NOI18N
+            throw new NullPointerException("img == null");
 
         return tilt(toBufferedImage(img), Math.toRadians(angle));
     }

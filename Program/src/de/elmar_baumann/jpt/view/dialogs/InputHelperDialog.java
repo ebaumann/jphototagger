@@ -40,7 +40,7 @@ public class InputHelperDialog extends Dialog {
     public static final InputHelperDialog INSTANCE =
             new InputHelperDialog();
     private static final String KEY_SEL_INDEX_TABBED_PANE =
-            "InputHelperDialog.SelIndexTabbedPane"; // NOI18N
+            "InputHelperDialog.SelIndexTabbedPane";
 
     public InputHelperDialog() {
         super((java.awt.Frame) null, false);
@@ -50,8 +50,8 @@ public class InputHelperDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
-        setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers"));
         registerKeyStrokes();
     }
 
@@ -108,7 +108,7 @@ public class InputHelperDialog extends Dialog {
         labelInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("InputHelperDialog.title")); // NOI18N
+        setTitle(Bundle.getString("InputHelperDialog.title"));
         setAlwaysOnTop(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -117,9 +117,9 @@ public class InputHelperDialog extends Dialog {
         });
 
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelHierarchicalKeywords.TabConstraints.tabTitle"), panelHierarchicalKeywords); // NOI18N
+        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelHierarchicalKeywords.TabConstraints.tabTitle"), panelHierarchicalKeywords);
 
-        listKeywords.setToolTipText(Bundle.getString("InputHelperDialog.listKeywords.toolTipText")); // NOI18N
+        listKeywords.setToolTipText(Bundle.getString("InputHelperDialog.listKeywords.toolTipText"));
         listKeywords.setCellRenderer(new ListCellRendererKeywords());
         listKeywords.setDragEnabled(true);
         scrollPaneKeywords.setViewportView(listKeywords);
@@ -136,10 +136,10 @@ public class InputHelperDialog extends Dialog {
             .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
         );
 
-        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        labelInfo.setText(bundle.getString("InputHelperDialog.labelInfo.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        labelInfo.setText(bundle.getString("InputHelperDialog.labelInfo.text"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

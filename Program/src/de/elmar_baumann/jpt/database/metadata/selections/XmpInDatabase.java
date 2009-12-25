@@ -33,23 +33,23 @@ public final class XmpInDatabase {
             new HashSet<String>();
 
     static {
-        STORED_PATHS_PREFIXES.add("Iptc4xmpCore:Location"); // NOI18N
-        STORED_PATHS_PREFIXES.add("Iptc4xmpCore:CountryCode"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:Source"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:Credit"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:CaptionWriter"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:AuthorsPosition"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:Headline"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:TransmissionReference"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:Instructions"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:City"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:State"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:Country"); // NOI18N
-        STORED_PATHS_PREFIXES.add("dc:title"); // NOI18N
-        STORED_PATHS_PREFIXES.add("dc:creator"); // NOI18N
-        STORED_PATHS_PREFIXES.add("dc:description"); // NOI18N
-        STORED_PATHS_PREFIXES.add("dc:rights"); // NOI18N
-        STORED_PATHS_PREFIXES.add("dc:subject"); // NOI18N
+        STORED_PATHS_PREFIXES.add("Iptc4xmpCore:Location");
+        STORED_PATHS_PREFIXES.add("Iptc4xmpCore:CountryCode");
+        STORED_PATHS_PREFIXES.add("photoshop:Source");
+        STORED_PATHS_PREFIXES.add("photoshop:Credit");
+        STORED_PATHS_PREFIXES.add("photoshop:CaptionWriter");
+        STORED_PATHS_PREFIXES.add("photoshop:AuthorsPosition");
+        STORED_PATHS_PREFIXES.add("photoshop:Headline");
+        STORED_PATHS_PREFIXES.add("photoshop:TransmissionReference");
+        STORED_PATHS_PREFIXES.add("photoshop:Instructions");
+        STORED_PATHS_PREFIXES.add("photoshop:City");
+        STORED_PATHS_PREFIXES.add("photoshop:State");
+        STORED_PATHS_PREFIXES.add("photoshop:Country");
+        STORED_PATHS_PREFIXES.add("dc:title");
+        STORED_PATHS_PREFIXES.add("dc:creator");
+        STORED_PATHS_PREFIXES.add("dc:description");
+        STORED_PATHS_PREFIXES.add("dc:rights");
+        STORED_PATHS_PREFIXES.add("dc:subject");
     }
 
     /**

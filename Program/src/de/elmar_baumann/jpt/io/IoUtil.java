@@ -40,14 +40,14 @@ import java.util.List;
  */
 public final class IoUtil {
 
-    private static final String QUOTE                = "\""; // NOI18N
-    private static final String SEPARATOR            = " ";  // NOI18N
-    private static final String EMPTY                = "";   // NOI18N
-    private static final String PATTERN_FS_PATH      = "%s"; // NOI18N
-    private static final String PATTERN_FS_ROOT      = "%d"; // NOI18N
-    private static final String PATTERN_FS_DIR_PATH  = "%p"; // NOI18N
-    private static final String PATTERN_FS_FILE_NAME = "%n"; // NOI18N
-    private static final String PATTERN_FS_FILE_EXT  = "%x"; // NOI18N
+    private static final String QUOTE                = "\"";
+    private static final String SEPARATOR            = " "; 
+    private static final String EMPTY                = "";  
+    private static final String PATTERN_FS_PATH      = "%s";
+    private static final String PATTERN_FS_ROOT      = "%d";
+    private static final String PATTERN_FS_DIR_PATH  = "%p";
+    private static final String PATTERN_FS_FILE_NAME = "%n";
+    private static final String PATTERN_FS_FILE_EXT  = "%x";
 
     /**
      * Executes an application and desplays a message dialog on errors.
@@ -62,11 +62,11 @@ public final class IoUtil {
             String openCommand = appPath + getDefaultCommandLineSeparator() +
                     arguments;
             try {
-                AppLog.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand); // NOI18N
+                AppLog.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand);
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (IOException ex) {
                 AppLog.logSevere(IoUtil.class, ex);
-                MessageDisplayer.error(null, "IoUtil.Error.OpenFile"); // NOI18N
+                MessageDisplayer.error(null, "IoUtil.Error.OpenFile");
             }
         }
     }
@@ -214,7 +214,7 @@ public final class IoUtil {
     public static boolean lockLogWarning(File file, Object owner) {
         if (!FileLock.INSTANCE.lock(file, owner)) {
             AppLog.logWarning(owner.getClass(),
-                    "IoUtil.Error.lock", file, owner, // NOI18N
+                    "IoUtil.Error.lock", file, owner,
                     FileLock.INSTANCE.getOwner(file));
             return false;
         }

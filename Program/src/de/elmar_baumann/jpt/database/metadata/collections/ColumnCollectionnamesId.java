@@ -34,7 +34,7 @@ public final class ColumnCollectionnamesId extends Column {
     private ColumnCollectionnamesId() {
         super(
             TableCollectionNames.INSTANCE,
-            "id", // NOI18N
+            "id",
             DataType.BIGINT);
 
         setIsPrimaryKey(true);

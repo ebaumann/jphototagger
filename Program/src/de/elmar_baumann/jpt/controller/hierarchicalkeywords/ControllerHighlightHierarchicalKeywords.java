@@ -83,7 +83,7 @@ public final class ControllerHighlightHierarchicalKeywords
     private void setKeywords(JTree tree, Collection<String> keywords) {
         TreeCellRenderer r = tree.getCellRenderer();
         assert r instanceof TreeCellRendererHierarchicalKeywords :
-                "Not a TreeCellRendererHierarchicalKeywords: " + r; // NOI18N
+                "Not a TreeCellRendererHierarchicalKeywords: " + r;
         if (r instanceof TreeCellRendererHierarchicalKeywords) {
             //TreeUtil.expandAll(tree, true);
             ((TreeCellRendererHierarchicalKeywords) r).setKeywords(keywords);
@@ -104,7 +104,7 @@ public final class ControllerHighlightHierarchicalKeywords
 
     private boolean hasSidecarFile(List<File> selFile) {
         assert selFile.size() == 1 :
-                "Size < 1: " + selFile.size() + " - " + selFile; // NOI18N
+                "Size < 1: " + selFile.size() + " - " + selFile;
         return XmpMetadata.hasImageASidecarFile(selFile.get(0).getAbsolutePath());
     }
 

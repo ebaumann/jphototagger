@@ -38,9 +38,9 @@ public final class ExifFormatterContrast extends ExifFormatter {
             new HashMap<Integer, String>();
 
     static {
-        EXIF_KEY_OF_CONTRAST.put(0, "ContrastNormal"); // NOI18N
-        EXIF_KEY_OF_CONTRAST.put(1, "ContrastLow"); // NOI18N
-        EXIF_KEY_OF_CONTRAST.put(2, "ContrastHigh"); // NOI18N
+        EXIF_KEY_OF_CONTRAST.put(0, "ContrastNormal");
+        EXIF_KEY_OF_CONTRAST.put(1, "ContrastLow");
+        EXIF_KEY_OF_CONTRAST.put(2, "ContrastHigh");
     }
 
     private ExifFormatterContrast() {
@@ -49,7 +49,7 @@ public final class ExifFormatterContrast extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.CONTRAST.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
@@ -58,6 +58,6 @@ public final class ExifFormatterContrast extends ExifFormatter {
                 return TRANSLATION.translate(EXIF_KEY_OF_CONTRAST.get(value));
             }
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

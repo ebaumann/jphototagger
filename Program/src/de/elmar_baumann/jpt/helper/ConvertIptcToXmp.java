@@ -95,7 +95,7 @@ public final class ConvertIptcToXmp implements Runnable {
 
     private void logWriteXmpFile(String imageFilename) {
         AppLog.logInfo(ConvertIptcToXmp.class,
-                "IptcToXmp.Info.StartWriteXmpFile", imageFilename); // NOI18N
+                "IptcToXmp.Info.StartWriteXmpFile", imageFilename);
     }
 
     private synchronized void notifyStart() {
@@ -103,7 +103,7 @@ public final class ConvertIptcToXmp implements Runnable {
         ProgressEvent event = new ProgressEvent(this, 0, count, 0,
                 filenames.size() > 0
                 ? filenames.get(0)
-                : ""); // NOI18N
+                : "");
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressStarted(event);
             checkStopEvent(event);
@@ -119,7 +119,7 @@ public final class ConvertIptcToXmp implements Runnable {
     }
 
     private synchronized void notifyEnd(int index) {
-        ProgressEvent event = new ProgressEvent(this, 0, filenames.size(), index + 1, ""); // NOI18N
+        ProgressEvent event = new ProgressEvent(this, 0, filenames.size(), index + 1, "");
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressEnded(event);
         }

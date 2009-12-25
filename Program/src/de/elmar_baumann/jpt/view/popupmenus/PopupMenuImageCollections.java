@@ -34,9 +34,9 @@ import javax.swing.KeyStroke;
  */
 public final class PopupMenuImageCollections extends JPopupMenu {
 
-    private static final String                    DISPLAY_NAME_ACTION_DELETE = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete"); // NOI18N
-    private static final String                    DISPLAY_NAME_ACTION_RENAME = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename"); // NOI18N
-    private static final String                    DISPLAY_NAME_ACTION_CREATE = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Create"); // NOI18N
+    private static final String                    DISPLAY_NAME_ACTION_DELETE = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete");
+    private static final String                    DISPLAY_NAME_ACTION_RENAME = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename");
+    private static final String                    DISPLAY_NAME_ACTION_CREATE = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Create");
     private final        JMenuItem                 itemDelete                 = new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
     private final        JMenuItem                 itemRename                 = new JMenuItem(DISPLAY_NAME_ACTION_RENAME);
     private final        JMenuItem                 itemCreate                 = new JMenuItem(DISPLAY_NAME_ACTION_CREATE);
@@ -80,9 +80,9 @@ public final class PopupMenuImageCollections extends JPopupMenu {
     }
 
     private void setIcons() {
-        itemDelete.setIcon(AppLookAndFeel.getIcon("icon_remove.png")); // NOI18N
-        itemRename.setIcon(AppLookAndFeel.getIcon("icon_rename.png")); // NOI18N
-        itemCreate.setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
+        itemDelete.setIcon(AppLookAndFeel.getIcon("icon_remove.png"));
+        itemRename.setIcon(AppLookAndFeel.getIcon("icon_rename.png"));
+        itemCreate.setIcon(AppLookAndFeel.getIcon("icon_add.png"));
     }
 
     private void setAccelerators() {

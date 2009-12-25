@@ -58,7 +58,7 @@ public final class HelpIndexParser {
      */
     public static HelpNode parse(InputStream is) {
         if (is == null)
-            throw new NullPointerException("is == null"); // NOI18N
+            throw new NullPointerException("is == null");
 
         HelpNode rootNode = null;
         try {
@@ -79,14 +79,14 @@ public final class HelpIndexParser {
 
     private static HelpNode getTree(Document document) throws DOMException {
         HelpNode rootNode = new HelpNode();
-        NodeList docNodes = document.getElementsByTagName("helpindex").item(0).getChildNodes(); // NOI18N
+        NodeList docNodes = document.getElementsByTagName("helpindex").item(0).getChildNodes();
         int length = docNodes.getLength();
         for (int i = 0; i < length; i++) {
             Node node = docNodes.item(i);
             String nodeName = node.getNodeName();
-            if (nodeName.equals("node")) { // NOI18N
+            if (nodeName.equals("node")) {
                 parseNode((Element) node, rootNode);
-            } else if (nodeName.equals("page")) { // NOI18N
+            } else if (nodeName.equals("page")) {
                 rootNode.addPage(getPage((Element) node));
             }
         }
@@ -95,14 +95,14 @@ public final class HelpIndexParser {
 
     private static void parseNode(Element section, HelpNode rootNode) {
         HelpNode helpNode = new HelpNode();
-        NodeList title = section.getElementsByTagName("title"); // NOI18N
+        NodeList title = section.getElementsByTagName("title");
         helpNode.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
         NodeList nodes = section.getChildNodes();
         int length = nodes.getLength();
         for (int i = 0; i < length; i++) {
-            if (nodes.item(i).getNodeName().equals("section")) { // NOI18N
+            if (nodes.item(i).getNodeName().equals("section")) {
                 parseNode((Element) nodes.item(i), rootNode);
-            } else if (nodes.item(i).getNodeName().equals("page")) { // NOI18N
+            } else if (nodes.item(i).getNodeName().equals("page")) {
                 helpNode.addPage(getPage((Element) nodes.item(i)));
             }
         }
@@ -111,8 +111,8 @@ public final class HelpIndexParser {
 
     private static HelpPage getPage(Element page) throws DOMException {
         HelpPage helpPage = new HelpPage();
-        NodeList url = page.getElementsByTagName("url"); // NOI18N
-        NodeList title = page.getElementsByTagName("title"); // NOI18N
+        NodeList url = page.getElementsByTagName("url");
+        NodeList title = page.getElementsByTagName("title");
         helpPage.setUrl(url.item(0).getFirstChild().getNodeValue().trim());
         helpPage.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
         return helpPage;
@@ -122,7 +122,7 @@ public final class HelpIndexParser {
             ParserConfigurationException {
         DocumentBuilderFactory factory =
                 DocumentBuilderFactory.newInstance();
-        factory.setFeature("http://xml.org/sax/features/validation", true); // NOI18N
+        factory.setFeature("http://xml.org/sax/features/validation", true);
         return factory;
     }
 
@@ -141,9 +141,9 @@ public final class HelpIndexParser {
             public InputSource resolveEntity(String publicId, String systemId)
                     throws SAXException, IOException {
                 InputStream is = HelpIndexParser.class.getResourceAsStream(
-                        "/de/elmar_baumann/lib/resource/dtd/helpindex.dtd"); // NOI18N
+                        "/de/elmar_baumann/lib/resource/dtd/helpindex.dtd");
                 InputSource ip = new InputSource(is);
-                ip.setSystemId("helpindex.dtd"); // NOI18N
+                ip.setSystemId("helpindex.dtd");
                 return ip;
             }
         });

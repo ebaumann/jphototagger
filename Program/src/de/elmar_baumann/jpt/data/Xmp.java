@@ -488,7 +488,7 @@ public final class Xmp implements TextEntryListener {
                 list.add(newText);
                 valueOfColumn.put(column, list);
             }
-            assert o instanceof List : "Not a List: " + o; // NOI18N
+            assert o instanceof List : "Not a List: " + o;
             if (o instanceof List) {
                 List list = (List) o;
                 int index = list.indexOf(oldText);
@@ -556,7 +556,7 @@ public final class Xmp implements TextEntryListener {
                     }
                 } else {
                     AppLog.logWarning(
-                            Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);// NOI18N
+                            Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);//
                 }
             }
         }
@@ -579,7 +579,7 @@ public final class Xmp implements TextEntryListener {
     public Object getValue(Column xmpColumn) {
         Object o = valueOfColumn.get(xmpColumn);
         assert o == null || o instanceof List || o instanceof String ||
-                o instanceof Long : "Neither List nor String nor Long: " + o; // NOI18N
+                o instanceof Long : "Neither List nor String nor Long: " + o;
         return o instanceof List
                ? new ArrayList<String>((List) o)
                : o instanceof String || o instanceof Long
@@ -702,7 +702,7 @@ public final class Xmp implements TextEntryListener {
             } else if (o instanceof List) {
                 valueOfColumn.put(column, deepCopy((List) o));
             } else if (o != null) {
-                assert false : "Unregognized data type of: " + o; // NOI18N
+                assert false : "Unregognized data type of: " + o;
             }
         }
     }
@@ -726,7 +726,7 @@ public final class Xmp implements TextEntryListener {
             if (isImmutable(o)) {
                 copy.add(o);
             } else { // Even null in a collection is not valid
-                assert false : "Unregognized data type of: " + o; // NOI18N
+                assert false : "Unregognized data type of: " + o;
             }
         }
         return copy;

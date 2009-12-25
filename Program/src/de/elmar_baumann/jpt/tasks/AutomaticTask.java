@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
 public final class AutomaticTask {
 
     public static final AutomaticTask INSTANCE = new AutomaticTask();
-    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel"; // NOI18N
+    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
     private Runnable runnable;
 
     /**
@@ -106,7 +106,7 @@ public final class AutomaticTask {
         if (runnable instanceof Thread) {
             return ((Thread) runnable).getName();
         }
-        return "Automatic task @ " + getClass().getName(); // NOI18N
+        return "Automatic task @ " + getClass().getName();
     }
 
     private AutomaticTask() {

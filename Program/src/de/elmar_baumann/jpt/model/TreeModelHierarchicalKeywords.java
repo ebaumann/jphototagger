@@ -47,7 +47,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
     public TreeModelHierarchicalKeywords() {
         super(new TreeNodeSortedChildren(Bundle.getString(
-                "TreeModelHierarchicalKeywords.DisplayName.Root"))); // NOI18N
+                "TreeModelHierarchicalKeywords.DisplayName.Root")));
         ROOT = (DefaultMutableTreeNode) getRoot();
         createTree();
     }
@@ -103,7 +103,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 insertNode(parentNode, new TreeNodeSortedChildren(child));
             } else {
                 MessageDisplayer.error(null,
-                        "TreeModelHierarchicalKeywords.Error.DbInsert", keyword); // NOI18N
+                        "TreeModelHierarchicalKeywords.Error.DbInsert", keyword);
             }
         }
     }
@@ -120,7 +120,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode parentNode, String keyword) {
         if (childHasKeyword(parentNode, keyword)) {
             MessageDisplayer.error(null,
-                    "TreeModelHierarchicalKeywords.Error.KeywordExists", // NOI18N
+                    "TreeModelHierarchicalKeywords.Error.KeywordExists",
                     keyword, parentNode);
             return false;
         }
@@ -151,17 +151,17 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 new ArrayList<HierarchicalKeyword>();
         Object o = keywordNode.getUserObject();
         assert o instanceof HierarchicalKeyword :
-                "Not a HierarchicalKeyword: " + o; // NOI18N
+                "Not a HierarchicalKeyword: " + o;
         for (Enumeration e = keywordNode.preorderEnumeration();
                 e.hasMoreElements();) {
             Object el = e.nextElement();
             assert el instanceof DefaultMutableTreeNode :
-                    "Not a DefaultMutableTreeNode: " + el; // NOI18N
+                    "Not a DefaultMutableTreeNode: " + el;
             if (el instanceof DefaultMutableTreeNode) {
                 Object userObject =
                         ((DefaultMutableTreeNode) el).getUserObject();
                 assert userObject instanceof HierarchicalKeyword :
-                        "Not a HierarchicalKeyword: " + userObject; // NOI18N
+                        "Not a HierarchicalKeyword: " + userObject;
                 if (userObject instanceof HierarchicalKeyword) {
                     delKeywords.add((HierarchicalKeyword) userObject);
                 }
@@ -171,7 +171,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             removeNodeFromParent(keywordNode);
         } else {
             MessageDisplayer.error(null,
-                    "TreeModelHierarchicalKeywords.Error.DbRemove", // NOI18N
+                    "TreeModelHierarchicalKeywords.Error.DbRemove",
                     keywordNode.toString());
         }
     }
@@ -195,7 +195,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                         new int[]{parentNode.getIndex(node)}, new Object[]{node});
             } else {
                 MessageDisplayer.error(null,
-                        "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword); // NOI18N
+                        "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword);
             }
         }
     }
@@ -236,7 +236,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             }
         }
         AppLog.logWarning(TreeModelHierarchicalKeywords.class,
-                "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode); // NOI18N
+                "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode);
         return false;
     }
 
@@ -244,7 +244,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
         if (TreeUtil.isBelow(source, target)) {
             MessageDisplayer.error(null,
-                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsBelow", // NOI18N
+                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsBelow",
                     source, target);
             return false;
         }
@@ -255,7 +255,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode target, DefaultMutableTreeNode source) {
         if (TreeUtil.isChild(target, source)) {
             MessageDisplayer.error(null,
-                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsChild", // NOI18N
+                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsChild",
                     source, target);
             return false;
         }

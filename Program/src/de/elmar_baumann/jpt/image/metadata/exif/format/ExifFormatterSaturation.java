@@ -39,9 +39,9 @@ public final class ExifFormatterSaturation extends ExifFormatter {
 
 
     static {
-        exifKeyOfSaturation.put(0, "SaturationNormal"); // NOI18N
-        exifKeyOfSaturation.put(1, "SaturationLow"); // NOI18N
-        exifKeyOfSaturation.put(2, "SaturationHigh"); // NOI18N
+        exifKeyOfSaturation.put(0, "SaturationNormal");
+        exifKeyOfSaturation.put(1, "SaturationLow");
+        exifKeyOfSaturation.put(2, "SaturationHigh");
     }
 
     private ExifFormatterSaturation() {
@@ -50,7 +50,7 @@ public final class ExifFormatterSaturation extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.SATURATION.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
@@ -59,6 +59,6 @@ public final class ExifFormatterSaturation extends ExifFormatter {
                 return TRANSLATION.translate(exifKeyOfSaturation.get(value));
             }
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

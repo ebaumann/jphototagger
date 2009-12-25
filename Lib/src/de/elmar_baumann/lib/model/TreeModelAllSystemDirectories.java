@@ -63,7 +63,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
      */
     public TreeModelAllSystemDirectories(
             JTree tree, Set<DirectoryFilter.Option> directoryFilter) {
-        super(new TreeNodeSortedChildren("Root of TreeModelAllSystemDirectories")); // NOI18N
+        super(new TreeNodeSortedChildren("Root of TreeModelAllSystemDirectories"));
         rootNode = (DefaultMutableTreeNode) getRoot();
         this.tree = tree;
         this.directoryFilter = new DirectoryFilter(directoryFilter);

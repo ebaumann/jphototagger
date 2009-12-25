@@ -29,11 +29,11 @@ import de.elmar_baumann.jpt.resource.Bundle;
 public enum Relation {
 
     /** Verknüpfung zweier Spalten mit AND */
-    AND("AND", // NOI18N
-    Bundle.getString("Relation.And")), // NOI18N
+    AND("AND",
+    Bundle.getString("Relation.And")),
     /** Verknüpfung zweier Spalten mit OR */
-    OR("OR", // NOI18N
-    Bundle.getString("Relation.Or")),; // NOI18N
+    OR("OR",
+    Bundle.getString("Relation.Or")),;
     /** SQL-String der Verknüpfung */
     private final String sqlString;
     /** Lokalisierter String */

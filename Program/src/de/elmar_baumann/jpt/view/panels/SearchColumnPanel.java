@@ -95,7 +95,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxColumns.setSelectedIndex(0);
         comboBoxComparators.setSelectedIndex(0);
         comboBoxOperators.setSelectedIndex(0);
-        textFieldValue.setText(""); // NOI18N
+        textFieldValue.setText(""); //
         setChanged(false);
         setFormatter();
         setInputVerifier();
@@ -271,15 +271,15 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             Comparator operator = (Comparator) comboBoxComparators.getModel().getSelectedItem();
 
             StringBuffer buffer = new StringBuffer();
-            buffer.append(toggleButtonBracketLeft1.isSelected() ? " (" : ""); // NOI18N
+            buffer.append(toggleButtonBracketLeft1.isSelected() ? " (" : ""); //
             if (!isFirst) {
-                buffer.append(" " + relation.toSqlString()); // NOI18N
+                buffer.append(" " + relation.toSqlString()); //
             }
-            buffer.append(toggleButtonBracketLeft2.isSelected() ? " (" : ""); // NOI18N
-            buffer.append(" " + column.getTable().getName() + "." + column.getName()); // NOI18N
-            buffer.append(" " + operator.toSqlString()); // NOI18N
-            buffer.append(" ?"); // NOI18N
-            buffer.append(toggleButtonBracketRight.isSelected() ? ")" : ""); // NOI18N
+            buffer.append(toggleButtonBracketLeft2.isSelected() ? " (" : ""); //
+            buffer.append(" " + column.getTable().getName() + "." + column.getName()); //
+            buffer.append(" " + operator.toSqlString()); //
+            buffer.append(" ?"); //
+            buffer.append(toggleButtonBracketRight.isSelected() ? ")" : ""); //
 
             return buffer.toString();
         }
@@ -388,14 +388,14 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             String month = getDateFormatted(Integer.toString(cal.get(Calendar.MONTH)));
             String day   = getDateFormatted(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
 
-            textFieldValue.setText(year + "-" + month + "-" + day); // NOI18N
+            textFieldValue.setText(year + "-" + month + "-" + day); //
             setChanged(true);
         }
     }
 
     private String getDateFormatted(String dayOrMonth) {
         if (dayOrMonth.length() < 2) {
-            return "0" + dayOrMonth; // NOI18N
+            return "0" + dayOrMonth; //
         }
         return dayOrMonth;
     }
@@ -560,7 +560,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
 
-        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_calendar.png"))); // NOI18N
+        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_calendar.png"))); //
         buttonCalendar.setPreferredSize(new java.awt.Dimension(16, 16));
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

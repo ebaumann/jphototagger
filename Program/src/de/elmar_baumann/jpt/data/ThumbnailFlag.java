@@ -37,7 +37,7 @@ public final class ThumbnailFlag {
      */
     public static final ThumbnailFlag ERROR_FILE_NOT_FOUND =
         new ThumbnailFlag(Color.RED,
-        Bundle.getString("ThumbnailFlag.Error.FileNotFound")); // NOI18N
+        Bundle.getString("ThumbnailFlag.Error.FileNotFound"));
 
     /**
      * Konstruktor.

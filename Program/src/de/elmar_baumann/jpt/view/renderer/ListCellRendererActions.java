@@ -36,8 +36,8 @@ import javax.swing.JList;
  */
 public final class ListCellRendererActions extends DefaultListCellRenderer {
 
-    private static final Icon ICON_ACTION = AppLookAndFeel.getIcon("icon_action.png"); // NOI18N
-    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png"); // NOI18N
+    private static final Icon ICON_ACTION = AppLookAndFeel.getIcon("icon_action.png");
+    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png");
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

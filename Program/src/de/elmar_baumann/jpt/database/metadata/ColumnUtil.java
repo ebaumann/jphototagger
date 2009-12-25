@@ -49,7 +49,7 @@ public final class ColumnUtil {
                     !key.contains("ColumnXmpPhotoshopSupplementalcategories")) {
                     Class cl = Class.forName(key);
                     @SuppressWarnings("unchecked")
-                    Field field = cl.getField("INSTANCE"); // NOI18N
+                    Field field = cl.getField("INSTANCE");
                     if (field.get(null) instanceof Column) {
                         columns.add((Column) field.get(null));
                     }

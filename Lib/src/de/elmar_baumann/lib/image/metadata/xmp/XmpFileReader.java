@@ -49,9 +49,9 @@ public final class XmpFileReader {
         0x3D
     };
     private static final byte[] XMP_BEGIN_MARKER =
-            new String("<x:xmpmeta").getBytes(); // NOI18N
+            new String("<x:xmpmeta").getBytes();
     private static final byte[] XMP_END_MARKER =
-            new String("</x:xmpmeta>").getBytes(); // NOI18N
+            new String("</x:xmpmeta>").getBytes();
 
     /**
      * Liest eine Datei und liefert einen String mit den XMP-Informationen.
@@ -71,11 +71,11 @@ public final class XmpFileReader {
      */
     public static String readFile(String filename) {
         if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
+            throw new NullPointerException("filename == null");
 
         RandomAccessFile file = null;
         try {
-            file = new RandomAccessFile(filename, "r"); // NOI18N
+            file = new RandomAccessFile(filename, "r");
             file.getChannel().lock(0, Long.MAX_VALUE, true);
             int xmpPacketStartIndex = getMatchIndex(file, 0, XMP_PACKET_MARKER);
             if (xmpPacketStartIndex >= 0) {
@@ -108,13 +108,13 @@ public final class XmpFileReader {
 
         RandomAccessFile file = null;
         try {
-            file = new RandomAccessFile(filename, "r"); // NOI18N
+            file = new RandomAccessFile(filename, "r");
             file.seek(xmpStartIndex);
             int count = xmpEndIndex - xmpStartIndex + XMP_END_MARKER.length;
             byte[] bytes = new byte[count];
             file.read(bytes, 0, count);
             // file will be closed in finally
-            return new String(bytes, 0, count, "UTF-8"); // NOI18N
+            return new String(bytes, 0, count, "UTF-8");
         } catch (Exception ex) {
             Logger.getLogger(XmpFileReader.class.getName()).log(
                     Level.SEVERE, null, ex);
@@ -132,7 +132,7 @@ public final class XmpFileReader {
      */
     public static boolean existsXmp(String filename) {
         if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
+            throw new NullPointerException("filename == null");
 
         BufferedReader bufferedReader = null;
         try {
@@ -140,7 +140,7 @@ public final class XmpFileReader {
             String line;
             do {
                 line = bufferedReader.readLine();
-                if (line != null && line.indexOf("<?xpacket begin") >= 0) { // NOI18N
+                if (line != null && line.indexOf("<?xpacket begin") >= 0) {
                     // reader will be closed in finally
                     return true;
                 }

@@ -141,7 +141,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
                 new String[]{XMPConst.NS_IPTCCORE});
         namespacesOfXmpTableModel.put(
                 metadataTableModels.getXmpTableModelLightroom(),
-                new String[]{"http://ns.adobe.com/lightroom/1.0/"}); // NOI18N;
+                new String[]{"http://ns.adobe.com/lightroom/1.0/"}); //;
         namespacesOfXmpTableModel.put(
                 metadataTableModels.getXmpTableModelPhotoshop(),
                 new String[]{XMPConst.NS_PHOTOSHOP});
@@ -151,7 +151,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
                 getXmpTableModelCameraRawSettings(),
                 new String[]{
                     XMPConst.NS_CAMERARAW,
-                    "http://ns.adobe.com/camera-raw-saved-settings/1.0/" // NOI18N
+                    "http://ns.adobe.com/camera-raw-saved-settings/1.0/"
                 });
         namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelXap(),
                 new String[]{XMPConst.NS_XMP, XMPConst.NS_XMP_RIGHTS});
@@ -219,7 +219,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
             repaintMetadataTables(allMetadata);
             appPanel.getLabelMetadataFilename().setText(
                     Bundle.getString(
-                    "ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected")); // NOI18N
+                    "ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected"));
         }
     }
 
@@ -248,8 +248,8 @@ public final class ControllerShowMetadata implements DatabaseListener,
             }
             appPanel.getLabelMetadataFilename().setText(file.getName() +
                     (XmpMetadata.hasImageASidecarFile(file.getAbsolutePath())
-                        ? "" // NOI18N
-                        : Bundle.getString("ControllerShowMetadata.Embedded"))); // NOI18N
+                        ? ""
+                        : Bundle.getString("ControllerShowMetadata.Embedded")));
             resizeMetadataTables(metadata);
             repaintMetadataTables(metadata);
         }

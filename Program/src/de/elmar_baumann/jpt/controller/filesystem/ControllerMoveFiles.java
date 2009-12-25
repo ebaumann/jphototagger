@@ -69,13 +69,13 @@ public final class ControllerMoveFiles implements ActionListener,
             dialog.setVisible(true);
         } else {
             AppLog.logWarning(ControllerMoveFiles.class,
-                    "ControllerMoveFiles.ErrorMessaga.NoImagesSelected"); // NOI18N
+                    "ControllerMoveFiles.ErrorMessaga.NoImagesSelected");
         }
     }
 
     @Override
     public void actionPerformed(FileSystemEvent action, File src, File target) {
-        if (!src.getName().toLowerCase().endsWith(".xmp")) { // NOI18N
+        if (!src.getName().toLowerCase().endsWith(".xmp")) {
             db.updateRenameImageFilename(
                     src.getAbsolutePath(), target.getAbsolutePath());
         }

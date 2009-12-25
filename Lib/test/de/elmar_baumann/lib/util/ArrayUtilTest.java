@@ -45,45 +45,45 @@ public class ArrayUtilTest {
      */
     @Test
     public void testStringTokenToList() {
-        System.out.println("stringTokenToList"); // NOI18N
-        String string = "anton,berta,cäsar,wilhelm"; // NOI18N
+        System.out.println("stringTokenToList");
+        String string = "anton,berta,cäsar,wilhelm";
         String delimiter = ",:";
         List<String> expResult = new ArrayList<String>();
-        expResult.add("anton"); // NOI18N
-        expResult.add("berta"); // NOI18N
-        expResult.add("cäsar"); // NOI18N
-        expResult.add("wilhelm"); // NOI18N
+        expResult.add("anton");
+        expResult.add("berta");
+        expResult.add("cäsar");
+        expResult.add("wilhelm");
         List<String> result = ArrayUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
-        string = "anton,berta,cäsar:wilhelm"; // NOI18N
-        delimiter = ",:"; // NOI18N
+        string = "anton,berta,cäsar:wilhelm";
+        delimiter = ",:";
         expResult = new ArrayList<String>();
-        expResult.add("anton"); // NOI18N
-        expResult.add("berta"); // NOI18N
-        expResult.add("cäsar"); // NOI18N
-        expResult.add("wilhelm"); // NOI18N
+        expResult.add("anton");
+        expResult.add("berta");
+        expResult.add("cäsar");
+        expResult.add("wilhelm");
         result = ArrayUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
-        string = "anton:berta::cäsar:wilhelm"; // NOI18N
-        delimiter = ",:"; // NOI18N
+        string = "anton:berta::cäsar:wilhelm";
+        delimiter = ",:";
         expResult = new ArrayList<String>();
-        expResult.add("anton"); // NOI18N
-        expResult.add("berta"); // NOI18N
-        expResult.add("cäsar"); // NOI18N
-        expResult.add("wilhelm"); // NOI18N
+        expResult.add("anton");
+        expResult.add("berta");
+        expResult.add("cäsar");
+        expResult.add("wilhelm");
         result = ArrayUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
-        string = "anton"; // NOI18N
-        delimiter = ","; // NOI18N
+        string = "anton";
+        delimiter = ",";
         expResult = new ArrayList<String>();
         expResult.add(string);
         result = ArrayUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
-        string = "anton,berta,cäsar,:wilhelm"; // NOI18N
+        string = "anton,berta,cäsar,:wilhelm";
         delimiter = "";
         expResult = new ArrayList<String>();
         expResult.add(string);
@@ -97,15 +97,15 @@ public class ArrayUtilTest {
         assertEquals(expResult, result);
 
         try {
-            ArrayUtil.stringTokenToList(null, ""); // NOI18N
-            fail("NullpointerException was not thrown"); // NOI18N
+            ArrayUtil.stringTokenToList(null, "");
+            fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
             // ok
         }
 
         try {
             ArrayUtil.stringTokenToList("", null);
-            fail("NullpointerException was not thrown"); // NOI18N
+            fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
             // ok
         }
@@ -116,10 +116,10 @@ public class ArrayUtilTest {
      */
     @Test
     public void testIntegerTokenToList() {
-        System.out.println("integerTokenToList"); // NOI18N
+        System.out.println("integerTokenToList");
 
-        String string = "1,125,7"; // NOI18N
-        String delimiter = ","; // NOI18N
+        String string = "1,125,7";
+        String delimiter = ",";
         List<Integer> expResult = new ArrayList<Integer>();
         expResult.add(1);
         expResult.add(125);
@@ -127,8 +127,8 @@ public class ArrayUtilTest {
         List<Integer> result = ArrayUtil.integerTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
-        string = "-1,42,29:33,72"; // NOI18N
-        delimiter = ":,"; // NOI18N
+        string = "-1,42,29:33,72";
+        delimiter = ":,";
         expResult = new ArrayList<Integer>();
         expResult.add(-1);
         expResult.add(42);
@@ -138,8 +138,8 @@ public class ArrayUtilTest {
         result = ArrayUtil.integerTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
-        string = "-1"; // NOI18N
-        delimiter = ","; // NOI18N
+        string = "-1";
+        delimiter = ",";
         expResult = new ArrayList<Integer>();
         expResult.add(-1);
         result = ArrayUtil.integerTokenToList(string, delimiter);
@@ -152,25 +152,25 @@ public class ArrayUtilTest {
         assertEquals(expResult, result);
 
         try {
-            string = "12,Peter"; // NOI18N
-            delimiter = ","; // NOI18N
+            string = "12,Peter";
+            delimiter = ",";
             expResult = new ArrayList<Integer>();
             result = ArrayUtil.integerTokenToList(string, delimiter);
-            fail("no NumberFormatException"); // NOI18N
+            fail("no NumberFormatException");
         } catch (NumberFormatException ex) {
             // ok
         }
 
         try {
             ArrayUtil.integerTokenToList(null, "");
-            fail("NullpointerException was not thrown"); // NOI18N
+            fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
             // ok
         }
 
         try {
             ArrayUtil.integerTokenToList("", null);
-            fail("NullpointerException was not thrown"); // NOI18N
+            fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
             // ok
         }
@@ -181,15 +181,15 @@ public class ArrayUtilTest {
      */
     @Test
     public void testToStringArray() {
-        System.out.println("toStringArray"); // NOI18N
+        System.out.println("toStringArray");
         Object[] array = new Object[]{new Integer(12), "Eiscreme", new Double(25.5)};
-        String[] expResult = new String[]{"12", "Eiscreme", "25.5"}; // NOI18N
+        String[] expResult = new String[]{"12", "Eiscreme", "25.5"};
         String[] result = ArrayUtil.toStringArray(array);
         assertArrayEquals(expResult, result);
 
         URI uri = null;
         try {
-            uri = new URI("http://www.elmar-baumann.de"); // NOI18N
+            uri = new URI("http://www.elmar-baumann.de");
             array = new Object[]{uri};
             expResult = new String[]{uri.toString()};
             result = ArrayUtil.toStringArray(array);
@@ -203,17 +203,17 @@ public class ArrayUtilTest {
         result = ArrayUtil.toStringArray(array);
         assertArrayEquals(expResult, result);
 
-        array = new Object[]{"a", null, "b"}; // NOI18N
+        array = new Object[]{"a", null, "b"};
         try {
             ArrayUtil.toStringArray(array);
-            fail("IllegalArgumentException was not thrown"); // NOI18N
+            fail("IllegalArgumentException was not thrown");
         } catch (IllegalArgumentException ex) {
             // ok
         }
 
         try {
             ArrayUtil.toStringArray(null);
-            fail("NullpointerException was not thrown"); // NOI18N
+            fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
             // ok
         }

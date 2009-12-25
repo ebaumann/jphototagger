@@ -60,7 +60,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
     /**
      * Font of the text below the thumbnails
      */
-    private static final Font FONT = new Font("Arial", Font.PLAIN, FONT_HEIGHT);  // NOI18N
+    private static final Font FONT = new Font("Arial", Font.PLAIN, FONT_HEIGHT); 
     /**
      * Height of the text font for text below the thumbnails in pixels,
      * computed from FONT_HEIGHT.
@@ -142,8 +142,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
     private void loadRatingImages() {
         for (int i = 0; i < 5; i++) {
             starImage[i] = new ImageIcon(getClass().getResource(
-                    "/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_" + // NOI18N
-                    Integer.toString(i + 1) + ".png")).getImage(); // NOI18N
+                    "/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_" +
+                    Integer.toString(i + 1) + ".png")).getImage();
         }
     }
 
@@ -326,7 +326,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
             return text;
         }
 
-        return "..." + text.substring(text.length() - maxCharCountText + 2); // NOI18N
+        return "..." + text.substring(text.length() - maxCharCountText + 2);
     }
 
     private int getThumbnailLeftIndent(Image thumbnail) {

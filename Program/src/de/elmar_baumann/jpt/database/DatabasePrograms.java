@@ -59,23 +59,23 @@ public final class DatabasePrograms extends Database {
             connection.setAutoCommit(false);
             setId(connection, program);
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO programs" + // NOI18N
-                    " (" + // NOI18N
-                    "id" +                              // NOI18N --  1 --
-                    ", action" +                        // NOI18N --  2 --
-                    ", filename" +                      // NOI18N --  3 --
-                    ", alias" +                         // NOI18N --  4 --
-                    ", parameters_before_filename" +    // NOI18N --  5 --
-                    ", parameters_after_filename" +     // NOI18N --  6 --
-                    ", input_before_execute" +          // NOI18N --  7 --
-                    ", input_before_execute_per_file" + // NOI18N --  8 --
-                    ", single_file_processing" +        // NOI18N --  9 --
-                    ", change_file" +                   // NOI18N -- 10 --
-                    ", sequence_number" +               // NOI18N -- 11 --
-                    ", use_pattern" +                   // NOI18N -- 12 --
-                    ", pattern" +                       // NOI18N -- 13 --
-                    ")" + // NOI18N
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+                    "INSERT INTO programs" +
+                    " (" +
+                    "id" +                              // --  1 --
+                    ", action" +                        // --  2 --
+                    ", filename" +                      // --  3 --
+                    ", alias" +                         // --  4 --
+                    ", parameters_before_filename" +    // --  5 --
+                    ", parameters_after_filename" +     // --  6 --
+                    ", input_before_execute" +          // --  7 --
+                    ", input_before_execute_per_file" + // --  8 --
+                    ", single_file_processing" +        // --  9 --
+                    ", change_file" +                   // -- 10 --
+                    ", sequence_number" +               // -- 11 --
+                    ", use_pattern" +                   // -- 12 --
+                    ", pattern" +                       // -- 13 --
+                    ")" +
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             setValuesInsert(stmt, program);
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -118,7 +118,7 @@ public final class DatabasePrograms extends Database {
 
     private void setId(Connection connection, Program program) throws SQLException {
         Statement stmt = connection.createStatement();
-        String sql = "SELECT MAX(id) FROM programs"; // NOI18N
+        String sql = "SELECT MAX(id) FROM programs";
         logFinest(sql);
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {
@@ -139,21 +139,21 @@ public final class DatabasePrograms extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "UPDATE programs" + // NOI18N
-                    " SET" + // NOI18N
-                    " action = ?" +                         // NOI18N --  1 --
-                    ", filename = ?" +                      // NOI18N --  2 --
-                    ", alias = ?" +                         // NOI18N --  3 --
-                    ", parameters_before_filename = ?" +    // NOI18N --  4 --
-                    ", parameters_after_filename = ?" +     // NOI18N --  5 --
-                    ", input_before_execute = ?" +          // NOI18N --  6 --
-                    ", input_before_execute_per_file = ?" + // NOI18N --  7 --
-                    ", single_file_processing = ?" +        // NOI18N --  8 --
-                    ", change_file = ?" +                   // NOI18N --  9 --
-                    ", sequence_number = ?" +               // NOI18N -- 10 --
-                    ", use_pattern = ?" +                   // NOI18N -- 11 --
-                    ", pattern = ?" +                       // NOI18N -- 12 --
-                    " WHERE id = ?");                       // NOI18N -- 13 --
+                    "UPDATE programs" +
+                    " SET" +
+                    " action = ?" +                         // --  1 --
+                    ", filename = ?" +                      // --  2 --
+                    ", alias = ?" +                         // --  3 --
+                    ", parameters_before_filename = ?" +    // --  4 --
+                    ", parameters_after_filename = ?" +     // --  5 --
+                    ", input_before_execute = ?" +          // --  6 --
+                    ", input_before_execute_per_file = ?" + // --  7 --
+                    ", single_file_processing = ?" +        // --  8 --
+                    ", change_file = ?" +                   // --  9 --
+                    ", sequence_number = ?" +               // -- 10 --
+                    ", use_pattern = ?" +                   // -- 11 --
+                    ", pattern = ?" +                       // -- 12 --
+                    " WHERE id = ?");                       // -- 13 --
             setValuesUpdate(stmt, program);
             stmt.setLong(13, program.getId());
             logFiner(stmt);
@@ -208,7 +208,7 @@ public final class DatabasePrograms extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM programs WHERE id = ?"); // NOI18N
+                    "DELETE FROM programs WHERE id = ?");
             stmt.setLong(1, program.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -262,27 +262,27 @@ public final class DatabasePrograms extends Database {
     }
 
     private String getSelectProgramStmt(WhereFilter filter) {
-        return "SELECT" + // NOI18N
-                " id" +                             // NOI18N --  1 --
-                ", action" +                        // NOI18N --  2 --
-                ", filename" +                      // NOI18N --  3 --
-                ", alias" +                         // NOI18N --  4 --
-                ", parameters_before_filename" +    // NOI18N --  5 --
-                ", parameters_after_filename" +     // NOI18N --  6 --
-                ", input_before_execute" +          // NOI18N --  7 --
-                ", input_before_execute_per_file" + // NOI18N --  8 --
-                ", single_file_processing" +        // NOI18N --  9 --
-                ", change_file" +                   // NOI18N -- 10 --
-                ", sequence_number" +               // NOI18N -- 11 --
-                ", use_pattern" +                   // NOI18N -- 12 --
-                ", pattern" +                       // NOI18N -- 13 --
-                " FROM programs" + // NOI18N
+        return "SELECT" +
+                " id" +                             // --  1 --
+                ", action" +                        // --  2 --
+                ", filename" +                      // --  3 --
+                ", alias" +                         // --  4 --
+                ", parameters_before_filename" +    // --  5 --
+                ", parameters_after_filename" +     // --  6 --
+                ", input_before_execute" +          // --  7 --
+                ", input_before_execute_per_file" + // --  8 --
+                ", single_file_processing" +        // --  9 --
+                ", change_file" +                   // -- 10 --
+                ", sequence_number" +               // -- 11 --
+                ", use_pattern" +                   // -- 12 --
+                ", pattern" +                       // -- 13 --
+                " FROM programs" +
                 (filter.equals(WhereFilter.ACTION)
-                 ? " WHERE action = ?" // NOI18N
+                 ? " WHERE action = ?"
                  : filter.equals(WhereFilter.ID)
-                   ? " WHERE id = ?" // NOI18N
-                   : "") + // NOI18N
-                " ORDER BY alias"; // NOI18N
+                   ? " WHERE id = ?"
+                   : "") +
+                " ORDER BY alias";
     }
 
     private Program getSelctedProgram(ResultSet rs) throws SQLException {
@@ -352,7 +352,7 @@ public final class DatabasePrograms extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM programs WHERE action = FALSE"); // NOI18N
+                    "SELECT COUNT(*) FROM programs WHERE action = FALSE");
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

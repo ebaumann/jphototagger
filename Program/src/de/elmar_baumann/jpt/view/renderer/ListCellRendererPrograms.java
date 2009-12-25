@@ -39,7 +39,7 @@ public final class ListCellRendererPrograms extends DefaultListCellRenderer {
 
     private static final FileSystemView FILE_SYSTEM_VIEW =
             FileSystemView.getFileSystemView();
-    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png"); // NOI18N
+    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png");
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

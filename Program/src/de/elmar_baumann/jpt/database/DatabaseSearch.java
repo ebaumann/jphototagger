@@ -93,9 +93,9 @@ public final class DatabaseSearch extends Database {
 
         List<String> filenames = new ArrayList<String>();
         addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.getTableColumnsOfTableStartsWith(
-                searchColumns, "xmp"), searchString, filenames, "xmp"); // NOI18N
+                searchColumns, "xmp"), searchString, filenames, "xmp");
         addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.getTableColumnsOfTableStartsWith(
-                searchColumns, "exif"), searchString, filenames, "exif"); // NOI18N
+                searchColumns, "exif"), searchString, filenames, "exif");
         return filenames;
     }
 
@@ -109,7 +109,7 @@ public final class DatabaseSearch extends Database {
                         prepareStatement(
                         getSqlSearchFilenamesLikeOr(searchColumns, tablename));
                 for (int i = 0; i < searchColumns.size(); i++) {
-                    stmt.setString(i + 1, "%" + searchString + "%"); // NOI18N
+                    stmt.setString(i + 1, "%" + searchString + "%");
                 }
                 logFinest(stmt);
                 ResultSet resultSet = stmt.executeQuery();
@@ -135,26 +135,26 @@ public final class DatabaseSearch extends Database {
             List<Column> searchColumns, String tablename) {
 
         StringBuffer sql = new StringBuffer(
-                "SELECT DISTINCT files.filename FROM "); // NOI18N
+                "SELECT DISTINCT files.filename FROM ");
         List<String> tablenames =
                 DatabaseMetadataUtil.getUniqueTableNamesOfColumnArray(
                 searchColumns);
 
-        sql.append((tablename.equals("xmp") // NOI18N
-                    ? Join.getSqlFilesXmpJoin(Type.INNER, Type.LEFT, tablenames) // NOI18N
-                    : Join.getSqlFilesExifJoin(Type.INNER, tablenames)) + // NOI18N
-                " WHERE "); // NOI18N
+        sql.append((tablename.equals("xmp")
+                    ? Join.getSqlFilesXmpJoin(Type.INNER, Type.LEFT, tablenames)
+                    : Join.getSqlFilesExifJoin(Type.INNER, tablenames)) +
+                " WHERE ");
         boolean isFirstColumn = true;
         for (Column tableColumn : searchColumns) {
             sql.append((!isFirstColumn
-                        ? " OR " // NOI18N
-                        : "") + // NOI18N
-                    tableColumn.getTable().getName() + "." + // NOI18N
-                    tableColumn.getName() + // NOI18N
-                    " LIKE ?"); // NOI18N
+                        ? " OR "
+                        : "") +
+                    tableColumn.getTable().getName() + "." +
+                    tableColumn.getName() +
+                    " LIKE ?");
             isFirstColumn = false;
         }
-        sql.append(" ORDER BY files.filename ASC"); // NOI18N
+        sql.append(" ORDER BY files.filename ASC");
         return sql.toString();
     }
 }

@@ -57,14 +57,14 @@ public final class FileUtil {
     public static String getFileContentAsString(File file, String encoding) {
 
         if (file == null)
-            throw new NullPointerException("file == null"); // NOI18N
+            throw new NullPointerException("file == null");
         if (encoding == null)
-            throw new NullPointerException("encoding == null"); // NOI18N
+            throw new NullPointerException("encoding == null");
 
         byte[] bytes = getFileContentAsBytes(file);
         if (bytes != null) {
             try {
-                return new String(bytes, encoding); // NOI18N
+                return new String(bytes, encoding);
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(
                         FileUtil.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +83,7 @@ public final class FileUtil {
     public static byte[] getFileContentAsBytes(File file) {
 
         if (file == null)
-            throw new NullPointerException("file == null"); // NOI18N
+            throw new NullPointerException("file == null");
 
         FileInputStream fileInputStream = null;
         try {
@@ -119,7 +119,7 @@ public final class FileUtil {
     public static boolean ensureFileExists(File file) {
 
         if (file == null)
-            throw new NullPointerException("file == null"); // NOI18N
+            throw new NullPointerException("file == null");
 
         boolean exists = file.exists();
         if (!exists) {
@@ -146,7 +146,7 @@ public final class FileUtil {
     public static boolean existsFile(File file) {
 
         if (file == null)
-            throw new NullPointerException("file == null"); // NOI18N
+            throw new NullPointerException("file == null");
 
         return file.exists() && !file.isDirectory();
     }
@@ -162,7 +162,7 @@ public final class FileUtil {
     public static boolean ensureDirectoryExists(File directory) {
 
         if (directory == null)
-            throw new NullPointerException("directory == null"); // NOI18N
+            throw new NullPointerException("directory == null");
 
         boolean exists = existsDirectory(directory);
         if (!exists) {
@@ -173,7 +173,7 @@ public final class FileUtil {
                             Level.SEVERE,
                             null,
                             Bundle.getString(
-                            "FileUtil.Error.CreateDirectoryFailed")); // NOI18N
+                            "FileUtil.Error.CreateDirectoryFailed"));
                 }
             }
         }
@@ -190,7 +190,7 @@ public final class FileUtil {
     public static boolean existsDirectory(File directory) {
 
         if (directory == null)
-            throw new NullPointerException("directory == null"); // NOI18N
+            throw new NullPointerException("directory == null");
 
         return directory.exists() && directory.isDirectory();
     }
@@ -205,9 +205,9 @@ public final class FileUtil {
     public static void copyFile(File source, File target) throws IOException {
 
         if (source == null)
-            throw new NullPointerException("source == null"); // NOI18N
+            throw new NullPointerException("source == null");
         if (target == null)
-            throw new NullPointerException("target == null"); // NOI18N
+            throw new NullPointerException("target == null");
 
         if (source.equals(target)) {
             return;
@@ -240,7 +240,7 @@ public final class FileUtil {
     public static Stack<File> getPathFromRoot(File file) {
 
         if (file == null)
-            throw new NullPointerException("file == null"); // NOI18N
+            throw new NullPointerException("file == null");
 
         if (file.getParent() == null) return new Stack<File>();
 
@@ -265,9 +265,9 @@ public final class FileUtil {
             Set<DirectoryFilter.Option> options) {
 
         if (directory == null)
-            throw new NullPointerException("directory == null"); // NOI18N
+            throw new NullPointerException("directory == null");
         if (options == null)
-            throw new NullPointerException("options == null"); // NOI18N
+            throw new NullPointerException("options == null");
 
         List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
@@ -295,7 +295,7 @@ public final class FileUtil {
     public static List<String> getAbsolutePathnames(Collection<File> files) {
 
         if (files == null)
-            throw new NullPointerException("files == null"); // NOI18N
+            throw new NullPointerException("files == null");
 
         List<String> pathnames = new ArrayList<String>(files.size());
         for (File file : files) {
@@ -313,7 +313,7 @@ public final class FileUtil {
     public static List<File> getAsFiles(Collection<? extends String> filenames) {
 
         if (filenames == null)
-            throw new NullPointerException("filenames == null"); // NOI18N
+            throw new NullPointerException("filenames == null");
 
         List<File> files = new ArrayList<File>(filenames.size());
         for (String filename : filenames) {
@@ -331,7 +331,7 @@ public final class FileUtil {
     public static List<String> getAsFilenames(Collection<? extends File> files) {
 
         if (files == null)
-            throw new NullPointerException("files == null"); // NOI18N
+            throw new NullPointerException("files == null");
 
         List<String> filenames = new ArrayList<String>(files.size());
         for (File file : files) {
@@ -349,11 +349,11 @@ public final class FileUtil {
     public static List<File> objectCollectionToFileList(Collection objects) {
 
         if (objects == null)
-            throw new NullPointerException("objects == null"); // NOI18N
+            throw new NullPointerException("objects == null");
 
         List<File> fileList = new ArrayList<File>(objects.size());
         for (Object o : objects) {
-            assert o instanceof File : "Not a file: " + o; // NOI18N
+            assert o instanceof File : "Not a file: " + o;
             if (o instanceof File) {
                 fileList.add((File) o);
             }
@@ -371,7 +371,7 @@ public final class FileUtil {
             Collection<? extends File> files) {
 
         if (files == null)
-            throw new NullPointerException("files == null"); // NOI18N
+            throw new NullPointerException("files == null");
 
         File[] fileArray = new File[files.size()];
         int index = 0;
@@ -390,7 +390,7 @@ public final class FileUtil {
     public static List<File> filterDirectories(Collection<? extends File> files) {
 
         if (files == null)
-            throw new NullPointerException("files == null"); // NOI18N
+            throw new NullPointerException("files == null");
 
         List<File> directories = new ArrayList<File>();
         for (File file : files) {
@@ -410,7 +410,7 @@ public final class FileUtil {
     public static boolean deleteDirectoryRecursive(File directory) {
 
         if (directory == null)
-            throw new NullPointerException("directory == null"); // NOI18N
+            throw new NullPointerException("directory == null");
 
         if (directory.exists()) {
             File[] files = directory.listFiles();

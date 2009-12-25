@@ -93,10 +93,10 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     public LogfileDialog(Frame parent, String logfilename, Class formatterClass) {
         super(parent, false);
         if (logfilename == null) {
-            throw new NullPointerException("logfilename == null"); // NOI18N
+            throw new NullPointerException("logfilename == null"); //
         }
         if (formatterClass == null) {
-            throw new NullPointerException("formatterClass == null"); // NOI18N
+            throw new NullPointerException("formatterClass == null"); //
         }
 
         this.logfilename = logfilename;
@@ -108,7 +108,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
     private void postInitComponents() {
         setIcons();
-        initTextPaneDetails(); // NOI18N
+        initTextPaneDetails(); //
         initTableLogfileRecords();
         initLevelOfCheckbox();
         listenToCheckboxes();
@@ -123,7 +123,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
     private void initTextPaneDetails() {
         textPaneDetails.setStyledDocument(new HTMLDocument());
-        textPaneDetails.setContentType("text/html"); // NOI18N
+        textPaneDetails.setContentType("text/html"); //
     }
 
     private void initTableLogfileRecords() {
@@ -156,7 +156,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 paneIndexOfFormatterClass.get(SimpleFormatter.class);
         if (simple) {
             editorPaneSimple.setText(FileUtil.getFileContentAsString(
-                    new File(logfilename), "UTF-8")); // NOI18N
+                    new File(logfilename), "UTF-8")); //
         } else {
             readLogfileRecords();
             setTable();
@@ -173,7 +173,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         }
         setTable();
         if (tableLogfileRecords.getSelectedRow() < 0) {
-            textPaneDetails.setText(""); // NOI18N
+            textPaneDetails.setText(""); //
         }
     }
 
@@ -182,19 +182,19 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         if (logfileBytes <= 0) {
             JOptionPane.showMessageDialog(
                     this,
-                    Bundle.getString("LogfileDialog.Error.LogfileIsEmpty"), // NOI18N
+                    Bundle.getString("LogfileDialog.Error.LogfileIsEmpty"), //
                     Bundle.getString(
-                    "LogfileDialog.Error.LogfileIsEmpty.Title"), // NOI18N
+                    "LogfileDialog.Error.LogfileIsEmpty.Title"), //
                     JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (logfileBytes >= CRITICAL_LOGFILE_SIZE_IN_BYTES) {
             JOptionPane.showMessageDialog(
                     this,
                     Bundle.getString(
-                    "LogfileDialog.Error.MaximumSizeExceeded", // NOI18N
+                    "LogfileDialog.Error.MaximumSizeExceeded", //
                     Math.round(logfileBytes / CRITICAL_LOGFILE_SIZE_IN_BYTES)),
                     Bundle.getString(
-                    "LogfileDialog.Error.MaximumSizeExceeded.Title"), // NOI18N
+                    "LogfileDialog.Error.MaximumSizeExceeded.Title"), //
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -238,29 +238,29 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     private void showDetails(LogfileRecord logfileRecord) {
         StringBuffer details = new StringBuffer(1000);
 
-        details.append("<html>"); // NOI18N
-        details.append("\n<table>"); // NOI18N
+        details.append("<html>"); //
+        details.append("\n<table>"); //
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Loglevel"), // NOI18N
+                Bundle.getString("LogfileDialog.Info.Loglevel"), //
                 logfileRecord.getLevel().getLocalizedName());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Message"), // NOI18N
+                Bundle.getString("LogfileDialog.Info.Message"), //
                 logfileRecord.getMessage());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.LoggerClass"), // NOI18N
+                Bundle.getString("LogfileDialog.Info.LoggerClass"), //
                 logfileRecord.getLogger());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Class"), // NOI18N
+                Bundle.getString("LogfileDialog.Info.Class"), //
                 logfileRecord.getClassname());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Method"), // NOI18N
+                Bundle.getString("LogfileDialog.Info.Method"), //
                 logfileRecord.getMethodname());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Thread"), // NOI18N
+                Bundle.getString("LogfileDialog.Info.Thread"), //
                 logfileRecord.getThread());
-        details.append("\n</table>"); // NOI18N
+        details.append("\n</table>"); //
         addDetailException(details, logfileRecord.getException());
-        details.append("\n</html>"); // NOI18N
+        details.append("\n</html>"); //
 
         textPaneDetails.setText(details.toString());
     }
@@ -268,14 +268,14 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     private void addDetailTableRow(StringBuffer stringBuffer, String rowHeader,
             String rowData) {
         if (rowData != null) {
-            stringBuffer.append("\n\t<tr>"); // NOI18N
-            stringBuffer.append("\n\t\t<td>"); // NOI18N
-            stringBuffer.append("<strong>" + rowHeader + "</strong>"); // NOI18N
-            stringBuffer.append("</td>"); // NOI18N
-            stringBuffer.append("<td><font color=\"#5555aa\">"); // NOI18N
+            stringBuffer.append("\n\t<tr>"); //
+            stringBuffer.append("\n\t\t<td>"); //
+            stringBuffer.append("<strong>" + rowHeader + "</strong>"); //
+            stringBuffer.append("</td>"); //
+            stringBuffer.append("<td><font color=\"#5555aa\">"); //
             stringBuffer.append(rowData);
-            stringBuffer.append("</font></td>"); // NOI18N
-            stringBuffer.append("\n\t</tr>"); // NOI18N
+            stringBuffer.append("</font></td>"); //
+            stringBuffer.append("\n\t</tr>"); //
         }
     }
 
@@ -283,17 +283,17 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             LogfileRecordException ex) {
         if (ex != null) {
             addDetailExceptionMessage(ex, stringBuffer);
-            stringBuffer.append("\n<pre>"); // NOI18N
+            stringBuffer.append("\n<pre>"); //
             List<LogfileRecordFrame> frames = ex.getFrames();
             for (LogfileRecordFrame frame : frames) {
-                stringBuffer.append("\n" + frame.getClassName() + ":"); // NOI18N
-                stringBuffer.append(" " + frame.getMethodName()); // NOI18N
+                stringBuffer.append("\n" + frame.getClassName() + ":"); //
+                stringBuffer.append(" " + frame.getMethodName()); //
                 stringBuffer.append(
                         Bundle.getString(
-                        "LogfileDialog.Info.StartLineNumber") + // NOI18N
-                        frame.getLine() + ")"); // NOI18N
+                        "LogfileDialog.Info.StartLineNumber") + //
+                        frame.getLine() + ")"); //
             }
-            stringBuffer.append("\n</pre>"); // NOI18N
+            stringBuffer.append("\n</pre>"); //
         }
     }
 
@@ -301,8 +301,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             StringBuffer stringBuffer) {
         String message = exception.getMessage();
         if (message != null) {
-            stringBuffer.append("\n<br /><font color=\"ff0000\">" + message + // NOI18N
-                    "</font>"); // NOI18N
+            stringBuffer.append("\n<br /><font color=\"ff0000\">" + message + //
+                    "</font>"); //
         }
     }
 
@@ -319,7 +319,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     }
 
     private void flushLoggerHandlers() {
-        Handler[] handlers = Logger.getLogger("").getHandlers(); // NOI18N
+        Handler[] handlers = Logger.getLogger("").getHandlers(); //
         for (Handler handler : handlers) {
             handler.flush();
         }
@@ -386,16 +386,16 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         JOptionPane.showMessageDialog(
                 this,
                 Bundle.getString(
-                "LogfileDialog.Error.UnknownLogfileFormat"), // NOI18N
+                "LogfileDialog.Error.UnknownLogfileFormat"), //
                 Bundle.getString(
-                "LogfileDialog.Error.UnknownLogfileFormat.Title"), // NOI18N
+                "LogfileDialog.Error.UnknownLogfileFormat.Title"), //
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private void readSimple() {
         selectPane();
         editorPaneSimple.setText(
-                FileUtil.getFileContentAsString(new File(logfilename), "UTF-8")); // NOI18N
+                FileUtil.getFileContentAsString(new File(logfilename), "UTF-8")); //
     }
 
     private void readXml() {
@@ -458,17 +458,17 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         buttonReload = new javax.swing.JButton();
         buttonExit = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
-        setTitle(bundle.getString("LogfileDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); //
+        setTitle(bundle.getString("LogfileDialog.title")); //
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
+        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); //
 
-        labelIconSevere.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_severe.png"))); // NOI18N
+        labelIconSevere.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_severe.png"))); //
         labelIconSevere.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconSevere.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconSevere.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -476,7 +476,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxSevere.setSelected(true);
         checkBoxSevere.setText(Level.SEVERE.getLocalizedName());
 
-        labelIconWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_warning.png"))); // NOI18N
+        labelIconWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_warning.png"))); //
         labelIconWarning.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconWarning.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconWarning.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -484,7 +484,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxWarning.setSelected(true);
         checkBoxWarning.setText(Level.WARNING.getLocalizedName());
 
-        labelIconInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_info.png"))); // NOI18N
+        labelIconInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_info.png"))); //
         labelIconInfo.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconInfo.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconInfo.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -492,7 +492,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxInfo.setSelected(true);
         checkBoxInfo.setText(Level.INFO.getLocalizedName());
 
-        labelIconConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_config.png"))); // NOI18N
+        labelIconConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_config.png"))); //
         labelIconConfig.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconConfig.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconConfig.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -500,7 +500,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxConfig.setSelected(true);
         checkBoxConfig.setText(Level.CONFIG.getLocalizedName());
 
-        labelIconFine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_fine.png"))); // NOI18N
+        labelIconFine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_fine.png"))); //
         labelIconFine.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconFine.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconFine.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -508,7 +508,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxFine.setSelected(true);
         checkBoxFine.setText(Level.FINE.getLocalizedName());
 
-        labelIconFiner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finer.png"))); // NOI18N
+        labelIconFiner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finer.png"))); //
         labelIconFiner.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconFiner.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconFiner.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -516,7 +516,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
         checkBoxFiner.setSelected(true);
         checkBoxFiner.setText(Level.FINER.getLocalizedName());
 
-        labelIconFinest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finest.png"))); // NOI18N
+        labelIconFinest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finest.png"))); //
         labelIconFinest.setMaximumSize(new java.awt.Dimension(16, 16));
         labelIconFinest.setMinimumSize(new java.awt.Dimension(16, 16));
         labelIconFinest.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -586,7 +586,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
         panelFilterCheckBoxesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelIconConfig, labelIconFine, labelIconFiner, labelIconFinest, labelIconInfo, labelIconSevere, labelIconWarning});
 
-        labelSearch.setText(bundle.getString("LogfileDialog.labelSearch.text")); // NOI18N
+        labelSearch.setText(bundle.getString("LogfileDialog.labelSearch.text")); //
 
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -662,7 +662,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("LogfileDialog.panelXml.TabConstraints.tabTitle"), panelXml); // NOI18N
+        tabbedPane.addTab(bundle.getString("LogfileDialog.panelXml.TabConstraints.tabTitle"), panelXml); //
 
         editorPaneSimple.setEditable(false);
         scrollPaneSimple.setViewportView(editorPaneSimple);
@@ -684,10 +684,10 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
+        tabbedPane.addTab(bundle.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); //
 
-        buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_reload.png"))); // NOI18N
-        buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
+        buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_reload.png"))); //
+        buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); //
         buttonReload.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonReload.setPreferredSize(new java.awt.Dimension(40, 40));
         buttonReload.addActionListener(new java.awt.event.ActionListener() {
@@ -696,8 +696,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             }
         });
 
-        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_exit.png"))); // NOI18N
-        buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
+        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_exit.png"))); //
+        buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); //
         buttonExit.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonExit.setPreferredSize(new java.awt.Dimension(40, 40));
         buttonExit.addActionListener(new java.awt.event.ActionListener() {
@@ -760,7 +760,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
             @Override
             public void run() {
                 LogfileDialog dialog = new LogfileDialog(
-                        new javax.swing.JFrame(), "", XMLFormatter.class); // NOI18N
+                        new javax.swing.JFrame(), "", XMLFormatter.class); //
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

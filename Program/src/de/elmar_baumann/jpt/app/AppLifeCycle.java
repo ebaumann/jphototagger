@@ -60,7 +60,7 @@ public final class AppLifeCycle {
             started = true;
             this.appFrame = appFrame;
             Thread thread = new Thread(MetaFactory.INSTANCE);
-            thread.setName("Initializing meta factory" + " @ " + // NOI18N
+            thread.setName("Initializing meta factory" + " @ " +
                     getClass().getName());
             thread.start();
             addAppExitListener(appFrame.getAppPanel());
@@ -164,8 +164,8 @@ public final class AppLifeCycle {
         long timeoutMilliSeconds = 120 * 1000;
         long checkIntervalMilliSeconds = 2000;
         if (saveObjects.size() > 0) {
-            AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", // NOI18N
-                    saveObjects); // NOI18N
+            AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting",
+                    saveObjects);
             while (saveObjects.size() > 0 &&
                     elapsedMilliseconds < timeoutMilliSeconds) {
                 try {
@@ -176,7 +176,7 @@ public final class AppLifeCycle {
                 }
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
                     MessageDisplayer.error(appFrame,
-                            "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded", // NOI18N
+                            "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
                             timeoutMilliSeconds);
                 }
             }

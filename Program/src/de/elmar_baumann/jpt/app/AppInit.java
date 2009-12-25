@@ -35,7 +35,7 @@ import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 public final class AppInit {
 
     private static AppInit INSTANCE;
-    private static final String NO_OUTPUT_CAPTURE = "-nocapture"; // NOI18N
+    private static final String NO_OUTPUT_CAPTURE = "-nocapture";
     private String[] args;
     private static boolean captureOutput = true;
 
@@ -92,7 +92,7 @@ public final class AppInit {
     private static void informationMessageInitGui() {
         SplashScreen.setMessageToSplashScreen(
                 Bundle.getString(
-                "AppInit.Info.SplashScreen.InitGui")); // NOI18N
+                "AppInit.Info.SplashScreen.InitGui"));
     }
 
     private static void showMainWindow() {
@@ -115,7 +115,7 @@ public final class AppInit {
     }
 
     private static void errorMessageJavaVersion(Version javaVersion) {
-        MessageDisplayer.error(null, "AppInit.Error.JavaVersion", // NOI18N
+        MessageDisplayer.error(null, "AppInit.Error.JavaVersion",
                 javaVersion, AppInfo.MIN_JAVA_VERSION);
     }
 }

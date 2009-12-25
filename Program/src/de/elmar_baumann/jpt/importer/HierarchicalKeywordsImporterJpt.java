@@ -165,9 +165,9 @@ public final class HierarchicalKeywordsImporterJpt
             throws SAXException, IOException {
         InputStream stream = null;
         String dtd = HierarchicalKeywordsExporterJpt.DTD;
-        if (systemId.endsWith(dtd)) { // NOI18N
+        if (systemId.endsWith(dtd)) {
             stream = EntityResolver.class.getResourceAsStream(
-                    "/de/elmar_baumann/jpt/resource/dtd/" + dtd); // NOI18N
+                    "/de/elmar_baumann/jpt/resource/dtd/" + dtd);
         }
         return new InputSource(new InputStreamReader(stream));
     }

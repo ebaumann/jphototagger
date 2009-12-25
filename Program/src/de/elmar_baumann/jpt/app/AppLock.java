@@ -34,7 +34,7 @@ public final class AppLock {
 
     private static final String LOCKFILE_NAME =
             UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator +
-            AppInfo.PROJECT_NAME + ".lck"; // NOI18N
+            AppInfo.PROJECT_NAME + ".lck";
 
     /**
      * Returns whether the application ist locked.
@@ -93,13 +93,13 @@ public final class AppLock {
 
     private static boolean confirmForceUnlock() {
         return MessageDisplayer.confirm(null,
-                "AppLock.Error.LockFileExists", // NOI18N
+                "AppLock.Error.LockFileExists",
                 MessageDisplayer.CancelButton.HIDE, LOCKFILE_NAME).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
 
     private static void errorMessageDelete() {
-        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile"); // NOI18N
+        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile");
     }
 
     private AppLock() {

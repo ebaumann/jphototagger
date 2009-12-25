@@ -44,10 +44,10 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
     private final FileSystemView fileSystemView = FileSystemView.
             getFileSystemView();
     private Icon rootIcon = IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_workspace.png"); // NOI18N
+            "/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
     private static final String DISPLAY_NAME_ROOT =
             Bundle.getString(
-            "TreeCellRendererAllSystemDirectories.DisplayName.Root"); // NOI18N
+            "TreeCellRendererAllSystemDirectories.DisplayName.Root");
     private int popupHighLightRow = -1;
     private Color foregroundColorHighlightPopup;
     private Color backgroundColorHighlightPopup;
@@ -91,8 +91,8 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
         // Windows drive letters
         if (name.isEmpty()) {
             name = file.getAbsolutePath();
-            if (name.endsWith("\\")) { // NOI18N
-                name = name.substring(0, name.length() - 2) + ":"; // NOI18N
+            if (name.endsWith("\\")) {
+                name = name.substring(0, name.length() - 2) + ":";
             }
         }
         return name;
@@ -110,7 +110,7 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
     private void renderHighlightPopup(int row) {
         if (row == popupHighLightRow && foregroundColorHighlightPopup != null &&
                 backgroundColorHighlightPopup != null) {
-            System.out.println("row: " + row + " hlr: " + popupHighLightRow); // NOI18N
+            System.out.println("row: " + row + " hlr: " + popupHighLightRow);
             setOpaque(true);
             setForeground(foregroundColorHighlightPopup);
             setBackground(backgroundColorHighlightPopup);

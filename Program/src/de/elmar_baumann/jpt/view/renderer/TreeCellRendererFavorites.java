@@ -49,7 +49,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
                 row, hasFocus);
 
         assert value instanceof DefaultMutableTreeNode :
-                "Not a DefaultMutableTreeNode: " + value; // NOI18N
+                "Not a DefaultMutableTreeNode: " + value;
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
         Object userObject = node.getUserObject();
         render(userObject, row);
@@ -67,7 +67,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
             file = (File) userObject;
             setText(file != null
                     ? getDirectoryName(file)
-                    : ""); // NOI18N
+                    : "");
         }
         if (file != null) {
             if (file.exists()) {
@@ -93,8 +93,8 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
         // Windows drive letters
         if (name.isEmpty()) {
             name = file.getAbsolutePath();
-            if (name.endsWith("\\")) { // NOI18N
-                name = name.substring(0, name.length() - 2) + ":"; // NOI18N
+            if (name.endsWith("\\")) {
+                name = name.substring(0, name.length() - 2) + ":";
             }
         }
         return name;

@@ -35,14 +35,14 @@ public final class ColumnXmpRating extends Column {
     private ColumnXmpRating() {
         super(
                 TableXmp.INSTANCE,
-                "rating", // NOI18N
+                "rating",
                 DataType.BIGINT);
 
         setLength(1);
 
-        setDescription(Bundle.getString("ColumnXmpRating.Description")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpRating.Description"));
         setLongerDescription(Bundle.getString(
-                "ColumnXmpRating.LongerDescription")); // NOI18N
+                "ColumnXmpRating.LongerDescription"));
     }
 
     /**

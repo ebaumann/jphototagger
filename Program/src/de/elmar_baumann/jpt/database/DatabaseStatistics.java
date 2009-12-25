@@ -50,12 +50,12 @@ public final class DatabaseStatistics extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String columnName = column.getName();
-            String sql = "SELECT COUNT(*) FROM (SELECT DISTINCT " + // NOI18N
+            String sql = "SELECT COUNT(*) FROM (SELECT DISTINCT " +
                     columnName +
-                    " FROM " + // NOI18N
+                    " FROM " +
                     column.getTable().getName() +
-                    " WHERE " + columnName + " IS NOT NULL" + // NOI18N
-                    ")"; // NOI18N
+                    " WHERE " + columnName + " IS NOT NULL" +
+                    ")";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -84,11 +84,11 @@ public final class DatabaseStatistics extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT COUNT(*) FROM " + // NOI18N
+            String sql = "SELECT COUNT(*) FROM " +
                     column.getTable().getName() +
-                    " WHERE " + // NOI18N
+                    " WHERE " +
                     column.getName() +
-                    " IS NOT NULL"; // NOI18N
+                    " IS NOT NULL";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -114,7 +114,7 @@ public final class DatabaseStatistics extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT COUNT(*) FROM files"; // NOI18N
+            String sql = "SELECT COUNT(*) FROM files";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -141,8 +141,8 @@ public final class DatabaseStatistics extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql =
-                    "SELECT COUNT(*)" + // NOI18N
-                    " FROM xmp LEFT JOIN files ON xmp.id_files = files.id"; // NOI18N
+                    "SELECT COUNT(*)" +
+                    " FROM xmp LEFT JOIN files ON xmp.id_files = files.id";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -170,7 +170,7 @@ public final class DatabaseStatistics extends Database {
             connection = getConnection();
             for (String tableName : tableNames) {
                 Statement stmt = connection.createStatement();
-                String sql = "SELECT COUNT(*) FROM " + tableName; // NOI18N
+                String sql = "SELECT COUNT(*) FROM " + tableName;
                 logFinest(sql);
                 ResultSet rs = stmt.executeQuery(sql);
                 if (rs.next()) {
@@ -203,11 +203,11 @@ public final class DatabaseStatistics extends Database {
             for (int i = 0; !exists && i < size; i++) {
                 Column column = columns.get(i);
                 PreparedStatement stmt = connection.prepareStatement(
-                        "SELECT COUNT(*) FROM " + // NOI18N
+                        "SELECT COUNT(*) FROM " +
                         column.getTable().getName() +
-                        " WHERE " + // NOI18N
+                        " WHERE " +
                         column.getName() +
-                        " = ?"); // NOI18N
+                        " = ?");
                 stmt.setString(1, value);
                 logFinest(stmt);
                 ResultSet rs = stmt.executeQuery();
@@ -237,11 +237,11 @@ public final class DatabaseStatistics extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM " + // NOI18N
+                    "SELECT COUNT(*) FROM " +
                     column.getTable().getName() +
-                    " WHERE " + // NOI18N
+                    " WHERE " +
                     column.getName() +
-                    " = ?"); // NOI18N
+                    " = ?");
             stmt.setString(1, value);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();

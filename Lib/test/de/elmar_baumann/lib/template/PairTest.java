@@ -20,7 +20,7 @@ public class PairTest {
      */
     @Test
     public void testGetFirst() {
-        System.out.println("getFirst"); // NOI18N
+        System.out.println("getFirst");
         Integer int1 = new Integer(5);
         Integer int2 = new Integer(25);
         Pair<Integer, Integer> instance = new Pair<Integer, Integer>(int1, int2);
@@ -34,7 +34,7 @@ public class PairTest {
      */
     @Test
     public void testGetSecond() {
-        System.out.println("getSecond"); // NOI18N
+        System.out.println("getSecond");
         Integer int1 = new Integer(5);
         Integer int2 = new Integer(25);
         Pair<Integer, Integer> instance = new Pair<Integer, Integer>(int1, int2);
@@ -48,11 +48,11 @@ public class PairTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString"); // NOI18N
-        String first = "First string"; // NOI18N
+        System.out.println("toString");
+        String first = "First string";
         Integer second = new Integer(100);
         Pair<String, Integer> instance = new Pair<String, Integer>(first, second);
-        String expResult = "(First string, 100)"; // NOI18N
+        String expResult = "(First string, 100)";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -62,12 +62,12 @@ public class PairTest {
      */
     @Test
     public void testEquals() {
-        System.out.println("equals"); // NOI18N
-        String sFirst = "A string"; // NOI18N
+        System.out.println("equals");
+        String sFirst = "A string";
         Integer iFirst = new Integer(88);
-        String sSecond = "A string"; // NOI18N
+        String sSecond = "A string";
         Integer iSecond = new Integer(88);
-        Object different = "A different string"; // NOI18N
+        Object different = "A different string";
         Pair<String, Integer> pair1 = new Pair<String, Integer>(sFirst, iFirst);
         Pair<String, Integer> pair2 = new Pair<String, Integer>(sSecond, iSecond);
 

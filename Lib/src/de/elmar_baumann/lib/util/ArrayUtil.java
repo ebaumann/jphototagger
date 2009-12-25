@@ -52,9 +52,9 @@ public final class ArrayUtil {
      */
     public static List<String> stringTokenToList(String string, String delimiter) {
         if (string == null)
-            throw new NullPointerException("string == null"); // NOI18N
+            throw new NullPointerException("string == null"); //
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); // NOI18N
+            throw new NullPointerException("delimiter == null"); //
 
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         List<String> list = new ArrayList<String>(tokenizer.countTokens());
@@ -87,9 +87,9 @@ public final class ArrayUtil {
     public static List<Integer> integerTokenToList(String string,
             String delimiter) {
         if (string == null)
-            throw new NullPointerException("string == null"); // NOI18N
+            throw new NullPointerException("string == null"); //
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); // NOI18N
+            throw new NullPointerException("delimiter == null"); //
 
         List<Integer> integerList = new ArrayList<Integer>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
@@ -110,17 +110,17 @@ public final class ArrayUtil {
      */
     public static String[] toStringArray(Object[] objectArray) {
         if (objectArray == null)
-            throw new NullPointerException("array == null"); // NOI18N
+            throw new NullPointerException("array == null"); //
 
         String[] stringArray = new String[objectArray.length];
         for (int i = 0; i < objectArray.length; i++) {
             if (objectArray[i] == null)
                 throw new IllegalArgumentException(
-                        "Element with index " + i + " is not an object: " + // NOI18N
-                        objectArray[i] + " (" + objectArray.toString() + ")"); // NOI18N
+                        "Element with index " + i + " is not an object: " + //
+                        objectArray[i] + " (" + objectArray.toString() + ")"); //
 
             Object object = objectArray[i];
-            stringArray[i] = object.toString(); // NOI18N
+            stringArray[i] = object.toString(); //
         }
         return stringArray;
     }
@@ -183,7 +183,7 @@ public final class ArrayUtil {
         int index = 0;
         for (Object o : collection) {
             tokenString.append((index++ == 0
-                                ? "" // NOI18N
+                                ? "" //
                                 : delimiter) +
                     o.toString().replace(delimiter, delimiterReplacement));
         }
@@ -203,7 +203,7 @@ public final class ArrayUtil {
     public static <T> void addNotContainedElements(
             Collection<? extends T> src, Collection<? super T> target) {
 
-        assert src != target : "Collections equals!"; // NOI18N
+        assert src != target : "Collections equals!"; //
         if (src == target) return;
 
         for (T t : src) {

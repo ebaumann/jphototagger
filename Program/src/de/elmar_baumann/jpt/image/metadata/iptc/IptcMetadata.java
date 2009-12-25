@@ -49,7 +49,7 @@ public final class IptcMetadata {
         if (imageFile != null && imageFile.exists()) {
             try {
                 AppLog.logInfo(IptcMetadata.class,
-                        "IptcMetadata.Info.GetMetadata", imageFile); // NOI18N
+                        "IptcMetadata.Info.GetMetadata", imageFile);
                 IPTCEntryCollection collection =
                         MetadataUtils.getIPTC(imageFile);
                 if (collection != null) {

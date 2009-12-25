@@ -43,25 +43,25 @@ public final class LogLevelIcons {
     static {
         ICON_OF_LEVEL.put(Level.CONFIG,
                 IconUtil.getImageIcon(
-                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_config.png")); // NOI18N
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_config.png"));
         ICON_OF_LEVEL.put(Level.FINE,
                 IconUtil.getImageIcon(
-                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_fine.png")); // NOI18N
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_fine.png"));
         ICON_OF_LEVEL.put(Level.FINER,
                 IconUtil.getImageIcon(
-                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finer.png")); // NOI18N
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finer.png"));
         ICON_OF_LEVEL.put(Level.FINEST,
                 IconUtil.getImageIcon(
-                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finest.png")); // NOI18N
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_finest.png"));
         ICON_OF_LEVEL.put(Level.INFO,
                 IconUtil.getImageIcon(
-                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_info.png")); // NOI18N
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_info.png"));
         ICON_OF_LEVEL.put(Level.SEVERE,
                 IconUtil.getImageIcon(
-                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_severe.png")); // NOI18N
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_severe.png"));
         ICON_OF_LEVEL.put(Level.WARNING,
                 IconUtil.getImageIcon(
-                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_warning.png")); // NOI18N
+                "/de/elmar_baumann/lib/resource/icons/icon_logfiledialog_warning.png"));
     }
 
     /**
@@ -74,7 +74,7 @@ public final class LogLevelIcons {
      */
     public static Icon getIcon(Level level) {
         if (level == null)
-            throw new NullPointerException("level == null"); // NOI18N
+            throw new NullPointerException("level == null");
 
         return ICON_OF_LEVEL.get(level);
     }

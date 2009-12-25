@@ -64,11 +64,11 @@ public class ControllerToggleRealHierarchicalKeyword
             } else {
                 AppLog.logWarning(
                         ControllerToggleRealHierarchicalKeyword.class,
-                        "ControllerToggleRealHierarchicalKeyword.Error.Model"); // NOI18N
+                        "ControllerToggleRealHierarchicalKeyword.Error.Model");
                 }
         } else {
             MessageDisplayer.error(getHKPanel().getTree(),
-                    "ControllerToggleRealHierarchicalKeyword.Error.Node", // NOI18N
+                    "ControllerToggleRealHierarchicalKeyword.Error.Node",
                     node);
         }
     }

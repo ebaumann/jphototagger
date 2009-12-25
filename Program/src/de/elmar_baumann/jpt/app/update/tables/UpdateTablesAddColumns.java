@@ -42,66 +42,66 @@ final class UpdateTablesAddColumns {
 
     static {
         columns.add(new ColumnInfo(
-                "programs", // NOI18N
-                "parameters_after_filename", // NOI18N
-                "BINARY", // NOI18N
+                "programs",
+                "parameters_after_filename",
+                "BINARY",
                 null));
         columns.add(new ColumnInfo(
-                "programs", // NOI18N
-                "action", // NOI18N
-                "BOOLEAN", // NOI18N
+                "programs",
+                "action",
+                "BOOLEAN",
                 new IndexOfColumn(
-                "programs", // NOI18N
-                "action", // NOI18N
-                "idx_programs_action", // NOI18N
+                "programs",
+                "action",
+                "idx_programs_action",
                 false)));
-        columns.add(new ColumnInfo("programs", // NOI18N
-                "input_before_execute", // NOI18N
-                "BOOLEAN", // NOI18N
+        columns.add(new ColumnInfo("programs",
+                "input_before_execute",
+                "BOOLEAN",
                 null));
         columns.add(new ColumnInfo(
-                "programs", // NOI18N
-                "input_before_execute_per_file", // NOI18N
-                "BOOLEAN", // NOI18N
+                "programs",
+                "input_before_execute_per_file",
+                "BOOLEAN",
                 null));
         columns.add(new ColumnInfo(
-                "programs", // NOI18N
-                "single_file_processing", // NOI18N
-                "BOOLEAN", // NOI18N
+                "programs",
+                "single_file_processing",
+                "BOOLEAN",
                 null));
         columns.add(new ColumnInfo(
-                "programs", // NOI18N
-                "change_file", // NOI18N
-                "BOOLEAN", // NOI18N
+                "programs",
+                "change_file",
+                "BOOLEAN",
                 null));
         columns.add(new ColumnInfo(
-                "programs", // NOI18N
-                "use_pattern", // NOI18N
-                "BOOLEAN", // NOI18N
+                "programs",
+                "use_pattern",
+                "BOOLEAN",
                 null));
         columns.add(new ColumnInfo(
-                "programs", // NOI18N
-                "pattern", // NOI18N
-                "BINARY", // NOI18N
+                "programs",
+                "pattern",
+                "BINARY",
                 null));
         columns.add(new ColumnInfo(
-                "hierarchical_subjects", // NOI18N
-                "real", // NOI18N
-                "BOOLEAN", // NOI18N
+                "hierarchical_subjects",
+                "real",
+                "BOOLEAN",
                 new IndexOfColumn(
-                "hierarchical_subjects", // NOI18N
-                "real", // NOI18N
-                "idx_hierarchical_subjects_real", // NOI18N
-                false))); // NOI18N
+                "hierarchical_subjects",
+                "real",
+                "idx_hierarchical_subjects_real",
+                false)));
         columns.add(new ColumnInfo(
-                "xmp", // NOI18N
-                "rating", // NOI18N
-                "BIGINT", // NOI18N
+                "xmp",
+                "rating",
+                "BIGINT",
                 null));
         columns.add(new ColumnInfo(
-                "metadata_edit_templates", // NOI18N
-                "rating", // NOI18N
-                "BINARY", // NOI18N
+                "metadata_edit_templates",
+                "rating",
+                "BINARY",
                 null));
     }
 
@@ -126,7 +126,7 @@ final class UpdateTablesAddColumns {
 
     private void addColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
-        messages.message(Bundle.getString("UpdateTablesAddColumns.Info.update")); // NOI18N
+        messages.message(Bundle.getString("UpdateTablesAddColumns.Info.update"));
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
@@ -137,8 +137,8 @@ final class UpdateTablesAddColumns {
             SQLException {
         setMessage(info.getTableName(), info.getColumnName());
         Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " + // NOI18N
-                info.getColumnName() + " " + info.getDataType()); // NOI18N
+        stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " +
+                info.getColumnName() + " " + info.getDataType());
         if (info.getIndex() != null) {
             stmt.execute(info.getIndex().getSql());
         }
@@ -146,7 +146,7 @@ final class UpdateTablesAddColumns {
 
     private void setMessage(String tableName, String columnName) {
         messages.message(Bundle.getString(
-                "UpdateTablesAddColumns.Info.AddColumns", // NOI18N
+                "UpdateTablesAddColumns.Info.AddColumns",
                 tableName, columnName));
     }
 

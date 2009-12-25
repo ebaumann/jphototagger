@@ -39,7 +39,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
     }
@@ -55,7 +55,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.RenameFilenamesInDbDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.RenameFilenamesInDbDialog"));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
         panelDbFilenameReplace = new de.elmar_baumann.jpt.view.panels.RenameFilenamesInDbPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("RenameFilenamesInDbDialog.title")); // NOI18N
+        setTitle(Bundle.getString("RenameFilenamesInDbDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

@@ -51,7 +51,7 @@ public final class IconUtil {
      */
     public static Image getIconImage(String path) {
         if (path == null)
-            throw new NullPointerException("path == null"); // NOI18N
+            throw new NullPointerException("path == null");
 
         java.net.URL imgURL = IconUtil.class.getResource(path);
         if (imgURL != null) {
@@ -59,7 +59,7 @@ public final class IconUtil {
         } else {
             Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
                     Bundle.getString(
-                    "IconUtil.GetIconImage.Error.FileNotFound") + path); // NOI18N
+                    "IconUtil.GetIconImage.Error.FileNotFound") + path);
         }
         return null;
     }
@@ -73,7 +73,7 @@ public final class IconUtil {
      */
     public static List<Image> getIconImages(List<String> paths) {
         if (paths == null)
-            throw new NullPointerException("paths == null"); // NOI18N
+            throw new NullPointerException("paths == null");
 
         List<Image> images = new ArrayList<Image>();
         for (String path : paths) {
@@ -95,7 +95,7 @@ public final class IconUtil {
      */
     public static ImageIcon getImageIcon(String path) {
         if (path == null)
-            throw new NullPointerException("path == null"); // NOI18N
+            throw new NullPointerException("path == null");
 
         java.net.URL imgURL = IconUtil.class.getResource(path);
         if (imgURL != null) {
@@ -103,7 +103,7 @@ public final class IconUtil {
         } else {
             Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
                     Bundle.getString(
-                    "IconUtil.GetImageIcon.Error.FileNotFound") + path); // NOI18N
+                    "IconUtil.GetImageIcon.Error.FileNotFound") + path);
         }
         return null;
     }
@@ -118,7 +118,7 @@ public final class IconUtil {
      */
     public static List<ImageIcon> getImageIcons(List<String> paths) {
         if (paths == null)
-            throw new NullPointerException("paths == null"); // NOI18N
+            throw new NullPointerException("paths == null");
 
         List<ImageIcon> icons = new ArrayList<ImageIcon>();
         for (String path : paths) {
@@ -138,7 +138,7 @@ public final class IconUtil {
      */
     public static Icon getSystemIcon(File file) {
         if (file == null)
-            throw new NullPointerException("file == null"); // NOI18N
+            throw new NullPointerException("file == null");
 
         Icon icon = null;
         FileSystemView fileSystemView = FileSystemView.getFileSystemView();

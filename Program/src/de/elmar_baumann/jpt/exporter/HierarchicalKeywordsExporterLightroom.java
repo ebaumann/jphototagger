@@ -50,19 +50,19 @@ final class HierarchicalKeywordsExporterLightroom
 
     public static final HierarchicalKeywordsExporterLightroom INSTANCE =
             new HierarchicalKeywordsExporterLightroom();
-    private static final Icon icon = AppLookAndFeel.getIcon("icon_lightroom.png"); // NOI18N
+    private static final Icon icon = AppLookAndFeel.getIcon("icon_lightroom.png");
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
      */
-    private static final String CHILD_START_CHAR = "\t"; // NOI18N
+    private static final String CHILD_START_CHAR = "\t";
 
     @Override
     public void export(File file) {
         TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().
                 getModel();
         assert tm instanceof TreeModelHierarchicalKeywords :
-                "Not a TreeModelHierarchicalKeywords: " + tm; // NOI18N
+                "Not a TreeModelHierarchicalKeywords: " + tm;
         if (tm instanceof TreeModelHierarchicalKeywords) {
             Writer writer = null;
             String suffix = "." + FilenameSuffixes.LIGHTROOM_KEYWORDS;
@@ -90,7 +90,7 @@ final class HierarchicalKeywordsExporterLightroom
         for (Enumeration e = root.children(); e.hasMoreElements();) {
             Object el = e.nextElement();
             assert el instanceof DefaultMutableTreeNode :
-                    "Not a DefaultMutableTreeNode: " + el; // NOI18N
+                    "Not a DefaultMutableTreeNode: " + el;
 
             if (el instanceof DefaultMutableTreeNode) {
                 addChildren((DefaultMutableTreeNode) el, 0, writer);
@@ -103,13 +103,13 @@ final class HierarchicalKeywordsExporterLightroom
             throws IOException {
         Object userObject = node.getUserObject();
         assert userObject instanceof HierarchicalKeyword :
-                "Not a HierarchicalKeyword: " + userObject; // NOI18N
+                "Not a HierarchicalKeyword: " + userObject;
 
         boolean appended = false;
         if (userObject instanceof HierarchicalKeyword) {
             HierarchicalKeyword hkw = (HierarchicalKeyword) userObject;
             if (hkw.isReal()) {
-                writer.append(getLevelPrefix(level) + hkw.getKeyword() + "\n"); // NOI18N
+                writer.append(getLevelPrefix(level) + hkw.getKeyword() + "\n");
                 appended = true;
             }
         }
@@ -124,7 +124,7 @@ final class HierarchicalKeywordsExporterLightroom
     }
 
     private String getLevelPrefix(int level) {
-        if (level == 0) return ""; // NOI18N
+        if (level == 0) return "";
         StringBuilder sb = new StringBuilder(level * CHILD_START_CHAR.length());
         for (int i = 0; i < level; i++) {
             sb.append(CHILD_START_CHAR);
@@ -135,7 +135,7 @@ final class HierarchicalKeywordsExporterLightroom
     @Override
     public String getDescription() {
         return Bundle.getString(
-                "HierarchicalKeywordsExporterLightroom.Description"); // NOI18N
+                "HierarchicalKeywordsExporterLightroom.Description");
     }
 
     @Override

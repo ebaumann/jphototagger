@@ -39,9 +39,9 @@ public final class ExifFormatterSharpness extends ExifFormatter {
 
 
     static {
-        EXIF_KEY_OF_SHARPNESS.put(0, "SharpnessNormal"); // NOI18N
-        EXIF_KEY_OF_SHARPNESS.put(1, "SharpnessSoft"); // NOI18N
-        EXIF_KEY_OF_SHARPNESS.put(2, "SharpnessHard"); // NOI18N
+        EXIF_KEY_OF_SHARPNESS.put(0, "SharpnessNormal");
+        EXIF_KEY_OF_SHARPNESS.put(1, "SharpnessSoft");
+        EXIF_KEY_OF_SHARPNESS.put(2, "SharpnessHard");
     }
 
     private ExifFormatterSharpness() {
@@ -50,7 +50,7 @@ public final class ExifFormatterSharpness extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.SHARPNESS.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifShort.getRawValueByteCount() == entry.getRawValue().length) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
@@ -59,6 +59,6 @@ public final class ExifFormatterSharpness extends ExifFormatter {
                 return TRANSLATION.translate(EXIF_KEY_OF_SHARPNESS.get(value));
             }
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

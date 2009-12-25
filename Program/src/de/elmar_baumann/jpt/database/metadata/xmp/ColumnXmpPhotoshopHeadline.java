@@ -35,11 +35,11 @@ public final class ColumnXmpPhotoshopHeadline extends Column {
     private ColumnXmpPhotoshopHeadline() {
         super(
             TableXmp.INSTANCE,
-            "photoshop_headline", // NOI18N
+            "photoshop_headline",
             DataType.STRING);
 
         setLength(256);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.LongerDescription"));
     }
 }

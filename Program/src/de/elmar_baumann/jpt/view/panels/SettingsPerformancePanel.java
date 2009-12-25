@@ -87,10 +87,10 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
         checkBoxScanForEmbeddedXmp = new javax.swing.JCheckBox();
 
-        panelProcessingTime.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsPerformancePanel.panelProcessingTime.border.title"))); // NOI18N
+        panelProcessingTime.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsPerformancePanel.panelProcessingTime.border.title")));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text"));
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
         spinnerMaximumSecondsToTerminateExternalPrograms.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -99,7 +99,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxScanForEmbeddedXmp.setText(Bundle.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
+        checkBoxScanForEmbeddedXmp.setText(Bundle.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text"));
         checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxScanForEmbeddedXmpActionPerformed(evt);

@@ -142,7 +142,7 @@ public class Dialog extends JDialog {
      */
     protected void setHelpContentsUrl(String url) {
         if (url == null)
-            throw new NullPointerException("url == null"); // NOI18N
+            throw new NullPointerException("url == null");
         helpContentsUrl = url;
     }
 
@@ -179,7 +179,7 @@ public class Dialog extends JDialog {
      */
     protected void help(String url) {
         if (url == null)
-            throw new NullPointerException("url == null"); // NOI18N
+            throw new NullPointerException("url == null");
         if (help.getContentsUrl() == null ||
                 !help.getContentsUrl().equals(helpContentsUrl)) {
             help.setContentsUrl(helpContentsUrl);

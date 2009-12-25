@@ -35,11 +35,11 @@ public final class ColumnXmpIptc4xmpcoreLocation extends Column {
     private ColumnXmpIptc4xmpcoreLocation() {
         super(
             TableXmp.INSTANCE,
-            "iptc4xmpcore_location", // NOI18N
+            "iptc4xmpcore_location",
             DataType.STRING);
 
         setLength(64);
-        setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpIptc4xmpcoreLocation.LongerDescription"));
     }
 }

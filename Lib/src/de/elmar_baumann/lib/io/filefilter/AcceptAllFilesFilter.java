@@ -47,6 +47,6 @@ public final class AcceptAllFilesFilter implements FileFilter {
      */
     public javax.swing.filechooser.FileFilter forFileChooser() {
         return new FileChooserFilter(this,
-                Bundle.getString("AcceptAllFilesFilter.Description")); // NOI18N
+                Bundle.getString("AcceptAllFilesFilter.Description"));
     }
 }

@@ -40,10 +40,10 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellRenderer {
 
-    private static final Icon ICON_REAL = AppLookAndFeel.getIcon("icon_keyword.png"); // NOI18N
+    private static final Icon ICON_REAL = AppLookAndFeel.getIcon("icon_keyword.png");
     private static final Icon ICON_REAL_HIGHLIGHTED =
-            AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png"); // NOI18N
-    private static final Icon ICON_HELPER = AppLookAndFeel.getIcon("icon_folder.png"); // NOI18N
+            AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
+    private static final Icon ICON_HELPER = AppLookAndFeel.getIcon("icon_folder.png");
     private final List<String> keywords = new ArrayList<String>();
     private int popupHighLightRow = -1;
 
@@ -55,7 +55,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
                 tree, value, sel, expanded, false, row, hasFocus);
 
         assert value instanceof DefaultMutableTreeNode :
-                "Not a DefaultMutableTreeNode: " + value; // NOI18N
+                "Not a DefaultMutableTreeNode: " + value;
         render(((DefaultMutableTreeNode) value).getUserObject(), row);
         return this;
     }
@@ -90,7 +90,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
     }
 
     private boolean isKeyword(Object value) {
-        assert value != null : "value is null!"; // NOI18N
+        assert value != null : "value is null!";
         synchronized (keywords) {
             return keywords.contains(value.toString());
         }
@@ -103,7 +103,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
      */
     public void setKeywords(Collection<? extends String> keywords) {
         if (keywords == null)
-            throw new NullPointerException("keywords == null"); // NOI18N
+            throw new NullPointerException("keywords == null");
         synchronized (this.keywords) {
             this.keywords.clear();
             this.keywords.addAll(keywords);

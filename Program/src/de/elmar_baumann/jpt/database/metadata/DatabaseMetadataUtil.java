@@ -149,23 +149,23 @@ public final class DatabaseMetadataUtil {
      * @return             SQL-String
      */
     public static String getSqlSelectFrom(List<Column> tableColumns) {
-        StringBuffer sql = new StringBuffer("SELECT "); // NOI18N
+        StringBuffer sql = new StringBuffer("SELECT ");
         int columnCount = tableColumns.size();
 
         for (int index = 0; index < columnCount; index++) {
             Column tableColumn = tableColumns.get(index);
-            sql.append(tableColumn.getTable().getName() + "." + tableColumn. // NOI18N
+            sql.append(tableColumn.getTable().getName() + "." + tableColumn.
                 getName() + (index < columnCount - 1
-                ? ", " : "")); // NOI18N
+                ? ", " : ""));
         }
 
-        sql.append(" FROM "); // NOI18N
+        sql.append(" FROM ");
 
         List<String> tablenames = getUniqueTableNamesOfColumnArray(tableColumns);
         int tableCount = tablenames.size();
         for (int index = 0; index < tableCount; index++) {
             String tablename = tablenames.get(index);
-            sql.append(tablename + (index < columnCount - 1 ? ", " : "")); // NOI18N
+            sql.append(tablename + (index < columnCount - 1 ? ", " : ""));
         }
 
         return sql.toString();

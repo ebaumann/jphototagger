@@ -44,13 +44,13 @@ public final class ExifLong {
     public ExifLong(byte[] rawValue, ExifByteOrder byteOrder) {
 
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal raw value count: " + // NOI18N
+            throw new IllegalArgumentException("Illegal raw value count: " +
                     rawValue.length);
 
         value = ExifDatatypeUtil.intFromRawValue(rawValue, byteOrder);
 
         if (value < 0)
-            throw new IllegalArgumentException("Negativ value: " + value); // NOI18N
+            throw new IllegalArgumentException("Negativ value: " + value);
     }
 
     /**

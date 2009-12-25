@@ -54,9 +54,9 @@ public final class TreeModelMiscMetadata
         extends DefaultTreeModel
         implements DatabaseListener {
 
-    private static final DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(Bundle.getString("TreeModelMiscMetadata.Root.DisplayName")); // NOI18N
-    private static final Object                 EXIF_USER_OBJECT    = Bundle.getString("TreeModelMiscMetadata.ExifNode.DisplayName"); // NOI18N
-    private static final Object                 XMP_USER_OBJECT     = Bundle.getString("TreeModelMiscMetadata.XmpNode.DisplayName"); // NOI18N
+    private static final DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(Bundle.getString("TreeModelMiscMetadata.Root.DisplayName"));
+    private static final Object                 EXIF_USER_OBJECT    = Bundle.getString("TreeModelMiscMetadata.ExifNode.DisplayName");
+    private static final Object                 XMP_USER_OBJECT     = Bundle.getString("TreeModelMiscMetadata.XmpNode.DisplayName");
     private static final Set<Column>            EXIF_COLUMNS        = new LinkedHashSet<Column>();
     private static final Set<Column>            XMP_COLUMNS         = new LinkedHashSet<Column>();
     private static final Set<Object>            COLUMN_USER_OBJECTS = new LinkedHashSet<Object>();
@@ -145,7 +145,7 @@ public final class TreeModelMiscMetadata
             } else if (dataType.equals(Column.DataType.BIGINT)) {
                 node.setUserObject(Long.valueOf(string));
             } else {
-                assert false : "Unregognized data type: " + dataType; // NOI18N
+                assert false : "Unregognized data type: " + dataType;
             }
             parentNode.add(node);
         }

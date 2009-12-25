@@ -59,33 +59,33 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     private static final int            DEFAULT_MAX_THUMBNAIL_LENGTH                                  = 150;
     private static final int            DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS                      = 5;
-    private static final String         DELIMITER_COLUMNS                                             = "\t"; // NOI18N
-    private static final String         DOMAIN_NAME                                                   = "de.elmar_baumann"; // NOI18N NEVER CHANGE!
-    private static final String         KEY_ACCEPT_HIDDEN_DIRECTORIES                                 = "UserSettings.IsAcceptHiddenDirectories"; // NOI18N
-    private static final String         KEY_AUTOCOPY_DIRECTORY                                        = "UserSettings.AutocopyDirectory"; // NOI18N
-    private static final String         KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES                           = "UserSettings.IsAutoscanIncludeSubdirectories"; // NOI18N
-    private static final String         KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP                       = "UserSettings.IsCreateThumbnailsWithExternalApp"; // NOI18N
-    private static final String         KEY_DATABASE_DIRECTORY_NAME                                   = "UserSettings.DatabaseDirectoryName"; // NOI18N
-    private static final String         KEY_DEFAULT_IMAGE_OPEN_APP                                    = "UserSettings.DefaultImageOpenApp"; // NOI18N
-    private static final String         KEY_DISPLAY_SEARCH_BUTTON                                     = "UserSettings.DisplaySearchButton"; // NOI18N
-    private static final String         KEY_EDIT_COLUMNS                                              = "UserSettings.EditColumns"; // NOI18N
-    private static final String         KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS           = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways"; // NOI18N
-    private static final String         KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp"; // NOI18N
-    private static final String         KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND                       = "UserSettings.ExternalThumbnailCreationCommand"; // NOI18N
-    private static final String         KEY_FAST_SEARCH_COLUMNS                                       = "UserSettings.FastSearchColumns"; // NOI18N
-    private static final String         KEY_IPTC_CHARSET                                              = "UserSettings.IptcCharset"; // NOI18N
-    private static final String         KEY_LOGFILE_FORMATTER_CLASS                                   = "UserSettings.LogfileFormatterClass"; // NOI18N
-    private static final String         KEY_LOG_LEVEL                                                 = "UserSettings.LogLevel"; // NOI18N
-    private static final String         KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS                = "UserSettings.MaximumSecondsToTerminateExternalPrograms"; // NOI18N
-    private static final String         KEY_MAX_THUMBNAIL_LENGTH                                      = "UserSettings.MaxThumbnailWidth"; // NOI18N
-    private static final String         KEY_MINUTES_TO_START_SCHEDULED_TASKS                          = "UserSettings.MinutesToStartScheduledTasks"; // NOI18N
-    private static final String         KEY_OPTIONS_COPY_MOVE_FILES                                   = "UserSettings.CopyMoveFiles"; // NOI18N
-    private static final String         KEY_PDF_VIEWER                                                = "UserSettings.PdfViewer"; // NOI18N
-    private static final String         KEY_SCAN_FOR_EMBEDDED_XMP                                     = "UserSettings.ScanForEmbeddedXmp"; // NOI18N
-    private static final String         KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY                    = "UserSettings.TreeDirectoriesSelectLastDirectory"; // NOI18N
-    private static final String         KEY_USE_EMBEDDED_THUMBNAILS                                   = "UserSettings.IsUseEmbeddedThumbnails"; // NOI18N
-    private static final String         KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser"; // NOI18N
-    private static final String         PROPERTIES_FILENAME                                           = "Settings.properties"; // NOI18N NEVER CHANGE!
+    private static final String         DELIMITER_COLUMNS                                             = "\t";
+    private static final String         DOMAIN_NAME                                                   = "de.elmar_baumann"; // NEVER CHANGE!
+    private static final String         KEY_ACCEPT_HIDDEN_DIRECTORIES                                 = "UserSettings.IsAcceptHiddenDirectories";
+    private static final String         KEY_AUTOCOPY_DIRECTORY                                        = "UserSettings.AutocopyDirectory";
+    private static final String         KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES                           = "UserSettings.IsAutoscanIncludeSubdirectories";
+    private static final String         KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP                       = "UserSettings.IsCreateThumbnailsWithExternalApp";
+    private static final String         KEY_DATABASE_DIRECTORY_NAME                                   = "UserSettings.DatabaseDirectoryName";
+    private static final String         KEY_DEFAULT_IMAGE_OPEN_APP                                    = "UserSettings.DefaultImageOpenApp";
+    private static final String         KEY_DISPLAY_SEARCH_BUTTON                                     = "UserSettings.DisplaySearchButton";
+    private static final String         KEY_EDIT_COLUMNS                                              = "UserSettings.EditColumns";
+    private static final String         KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS           = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
+    private static final String         KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
+    private static final String         KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND                       = "UserSettings.ExternalThumbnailCreationCommand";
+    private static final String         KEY_FAST_SEARCH_COLUMNS                                       = "UserSettings.FastSearchColumns";
+    private static final String         KEY_IPTC_CHARSET                                              = "UserSettings.IptcCharset";
+    private static final String         KEY_LOGFILE_FORMATTER_CLASS                                   = "UserSettings.LogfileFormatterClass";
+    private static final String         KEY_LOG_LEVEL                                                 = "UserSettings.LogLevel";
+    private static final String         KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS                = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
+    private static final String         KEY_MAX_THUMBNAIL_LENGTH                                      = "UserSettings.MaxThumbnailWidth";
+    private static final String         KEY_MINUTES_TO_START_SCHEDULED_TASKS                          = "UserSettings.MinutesToStartScheduledTasks";
+    private static final String         KEY_OPTIONS_COPY_MOVE_FILES                                   = "UserSettings.CopyMoveFiles";
+    private static final String         KEY_PDF_VIEWER                                                = "UserSettings.PdfViewer";
+    private static final String         KEY_SCAN_FOR_EMBEDDED_XMP                                     = "UserSettings.ScanForEmbeddedXmp";
+    private static final String         KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY                    = "UserSettings.TreeDirectoriesSelectLastDirectory";
+    private static final String         KEY_USE_EMBEDDED_THUMBNAILS                                   = "UserSettings.IsUseEmbeddedThumbnails";
+    private static final String         KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser";
+    private static final String         PROPERTIES_FILENAME                                           = "Settings.properties"; // NEVER CHANGE!
     private final        Properties     properties                                                    = new Properties();
     private final        PropertiesFile propertiesToFile                                              = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
     private final        Settings       settings                                                      = new Settings(properties);
@@ -167,10 +167,10 @@ public final class UserSettings implements UserSettingsChangeListener {
         assert    name.equals(Filename.FULL_PATH)
                || name.equals(Filename.FULL_PATH_NO_SUFFIX) : name;
 
-        return getDatabaseDirectoryName() + File.separator + "database" + // NOI18N
+        return getDatabaseDirectoryName() + File.separator + "database" +
                 (name.equals(Filename.FULL_PATH)
-                 ? ".data" // NOI18N
-                 : ""); // NOI18N
+                 ? ".data"
+                 : "");
     }
 
     /**
@@ -181,7 +181,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return directory name
      */
     public String getThumbnailsDirectoryName() {
-        return getDatabaseDirectoryName() + File.separator + "thumbnails"; // NOI18N
+        return getDatabaseDirectoryName() + File.separator + "thumbnails";
     }
 
     /**
@@ -445,7 +445,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     public String getIptcCharset() {
         String charset = settings.getString(KEY_IPTC_CHARSET);
         return charset.isEmpty()
-               ? "ISO-8859-1" // NOI18N
+               ? "ISO-8859-1"
                : charset;
     }
 
@@ -622,7 +622,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     private void writeToPropertiesLogfileFormatterClass(Class formatterClass) {
         String classString = formatterClass.toString();
-        int    index       = classString.lastIndexOf(" "); // NOI18N
+        int    index       = classString.lastIndexOf(" ");
         settings.setString(index >= 0 && index + 1 < classString.length()
                            ? classString.substring(index + 1)
                            : XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);

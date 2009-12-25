@@ -48,7 +48,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
         String trimmedPattern = pattern.trim();
         if (db.existsFileExcludePattern(trimmedPattern)) {
             MessageDisplayer.error(null,
-                    "ListModelFileExcludePatterns.Error.InsertPattern.Exists", // NOI18N
+                    "ListModelFileExcludePatterns.Error.InsertPattern.Exists",
                     trimmedPattern);
         }
         if (db.insertFileExcludePattern(trimmedPattern)) {
@@ -56,7 +56,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             patterns.add(trimmedPattern);
         } else {
             MessageDisplayer.error(null,
-                    "ListModelFileExcludePatterns.Error.InsertPattern.Add", // NOI18N
+                    "ListModelFileExcludePatterns.Error.InsertPattern.Add",
                     trimmedPattern);
         }
     }
@@ -68,7 +68,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             patterns.remove(trimmedPattern);
         } else {
             MessageDisplayer.error(null,
-                    "ListModelFileExcludePatterns.Error.Delete", // NOI18N
+                    "ListModelFileExcludePatterns.Error.Delete",
                     trimmedPattern);
         }
     }

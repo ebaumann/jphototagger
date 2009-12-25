@@ -65,30 +65,30 @@ import javax.swing.tree.TreePath;
 public final class Settings {
 
     private final Properties properties;
-    private static final String DELIMITER_NUMBER_ARRAY = ";"; // NOI18N
-    private static final String DELIMITER_ARRAY_KEYS = "."; // NOI18N
-    private static final String FILE_PATH_SEPARATOR = "|"; // NOI18N
+    private static final String DELIMITER_NUMBER_ARRAY = ";";
+    private static final String DELIMITER_ARRAY_KEYS = ".";
+    private static final String FILE_PATH_SEPARATOR = "|";
     private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X =
-            ".ViewportViewPositionX"; // NOI18N
+            ".ViewportViewPositionX";
     private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y =
-            ".ViewportViewPositionY"; // NOI18N
-    private static final String KEY_APPENDIX_SELECTED = "-selected"; // NOI18N
-    private static final String POSTFIX_KEY_WIDTH = ".Width"; // NOI18N
-    private static final String POSTFIX_KEY_HEIGHT = ".Height"; // NOI18N
-    private static final String POSTFIX_KEY_LOCATION_X = ".LocationX"; // NOI18N
-    private static final String POSTFIX_KEY_LOCATION_Y = ".LocationY"; // NOI18N
+            ".ViewportViewPositionY";
+    private static final String KEY_APPENDIX_SELECTED = "-selected";
+    private static final String POSTFIX_KEY_WIDTH = ".Width";
+    private static final String POSTFIX_KEY_HEIGHT = ".Height";
+    private static final String POSTFIX_KEY_LOCATION_X = ".LocationX";
+    private static final String POSTFIX_KEY_LOCATION_Y = ".LocationY";
 
     public Settings(Properties properties) {
         if (properties == null)
-            throw new NullPointerException("properties == null"); // NOI18N
+            throw new NullPointerException("properties == null");
 
         this.properties = properties;
     }
 
     private String getArrayKeyMatchPattern(String key) {
         assert key != null : key;
-        return "^" + java.util.regex.Pattern.quote(key + DELIMITER_ARRAY_KEYS) + // NOI18N
-                "[0-9]+$"; // NOI18N // NOI18N
+        return "^" + java.util.regex.Pattern.quote(key + DELIMITER_ARRAY_KEYS) +
+                "[0-9]+$"; //
     }
 
     /**
@@ -99,7 +99,7 @@ public final class Settings {
      */
     public List<String> getKeysMatches(String pattern) {
         if (pattern == null)
-            throw new NullPointerException("pattern == null"); // NOI18N
+            throw new NullPointerException("pattern == null");
 
         return RegexUtil.getMatches(properties.stringPropertyNames(), pattern);
     }
@@ -126,9 +126,9 @@ public final class Settings {
      */
     public void getComponent(Component component, SettingsHints hints) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
         if (hints == null)
-            throw new NullPointerException("hints == null"); // NOI18N
+            throw new NullPointerException("hints == null");
 
         Class<? extends Component> c = component.getClass();
         String componentName = c.getName();
@@ -138,7 +138,7 @@ public final class Settings {
             Field field = fields[index];
             field.setAccessible(true);
             String fieldName = field.getName();
-            String key = componentName + "." + fieldName; // NOI18N
+            String key = componentName + "." + fieldName;
 
             if (hints.isSet(key)) {
                 try {
@@ -190,13 +190,13 @@ public final class Settings {
      */
     public void getCheckBox(JCheckBox checkBox, String key) {
         if (checkBox == null)
-            throw new NullPointerException("checkBox == null"); // NOI18N
+            throw new NullPointerException("checkBox == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
-            checkBox.setSelected(value.equals("1")); // NOI18N
+            checkBox.setSelected(value.equals("1"));
         }
     }
 
@@ -208,9 +208,9 @@ public final class Settings {
      */
     public void getButtonGroup(ButtonGroup buttonGroup, String key) {
         if (buttonGroup == null)
-            throw new NullPointerException("buttonGroup == null"); // NOI18N
+            throw new NullPointerException("buttonGroup == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         if (properties.containsKey(key)) {
             String textOfSelectedButton = properties.getProperty(key);
@@ -234,9 +234,9 @@ public final class Settings {
      */
     public void getTree(JTree tree, String key) {
         if (tree == null)
-            throw new NullPointerException("tree == null"); // NOI18N
+            throw new NullPointerException("tree == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
@@ -258,9 +258,9 @@ public final class Settings {
      */
     public void getSplitPane(JSplitPane splitPane, String key) {
         if (splitPane == null)
-            throw new NullPointerException("splitPane == null"); // NOI18N
+            throw new NullPointerException("splitPane == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         if (properties.containsKey(key)) {
             try {
@@ -281,9 +281,9 @@ public final class Settings {
      */
     public void getScrollPane(JScrollPane scrollPane, String key) {
         if (scrollPane == null)
-            throw new NullPointerException("scrollPane == null"); // NOI18N
+            throw new NullPointerException("scrollPane == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String keyX = key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X;
         String keyY = key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y;
@@ -307,9 +307,9 @@ public final class Settings {
      */
     public void getTable(JTable table, String key) {
         if (table == null)
-            throw new NullPointerException("table == null"); // NOI18N
+            throw new NullPointerException("table == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         TableModel model = table.getModel();
 
@@ -335,9 +335,9 @@ public final class Settings {
      */
     public void getSpinner(JSpinner spinner, String key) {
         if (spinner == null)
-            throw new NullPointerException("spinner == null"); // NOI18N
+            throw new NullPointerException("spinner == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
@@ -359,11 +359,11 @@ public final class Settings {
      */
     public void getTabbedPane(JTabbedPane pane, String key, SettingsHints hints) {
         if (pane == null)
-            throw new NullPointerException("pane == null"); // NOI18N
+            throw new NullPointerException("pane == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
         if (hints == null)
-            throw new NullPointerException("hints == null"); // NOI18N
+            throw new NullPointerException("hints == null");
 
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
@@ -395,9 +395,9 @@ public final class Settings {
      */
     public void getComboBoxContent(JComboBox comboBox, String key) {
         if (comboBox == null)
-            throw new NullPointerException("comboBox == null"); // NOI18N
+            throw new NullPointerException("comboBox == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
 
@@ -418,9 +418,9 @@ public final class Settings {
      */
     public void getListContent(JList list, String key) {
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         ListModel lm = list.getModel();
         if (lm instanceof DefaultListModel) {
@@ -444,9 +444,9 @@ public final class Settings {
      */
     public void getSelectedItem(JComboBox comboBox, String key) {
         if (comboBox == null)
-            throw new NullPointerException("comboBox == null"); // NOI18N
+            throw new NullPointerException("comboBox == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String sKey = key + KEY_APPENDIX_SELECTED;
         String selected = properties.getProperty(sKey);
@@ -464,9 +464,9 @@ public final class Settings {
      */
     public void getSelectedIndex(JComboBox comboBox, String key) {
         if (comboBox == null)
-            throw new NullPointerException("comboBox == null"); // NOI18N
+            throw new NullPointerException("comboBox == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String index = properties.getProperty(key + KEY_APPENDIX_SELECTED);
         if (index != null) {
@@ -490,13 +490,13 @@ public final class Settings {
      */
     public void getToggleButton(JToggleButton button, String key) {
         if (button == null)
-            throw new NullPointerException("button == null"); // NOI18N
+            throw new NullPointerException("button == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String status = properties.getProperty(key);
         if (status != null) {
-            boolean isSelected = status.equals("1"); // NOI18N
+            boolean isSelected = status.equals("1");
             button.setSelected(isSelected);
         }
     }
@@ -509,9 +509,9 @@ public final class Settings {
      */
     public void getSelectedValue(JList list, String key) {
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String sKey = key + KEY_APPENDIX_SELECTED;
         String selected = properties.getProperty(sKey);
@@ -529,9 +529,9 @@ public final class Settings {
      */
     public void getSelectedIndex(JList list, String key) {
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String sKey = key + KEY_APPENDIX_SELECTED;
         String index = properties.getProperty(sKey);
@@ -558,9 +558,9 @@ public final class Settings {
      */
     public void getTextField(JTextField textField, String key) {
         if (textField == null)
-            throw new NullPointerException("textField == null"); // NOI18N
+            throw new NullPointerException("textField == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         if (properties.containsKey(key)) {
             String value = properties.getProperty(key);
@@ -576,13 +576,13 @@ public final class Settings {
      */
     public String getString(String key) {
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         if (properties.containsKey(key)) {
             return properties.getProperty(key);
         }
 
-        return ""; // NOI18N
+        return "";
     }
 
     /**
@@ -593,9 +593,9 @@ public final class Settings {
      */
     public void setIntegerArray(List<Integer> array, String key) {
         if (array == null)
-            throw new NullPointerException("array == null"); // NOI18N
+            throw new NullPointerException("array == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         StringBuffer buffer = new StringBuffer();
 
@@ -613,9 +613,9 @@ public final class Settings {
      */
     public void setStringArray(List<String> list, String key) {
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         deleteKeysMatches(getArrayKeyMatchPattern(key));
         int count = list.size();
@@ -632,7 +632,7 @@ public final class Settings {
      */
     public void deleteKeysMatches(String pattern) {
         if (pattern == null)
-            throw new NullPointerException("pattern == null"); // NOI18N
+            throw new NullPointerException("pattern == null");
 
         List<String> keys = getKeysMatches(pattern);
         for (String pKey : keys) {
@@ -648,7 +648,7 @@ public final class Settings {
      */
     public List<Integer> getIntegerArray(String key) {
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         List<Integer> array = new ArrayList<Integer>();
 
@@ -676,7 +676,7 @@ public final class Settings {
      */
     public List<String> getStringArray(String key) {
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         List<String> array = new ArrayList<String>();
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
@@ -693,7 +693,7 @@ public final class Settings {
      */
     public void removeStringArray(String key) {
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         List<String> keys = getKeysMatches(getArrayKeyMatchPattern(key));
         for (String k : keys) {
@@ -723,9 +723,9 @@ public final class Settings {
      */
     public void setComponent(Component component, SettingsHints hints) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
         if (hints == null)
-            throw new NullPointerException("hints == null"); // NOI18N
+            throw new NullPointerException("hints == null");
 
         Class<? extends Component> c = component.getClass();
         String componentName = c.getName();
@@ -735,7 +735,7 @@ public final class Settings {
             Field field = fields[index];
             field.setAccessible(true);
             String fieldName = field.getName();
-            String key = componentName + "." + fieldName; // NOI18N
+            String key = componentName + "." + fieldName;
 
             if (hints.isSet(key)) {
                 try {
@@ -789,13 +789,13 @@ public final class Settings {
      */
     public void setCheckBox(JCheckBox checkBox, String key) {
         if (checkBox == null)
-            throw new NullPointerException("checkBox == null"); // NOI18N
+            throw new NullPointerException("checkBox == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String isSelected = checkBox.isSelected()
-                            ? "1" // NOI18N
-                            : "0"; // NOI18N
+                            ? "1"
+                            : "0";
 
         properties.setProperty(key, isSelected);
     }
@@ -810,9 +810,9 @@ public final class Settings {
      */
     public void setButtonGroup(ButtonGroup buttonGroup, String key) {
         if (buttonGroup == null)
-            throw new NullPointerException("buttonGroup == null"); // NOI18N
+            throw new NullPointerException("buttonGroup == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String textOfSelectedButton = null;
         for (Enumeration buttons = buttonGroup.getElements(); buttons.
@@ -835,9 +835,9 @@ public final class Settings {
      */
     public void setSpinner(JSpinner spinner, String key) {
         if (spinner == null)
-            throw new NullPointerException("spinner == null"); // NOI18N
+            throw new NullPointerException("spinner == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         properties.setProperty(key, spinner.getValue().toString());
     }
@@ -851,9 +851,9 @@ public final class Settings {
      */
     public void setTabbedPane(JTabbedPane pane, String key, SettingsHints hints) {
         if (pane == null)
-            throw new NullPointerException("pane == null"); // NOI18N
+            throw new NullPointerException("pane == null");
         if (hints == null)
-            throw new NullPointerException("hints == null"); // NOI18N
+            throw new NullPointerException("hints == null");
 
         try {
             Integer index = new Integer(pane.getSelectedIndex());
@@ -881,9 +881,9 @@ public final class Settings {
      */
     public void setComboBoxContent(JComboBox comboBox, String key) {
         if (comboBox == null)
-            throw new NullPointerException("comboBox == null"); // NOI18N
+            throw new NullPointerException("comboBox == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         int itemCount = comboBox.getItemCount();
 
@@ -907,9 +907,9 @@ public final class Settings {
      */
     public void setListContent(JList list, String key) {
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         ListModel model = list.getModel();
         int itemCount = model.getSize();
@@ -931,9 +931,9 @@ public final class Settings {
      */
     public void setSelectedIndex(JComboBox comboBox, String key) {
         if (comboBox == null)
-            throw new NullPointerException("comboBox == null"); // NOI18N
+            throw new NullPointerException("comboBox == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         properties.setProperty(
                 key + KEY_APPENDIX_SELECTED,
@@ -948,13 +948,13 @@ public final class Settings {
      */
     public void setToggleButton(JToggleButton button, String key) {
         if (button == null)
-            throw new NullPointerException("button == null"); // NOI18N
+            throw new NullPointerException("button == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String status = button.isSelected()
-                        ? "1" // NOI18N
-                        : "0"; // NOI18N
+                        ? "1"
+                        : "0";
         properties.setProperty(key, status);
     }
 
@@ -967,9 +967,9 @@ public final class Settings {
      */
     public void setSelectedValue(JList list, String key) {
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String sKey = key + KEY_APPENDIX_SELECTED;
         Object selectedValue = list.getSelectedValue();
@@ -989,9 +989,9 @@ public final class Settings {
      */
     public void setSelectedIndex(JList list, String key) {
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         properties.setProperty(
                 key + KEY_APPENDIX_SELECTED,
@@ -1007,9 +1007,9 @@ public final class Settings {
      */
     public void setSelectedItem(JComboBox comboBox, String key) {
         if (comboBox == null)
-            throw new NullPointerException("comboBox == null"); // NOI18N
+            throw new NullPointerException("comboBox == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String sKey = key + KEY_APPENDIX_SELECTED;
         Object selectedItem = comboBox.getSelectedItem();
@@ -1029,9 +1029,9 @@ public final class Settings {
      */
     public void setTextField(JTextField textField, String key) {
         if (textField == null)
-            throw new NullPointerException("textField == null"); // NOI18N
+            throw new NullPointerException("textField == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         properties.setProperty(key, textField.getText());
     }
@@ -1044,9 +1044,9 @@ public final class Settings {
      */
     public void setString(String string, String key) {
         if (string == null)
-            throw new NullPointerException("string == null"); // NOI18N
+            throw new NullPointerException("string == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         properties.setProperty(key, string);
     }
@@ -1058,7 +1058,7 @@ public final class Settings {
      */
     public void removeKey(String key) {
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         properties.remove(key);
     }
@@ -1071,9 +1071,9 @@ public final class Settings {
      */
     public void setTable(JTable table, String key) {
         if (table == null)
-            throw new NullPointerException("table == null"); // NOI18N
+            throw new NullPointerException("table == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         TableModel model = table.getModel();
         List<Integer> persistentColumnWidths = new ArrayList<Integer>();
@@ -1097,9 +1097,9 @@ public final class Settings {
      */
     public void setSplitPane(JSplitPane splitPane, String key) {
         if (splitPane == null)
-            throw new NullPointerException("splitPane == null"); // NOI18N
+            throw new NullPointerException("splitPane == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         int dividerLocation = splitPane.getDividerLocation();
 
@@ -1115,9 +1115,9 @@ public final class Settings {
      */
     public void setScrollPane(JScrollPane scrollPane, String key) {
         if (scrollPane == null)
-            throw new NullPointerException("scrollPane == null"); // NOI18N
+            throw new NullPointerException("scrollPane == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         Integer x = scrollPane.getViewport().getViewPosition().x;
         Integer y = scrollPane.getViewport().getViewPosition().y;
@@ -1136,9 +1136,9 @@ public final class Settings {
      */
     public void setTree(JTree tree, String key) {
         if (tree == null)
-            throw new NullPointerException("tree == null"); // NOI18N
+            throw new NullPointerException("tree == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         TreePath selectionPath = tree.getSelectionPath();
         if (selectionPath == null) {
@@ -1150,7 +1150,7 @@ public final class Settings {
                 pathBuffer.append(path[index].toString() + (index + 1 <
                         path.length
                                                             ? FILE_PATH_SEPARATOR
-                                                            : "")); // NOI18N
+                                                            : ""));
             }
             properties.setProperty(key, pathBuffer.toString());
         }
@@ -1164,7 +1164,7 @@ public final class Settings {
      */
     public Integer getInt(String key) {
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         Integer result = Integer.MIN_VALUE;
         if (properties.containsKey(key)) {
@@ -1186,16 +1186,16 @@ public final class Settings {
      */
     public void setInt(Integer value, String key) {
         if (value == null)
-            throw new NullPointerException("value == null"); // NOI18N
+            throw new NullPointerException("value == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         properties.setProperty(key, value.toString());
     }
 
     public boolean getBoolean(String key) {
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         int result = getInt(key);
         return result == 1
@@ -1205,7 +1205,7 @@ public final class Settings {
 
     public void setBoolean(boolean b, String key) {
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         setInt(b
                ? 1
@@ -1222,7 +1222,7 @@ public final class Settings {
      */
     public void getSizeAndLocation(Component component) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
 
         getSize(component);
         getLocation(component);
@@ -1236,7 +1236,7 @@ public final class Settings {
      */
     public void getSize(Component component) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
 
         getSize(component, component.getClass().getName());
     }
@@ -1250,9 +1250,9 @@ public final class Settings {
      */
     public void getSize(Component component, String key) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String keyWidth = getKeyWidth(key);
         String keyHeight = getKeyHeight(key);
@@ -1279,7 +1279,7 @@ public final class Settings {
      */
     public void getLocation(Component component) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
 
         getLocation(component, component.getClass().getName());
     }
@@ -1293,9 +1293,9 @@ public final class Settings {
      */
     public void getLocation(Component component, String key) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         String keyLocationX = getKeyLocationX(key);
         String keyLocationY = getKeyLocationY(key);
@@ -1325,7 +1325,7 @@ public final class Settings {
      */
     public void setSizeAndLocation(Component component) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
 
         setSize(component);
         setLocation(component);
@@ -1338,7 +1338,7 @@ public final class Settings {
      */
     public void setSize(Component component) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
 
         setSize(component, component.getClass().getName());
     }
@@ -1351,9 +1351,9 @@ public final class Settings {
      */
     public void setSize(Component component, String key) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         Dimension size = component.getSize();
 
@@ -1368,7 +1368,7 @@ public final class Settings {
      */
     public void setLocation(Component component) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
 
         setLocation(component, component.getClass().getName());
     }
@@ -1381,9 +1381,9 @@ public final class Settings {
      */
     public void setLocation(Component component, String key) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
         if (key == null)
-            throw new NullPointerException("key == null"); // NOI18N
+            throw new NullPointerException("key == null");
 
         Point location = component.getLocation();
 

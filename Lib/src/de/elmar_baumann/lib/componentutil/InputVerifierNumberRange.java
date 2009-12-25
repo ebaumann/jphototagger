@@ -48,7 +48,7 @@ public final class InputVerifierNumberRange extends InputVerifier {
      */
     public InputVerifierNumberRange(double min, double max) {
         if (max < min) throw new IllegalArgumentException(
-                    "Maximum is less than minimum! " + max + " < " + min); // NOI18N
+                    "Maximum is less than minimum! " + max + " < " + min);
 
         this.min = min;
         this.max = max;
@@ -80,17 +80,17 @@ public final class InputVerifierNumberRange extends InputVerifier {
         } else if (component instanceof JTextArea) {
             return (((JTextArea) component).getText()).trim();
         } else {
-            assert false : "Unknown component: " + // NOI18N
-                    component.getClass().toString(); // NOI18N
+            assert false : "Unknown component: " +
+                    component.getClass().toString();
         }
-        return ""; // NOI18N
+        return "";
     }
 
     private Double toDouble(String string) {
         try {
             return Double.valueOf(string);
         } catch (Exception ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex); // NOI18N
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex);
         }
         return null;
     }
@@ -98,9 +98,9 @@ public final class InputVerifierNumberRange extends InputVerifier {
     private void errorMessage(JComponent input) {
         JOptionPane.showMessageDialog(
                 input,
-                Bundle.getString("InputVerifierNumberRange.ErrorMessage", // NOI18N
-                min, max), // NOI18N
-                Bundle.getString("InputVerifierNumberRange.Error.Title"), // NOI18N
+                Bundle.getString("InputVerifierNumberRange.ErrorMessage",
+                min, max),
+                Bundle.getString("InputVerifierNumberRange.Error.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 }

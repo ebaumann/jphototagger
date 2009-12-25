@@ -45,7 +45,7 @@ import javax.swing.JList;
 public final class TransferUtil {
 
     private static final String MIME_TYPE_URI_LIST =
-            "text/uri-list;class=java.lang.String"; // NOI18N
+            "text/uri-list;class=java.lang.String";
     private static final DataFlavor STRING_FLAVOR = DataFlavor.stringFlavor;
     private static final DataFlavor FILE_LIST_FLAVOR =
             DataFlavor.javaFileListFlavor;
@@ -73,20 +73,20 @@ public final class TransferUtil {
             JList list, String delimiter) {
 
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); // NOI18N
+            throw new NullPointerException("delimiter == null");
 
         Object[] values = list.getSelectedValues();
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
             Object val = values[i];
             buffer.append(val == null
-                          ? "" // NOI18N
+                          ? ""
                           : val.toString());
             buffer.append(i != values.length - 1
                           ? delimiter
-                          : ""); // NOI18N
+                          : "");
         }
         return new StringSelection(buffer.toString());
     }
@@ -106,9 +106,9 @@ public final class TransferUtil {
             List<Integer> list, String delimiter) {
 
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); // NOI18N
+            throw new NullPointerException("delimiter == null");
 
         StringBuilder sb = new StringBuilder();
         int size = list.size();
@@ -117,7 +117,7 @@ public final class TransferUtil {
             sb.append(integer.toString());
             sb.append(i < size - 1
                       ? delimiter
-                      : ""); // NOI18N
+                      : "");
         }
         return new StringSelection(sb.toString());
     }
@@ -137,9 +137,9 @@ public final class TransferUtil {
             List<String> list, String delimiter) {
 
         if (list == null)
-            throw new NullPointerException("list == null"); // NOI18N
+            throw new NullPointerException("list == null");
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); // NOI18N
+            throw new NullPointerException("delimiter == null");
 
         StringBuffer buffer = new StringBuffer();
         int size = list.size();
@@ -148,7 +148,7 @@ public final class TransferUtil {
             buffer.append(string);
             buffer.append(i < size - 1
                           ? delimiter
-                          : ""); // NOI18N
+                          : "");
         }
         return new StringSelection(buffer.toString());
     }
@@ -174,15 +174,15 @@ public final class TransferUtil {
     public static List<File> getFilesFromUriList(Transferable transferable) {
 
         if (transferable == null)
-            throw new NullPointerException("transferable == null"); // NOI18N
+            throw new NullPointerException("transferable == null");
 
         List<File> list = new ArrayList<File>();
         try {
             String data = (String) transferable.getTransferData(URI_LIST_FLAVOR);
-            for (StringTokenizer st = new StringTokenizer(data, "\r\n"); // NOI18N
+            for (StringTokenizer st = new StringTokenizer(data, "\r\n");
                     st.hasMoreTokens();) {
                 String token = st.nextToken().trim();
-                if (token.startsWith("file:")) { // NOI18N
+                if (token.startsWith("file:")) {
                     list.add(new File(new URI(token)));
                 }
             }
@@ -205,9 +205,9 @@ public final class TransferUtil {
             Transferable transferable, String delimiter) {
 
         if (transferable == null)
-            throw new NullPointerException("transferable == null"); // NOI18N
+            throw new NullPointerException("transferable == null");
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); // NOI18N
+            throw new NullPointerException("delimiter == null");
 
         List<File> list = new ArrayList<File>();
         try {
@@ -236,7 +236,7 @@ public final class TransferUtil {
     public static List<File> getFilesFromJavaFileList(Transferable transferable) {
 
         if (transferable == null)
-            throw new NullPointerException("transferable == null"); // NOI18N
+            throw new NullPointerException("transferable == null");
 
         List<File> list = new ArrayList<File>();
         try {
@@ -266,9 +266,9 @@ public final class TransferUtil {
             Transferable transferable, String delimiter) {
 
         if (transferable == null)
-            throw new NullPointerException("transferable == null"); // NOI18N
+            throw new NullPointerException("transferable == null");
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); // NOI18N
+            throw new NullPointerException("delimiter == null");
 
         List<File> list = new ArrayList<File>();
         DataFlavor[] flavors = transferable.getTransferDataFlavors();
@@ -290,7 +290,7 @@ public final class TransferUtil {
      */
     public static boolean maybeContainFileData(Transferable transferable) {
         if (transferable == null)
-            throw new NullPointerException("transferable == null"); // NOI18N
+            throw new NullPointerException("transferable == null");
 
         return containsFiles(transferable);
     }
@@ -303,7 +303,7 @@ public final class TransferUtil {
                         FILE_LIST_FLAVOR)).size() > 0;
             } else if (isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
                 return ((String) transferable.getTransferData(URI_LIST_FLAVOR)).
-                        startsWith("file:"); // NOI18N
+                        startsWith("file:");
             } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
                 return new File((String) transferable.getTransferData(
                         STRING_FLAVOR)).exists();
@@ -326,7 +326,7 @@ public final class TransferUtil {
                     getSystemClipboard().getContents(TransferUtil.class));
         } catch (Exception ex) {
             Logger.getLogger(
-                    TransferUtil.class.getName()).log(Level.SEVERE, "", ex); // NOI18N
+                    TransferUtil.class.getName()).log(Level.SEVERE, "", ex);
         }
         return false;
     }
@@ -341,7 +341,7 @@ public final class TransferUtil {
     public static boolean isDataFlavorSupported(
             DataFlavor[] flavors, DataFlavor flavor) {
         if (flavor == null)
-            throw new NullPointerException("flavor == null"); // NOI18N
+            throw new NullPointerException("flavor == null");
 
         for (DataFlavor f : flavors) {
             if (f.equals(flavor)) {

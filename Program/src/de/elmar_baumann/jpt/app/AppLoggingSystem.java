@@ -70,7 +70,7 @@ public final class AppLoggingSystem {
 
     private static void createLogger(Level userLevel) {
         try {
-            Logger logger = Logger.getLogger("de.elmar_baumann"); // NOI18N
+            Logger logger = Logger.getLogger("de.elmar_baumann");
             addHandlers(logger);
             logger.setLevel(userLevel);
             LogManager.getLogManager().addLogger(logger);
@@ -103,7 +103,7 @@ public final class AppLoggingSystem {
             InstantiationException,
             IllegalAccessException {
         Handler fileHandler = new FileHandler(
-                getLogfilePrefix() + "%g." + getLogfileSuffix(), // NOI18N
+                getLogfilePrefix() + "%g." + getLogfileSuffix(),
                 MAX_LOGFILE_SIZE_IN_BYTES,
                 MAX_LOGFILE_COUNT,
                 APPEND_OUTPUT_TO_LOGFILE);
@@ -133,16 +133,16 @@ public final class AppLoggingSystem {
      * @return log file name
      */
     public static String getCurrentLogfileName() {
-        return getLogfilePrefix() + "0." + getLogfileSuffix(); // NOI18N
+        return getLogfilePrefix() + "0." + getLogfileSuffix();
     }
 
     private static String getLogfilePrefix() {
         return UserSettings.INSTANCE.getSettingsDirectoryName() +
-                File.separator + "imagemetadataviewerlog";  // NOI18N
+                File.separator + "imagemetadataviewerlog"; 
     }
 
     private static String getLogfileSuffix() {
-        return "xml"; // NOI18N
+        return "xml";
     }
 
     private AppLoggingSystem() {

@@ -96,9 +96,9 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
     }
 
     private void addColumnHeaders() {
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.1")); // NOI18N
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.2")); // NOI18N
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.3")); // NOI18N
+        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.1"));
+        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.2"));
+        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.3"));
     }
 
     private void addRows() {
@@ -125,7 +125,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
 
         public SetCountThread() {
             super();
-            setName("Setting count in database info" + " @ " + // NOI18N
+            setName("Setting count in database info" + " @ " +
                     getClass().getName());
             setPriority(MIN_PRIORITY);
         }

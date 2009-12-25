@@ -41,7 +41,7 @@ public final class ComponentUtil {
      */
     public static void forceRepaint(Component component) {
         if (component == null)
-            throw new NullPointerException("component == null"); // NOI18N
+            throw new NullPointerException("component == null");
 
         component.invalidate();
         component.validate();

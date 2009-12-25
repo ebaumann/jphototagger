@@ -136,8 +136,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         boolean existsInActionsAfterDbInsertion =
                 DatabaseActionsAfterDbInsertion.INSTANCE.existsAction(program);
         String propertiesKey = existsInActionsAfterDbInsertion
-                               ? "ActionsPanel.Confirm.Delete.ExistsInOtherDb" // NOI18N
-                               : "ActionsPanel.Confirm.Delete"; // NOI18N
+                               ? "ActionsPanel.Confirm.Delete.ExistsInOtherDb"
+                               : "ActionsPanel.Confirm.Delete";
         return MessageDisplayer.confirm(this, propertiesKey,
                 MessageDisplayer.CancelButton.HIDE, programName).equals(
                 MessageDisplayer.ConfirmAction.YES);
@@ -184,11 +184,11 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
         scrollPane.setViewportView(list);
 
-        progressBar.setToolTipText(Bundle.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
+        progressBar.setToolTipText(Bundle.getString("ActionsPanel.progressBar.toolTipText"));
 
         buttonDelete.setMnemonic('l');
-        buttonDelete.setText(Bundle.getString("ActionsPanel.buttonDelete.text")); // NOI18N
-        buttonDelete.setToolTipText(Bundle.getString("ActionsPanel.buttonDelete.toolTipText")); // NOI18N
+        buttonDelete.setText(Bundle.getString("ActionsPanel.buttonDelete.text"));
+        buttonDelete.setToolTipText(Bundle.getString("ActionsPanel.buttonDelete.toolTipText"));
         buttonDelete.setEnabled(false);
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,8 +197,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
 
         buttonEdit.setMnemonic('b');
-        buttonEdit.setText(Bundle.getString("ActionsPanel.buttonEdit.text")); // NOI18N
-        buttonEdit.setToolTipText(Bundle.getString("ActionsPanel.buttonEdit.toolTipText")); // NOI18N
+        buttonEdit.setText(Bundle.getString("ActionsPanel.buttonEdit.text"));
+        buttonEdit.setToolTipText(Bundle.getString("ActionsPanel.buttonEdit.toolTipText"));
         buttonEdit.setEnabled(false);
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,8 +207,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
 
         buttonNew.setMnemonic('n');
-        buttonNew.setText(Bundle.getString("ActionsPanel.buttonNew.text")); // NOI18N
-        buttonNew.setToolTipText(Bundle.getString("ActionsPanel.buttonNew.toolTipText")); // NOI18N
+        buttonNew.setText(Bundle.getString("ActionsPanel.buttonNew.text"));
+        buttonNew.setToolTipText(Bundle.getString("ActionsPanel.buttonNew.toolTipText"));
         buttonNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNewActionPerformed(evt);
@@ -216,8 +216,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
 
         buttonExecute.setMnemonic('a');
-        buttonExecute.setText(Bundle.getString("ActionsPanel.buttonExecute.text")); // NOI18N
-        buttonExecute.setToolTipText(Bundle.getString("ActionsPanel.buttonExecute.toolTipText")); // NOI18N
+        buttonExecute.setText(Bundle.getString("ActionsPanel.buttonExecute.text"));
+        buttonExecute.setToolTipText(Bundle.getString("ActionsPanel.buttonExecute.toolTipText"));
         buttonExecute.setEnabled(false);
         buttonExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

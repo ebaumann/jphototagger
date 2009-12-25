@@ -91,7 +91,7 @@ public final class TableModelXmp extends DefaultTableModel {
     private void addRow(XMPPropertyInfo xmpPropertyInfo) {
         String path = xmpPropertyInfo.getPath();
         Object value = xmpPropertyInfo.getValue();
-        if (path != null && value != null && !path.contains("Digest")) { // NOI18N
+        if (path != null && value != null && !path.contains("Digest")) {
             List<XMPPropertyInfo> newRow = new ArrayList<XMPPropertyInfo>();
             newRow.add(xmpPropertyInfo);
             newRow.add(xmpPropertyInfo);
@@ -100,7 +100,7 @@ public final class TableModelXmp extends DefaultTableModel {
     }
 
     private void setRowHeaders() {
-        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.1")); // NOI18N
-        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.2")); // NOI18N
+        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.1"));
+        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.2"));
     }
 }

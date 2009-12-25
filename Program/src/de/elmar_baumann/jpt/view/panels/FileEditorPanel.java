@@ -49,17 +49,17 @@ import javax.swing.filechooser.FileFilter;
 public final class FileEditorPanel extends javax.swing.JPanel {
 
     private static final String KEY_DIRECTORY_NAME =
-            "de.elmar_baumann.jpt.view.FileEditorDialog.panels.Directory"; // NOI18N
+            "de.elmar_baumann.jpt.view.FileEditorDialog.panels.Directory";
     private List<File> selectedFiles = new ArrayList<File>();
     private List<File> selectedDirectories = new ArrayList<File>();
-    private File prevSelectedDirectory = new File(""); // NOI18N
+    private File prevSelectedDirectory = new File("");
     private FileEditor fileEditor = new FileEditor();
     private FileFilter fileChooserFileFilter =
             AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS.forFileChooser(
-            Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description")); // NOI18N
+            Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
     private RegexFileFilter dirChooserFileFilter =
-            new RegexFileFilter(".*", ";"); // NOI18N
-    private String title = ""; // NOI18N
+            new RegexFileFilter(".*", ";");
+    private String title = "";
     private volatile boolean selectDirs;
     private volatile boolean stop;
     private volatile boolean isRunning;
@@ -114,7 +114,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private String asHtml(String description) {
-        return "<html><p>" + description + "</p></html>"; // NOI18N
+        return "<html><p>" + description + "</p></html>";
     }
 
     public void setFileChooserFileFilter(FileFilter filter) {
@@ -194,7 +194,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void handleStartActionPerformed() {
         Thread thread = new Thread(new EditThread());
-        thread.setName("File editor " + title + " @ " + getClass().getName()); // NOI18N
+        thread.setName("File editor " + title + " @ " + getClass().getName());
         thread.start();
     }
 
@@ -219,18 +219,18 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         buttonStop = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.panelOptions.border.title")));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        labelDescription.setText(bundle.getString("FileEditorPanel.labelDescription.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        labelDescription.setText(bundle.getString("FileEditorPanel.labelDescription.text"));
 
-        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
+        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.panelOptions.border.title")));
 
         checkBoxIncludeSubdirectories.setMnemonic('u');
-        checkBoxIncludeSubdirectories.setText(Bundle.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setText(Bundle.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text"));
 
         checkBoxReplaceExistingFiles.setMnemonic('x');
-        checkBoxReplaceExistingFiles.setText(Bundle.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
+        checkBoxReplaceExistingFiles.setText(Bundle.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text"));
 
         javax.swing.GroupLayout panelOptionsLayout = new javax.swing.GroupLayout(panelOptions);
         panelOptions.setLayout(panelOptionsLayout);
@@ -254,14 +254,14 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelInfo.setText(Bundle.getString("FileEditorPanel.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString("FileEditorPanel.labelInfo.text"));
         labelInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelInfoMouseClicked(evt);
             }
         });
 
-        buttonShowFiles.setText(Bundle.getString("FileEditorPanel.buttonShowFiles.text")); // NOI18N
+        buttonShowFiles.setText(Bundle.getString("FileEditorPanel.buttonShowFiles.text"));
         buttonShowFiles.setEnabled(false);
         buttonShowFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,7 +270,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         });
 
         buttonSelectFiles.setMnemonic('e');
-        buttonSelectFiles.setText(Bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
+        buttonSelectFiles.setText(Bundle.getString("FileEditorPanel.buttonSelectFiles.text"));
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectFilesActionPerformed(evt);
@@ -278,7 +278,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         });
 
         buttonStop.setMnemonic('o');
-        buttonStop.setText(Bundle.getString("FileEditorPanel.buttonStop.text")); // NOI18N
+        buttonStop.setText(Bundle.getString("FileEditorPanel.buttonStop.text"));
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +287,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         });
 
         buttonStart.setMnemonic('s');
-        buttonStart.setText(Bundle.getString("FileEditorPanel.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString("FileEditorPanel.buttonStart.text"));
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -381,7 +381,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             selectedFiles = getFilesOfDirectories(selectedDirectories);
             prevSelectedDirectory = dialog.getSelectedDirectories().get(0);
             labelInfo.setText(Bundle.getString(
-                    "FileEditorPanel.SelectDirectories.LabelInfo.Text")); // NOI18N
+                    "FileEditorPanel.SelectDirectories.LabelInfo.Text"));
         }
     }
 
@@ -406,17 +406,17 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private void setFileButtonText() {
         buttonSelectFiles.setText(selectDirs
                                   ? Bundle.getString(
-                "FileEditorDialog.ButtonFiles.DirectoriesText") // NOI18N
+                "FileEditorDialog.ButtonFiles.DirectoriesText")
                                   : Bundle.getString(
-                "FileEditorDialog.ButtonFiles.FilesText")); // NOI18N
+                "FileEditorDialog.ButtonFiles.FilesText"));
     }
 
     private void setInfoText() {
         labelInfo.setText(selectDirs
                           ? Bundle.getString(
-                "FileEditorPanel.LabelInfo.SelectDirs.Text") // NOI18N
+                "FileEditorPanel.LabelInfo.SelectDirs.Text")
                           : Bundle.getString(
-                "FileEditorPanel.LabelInfo.SelectFiles.Text")); // NOI18N
+                "FileEditorPanel.LabelInfo.SelectFiles.Text"));
     }
 
     public void readProperties() {
@@ -465,7 +465,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             buttonSelectFiles.setEnabled(!runs);
             checkBoxIncludeSubdirectories.setEnabled(!runs);
             checkBoxReplaceExistingFiles.setEnabled(!runs);
-            labelFilename.setText(""); // NOI18N
+            labelFilename.setText("");
             isRunning = runs;
             stop = false;
         }

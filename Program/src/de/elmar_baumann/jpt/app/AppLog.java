@@ -44,7 +44,7 @@ import java.util.logging.Logger;
  */
 public final class AppLog {
 
-    public static final String USE_STRING = "AppLog.UseString"; // NOI18N
+    public static final String USE_STRING = "AppLog.UseString";
 
     /**
      * Logs a message with the class' logger and the log level

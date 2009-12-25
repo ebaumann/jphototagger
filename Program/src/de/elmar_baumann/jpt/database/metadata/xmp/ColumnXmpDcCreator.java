@@ -35,11 +35,11 @@ public final class ColumnXmpDcCreator extends Column {
     private ColumnXmpDcCreator() {
         super(
             TableXmp.INSTANCE,
-            "dc_creator", // NOI18N
+            "dc_creator",
             DataType.STRING);
 
         setLength(128);
-        setDescription(Bundle.getString("ColumnXmpDcCreator.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpDcCreator.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpDcCreator.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpDcCreator.LongerDescription"));
     }
 }

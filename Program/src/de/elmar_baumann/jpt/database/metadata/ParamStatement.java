@@ -153,13 +153,13 @@ public final class ParamStatement {
     @Override
     public String toString() {
         String sqlString = sql == null
-                           ? "Sql: null" // NOI18N
-                           : "Sql: " + sql; // NOI18N
-        return sqlString + " Values:" + getValuesString(" "); // NOI18N
+                           ? "Sql: null"
+                           : "Sql: " + sql;
+        return sqlString + " Values:" + getValuesString(" ");
     }
 
     private String getValuesString(String delimiter) {
-        if (getValues() == null) return ""; // NOI18N
+        if (getValues() == null) return "";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < getValues().length; i++) {
             sb.append(delimiter + getValues()[i].toString());

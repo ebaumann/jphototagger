@@ -45,7 +45,7 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerImportHierarchicalKeywords implements ActionListener {
 
-    private static final String PROGRESSBAR_STRING = Bundle.getString("ControllerImportHierarchicalKeywords.ProgressBar.String"); // NOI18N
+    private static final String PROGRESSBAR_STRING = Bundle.getString("ControllerImportHierarchicalKeywords.ProgressBar.String");
 
     public ControllerImportHierarchicalKeywords() {
         listen();
@@ -65,7 +65,7 @@ public final class ControllerImportHierarchicalKeywords implements ActionListene
         dlg.setVisible(true);
         if (dlg.isAccepted()) {
             HierarchicalKeywordsImporter importer = dlg.getImporter();
-            assert importer != null : "Importer is null!"; // NOI18N
+            assert importer != null : "Importer is null!";
             if (importer != null) {
                 Collection<List<Pair<String, Boolean>>> paths = importer.getPaths(dlg.getFile());
                 if (paths != null) {
@@ -83,7 +83,7 @@ public final class ControllerImportHierarchicalKeywords implements ActionListene
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             this.paths = paths;
-            setName("Importing keywords @ " + getClass().getName()); // NOI18N
+            setName("Importing keywords @ " + getClass().getName());
         }
 
         private void getProgressBar() {

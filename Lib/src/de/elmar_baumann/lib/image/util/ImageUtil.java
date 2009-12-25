@@ -51,9 +51,9 @@ public final class ImageUtil {
             Image image, String formatName) {
 
         if (image == null)
-            throw new NullPointerException("image == null"); // NOI18N
+            throw new NullPointerException("image == null");
         if (formatName == null)
-            throw new NullPointerException("formatName == null"); // NOI18N
+            throw new NullPointerException("formatName == null");
 
         ByteArrayInputStream stream = null;
         try {
@@ -65,7 +65,7 @@ public final class ImageUtil {
             graphics.drawImage(image, 0, 0, null);
             graphics.dispose();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, formatName, outputStream); // NOI18N
+            ImageIO.write(bufferedImage, formatName, outputStream);
             byte[] byteArray = outputStream.toByteArray();
             stream = new ByteArrayInputStream(byteArray);
         } catch (Exception ex) {

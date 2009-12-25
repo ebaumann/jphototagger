@@ -53,8 +53,8 @@ public final class CopyToDirectoryDialog
         implements ProgressListener {
 
     private static final String KEY_LAST_DIRECTORY =
-            "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory"; // NOI18N
-    private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp"; // NOI18N
+            "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory"; //
+    private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp"; //
     private final Set<ProgressListener> progressListeners =
             Collections.synchronizedSet(new HashSet<ProgressListener>());
     private final Set<FileSystemActionListener> fileSystemActionListeners =
@@ -63,13 +63,13 @@ public final class CopyToDirectoryDialog
     private boolean copy = false;
     private boolean writeProperties = true;
     private Collection<File> sourceFiles;
-    private File targetDirectory = new File(""); // NOI18N
+    private File targetDirectory = new File(""); //
 
     public CopyToDirectoryDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); //
         registerKeyStrokes();
     }
 
@@ -124,7 +124,7 @@ public final class CopyToDirectoryDialog
     private void checkClosing() {
         if (copy) {
             MessageDisplayer.error(this,
-                    "CopyToDirectoryDialog.Error.AbortBeforeClose"); // NOI18N
+                    "CopyToDirectoryDialog.Error.AbortBeforeClose"); //
         } else {
             setVisible(false);
         }
@@ -133,7 +133,7 @@ public final class CopyToDirectoryDialog
     private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
             MessageDisplayer.error(this,
-                    "CopyToDirectoryDialog.Error.CopyErrorsOccured"); // NOI18N
+                    "CopyToDirectoryDialog.Error.CopyErrorsOccured"); //
         }
     }
 
@@ -141,7 +141,7 @@ public final class CopyToDirectoryDialog
         copyTask = new CopyFiles(getFiles(addXmp), options);
         copyTask.addProgressListener(this);
         Thread thread = new Thread(copyTask);
-        thread.setName("Copying files to directories" + " @ " + // NOI18N
+        thread.setName("Copying files to directories" + " @ " + //
                 getClass().getName());
         thread.start();
     }
@@ -200,7 +200,7 @@ public final class CopyToDirectoryDialog
                     buttonStart.setEnabled(true);
                 } else {
                     MessageDisplayer.error(this,
-                            "CopyToDirectoryDialog.TargetDirNotWritable", // NOI18N
+                            "CopyToDirectoryDialog.TargetDirNotWritable", //
                             targetDirectory);
                 }
             }
@@ -272,13 +272,13 @@ public final class CopyToDirectoryDialog
 
     private void errorMessageTargetDirectoryDoesNotExist() {
         MessageDisplayer.error(this,
-                "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist", // NOI18N
+                "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist", //
                 targetDirectory.getAbsolutePath());
     }
 
     private void errorMessageMissingSourceFiles() {
         MessageDisplayer.error(this,
-                "CopyToDirectoryDialog.Error.MissingSourceFiles"); // NOI18N
+                "CopyToDirectoryDialog.Error.MissingSourceFiles"); //
     }
 
     @Override
@@ -360,7 +360,7 @@ public final class CopyToDirectoryDialog
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.CopyToDirectoryDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.CopyToDirectoryDialog")); //
     }
 
     @Override
@@ -400,17 +400,17 @@ public final class CopyToDirectoryDialog
         buttonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("CopyToDirectoryDialog.title")); // NOI18N
+        setTitle(Bundle.getString("CopyToDirectoryDialog.title")); //
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelInfo.setText(Bundle.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString("CopyToDirectoryDialog.labelInfo.text")); //
 
         buttonChooseDirectory.setMnemonic('a');
-        buttonChooseDirectory.setText(Bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); //
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -420,25 +420,25 @@ public final class CopyToDirectoryDialog
         labelTargetDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonGroupFileExists.add(radioButtonForceOverwrite);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        radioButtonForceOverwrite.setText(bundle.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); //
+        radioButtonForceOverwrite.setText(bundle.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text")); //
 
         buttonGroupFileExists.add(radioButtonRenameIfTargetFileExists);
-        radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
+        radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); //
 
         checkBoxCopyXmp.setMnemonic('x');
         checkBoxCopyXmp.setSelected(true);
-        checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
+        checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); //
 
-        labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); //
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(Bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(Bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); //
 
         buttonStop.setMnemonic('o');
-        buttonStop.setText(Bundle.getString("CopyToDirectoryDialog.buttonStop.text")); // NOI18N
+        buttonStop.setText(Bundle.getString("CopyToDirectoryDialog.buttonStop.text")); //
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -447,7 +447,7 @@ public final class CopyToDirectoryDialog
         });
 
         buttonStart.setMnemonic('s');
-        buttonStart.setText(Bundle.getString("CopyToDirectoryDialog.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString("CopyToDirectoryDialog.buttonStart.text")); //
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

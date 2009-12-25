@@ -69,7 +69,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
 
@@ -79,13 +79,13 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             setVisible(false);
         } else {
             MessageDisplayer.error(this,
-                    "DatabaseMaintainanceDialog.Error.WaitBeforeClose"); // NOI18N
+                    "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
         }
     }
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.DatabaseMaintainanceDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.DatabaseMaintainanceDialog"));
     }
 
     @Override
@@ -107,15 +107,15 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         panelMaintainance = new de.elmar_baumann.jpt.view.panels.DatabaseMaintainancePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("DatabaseMaintainanceDialog.title")); // NOI18N
+        setTitle(Bundle.getString("DatabaseMaintainanceDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
-        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
+        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount);
+        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -47,7 +47,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         implements ProgressListener {
 
     private static final Icon ICON_FINISHED =
-            AppLookAndFeel.getIcon("icon_finished.png"); // NOI18N
+            AppLookAndFeel.getIcon("icon_finished.png");
     private static final String METHOD_NAME_CANCEL = "cancel";
     private final Stack<Runnable> runnables = new Stack<Runnable>();
     private final Map<Class, JLabel> finishedLabelOfRunnable =
@@ -155,7 +155,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         if (runnables.size() > 0) {
             currentRunnable = runnables.pop();
             Thread thread = new Thread(currentRunnable);
-            thread.setName("Database maintainance next task" + " @ " + // NOI18N
+            thread.setName("Database maintainance next task" + " @ " +
                     getClass().getName());
             thread.start();
         }
@@ -234,8 +234,8 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
 
     private void appendMessage(String message) {
         String newline = textAreaMessages.getText().trim().isEmpty()
-                         ? "" // NOI18N
-                         : "\n"; // NOI18N
+                         ? ""
+                         : "\n";
         textAreaMessages.append(newline + message);
     }
 
@@ -308,7 +308,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         jLabel1 = new javax.swing.JLabel();
 
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setMnemonic('e');
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text"));
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(evt);
@@ -319,7 +319,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
 
         checkBoxCompressDatabase.setMnemonic('k');
-        checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
+        checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text"));
         checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCompressDatabaseActionPerformed(evt);
@@ -329,8 +329,8 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         labelFinishedCompressDatabase.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedCompressDatabase.setPreferredSize(new java.awt.Dimension(16, 16));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        checkBoxDeleteOrphanedThumbnails.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        checkBoxDeleteOrphanedThumbnails.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text"));
         checkBoxDeleteOrphanedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteOrphanedThumbnailsActionPerformed(evt);
@@ -348,7 +348,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         scrollPaneMessages.setViewportView(textAreaMessages);
 
         buttonAbortAction.setMnemonic('o');
-        buttonAbortAction.setText(Bundle.getString("DatabaseMaintainancePanel.buttonAbortAction.text")); // NOI18N
+        buttonAbortAction.setText(Bundle.getString("DatabaseMaintainancePanel.buttonAbortAction.text"));
         buttonAbortAction.setEnabled(false);
         buttonAbortAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,7 +357,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         });
 
         buttonStartMaintain.setMnemonic('s');
-        buttonStartMaintain.setText(Bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
+        buttonStartMaintain.setText(Bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text"));
         buttonStartMaintain.setEnabled(false);
         buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,14 +365,14 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
             }
         });
 
-        buttonDeleteMessages.setText(Bundle.getString("DatabaseMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
+        buttonDeleteMessages.setText(Bundle.getString("DatabaseMaintainancePanel.buttonDeleteMessages.text"));
         buttonDeleteMessages.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteMessagesActionPerformed(evt);
             }
         });
 
-        jLabel1.setText(bundle.getString("DatabaseMaintainancePanel.jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("DatabaseMaintainancePanel.jLabel1.text"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -461,7 +461,7 @@ private void buttonAbortActionActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_buttonAbortActionActionPerformed
 
 private void buttonDeleteMessagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteMessagesActionPerformed
-    textAreaMessages.setText(""); // NOI18N
+    textAreaMessages.setText("");
 }//GEN-LAST:event_buttonDeleteMessagesActionPerformed
 
 private void checkBoxDeleteOrphanedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed

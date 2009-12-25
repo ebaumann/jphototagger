@@ -54,7 +54,7 @@ public final class ControllerSliderThumbnailSize
     private static final int MIN_MAGINFICATION_PERCENT = 10;
     private static final int MAX_MAGINFICATION_PERCENT = 100;
     private static final String KEY_SLIDER_VALUE =
-            ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue"; // NOI18N
+            ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
     private int currentValue = 100;
     private int maxThumbnailWidth =
             UserSettings.INSTANCE.getMaxThumbnailLength();

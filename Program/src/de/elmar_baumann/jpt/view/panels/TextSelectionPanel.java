@@ -43,9 +43,9 @@ public class TextSelectionPanel extends javax.swing.JPanel {
 
     private final int textElementCount;
     private static final String KEY_PREFIX_BUTTONS =
-            TextSelectionPanel.class.getName() + "."; // NOI18N
-    private static final String MNEMONIC_START = " ["; // NOI18N
-    private static final String MNEMONIC_END = "]"; // NOI18N
+            TextSelectionPanel.class.getName() + ".";
+    private static final String MNEMONIC_START = " [";
+    private static final String MNEMONIC_END = "]";
     private static final Border BORDER_BUTTONS = BorderFactory.
             createEtchedBorder();
     private final List<JButton> buttons = new ArrayList<JButton>();
@@ -72,7 +72,7 @@ public class TextSelectionPanel extends javax.swing.JPanel {
     public TextSelectionPanel(int textElementCount) {
         if (textElementCount <= 0 || textElementCount > 26)
             throw new IllegalArgumentException(
-                    "Text element count has to be between 1 - 26 but it is " + // NOI18N
+                    "Text element count has to be between 1 - 26 but it is " +
                     textElementCount);
         this.textElementCount = textElementCount;
         initComponents();
@@ -126,7 +126,7 @@ public class TextSelectionPanel extends javax.swing.JPanel {
         if (indexMnemnonic > 0) {
             return text.substring(0, indexMnemnonic);
         }
-        return ""; // NOI18N
+        return "";
     }
 
     public void writeProperties() {

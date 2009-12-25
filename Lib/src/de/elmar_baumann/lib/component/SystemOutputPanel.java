@@ -67,7 +67,7 @@ public class SystemOutputPanel extends JPanel {
     }
 
     private void deleteText() {
-        textArea.setText(""); // NOI18N
+        textArea.setText("");
     }
 
     private void updateTextArea(final String text) {
@@ -79,7 +79,7 @@ public class SystemOutputPanel extends JPanel {
                 textArea.setCaretPosition(textArea.getDocument().getLength());
                 int excess = textArea.getDocument().getLength() - MAX_CHAR_COUNT;
                 if (excess >= MAX_CHARS_EXESS) {
-                    textArea.replaceRange("", 0, excess); // NOI18N
+                    textArea.replaceRange("", 0, excess);
                 }
             }
         });
@@ -129,17 +129,17 @@ public class SystemOutputPanel extends JPanel {
         textArea.setWrapStyleWord(true);
         scrollPane.setViewportView(textArea);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
-        buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
-        buttonDelete.setToolTipText(bundle.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle");
+        buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text"));
+        buttonDelete.setToolTipText(bundle.getString("SystemOutputPanel.buttonDelete.toolTipText"));
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }
         });
 
-        buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
-        buttonCopyToClipboard.setToolTipText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
+        buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text"));
+        buttonCopyToClipboard.setToolTipText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText"));
         buttonCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopyToClipboardActionPerformed(evt);

@@ -37,14 +37,14 @@ public final class MessageDisplayer {
 
     static {
         defaultTitleOfMessageType.put(JOptionPane.ERROR_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage")); // NOI18N
+                Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage"));
         defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage")); // NOI18N
+                Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage"));
         defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE,
                 Bundle.getString(
-                "MessageDisplayer.DefaultTitle.Info")); // NOI18N
+                "MessageDisplayer.DefaultTitle.Info"));
         defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage")); // NOI18N
+                Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage"));
     }
 
     /**
@@ -213,11 +213,11 @@ public final class MessageDisplayer {
 
     private static String getTitle(String propertyKey, int messageType) {
         assert defaultTitleOfMessageType.containsKey(messageType) :
-                "Message type " + messageType + " is not in " + // NOI18N
+                "Message type " + messageType + " is not in " +
                 defaultTitleOfMessageType.keySet();
-        String titlePropertyKey = propertyKey + ".Title"; // NOI18N
+        String titlePropertyKey = propertyKey + ".Title";
         return Bundle.containsKey(titlePropertyKey)
-                ? Bundle.getString(titlePropertyKey) // NOI18N
+                ? Bundle.getString(titlePropertyKey)
                 : defaultTitleOfMessageType.get(messageType);
     }
 

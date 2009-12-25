@@ -121,13 +121,13 @@ public final class ProgramInputParametersDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("ProgramInputParametersDialog.title")); // NOI18N
+        setTitle(Bundle.getString("ProgramInputParametersDialog.title"));
 
-        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
+        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramInputParametersDialog.panelContext.border.title")));
 
-        labelContextProgramPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
+        labelContextProgramPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text"));
 
-        labelContextFilePrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
+        labelContextFilePrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text"));
 
         javax.swing.GroupLayout panelContextLayout = new javax.swing.GroupLayout(panelContext);
         panelContext.setLayout(panelContextLayout);
@@ -161,7 +161,7 @@ public final class ProgramInputParametersDialog extends Dialog {
 
         panelContextLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelContextFile, labelContextFilePrompt});
 
-        labelPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelPrompt.text"));
 
         textAreaParameter.setColumns(20);
         textAreaParameter.setRows(2);
@@ -170,14 +170,14 @@ public final class ProgramInputParametersDialog extends Dialog {
         buttonGroup.add(radioButtonParametersBeforeFilename);
         radioButtonParametersBeforeFilename.setMnemonic('v');
         radioButtonParametersBeforeFilename.setSelected(true);
-        radioButtonParametersBeforeFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
+        radioButtonParametersBeforeFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text"));
 
         buttonGroup.add(radioButtonParametersAfterFilename);
         radioButtonParametersAfterFilename.setMnemonic('n');
-        radioButtonParametersAfterFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
+        radioButtonParametersAfterFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text"));
 
         buttonCancel.setMnemonic('a');
-        buttonCancel.setText(Bundle.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString("ProgramInputParametersDialog.buttonCancel.text"));
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -185,7 +185,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         });
 
         buttonOk.setMnemonic('o');
-        buttonOk.setText(Bundle.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString("ProgramInputParametersDialog.buttonOk.text"));
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);

@@ -45,8 +45,8 @@ final class UpdateTablesRenameColumns {
 
     static {
         COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(
-                new ColumnInfo("programs", "parameters", null, null), // NOI18N
-                new ColumnInfo(null, "parameters_before_filename", null, null))); // NOI18N
+                new ColumnInfo("programs", "parameters", null, null),
+                new ColumnInfo(null, "parameters_before_filename", null, null)));
     }
 
     void update(Connection connection) throws SQLException {
@@ -71,7 +71,7 @@ final class UpdateTablesRenameColumns {
     private void renameColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
         messages.message(Bundle.getString(
-                "UpdateTableRenameColumns.Info.update")); // NOI18N
+                "UpdateTableRenameColumns.Info.update"));
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
@@ -83,17 +83,17 @@ final class UpdateTablesRenameColumns {
         setMessage(info.getFirst().getTableName(),
                 info.getFirst().getColumnName());
         Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE " + // NOI18N
+        stmt.execute("ALTER TABLE " +
                 info.getFirst().getTableName() +
-                " ALTER COLUMN " + // NOI18N
-                info.getFirst().getColumnName() + // NOI18N
-                " RENAME TO " + // NOI18N
+                " ALTER COLUMN " +
+                info.getFirst().getColumnName() +
+                " RENAME TO " +
                 info.getSecond().getColumnName());
     }
 
     private void setMessage(String tableName, String columnName) {
         messages.message(Bundle.getString(
-                "UpdateTableRenameColumns.Info.RenameColumn", // NOI18N
+                "UpdateTableRenameColumns.Info.RenameColumn",
                 tableName, columnName));
     }
 }

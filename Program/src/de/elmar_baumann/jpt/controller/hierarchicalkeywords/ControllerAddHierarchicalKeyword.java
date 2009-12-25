@@ -77,7 +77,7 @@ public class ControllerAddHierarchicalKeyword
                 null, parentKeyword == null
                       ? null
                       : parentKeyword.getId(),
-                Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"), // NOI18N
+                Bundle.getString("ControllerAddHierarchicalKeyword.DefaultName"),
                 true);
         JTree tree = getHKPanel().getTree();
         String name = ControllerRenameHierarchicalKeyword.getName(
@@ -89,7 +89,7 @@ public class ControllerAddHierarchicalKeyword
                 HierarchicalKeywordsTreePathExpander.expand(parentNode);
             } else {
                 AppLog.logWarning(ControllerAddHierarchicalKeyword.class,
-                        "ControllerAddHierarchicalKeyword.Error.Model"); // NOI18N
+                        "ControllerAddHierarchicalKeyword.Error.Model");
             }
         }
     }

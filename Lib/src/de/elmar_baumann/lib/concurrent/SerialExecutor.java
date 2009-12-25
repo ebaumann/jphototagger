@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 public final class SerialExecutor implements Executor {
 
     private final Queue<Exec> runnables = new ArrayDeque<Exec>();
-    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel"; // NOI18N
+    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
     private final Executor executor;
     private Exec active;
 
@@ -67,7 +67,7 @@ public final class SerialExecutor implements Executor {
                         ALT_METHOD_NAME_INTERRUPT);
                 methodCancel.invoke(active.r);
             } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex); // NOI18N
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex);
             }
         }
         if (methodCancel == null && active.r instanceof Thread) {

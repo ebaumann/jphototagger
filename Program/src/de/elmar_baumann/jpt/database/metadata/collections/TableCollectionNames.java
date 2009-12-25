@@ -31,7 +31,7 @@ public final class TableCollectionNames extends Table {
     public static final TableCollectionNames INSTANCE = new TableCollectionNames();
 
     private TableCollectionNames() {
-        super("collection_names"); // NOI18N
+        super("collection_names");
     }
 
     @Override

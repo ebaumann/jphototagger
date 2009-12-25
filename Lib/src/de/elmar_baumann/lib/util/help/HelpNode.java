@@ -56,7 +56,7 @@ public final class HelpNode {
      */
     public void setTitle(String title) {
         if (title == null)
-            throw new NullPointerException("title == null"); // NOI18N
+            throw new NullPointerException("title == null"); //
 
         this.title = title;
     }
@@ -68,7 +68,7 @@ public final class HelpNode {
      */
     public void addPage(HelpPage page) {
         if (page == null)
-            throw new NullPointerException("page == null"); // NOI18N
+            throw new NullPointerException("page == null"); //
 
         page.setParent(this);
         children.add(page);
@@ -81,7 +81,7 @@ public final class HelpNode {
      */
     public void addNode(HelpNode chapter) {
         if (chapter == null)
-            throw new NullPointerException("chapter == null"); // NOI18N
+            throw new NullPointerException("chapter == null"); //
 
         chapter.parent = this;
         children.add(chapter);
@@ -107,7 +107,7 @@ public final class HelpNode {
      */
     public Object getChild(int index) {
         if (index < 0)
-            throw new IndexOutOfBoundsException("index < 0: " + index); // NOI18N
+            throw new IndexOutOfBoundsException("index < 0: " + index); //
 
         return children.get(index);
     }
@@ -120,7 +120,7 @@ public final class HelpNode {
      */
     public int getIndexOfChild(Object child) {
         if (child == null)
-            throw new NullPointerException("child == null"); // NOI18N
+            throw new NullPointerException("child == null"); //
 
         return children.indexOf(child);
     }
@@ -142,7 +142,7 @@ public final class HelpNode {
      */
     public Object[] getPagePath(String url) {
         if (url == null)
-            throw new NullPointerException("url == null"); // NOI18N
+            throw new NullPointerException("url == null"); //
 
         List<Object> found = new ArrayList<Object>();
         findPath(url, found);
@@ -151,9 +151,9 @@ public final class HelpNode {
 
     private void findPath(String url, List<Object> found) {
         if (url == null)
-            throw new NullPointerException("url == null"); // NOI18N
+            throw new NullPointerException("url == null"); //
         if (found == null)
-            throw new NullPointerException("found == null"); // NOI18N
+            throw new NullPointerException("found == null"); //
 
         int size = children.size();
         for (int i = 0; found.size() <= 0 && i < size; i++) {
@@ -171,7 +171,7 @@ public final class HelpNode {
 
     private Stack<Object> getPagePath(HelpPage helpPage) {
         if (helpPage == null)
-            throw new NullPointerException("helpPage == null"); // NOI18N
+            throw new NullPointerException("helpPage == null"); //
 
         Stack<Object> path = new Stack<Object>();
         path.push(helpPage);

@@ -69,7 +69,7 @@ public class ControllerRenameHierarchicalKeyword
             renameKeyword(node, (HierarchicalKeyword) userObject);
         } else {
             MessageDisplayer.error(getHKPanel().getTree(),
-                    "ControllerRenameHierarchicalKeyword.Error.Node", node); // NOI18N
+                    "ControllerRenameHierarchicalKeyword.Error.Node", node);
         }
     }
 
@@ -85,7 +85,7 @@ public class ControllerRenameHierarchicalKeyword
             }
         } else {
             AppLog.logWarning(ControllerRenameHierarchicalKeyword.class,
-                    "ControllerRenameHierarchicalKeyword.Error.Model"); // NOI18N
+                    "ControllerRenameHierarchicalKeyword.Error.Model");
         }
     }
 
@@ -99,7 +99,7 @@ public class ControllerRenameHierarchicalKeyword
         boolean confirmed = true;
         while (newName == null && confirmed) {
             newName = JOptionPane.showInputDialog(null, Bundle.getString(
-                    "ControllerRenameHierarchicalKeyword.Input.Name", oldName), // NOI18N
+                    "ControllerRenameHierarchicalKeyword.Input.Name", oldName),
                     oldName);
             confirmed = newName != null;
             if (newName != null && !newName.trim().isEmpty()) {
@@ -108,7 +108,7 @@ public class ControllerRenameHierarchicalKeyword
                 if (database.parentHasChild(s)) {
                     newName = null;
                     confirmed = MessageDisplayer.confirm(tree,
-                            "ControllerRenameHierarchicalKeyword.Confirm.Exists", // NOI18N
+                            "ControllerRenameHierarchicalKeyword.Confirm.Exists",
                             MessageDisplayer.CancelButton.HIDE, s).equals(
                             MessageDisplayer.ConfirmAction.YES);
                 }

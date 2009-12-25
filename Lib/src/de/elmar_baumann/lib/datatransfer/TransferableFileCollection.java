@@ -42,8 +42,8 @@ public final class TransferableFileCollection implements Transferable {
     private static final DataFlavor URI_LIST_FLAVOR =
             TransferUtil.getUriListFlavor();
     private static final DataFlavor[] FLAVORS;
-    private static final String FILE_PROTOCOL = "file://"; // NOI18N
-    private static final String TOKEN_DELIMITER = "\r\n"; // NOI18N
+    private static final String FILE_PROTOCOL = "file://";
+    private static final String TOKEN_DELIMITER = "\r\n";
     private final Collection<File> files;
     private String fileUris;
 

@@ -34,7 +34,7 @@ import javax.swing.JList;
  */
 public final class ListCellRendererSavedSearches extends DefaultListCellRenderer {
 
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_search.png"); // NOI18N
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_search.png");
     private int popupHighLightRow = -1;
 
     @Override

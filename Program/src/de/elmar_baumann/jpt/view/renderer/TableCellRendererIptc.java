@@ -38,7 +38,7 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata
         implements TableCellRenderer {
 
     private static final Translation TRANSLATION =
-            new Translation("IptcRecordDataSetNumberTranslations"); // NOI18N
+            new Translation("IptcRecordDataSetNumberTranslations");
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -50,7 +50,7 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata
         setDefaultCellColors(cellLabel, isSelected);
 
         String number =
-                Integer.toString(iptcEntry.getRecordNumber()) + ":" + // NOI18N
+                Integer.toString(iptcEntry.getRecordNumber()) + ":" +
                 Integer.toString(iptcEntry.getDataSetNumber());
         if (column == 0) {
             setContentFont(cellLabel);

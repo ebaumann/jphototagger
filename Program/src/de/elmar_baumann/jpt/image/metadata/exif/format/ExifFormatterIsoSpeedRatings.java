@@ -32,7 +32,7 @@ public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
 
     public static final ExifFormatterIsoSpeedRatings INSTANCE =
             new ExifFormatterIsoSpeedRatings();
-    private static final String postfix = " ISO"; // NOI18N
+    private static final String postfix = " ISO";
 
     private ExifFormatterIsoSpeedRatings() {
     }
@@ -40,12 +40,12 @@ public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.ISO_SPEED_RATINGS.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
             return Integer.toString(es.getValue()) + postfix;
         }
-        return "?" + postfix; // NOI18N
+        return "?" + postfix;
     }
 }

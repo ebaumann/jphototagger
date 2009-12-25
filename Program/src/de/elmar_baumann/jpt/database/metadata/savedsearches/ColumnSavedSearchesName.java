@@ -34,11 +34,11 @@ public final class ColumnSavedSearchesName extends Column {
     private ColumnSavedSearchesName() {
         super(
             TableSavedSearches.INSTANCE,
-            "name", // NOI18N
+            "name",
             DataType.STRING);
 
         setLength(32);
-        setDescription(Bundle.getString("ColumnSavedSearchesName.Description")); // NOI18N
+        setDescription(Bundle.getString("ColumnSavedSearchesName.Description"));
     }
 
 }

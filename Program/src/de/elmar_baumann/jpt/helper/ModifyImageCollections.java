@@ -42,7 +42,7 @@ public final class ModifyImageCollections {
      * @return          Name der Sammlung oder null, wenn keine eingefügt wurde
      */
     public static String insertImageCollection(List<String> filenames) {
-        String name = inputCollectionName(""); // NOI18N
+        String name = inputCollectionName("");
         if (name != null && !name.isEmpty()) {
             logAddImageCollection(name);
             if (!DatabaseImageCollections.INSTANCE.insertImageCollection(
@@ -64,7 +64,7 @@ public final class ModifyImageCollections {
     public static boolean deleteImagesFromCollection(String collectionName,
             List<String> filenames) {
         if (confirmDelete(
-                "ImageCollectionToDatabase.Confirm.DeleteSelectedFiles", // NOI18N
+                "ImageCollectionToDatabase.Confirm.DeleteSelectedFiles",
                 collectionName)) {
             boolean removed = DatabaseImageCollections.INSTANCE.
                     deleteImagesFromCollection(collectionName, filenames) ==
@@ -86,7 +86,7 @@ public final class ModifyImageCollections {
     public static boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
         if (confirmDelete(
-                "ImageCollectionToDatabase.Confirm.DeleteCollection", // NOI18N
+                "ImageCollectionToDatabase.Confirm.DeleteCollection",
                 collectionName)) {
             deleted = DatabaseImageCollections.INSTANCE.deleteImageCollection(
                     collectionName);
@@ -154,34 +154,34 @@ public final class ModifyImageCollections {
         if (isValidName(name)) return true;
         MessageDisplayer.error(
                 GUI.INSTANCE.getAppPanel().getListImageCollections(),
-                "ImageCollectionDatabaseUtils.Error.InvalidName", // NOI18N
+                "ImageCollectionDatabaseUtils.Error.InvalidName",
                 name);
         return false;
     }
 
     private static void logAddImageCollection(String name) {
         AppLog.logInfo(ModifyImageCollections.class,
-                "ImageCollectionToDatabase.Info.StartInsert", name); // NOI18N
+                "ImageCollectionToDatabase.Info.StartInsert", name);
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
         MessageDisplayer.error(
                 GUI.INSTANCE.getAppPanel().getListImageCollections(),
-                "ImageCollectionToDatabase.Error.AddImagesToCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.AddImagesToCollection",
                 collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
         MessageDisplayer.error(
                 GUI.INSTANCE.getAppPanel().getListImageCollections(),
-                "ImageCollectionToDatabase.Error.AddImageCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.AddImageCollection",
                 collectionName);
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
         MessageDisplayer.error(
                 GUI.INSTANCE.getAppPanel().getListImageCollections(),
-                "ImageCollectionToDatabase.Error.DeleteImageCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.DeleteImageCollection",
                 collectionName);
     }
 
@@ -189,14 +189,14 @@ public final class ModifyImageCollections {
             String collectionName) {
         MessageDisplayer.error(
                 GUI.INSTANCE.getAppPanel().getListImageCollections(),
-                "ImageCollectionToDatabase.Error.DeleteImagesFromCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.DeleteImagesFromCollection",
                 collectionName);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
         MessageDisplayer.error(
                 GUI.INSTANCE.getAppPanel().getListImageCollections(),
-                "ImageCollectionToDatabase.Error.RenameImageCollection", // NOI18N
+                "ImageCollectionToDatabase.Error.RenameImageCollection",
                 collectionName);
     }
 
@@ -217,7 +217,7 @@ public final class ModifyImageCollections {
                     !checkIsValidName(name)) {
                 willAdd = MessageDisplayer.confirm(
                         GUI.INSTANCE.getAppPanel().getListImageCollections(),
-                        "ImageCollectionToDatabase.Confirm.InputNewCollectionName", // NOI18N
+                        "ImageCollectionToDatabase.Confirm.InputNewCollectionName",
                         MessageDisplayer.CancelButton.HIDE, name).equals(
                         MessageDisplayer.ConfirmAction.YES);
                 name = null;
@@ -233,7 +233,7 @@ public final class ModifyImageCollections {
         String name = JOptionPane.showInputDialog(
                 null,
                 Bundle.getString(
-                "ImageCollectionToDatabase.Input.CollectionName"), // NOI18N
+                "ImageCollectionToDatabase.Input.CollectionName"),
                 defaultName);
         if (name != null) {
             name = name.trim();

@@ -44,7 +44,7 @@ public final class Util {
             Collection<Pair<? extends A, ? extends B>> pairs) {
 
         if (pairs == null)
-            throw new NullPointerException("pairs == null"); // NOI18N
+            throw new NullPointerException("pairs == null");
 
         List<A> list = new ArrayList<A>(pairs.size());
         for (Pair<? extends A, ? extends B> pair : pairs) {
@@ -67,7 +67,7 @@ public final class Util {
             Collection<Pair<? extends A, ? extends B>> pairs) {
 
         if (pairs == null)
-            throw new NullPointerException("pairs == null"); // NOI18N
+            throw new NullPointerException("pairs == null");
 
         List<B> list = new ArrayList<B>(pairs.size());
         for (Pair<? extends A, ? extends B> pair : pairs) {

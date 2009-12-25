@@ -48,12 +48,12 @@ public final class FormatterFactory {
             integerFormat.setGroupingUsed(false);
             NumberFormatter integerFormatter = new NumberFormatter(integerFormat);
             integerFormatter.setAllowsInvalid(false);
-            MaskFormatter doubleFormatter = new MaskFormatter("####.##"); // NOI18N
+            MaskFormatter doubleFormatter = new MaskFormatter("####.##");
             doubleFormatter.setAllowsInvalid(false);
 
             integerFormatterFactory = new DefaultFormatterFactory(integerFormatter);
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
-            dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##")); // NOI18N
+            dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
         } catch (ParseException ex) {
             AppLog.logSevere(FormatterFactory.class, ex);
         }

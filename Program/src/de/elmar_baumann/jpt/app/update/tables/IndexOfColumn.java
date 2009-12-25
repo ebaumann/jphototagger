@@ -39,9 +39,9 @@ public final class IndexOfColumn {
     }
 
     String getSql() {
-        return "CREATE" + // NOI18N
-            (unique ? " UNIQUE INDEX " : " INDEX ") + // NOI18N
-            indexName + " ON " + tableName + // NOI18N
-            " (" + columnName + ")"; // NOI18N
+        return "CREATE" +
+            (unique ? " UNIQUE INDEX " : " INDEX ") +
+            indexName + " ON " + tableName +
+            " (" + columnName + ")";
     }
 }

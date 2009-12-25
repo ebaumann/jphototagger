@@ -49,13 +49,13 @@ final class HierarchicalKeywordsImporterLightroom
 
     public static final HierarchicalKeywordsImporterLightroom INSTANCE =
             new HierarchicalKeywordsImporterLightroom();
-    private static final Icon icon = AppLookAndFeel.getIcon("icon_lightroom.png"); // NOI18N
+    private static final Icon icon = AppLookAndFeel.getIcon("icon_lightroom.png");
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
      */
-    private static final String SYNONYM_START_CHAR = "{"; // NOI18N
-    private static final String ONE_LEVEL_INDENT_CHILD = "\t"; // NOI18N
+    private static final String SYNONYM_START_CHAR = "{";
+    private static final String ONE_LEVEL_INDENT_CHILD = "\t";
     private final Node root = new Node(null, -1, "ROOT");
 
     @Override
@@ -126,8 +126,8 @@ final class HierarchicalKeywordsImporterLightroom
     }
 
     private String removeBrackets(String line) {
-        boolean hasStartBracket = line.startsWith("["); // NOI18N
-        boolean hasEndBracket = line.endsWith("]"); // NOI18N
+        boolean hasStartBracket = line.startsWith("[");
+        boolean hasEndBracket = line.endsWith("]");
         // proably more efficient than calculating start and end index and
         // returning a substring in one call
         return hasStartBracket && hasEndBracket
@@ -163,7 +163,7 @@ final class HierarchicalKeywordsImporterLightroom
     @Override
     public String getDescription() {
         return Bundle.getString(
-                "HierarchicalKeywordsImporterLightroom.Description"); // NOI18N
+                "HierarchicalKeywordsImporterLightroom.Description");
     }
 
     @Override

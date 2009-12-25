@@ -42,14 +42,14 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.FOCAL_LENGTH.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifRational.isRawValueByteCountOk(entry.getRawValue())) {
             ExifRational er = new ExifRational(entry.getRawValue(), entry.
                     getByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
-            df.applyPattern("#.# mm"); // NOI18N
+            df.applyPattern("#.# mm");
             return df.format(ExifDatatypeUtil.toDouble(er));
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

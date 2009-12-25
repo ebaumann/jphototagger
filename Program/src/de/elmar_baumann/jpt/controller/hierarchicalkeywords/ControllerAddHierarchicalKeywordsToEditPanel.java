@@ -82,11 +82,11 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
                 }
             } else {
                 MessageDisplayer.error(getHKPanel().getTree(),
-                        "ControllerAddHierarchicalKeywordsToEditPanel.Error.EditDisabled"); // NOI18N
+                        "ControllerAddHierarchicalKeywordsToEditPanel.Error.EditDisabled");
             }
         } else {
             MessageDisplayer.error(getHKPanel().getTree(),
-                    "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoEditPanel"); // NOI18N
+                    "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoEditPanel");
         }
     }
 
@@ -106,7 +106,7 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
             return;
         }
         assert parent instanceof DefaultMutableTreeNode :
-                "Not a DefaultMutableTreeNode: " + parent; // NOI18N
+                "Not a DefaultMutableTreeNode: " + parent;
         if (parent instanceof DefaultMutableTreeNode) {
             addParentKeywords((DefaultMutableTreeNode) parent, keywords);
         }

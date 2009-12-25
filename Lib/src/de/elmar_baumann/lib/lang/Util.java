@@ -59,17 +59,17 @@ public final class Util {
      */
     public static void dumpBits(byte[] b, PrintStream out) {
         if (b == null)
-            throw new NullPointerException("b == null"); // NOI18N
+            throw new NullPointerException("b == null");
         if (out == null)
-            throw new NullPointerException("out == null"); // NOI18N
+            throw new NullPointerException("out == null");
 
         out.println();
         for (int i = 0; i < b.length; i++) {
             boolean[] bits = Util.getBits(b[i]);
             for (int j = bits.length - 1; j >= 0; j--) {
-                out.print(bits[j] ? "1" : "0"); // NOI18N
+                out.print(bits[j] ? "1" : "0");
             }
-            out.print(" "); // NOI18N
+            out.print(" ");
         }
     }
 

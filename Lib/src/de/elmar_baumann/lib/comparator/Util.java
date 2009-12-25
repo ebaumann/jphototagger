@@ -47,11 +47,11 @@ final class Util {
 
     private static String filenameSuffix(File file) {
         String suffix      = file.getName();
-        int    indexPeriod = suffix.lastIndexOf("."); // NOI18N
+        int    indexPeriod = suffix.lastIndexOf(".");
 
         return indexPeriod >= 0 && indexPeriod < suffix.length() - 1
             ? suffix.substring(indexPeriod + 1)
-            : ""; // NOI18N
+            : "";
     }
 
     private Util() {

@@ -95,7 +95,7 @@ public final class ControllerDeleteFavorite
 
     private boolean confirmDelete(String favoriteName) {
         return MessageDisplayer.confirm(tree,
-                "ControllerDeleteFavorite.Confirm.Delete", // NOI18N
+                "ControllerDeleteFavorite.Confirm.Delete",
                 CancelButton.SHOW, favoriteName).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }

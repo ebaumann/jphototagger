@@ -35,9 +35,9 @@ public final class ColumnFilesLastModified extends Column {
     private ColumnFilesLastModified() {
         super(
             TableFiles.INSTANCE,
-            "lastmodified", // NOI18N
+            "lastmodified",
             DataType.DATE);
 
-        setDescription(Bundle.getString("ColumnFilesLastModified.Description")); // NOI18N
+        setDescription(Bundle.getString("ColumnFilesLastModified.Description"));
     }
 }

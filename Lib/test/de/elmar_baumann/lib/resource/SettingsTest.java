@@ -31,12 +31,12 @@ public class SettingsTest {
      */
     @Test
     public void testGetIconImagesPaths() {
-        System.out.println("getIconImagesPaths"); // NOI18N
+        System.out.println("getIconImagesPaths");
 
         List<String> expResult = new ArrayList<String>();
         List<String> result = Resources.INSTANCE.getFramesIconImagesPaths();
 
-        expResult.add("/de/x/y/z.png"); // NOI18N
+        expResult.add("/de/x/y/z.png");
         Resources.INSTANCE.setFramesIconImagesPath(expResult);
         result = Resources.INSTANCE.getFramesIconImagesPaths();
         assertArrayEquals(expResult.toArray(), result.toArray());
@@ -48,7 +48,7 @@ public class SettingsTest {
      */
     @Test
     public void testSetIconImagesPath() {
-        System.out.println("setIconImagesPath"); // NOI18N
+        System.out.println("setIconImagesPath");
 
         List<String> expResult = new ArrayList<String>();
         List<String> result = Resources.INSTANCE.getFramesIconImagesPaths();
@@ -58,7 +58,7 @@ public class SettingsTest {
         assertArrayEquals(expResult.toArray(), result.toArray());
         assertEquals(result.size(), 0);
 
-        expResult.add("/de/x/y/z.png"); // NOI18N
+        expResult.add("/de/x/y/z.png");
         Resources.INSTANCE.setFramesIconImagesPath(expResult);
         result = Resources.INSTANCE.getFramesIconImagesPaths();
         assertArrayEquals(expResult.toArray(), result.toArray());
@@ -70,14 +70,14 @@ public class SettingsTest {
      */
     @Test
     public void testHasIconImages() {
-        System.out.println("hasIconImages"); // NOI18N
+        System.out.println("hasIconImages");
 
         List<String> paths = new ArrayList<String>();
 
         Resources.INSTANCE.setFramesIconImagesPath(paths);
         assertFalse(Resources.INSTANCE.hasFrameIconImages());
 
-        paths.add("/de/x/y/z.png"); // NOI18N
+        paths.add("/de/x/y/z.png");
         Resources.INSTANCE.setFramesIconImagesPath(paths);
         assertTrue(Resources.INSTANCE.hasFrameIconImages());
     }

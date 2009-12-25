@@ -33,7 +33,7 @@ import java.util.List;
 public final class Program {
 
     private long id = Long.MIN_VALUE;
-    private static final String EMPTY = ""; // NOI18N
+    private static final String EMPTY = "";
     private boolean action = false;
     private File file;
     private String alias;

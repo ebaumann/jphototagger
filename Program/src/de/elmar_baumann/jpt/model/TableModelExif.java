@@ -54,15 +54,15 @@ public final class TableModelExif extends DefaultTableModel {
     private ExifGpsMetadata gps;
     private List<IdfEntryProxy> allEntries;
     private static final Translation TRANSLATION = new Translation(
-            "ExifTagIdTagNameTranslations"); // NOI18N
+            "ExifTagIdTagNameTranslations");
 
     public TableModelExif() {
         setRowHeaders();
     }
 
     private void setRowHeaders() {
-        addColumn(Bundle.getString("TableModelExif.HeaderColumn.1")); // NOI18N
-        addColumn(Bundle.getString("TableModelExif.HeaderColumn.2")); // NOI18N
+        addColumn(Bundle.getString("TableModelExif.HeaderColumn.1"));
+        addColumn(Bundle.getString("TableModelExif.HeaderColumn.2"));
     }
 
     /**
@@ -136,7 +136,7 @@ public final class TableModelExif extends DefaultTableModel {
         }
         if (gps.getLongitude() != null && gps.getLatitude() != null) {
             JButton button = new JButton(
-                    Bundle.getString("TableModelExif.Button.GoogleMaps")); // NOI18N
+                    Bundle.getString("TableModelExif.Button.GoogleMaps"));
             button.addActionListener(new GpsListener());
             super.addRow(new Object[]{gps, button});
         }
@@ -169,7 +169,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private boolean checkWebBrowser(String webBrowser) {
             if (webBrowser.length() <= 0) {
-                MessageDisplayer.error(null, "TableModelExif.Error.WebBrowser"); // NOI18N
+                MessageDisplayer.error(null, "TableModelExif.Error.WebBrowser");
                 setWebBrowser();
                 return false;
             }
@@ -190,7 +190,7 @@ public final class TableModelExif extends DefaultTableModel {
             if (gps != null) {
                 String url = ExifGpsUtil.getGoogleMapsUrl(gps.getLongitude(),
                         gps.getLatitude());
-                String cmd = "\"" + webBrowser + "\" \"" + url + "\""; // NOI18N
+                String cmd = "\"" + webBrowser + "\" \"" + url + "\"";
                 logExternalAppCommand(cmd);
                 External.execute(cmd);
             }
@@ -198,7 +198,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private void logExternalAppCommand(String cmd) {
             AppLog.logFinest(GpsListener.class,
-                    "TableModelExif.ExternalAppCommand", cmd); // NOI18N
+                    "TableModelExif.ExternalAppCommand", cmd);
         }
     }
 }

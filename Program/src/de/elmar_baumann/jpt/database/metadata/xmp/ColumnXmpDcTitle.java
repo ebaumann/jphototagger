@@ -35,11 +35,11 @@ public final class ColumnXmpDcTitle extends Column {
     private ColumnXmpDcTitle() {
         super(
             TableXmp.INSTANCE,
-            "dc_title", // NOI18N
+            "dc_title",
             DataType.STRING);
 
         setLength(64);
-        setDescription(Bundle.getString("ColumnXmpDcTitle.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpDcTitle.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpDcTitle.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpDcTitle.LongerDescription"));
     }
 }

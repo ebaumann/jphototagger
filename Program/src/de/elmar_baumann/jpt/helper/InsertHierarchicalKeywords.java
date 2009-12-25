@@ -40,7 +40,7 @@ public final class InsertHierarchicalKeywords extends Thread {
 
     public InsertHierarchicalKeywords(List<String> keywords) {
         this.keywords = new ArrayList<String>(keywords);
-        setName("Inserting string list into hierarchical keywords @ " + // NOI18N
+        setName("Inserting string list into hierarchical keywords @ " +
                 getClass().getName());
     }
 
@@ -53,7 +53,7 @@ public final class InsertHierarchicalKeywords extends Thread {
         TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().
                 getModel();
         assert tm instanceof TreeModelHierarchicalKeywords :
-                "Invalid model: " + tm; // NOI18N
+                "Invalid model: " + tm;
         if (tm instanceof TreeModelHierarchicalKeywords) {
             TreeModelHierarchicalKeywords model =
                     (TreeModelHierarchicalKeywords) tm;

@@ -38,15 +38,15 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
             new HashMap<Integer, String>();
 
     static {
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(0, "ExposureProgramUnkonwn"); // NOI18N
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(1, "ExposureProgramManual"); // NOI18N
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(2, "ExposureProgramNormalProgram"); // NOI18N
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(3, "ExposureProgramAperturePriority"); // NOI18N
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(4, "ExposureProgramTimePriority"); // NOI18N
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(5, "ExposureProgramCreativ"); // NOI18N
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(6, "ExposureProgramAction"); // NOI18N
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(7, "ExposureProgramPortrait"); // NOI18N
-        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(8, "ExposureProgramLandscape"); // NOI18N
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(0, "ExposureProgramUnkonwn");
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(1, "ExposureProgramManual");
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(2, "ExposureProgramNormalProgram");
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(3, "ExposureProgramAperturePriority");
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(4, "ExposureProgramTimePriority");
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(5, "ExposureProgramCreativ");
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(6, "ExposureProgramAction");
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(7, "ExposureProgramPortrait");
+        EXIF_KEY_OF_EXPOSURE_PROGRAM.put(8, "ExposureProgramLandscape");
     }
 
     private ExifFormatterExposureProgram() {
@@ -55,7 +55,7 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.EXPOSURE_PROGRAM.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
@@ -65,6 +65,6 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
                         value));
             }
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

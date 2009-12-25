@@ -49,7 +49,7 @@ public final class RenameXmpMetadataDialog extends Dialog {
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
         setModel();
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); //
         registerKeyStrokes();
     }
 
@@ -117,12 +117,12 @@ public final class RenameXmpMetadataDialog extends Dialog {
 
     private void oldStringIsEmptyErrorMessage() {
         MessageDisplayer.error(this,
-                "RenameXmpMetadataDialog.Error.MissingReplaceString"); // NOI18N
+                "RenameXmpMetadataDialog.Error.MissingReplaceString"); //
     }
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.RenameXmpMetadataDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.RenameXmpMetadataDialog")); //
     }
 
     @Override
@@ -148,16 +148,16 @@ public final class RenameXmpMetadataDialog extends Dialog {
         buttonReplace = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("RenameXmpMetadataDialog.title")); // NOI18N
+        setTitle(Bundle.getString("RenameXmpMetadataDialog.title")); //
 
-        labelReplaceIn.setText(Bundle.getString("RenameXmpMetadataDialog.labelReplaceIn.text")); // NOI18N
+        labelReplaceIn.setText(Bundle.getString("RenameXmpMetadataDialog.labelReplaceIn.text")); //
 
-        labelOldString.setText(Bundle.getString("RenameXmpMetadataDialog.labelOldString.text")); // NOI18N
+        labelOldString.setText(Bundle.getString("RenameXmpMetadataDialog.labelOldString.text")); //
 
-        labelNewString.setText(Bundle.getString("RenameXmpMetadataDialog.labelNewString.text")); // NOI18N
+        labelNewString.setText(Bundle.getString("RenameXmpMetadataDialog.labelNewString.text")); //
 
         buttonCancel.setMnemonic('a');
-        buttonCancel.setText(Bundle.getString("RenameXmpMetadataDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString("RenameXmpMetadataDialog.buttonCancel.text")); //
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -165,7 +165,7 @@ public final class RenameXmpMetadataDialog extends Dialog {
         });
 
         buttonReplace.setMnemonic('r');
-        buttonReplace.setText(Bundle.getString("RenameXmpMetadataDialog.buttonReplace.text")); // NOI18N
+        buttonReplace.setText(Bundle.getString("RenameXmpMetadataDialog.buttonReplace.text")); //
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonReplaceActionPerformed(evt);

@@ -35,10 +35,10 @@ public final class ColumnFilesFilename extends Column {
     private ColumnFilesFilename() {
         super(
             TableFiles.INSTANCE,
-            "filename", // NOI18N
+            "filename",
             DataType.STRING);
 
         setLength(512);
-        setDescription(Bundle.getString("ColumnFilesFilename.Description")); // NOI18N
+        setDescription(Bundle.getString("ColumnFilesFilename.Description"));
     }
 }

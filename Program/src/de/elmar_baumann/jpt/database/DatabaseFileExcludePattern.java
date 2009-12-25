@@ -59,7 +59,7 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO file_exclude_pattern (pattern) VALUES (?)"); // NOI18N
+                    "INSERT INTO file_exclude_pattern (pattern) VALUES (?)");
             stmt.setString(1, pattern);
             logFiner(stmt);
             int count = stmt.executeUpdate();
@@ -87,7 +87,7 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
+                    "DELETE FROM file_exclude_pattern WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFiner(stmt);
             int count = stmt.executeUpdate();
@@ -115,7 +115,7 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             PreparedStatement stmt =
                     connection.prepareStatement(
-                    "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?"); // NOI18N
+                    "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -143,9 +143,9 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql =
-                    "SELECT pattern" + // NOI18N
-                    " FROM file_exclude_pattern" + // NOI18N
-                    " ORDER BY pattern ASC"; // NOI18N
+                    "SELECT pattern" +
+                    " FROM file_exclude_pattern" +
+                    " ORDER BY pattern ASC";
             logFinest(sql);
             ResultSet rs =
                     stmt.executeQuery(sql);
@@ -178,10 +178,10 @@ public final class DatabaseFileExcludePattern extends Database {
             connection.setAutoCommit(false);
             List<String> deletedFiles = new LinkedList<String>();
             Statement stmtQuery = connection.createStatement();
-            String sqlUpdate = "DELETE FROM files WHERE filename = ?"; // NOI18N
+            String sqlUpdate = "DELETE FROM files WHERE filename = ?";
             PreparedStatement stmtUpdate =
                     connection.prepareStatement(sqlUpdate);
-            String sqlQuery = "SELECT filename FROM files"; // NOI18N
+            String sqlQuery = "SELECT filename FROM files";
             logFinest(sqlQuery);
             ResultSet rs = stmtQuery.executeQuery(sqlQuery);
             int patternCount = patterns.size();

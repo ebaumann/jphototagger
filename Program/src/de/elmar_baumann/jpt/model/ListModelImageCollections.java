@@ -61,7 +61,7 @@ public final class ListModelImageCollections extends DefaultListModel {
 
     public void rename(String oldName, String newName) {
         if (!checkIsNotSpecialCollection(newName,
-                "ListModelImageCollections.Error.RenameSpecialCollection")) // NOI18N
+                "ListModelImageCollections.Error.RenameSpecialCollection"))
             return;
         int index = indexOf(oldName);
         if (index >= 0) {

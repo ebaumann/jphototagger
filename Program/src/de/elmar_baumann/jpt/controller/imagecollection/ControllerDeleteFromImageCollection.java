@@ -99,7 +99,7 @@ public final class ControllerDeleteFromImageCollection
                     }
                 } else {
                     AppLog.logWarning(ControllerDeleteFromImageCollection.class,
-                            "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull"); // NOI18N
+                            "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull");
                 }
             }
         });

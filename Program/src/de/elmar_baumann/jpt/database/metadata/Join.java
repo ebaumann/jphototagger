@@ -36,8 +36,8 @@ public final class Join {
      */
     public enum Type {
 
-        INNER("INNER JOIN"), // NOI18N
-        LEFT("LEFT JOIN"); // NOI18N
+        INNER("INNER JOIN"),
+        LEFT("LEFT JOIN");
         private final String string;
 
         private Type(String string) {
@@ -61,7 +61,7 @@ public final class Join {
      * @return           JOIN-Statement
      */
     public static String getSqlFilesExifJoin(Type type, List<String> tablenames) {
-        return " files " + type.toString() + " exif on files.id = exif.id_files"; // NOI18N
+        return " files " + type.toString() + " exif on files.id = exif.id_files";
     }
 
     /**
@@ -77,13 +77,13 @@ public final class Join {
      */
     public static String getSqlFilesXmpJoin(Type typeFiles, Type typeXmp,
             List<String> tablenames) {
-        StringBuilder sb = new StringBuilder(" files " + typeFiles.toString() + // NOI18N
-                " xmp on files.id = xmp.id_files"); // NOI18N
+        StringBuilder sb = new StringBuilder(" files " + typeFiles.toString() +
+                " xmp on files.id = xmp.id_files");
 
         for (String tablename : tablenames) {
-            if (tablename.startsWith("xmp") && !tablename.equals("xmp")) { // NOI18N
-                sb.append(" " + typeXmp.toString() + " " + tablename + // NOI18N
-                        " ON xmp.id = " + tablename + ".id_xmp"); // NOI18N
+            if (tablename.startsWith("xmp") && !tablename.equals("xmp")) {
+                sb.append(" " + typeXmp.toString() + " " + tablename +
+                        " ON xmp.id = " + tablename + ".id_xmp");
             }
         }
 

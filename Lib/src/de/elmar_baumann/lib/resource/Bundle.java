@@ -38,7 +38,7 @@ public final class Bundle {
 
     private static final ResourceBundle BUNDLE =
             ResourceBundle.getBundle(
-            "de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
+            "de/elmar_baumann/lib/resource/properties/Bundle");
 
     /**
      * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>
@@ -59,7 +59,7 @@ public final class Bundle {
         } catch (Exception ex) {
             Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "?" + key + "?"; // NOI18N
+        return "?" + key + "?";
     }
 
     private Bundle() {

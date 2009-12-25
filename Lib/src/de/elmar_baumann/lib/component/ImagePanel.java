@@ -44,7 +44,7 @@ public class ImagePanel extends JPanel {
      */
     public void setImage(Image image) {
         if (image == null)
-            throw new NullPointerException("image == null"); // NOI18N
+            throw new NullPointerException("image == null");
 
         this.image = image;
     }

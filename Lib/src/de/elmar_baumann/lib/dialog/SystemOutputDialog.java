@@ -100,7 +100,7 @@ public class SystemOutputDialog extends Dialog {
         panelSystemOutput = new de.elmar_baumann.lib.component.SystemOutputPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("SystemOutputDialog.title")); // NOI18N
+        setTitle(Bundle.getString("SystemOutputDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

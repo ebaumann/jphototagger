@@ -130,10 +130,10 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
 
                 private void informationReplaced(int count) {
                     MessageDisplayer.information(null,
-                            "RenameFilenamesInDbPanel.Info.CountReplaced", count); // NOI18N
+                            "RenameFilenamesInDbPanel.Info.CountReplaced", count);
                 }
             });
-            thread.setName("Replacing filename substrings in the database @ " + // NOI18N
+            thread.setName("Replacing filename substrings in the database @ " +
                     getClass().getName());
             thread.start();
         }
@@ -149,7 +149,7 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
 
     private boolean confirmReplace() {
         return MessageDisplayer.confirm(this,
-                "RenameFilenamesInDbPanel.Confirm.Replace", // NOI18N
+                "RenameFilenamesInDbPanel.Confirm.Replace",
                 MessageDisplayer.CancelButton.HIDE, textFieldSearch.getText(),
                 textFieldReplacement.getText()).equals(
                 MessageDisplayer.ConfirmAction.YES);
@@ -186,11 +186,11 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
         buttonReplace = new javax.swing.JButton();
 
         labelTitle.setForeground(new java.awt.Color(0, 0, 255));
-        labelTitle.setText(Bundle.getString("RenameFilenamesInDbPanel.labelTitle.text")); // NOI18N
+        labelTitle.setText(Bundle.getString("RenameFilenamesInDbPanel.labelTitle.text"));
         labelTitle.setPreferredSize(new java.awt.Dimension(605, 38));
 
         labelSearch.setForeground(new java.awt.Color(0, 196, 0));
-        labelSearch.setText(Bundle.getString("RenameFilenamesInDbPanel.labelSearch.text")); // NOI18N
+        labelSearch.setText(Bundle.getString("RenameFilenamesInDbPanel.labelSearch.text"));
 
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -199,24 +199,24 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
         });
 
         labelReplacement.setForeground(new java.awt.Color(0, 196, 0));
-        labelReplacement.setText(Bundle.getString("RenameFilenamesInDbPanel.labelReplacement.text")); // NOI18N
+        labelReplacement.setText(Bundle.getString("RenameFilenamesInDbPanel.labelReplacement.text"));
 
-        panelPosition.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameFilenamesInDbPanel.panelPosition.border.title"))); // NOI18N
+        panelPosition.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameFilenamesInDbPanel.panelPosition.border.title")));
 
         buttonGroupPosition.add(radioButtonPositionBegin);
-        radioButtonPositionBegin.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionBegin.text")); // NOI18N
+        radioButtonPositionBegin.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionBegin.text"));
 
         buttonGroupPosition.add(radioButtonPositionMiddle);
-        radioButtonPositionMiddle.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionMiddle.text")); // NOI18N
+        radioButtonPositionMiddle.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionMiddle.text"));
 
         buttonGroupPosition.add(radioButtonPositionEnd);
-        radioButtonPositionEnd.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionEnd.text")); // NOI18N
+        radioButtonPositionEnd.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionEnd.text"));
 
         buttonGroupPosition.add(radioButtonPositionAnywhere);
-        radioButtonPositionAnywhere.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionAnywhere.text")); // NOI18N
+        radioButtonPositionAnywhere.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionAnywhere.text"));
 
         buttonGroupPosition.add(radioButtonExactMatch);
-        radioButtonExactMatch.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonExactMatch.text")); // NOI18N
+        radioButtonExactMatch.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonExactMatch.text"));
 
         javax.swing.GroupLayout panelPositionLayout = new javax.swing.GroupLayout(panelPosition);
         panelPosition.setLayout(panelPositionLayout);
@@ -247,7 +247,7 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
         );
 
         buttonReplace.setMnemonic('n');
-        buttonReplace.setText(Bundle.getString("RenameFilenamesInDbPanel.buttonReplace.text")); // NOI18N
+        buttonReplace.setText(Bundle.getString("RenameFilenamesInDbPanel.buttonReplace.text"));
         buttonReplace.setEnabled(false);
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

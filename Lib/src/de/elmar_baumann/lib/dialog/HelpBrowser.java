@@ -63,11 +63,11 @@ public final class HelpBrowser extends Dialog
                    TreeSelectionListener {
 
     private static final String KEY_SPLIT_PANE =
-            HelpBrowser.class.getName() + ".SplitPane"; // NOI18N
+            HelpBrowser.class.getName() + ".SplitPane";
     private static final String DISPLAY_NAME_ACTION_PREVIOUS =
-            Bundle.getString("HelpBrowser.Action.Previous"); // NOI18N
+            Bundle.getString("HelpBrowser.Action.Previous");
     private static final String DISPLAY_NAME_ACTION_NEXT =
-            Bundle.getString("HelpBrowser.Action.Next"); // NOI18N
+            Bundle.getString("HelpBrowser.Action.Next");
     private final LinkedList<URL> urlHistory = new LinkedList<URL>();
     private final List<HelpBrowserListener> helpBrowserListeners =
             new ArrayList<HelpBrowserListener>();
@@ -146,7 +146,7 @@ public final class HelpBrowser extends Dialog
      */
     public synchronized void showUrl(String url) {
         if (isVisible()) {
-            showUrl(getClass().getResource(baseUrl + "/" + url)); // NOI18N
+            showUrl(getClass().getResource(baseUrl + "/" + url));
         }
     }
 
@@ -181,7 +181,7 @@ public final class HelpBrowser extends Dialog
     }
 
     private synchronized void setBaseUrl(String url) {
-        int index = url.lastIndexOf("/"); // NOI18N
+        int index = url.lastIndexOf("/");
         baseUrl = url.substring(0, index);
     }
 
@@ -330,7 +330,7 @@ public final class HelpBrowser extends Dialog
      */
     public static String getLastPathComponent(URL url) {
         String path = url.getPath();
-        int index = path.lastIndexOf("/"); // NOI18N
+        int index = path.lastIndexOf("/");
         if (index > 0 && index < path.length() - 1) {
             return path.substring(index + 1);
         }
@@ -344,9 +344,9 @@ public final class HelpBrowser extends Dialog
             if (o instanceof HelpPage) {
                 HelpPage helpPage = (HelpPage) o;
                 String helpPageUrl = helpPage.getUrl();
-                URL url = getClass().getResource(baseUrl + "/" + helpPageUrl); // NOI18N
+                URL url = getClass().getResource(baseUrl + "/" + helpPageUrl);
                 setTitle(helpPage.getTitle() +
-                        Bundle.getString("HelpBrowser.TitlePostfix")); // NOI18N
+                        Bundle.getString("HelpBrowser.TitlePostfix"));
                 showUrl(url);
             }
         }
@@ -398,7 +398,7 @@ public final class HelpBrowser extends Dialog
     private SettingsHints getHints() {
         SettingsHints hints = new SettingsHints(EnumSet.of(
                 SettingsHints.Option.SET_TABBED_PANE_CONTENT));
-        hints.addExclude(getClass().getName() + ".tree"); // NOI18N
+        hints.addExclude(getClass().getName() + ".tree");
         return hints;
     }
 
@@ -422,8 +422,8 @@ public final class HelpBrowser extends Dialog
         buttonNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
-        setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle");
+        setTitle(bundle.getString("HelpBrowser.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -464,8 +464,8 @@ public final class HelpBrowser extends Dialog
         splitPane.setRightComponent(panelPage);
 
         buttonPrevious.setMnemonic('z');
-        buttonPrevious.setText(bundle.getString("HelpBrowser.buttonPrevious.text")); // NOI18N
-        buttonPrevious.setToolTipText(bundle.getString("HelpBrowser.buttonPrevious.toolTipText")); // NOI18N
+        buttonPrevious.setText(bundle.getString("HelpBrowser.buttonPrevious.text"));
+        buttonPrevious.setToolTipText(bundle.getString("HelpBrowser.buttonPrevious.toolTipText"));
         buttonPrevious.setEnabled(false);
         buttonPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,8 +474,8 @@ public final class HelpBrowser extends Dialog
         });
 
         buttonNext.setMnemonic('v');
-        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text")); // NOI18N
-        buttonNext.setToolTipText(bundle.getString("HelpBrowser.buttonNext.toolTipText")); // NOI18N
+        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text"));
+        buttonNext.setToolTipText(bundle.getString("HelpBrowser.buttonNext.toolTipText"));
         buttonNext.setEnabled(false);
         buttonNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

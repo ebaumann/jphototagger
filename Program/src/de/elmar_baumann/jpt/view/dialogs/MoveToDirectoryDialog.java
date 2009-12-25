@@ -52,7 +52,7 @@ public final class MoveToDirectoryDialog extends Dialog
         implements ProgressListener, FileSystemActionListener {
 
     private static final String KEY_TARGET_DIRECTORY =
-            "de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog.TargetDirectory"; // NOI18N
+            "de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
     private final List<File> movedFiles = new ArrayList<File>();
     private final List<ProgressListener> progressListeners =
             new ArrayList<ProgressListener>();
@@ -61,14 +61,14 @@ public final class MoveToDirectoryDialog extends Dialog
     private boolean stop = false;
     private boolean errors = false;
     private List<File> sourceFiles;
-    private File targetDirectory = new File(""); // NOI18N
+    private File targetDirectory = new File("");
     private boolean moveIfVisible = false;
 
     public MoveToDirectoryDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
 
@@ -97,7 +97,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private void checkClosing() {
         if (runs) {
             MessageDisplayer.error(this,
-                    "MoveToDirectoryDialog.Error.AbortBeforeClose"); // NOI18N
+                    "MoveToDirectoryDialog.Error.AbortBeforeClose");
         } else {
             setVisible(false);
         }
@@ -106,7 +106,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private void checkErrors() {
         if (errors) {
             MessageDisplayer.error(this,
-                    "MoveToDirectoryDialog.Error.CheckLogfile"); // NOI18N
+                    "MoveToDirectoryDialog.Error.CheckLogfile");
         }
     }
 
@@ -137,8 +137,8 @@ public final class MoveToDirectoryDialog extends Dialog
                 CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         addListenerToMoveTask();
         Thread thread = new Thread(moveTask);
-        thread.setName("Moving files to directory " + targetDirectory. // NOI18N
-                getAbsolutePath() + " @ " + getClass().getName()); // NOI18N
+        thread.setName("Moving files to directory " + targetDirectory.
+                getAbsolutePath() + " @ " + getClass().getName());
         thread.start();
         runs = true;
     }
@@ -171,7 +171,7 @@ public final class MoveToDirectoryDialog extends Dialog
                     buttonStart.setEnabled(true);
                 } else {
                     MessageDisplayer.error(this,
-                            "MoveToDirectoryDialog.TargetDirNotWritable", // NOI18N
+                            "MoveToDirectoryDialog.TargetDirNotWritable",
                             targetDirectory);
                 }
             }
@@ -300,7 +300,7 @@ public final class MoveToDirectoryDialog extends Dialog
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.MoveToDirectoryDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.MoveToDirectoryDialog"));
     }
 
     @Override
@@ -317,7 +317,7 @@ public final class MoveToDirectoryDialog extends Dialog
     public void actionFailed(FileSystemEvent action, FileSystemError error,
             File src, File target) {
         AppLog.logWarning(MoveToDirectoryDialog.class,
-                "MoveToDirectoryDialog.Error.Logfile", src, target, // NOI18N
+                "MoveToDirectoryDialog.Error.Logfile", src, target,
                 error.getLocalizedMessage());
         errors = true;
     }
@@ -342,17 +342,17 @@ public final class MoveToDirectoryDialog extends Dialog
         buttonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("MoveToDirectoryDialog.title")); // NOI18N
+        setTitle(Bundle.getString("MoveToDirectoryDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelInfo.setText(Bundle.getString("MoveToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString("MoveToDirectoryDialog.labelInfo.text"));
 
         buttonChooseDirectory.setMnemonic('a');
-        buttonChooseDirectory.setText(Bundle.getString("MoveToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString("MoveToDirectoryDialog.buttonChooseDirectory.text"));
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -361,16 +361,16 @@ public final class MoveToDirectoryDialog extends Dialog
 
         labelDirectoryName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        labelInfoCurrentFilename.setText(bundle.getString("MoveToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        labelInfoCurrentFilename.setText(bundle.getString("MoveToDirectoryDialog.labelInfoCurrentFilename.text"));
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(Bundle.getString("MoveToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(Bundle.getString("MoveToDirectoryDialog.labelInfoIsThread.text"));
 
         buttonStop.setMnemonic('o');
-        buttonStop.setText(Bundle.getString("MoveToDirectoryDialog.buttonCancelCopy.text")); // NOI18N
+        buttonStop.setText(Bundle.getString("MoveToDirectoryDialog.buttonCancelCopy.text"));
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,7 +379,7 @@ public final class MoveToDirectoryDialog extends Dialog
         });
 
         buttonStart.setMnemonic('s');
-        buttonStart.setText(Bundle.getString("MoveToDirectoryDialog.buttonStartCopy.text")); // NOI18N
+        buttonStart.setText(Bundle.getString("MoveToDirectoryDialog.buttonStartCopy.text"));
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -93,7 +93,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
     public void run() {
         int size = sourceFiles.size();
 
-        ProgressEvent progressEvent = new ProgressEvent(this, 0, size, 0, ""); // NOI18N
+        ProgressEvent progressEvent = new ProgressEvent(this, 0, size, 0, "");
         notifyProgressListenerStarted(progressEvent);
         boolean stop = progressEvent.isStop();
 

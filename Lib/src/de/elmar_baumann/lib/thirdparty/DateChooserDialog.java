@@ -131,7 +131,7 @@ public final class DateChooserDialog extends JComponent {
 
         c.anchor = GridBagConstraints.WEST;
         previousButton = new JButton();
-        previousButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_datechooser_prev.png"));  // NOI18N
+        previousButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_datechooser_prev.png")); 
         previousButton.setBorder(BorderFactory.createEmptyBorder());
         previousButton.setPreferredSize(new Dimension(16, 16));
         previousButton.addActionListener(new ActionListener() {
@@ -151,13 +151,13 @@ public final class DateChooserDialog extends JComponent {
 
         ++c.gridx;
         c.anchor = GridBagConstraints.CENTER;
-        monthYearLabel = new JLabel("           ", JLabel.CENTER); // NOI18N
+        monthYearLabel = new JLabel("           ", JLabel.CENTER);
         add(monthYearLabel, c);
 
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
         nextButton = new JButton();
-        nextButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_datechooser_next.png")); // NOI18N
+        nextButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_datechooser_next.png"));
         nextButton.setBorder(BorderFactory.createEmptyBorder());
         nextButton.setPreferredSize(new Dimension(16, 16));
         nextButton.addActionListener(new ActionListener() {
@@ -210,7 +210,7 @@ public final class DateChooserDialog extends JComponent {
         }
 
         for (int i = 0; i < dayOfMonthLabels.length; i++) {
-            dayOfMonthLabels[i] = new JLabel("  ", JLabel.CENTER); // NOI18N
+            dayOfMonthLabels[i] = new JLabel("  ", JLabel.CENTER);
             dayOfMonthLabels[i].setOpaque(true);
             dayOfMonthLabels[i].addMouseListener(ml);
             panel.add(dayOfMonthLabels[i]);
@@ -225,7 +225,7 @@ public final class DateChooserDialog extends JComponent {
         int month = gc.get(Calendar.MONTH);
         int year = gc.get(Calendar.YEAR);
 
-        monthYearLabel.setText(monthStr[month].toUpperCase() + " " + // NOI18N
+        monthYearLabel.setText(monthStr[month].toUpperCase() + " " +
             Integer.toString(year));
 
         gc.set(Calendar.DAY_OF_MONTH, 1);
@@ -252,7 +252,7 @@ public final class DateChooserDialog extends JComponent {
                 }
                 ++day;
             } else {
-                dayOfMonthLabels[i].setText("  "); // NOI18N
+                dayOfMonthLabels[i].setText("  ");
                 dayOfMonthLabels[i].setBackground(new Color(0xe0e0e0));
             }
         }
@@ -265,7 +265,7 @@ public final class DateChooserDialog extends JComponent {
 
     public void setCalendar(GregorianCalendar calendar) {
         if (calendar == null)
-            throw new NullPointerException("calendar == null"); // NOI18N
+            throw new NullPointerException("calendar == null");
 
         gc = calendar;
         drawCalendar();
@@ -301,7 +301,7 @@ public final class DateChooserDialog extends JComponent {
 
         c.gridwidth = 2;
         JFrame f = new JFrame();
-        dialog = new JDialog(f, Bundle.getString("DateChooserDialog.title"), true); // NOI18N
+        dialog = new JDialog(f, Bundle.getString("DateChooserDialog.title"), true);
         if (icons != null) {
             dialog.setIconImages(icons);
         }
@@ -319,7 +319,7 @@ public final class DateChooserDialog extends JComponent {
         ++c.gridy;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.WEST;
-        JButton okButton = new JButton(Bundle.getString("DateChooserDialog.okButton")); // NOI18N
+        JButton okButton = new JButton(Bundle.getString("DateChooserDialog.okButton"));
         okButton.addActionListener(new ActionListener() {
 
             @Override
@@ -332,7 +332,7 @@ public final class DateChooserDialog extends JComponent {
 
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
-        JButton cancelButton = new JButton(Bundle.getString("DateChooserDialog.cancelButton")); // NOI18N
+        JButton cancelButton = new JButton(Bundle.getString("DateChooserDialog.cancelButton"));
         cancelButton.addActionListener(new ActionListener() {
 
             @Override
@@ -353,7 +353,7 @@ public final class DateChooserDialog extends JComponent {
     @Override
     public void setFont(Font font) {
         if (font == null)
-            throw new NullPointerException("font == null"); // NOI18N
+            throw new NullPointerException("font == null");
         
         previousButton.setFont(font);
         nextButton.setFont(font);
