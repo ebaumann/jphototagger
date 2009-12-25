@@ -728,7 +728,7 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             Statement stmt = connection.createStatement();
-            String sql = "SELECT files.filename" +//
+            String sql = "SELECT files.filename" +
                     " FROM files, xmp" +
                     " WHERE files.id = xmp.id_files";
             logFinest(sql);

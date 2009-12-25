@@ -77,8 +77,7 @@ public class ComboBoxAdaptor extends AbstractAutoCompleteAdaptor implements Acti
         // kgs - back door our way to finding the JList that displays the data.
         // then we ask the list to scroll until the last cell is visible. this
         // will cause the selected item to appear closest to the top.
-        //
-        // it is unknown whether this functionality will work outside of Sun's
+               // it is unknown whether this functionality will work outside of Sun's
         // implementation, but the code is safe and will "fail gracefully" on
         // other systems
         Accessible a = comboBox.getUI().getAccessibleChild(comboBox, 0);
