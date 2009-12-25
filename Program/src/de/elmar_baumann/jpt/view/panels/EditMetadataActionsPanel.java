@@ -60,20 +60,20 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
 
         tabbedPane.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
-        labelMetadataInfoEditable.setText(Bundle.getString("EditMetadataActionsPanel.labelMetadataInfoEditable.text")); // NOI18N
+        labelMetadataInfoEditable.setText(Bundle.getString("EditMetadataActionsPanel.labelMetadataInfoEditable.text"));
 
         buttonMetadataTemplateCreate.setMnemonic('v');
-        buttonMetadataTemplateCreate.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateCreate.text")); // NOI18N
-        buttonMetadataTemplateCreate.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateCreate.toolTipText")); // NOI18N
+        buttonMetadataTemplateCreate.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateCreate.text"));
+        buttonMetadataTemplateCreate.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateCreate.toolTipText"));
 
         buttonEmptyMetadata.setMnemonic('l');
-        buttonEmptyMetadata.setText(Bundle.getString("EditMetadataActionsPanel.buttonEmptyMetadata.text")); // NOI18N
-        buttonEmptyMetadata.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonEmptyMetadata.toolTipText")); // NOI18N
+        buttonEmptyMetadata.setText(Bundle.getString("EditMetadataActionsPanel.buttonEmptyMetadata.text"));
+        buttonEmptyMetadata.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonEmptyMetadata.toolTipText"));
         buttonEmptyMetadata.setEnabled(false);
 
         buttonMetadataTemplateInsert.setMnemonic('e');
-        buttonMetadataTemplateInsert.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateInsert.text")); // NOI18N
-        buttonMetadataTemplateInsert.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateInsert.toolTipText")); // NOI18N
+        buttonMetadataTemplateInsert.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateInsert.text"));
+        buttonMetadataTemplateInsert.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateInsert.toolTipText"));
         buttonMetadataTemplateInsert.setEnabled(false);
 
         javax.swing.GroupLayout panelGroupMetadataEditLayout = new javax.swing.GroupLayout(panelGroupMetadataEdit);
@@ -106,23 +106,23 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("EditMetadataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle"), panelGroupMetadataEdit); // NOI18N
+        tabbedPane.addTab(Bundle.getString("EditMetadataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle"), panelGroupMetadataEdit);
 
-        comboBoxMetadataTemplates.setToolTipText(Bundle.getString("EditMetadataActionsPanel.comboBoxMetadataTemplates.toolTipText")); // NOI18N
+        comboBoxMetadataTemplates.setToolTipText(Bundle.getString("EditMetadataActionsPanel.comboBoxMetadataTemplates.toolTipText"));
 
         buttonMetadataTemplateRename.setMnemonic('m');
-        buttonMetadataTemplateRename.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateRename.text")); // NOI18N
-        buttonMetadataTemplateRename.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateRename.toolTipText")); // NOI18N
+        buttonMetadataTemplateRename.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateRename.text"));
+        buttonMetadataTemplateRename.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateRename.toolTipText"));
         buttonMetadataTemplateRename.setEnabled(false);
 
         buttonMetadataTemplateUpdate.setMnemonic('a');
-        buttonMetadataTemplateUpdate.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateUpdate.text")); // NOI18N
-        buttonMetadataTemplateUpdate.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateUpdate.toolTipText")); // NOI18N
+        buttonMetadataTemplateUpdate.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateUpdate.text"));
+        buttonMetadataTemplateUpdate.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateUpdate.toolTipText"));
         buttonMetadataTemplateUpdate.setEnabled(false);
 
         buttonMetadataTemplateDelete.setMnemonic('\u00f6');
-        buttonMetadataTemplateDelete.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.text")); // NOI18N
-        buttonMetadataTemplateDelete.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText")); // NOI18N
+        buttonMetadataTemplateDelete.setText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.text"));
+        buttonMetadataTemplateDelete.setToolTipText(Bundle.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText"));
         buttonMetadataTemplateDelete.setEnabled(false);
 
         javax.swing.GroupLayout panelGroupMetadataTemplatesLayout = new javax.swing.GroupLayout(panelGroupMetadataTemplates);
@@ -157,7 +157,7 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("EditMetadataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle"), panelGroupMetadataTemplates); // NOI18N
+        tabbedPane.addTab(Bundle.getString("EditMetadataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle"), panelGroupMetadataTemplates);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

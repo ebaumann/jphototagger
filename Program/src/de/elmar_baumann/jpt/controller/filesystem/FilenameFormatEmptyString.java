@@ -30,7 +30,7 @@ public final class FilenameFormatEmptyString extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatEmpty.String"); // NOI18N
+        return Bundle.getString("FilenameFormatEmpty.String");
     }
 
     /**
@@ -50,6 +50,6 @@ public final class FilenameFormatEmptyString extends FilenameFormat {
      */
     @Override
     public String format() {
-        return ""; // NOI18N
+        return "";
     }
 }

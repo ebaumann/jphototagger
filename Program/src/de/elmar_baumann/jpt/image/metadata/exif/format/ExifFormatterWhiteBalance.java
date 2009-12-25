@@ -38,8 +38,8 @@ public final class ExifFormatterWhiteBalance extends ExifFormatter {
             new HashMap<Integer, String>();
 
     static {
-        EXIF_KEY_OF_WHITE_BALANCE.put(0, "WhiteBalanceAutomatic"); // NOI18N
-        EXIF_KEY_OF_WHITE_BALANCE.put(1, "WhiteBalanceManual"); // NOI18N
+        EXIF_KEY_OF_WHITE_BALANCE.put(0, "WhiteBalanceAutomatic");
+        EXIF_KEY_OF_WHITE_BALANCE.put(1, "WhiteBalanceManual");
     }
 
     private ExifFormatterWhiteBalance() {
@@ -48,7 +48,7 @@ public final class ExifFormatterWhiteBalance extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.WHITE_BALANCE.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
@@ -58,6 +58,6 @@ public final class ExifFormatterWhiteBalance extends ExifFormatter {
                         EXIF_KEY_OF_WHITE_BALANCE.get(value));
             }
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

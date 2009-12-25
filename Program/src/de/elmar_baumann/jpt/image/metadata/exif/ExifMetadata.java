@@ -70,7 +70,7 @@ public final class ExifMetadata {
         ImageReader reader = null;
         if (FileType.isJpegFile(imageFile.getName())) {
             AppLog.logInfo(ExifMetadata.class,
-                    "ExifMetadata.AddIFDEntries.JPEG.Info", imageFile); // NOI18N
+                    "ExifMetadata.AddIFDEntries.JPEG.Info", imageFile);
             reader = new JpegReader(imageFile);
             IFDEntry[][] allEntries = MetadataUtils.getExif((JpegReader) reader);
             if (allEntries != null) {
@@ -83,7 +83,7 @@ public final class ExifMetadata {
             }
         } else {
             AppLog.logInfo(ExifMetadata.class,
-                    "ExifMetadata.AddTIFFEntries.JPEG.Info", imageFile); // NOI18N
+                    "ExifMetadata.AddTIFFEntries.JPEG.Info", imageFile);
             reader = new TiffReader(imageFile);
             int count = ((TiffReader) reader).getIFDCount();
             for (int i = 0; i < count; i++) {
@@ -216,7 +216,7 @@ public final class ExifMetadata {
     private static void setExifFocalLength(Exif exifData, IdfEntryProxy entry) {
         try {
             String lengthString = entry.toString().trim();
-            StringTokenizer tokenizer = new StringTokenizer(lengthString, "/:"); // NOI18N
+            StringTokenizer tokenizer = new StringTokenizer(lengthString, "/:");
             if (tokenizer.countTokens() >= 1) {
                 String dividentString = tokenizer.nextToken();
                 String divisorString = null;

@@ -38,14 +38,14 @@ public final class ExifFormatterFileSource extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.FILE_SOURCE.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         byte[] rawValue = entry.getRawValue();
         if (rawValue.length >= 1) {
             int value = rawValue[0];
             if (value == 3) {
-                return TRANSLATION.translate("FileSourceDigitalCamera"); // NOI18N
+                return TRANSLATION.translate("FileSourceDigitalCamera");
             }
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

@@ -35,9 +35,9 @@ public final class ColumnCollectionsSequenceNumber extends Column {
     private ColumnCollectionsSequenceNumber() {
         super(
             TableCollections.INSTANCE,
-            "sequence_number", // NOI18N
+            "sequence_number",
             DataType.INTEGER);
 
-        setDescription(Bundle.getString("ColumnCollectionsSequenceNumber.Description")); // NOI18N
+        setDescription(Bundle.getString("ColumnCollectionsSequenceNumber.Description"));
     }
 }

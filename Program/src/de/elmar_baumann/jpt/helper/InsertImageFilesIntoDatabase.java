@@ -108,7 +108,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     public InsertImageFilesIntoDatabase(List<String> filenames, EnumSet<Insert> what) {
         this.filenames = new ArrayList<String>(filenames);
         this.what      = what;
-        setName("Inserting image files into database @ " + getClass().getName()); // NOI18N
+        setName("Inserting image files into database @ " + getClass().getName());
     }
 
     /**
@@ -351,7 +351,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private void errorMessageNullThumbnail(String filename) {
         AppLog.logWarning(InsertImageFilesIntoDatabase.class,
-                "InsertImageFilesIntoDatabase.Error.NullThumbnail", filename); // NOI18N
+                "InsertImageFilesIntoDatabase.Error.NullThumbnail", filename);
     }
 
     private void notifyStarted() {
@@ -378,13 +378,13 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private void informationMessagePerformed(String filename) {
         AppLog.logFinest(InsertImageFilesIntoDatabase.class,
-                "InsertImageFilesIntoDatabase.Info.CheckImageForModifications", // NOI18N
+                "InsertImageFilesIntoDatabase.Info.CheckImageForModifications",
                 filename);
     }
 
     private void informationMessageEnded(int filecount) {
         AppLog.logInfo(InsertImageFilesIntoDatabase.class,
-                "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished", // NOI18N
+                "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished",
                 filecount);
     }
 
@@ -393,20 +393,20 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             data.getFile().getAbsolutePath(),
             data.getExif() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.No") // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.No")
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
             data.getXmp() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.No") // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.No")
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
             data.getThumbnail() == null
             ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.No") // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.No")
             : Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes")}; // NOI18N
+            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes")};
         AppLog.logInfo(InsertImageFilesIntoDatabase.class,
-                "InsertImageFilesIntoDatabase.Info.StartInsert", params); // NOI18N
+                "InsertImageFilesIntoDatabase.Info.StartInsert", params);
     }
 }

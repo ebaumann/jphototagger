@@ -37,8 +37,8 @@ import java.sql.SQLException;
 public final class DatabaseApplication extends Database {
 
     public static final DatabaseApplication INSTANCE = new DatabaseApplication();
-    private static final String VALUE_TRUE = "1"; // NOI18N Never change that!
-    private static final String VALUE_FALSE = "0"; // NOI18N Never change that!
+    private static final String VALUE_TRUE = "1"; // Never change that!
+    private static final String VALUE_FALSE = "0"; // Never change that!
 
     private DatabaseApplication() {
     }
@@ -53,7 +53,7 @@ public final class DatabaseApplication extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            String sql = "SELECT COUNT(*) FROM application WHERE key = ?"; // NOI18N
+            String sql = "SELECT COUNT(*) FROM application WHERE key = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);
@@ -84,7 +84,7 @@ public final class DatabaseApplication extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            String sql = "DELETE FROM application WHERE key = ?"; // NOI18N
+            String sql = "DELETE FROM application WHERE key = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);
@@ -153,7 +153,7 @@ public final class DatabaseApplication extends Database {
             logFinest(stmt);
             int count = stmt.executeUpdate();
             stmt.close();
-            assert count > 0 : "Not updated: " + key; // NOI18N
+            assert count > 0 : "Not updated: " + key;
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseApplication.class, ex);
         } finally {
@@ -162,14 +162,14 @@ public final class DatabaseApplication extends Database {
     }
 
     private String getQueryStmt() {
-        return "SELECT value FROM application WHERE key = ?"; // NOI18N
+        return "SELECT value FROM application WHERE key = ?";
     }
 
     private String getInsertOrUpdateStmt(String key) {
         if (existsKey(key)) {
-            return "UPDATE application SET value = ? WHERE key = ?"; // NOI18N
+            return "UPDATE application SET value = ? WHERE key = ?";
         } else {
-            return "INSERT INTO application (value, key) VALUES (?, ?)"; // NOI18N
+            return "INSERT INTO application (value, key) VALUES (?, ?)";
         }
     }
 }

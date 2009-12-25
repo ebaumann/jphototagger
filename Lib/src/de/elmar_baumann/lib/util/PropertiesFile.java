@@ -72,13 +72,13 @@ public final class PropertiesFile {
      */
     public PropertiesFile(String domainName, String projectName, String filename, Properties properties) {
         if (domainName == null)
-            throw new NullPointerException("domainName == null"); // NOI18N
+            throw new NullPointerException("domainName == null");
         if (projectName == null)
-            throw new NullPointerException("appName == null"); // NOI18N
+            throw new NullPointerException("appName == null");
         if (filename == null)
-            throw new NullPointerException("filename == null"); // NOI18N
+            throw new NullPointerException("filename == null");
         if (properties == null)
-            throw new NullPointerException("properties == null"); // NOI18N
+            throw new NullPointerException("properties == null");
 
         this.domainName = domainName;
         this.projectName = projectName;
@@ -106,7 +106,7 @@ public final class PropertiesFile {
         if (FileUtil.ensureDirectoryExists(new File(directoryName))) {
             try {
                 FileOutputStream out = new FileOutputStream(getPropertyFilePathName());
-                properties.store(out, "--- " + projectName + " persistent settings ---"); // NOI18N
+                properties.store(out, "--- " + projectName + " persistent settings ---");
                 out.close();
                 return true;
             } catch (IOException ex) {
@@ -139,7 +139,7 @@ public final class PropertiesFile {
     }
 
     private String initGetDirectoryName() {
-        String homeDir = System.getProperty("user.home"); // NOI18N
-        return homeDir + File.separator + "." + domainName + File.separator + projectName; // NOI18N
+        String homeDir = System.getProperty("user.home");
+        return homeDir + File.separator + "." + domainName + File.separator + projectName;
     }
 }

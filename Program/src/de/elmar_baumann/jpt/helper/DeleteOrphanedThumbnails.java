@@ -91,12 +91,12 @@ public final class DeleteOrphanedThumbnails implements Runnable {
 
     private synchronized void logDelete(File file) {
         AppLog.logInfo(DeleteOrphanedThumbnails.class,
-                "DeleteOrphanedThumbnails.Info.DeleteFile", file); // NOI18N
+                "DeleteOrphanedThumbnails.Info.DeleteFile", file);
     }
 
     private synchronized void notifyStarted() {
         AppLog.logInfo(DeleteOrphanedThumbnails.class,
-                "DeleteOrphanedThumbnails.Info.Start", countFilesInDir); // NOI18N
+                "DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
         ProgressEvent evt = new ProgressEvent(
                 this, 0, countFilesInDir, 0, getStartMessage());
         for (ProgressListener listener : listeners) {
@@ -106,7 +106,7 @@ public final class DeleteOrphanedThumbnails implements Runnable {
 
     private synchronized void notifyPerformed(File file) {
         AppLog.logFinest(DeleteOrphanedThumbnails.class,
-                "DeleteOrphanedThumbnails.Info.Performed", file); // NOI18N
+                "DeleteOrphanedThumbnails.Info.Performed", file);
         ProgressEvent evt = new ProgressEvent(
                 this, 0, countFilesInDir, currentFileIndex, getPerformedMessage(file));
         for (ProgressListener listener : listeners) {
@@ -121,18 +121,18 @@ public final class DeleteOrphanedThumbnails implements Runnable {
             listener.progressEnded(evt);
         }
         AppLog.logInfo(DeleteOrphanedThumbnails.class,
-                "DeleteOrphanedThumbnails.Info.End", currentFileIndex); // NOI18N
+                "DeleteOrphanedThumbnails.Info.End", currentFileIndex);
     }
 
     private String getStartMessage() {
-        return Bundle.getString("DeleteOrphanedThumbnails.Info.Start", countFilesInDir); // NOI18N
+        return Bundle.getString("DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
     }
 
     private String getPerformedMessage(File file) {
-        return Bundle.getString("DeleteOrphanedThumbnails.Info.Performed", file); // NOI18N
+        return Bundle.getString("DeleteOrphanedThumbnails.Info.Performed", file);
     }
 
     private String getEndMessage() {
-        return Bundle.getString("DeleteOrphanedThumbnails.Info.End", countDeleted); // NOI18N
+        return Bundle.getString("DeleteOrphanedThumbnails.Info.End", countDeleted);
     }
 }

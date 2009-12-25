@@ -33,18 +33,18 @@ public final class AppFileFilter {
      */
     public static final RegexFileFilter ACCEPTED_IMAGE_FILE_FORMATS =
             new RegexFileFilter(
-            ".*\\.[cC][rR][wW];" + // NOI18N
-            ".*\\.[cC][rR]2;" + // NOI18N
-            ".*\\.[dD][cC][rR];" + // NOI18N
-            ".*\\.[dD][nN][gG];" + // NOI18N
-            ".*\\.[jJ][pP][gG];" + // NOI18N
-            ".*\\.[jJ][pP][eE][gG];" + // NOI18N
-            ".*\\.[mM][rR][wW];" + // NOI18N
-            ".*\\.[nN][eE][fF];" + // NOI18N
-            ".*\\.[tT][hH][mM];" + // NOI18N
-            ".*\\.[tT][iI][fF];" + // NOI18N
-            ".*\\.[tT][iI][fF][fF];", // NOI18N
-            ";");  // NOI18N
+            ".*\\.[cC][rR][wW];" +
+            ".*\\.[cC][rR]2;" +
+            ".*\\.[dD][cC][rR];" +
+            ".*\\.[dD][nN][gG];" +
+            ".*\\.[jJ][pP][gG];" +
+            ".*\\.[jJ][pP][eE][gG];" +
+            ".*\\.[mM][rR][wW];" +
+            ".*\\.[nN][eE][fF];" +
+            ".*\\.[tT][hH][mM];" +
+            ".*\\.[tT][iI][fF];" +
+            ".*\\.[tT][iI][fF][fF];",
+            ";"); 
 
     private AppFileFilter() {
     }

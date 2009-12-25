@@ -85,7 +85,7 @@ public final class AutoCompleteDataOfColumn
                     autoComplete.addString(string);
                 }
             } else {
-                assert false : "Value is neither string nor list: " + data; // NOI18N
+                assert false : "Value is neither string nor list: " + data;
             }
         }
     }

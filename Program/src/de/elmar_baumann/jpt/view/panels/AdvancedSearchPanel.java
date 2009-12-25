@@ -68,7 +68,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private final List<SearchColumnPanel>   searchColumnPanels      = new LinkedList<SearchColumnPanel>();
     private final Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
     private List<SearchListener>            searchListeners         = new ArrayList<SearchListener>();
-    private String                          searchName              = ""; // NOI18N
+    private String                          searchName              = "";
     private boolean                         isSavedSearch           = false;
     private ListenerProvider                listenerProvider;
 
@@ -98,7 +98,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     public void willDispose() {
         checkChanged();
         isSavedSearch = false;
-        setSearchName(""); // NOI18N
+        setSearchName("");
     }
 
     @Override
@@ -129,7 +129,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         valid = valid && checkBrackets();
 
         if (!valid) {
-            MessageDisplayer.error(this, "AdvancedSearchDialog.Error.InvalidQuery"); // NOI18N
+            MessageDisplayer.error(this, "AdvancedSearchDialog.Error.InvalidQuery");
         }
 
         return valid;
@@ -369,7 +369,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         if (isSavedSearch && isChanged()) {
             if (MessageDisplayer.confirm(
                     this,
-                    "AdvancedSearchDialog.Confirm.SaveChanges", // NOI18N
+                    "AdvancedSearchDialog.Confirm.SaveChanges",
                     MessageDisplayer.CancelButton.HIDE).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
                 saveSearch();
@@ -424,7 +424,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             return searchName;
         } else {
             return JOptionPane.showInputDialog(null,
-                    Bundle.getString("AdvancedSearchDialog.Input.SearchName"), // NOI18N
+                    Bundle.getString("AdvancedSearchDialog.Input.SearchName"),
                     searchName);
         }
     }
@@ -497,7 +497,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return new StringBuffer(
                 "SELECT DISTINCT " +
                 tableNameFiles + "." + columnNameFilename +
-                " FROM"); // NOI18N
+                " FROM");
     }
 
     private List<Column> getColumns() {
@@ -534,7 +534,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void appendWhere(StringBuffer statement, List<String> values) {
-        statement.append(" WHERE"); // NOI18N
+        statement.append(" WHERE");
         int index = 0;
         for (SearchColumnPanel panel : searchColumnPanels) {
             if (panel.hasSql()) {
@@ -552,11 +552,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         if (count == 0) return;
 
-        statement.append((and ? " AND" : "") + // NOI18N
-                " xmp_dc_subjects.subject IN " + // NOI18N
+        statement.append((and ? " AND" : "") +
+                " xmp_dc_subjects.subject IN " +
                 Util.getParamsInParentheses(count) +
-                " GROUP BY files.filename" + // NOI18N
-                " HAVING COUNT(*) = " + Integer.toString(count)); // NOI18N
+                " GROUP BY files.filename" +
+                " HAVING COUNT(*) = " + Integer.toString(count));
         values.addAll(keywords);
     }
 
@@ -565,7 +565,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         Column.ReferenceDirection back          = Column.ReferenceDirection.BACKWARDS;
         List<Table>               refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.INSTANCE, back);
 
-        statement.append(" " + TableFiles.INSTANCE.getName()); // NOI18N
+        statement.append(" " + TableFiles.INSTANCE.getName());
 
         if (allTables.contains(TableExif.INSTANCE)) {
             statement.append(getJoinFiles(TableExif.INSTANCE, ColumnExifIdFiles.INSTANCE));
@@ -575,7 +575,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             statement.append(getJoinFiles(TableXmp.INSTANCE, ColumnXmpIdFiles.INSTANCE));
         }
 
-        String xmpJoinCol = TableXmp.INSTANCE.getName() + "." + ColumnXmpId.INSTANCE.getName(); // NOI18N
+        String xmpJoinCol = TableXmp.INSTANCE.getName() + "." + ColumnXmpId.INSTANCE.getName();
 
         appendInnerJoin(statement, refsXmpTables, TableXmp.INSTANCE, xmpJoinCol);
     }
@@ -583,10 +583,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private String getJoinFiles(Table joinTable, Column joinColumn) {
         return " INNER JOIN " + 
                 joinTable.getName() +
-                " ON " + // NOI18N
-                joinTable.getName() + "." + joinColumn.getName() + // NOI18N
+                " ON " +
+                joinTable.getName() + "." + joinColumn.getName() +
                 " = " +
-                TableFiles.INSTANCE.getName() + "." + ColumnFilesId.INSTANCE.getName(); // NOI18N
+                TableFiles.INSTANCE.getName() + "." + ColumnFilesId.INSTANCE.getName();
     }
 
     private void appendInnerJoin(
@@ -598,8 +598,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         for (Table refsTable : refsTables) {
             Column refColumn = refsTable.getJoinColumnsFor(referredTable).get(0);
 
-            statement.append(" INNER JOIN " + refsTable.getName() + " ON " + // NOI18N
-                    refsTable.getName() + "." + refColumn.getName() + " = " + // NOI18N
+            statement.append(" INNER JOIN " + refsTable.getName() + " ON " +
+                    refsTable.getName() + "." + refColumn.getName() + " = " +
                     joinCol);
         }
     }
@@ -656,8 +656,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        labelInfoKeywords.setText(bundle.getString("AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        labelInfoKeywords.setText(bundle.getString("AdvancedSearchPanel.labelInfoKeywords.text"));
 
         javax.swing.GroupLayout panelKeywordsLayout = new javax.swing.GroupLayout(panelKeywords);
         panelKeywords.setLayout(panelKeywordsLayout);
@@ -680,7 +680,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords);
 
         scrollPaneColumns.setBorder(null);
 
@@ -713,14 +713,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         scrollPaneColumns.setViewportView(panelColumns);
 
-        buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
+        buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text"));
         buttonAddColumn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddColumnActionPerformed(evt);
             }
         });
 
-        buttonRemoveColumn.setText(bundle.getString("AdvancedSearchPanel.buttonRemoveColumn.text")); // NOI18N
+        buttonRemoveColumn.setText(bundle.getString("AdvancedSearchPanel.buttonRemoveColumn.text"));
         buttonRemoveColumn.setEnabled(false);
         buttonRemoveColumn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -729,7 +729,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         });
 
         labelInfoDelete.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
+        labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text"));
 
         javax.swing.GroupLayout panelSimpleSqlLayout = new javax.swing.GroupLayout(panelSimpleSql);
         panelSimpleSql.setLayout(panelSimpleSqlLayout);
@@ -763,9 +763,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
+        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql);
 
-        labelCustomSqlInfo.setText(bundle.getString("AdvancedSearchPanel.labelCustomSqlInfo.text")); // NOI18N
+        labelCustomSqlInfo.setText(bundle.getString("AdvancedSearchPanel.labelCustomSqlInfo.text"));
 
         textAreaCustomSqlQuery.setColumns(20);
         textAreaCustomSqlQuery.setLineWrap(true);
@@ -794,7 +794,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql); // NOI18N
+        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -808,14 +808,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         add(tabbedPane, gridBagConstraints);
 
         buttonSaveSearch.setMnemonic('p');
-        buttonSaveSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
+        buttonSaveSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text"));
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveSearchActionPerformed(evt);
             }
         });
 
-        buttonSaveAs.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
+        buttonSaveAs.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveAs.text"));
         buttonSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveAsActionPerformed(evt);
@@ -823,7 +823,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         });
 
         buttonResetColumns.setMnemonic('e');
-        buttonResetColumns.setText(Bundle.getString("AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
+        buttonResetColumns.setText(Bundle.getString("AdvancedSearchPanel.buttonResetColumns.text"));
         buttonResetColumns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonResetColumnsActionPerformed(evt);
@@ -831,7 +831,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         });
 
         buttonSearch.setMnemonic('s');
-        buttonSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
+        buttonSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSearch.text"));
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSearchActionPerformed(evt);

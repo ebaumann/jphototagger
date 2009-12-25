@@ -121,7 +121,7 @@ public final class ControllerPasteFilesFromClipboard
             @Override
             public void run() {
                 List<File> files =
-                        ClipboardUtil.getFilesFromSystemClipboard("\n"); // NOI18N
+                        ClipboardUtil.getFilesFromSystemClipboard("\n");
                 TransferHandlerTreeDirectories.handleDroppedFiles(
                         getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();

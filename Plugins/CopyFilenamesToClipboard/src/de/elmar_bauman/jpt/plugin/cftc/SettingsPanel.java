@@ -60,7 +60,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private class DelimiterModel extends DefaultComboBoxModel {
 
         private final ResourceBundle rb =
-                ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle"); // NOI18N
+                ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle");
         private final Map<String, String> descriptionOfDelimiter =
                 new LinkedHashMap<String, String>();
 
@@ -70,15 +70,15 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         private void addElements() {
             descriptionOfDelimiter.put(
-                    "\n", rb.getString("DelimiterModel.Description.Newline")); // NOI18N
+                    "\n", rb.getString("DelimiterModel.Description.Newline"));
             descriptionOfDelimiter.put(
-                    " ", rb.getString("DelimiterModel.Description.Space")); // NOI18N
+                    " ", rb.getString("DelimiterModel.Description.Space"));
             descriptionOfDelimiter.put(
-                    "\t", rb.getString("DelimiterModel.Description.Tab")); // NOI18N
+                    "\t", rb.getString("DelimiterModel.Description.Tab"));
             descriptionOfDelimiter.put(
-                    ";", rb.getString("DelimiterModel.Description.Semicolon")); // NOI18N
+                    ";", rb.getString("DelimiterModel.Description.Semicolon"));
             descriptionOfDelimiter.put(
-                    ":", rb.getString("DelimiterModel.Description.Colon")); // NOI18N
+                    ":", rb.getString("DelimiterModel.Description.Colon"));
 
             for (String key : descriptionOfDelimiter.keySet()) {
                 addElement(key);
@@ -105,12 +105,12 @@ public class SettingsPanel extends javax.swing.JPanel {
                 int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(
                     list, value, index, isSelected, cellHasFocus);
-            assert value instanceof String : "Not a String: " + value; // NOI18N
+            assert value instanceof String : "Not a String: " + value;
             if (value instanceof String) {
                 String delimiter = (String) value;
                 String description = model.getDescription(delimiter);
                 assert description != null :
-                        "No description of delimiter " + delimiter; // NOI18N
+                        "No description of delimiter " + delimiter;
                 if (description != null) {
                     label.setText(description);
                 }
@@ -131,8 +131,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         label = new javax.swing.JLabel();
         comboBoxDelimiter = new javax.swing.JComboBox();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle"); // NOI18N
-        label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle");
+        label.setText(bundle.getString("SettingsPanel.label.text"));
 
         comboBoxDelimiter.setModel(model);
         comboBoxDelimiter.setRenderer(renderer);

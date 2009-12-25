@@ -39,13 +39,13 @@ public final class TreeCellRendererHelpContents extends DefaultTreeCellRenderer 
 
     private static final ImageIcon ICON_SECTION_COLLAPSED =
             IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_help_section_collapsed.png"); // NOI18N
+            "/de/elmar_baumann/lib/resource/icons/icon_help_section_collapsed.png");
     private static final ImageIcon ICON_SECTION_EXPANDED =
             IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_help_section_expanded.png"); // NOI18N
+            "/de/elmar_baumann/lib/resource/icons/icon_help_section_expanded.png");
     private static final ImageIcon ICON_PAGE =
             IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_help_page.png"); // NOI18N
+            "/de/elmar_baumann/lib/resource/icons/icon_help_page.png");
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value,
@@ -64,7 +64,7 @@ public final class TreeCellRendererHelpContents extends DefaultTreeCellRenderer 
             setText(((HelpNode) value).getTitle());
         } else if (value == tree.getModel().getRoot()) {
             setIcon(null);
-            setText(""); // NOI18N
+            setText("");
         }
         return this;
     }

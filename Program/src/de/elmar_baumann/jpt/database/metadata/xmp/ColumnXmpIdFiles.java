@@ -34,7 +34,7 @@ public final class ColumnXmpIdFiles extends Column {
     private ColumnXmpIdFiles() {
         super(
             TableXmp.INSTANCE,
-            "id_files", // NOI18N
+            "id_files",
             DataType.BIGINT);
 
         setIsUnique(true);

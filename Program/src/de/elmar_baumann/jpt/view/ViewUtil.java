@@ -38,7 +38,7 @@ import javax.swing.tree.TreePath;
 public class ViewUtil {
 
     private static final String KEY_TREE_DIRECTORIES_SELECTED_DIR =
-            "ViewUtil.TreeDirectories"; // NOI18N
+            "ViewUtil.TreeDirectories";
 
     /**
      * Returns the selected file in a {@link JTree} if the selected node is a

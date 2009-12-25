@@ -41,7 +41,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
         implements TableCellRenderer {
 
     private static final Translation TRANSLATION =
-            new Translation("ExifTagIdTagNameTranslations"); // NOI18N
+            new Translation("ExifTagIdTagNameTranslations");
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -79,7 +79,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
         } else if (value instanceof ExifGpsMetadata) {
             if (column == 0) {
                 cellLabel.setText(Bundle.getString(
-                        "TableCellRendererExif.Column.ShowLocationIn")); // NOI18N
+                        "TableCellRendererExif.Column.ShowLocationIn"));
             }
         } else if (value instanceof Component) {
             return (Component) value;

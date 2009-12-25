@@ -37,11 +37,11 @@ public final class ImageProperties implements R3 {
         return s;
     }
     private final String[] res = {
-        "rO0ABXVyAAJbQqzzF/gGCFTgAgAAeHAAAABurO0ABXQADUVsbWFyIEJhdW1hbm50", // NOI18N
-        "AApYTVAtVmlld2VydAAAdAAEbWV0YXQAF25vbi1jb21tZXJjaWFsIHVzZSBvbmx5", // NOI18N
-        "dAACbm9xAH4AAnQACDA1LjExLjA3dAAKMTAuMTAuMjEwNnQABDIuOTl1cQB+AAAA", // NOI18N
-        "AAAuMCwCFG0cderl/m4EJh5x2zEqI5nORpE/AhR3YHmZhUHoTfndNxTnrXQuQWve", // NOI18N
-        "0Q==" // NOI18N
+        "rO0ABXVyAAJbQqzzF/gGCFTgAgAAeHAAAABurO0ABXQADUVsbWFyIEJhdW1hbm50",
+        "AApYTVAtVmlld2VydAAAdAAEbWV0YXQAF25vbi1jb21tZXJjaWFsIHVzZSBvbmx5",
+        "dAACbm9xAH4AAnQACDA1LjExLjA3dAAKMTAuMTAuMjEwNnQABDIuOTl1cQB+AAAA",
+        "AAAuMCwCFG0cderl/m4EJh5x2zEqI5nORpE/AhR3YHmZhUHoTfndNxTnrXQuQWve",
+        "0Q=="
     ,}
 ;
 

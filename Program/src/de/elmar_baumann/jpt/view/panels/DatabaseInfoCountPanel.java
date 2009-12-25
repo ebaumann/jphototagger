@@ -70,14 +70,14 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                         DatabaseStatistics.INSTANCE.getTotalRecordCount()));
             }
         });
-        thread.setName("Database info setting initial total record count" + // NOI18N
-                " @ " + getClass().getName()); // NOI18N
+        thread.setName("Database info setting initial total record count" +
+                " @ " + getClass().getName());
         thread.start();
     }
 
     private void setLabelFilename() {
         labelFilename.setText(Bundle.getString(
-                "DatabaseInfoCountPanel.labelFilename.Filename", // NOI18N
+                "DatabaseInfoCountPanel.labelFilename.Filename",
                 UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
     }
 
@@ -94,8 +94,8 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                     setInitTotalRecordCount();
                 }
             });
-            thread.setName("Database info creating table model database info" + // NOI18N
-                    " @ " + getClass().getName()); // NOI18N
+            thread.setName("Database info creating table model database info" +
+                    " @ " + getClass().getName());
             thread.start();
         } else {
             setInitTotalRecordCount();
@@ -120,13 +120,13 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         labelTotalRecordCount = new javax.swing.JLabel();
         labelFilename = new javax.swing.JLabel();
 
-        labelTable.setText(Bundle.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
+        labelTable.setText(Bundle.getString("DatabaseInfoCountPanel.labelTable.text"));
 
         scrollPane.setViewportView(table);
 
-        labelPromptTotalRecordCount.setText(Bundle.getString("DatabaseInfoCountPanel.labelPromptTotalRecordCount.text")); // NOI18N
+        labelPromptTotalRecordCount.setText(Bundle.getString("DatabaseInfoCountPanel.labelPromptTotalRecordCount.text"));
 
-        labelFilename.setText(Bundle.getString("DatabaseInfoCountPanel.labelFilename.text")); // NOI18N
+        labelFilename.setText(Bundle.getString("DatabaseInfoCountPanel.labelFilename.text"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

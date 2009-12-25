@@ -107,7 +107,7 @@ public final class Exif {
         // Bugfix imagero: when first byte of RAW data is 0, then the returned
         // string is "0"
         this.recordingEquipment = recordingEquipment == null ||
-                recordingEquipment.equals("0") // NOI18N
+                recordingEquipment.equals("0")
                                   ? null
                                   : recordingEquipment;
     }

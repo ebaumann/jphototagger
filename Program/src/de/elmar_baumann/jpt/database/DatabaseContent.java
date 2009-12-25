@@ -54,13 +54,13 @@ public final class DatabaseContent extends Database {
             String columnName = column.getName();
             Statement stmt = connection.createStatement();
             String sql =
-                    "SELECT DISTINCT " + // NOI18N
+                    "SELECT DISTINCT " +
                     columnName +
-                    " FROM " + // NOI18N
+                    " FROM " +
                     column.getTable().getName() +
-                    " WHERE " + // NOI18N
+                    " WHERE " +
                     columnName +
-                    " IS NOT NULL"; // NOI18N
+                    " IS NOT NULL";
             logFinest(sql);
             ResultSet resultSet = stmt.executeQuery(sql);
 

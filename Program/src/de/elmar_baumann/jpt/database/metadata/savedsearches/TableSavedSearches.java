@@ -31,7 +31,7 @@ public final class TableSavedSearches extends Table {
     public static final TableSavedSearches INSTANCE = new TableSavedSearches();
 
     private TableSavedSearches() {
-        super("saved_searches"); // NOI18N
+        super("saved_searches");
     }
 
     @Override

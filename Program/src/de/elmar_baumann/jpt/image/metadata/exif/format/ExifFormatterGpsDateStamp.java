@@ -44,13 +44,13 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.GPS_DATE_STAMP.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         byte[] rawValue = entry.getRawValue();
         String rawString = new String(rawValue);
         if (rawString.length() != 11)
             return rawString;
         try {
-            DateFormat df = new SimpleDateFormat("yyyy:MM:dd"); // NOI18N
+            DateFormat df = new SimpleDateFormat("yyyy:MM:dd");
             Date date = df.parse(rawString.substring(0, 10));
             return DateFormat.getDateInstance(DateFormat.FULL).format(date);
         } catch (ParseException ex) {

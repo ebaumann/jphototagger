@@ -98,7 +98,7 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
 
         panelActions = new de.elmar_baumann.jpt.view.panels.ActionsPanel();
 
-        setTitle(Bundle.getString("ActionsDialog.title")); // NOI18N
+        setTitle(Bundle.getString("ActionsDialog.title"));
         setAlwaysOnTop(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

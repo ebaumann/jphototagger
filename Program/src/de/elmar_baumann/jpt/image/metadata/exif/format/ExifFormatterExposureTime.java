@@ -40,7 +40,7 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.EXPOSURE_TIME.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifRational.getRawValueByteCount() == entry.getRawValue().length) {
             ExifRational time = new ExifRational(entry.getRawValue(), entry.
                     getByteOrder());
@@ -48,13 +48,13 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
             int numerator = pair.getFirst();
             int denominator = pair.getSecond();
             if (denominator > 1) {
-                return Integer.toString(numerator) + " / " + // NOI18N
-                        Integer.toString(denominator) + " s"; // NOI18N
+                return Integer.toString(numerator) + " / " +
+                        Integer.toString(denominator) + " s";
             } else if (numerator > 1) {
-                return Integer.toString(numerator) + " s"; // NOI18N
+                return Integer.toString(numerator) + " s";
             }
         }
-        return "?"; // NOI18N
+        return "?";
     }
 
     private static Pair<Integer, Integer> getAsExposureTime(ExifRational er) {

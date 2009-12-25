@@ -31,7 +31,7 @@ public class ExternalTest {
         assertEquals(output, resultToString);
         assertEquals(null, result.getSecond());
 
-        result = External.executeGetOutput("thiscommanddoesnotexist-really", 10000); // NOI18N
+        result = External.executeGetOutput("thiscommanddoesnotexist-really", 10000);
         assertNull(result);
     }
 }

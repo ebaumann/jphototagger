@@ -61,11 +61,11 @@ public final class DatabaseFavoriteDirectories extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO favorite_directories" + // NOI18N
-                    " (favorite_name" +   // NOI18N -- 1 --
-                    ", directory_name" +  // NOI18N -- 2 --
-                    ", favorite_index)" + // NOI18N -- 3 --
-                    " VALUES (?, ?, ?)"); // NOI18N
+                    "INSERT INTO favorite_directories" +
+                    " (favorite_name" +   // -- 1 --
+                    ", directory_name" +  // -- 2 --
+                    ", favorite_index)" + // -- 3 --
+                    " VALUES (?, ?, ?)");
             stmt.setString(1, favoriteDirectory.getFavoriteName());
             stmt.setString(2, favoriteDirectory.getDirectoryName());
             stmt.setInt   (3, favoriteDirectory.getIndex());
@@ -96,7 +96,7 @@ public final class DatabaseFavoriteDirectories extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM favorite_directories WHERE favorite_name = ?"); // NOI18N
+                    "DELETE FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFiner(stmt);
             int count = stmt.executeUpdate();
@@ -128,11 +128,11 @@ public final class DatabaseFavoriteDirectories extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "UPDATE favorite_directories SET" + // NOI18N
-                    " favorite_name = ?" +       // NOI18N -- 1 --
-                    ", directory_name = ?" +     // NOI18N -- 2 --
-                    ", favorite_index = ?" +     // NOI18N -- 3 --
-                    " WHERE favorite_name = ?"); // NOI18N -- 4 --
+                    "UPDATE favorite_directories SET" +
+                    " favorite_name = ?" +       // -- 1 --
+                    ", directory_name = ?" +     // -- 2 --
+                    ", favorite_index = ?" +     // -- 3 --
+                    " WHERE favorite_name = ?"); // -- 4 --
             stmt.setString(1, favorite.getFavoriteName());
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt   (3, favorite.getIndex());
@@ -163,11 +163,11 @@ public final class DatabaseFavoriteDirectories extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql =
-                    "SELECT favorite_name" + // NOI18N -- 1 --
-                    ", directory_name" +     // NOI18N -- 2 --
-                    ", favorite_index" +     // NOI18N -- 3 --
-                    " FROM favorite_directories" + // NOI18N
-                    " ORDER BY favorite_index ASC"; // NOI18N
+                    "SELECT favorite_name" + // -- 1 --
+                    ", directory_name" +     // -- 2 --
+                    ", favorite_index" +     // -- 3 --
+                    " FROM favorite_directories" +
+                    " ORDER BY favorite_index ASC";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -196,8 +196,8 @@ public final class DatabaseFavoriteDirectories extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM favorite_directories" + // NOI18N
-                    " WHERE favorite_name = ?"); // NOI18N
+                    "SELECT COUNT(*) FROM favorite_directories" +
+                    " WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();

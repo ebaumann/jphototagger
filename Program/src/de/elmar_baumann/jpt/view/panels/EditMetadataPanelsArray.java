@@ -121,7 +121,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         if (isDirty()) {
             save();
             setFocusToLastFocussedComponent();
-            SelectedFile.INSTANCE.setFile(new File(""), null); // NOI18N
+            SelectedFile.INSTANCE.setFile(new File(""), null);
         }
     }
 
@@ -301,7 +301,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                     AppLog.logSevere(getClass(), ex);
                 }
             } else {
-                assert false : "Unknown panel type: " + panel; // NOI18N
+                assert false : "Unknown panel type: " + panel;
             }
         }
         return xmp;
@@ -329,7 +329,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
                 Column column = p.getColumn();
                 Object value  = xmp.getValue(column);
-                assert value == null || value instanceof Collection : "Not a collection: " + value; // NOI18N
+                assert value == null || value instanceof Collection : "Not a collection: " + value;
                 if (value instanceof Collection) {
                     Collection collection = (Collection) value;
                     for (Object o : collection) {
@@ -345,7 +345,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                     p.setDirty(true);
                 }
             } else {
-                assert false : "Unknown panel type: " + panel; // NOI18N
+                assert false : "Unknown panel type: " + panel;
             }
         }
     }
@@ -466,7 +466,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     @SuppressWarnings("unchecked")
     private Collection<String> getCommonXmpCollection(Column column) {
-        assert filenamesXmp.size() >= 1 : "No files!"; // NOI18N
+        assert filenamesXmp.size() >= 1 : "No files!";
         if (filenamesXmp.size() == 1) {
             Object value = filenamesXmp.get(0).getSecond().getValue(column);
             assert value == null || value instanceof List : value;
@@ -499,10 +499,10 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     private String getCommonXmpString(Column column) {
-        assert filenamesXmp.size() >= 1 : "No files!"; // NOI18N
+        assert filenamesXmp.size() >= 1 : "No files!";
         if (filenamesXmp.size() == 1) {
             String value = toString(filenamesXmp.get(0).getSecond().getValue(column));
-            return value == null ? "" : value.trim(); // NOI18N
+            return value == null ? "" : value.trim();
         }
         // more then 1 file
         Stack<String> strings = new Stack<String>();
@@ -513,11 +513,11 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 strings.push(value.trim());
             }
         }
-        if (strings.size() != filenamesXmp.size()) return ""; // NOI18N
+        if (strings.size() != filenamesXmp.size()) return "";
         String string = strings.pop();
         while (!strings.empty()) {
             if (!strings.pop().equalsIgnoreCase(string)) {
-                return ""; // NOI18N
+                return "";
             }
         }
         return string;
@@ -541,7 +541,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         } else if (value instanceof Long) {
             return Long.toOctalString((Long) value);
         } else {
-            assert false : "No string conversion implemented for " + value; // NOI18N
+            assert false : "No string conversion implemented for " + value;
         }
         return null;
     }
@@ -670,7 +670,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     private void setTextToTextSelectionPanel(Component c) {
-        String text = ""; // NOI18N
+        String text = "";
         if (c instanceof JTextField) {
             text = ((JTextField) c).getText().trim();
         } else if (c instanceof JTextArea) {

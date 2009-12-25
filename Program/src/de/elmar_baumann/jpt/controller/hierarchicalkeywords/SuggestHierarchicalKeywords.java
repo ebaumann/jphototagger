@@ -74,7 +74,7 @@ public class SuggestHierarchicalKeywords implements Suggest {
             PathSelectionDialog dlg = new PathSelectionDialog(
                     parentKeywords, PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
             dlg.setInfoMessage(Bundle.getString(
-                    "SuggestionHierarchicalKeywords.Info", // NOI18N
+                    "SuggestionHierarchicalKeywords.Info",
                     keywordName));
             dlg.setVisible(true);
             if (dlg.isAccepted()) {
@@ -95,6 +95,6 @@ public class SuggestHierarchicalKeywords implements Suggest {
 
     @Override
     public String getDescription() {
-        return Bundle.getString("SuggestionHierarchicalKeywords.Description"); // NOI18N
+        return Bundle.getString("SuggestionHierarchicalKeywords.Description");
     }
 }

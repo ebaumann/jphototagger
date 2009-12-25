@@ -35,11 +35,11 @@ public final class ColumnXmpDcSubjectsSubject extends Column {
     private ColumnXmpDcSubjectsSubject() {
         super(
             TableXmpDcSubjects.INSTANCE,
-            "subject", // NOI18N
+            "subject",
             DataType.STRING);
 
         setLength(128);
-        setDescription(Bundle.getString("ColumnXmpDcSubjectsSubject.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpDcSubjectsSubject.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpDcSubjectsSubject.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpDcSubjectsSubject.LongerDescription"));
     }
 }

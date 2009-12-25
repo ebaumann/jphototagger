@@ -31,7 +31,7 @@ public final class FilenameFormatFileName extends FilenameFormat {
     @Override
     public String format() {
         String filename = getFile().getName();
-        int index = filename.lastIndexOf("."); // NOI18N
+        int index = filename.lastIndexOf(".");
         return index > 0
                ? filename.substring(0, index)
                : filename;
@@ -39,6 +39,6 @@ public final class FilenameFormatFileName extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatName.String"); // NOI18N
+        return Bundle.getString("FilenameFormatName.String");
     }
 }

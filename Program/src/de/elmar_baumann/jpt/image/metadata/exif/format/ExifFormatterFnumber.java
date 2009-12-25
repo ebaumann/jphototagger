@@ -42,14 +42,14 @@ public final class ExifFormatterFnumber extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.F_NUMBER.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifRational.getRawValueByteCount() == entry.getRawValue().length) {
             ExifRational fNumer = new ExifRational(entry.getRawValue(), entry.
                     getByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
-            df.applyPattern("#.#"); // NOI18N
+            df.applyPattern("#.#");
             return df.format(ExifDatatypeUtil.toDouble(fNumer));
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

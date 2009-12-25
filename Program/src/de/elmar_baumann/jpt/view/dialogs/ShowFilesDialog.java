@@ -42,7 +42,7 @@ public class ShowFilesDialog extends Dialog {
 
     private void postInitComponents(List<File> files) {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
         setFiles(files);
     }
@@ -72,7 +72,7 @@ public class ShowFilesDialog extends Dialog {
         list = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("ShowFilesDialog.title")); // NOI18N
+        setTitle(Bundle.getString("ShowFilesDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

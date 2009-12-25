@@ -47,7 +47,7 @@ public final class ListUtil {
      */
     public static void clearSelection(List<JList> lists) {
         if (lists == null)
-            throw new NullPointerException("lists == null"); // NOI18N
+            throw new NullPointerException("lists == null");
 
         for (JList list : lists) {
             if (!list.isSelectionEmpty()) {
@@ -66,9 +66,9 @@ public final class ListUtil {
     public static Object getFirstItemWithText(String text,
             DefaultListModel model) {
         if (text == null)
-            throw new NullPointerException("text == null"); // NOI18N
+            throw new NullPointerException("text == null");
         if (model == null)
-            throw new NullPointerException("model == null"); // NOI18N
+            throw new NullPointerException("model == null");
 
         Object item = null;
         int size = model.size();
@@ -90,11 +90,11 @@ public final class ListUtil {
      */
     public static void setToken(String str, String delim, DefaultListModel model) {
         if (str == null)
-            throw new NullPointerException("str == null"); // NOI18N
+            throw new NullPointerException("str == null");
         if (delim == null)
-            throw new NullPointerException("delim == null"); // NOI18N
+            throw new NullPointerException("delim == null");
         if (model == null)
-            throw new NullPointerException("model == null"); // NOI18N
+            throw new NullPointerException("model == null");
 
         StringTokenizer tokenizer = new StringTokenizer(str, delim);
         model.clear();
@@ -112,16 +112,16 @@ public final class ListUtil {
      */
     public static String getTokenString(DefaultListModel model, String delim) {
         if (model == null)
-            throw new NullPointerException("model == null"); // NOI18N
+            throw new NullPointerException("model == null");
         if (delim == null)
-            throw new NullPointerException("delim == null"); // NOI18N
+            throw new NullPointerException("delim == null");
 
         StringBuffer buffer = new StringBuffer();
         int size = model.getSize();
         for (int i = 0; i < size; i++) {
             buffer.append(model.get(i).toString() + (i < size - 1
                     ? delim
-                    : "")); // NOI18N
+                    : ""));
         }
         return buffer.toString();
     }
@@ -140,11 +140,11 @@ public final class ListUtil {
             DefaultListModel model, Object o, Comparator c, int startIndex,
             int endIndex) {
         if (model == null)
-            throw new NullPointerException("model == null"); // NOI18N
+            throw new NullPointerException("model == null");
         if (o == null)
-            throw new NullPointerException("o == null"); // NOI18N
+            throw new NullPointerException("o == null");
         if (c == null)
-            throw new NullPointerException("c == null"); // NOI18N
+            throw new NullPointerException("c == null");
 
         synchronized (model) {
             if (!model.contains(o)) {
@@ -176,7 +176,7 @@ public final class ListUtil {
             int indexFirstElement,
             int indexSecondElement) {
         if (model == null)
-            throw new NullPointerException("model == null"); // NOI18N
+            throw new NullPointerException("model == null");
         int size = model.getSize();
         boolean canSwap = indexFirstElement >= 0 && indexFirstElement < size &&
                 indexSecondElement >= 0 && indexSecondElement < size &&
@@ -217,7 +217,7 @@ public final class ListUtil {
      */
     public static int getItemIndex(MouseEvent e) {
         Object source = e.getSource();
-        assert source instanceof JList : "Not a JList: " + source; // NOI18N
+        assert source instanceof JList : "Not a JList: " + source;
         if (source instanceof JList) {
             int mousePosX = e.getX();
             int mousePosY = e.getY();

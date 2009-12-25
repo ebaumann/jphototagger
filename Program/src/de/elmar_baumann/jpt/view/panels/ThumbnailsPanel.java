@@ -87,11 +87,11 @@ public class ThumbnailsPanel extends JPanel
      */
     private static final int MARGIN_THUMBNAIL = 3;
 
-    private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth"; // NOI18N
+    private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
 
     private static String getSidecarFilename(File file) {
         String sidecarfile = XmpMetadata.getSidecarFilenameOfImageFileIfExists(file.getAbsolutePath());
-        return sidecarfile == null ? "" : sidecarfile; // NOI18N
+        return sidecarfile == null ? "" : sidecarfile;
     }
     /**
      * Contains the flags of thumbnails at specific indices
@@ -771,7 +771,7 @@ public class ThumbnailsPanel extends JPanel
                 return file.getAbsolutePath();
             }
             ThumbnailFlag flag = getFlag(index);
-            String flagText = flag == null ? "" : flag.getString(); // NOI18N
+            String flagText = flag == null ? "" : flag.getString();
             long length = file.length();
             SizeUnit unit = SizeUnit.unit(length);
             long unitLength = (long) (length / unit.bytes() + 0.5);
@@ -779,7 +779,7 @@ public class ThumbnailsPanel extends JPanel
             String unitString = unit.toString();
             return Bundle.getString("ThumbnailsPanel.TooltipText", file, unitLength, unitString, date, date, getSidecarFilename(file), flagText);
         } else {
-            return ""; // NOI18N
+            return "";
         }
     }
 
@@ -912,8 +912,8 @@ public class ThumbnailsPanel extends JPanel
 
     private void notifyRefreshListeners() {
         synchronized (refreshListenersOfContent) {
-            AppLog.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh"); // NOI18N
-            // NOI18N
+            AppLog.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
+           
             for (RefreshListener listener : refreshListenersOfContent.get(content)) {
                 listener.refresh();
             }

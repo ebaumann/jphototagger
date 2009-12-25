@@ -33,7 +33,7 @@ public final class ColumnFilesId extends Column {
     private ColumnFilesId() {
         super(
             TableFiles.INSTANCE,
-            "id", // NOI18N
+            "id",
             DataType.BIGINT);
 
         setIsPrimaryKey(true);

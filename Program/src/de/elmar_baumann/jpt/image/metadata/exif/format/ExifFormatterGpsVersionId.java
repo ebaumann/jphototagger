@@ -40,7 +40,7 @@ public final class ExifFormatterGpsVersionId extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.GPS_VERSION_ID.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         byte[] rawValue = entry.getRawValue();
         assert rawValue.length == 4 : rawValue.length;
         if (rawValue.length != 4)
@@ -51,8 +51,8 @@ public final class ExifFormatterGpsVersionId extends ExifFormatter {
         ExifByte fourth = new ExifByte(Arrays.copyOfRange(rawValue, 3, 4));
 
         return first.getValue() +
-                "." + second.getValue() + // NOI18N
-                "." + third.getValue() + // NOI18N
-                "." + fourth.getValue(); // NOI18N
+                "." + second.getValue() +
+                "." + third.getValue() +
+                "." + fourth.getValue();
     }
 }

@@ -39,18 +39,18 @@ public final class ExifFormatterFlash extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.FLASH.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         byte[] rawValue = entry.getRawValue();
         if (rawValue != null && rawValue.length >= 1) {
             boolean[] bitsByte1 = Util.getBits(rawValue[0]);
             boolean fired = bitsByte1[0];
             boolean hasFlash = !bitsByte1[5];
             if (!hasFlash) {
-                return TRANSLATION.translate("FlashNone"); // NOI18N
+                return TRANSLATION.translate("FlashNone");
             }
             return fired
-                   ? TRANSLATION.translate("FlashFired") // NOI18N
-                   : TRANSLATION.translate("FlashNotFired"); // NOI18N
+                   ? TRANSLATION.translate("FlashFired")
+                   : TRANSLATION.translate("FlashNotFired");
         }
         return ExifAscii.decode(rawValue);
     }

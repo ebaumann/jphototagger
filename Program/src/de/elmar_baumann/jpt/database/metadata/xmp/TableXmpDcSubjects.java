@@ -31,7 +31,7 @@ public final class TableXmpDcSubjects extends Table {
     public static final TableXmpDcSubjects INSTANCE = new TableXmpDcSubjects();
 
     private TableXmpDcSubjects() {
-        super("xmp_dc_subjects"); // NOI18N
+        super("xmp_dc_subjects");
     }
 
     @Override

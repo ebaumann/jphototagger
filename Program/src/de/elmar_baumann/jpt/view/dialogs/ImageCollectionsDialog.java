@@ -72,7 +72,7 @@ public final class ImageCollectionsDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
 
@@ -97,7 +97,7 @@ public final class ImageCollectionsDialog extends Dialog {
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.ImageCollectionsDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.ImageCollectionsDialog"));
     }
 
     @Override
@@ -120,14 +120,14 @@ public final class ImageCollectionsDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("ImageCollectionsDialog.title")); // NOI18N
+        setTitle(Bundle.getString("ImageCollectionsDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelSelectImageCollection.setText(Bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
+        labelSelectImageCollection.setText(Bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text"));
 
         listImageCollectionNames.setModel(new de.elmar_baumann.jpt.model.ListModelImageCollections());
         listImageCollectionNames.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -140,7 +140,7 @@ public final class ImageCollectionsDialog extends Dialog {
         scrollPaneImageCollectionNames.setViewportView(listImageCollectionNames);
 
         buttonOk.setMnemonic('o');
-        buttonOk.setText(Bundle.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString("ImageCollectionsDialog.buttonOk.text"));
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);

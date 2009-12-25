@@ -258,7 +258,7 @@ public final class ControllerFastSearch
     }
 
     private Column getSearchColumn() {
-        assert !isSearchAllDefinedColumns() : "More than one search column!"; // NOI18N
+        assert !isSearchAllDefinedColumns() : "More than one search column!";
         if (isSearchAllDefinedColumns()) return null;
         ComboBoxModel model = comboboxFastSearch.getModel();
         assert model instanceof ComboBoxModelFastSearch : "Unknown model: " + model;

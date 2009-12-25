@@ -152,7 +152,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
     private void stop() {
         if (closeEnabled) {
             for (ActionListener listener : actionListeners) {
-                listener.actionPerformed(new ActionEvent(this, 0, "Stop")); // NOI18N
+                listener.actionPerformed(new ActionEvent(this, 0, "Stop"));
             }
             setVisible(false);
         }
@@ -205,12 +205,12 @@ public final class ProgressDialog extends javax.swing.JDialog {
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
-        labelInfo.setText(bundle.getString("ProgressDialogLabelMessageText")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle");
+        labelInfo.setText(bundle.getString("ProgressDialogLabelMessageText"));
 
         progressBar.setStringPainted(true);
 
-        buttonStop.setText(Bundle.getString("ProgressDialog.buttonStop.text")); // NOI18N
+        buttonStop.setText(Bundle.getString("ProgressDialog.buttonStop.text"));
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStopActionPerformed(evt);

@@ -151,7 +151,7 @@ public class ProgramSelectDialog extends Dialog {
         });
         scrollPanePrograms.setViewportView(listPrograms);
 
-        buttonSelect.setText(Bundle.getString("ProgramSelectDialog.buttonSelect.text")); // NOI18N
+        buttonSelect.setText(Bundle.getString("ProgramSelectDialog.buttonSelect.text"));
         buttonSelect.setEnabled(false);
         buttonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

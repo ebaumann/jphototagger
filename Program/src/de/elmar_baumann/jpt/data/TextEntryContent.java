@@ -120,7 +120,7 @@ public final class TextEntryContent implements TextEntry {
 
     @Override
     public void empty(boolean dirty) {
-        text = ""; // NOI18N
+        text = "";
         // ignore dirty
     }
 

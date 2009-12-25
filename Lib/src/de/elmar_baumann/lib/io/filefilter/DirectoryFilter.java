@@ -62,7 +62,7 @@ public final class DirectoryFilter implements java.io.FileFilter {
      */
     public DirectoryFilter(Set<Option> options) {
         if (options == null)
-            throw new NullPointerException("options == null"); // NOI18N
+            throw new NullPointerException("options == null");
 
         this.options = options;
     }

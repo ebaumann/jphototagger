@@ -95,7 +95,7 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel
         labelPrompt = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
 
-        labelPrompt.setText(Bundle.getString("SettingsEditColumnsPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(Bundle.getString("SettingsEditColumnsPanel.labelPrompt.text"));
         labelPrompt.setPreferredSize(new java.awt.Dimension(560, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -31,7 +31,7 @@ public final class TableExif extends Table {
     public static final TableExif INSTANCE = new TableExif();
 
     private TableExif() {
-        super("exif"); // NOI18N
+        super("exif");
     }
 
     @Override

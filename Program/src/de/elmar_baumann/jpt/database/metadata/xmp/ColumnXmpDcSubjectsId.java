@@ -33,7 +33,7 @@ public final class ColumnXmpDcSubjectsId extends Column {
     private ColumnXmpDcSubjectsId() {
         super(
             TableXmpDcSubjects.INSTANCE,
-            "id", // NOI18N
+            "id",
             DataType.BIGINT);
 
         setIsPrimaryKey(true);

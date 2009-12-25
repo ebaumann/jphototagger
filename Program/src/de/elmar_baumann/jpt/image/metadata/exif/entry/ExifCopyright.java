@@ -61,9 +61,9 @@ public final class ExifCopyright {
 
     private static String string(byte[] ba, int first, int last) {
         if (first < 0 || first > ba.length || last < first || last > ba.length)
-            return ""; // NOI18N
+            return "";
         return new String(Arrays.copyOfRange(ba, first, last), Charset.forName(
-                "US-ASCII")); // NOI18N
+                "US-ASCII"));
     }
 
     private static Pair<Integer, Integer> getPhotographerOffsets(byte[] rawValue) {

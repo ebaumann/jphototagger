@@ -37,19 +37,19 @@ public final class AppInfo {
      * second action in the main() mehtod has to be renaming that directory from
      * the old to the new name. Also check the code accessing this field.
      */
-    public static final String PROJECT_NAME = "ImageMetaDataViewer"; // NOI18N WHEN CHANGING SEE COMMENT ABOVE!
+    public static final String PROJECT_NAME = "ImageMetaDataViewer"; // WHEN CHANGING SEE COMMENT ABOVE!
     /**
      * The application's version
      */
-    public static final String APP_VERSION = "0.7.17 2009-12-25";  // NOI18N
+    public static final String APP_VERSION = "0.7.17 2009-12-25"; 
     /**
      * The application's name
      */
-    public static final String APP_NAME = "JPhotoTagger";  // NOI18N
+    public static final String APP_NAME = "JPhotoTagger"; 
     /**
      * Title of the application
      */
-    public static final String APP_DESCRIPTION = Bundle.getString("AppDescription"); // NOI18N
+    public static final String APP_DESCRIPTION = Bundle.getString("AppDescription");
     /**
      * Minimum required Java version
      */

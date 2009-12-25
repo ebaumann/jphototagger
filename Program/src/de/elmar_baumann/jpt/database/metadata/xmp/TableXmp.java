@@ -31,7 +31,7 @@ public final class TableXmp extends Table {
     public static final TableXmp INSTANCE = new TableXmp();
 
     private TableXmp() {
-        super("xmp"); // NOI18N
+        super("xmp");
     }
 
     @Override

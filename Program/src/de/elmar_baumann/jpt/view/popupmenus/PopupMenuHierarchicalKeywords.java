@@ -37,16 +37,16 @@ import javax.swing.tree.TreePath;
  */
 public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
 
-    private static final String                        DISPLAY_NAME_ACTION_ADD_KEYWORD            = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionAddKeyword"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_REMOVE                 = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveKeyword"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_RENAME                 = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRenameKeyword"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_TOGGLE_REAL            = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionToggleReal"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_ADD_TO_EDIT_PANEL      = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionAddToEditPanel"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_REMOVE_FROM_EDIT_PANEL = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveFromEditPanel"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_CUT                    = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionCut"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_PASTE                  = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionPaste"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_DISPLAY_IMAGES         = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImages"); // NOI18N
-    private static final String                        DISPLAY_NAME_ACTION_DISPLAY_IMAGES_KW      = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImagesKw"); // NOI18N
+    private static final String                        DISPLAY_NAME_ACTION_ADD_KEYWORD            = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionAddKeyword");
+    private static final String                        DISPLAY_NAME_ACTION_REMOVE                 = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveKeyword");
+    private static final String                        DISPLAY_NAME_ACTION_RENAME                 = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRenameKeyword");
+    private static final String                        DISPLAY_NAME_ACTION_TOGGLE_REAL            = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionToggleReal");
+    private static final String                        DISPLAY_NAME_ACTION_ADD_TO_EDIT_PANEL      = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionAddToEditPanel");
+    private static final String                        DISPLAY_NAME_ACTION_REMOVE_FROM_EDIT_PANEL = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveFromEditPanel");
+    private static final String                        DISPLAY_NAME_ACTION_CUT                    = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionCut");
+    private static final String                        DISPLAY_NAME_ACTION_PASTE                  = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionPaste");
+    private static final String                        DISPLAY_NAME_ACTION_DISPLAY_IMAGES         = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImages");
+    private static final String                        DISPLAY_NAME_ACTION_DISPLAY_IMAGES_KW      = Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImagesKw");
     private final        JMenuItem                     menuItemAdd                                = new JMenuItem(DISPLAY_NAME_ACTION_ADD_KEYWORD);
     private final        JMenuItem                     menuItemAddToEditPanel                     = new JMenuItem(DISPLAY_NAME_ACTION_ADD_TO_EDIT_PANEL);
     private final        JMenuItem                     menuItemRemove                             = new JMenuItem(DISPLAY_NAME_ACTION_REMOVE);
@@ -154,16 +154,16 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
     }
 
     private void setIcons() {
-        menuItemAdd                .setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
-        menuItemRemove             .setIcon(AppLookAndFeel.getIcon("icon_remove.png")); // NOI18N
-        menuItemRename             .setIcon(AppLookAndFeel.getIcon("icon_rename.png")); // NOI18N
-        menuItemToggleReal         .setIcon(AppLookAndFeel.getIcon("icon_keyword_real_helper.png")); // NOI18N
-        menuItemAddToEditPanel     .setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
-        menuItemRemoveFromEditPanel.setIcon(AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
-        menuItemCut                .setIcon(AppLookAndFeel.getIcon("icon_cut_to_clipboard.png")); // NOI18N
-        menuItemPaste              .setIcon(AppLookAndFeel.getIcon("icon_paste_from_clipboard.png")); // NOI18N
-        menuItemDisplayImages      .setIcon(AppLookAndFeel.getIcon("icon_thumbnails.png")); // NOI18N
-        menuItemDisplayImagesKw    .setIcon(AppLookAndFeel.getIcon("icon_thumbnails.png")); // NOI18N
+        menuItemAdd                .setIcon(AppLookAndFeel.getIcon("icon_add.png"));
+        menuItemRemove             .setIcon(AppLookAndFeel.getIcon("icon_remove.png"));
+        menuItemRename             .setIcon(AppLookAndFeel.getIcon("icon_rename.png"));
+        menuItemToggleReal         .setIcon(AppLookAndFeel.getIcon("icon_keyword_real_helper.png"));
+        menuItemAddToEditPanel     .setIcon(AppLookAndFeel.getIcon("icon_edit.png"));
+        menuItemRemoveFromEditPanel.setIcon(AppLookAndFeel.getIcon("icon_delete.png"));
+        menuItemCut                .setIcon(AppLookAndFeel.getIcon("icon_cut_to_clipboard.png"));
+        menuItemPaste              .setIcon(AppLookAndFeel.getIcon("icon_paste_from_clipboard.png"));
+        menuItemDisplayImages      .setIcon(AppLookAndFeel.getIcon("icon_thumbnails.png"));
+        menuItemDisplayImagesKw    .setIcon(AppLookAndFeel.getIcon("icon_thumbnails.png"));
     }
 
     private void setAccelerators() {

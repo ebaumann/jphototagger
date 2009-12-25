@@ -62,7 +62,7 @@ public class ControllerRemoveHierarchicalKeyword
             delete(node, (HierarchicalKeyword) userObject);
         } else {
             MessageDisplayer.error(getHKPanel().getTree(),
-                    "ControllerDeleteHierarchicalKeyword.Error.Node", // NOI18N
+                    "ControllerDeleteHierarchicalKeyword.Error.Node",
                     node);
         }
     }
@@ -73,7 +73,7 @@ public class ControllerRemoveHierarchicalKeyword
         if (tm instanceof TreeModelHierarchicalKeywords) {
             if (MessageDisplayer.confirm(
                     getHKPanel(),
-                    "ControllerDeleteHierarchicalKeyword.Confirm.Delete", // NOI18N
+                    "ControllerDeleteHierarchicalKeyword.Confirm.Delete",
                     MessageDisplayer.CancelButton.HIDE, keyword).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
                 HierarchicalKeywordsHelper.deleteInFiles(keyword);
@@ -81,7 +81,7 @@ public class ControllerRemoveHierarchicalKeyword
             }
         } else {
             AppLog.logWarning(ControllerRemoveHierarchicalKeyword.class,
-                    "ControllerDeleteHierarchicalKeyword.Error.Model"); // NOI18N
+                    "ControllerDeleteHierarchicalKeyword.Error.Model");
         }
     }
 }

@@ -58,14 +58,14 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         super((java.awt.Frame) null, true);
         this.paths = paths;
         this.mode = mode;
-        assert paths != null : "paths == null!"; // NOI18N
+        assert paths != null : "paths == null!";
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
         list.addListSelectionListener(this);
         if (mode.equals(Mode.DISTINCT_ELEMENTS)) {
@@ -170,7 +170,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
     private class Renderer extends DefaultListCellRenderer {
 
-        private final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png"); // NOI18N
+        private final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
 
         @Override
         public Component getListCellRendererComponent(JList list, Object value,
@@ -180,7 +180,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             if (value instanceof Collection) {
                 renderCollection(value, label);
             } else if (value instanceof String) {
-                String padding = "  "; // NOI18N
+                String padding = "  ";
                 label.setText((String) value + padding);
             }
             label.setIcon(ICON);
@@ -190,11 +190,11 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         private void renderCollection(Object value, JLabel label) {
             Collection collection = (Collection) value;
             StringBuilder sb = new StringBuilder();
-            String pathDelim = " > "; // NOI18N
+            String pathDelim = " > ";
             int i = 0;
             for (Object element : collection) {
                 sb.append((i++ == 0
-                           ? "" // NOI18N
+                           ? ""
                            : pathDelim) + element.toString());
             }
             label.setText(sb.toString());
@@ -217,7 +217,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectSelected = new javax.swing.JButton();
 
-        setTitle(Bundle.getString("PathSelectionDialog.title")); // NOI18N
+        setTitle(Bundle.getString("PathSelectionDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -229,7 +229,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         scrollPane.setViewportView(list);
 
         buttonSelectNothing.setMnemonic('n');
-        buttonSelectNothing.setText(Bundle.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
+        buttonSelectNothing.setText(Bundle.getString("PathSelectionDialog.buttonSelectNothing.text"));
         buttonSelectNothing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectNothingActionPerformed(evt);
@@ -237,7 +237,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         });
 
         buttonSelectAll.setMnemonic('a');
-        buttonSelectAll.setText(Bundle.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
+        buttonSelectAll.setText(Bundle.getString("PathSelectionDialog.buttonSelectAll.text"));
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectAllActionPerformed(evt);
@@ -245,7 +245,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         });
 
         buttonSelectSelected.setMnemonic('s');
-        buttonSelectSelected.setText(Bundle.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
+        buttonSelectSelected.setText(Bundle.getString("PathSelectionDialog.buttonSelectSelected.text"));
         buttonSelectSelected.setEnabled(false);
         buttonSelectSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

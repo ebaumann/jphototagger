@@ -63,13 +63,13 @@ final class UpdateTablesDropCategories {
 
     private boolean saveCategoriesToFile(Connection connection) throws SQLException {
         String sql =
-                " SELECT DISTINCT photoshop_category FROM xmp" + // NOI18N
-                " WHERE photoshop_category IS NOT NULL" + // NOI18N
-                " UNION ALL" + // NOI18N
-                " SELECT DISTINCT supplementalcategory" + // NOI18N
-                " FROM xmp_photoshop_supplementalcategories" + // NOI18N
-                " WHERE supplementalcategory IS NOT NULL" + // NOI18N
-                " ORDER BY 1 ASC"; // NOI18N
+                " SELECT DISTINCT photoshop_category FROM xmp" +
+                " WHERE photoshop_category IS NOT NULL" +
+                " UNION ALL" +
+                " SELECT DISTINCT supplementalcategory" +
+                " FROM xmp_photoshop_supplementalcategories" +
+                " WHERE supplementalcategory IS NOT NULL" +
+                " ORDER BY 1 ASC";
         Writer writer = null;
         try {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
@@ -102,24 +102,24 @@ final class UpdateTablesDropCategories {
 
     private String getFilename() {
         return UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator
-                + "SavedCategories." + FilenameSuffixes.LIGHTROOM_KEYWORDS; // NOI18N
+                + "SavedCategories." + FilenameSuffixes.LIGHTROOM_KEYWORDS;
     }
 
     private void fixSavedSearches(Connection connection) throws SQLException {
         Statement stmt = connection.createStatement();
         // Now as keyword
         stmt.execute("UPDATE saved_searches_panels" +
-                " SET column_id = 24" + // NOI18N
-                " WHERE column_id = 25 OR column_id = 14"); // NOI18N
+                " SET column_id = 24" +
+                " WHERE column_id = 25 OR column_id = 14");
         stmt.close();
     }
 
     private void updateDatabase(Connection connection) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE xmp DROP COLUMN photoshop_category"); // NOI18N
-        stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopCategory"); // NOI18N
-        stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopSupplementalCategories"); // NOI18N
-        stmt.execute("DROP TABLE xmp_photoshop_supplementalcategories"); // NOI18N
+        stmt.execute("ALTER TABLE xmp DROP COLUMN photoshop_category");
+        stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopCategory");
+        stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopSupplementalCategories");
+        stmt.execute("DROP TABLE xmp_photoshop_supplementalcategories");
         stmt.close();
     }
 
@@ -132,7 +132,7 @@ final class UpdateTablesDropCategories {
 
     private void importCategories() {
         String filename = getFilename();
-        if (MessageDisplayer.confirm(null, "UpdateTablesDropCategories.Confirm.Import", // NOI18N
+        if (MessageDisplayer.confirm(null, "UpdateTablesDropCategories.Confirm.Import",
                 MessageDisplayer.CancelButton.HIDE, filename).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
             BufferedReader reader = null;

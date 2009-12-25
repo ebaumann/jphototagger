@@ -38,10 +38,10 @@ import javax.swing.tree.TreeModel;
 public final class Timeline {
 
     private final DefaultMutableTreeNode ROOT_NODE = new DefaultMutableTreeNode(
-            Bundle.getString("Timeline.RootNode.DisplayName")); // NOI18N
+            Bundle.getString("Timeline.RootNode.DisplayName"));
     private static final DefaultMutableTreeNode UNKNOWN_NODE =
             new DefaultMutableTreeNode(
-            Bundle.getString("Timeline.UnknownNode.DisplayName")); // NOI18N
+            Bundle.getString("Timeline.UnknownNode.DisplayName"));
     private boolean unknownNode;
 
     /**

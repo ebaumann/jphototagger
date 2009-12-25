@@ -55,6 +55,6 @@ public final class Version implements Comparable<Version> {
 
     @Override
     public String toString() {
-        return MessageFormat.format("{0}.{1}", new Object[]{major, minor}); // NOI18N
+        return MessageFormat.format("{0}.{1}", new Object[]{major, minor});
     }
 }

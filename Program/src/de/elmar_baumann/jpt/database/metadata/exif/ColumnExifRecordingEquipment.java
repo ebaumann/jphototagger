@@ -39,10 +39,10 @@ public final class ColumnExifRecordingEquipment extends Column {
     private ColumnExifRecordingEquipment() {
         super(
             TableExif.INSTANCE,
-            "exif_recording_equipment", // NOI18N
+            "exif_recording_equipment",
             DataType.STRING);
 
         setLength(125);
-        setDescription(Bundle.getString("ColumnExifRecordingEquipment.Description")); // NOI18N
+        setDescription(Bundle.getString("ColumnExifRecordingEquipment.Description"));
     }
 }

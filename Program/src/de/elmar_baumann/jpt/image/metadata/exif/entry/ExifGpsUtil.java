@@ -50,7 +50,7 @@ public final class ExifGpsUtil {
     }
 
     public static String degreesToString(ExifDegrees degrees) {
-        MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''"); // NOI18N
+        MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''");
         double deg = ExifDatatypeUtil.toDouble(degrees.getDegrees());
         double min = ExifDatatypeUtil.toDouble(degrees.getMinutes());
         double sec = ExifDatatypeUtil.toDouble(degrees.getSeconds());
@@ -58,8 +58,8 @@ public final class ExifGpsUtil {
             min = ExifDatatypeUtil.toLong(degrees.getMinutes());
             sec = ExifGpsUtil.getSecondsOfMinutes(degrees.getMinutes());
         }
-        DecimalFormat dfDegMin = new DecimalFormat("#"); // NOI18N
-        DecimalFormat dfSec = new DecimalFormat("#.##"); // NOI18N
+        DecimalFormat dfDegMin = new DecimalFormat("#");
+        DecimalFormat dfSec = new DecimalFormat("#.##");
 
         Object[] params = {dfDegMin.format(deg), dfDegMin.format(min), dfSec.
             format(sec)};
@@ -70,10 +70,10 @@ public final class ExifGpsUtil {
             ExifGpsLatitude latitude) {
         MessageFormat msg =
                 new MessageFormat(
-                "http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de"); // NOI18N
+                "http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
         DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(
                 Locale.ENGLISH);
-        df.applyPattern("#.########"); // NOI18N
+        df.applyPattern("#.########");
 
         double latititudeValue = getDegrees(latitude.getDegrees());
         double longitudeValue = getDegrees(longitude.getDegrees());

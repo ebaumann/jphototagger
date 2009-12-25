@@ -38,13 +38,13 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
             new HashMap<Integer, String>();
 
     static {
-        EXIF_KEY_OF_METERING_MODE.put(0, "MeteringModeUnknown"); // NOI18N
-        EXIF_KEY_OF_METERING_MODE.put(1, "MeteringModeIntegral"); // NOI18N
-        EXIF_KEY_OF_METERING_MODE.put(2, "MeteringModeIntegralCenter"); // NOI18N
-        EXIF_KEY_OF_METERING_MODE.put(3, "MeteringModeSpot"); // NOI18N
-        EXIF_KEY_OF_METERING_MODE.put(4, "MeteringModeMultiSpot"); // NOI18N
-        EXIF_KEY_OF_METERING_MODE.put(5, "MeteringModeMatrix"); // NOI18N
-        EXIF_KEY_OF_METERING_MODE.put(6, "MeteringModeSelective"); // NOI18N
+        EXIF_KEY_OF_METERING_MODE.put(0, "MeteringModeUnknown");
+        EXIF_KEY_OF_METERING_MODE.put(1, "MeteringModeIntegral");
+        EXIF_KEY_OF_METERING_MODE.put(2, "MeteringModeIntegralCenter");
+        EXIF_KEY_OF_METERING_MODE.put(3, "MeteringModeSpot");
+        EXIF_KEY_OF_METERING_MODE.put(4, "MeteringModeMultiSpot");
+        EXIF_KEY_OF_METERING_MODE.put(5, "MeteringModeMatrix");
+        EXIF_KEY_OF_METERING_MODE.put(6, "MeteringModeSelective");
     }
 
     private ExifFormatterMeteringMode() {
@@ -53,7 +53,7 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
     @Override
     public String format(IdfEntryProxy entry) {
         if (entry.getTag() != ExifTag.METERING_MODE.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry); // NOI18N
+            throw new IllegalArgumentException("Wrong tag: " + entry);
         if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
             ExifShort es = new ExifShort(entry.getRawValue(),
                     entry.getByteOrder());
@@ -63,6 +63,6 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
                         EXIF_KEY_OF_METERING_MODE.get(value));
             }
         }
-        return "?"; // NOI18N
+        return "?";
     }
 }

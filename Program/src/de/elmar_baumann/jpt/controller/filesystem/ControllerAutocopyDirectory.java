@@ -67,7 +67,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (stop) {
             AppLog.logWarning(ControllerAutocopyDirectory.class,
-                    "ControllerAutocopyDirectory.Error.Stopped"); // NOI18N
+                    "ControllerAutocopyDirectory.Error.Stopped");
         } else {
             copy();
         }
@@ -81,8 +81,8 @@ public final class ControllerAutocopyDirectory implements ActionListener {
             copy(dir);
         } else if (confirmSetAutocopyDirectory(
                 dir == null
-                ? "ControllerAutocopyDirectory.Confirm.DefineDirectoryWasNull" // NOI18N
-                : "ControllerAutocopyDirectory.Confirm.DefineDirectoryHasChanged")) { // NOI18N
+                ? "ControllerAutocopyDirectory.Confirm.DefineDirectoryWasNull"
+                : "ControllerAutocopyDirectory.Confirm.DefineDirectoryHasChanged")) {
             setAutocopyDirectory();
         }
     }
@@ -118,7 +118,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
     private void informationMessageNoFilesFound() {
         if (MessageDisplayer.confirm(null,
-                "ControllerAutocopyDirectory.Info.NoFilesFound", // NOI18N
+                "ControllerAutocopyDirectory.Info.NoFilesFound",
                 MessageDisplayer.CancelButton.HIDE).equals(
                 MessageDisplayer.ConfirmAction.YES)) {
             setAutocopyDirectory();
@@ -135,7 +135,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
     private boolean confirmAutocopyDir(File dir) {
         return MessageDisplayer.confirm(null,
-                "ControllerAutocopyDirectory.Confirm.AutocopyDir", // NOI18N
+                "ControllerAutocopyDirectory.Confirm.AutocopyDir",
                 MessageDisplayer.CancelButton.HIDE, dir).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
@@ -147,7 +147,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
         public CopyTask(CopyToDirectoryDialog dialog) {
             this.dialog = dialog;
-            setName("Auto copying directory @ " + // NOI18N
+            setName("Auto copying directory @ " +
                     ControllerAutocopyDirectory.class.getName());
             setPriority(MIN_PRIORITY);
             dialog.addProgressListener(this);
@@ -168,7 +168,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
                 if (fo instanceof File) {
                     File file = (File) fo;
                     String filename = file.getName().toLowerCase();
-                    if (!filename.endsWith(".xmp")) { // NOI18N
+                    if (!filename.endsWith(".xmp")) {
                         copiedFiles.add(file);
                     }
                 }

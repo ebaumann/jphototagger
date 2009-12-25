@@ -40,9 +40,9 @@ final class UpdateTablesPrimaryKeys {
             new ArrayList<String>();
 
     void update(Connection connection) throws SQLException {
-        messages.message(Bundle.getString("UpdateTablesPrimaryKeys.Info")); // NOI18N
+        messages.message(Bundle.getString("UpdateTablesPrimaryKeys.Info"));
         dropPrimaryKeys(connection);
-        messages.message(""); // NOI18N
+        messages.message("");
     }
 
     private void dropPrimaryKeys(Connection connection) throws SQLException {

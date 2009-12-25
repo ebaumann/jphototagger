@@ -56,7 +56,7 @@ class UpdateTablesMessages {
         dialog.setEnabledClose(false);
         dialog.setEnabledStop(false);
         dialog.setTitle(
-                Bundle.getString("UpdateTablesMessages.Title")); // NOI18N
+                Bundle.getString("UpdateTablesMessages.Title"));
         dialog.setIndeterminate(true);
     }
 }

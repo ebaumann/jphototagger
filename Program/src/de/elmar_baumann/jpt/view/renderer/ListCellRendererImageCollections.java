@@ -40,7 +40,7 @@ import javax.swing.JList;
 public final class ListCellRendererImageCollections extends DefaultListCellRenderer {
 
     private static final Icon ICON_DEFAULT =
-            AppLookAndFeel.getIcon("icon_imagecollection.png"); // NOI18N
+            AppLookAndFeel.getIcon("icon_imagecollection.png");
     private static final Color COLOR_FOREGROUND_PREV_IMPORT = Color.BLUE;
     private static final Map<Object, Icon> ICON_OF_VALUE =
             new HashMap<Object, Icon>();
@@ -49,11 +49,11 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
     {
         ICON_OF_VALUE.put(
                 AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT,
-                AppLookAndFeel.getIcon("icon_card.png")); // NOI18N
+                AppLookAndFeel.getIcon("icon_card.png"));
         ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED,
-                AppLookAndFeel.getIcon("icon_picked.png")); // NOI18N
+                AppLookAndFeel.getIcon("icon_picked.png"));
         ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED,
-                AppLookAndFeel.getIcon("icon_rejected.png")); // NOI18N
+                AppLookAndFeel.getIcon("icon_rejected.png"));
     }
 
     @Override

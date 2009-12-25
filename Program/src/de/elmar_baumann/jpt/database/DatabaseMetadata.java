@@ -43,10 +43,10 @@ public final class DatabaseMetadata extends Database {
     public boolean existsTable(Connection connection, String tablename) throws SQLException {
         boolean          exists = false;
         DatabaseMetaData dbm    = connection.getMetaData();
-        String[]         names  = {"TABLE"}; // NOI18N
-        ResultSet        rs     = dbm.getTables(null, "%", "%", names); // NOI18N
+        String[]         names  = {"TABLE"};
+        ResultSet        rs     = dbm.getTables(null, "%", "%", names);
         while (!exists && rs.next()) {
-            exists = rs.getString("TABLE_NAME").equalsIgnoreCase(tablename); // NOI18N
+            exists = rs.getString("TABLE_NAME").equalsIgnoreCase(tablename);
         }
         rs.close();
         return exists;
@@ -56,7 +56,7 @@ public final class DatabaseMetadata extends Database {
             Connection connection, String tableName, String columnName) throws SQLException {
         boolean exists = false;
         Statement         stmt        = connection.createStatement();
-        String            sql         = "select * from " + tableName + " WHERE 1 = 0"; // NOI18N "WHERE 1 = 0": speed, memory!
+        String            sql         = "select * from " + tableName + " WHERE 1 = 0"; // "WHERE 1 = 0": speed, memory!
         ResultSet         rs          = stmt.executeQuery(sql);
         ResultSetMetaData rsmd        = rs.getMetaData();
         int               columnCount = rsmd.getColumnCount();
@@ -110,7 +110,7 @@ public final class DatabaseMetadata extends Database {
 
         List<ColumnInfo>  infos = new ArrayList<ColumnInfo>();
         DatabaseMetaData  meta  = connection.getMetaData();
-        ResultSet         rs    = meta.getColumns(null, null, tableName.toUpperCase(), columnName == null ? "%" : columnName.toUpperCase()); // NOI18N
+        ResultSet         rs    = meta.getColumns(null, null, tableName.toUpperCase(), columnName == null ? "%" : columnName.toUpperCase());
 
         while (rs.next()) {
             ColumnInfo colInfo = new ColumnInfo();

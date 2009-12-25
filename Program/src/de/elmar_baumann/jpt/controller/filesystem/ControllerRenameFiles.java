@@ -98,7 +98,7 @@ public final class ControllerRenameFiles
         final File oldFile = action.getOldFile();
         final File newFile = action.getNewFile();
         AppLog.logInfo(ControllerRenameFiles.class,
-                "ControllerRenameFiles.Info.Rename", oldFile, newFile); // NOI18N
+                "ControllerRenameFiles.Info.Rename", oldFile, newFile);
         db.updateRenameImageFilename(
                 oldFile.getAbsolutePath(), newFile.getAbsolutePath());
         SwingUtilities.invokeLater(new Runnable() {

@@ -137,7 +137,7 @@ public final class ControllerMetadataTemplates
                     }
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
-                            "ControllerMetadataTemplates.Error.WrongObject", o); // NOI18N
+                            "ControllerMetadataTemplates.Error.WrongObject", o);
                 }
             }
         });
@@ -171,7 +171,7 @@ public final class ControllerMetadataTemplates
                     model.updateTemplate(newTemplate);
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
-                            "ControllerMetadataTemplates.Error.WrongObject", o); // NOI18N
+                            "ControllerMetadataTemplates.Error.WrongObject", o);
                 }
             }
         });
@@ -188,7 +188,7 @@ public final class ControllerMetadataTemplates
                     editPanels.setMetadataEditTemplate(template);
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
-                            "ControllerMetadataTemplates.Error.InsertTemplateIsNull"); // NOI18N
+                            "ControllerMetadataTemplates.Error.InsertTemplateIsNull");
                 }
             }
         });
@@ -201,7 +201,7 @@ public final class ControllerMetadataTemplates
         while (exists && !abort) {
             name = JOptionPane.showInputDialog(buttonMetadataTemplateCreate,
                     Bundle.getString(
-                    "ControllerMetadataTemplates.Input.TemplateName"), name); // NOI18N
+                    "ControllerMetadataTemplates.Input.TemplateName"), name);
             exists = name != null && db.existsMetadataEditTemplate(name);
             if (exists) {
                 abort = confirmOverride(name);
@@ -215,14 +215,14 @@ public final class ControllerMetadataTemplates
 
     private boolean confirmDelete(String templateName) {
         return MessageDisplayer.confirm(buttonMetadataTemplateDelete,
-                "ControllerMetadataTemplates.Confirm.Delete", // NOI18N
+                "ControllerMetadataTemplates.Confirm.Delete",
                 MessageDisplayer.CancelButton.HIDE, templateName).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
 
     private boolean confirmOverride(String name) {
         return MessageDisplayer.confirm(buttonMetadataTemplateRename,
-                "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate", // NOI18N
+                "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate",
                 MessageDisplayer.CancelButton.HIDE, name).equals(
                 MessageDisplayer.ConfirmAction.NO);
     }

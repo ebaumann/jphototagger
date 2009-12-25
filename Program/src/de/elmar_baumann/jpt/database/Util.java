@@ -38,16 +38,16 @@ public final class Util {
      *               if count equals 3
      */
     public static String getParamsInParentheses(int count) {
-        assert count > 0 : "Count has to be > 0: " + count; // NOI18N
-        if (count <= 0) return ""; // NOI18N
+        assert count > 0 : "Count has to be > 0: " + count;
+        if (count <= 0) return "";
         StringBuilder sb = new StringBuilder(count * 2);
-        sb.append("("); // NOI18N
+        sb.append("(");
         for (int i = 0; i < count; i++) {
             sb.append((i == 0
-                       ? "" // NOI18N
-                       : ",") + "?"); // NOI18N
+                       ? ""
+                       : ",") + "?");
         }
-        sb.append(")"); // NOI18N
+        sb.append(")");
         return sb.toString();
     }
 

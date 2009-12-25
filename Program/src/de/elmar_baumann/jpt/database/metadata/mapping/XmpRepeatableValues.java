@@ -85,7 +85,7 @@ public final class XmpRepeatableValues {
     public static boolean isRepeatable(Column xmpColumn) {
         Boolean repeatable = IS_REPEATABLE.get(xmpColumn);
         if (repeatable == null)
-            throw new IllegalArgumentException("Unknown column: " + xmpColumn); // NOI18N
+            throw new IllegalArgumentException("Unknown column: " + xmpColumn);
         return repeatable;
     }
 

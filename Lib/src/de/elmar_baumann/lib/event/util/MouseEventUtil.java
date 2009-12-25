@@ -42,7 +42,7 @@ public final class MouseEventUtil {
      */
     public static boolean isPopupTrigger(MouseEvent e) {
         if (e == null)
-            throw new NullPointerException("e == null"); // NOI18N
+            throw new NullPointerException("e == null");
 
         return e.isPopupTrigger() || e.getModifiers() == 4;
     }
@@ -56,7 +56,7 @@ public final class MouseEventUtil {
      */
     public static boolean isDoubleClick(MouseEvent e) {
         if (e == null)
-            throw new NullPointerException("e == null"); // NOI18N
+            throw new NullPointerException("e == null");
 
         return e.getClickCount() >= 2;
     }
@@ -69,7 +69,7 @@ public final class MouseEventUtil {
      */
     public static boolean isLeftClick(MouseEvent e) {
         if (e == null)
-            throw new NullPointerException("e == null"); // NOI18N
+            throw new NullPointerException("e == null");
 
         return e.getButton() == MouseEvent.BUTTON1;
     }

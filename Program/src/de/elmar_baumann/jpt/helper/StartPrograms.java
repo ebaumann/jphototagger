@@ -77,7 +77,7 @@ public final class StartPrograms {
 
     private boolean checkFilecount(List<File> imageFiles) {
         if (imageFiles.size() <= 0) {
-            MessageDisplayer.error(null, "ProgramStarter.Error.Selection"); // NOI18N
+            MessageDisplayer.error(null, "ProgramStarter.Error.Selection");
             return false;
         }
         return true;
@@ -92,7 +92,7 @@ public final class StartPrograms {
         public Execute(Program program, List<File> imageFiles) {
             this.imageFiles = new ArrayList<File>(imageFiles);
             this.program = program;
-            setName("Executing program " + program.getAlias() + " @ " + // NOI18N
+            setName("Executing program " + program.getAlias() + " @ " +
                     getClass().getName());
         }
 
@@ -113,7 +113,7 @@ public final class StartPrograms {
 
         private void logCommand(String command) {
             AppLog.logInfo(StartPrograms.class,
-                    "ProgramStarter.Info.ExecuteCommand", command); // NOI18N
+                    "ProgramStarter.Info.ExecuteCommand", command);
         }
 
         private void processPattern() {
@@ -143,7 +143,7 @@ public final class StartPrograms {
             return IoUtil.quoteForCommandLine(program.getFile()) +
                     IoUtil.getDefaultCommandLineSeparator() +
                     program.getCommandlineParameters(imageFiles,
-                        getAdditionalParameters(Bundle.getString("ProgramStarter.GetInput.Title"), 2), // NOI18N
+                        getAdditionalParameters(Bundle.getString("ProgramStarter.GetInput.Title"), 2),
                         dialog.isParametersBeforeFilename());
         }
 
@@ -168,7 +168,7 @@ public final class StartPrograms {
 
         private String getAdditionalParameters(String filename, int count) {
             if (program.isUsePattern()) return "";
-            if (!program.isInputBeforeExecute()) return ""; // NOI18N
+            if (!program.isInputBeforeExecute()) return "";
             if ((!program.isInputBeforeExecutePerFile() && count > 1)) return dialog.getParameters();
 
             dialog.setProgram(program.getAlias());
@@ -177,7 +177,7 @@ public final class StartPrograms {
             if (dialog.accepted()) {
                 return dialog.getParameters();
             }
-            return ""; // NOI18N
+            return "";
         }
 
         private synchronized void nextExecutor() {

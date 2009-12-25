@@ -83,12 +83,12 @@ public final class ControllerImageCollectionSelected implements
                     showImageCollection(selectedValue.toString());
                 } else {
                     AppLog.logWarning(ControllerImageCollectionSelected.class,
-                            "ControllerImageCollectionSelected.Error.SelectedValueIsNull"); // NOI18N
+                            "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
                 }
                 setMetadataEditable();
             }
         });
-        thread.setName("Image collection selected" + " @ " + getClass()); // NOI18N
+        thread.setName("Image collection selected" + " @ " + getClass());
         thread.start();
     }
 

@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.resource.Translation;
 public abstract class ExifFormatter {
 
     protected static final Translation TRANSLATION = new Translation(
-            "ExifFieldValueTranslations"); // NOI18N
+            "ExifFieldValueTranslations");
 
     /**
      * Formats an EXIF entry.

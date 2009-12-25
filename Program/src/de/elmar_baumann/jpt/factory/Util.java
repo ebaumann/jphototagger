@@ -38,7 +38,7 @@ final class Util {
     static void checkInit(Class c, boolean init) {
         if (init) {
             AppLog.logWarning(Util.class,
-                    "Util.Error.InitCalledMoreThanOneTimes", // NOI18N
+                    "Util.Error.InitCalledMoreThanOneTimes",
                     c.getName());
         }
     }

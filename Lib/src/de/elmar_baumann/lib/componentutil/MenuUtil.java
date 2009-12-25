@@ -30,7 +30,7 @@ import javax.swing.JMenuItem;
  */
 public final class MenuUtil {
 
-    private static final String AMPERSAND = "&"; // NOI18N
+    private static final String AMPERSAND = "&";
 
     /**
      * Calls {@link #setMnemonics(javax.swing.JMenuItem)} for every menu in a
@@ -42,7 +42,7 @@ public final class MenuUtil {
     public static void setMnemonics(JMenuBar menuBar) {
 
         if (menuBar == null)
-            throw new NullPointerException("menuBar == null"); // NOI18N
+            throw new NullPointerException("menuBar == null");
 
         for (int i = 0; i < menuBar.getMenuCount(); i++) {
             JMenu menu = menuBar.getMenu(i);
@@ -62,7 +62,7 @@ public final class MenuUtil {
     private static void setMnemonicsToItems(JMenu menu) {
 
         if (menu == null)
-            throw new NullPointerException("menu == null"); // NOI18N
+            throw new NullPointerException("menu == null");
 
         setMnemonics(menu);
         for (int i = 0; i < menu.getItemCount(); i++) {
@@ -86,7 +86,7 @@ public final class MenuUtil {
     public static void setMnemonics(JMenuItem item) {
 
         if (item == null)
-            throw new NullPointerException("item == null"); // NOI18N
+            throw new NullPointerException("item == null");
 
         String itemText = item.getText();
         int itemTextLength = itemText.length();

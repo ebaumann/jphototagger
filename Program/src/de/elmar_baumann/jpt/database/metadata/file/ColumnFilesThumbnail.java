@@ -35,9 +35,9 @@ public final class ColumnFilesThumbnail extends Column {
     private ColumnFilesThumbnail() {
         super(
             TableFiles.INSTANCE,
-            "thumbnail", // NOI18N
+            "thumbnail",
             DataType.BINARY);
 
-        setDescription(Bundle.getString("ColumnFilesThumbnail.Description")); // NOI18N
+        setDescription(Bundle.getString("ColumnFilesThumbnail.Description"));
     }
 }

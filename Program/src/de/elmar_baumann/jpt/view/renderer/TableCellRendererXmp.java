@@ -42,14 +42,14 @@ import javax.swing.table.TableCellRenderer;
 public final class TableCellRendererXmp extends FormatterLabelMetadata
         implements TableCellRenderer {
 
-    private static final String DELIMITER_PATH = "/"; // NOI18N
-    private static final String DELIMITER_NAMESPACE = ":"; // NOI18N
+    private static final String DELIMITER_PATH = "/";
+    private static final String DELIMITER_NAMESPACE = ":";
     private static final Translation TRANSLATION_XMP = new Translation(
-            "XmpPropertyTranslations"); // NOI18N
+            "XmpPropertyTranslations");
     private static final Translation TRANSLATION_XMP_EXIF_TAG_ID = new Translation(
-            "XmpPropertyExifTagIdTranslations"); // NOI18N
+            "XmpPropertyExifTagIdTranslations");
     private static final Translation TRANSLATION_EXIF = new Translation(
-            "ExifTagIdTagNameTranslations"); // NOI18N
+            "ExifTagIdTagNameTranslations");
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -101,7 +101,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
                     getIndexString(pathComponent) +
                     (count > 1 && i < count - 1
                      ? DELIMITER_PATH
-                     : "")); // NOI18N
+                     : ""));
         }
 
         return newPath.toString();
@@ -118,7 +118,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
 
     private static String getWithoutIndex(String string) {
         if (hasIndex(string)) {
-            int startIndex = string.lastIndexOf("["); // NOI18N
+            int startIndex = string.lastIndexOf("[");
             return string.substring(0, startIndex);
         }
         return string;
@@ -126,14 +126,14 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
 
     private static String getIndexString(String string) {
         if (hasIndex(string)) {
-            int startIndex = string.lastIndexOf("["); // NOI18N
+            int startIndex = string.lastIndexOf("[");
             return string.substring(startIndex);
         }
-        return ""; // NOI18N
+        return "";
     }
 
     private static boolean hasIndex(String string) {
-        return string.matches("..*\\[[0-9]+\\]$"); // NOI18N
+        return string.matches("..*\\[[0-9]+\\]$");
     }
 
     private static String getWithoutNamespace(String string) {
@@ -153,6 +153,6 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
     }
 
     private static boolean isExifNamespace(String string) {
-        return string.startsWith("exif:"); // NOI18N
+        return string.startsWith("exif:");
     }
 }

@@ -35,8 +35,8 @@ public final class FileType {
      */
     public static boolean isJpegFile(String filename) {
         String filenameLowercase = filename.toLowerCase();
-        return filenameLowercase.endsWith(".jpg") || // NOI18N
-            filenameLowercase.endsWith(".jpeg"); // NOI18N
+        return filenameLowercase.endsWith(".jpg") ||
+            filenameLowercase.endsWith(".jpeg");
     }
 
     /**
@@ -49,12 +49,12 @@ public final class FileType {
     public static boolean isRawFile(String filename) {
         String filenameLowerCase = filename.toLowerCase();
         boolean isCommonImageFile =
-            filenameLowerCase.endsWith("tif") || // NOI18N
-            filenameLowerCase.endsWith("tiff") || // NOI18N
-            filenameLowerCase.endsWith("jpg") || // NOI18N
-            filenameLowerCase.endsWith("jpeg") || // NOI18N
-            filenameLowerCase.endsWith("gif") || // NOI18N
-            filenameLowerCase.endsWith("png");    // NOI18N
+            filenameLowerCase.endsWith("tif") ||
+            filenameLowerCase.endsWith("tiff") ||
+            filenameLowerCase.endsWith("jpg") ||
+            filenameLowerCase.endsWith("jpeg") ||
+            filenameLowerCase.endsWith("gif") ||
+            filenameLowerCase.endsWith("png");   
         return !isCommonImageFile;
     }
 

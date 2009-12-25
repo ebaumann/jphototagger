@@ -43,13 +43,13 @@ public final class ExifShort {
     public ExifShort(byte[] rawValue, ExifByteOrder byteOrder) {
 
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal byte count: " + // NOI18N
+            throw new IllegalArgumentException("Illegal byte count: " +
                     rawValue.length);
 
         value = ExifDatatypeUtil.shortFromRawValue(rawValue, byteOrder);
 
         if (value < 0)
-            throw new IllegalArgumentException("Negativ value: " + value); // NOI18N
+            throw new IllegalArgumentException("Negativ value: " + value);
     }
 
     /**

@@ -81,7 +81,7 @@ public final class External {
      */
     public static Pair<byte[], byte[]> executeGetOutput(
             String command, long maxMilliseconds) {
-        if (command == null) throw new NullPointerException("command == null"); // NOI18N
+        if (command == null) throw new NullPointerException("command == null");
 
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
@@ -183,7 +183,7 @@ public final class External {
                 process.destroy();
                 destroyed = true;
                 String errorMessage = Bundle.getString(
-                        "External.ExecuteGetOutput.ErrorMessage", // NOI18N
+                        "External.ExecuteGetOutput.ErrorMessage",
                         millisecondsWait, command);
                 Logger.getLogger(
                         getClass().getName()).log(Level.SEVERE, errorMessage);
@@ -202,7 +202,7 @@ public final class External {
         // an invalid path. Let's escaping all backslashes, because it's not
         // plausible, that a command string has an octal escape, that shall be
         // replaced by one unicode character.
-        command = command.replace("\\", "\\\\"); // NOI18N
+        command = command.replace("\\", "\\\\");
         String[] cmd_array = new String[0];
         String[] new_cmd_array;
         StreamTokenizer st = new StreamTokenizer(new StringReader(command));

@@ -53,7 +53,7 @@ public final class DatabaseImageCollections extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT name FROM collection_names ORDER BY name"; // NOI18N
+            String sql = "SELECT name FROM collection_names ORDER BY name";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -84,7 +84,7 @@ public final class DatabaseImageCollections extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             PreparedStatement stmt = connection.prepareStatement(
-                    "UPDATE collection_names SET name = ? WHERE name = ?"); // NOI18N
+                    "UPDATE collection_names SET name = ? WHERE name = ?");
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
             logFiner(stmt);
@@ -113,12 +113,12 @@ public final class DatabaseImageCollections extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT files.filename FROM" + // NOI18N
-                    " collections INNER JOIN collection_names" + // NOI18N
-                    " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
-                    " INNER JOIN files ON collections.id_files = files.id" + // NOI18N
-                    " WHERE collection_names.name = ?" + // NOI18N
-                    " ORDER BY collections.sequence_number ASC"); // NOI18N
+                    "SELECT files.filename FROM" +
+                    " collections INNER JOIN collection_names" +
+                    " ON collections.id_collectionnnames = collection_names.id" +
+                    " INNER JOIN files ON collections.id_files = files.id" +
+                    " WHERE collection_names.name = ?" +
+                    " ORDER BY collections.sequence_number ASC");
             stmt.setString(1, collectionName);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -155,13 +155,13 @@ public final class DatabaseImageCollections extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmtName = connection.prepareStatement(
-                    "INSERT INTO collection_names (name) VALUES (?)"); // NOI18N
+                    "INSERT INTO collection_names (name) VALUES (?)");
             PreparedStatement stmtColl = connection.prepareStatement(
-                    "INSERT INTO collections" + // NOI18N
-                    " (id_collectionnnames" + // NOI18N -- 1 --
-                    ", id_files" + // NOI18N -- 2 --
-                    ", sequence_number)" + // NOI18N -- 3 --
-                    " VALUES (?, ?, ?)"); // NOI18N
+                    "INSERT INTO collections" +
+                    " (id_collectionnnames" + // -- 1 --
+                    ", id_files" + // -- 2 --
+                    ", sequence_number)" + // -- 3 --
+                    " VALUES (?, ?, ?)");
             stmtName.setString(1, collectionName);
             logFiner(stmtName);
             stmtName.executeUpdate();
@@ -205,7 +205,7 @@ public final class DatabaseImageCollections extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM collection_names WHERE name = ?"); // NOI18N
+                    "DELETE FROM collection_names WHERE name = ?");
             stmt.setString(1, collectionname);
             logFiner(stmt);
             List<String> affectedFiles = // Prior to executing!
@@ -239,8 +239,8 @@ public final class DatabaseImageCollections extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM collections" + // NOI18N
-                    " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
+                    "DELETE FROM collections" +
+                    " WHERE id_collectionnnames = ? AND id_files = ?");
             List<String> affectedFiles = new ArrayList<String>(filenames.size());
             for (String filename : filenames) {
                 int prevDelCount = delCount;
@@ -289,11 +289,11 @@ public final class DatabaseImageCollections extends Database {
                 connection = getConnection();
                 connection.setAutoCommit(false);
                 PreparedStatement stmt = connection.prepareStatement(
-                        "INSERT INTO collections" + // NOI18N
-                        " (id_files" + // NOI18N -- 1 --
-                        ", id_collectionnnames" + // NOI18N -- 2 --
-                        ", sequence_number)" + // NOI18N -- 3 --
-                        " VALUES (?, ?, ?)"); // NOI18N
+                        "INSERT INTO collections" +
+                        " (id_files" + // -- 1 --
+                        ", id_collectionnnames" + // -- 2 --
+                        ", sequence_number)" + // -- 3 --
+                        " VALUES (?, ?, ?)");
                 long idCollectionNames = getIdCollectionName(
                         connection, collectionName);
                 int sequence_number = getMaxCollectionSequenceNumber(
@@ -336,10 +336,10 @@ public final class DatabaseImageCollections extends Database {
 
         int max = -1;
         PreparedStatement stmt = connection.prepareStatement(
-                "SELECT MAX(collections.sequence_number)" + // NOI18N
-                " FROM collections INNER JOIN collection_names" + // NOI18N
-                " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
-                " AND collection_names.name = ?"); // NOI18N
+                "SELECT MAX(collections.sequence_number)" +
+                " FROM collections INNER JOIN collection_names" +
+                " ON collections.id_collectionnnames = collection_names.id" +
+                " AND collection_names.name = ?");
         stmt.setString(1, collectionName);
         logFinest(stmt);
         ResultSet rs = stmt.executeQuery();
@@ -355,8 +355,8 @@ public final class DatabaseImageCollections extends Database {
 
         long idCollectionName = getIdCollectionName(connection, collectionName);
         PreparedStatement stmtIdFiles = connection.prepareStatement(
-                "SELECT id_files FROM collections WHERE id_collectionnnames = ?" + // NOI18N
-                " ORDER BY collections.sequence_number ASC"); // NOI18N
+                "SELECT id_files FROM collections WHERE id_collectionnnames = ?" +
+                " ORDER BY collections.sequence_number ASC");
         stmtIdFiles.setLong(1, idCollectionName);
         logFinest(stmtIdFiles);
         ResultSet rs = stmtIdFiles.executeQuery();
@@ -365,8 +365,8 @@ public final class DatabaseImageCollections extends Database {
             idFiles.add(rs.getLong(1));
         }
         PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE collections SET sequence_number = ?" + // NOI18N
-                " WHERE id_collectionnnames = ? AND id_files = ?"); // NOI18N
+                "UPDATE collections SET sequence_number = ?" +
+                " WHERE id_collectionnnames = ? AND id_files = ?");
         int sequenceNumer = 0;
         for (Long idFile : idFiles) {
             stmt.setInt(1, sequenceNumer++);
@@ -391,7 +391,7 @@ public final class DatabaseImageCollections extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM collection_names WHERE name = ?"); // NOI18N
+                    "SELECT COUNT(*) FROM collection_names WHERE name = ?");
             stmt.setString(1, collectionName);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -418,7 +418,7 @@ public final class DatabaseImageCollections extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT COUNT(*) FROM collection_names"; // NOI18N
+            String sql = "SELECT COUNT(*) FROM collection_names";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -444,7 +444,7 @@ public final class DatabaseImageCollections extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT COUNT(*) FROM collections"; // NOI18N
+            String sql = "SELECT COUNT(*) FROM collections";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -465,11 +465,11 @@ public final class DatabaseImageCollections extends Database {
 
         boolean isInCollection = false;
         PreparedStatement stmt = connection.prepareStatement(
-                "SELECT COUNT(*) FROM" + // NOI18N
-                " collections INNER JOIN collection_names" + // NOI18N
-                " ON collections.id_collectionnnames = collection_names.id" + // NOI18N
-                " INNER JOIN files on collections.id_files = files.id" + // NOI18N
-                " WHERE collection_names.name = ? AND files.filename = ?"); // NOI18N
+                "SELECT COUNT(*) FROM" +
+                " collections INNER JOIN collection_names" +
+                " ON collections.id_collectionnnames = collection_names.id" +
+                " INNER JOIN files on collections.id_files = files.id" +
+                " WHERE collection_names.name = ? AND files.filename = ?");
         stmt.setString(1, collectionName);
         stmt.setString(2, filename);
         logFinest(stmt);
@@ -486,7 +486,7 @@ public final class DatabaseImageCollections extends Database {
 
         long id = -1;
         PreparedStatement stmt = connection.prepareStatement(
-                "SELECT id FROM collection_names WHERE name = ?"); // NOI18N
+                "SELECT id FROM collection_names WHERE name = ?");
         stmt.setString(1, collectionname);
         logFinest(stmt);
         ResultSet rs = stmt.executeQuery();

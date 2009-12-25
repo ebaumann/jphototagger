@@ -148,7 +148,7 @@ public final class CopyFiles implements Runnable {
     }
 
     private void logCopyFile(String sourceFilename, String targetFilename) {
-        AppLog.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy", // NOI18N
+        AppLog.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy",
                 sourceFilename, targetFilename);
     }
 
@@ -187,7 +187,7 @@ public final class CopyFiles implements Runnable {
         if (target.exists()) {
             MessageDisplayer.ConfirmAction action = MessageDisplayer.confirm(
                     null,
-                    "CopyFiles.Confirm.OverwriteExisting", // NOI18N
+                    "CopyFiles.Confirm.OverwriteExisting",
                     MessageDisplayer.CancelButton.SHOW,
                     filePair.getSecond(), filePair.getFirst());
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
@@ -201,7 +201,7 @@ public final class CopyFiles implements Runnable {
 
     private boolean checkDifferent(Pair<File, File> filePair) {
         if (filePair.getFirst().equals(filePair.getSecond())) {
-            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals", // NOI18N
+            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals",
                     filePair.getFirst());
             return false;
         }

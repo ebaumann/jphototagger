@@ -62,16 +62,16 @@ public final class XmpMetadata {
     private static final List<String> KNOWN_NAMESPACES = new ArrayList<String>();
 
     static {
-        KNOWN_NAMESPACES.add("Iptc4xmpCore"); // NOI18N
-        KNOWN_NAMESPACES.add("aux"); // NOI18N
-        KNOWN_NAMESPACES.add("crs"); // NOI18N
-        KNOWN_NAMESPACES.add("dc"); // NOI18N
-        KNOWN_NAMESPACES.add("exif"); // NOI18N
-        KNOWN_NAMESPACES.add("lr"); // NOI18N
-        KNOWN_NAMESPACES.add("photoshop"); // NOI18N
-        KNOWN_NAMESPACES.add("tiff"); // NOI18N
-        KNOWN_NAMESPACES.add("xap"); // NOI18N
-        KNOWN_NAMESPACES.add("xapRights"); // NOI18N
+        KNOWN_NAMESPACES.add("Iptc4xmpCore");
+        KNOWN_NAMESPACES.add("aux");
+        KNOWN_NAMESPACES.add("crs");
+        KNOWN_NAMESPACES.add("dc");
+        KNOWN_NAMESPACES.add("exif");
+        KNOWN_NAMESPACES.add("lr");
+        KNOWN_NAMESPACES.add("photoshop");
+        KNOWN_NAMESPACES.add("tiff");
+        KNOWN_NAMESPACES.add("xap");
+        KNOWN_NAMESPACES.add("xapRights");
     }
 
     /**
@@ -183,11 +183,11 @@ public final class XmpMetadata {
         if (existingFilename != null) {
             return existingFilename;
         }
-        int indexExtension = imageFilename.lastIndexOf("."); // NOI18N
+        int indexExtension = imageFilename.lastIndexOf(".");
         if (indexExtension > 0) {
-            return imageFilename.substring(0, indexExtension + 1) + "xmp"; // NOI18N
+            return imageFilename.substring(0, indexExtension + 1) + "xmp";
         } else {
-            return imageFilename + ".xmp"; // NOI18N
+            return imageFilename + ".xmp";
         }
     }
 
@@ -201,11 +201,11 @@ public final class XmpMetadata {
      */
     public static String getSidecarFilenameOfImageFileIfExists(
             String imageFilename) {
-        int indexExtension = imageFilename.lastIndexOf("."); // NOI18N
+        int indexExtension = imageFilename.lastIndexOf(".");
         if (indexExtension > 0) {
             String sidecarFilename = imageFilename.substring(0, indexExtension +
                     1) +
-                    "xmp"; // NOI18N
+                    "xmp";
             File sidecarFile = new File(sidecarFilename);
             if (sidecarFile.exists()) {
                 return sidecarFile.getAbsolutePath();
@@ -236,14 +236,14 @@ public final class XmpMetadata {
         String sidecarFilename =
                 getSidecarFilenameOfImageFileIfExists(imageFilename);
         if (sidecarFilename == null) {
-            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp", // NOI18N
+            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp",
                     imageFilename);
             xmpString = XmpFileReader.readFile(imageFilename);
         } else {
-            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadSidecarFile", // NOI18N
+            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadSidecarFile",
                     sidecarFilename, imageFilename);
             xmpString = FileUtil.getFileContentAsString(
-                    new File(sidecarFilename), "UTF-8"); // NOI18N
+                    new File(sidecarFilename), "UTF-8");
         }
         return xmpString;
     }
@@ -357,7 +357,7 @@ public final class XmpMetadata {
             throws XMPException {
         File sidecarFile = new File(sidecarFilename);
         if (FileUtil.existsFile(sidecarFile)) {
-            String xmp = FileUtil.getFileContentAsString(sidecarFile, "UTF-8"); // NOI18N
+            String xmp = FileUtil.getFileContentAsString(sidecarFile, "UTF-8");
             if (xmp != null && !xmp.trim().isEmpty()) {
                 return XMPMetaFactory.parseFromString(xmp);
             }
@@ -409,8 +409,8 @@ public final class XmpMetadata {
                     xmpMeta.setProperty(namespaceUri, propertyName, value);
                 } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
                         column)) {
-                    xmpMeta.setLocalizedText(namespaceUri, propertyName, "", // NOI18N
-                            "x-default", // NOI18N
+                    xmpMeta.setLocalizedText(namespaceUri, propertyName, "",
+                            "x-default",
                             value);
                 }
             } else if (metadataValue instanceof List) {
@@ -430,7 +430,7 @@ public final class XmpMetadata {
                         namespaceUri, propertyName, Long.toString(value));
             } else {
                 AppLog.logWarning(XmpMetadata.class,
-                        "XmpMetadata.Error.WriteSetMetadata", // NOI18N
+                        "XmpMetadata.Error.WriteSetMetadata",
                         metadataValue.getClass());
             }
         }
@@ -547,7 +547,7 @@ public final class XmpMetadata {
     public static Map<String, List<XMPPropertyInfo>> getOrderedPropertyInfosForDatabase(
             List<XMPPropertyInfo> xmpPropertyInfos) {
         if (xmpPropertyInfos == null)
-            throw new NullPointerException("xmpPropertyInfos == null"); // NOI18N
+            throw new NullPointerException("xmpPropertyInfos == null");
 
         Map<String, List<XMPPropertyInfo>> propertyInfoWithPathStart = new HashMap<String, List<XMPPropertyInfo>>();
         Set<String>                        pathPrefixes              = XmpInDatabase.getPathPrefixes();
@@ -575,41 +575,41 @@ public final class XmpMetadata {
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
-                if (xmpPropertyInfo.getPath().startsWith("dc:creator")) { // NOI18N
+                if (xmpPropertyInfo.getPath().startsWith("dc:creator")) {
                     xmp.setDcCreator(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:subject")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("dc:subject")) {
                     xmp.addDcSubject(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:description")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("dc:description")) {
                     xmp.setDcDescription(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:rights")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("dc:rights")) {
                     xmp.setDcRights(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:title")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("dc:title")) {
                     xmp.setDcTitle(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("Iptc4xmpCore:CountryCode")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("Iptc4xmpCore:CountryCode")) {
                     xmp.setIptc4xmpcoreCountrycode(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("Iptc4xmpCore:Location")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("Iptc4xmpCore:Location")) {
                     xmp.setIptc4xmpcoreLocation(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:AuthorsPosition")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:AuthorsPosition")) {
                     xmp.setPhotoshopAuthorsposition(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:CaptionWriter")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:CaptionWriter")) {
                     xmp.setPhotoshopCaptionwriter(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:City")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:City")) {
                     xmp.setPhotoshopCity(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Country")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Country")) {
                     xmp.setPhotoshopCountry(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Credit")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Credit")) {
                     xmp.setPhotoshopCredit(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Headline")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Headline")) {
                     xmp.setPhotoshopHeadline(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Instructions")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Instructions")) {
                     xmp.setPhotoshopInstructions(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Source")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Source")) {
                     xmp.setPhotoshopSource(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:State")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:State")) {
                     xmp.setPhotoshopState(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:TransmissionReference")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:TransmissionReference")) {
                     xmp.setPhotoshopTransmissionReference(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("xap:Rating")) { // NOI18N
+                } else if (xmpPropertyInfo.getPath().startsWith("xap:Rating")) {
                     try {
                         xmp.setRating(Long.valueOf(xmpPropertyInfo.getValue().toString()));
                     } catch (Exception ex) {

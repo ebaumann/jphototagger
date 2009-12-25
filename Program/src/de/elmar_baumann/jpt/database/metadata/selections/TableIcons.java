@@ -39,12 +39,12 @@ import javax.swing.Icon;
  */
 public final class TableIcons {
 
-    private static final Icon             ICON_UNDEFINED        = AppLookAndFeel.getIcon("icon_table_undefined.png"); // NOI18N
-    private static final Icon             ICON_FILES            = AppLookAndFeel.getIcon("icon_file.png"); // NOI18N
-    private static final Icon             ICON_EXIF             = AppLookAndFeel.getIcon("icon_exif.png"); // NOI18N
-    private static final Icon             ICON_XMP              = AppLookAndFeel.getIcon("icon_xmp.png"); // NOI18N
-    private static final Icon             ICON_IMAGE_COLLECTION = AppLookAndFeel.getIcon("icon_imagecollection.png"); // NOI18N
-    private static final Icon             ICON_SAVED_SEARCH     = AppLookAndFeel.getIcon("icon_search.png"); // NOI18N
+    private static final Icon             ICON_UNDEFINED        = AppLookAndFeel.getIcon("icon_table_undefined.png");
+    private static final Icon             ICON_FILES            = AppLookAndFeel.getIcon("icon_file.png");
+    private static final Icon             ICON_EXIF             = AppLookAndFeel.getIcon("icon_exif.png");
+    private static final Icon             ICON_XMP              = AppLookAndFeel.getIcon("icon_xmp.png");
+    private static final Icon             ICON_IMAGE_COLLECTION = AppLookAndFeel.getIcon("icon_imagecollection.png");
+    private static final Icon             ICON_SAVED_SEARCH     = AppLookAndFeel.getIcon("icon_search.png");
     private static final Map<Table, Icon> ICON_OF_TABLE         = new HashMap<Table, Icon>();
     
 

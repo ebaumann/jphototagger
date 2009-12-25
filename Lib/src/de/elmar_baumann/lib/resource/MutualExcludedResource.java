@@ -71,7 +71,7 @@ public class MutualExcludedResource<T> {
      */
     public synchronized T getResource(Object owner) {
         if (owner == null)
-            throw new NullPointerException("owner == null"); // NOI18N
+            throw new NullPointerException("owner == null");
 
         if (isAvailable()) {
             setLocked(true);
@@ -91,7 +91,7 @@ public class MutualExcludedResource<T> {
      */
     public synchronized boolean releaseResource(Object owner) {
         if (owner == null)
-            throw new NullPointerException("o == null"); // NOI18N
+            throw new NullPointerException("o == null");
 
         if (isLocked() && owner != null && owner == getOwner()) {
             this.owner = null;
@@ -109,7 +109,7 @@ public class MutualExcludedResource<T> {
      */
     protected synchronized void setResource(T resource) {
         if (resource == null)
-            throw new NullPointerException("resource == null"); // NOI18N
+            throw new NullPointerException("resource == null");
 
         this.resource = resource;
     }

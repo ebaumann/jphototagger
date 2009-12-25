@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 public final class Translation {
 
     private static final String PATH_PREFIX =
-            "de/elmar_baumann/jpt/resource/properties/"; // NOI18N
+            "de/elmar_baumann/jpt/resource/properties/";
     private ResourceBundle bundle;
 
     public Translation(String propertiesFileBasename) {

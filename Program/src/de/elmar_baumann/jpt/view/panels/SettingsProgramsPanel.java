@@ -116,7 +116,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
     private boolean askRemove(String otherImageOpenApp) {
         return MessageDisplayer.confirm(this,
-                "UserSettingsDialog.Confirm.RemoveImageOpenApp", // NOI18N
+                "UserSettingsDialog.Confirm.RemoveImageOpenApp",
                 MessageDisplayer.CancelButton.HIDE, otherImageOpenApp).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
@@ -170,12 +170,12 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         buttonEditOtherProgram = new javax.swing.JButton();
         buttonAddOtherProgram = new javax.swing.JButton();
 
-        panelBorder.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsProgramsPanel.panelBorder.border.title"))); // NOI18N
+        panelBorder.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsProgramsPanel.panelBorder.border.title")));
 
-        labelChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text")); // NOI18N
+        labelChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text"));
 
         buttonChooseDefaultProgram.setMnemonic('a');
-        buttonChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonChooseDefaultProgram.text")); // NOI18N
+        buttonChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonChooseDefaultProgram.text"));
         buttonChooseDefaultProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDefaultProgramActionPerformed(evt);
@@ -185,7 +185,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         labelDefaultProgramFile.setForeground(new java.awt.Color(0, 0, 255));
         labelDefaultProgramFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelOtherPrograms.setText(Bundle.getString("SettingsProgramsPanel.labelOtherPrograms.text")); // NOI18N
+        labelOtherPrograms.setText(Bundle.getString("SettingsProgramsPanel.labelOtherPrograms.text"));
 
         listOtherPrograms.setModel(model);
         listOtherPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -203,8 +203,8 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         scrollPaneOtherPrograms.setViewportView(listOtherPrograms);
 
         buttonRemoveOtherProgram.setMnemonic('e');
-        buttonRemoveOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonRemoveOtherProgram.text")); // NOI18N
-        buttonRemoveOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonRemoveOtherProgram.toolTipText")); // NOI18N
+        buttonRemoveOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonRemoveOtherProgram.text"));
+        buttonRemoveOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonRemoveOtherProgram.toolTipText"));
         buttonRemoveOtherProgram.setEnabled(false);
         buttonRemoveOtherProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,8 +213,8 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         });
 
         buttonEditOtherProgram.setMnemonic('b');
-        buttonEditOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonEditOtherProgram.text")); // NOI18N
-        buttonEditOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonEditOtherProgram.toolTipText")); // NOI18N
+        buttonEditOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonEditOtherProgram.text"));
+        buttonEditOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonEditOtherProgram.toolTipText"));
         buttonEditOtherProgram.setEnabled(false);
         buttonEditOtherProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,8 +223,8 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         });
 
         buttonAddOtherProgram.setMnemonic('h');
-        buttonAddOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherProgram.text")); // NOI18N
-        buttonAddOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherProgram.toolTipText")); // NOI18N
+        buttonAddOtherProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherProgram.text"));
+        buttonAddOtherProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonAddOtherProgram.toolTipText"));
         buttonAddOtherProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddOtherProgramActionPerformed(evt);

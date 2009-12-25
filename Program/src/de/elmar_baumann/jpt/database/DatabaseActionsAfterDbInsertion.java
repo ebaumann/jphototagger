@@ -58,12 +58,12 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO actions_after_db_insertion" + // NOI18N
-                    " (" + // NOI18N
-                    "id_programs" +    // NOI18N -- 1 --
-                    ", action_order" + // NOI18N -- 2 --
-                    ")" + // NOI18N
-                    " VALUES (?, ?)"); // NOI18N
+                    "INSERT INTO actions_after_db_insertion" +
+                    " (" +
+                    "id_programs" +    // -- 1 --
+                    ", action_order" + // -- 2 --
+                    ")" +
+                    " VALUES (?, ?)");
             stmt.setLong(1, action.getId());
             stmt.setInt(2, order);
             logFiner(stmt);
@@ -93,7 +93,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection.setAutoCommit(false);
             PreparedStatement stmt =
                     connection.prepareStatement(
-                    "DELETE FROM actions_after_db_insertion WHERE id_programs = ?"); // NOI18N
+                    "DELETE FROM actions_after_db_insertion WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -119,10 +119,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT" + // NOI18N
-                    " id_programs" + // NOI18N -- 1 --
-                    " FROM actions_after_db_insertion" + // NOI18N
-                    " ORDER BY action_order ASC"; // NOI18N
+            String sql = "SELECT" +
+                    " id_programs" + // -- 1 --
+                    " FROM actions_after_db_insertion" +
+                    " ORDER BY action_order ASC";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -131,7 +131,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                         DatabasePrograms.INSTANCE.getProgram(idProgram);
                 if (program == null) {
                     AppLog.logWarning(DatabaseActionsAfterDbInsertion.class,
-                            "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist", // NOI18N
+                            "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist",
                             idProgram);
                 } else {
                     programs.add(program);
@@ -157,10 +157,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
-                    " COUNT(*) " + // NOI18N -- 1 --
-                    " FROM actions_after_db_insertion" + // NOI18N
-                    " WHERE id_programs = ?"); // NOI18N
+            PreparedStatement stmt = connection.prepareStatement("SELECT" +
+                    " COUNT(*) " + // -- 1 --
+                    " FROM actions_after_db_insertion" +
+                    " WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -192,10 +192,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "UPDATE actions_after_db_insertion" + // NOI18N
-                    " SET" + // NOI18N
-                    " action_order = ?" + // NOI18N -- 1 --
-                    " WHERE id_programs = ?"); // NOI18N
+                    "UPDATE actions_after_db_insertion" +
+                    " SET" +
+                    " action_order = ?" + // -- 1 --
+                    " WHERE id_programs = ?");
             int index = startIndex;
             int countAffected = 0;
             for (Program action : actions) {

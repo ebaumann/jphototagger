@@ -152,7 +152,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
 
     private boolean confirmRemoveActionAfterDatabaseInsertion(String actionName) {
         return MessageDisplayer.confirm(this,
-                "SettingsActionsPanel.Confirm.RemoveActionAfterDatabaseInsertion", // NOI18N
+                "SettingsActionsPanel.Confirm.RemoveActionAfterDatabaseInsertion",
                 MessageDisplayer.CancelButton.HIDE, actionName).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
@@ -178,7 +178,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
         buttonActionsAfterDatabaseInsertionRemove = new javax.swing.JButton();
         buttonActionsAfterDatabaseInsertionAdd = new javax.swing.JButton();
 
-        panelActionsAfterDatabaseInsertion.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsActionsPanel.panelActionsAfterDatabaseInsertion.border.title"))); // NOI18N
+        panelActionsAfterDatabaseInsertion.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsActionsPanel.panelActionsAfterDatabaseInsertion.border.title")));
 
         listActionsAfterDatabaseInsertion.setModel(modelActionsAfterDbInsertion);
         listActionsAfterDatabaseInsertion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -186,8 +186,8 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
         scrollPaneActionsAfterDatabaseInsertion.setViewportView(listActionsAfterDatabaseInsertion);
 
         buttonGroupActionsAfterDatabaseInsertion.add(radioButtonActionsAfterDatabaseInsertionExecuteAlways);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        radioButtonActionsAfterDatabaseInsertionExecuteAlways.setText(bundle.getString("SettingsActionsPanel.radioButtonActionsAfterDatabaseInsertionExecuteAlways.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        radioButtonActionsAfterDatabaseInsertionExecuteAlways.setText(bundle.getString("SettingsActionsPanel.radioButtonActionsAfterDatabaseInsertionExecuteAlways.text"));
         radioButtonActionsAfterDatabaseInsertionExecuteAlways.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed(evt);
@@ -195,14 +195,14 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
         });
 
         buttonGroupActionsAfterDatabaseInsertion.add(radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp);
-        radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.setText(bundle.getString("SettingsActionsPanel.radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.text")); // NOI18N
+        radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.setText(bundle.getString("SettingsActionsPanel.radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.text"));
         radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed(evt);
             }
         });
 
-        buttonActionsAfterDatabaseInsertionMoveUp.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveUp.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionMoveUp.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveUp.text"));
         buttonActionsAfterDatabaseInsertionMoveUp.setEnabled(false);
         buttonActionsAfterDatabaseInsertionMoveUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +210,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
             }
         });
 
-        buttonActionsAfterDatabaseInsertionMoveDown.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveDown.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionMoveDown.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveDown.text"));
         buttonActionsAfterDatabaseInsertionMoveDown.setEnabled(false);
         buttonActionsAfterDatabaseInsertionMoveDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,14 +218,14 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
             }
         });
 
-        buttonActionsAfterDatabaseInsertionEdit.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionEdit.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionEdit.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionEdit.text"));
         buttonActionsAfterDatabaseInsertionEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionsAfterDatabaseInsertionEditActionPerformed(evt);
             }
         });
 
-        buttonActionsAfterDatabaseInsertionRemove.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionRemove.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionRemove.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionRemove.text"));
         buttonActionsAfterDatabaseInsertionRemove.setEnabled(false);
         buttonActionsAfterDatabaseInsertionRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,7 +233,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
             }
         });
 
-        buttonActionsAfterDatabaseInsertionAdd.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionAdd.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionAdd.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionAdd.text"));
         buttonActionsAfterDatabaseInsertionAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionsAfterDatabaseInsertionAddActionPerformed(evt);

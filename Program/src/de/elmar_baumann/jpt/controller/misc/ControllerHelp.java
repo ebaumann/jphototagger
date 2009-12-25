@@ -53,7 +53,7 @@ public final class ControllerHelp
             Bundle.getString("Help.Url.Contents");
     private final HelpBrowser help = HelpBrowser.INSTANCE;
     private static final String KEY_CURRENT_URL =
-            ControllerHelp.class.getName() + ".CurrentURL"; // NOI18N
+            ControllerHelp.class.getName() + ".CurrentURL";
     private String currentUrl =
             UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
     private final JMenuItem menuItemAcceleratorKeys =
@@ -93,7 +93,7 @@ public final class ControllerHelp
 
     private void setCurrentUrl(HelpBrowserEvent action) {
         URL url = action.getUrl();
-        if (!url.getProtocol().startsWith("http")) { // NOI18N
+        if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
             UserSettings.INSTANCE.getSettings().setString(
                     currentUrl, KEY_CURRENT_URL);
@@ -119,7 +119,7 @@ public final class ControllerHelp
 
     private void showAcceleratorKeyHelp() {
         initHelp();
-        help.setDisplayUrl(Bundle.getString("Help.Url.AcceleratorKeys")); // NOI18N
+        help.setDisplayUrl(Bundle.getString("Help.Url.AcceleratorKeys"));
         helpToFront();
     }
 
@@ -141,7 +141,7 @@ public final class ControllerHelp
     private String logAndGetPdfManualOpenCommand(File manual) {
         String command = IoUtil.quoteForCommandLine(
                 UserSettings.INSTANCE.getPdfViewer(), manual);
-        AppLog.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command); // NOI18N
+        AppLog.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command);
         return command;
     }
 
@@ -149,7 +149,7 @@ public final class ControllerHelp
         File viewer = new File(UserSettings.INSTANCE.getPdfViewer());
         if (!viewer.exists()) {
             if (MessageDisplayer.confirm(null,
-                    "ControllerHelp.Error.NoPdfViewer", // NOI18N
+                    "ControllerHelp.Error.NoPdfViewer",
                     MessageDisplayer.CancelButton.HIDE).equals(
                     MessageDisplayer.ConfirmAction.YES)) {
                 SettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
@@ -170,7 +170,7 @@ public final class ControllerHelp
      * @return file or null if the file does not exist
      */
     private static File getPdfUserManualPath() {
-        String manualPath = ""; // NOI18N
+        String manualPath = "";
         try {
             File jarPath = new File(Main.class.getProtectionDomain().
                     getCodeSource().getLocation().getPath());
@@ -178,15 +178,15 @@ public final class ControllerHelp
             if (jarPath.exists() && jarPath.getParentFile() != null) {
                 File dir = jarPath.getParentFile();
                 String pathPrefix =
-                        dir.getAbsolutePath() + File.separator + "Manual"; // NOI18N
+                        dir.getAbsolutePath() + File.separator + "Manual";
                 // Trying to get Locale specific manual
-                manualPath = pathPrefix + "_" + // NOI18N
-                        Locale.getDefault().getLanguage() + ".pdf"; // NOI18N
+                manualPath = pathPrefix + "_" +
+                        Locale.getDefault().getLanguage() + ".pdf";
                 File fileLocaleSensitive = new File(manualPath);
                 logIfNotExists(fileLocaleSensitive);
                 if (fileLocaleSensitive.exists()) return fileLocaleSensitive;
                 // Trying to get default language manual
-                manualPath = pathPrefix + "_de.pdf"; // NOI18N
+                manualPath = pathPrefix + "_de.pdf";
                 File fileDefault = new File(manualPath);
                 logIfNotExists(fileDefault);
                 if (fileDefault.exists()) return fileDefault;
@@ -195,7 +195,7 @@ public final class ControllerHelp
             AppLog.logSevere(AppInfo.class, ex);
         }
         MessageDisplayer.error(
-                null, "ControllerHelp.Error.NoPdfFile", manualPath); // NOI18N
+                null, "ControllerHelp.Error.NoPdfFile", manualPath);
         return null;
     }
 
@@ -208,19 +208,19 @@ public final class ControllerHelp
 
     private static void logJarDir(File jarPath) {
         AppLog.logFinest(ControllerHelp.class,
-                "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile()); // NOI18N
+                "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile());
     }
 
     private static void logJarFile(File jarPath) {
         AppLog.logFinest(ControllerHelp.class,
-                "ControllerHelp.ManualPath.JarPath", jarPath); // NOI18N
+                "ControllerHelp.ManualPath.JarPath", jarPath);
     }
 
     private static void logIfNotExists(File file) {
         if (file == null) return;
         if (!file.exists()) {
             AppLog.logFinest(ControllerHelp.class,
-                    "ControllerHelp.Info.FileNotExists", file); // NOI18N
+                    "ControllerHelp.Info.FileNotExists", file);
         }
     }
 }

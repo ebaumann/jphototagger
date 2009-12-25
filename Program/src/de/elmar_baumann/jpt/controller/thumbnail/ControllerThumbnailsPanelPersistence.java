@@ -40,9 +40,9 @@ import java.util.List;
 public final class ControllerThumbnailsPanelPersistence
         implements ThumbnailsPanelListener, AppExitListener {
 
-    private static final String   KEY_SELECTED_FILES                         = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles"; // NOI18N
-    private static final String   KEY_SORT                                   = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort"; // NOI18N
-    private static final String   KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition"; // NOI18N
+    private static final String   KEY_SELECTED_FILES                         = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
+    private static final String   KEY_SORT                                   = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort";
+    private static final String   KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition";
     private boolean               propertiesRead                             = false;
     private final ThumbnailsPanel thumbnailsPanel                            = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private List<File>            persistentSelectedFiles                    = new ArrayList<File>();

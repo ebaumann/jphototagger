@@ -51,11 +51,11 @@ public final class UpdateMetadataOfDirectoriesPanel
         implements CheckingForUpdateMetadataListener,
                    ProgressListener {
 
-    private static final String                       KEY_LAST_DIRECTORY   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.lastSelectedDirectory"; // NOI18N
-    private static final String                       KEY_FORCE            = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.force"; // NOI18N
-    private static final String                       KEY_SUBDIRECTORIES   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.subdirectories"; // NOI18N
+    private static final String                       KEY_LAST_DIRECTORY   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.lastSelectedDirectory";
+    private static final String                       KEY_FORCE            = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.force";
+    private static final String                       KEY_SUBDIRECTORIES   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.subdirectories";
     private final        DefaultListModel             listModelDirectories = new DefaultListModel();
-    private              File                         lastDirectory        = new File(""); // NOI18N
+    private              File                         lastDirectory        = new File("");
     private              InsertImageFilesIntoDatabase imageFileInserter;
 
     public UpdateMetadataOfDirectoriesPanel() {
@@ -190,7 +190,7 @@ public final class UpdateMetadataOfDirectoriesPanel
     public void actionPerformed(CheckForUpdateMetadataEvent e) {
         if (e.getType().equals(Type.CHECKING_FILE)) {
             String filename = e.getImageFilename();
-            assert filename != null : "Filename is null!"; // NOI18N
+            assert filename != null : "Filename is null!";
             if (filename != null) {
                 labelCurrentFilename.setText(filename);
             }
@@ -204,7 +204,7 @@ public final class UpdateMetadataOfDirectoriesPanel
     private void updateFinished() {
         setEnabledButtons(false);
         setEnabledCheckboxes(false);
-        labelCurrentFilename.setText("-"); // NOI18N
+        labelCurrentFilename.setText("-");
         listDirectories.setEnabled(true);
     }
 
@@ -311,18 +311,18 @@ public final class UpdateMetadataOfDirectoriesPanel
         buttonStop = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
-        labelInfotext.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfotext.text")); // NOI18N
+        labelInfotext.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfotext.text"));
         labelInfotext.setPreferredSize(new java.awt.Dimension(637, 28));
 
         progressBar.setFocusable(false);
         progressBar.setStringPainted(true);
 
-        labelInfoCurrentFilename.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text"));
 
         labelCurrentFilename.setForeground(new java.awt.Color(51, 51, 255));
         labelCurrentFilename.setPreferredSize(new java.awt.Dimension(4, 20));
 
-        labelHeadingListDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
+        labelHeadingListDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text"));
 
         listDirectories.setModel(listModelDirectories);
         listDirectories.setCellRenderer(new de.elmar_baumann.jpt.view.renderer.ListCellRendererDirectories());
@@ -333,19 +333,19 @@ public final class UpdateMetadataOfDirectoriesPanel
         });
         scrollPaneListDirectories.setViewportView(listDirectories);
 
-        labelInfoFilecount.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
+        labelInfoFilecount.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text"));
 
         labelFilecount.setForeground(new java.awt.Color(0, 153, 0));
         labelFilecount.setText("0");
         labelFilecount.setPreferredSize(new java.awt.Dimension(4, 20));
 
-        checkBoxForce.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
+        checkBoxForce.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text"));
 
         checkBoxIncludeSubdirectories.setSelected(true);
-        checkBoxIncludeSubdirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text"));
 
         buttonChooseDirectories.setMnemonic('v');
-        buttonChooseDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
+        buttonChooseDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text"));
         buttonChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoriesActionPerformed(evt);
@@ -353,7 +353,7 @@ public final class UpdateMetadataOfDirectoriesPanel
         });
 
         buttonStop.setMnemonic('b');
-        buttonStop.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStop.text")); // NOI18N
+        buttonStop.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStop.text"));
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,7 +362,7 @@ public final class UpdateMetadataOfDirectoriesPanel
         });
 
         buttonStart.setMnemonic('m');
-        buttonStart.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text"));
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

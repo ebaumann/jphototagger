@@ -73,7 +73,7 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private void insertFilesIntoSelectedDirectory(JTree targetTree) {
-        List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n"); // NOI18N
+        List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
         File targetDirectory = ViewUtil.getSelectedFile(targetTree);
         if (sourceFiles.size() > 0 && targetDirectory != null) {
             copyOrMoveFiles(sourceFiles, targetDirectory);

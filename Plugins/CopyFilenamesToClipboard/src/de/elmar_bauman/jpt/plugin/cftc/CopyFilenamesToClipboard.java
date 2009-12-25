@@ -37,21 +37,21 @@ import javax.swing.JPanel;
 public final class CopyFilenamesToClipboard extends Plugin {
 
     public static final String KEY_FILENAME_DELIMITER =
-            CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter"; // NOI18N
-    public static final String DEFAULT_FILENAME_DELIMITER = "\n"; // NOI18N
+            CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
+    public static final String DEFAULT_FILENAME_DELIMITER = "\n";
     private String fileNameDelimiter = DEFAULT_FILENAME_DELIMITER;
 
     public CopyFilenamesToClipboard() {
     }
 
     public String getName() {
-        return ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle"). // NOI18N
-                getString("CopyFilenamesToClipboard.Name"); // NOI18N
+        return ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle").
+                getString("CopyFilenamesToClipboard.Name");
     }
 
     public String getDescription() {
-        return ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle"). // NOI18N
-                getString("CopyFilenamesToClipboard.Description"); // NOI18N
+        return ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle").
+                getString("CopyFilenamesToClipboard.Description");
     }
 
     @Override
@@ -70,7 +70,7 @@ public final class CopyFilenamesToClipboard extends Plugin {
         int index = 0;
         for (File file : getFiles()) {
             sb.append((index++ == 0
-                       ? "" // NOI18N
+                       ? ""
                        : fileNameDelimiter) + file.getAbsolutePath());
         }
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(

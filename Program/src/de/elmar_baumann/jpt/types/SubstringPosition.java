@@ -44,8 +44,8 @@ public enum SubstringPosition {
      */
     public static String getSqlFilterOperator(SubstringPosition pos) {
         return pos.equals(EXACT_MATCH)
-               ? "=" // NOI18N
-               : "LIKE"; // NOI18N
+               ? "="
+               : "LIKE";
     }
 
     /**
@@ -64,17 +64,17 @@ public enum SubstringPosition {
                                ? s
                                : escapeForLike(s);
         return pos.equals(ANYWHERE)
-               ? "%" + escapedString + "%" // NOI18N
+               ? "%" + escapedString + "%"
                : pos.equals(BEGIN)
-                 ? escapedString + "%" // NOI18N
+                 ? escapedString + "%"
                  : pos.equals(MIDDLE)
-                   ? ".%" + escapedString + "%." // NOI18N
+                   ? ".%" + escapedString + "%."
                    : pos.equals(END)
-                     ? "%" + escapedString // NOI18N
+                     ? "%" + escapedString
                      : escapedString; // EXACT_MATCH
     }
 
     private static String escapeForLike(String s) {
-        return s.replace("%", "\\%").replace("_", "\\_"); // NOI18N
+        return s.replace("%", "\\%").replace("_", "\\_");
     }
 }

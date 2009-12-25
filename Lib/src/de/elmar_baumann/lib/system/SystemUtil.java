@@ -38,8 +38,8 @@ public final class SystemUtil {
      */
     public static Version getJavaVersion() {
         Version version = null;
-        String versionProperty = System.getProperty("java.version"); // NOI18N
-        StringTokenizer tok = new StringTokenizer(versionProperty, "."); // NOI18N
+        String versionProperty = System.getProperty("java.version");
+        StringTokenizer tok = new StringTokenizer(versionProperty, ".");
         if (tok.countTokens() >= 2) {
             try {
                 int major = Integer.parseInt(tok.nextToken());

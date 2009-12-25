@@ -39,13 +39,13 @@ import javax.swing.JFileChooser;
 public class HierarchicalKeywordsExportDialog extends Dialog {
 
     private static final String KEY_PREV_EXPORT_FILE =
-            "HierarchicalKeywordsExportDialog.PrevExportFile"; // NOI18N
+            "HierarchicalKeywordsExportDialog.PrevExportFile";
     private boolean accepted;
     private File file;
     private ComboBoxModelHierarchicalKeywordsExporters comboBoxModelExporter =
             new ComboBoxModelHierarchicalKeywordsExporters();
     private static final String KEY_SEL_EXPORTER_INDEX =
-            "HierarchicalKeywordsExportDialog.SelectedExporterIndex"; // NOI18N
+            "HierarchicalKeywordsExportDialog.SelectedExporterIndex";
 
     public HierarchicalKeywordsExportDialog() {
         super((java.awt.Frame) null, true);
@@ -56,7 +56,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
         registerKeyStrokes();
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 
     /**
@@ -76,7 +76,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
      * @return exporter or null if no exporter was selected.
      */
     public HierarchicalKeywordsExporter getExporter() {
-        assert accepted : "Export was not accepted!"; // NOI18N
+        assert accepted : "Export was not accepted!";
         if (!accepted) return null;
         Object item = comboBoxExporter.getSelectedItem();
         return item instanceof HierarchicalKeywordsExporter
@@ -102,7 +102,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
      * @return file or null if no file is to export
      */
     public File getFile() {
-        assert accepted : "Export was not accepted!"; // NOI18N
+        assert accepted : "Export was not accepted!";
         if (!accepted) return null;
         return file;
     }
@@ -110,7 +110,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     private void chooseFile() {
         Object selItem = comboBoxExporter.getSelectedItem();
         assert selItem instanceof HierarchicalKeywordsExporter :
-                "Not a HierarchicalKeywordsExporter: " + selItem; // NOI18N
+                "Not a HierarchicalKeywordsExporter: " + selItem;
         if (selItem instanceof HierarchicalKeywordsExporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null) {
@@ -160,11 +160,11 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
     }
 
     private boolean checkOverwrite() {
-        assert file != null : "File is null!"; // NOI18N
+        assert file != null : "File is null!";
         if (file == null) return false;
         if (!file.exists()) return true;
         return MessageDisplayer.confirm(this,
-                "HierarchicalKeywordsExportDialog.Confirm.OverwriteFile", // NOI18N
+                "HierarchicalKeywordsExportDialog.Confirm.OverwriteFile",
                 MessageDisplayer.CancelButton.HIDE, file).equals(
                 MessageDisplayer.ConfirmAction.YES);
     }
@@ -191,33 +191,33 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
         buttonExport = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
-        setTitle(Bundle.getString("HierarchicalKeywordsExportDialog.title")); // NOI18N
+        setTitle(Bundle.getString("HierarchicalKeywordsExportDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelFormat.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelFormat.text")); // NOI18N
+        labelFormat.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelFormat.text"));
 
         comboBoxExporter.setModel(comboBoxModelExporter);
         comboBoxExporter.setRenderer(new de.elmar_baumann.jpt.view.renderer.ListCellRendererHierarchicalKeywordsImExporter());
 
-        labelInfoFilename.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelInfoFilename.text")); // NOI18N
+        labelInfoFilename.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelInfoFilename.text"));
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         buttonChooseFile.setMnemonic('d');
-        buttonChooseFile.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonChooseFile.text"));
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
         });
 
-        buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
+        buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png")));
         buttonExport.setMnemonic('e');
-        buttonExport.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonExport.text")); // NOI18N
+        buttonExport.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonExport.text"));
         buttonExport.setEnabled(false);
         buttonExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,7 +226,7 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
         });
 
         buttonCancel.setMnemonic('a');
-        buttonCancel.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonCancel.text"));
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);

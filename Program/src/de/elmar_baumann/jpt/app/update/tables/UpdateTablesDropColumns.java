@@ -43,11 +43,11 @@ final class UpdateTablesDropColumns {
 
     static {
         
-        COLUMNS.add(new ColumnInfo("xmp_dc_subjects", "id", null, null)); // NOI18N
-        COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null)); // NOI18N
-        COLUMNS.add(new ColumnInfo("favorite_directories", "id", null, null)); // NOI18N
-        COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null)); // NOI18N
-        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null, null)); // NOI18N
+        COLUMNS.add(new ColumnInfo("xmp_dc_subjects", "id", null, null));
+        COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null));
+        COLUMNS.add(new ColumnInfo("favorite_directories", "id", null, null));
+        COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null));
+        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null, null));
     }
 
     void update(Connection connection) throws SQLException {
@@ -69,7 +69,7 @@ final class UpdateTablesDropColumns {
 
     private void dropColumns(Connection connection) throws SQLException {
         dialog.setIndeterminate(true);
-        messages.message(Bundle.getString("UpdateTablesDropColumns.Info.update")); // NOI18N
+        messages.message(Bundle.getString("UpdateTablesDropColumns.Info.update"));
         for (ColumnInfo info : dropColumns) {
             dropColumn(connection,info.getTableName(), info.getColumnName());
         }
@@ -79,11 +79,11 @@ final class UpdateTablesDropColumns {
     private void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {
         setMessage(tableName, columnName);
         Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE " + tableName + " DROP COLUMN " + columnName); // NOI18N
+        stmt.execute("ALTER TABLE " + tableName + " DROP COLUMN " + columnName);
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesDropColumns.Info", // NOI18N
+        messages.message(Bundle.getString("UpdateTablesDropColumns.Info",
                 tableName, columnName));
     }
 }

@@ -41,10 +41,10 @@ public final class ExifByte {
     public ExifByte(byte[] rawValue) {
         if (!isRawValueByteCountOk(rawValue))
             throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + rawValue.length); // NOI18N
+                    "Illegal raw value byte count: " + rawValue.length);
         value = (int) rawValue[0];
         if (value < 0)
-            throw new IllegalArgumentException("Negativ value: " + value); // NOI18N
+            throw new IllegalArgumentException("Negativ value: " + value);
     }
 
     /**

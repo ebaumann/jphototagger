@@ -61,10 +61,10 @@ public final class ProgramPropertiesDialog extends Dialog {
         labelFile.setText(file.getAbsolutePath());
         textFieldAlias.setText(program.getAlias());
         textAreaParametersBeforeFilename.setText(parametersBeforeFilename == null
-                                                 ? "" // NOI18N
+                                                 ? ""
                                                  : parametersBeforeFilename);
         textAreaParametersAfterFilename.setText(parametersAfterFilename == null
-                                                ? "" // NOI18N
+                                                ? ""
                                                 : parametersAfterFilename);
         checkBoxInputBeforeExecute.setSelected(program.isInputBeforeExecute());
         checkBoxInputBeforeExecutePerFile.setSelected(program.isInputBeforeExecutePerFile());
@@ -74,15 +74,15 @@ public final class ProgramPropertiesDialog extends Dialog {
         checkBoxChangeFile.setSelected(program.isChangeFile());
         checkBoxUsePattern.setSelected(program.isUsePattern());
         String pattern = program.getPattern();
-        textAreaUsePattern.setText(pattern == null ? "" : pattern); // NOI18N
+        textAreaUsePattern.setText(pattern == null ? "" : pattern);
         setPatternStatus();
         setProgramIcon();
     }
 
     private void setActionTexts() {
-        setTitle(Bundle.getString("ProgramPropertiesDialog.title.Action")); // NOI18N
-        labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text.Action")); // NOI18N
-        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text.Action")); // NOI18N
+        setTitle(Bundle.getString("ProgramPropertiesDialog.title.Action"));
+        labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text.Action"));
+        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text.Action"));
     }
 
     private void setProgramIcon() {
@@ -124,7 +124,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             accecpted = true;
             setVisible(false);
         } else {
-            MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.MissingData"); // NOI18N
+            MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.MissingData");
         }
     }
 
@@ -181,7 +181,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                 labelFile.setText(file.getAbsolutePath());
                 setProgramIcon();
             } else {
-                MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.ChooseFile"); // NOI18N
+                MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.ChooseFile");
             }
         }
     }
@@ -264,18 +264,18 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("ProgramPropertiesDialog.title")); // NOI18N
+        setTitle(Bundle.getString("ProgramPropertiesDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        panelProgram.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelProgram.border.title"))); // NOI18N
+        panelProgram.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelProgram.border.title")));
 
-        labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text")); // NOI18N
+        labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text"));
 
-        buttonChooseFile.setText(Bundle.getString("ProgramPropertiesDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(Bundle.getString("ProgramPropertiesDialog.buttonChooseFile.text"));
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
@@ -285,7 +285,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         labelFile.setForeground(new java.awt.Color(0, 0, 255));
         labelFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text")); // NOI18N
+        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text"));
 
         textFieldAlias.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -293,8 +293,8 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        checkBoxChangeFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.text")); // NOI18N
-        checkBoxChangeFile.setToolTipText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.toolTipText")); // NOI18N
+        checkBoxChangeFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.text"));
+        checkBoxChangeFile.setToolTipText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.toolTipText"));
 
         javax.swing.GroupLayout panelProgramLayout = new javax.swing.GroupLayout(panelProgram);
         panelProgram.setLayout(panelProgramLayout);
@@ -332,31 +332,31 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap())
         );
 
-        panelParameter.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelParameter.border.title"))); // NOI18N
+        panelParameter.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelParameter.border.title")));
 
-        labelParametersBeforeFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersBeforeFilename.text")); // NOI18N
+        labelParametersBeforeFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersBeforeFilename.text"));
 
         textAreaParametersBeforeFilename.setColumns(20);
         textAreaParametersBeforeFilename.setLineWrap(true);
         textAreaParametersBeforeFilename.setRows(1);
         scrollPaneParametersBeforeFilename.setViewportView(textAreaParametersBeforeFilename);
 
-        labelParametersAfterFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersAfterFilename.text")); // NOI18N
+        labelParametersAfterFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersAfterFilename.text"));
 
         textAreaParametersAfterFilename.setColumns(20);
         textAreaParametersAfterFilename.setLineWrap(true);
         textAreaParametersAfterFilename.setRows(1);
         scrollPaneParametersAfterFilename.setViewportView(textAreaParametersAfterFilename);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        checkBoxUsePattern.setText(bundle.getString("ProgramPropertiesDialog.checkBoxUsePattern.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        checkBoxUsePattern.setText(bundle.getString("ProgramPropertiesDialog.checkBoxUsePattern.text"));
         checkBoxUsePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxUsePatternActionPerformed(evt);
             }
         });
 
-        buttonInfoUsePattern.setText(bundle.getString("ProgramPropertiesDialog.buttonInfoUsePattern.text")); // NOI18N
+        buttonInfoUsePattern.setText(bundle.getString("ProgramPropertiesDialog.buttonInfoUsePattern.text"));
         buttonInfoUsePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInfoUsePatternActionPerformed(evt);
@@ -405,16 +405,16 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap())
         );
 
-        panelInputBeforeExecute.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelInputBeforeExecute.border.title"))); // NOI18N
+        panelInputBeforeExecute.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelInputBeforeExecute.border.title")));
 
-        checkBoxInputBeforeExecute.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
+        checkBoxInputBeforeExecute.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text"));
         checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxInputBeforeExecuteActionPerformed(evt);
             }
         });
 
-        checkBoxInputBeforeExecutePerFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text")); // NOI18N
+        checkBoxInputBeforeExecutePerFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text"));
         checkBoxInputBeforeExecutePerFile.setEnabled(false);
 
         javax.swing.GroupLayout panelInputBeforeExecuteLayout = new javax.swing.GroupLayout(panelInputBeforeExecute);
@@ -440,14 +440,14 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        panelMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelSingleFileProcessing.border.title"))); // NOI18N
+        panelMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelSingleFileProcessing.border.title")));
 
         buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingYes);
         radioButtonSingleFileProcessingYes.setSelected(true);
-        radioButtonSingleFileProcessingYes.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text")); // NOI18N
+        radioButtonSingleFileProcessingYes.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text"));
 
         buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingNo);
-        radioButtonSingleFileProcessingNo.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text")); // NOI18N
+        radioButtonSingleFileProcessingNo.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text"));
 
         javax.swing.GroupLayout panelMultipleSelectionLayout = new javax.swing.GroupLayout(panelMultipleSelection);
         panelMultipleSelection.setLayout(panelMultipleSelectionLayout);
@@ -469,14 +469,14 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        buttonCancel.setText(Bundle.getString("ProgramPropertiesDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString("ProgramPropertiesDialog.buttonCancel.text"));
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
 
-        buttonOk.setText(Bundle.getString("ProgramPropertiesDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString("ProgramPropertiesDialog.buttonOk.text"));
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);

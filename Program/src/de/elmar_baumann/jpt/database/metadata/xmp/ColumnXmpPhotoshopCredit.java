@@ -35,11 +35,11 @@ public final class ColumnXmpPhotoshopCredit extends Column {
     private ColumnXmpPhotoshopCredit() {
         super(
             TableXmp.INSTANCE,
-            "photoshop_credit", // NOI18N
+            "photoshop_credit",
             DataType.STRING);
 
         setLength(32);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopCredit.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCredit.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpPhotoshopCredit.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCredit.LongerDescription"));
     }
 }

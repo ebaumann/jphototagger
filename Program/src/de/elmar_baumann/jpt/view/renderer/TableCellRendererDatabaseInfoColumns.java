@@ -33,7 +33,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public final class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
 
-    private static final String PADDING_LEFT = "  "; // NOI18N
+    private static final String PADDING_LEFT = "  ";
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,

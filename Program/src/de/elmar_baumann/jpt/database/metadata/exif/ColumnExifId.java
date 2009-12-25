@@ -33,7 +33,7 @@ public final class ColumnExifId extends Column {
     private ColumnExifId() {
         super(
             TableExif.INSTANCE,
-            "id", // NOI18N
+            "id",
             DataType.BIGINT);
 
         setIsPrimaryKey(true);

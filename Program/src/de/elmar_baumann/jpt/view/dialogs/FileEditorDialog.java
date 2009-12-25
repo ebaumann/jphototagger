@@ -58,7 +58,7 @@ public class FileEditorDialog extends Dialog {
 
     private void disposeIfNotRunning() {
         if (panelFileEditor.isRunning()) {
-            MessageDisplayer.error(this, "FileEditorDialog.Error.Running"); // NOI18N
+            MessageDisplayer.error(this, "FileEditorDialog.Error.Running");
         } else {
             dispose();
         }
@@ -66,7 +66,7 @@ public class FileEditorDialog extends Dialog {
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
 

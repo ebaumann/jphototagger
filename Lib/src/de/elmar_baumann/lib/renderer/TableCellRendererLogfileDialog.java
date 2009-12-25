@@ -63,7 +63,7 @@ public final class TableCellRendererLogfileDialog implements TableCellRenderer {
 
     private void renderDate(JLabel cellLabel, Date date) {
         SimpleDateFormat format =
-            new SimpleDateFormat(Bundle.getString("TableCellRendererLogfileDialog.DateFormat")); // NOI18N
+            new SimpleDateFormat(Bundle.getString("TableCellRendererLogfileDialog.DateFormat"));
         cellLabel.setText(format.format(date));
     }
 }

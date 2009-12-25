@@ -34,7 +34,7 @@ public final class SelectedFile {
 
     public static final SelectedFile INSTANCE = new SelectedFile();
     private List<XMPPropertyInfo> xmpPropertyInfos;
-    private File file = new File(""); // NOI18N
+    private File file = new File("");
 
     /**
      * Sets the file and it's metadata.
@@ -46,7 +46,7 @@ public final class SelectedFile {
     public synchronized void setFile(
             File file, List<XMPPropertyInfo> xmpPropertyInfos) {
         if (file == null)
-            throw new NullPointerException("file == null"); // NOI18N
+            throw new NullPointerException("file == null");
 
         this.file = file;
         this.xmpPropertyInfos = xmpPropertyInfos == null

@@ -26,10 +26,10 @@ package de.elmar_baumann.jpt.types;
  */
 public enum SizeUnit {
 
-    BYTE(1, "B"), // NOI18N
-    KILO_BYTE(1024, "KB"), // NOI18N
-    MEGA_BYTE(1024 * 1024, "MB"), // NOI18N
-    GIGA_BYTE(1024 * 1024 * 1024, "GB"); // NOI18N
+    BYTE(1, "B"),
+    KILO_BYTE(1024, "KB"),
+    MEGA_BYTE(1024 * 1024, "MB"),
+    GIGA_BYTE(1024 * 1024 * 1024, "GB");
     private final long bytes;
     private final String string;
 

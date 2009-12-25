@@ -119,6 +119,6 @@ public final class IptcEntry {
         } catch (UnsupportedEncodingException ex) {
             AppLog.logSevere(IptcEntry.class, ex);
         }
-        return ""; // NOI18N
+        return "";
     }
 }

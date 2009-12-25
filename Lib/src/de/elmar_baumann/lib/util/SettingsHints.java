@@ -97,7 +97,7 @@ public final class SettingsHints {
      */
     public void addExclude(String member) {
         if (member == null)
-            throw new NullPointerException("member == null"); // NOI18N
+            throw new NullPointerException("member == null");
 
         excludedMembers.add(member);
     }
@@ -113,7 +113,7 @@ public final class SettingsHints {
      */
     boolean isSet(String member) {
         if (member == null)
-            throw new NullPointerException("member == null"); // NOI18N
+            throw new NullPointerException("member == null");
 
         return !isExclude(member);
     }

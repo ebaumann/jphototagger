@@ -45,7 +45,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); //
         registerKeyStrokes();
     }
 
@@ -58,7 +58,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
 
     @Override
     protected void help() {
-        help("action_scan_directories.html"); // NOI18N
+        help("action_scan_directories.html"); //
     }
 
     @Override
@@ -78,7 +78,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
         panel = new de.elmar_baumann.jpt.view.panels.UpdateMetadataOfDirectoriesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("UpdateMetadataOfDirectoriesDialog.title")); // NOI18N
+        setTitle(Bundle.getString("UpdateMetadataOfDirectoriesDialog.title")); //
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

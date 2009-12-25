@@ -29,7 +29,7 @@ import java.util.List;
  */
 public final class StringUtil {
 
-    private static final String WORD_DELIMITER = " \t\n\r"; // NOI18N
+    private static final String WORD_DELIMITER = " \t\n\r";
 
     /**
      * Calls {@link #wrapWords(java.lang.String, int, java.lang.String)} with
@@ -58,12 +58,12 @@ public final class StringUtil {
     public static List<String> wrapWords(String text, int maxCharsPerLine,
             String wordDelimiter) {
         if (text == null)
-            throw new NullPointerException("text == null"); // NOI18N
+            throw new NullPointerException("text == null");
         if (maxCharsPerLine <= 0)
-            throw new IllegalArgumentException("Invalid max chars per line: " + // NOI18N
+            throw new IllegalArgumentException("Invalid max chars per line: " +
                     maxCharsPerLine);
         if (wordDelimiter.isEmpty())
-            throw new IllegalArgumentException("Empty word delimiter string!"); // NOI18N
+            throw new IllegalArgumentException("Empty word delimiter string!");
 
         List<String> lines = new ArrayList<String>();
         int textLength = text.length();

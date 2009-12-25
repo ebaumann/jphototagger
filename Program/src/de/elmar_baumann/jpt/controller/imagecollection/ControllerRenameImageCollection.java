@@ -85,7 +85,7 @@ public final class ControllerRenameImageCollection
     private void renameImageCollection(final String oldName) {
         if (oldName != null) {
             if (!ListModelImageCollections.checkIsNotSpecialCollection(oldName,
-                    "ListModelImageCollections.Error.RenameSpecialCollection")) // NOI18N
+                    "ListModelImageCollections.Error.RenameSpecialCollection"))
                 return;
             final String newName =
                     ModifyImageCollections.renameImageCollection(oldName);
@@ -104,7 +104,7 @@ public final class ControllerRenameImageCollection
             }
         } else {
             AppLog.logWarning(ControllerRenameImageCollection.class,
-                    "ControllerRenameImageCollection.Error.NameIsNull"); // NOI18N
+                    "ControllerRenameImageCollection.Error.NameIsNull");
         }
     }
 

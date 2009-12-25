@@ -31,32 +31,32 @@ public enum Comparator {
 
     /** SQL-Operator "=" */
     EQUALS(0,
-    "=", // NOI18N
-    Bundle.getString("Comparator.OperatorEquals")), // NOI18N
+    "=",
+    Bundle.getString("Comparator.OperatorEquals")),
     /** SQL-Operator "LIKE" */
     LIKE(1,
-    "LIKE", // NOI18N
-    Bundle.getString("Comparator.OperatorLike")), // NOI18N
+    "LIKE",
+    Bundle.getString("Comparator.OperatorLike")),
     /** SQL-Operator "<>" */
     NOT_EQUALS(2,
-    "<>", // NOI18N
-    Bundle.getString("Comparator.OperatorNotEquals")), // NOI18N
+    "<>",
+    Bundle.getString("Comparator.OperatorNotEquals")),
     /** SQL-Operator ">" */
     GREATER(3,
-    ">", // NOI18N
-    Bundle.getString("Comparator.OperatorGreaterThan")), // NOI18N
+    ">",
+    Bundle.getString("Comparator.OperatorGreaterThan")),
     /** SQL-Operator ">=" */
     GREATER_EQUALS(4,
-    ">=", // NOI18N
-    Bundle.getString("Comparator.OperatorGreaterEquals")), // NOI18N
+    ">=",
+    Bundle.getString("Comparator.OperatorGreaterEquals")),
     /** SQL-Operator "<" */
     LOWER(5,
-    "<", // NOI18N
-    Bundle.getString("Comparator.OperatorLessThan")), // NOI18N
+    "<",
+    Bundle.getString("Comparator.OperatorLessThan")),
     /** SQL-Operator "<=" */
     LOWER_EQUALS(6,
-    "<=", // NOI18N
-    Bundle.getString("Comparator.OperatorLessEquals")); // NOI18N
+    "<=",
+    Bundle.getString("Comparator.OperatorLessEquals"));
     private final int id;
     private final String sqlString;
     private final String localizedString;

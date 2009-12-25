@@ -31,7 +31,7 @@ public final class TableFiles extends Table {
     public static final TableFiles INSTANCE = new TableFiles();
 
     private TableFiles() {
-        super("files"); // NOI18N
+        super("files");
     }
 
     @Override

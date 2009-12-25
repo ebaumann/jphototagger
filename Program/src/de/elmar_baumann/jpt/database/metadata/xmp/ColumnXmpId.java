@@ -33,7 +33,7 @@ public final class ColumnXmpId extends Column {
     private ColumnXmpId() {
         super(
             TableXmp.INSTANCE,
-            "id", // NOI18N
+            "id",
             DataType.BIGINT);
 
         setIsPrimaryKey(true);

@@ -43,26 +43,26 @@ final class UpdateTablesIndexes {
     static {
         INDEX_TO_REPLACE.put(
                 new Pair<String, String>(
-                "idx_collections_id", // NOI18N
-                "collections"), // NOI18N
+                "idx_collections_id",
+                "collections"),
                 new IndexInfo[]{
                     new IndexInfo(
                     false,
-                    "idx_collections_id_collectionnnames", // NOI18N
-                    "collections", // NOI18N
-                    "id_collectionnnames"), // NOI18N
+                    "idx_collections_id_collectionnnames",
+                    "collections",
+                    "id_collectionnnames"),
                     new IndexInfo(
                     false,
-                    "idx_collections_id_files", // NOI18N
-                    "collections", // NOI18N
-                    "id_files") // NOI18N
+                    "idx_collections_id_files",
+                    "collections",
+                    "id_files")
                 });
     }
 
     void update(Connection connection) throws SQLException {
-        messages.message(Bundle.getString("UpdateTablesIndexes.Info")); // NOI18N
+        messages.message(Bundle.getString("UpdateTablesIndexes.Info"));
         replaceIndices(connection);
-        messages.message(""); // NOI18N
+        messages.message("");
     }
 
     private void replaceIndices(Connection connection) throws SQLException {
@@ -97,7 +97,7 @@ final class UpdateTablesIndexes {
                 connection.getCatalog(), null, tableName.toUpperCase(), false,
                 true);
         while (!exists && rs.next()) {
-            String name = rs.getString("INDEX_NAME"); // NOI18N
+            String name = rs.getString("INDEX_NAME");
             if (name != null) {
                 exists = name.equalsIgnoreCase(indexName);
             }

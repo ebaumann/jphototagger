@@ -34,7 +34,7 @@ public final class ColumnExifIdFiles extends Column {
     private ColumnExifIdFiles() {
         super(
             TableExif.INSTANCE,
-            "id_files", // NOI18N
+            "id_files",
             DataType.BIGINT);
 
         setIsUnique(true);

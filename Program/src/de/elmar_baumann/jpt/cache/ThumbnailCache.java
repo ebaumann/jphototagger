@@ -42,13 +42,13 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
     private Image noPreviewThumbnail = IconUtil.getIconImage(
-            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail")); // NOI18N
+            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private ThumbnailCache() {
         db.addDatabaseListener(this);
         new Thread(new ThumbnailFetcher(workQueue, this),
-                "ThumbnailFetcher").start(); // NOI18N
+                "ThumbnailFetcher").start();
     }
 
     @Override
@@ -91,13 +91,13 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                     Image image = null;
                     if (file == null) {
                         AppLog.logWarning(ThumbnailFetcher.class,
-                                "ThumbnailFetcher.Info.FileIsNull", file); // NOI18N
+                                "ThumbnailFetcher.Info.FileIsNull", file);
                     } else {
                         String tnFilename = PersistentThumbnails.getMd5File(
                                 file.getAbsolutePath());
                         if (tnFilename == null) {
                             AppLog.logWarning(ThumbnailFetcher.class,
-                                    "ThumbnailFetcher.Info.NoTnFilename", file); // NOI18N
+                                    "ThumbnailFetcher.Info.NoTnFilename", file);
                         } else {
                             image =
                                     PersistentThumbnails.getThumbnail(tnFilename);

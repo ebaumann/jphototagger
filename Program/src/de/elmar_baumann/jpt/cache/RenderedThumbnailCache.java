@@ -59,7 +59,7 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
     private XmpCache xmpCache = XmpCache.INSTANCE;
     private Image scaledDummyThumbnail = null;
     private Image dummyThumbnail = IconUtil.getIconImage(
-            Bundle.getString("ThumbnailCache.Path.DummyThumbnail")); // NOI18N
+            Bundle.getString("ThumbnailCache.Path.DummyThumbnail"));
     /**
      * Mapping from file to all kinds of cached data
      */
@@ -74,7 +74,7 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
         thumbCache.addThumbnailUpdateListener(this);
         XmpCache.INSTANCE.addThumbnailUpdateListener(this);
         Thread t = new Thread(new ThumbnailRenderer(workQueue, this),
-                "ThumbnailRenderer"); // NOI18N
+                "ThumbnailRenderer");
         //t.setPriority(Thread.MAX_PRIORITY);
         t.start();
     }

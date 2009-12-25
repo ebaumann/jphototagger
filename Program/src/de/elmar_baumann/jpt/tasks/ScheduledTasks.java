@@ -89,7 +89,7 @@ public final class ScheduledTasks implements ActionListener,
             }
         });
         thread.setName(
-                "Scheduled tasks waiting for start @ " + getClass().getName()); // NOI18N
+                "Scheduled tasks waiting for start @ " + getClass().getName());
         thread.start();
     }
 

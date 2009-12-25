@@ -36,7 +36,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         implements ProgressListener, Persistence {
 
     private static final String ADD_INFO_TEXT =
-            Bundle.getString("FileExcludePatternPanel.AddInfoText"); // NOI18N
+            Bundle.getString("FileExcludePatternPanel.AddInfoText");
     private final DatabaseFileExcludePattern db =
             DatabaseFileExcludePattern.INSTANCE;
     private final ListModelFileExcludePatterns model =
@@ -169,7 +169,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         buttonCancelUpdateDatabase = new javax.swing.JButton();
         buttonUpdateDatabase = new javax.swing.JButton();
 
-        labelInfoList.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
+        labelInfoList.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoList.text"));
 
         listPattern.setModel(model);
         listPattern.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -188,8 +188,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         });
 
         buttonDeletePattern.setMnemonic('e');
-        buttonDeletePattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
-        buttonDeletePattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
+        buttonDeletePattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text"));
+        buttonDeletePattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText"));
         buttonDeletePattern.setEnabled(false);
         buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,8 +198,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         });
 
         buttonInsertPattern.setMnemonic('h');
-        buttonInsertPattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
-        buttonInsertPattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
+        buttonInsertPattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text"));
+        buttonInsertPattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText"));
         buttonInsertPattern.setEnabled(false);
         buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,9 +208,9 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         });
 
         labelInfoDatabase.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
+        labelInfoDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text"));
 
-        buttonCancelUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
+        buttonCancelUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text"));
         buttonCancelUpdateDatabase.setEnabled(false);
         buttonCancelUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,7 +219,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         });
 
         buttonUpdateDatabase.setMnemonic('d');
-        buttonUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
+        buttonUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text"));
         buttonUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateDatabaseActionPerformed(evt);

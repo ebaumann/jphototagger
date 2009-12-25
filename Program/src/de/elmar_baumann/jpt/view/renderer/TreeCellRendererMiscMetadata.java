@@ -46,14 +46,14 @@ import javax.swing.tree.TreeNode;
 public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer {
 
     private static final ImageIcon ICON_MISC_METADATA = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png"); // NOI18N
+            "/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png");
     private static final ImageIcon ICON_EXIF = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_exif.png"); // NOI18N
+            "/de/elmar_baumann/jpt/resource/icons/icon_exif.png");
     private static final ImageIcon ICON_XMP = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"); // NOI18N
+            "/de/elmar_baumann/jpt/resource/icons/icon_xmp.png");
     private static final ImageIcon ICON_DETAIL =
             IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata_detail.png"); // NOI18N
+            "/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata_detail.png");
     private static final Map<Column, ImageIcon> ICON_OF_COLUMN =
             new HashMap<Column, ImageIcon>();
 
@@ -119,7 +119,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
     private void setColumnIcon(Column column) {
         if (column != null) {
             ImageIcon icon = ICON_OF_COLUMN.get(column);
-            assert icon != null : "No icon defined for column: " + column; // NOI18N
+            assert icon != null : "No icon defined for column: " + column;
             if (icon != null) {
                 setIcon(icon);
             }
@@ -128,8 +128,8 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
 
     private void setText(Object userObject, Object parentUserObject) {
         if (userObject == null) return;
-        DecimalFormat shortFormat = new DecimalFormat("#"); // NOI18N
-        DecimalFormat doubleFormat = new DecimalFormat("#.#"); // NOI18N
+        DecimalFormat shortFormat = new DecimalFormat("#");
+        DecimalFormat doubleFormat = new DecimalFormat("#.#");
         if (userObject instanceof Column) {
             Column col = (Column) (userObject);
             setText(col.getDescription());
@@ -144,7 +144,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
             setText(Long.toString((Long) userObject) +
                     getTextPostfix(parentUserObject));
         } else {
-            assert false : "Unrecognized data type: " + // NOI18N
+            assert false : "Unrecognized data type: " +
                     userObject.getClass().getName();
         }
     }
@@ -153,12 +153,12 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         if (userObject instanceof Column) {
             Column column = (Column) userObject;
             if (column.equals(ColumnExifFocalLength.INSTANCE)) {
-                return " mm"; // NOI18N
+                return " mm";
             } else if (column.equals(ColumnXmpRating.INSTANCE)) {
                 return Bundle.getString(
-                        "TreeCellRendererMiscMetadata.PostfixColumnXmpRating"); // NOI18N
+                        "TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
             }
         }
-        return ""; // NOI18N
+        return "";
     }
 }

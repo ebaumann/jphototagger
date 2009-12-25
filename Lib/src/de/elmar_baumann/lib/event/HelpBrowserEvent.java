@@ -38,11 +38,11 @@ public final class HelpBrowserEvent {
 
     public HelpBrowserEvent(Object source, Type type, URL url) {
         if (source == null)
-            throw new NullPointerException("source == null"); // NOI18N
+            throw new NullPointerException("source == null");
         if (type == null)
-            throw new NullPointerException("type == null"); // NOI18N
+            throw new NullPointerException("type == null");
         if (url == null)
-            throw new NullPointerException("url == null"); // NOI18N
+            throw new NullPointerException("url == null");
 
         this.source = source;
         this.type = type;

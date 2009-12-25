@@ -77,7 +77,7 @@ public final class ControllerCopyOrCutFilesToClipboard
         } else if (source == menuItemCut) {
             thumbnailsPanel.setFileAction(FileAction.CUT);
         } else {
-            assert false : "Invalid source: " + source; // NOI18N
+            assert false : "Invalid source: " + source;
         }
     }
 

@@ -112,7 +112,7 @@ public final class IptcXmpMapping {
     public static String getCommonDiscription(Column iptcColumn) {
         String description       = iptcColumn.getDescription();
         String commonDescription = description;
-        int    index             = description.indexOf("["); // NOI18N
+        int    index             = description.indexOf("[");
 
         if (index > 0) {
             commonDescription = description.substring(0, index - 1);

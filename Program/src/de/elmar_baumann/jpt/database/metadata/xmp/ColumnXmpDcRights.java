@@ -35,11 +35,11 @@ public final class ColumnXmpDcRights extends Column {
     private ColumnXmpDcRights() {
         super(
             TableXmp.INSTANCE,
-            "dc_rights", // NOI18N
+            "dc_rights",
             DataType.STRING);
 
         setLength(128);
-        setDescription(Bundle.getString("ColumnXmpDcRights.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpDcRights.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpDcRights.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpDcRights.LongerDescription"));
     }
 }

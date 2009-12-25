@@ -46,8 +46,8 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
             new ArrayList<String>();
 
     static {
-        SYSTEM_DIRECTORIES_SUBSTRINGS.add("System Volume Information"); // NOI18N
-        SYSTEM_DIRECTORIES_SUBSTRINGS.add("RECYCLER"); // NOI18N
+        SYSTEM_DIRECTORIES_SUBSTRINGS.add("System Volume Information");
+        SYSTEM_DIRECTORIES_SUBSTRINGS.add("RECYCLER");
     }
 
     /**

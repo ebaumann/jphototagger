@@ -44,7 +44,7 @@ public final class ListModelPrograms extends DefaultListModel {
         if (!contains(program) && DatabasePrograms.INSTANCE.insert(program)) {
             addElement(program);
         } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Add", // NOI18N
+            MessageDisplayer.error(null, "ListModelPrograms.Error.Add",
                     program.getAlias());
         }
     }
@@ -53,7 +53,7 @@ public final class ListModelPrograms extends DefaultListModel {
         if (contains(program) && DatabasePrograms.INSTANCE.delete(program)) {
             removeElement(program);
         } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Remove", // NOI18N
+            MessageDisplayer.error(null, "ListModelPrograms.Error.Remove",
                     program.getAlias());
         }
     }
@@ -63,7 +63,7 @@ public final class ListModelPrograms extends DefaultListModel {
             int index = indexOf(program);
             fireContentsChanged(this, index, index);
         } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Update", program.getAlias()); // NOI18N
+            MessageDisplayer.error(null, "ListModelPrograms.Error.Update", program.getAlias());
         }
     }
 

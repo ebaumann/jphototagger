@@ -37,7 +37,7 @@ public final class ExecutableFileChooserFileFilter extends FileFilter {
 
     @Override
     public String getDescription() {
-        return Bundle.getString("ExecutableFileChooserFileFilter.Description"); // NOI18N
+        return Bundle.getString("ExecutableFileChooserFileFilter.Description");
     }
 
 }

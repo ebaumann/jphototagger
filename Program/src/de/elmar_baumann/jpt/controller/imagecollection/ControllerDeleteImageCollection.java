@@ -78,7 +78,7 @@ public final class ControllerDeleteImageCollection
     private void deleteCollection(final String collectionName) {
         if (!ListModelImageCollections.checkIsNotSpecialCollection(
                 collectionName,
-                "ControllerDeleteImageCollection.Error.SpecialCollection")) // NOI18N
+                "ControllerDeleteImageCollection.Error.SpecialCollection"))
             return;
         if (collectionName != null) {
             if (ModifyImageCollections.deleteImageCollection(
@@ -97,7 +97,7 @@ public final class ControllerDeleteImageCollection
             }
         } else {
             AppLog.logWarning(ControllerDeleteImageCollection.class,
-                    "ControllerDeleteImageCollection.Error.CollectionNameIsNull"); // NOI18N
+                    "ControllerDeleteImageCollection.Error.CollectionNameIsNull");
         }
     }
 

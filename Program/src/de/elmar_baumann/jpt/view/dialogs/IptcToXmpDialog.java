@@ -45,8 +45,8 @@ public final class IptcToXmpDialog extends Dialog
         implements ProgressListener {
 
     private static final String KEY_DIRECTORY_NAME =
-            "de.elmar_baumann.jpt.view.dialogs.IptcToXmpDialog.LastDirectory"; // NOI18N
-    private File directory = new File(""); // NOI18N
+            "de.elmar_baumann.jpt.view.dialogs.IptcToXmpDialog.LastDirectory"; //
+    private File directory = new File(""); //
     private boolean stop = true;
     private List<File> files;
 
@@ -89,12 +89,12 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void errorMessageWaitBeforeClose() {
-        MessageDisplayer.error(this, "IptcToXmpDialog.Error.CancelBeforeClose"); // NOI18N
+        MessageDisplayer.error(this, "IptcToXmpDialog.Error.CancelBeforeClose"); //
     }
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); // NOI18N
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); //
         registerKeyStrokes();
     }
 
@@ -158,7 +158,7 @@ public final class IptcToXmpDialog extends Dialog
                 getAsFilenames(getFiles()));
         converter.addProgressListener(this);
         Thread thread = new Thread(converter);
-        thread.setName("Writing IPTC to XMP sidecar files" + " @ " + // NOI18N
+        thread.setName("Writing IPTC to XMP sidecar files" + " @ " + //
                 getClass().getName());
         thread.start();
         buttonStop.setEnabled(true);
@@ -220,7 +220,7 @@ public final class IptcToXmpDialog extends Dialog
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.IptcToXmpDialog")); // NOI18N
+        help(Bundle.getString("Help.Url.IptcToXmpDialog")); //
     }
 
     @Override
@@ -247,19 +247,19 @@ public final class IptcToXmpDialog extends Dialog
         buttonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("IptcToXmpDialog.title")); // NOI18N
+        setTitle(Bundle.getString("IptcToXmpDialog.title")); //
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelInfo.setText(Bundle.getString("IptcToXmpDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString("IptcToXmpDialog.labelInfo.text")); //
 
-        labelDirectoryPrompt.setText(Bundle.getString("IptcToXmpDialog.labelDirectoryPrompt.text")); // NOI18N
+        labelDirectoryPrompt.setText(Bundle.getString("IptcToXmpDialog.labelDirectoryPrompt.text")); //
 
         buttonChooseDirectory.setMnemonic('a');
-        buttonChooseDirectory.setText(Bundle.getString("IptcToXmpDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString("IptcToXmpDialog.buttonChooseDirectory.text")); //
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -269,10 +269,10 @@ public final class IptcToXmpDialog extends Dialog
         labelDirectoryName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         checkBoxSubdirectories.setMnemonic('u');
-        checkBoxSubdirectories.setText(Bundle.getString("IptcToXmpDialog.checkBoxSubdirectories.text")); // NOI18N
+        checkBoxSubdirectories.setText(Bundle.getString("IptcToXmpDialog.checkBoxSubdirectories.text")); //
 
         buttonStop.setMnemonic('o');
-        buttonStop.setText(Bundle.getString("IptcToXmpDialog.buttonStop.text")); // NOI18N
+        buttonStop.setText(Bundle.getString("IptcToXmpDialog.buttonStop.text")); //
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,7 +281,7 @@ public final class IptcToXmpDialog extends Dialog
         });
 
         buttonStart.setMnemonic('s');
-        buttonStart.setText(Bundle.getString("IptcToXmpDialog.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString("IptcToXmpDialog.buttonStart.text")); //
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

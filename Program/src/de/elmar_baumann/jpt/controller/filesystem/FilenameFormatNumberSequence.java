@@ -47,7 +47,7 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
     private void createDecimalFormat() {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < countDigits; i++) {
-            buffer.append("0"); // NOI18N
+            buffer.append("0");
         }
         decimalFormat = new DecimalFormat(buffer.toString());
     }
@@ -97,7 +97,7 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatNumberSequence.String"); // NOI18N
+        return Bundle.getString("FilenameFormatNumberSequence.String");
     }
 
     private FilenameFormatNumberSequence() {

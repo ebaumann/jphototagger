@@ -40,7 +40,7 @@ import java.util.Set;
 final class UpdateTablesDeleteInvalidExif {
 
     private static final String KEY_REMOVED_INVALID_EXIF =
-            "Removed_Invalid_EXIF_1"; // NOI18N Never change this!
+            "Removed_Invalid_EXIF_1"; // Never change this!
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog progress = messages.getProgressDialog();
     private static final Set<Column> COLUMNS_NOT_POSITIVE =
@@ -56,10 +56,10 @@ final class UpdateTablesDeleteInvalidExif {
             return;
         progress.setIndeterminate(true);
         messages.message(Bundle.getString(
-                "UpdateTablesDeleteInvalidExif.Info.update")); // NOI18N
+                "UpdateTablesDeleteInvalidExif.Info.update"));
         setNull(connection);
         progress.setIndeterminate(false);
-        messages.message(""); // NOI18N
+        messages.message("");
         DatabaseApplication.INSTANCE.setBoolean(KEY_REMOVED_INVALID_EXIF, true);
     }
 
@@ -74,17 +74,17 @@ final class UpdateTablesDeleteInvalidExif {
             throws
             SQLException {
         Statement stmt = connection.createStatement();
-        stmt.execute("UPDATE " + column.getTable().getName() + // NOI18N
-                " SET " + column.getName() + " = NULL" + // NOI18N
-                " WHERE " + column.getName() + " <= 0"); // NOI18N
+        stmt.execute("UPDATE " + column.getTable().getName() +
+                " SET " + column.getName() + " = NULL" +
+                " WHERE " + column.getName() + " <= 0");
     }
 
     private void checkRecordingEquipment(Connection connection) throws
             SQLException {
         Column column = ColumnExifRecordingEquipment.INSTANCE;
         Statement stmt = connection.createStatement();
-        stmt.execute("UPDATE " + column.getTable().getName() + // NOI18N
-                " SET " + column.getName() + " = NULL" + // NOI18N
-                " WHERE " + column.getName() + " = '0'"); // NOI18N
+        stmt.execute("UPDATE " + column.getTable().getName() +
+                " SET " + column.getName() + " = NULL" +
+                " WHERE " + column.getName() + " = '0'");
     }
 }

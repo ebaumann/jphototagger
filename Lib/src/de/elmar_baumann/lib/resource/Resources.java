@@ -62,7 +62,7 @@ public final class Resources {
      */
     public void setFramesIconImagesPath(List<String> paths) {
         if (paths == null)
-            throw new NullPointerException("iconImagesPaths == null"); // NOI18N
+            throw new NullPointerException("iconImagesPaths == null");
 
         this.iconImagesPaths = new ArrayList<String>(paths);
     }

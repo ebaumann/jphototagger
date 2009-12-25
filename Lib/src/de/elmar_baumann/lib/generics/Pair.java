@@ -69,7 +69,7 @@ public class Pair<A, B> {
      */
     @Override
     public String toString() {
-        return "(" + first + ", " + second + ")"; // NOI18N
+        return "(" + first + ", " + second + ")";
     }
 
     private static boolean equals(Object x, Object y) {

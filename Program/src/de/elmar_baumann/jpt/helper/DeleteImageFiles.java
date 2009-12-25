@@ -77,7 +77,7 @@ public final class DeleteImageFiles {
             EnumSet<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
             AppLog.logWarning(ControllerDeleteFiles.class,
-                    "FileSystemDeleteImageFiles.Error.Delete", // NOI18N
+                    "FileSystemDeleteImageFiles.Error.Delete",
                     file.getAbsolutePath());
         }
     }
@@ -85,7 +85,7 @@ public final class DeleteImageFiles {
     private static boolean confirmDelete(EnumSet<DeleteOption> options) {
         if (options.contains(DeleteOption.CONFIRM_DELETE)) {
             return MessageDisplayer.confirm(null,
-                    "FileSystemDeleteImageFiles.Confirm.Delete", // NOI18N
+                    "FileSystemDeleteImageFiles.Confirm.Delete",
                     MessageDisplayer.CancelButton.HIDE).equals(
                     MessageDisplayer.ConfirmAction.YES);
         }

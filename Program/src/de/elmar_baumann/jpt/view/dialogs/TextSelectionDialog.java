@@ -84,7 +84,7 @@ public class TextSelectionDialog extends Dialog {
         panelTextSelection = new TextSelectionPanel(COUNT_TEXT_ELEMENTS);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("TextSelectionDialog.title")); // NOI18N
+        setTitle(Bundle.getString("TextSelectionDialog.title"));
         setAlwaysOnTop(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -94,7 +94,7 @@ public class TextSelectionDialog extends Dialog {
 
         panel.setLayout(new java.awt.GridBagLayout());
 
-        labeInfo.setText(Bundle.getString("TextSelectionDialog.labeInfo.text")); // NOI18N
+        labeInfo.setText(Bundle.getString("TextSelectionDialog.labeInfo.text"));
         labeInfo.setPreferredSize(new java.awt.Dimension(300, 35));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

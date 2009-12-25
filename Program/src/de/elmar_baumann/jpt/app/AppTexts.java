@@ -29,17 +29,17 @@ import de.elmar_baumann.jpt.resource.Bundle;
 public final class AppTexts {
 
     public static final String TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY =
-            Bundle.getString("ProgressBarDirectory.TooltipText"); // NOI18N
+            Bundle.getString("ProgressBarDirectory.TooltipText");
     public static final String TOOLTIP_TEXT_PROGRESSBAR_CURRENT_TASKS =
-            Bundle.getString("ProgressBarCurrentTasks.TooltipText"); // NOI18N
+            Bundle.getString("ProgressBarCurrentTasks.TooltipText");
     public static final String TOOLTIP_TEXT_PROGRESSBAR_SCHEDULED_TASKS =
-            Bundle.getString("ProgressBarScheduledTasks.TooltipText"); // NOI18N
+            Bundle.getString("ProgressBarScheduledTasks.TooltipText");
     public static final String DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT =
-            Bundle.getString("DisplayName.ItemImageCollections.LastImport"); // NOI18N
+            Bundle.getString("DisplayName.ItemImageCollections.LastImport");
     public static final String DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED =
-            Bundle.getString("DisplayName.ItemImageCollections.Picked"); // NOI18N
+            Bundle.getString("DisplayName.ItemImageCollections.Picked");
     public static final String DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED =
-            Bundle.getString("DisplayName.ItemImageCollections.Rejected"); // NOI18N
+            Bundle.getString("DisplayName.ItemImageCollections.Rejected");
 
     private AppTexts() {
     }

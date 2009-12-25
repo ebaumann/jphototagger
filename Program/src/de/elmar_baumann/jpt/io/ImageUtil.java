@@ -84,7 +84,7 @@ public final class ImageUtil {
             List<File> sourceFiles, File targetDirectory, boolean confirm) {
 
         if (confirm && !confirmFileAction(
-                "IoUtil.Confirm.Copy", sourceFiles.size(), // NOI18N
+                "IoUtil.Confirm.Copy", sourceFiles.size(),
                 targetDirectory.getAbsolutePath())) return;
 
         CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
@@ -106,7 +106,7 @@ public final class ImageUtil {
             List<File> sourceFiles, File targetDirectory, boolean confirm) {
 
         if (confirm && !confirmFileAction(
-                "IoUtil.Confirm.Move", sourceFiles.size(), // NOI18N
+                "IoUtil.Confirm.Move", sourceFiles.size(),
                 targetDirectory.getAbsolutePath())) return;
 
         MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();

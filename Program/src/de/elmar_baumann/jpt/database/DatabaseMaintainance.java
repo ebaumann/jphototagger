@@ -50,11 +50,11 @@ public final class DatabaseMaintainance extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             AppLog.logInfo(DatabaseMaintainance.class,
-                    "DatabaseMaintainance.Info.Shutdown"); // NOI18N
-            stmt.executeUpdate("SHUTDOWN"); // NOI18N
+                    "DatabaseMaintainance.Info.Shutdown");
+            stmt.executeUpdate("SHUTDOWN");
         } catch (SQLException ex) {
             AppLog.logSevere(Database.class, ex);
-            MessageDisplayer.error(null, "DatabaseMaintainance.Error.Shutdown"); // NOI18N
+            MessageDisplayer.error(null, "DatabaseMaintainance.Error.Shutdown");
         }
     }
 
@@ -70,7 +70,7 @@ public final class DatabaseMaintainance extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CHECKPOINT DEFRAG"); // NOI18N
+            stmt.executeUpdate("CHECKPOINT DEFRAG");
             success = true;
             stmt.close();
         } catch (SQLException ex) {
@@ -104,10 +104,10 @@ public final class DatabaseMaintainance extends Database {
             String columnName = column.getName();
             String quotedSearch = escapeStringForQuotes(search);
             String quotedReplacement = escapeStringForQuotes(replacement);
-            String sql = "UPDATE " + tableName + " SET " + columnName + // NOI18N
-                    " = REPLACE(" + columnName + ", '" + quotedSearch + "', '" + // NOI18N
-                    quotedReplacement + "') WHERE " + columnName + " " + // NOI18N
-                    SubstringPosition.getSqlFilterOperator(pos) + " ?"; // NOI18N;
+            String sql = "UPDATE " + tableName + " SET " + columnName +
+                    " = REPLACE(" + columnName + ", '" + quotedSearch + "', '" +
+                    quotedReplacement + "') WHERE " + columnName + " " +
+                    SubstringPosition.getSqlFilterOperator(pos) + " ?"; //;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, SubstringPosition.getSqlFilter(pos, search));
             logFiner(stmt);
@@ -124,6 +124,6 @@ public final class DatabaseMaintainance extends Database {
     }
 
     private String escapeStringForQuotes(String s) {
-        return s.replace("'", "\\'"); // NOI18N
+        return s.replace("'", "\\'");
     }
 }

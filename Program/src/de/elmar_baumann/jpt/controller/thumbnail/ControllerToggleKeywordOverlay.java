@@ -34,7 +34,7 @@ import java.awt.event.ActionListener;
 public final class ControllerToggleKeywordOverlay implements ActionListener {
 
     private static final String KEY_SHOW_METADATA_OVERLAY =
-            "UserSettings.ShowMetadataOverlay"; // NOI18N
+            "UserSettings.ShowMetadataOverlay";
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
     public ControllerToggleKeywordOverlay() {

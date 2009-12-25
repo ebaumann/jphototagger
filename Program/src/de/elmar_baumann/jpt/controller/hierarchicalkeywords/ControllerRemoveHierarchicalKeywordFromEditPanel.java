@@ -77,11 +77,11 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
                 editPanel.removeText(keyword);
             } else {
                 MessageDisplayer.error(getHKPanel().getTree(),
-                        "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.EditDisabled"); // NOI18N
+                        "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.EditDisabled");
             }
         } else {
             MessageDisplayer.error(getHKPanel().getTree(),
-                    "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.NoEditPanel"); // NOI18N
+                    "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.NoEditPanel");
         }
     }
 

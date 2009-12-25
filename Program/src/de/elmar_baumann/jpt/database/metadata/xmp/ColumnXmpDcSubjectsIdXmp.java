@@ -33,7 +33,7 @@ public final class ColumnXmpDcSubjectsIdXmp extends Column {
     private ColumnXmpDcSubjectsIdXmp() {
         super(
             TableXmpDcSubjects.INSTANCE,
-            "id_xmp", // NOI18N
+            "id_xmp",
             DataType.BIGINT);
 
         setCanBeNull(false);

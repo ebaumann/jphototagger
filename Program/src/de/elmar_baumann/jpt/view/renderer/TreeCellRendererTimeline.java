@@ -38,13 +38,13 @@ import javax.swing.tree.TreeNode;
 public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
 
     private static final ImageIcon ICON_YEAR = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_timeline.png"); // NOI18N
+            "/de/elmar_baumann/jpt/resource/icons/icon_timeline.png");
     private static final ImageIcon ICON_MONTH = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_timeline_month.png"); // NOI18N
+            "/de/elmar_baumann/jpt/resource/icons/icon_timeline_month.png");
     private static final ImageIcon ICON_DAY = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_timeline_day.png"); // NOI18N
+            "/de/elmar_baumann/jpt/resource/icons/icon_timeline_day.png");
     private static final ImageIcon ICON_UNKNOWN = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_timeline_unknown.png"); // NOI18N
+            "/de/elmar_baumann/jpt/resource/icons/icon_timeline_unknown.png");
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value,

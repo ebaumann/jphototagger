@@ -44,9 +44,9 @@ public final class RegexUtil {
      */
     public static List<String> getMatches(Collection<String> strings, String pattern) {
         if (strings == null)
-            throw new NullPointerException("strings == null"); // NOI18N
+            throw new NullPointerException("strings == null");
         if (pattern == null)
-            throw new NullPointerException("pattern == null"); // NOI18N
+            throw new NullPointerException("pattern == null");
 
         List<String> stringsMatches = new ArrayList<String>();
 
@@ -72,9 +72,9 @@ public final class RegexUtil {
      */
     public static boolean containsMatch(Collection<String> patterns, String string) {
         if (patterns == null)
-            throw new NullPointerException("patterns == null"); // NOI18N
+            throw new NullPointerException("patterns == null");
         if (string == null)
-            throw new NullPointerException("string == null"); // NOI18N
+            throw new NullPointerException("string == null");
 
         for (String pattern : patterns) {
             if (string.matches(pattern)) {

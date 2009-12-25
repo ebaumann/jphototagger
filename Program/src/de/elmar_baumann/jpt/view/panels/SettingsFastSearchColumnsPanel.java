@@ -106,10 +106,10 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
         scrollPaneFastSearchColumns = new JScrollPane(list);
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
 
-        labelFastSearchColumns.setText(Bundle.getString("SettingsFastSearchColumnsPanel.labelFastSearchColumns.text")); // NOI18N
+        labelFastSearchColumns.setText(Bundle.getString("SettingsFastSearchColumnsPanel.labelFastSearchColumns.text"));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        checkBoxDisplaySearchButton.setText(bundle.getString("SettingsFastSearchColumnsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        checkBoxDisplaySearchButton.setText(bundle.getString("SettingsFastSearchColumnsPanel.checkBoxDisplaySearchButton.text"));
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplaySearchButtonActionPerformed(evt);

@@ -53,7 +53,7 @@ import javax.swing.ImageIcon;
 final class UpdateTablesThumbnails extends Database {
 
     private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 =
-            "Updated_Thumbnails_Names_Hash_1"; // NOI18N Never change this!
+            "Updated_Thumbnails_Names_Hash_1"; // Never change this!
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private final ProgressDialog progress = messages.getProgressDialog();
     private static final int FETCH_MAX_ROWS = 1000;
@@ -78,8 +78,8 @@ final class UpdateTablesThumbnails extends Database {
 
     private int updateRows(Connection connection, int current, int count)
             throws SQLException {
-        String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " + // NOI18N
-                "id, thumbnail FROM files WHERE thumbnail IS NOT NULL"; // NOI18N
+        String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " +
+                "id, thumbnail FROM files WHERE thumbnail IS NOT NULL";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
@@ -87,7 +87,7 @@ final class UpdateTablesThumbnails extends Database {
             InputStream inputStream = rs.getBinaryStream(2);
             setThumbnailNull(connection, id);
             setMessageCurrentFile(id, current, count,
-                    "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table"); // NOI18N
+                    "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table");
             writeThumbnail(inputStream, id);
             progress.setValue(current++);
         }
@@ -98,7 +98,7 @@ final class UpdateTablesThumbnails extends Database {
     private void setThumbnailNull(Connection connection, long id)
             throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE files SET thumbnail = NULL WHERE id = ?"); // NOI18N
+                "UPDATE files SET thumbnail = NULL WHERE id = ?");
         stmt.setLong(1, id);
         AppLog.logFiner(UpdateTablesThumbnails.class, stmt.toString());
         stmt.executeUpdate();
@@ -129,7 +129,7 @@ final class UpdateTablesThumbnails extends Database {
             fos = new FileOutputStream(tnFile);
             fos.getChannel().lock();
             ByteArrayInputStream is =
-                    ImageUtil.getByteArrayInputStream(thumbnail, "jpeg"); // NOI18N
+                    ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
             if (is != null) {
                 int nextByte;
                 while ((nextByte = is.read()) != -1) {
@@ -164,7 +164,7 @@ final class UpdateTablesThumbnails extends Database {
             File[] thumbnailFiles = getThumbnailFiles();
             int filecount = thumbnailFiles.length;
             setProgressDialogRange(filecount);
-            String sql = "SELECT filename FROM files WHERE id = ?"; // NOI18N
+            String sql = "SELECT filename FROM files WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
             int fileIndex = 0;
             for (File file : thumbnailFiles) {
@@ -182,7 +182,7 @@ final class UpdateTablesThumbnails extends Database {
                         file.delete(); // orphaned thumbnail
                     }
                     setMessageCurrentFile(id, ++fileIndex, filecount,
-                            "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Hash"); // NOI18N
+                            "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Hash");
                 } catch (NumberFormatException ex) {
                     AppLog.logSevere(UpdateTablesThumbnails.class, ex);
                 }
@@ -198,7 +198,7 @@ final class UpdateTablesThumbnails extends Database {
     private File[] getThumbnailFiles() {
         File dir = new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
         if (!dir.isDirectory()) return new File[0];
-        return dir.listFiles(new RegexFileFilter("[0-9]+", "")); // NOI18N
+        return dir.listFiles(new RegexFileFilter("[0-9]+", ""));
     }
 
     private File getThumbnailfile(long id) {
@@ -227,7 +227,7 @@ final class UpdateTablesThumbnails extends Database {
     private int getCount(Connection connection) throws SQLException {
         int count = 0;
         Statement stmt = connection.createStatement();
-        String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL"; // NOI18N
+        String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {
             count = rs.getInt(1);
@@ -237,7 +237,7 @@ final class UpdateTablesThumbnails extends Database {
 
     private void compress() {
         messages.message(Bundle.getString(
-                "UpdateTablesThumbnails.Info.CompressDatabase")); // NOI18N
+                "UpdateTablesThumbnails.Info.CompressDatabase"));
         progress.setIndeterminate(true);
         DatabaseMaintainance.INSTANCE.compressDatabase();
         progress.setIndeterminate(false);

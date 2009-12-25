@@ -35,9 +35,9 @@ public final class ColumnCollectionnamesName extends Column {
     private ColumnCollectionnamesName() {
         super(
             TableCollectionNames.INSTANCE,
-            "name", // NOI18N
+            "name",
             DataType.INTEGER);
 
-        setDescription(Bundle.getString("ColumnCollectionnamesName.Description")); // NOI18N
+        setDescription(Bundle.getString("ColumnCollectionnamesName.Description"));
     }
 }

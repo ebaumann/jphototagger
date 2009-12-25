@@ -47,9 +47,9 @@ public final class RegexFileFilter implements java.io.FileFilter {
      */
     public RegexFileFilter(String acceptedPatterns, String delim) {
         if (acceptedPatterns == null)
-            throw new NullPointerException("acceptedPatterns == null"); // NOI18N
+            throw new NullPointerException("acceptedPatterns == null"); //
         if (delim == null)
-            throw new NullPointerException("delim == null"); // NOI18N
+            throw new NullPointerException("delim == null"); //
 
         setAcceptedValues(acceptedPatterns, delim);
     }

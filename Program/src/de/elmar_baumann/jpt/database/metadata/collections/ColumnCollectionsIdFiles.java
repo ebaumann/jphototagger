@@ -34,7 +34,7 @@ public final class ColumnCollectionsIdFiles extends Column {
     private ColumnCollectionsIdFiles() {
         super(
             TableCollections.INSTANCE,
-            "id_files", // NOI18N
+            "id_files",
             DataType.BIGINT);
 
         setIsPrimaryKey(true);

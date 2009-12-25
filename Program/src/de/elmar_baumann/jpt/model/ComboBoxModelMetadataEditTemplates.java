@@ -55,7 +55,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         } else {
             errorMessage(template.getName(),
                     Bundle.getString(
-                    "ComboBoxModelMetadataEditTemplates.Error.ParamDelete")); // NOI18N
+                    "ComboBoxModelMetadataEditTemplates.Error.ParamDelete"));
         }
     }
 
@@ -74,7 +74,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         } else {
             errorMessage(template.getName(),
                     Bundle.getString(
-                    "ComboBoxModelMetadataEditTemplates.Error.ParamInsert")); // NOI18N
+                    "ComboBoxModelMetadataEditTemplates.Error.ParamInsert"));
         }
     }
 
@@ -92,7 +92,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         } else {
             errorMessage(template.getName(),
                     Bundle.getString(
-                    "ComboBoxModelMetadataEditTemplates.Error.ParamUpdate")); // NOI18N
+                    "ComboBoxModelMetadataEditTemplates.Error.ParamUpdate"));
         }
 
     }
@@ -114,7 +114,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         } else {
             errorMessage(template.getName(),
                     Bundle.getString(
-                    "ComboBoxModelMetadataEditTemplates.Error.ParamRename")); // NOI18N
+                    "ComboBoxModelMetadataEditTemplates.Error.ParamRename"));
         }
     }
 
@@ -127,7 +127,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
 
     private void errorMessage(String name, String cause) {
         MessageDisplayer.error(null,
-                "ComboBoxModelMetadataEditTemplates.Error.Template", // NOI18N
+                "ComboBoxModelMetadataEditTemplates.Error.Template",
                 name, cause);
     }
 }

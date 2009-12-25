@@ -65,7 +65,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
         if (!transferSupport.isDrop()) return false;
         File targetDirectory = getTargetDirectory(transferSupport);
         List<File> sourceFiles =
-                TransferUtil.getFiles(transferSupport.getTransferable(), ""); // NOI18N
+                TransferUtil.getFiles(transferSupport.getTransferable(), "");
         if (targetDirectory != null && !sourceFiles.isEmpty()) {
             handleDroppedFiles(
                     transferSupport.getUserDropAction(), sourceFiles,

@@ -41,7 +41,7 @@ import javax.swing.JProgressBar;
  */
 public final class SaveEditedMetadata extends Thread {
 
-    private static final String                        PROGRESSBAR_STRING = Bundle.getString("SaveEditedMetadata.ProgressBar.String"); // NOI18N
+    private static final String                        PROGRESSBAR_STRING = Bundle.getString("SaveEditedMetadata.ProgressBar.String");
     private final        Collection<Pair<String, Xmp>> filenamesXmp;
     private              JProgressBar                  progressBar;
 
@@ -53,7 +53,7 @@ public final class SaveEditedMetadata extends Thread {
             SaveEditedMetadata updater = new SaveEditedMetadata(filenamesXmp);
             UserTasks.INSTANCE.add(updater);
         } else {
-            AppLog.logWarning(SaveEditedMetadata.class, "SaveEditedMetadata.Error.NoImageFilesSelected"); // NOI18N
+            AppLog.logWarning(SaveEditedMetadata.class, "SaveEditedMetadata.Error.NoImageFilesSelected");
         }
     }
 
@@ -61,7 +61,7 @@ public final class SaveEditedMetadata extends Thread {
 
         AppLifeCycle.INSTANCE.addSaveObject(this);
         this.filenamesXmp = new ArrayList<Pair<String, Xmp>>(filenamesXmp);
-        setName("Saving edited metadata @ " + getClass().getName()); // NOI18N
+        setName("Saving edited metadata @ " + getClass().getName());
     }
 
     @Override

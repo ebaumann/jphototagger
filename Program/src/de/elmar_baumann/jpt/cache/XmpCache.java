@@ -46,7 +46,7 @@ public class XmpCache extends Cache<XmpCacheIndirection>
 
     private XmpCache() {
         db.addDatabaseListener(this);
-        new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start(); // NOI18N
+        new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start();
     }
 
     @Override
@@ -97,7 +97,7 @@ public class XmpCache extends Cache<XmpCacheIndirection>
                 if (file != null) {
                     files.add(file.getAbsolutePath());
                 }
-                assert ! (file == null && files.size() == 0) : "Should not happen"; // NOI18N
+                assert ! (file == null && files.size() == 0) : "Should not happen";
                 if (file == null || files.size() >= 64) {
                     if (files.size() > 1) {
                         try {
@@ -137,7 +137,7 @@ public class XmpCache extends Cache<XmpCacheIndirection>
      */
     @Override
     protected synchronized void generateEntry(File file, boolean prefetch) {
-        assert file != null: "Received request with null file"; // NOI18N
+        assert file != null: "Received request with null file";
         XmpCacheIndirection ci = new XmpCacheIndirection(file);
         updateUsageTime(ci);
         fileCache.put(file, ci);

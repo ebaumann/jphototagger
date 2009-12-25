@@ -55,7 +55,7 @@ public final class ClipboardUtil {
             List<File> files, ClipboardOwner owner) {
 
         if (files == null)
-            throw new NullPointerException("files == null"); // NOI18N
+            throw new NullPointerException("files == null");
 
         copyToClipboard(
                 files, Toolkit.getDefaultToolkit().getSystemClipboard(), owner);
@@ -72,9 +72,9 @@ public final class ClipboardUtil {
             List<File> files, Clipboard clipboard, ClipboardOwner owner) {
 
         if (files == null)
-            throw new NullPointerException("files == null"); // NOI18N
+            throw new NullPointerException("files == null");
         if (clipboard == null)
-            throw new NullPointerException("clipboard == null"); // NOI18N
+            throw new NullPointerException("clipboard == null");
 
         clipboard.setContents(
                 new TransferableFileCollection(files), owner);
@@ -92,7 +92,7 @@ public final class ClipboardUtil {
             String delimiterStringList) {
 
         if (delimiterStringList == null)
-            throw new NullPointerException("delimiterStringList == null"); // NOI18N
+            throw new NullPointerException("delimiterStringList == null");
 
         return getFilesFromClipboard(
                 Toolkit.getDefaultToolkit().getSystemClipboard(),
@@ -112,9 +112,9 @@ public final class ClipboardUtil {
             Clipboard clipboard, String delimiterStringList) {
 
         if (clipboard == null)
-            throw new NullPointerException("files == null"); // NOI18N
+            throw new NullPointerException("files == null");
         if (delimiterStringList == null)
-            throw new NullPointerException("delimiterStringList == null"); // NOI18N
+            throw new NullPointerException("delimiterStringList == null");
 
         List<File> files = null;
         DataFlavor[] flavors = clipboard.getAvailableDataFlavors();

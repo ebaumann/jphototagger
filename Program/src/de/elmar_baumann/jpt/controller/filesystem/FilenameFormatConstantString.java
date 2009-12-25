@@ -54,7 +54,7 @@ public final class FilenameFormatConstantString extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatConstantString.String"); // NOI18N
+        return Bundle.getString("FilenameFormatConstantString.String");
     }
 
     private FilenameFormatConstantString() {

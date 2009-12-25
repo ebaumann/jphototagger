@@ -35,11 +35,11 @@ public final class ColumnXmpPhotoshopCaptionwriter extends Column {
     private ColumnXmpPhotoshopCaptionwriter() {
         super(
             TableXmp.INSTANCE,
-            "photoshop_captionwriter", // NOI18N
+            "photoshop_captionwriter",
             DataType.STRING);
 
         setLength(32);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopCaptionwriter.Description")); // NOI18N
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCaptionwriter.LongerDescription")); // NOI18N
+        setDescription(Bundle.getString("ColumnXmpPhotoshopCaptionwriter.Description"));
+        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCaptionwriter.LongerDescription"));
     }
 }

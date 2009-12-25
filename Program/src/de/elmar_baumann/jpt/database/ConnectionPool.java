@@ -106,14 +106,14 @@ public final class ConnectionPool implements Runnable {
      * @throws SQLException
      */
     private ConnectionPool() throws SQLException {
-        url = "jdbc:hsqldb:file:" + // NOI18N
+        url = "jdbc:hsqldb:file:" +
                 UserSettings.INSTANCE.getDatabaseFileName(
                 Filename.FULL_PATH_NO_SUFFIX) +
-                ";shutdown=true";  // NOI18N
+                ";shutdown=true"; 
 
-        driver = "org.hsqldb.jdbcDriver"; // NOI18N
-        username = "sa"; // NOI18N
-        password = ""; // NOI18N
+        driver = "org.hsqldb.jdbcDriver";
+        username = "sa";
+        password = "";
         int initialConnections = 3;
         maxConnections = 15;
         waitIfBusy = true;
@@ -179,7 +179,7 @@ public final class ConnectionPool implements Runnable {
             if ((totalConnections() < maxConnections) && !connectionPending) {
                 makeBackgroundConnection();
             } else if (!waitIfBusy) {
-                throw new SQLException("Connection limit reached"); // NOI18N
+                throw new SQLException("Connection limit reached");
             }
             // Wait for either a new connection to be established
             // (if you called makeBackgroundConnection) or for
@@ -211,7 +211,7 @@ public final class ConnectionPool implements Runnable {
         connectionPending = true;
         try {
             Thread connectThread = new Thread(this);
-            connectThread.setName("Connection pool creating connection" + " @ " + // NOI18N
+            connectThread.setName("Connection pool creating connection" + " @ " +
                     getClass().getName());
             connectThread.start();
         } catch (OutOfMemoryError oome) {
@@ -252,9 +252,9 @@ public final class ConnectionPool implements Runnable {
                     password);
             return (connection);
         } catch (ClassNotFoundException cnfe) {
-            throw new SQLException("Can't find class for driver: " + driver); // NOI18N
+            throw new SQLException("Can't find class for driver: " + driver);
         } catch (Exception ce) {
-            throw new SQLException("Can't connect to server " + url + "! " + ce); // NOI18N
+            throw new SQLException("Can't connect to server " + url + "! " + ce);
         }
     }
 
@@ -316,10 +316,10 @@ public final class ConnectionPool implements Runnable {
     @Override
     public synchronized String toString() {
         StringBuffer info = new StringBuffer();
-        info.append("ConnectionPool(" + url + "," + username + ")"); // NOI18N
-        info.append(", available=" + availableConnections.size()); // NOI18N
-        info.append(", busy=" + busyConnections.size()); // NOI18N
-        info.append(", max=" + maxConnections); // NOI18N
+        info.append("ConnectionPool(" + url + "," + username + ")");
+        info.append(", available=" + availableConnections.size());
+        info.append(", busy=" + busyConnections.size());
+        info.append(", max=" + maxConnections);
         return info.toString();
     }
 }

@@ -64,11 +64,11 @@ public final class DatabaseSavedSearches extends Database {
                 connection = getConnection();
                 connection.setAutoCommit(false);
                 PreparedStatement stmt = connection.prepareStatement(
-                        "INSERT INTO saved_searches" + // NOI18N
-                        " (name" +       // NOI18N -- 1 --
-                        ", sql_string" + // NOI18N -- 2 --
-                        ", is_query)" +  // NOI18N -- 3 --
-                        " VALUES (?, ?, ?)"); // NOI18N
+                        "INSERT INTO saved_searches" +
+                        " (name" +       // -- 1 --
+                        ", sql_string" + // -- 2 --
+                        ", is_query)" +  // -- 3 --
+                        " VALUES (?, ?, ?)");
                 stmt.setString( 1, paramStmt.getName());
                 stmt.setBytes(  2, paramStmt.getSql().getBytes());
                 stmt.setBoolean(3, paramStmt.isQuery());
@@ -97,12 +97,12 @@ public final class DatabaseSavedSearches extends Database {
 
         if (idSavedSearch > 0 && values != null && values.size() > 0) {
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO saved_searches_values (" + // NOI18N
-                    "id_saved_searches" + // NOI18N
-                    ", value" + // NOI18N
-                    ", value_index" + // NOI18N
-                    ")" + // NOI18N
-                    " VALUES (?, ?, ?)"); // NOI18N
+                    "INSERT INTO saved_searches_values (" +
+                    "id_saved_searches" +
+                    ", value" +
+                    ", value_index" +
+                    ")" +
+                    " VALUES (?, ?, ?)");
             stmt.setLong(1, idSavedSearch);
             int size = values.size();
             for (int index = 0; index < size; index++) {
@@ -124,18 +124,18 @@ public final class DatabaseSavedSearches extends Database {
 
         if (idSavedSearch > 0 && panels != null) {
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO" + // NOI18N
-                    " saved_searches_panels (" + // NOI18N
-                    "id_saved_searches" + // NOI18N -- 1 --
-                    ", panel_index" +     // NOI18N -- 2 --
-                    ", bracket_left_1" +  // NOI18N -- 3 --
-                    ", operator_id" +     // NOI18N -- 4 --
-                    ", bracket_left_2" +  // NOI18N -- 5 --
-                    ", column_id" +       // NOI18N -- 6 --
-                    ", comparator_id" +   // NOI18N -- 7 --
-                    ", value" +           // NOI18N -- 8 --
-                    ", bracket_right)" +  // NOI18N -- 9 --
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // NOI18N
+                    "INSERT INTO" +
+                    " saved_searches_panels (" +
+                    "id_saved_searches" + // -- 1 --
+                    ", panel_index" +     // -- 2 --
+                    ", bracket_left_1" +  // -- 3 --
+                    ", operator_id" +     // -- 4 --
+                    ", bracket_left_2" +  // -- 5 --
+                    ", column_id" +       // -- 6 --
+                    ", comparator_id" +   // -- 7 --
+                    ", value" +           // -- 8 --
+                    ", bracket_right)" +  // -- 9 --
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setLong(       1, idSavedSearch);
             for (SavedSearchPanel panel : panels) {
                 stmt.setInt(    2, panel.getPanelIndex());
@@ -157,7 +157,7 @@ public final class DatabaseSavedSearches extends Database {
             SQLException {
         long id = -1;
         PreparedStatement stmt = connection.prepareStatement(
-                "SELECT id FROM saved_searches WHERE name = ?"); // NOI18N
+                "SELECT id FROM saved_searches WHERE name = ?");
         stmt.setString(1, name);
         logFinest(stmt);
         ResultSet rs = stmt.executeQuery();
@@ -179,7 +179,7 @@ public final class DatabaseSavedSearches extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql = "SELECT COUNT(*) FROM saved_searches"; // NOI18N
+            String sql = "SELECT COUNT(*) FROM saved_searches";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -239,7 +239,7 @@ public final class DatabaseSavedSearches extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM saved_searches WHERE name = ?"); // NOI18N
+                    "DELETE FROM saved_searches WHERE name = ?");
             stmt.setString(1, name);
             logFiner(stmt);
             int count = stmt.executeUpdate();
@@ -269,7 +269,7 @@ public final class DatabaseSavedSearches extends Database {
             connection = getConnection();
             connection.setAutoCommit(true);
             PreparedStatement stmt = connection.prepareStatement(
-                    "UPDATE saved_searches SET name = ? WHERE name = ?"); // NOI18N
+                    "UPDATE saved_searches SET name = ? WHERE name = ?");
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
             logFiner(stmt);
@@ -317,11 +317,11 @@ public final class DatabaseSavedSearches extends Database {
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT" + // NOI18N
-                    " name" +        // NOI18N -- 1 --
-                    ", sql_string" + // NOI18N -- 2 --
-                    ", is_query" +   // NOI18N -- 3 --
-                    " FROM saved_searches WHERE name = ?"); // NOI18N
+                    "SELECT" +
+                    " name" +        // -- 1 --
+                    ", sql_string" + // -- 2 --
+                    ", is_query" +   // -- 3 --
+                    " FROM saved_searches WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -358,13 +358,13 @@ public final class DatabaseSavedSearches extends Database {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql =
-                    "SELECT" + // NOI18N
-                    " name" +        // NOI18N -- 1 --
-                    ", sql_string" + // NOI18N -- 2 --
-                    ", is_query" +   // NOI18N -- 3 --
-                    " FROM saved_searches ORDER BY name"; // NOI18N
+                    "SELECT" +
+                    " name" +        // -- 1 --
+                    ", sql_string" + // -- 2 --
+                    ", is_query" +   // -- 3 --
+                    " FROM saved_searches ORDER BY name";
             logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql); // NOI18N
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 SavedSearch savedSearch = new SavedSearch();
                 SavedSearchParamStatement paramStmt =
@@ -391,15 +391,15 @@ public final class DatabaseSavedSearches extends Database {
             Connection connection, SavedSearch savedSearch)
             throws SQLException {
         assert savedSearch.getParamStatement() != null :
-                "Searches statement is null!"; // NOI18N
+                "Searches statement is null!";
         PreparedStatement stmt = connection.prepareStatement(
-                "SELECT" + // NOI18N
-                " saved_searches_values.value" + // NOI18N
-                " FROM" + // NOI18N
-                " saved_searches_values INNER JOIN saved_searches" + // NOI18N
-                " ON saved_searches_values.id_saved_searches = saved_searches.id" + // NOI18N
-                " AND saved_searches.name = ?" + // NOI18N
-                " ORDER BY saved_searches_values.value_index ASC"); // NOI18N
+                "SELECT" +
+                " saved_searches_values.value" +
+                " FROM" +
+                " saved_searches_values INNER JOIN saved_searches" +
+                " ON saved_searches_values.id_saved_searches = saved_searches.id" +
+                " AND saved_searches.name = ?" +
+                " ORDER BY saved_searches_values.value_index ASC");
         stmt.setString(1, savedSearch.getParamStatement().getName());
         logFinest(stmt);
         ResultSet rs = stmt.executeQuery();
@@ -419,21 +419,21 @@ public final class DatabaseSavedSearches extends Database {
     private void setSavedSearchPanels(
             Connection connection, SavedSearch savedSearch)
             throws SQLException {
-        assert savedSearch.getParamStatement() != null : "Statement is null!"; // NOI18N
-        PreparedStatement stmt = connection.prepareStatement("SELECT" + // NOI18N
-                " saved_searches_panels.panel_index" +     // NOI18N -- 1 --
-                ", saved_searches_panels.bracket_left_1" + // NOI18N -- 2 --
-                ", saved_searches_panels.operator_id" +    // NOI18N -- 3 --
-                ", saved_searches_panels.bracket_left_2" + // NOI18N -- 4 --
-                ", saved_searches_panels.column_id" +      // NOI18N -- 5 --
-                ", saved_searches_panels.comparator_id" +  // NOI18N -- 6 --
-                ", saved_searches_panels.value" +          // NOI18N -- 7 --
-                ", saved_searches_panels.bracket_right" +  // NOI18N -- 8 --
-                " FROM" + // NOI18N
-                " saved_searches_panels INNER JOIN saved_searches" + // NOI18N
-                " ON saved_searches_panels.id_saved_searches = saved_searches.id" + // NOI18N
-                " AND saved_searches.name = ?" + // NOI18N
-                " ORDER BY saved_searches_panels.panel_index ASC"); // NOI18N
+        assert savedSearch.getParamStatement() != null : "Statement is null!";
+        PreparedStatement stmt = connection.prepareStatement("SELECT" +
+                " saved_searches_panels.panel_index" +     // -- 1 --
+                ", saved_searches_panels.bracket_left_1" + // -- 2 --
+                ", saved_searches_panels.operator_id" +    // -- 3 --
+                ", saved_searches_panels.bracket_left_2" + // -- 4 --
+                ", saved_searches_panels.column_id" +      // -- 5 --
+                ", saved_searches_panels.comparator_id" +  // -- 6 --
+                ", saved_searches_panels.value" +          // -- 7 --
+                ", saved_searches_panels.bracket_right" +  // -- 8 --
+                " FROM" +
+                " saved_searches_panels INNER JOIN saved_searches" +
+                " ON saved_searches_panels.id_saved_searches = saved_searches.id" +
+                " AND saved_searches.name = ?" +
+                " ORDER BY saved_searches_panels.panel_index ASC");
         stmt.setString(1, savedSearch.getParamStatement().getName());
         logFinest(stmt);
         ResultSet rs = stmt.executeQuery();
