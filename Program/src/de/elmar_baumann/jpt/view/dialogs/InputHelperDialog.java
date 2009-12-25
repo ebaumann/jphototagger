@@ -24,7 +24,6 @@ import de.elmar_baumann.jpt.datatransfer.Flavors;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
-import de.elmar_baumann.jpt.view.renderer.ListCellRendererCategories;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
@@ -56,10 +55,6 @@ public class InputHelperDialog extends Dialog {
         registerKeyStrokes();
     }
 
-    public void setModelCategories(ListModel model) {
-        listCategories.setModel(model);
-    }
-
     public void setModelKeywords(ListModel model) {
         listKeywords.setModel(model);
     }
@@ -68,7 +63,7 @@ public class InputHelperDialog extends Dialog {
         Settings settings = UserSettings.INSTANCE.getSettings();
         panelHierarchicalKeywords.readProperties();
         int selIndexTabbedPane = settings.getInt(KEY_SEL_INDEX_TABBED_PANE);
-        if (selIndexTabbedPane >= 0) {
+        if (selIndexTabbedPane >= 0 && selIndexTabbedPane < tabbedPane.getTabCount()) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
         }
         settings.getSizeAndLocation(this);
@@ -110,9 +105,6 @@ public class InputHelperDialog extends Dialog {
         panelKeywords = new javax.swing.JPanel();
         scrollPaneKeywords = new javax.swing.JScrollPane();
         listKeywords = new javax.swing.JList();
-        panelCategories = new javax.swing.JPanel();
-        scrollPaneCategories = new javax.swing.JScrollPane();
-        listCategories = new javax.swing.JList();
         labelInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -141,29 +133,10 @@ public class InputHelperDialog extends Dialog {
         );
         panelKeywordsLayout.setVerticalGroup(
             panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+            .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
-
-        listCategories.setToolTipText(Bundle.getString("InputHelperDialog.listCategories.toolTipText")); // NOI18N
-        listCategories.setCellRenderer(new ListCellRendererCategories());
-        listCategories.setDragEnabled(true);
-        scrollPaneCategories.setViewportView(listCategories);
-        listCategories.setTransferHandler(new TransferHandlerDragListItems(Flavors.CATEGORIES_FLAVOR));
-
-        javax.swing.GroupLayout panelCategoriesLayout = new javax.swing.GroupLayout(panelCategories);
-        panelCategories.setLayout(panelCategoriesLayout);
-        panelCategoriesLayout.setHorizontalGroup(
-            panelCategoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-        );
-        panelCategoriesLayout.setVerticalGroup(
-            panelCategoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-        );
-
-        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelCategories.TabConstraints.tabTitle"), panelCategories); // NOI18N
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         labelInfo.setText(bundle.getString("InputHelperDialog.labelInfo.text")); // NOI18N
@@ -183,7 +156,7 @@ public class InputHelperDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -219,12 +192,9 @@ public class InputHelperDialog extends Dialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelInfo;
-    private javax.swing.JList listCategories;
     private javax.swing.JList listKeywords;
-    private javax.swing.JPanel panelCategories;
     private de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel panelHierarchicalKeywords;
     private javax.swing.JPanel panelKeywords;
-    private javax.swing.JScrollPane scrollPaneCategories;
     private javax.swing.JScrollPane scrollPaneKeywords;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables

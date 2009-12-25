@@ -49,7 +49,6 @@ public final class TransferHandlerDropEdit extends TransferHandler {
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
 
         return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor) ||
-                Flavors.hasCategories(transferSupport) || 
                 Flavors.hasHierarchicalKeywords(transferSupport) ||
                 Flavors.hasKeywords(transferSupport);
     }
@@ -62,8 +61,6 @@ public final class TransferHandlerDropEdit extends TransferHandler {
 
         if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
             string = Support.getString(transferable);
-        } else if (Flavors.hasCategories(transferSupport)) {
-            string = getStrings(Support.getCategories(transferable));
         } else if (Flavors.hasKeywords(transferSupport)) {
             string = getStrings(Support.getKeywords(transferable));
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {

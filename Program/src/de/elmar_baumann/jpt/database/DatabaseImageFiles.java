@@ -600,15 +600,12 @@ public final class DatabaseImageFiles extends Database {
             SQLException {
 
         if (xmp != null && !xmp.isEmpty()) {
-            PreparedStatement stmt = connection.prepareStatement(
-                    getInsertIntoXmpStatement());
+            PreparedStatement stmt = connection.prepareStatement(getInsertIntoXmpStatement());
             setXmpValues(stmt, idFile, xmp);
             logFiner(stmt);
             stmt.executeUpdate();
             long idXmp = getIdXmpFromIdFile(connection, idFile);
             insertXmpDcSubjects(connection, idXmp, xmp.getDcSubjects());
-            insertXmpPhotoshopSupplementalcategories(
-                    connection, idXmp, xmp.getPhotoshopSupplementalCategories());
             stmt.close();
         }
     }
@@ -625,23 +622,6 @@ public final class DatabaseImageFiles extends Database {
                     sql,
                     idXmp,
                     dcSubjects);
-        }
-    }
-
-    private void insertXmpPhotoshopSupplementalcategories(
-            Connection connection,
-            long idXmp,
-            List<String> photoshopSupplementalCategories) throws SQLException {
-
-        String sql =
-                "INSERT INTO xmp_photoshop_supplementalcategories" + // NOI18N
-                " (id_xmp, supplementalcategory)"; // NOI18N
-        if (photoshopSupplementalCategories != null) {
-            insertValues(
-                    connection,
-                    sql,
-                    idXmp,
-                    photoshopSupplementalCategories);
         }
     }
 
@@ -674,18 +654,17 @@ public final class DatabaseImageFiles extends Database {
                 ", iptc4xmpcore_location" +           // NOI18N --  7 --
                 ", photoshop_authorsposition" +       // NOI18N --  8 --
                 ", photoshop_captionwriter" +         // NOI18N --  9 --
-                ", photoshop_category" +              // NOI18N -- 10 --
-                ", photoshop_city" +                  // NOI18N -- 11 --
-                ", photoshop_country" +               // NOI18N -- 12 --
-                ", photoshop_credit" +                // NOI18N -- 13 --
-                ", photoshop_headline" +              // NOI18N -- 14 --
-                ", photoshop_instructions" +          // NOI18N -- 15 --
-                ", photoshop_source" +                // NOI18N -- 16 --
-                ", photoshop_state" +                 // NOI18N -- 17 --
-                ", photoshop_transmissionReference" + // NOI18N -- 18 --
-                ", rating" + // NOI18N -- 19 --
+                ", photoshop_city" +                  // NOI18N -- 10 --
+                ", photoshop_country" +               // NOI18N -- 11 --
+                ", photoshop_credit" +                // NOI18N -- 12 --
+                ", photoshop_headline" +              // NOI18N -- 13 --
+                ", photoshop_instructions" +          // NOI18N -- 14 --
+                ", photoshop_source" +                // NOI18N -- 15 --
+                ", photoshop_state" +                 // NOI18N -- 16 --
+                ", photoshop_transmissionReference" + // NOI18N -- 17 --
+                ", rating" + // NOI18N -- 18 --
                 ")" + // NOI18N
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // NOI18N
     }
 
     private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmp)
@@ -699,20 +678,19 @@ public final class DatabaseImageFiles extends Database {
         stmt.setString( 7, xmp.getIptc4xmpcoreLocation());
         stmt.setString( 8, xmp.getPhotoshopAuthorsposition());
         stmt.setString( 9, xmp.getPhotoshopCaptionwriter());
-        stmt.setString(10, xmp.getPhotoshopCategory());
-        stmt.setString(11, xmp.getPhotoshopCity());
-        stmt.setString(12, xmp.getPhotoshopCountry());
-        stmt.setString(13, xmp.getPhotoshopCredit());
-        stmt.setString(14, xmp.getPhotoshopHeadline());
-        stmt.setString(15, xmp.getPhotoshopInstructions());
-        stmt.setString(16, xmp.getPhotoshopSource());
-        stmt.setString(17, xmp.getPhotoshopState());
-        stmt.setString(18, xmp.getPhotoshopTransmissionReference());
+        stmt.setString(10, xmp.getPhotoshopCity());
+        stmt.setString(11, xmp.getPhotoshopCountry());
+        stmt.setString(12, xmp.getPhotoshopCredit());
+        stmt.setString(13, xmp.getPhotoshopHeadline());
+        stmt.setString(14, xmp.getPhotoshopInstructions());
+        stmt.setString(15, xmp.getPhotoshopSource());
+        stmt.setString(16, xmp.getPhotoshopState());
+        stmt.setString(17, xmp.getPhotoshopTransmissionReference());
         Long rating = xmp.getRating();
         if (rating == null || rating < ColumnXmpRating.getMinValue()) {
-            stmt.setNull(19, java.sql.Types.BIGINT);
+            stmt.setNull(18, java.sql.Types.BIGINT);
         } else {
-            stmt.setLong(19, rating <= ColumnXmpRating.getMaxValue()
+            stmt.setLong(18, rating <= ColumnXmpRating.getMaxValue()
                              ? rating
                              : ColumnXmpRating.getMaxValue());
         }
@@ -806,25 +784,21 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp.iptc4xmpcore_location" +                                 // NOI18N --  7  --
                 ", xmp.photoshop_authorsposition" +                             // NOI18N --  8 --
                 ", xmp.photoshop_captionwriter" +                               // NOI18N --  9 --
-                ", xmp.photoshop_category" +                                    // NOI18N -- 10 --
-                ", xmp.photoshop_city" +                                        // NOI18N -- 11 --
-                ", xmp.photoshop_country" +                                     // NOI18N -- 12 --
-                ", xmp.photoshop_credit" +                                      // NOI18N -- 13 --
-                ", xmp.photoshop_headline" +                                    // NOI18N -- 14 --
-                ", xmp.photoshop_instructions" +                                // NOI18N -- 15 --
-                ", xmp.photoshop_source" +                                      // NOI18N -- 16 --
-                ", xmp.photoshop_state" +                                       // NOI18N -- 17 --
-                ", xmp.photoshop_transmissionReference" +                       // NOI18N -- 18 --
-                ", xmp_dc_subjects.subject" +                                   // NOI18N -- 19 --
-                ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 20 --
-                ", xmp.rating" +                                                // NOI18N -- 21 --
+                ", xmp.photoshop_city" +                                        // NOI18N -- 10 --
+                ", xmp.photoshop_country" +                                     // NOI18N -- 11 --
+                ", xmp.photoshop_credit" +                                      // NOI18N -- 12 --
+                ", xmp.photoshop_headline" +                                    // NOI18N -- 13 --
+                ", xmp.photoshop_instructions" +                                // NOI18N -- 14 --
+                ", xmp.photoshop_source" +                                      // NOI18N -- 15 --
+                ", xmp.photoshop_state" +                                       // NOI18N -- 16 --
+                ", xmp.photoshop_transmissionReference" +                       // NOI18N -- 17 --
+                ", xmp_dc_subjects.subject" +                                   // NOI18N -- 18 --
+                ", xmp.rating" +                                                // NOI18N -- 19 --
                 " FROM" + // NOI18N
                 " files LEFT JOIN xmp" + // NOI18N
                 " ON files.id = xmp.id_files" + // NOI18N
                 " LEFT JOIN xmp_dc_subjects" + // NOI18N
                 " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
-                " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
-                " ON xmp.id = xmp_photoshop_supplementalcategories.id_xmp" + // NOI18N
                 " WHERE files.filename IN" + // NOI18N
                 " (" + getPlaceholder(fileCount) + ")"; // NOI18N
     }
@@ -855,32 +829,27 @@ public final class DatabaseImageFiles extends Database {
                 if (!filename.equals(prevFilename)) {
                     xmp = new Xmp();
                 }
-                xmp.setDcCreator(                      rs.getString(2));
-                xmp.setDcDescription(                  rs.getString(3));
-                xmp.setDcRights(                       rs.getString(4));
-                xmp.setDcTitle(                        rs.getString(5));
-                xmp.setIptc4xmpcoreCountrycode(        rs.getString(6));
-                xmp.setIptc4xmpcoreLocation(           rs.getString(7));
-                xmp.setPhotoshopAuthorsposition(       rs.getString(8));
-                xmp.setPhotoshopCaptionwriter(         rs.getString(9));
-                xmp.setPhotoshopCategory(             rs.getString(10));
-                xmp.setPhotoshopCity(                 rs.getString(11));
-                xmp.setPhotoshopCountry(              rs.getString(12));
-                xmp.setPhotoshopCredit(               rs.getString(13));
-                xmp.setPhotoshopHeadline(             rs.getString(14));
-                xmp.setPhotoshopInstructions(         rs.getString(15));
-                xmp.setPhotoshopSource(               rs.getString(16));
-                xmp.setPhotoshopState(                rs.getString(17));
-                xmp.setPhotoshopTransmissionReference(rs.getString(18));
-                String value =                        rs.getString(19);
+                xmp.setDcCreator(                     rs.getString(2));
+                xmp.setDcDescription(                 rs.getString(3));
+                xmp.setDcRights(                      rs.getString(4));
+                xmp.setDcTitle(                       rs.getString(5));
+                xmp.setIptc4xmpcoreCountrycode(       rs.getString(6));
+                xmp.setIptc4xmpcoreLocation(          rs.getString(7));
+                xmp.setPhotoshopAuthorsposition(      rs.getString(8));
+                xmp.setPhotoshopCaptionwriter(        rs.getString(9));
+                xmp.setPhotoshopCity(                 rs.getString(10));
+                xmp.setPhotoshopCountry(              rs.getString(11));
+                xmp.setPhotoshopCredit(               rs.getString(12));
+                xmp.setPhotoshopHeadline(             rs.getString(13));
+                xmp.setPhotoshopInstructions(         rs.getString(14));
+                xmp.setPhotoshopSource(               rs.getString(15));
+                xmp.setPhotoshopState(                rs.getString(16));
+                xmp.setPhotoshopTransmissionReference(rs.getString(17));
+                String value =                        rs.getString(18);
                 if (value != null) {
                     xmp.addDcSubject(value);
                 }
-                value =                               rs.getString(20);
-                if (value != null) {
-                    xmp.addPhotoshopSupplementalCategory(value);
-                }
-                long rating =                           rs.getLong(21);
+                long rating =                         rs.getLong(19);
                 xmp.setRating(rs.wasNull() ||
                         rating < ColumnXmpRating.getMinValue()
                               ? null
@@ -935,25 +904,21 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp.iptc4xmpcore_location" +                                 // NOI18N --  6  --
                 ", xmp.photoshop_authorsposition" +                             // NOI18N --  7 --
                 ", xmp.photoshop_captionwriter" +                               // NOI18N --  8 --
-                ", xmp.photoshop_category" +                                    // NOI18N --  9 --
-                ", xmp.photoshop_city" +                                        // NOI18N -- 10 --
-                ", xmp.photoshop_country" +                                     // NOI18N -- 11 --
-                ", xmp.photoshop_credit" +                                      // NOI18N -- 12 --
-                ", xmp.photoshop_headline" +                                    // NOI18N -- 13 --
-                ", xmp.photoshop_instructions" +                                // NOI18N -- 14 --
-                ", xmp.photoshop_source" +                                      // NOI18N -- 15 --
-                ", xmp.photoshop_state" +                                       // NOI18N -- 16 --
-                ", xmp.photoshop_transmissionReference" +                       // NOI18N -- 17 --
-                ", xmp_dc_subjects.subject" +                                   // NOI18N -- 18 --
-                ", xmp_photoshop_supplementalcategories.supplementalcategory" + // NOI18N -- 19 --
-                ", xmp.rating" +                                                // NOI18N -- 20 --
+                ", xmp.photoshop_city" +                                        // NOI18N --  9 --
+                ", xmp.photoshop_country" +                                     // NOI18N -- 10 --
+                ", xmp.photoshop_credit" +                                      // NOI18N -- 11 --
+                ", xmp.photoshop_headline" +                                    // NOI18N -- 12 --
+                ", xmp.photoshop_instructions" +                                // NOI18N -- 13 --
+                ", xmp.photoshop_source" +                                      // NOI18N -- 14 --
+                ", xmp.photoshop_state" +                                       // NOI18N -- 15 --
+                ", xmp.photoshop_transmissionReference" +                       // NOI18N -- 16 --
+                ", xmp_dc_subjects.subject" +                                   // NOI18N -- 17 --
+                ", xmp.rating" +                                                // NOI18N -- 18 --
                 " FROM" + // NOI18N
                 " files INNER JOIN xmp" + // NOI18N
                 " ON files.id = xmp.id_files" + // NOI18N
                 " LEFT JOIN xmp_dc_subjects" + // NOI18N
                 " ON xmp.id = xmp_dc_subjects.id_xmp" + // NOI18N
-                " LEFT JOIN xmp_photoshop_supplementalcategories" + // NOI18N
-                " ON xmp.id = xmp_photoshop_supplementalcategories.id_xmp" + // NOI18N
                 " WHERE files.filename = ?"; // NOI18N
     }
 
@@ -968,8 +933,7 @@ public final class DatabaseImageFiles extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
-                    getXmpOfFileStatement());
+            PreparedStatement stmt = connection.prepareStatement(getXmpOfFileStatement());
             stmt.setString(1, filename);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -982,24 +946,19 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setIptc4xmpcoreLocation(           rs.getString(6));
                 xmp.setPhotoshopAuthorsposition(       rs.getString(7));
                 xmp.setPhotoshopCaptionwriter(         rs.getString(8));
-                xmp.setPhotoshopCategory(              rs.getString(9));
-                xmp.setPhotoshopCity(                 rs.getString(10));
-                xmp.setPhotoshopCountry(              rs.getString(11));
-                xmp.setPhotoshopCredit(               rs.getString(12));
-                xmp.setPhotoshopHeadline(             rs.getString(13));
-                xmp.setPhotoshopInstructions(         rs.getString(14));
-                xmp.setPhotoshopSource(               rs.getString(15));
-                xmp.setPhotoshopState(                rs.getString(16));
-                xmp.setPhotoshopTransmissionReference(rs.getString(17));
-                String value =                        rs.getString(18);
+                xmp.setPhotoshopCity(                  rs.getString(9));
+                xmp.setPhotoshopCountry(              rs.getString(10));
+                xmp.setPhotoshopCredit(               rs.getString(11));
+                xmp.setPhotoshopHeadline(             rs.getString(12));
+                xmp.setPhotoshopInstructions(         rs.getString(13));
+                xmp.setPhotoshopSource(               rs.getString(14));
+                xmp.setPhotoshopState(                rs.getString(15));
+                xmp.setPhotoshopTransmissionReference(rs.getString(16));
+                String value =                        rs.getString(17);
                 if (value != null) {
                     xmp.addDcSubject(value);
                 }
-                value =                               rs.getString(19);
-                if (value != null) {
-                    xmp.addPhotoshopSupplementalCategory(value);
-                }
-                long rating = rs.getLong(20);
+                long rating = rs.getLong(18);
                 xmp.setRating(rs.wasNull() ||
                         rating < ColumnXmpRating.getMinValue()
                               ? null
@@ -1109,121 +1068,6 @@ public final class DatabaseImageFiles extends Database {
         int count = stmt.executeUpdate();
         assert count > 0;
         stmt.close();
-    }
-
-    /**
-     * Liefert alle Kategorien.
-     *
-     * @return Kategorien
-     */
-    public Set<String> getCategories() {
-        Set<String> categories = new LinkedHashSet<String>();
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            String sql =
-                    " SELECT DISTINCT photoshop_category FROM xmp" + // NOI18N
-                    " WHERE photoshop_category IS NOT NULL" + // NOI18N
-                    " UNION ALL" + // NOI18N
-                    " SELECT DISTINCT supplementalcategory" + // NOI18N
-                    " FROM xmp_photoshop_supplementalcategories" + // NOI18N
-                    " WHERE supplementalcategory IS NOT NULL" + // NOI18N
-                    " ORDER BY 1 ASC"; // NOI18N
-            Statement stmt = connection.createStatement();
-            logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                categories.add(rs.getString(1));
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageFiles.class, ex);
-        } finally {
-            free(connection);
-        }
-        return categories;
-    }
-
-    /**
-     * Liefert alle Dateien mit bestimmter Kategorie.
-     *
-     * @param  category Kategorie
-     * @return          Dateinamen
-     */
-    public Set<String> getFilenamesOfCategory(String category) {
-        Set<String> filenames = new LinkedHashSet<String>();
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            String sql =
-                    " (SELECT DISTINCT files.filename FROM" + // NOI18N
-                    " xmp LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
-                    " WHERE xmp.photoshop_category = ?)" + // NOI18N
-                    " UNION ALL" + // NOI18N
-                    " (SELECT DISTINCT files.filename FROM" + // NOI18N
-                    " xmp_photoshop_supplementalcategories LEFT JOIN xmp" + // NOI18N
-                    " ON xmp_photoshop_supplementalcategories.id_xmp = xmp.id" + // NOI18N
-                    " LEFT JOIN files ON xmp.id_files = files.id" + // NOI18N
-                    " WHERE xmp_photoshop_supplementalcategories.supplementalcategory = ?)"; // NOI18N
-            PreparedStatement stmt = connection.prepareStatement(sql);
-
-            stmt.setString(1, category);
-            stmt.setString(2, category);
-            logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                String filename = rs.getString(1);
-                if (filename != null) { // only categories in rs or only supplem. cat.
-                    filenames.add(filename);
-                }
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageFiles.class, ex);
-        } finally {
-            free(connection);
-        }
-        return filenames;
-    }
-
-    /**
-     * Liefert, ob eine Kategorie existiert.
-     *
-     * @param  name Name der Kategorie
-     * @return      true, wenn existent
-     */
-    public boolean existsCategory(String name) {
-        boolean exists = false;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            String sql =
-                    "SELECT COUNT(*) FROM" + // NOI18N
-                    " iptc_supplemental_categories" + // NOI18N
-                    ", xmp" + // NOI18N
-                    ", xmp_photoshop_supplementalcategories" + // NOI18N
-                    " WHERE" + // NOI18N
-                    " xmp.photoshop_category = ?" + // NOI18N
-                    " OR xmp_photoshop_supplementalcategories.supplementalcategory = ?"; // NOI18N
-            PreparedStatement stmt = connection.prepareStatement(sql);
-
-            stmt.setString(1, name);
-            stmt.setString(2, name);
-            logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
-            int count = 0;
-            if (rs.next()) {
-                count = rs.getInt(1);
-            }
-            stmt.close();
-            exists = count > 0;
-        } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageFiles.class, ex);
-        } finally {
-            free(connection);
-        }
-        return exists;
     }
 
     /**

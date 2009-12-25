@@ -31,9 +31,6 @@ import javax.swing.TransferHandler.TransferSupport;
  */
 public final class Flavors {
 
-    private final class CATEGORIES {
-    }
-
     private final class HIERARCHICAL_KEYWORDS {
     }
 
@@ -53,18 +50,11 @@ public final class Flavors {
     /**
      * {@link TransferUtil#getUriListFlavor()}
      */
-    public static final DataFlavor URI_LIST_FLAVOR =
-            TransferUtil.getUriListFlavor();
-    public static final DataFlavor HIERARCHICAL_KEYWORDS_FLAVOR =
-            new DataFlavor(HIERARCHICAL_KEYWORDS.class, null);
-    public static final DataFlavor KEYWORDS_FLAVOR =
-            new DataFlavor(KEYWORDS.class, null);
-    public static final DataFlavor CATEGORIES_FLAVOR =
-            new DataFlavor(CATEGORIES.class, null);
-    public static final DataFlavor THUMBNAILS_PANEL_FLAVOR =
-            new DataFlavor(THUMBNAILS_PANEL.class, null);
-    public static final DataFlavor IMAGE_COLLECTION_FLAVOR =
-            new DataFlavor(IMAGE_COLLECTION.class, null);
+    public static final DataFlavor URI_LIST_FLAVOR              = TransferUtil.getUriListFlavor();
+    public static final DataFlavor HIERARCHICAL_KEYWORDS_FLAVOR = new DataFlavor(HIERARCHICAL_KEYWORDS.class, null);
+    public static final DataFlavor KEYWORDS_FLAVOR              = new DataFlavor(KEYWORDS.class, null);
+    public static final DataFlavor THUMBNAILS_PANEL_FLAVOR      = new DataFlavor(THUMBNAILS_PANEL.class, null);
+    public static final DataFlavor IMAGE_COLLECTION_FLAVOR      = new DataFlavor(IMAGE_COLLECTION.class, null);
     /**
      * Contains {@link DataFlavor#javaFileListFlavor} and
      * {@link TransferUtil#getUriListFlavor()}.
@@ -97,30 +87,15 @@ public final class Flavors {
     }
 
     /**
-     * Returns whether the data flavor {@link #CATEGORIES_FLAVOR}
-     * is supported.
-     *
-     * @param  transferSupport transfer support
-     * @return                 true if the data flavor
-     *                         {@link #CATEGORIES_FLAVOR} is supported
-     */
-    public static boolean hasHierarchicalKeywords(
-            TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(
-                HIERARCHICAL_KEYWORDS_FLAVOR);
-    }
-
-    /**
      * Returns whether the data flavor {@link #HIERARCHICAL_KEYWORDS_FLAVOR}
      * is supported.
      *
      * @param  transferSupport transfer support
      * @return                 true if the data flavor
-     *                         {@link #HIERARCHICAL_KEYWORDS_FLAVOR} is
-     *                         supported
+     *                         {@link #HIERARCHICAL_KEYWORDS_FLAVOR} is supported
      */
-    public static boolean hasCategories(TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(CATEGORIES_FLAVOR);
+    public static boolean hasHierarchicalKeywords(TransferSupport transferSupport) {
+        return transferSupport.isDataFlavorSupported(HIERARCHICAL_KEYWORDS_FLAVOR);
     }
 
     private Flavors() {

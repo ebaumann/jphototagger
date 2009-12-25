@@ -89,7 +89,6 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void initGotoMenuItemsMap() {
-        menuItemOfGoto.put(GoTo.CATEGORIES           , menuItemGotoCategories);
         menuItemOfGoto.put(GoTo.DIRECTORIES          , menuItemGotoDirectories);
         menuItemOfGoto.put(GoTo.EDIT_PANELS          , menuItemGotoEdit);
         menuItemOfGoto.put(GoTo.EXIF_METADATA        , menuItemGotoExifMetadata);
@@ -112,7 +111,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public enum GoTo {
 
-        CATEGORIES,
         DIRECTORIES,
         EDIT_PANELS,
         EXIF_METADATA,
@@ -285,10 +283,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemCutToClipboard;
     }
 
-    public JMenuItem getMenuItemCopyCategoriesToHierarchicalKeywords() {
-        return menuItemCopyCategoriesToHierarchicalKeywords;
-    }
-
     public JMenuItem getMenuItemCopyKeywordsToHierarchicalKeywords() {
         return menuItemCopyKeywordsToHierarchicalKeywords;
     }
@@ -390,7 +384,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoDirectories = new javax.swing.JMenuItem();
         menuItemGotoSavedSearches = new javax.swing.JMenuItem();
         menuItemGotoCollections = new javax.swing.JMenuItem();
-        menuItemGotoCategories = new javax.swing.JMenuItem();
         menuItemGotoFavoriteDirectories = new javax.swing.JMenuItem();
         menuItemGotoKeywords = new javax.swing.JMenuItem();
         menuItemGotoTimeline = new javax.swing.JMenuItem();
@@ -407,7 +400,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
         menuItemRenameInXmp = new javax.swing.JMenuItem();
         menuItemRenameFilenamesInDb = new javax.swing.JMenuItem();
-        menuItemCopyCategoriesToHierarchicalKeywords = new javax.swing.JMenuItem();
         menuItemCopyKeywordsToHierarchicalKeywords = new javax.swing.JMenuItem();
         menuWindow = new javax.swing.JMenu();
         menuItemInputHelper = new javax.swing.JMenuItem();
@@ -643,11 +635,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoCollections.setText(Bundle.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
         menuGoto.add(menuItemGotoCollections);
 
-        menuItemGotoCategories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoCategories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_category.png"))); // NOI18N
-        menuItemGotoCategories.setText(Bundle.getString("AppFrame.menuItemGotoCategories.text")); // NOI18N
-        menuGoto.add(menuItemGotoCategories);
-
         menuItemGotoFavoriteDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoFavoriteDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_favorite.png"))); // NOI18N
         menuItemGotoFavoriteDirectories.setText(Bundle.getString("AppFrame.menuItemGotoFavoriteDirectories.text")); // NOI18N
@@ -717,10 +704,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemRenameFilenamesInDb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_file.png"))); // NOI18N
         menuItemRenameFilenamesInDb.setText(Bundle.getString("AppFrame.menuItemRenameFilenamesInDb.text")); // NOI18N
         menuTools.add(menuItemRenameFilenamesInDb);
-
-        menuItemCopyCategoriesToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png"))); // NOI18N
-        menuItemCopyCategoriesToHierarchicalKeywords.setText(bundle.getString("AppFrame.menuItemCopyCategoriesToHierarchicalKeywords.text")); // NOI18N
-        menuTools.add(menuItemCopyCategoriesToHierarchicalKeywords);
 
         menuItemCopyKeywordsToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png"))); // NOI18N
         menuItemCopyKeywordsToHierarchicalKeywords.setText(bundle.getString("AppFrame.menuItemCopyKeywordsToHierarchicalKeywords.text")); // NOI18N
@@ -814,7 +797,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemAcceleratorKeys;
     private javax.swing.JMenuItem menuItemActions;
-    private javax.swing.JMenuItem menuItemCopyCategoriesToHierarchicalKeywords;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
     private javax.swing.JMenuItem menuItemCopyKeywordsToHierarchicalKeywords;
     private javax.swing.JMenuItem menuItemCopyMetadata;
@@ -824,7 +806,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportKeywords;
     private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
-    private javax.swing.JMenuItem menuItemGotoCategories;
     private javax.swing.JMenuItem menuItemGotoCollections;
     private javax.swing.JMenuItem menuItemGotoDirectories;
     private javax.swing.JMenuItem menuItemGotoEdit;

@@ -59,10 +59,6 @@
             <title>Bildsammlungen</title>
         </page>
         <page>
-            <url>mainwindow_panel_categories.html</url>
-            <title>Kategorien</title>
-        </page>
-        <page>
             <url>mainwindow_panel_keywords.html</url>
             <title>Stichwörter</title>
         </page>
@@ -228,10 +224,6 @@
             <title>Werkzeuge &gt; In der Datenbank Dateinamen umbenennen</title>
         </page>
         <page>
-            <url>action_copy_categories_to_hierarchical_keywords.html</url>
-            <title>Werkzeuge &gt; Alle Kategorien kopieren in den Stichwortbaum</title>
-        </page>
-        <page>
             <url>action_copy_keywords_to_hierarchical_keywords.html</url>
             <title>Werkzeuge &gt; Alle Stichwörter kopieren in den Stichwortbaum</title>
         </page>
@@ -374,10 +366,6 @@
         <page>
             <url>facts_why_xmp_sidecarfiles.html</url>
             <title>Warum XMP-Filialdateien?</title>
-        </page>
-        <page>
-            <url>facts_categories.html</url>
-            <title>Fakten: Kategorien</title>
         </page>
     </node>
     <page>

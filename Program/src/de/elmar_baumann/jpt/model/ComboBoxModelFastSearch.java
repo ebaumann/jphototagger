@@ -20,8 +20,6 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCategory;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -44,15 +42,7 @@ public final class ComboBoxModelFastSearch extends DefaultComboBoxModel {
     private void addElements() {
         addElement(ALL_DEFINED_COLUMNS);
         for (Column column : FastSearchColumns.get()) {
-            if (isSearchColumn(column)) {
-                addElement(column);
-            }
+            addElement(column);
         }
-    }
-
-    private boolean isSearchColumn(Column column) {
-        return !column.equals(ColumnXmpPhotoshopCategory.INSTANCE) &&
-                !column.equals(
-                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
     }
 }

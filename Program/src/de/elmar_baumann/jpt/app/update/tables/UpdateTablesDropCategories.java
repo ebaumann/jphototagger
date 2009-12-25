@@ -1,0 +1,160 @@
+/*
+ * JPhotoTagger tags and finds images fast
+ * Copyright (C) 2009 by the developer team, resp. Elmar Baumann<eb@elmar-baumann.de>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+package de.elmar_baumann.jpt.app.update.tables;
+
+import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.data.HierarchicalKeyword;
+import de.elmar_baumann.jpt.database.DatabaseHierarchicalKeywords;
+import de.elmar_baumann.jpt.database.DatabaseMetadata;
+import de.elmar_baumann.jpt.io.CharEncoding;
+import de.elmar_baumann.jpt.io.FilenameSuffixes;
+import de.elmar_baumann.jpt.resource.Bundle;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * 
+ *
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2009-12-24
+ */
+final class UpdateTablesDropCategories {
+
+    void update(Connection connection) throws SQLException {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp_photoshop_supplementalcategories"))
+            return;
+
+        UpdateTablesMessages.INSTANCE.message(Bundle.getString("UpdateTablesDropCategories.Info"));
+        if (saveCategoriesToFile(connection)) {
+            updateDatabase(connection);
+            fixSavedSearches(connection);
+        }
+    }
+
+    private boolean saveCategoriesToFile(Connection connection) throws SQLException {
+        String sql =
+                " SELECT DISTINCT photoshop_category FROM xmp" + // NOI18N
+                " WHERE photoshop_category IS NOT NULL" + // NOI18N
+                " UNION ALL" + // NOI18N
+                " SELECT DISTINCT supplementalcategory" + // NOI18N
+                " FROM xmp_photoshop_supplementalcategories" + // NOI18N
+                " WHERE supplementalcategory IS NOT NULL" + // NOI18N
+                " ORDER BY 1 ASC"; // NOI18N
+        Writer writer = null;
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                    getFilename()), CharEncoding.LIGHTROOM_KEYWORDS));
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs   = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                writer.append(rs.getString(1));
+            }
+            stmt.close();
+        } catch (UnsupportedEncodingException ex) {
+            return errorSave(ex);
+        } catch (FileNotFoundException ex) {
+            return errorSave(ex);
+        } catch (IOException ex) {
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (Exception ex) {
+                    return errorSave(ex);
+                }
+            }
+        }
+        importCategories();
+        return true;
+    }
+
+    private String getFilename() {
+        return UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator
+                + "SavedCategories." + FilenameSuffixes.LIGHTROOM_KEYWORDS; // NOI18N
+    }
+
+    private void fixSavedSearches(Connection connection) throws SQLException {
+        Statement stmt = connection.createStatement();
+        // Now as keyword
+        stmt.execute("UPDATE saved_searches_panels" +
+                " SET column_id = 24" + // NOI18N
+                " WHERE column_id = 25 OR column_id = 14"); // NOI18N
+        stmt.close();
+    }
+
+    private void updateDatabase(Connection connection) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.execute("ALTER TABLE xmp DROP COLUMN photoshop_category"); // NOI18N
+        stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopCategory"); // NOI18N
+        stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopSupplementalCategories"); // NOI18N
+        stmt.execute("DROP TABLE xmp_photoshop_supplementalcategories"); // NOI18N
+        stmt.close();
+    }
+
+    private boolean errorSave(Exception ex) {
+        MessageDisplayer.error(null,
+                "UpdateTablesDropCategories.Error.Save",
+                ex.getLocalizedMessage());
+        return false;
+    }
+
+    private void importCategories() {
+        String filename = getFilename();
+        if (MessageDisplayer.confirm(null, "UpdateTablesDropCategories.Confirm.Import", // NOI18N
+                MessageDisplayer.CancelButton.HIDE, filename).equals(
+                    MessageDisplayer.ConfirmAction.YES)) {
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(
+                        new File(filename)), CharEncoding.LIGHTROOM_KEYWORDS));
+                DatabaseHierarchicalKeywords db = DatabaseHierarchicalKeywords.INSTANCE;
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    String kw = line.trim();
+                    if (!kw.isEmpty()) {
+                        db.insert(new HierarchicalKeyword(null, null, kw, true));
+                    }
+                }
+            } catch (Exception ex) {
+                MessageDisplayer.error(null, "UpdateTablesDropCategories.Import.Error", ex.getLocalizedMessage());
+            } finally {
+                try {
+                    reader.close();
+                } catch (Exception ex) {
+                }
+            }
+        }
+    }
+}

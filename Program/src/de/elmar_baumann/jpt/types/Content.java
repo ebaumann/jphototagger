@@ -29,11 +29,6 @@ import java.util.Set;
 public enum Content {
 
     /**
-     * The displayed thumbnails are the images with a specific category.
-     * The images can be located in multiple file system directories.
-     */
-    CATEGORY,
-    /**
      * The displayed thumbnails are the images of one directory in the file
      * system.
      */
@@ -113,7 +108,6 @@ public enum Content {
         CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED.add(FAVORITE);
 
         // Currently only image collections are not sortable
-        SORTABLE_CONTENT.add(CATEGORY);
         SORTABLE_CONTENT.add(DIRECTORY);
         SORTABLE_CONTENT.add(FAST_SEARCH);
         SORTABLE_CONTENT.add(FAVORITE);

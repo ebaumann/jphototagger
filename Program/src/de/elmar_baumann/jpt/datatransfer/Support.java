@@ -51,24 +51,6 @@ public final class Support {
     }
 
     /**
-     * Returns the transferred keywords.
-     *
-     * <em>The data flavor has to be {@link Flavors#CATEGORIES_FLAVOR}!</em>
-     *
-     * @param  transferable transferable
-     * @return              keywords or null on errors
-     */
-    public static Object[] getCategories(Transferable transferable) {
-        try {
-            return (Object[]) transferable.getTransferData(
-                    Flavors.CATEGORIES_FLAVOR);
-        } catch (Exception ex) {
-            AppLog.logSevere(Flavors.class, ex);
-        }
-        return null;
-    }
-
-    /**
      * Returns the transferred hierarchical keywords nodes.
      *
      * <em>The data flavor has to be {@link Flavors#HIERARCHICAL_KEYWORDS_FLAVOR}!</em>

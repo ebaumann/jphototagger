@@ -7,7 +7,6 @@ VK_0            CTRL_MASK               Go to (select) thumbnails panel
 VK_1            CTRL_MASK               Go to (select) folder tree
 VK_2            CTRL_MASK               Go to (select) saved searches list
 VK_3            CTRL_MASK               Go to (select) image collection list
-VK_4            CTRL_MASK               Go to (select) categories list
 VK_5            CTRL_MASK               Go to (select) favorite directories tree
 VK_6            CTRL_MASK               Go to (select) keywords list
 VK_7            CTRL_MASK               Go to (select) timeline tree

@@ -75,7 +75,7 @@ public final class ControllerImportHierarchicalKeywords implements ActionListene
         }
     }
 
-    private class ImportTask extends Thread {
+    private static class ImportTask extends Thread {
 
         private final Collection<List<Pair<String, Boolean>>> paths;
         private final TreeModel                               treeModel  = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().getModel();

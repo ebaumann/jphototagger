@@ -28,9 +28,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +45,6 @@ public final class FastSearchColumns {
     static {
         // XMP
         COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopCategory.INSTANCE);
-        COLUMNS.add(
-                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
         COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
         COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);

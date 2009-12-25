@@ -16,7 +16,7 @@
    inkscape:version="0.46"
    sodipodi:docname="icon_tree.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons/icon_category.png"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons/icon_tree.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -82,15 +82,15 @@
           </cc:Agent>
         </dc:publisher>
         <dc:source>http://kenai.com/projects/jphototagger</dc:source>
-        <dc:identifier>de.elmar_baumann.jpt.resource.icons.icon_category.svg</dc:identifier>
-        <dc:title>Category</dc:title>
+        <dc:identifier>de.elmar_baumann.jpt.resource.icons.icon_tree.svg</dc:identifier>
+        <dc:title>Tree</dc:title>
         <dc:coverage>computer program, icon</dc:coverage>
         <cc:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
         <dc:subject>
           <rdf:Bag>
-            <rdf:li>category</rdf:li>
-            <rdf:li>categories</rdf:li>
+            <rdf:li>tree</rdf:li>
+            <rdf:li>trees</rdf:li>
           </rdf:Bag>
         </dc:subject>
         <dc:date>2008-10-25</dc:date>
