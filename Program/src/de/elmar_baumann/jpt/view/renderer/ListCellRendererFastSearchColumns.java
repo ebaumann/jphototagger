@@ -45,8 +45,7 @@ public final class ListCellRendererFastSearchColumns extends DefaultListCellRend
             label.setText(column.getDescription());
             label.setIcon(ColumnIcons.getIcon(column));
         } else if (value.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS)) {
-            label.setText(Bundle.getString(
-                    "ListCellRendererFastSearchColumns.Text.AllDefinedColumns"));
+            label.setText(Bundle.getString("ListCellRendererFastSearchColumns.Text.AllDefinedColumns"));
         } else {
             assert false : "Undefined value: " + value;
         }

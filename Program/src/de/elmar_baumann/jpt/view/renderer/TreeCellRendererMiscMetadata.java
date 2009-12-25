@@ -155,8 +155,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
             if (column.equals(ColumnExifFocalLength.INSTANCE)) {
                 return " mm";
             } else if (column.equals(ColumnXmpRating.INSTANCE)) {
-                return Bundle.getString(
-                        "TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
+                return Bundle.getString("TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
             }
         }
         return "";

@@ -122,32 +122,21 @@ public final class ModelFactory {
     }
 
     private void setListModelNoMetadata(AppPanel appPanel) {
-        appPanel.getListNoMetadata().setModel(
-                new de.elmar_baumann.jpt.model.ListModelNoMetadata());
+        appPanel.getListNoMetadata().setModel(new de.elmar_baumann.jpt.model.ListModelNoMetadata());
         GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelNoMetadata"), false, 1000);
     }
 
     private void setTableModels(final AppPanel appPanel) {
-        appPanel.getTableIptc().
-                setModel(new TableModelIptc());
-        appPanel.getTableXmpCameraRawSettings().
-                setModel(new TableModelXmp());
-        appPanel.getTableXmpDc().
-                setModel(new TableModelXmp());
-        appPanel.getTableXmpExif().
-                setModel(new TableModelXmp());
-        appPanel.getTableXmpIptc().
-                setModel(new TableModelXmp());
-        appPanel.getTableXmpLightroom().
-                setModel(new TableModelXmp());
-        appPanel.getTableXmpPhotoshop().
-                setModel(new TableModelXmp());
-        appPanel.getTableXmpTiff().
-                setModel(new TableModelXmp());
-        appPanel.getTableXmpXap().
-                setModel(new TableModelXmp());
-        appPanel.getTableExif().
-                setModel(new TableModelExif());
+        appPanel.getTableIptc()                .setModel(new TableModelIptc());
+        appPanel.getTableXmpCameraRawSettings().setModel(new TableModelXmp());
+        appPanel.getTableXmpDc()               .setModel(new TableModelXmp());
+        appPanel.getTableXmpExif()             .setModel(new TableModelXmp());
+        appPanel.getTableXmpIptc()             .setModel(new TableModelXmp());
+        appPanel.getTableXmpLightroom()        .setModel(new TableModelXmp());
+        appPanel.getTableXmpPhotoshop()        .setModel(new TableModelXmp());
+        appPanel.getTableXmpTiff()             .setModel(new TableModelXmp());
+        appPanel.getTableXmpXap()              .setModel(new TableModelXmp());
+        appPanel.getTableExif()                .setModel(new TableModelExif());
         new ControllerShowMetadata();
         GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TableModels"), false, 1000);
     }
@@ -235,8 +224,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelFavorites"), false, 1000);
             }
         });
-        thread.setName("Creating model of tree favorite directories" + " @ " +
-                getClass().getName());
+        thread.setName("Creating model of tree favorite directories" + " @ " + getClass());
         thread.start();
     }
 

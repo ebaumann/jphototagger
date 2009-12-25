@@ -73,9 +73,8 @@ public class SuggestHierarchicalKeywords implements Suggest {
         if (parentKeywords.size() > 0) {
             PathSelectionDialog dlg = new PathSelectionDialog(
                     parentKeywords, PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
-            dlg.setInfoMessage(Bundle.getString(
-                    "SuggestionHierarchicalKeywords.Info",
-                    keywordName));
+            dlg.setInfoMessage(
+                    Bundle.getString("SuggestionHierarchicalKeywords.Info", keywordName));
             dlg.setVisible(true);
             if (dlg.isAccepted()) {
                 addToKeywords(keywords, dlg.getSelPaths());

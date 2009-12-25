@@ -38,19 +38,15 @@ public final class ExifGpsLatitude {
 
         NORTH, SOUTH
     }
-    private static final Map<String, Ref> REF_OF_STRING =
-            new HashMap<String, Ref>();
-    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF =
-            new HashMap<Ref, String>();
+    private static final Map<String, Ref> REF_OF_STRING           = new HashMap<String, Ref>();
+    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new HashMap<Ref, String>();
 
     static {
         REF_OF_STRING.put("N", Ref.NORTH);
         REF_OF_STRING.put("S", Ref.SOUTH);
 
-        LOCALIZED_STRING_OF_REF.put(Ref.NORTH,
-                Bundle.getString("ExifGpsLatitudeRefNorth"));
-        LOCALIZED_STRING_OF_REF.put(Ref.SOUTH,
-                Bundle.getString("ExifGpsLatitudeRefSouth"));
+        LOCALIZED_STRING_OF_REF.put(Ref.NORTH, Bundle.getString("ExifGpsLatitudeRefNorth"));
+        LOCALIZED_STRING_OF_REF.put(Ref.SOUTH, Bundle.getString("ExifGpsLatitudeRefSouth"));
     }
     private Ref ref;
     private ExifDegrees degrees;

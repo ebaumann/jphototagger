@@ -392,20 +392,14 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         Object[] params = {
             data.getFile().getAbsolutePath(),
             data.getExif() == null
-            ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
+            ? Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
+            : Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
             data.getXmp() == null
-            ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
+            ? Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
+            : Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
             data.getThumbnail() == null
-            ? Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString(
-            "InsertImageFilesIntoDatabase.Info.StartInsert.Yes")};
+            ? Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
+            : Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes")};
         AppLog.logInfo(InsertImageFilesIntoDatabase.class,
                 "InsertImageFilesIntoDatabase.Info.StartInsert", params);
     }

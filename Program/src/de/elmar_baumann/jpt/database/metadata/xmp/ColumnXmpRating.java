@@ -41,8 +41,7 @@ public final class ColumnXmpRating extends Column {
         setLength(1);
 
         setDescription(Bundle.getString("ColumnXmpRating.Description"));
-        setLongerDescription(Bundle.getString(
-                "ColumnXmpRating.LongerDescription"));
+        setLongerDescription(Bundle.getString("ColumnXmpRating.LongerDescription"));
     }
 
     /**

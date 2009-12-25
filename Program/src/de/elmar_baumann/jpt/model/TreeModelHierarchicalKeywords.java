@@ -46,8 +46,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DatabaseHierarchicalKeywords.INSTANCE;
 
     public TreeModelHierarchicalKeywords() {
-        super(new TreeNodeSortedChildren(Bundle.getString(
-                "TreeModelHierarchicalKeywords.DisplayName.Root")));
+        super(new TreeNodeSortedChildren(Bundle.getString("TreeModelHierarchicalKeywords.DisplayName.Root")));
         ROOT = (DefaultMutableTreeNode) getRoot();
         createTree();
     }

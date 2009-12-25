@@ -44,10 +44,8 @@ public final class ExifGpsLongitude {
         REF_OF_STRING.put("E", Ref.EAST);
         REF_OF_STRING.put("W", Ref.WEST);
 
-        LOCALIZED_STRING_OF_REF.put(Ref.EAST,
-                Bundle.getString("ExifGpsLongitudeRefEast"));
-        LOCALIZED_STRING_OF_REF.put(Ref.WEST,
-                Bundle.getString("ExifGpsLongitudeRefWest"));
+        LOCALIZED_STRING_OF_REF.put(Ref.EAST, Bundle.getString("ExifGpsLongitudeRefEast"));
+        LOCALIZED_STRING_OF_REF.put(Ref.WEST, Bundle.getString("ExifGpsLongitudeRefWest"));
     }
     private Ref ref;
     private ExifDegrees degrees;

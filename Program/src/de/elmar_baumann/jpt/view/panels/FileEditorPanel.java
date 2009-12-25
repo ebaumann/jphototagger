@@ -48,21 +48,17 @@ import javax.swing.filechooser.FileFilter;
  */
 public final class FileEditorPanel extends javax.swing.JPanel {
 
-    private static final String KEY_DIRECTORY_NAME =
-            "de.elmar_baumann.jpt.view.FileEditorDialog.panels.Directory";
-    private List<File> selectedFiles = new ArrayList<File>();
-    private List<File> selectedDirectories = new ArrayList<File>();
-    private File prevSelectedDirectory = new File("");
-    private FileEditor fileEditor = new FileEditor();
-    private FileFilter fileChooserFileFilter =
-            AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS.forFileChooser(
-            Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
-    private RegexFileFilter dirChooserFileFilter =
-            new RegexFileFilter(".*", ";");
-    private String title = "";
-    private volatile boolean selectDirs;
-    private volatile boolean stop;
-    private volatile boolean isRunning;
+    private static final String          KEY_DIRECTORY_NAME    = "de.elmar_baumann.jpt.view.FileEditorDialog.panels.Directory";
+    private              List<File>      selectedFiles         = new ArrayList<File>();
+    private              List<File>      selectedDirectories   = new ArrayList<File>();
+    private              File            prevSelectedDirectory = new File("");
+    private              FileEditor      fileEditor            = new FileEditor();
+    private              FileFilter      fileChooserFileFilter = AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS.forFileChooser(Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
+    private              RegexFileFilter dirChooserFileFilter  = new RegexFileFilter(".*", ";");
+    private              String          title                 = "";
+    private volatile     boolean         selectDirs;
+    private volatile     boolean         stop;
+    private volatile     boolean         isRunning;
 
     public FileEditorPanel() {
         initComponents();
@@ -157,8 +153,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private List<File> includeSubdirectories(List<File> dirs) {
         List<File> allDirs = new ArrayList<File>();
         boolean includeSubDirs = checkBoxIncludeSubdirectories.isSelected();
-        Set<DirectoryFilter.Option> options = UserSettings.INSTANCE.
-                getDefaultDirectoryFilterOptions();
+        Set<DirectoryFilter.Option> options = UserSettings.INSTANCE.getDefaultDirectoryFilterOptions();
         for (File dir : dirs) {
             allDirs.add(dir);
             if (includeSubDirs) {
@@ -380,8 +375,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             selectedDirectories = dialog.getSelectedDirectories();
             selectedFiles = getFilesOfDirectories(selectedDirectories);
             prevSelectedDirectory = dialog.getSelectedDirectories().get(0);
-            labelInfo.setText(Bundle.getString(
-                    "FileEditorPanel.SelectDirectories.LabelInfo.Text"));
+            labelInfo.setText(Bundle.getString("FileEditorPanel.SelectDirectories.LabelInfo.Text"));
         }
     }
 
@@ -405,18 +399,14 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void setFileButtonText() {
         buttonSelectFiles.setText(selectDirs
-                                  ? Bundle.getString(
-                "FileEditorDialog.ButtonFiles.DirectoriesText")
-                                  : Bundle.getString(
-                "FileEditorDialog.ButtonFiles.FilesText"));
+                                  ? Bundle.getString("FileEditorDialog.ButtonFiles.DirectoriesText")
+                                  : Bundle.getString("FileEditorDialog.ButtonFiles.FilesText"));
     }
 
     private void setInfoText() {
         labelInfo.setText(selectDirs
-                          ? Bundle.getString(
-                "FileEditorPanel.LabelInfo.SelectDirs.Text")
-                          : Bundle.getString(
-                "FileEditorPanel.LabelInfo.SelectFiles.Text"));
+                          ? Bundle.getString("FileEditorPanel.LabelInfo.SelectDirs.Text")
+                          : Bundle.getString("FileEditorPanel.LabelInfo.SelectFiles.Text"));
     }
 
     public void readProperties() {

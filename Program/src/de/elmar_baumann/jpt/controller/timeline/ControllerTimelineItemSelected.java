@@ -132,16 +132,15 @@ public final class ControllerTimelineItemSelected implements
     }
 
     private void setTitle(boolean isYear, int year, boolean isMonth, int month, Calendar cal) {
-        NumberFormat yf = new DecimalFormat("####");
-        DateFormat   mf = new SimpleDateFormat("MMMMM");
-        DateFormat   df = DateFormat.getDateInstance(DateFormat.LONG);
+        NumberFormat yf    = new DecimalFormat("####");
+        DateFormat   mf    = new SimpleDateFormat("MMMMM");
+        DateFormat   df    = DateFormat.getDateInstance(DateFormat.LONG);
+        Object       fDate =   isYear
+                             ? yf.format(year)
+                             : isMonth
+                             ? mf.format(month) + " " + yf.format(year)
+                             : df.format(cal.getTime());
 
-        GUI.INSTANCE.getAppFrame().
-                setTitle(Bundle.getString("AppFrame.Title.Timeline.Date",
-                isYear
-                ? yf.format(year)
-                : isMonth
-                ? mf.format(month) + " " + yf.format(year)
-                : df.format(cal.getTime())));
+        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timeline.Date", fDate));
     }
 }

@@ -76,9 +76,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     }
 
     private void setLabelFilename() {
-        labelFilename.setText(Bundle.getString(
-                "DatabaseInfoCountPanel.labelFilename.Filename",
-                UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
+        labelFilename.setText(Bundle.getString("DatabaseInfoCountPanel.labelFilename.Filename", UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
     }
 
     private void setModelDatabaseInfo() {

@@ -70,8 +70,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
             row.add(new Date(record.getMillis()));
             String message = record.getMessage();
             row.add(message == null
-                    ? Bundle.getString(
-                    "TableModelLogfiles.Error.MessageIsNull")
+                    ? Bundle.getString("TableModelLogfiles.Error.MessageIsNull")
                     : message);
             records.add(record);
             addRow(row.toArray(new Object[row.size()]));

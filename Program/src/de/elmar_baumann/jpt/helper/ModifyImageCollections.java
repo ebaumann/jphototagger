@@ -232,8 +232,7 @@ public final class ModifyImageCollections {
     private static String getCollectionName(String defaultName) {
         String name = JOptionPane.showInputDialog(
                 null,
-                Bundle.getString(
-                "ImageCollectionToDatabase.Input.CollectionName"),
+                Bundle.getString("ImageCollectionToDatabase.Input.CollectionName"),
                 defaultName);
         if (name != null) {
             name = name.trim();

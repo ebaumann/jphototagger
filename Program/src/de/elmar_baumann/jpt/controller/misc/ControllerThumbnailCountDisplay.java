@@ -84,9 +84,7 @@ public final class ControllerThumbnailCountDisplay
 
             @Override
             public void run() {
-                String info = Bundle.getString(
-                        "ControllerThumbnailCountDisplay.Info",
-                        thumbnailCount, thumbnailZoom);
+                String info = Bundle.getString("ControllerThumbnailCountDisplay.Info", thumbnailCount, thumbnailZoom);
                 label.setText(info);
                 label.setToolTipText(info);
             }

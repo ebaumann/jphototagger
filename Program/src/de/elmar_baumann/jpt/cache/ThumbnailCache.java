@@ -41,8 +41,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         implements DatabaseListener {
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
-    private Image noPreviewThumbnail = IconUtil.getIconImage(
-            Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
+    private Image noPreviewThumbnail = IconUtil.getIconImage(Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private ThumbnailCache() {

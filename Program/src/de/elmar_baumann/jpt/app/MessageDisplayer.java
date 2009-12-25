@@ -36,15 +36,10 @@ public final class MessageDisplayer {
             new HashMap<Integer, String>();
 
     static {
-        defaultTitleOfMessageType.put(JOptionPane.ERROR_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage"));
-        defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage"));
-        defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE,
-                Bundle.getString(
-                "MessageDisplayer.DefaultTitle.Info"));
-        defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE,
-                Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage"));
+        defaultTitleOfMessageType.put(JOptionPane.ERROR_MESSAGE      , Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage"));
+        defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE    , Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage"));
+        defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE, Bundle.getString("MessageDisplayer.DefaultTitle.Info"));
+        defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE   , Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage"));
     }
 
     /**

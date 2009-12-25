@@ -505,10 +505,8 @@ public final class AppPanel extends javax.swing.JPanel implements
         TreeUtil.expandAll(treeSelHierarchicalKeywords, selected);
         buttonToggleExpandAllNodesHierKw.setText(
                 selected
-                ? Bundle.getString(
-                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected") //
-                : Bundle.getString(
-                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected")); //
+                ? Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected") //
+                : Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected")); //
     }
 
     private void displayCard(String name) {

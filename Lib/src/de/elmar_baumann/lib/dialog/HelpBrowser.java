@@ -58,28 +58,27 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class HelpBrowser extends Dialog
-        implements ActionListener, HyperlinkListener, MouseListener,
+public final class HelpBrowser
+        extends    Dialog
+        implements ActionListener,
+                   HyperlinkListener,
+                   MouseListener,
                    TreeSelectionListener {
 
-    private static final String KEY_SPLIT_PANE =
-            HelpBrowser.class.getName() + ".SplitPane";
-    private static final String DISPLAY_NAME_ACTION_PREVIOUS =
-            Bundle.getString("HelpBrowser.Action.Previous");
-    private static final String DISPLAY_NAME_ACTION_NEXT =
-            Bundle.getString("HelpBrowser.Action.Next");
-    private final LinkedList<URL> urlHistory = new LinkedList<URL>();
-    private final List<HelpBrowserListener> helpBrowserListeners =
-            new ArrayList<HelpBrowserListener>();
-    private int currentHistoryIndex = -1;
-    private PopupMenu popupMenu;
-    private MenuItem itemPrevious;
-    private MenuItem itemNext;
-    private String startUrl;
-    private String baseUrl;
-    private String contentsUrl;
-    private boolean settingPath;
-    public static final HelpBrowser INSTANCE = new HelpBrowser();
+    private static final String                    KEY_SPLIT_PANE               = HelpBrowser.class.getName() + ".SplitPane";
+    private static final String                    DISPLAY_NAME_ACTION_PREVIOUS = Bundle.getString("HelpBrowser.Action.Previous");
+    private static final String                    DISPLAY_NAME_ACTION_NEXT     = Bundle.getString("HelpBrowser.Action.Next");
+    private final        LinkedList<URL>           urlHistory                   = new LinkedList<URL>();
+    private final        List<HelpBrowserListener> helpBrowserListeners         = new ArrayList<HelpBrowserListener>();
+    private              int                       currentHistoryIndex          = -1;
+    private              PopupMenu                 popupMenu;
+    private              MenuItem                  itemPrevious;
+    private              MenuItem                  itemNext;
+    private              String                    startUrl;
+    private              String                    baseUrl;
+    private              String                    contentsUrl;
+    private              boolean                   settingPath;
+    public static final  HelpBrowser               INSTANCE                     = new HelpBrowser();
 
     private HelpBrowser() {
         initComponents();
@@ -91,15 +90,14 @@ public final class HelpBrowser extends Dialog
         setIcons();
         initPopupMenu();
         editorPanePage.addHyperlinkListener(this);
-        tree.getSelectionModel().setSelectionMode(
-                TreeSelectionModel.SINGLE_TREE_SELECTION);
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.addTreeSelectionListener(this);
     }
 
     private void setIcons() {
         if (Resources.INSTANCE.hasFrameIconImages()) {
-            setIconImages(IconUtil.getIconImages(Resources.INSTANCE.
-                    getFramesIconImagesPaths()));
+            setIconImages(IconUtil.getIconImages(
+                    Resources.INSTANCE.getFramesIconImagesPaths()));
         }
     }
 
@@ -117,14 +115,12 @@ public final class HelpBrowser extends Dialog
      * 
      * @param listener  listener
      */
-    public synchronized void removeHelpBrowserListener(
-            HelpBrowserListener listener) {
+    public synchronized void removeHelpBrowserListener(HelpBrowserListener listener) {
         helpBrowserListeners.remove(listener);
     }
 
     private synchronized void notifyUrlChanged(URL url) {
-        HelpBrowserEvent action = new HelpBrowserEvent(this,
-                HelpBrowserEvent.Type.URL_CHANGED, url);
+        HelpBrowserEvent action = new HelpBrowserEvent(this, HelpBrowserEvent.Type.URL_CHANGED, url);
         for (HelpBrowserListener listener : helpBrowserListeners) {
             listener.actionPerformed(action);
         }
@@ -206,23 +202,19 @@ public final class HelpBrowser extends Dialog
     }
 
     private void goNext() {
-        if (currentHistoryIndex + 1 >= 0 && currentHistoryIndex + 1 <
-                urlHistory.size()) {
+        if (currentHistoryIndex + 1 >= 0 && currentHistoryIndex + 1 < urlHistory.size()) {
             currentHistoryIndex++;
             setUrl(urlHistory.get(currentHistoryIndex));
-            setSelectionPath(getLastPathComponent(urlHistory.get(
-                    currentHistoryIndex)));
+            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
             setButtonStatus();
         }
     }
 
     private void goPrevious() {
-        if (currentHistoryIndex - 1 >= 0 && currentHistoryIndex - 1 <
-                urlHistory.size()) {
+        if (currentHistoryIndex - 1 >= 0 && currentHistoryIndex - 1 < urlHistory.size()) {
             currentHistoryIndex--;
             setUrl(urlHistory.get(currentHistoryIndex));
-            setSelectionPath(getLastPathComponent(urlHistory.get(
-                    currentHistoryIndex)));
+            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
             setButtonStatus();
         }
     }
@@ -244,8 +236,9 @@ public final class HelpBrowser extends Dialog
 
     private void removeNextHistory() {
         int historyUrlCount = urlHistory.size();
-        boolean canRemove = historyUrlCount > 0 && currentHistoryIndex >= 0 &&
-                currentHistoryIndex < historyUrlCount;
+        boolean canRemove = historyUrlCount > 0 &&
+                            currentHistoryIndex >= 0 &&
+                            currentHistoryIndex < historyUrlCount;
         if (canRemove) {
             int removeCount = historyUrlCount - currentHistoryIndex - 1;
             for (int i = 0; i < removeCount; i++) {
@@ -271,8 +264,7 @@ public final class HelpBrowser extends Dialog
         try {
             editorPanePage.setPage(url);
         } catch (IOException ex) {
-            Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE, null,
-                    ex);
+            Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -301,8 +293,7 @@ public final class HelpBrowser extends Dialog
         if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
             URL url = e.getURL();
             String lastPathComponent = getLastPathComponent(url);
-            Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(
-                    lastPathComponent);
+            Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
             if (path == null) {
                 showUrl(url);
             } else {
@@ -312,8 +303,7 @@ public final class HelpBrowser extends Dialog
     }
 
     private void setSelectionPath(String lastPathComponent) {
-        Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(
-                lastPathComponent);
+        Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
         assert path != null;
         if (path != null) {
             settingPath = true;
@@ -345,8 +335,7 @@ public final class HelpBrowser extends Dialog
                 HelpPage helpPage = (HelpPage) o;
                 String helpPageUrl = helpPage.getUrl();
                 URL url = getClass().getResource(baseUrl + "/" + helpPageUrl);
-                setTitle(helpPage.getTitle() +
-                        Bundle.getString("HelpBrowser.TitlePostfix"));
+                setTitle(helpPage.getTitle() + Bundle.getString("HelpBrowser.TitlePostfix"));
                 showUrl(url);
             }
         }
@@ -374,8 +363,7 @@ public final class HelpBrowser extends Dialog
     }
 
     private void readProperties() {
-        Properties properties =
-                de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
+        Properties properties = de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
         if (properties != null) {
             Settings settings = new Settings(properties);
             settings.getSizeAndLocation(this);
@@ -385,8 +373,7 @@ public final class HelpBrowser extends Dialog
     }
 
     private void writeProperties() {
-        Properties properties =
-                de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
+        Properties properties = de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
         if (properties != null) {
             Settings settings = new Settings(properties);
             settings.setSizeAndLocation(this);
@@ -396,8 +383,7 @@ public final class HelpBrowser extends Dialog
     }
 
     private SettingsHints getHints() {
-        SettingsHints hints = new SettingsHints(EnumSet.of(
-                SettingsHints.Option.SET_TABBED_PANE_CONTENT));
+        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         hints.addExclude(getClass().getName() + ".tree");
         return hints;
     }

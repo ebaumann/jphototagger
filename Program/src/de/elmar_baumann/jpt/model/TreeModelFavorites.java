@@ -56,19 +56,17 @@ import javax.swing.tree.TreePath;
 public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener, AppExitListener {
 
-    private static final String KEY_SELECTED_FAV_NAME =
-            "TreeModelFavorites.SelFavDir";
-    private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir";
-    private final DefaultMutableTreeNode rootNode;
-    private final DatabaseFavoriteDirectories db;
-    private final JTree tree;
-    private final Object monitor = new Object();
+    private static final String                      KEY_SELECTED_FAV_NAME = "TreeModelFavorites.SelFavDir";
+    private static final String                      KEY_SELECTED_DIR      = "TreeModelFavorites.SelDir";
+    private final        DefaultMutableTreeNode      rootNode;
+    private final        DatabaseFavoriteDirectories db;
+    private final        JTree                       tree;
+    private final        Object                      monitor               = new Object();
 
     public TreeModelFavorites(JTree tree) {
-        super(new DefaultMutableTreeNode(
-                Bundle.getString("TreeModelFavorites.Root.DisplayName")));
+        super(new DefaultMutableTreeNode(Bundle.getString("TreeModelFavorites.Root.DisplayName")));
         this.tree = tree;
-        rootNode = (DefaultMutableTreeNode) getRoot();
+        rootNode  = (DefaultMutableTreeNode) getRoot();
         tree.addTreeWillExpandListener(this);
         db = DatabaseFavoriteDirectories.INSTANCE;
         addDirectories();
@@ -125,8 +123,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 oldFavorite.setFavoriteName(newFavorite.getFavoriteName());
                 nodeChanged(oldNode);
             } else {
-                errorMessage(oldFavorite.getFavoriteName(), Bundle.getString(
-                        "TreeModelFavorites.Error.ParamUpdate"));
+                errorMessage(oldFavorite.getFavoriteName(),
+                        Bundle.getString("TreeModelFavorites.Error.ParamUpdate"));
             }
         }
     }

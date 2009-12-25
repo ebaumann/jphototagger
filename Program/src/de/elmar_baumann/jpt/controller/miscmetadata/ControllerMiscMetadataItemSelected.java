@@ -119,8 +119,7 @@ public final class ControllerMiscMetadataItemSelected implements
 
         private void setTitle(Column column, Object userObject) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("AppFrame.Title.Metadata.Object",
-                    column.getDescription() + " " + userObject.toString()));
+                    Bundle.getString("AppFrame.Title.Metadata.Object", column.getDescription() + " " + userObject.toString()));
         }
     }
 }

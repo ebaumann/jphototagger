@@ -35,16 +35,12 @@ import java.util.List;
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         implements ProgressListener, Persistence {
 
-    private static final String ADD_INFO_TEXT =
-            Bundle.getString("FileExcludePatternPanel.AddInfoText");
-    private final DatabaseFileExcludePattern db =
-            DatabaseFileExcludePattern.INSTANCE;
-    private final ListModelFileExcludePatterns model =
-            new ListModelFileExcludePatterns();
-    private boolean isUpdateDatabase = false;
-    private boolean stop = false;
+    private static final String                       ADD_INFO_TEXT    = Bundle.getString("FileExcludePatternPanel.AddInfoText");
+    private final        DatabaseFileExcludePattern   db               = DatabaseFileExcludePattern.INSTANCE;
+    private final        ListModelFileExcludePatterns model            = new ListModelFileExcludePatterns();
+    private              boolean                      isUpdateDatabase = false;
+    private              boolean                      stop             = false;
 
-    /** Creates new form SettingsFileExcludePatternsPanel */
     public SettingsFileExcludePatternsPanel() {
         initComponents();
     }
@@ -52,7 +48,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            stop = false;
+            stop             = false;
             isUpdateDatabase = false;
             setEnabledButtons();
         } else {

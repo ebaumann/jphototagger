@@ -41,24 +41,16 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellRenderer {
 
-    private final FileSystemView fileSystemView = FileSystemView.
-            getFileSystemView();
-    private Icon rootIcon = IconUtil.getImageIcon(
-            "/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
-    private static final String DISPLAY_NAME_ROOT =
-            Bundle.getString(
-            "TreeCellRendererAllSystemDirectories.DisplayName.Root");
-    private int popupHighLightRow = -1;
-    private Color foregroundColorHighlightPopup;
-    private Color backgroundColorHighlightPopup;
+    private final        FileSystemView fileSystemView               = FileSystemView.getFileSystemView();
+    private              Icon           rootIcon                     = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
+    private static final String         DISPLAY_NAME_ROOT            = Bundle.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
+    private              int            popupHighLightRow            = -1;
+    private              Color          foregroundColorHighlightPopup;
+    private              Color          backgroundColorHighlightPopup;
 
     @Override
-    public Component getTreeCellRendererComponent(
-            JTree tree, Object value, boolean sel, boolean expanded,
-            boolean leaf,
-            int row, boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
-                row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
         if (value == tree.getModel().getRoot()) {
             setIcon(rootIcon);

@@ -134,8 +134,7 @@ final class HierarchicalKeywordsExporterLightroom
 
     @Override
     public String getDescription() {
-        return Bundle.getString(
-                "HierarchicalKeywordsExporterLightroom.Description");
+        return Bundle.getString("HierarchicalKeywordsExporterLightroom.Description");
     }
 
     @Override

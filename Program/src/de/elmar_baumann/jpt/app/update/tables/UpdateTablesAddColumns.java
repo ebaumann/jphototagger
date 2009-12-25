@@ -145,9 +145,7 @@ final class UpdateTablesAddColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString(
-                "UpdateTablesAddColumns.Info.AddColumns",
-                tableName, columnName));
+        messages.message(Bundle.getString("UpdateTablesAddColumns.Info.AddColumns", tableName, columnName));
     }
 
     private void fixBugs(Connection connection) throws SQLException {

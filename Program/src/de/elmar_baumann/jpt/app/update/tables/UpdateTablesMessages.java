@@ -55,8 +55,7 @@ class UpdateTablesMessages {
         dialog = new ProgressDialog(null);
         dialog.setEnabledClose(false);
         dialog.setEnabledStop(false);
-        dialog.setTitle(
-                Bundle.getString("UpdateTablesMessages.Title"));
+        dialog.setTitle(Bundle.getString("UpdateTablesMessages.Title"));
         dialog.setIndeterminate(true);
     }
 }
