@@ -109,7 +109,7 @@ public class ControllerRenameHierarchicalKeyword
                     newName = null;
                     confirmed = MessageDisplayer.confirm(tree,
                             "ControllerRenameHierarchicalKeyword.Confirm.Exists", // NOI18N
-                            MessageDisplayer.CancelButton.HIDE, keyword).equals(
+                            MessageDisplayer.CancelButton.HIDE, s).equals(
                             MessageDisplayer.ConfirmAction.YES);
                 }
             }
