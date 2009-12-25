@@ -39,27 +39,20 @@ import javax.swing.text.JTextComponent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-24
  */
-public class ExpandCollapseComponentPanel extends JPanel implements
-        FocusListener {
+public class ExpandCollapseComponentPanel extends JPanel implements FocusListener {
 
-    private static final String ICON_PATH_EXPAND =
-            "/de/elmar_baumann/jpt/resource/icons/icon_edit_metadata_expand.png";
-    private static final String ICON_PATH_COLLAPSE =
-            "/de/elmar_baumann/jpt/resource/icons/icon_edit_metadata_collapse.png";
-    private static final ImageIcon ICON_EXPAND =
-            IconUtil.getImageIcon(ICON_PATH_EXPAND);
-    private static final ImageIcon ICON_COLLAPSE =
-            IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
-    private static final String TOOLTIP_TEXT_EXPAND =
-            Bundle.getString("ExpandCollapseComponentPanel.TooltipTextExpand");
-    private static final String TOOLTIP_TEXT_COLLAPSE =
-            Bundle.getString("ExpandCollapseComponentPanel.TooltipTextCollapse");
-    private String keyPersistence = "";
-    private final Component component;
-    private JLabel labelFill;
-    private String fillText;
-    private Font fillFont;
-    private boolean expanded = true;
+    private static final String    ICON_PATH_EXPAND      = "/de/elmar_baumann/jpt/resource/icons/icon_edit_metadata_expand.png";
+    private static final String    ICON_PATH_COLLAPSE    = "/de/elmar_baumann/jpt/resource/icons/icon_edit_metadata_collapse.png";
+    private static final ImageIcon ICON_EXPAND           = IconUtil.getImageIcon(ICON_PATH_EXPAND);
+    private static final ImageIcon ICON_COLLAPSE         = IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
+    private static final String    TOOLTIP_TEXT_EXPAND   = Bundle.getString("ExpandCollapseComponentPanel.TooltipTextExpand");
+    private static final String    TOOLTIP_TEXT_COLLAPSE = Bundle.getString("ExpandCollapseComponentPanel.TooltipTextCollapse");
+    private              String    keyPersistence        = "";
+    private final        Component component;
+    private              JLabel    labelFill;
+    private              String    fillText;
+    private              Font      fillFont;
+    private              boolean   expanded              = true;
 
     public ExpandCollapseComponentPanel(Component component) {
         this.component = component;

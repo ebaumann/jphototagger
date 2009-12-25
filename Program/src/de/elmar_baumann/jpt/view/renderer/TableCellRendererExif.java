@@ -78,8 +78,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
             }
         } else if (value instanceof ExifGpsMetadata) {
             if (column == 0) {
-                cellLabel.setText(Bundle.getString(
-                        "TableCellRendererExif.Column.ShowLocationIn"));
+                cellLabel.setText(Bundle.getString("TableCellRendererExif.Column.ShowLocationIn"));
             }
         } else if (value instanceof Component) {
             return (Component) value;

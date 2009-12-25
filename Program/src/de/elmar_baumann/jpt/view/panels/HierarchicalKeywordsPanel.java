@@ -91,10 +91,8 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         TreeUtil.expandAll(tree, selected);
         buttonToggleExpandAllNodes.setText(
                 selected
-                ? Bundle.getString(
-                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : Bundle.getString(
-                "HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                ? Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
     /** This method is called from within the constructor to

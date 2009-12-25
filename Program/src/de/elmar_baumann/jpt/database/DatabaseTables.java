@@ -462,7 +462,6 @@ public final class DatabaseTables extends Database {
     }
 
     private String getExceptionMessage(SQLException ex) {
-        return Bundle.getString("DatabaseTables.Error",
-                ex.getLocalizedMessage());
+        return Bundle.getString("DatabaseTables.Error", ex.getLocalizedMessage());
     }
 }

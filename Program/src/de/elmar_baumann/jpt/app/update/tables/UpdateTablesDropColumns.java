@@ -83,7 +83,6 @@ final class UpdateTablesDropColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesDropColumns.Info",
-                tableName, columnName));
+        messages.message(Bundle.getString("UpdateTablesDropColumns.Info", tableName, columnName));
     }
 }

@@ -172,8 +172,7 @@ public final class FileUtil {
                     Logger.getLogger(FileUtil.class.getName()).log(
                             Level.SEVERE,
                             null,
-                            Bundle.getString(
-                            "FileUtil.Error.CreateDirectoryFailed"));
+                            Bundle.getString("FileUtil.Error.CreateDirectoryFailed"));
                 }
             }
         }

@@ -58,8 +58,7 @@ public final class IconUtil {
             return new ImageIcon(imgURL).getImage();
         } else {
             Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
-                    Bundle.getString(
-                    "IconUtil.GetIconImage.Error.FileNotFound") + path);
+                    Bundle.getString("IconUtil.GetIconImage.Error.FileNotFound") + path);
         }
         return null;
     }
@@ -102,8 +101,7 @@ public final class IconUtil {
             return new ImageIcon(imgURL);
         } else {
             Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
-                    Bundle.getString(
-                    "IconUtil.GetImageIcon.Error.FileNotFound") + path);
+                    Bundle.getString("IconUtil.GetImageIcon.Error.FileNotFound") + path);
         }
         return null;
     }

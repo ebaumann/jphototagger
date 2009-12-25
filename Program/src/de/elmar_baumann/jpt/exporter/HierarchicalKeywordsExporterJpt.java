@@ -94,13 +94,11 @@ public final class HierarchicalKeywordsExporterJpt
     /**
      * Description returned by {@link #getDescription()}
      */
-    public static final String DESCRIPTION =
-            Bundle.getString("HierarchicalKeywordsExporterJpt.Description");
+    public static final String DESCRIPTION = Bundle.getString("HierarchicalKeywordsExporterJpt.Description");
     /**
      * File filter returned by {@link #getFileFilter()}
      */
-    public static final FileFilter FILE_FILTER =
-            new FileNameExtensionFilter(DESCRIPTION, "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DESCRIPTION, "xml");
 
     static {
         VALUE_OF_ATTRIBUTE_TYPE.put(true, "real");

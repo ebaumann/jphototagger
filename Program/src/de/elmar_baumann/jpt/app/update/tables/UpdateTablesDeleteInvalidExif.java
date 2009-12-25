@@ -55,8 +55,7 @@ final class UpdateTablesDeleteInvalidExif {
         if (DatabaseApplication.INSTANCE.getBoolean(KEY_REMOVED_INVALID_EXIF))
             return;
         progress.setIndeterminate(true);
-        messages.message(Bundle.getString(
-                "UpdateTablesDeleteInvalidExif.Info.update"));
+        messages.message(Bundle.getString("UpdateTablesDeleteInvalidExif.Info.update"));
         setNull(connection);
         progress.setIndeterminate(false);
         messages.message("");

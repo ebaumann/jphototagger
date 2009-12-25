@@ -106,8 +106,7 @@ public final class DirectoryChooser extends Dialog {
     private void setUsageText() {
         labelUsage.setText(
                 directoryFilter.contains(Option.MULTI_SELECTION)
-                ? Bundle.getString(
-                "DirectoryChooser.LabelUsage.MultipleSelection") //
+                ? Bundle.getString("DirectoryChooser.LabelUsage.MultipleSelection") //
                 : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection")); //
     }
 
@@ -213,10 +212,8 @@ public final class DirectoryChooser extends Dialog {
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this,
-                        Bundle.getString(
-                        "DirectoryChooser.Error.NoDirectoryChosen"), //
-                        Bundle.getString(
-                        "DirectoryChooser.Error.NoDirectoryChosen.Title"), //
+                        Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen"), //
+                        Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen.Title"), //
                         JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -281,8 +278,7 @@ public final class DirectoryChooser extends Dialog {
         if (treeDirectories.getSelectionCount() <= 0) {
             JOptionPane.showMessageDialog(this,
                     Bundle.getString("DirectoryChooser.Error.NothingSelected"), //
-                    Bundle.getString(
-                    "DirectoryChooser.Error.NothingSelected.Title"), //
+                    Bundle.getString("DirectoryChooser.Error.NothingSelected.Title"), //
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

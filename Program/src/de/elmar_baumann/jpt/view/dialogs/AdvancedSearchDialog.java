@@ -95,8 +95,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
             String separator = name.isEmpty()
                                ? "" //
                                : ": "; //
-            setTitle(Bundle.getString("AdvancedSearchDialog.TitlePrefix") + //
-                    separator + name); //
+            setTitle(Bundle.getString("AdvancedSearchDialog.TitlePrefix") + separator + name);
         }
     }
 

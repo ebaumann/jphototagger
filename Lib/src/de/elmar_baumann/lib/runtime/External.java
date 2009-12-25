@@ -182,11 +182,8 @@ public final class External {
             if (!processFinished) {
                 process.destroy();
                 destroyed = true;
-                String errorMessage = Bundle.getString(
-                        "External.ExecuteGetOutput.ErrorMessage",
-                        millisecondsWait, command);
-                Logger.getLogger(
-                        getClass().getName()).log(Level.SEVERE, errorMessage);
+                String errorMessage = Bundle.getString("External.ExecuteGetOutput.ErrorMessage", millisecondsWait, command);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, errorMessage);
             }
         }
     }

@@ -200,8 +200,7 @@ public final class ControllerMetadataTemplates
         String name = null;
         while (exists && !abort) {
             name = JOptionPane.showInputDialog(buttonMetadataTemplateCreate,
-                    Bundle.getString(
-                    "ControllerMetadataTemplates.Input.TemplateName"), name);
+                    Bundle.getString("ControllerMetadataTemplates.Input.TemplateName"), name);
             exists = name != null && db.existsMetadataEditTemplate(name);
             if (exists) {
                 abort = confirmOverride(name);

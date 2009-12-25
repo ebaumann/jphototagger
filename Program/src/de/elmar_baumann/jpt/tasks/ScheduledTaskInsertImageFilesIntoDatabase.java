@@ -67,8 +67,8 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
                             EnumSet.of(
                             InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
 
-                    inserter.addProgressListener(new ProgressBarUpdater(
-                            Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String")));
+                    inserter.addProgressListener(
+                            new ProgressBarUpdater(Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String")));
 
                     updaters.add(inserter);
                 }

@@ -39,19 +39,15 @@ public final class ExifGpsAltitude {
 
         OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL
     }
-    private static final Map<Integer, Ref> REF_OF_INTEGER =
-            new HashMap<Integer, Ref>();
-    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF =
-            new HashMap<Ref, String>();
+    private static final Map<Integer, Ref> REF_OF_INTEGER          = new HashMap<Integer, Ref>();
+    private static final Map<Ref, String>  LOCALIZED_STRING_OF_REF = new HashMap<Ref, String>();
 
     static {
         REF_OF_INTEGER.put(0, Ref.OBOVE_SEA_LEVEL);
         REF_OF_INTEGER.put(1, Ref.BELOW_SEA_LEVEL);
 
-        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL,
-                Bundle.getString("ExifGpsAltitudeRefOboveSeaLevel"));
-        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL,
-                Bundle.getString("ExifGpsAltitudeRefBelowSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, Bundle.getString("ExifGpsAltitudeRefOboveSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, Bundle.getString("ExifGpsAltitudeRefBelowSeaLevel"));
     }
     private Ref ref;
     private ExifRational value;
@@ -60,15 +56,12 @@ public final class ExifGpsAltitude {
             ExifByteOrder byteOrder) {
 
         if (!isRefRawValueByteCountOk(refRawValue))
-            throw new IllegalArgumentException(
-                    "Illegal ref raw value byte count: " + refRawValue.length);
+            throw new IllegalArgumentException("Illegal ref raw value byte count: " + refRawValue.length);
         if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + rawValue.length);
+            throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
 
         this.ref = getRef(refRawValue);
-        this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8),
-                byteOrder);
+        this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
     }
 
     /**

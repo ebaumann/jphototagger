@@ -153,8 +153,7 @@ public final class ModifySavedSearches {
     private static String getInput(String oldName) {
         return JOptionPane.showInputDialog(
                 null,
-                Bundle.getString("SavedSearchesModifier.Input.NewName"),
-                oldName);
+                Bundle.getString("SavedSearchesModifier.Input.NewName"), oldName);
     }
 
     private static boolean confirmInputDifferentName(String input) {

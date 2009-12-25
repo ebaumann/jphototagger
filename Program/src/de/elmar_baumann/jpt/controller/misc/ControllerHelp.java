@@ -49,19 +49,13 @@ import javax.swing.JMenuItem;
 public final class ControllerHelp
         implements ActionListener, HelpBrowserListener {
 
-    private static final String HELP_CONTENTS_URL =
-            Bundle.getString("Help.Url.Contents");
-    private final HelpBrowser help = HelpBrowser.INSTANCE;
-    private static final String KEY_CURRENT_URL =
-            ControllerHelp.class.getName() + ".CurrentURL";
-    private String currentUrl =
-            UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
-    private final JMenuItem menuItemAcceleratorKeys =
-            GUI.INSTANCE.getAppFrame().getMenuItemAcceleratorKeys();
-    private final JMenuItem menuItemHelp =
-            GUI.INSTANCE.getAppFrame().getMenuItemHelp();
-    private final JMenuItem menuItemOpenPdfUserManual =
-            GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
+    private static final String      HELP_CONTENTS_URL         = Bundle.getString("Help.Url.Contents");
+    private final        HelpBrowser help                      = HelpBrowser.INSTANCE;
+    private static final String      KEY_CURRENT_URL           = ControllerHelp.class.getName() + ".CurrentURL";
+    private              String      currentUrl                = UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
+    private final        JMenuItem   menuItemAcceleratorKeys   = GUI.INSTANCE.getAppFrame().getMenuItemAcceleratorKeys();
+    private final        JMenuItem   menuItemHelp              = GUI.INSTANCE.getAppFrame().getMenuItemHelp();
+    private final        JMenuItem   menuItemOpenPdfUserManual = GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
 
     public ControllerHelp() {
         listen();
@@ -103,8 +97,7 @@ public final class ControllerHelp
 
     private void initHelp() {
         help.setIconImages(AppLookAndFeel.getAppIcons());
-        if (help.getContentsUrl() == null ||
-                !help.getContentsUrl().equals(HELP_CONTENTS_URL)) {
+        if (help.getContentsUrl() == null || !help.getContentsUrl().equals(HELP_CONTENTS_URL)) {
             help.setContentsUrl(HELP_CONTENTS_URL);
         }
     }
@@ -139,8 +132,7 @@ public final class ControllerHelp
     }
 
     private String logAndGetPdfManualOpenCommand(File manual) {
-        String command = IoUtil.quoteForCommandLine(
-                UserSettings.INSTANCE.getPdfViewer(), manual);
+        String command = IoUtil.quoteForCommandLine(UserSettings.INSTANCE.getPdfViewer(), manual);
         AppLog.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command);
         return command;
     }

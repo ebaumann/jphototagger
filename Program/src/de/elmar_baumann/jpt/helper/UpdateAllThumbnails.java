@@ -62,10 +62,8 @@ public final class UpdateAllThumbnails
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(null);
-        progressDialog.setTitle(Bundle.getString(
-                "UpdateAllThumbnails.Dialog.Title"));
-        progressDialog.setInfoText(Bundle.getString(
-                "UpdateAllThumbnails.Dialog.InfoText"));
+        progressDialog.setTitle(Bundle.getString("UpdateAllThumbnails.Dialog.Title"));
+        progressDialog.setInfoText(Bundle.getString("UpdateAllThumbnails.Dialog.InfoText"));
         progressDialog.addActionListener(this);
         progressDialog.setVisible(true);
     }

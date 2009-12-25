@@ -183,18 +183,14 @@ public final class LogfileDialog extends javax.swing.JDialog implements
             JOptionPane.showMessageDialog(
                     this,
                     Bundle.getString("LogfileDialog.Error.LogfileIsEmpty"), //
-                    Bundle.getString(
-                    "LogfileDialog.Error.LogfileIsEmpty.Title"), //
+                    Bundle.getString("LogfileDialog.Error.LogfileIsEmpty.Title"), //
                     JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (logfileBytes >= CRITICAL_LOGFILE_SIZE_IN_BYTES) {
             JOptionPane.showMessageDialog(
                     this,
-                    Bundle.getString(
-                    "LogfileDialog.Error.MaximumSizeExceeded", //
-                    Math.round(logfileBytes / CRITICAL_LOGFILE_SIZE_IN_BYTES)),
-                    Bundle.getString(
-                    "LogfileDialog.Error.MaximumSizeExceeded.Title"), //
+                    Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded", Math.round(logfileBytes / CRITICAL_LOGFILE_SIZE_IN_BYTES)),
+                    Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded.Title"),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -240,8 +236,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
 
         details.append("<html>"); //
         details.append("\n<table>"); //
-        addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Loglevel"), //
+        addDetailTableRow(details, Bundle.getString("LogfileDialog.Info.Loglevel"),
                 logfileRecord.getLevel().getLocalizedName());
         addDetailTableRow(details,
                 Bundle.getString("LogfileDialog.Info.Message"), //
@@ -289,8 +284,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                 stringBuffer.append("\n" + frame.getClassName() + ":"); //
                 stringBuffer.append(" " + frame.getMethodName()); //
                 stringBuffer.append(
-                        Bundle.getString(
-                        "LogfileDialog.Info.StartLineNumber") + //
+                        Bundle.getString("LogfileDialog.Info.StartLineNumber") + //
                         frame.getLine() + ")"); //
             }
             stringBuffer.append("\n</pre>"); //
@@ -385,10 +379,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     private void errorMessageNotSupportedFormat() {
         JOptionPane.showMessageDialog(
                 this,
-                Bundle.getString(
-                "LogfileDialog.Error.UnknownLogfileFormat"), //
-                Bundle.getString(
-                "LogfileDialog.Error.UnknownLogfileFormat.Title"), //
+                Bundle.getString("LogfileDialog.Error.UnknownLogfileFormat"), //
+                Bundle.getString("LogfileDialog.Error.UnknownLogfileFormat.Title"), //
                 JOptionPane.ERROR_MESSAGE);
     }
 

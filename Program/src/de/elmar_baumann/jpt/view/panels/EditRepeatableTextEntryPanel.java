@@ -427,8 +427,7 @@ public final class EditRepeatableTextEntryPanel
         String oldName = model.getElementAt(index).toString();
         String newName = null;
         do {
-            newName = JOptionPane.showInputDialog(this, Bundle.getString(
-                    "EditRepeatableTextEntryPanel.Input.RenameListItem"), //
+            newName = JOptionPane.showInputDialog(this, Bundle.getString("EditRepeatableTextEntryPanel.Input.RenameListItem"), //
                     oldName);
             ready = newName == null;
             if (newName != null && newName.trim().equalsIgnoreCase(oldName)) {

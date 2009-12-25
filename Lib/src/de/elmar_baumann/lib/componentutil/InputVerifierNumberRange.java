@@ -98,8 +98,7 @@ public final class InputVerifierNumberRange extends InputVerifier {
     private void errorMessage(JComponent input) {
         JOptionPane.showMessageDialog(
                 input,
-                Bundle.getString("InputVerifierNumberRange.ErrorMessage",
-                min, max),
+                Bundle.getString("InputVerifierNumberRange.ErrorMessage", min, max),
                 Bundle.getString("InputVerifierNumberRange.Error.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }

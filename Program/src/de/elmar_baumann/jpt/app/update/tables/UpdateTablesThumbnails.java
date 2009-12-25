@@ -236,8 +236,7 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private void compress() {
-        messages.message(Bundle.getString(
-                "UpdateTablesThumbnails.Info.CompressDatabase"));
+        messages.message(Bundle.getString("UpdateTablesThumbnails.Info.CompressDatabase"));
         progress.setIndeterminate(true);
         DatabaseMaintainance.INSTANCE.compressDatabase();
         progress.setIndeterminate(false);

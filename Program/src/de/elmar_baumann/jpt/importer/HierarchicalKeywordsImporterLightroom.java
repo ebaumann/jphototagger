@@ -162,8 +162,7 @@ final class HierarchicalKeywordsImporterLightroom
 
     @Override
     public String getDescription() {
-        return Bundle.getString(
-                "HierarchicalKeywordsImporterLightroom.Description");
+        return Bundle.getString("HierarchicalKeywordsImporterLightroom.Description");
     }
 
     @Override

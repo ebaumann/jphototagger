@@ -37,12 +37,9 @@ import javax.swing.tree.TreeModel;
  */
 public final class Timeline {
 
-    private final DefaultMutableTreeNode ROOT_NODE = new DefaultMutableTreeNode(
-            Bundle.getString("Timeline.RootNode.DisplayName"));
-    private static final DefaultMutableTreeNode UNKNOWN_NODE =
-            new DefaultMutableTreeNode(
-            Bundle.getString("Timeline.UnknownNode.DisplayName"));
-    private boolean unknownNode;
+    private final        DefaultMutableTreeNode ROOT_NODE    = new DefaultMutableTreeNode(Bundle.getString("Timeline.RootNode.DisplayName"));
+    private static final DefaultMutableTreeNode UNKNOWN_NODE = new DefaultMutableTreeNode(Bundle.getString("Timeline.UnknownNode.DisplayName"));
+    private              boolean                unknownNode;
 
     /**
      * Returns the root node. It's children are the years, the year's children
@@ -70,12 +67,9 @@ public final class Timeline {
      *            recognized
      * @return    information about the inserted children
      */
-    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(
-            Calendar cal) {
-        TreeModelUpdateInfo.NodesAndChildIndices info =
-                new TreeModelUpdateInfo.NodesAndChildIndices();
-        insertDayNode(insertMonthNode(insertYearNode(cal, info), cal, info), cal,
-                info);
+    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(Calendar cal) {
+        TreeModelUpdateInfo.NodesAndChildIndices info = new TreeModelUpdateInfo.NodesAndChildIndices();
+        insertDayNode(insertMonthNode(insertYearNode(cal, info), cal, info), cal, info);
         return info;
     }
 
@@ -87,8 +81,7 @@ public final class Timeline {
      * @return     update information
      */
     public synchronized TreeModelUpdateInfo.NodeAndChild removeDay(Calendar cal) {
-        TreeModelUpdateInfo.NodeAndChild info =
-                new TreeModelUpdateInfo.NodeAndChild();
+        TreeModelUpdateInfo.NodeAndChild info = new TreeModelUpdateInfo.NodeAndChild();
         DefaultMutableTreeNode dayNode = getNodeOfDay(cal);
         if (dayNode != null) {
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dayNode.

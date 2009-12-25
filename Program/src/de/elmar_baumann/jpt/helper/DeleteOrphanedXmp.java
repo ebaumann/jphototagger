@@ -118,11 +118,11 @@ public final class DeleteOrphanedXmp
 
     private void setMessagesFiles() {
         startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.Start");
-        endMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.End");
+        endMessage   = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.End");
     }
 
     private void setMessagesXmp() {
         startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.Start");
-        endMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.End");
+        endMessage   = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.End");
     }
 }

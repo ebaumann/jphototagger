@@ -99,14 +99,11 @@ public final class ControllerThumbnailSelectionEditMetadata implements
 
     private void setInfoLabel(boolean canEdit) {
         labelMetadataInfoEditable.setText(
-                canEdit
+                  canEdit
                 ? multipleThumbnailsSelected()
-                  ? Bundle.getString(
-                "ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
-                  : Bundle.getString(
-                "ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
-                : Bundle.getString(
-                "ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
+                ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
+                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
+                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
     }
 
     private boolean multipleThumbnailsSelected() {
