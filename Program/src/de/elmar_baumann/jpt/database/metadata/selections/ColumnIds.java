@@ -37,7 +37,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountryco
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
@@ -45,7 +44,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import java.util.HashMap;
@@ -68,8 +66,8 @@ public final class ColumnIds {
             new HashMap<Column, Integer>();
 
     static {
-        // TODO PERMANENT: Neue für den Benutzer relevante Spalten hinzufügen
-        // Vergebene IDs dürfen NIE verändert werden
+        // TODO PERMANENT: Add new relevant columns
+        // Never change existing IDs, don't use an ID twice!
         COLUMN_OF_ID.put(0, ColumnExifDateTimeOriginal.INSTANCE);
         COLUMN_OF_ID.put(1, ColumnExifFocalLength.INSTANCE);
         COLUMN_OF_ID.put(2, ColumnExifIsoSpeedRatings.INSTANCE);
@@ -84,7 +82,6 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(11, ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         COLUMN_OF_ID.put(12, ColumnXmpPhotoshopAuthorsposition.INSTANCE);
         COLUMN_OF_ID.put(13, ColumnXmpPhotoshopCaptionwriter.INSTANCE);
-        COLUMN_OF_ID.put(14, ColumnXmpPhotoshopCategory.INSTANCE);
         COLUMN_OF_ID.put(15, ColumnXmpPhotoshopCity.INSTANCE);
         COLUMN_OF_ID.put(16, ColumnXmpPhotoshopCountry.INSTANCE);
         COLUMN_OF_ID.put(17, ColumnXmpPhotoshopCredit.INSTANCE);
@@ -95,11 +92,10 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(22, ColumnXmpPhotoshopTransmissionReference.INSTANCE);
         COLUMN_OF_ID.put(23, ColumnXmpDcCreator.INSTANCE);
         COLUMN_OF_ID.put(24, ColumnXmpDcSubjectsSubject.INSTANCE);
-        COLUMN_OF_ID.put(25,
-                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
         COLUMN_OF_ID.put(26, ColumnCollectionnamesName.INSTANCE);
         COLUMN_OF_ID.put(27, ColumnSavedSearchesName.INSTANCE);
         COLUMN_OF_ID.put(28, ColumnXmpRating.INSTANCE);
+        // Next ID: 29 - UPDATE ID after assigning! --
 
         Set<Integer> keys = COLUMN_OF_ID.keySet();
         for (Integer key : keys) {

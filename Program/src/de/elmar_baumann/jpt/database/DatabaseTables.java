@@ -45,7 +45,6 @@ public final class DatabaseTables extends Database {
         TABLE_NAMES.add("files"); // NOI18N
         TABLE_NAMES.add("xmp"); // NOI18N
         TABLE_NAMES.add("xmp_dc_subjects"); // NOI18N
-        TABLE_NAMES.add("xmp_photoshop_supplementalcategories"); // NOI18N
         TABLE_NAMES.add("exif"); // NOI18N
         TABLE_NAMES.add("collection_names"); // NOI18N
         TABLE_NAMES.add("collections"); // NOI18N
@@ -133,7 +132,6 @@ public final class DatabaseTables extends Database {
                     ", iptc4xmpcore_location VARCHAR_IGNORECASE(64)" +                                       // NOI18N --  8 --
                     ", photoshop_authorsposition VARCHAR_IGNORECASE(32)" +                                   // NOI18N --  9 --
                     ", photoshop_captionwriter VARCHAR_IGNORECASE(32)" +                                     // NOI18N -- 10 --
-                    ", photoshop_category VARCHAR_IGNORECASE(128)" +                                         // NOI18N -- 11 --
                     ", photoshop_city VARCHAR_IGNORECASE(32)" +                                              // NOI18N -- 12 --
                     ", photoshop_country VARCHAR_IGNORECASE(64)" +                                           // NOI18N -- 13 --
                     ", photoshop_credit VARCHAR_IGNORECASE(32)" +                                            // NOI18N -- 14 --
@@ -159,8 +157,6 @@ public final class DatabaseTables extends Database {
                     " ON xmp (photoshop_authorsposition)"); // NOI18N
             stmt.execute("CREATE INDEX idx_xmp_photoshop_captionwriter" + // NOI18N
                     " ON xmp (photoshop_captionwriter)"); // NOI18N
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_category" + // NOI18N
-                    " ON xmp (photoshop_category)"); // NOI18N
             stmt.execute("CREATE INDEX idx_xmp_photoshop_city" + // NOI18N
                     " ON xmp (photoshop_city)"); // NOI18N
             stmt.execute("CREATE INDEX idx_xmp_photoshop_country" + // NOI18N
@@ -189,20 +185,6 @@ public final class DatabaseTables extends Database {
                     " ON xmp_dc_subjects (id_xmp)"); // NOI18N
             stmt.execute("CREATE INDEX idx_xmp_dc_subjects_subject" + // NOI18N
                     " ON xmp_dc_subjects (subject)");  // NOI18N
-        }
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "xmp_photoshop_supplementalcategories")) { // NOI18N
-            stmt.execute("CREATE CACHED TABLE xmp_photoshop_supplementalcategories" + // NOI18N
-                    " (" + // NOI18N
-                    "id_xmp BIGINT NOT NULL" +                        // NOI18N -- 1 --
-                    ", supplementalcategory VARCHAR_IGNORECASE(32)" + // NOI18N -- 2 --
-                    ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" + // NOI18N
-                    ");"); // NOI18N
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_supplementalcategories_id_xmp" + // NOI18N
-                    " ON xmp_photoshop_supplementalcategories (id_xmp)"); // NOI18N
-            stmt.execute(
-                    "CREATE INDEX idx_xmp_photoshop_supplementalcategories_supplementalcategory" + // NOI18N
-                    " ON xmp_photoshop_supplementalcategories (supplementalcategory)"); // NOI18N
         }
     }
 
@@ -293,8 +275,7 @@ public final class DatabaseTables extends Database {
             stmt.execute(
                     "CREATE INDEX idx_saved_searches_value_index ON saved_searches_values (value_index)"); // NOI18N
         }
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "saved_searches_panels")) { // NOI18N
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "saved_searches_panels")) { // NOI18N
             stmt.execute("CREATE CACHED TABLE saved_searches_panels" + // NOI18N
                     " (" + // NOI18N
                     "id_saved_searches BIGINT" + // NOI18N -- 1 --
@@ -342,8 +323,6 @@ public final class DatabaseTables extends Database {
                     ", photoshopCaptionwriter BINARY" +          //  6 NOI18N
                     ", iptc4xmpcoreLocation BINARY" +            //  7 NOI18N
                     ", iptc4xmpcoreCountrycode BINARY" +         //  8 NOI18N
-                    ", photoshopCategory BINARY" +               //  9 NOI18N
-                    ", photoshopSupplementalCategories BINARY" + // 10 NOI18N
                     ", dcRights BINARY" +                        // 11 NOI18N
                     ", dcCreator BINARY" +                       // 12 NOI18N
                     ", photoshopAuthorsposition BINARY" +        // 13 NOI18N

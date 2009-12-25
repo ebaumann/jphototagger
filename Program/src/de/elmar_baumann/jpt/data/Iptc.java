@@ -105,26 +105,6 @@ public final class Iptc {
     }
 
     /**
-     * Returns the IPTC field 2:15 (Category).
-     * 
-     * @return IPTC field 2:15 (Category) or null if not defined
-     * @see    Xmp#getPhotoshopCategory()
-     */
-    public String getCategory() {
-        return stringValueOf(IPTCEntryMeta.CATEGORY);
-    }
-
-    /**
-     * Sets the IPTC field 2:15 (Category).
-     * 
-     * @param category IPTC field 2:15 (Category)
-     * @see            Xmp#setPhotoshopCategory(java.lang.String)
-     */
-    public void setCategory(String category) {
-        valueOfEntryMeta.put(IPTCEntryMeta.CATEGORY, category);
-    }
-
-    /**
      * Returns the IPTC field 2:90 (City).
      * 
      * @return IPTC field 2:90 (City) or null if not defined
@@ -399,30 +379,6 @@ public final class Iptc {
     public void setSpecialInstructions(String specialInstructions) {
         valueOfEntryMeta.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS,
                 specialInstructions);
-    }
-
-    /**
-     * Returns the IPTC fields 2:20 (Supplemental Category).
-     * 
-     * @return IPTC fields 2:20 (Supplemental Category) or null if not defined
-     * @see    Xmp#getPhotoshopSupplementalCategories()
-     */
-    public List<String> getSupplementalCategories() {
-        List<String> list = stringListOf(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY);
-        return list == null
-               ? null
-               : new ArrayList<String>(list);
-    }
-
-    /**
-     * Adds a value to the IPTC field 2:20 (Supplemental Category).
-     * 
-     * @param supplementalCategory IPTC field 2:20 (Supplemental Category)
-     * @see                        Xmp#addPhotoshopSupplementalCategory(java.lang.String)
-     */
-    public void addSupplementalCategory(String supplementalCategory) {
-        addToStringList(IPTCEntryMeta.SUPPLEMENTAL_CATEGORY,
-                supplementalCategory);
     }
 
     /**

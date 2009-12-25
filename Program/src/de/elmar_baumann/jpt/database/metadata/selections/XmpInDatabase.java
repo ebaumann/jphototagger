@@ -42,8 +42,6 @@ public final class XmpInDatabase {
         STORED_PATHS_PREFIXES.add("photoshop:Headline"); // NOI18N
         STORED_PATHS_PREFIXES.add("photoshop:TransmissionReference"); // NOI18N
         STORED_PATHS_PREFIXES.add("photoshop:Instructions"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:Category"); // NOI18N
-        STORED_PATHS_PREFIXES.add("photoshop:SupplementalCategories"); // NOI18N
         STORED_PATHS_PREFIXES.add("photoshop:City"); // NOI18N
         STORED_PATHS_PREFIXES.add("photoshop:State"); // NOI18N
         STORED_PATHS_PREFIXES.add("photoshop:Country"); // NOI18N

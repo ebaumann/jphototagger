@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.jpt.controller.miscmetadata.ControllerMiscMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.timeline.ControllerTimelineItemSelected;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataEditTemplates;
-import de.elmar_baumann.jpt.model.ListModelCategories;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.model.ListModelKeywords;
 import de.elmar_baumann.jpt.model.ListModelSavedSearches;
@@ -84,7 +83,6 @@ public final class ModelFactory {
     private void setListModels(final AppPanel appPanel) {
         setListModelSavedSearches(appPanel);
         setListModelImageCollections(appPanel);
-        setListModelCategories(appPanel);
         setListModelKeywords(appPanel);
         setListModelNoMetadata(appPanel);
     }
@@ -103,24 +101,6 @@ public final class ModelFactory {
         list.setModel(new ListModelImageCollections());
         list.setCursor(listCursor);
         GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelImageCollections"), false, 1000);
-    }
-
-    private void setListModelCategories(final AppPanel appPanel) {
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                JList listAppPanel = appPanel.getListCategories();
-                Cursor listAppPanelCursor = setWaitCursor(listAppPanel);
-                ListModel model = new SortedListModel(new ListModelCategories());
-                listAppPanel.setModel(model);
-                InputHelperDialog.INSTANCE.setModelCategories(model);
-                listAppPanel.setCursor(listAppPanelCursor);
-                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelCategories"), false, 1000);
-            }
-        });
-        thread.setName("Creating categories model @ " + getClass().getName()); // NOI18N
-        thread.start();
     }
 
     private void setListModelKeywords(final AppPanel appPanel) {

@@ -40,21 +40,16 @@ import javax.swing.JTextField;
  */
 public final class ControllerGoTo implements ActionListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels =
-            appPanel.getEditPanelsArray();
-    private final JTextField textFieldSearch = appPanel.getTextFieldSearch();
-    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-    private final Map<AppFrame.GoTo, Component> componentOfGoTo =
-            new HashMap<AppFrame.GoTo, Component>();
-    private final Map<AppFrame.GoTo, JTabbedPane> tabbedPaneOfGoTo =
-            new HashMap<AppFrame.GoTo, JTabbedPane>();
+    private final AppPanel                        appPanel         = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel                 thumbnailsPanel  = appPanel.getPanelThumbnails();
+    private final EditMetadataPanelsArray         editPanels       = appPanel.getEditPanelsArray();
+    private final JTextField                      textFieldSearch  = appPanel.getTextFieldSearch();
+    private final AppFrame                        appFrame         = GUI.INSTANCE.getAppFrame();
+    private final Map<AppFrame.GoTo, Component>   componentOfGoTo  = new HashMap<AppFrame.GoTo, Component>();
+    private final Map<AppFrame.GoTo, JTabbedPane> tabbedPaneOfGoTo = new HashMap<AppFrame.GoTo, JTabbedPane>();
 
     // Not static (timing)
     private void initMaps() {
-        componentOfGoTo.put(AppFrame.GoTo.CATEGORIES            , appPanel.getTabSelectionCategories());
         componentOfGoTo.put(AppFrame.GoTo.IMAGE_COLLECTIONS     , appPanel.getTabSelectionImageCollections());
         componentOfGoTo.put(AppFrame.GoTo.DIRECTORIES           , appPanel.getTabSelectionDirectories());
         componentOfGoTo.put(AppFrame.GoTo.FAVORITE_DIRECTORIES  , appPanel.getTabSelectionFavoriteDirectories());
@@ -69,7 +64,6 @@ public final class ControllerGoTo implements ActionListener {
         componentOfGoTo.put(AppFrame.GoTo.XMP_METADATA          , appPanel.getTabMetadataXmp());
         componentOfGoTo.put(AppFrame.GoTo.HIERARCHICAL_KEYWORDS , appPanel.getTabMetadataHierarchicaKeywords());
 
-        tabbedPaneOfGoTo.put(AppFrame.GoTo.CATEGORIES           , appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.IMAGE_COLLECTIONS    , appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.DIRECTORIES          , appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.FAVORITE_DIRECTORIES , appPanel.getTabbedPaneSelection());
@@ -104,14 +98,20 @@ public final class ControllerGoTo implements ActionListener {
     private void selectComponent(JMenuItem item) {
         AppFrame.GoTo goTo = appFrame.getGotoOfMenuItem(item);
         if (tabbedPaneOfGoTo.containsKey(goTo)) {
+
             tabbedPaneOfGoTo.get(goTo).setSelectedComponent(componentOfGoTo.get(goTo));
             componentOfGoTo.get(goTo).requestFocusInWindow();
+
         } else if (goTo.equals(AppFrame.GoTo.FAST_SEARCH)) {
+
             textFieldSearch.requestFocusInWindow();
+
         } else if (goTo.equals(AppFrame.GoTo.THUMBNAILS_PANEL)) {
+
             thumbnailsPanel.requestFocusInWindow();
         }
         if (goTo.equals(AppFrame.GoTo.EDIT_PANELS)) {
+
             editPanels.setFocusToFirstEditField();
         }
     }

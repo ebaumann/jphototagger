@@ -125,14 +125,13 @@ public final class DatabaseMetadataUtil {
     }
 
     /**
-     * Liefert die Tabellenspalten einer bestimmten Tabellenkategorie.
      * 
      * @param tableColumns Tabellenspalten (beliebiger Tabellen)
      * @param tablename    Name der Tabelle: Alle Tabellen, deren Namen damit
      *                     anfangen, werden hinzugefügt
      * @return             Spalten der Tabelle aus <code>tableColumns</code>
      */
-    public static List<Column> getTableColumnsOfTableCategory(
+    public static List<Column> getTableColumnsOfTableStartsWith(
         List<Column> tableColumns, String tablename) {
         List<Column> columns = new ArrayList<Column>();
         for (Column column : tableColumns) {

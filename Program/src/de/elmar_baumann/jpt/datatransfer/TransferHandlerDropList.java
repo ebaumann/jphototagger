@@ -46,8 +46,7 @@ public final class TransferHandlerDropList extends TransferHandler {
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
         return Flavors.hasKeywords(transferSupport) ||
-                Flavors.hasHierarchicalKeywords(transferSupport) ||
-                Flavors.hasCategories(transferSupport);
+                Flavors.hasHierarchicalKeywords(transferSupport);
     }
 
     @Override
@@ -60,8 +59,6 @@ public final class TransferHandlerDropList extends TransferHandler {
 
         if (Flavors.hasKeywords(transferSupport)) {
             return importKeywords(transferable, listModel);
-        } else if (Flavors.hasCategories(transferSupport)) {
-            return importCategories(transferable, listModel);
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
             return importHierarchicalKeywords(
                     listModel, transferSupport.getTransferable());
@@ -74,13 +71,6 @@ public final class TransferHandlerDropList extends TransferHandler {
         Object[] keywords = Support.getKeywords(transferable);
         if (keywords == null) return false;
         return importStringArray(listModel, keywords);
-    }
-
-    private boolean importCategories(
-            Transferable transferable, DefaultListModel listModel) {
-        Object[] categories = Support.getCategories(transferable);
-        if (categories == null) return false;
-        return importStringArray(listModel, categories);
     }
 
     private boolean importStringArray(DefaultListModel listModel, Object[] array) {

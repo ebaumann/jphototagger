@@ -33,7 +33,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
@@ -41,7 +40,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
@@ -267,26 +265,6 @@ public final class Xmp implements TextEntryListener {
     }
 
     /**
-     * Returns the XMP value of photoshop:Category (Kategorie).
-     * 
-     * @return value of photoshop:Category (Kategorie) or null if not set
-     * @see    de.elmar_baumann.jpt.data.Iptc#getCategory()
-     */
-    public String getPhotoshopCategory() {
-        return stringValueOf(ColumnXmpPhotoshopCategory.INSTANCE);
-    }
-
-    /**
-     * Sets the value of photoshop:Category (category).
-     * 
-     * @param photoshopCategory value of photoshop:Category (category)
-     * @see                     de.elmar_baumann.jpt.data.Iptc#setCategory(java.lang.String)
-     */
-    public void setPhotoshopCategory(String photoshopCategory) {
-        valueOfColumn.put(ColumnXmpPhotoshopCategory.INSTANCE, photoshopCategory);
-    }
-
-    /**
      * Returns the XMP value of photoshop:City (city of the photographer).
      * 
      * @return value of photoshop:City (city of the photographer) or null if not
@@ -430,36 +408,6 @@ public final class Xmp implements TextEntryListener {
      */
     public void setPhotoshopState(String photoshopState) {
         valueOfColumn.put(ColumnXmpPhotoshopState.INSTANCE, photoshopState);
-    }
-
-    /**
-     * Returns the values of photoshop:SupplementalCategories (other categories).
-     * 
-     * @return value of photoshop:SupplementalCategories (other categories) or
-     *         null if not set
-     * @see    de.elmar_baumann.jpt.data.Iptc#getSupplementalCategories()
-     */
-    public List<String> getPhotoshopSupplementalCategories() {
-
-        List<String> list =
-                stringListReferenceOf(
-                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
-        return list == null
-               ? null
-               : new ArrayList<String>(list);
-    }
-
-    /**
-     * Adds a value to photoshop:SupplementalCategories (other categories).
-     * 
-     * @param category value of photoshop:SupplementalCategories
-     *                 (other categories) not null
-     * @see            de.elmar_baumann.jpt.data.Iptc#addSupplementalCategory(java.lang.String)
-     */
-    public void addPhotoshopSupplementalCategory(String category) {
-        addToStringList(
-                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE,
-                category);
     }
 
     /**

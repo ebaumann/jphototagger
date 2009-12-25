@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.jpt.controller.actions.ControllerActionsShowDialog;
-import de.elmar_baumann.jpt.controller.categories.ControllerCategoryItemSelected;
 import de.elmar_baumann.jpt.controller.directories.ControllerCreateDirectory;
 import de.elmar_baumann.jpt.controller.directories.ControllerDeleteDirectory;
 import de.elmar_baumann.jpt.controller.directories.ControllerDirectoryPasteFiles;
@@ -114,7 +113,6 @@ public final class ControllerFactory {
             GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Start"), false, 1000);
             new ControllerThumbnailsPanelPersistence();
             new ControllerItemsMutualExcludeSelection();
-            new ControllerCategoryItemSelected();
             new ControllerKeywordItemSelected();
             new ControllerSavedSearchSelected();
             new ControllerImageCollectionSelected();

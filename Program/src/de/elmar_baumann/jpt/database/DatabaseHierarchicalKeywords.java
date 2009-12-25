@@ -134,6 +134,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
         Connection connection = null;
         assert keyword.getKeyword() != null : "Keyword is null!"; // NOI18N
         assert !keyword.getKeyword().trim().isEmpty() : "Keyword is empty!"; // NOI18N
+        if (keyword.getIdParent() == null && existsRootKeyword(keyword.getKeyword())) return true;
         if (parentHasChild(keyword)) {
             return false;
         }

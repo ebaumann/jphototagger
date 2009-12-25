@@ -92,11 +92,9 @@ public final class DatabaseSearch extends Database {
             List<Column> searchColumns, String searchString) {
 
         List<String> filenames = new ArrayList<String>();
-        addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.
-                getTableColumnsOfTableCategory(
+        addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.getTableColumnsOfTableStartsWith(
                 searchColumns, "xmp"), searchString, filenames, "xmp"); // NOI18N
-        addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.
-                getTableColumnsOfTableCategory(
+        addFilenamesSearchFilenamesLikeOr(DatabaseMetadataUtil.getTableColumnsOfTableStartsWith(
                 searchColumns, "exif"), searchString, filenames, "exif"); // NOI18N
         return filenames;
     }

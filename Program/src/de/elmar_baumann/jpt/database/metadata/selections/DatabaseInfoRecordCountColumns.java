@@ -32,7 +32,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
@@ -40,7 +39,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import java.util.ArrayList;
@@ -60,8 +58,6 @@ public final class DatabaseInfoRecordCountColumns {
     static {
         COLUMNS.add(ColumnFilesFilename.INSTANCE);
         COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopCategory.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE);
         COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
         COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);

@@ -29,7 +29,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
@@ -37,7 +36,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import java.util.HashMap;
@@ -55,30 +53,25 @@ public final class XmpRepeatableValues {
             new HashMap<Column, Boolean>();
 
     static {
-        IS_REPEATABLE.put(ColumnXmpDcCreator.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpDcDescription.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpDcRights.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpDcSubjectsSubject.INSTANCE, true);
-        IS_REPEATABLE.put(ColumnXmpDcTitle.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCategory.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCity.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCountry.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCredit.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopHeadline.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopInstructions.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopSource.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopState.INSTANCE, false);
-        IS_REPEATABLE.put(
-                ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE,
-                true);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
-                false);
-        IS_REPEATABLE.put(ColumnXmpLastModified.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpRating.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpDcCreator.INSTANCE                     , false);
+        IS_REPEATABLE.put(ColumnXmpDcDescription.INSTANCE                 , false);
+        IS_REPEATABLE.put(ColumnXmpDcRights.INSTANCE                      , false);
+        IS_REPEATABLE.put(ColumnXmpDcSubjectsSubject.INSTANCE             , true);
+        IS_REPEATABLE.put(ColumnXmpDcTitle.INSTANCE                       , false);
+        IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE       , false);
+        IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE          , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE      , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE        , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCity.INSTANCE                 , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCountry.INSTANCE              , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopCredit.INSTANCE               , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopHeadline.INSTANCE             , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopInstructions.INSTANCE         , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopSource.INSTANCE               , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopState.INSTANCE                , false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, false);
+        IS_REPEATABLE.put(ColumnXmpLastModified.INSTANCE                  , false);
+        IS_REPEATABLE.put(ColumnXmpRating.INSTANCE                        , false);
     }
 
     /**

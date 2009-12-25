@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.datatransfer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory;
 import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.io.ImageUtil;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -73,8 +72,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     }
 
     private boolean metadataTransferred(TransferSupport transferSupport) {
-        return (Flavors.hasCategories(transferSupport) ||
-                Flavors.hasKeywords(transferSupport) ||
+        return (Flavors.hasKeywords(transferSupport) ||
                 Flavors.hasHierarchicalKeywords(transferSupport)) &&
                 isDropOverSelectedThumbnail(transferSupport);
     }
@@ -159,9 +157,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         if (!GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().isEditable())
             return true;
         Transferable t = transferSupport.getTransferable();
-        if (Flavors.hasCategories(transferSupport)) {
-            importStrings(Flavors.CATEGORIES_FLAVOR, Support.getCategories(t));
-        } else if (Flavors.hasKeywords(transferSupport)) {
+        if (Flavors.hasKeywords(transferSupport)) {
             importStrings(Flavors.KEYWORDS_FLAVOR, Support.getKeywords(t));
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
             List<DefaultMutableTreeNode> nodes =
@@ -177,13 +173,10 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     public void importStrings(DataFlavor dataFlavor, Object[] strings) {
         if (strings == null || strings.length <= 0) return;
-        EditMetadataPanelsArray editPanels =
-                GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
-        Column column = dataFlavor.equals(Flavors.CATEGORIES_FLAVOR)
-                ? ColumnXmpPhotoshopSupplementalcategoriesSupplementalcategory.INSTANCE
-                : dataFlavor.equals(Flavors.KEYWORDS_FLAVOR)
-                ? ColumnXmpDcSubjectsSubject.INSTANCE
-                : null;
+        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
+        Column                  column     = dataFlavor.equals(Flavors.KEYWORDS_FLAVOR)
+                                                ? ColumnXmpDcSubjectsSubject.INSTANCE
+                                                : null;
         for (Object string : strings) {
             editPanels.addText(column, string.toString());
         }
