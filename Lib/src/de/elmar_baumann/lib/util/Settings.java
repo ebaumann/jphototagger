@@ -88,8 +88,7 @@ public final class Settings {
     private String getArrayKeyMatchPattern(String key) {
         assert key != null : key;
         return "^" + java.util.regex.Pattern.quote(key + DELIMITER_ARRAY_KEYS) +
-                "[0-9]+$"; //
-    }
+                "[0-9]+$";    }
 
     /**
      * Liefert alle Schlüssel, die auf ein Muster passen.
