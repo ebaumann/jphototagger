@@ -556,7 +556,7 @@ public final class Xmp implements TextEntryListener {
                     }
                 } else {
                     AppLog.logWarning(
-                            Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);//
+                            Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);
                 }
             }
         }

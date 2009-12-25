@@ -107,7 +107,7 @@ public final class ThumbnailUtil {
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
             AppLog.logInfo(ThumbnailUtil.class,
-                    "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);//
+                    "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions procOptions = new ImageProcOptions();
 
