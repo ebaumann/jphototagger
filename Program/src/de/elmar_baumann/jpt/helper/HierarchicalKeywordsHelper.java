@@ -145,11 +145,15 @@ public final class HierarchicalKeywordsHelper {
      * @param keyword keyword
      */
     public static void deleteInFiles(HierarchicalKeyword keyword) {
-        Set<String> filenames = new HashSet<String>();
-        for (HierarchicalKeyword child : DatabaseHierarchicalKeywords.INSTANCE.getChildren(keyword.getId())) {
-            List<String> parentNames = getParentKeywordNames(child, true);
+        Set<String>                     filenames = new HashSet<String>();
+        Collection<HierarchicalKeyword> keywords  = DatabaseHierarchicalKeywords.INSTANCE.getChildren(keyword.getId());
 
-            parentNames.add(child.getKeyword());
+        keywords.add(keyword);
+
+        for (HierarchicalKeyword kw : keywords) {
+            List<String> parentNames = getParentKeywordNames(kw, true);
+
+            parentNames.add(kw.getKeyword());
             filenames.addAll(DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(parentNames));
         }
 
