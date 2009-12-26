@@ -665,6 +665,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuWindow.add(jSeparator21);
 
         menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
+        menuItemDisplayLogfile.setEnabled(false);
         menuWindow.add(menuItemDisplayLogfile);
 
         menuBar.add(menuWindow);
