@@ -53,16 +53,17 @@ public final class TreeUtil {
      * @return true, falls der Zeiger über einem selektierten Item steht
      */
     public static boolean isSelectedItemPosition(MouseEvent e) {
-        if (e == null)
-            throw new NullPointerException("e == null");
+        if (e == null) throw new NullPointerException("e == null");
 
         if (e.getSource() instanceof JTree) {
-            JTree tree = (JTree) e.getSource();
+            JTree    tree      = (JTree) e.getSource();
             TreePath mousePath = tree.getPathForLocation(e.getX(), e.getY());
+
             if (mousePath != null && tree.getSelectionPath() != null) {
-                Object selectedItem = tree.getSelectionPath().
-                        getLastPathComponent();
-                Object mouseItem = mousePath.getLastPathComponent();
+
+                Object selectedItem = tree.getSelectionPath().getLastPathComponent();
+                Object mouseItem    = mousePath.getLastPathComponent();
+
                 if (selectedItem != null && mouseItem != null) {
                     return selectedItem.equals(mouseItem);
                 }
@@ -78,15 +79,16 @@ public final class TreeUtil {
      * @return true, falls der Zeiger über dem Wurzelitem steht
      */
     public static boolean isRootItemPosition(MouseEvent e) {
-        if (e == null)
-            throw new NullPointerException("e == null");
+        if (e == null) throw new NullPointerException("e == null");
 
         if (e.getSource() instanceof JTree) {
-            JTree tree = (JTree) e.getSource();
+            JTree    tree      = (JTree) e.getSource();
             TreePath mousePath = tree.getPathForLocation(e.getX(), e.getY());
+
             if (mousePath != null) {
-                Object root = tree.getModel().getRoot();
+                Object root      = tree.getModel().getRoot();
                 Object mouseItem = mousePath.getLastPathComponent();
+
                 if (root != null && mouseItem != null) {
                     return root.equals(mouseItem);
                 }
@@ -101,8 +103,7 @@ public final class TreeUtil {
      * @param trees Trees
      */
     public static void clearSelection(List<JTree> trees) {
-        if (trees == null)
-            throw new NullPointerException("trees == null");
+        if (trees == null) throw new NullPointerException("trees == null");
 
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
@@ -120,40 +121,41 @@ public final class TreeUtil {
      * @return              Pfad oder null, wenn nicht gefunden
      */
     public static TreePath getTreePath(
-            TreeModel treeModel, String pathString, String pathSeparator) {
-        if (treeModel == null)
-            throw new NullPointerException("treeModel == null");
-        if (pathString == null)
-            throw new NullPointerException("pathString == null");
-        if (pathSeparator == null)
-            throw new NullPointerException("pathSeparator == null");
+            TreeModel treeModel,
+            String    pathString,
+            String    pathSeparator
+            ) {
+        if (treeModel     == null) throw new NullPointerException("treeModel == null");
+        if (pathString    == null) throw new NullPointerException("pathString == null");
+        if (pathSeparator == null) throw new NullPointerException("pathSeparator == null");
 
-        StringTokenizer tokenizer = new StringTokenizer(pathString,
-                pathSeparator);
-        int tokenCount = tokenizer.countTokens();
-        int tokenNumber = 1;
-        int tokenFoundCount = 0;
-        Object[] path = new Object[tokenCount > 0
-                                   ? tokenCount
-                                   : 1];
+        StringTokenizer tokenizer       = new StringTokenizer(pathString, pathSeparator);
+        int             tokenCount      = tokenizer.countTokens();
+        int             tokenNumber     = 1;
+        int             tokenFoundCount = 0;
+        Object[]        path = new Object[tokenCount > 0 ? tokenCount : 1];
+
         if (tokenCount > 0) {
             path[0] = treeModel.getRoot();
             tokenizer.nextToken();
-            Object currentElement = treeModel.getRoot();
-            Object childElement = null;
-            boolean appended = true;
+            Object  currentElement = treeModel.getRoot();
+            Object  childElement   = null;
+            boolean appended       = true;
 
             while (appended && tokenNumber < tokenCount) {
-                int childCount = treeModel.getChildCount(currentElement);
-                String pathToken = tokenizer.nextToken();
-                boolean found = false;
+
+                int     childCount = treeModel.getChildCount(currentElement);
+                String  pathToken  = tokenizer.nextToken();
+                boolean found      = false;
+
                 appended = false;
                 for (int index = 0; index < childCount && !found; index++) {
                     childElement = treeModel.getChild(currentElement, index);
                     found = childElement.toString().equals(pathToken);
                     if (found) {
                         path[tokenNumber] = childElement;
-                        currentElement = childElement;
+                        currentElement    = childElement;
+
                         appended = true;
                         tokenFoundCount++;
                     }
@@ -173,15 +175,15 @@ public final class TreeUtil {
      * @param path Pfad
      */
     public static void expandPath(JTree tree, TreePath path) {
-        if (tree == null)
-            throw new NullPointerException("tree == null");
-        if (path == null)
-            throw new NullPointerException("path == null");
+        if (tree == null) throw new NullPointerException("tree == null");
+        if (path == null) throw new NullPointerException("path == null");
 
         TreePath expandPath = path;
+
         if (tree.getModel().isLeaf(path.getLastPathComponent())) {
             expandPath = path.getParentPath();
         }
+
         tree.expandPath(expandPath);
     }
 
@@ -194,17 +196,17 @@ public final class TreeUtil {
      * @param path path to expand in <code>tree</code>
      */
     public static void expandPathCascade(JTree tree, TreePath path) {
-        if (tree == null)
-            throw new NullPointerException("tree == null");
-        if (path == null)
-            throw new NullPointerException("path == null");
+        if (tree == null) throw new NullPointerException("tree == null");
+        if (path == null) throw new NullPointerException("path == null");
 
-        Stack<TreePath> stack = new Stack<TreePath>();
-        TreePath parent = path;
+        Stack<TreePath> stack  = new Stack<TreePath>();
+        TreePath        parent = path;
+
         while (parent != null) {
             stack.push(parent);
             parent = parent.getParentPath();
         }
+
         while (!stack.isEmpty()) {
             tree.expandPath(stack.pop());
         }
@@ -219,7 +221,8 @@ public final class TreeUtil {
      */
     public static TreePath getTreePath(MouseEvent e) {
         Object source = e.getSource();
-        assert source instanceof JTree : "Not a JTree: " + source;
+        assert source instanceof JTree : source;
+
         if (source instanceof JTree) {
             int mousePosX = e.getX();
             int mousePosY = e.getY();
@@ -240,23 +243,24 @@ public final class TreeUtil {
      * @return path
      */
     public static TreePath getTreePath(File file, TreeModel model) {
-        if (file == null)
-            throw new NullPointerException("file == null");
-        if (model == null)
-            throw new NullPointerException("model == null");
+        if (file  == null) throw new NullPointerException("file == null");
+        if (model == null) throw new NullPointerException("model == null");
 
-        Stack<DefaultMutableTreeNode> stack =
-                new Stack<DefaultMutableTreeNode>();
+        Stack<DefaultMutableTreeNode> stack = new Stack<DefaultMutableTreeNode>();
+
         while (file != null) {
             stack.push(new DefaultMutableTreeNode(file));
             file = file.getParentFile();
         }
-        List<DefaultMutableTreeNode> nodes =
-                new ArrayList<DefaultMutableTreeNode>(stack.size() + 1);
+
+        List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(stack.size() + 1);
+
         nodes.add((DefaultMutableTreeNode) model.getRoot());
+
         while (!stack.isEmpty()) {
             nodes.add(stack.pop());
         }
+
         return new TreePath(nodes.toArray());
     }
 
@@ -270,22 +274,21 @@ public final class TreeUtil {
      */
     public static void addNodesUserWithObject(
             Collection<? super DefaultMutableTreeNode> foundNodes,
-            DefaultMutableTreeNode rootNode,
-            Object userObject,
-            int maxCount) {
-
-        if (foundNodes == null)
-            throw new NullPointerException("foundNodes == null");
-        if (rootNode == null)
-            throw new NullPointerException("rootNode == null");
-        if (userObject == null)
-            throw new NullPointerException("userObject == null");
+            DefaultMutableTreeNode                     rootNode,
+            Object                                     userObject,
+            int                                        maxCount
+            ) {
+        if (foundNodes == null) throw new NullPointerException("foundNodes == null");
+        if (rootNode   == null) throw new NullPointerException("rootNode == null");
+        if (userObject == null) throw new NullPointerException("userObject == null");
 
         int foundNodeCount = foundNodes.size();
-        for (Enumeration children = rootNode.children();
-                children.hasMoreElements() && foundNodeCount <= maxCount;) {
-            DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.
-                    nextElement();
+
+        for (Enumeration children = rootNode.children(); children.hasMoreElements() &&
+                foundNodeCount <= maxCount;) {
+
+            DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
+
             if (userObject.equals(child.getUserObject())) {
                 foundNodes.add(child);
             } else {
@@ -304,13 +307,18 @@ public final class TreeUtil {
      * @return            the first matching child node containing that file
      */
     public static DefaultMutableTreeNode findChildNodeWithFile(
-            DefaultMutableTreeNode parentNode, File file) {
+            DefaultMutableTreeNode parentNode,
+            File                   file
+            ) {
         int childCount = parentNode.getChildCount();
+
         for (int i = 0; i < childCount; i++) {
             TreeNode childNode = parentNode.getChildAt(i);
+
             if (childNode instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) childNode;
-                Object userObject = node.getUserObject();
+                DefaultMutableTreeNode node       = (DefaultMutableTreeNode) childNode;
+                Object                 userObject = node.getUserObject();
+
                 if (userObject instanceof File) {
                     File f = (File) userObject;
                     if (f.equals(file)) {
@@ -323,68 +331,6 @@ public final class TreeUtil {
     }
 
     /**
-     * Returns wheter a node is below an other node (one of the children or the
-     * childrens children ...). Compares the user objects of the nodes by their
-     * equals operator. If both user objects are null the reference of both
-     * nodes will be compared.
-     *
-     * @param parentNode parent node to traverse all nodes below
-     * @param node       searched node
-     * @return           true if <code>node</code> is below <code>parentNode</code>
-     */
-    public static boolean isBelow(
-            DefaultMutableTreeNode parentNode, DefaultMutableTreeNode node) {
-        Object userObjectNode = node.getUserObject();
-        for (Enumeration nodes = parentNode.preorderEnumeration();
-                nodes.hasMoreElements();) {
-            Object nextNode = nodes.nextElement();
-            if (nextNode instanceof DefaultMutableTreeNode) {
-                Object userObjectNextNode =
-                        ((DefaultMutableTreeNode) nextNode).getUserObject();
-                if (userObjectNode == null && userObjectNextNode == null &&
-                        nextNode == node) {
-                    return true;
-                } else if (userObjectNode != null && userObjectNextNode !=
-                        null && userObjectNode.equals(userObjectNextNode)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Returns wheter a node is below an other node (one of the children or the
-     * childrens children ...). Compares the user objects of the nodes by their
-     * toString() operator. If both user objects are null the reference of both
-     * nodes will be compared.
-     *
-     * @param parentNode parent node to traverse all nodes below
-     * @param node       searched node
-     * @return           true if <code>node</code> is below <code>parentNode</code>
-     */
-    public static boolean stringIsBelow(
-            DefaultMutableTreeNode parentNode, DefaultMutableTreeNode node) {
-        Object userObjectNode = node.getUserObject();
-        for (Enumeration nodes = parentNode.preorderEnumeration();
-                nodes.hasMoreElements();) {
-            Object nextNode = nodes.nextElement();
-            if (nextNode instanceof DefaultMutableTreeNode) {
-                Object userObjectNextNode =
-                        ((DefaultMutableTreeNode) nextNode).getUserObject();
-                if (userObjectNode == null && userObjectNextNode == null &&
-                        nextNode == node) {
-                    return true;
-                } else if (userObjectNode != null && userObjectNextNode !=
-                        null && userObjectNode.toString().equals(userObjectNextNode.toString())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
      * Returns wheter a node is a child of an other node. Compares the user
      * objects of the nodes by their equals operator. If both user objects are
      * null the reference of both nodes will be compared.
@@ -394,16 +340,18 @@ public final class TreeUtil {
      * @return           true if <code>node</code> is child of <code>parentNode</code>
      */
     public static boolean isChild(
-            DefaultMutableTreeNode parentNode, DefaultMutableTreeNode node) {
+            DefaultMutableTreeNode parentNode,
+            DefaultMutableTreeNode node
+            ) {
         Object userObjectNode = node.getUserObject();
-        for (Enumeration children = parentNode.children();
-                children.hasMoreElements();) {
+
+        for (Enumeration children = parentNode.children(); children.hasMoreElements();) {
+
             Object child = children.nextElement();
             if (child instanceof DefaultMutableTreeNode) {
-                Object userObjectNextNode =
-                        ((DefaultMutableTreeNode) child).getUserObject();
-                if (userObjectNode == null && userObjectNextNode == null &&
-                        child == node) {
+                Object userObjectNextNode = ((DefaultMutableTreeNode) child).getUserObject();
+
+                if (userObjectNode == null && userObjectNextNode == null && child == node) {
                     return true;
                 } else if (userObjectNode != null &&
                         userObjectNextNode != null &&
@@ -424,14 +372,17 @@ public final class TreeUtil {
      * @return           found node or null if not found
      */
     public static DefaultMutableTreeNode findNodeWithUserObject(
-            DefaultMutableTreeNode parent, Object userObject) {
+            DefaultMutableTreeNode parent,
+            Object                 userObject
+            ) {
         if (userObject == null) return null;
-        for (Enumeration nodes = parent.preorderEnumeration();
-                nodes.hasMoreElements();) {
+
+        for (Enumeration nodes = parent.preorderEnumeration(); nodes.hasMoreElements();) {
+
             Object node = nodes.nextElement();
             if (node instanceof DefaultMutableTreeNode) {
-                Object userObjectNode =
-                        ((DefaultMutableTreeNode) node).getUserObject();
+                Object userObjectNode = ((DefaultMutableTreeNode) node).getUserObject();
+
                 if (userObjectNode != null && userObject.equals(userObjectNode)) {
                     return (DefaultMutableTreeNode) node;
                 }
@@ -467,7 +418,7 @@ public final class TreeUtil {
         TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0) {
             for (Enumeration e = node.children(); e.hasMoreElements();) {
-                TreeNode n = (TreeNode) e.nextElement();
+                TreeNode n    = (TreeNode) e.nextElement();
                 TreePath path = parent.pathByAddingChild(n);
                 expandAll(tree, path, expand);
             }
@@ -483,7 +434,7 @@ public final class TreeUtil {
 
     public static void deselectAll(JTree tree) {
         TreeSelectionModel m = tree.getSelectionModel();
-        assert m != null : "Selection model is null!";
+        assert m != null;
         if (m != null) {
             m.clearSelection();
         }
@@ -497,10 +448,8 @@ public final class TreeUtil {
      * @return        children of that parent;
      */
     public static List<Object> getAllChildren(TreeModel model, Object parent) {
-        if (model == null)
-            throw new NullPointerException("model == null");
-        if (parent == null)
-            throw new NullPointerException("parent == null");
+        if (model == null)  throw new NullPointerException("model == null");
+        if (parent == null) throw new NullPointerException("parent == null");
 
         List<Object> children = new ArrayList<Object>();
         addChildrenRecursive(model, parent, children);
@@ -508,7 +457,10 @@ public final class TreeUtil {
     }
 
     private static void addChildrenRecursive(
-            TreeModel model, Object parent, List<Object> children) {
+            TreeModel    model,
+            Object       parent,
+            List<Object> children
+            ) {
         int childCount = model.getChildCount(parent);
         for (int i = 0; i < childCount; i++) {
             Object child = model.getChild(parent, i);
@@ -523,9 +475,10 @@ public final class TreeUtil {
      * @param  nodes tree nodes
      * @return       user objects of that tree nodes
      */
-    public static List<Object> getUserObjects(
-            Collection<? extends DefaultMutableTreeNode> nodes) {
+    public static List<Object> getUserObjects(Collection<? extends DefaultMutableTreeNode> nodes) {
+
         List<Object> userObjects = new ArrayList<Object>();
+
         for (DefaultMutableTreeNode node : nodes) {
             userObjects.add(node.getUserObject());
         }
@@ -540,13 +493,10 @@ public final class TreeUtil {
      * @param  parent parent node
      * @return        all paths with parent as root
      */
-    public static List<List<DefaultMutableTreeNode>> getSubtreePaths(
-            DefaultMutableTreeNode parent) {
+    public static List<List<DefaultMutableTreeNode>> getSubtreePaths(DefaultMutableTreeNode parent) {
 
-        List<List<DefaultMutableTreeNode>> paths =
-                new ArrayList<List<DefaultMutableTreeNode>>();
-        List<DefaultMutableTreeNode> leafs =
-                new ArrayList<DefaultMutableTreeNode>();
+        List<List<DefaultMutableTreeNode>> paths = new ArrayList<List<DefaultMutableTreeNode>>();
+        List<DefaultMutableTreeNode>       leafs = new ArrayList<DefaultMutableTreeNode>();
 
         addLeafs(parent, leafs);
         for (DefaultMutableTreeNode leaf : leafs) {
@@ -556,10 +506,12 @@ public final class TreeUtil {
     }
 
     private static List<DefaultMutableTreeNode> getPath(
-            DefaultMutableTreeNode from, DefaultMutableTreeNode to) {
-        List<DefaultMutableTreeNode> path =
-                new ArrayList<DefaultMutableTreeNode>();
-        DefaultMutableTreeNode node = from;
+            DefaultMutableTreeNode from,
+            DefaultMutableTreeNode to
+            ) {
+        List<DefaultMutableTreeNode> path = new ArrayList<DefaultMutableTreeNode>();
+        DefaultMutableTreeNode       node = from;
+
         while (node != to) { // endless if this mehtod will not be used careful
             path.add(node);
             node = (DefaultMutableTreeNode) node.getParent();
@@ -570,7 +522,8 @@ public final class TreeUtil {
     }
 
     private static void addLeafs(
-            DefaultMutableTreeNode parent, Collection<DefaultMutableTreeNode> leafs) {
+            DefaultMutableTreeNode             parent,
+            Collection<DefaultMutableTreeNode> leafs) {
 
         int childCount = parent.getChildCount();
 
