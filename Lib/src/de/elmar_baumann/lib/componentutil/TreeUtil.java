@@ -354,6 +354,37 @@ public final class TreeUtil {
     }
 
     /**
+     * Returns wheter a node is below an other node (one of the children or the
+     * childrens children ...). Compares the user objects of the nodes by their
+     * toString() operator. If both user objects are null the reference of both
+     * nodes will be compared.
+     *
+     * @param parentNode parent node to traverse all nodes below
+     * @param node       searched node
+     * @return           true if <code>node</code> is below <code>parentNode</code>
+     */
+    public static boolean stringIsBelow(
+            DefaultMutableTreeNode parentNode, DefaultMutableTreeNode node) {
+        Object userObjectNode = node.getUserObject();
+        for (Enumeration nodes = parentNode.preorderEnumeration();
+                nodes.hasMoreElements();) {
+            Object nextNode = nodes.nextElement();
+            if (nextNode instanceof DefaultMutableTreeNode) {
+                Object userObjectNextNode =
+                        ((DefaultMutableTreeNode) nextNode).getUserObject();
+                if (userObjectNode == null && userObjectNextNode == null &&
+                        nextNode == node) {
+                    return true;
+                } else if (userObjectNode != null && userObjectNextNode !=
+                        null && userObjectNode.toString().equals(userObjectNextNode.toString())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns wheter a node is a child of an other node. Compares the user
      * objects of the nodes by their equals operator. If both user objects are
      * null the reference of both nodes will be compared.
