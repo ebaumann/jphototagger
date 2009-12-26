@@ -30,20 +30,21 @@ import java.util.List;
  */
 public class IndexInfo {
 
-    private final String tableName;
-    private final String indexName;
-    private final boolean unique;
+    private final String       tableName;
+    private final String       indexName;
+    private final boolean      unique;
     private final List<String> columnNames = new ArrayList<String>();
 
     public IndexInfo(
-            boolean unique,
-            String indexName,
-            String tableName,
-            String columnName,
-            String... columnNames) {
-        this.unique = unique;
-        this.indexName = indexName;
-        this.tableName = tableName;
+            boolean   unique,
+            String    indexName,
+            String    tableName,
+            String    columnName,
+            String... columnNames
+            ) {
+        this.unique     = unique;
+        this.indexName  = indexName;
+        this.tableName  = tableName;
         this.columnNames.add(columnName);
         this.columnNames.addAll(Arrays.asList(columnNames));
     }

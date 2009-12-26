@@ -30,12 +30,8 @@ import de.elmar_baumann.lib.dialog.ProgressDialog;
  */
 class UpdateTablesMessages {
 
-    private ProgressDialog dialog;
+    private      ProgressDialog       dialog;
     static final UpdateTablesMessages INSTANCE = new UpdateTablesMessages();
-
-    ProgressDialog getProgressDialog() {
-        return dialog;
-    }
 
     void message(String text) {
         dialog.setInfoText(text);
@@ -47,8 +43,28 @@ class UpdateTablesMessages {
         ComponentUtil.centerScreen(dialog);
     }
 
-    private UpdateTablesMessages() {
-        initDialog();
+    void clearMessage() {
+        message("");
+    }
+
+    void setVisible(boolean visible) {
+        dialog.setVisible(visible);
+    }
+
+    void setIndeterminate(boolean i) {
+        dialog.setIndeterminate(i);
+    }
+
+    void setMinimum(int minimum) {
+        dialog.setMinimum(minimum);
+    }
+
+    void setMaximum(int maximum) {
+        dialog.setMaximum(maximum);
+    }
+
+    void setValue(int value) {
+        dialog.setValue(value);
     }
 
     private void initDialog() {
@@ -57,5 +73,9 @@ class UpdateTablesMessages {
         dialog.setEnabledStop(false);
         dialog.setTitle(Bundle.getString("UpdateTablesMessages.Title"));
         dialog.setIndeterminate(true);
+    }
+
+    private UpdateTablesMessages() {
+        initDialog();
     }
 }

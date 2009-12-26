@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,18 +34,17 @@ import java.util.List;
  */
 final class UpdateTablesDropColumns {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private final ProgressDialog dialog = messages.getProgressDialog();
-    private final List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();
-    private static final List<ColumnInfo> COLUMNS = new ArrayList<ColumnInfo>();
+    private final        UpdateTablesMessages messages    = UpdateTablesMessages.INSTANCE;
+    private final        List<ColumnInfo>     dropColumns = new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo>     COLUMNS     = new ArrayList<ColumnInfo>();
     
 
     static {
         
-        COLUMNS.add(new ColumnInfo("xmp_dc_subjects", "id", null, null));
-        COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null));
-        COLUMNS.add(new ColumnInfo("favorite_directories", "id", null, null));
-        COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null));
+        COLUMNS.add(new ColumnInfo("xmp_dc_subjects"        , "id", null, null));
+        COLUMNS.add(new ColumnInfo("autoscan_directories"   , "id", null, null));
+        COLUMNS.add(new ColumnInfo("favorite_directories"   , "id", null, null));
+        COLUMNS.add(new ColumnInfo("file_exclude_pattern"   , "id", null, null));
         COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null, null));
     }
 
@@ -68,12 +66,12 @@ final class UpdateTablesDropColumns {
     }
 
     private void dropColumns(Connection connection) throws SQLException {
-        dialog.setIndeterminate(true);
+        messages.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesDropColumns.Info.update"));
         for (ColumnInfo info : dropColumns) {
             dropColumn(connection,info.getTableName(), info.getColumnName());
         }
-        dialog.setIndeterminate(false);
+        messages.setIndeterminate(false);
     }
 
     private void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {

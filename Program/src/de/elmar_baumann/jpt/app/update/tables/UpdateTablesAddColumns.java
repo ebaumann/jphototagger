@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,10 +34,9 @@ import java.util.List;
  */
 final class UpdateTablesAddColumns {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private final ProgressDialog dialog = messages.getProgressDialog();
-    private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
-    private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
+    private final        UpdateTablesMessages messages       = UpdateTablesMessages.INSTANCE;
+    private final        List<ColumnInfo>     missingColumns = new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo>     columns        = new ArrayList<ColumnInfo>();
 
     static {
         columns.add(new ColumnInfo(
@@ -125,12 +123,12 @@ final class UpdateTablesAddColumns {
     }
 
     private void addColumns(Connection connection) throws SQLException {
-        dialog.setIndeterminate(true);
+        messages.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesAddColumns.Info.update"));
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
-        dialog.setIndeterminate(false);
+        messages.setIndeterminate(false);
     }
 
     private void addColumn(Connection connection, ColumnInfo info) throws SQLException {

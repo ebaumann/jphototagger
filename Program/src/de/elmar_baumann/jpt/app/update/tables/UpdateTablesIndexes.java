@@ -36,9 +36,8 @@ import java.util.Map;
  */
 final class UpdateTablesIndexes {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private static final Map<Pair<String, String>, IndexInfo[]> INDEX_TO_REPLACE =
-            new HashMap<Pair<String, String>, IndexInfo[]>();
+    private final        UpdateTablesMessages                   messages         = UpdateTablesMessages.INSTANCE;
+    private static final Map<Pair<String, String>, IndexInfo[]> INDEX_TO_REPLACE = new HashMap<Pair<String, String>, IndexInfo[]>();
 
     static {
         INDEX_TO_REPLACE.put(
@@ -47,15 +46,15 @@ final class UpdateTablesIndexes {
                 "collections"),
                 new IndexInfo[]{
                     new IndexInfo(
-                    false,
-                    "idx_collections_id_collectionnnames",
-                    "collections",
-                    "id_collectionnnames"),
+                        false,
+                        "idx_collections_id_collectionnnames",
+                        "collections",
+                        "id_collectionnnames"),
                     new IndexInfo(
-                    false,
-                    "idx_collections_id_files",
-                    "collections",
-                    "id_files")
+                        false,
+                        "idx_collections_id_files",
+                        "collections",
+                        "id_files")
                 });
     }
 

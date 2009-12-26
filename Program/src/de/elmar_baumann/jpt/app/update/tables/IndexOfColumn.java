@@ -26,16 +26,21 @@ package de.elmar_baumann.jpt.app.update.tables;
  */
 public final class IndexOfColumn {
 
-    private final String tableName;
-    private final String columnName;
-    private final String indexName;
+    private final String  tableName;
+    private final String  columnName;
+    private final String  indexName;
     private final boolean unique;
 
-    IndexOfColumn(String tableName, String columnName, String indexName, boolean unique) {
-        this.tableName = tableName;
+    IndexOfColumn(
+            String  tableName,
+            String  columnName,
+            String  indexName,
+            boolean unique
+            ) {
+        this.tableName  = tableName;
         this.columnName = columnName;
-        this.indexName = indexName;
-        this.unique = unique;
+        this.indexName  = indexName;
+        this.unique     = unique;
     }
 
     String getSql() {

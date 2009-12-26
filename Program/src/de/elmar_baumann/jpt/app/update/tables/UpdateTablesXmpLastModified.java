@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.app.update.tables;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +36,6 @@ import java.sql.Statement;
 final class UpdateTablesXmpLastModified {
 
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private final ProgressDialog dialog = messages.getProgressDialog();
 
     void update(Connection connection) throws SQLException {
         removeColumnXmpLastModifiedFromTableXmp(connection);
@@ -82,7 +80,7 @@ final class UpdateTablesXmpLastModified {
             stmtUpdate.setLong(1, lastModified);
             stmtUpdate.setLong(2, idFiles);
             stmtUpdate.execute();
-            dialog.setValue(++count);
+            messages.setValue(++count);
         }
         stmtQueryXmp.close();
         stmtUpdate.close();
@@ -90,9 +88,9 @@ final class UpdateTablesXmpLastModified {
 
     private void setProgressDialog() {
         messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.SetLastModified"));
-        dialog.setIndeterminate(false);
-        dialog.setMinimum(0);
-        dialog.setMaximum(DatabaseStatistics.INSTANCE.getXmpCount());
-        dialog.setValue(0);
+        messages.setIndeterminate(false);
+        messages.setMinimum(0);
+        messages.setMaximum(DatabaseStatistics.INSTANCE.getXmpCount());
+        messages.setValue(0);
     }
 }

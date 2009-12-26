@@ -36,16 +36,17 @@ public final class UpdateTables extends Database {
     }
 
     public void update(Connection connection) throws SQLException {
-        new UpdateTablesDropColumns().update(connection);
-        new UpdateTablesRenameColumns().update(connection);
-        new UpdateTablesAddColumns().update(connection);
-        new UpdateTablesIndexes().update(connection);
-        new UpdateTablesPrimaryKeys().update(connection);
-        new UpdateTablesXmpLastModified().update(connection);
-        new UpdateTablesPrograms().update(connection);
+        new UpdateTablesDropColumns()      .update(connection);
+        new UpdateTablesRenameColumns()    .update(connection);
+        new UpdateTablesAddColumns()       .update(connection);
+        new UpdateTablesIndexes()          .update(connection);
+        new UpdateTablesPrimaryKeys()      .update(connection);
+        new UpdateTablesXmpLastModified()  .update(connection);
+        new UpdateTablesPrograms()         .update(connection);
         new UpdateTablesDeleteInvalidExif().update(connection);
-        new UpdateTablesThumbnails().update(connection);
-        new UpdateTablesDropCategories().update(connection);
-        UpdateTablesMessages.INSTANCE.getProgressDialog().setVisible(false);
+        new UpdateTablesThumbnails()       .update(connection);
+        new UpdateTablesDropCategories()   .update(connection);
+
+        UpdateTablesMessages.INSTANCE.setVisible(false);
     }
 }

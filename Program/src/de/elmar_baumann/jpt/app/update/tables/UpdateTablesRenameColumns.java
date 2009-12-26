@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.dialog.ProgressDialog;
 import de.elmar_baumann.lib.generics.Pair;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -36,17 +35,15 @@ import java.util.List;
  */
 final class UpdateTablesRenameColumns {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private final ProgressDialog dialog = messages.getProgressDialog();
-    private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
-            new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
-    private static final List<Pair<ColumnInfo, ColumnInfo>> COLUMNS =
-            new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+    private final        UpdateTablesMessages               messages      = UpdateTablesMessages.INSTANCE;
+    private final        List<Pair<ColumnInfo, ColumnInfo>> renameColumns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+    private static final List<Pair<ColumnInfo, ColumnInfo>> COLUMNS       = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
 
     static {
         COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(
-                new ColumnInfo("programs", "parameters", null, null),
-                new ColumnInfo(null, "parameters_before_filename", null, null)));
+                new ColumnInfo("programs", "parameters"                , null, null),
+                new ColumnInfo(null      , "parameters_before_filename", null, null)
+                ));
     }
 
     void update(Connection connection) throws SQLException {
@@ -69,12 +66,12 @@ final class UpdateTablesRenameColumns {
     }
 
     private void renameColumns(Connection connection) throws SQLException {
-        dialog.setIndeterminate(true);
+        messages.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTableRenameColumns.Info.update"));
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
-        dialog.setIndeterminate(false);
+        messages.setIndeterminate(false);
     }
 
     private void renameColumn(Connection connection,

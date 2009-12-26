@@ -50,15 +50,20 @@ import java.sql.Statement;
  */
 final class UpdateTablesDropCategories {
 
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
+
     void update(Connection connection) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp_photoshop_supplementalcategories"))
             return;
 
-        UpdateTablesMessages.INSTANCE.message(Bundle.getString("UpdateTablesDropCategories.Info"));
+        messages.message(Bundle.getString("UpdateTablesDropCategories.Info"));
+        messages.setIndeterminate(true);
+
         if (saveCategoriesToFile(connection)) {
             updateDatabase(connection);
             fixSavedSearches(connection);
         }
+        messages.setIndeterminate(false);
     }
 
     private boolean saveCategoriesToFile(Connection connection) throws SQLException {
@@ -133,8 +138,7 @@ final class UpdateTablesDropCategories {
     private void importCategories() {
         String filename = getFilename();
         if (MessageDisplayer.confirm(null, "UpdateTablesDropCategories.Confirm.Import",
-                MessageDisplayer.CancelButton.HIDE, filename).equals(
-                    MessageDisplayer.ConfirmAction.YES)) {
+                MessageDisplayer.CancelButton.HIDE, filename).equals(MessageDisplayer.ConfirmAction.YES)) {
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(
