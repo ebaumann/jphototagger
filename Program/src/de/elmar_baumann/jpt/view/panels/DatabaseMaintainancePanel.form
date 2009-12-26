@@ -20,11 +20,11 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="scrollPaneMessages" alignment="0" pref="456" max="32767" attributes="0"/>
-                  <Component id="progressBar" alignment="1" pref="456" max="32767" attributes="2"/>
+                  <Component id="scrollPaneMessages" alignment="0" pref="458" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="1" pref="458" max="32767" attributes="2"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonDeleteMessages" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="158" max="32767" attributes="0"/>
+                      <EmptySpace pref="160" max="32767" attributes="0"/>
                       <Component id="buttonAbortAction" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
@@ -109,7 +109,7 @@
           </Border>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[16, 16]"/>
+          <Dimension value="[18, 18]"/>
         </Property>
       </Properties>
     </Component>
@@ -132,7 +132,7 @@
           </Border>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[16, 16]"/>
+          <Dimension value="[18, 18]"/>
         </Property>
       </Properties>
     </Component>
@@ -154,7 +154,7 @@
           </Border>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[16, 16]"/>
+          <Dimension value="[18, 18]"/>
         </Property>
       </Properties>
     </Component>
