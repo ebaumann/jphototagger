@@ -99,7 +99,9 @@ public final class ControllerCopyPasteMetadata
     private boolean checkSelected() {
         int selCount =tnPanel.getSelectionCount();
         if (selCount <= 0) {
-            MessageDisplayer.error(null, "ControllerCopyPasteMetadata.Error.NoSelection");
+            MessageDisplayer.error(
+                    null,
+                    "ControllerCopyPasteMetadata.Error.NoSelection");
             return false;
         }
         return true;
@@ -107,7 +109,9 @@ public final class ControllerCopyPasteMetadata
 
     private boolean checkCanEdit(EditMetadataPanelsArray editPanel) {
         if (!editPanel.isEditable()) {
-            MessageDisplayer.error(null, "ControllerCopyPasteMetadata.Error.NotEditable");
+            MessageDisplayer.error(
+                    null,
+                    "ControllerCopyPasteMetadata.Error.NotEditable");
             return false;
         }
         return true;

@@ -111,7 +111,8 @@ public abstract class ControllerHierarchicalKeywords
 
     private boolean checkSingleSelection(JTree tree) {
         if (tree.getSelectionCount() != 1) {
-            MessageDisplayer.error(null,
+            MessageDisplayer.error(
+                    null,
                     "ControllerHierarchicalKeywords.Error.MultiSelection");
             return false;
         }

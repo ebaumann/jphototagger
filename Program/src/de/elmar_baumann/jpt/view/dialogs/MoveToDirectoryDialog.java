@@ -96,8 +96,7 @@ public final class MoveToDirectoryDialog extends Dialog
 
     private void checkClosing() {
         if (runs) {
-            MessageDisplayer.error(this,
-                    "MoveToDirectoryDialog.Error.AbortBeforeClose");
+            MessageDisplayer.error(this, "MoveToDirectoryDialog.Error.AbortBeforeClose");
         } else {
             setVisible(false);
         }
@@ -105,8 +104,7 @@ public final class MoveToDirectoryDialog extends Dialog
 
     private void checkErrors() {
         if (errors) {
-            MessageDisplayer.error(this,
-                    "MoveToDirectoryDialog.Error.CheckLogfile");
+            MessageDisplayer.error(this, "MoveToDirectoryDialog.Error.CheckLogfile");
         }
     }
 
@@ -170,7 +168,8 @@ public final class MoveToDirectoryDialog extends Dialog
                     setIconToLabelTargetDirectory();
                     buttonStart.setEnabled(true);
                 } else {
-                    MessageDisplayer.error(this,
+                    MessageDisplayer.error(
+                            this,
                             "MoveToDirectoryDialog.TargetDirNotWritable",
                             targetDirectory);
                 }

@@ -78,7 +78,9 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             writeProperties();
             setVisible(false);
         } else {
-            MessageDisplayer.error(this, "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
+            MessageDisplayer.error(
+                    this,
+                    "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
         }
     }
 

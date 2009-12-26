@@ -118,7 +118,8 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
     private boolean checkImportSelection(TransferSupport transferSupport) {
         JTree tree = (JTree) transferSupport.getComponent();
         if (tree.getSelectionCount() != 1) {
-            MessageDisplayer.error(null,
+            MessageDisplayer.error(
+                    null,
                     "TransferHandlerTreeHierarchicalKeywords.Error.Import.Selection");
             return false;
         }

@@ -56,7 +56,8 @@ public final class ModifySavedSearches {
                                     0, model.getSize() - 1);
                         }
                     } else {
-                        MessageDisplayer.error(null,
+                        MessageDisplayer.error(
+                                null,
                                 "SavedSearchesModifier.Error.SearchCouldntBeSaved");
                     }
                 }
@@ -80,7 +81,8 @@ public final class ModifySavedSearches {
                         ListModelSavedSearches model = getModel();
                         model.removeElement(savedSearch);
                     } else {
-                        MessageDisplayer.error(null,
+                        MessageDisplayer.error(
+                                null,
                                 "SavedSearchesModifier.Error.SavedSearchCouldntBeDeleted");
                     }
                 }
@@ -105,14 +107,16 @@ public final class ModifySavedSearches {
                     if (db.updateRenameSavedSearch(oldName, newName)) {
                         SavedSearch newSearch = db.getSavedSearch(newName);
                         if (newSearch == null) {
-                            MessageDisplayer.error(null,
+                            MessageDisplayer.error(
+                                    null,
                                     "SavedSearchesModifier.Error.SavedSearchWasRenamedButCouldntBeLoaded",
                                     oldName);
                         } else {
                             getModel().rename(oldSearch, newSearch);
                         }
                     } else {
-                        MessageDisplayer.error(null,
+                        MessageDisplayer.error(
+                                null,
                                 "SavedSearchesModifier.Error.RenameFailed",
                                 oldName);
                     }

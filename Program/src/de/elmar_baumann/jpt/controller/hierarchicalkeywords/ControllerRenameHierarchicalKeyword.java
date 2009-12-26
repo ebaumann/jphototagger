@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
-import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -66,8 +65,10 @@ public class ControllerRenameHierarchicalKeyword
         if (userObject instanceof HierarchicalKeyword) {
             renameKeyword(node, (HierarchicalKeyword) userObject);
         } else {
-            MessageDisplayer.error(getHKPanel().getTree(),
-                    "ControllerRenameHierarchicalKeyword.Error.Node", node);
+            MessageDisplayer.error(
+                    null,
+                    "ControllerRenameHierarchicalKeyword.Error.Node",
+                    node);
         }
     }
 

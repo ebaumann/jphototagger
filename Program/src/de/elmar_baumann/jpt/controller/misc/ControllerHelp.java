@@ -183,8 +183,7 @@ public final class ControllerHelp
         } catch (Exception ex) {
             AppLog.logSevere(AppInfo.class, ex);
         }
-        MessageDisplayer.error(
-                null, "ControllerHelp.Error.NoPdfFile", manualPath);
+        MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile", manualPath);
         return null;
     }
 

@@ -76,11 +76,13 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
             } else {
-                MessageDisplayer.error(getHKPanel().getTree(),
+                MessageDisplayer.error(
+                        null,
                         "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.EditDisabled");
             }
         } else {
-            MessageDisplayer.error(getHKPanel().getTree(),
+            MessageDisplayer.error(
+                    null,
                     "ControllerRemoveHierarchicalKeywordFromEditPanel.Error.NoEditPanel");
         }
     }

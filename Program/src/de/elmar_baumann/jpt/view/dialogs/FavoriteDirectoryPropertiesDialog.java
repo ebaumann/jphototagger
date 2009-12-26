@@ -142,7 +142,8 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
             String favoriteName = textFieldFavoriteName.getText().trim();
             boolean exists = db.existsFavoriteDirectory(favoriteName);
             if (!isUpdate && exists) {
-                MessageDisplayer.error(this,
+                MessageDisplayer.error(
+                        this,
                         "FavoriteDirectoryPropertiesDialog.Error.FavoriteExists", //
                         favoriteName);
             } else {
@@ -154,7 +155,8 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
     private boolean checkValuesOk() {
         if (!valuesOk()) {
-            MessageDisplayer.error(this,
+            MessageDisplayer.error(
+                    this,
                     "FavoriteDirectoryPropertiesDialog.Error.InvalidInput"); //
             return false;
         }

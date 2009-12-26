@@ -67,7 +67,8 @@ public class ControllerToggleRealHierarchicalKeyword
                         "ControllerToggleRealHierarchicalKeyword.Error.Model");
                 }
         } else {
-            MessageDisplayer.error(getHKPanel().getTree(),
+            MessageDisplayer.error(
+                    null,
                     "ControllerToggleRealHierarchicalKeyword.Error.Node",
                     node);
         }

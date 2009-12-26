@@ -175,7 +175,8 @@ public final class AppLifeCycle {
                     AppLog.logSevere(getClass(), ex);
                 }
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    MessageDisplayer.error(appFrame,
+                    MessageDisplayer.error(
+                            null,
                             "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
                             timeoutMilliSeconds);
                 }

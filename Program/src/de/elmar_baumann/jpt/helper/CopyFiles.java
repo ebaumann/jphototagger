@@ -200,7 +200,9 @@ public final class CopyFiles implements Runnable {
 
     private boolean checkDifferent(Pair<File, File> filePair) {
         if (filePair.getFirst().equals(filePair.getSecond())) {
-            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals",
+            MessageDisplayer.error(
+                    null,
+                    "CopyFiles.Error.FilesAreEquals",
                     filePair.getFirst());
             return false;
         }

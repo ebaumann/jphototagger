@@ -81,11 +81,13 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
                     editPanel.addText(keywordName);
                 }
             } else {
-                MessageDisplayer.error(getHKPanel().getTree(),
+                MessageDisplayer.error(
+                        null,
                         "ControllerAddHierarchicalKeywordsToEditPanel.Error.EditDisabled");
             }
         } else {
-            MessageDisplayer.error(getHKPanel().getTree(),
+            MessageDisplayer.error(
+                    null,
                     "ControllerAddHierarchicalKeywordsToEditPanel.Error.NoEditPanel");
         }
     }

@@ -97,7 +97,8 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
     }
 
     private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
-        MessageDisplayer.error(null,
+        MessageDisplayer.error(
+                null,
                 "ControllerDeleteThumbnailsFromDatabase.Error.DeleteSelectedFiles",
                 countFiles, countDeleted);
     }

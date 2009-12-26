@@ -126,7 +126,7 @@ public final class ListModelImageCollections extends DefaultListModel {
 
         if (isSpecialCollection(collectionName)) {
             MessageDisplayer.warning(
-                    GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                    null,
                     propertyKey,
                     collectionName);
             return false;
