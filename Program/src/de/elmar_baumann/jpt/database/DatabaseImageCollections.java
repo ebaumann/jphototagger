@@ -181,8 +181,7 @@ public final class DatabaseImageCollections extends Database {
             added = true;
             stmtName.close();
             stmtColl.close();
-            notifyDatabaseListener(
-                    Type.COLLECTION_INSERTED, collectionName, filenames);
+            notifyDatabaseListener(Type.COLLECTION_INSERTED, collectionName, filenames);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
@@ -213,8 +212,7 @@ public final class DatabaseImageCollections extends Database {
             stmt.executeUpdate();
             deleted = true;
             stmt.close();
-            notifyDatabaseListener(
-                    Type.COLLECTION_DELETED, collectionname, affectedFiles);
+            notifyDatabaseListener(Type.COLLECTION_DELETED, collectionname, affectedFiles);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageCollections.class, ex);
         } finally {

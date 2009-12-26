@@ -50,6 +50,7 @@ final class UpdateTablesXmpLastModified {
             Statement stmt = connection.createStatement();
             messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.RemoveColumnXmpLastModified"));
             stmt.execute("ALTER TABLE xmp DROP COLUMN lastmodified");
+            stmt.close();
         }
     }
 
@@ -60,6 +61,7 @@ final class UpdateTablesXmpLastModified {
             messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.AddColumn"));
             stmt.execute("ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT");
             copyLastModifiedToXmp(connection);
+            stmt.close();
         }
     }
 

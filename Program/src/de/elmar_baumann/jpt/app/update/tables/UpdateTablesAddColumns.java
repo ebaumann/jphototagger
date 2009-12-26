@@ -133,8 +133,8 @@ final class UpdateTablesAddColumns {
         dialog.setIndeterminate(false);
     }
 
-    private void addColumn(Connection connection, ColumnInfo info) throws
-            SQLException {
+    private void addColumn(Connection connection, ColumnInfo info) throws SQLException {
+
         setMessage(info.getTableName(), info.getColumnName());
         Statement stmt = connection.createStatement();
         stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " +
@@ -142,6 +142,7 @@ final class UpdateTablesAddColumns {
         if (info.getIndex() != null) {
             stmt.execute(info.getIndex().getSql());
         }
+        stmt.close();
     }
 
     private void setMessage(String tableName, String columnName) {
@@ -178,5 +179,6 @@ final class UpdateTablesAddColumns {
     void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("ALTER TABLE " + tableName + " DROP "+columnName);
+        stmt.close();
     }
 }

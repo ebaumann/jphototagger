@@ -173,9 +173,8 @@ public final class DatabaseAutoscanDirectories extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            String sql =
-                    "SELECT directory FROM autoscan_directories" +
-                    " ORDER BY directory ASC";
+            String sql = "SELECT directory FROM autoscan_directories" +
+                         " ORDER BY directory ASC";
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {

@@ -80,6 +80,7 @@ final class UpdateTablesDropColumns {
         setMessage(tableName, columnName);
         Statement stmt = connection.createStatement();
         stmt.execute("ALTER TABLE " + tableName + " DROP COLUMN " + columnName);
+        stmt.close();
     }
 
     private void setMessage(String tableName, String columnName) {

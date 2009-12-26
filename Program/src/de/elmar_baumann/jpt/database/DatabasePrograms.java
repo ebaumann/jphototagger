@@ -124,6 +124,7 @@ public final class DatabasePrograms extends Database {
         if (rs.next()) {
             program.setId(rs.getLong(1) + 1);
         }
+        stmt.close();
     }
 
     /**
