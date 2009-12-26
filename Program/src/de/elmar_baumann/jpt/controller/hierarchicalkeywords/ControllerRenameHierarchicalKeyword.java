@@ -24,14 +24,12 @@ import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
@@ -98,8 +96,10 @@ public class ControllerRenameHierarchicalKeyword
         String oldName = keyword.getKeyword();
         boolean confirmed = true;
         while (newName == null && confirmed) {
-            newName = JOptionPane.showInputDialog(null,
-                    Bundle.getString("ControllerRenameHierarchicalKeyword.Input.Name", oldName),
+            newName = MessageDisplayer.input(
+                    "ControllerRenameHierarchicalKeyword.Input.Name",
+                    oldName,
+                    ControllerRenameHierarchicalKeyword.class.getName(),
                     oldName);
             confirmed = newName != null;
             if (newName != null && !newName.trim().isEmpty()) {

@@ -18,7 +18,9 @@
  */
 package de.elmar_baumann.jpt.app;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.dialog.InputDialog;
 import java.awt.Component;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,14 +34,37 @@ import javax.swing.JOptionPane;
  */
 public final class MessageDisplayer {
 
-    private static final Map<Integer, String> defaultTitleOfMessageType =
-            new HashMap<Integer, String>();
+    private static final Map<Integer, String> defaultTitleOfMessageType = new HashMap<Integer, String>();
+    private static final InputDialog          inputDialog               = new InputDialog();
 
     static {
         defaultTitleOfMessageType.put(JOptionPane.ERROR_MESSAGE      , Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage"));
         defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE    , Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage"));
         defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE, Bundle.getString("MessageDisplayer.DefaultTitle.Info"));
         defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE   , Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage"));
+
+        inputDialog.setIconImages(AppLookAndFeel.getAppIcons());
+    }
+
+    /**
+     * Displays a input dialog.
+     *
+     * @param infoBundleKey Bundle key of info (prompts, what to input) or null
+     * @param input         default value or null
+     * @param propertyKey   key to write size and location
+     * @param infoArgs      optional argumets for the info message
+     * @return              input or null if the user cancelled the input
+     */
+    public static String input(String infoBundleKey, String input, String propertyKey, Object... infoArgs) {
+        assert propertyKey != null;
+        inputDialog.setInfo(infoBundleKey == null ? "" : Bundle.getString(infoBundleKey, infoArgs));
+        inputDialog.setInput(input == null ? "" : input);
+        inputDialog.setProperties(UserSettings.INSTANCE.getProperties(), propertyKey + ".InputDialog");
+        inputDialog.setVisible(true);
+        inputDialog.toFront();
+        boolean accepted = inputDialog.isAccepted();
+        UserSettings.INSTANCE.writeToFile();
+        return accepted ? inputDialog.getInput() : null;
     }
 
     /**
@@ -52,8 +77,7 @@ public final class MessageDisplayer {
      *                    title. Else a default title will be set.
      * @param params      parameters for message format placeholders
      */
-    public static void error(
-            Component component, String propertyKey, Object... params) {
+    public static void error(Component component, String propertyKey, Object... params) {
         message(component, propertyKey, JOptionPane.ERROR_MESSAGE, params);
     }
 
@@ -67,8 +91,7 @@ public final class MessageDisplayer {
      *                    title. Else a default title will be set.
      * @param params      parameters for message format placeholders
      */
-    public static void warning(
-            Component component, String propertyKey, Object... params) {
+    public static void warning(Component component, String propertyKey, Object... params) {
         message(component, propertyKey, JOptionPane.WARNING_MESSAGE, params);
     }
 
@@ -82,8 +105,7 @@ public final class MessageDisplayer {
      *                    title. Else a default title will be set.
      * @param params      parameters for message format placeholders
      */
-    public static void information(
-            Component component, String propertyKey, Object... params) {
+    public static void information(Component component, String propertyKey, Object... params) {
         message(component, propertyKey, JOptionPane.INFORMATION_MESSAGE, params);
     }
 
@@ -179,21 +201,23 @@ public final class MessageDisplayer {
      * @return             user action
      */
     public static ConfirmAction confirm(
-            Component component,
-            String propertyKey,
+            Component    component,
+            String       propertyKey,
             CancelButton cancelButton,
-            Object... params) {
+            Object...    params
+            ) {
 
         return ConfirmAction.actionOfOptionType(
-                JOptionPane.showConfirmDialog(component,
-                Bundle.getString(propertyKey, params),
-                getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
-                cancelButton.isShow()
-                ? JOptionPane.YES_NO_CANCEL_OPTION
-                : JOptionPane.YES_NO_OPTION),
-                cancelButton.isShow()
-                ? ConfirmAction.CANCEL
-                : ConfirmAction.NO);
+                JOptionPane.showConfirmDialog(
+                    component,
+                    Bundle.getString(propertyKey, params),
+                    getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
+                    cancelButton.isShow()
+                        ? JOptionPane.YES_NO_CANCEL_OPTION
+                        : JOptionPane.YES_NO_OPTION),
+                        cancelButton.isShow()
+                        ? ConfirmAction.CANCEL
+                        : ConfirmAction.NO);
     }
 
     private static void message(

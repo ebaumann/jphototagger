@@ -22,10 +22,8 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
-import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  * Verwaltet Bildsammlungen der Datenbank.
@@ -230,10 +228,10 @@ public final class ModifyImageCollections {
     }
 
     private static String getCollectionName(String defaultName) {
-        String name = JOptionPane.showInputDialog(
-                null,
-                Bundle.getString("ImageCollectionToDatabase.Input.CollectionName"),
-                defaultName);
+        String name = MessageDisplayer.input(
+                "ImageCollectionToDatabase.Input.CollectionName",
+                defaultName,
+                ModifyImageCollections.class.getName());
         if (name != null) {
             name = name.trim();
             if (name.isEmpty()) {
