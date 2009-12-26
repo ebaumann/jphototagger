@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.database.DatabaseApplication;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.dialog.ProgressDialog;
 import de.elmar_baumann.lib.image.util.ImageUtil;
 import de.elmar_baumann.lib.io.FileLock;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -52,21 +51,19 @@ import javax.swing.ImageIcon;
  */
 final class UpdateTablesThumbnails extends Database {
 
-    private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 =
-            "Updated_Thumbnails_Names_Hash_1"; // Never change this!
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private final ProgressDialog progress = messages.getProgressDialog();
-    private static final int FETCH_MAX_ROWS = 1000;
+    private static final String               KEY_UPATED_THUMBNAILS_NAMES_HASH_1 = "Updated_Thumbnails_Names_Hash_1"; // Never change this!
+    private final        UpdateTablesMessages messages                           = UpdateTablesMessages.INSTANCE;
+    private static final int                  FETCH_MAX_ROWS                     = 1000;
 
     void update(Connection connection) throws SQLException {
         writeThumbnailsFromTableIntoFilesystem(connection);
         convertThumbnailIdNamesIntoHashNames(connection);
     }
 
-    public void writeThumbnailsFromTableIntoFilesystem(Connection connection)
-            throws SQLException {
-        int count = getCount(connection);
+    public void writeThumbnailsFromTableIntoFilesystem(Connection connection) throws SQLException {
+        int count   = getCount(connection);
         int current = 1;
+
         setProgressDialogRange(count);
         for (int offset = 0; offset < count; offset += FETCH_MAX_ROWS) {
             current = updateRows(connection, current, count);
@@ -76,8 +73,8 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private int updateRows(Connection connection, int current, int count)
-            throws SQLException {
+    private int updateRows(Connection connection, int current, int count) throws SQLException {
+
         String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " +
                 "id, thumbnail FROM files WHERE thumbnail IS NOT NULL";
         Statement stmt = connection.createStatement();
@@ -89,7 +86,7 @@ final class UpdateTablesThumbnails extends Database {
             setMessageCurrentFile(id, current, count,
                     "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table");
             writeThumbnail(inputStream, id);
-            progress.setValue(current++);
+            messages.setValue(current++);
         }
         clean(stmt, rs);
         return current;
@@ -237,21 +234,20 @@ final class UpdateTablesThumbnails extends Database {
 
     private void compress() {
         messages.message(Bundle.getString("UpdateTablesThumbnails.Info.CompressDatabase"));
-        progress.setIndeterminate(true);
+        messages.setIndeterminate(true);
         DatabaseMaintainance.INSTANCE.compressDatabase();
-        progress.setIndeterminate(false);
+        messages.setIndeterminate(false);
     }
 
     private void setProgressDialogRange(long count) {
-        progress.setIndeterminate(false);
-        progress.setMinimum(0);
-        progress.setMaximum((int) count);
-        progress.setValue(0);
+        messages.setIndeterminate(false);
+        messages.setMinimum(0);
+        messages.setMaximum((int) count);
+        messages.setValue(0);
     }
 
-    private void setMessageCurrentFile(
-            long id, long current, long count, String message) {
+    private void setMessageCurrentFile(long id, long current, long count, String message) {
         messages.message(Bundle.getString(message, id, current, count));
-        progress.setValue((int) current);
+        messages.setValue((int) current);
     }
 }

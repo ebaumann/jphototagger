@@ -35,9 +35,8 @@ import java.util.List;
  */
 final class UpdateTablesPrimaryKeys {
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP =
-            new ArrayList<String>();
+    private final        UpdateTablesMessages messages                    = UpdateTablesMessages.INSTANCE;
+    private static final List<String>         TABLES_PRIMARY_KEYS_TO_DROP = new ArrayList<String>();
 
     void update(Connection connection) throws SQLException {
         messages.message(Bundle.getString("UpdateTablesPrimaryKeys.Info"));
