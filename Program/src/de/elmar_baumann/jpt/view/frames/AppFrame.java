@@ -239,10 +239,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemThumbnailSizeIncrease;
     }
 
-    public JMenuItem getMenuItemLastEditedWords() {
-        return menuItemLastEditedWords;
-    }
-
     public JMenuItem getMenuItemInputHelper() {
         return menuItemInputHelper;
     }
@@ -376,7 +372,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemCopyKeywordsToHierarchicalKeywords = new javax.swing.JMenuItem();
         menuWindow = new javax.swing.JMenu();
         menuItemInputHelper = new javax.swing.JMenuItem();
-        menuItemLastEditedWords = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
         menuItemOutputWindow = new javax.swing.JMenuItem();
@@ -659,11 +654,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper.setText(Bundle.getString("AppFrame.menuItemInputHelper.text")); // NOI18N
         menuWindow.add(menuItemInputHelper);
 
-        menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_insert_words.png"))); // NOI18N
-        menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
-        menuWindow.add(menuItemLastEditedWords);
-
         menuItemActions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_action.png"))); // NOI18N
         menuItemActions.setText(Bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
@@ -759,7 +749,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemImportKeywords;
     private javax.swing.JMenuItem menuItemInputHelper;
-    private javax.swing.JMenuItem menuItemLastEditedWords;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
     private javax.swing.JMenuItem menuItemOutputWindow;

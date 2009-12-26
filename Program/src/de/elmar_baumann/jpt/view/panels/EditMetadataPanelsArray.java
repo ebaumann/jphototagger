@@ -50,7 +50,6 @@ import de.elmar_baumann.jpt.event.listener.TextSelectionListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.TextSelectionDialog;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Component;
@@ -575,7 +574,6 @@ public final class EditMetadataPanelsArray implements FocusListener,
     private void listenToActionSources() {
         DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
-        TextSelectionDialog.INSTANCE.getPanel().addTextSelectionListener(this);
     }
 
     private void addActionPanel() {
@@ -675,9 +673,6 @@ public final class EditMetadataPanelsArray implements FocusListener,
             text = ((JTextField) c).getText().trim();
         } else if (c instanceof JTextArea) {
             text = ((JTextArea) c).getText().trim();
-        }
-        if (!text.isEmpty()) {
-            TextSelectionDialog.INSTANCE.getPanel().setText(text);
         }
     }
 
