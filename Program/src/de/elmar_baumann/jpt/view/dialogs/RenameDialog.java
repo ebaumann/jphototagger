@@ -358,10 +358,10 @@ public final class RenameDialog extends Dialog {
     }
 
     private void errorMessageNotRenamed(String filename) {
-        if (MessageDisplayer.confirm(this,
+        if (!MessageDisplayer.confirmYesNo(
+                this,
                 "RenameDialog.Confirm.RenameNextFile",
-                MessageDisplayer.CancelButton.HIDE, filename).equals(
-                MessageDisplayer.ConfirmAction.NO)) {
+                filename)) {
             stop = true;
             setVisible(false);
             dispose();

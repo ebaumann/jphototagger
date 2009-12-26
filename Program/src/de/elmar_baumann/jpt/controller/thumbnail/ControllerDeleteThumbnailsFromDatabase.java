@@ -90,11 +90,10 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
     }
 
     private boolean confirmDelete() {
-        return MessageDisplayer.confirm(null,
+        return MessageDisplayer.confirmYesNo(
+                null,
                 "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
-                MessageDisplayer.CancelButton.HIDE,
-                thumbnailsPanel.getSelectionCount()).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                thumbnailsPanel.getSelectionCount());
     }
 
     private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {

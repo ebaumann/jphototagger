@@ -107,10 +107,10 @@ public class ControllerRenameHierarchicalKeyword
                         keyword.getIdParent(), newName.trim(), keyword.isReal());
                 if (database.parentHasChild(s)) {
                     newName = null;
-                    confirmed = MessageDisplayer.confirm(tree,
+                    confirmed = MessageDisplayer.confirmYesNo(
+                            null,
                             "ControllerRenameHierarchicalKeyword.Confirm.Exists",
-                            MessageDisplayer.CancelButton.HIDE, s).equals(
-                            MessageDisplayer.ConfirmAction.YES);
+                            s);
                 }
             }
         }

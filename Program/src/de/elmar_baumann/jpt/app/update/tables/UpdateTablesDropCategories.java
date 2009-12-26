@@ -137,8 +137,7 @@ final class UpdateTablesDropCategories {
 
     private void importCategories() {
         String filename = getFilename();
-        if (MessageDisplayer.confirm(null, "UpdateTablesDropCategories.Confirm.Import",
-                MessageDisplayer.CancelButton.HIDE, filename).equals(MessageDisplayer.ConfirmAction.YES)) {
+        if (MessageDisplayer.confirmYesNo(null, "UpdateTablesDropCategories.Confirm.Import", filename)) {
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(

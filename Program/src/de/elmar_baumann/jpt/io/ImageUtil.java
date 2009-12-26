@@ -78,7 +78,7 @@ public final class ImageUtil {
      *
      * @param sourceFiles     source files
      * @param targetDirectory target directory
-     * @param confirm         true if the user shall confirm copying
+     * @param confirmYesNo         true if the user shall confirmYesNo copying
      */
     public static void copyImageFiles(
             List<File> sourceFiles, File targetDirectory, boolean confirm) {
@@ -100,7 +100,7 @@ public final class ImageUtil {
      *
      * @param sourceFiles     source files
      * @param targetDirectory target directory
-     * @param confirm         true if the user shall confirm copying
+     * @param confirmYesNo         true if the user shall confirmYesNo copying
      */
     public static void moveImageFiles(
             List<File> sourceFiles, File targetDirectory, boolean confirm) {
@@ -118,9 +118,10 @@ public final class ImageUtil {
 
     private static boolean confirmFileAction(
             String bundleKey, int size, String absolutePath) {
-        return MessageDisplayer.confirm(null, bundleKey,
-                MessageDisplayer.CancelButton.HIDE, size, absolutePath).equals(
-                MessageDisplayer.ConfirmAction.YES);
+        return MessageDisplayer.confirmYesNo(
+                null,
+                bundleKey,
+                size, absolutePath);
     }
 
     private synchronized static void addProgressListener(

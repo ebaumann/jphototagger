@@ -92,10 +92,10 @@ public final class AppLock {
     }
 
     private static boolean confirmForceUnlock() {
-        return MessageDisplayer.confirm(null,
+        return MessageDisplayer.confirmYesNo(
+                null,
                 "AppLock.Error.LockFileExists",
-                MessageDisplayer.CancelButton.HIDE, LOCKFILE_NAME).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                LOCKFILE_NAME);
     }
 
     private static void errorMessageDelete() {

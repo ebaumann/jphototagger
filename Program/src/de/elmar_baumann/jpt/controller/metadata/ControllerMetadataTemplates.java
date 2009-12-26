@@ -213,16 +213,16 @@ public final class ControllerMetadataTemplates
     }
 
     private boolean confirmDelete(String templateName) {
-        return MessageDisplayer.confirm(buttonMetadataTemplateDelete,
+        return MessageDisplayer.confirmYesNo(
+                null,
                 "ControllerMetadataTemplates.Confirm.Delete",
-                MessageDisplayer.CancelButton.HIDE, templateName).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                templateName);
     }
 
     private boolean confirmOverride(String name) {
-        return MessageDisplayer.confirm(buttonMetadataTemplateRename,
+        return !MessageDisplayer.confirmYesNo(
+                null,
                 "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate",
-                MessageDisplayer.CancelButton.HIDE, name).equals(
-                MessageDisplayer.ConfirmAction.NO);
+                name);
     }
 }

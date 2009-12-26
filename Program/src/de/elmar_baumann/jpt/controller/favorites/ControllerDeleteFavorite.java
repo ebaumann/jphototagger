@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.app.MessageDisplayer.CancelButton;
 import de.elmar_baumann.jpt.data.FavoriteDirectory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -94,10 +93,10 @@ public final class ControllerDeleteFavorite
     }
 
     private boolean confirmDelete(String favoriteName) {
-        return MessageDisplayer.confirm(tree,
+        return MessageDisplayer.confirmYesNo(
+                null,
                 "ControllerDeleteFavorite.Confirm.Delete",
-                CancelButton.SHOW, favoriteName).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                favoriteName);
     }
 
     @Override

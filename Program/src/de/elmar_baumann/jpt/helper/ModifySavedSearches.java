@@ -156,28 +156,24 @@ public final class ModifySavedSearches {
     }
 
     private static boolean confirmInputDifferentName(String input) {
-        return MessageDisplayer.confirm(
-                GUI.INSTANCE.getAppPanel().getListSavedSearches(),
+        return MessageDisplayer.confirmYesNo(
+                null,
                 "SavedSearchesModifier.Confirm.ChangeNameBecauseExists",
-                MessageDisplayer.CancelButton.HIDE, input).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                input);
     }
 
     private static boolean confirmDelete(String name) {
-        return MessageDisplayer.confirm(
-                GUI.INSTANCE.getAppPanel().getListSavedSearches(),
+        return MessageDisplayer.confirmYesNo(
+                null,
                 "SavedSearchesModifier.Confirm.DeleteSearch",
-                MessageDisplayer.CancelButton.HIDE, name).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                name);
     }
 
     private static boolean confirmInsert(SavedSearch savedSearch) {
         if (getDb().existsSavedSearch(savedSearch)) {
-            return MessageDisplayer.confirm(
-                GUI.INSTANCE.getAppPanel().getListSavedSearches(),
-                    "SavedSearchesModifier.Confirm.ReplaceExisting",
-                    MessageDisplayer.CancelButton.HIDE).equals(
-                    MessageDisplayer.ConfirmAction.YES);
+            return MessageDisplayer.confirmYesNo(
+                null,
+                "SavedSearchesModifier.Confirm.ReplaceExisting");
         }
         return true;
     }

@@ -148,11 +148,10 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
     }
 
     private boolean confirmReplace() {
-        return MessageDisplayer.confirm(this,
+        return MessageDisplayer.confirmYesNo(
+                this,
                 "RenameFilenamesInDbPanel.Confirm.Replace",
-                MessageDisplayer.CancelButton.HIDE, textFieldSearch.getText(),
-                textFieldReplacement.getText()).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                textFieldSearch.getText(), textFieldReplacement.getText());
     }
 
     public void writeProperties() {

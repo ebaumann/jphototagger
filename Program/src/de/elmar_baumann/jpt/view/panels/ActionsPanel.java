@@ -138,9 +138,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         String propertiesKey = existsInActionsAfterDbInsertion
                                ? "ActionsPanel.Confirm.Delete.ExistsInOtherDb"
                                : "ActionsPanel.Confirm.Delete";
-        return MessageDisplayer.confirm(this, propertiesKey,
-                MessageDisplayer.CancelButton.HIDE, programName).equals(
-                MessageDisplayer.ConfirmAction.YES);
+        return MessageDisplayer.confirmYesNo(this, propertiesKey, programName);
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {

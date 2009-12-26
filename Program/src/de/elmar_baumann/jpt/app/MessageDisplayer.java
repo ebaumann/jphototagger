@@ -110,7 +110,7 @@ public final class MessageDisplayer {
     }
 
     /**
-     * User action of a confirm message
+     * User action of a confirmYesNo message
      */
     public enum ConfirmAction {
 
@@ -161,7 +161,7 @@ public final class MessageDisplayer {
     }
 
     /**
-     * Options of a confirm message
+     * Options of a confirmYesNo message
      */
     public enum CancelButton {
 
@@ -190,34 +190,56 @@ public final class MessageDisplayer {
     }
 
     /**
-     * Displays a confirm message.
+     * Displays a confirm message with a Yes, No and Cancel button.
      *
      * @param component    component where to display the dialog or null
      * @param propertyKey  property key for {@link Bundle}. There also a key for
      *                     the title has to be in the properties file with the
      *                     same name and the postfix <code>.Title</code>
-     * @param cancelButton cancel button visibility
-     * @param params       parameters for message format placeholders
+     * @param params       optional parameters for message format placeholders
      * @return             user action
      */
-    public static ConfirmAction confirm(
+    public static ConfirmAction confirmYesNoCancel(
             Component    component,
             String       propertyKey,
-            CancelButton cancelButton,
             Object...    params
             ) {
 
-        return ConfirmAction.actionOfOptionType(
-                JOptionPane.showConfirmDialog(
+        int exit = JOptionPane.showConfirmDialog(
+                        component,
+                        Bundle.getString(propertyKey, params),
+                        getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
+                        JOptionPane.YES_NO_CANCEL_OPTION);
+        return exit == JOptionPane.YES_OPTION
+                   ? ConfirmAction.YES
+                   : exit == JOptionPane.NO_OPTION
+                   ? ConfirmAction.NO
+                   : ConfirmAction.CANCEL;
+    }
+
+
+    /**
+     * Displays a confirmYesNo message with a Yes and No option (<em>no</em> Cancel option).
+     *
+     * @param component    component where to display the dialog or null
+     * @param propertyKey  property key for {@link Bundle}. There also a key for
+     *                     the title has to be in the properties file with the
+     *                     same name and the postfix <code>.Title</code>
+     * @param params       optional parameters for message format placeholders
+     * @return             user action
+     */
+    public static boolean confirmYesNo(
+            Component component,
+            String    propertyKey,
+            Object... params
+            ) {
+
+        return JOptionPane.showConfirmDialog(
                     component,
                     Bundle.getString(propertyKey, params),
                     getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
-                    cancelButton.isShow()
-                        ? JOptionPane.YES_NO_CANCEL_OPTION
-                        : JOptionPane.YES_NO_OPTION),
-                        cancelButton.isShow()
-                        ? ConfirmAction.CANCEL
-                        : ConfirmAction.NO);
+                    JOptionPane.YES_NO_OPTION)
+                    == JOptionPane.YES_OPTION;
     }
 
     private static void message(

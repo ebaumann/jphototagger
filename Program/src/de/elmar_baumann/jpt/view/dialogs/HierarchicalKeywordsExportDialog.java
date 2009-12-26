@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.model.ComboBoxModelHierarchicalKeywordsExporters;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
-import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import javax.swing.JFileChooser;
 
@@ -163,10 +162,10 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
         assert file != null : "File is null!";
         if (file == null) return false;
         if (!file.exists()) return true;
-        return MessageDisplayer.confirm(this,
+        return MessageDisplayer.confirmYesNo(
+                this,
                 "HierarchicalKeywordsExportDialog.Confirm.OverwriteFile",
-                MessageDisplayer.CancelButton.HIDE, file).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                file);
     }
 
     private void handleCancelActionPerformed() {

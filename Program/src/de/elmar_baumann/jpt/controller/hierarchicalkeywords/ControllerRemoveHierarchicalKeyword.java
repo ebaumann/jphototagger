@@ -71,11 +71,10 @@ public class ControllerRemoveHierarchicalKeyword
             DefaultMutableTreeNode node, HierarchicalKeyword keyword) {
         TreeModel tm = getHKPanel().getTree().getModel();
         if (tm instanceof TreeModelHierarchicalKeywords) {
-            if (MessageDisplayer.confirm(
-                    getHKPanel(),
+            if (MessageDisplayer.confirmYesNo(
+                    null,
                     "ControllerDeleteHierarchicalKeyword.Confirm.Delete",
-                    MessageDisplayer.CancelButton.HIDE, keyword).equals(
-                    MessageDisplayer.ConfirmAction.YES)) {
+                    keyword)) {
                 HierarchicalKeywordsHelper.deleteInFiles(keyword);
                 ((TreeModelHierarchicalKeywords) tm).removeKeyword(node);
             }

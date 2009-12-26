@@ -248,8 +248,7 @@ public final class EditRepeatableTextEntryPanel
      * Removes from the list all selected elements.
      */
     private void removeSelectedElements() {
-        if (list.getSelectedIndex() >= 0 && confirmRemoveSelectedItems().equals(
-                MessageDisplayer.ConfirmAction.YES)) {
+        if (list.getSelectedIndex() >= 0 && confirmRemoveSelectedItems()) {
             Object[] values = list.getSelectedValues();
             for (Object value : values) {
                 model.removeElement(value);
@@ -260,10 +259,11 @@ public final class EditRepeatableTextEntryPanel
         }
     }
 
-    private MessageDisplayer.ConfirmAction confirmRemoveSelectedItems() {
-        return MessageDisplayer.confirm(this,
-                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems", //
-                MessageDisplayer.CancelButton.HIDE, column.getDescription());
+    private boolean confirmRemoveSelectedItems() {
+        return MessageDisplayer.confirmYesNo(
+                this,
+                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems",
+                column.getDescription());
     }
 
     @Override
@@ -430,14 +430,11 @@ public final class EditRepeatableTextEntryPanel
                     getClass().getName());
             ready = newName == null;
             if (newName != null && newName.trim().equalsIgnoreCase(oldName)) {
-                ready = confirm("EditRepeatableTextEntryPanel.Confirm.SameNames"). //
-                        equals(MessageDisplayer.ConfirmAction.NO);
+                ready = !confirm("EditRepeatableTextEntryPanel.Confirm.SameNames");
                 newName = null;
             } else if (newName != null &&
                     ListUtil.containsString(list.getModel(), newName.trim())) {
-                ready = confirm(
-                        "EditRepeatableTextEntryPanel.Confirm.NameExists", //
-                        newName).equals(MessageDisplayer.ConfirmAction.NO);
+                ready = !confirm("EditRepeatableTextEntryPanel.Confirm.NameExists", newName);
                 newName = null;
             } else if (newName != null && !newName.trim().isEmpty()) {
                 ready = true;
@@ -451,9 +448,8 @@ public final class EditRepeatableTextEntryPanel
         }
     }
 
-    private MessageDisplayer.ConfirmAction confirm(String key, Object... params) {
-        return MessageDisplayer.confirm(
-                this, key, MessageDisplayer.CancelButton.HIDE, params);
+    private boolean confirm(String key, Object... params) {
+        return MessageDisplayer.confirmYesNo(this, key, params);
     }
 
     private boolean checkSelected(int selCount) {
