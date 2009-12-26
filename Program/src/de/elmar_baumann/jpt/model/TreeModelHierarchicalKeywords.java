@@ -241,7 +241,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
     private boolean checkIsBelow(
             DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
-        if (TreeUtil.isBelow(source, target)) {
+        if (TreeUtil.stringIsBelow(target, source)) {
             MessageDisplayer.error(null,
                     "TreeModelHierarchicalKeywords.Error.Move.NodeIsBelow",
                     source, target);

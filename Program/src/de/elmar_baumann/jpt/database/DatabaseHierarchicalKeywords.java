@@ -89,6 +89,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
         boolean updated = false;
         Connection connection = null;
         assert keyword.getId() != null : "ID of keyword is null!";
+        if (existsKeyword(keyword)) return false;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
@@ -134,10 +135,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
         Connection connection = null;
         assert keyword.getKeyword() != null : "Keyword is null!";
         assert !keyword.getKeyword().trim().isEmpty() : "Keyword is empty!";
-        if (keyword.getIdParent() == null && existsRootKeyword(keyword.getKeyword())) return true;
-        if (parentHasChild(keyword)) {
-            return false;
-        }
+        if (parentHasChild(keyword)) return false;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
@@ -343,24 +341,29 @@ public final class DatabaseHierarchicalKeywords extends Database {
      * @return         true if the keyword exists
      */
     public boolean parentHasChild(HierarchicalKeyword keyword) {
-        boolean exists = false;
-        Connection connection = null;
+        boolean     exists      = false;
+        boolean    parentIsRoot = keyword.getIdParent() == null;
+        Connection connection   = null;
+
         assert keyword.getKeyword() != null;
-        if (keyword.getKeyword() == null) {
-            return false;
-        }
+
+        if (keyword.getKeyword() == null) return false;
+
         try {
             connection = getConnection();
-            String sql =
-                    "SELECT COUNT(*) FROM hierarchical_subjects" +
-                    " WHERE id_parent = ? AND subject = ?";
+            String sql = parentIsRoot
+                    ? "SELECT COUNT(*) FROM hierarchical_subjects" +
+                      " WHERE id_parent IS NULL AND subject = ?"
+                    : "SELECT COUNT(*) FROM hierarchical_subjects" +
+                      " WHERE id_parent = ? AND subject = ?";
+            
             PreparedStatement stmt = connection.prepareStatement(sql);
-            if (keyword.getIdParent() == null) {
-                stmt.setNull(1, java.sql.Types.BIGINT);
-            } else {
+
+            if (!parentIsRoot) {
                 stmt.setLong(1, keyword.getIdParent());
             }
-            stmt.setString(2, keyword.getKeyword());
+            stmt.setString(parentIsRoot ? 1 : 2, keyword.getKeyword());
+
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -390,6 +393,33 @@ public final class DatabaseHierarchicalKeywords extends Database {
                          " WHERE  subject = ? AND id_parent IS NULL";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, keyword);
+            logFinest(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalKeywords.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exists;
+    }
+
+    private boolean existsKeyword(HierarchicalKeyword kw) {
+        boolean    exists     = false;
+        Connection connection = null;
+
+        if (kw.getIdParent() == null) return existsRootKeyword(kw.getKeyword());
+
+        try {
+            connection = getConnection();
+            String sql = "SELECT COUNT(*) FROM hierarchical_subjects" +
+                         " WHERE  subject = ? AND id_parent = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, kw.getKeyword());
+            stmt.setLong  (2, kw.getIdParent());
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
