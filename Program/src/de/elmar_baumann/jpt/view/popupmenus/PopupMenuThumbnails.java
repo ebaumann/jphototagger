@@ -58,6 +58,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {
 
     public static final PopupMenuThumbnails     INSTANCE                             = new PopupMenuThumbnails();
+    private final       JMenu                   menuRefresh                          = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuRefresh"));
     private final       JMenu                   menuMisc                             = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuMisc"));
     private final       JMenu                   menuPrograms                         = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuOtherOpenImageApps"));
     private final       JMenu                   menuImageCollection                  = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuImageCollection"));
@@ -176,13 +177,17 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void addItems() {
-        add(itemUpdateThumbnail);
-        add(itemUpdateMetadata);
 
 
-        menuMisc.add(itemIptcToXmp);
-        menuMisc.add(itemDeleteImageFromDatabase);
-        add(menuMisc);
+        menuRefresh.add(itemUpdateThumbnail);
+        menuRefresh.add(itemUpdateMetadata);
+        menuRefresh.add(itemRefresh);
+        add(menuRefresh);
+
+        menuRotateThumbnail.add(itemRotateThumbnai90);
+        menuRotateThumbnail.add(itemRotateThumbnai180);
+        menuRotateThumbnail.add(itemRotateThumbnail270);
+        add(menuRotateThumbnail);
 
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
@@ -206,11 +211,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
         menuImageCollection.add(itemAddToImageCollection);
         menuImageCollection.add(itemDeleteFromImageCollection);
         add(menuImageCollection);
-
-        menuRotateThumbnail.add(itemRotateThumbnai90);
-        menuRotateThumbnail.add(itemRotateThumbnai180);
-        menuRotateThumbnail.add(itemRotateThumbnail270);
-        add(menuRotateThumbnail);
         
         menuFsOps.add(itemCopyToClipboard);
         menuFsOps.add(itemCutToClipboard);
@@ -225,7 +225,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
         add(menuFsOps);
 
         add(new JSeparator());
-        add(itemRefresh);
+        menuMisc.add(itemIptcToXmp);
+        menuMisc.add(itemDeleteImageFromDatabase);
+        add(menuMisc);
     }
 
     private void addPluginItems() {
