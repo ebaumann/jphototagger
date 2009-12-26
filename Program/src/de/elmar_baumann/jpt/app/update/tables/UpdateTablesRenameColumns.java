@@ -88,6 +88,7 @@ final class UpdateTablesRenameColumns {
                 info.getFirst().getColumnName() +
                 " RENAME TO " +
                 info.getSecond().getColumnName());
+        stmt.close();
     }
 
     private void setMessage(String tableName, String columnName) {

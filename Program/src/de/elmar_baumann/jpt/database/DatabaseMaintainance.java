@@ -52,6 +52,7 @@ public final class DatabaseMaintainance extends Database {
             AppLog.logInfo(DatabaseMaintainance.class,
                     "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");
+            stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(Database.class, ex);
             MessageDisplayer.error(null, "DatabaseMaintainance.Error.Shutdown");

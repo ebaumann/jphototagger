@@ -56,10 +56,10 @@ final class UpdateTablesPrimaryKeys {
                 String pkName = rs.getString("PK_NAME");
                 if (pkName != null) {
                     hasPk = true;
-                    stmt.executeUpdate(
-                            "alter table " + table + " drop primary key");
+                    stmt.executeUpdate("alter table " + table + " drop primary key");
                 }
             }
+            stmt.close();
         }
     }
 }

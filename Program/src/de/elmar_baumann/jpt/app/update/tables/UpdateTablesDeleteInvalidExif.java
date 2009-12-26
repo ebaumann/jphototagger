@@ -76,6 +76,7 @@ final class UpdateTablesDeleteInvalidExif {
         stmt.execute("UPDATE " + column.getTable().getName() +
                 " SET " + column.getName() + " = NULL" +
                 " WHERE " + column.getName() + " <= 0");
+        stmt.close();
     }
 
     private void checkRecordingEquipment(Connection connection) throws
@@ -85,5 +86,6 @@ final class UpdateTablesDeleteInvalidExif {
         stmt.execute("UPDATE " + column.getTable().getName() +
                 " SET " + column.getName() + " = NULL" +
                 " WHERE " + column.getName() + " = '0'");
+        stmt.close();
     }
 }

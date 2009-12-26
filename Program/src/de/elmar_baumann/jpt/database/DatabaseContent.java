@@ -67,7 +67,6 @@ public final class DatabaseContent extends Database {
             while (resultSet.next()) {
                 content.add(resultSet.getString(1));
             }
-            resultSet.close();
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseContent.class, ex);

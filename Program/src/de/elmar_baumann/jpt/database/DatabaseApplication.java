@@ -63,7 +63,6 @@ public final class DatabaseApplication extends Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            rs.close();
             stmt.close();
             return count > 0;
         } catch (SQLException ex) {
@@ -121,7 +120,6 @@ public final class DatabaseApplication extends Database {
                     isTrue = value.equals(VALUE_TRUE);
                 }
             }
-            rs.close();
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseApplication.class, ex);

@@ -188,8 +188,7 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
             stmt.close();
-            DatabaseApplication.INSTANCE.setBoolean(
-                    KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
+            DatabaseApplication.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (SQLException ex) {
             AppLog.logSevere(UpdateTablesThumbnails.class, ex);
         }
@@ -232,6 +231,7 @@ final class UpdateTablesThumbnails extends Database {
         if (rs.next()) {
             count = rs.getInt(1);
         }
+        stmt.close();
         return count;
     }
 
