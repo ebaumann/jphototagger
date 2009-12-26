@@ -51,7 +51,8 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 getSize())) {
             addElement(action);
         } else {
-            MessageDisplayer.error(null,
+            MessageDisplayer.error(
+                    null,
                     "ListModelActionsAfterDbInsertion.Error.Add",
                     action.getAlias());
         }
@@ -93,7 +94,8 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
             if (!DatabaseActionsAfterDbInsertion.INSTANCE.reorder(getActions(),
                     0)) {
-                MessageDisplayer.error(null,
+                MessageDisplayer.error(
+                        null,
                         "ListModelActionsAfterDbInsertion.Error.Swap",
                         ((Program) get(indexFirstElement)).getAlias());
             }
@@ -105,7 +107,8 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 action)) {
             removeElement(action);
         } else {
-            MessageDisplayer.error(null,
+            MessageDisplayer.error(
+                    null,
                     "ListModelActionsAfterDbInsertion.Error.Remove",
                     action.getAlias());
         }

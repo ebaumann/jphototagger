@@ -129,7 +129,8 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
                 }
 
                 private void informationReplaced(int count) {
-                    MessageDisplayer.information(null,
+                    MessageDisplayer.information(
+                            null,
                             "RenameFilenamesInDbPanel.Info.CountReplaced", count);
                 }
             });

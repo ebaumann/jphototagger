@@ -102,7 +102,10 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             if (db.insert(child)) {
                 insertNode(parentNode, new TreeNodeSortedChildren(child));
             } else {
-                MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.DbInsert", keyword);
+                MessageDisplayer.error(
+                        null,
+                        "TreeModelHierarchicalKeywords.Error.DbInsert",
+                        keyword);
             }
         }
     }
@@ -115,7 +118,10 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
     private boolean ensureIsNotChild(DefaultMutableTreeNode parentNode, String keyword) {
         if (childHasKeyword(parentNode, keyword)) {
-            MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.KeywordExists", keyword, parentNode);
+            MessageDisplayer.error(
+                    null,
+                    "TreeModelHierarchicalKeywords.Error.KeywordExists",
+                    keyword, parentNode);
             return false;
         }
         return true;
@@ -161,7 +167,10 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         if (db.delete(delKeywords)) {
             removeNodeFromParent(keywordNode);
         } else {
-            MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.DbRemove", keywordNode.toString());
+            MessageDisplayer.error(
+                    null,
+                    "TreeModelHierarchicalKeywords.Error.DbRemove",
+                    keywordNode.toString());
         }
     }
 
@@ -181,7 +190,10 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) parent;
                 fireTreeNodesChanged(this, parentNode.getPath(), new int[]{parentNode.getIndex(node)}, new Object[]{node});
             } else {
-                MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword);
+                MessageDisplayer.error(
+                        null,
+                        "TreeModelHierarchicalKeywords.Error.DbUpdate",
+                        keyword);
             }
         }
     }

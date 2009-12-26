@@ -454,8 +454,7 @@ public final class EditRepeatableTextEntryPanel
 
     private boolean checkSelected(int selCount) {
         if (selCount <= 0) {
-            MessageDisplayer.error(this,
-                    "EditRepeatableTextEntryPanel.Error.Select"); //
+            MessageDisplayer.error(this, "EditRepeatableTextEntryPanel.Error.Select"); //
             return false;
         }
         return true;

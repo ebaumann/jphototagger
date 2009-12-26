@@ -161,35 +161,6 @@ public final class MessageDisplayer {
     }
 
     /**
-     * Options of a confirmYesNo message
-     */
-    public enum CancelButton {
-
-        /**
-         * Display the cancel button
-         */
-        SHOW(true),
-        /**
-         * Hide the cancel button
-         */
-        HIDE(false);
-        private final boolean show;
-
-        private CancelButton(boolean showCancelButton) {
-            this.show = showCancelButton;
-        }
-
-        /**
-         * Returns whether to display the canel button.
-         *
-         * @return true if the cancel button shall be displayed
-         */
-        public boolean isShow() {
-            return show;
-        }
-    }
-
-    /**
      * Displays a confirm message with a Yes, No and Cancel button.
      *
      * @param component    component where to display the dialog or null

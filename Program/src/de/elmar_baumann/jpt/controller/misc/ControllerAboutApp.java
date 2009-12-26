@@ -38,7 +38,8 @@ public final class ControllerAboutApp implements ActionListener {
     }
 
     private void showAbout() {
-        MessageDisplayer.information(null,
+        MessageDisplayer.information(
+                null,
                 "ControllerAboutApp.Info.About",
                 AppInfo.APP_NAME, AppInfo.APP_VERSION);
     }

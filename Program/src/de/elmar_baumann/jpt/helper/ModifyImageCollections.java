@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
-import de.elmar_baumann.jpt.resource.GUI;
 import java.util.List;
 
 /**
@@ -151,7 +150,7 @@ public final class ModifyImageCollections {
     private static boolean checkIsValidName(String name) {
         if (isValidName(name)) return true;
         MessageDisplayer.error(
-                GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                null,
                 "ImageCollectionDatabaseUtils.Error.InvalidName",
                 name);
         return false;
@@ -164,21 +163,21 @@ public final class ModifyImageCollections {
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
         MessageDisplayer.error(
-                GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                null,
                 "ImageCollectionToDatabase.Error.AddImagesToCollection",
                 collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
         MessageDisplayer.error(
-                GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                null,
                 "ImageCollectionToDatabase.Error.AddImageCollection",
                 collectionName);
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
         MessageDisplayer.error(
-                GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                null,
                 "ImageCollectionToDatabase.Error.DeleteImageCollection",
                 collectionName);
     }
@@ -186,14 +185,14 @@ public final class ModifyImageCollections {
     private static void errorMessageDeleteImagesFromCollection(
             String collectionName) {
         MessageDisplayer.error(
-                GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                null,
                 "ImageCollectionToDatabase.Error.DeleteImagesFromCollection",
                 collectionName);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
         MessageDisplayer.error(
-                GUI.INSTANCE.getAppPanel().getListImageCollections(),
+                null,
                 "ImageCollectionToDatabase.Error.RenameImageCollection",
                 collectionName);
     }

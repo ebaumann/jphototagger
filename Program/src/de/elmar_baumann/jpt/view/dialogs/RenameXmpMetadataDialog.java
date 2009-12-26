@@ -116,7 +116,8 @@ public final class RenameXmpMetadataDialog extends Dialog {
     }
 
     private void oldStringIsEmptyErrorMessage() {
-        MessageDisplayer.error(this,
+        MessageDisplayer.error(
+                this,
                 "RenameXmpMetadataDialog.Error.MissingReplaceString"); //
     }
 

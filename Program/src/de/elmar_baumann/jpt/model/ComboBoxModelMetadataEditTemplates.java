@@ -122,7 +122,8 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
     }
 
     private void errorMessage(String name, String cause) {
-        MessageDisplayer.error(null,
+        MessageDisplayer.error(
+                null,
                 "ComboBoxModelMetadataEditTemplates.Error.Template",
                 name, cause);
     }

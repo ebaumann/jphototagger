@@ -123,7 +123,8 @@ public final class CopyToDirectoryDialog
 
     private void checkClosing() {
         if (copy) {
-            MessageDisplayer.error(this,
+            MessageDisplayer.error(
+                    this,
                     "CopyToDirectoryDialog.Error.AbortBeforeClose"); //
         } else {
             setVisible(false);
@@ -132,7 +133,8 @@ public final class CopyToDirectoryDialog
 
     private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
-            MessageDisplayer.error(this,
+            MessageDisplayer.error(
+                    this,
                     "CopyToDirectoryDialog.Error.CopyErrorsOccured"); //
         }
     }
@@ -199,7 +201,8 @@ public final class CopyToDirectoryDialog
                     setIconToLabelTargetDirectory();
                     buttonStart.setEnabled(true);
                 } else {
-                    MessageDisplayer.error(this,
+                    MessageDisplayer.error(
+                            this,
                             "CopyToDirectoryDialog.TargetDirNotWritable", //
                             targetDirectory);
                 }
@@ -271,13 +274,15 @@ public final class CopyToDirectoryDialog
     }
 
     private void errorMessageTargetDirectoryDoesNotExist() {
-        MessageDisplayer.error(this,
+        MessageDisplayer.error(
+                this,
                 "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist", //
                 targetDirectory.getAbsolutePath());
     }
 
     private void errorMessageMissingSourceFiles() {
-        MessageDisplayer.error(this,
+        MessageDisplayer.error(
+                this,
                 "CopyToDirectoryDialog.Error.MissingSourceFiles"); //
     }
 

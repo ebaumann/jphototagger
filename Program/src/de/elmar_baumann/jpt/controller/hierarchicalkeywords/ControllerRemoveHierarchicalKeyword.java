@@ -61,7 +61,8 @@ public class ControllerRemoveHierarchicalKeyword
         if (userObject instanceof HierarchicalKeyword) {
             delete(node, (HierarchicalKeyword) userObject);
         } else {
-            MessageDisplayer.error(getHKPanel().getTree(),
+            MessageDisplayer.error(
+                    null,
                     "ControllerDeleteHierarchicalKeyword.Error.Node",
                     node);
         }
