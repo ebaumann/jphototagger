@@ -41,9 +41,8 @@ import javax.swing.tree.TreeNode;
  */
 public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
-    private final DefaultMutableTreeNode ROOT;
-    private final DatabaseHierarchicalKeywords db =
-            DatabaseHierarchicalKeywords.INSTANCE;
+    private final DefaultMutableTreeNode       ROOT;
+    private final DatabaseHierarchicalKeywords db  = DatabaseHierarchicalKeywords.INSTANCE;
 
     public TreeModelHierarchicalKeywords() {
         super(new TreeNodeSortedChildren(Bundle.getString("TreeModelHierarchicalKeywords.DisplayName.Root")));
@@ -52,23 +51,22 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     }
 
     /**
-     * Returns a child with a specific name
-     * ({@link HierarchicalKeyword#getKeyword()}.
+     * Returns a child with a specific name ({@link HierarchicalKeyword#getKeyword()}.
      *
      * @param  parent parent node
      * @param  name   name
      * @return        first child node with that name or null if no child has
      *                that name
      */
-    public DefaultMutableTreeNode findChildByName(
-            DefaultMutableTreeNode parent, String name) {
+    public DefaultMutableTreeNode findChildByName(DefaultMutableTreeNode parent, String name) {
+        
         for (Enumeration e = parent.children(); e.hasMoreElements();) {
-            DefaultMutableTreeNode child =
-                    (DefaultMutableTreeNode) e.nextElement();
-            Object userObject = child.getUserObject();
+
+            DefaultMutableTreeNode child      = (DefaultMutableTreeNode) e.nextElement();
+            Object                 userObject = child.getUserObject();
+
             if (userObject instanceof HierarchicalKeyword) {
-                if (((HierarchicalKeyword) userObject).getKeyword().
-                        equalsIgnoreCase(name)) {
+                if (((HierarchicalKeyword) userObject).getKeyword().equalsIgnoreCase(name)) {
                     return child;
                 }
             }
@@ -84,58 +82,52 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
      * @param real       true if the keyword is a real keyword
      */
     public synchronized void addKeyword(
-            DefaultMutableTreeNode parentNode, String keyword, boolean real) {
-        if (!checkKeywordExists(parentNode, keyword)) {
-            return;
-        }
-        Object userObject = parentNode.getUserObject();
+            DefaultMutableTreeNode parentNode,
+            String                 keyword,
+            boolean                real
+            ) {
+        if (!ensureIsNotChild(parentNode, keyword)) return;
+
+        Object  userObject   = parentNode.getUserObject();
         boolean parentIsRoot = parentNode.equals(ROOT);
-        assert parentIsRoot ||
-                userObject instanceof HierarchicalKeyword : parentNode;
+
+        assert parentIsRoot || userObject instanceof HierarchicalKeyword : parentNode;
+
         if (parentIsRoot || userObject instanceof HierarchicalKeyword) {
             Long idParent = parentIsRoot
                     ? null
                     : ((HierarchicalKeyword) userObject).getId();
-            HierarchicalKeyword child = new HierarchicalKeyword(
-                    null, idParent, keyword, real);
+            HierarchicalKeyword child =
+                    new HierarchicalKeyword(null, idParent, keyword, real);
             if (db.insert(child)) {
                 insertNode(parentNode, new TreeNodeSortedChildren(child));
             } else {
-                MessageDisplayer.error(null,
-                        "TreeModelHierarchicalKeywords.Error.DbInsert", keyword);
+                MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.DbInsert", keyword);
             }
         }
     }
 
-    private void insertNode(
-            DefaultMutableTreeNode parent, DefaultMutableTreeNode child) {
+    private void insertNode(DefaultMutableTreeNode parent, DefaultMutableTreeNode child) {
         parent.add(child);
         int childIndex = parent.getIndex(child);
-        fireTreeNodesInserted(this, parent.getPath(), new int[]{childIndex},
-                new Object[]{child});
+        fireTreeNodesInserted(this, parent.getPath(), new int[]{childIndex}, new Object[]{child});
     }
 
-    private boolean checkKeywordExists(
-            DefaultMutableTreeNode parentNode, String keyword) {
+    private boolean ensureIsNotChild(DefaultMutableTreeNode parentNode, String keyword) {
         if (childHasKeyword(parentNode, keyword)) {
-            MessageDisplayer.error(null,
-                    "TreeModelHierarchicalKeywords.Error.KeywordExists",
-                    keyword, parentNode);
+            MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.KeywordExists", keyword, parentNode);
             return false;
         }
         return true;
     }
 
-    private boolean childHasKeyword(
-            DefaultMutableTreeNode parentNode, String keyword) {
-        for (Enumeration children = parentNode.children();
-                children.hasMoreElements();) {
+    private boolean childHasKeyword(DefaultMutableTreeNode parentNode, String keyword) {
+        for (Enumeration children = parentNode.children(); children.hasMoreElements();) {
             Object o = children.nextElement();
             if (o instanceof DefaultMutableTreeNode) {
                 Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
                 if (userObject instanceof HierarchicalKeyword) {
-                    String s =
-                            ((HierarchicalKeyword) userObject).getKeyword();
+                    String s = ((HierarchicalKeyword) userObject).getKeyword();
                     if (s != null && s.equals(keyword)) {
                         return true;
                     }
@@ -146,21 +138,21 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     }
 
     public synchronized void removeKeyword(DefaultMutableTreeNode keywordNode) {
-        List<HierarchicalKeyword> delKeywords =
-                new ArrayList<HierarchicalKeyword>();
-        Object o = keywordNode.getUserObject();
-        assert o instanceof HierarchicalKeyword :
-                "Not a HierarchicalKeyword: " + o;
-        for (Enumeration e = keywordNode.preorderEnumeration();
-                e.hasMoreElements();) {
+
+        List<HierarchicalKeyword> delKeywords = new ArrayList<HierarchicalKeyword>();
+        Object                    o           = keywordNode.getUserObject();
+        
+        assert o instanceof HierarchicalKeyword : "Not a HierarchicalKeyword: " + o;
+        
+        for (Enumeration e = keywordNode.preorderEnumeration(); e.hasMoreElements();) {
             Object el = e.nextElement();
             assert el instanceof DefaultMutableTreeNode :
                     "Not a DefaultMutableTreeNode: " + el;
             if (el instanceof DefaultMutableTreeNode) {
-                Object userObject =
-                        ((DefaultMutableTreeNode) el).getUserObject();
-                assert userObject instanceof HierarchicalKeyword :
-                        "Not a HierarchicalKeyword: " + userObject;
+                Object userObject = ((DefaultMutableTreeNode) el).getUserObject();
+                
+                assert userObject instanceof HierarchicalKeyword : userObject;
+
                 if (userObject instanceof HierarchicalKeyword) {
                     delKeywords.add((HierarchicalKeyword) userObject);
                 }
@@ -169,9 +161,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         if (db.delete(delKeywords)) {
             removeNodeFromParent(keywordNode);
         } else {
-            MessageDisplayer.error(null,
-                    "TreeModelHierarchicalKeywords.Error.DbRemove",
-                    keywordNode.toString());
+            MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.DbRemove", keywordNode.toString());
         }
     }
 
@@ -188,13 +178,10 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         TreeNode parent = node.getParent();
         if (parent instanceof DefaultMutableTreeNode) {
             if (db.update(keyword)) {
-                DefaultMutableTreeNode parentNode =
-                        (DefaultMutableTreeNode) parent;
-                fireTreeNodesChanged(this, parentNode.getPath(),
-                        new int[]{parentNode.getIndex(node)}, new Object[]{node});
+                DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) parent;
+                fireTreeNodesChanged(this, parentNode.getPath(), new int[]{parentNode.getIndex(node)}, new Object[]{node});
             } else {
-                MessageDisplayer.error(null,
-                        "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword);
+                MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.DbUpdate", keyword);
             }
         }
     }
@@ -206,14 +193,16 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
      * @param target  new parent of <code>source</code>
      * @param keyword keyword of <code>source</code>
      */
-    public void move(DefaultMutableTreeNode source,
-            DefaultMutableTreeNode target, HierarchicalKeyword keyword) {
-        if (checkIsBelow(source, target) && checkIsChild(target, source) &&
-                setIdParent(keyword, target)) {
+    public void move(
+            DefaultMutableTreeNode source,
+            DefaultMutableTreeNode target,
+            HierarchicalKeyword    keyword
+            ) {
+        if (ensureIsNotChild(target, keyword.getKeyword()) && setIdParent(keyword, target)) {
             if (db.update(keyword)) {
                 DefaultMutableTreeNode removeNode =
-                        TreeUtil.findNodeWithUserObject(
-                        ROOT, source.getUserObject());
+                        TreeUtil.findNodeWithUserObject(ROOT, source.getUserObject());
+
                 if (removeNode != null) {
                     removeNodeFromParent(removeNode);
                 }
@@ -222,8 +211,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
         }
     }
 
-    private boolean setIdParent(
-            HierarchicalKeyword keyword, DefaultMutableTreeNode parentNode) {
+    private boolean setIdParent(HierarchicalKeyword keyword, DefaultMutableTreeNode parentNode) {
         if (parentNode.equals(ROOT)) {
             keyword.setIdParent(null);
             return true;
@@ -234,48 +222,22 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
                 return true;
             }
         }
-        AppLog.logWarning(TreeModelHierarchicalKeywords.class,
-                "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode);
+        AppLog.logWarning(TreeModelHierarchicalKeywords.class, "TreeModelHierarchicalKeywords.Error.SetIdParent", parentNode);
         return false;
-    }
-
-    private boolean checkIsBelow(
-            DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
-        if (TreeUtil.stringIsBelow(target, source)) {
-            MessageDisplayer.error(null,
-                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsBelow",
-                    source, target);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkIsChild(
-            DefaultMutableTreeNode target, DefaultMutableTreeNode source) {
-        if (TreeUtil.isChild(target, source)) {
-            MessageDisplayer.error(null,
-                    "TreeModelHierarchicalKeywords.Error.Move.NodeIsChild",
-                    source, target);
-            return false;
-        }
-        return true;
     }
 
     private void createTree() {
         Collection<HierarchicalKeyword> roots = db.getRoots();
         for (HierarchicalKeyword rootKeyword : roots) {
-            DefaultMutableTreeNode rootNode =
-                    new TreeNodeSortedChildren(rootKeyword);
+            DefaultMutableTreeNode rootNode = new TreeNodeSortedChildren(rootKeyword);
             insertNode(ROOT, rootNode);
             insertChildren(rootNode);
         }
     }
 
     private void insertChildren(DefaultMutableTreeNode parentNode) {
-        HierarchicalKeyword parent =
-                (HierarchicalKeyword) parentNode.getUserObject();
-        Collection<HierarchicalKeyword> children =
-                db.getChildren(parent.getId());
+        HierarchicalKeyword parent = (HierarchicalKeyword) parentNode.getUserObject();
+        Collection<HierarchicalKeyword> children = db.getChildren(parent.getId());
         for (HierarchicalKeyword child : children) {
             DefaultMutableTreeNode childNode = new TreeNodeSortedChildren(child);
             insertNode(parentNode, childNode);
