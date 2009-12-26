@@ -200,6 +200,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
 
         setLayout(new java.awt.GridBagLayout());
 
+        buttonExpandCollapse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         buttonExpandCollapse.setContentAreaFilled(false);
         buttonExpandCollapse.setFocusable(false);
         buttonExpandCollapse.setMargin(new java.awt.Insets(0, 0, 0, 0));
