@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JMenuItem;
 
 /**
  * Kontrolliert die Aktion: Logfiledialog anzeigen.
@@ -38,21 +39,22 @@ import java.awt.event.ActionListener;
 public final class ControllerLogfileDialog implements ActionListener,
                                                       ErrorListener {
 
-    private static final long MILLISECONDS_ERROR_DISPLAY = 2000;
+    private static final long      MILLISECONDS_ERROR_DISPLAY = 4000;
+    private final        JMenuItem itemShowDlg = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
 
     public ControllerLogfileDialog() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile().addActionListener(this);
+        itemShowDlg.addActionListener(this);
         ErrorListeners.INSTANCE.addErrorListener(this);
     }
 
     @Override
     public void error(ErrorEvent evt) {
-        GUI.INSTANCE.getAppPanel().showMessage(
-                Bundle.getString("Error.Info"), true, MILLISECONDS_ERROR_DISPLAY);
+        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("Error.Info"), true, MILLISECONDS_ERROR_DISPLAY);
+        itemShowDlg.setEnabled(true);
     }
 
     @Override
