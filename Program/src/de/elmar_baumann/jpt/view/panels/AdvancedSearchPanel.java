@@ -62,15 +62,15 @@ import javax.swing.JOptionPane;
 public final class AdvancedSearchPanel extends javax.swing.JPanel
         implements SearchListener, Persistence {
 
-    private static final int                MIN_COLUMN_COUNT        = 5;
-    private static final String             SQL_IDENTIFIER_KEYWORDS = "xmp_dc_subjects.subject IN";
-    private static final String             KEY_SELECTED_TAB_INDEX  = "AdvancedSearchPanel.SelectedTabIndex";
-    private final List<SearchColumnPanel>   searchColumnPanels      = new LinkedList<SearchColumnPanel>();
-    private final Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
-    private List<SearchListener>            searchListeners         = new ArrayList<SearchListener>();
-    private String                          searchName              = "";
-    private boolean                         isSavedSearch           = false;
-    private ListenerProvider                listenerProvider;
+    private static final int                       MIN_COLUMN_COUNT        = 5;
+    private static final String                    SQL_IDENTIFIER_KEYWORDS = "xmp_dc_subjects.subject IN";
+    private static final String                    KEY_SELECTED_TAB_INDEX  = "AdvancedSearchPanel.SelectedTabIndex";
+    private final        List<SearchColumnPanel>   searchColumnPanels      = new LinkedList<SearchColumnPanel>();
+    private final        Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
+    private              List<SearchListener>      searchListeners         = new ArrayList<SearchListener>();
+    private              String                    searchName              = "";
+    private              boolean                   isSavedSearch           = false;
+    private              ListenerProvider          listenerProvider;
 
     public AdvancedSearchPanel() {
         initComponents();
@@ -242,7 +242,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             int panelSize = searchColumnPanels.size();
             for (int dataIndex = 0; dataIndex < dataSize; dataIndex++) {
                 if (dataIndex < panelSize) {
-                    searchColumnPanels.get(dataIndex).setSavedSearchData(
+                    searchColumnPanels.get(dataIndex).setSavedSearchPanel(
                             savedSearchPanels.get(dataIndex));
                 }
             }
@@ -270,9 +270,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private int getKeywordCount(String sql) {
-        int    index  = sql.indexOf(SQL_IDENTIFIER_KEYWORDS);
-        String params = sql.substring(index);
-        int    count  = 0;
+        int    index     = sql.indexOf(SQL_IDENTIFIER_KEYWORDS);
+        String params    = sql.substring(index);
+        int    count     = 0;
         int    findIndex = params.indexOf('?', 0);
 
         while (findIndex > 0) {

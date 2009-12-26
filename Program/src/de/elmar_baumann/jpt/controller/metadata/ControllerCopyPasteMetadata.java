@@ -24,8 +24,13 @@ import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JMenuItem;
 
 /**
@@ -39,12 +44,12 @@ import javax.swing.JMenuItem;
  * @version 2009-08-07
  */
 public final class ControllerCopyPasteMetadata
-        implements ActionListener, ThumbnailsPanelListener {
+        implements ActionListener, KeyListener, ThumbnailsPanelListener {
 
-    private final JMenuItem menuItemCopy =
-            GUI.INSTANCE.getAppFrame().getMenuItemCopyMetadata();
-    private final JMenuItem menuItemPaste =
-            GUI.INSTANCE.getAppFrame().getMenuItemPasteMetadata();
+    private final ThumbnailsPanel     tnPanel       =  GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuThumbnails popup         = PopupMenuThumbnails.INSTANCE;
+    private final JMenuItem           menuItemCopy  = popup.getItemCopyMetadata();
+    private final JMenuItem           menuItemPaste = popup.getItemPasteMetadata();
     private Xmp xmp;
 
     public ControllerCopyPasteMetadata() {
@@ -54,8 +59,17 @@ public final class ControllerCopyPasteMetadata
     private void listen() {
         menuItemCopy.addActionListener(this);
         menuItemPaste.addActionListener(this);
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().
-                addThumbnailsPanelListener(this);
+        tnPanel.addThumbnailsPanelListener(this);
+        tnPanel.addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (KeyEventUtil.isShiftDown(e) && KeyEventUtil.isControl(e, KeyEvent.VK_C)) {
+            copy();
+        } else if (KeyEventUtil.isShiftDown(e) && KeyEventUtil.isControl(e, KeyEvent.VK_V)) {
+            paste();
+        }
     }
 
     @Override
@@ -68,16 +82,14 @@ public final class ControllerCopyPasteMetadata
     }
 
     private void copy() {
-        this.xmp = new Xmp(GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().
-                getXmp());
+        this.xmp = new Xmp(GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().getXmp());
         menuItemPaste.setEnabled(true);
     }
 
     private void paste() {
         assert xmp != null : "xmp is null!";
         if (xmp == null) return;
-        EditMetadataPanelsArray editPanel =
-                GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
+        EditMetadataPanelsArray editPanel = GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
         if (!checkSelected() || !checkCanEdit(editPanel)) return;
         editPanel.setXmp(xmp);
         menuItemPaste.setEnabled(false);
@@ -85,11 +97,9 @@ public final class ControllerCopyPasteMetadata
     }
 
     private boolean checkSelected() {
-        int selCount = GUI.INSTANCE.getAppPanel().getPanelThumbnails().
-                getSelectionCount();
+        int selCount =tnPanel.getSelectionCount();
         if (selCount <= 0) {
-            MessageDisplayer.error(
-                    null, "ControllerCopyPasteMetadata.Error.NoSelection");
+            MessageDisplayer.error(null, "ControllerCopyPasteMetadata.Error.NoSelection");
             return false;
         }
         return true;
@@ -97,8 +107,7 @@ public final class ControllerCopyPasteMetadata
 
     private boolean checkCanEdit(EditMetadataPanelsArray editPanel) {
         if (!editPanel.isEditable()) {
-            MessageDisplayer.error(
-                    null, "ControllerCopyPasteMetadata.Error.NotEditable");
+            MessageDisplayer.error(null, "ControllerCopyPasteMetadata.Error.NotEditable");
             return false;
         }
         return true;
@@ -106,12 +115,21 @@ public final class ControllerCopyPasteMetadata
 
     @Override
     public void thumbnailsSelectionChanged() {
-        menuItemCopy.setEnabled(GUI.INSTANCE.getAppPanel().getPanelThumbnails().
-                getSelectionCount() > 0);
+        menuItemCopy.setEnabled(GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() > 0);
     }
 
     @Override
     public void thumbnailsChanged() {
+        // ignore
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         // ignore
     }
 }
