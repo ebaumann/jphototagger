@@ -84,10 +84,9 @@ public final class DeleteImageFiles {
 
     private static boolean confirmDelete(EnumSet<DeleteOption> options) {
         if (options.contains(DeleteOption.CONFIRM_DELETE)) {
-            return MessageDisplayer.confirm(null,
-                    "FileSystemDeleteImageFiles.Confirm.Delete",
-                    MessageDisplayer.CancelButton.HIDE).equals(
-                    MessageDisplayer.ConfirmAction.YES);
+            return MessageDisplayer.confirmYesNo(
+                    null,
+                    "FileSystemDeleteImageFiles.Confirm.Delete");
         }
         return true;
     }

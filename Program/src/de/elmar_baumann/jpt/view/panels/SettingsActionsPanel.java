@@ -151,10 +151,10 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
     }
 
     private boolean confirmRemoveActionAfterDatabaseInsertion(String actionName) {
-        return MessageDisplayer.confirm(this,
+        return MessageDisplayer.confirmYesNo(
+                this,
                 "SettingsActionsPanel.Confirm.RemoveActionAfterDatabaseInsertion",
-                MessageDisplayer.CancelButton.HIDE, actionName).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                actionName);
     }
 
     /** This method is called from within the constructor to

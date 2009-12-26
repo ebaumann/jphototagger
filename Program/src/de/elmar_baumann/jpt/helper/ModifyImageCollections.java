@@ -199,10 +199,7 @@ public final class ModifyImageCollections {
     }
 
     private static boolean confirmDelete(String bundleKey, String collectionName) {
-        return MessageDisplayer.confirm(
-                GUI.INSTANCE.getAppPanel().getListImageCollections(), bundleKey,
-                MessageDisplayer.CancelButton.HIDE, collectionName).equals(
-                MessageDisplayer.ConfirmAction.YES);
+        return MessageDisplayer.confirmYesNo(null, bundleKey, collectionName);
     }
 
     private static String inputCollectionName(String defaultName) {
@@ -213,11 +210,7 @@ public final class ModifyImageCollections {
             String nameNextTry = name;
             if (DatabaseImageCollections.INSTANCE.existsImageCollection(name) ||
                     !checkIsValidName(name)) {
-                willAdd = MessageDisplayer.confirm(
-                        GUI.INSTANCE.getAppPanel().getListImageCollections(),
-                        "ImageCollectionToDatabase.Confirm.InputNewCollectionName",
-                        MessageDisplayer.CancelButton.HIDE, name).equals(
-                        MessageDisplayer.ConfirmAction.YES);
+                willAdd = MessageDisplayer.confirmYesNo(null, "ImageCollectionToDatabase.Confirm.InputNewCollectionName", name);
                 name = null;
             }
             if (willAdd) {

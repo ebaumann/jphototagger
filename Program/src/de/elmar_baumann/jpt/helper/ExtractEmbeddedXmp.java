@@ -51,10 +51,10 @@ public final class ExtractEmbeddedXmp extends FileEditor {
 
     private boolean confirmRemove(String absolutePath) {
         if (getConfirmOverwrite()) {
-            return MessageDisplayer.confirm(null,
+            return MessageDisplayer.confirmYesNo(
+                    null,
                     "ExtractEmbeddedXmpEditor.Confirm.Overwrite",
-                    MessageDisplayer.CancelButton.HIDE, absolutePath).equals(
-                    MessageDisplayer.ConfirmAction.YES);
+                    absolutePath);
         }
         return true;
     }

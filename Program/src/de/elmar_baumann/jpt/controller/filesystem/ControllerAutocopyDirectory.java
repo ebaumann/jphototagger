@@ -117,27 +117,23 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void informationMessageNoFilesFound() {
-        if (MessageDisplayer.confirm(null,
-                "ControllerAutocopyDirectory.Info.NoFilesFound",
-                MessageDisplayer.CancelButton.HIDE).equals(
-                MessageDisplayer.ConfirmAction.YES)) {
+        if (MessageDisplayer.confirmYesNo(
+                null,
+                "ControllerAutocopyDirectory.Info.NoFilesFound")) {
             setAutocopyDirectory();
             copy();
         }
     }
 
     private boolean confirmSetAutocopyDirectory(String bundleKey) {
-        return MessageDisplayer.confirm(null,
-                bundleKey,
-                MessageDisplayer.CancelButton.HIDE).equals(
-                MessageDisplayer.ConfirmAction.YES);
+        return MessageDisplayer.confirmYesNo(null, bundleKey);
     }
 
     private boolean confirmAutocopyDir(File dir) {
-        return MessageDisplayer.confirm(null,
+        return MessageDisplayer.confirmYesNo(
+                null,
                 "ControllerAutocopyDirectory.Confirm.AutocopyDir",
-                MessageDisplayer.CancelButton.HIDE, dir).equals(
-                MessageDisplayer.ConfirmAction.YES);
+                dir);
     }
 
     private class CopyTask extends Thread implements ProgressListener {

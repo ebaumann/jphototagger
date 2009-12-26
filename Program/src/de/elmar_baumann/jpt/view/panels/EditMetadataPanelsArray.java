@@ -873,9 +873,9 @@ public final class EditMetadataPanelsArray implements FocusListener,
         }
 
         public void enableEdit(TextEntry entry) {
-            if (MessageDisplayer.confirm(null,
-                    "DisableIfMultipleValues.Confirm.Edit",
-                    MessageDisplayer.CancelButton.HIDE).equals(MessageDisplayer.ConfirmAction.YES)) {
+            if (MessageDisplayer.confirmYesNo(
+                    null,
+                    "DisableIfMultipleValues.Confirm.Edit")) {
                 releaseEntry(entry);
             }
         }

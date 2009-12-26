@@ -140,10 +140,7 @@ public final class ControllerHelp
     private boolean checkPdfViewer() {
         File viewer = new File(UserSettings.INSTANCE.getPdfViewer());
         if (!viewer.exists()) {
-            if (MessageDisplayer.confirm(null,
-                    "ControllerHelp.Error.NoPdfViewer",
-                    MessageDisplayer.CancelButton.HIDE).equals(
-                    MessageDisplayer.ConfirmAction.YES)) {
+            if (MessageDisplayer.confirmYesNo(null, "ControllerHelp.Error.NoPdfViewer")) {
                 SettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
                 if (SettingsDialog.INSTANCE.isVisible()) {
                     SettingsDialog.INSTANCE.toFront();

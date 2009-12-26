@@ -50,7 +50,7 @@ public final class CopyFiles implements Runnable {
 
         /** Overwrite existing files only if confirmed */
         CONFIRM_OVERWRITE(0),
-        /** Overwrite existing files without confirm */
+        /** Overwrite existing files without confirmYesNo */
         FORCE_OVERWRITE(1),
         /** Rename the source file if the target file exists */
         RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS(2),
@@ -185,10 +185,9 @@ public final class CopyFiles implements Runnable {
         }
         File target = filePair.getSecond();
         if (target.exists()) {
-            MessageDisplayer.ConfirmAction action = MessageDisplayer.confirm(
+            MessageDisplayer.ConfirmAction action = MessageDisplayer.confirmYesNoCancel(
                     null,
                     "CopyFiles.Confirm.OverwriteExisting",
-                    MessageDisplayer.CancelButton.SHOW,
                     filePair.getSecond(), filePair.getFirst());
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
                 stop();

@@ -366,11 +366,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private void checkChanged() {
         if (isSavedSearch && isChanged()) {
-            if (MessageDisplayer.confirm(
+            if (MessageDisplayer.confirmYesNo(
                     this,
-                    "AdvancedSearchDialog.Confirm.SaveChanges",
-                    MessageDisplayer.CancelButton.HIDE).equals(
-                    MessageDisplayer.ConfirmAction.YES)) {
+                    "AdvancedSearchDialog.Confirm.SaveChanges")) {
                 saveSearch();
             }
         }
