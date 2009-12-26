@@ -57,7 +57,7 @@ public class ControllerRenameHierarchicalKeyword
 
     @Override
     protected boolean myKey(KeyEvent e) {
-        return KeyEventUtil.isControl(e, KeyEvent.VK_F2);
+        return e.getKeyCode() == KeyEvent.VK_F2;
     }
 
     @Override
