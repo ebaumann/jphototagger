@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -56,10 +57,9 @@ public final class ControllerPasteFilesFromClipboard
         implements ActionListener, KeyListener, MenuListener,
         ThumbnailsPanelListener {
 
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenuItem menuItemPaste =
-            GUI.INSTANCE.getAppFrame().getMenuItemPasteFromClipboard();
+    private final ThumbnailsPanel     thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuThumbnails popup           = PopupMenuThumbnails.INSTANCE;
+    private final JMenuItem           menuItemPaste   = popup.getItemPasteFromClipboard();
 
     public ControllerPasteFilesFromClipboard() {
         listen();
@@ -76,7 +76,7 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (menuItemPaste.isEnabled()) return;
+        if (!menuItemPaste.isEnabled()) return;
         if (KeyEventUtil.isControl(e, KeyEvent.VK_V) && canPasteFiles()) {
             Object source = e.getSource();
             if (source == thumbnailsPanel) {

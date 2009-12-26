@@ -38,11 +38,9 @@ import java.util.Map;
 public final class AutoCompleteDataOfColumn
         implements UserSettingsChangeListener {
 
-    public static final AutoCompleteDataOfColumn INSTANCE =
-            new AutoCompleteDataOfColumn();
-    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN =
-            Collections.synchronizedMap(new HashMap<Column, AutoCompleteData>());
-    private AutoCompleteData fastSearchData;
+    public static final  AutoCompleteDataOfColumn      INSTANCE       = new AutoCompleteDataOfColumn();
+    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN = Collections.synchronizedMap(new HashMap<Column, AutoCompleteData>());
+    private              AutoCompleteData              fastSearchData;
 
     /**
      * Returns the autocomplete data of a specific column.

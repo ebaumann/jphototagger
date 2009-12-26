@@ -29,6 +29,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.util.Lookup;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -57,9 +58,14 @@ public final class PopupMenuThumbnails extends JPopupMenu
         implements UserSettingsChangeListener {
 
     public static final PopupMenuThumbnails     INSTANCE                             = new PopupMenuThumbnails();
-    private final       JMenu                   menuPrograms                         = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.menuOtherOpenImageApps"));
+    private final       JMenu                   menuMisc                             = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuMisc"));
+    private final       JMenu                   menuPrograms                         = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuOtherOpenImageApps"));
+    private final       JMenu                   menuImageCollection                  = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuImageCollection"));
+    private final       JMenu                   menuRotateThumbnail                  = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuRotateThumbnail"));
     private final       JMenu                   menuPlugins                          = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuPlugins"));
     private final       JMenu                   menuRating                           = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.menuRating"));
+    private final       JMenu                   menuSelection                        = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuSelection"));
+    private final       JMenu                   menuFsOps                            = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuFileSystemOps"));
     private final       JMenuItem               itemUpdateMetadata                   = new JMenuItem();
     private final       JMenuItem               itemUpdateThumbnail                  = new JMenuItem();
     private final       JMenuItem               itemIptcToXmp                        = new JMenuItem();
@@ -84,6 +90,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final       JMenuItem               itemRating3                          = new JMenuItem();
     private final       JMenuItem               itemRating4                          = new JMenuItem();
     private final       JMenuItem               itemRating5                          = new JMenuItem();
+    private final       JMenuItem               itemCopyMetadata                     = new JMenuItem();
+    private final       JMenuItem               itemCopyToClipboard                  = new JMenuItem();
+    private final       JMenuItem               itemCutToClipboard                   = new JMenuItem();
+    private final       JMenuItem               itemPasteFromClipboard               = new JMenuItem();
+    private final       JMenuItem               itemPasteMetadata                    = new JMenuItem();
     // End menu items
     private final       List<ActionListener>    actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final       Map<JMenuItem, Program> programOfMenuItem                    = new HashMap<JMenuItem, Program>();
@@ -125,6 +136,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
         TEXT_OF_ITEM.put(itemRating3                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating3"));
         TEXT_OF_ITEM.put(itemRating4                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating4"));
         TEXT_OF_ITEM.put(itemRating5                  , Bundle.getString("PopupMenuThumbnails.DisplayName.Rating5"));
+        TEXT_OF_ITEM.put(itemCopyMetadata             , Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCopyMetadata"));
+        TEXT_OF_ITEM.put(itemCopyToClipboard          , Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCopyToClipboard"));
+        TEXT_OF_ITEM.put(itemCutToClipboard           , Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCutToClipboard"));
+        TEXT_OF_ITEM.put(itemPasteFromClipboard       , Bundle.getString("PopupMenuThumbnails.DisplayName.ItemPasteFromClipboard"));
+        TEXT_OF_ITEM.put(itemPasteMetadata            , Bundle.getString("PopupMenuThumbnails.DisplayName.ItemPasteMetadata"));
     }
 
     private void initItemIcons() {
@@ -152,35 +168,62 @@ public final class PopupMenuThumbnails extends JPopupMenu
         ICON_OF_ITEM.put(itemRating3                  , AppLookAndFeel.getIcon("icon_xmp_rating_3.png"));
         ICON_OF_ITEM.put(itemRating4                  , AppLookAndFeel.getIcon("icon_xmp_rating_4.png"));
         ICON_OF_ITEM.put(itemRating5                  , AppLookAndFeel.getIcon("icon_xmp_rating_5.png"));
+        ICON_OF_ITEM.put(itemCopyMetadata             , AppLookAndFeel.getIcon("icon_copy_metadata.png"));
+        ICON_OF_ITEM.put(itemCopyToClipboard          , AppLookAndFeel.getIcon("icon_copy_to_clipboard.png"));
+        ICON_OF_ITEM.put(itemCutToClipboard           , AppLookAndFeel.getIcon("icon_cut_to_clipboard.png"));
+        ICON_OF_ITEM.put(itemPasteFromClipboard       , AppLookAndFeel.getIcon("icon_paste_from_clipboard.png"));
+        ICON_OF_ITEM.put(itemPasteMetadata            , AppLookAndFeel.getIcon("icon_paste_metadata.png"));
     }
 
     private void addItems() {
-        addRatingItems();
         add(itemUpdateThumbnail);
         add(itemUpdateMetadata);
-        add(itemIptcToXmp);
-        add(itemDeleteImageFromDatabase);
+
+
+        menuMisc.add(itemIptcToXmp);
+        menuMisc.add(itemDeleteImageFromDatabase);
+        add(menuMisc);
+
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
         add(menuPrograms);
         addPluginItems();
+
         add(new JSeparator());
+        menuRating.add(itemRating0);
+        menuRating.add(itemRating1);
+        menuRating.add(itemRating2);
+        menuRating.add(itemRating3);
+        menuRating.add(itemRating4);
+        menuRating.add(itemRating5);
         add(menuRating);
-        add(itemPick);
-        add(itemReject);
-        add(new JSeparator());
-        add(itemCreateImageCollection);
-        add(itemAddToImageCollection);
-        add(itemDeleteFromImageCollection);
-        add(new JSeparator());
-        add(itemRotateThumbnai90);
-        add(itemRotateThumbnai180);
-        add(itemRotateThumbnail270);
-        add(new JSeparator());
-        add(itemFileSystemCopyToDirectory);
-        add(itemFileSystemRenameFiles);
-        add(itemFileSystemMoveFiles);
-        add(itemFileSystemDeleteFiles);
+
+        menuSelection.add(itemPick);
+        menuSelection.add(itemReject);
+        add(menuSelection);
+
+        menuImageCollection.add(itemCreateImageCollection);
+        menuImageCollection.add(itemAddToImageCollection);
+        menuImageCollection.add(itemDeleteFromImageCollection);
+        add(menuImageCollection);
+
+        menuRotateThumbnail.add(itemRotateThumbnai90);
+        menuRotateThumbnail.add(itemRotateThumbnai180);
+        menuRotateThumbnail.add(itemRotateThumbnail270);
+        add(menuRotateThumbnail);
+        
+        menuFsOps.add(itemCopyToClipboard);
+        menuFsOps.add(itemCutToClipboard);
+        menuFsOps.add(itemPasteFromClipboard);
+        menuFsOps.add(itemCopyMetadata);
+        menuFsOps.add(itemPasteMetadata);
+        menuFsOps.add(new JSeparator());
+        menuFsOps.add(itemFileSystemCopyToDirectory);
+        menuFsOps.add(itemFileSystemRenameFiles);
+        menuFsOps.add(itemFileSystemMoveFiles);
+        menuFsOps.add(itemFileSystemDeleteFiles);
+        add(menuFsOps);
+
         add(new JSeparator());
         add(itemRefresh);
     }
@@ -197,15 +240,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
             plugin.putValue(Action.SMALL_ICON, iconPlugin);
             menuPlugins.add(plugin);
         }
-    }
-
-    private void addRatingItems() {
-        menuRating.add(itemRating0);
-        menuRating.add(itemRating1);
-        menuRating.add(itemRating2);
-        menuRating.add(itemRating3);
-        menuRating.add(itemRating4);
-        menuRating.add(itemRating5);
     }
 
     private PopupMenuThumbnails() {
@@ -322,6 +356,25 @@ public final class PopupMenuThumbnails extends JPopupMenu
     public JMenuItem getItemPick() {
         return itemPick;
     }
+    public JMenuItem getItemCopyMetadata() {
+        return itemCopyMetadata;
+    }
+
+    public JMenuItem getItemPasteMetadata() {
+        return itemPasteMetadata;
+    }
+
+    public JMenuItem getItemCopyToClipboard() {
+        return itemCopyToClipboard;
+    }
+
+    public JMenuItem getItemPasteFromClipboard() {
+        return itemPasteFromClipboard;
+    }
+
+    public JMenuItem getItemCutToClipboard() {
+        return itemCutToClipboard;
+    }
 
     public JMenuItem getItemReject() {
         return itemReject;
@@ -419,6 +472,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
         itemFileSystemDeleteFiles    .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
         itemFileSystemRenameFiles    .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
         itemRefresh                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+        itemCopyToClipboard          .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
+        itemCutToClipboard           .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
+        itemPasteFromClipboard       .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK));
+        itemCopyMetadata             .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.SHIFT_MASK | InputEvent.CTRL_MASK));
+        itemPasteMetadata            .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.SHIFT_MASK | InputEvent.CTRL_MASK));
         itemPick                     .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0));
         itemReject                   .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, 0));
         itemRating0                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0));

@@ -35,10 +35,9 @@ import java.util.Set;
  */
 public final class AutoCompleteData {
 
-    private final DatabaseContent db = DatabaseContent.INSTANCE;
-    private final Set<Column> columns;
-    private final List<String> content =
-            Collections.synchronizedList(new LinkedList<String>());
+    private final DatabaseContent db      = DatabaseContent.INSTANCE;
+    private final Set<Column>     columns;
+    private final List<String>    content = Collections.synchronizedList(new LinkedList<String>());
 
     /**
      * Creates a new instance of this class.

@@ -23,11 +23,15 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.FileAction;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JMenuItem;
 
 /**
@@ -41,14 +45,12 @@ import javax.swing.JMenuItem;
  * @version 2008-10-26
  */
 public final class ControllerCopyOrCutFilesToClipboard
-        implements ActionListener, ThumbnailsPanelListener {
+        implements ActionListener, KeyListener, ThumbnailsPanelListener {
 
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenuItem menuItemCopy =
-            GUI.INSTANCE.getAppFrame().getMenuItemCopyToClipboard();
-    private final JMenuItem menuItemCut =
-            GUI.INSTANCE.getAppFrame().getMenuItemCutToClipboard();
+    private final ThumbnailsPanel     thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuThumbnails popup           = PopupMenuThumbnails.INSTANCE;
+    private final JMenuItem           menuItemCopy    = popup.getItemCopyToClipboard();
+    private final JMenuItem           menuItemCut     = popup.getItemCutToClipboard();
 
     public ControllerCopyOrCutFilesToClipboard() {
         listen();
@@ -58,6 +60,23 @@ public final class ControllerCopyOrCutFilesToClipboard
         menuItemCopy.addActionListener(this);
         menuItemCut.addActionListener(this);
         thumbnailsPanel.addThumbnailsPanelListener(this);
+        thumbnailsPanel.addKeyListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (thumbnailsPanel.getSelectionCount() <= 0) return;
+        if (KeyEventUtil.isControl(e, KeyEvent.VK_C)) {
+            perform(FileAction.COPY);
+        } else if (KeyEventUtil.isControl(e, KeyEvent.VK_V)) {
+            perform(FileAction.CUT);
+        }
+    }
+
+    private void perform(FileAction fa) {
+        thumbnailsPanel.setFileAction(fa);
+        transferSelectedFiles();
+        popup.getItemPasteFromClipboard().setEnabled(true);
     }
 
     @Override
@@ -65,9 +84,7 @@ public final class ControllerCopyOrCutFilesToClipboard
         if (thumbnailsPanel.getSelectionCount() > 0) {
             setFileAction(e.getSource());
             transferSelectedFiles();
-            GUI.INSTANCE.getAppFrame().getMenuItemPasteFromClipboard().
-                    setEnabled(
-                    true);
+            popup.getItemPasteFromClipboard().setEnabled(true);
         }
     }
 
@@ -82,10 +99,8 @@ public final class ControllerCopyOrCutFilesToClipboard
     }
 
     private void transferSelectedFiles() {
-        Clipboard clipboard =
-                Toolkit.getDefaultToolkit().getSystemClipboard();
-        ClipboardUtil.copyToClipboard(thumbnailsPanel.getSelectedFiles(),
-                clipboard, null);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        ClipboardUtil.copyToClipboard(thumbnailsPanel.getSelectedFiles(), clipboard, null);
     }
 
     @Override
@@ -97,6 +112,16 @@ public final class ControllerCopyOrCutFilesToClipboard
 
     @Override
     public void thumbnailsChanged() {
+        // ignore
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         // ignore
     }
 }

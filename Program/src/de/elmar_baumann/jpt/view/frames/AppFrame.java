@@ -263,26 +263,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemAcceleratorKeys;
     }
 
-    public JMenuItem getMenuItemCopyMetadata() {
-        return menuItemCopyMetadata;
-    }
-
-    public JMenuItem getMenuItemPasteMetadata() {
-        return menuItemPasteMetadata;
-    }
-
-    public JMenuItem getMenuItemCopyToClipboard() {
-        return menuItemCopyToClipboard;
-    }
-
-    public JMenuItem getMenuItemPasteFromClipboard() {
-        return menuItemPasteFromClipboard;
-    }
-
-    public JMenuItem getMenuItemCutToClipboard() {
-        return menuItemCutToClipboard;
-    }
-
     public JMenuItem getMenuItemCopyKeywordsToHierarchicalKeywords() {
         return menuItemCopyKeywordsToHierarchicalKeywords;
     }
@@ -334,13 +314,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSettings = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JSeparator();
         menuItemSearch = new javax.swing.JMenuItem();
-        jSeparator13 = new javax.swing.JSeparator();
-        menuItemCopyToClipboard = new javax.swing.JMenuItem();
-        menuItemCutToClipboard = new javax.swing.JMenuItem();
-        menuItemPasteFromClipboard = new javax.swing.JMenuItem();
-        jSeparator14 = new javax.swing.JSeparator();
-        menuItemCopyMetadata = new javax.swing.JMenuItem();
-        menuItemPasteMetadata = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         menuSort = new javax.swing.JMenu();
         radioButtonMenuItemSortFilepathAscending = new javax.swing.JRadioButtonMenuItem();
@@ -419,343 +392,311 @@ public final class AppFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);
 
-        menuFile.setText(Bundle.getString("AppFrame.menuFile.text"));
+        menuFile.setText(Bundle.getString("AppFrame.menuFile.text")); // NOI18N
 
         menuItemScanDirectory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemScanDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_folder.png")));
-        menuItemScanDirectory.setText(Bundle.getString("AppFrame.menuItemScanDirectory.text"));
+        menuItemScanDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_folder.png"))); // NOI18N
+        menuItemScanDirectory.setText(Bundle.getString("AppFrame.menuItemScanDirectory.text")); // NOI18N
         menuFile.add(menuItemScanDirectory);
 
         menuItemMaintainDatabase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_file.png")));
-        menuItemMaintainDatabase.setText(Bundle.getString("AppFrame.menuItemMaintainDatabase.text"));
+        menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_file.png"))); // NOI18N
+        menuItemMaintainDatabase.setText(Bundle.getString("AppFrame.menuItemMaintainDatabase.text")); // NOI18N
         menuFile.add(menuItemMaintainDatabase);
         menuFile.add(jSeparator1);
 
         menuItemCopyFromAutocopyDirectory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        menuItemCopyFromAutocopyDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_card.png")));
-        menuItemCopyFromAutocopyDirectory.setText(Bundle.getString("AppFrame.menuItemCopyFromAutocopyDirectory.text"));
+        menuItemCopyFromAutocopyDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_card.png"))); // NOI18N
+        menuItemCopyFromAutocopyDirectory.setText(Bundle.getString("AppFrame.menuItemCopyFromAutocopyDirectory.text")); // NOI18N
         menuFile.add(menuItemCopyFromAutocopyDirectory);
         menuFile.add(jSeparator11);
 
-        menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_import.png")));
-        menuImport.setText(Bundle.getString("AppFrame.menuImport.text"));
+        menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_import.png"))); // NOI18N
+        menuImport.setText(Bundle.getString("AppFrame.menuImport.text")); // NOI18N
 
-        menuItemImportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")));
-        menuItemImportKeywords.setText(Bundle.getString("AppFrame.menuItemImportKeywords.text"));
+        menuItemImportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png"))); // NOI18N
+        menuItemImportKeywords.setText(Bundle.getString("AppFrame.menuItemImportKeywords.text")); // NOI18N
         menuImport.add(menuItemImportKeywords);
 
         menuFile.add(menuImport);
 
-        menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png")));
-        menuExport.setText(Bundle.getString("AppFrame.menuExport.text"));
+        menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
+        menuExport.setText(Bundle.getString("AppFrame.menuExport.text")); // NOI18N
 
-        menuItemExportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")));
-        menuItemExportKeywords.setText(Bundle.getString("AppFrame.menuItemExportKeywords.text"));
+        menuItemExportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png"))); // NOI18N
+        menuItemExportKeywords.setText(Bundle.getString("AppFrame.menuItemExportKeywords.text")); // NOI18N
         menuExport.add(menuItemExportKeywords);
 
         menuFile.add(menuExport);
         menuFile.add(jSeparator4);
 
         menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exit.png")));
-        menuItemExit.setText(Bundle.getString("AppFrame.menuItemExit.text"));
+        menuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exit.png"))); // NOI18N
+        menuItemExit.setText(Bundle.getString("AppFrame.menuItemExit.text")); // NOI18N
         menuFile.add(menuItemExit);
 
         menuBar.add(menuFile);
 
-        menuEdit.setText(Bundle.getString("AppFrame.menuEdit.text"));
+        menuEdit.setText(Bundle.getString("AppFrame.menuEdit.text")); // NOI18N
 
         menuItemSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_settings.png")));
-        menuItemSettings.setText(Bundle.getString("AppFrame.menuItemSettings.text"));
+        menuItemSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_settings.png"))); // NOI18N
+        menuItemSettings.setText(Bundle.getString("AppFrame.menuItemSettings.text")); // NOI18N
         menuEdit.add(menuItemSettings);
         menuEdit.add(jSeparator5);
 
         menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        menuItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png")));
-        menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text"));
+        menuItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png"))); // NOI18N
+        menuItemSearch.setText(Bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
         menuEdit.add(menuItemSearch);
-        menuEdit.add(jSeparator13);
-
-        menuItemCopyToClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemCopyToClipboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_copy_to_clipboard.png")));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
-        menuItemCopyToClipboard.setText(bundle.getString("AppFrame.menuItemCopyToClipboard.text"));
-        menuItemCopyToClipboard.setEnabled(false);
-        menuEdit.add(menuItemCopyToClipboard);
-
-        menuItemCutToClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemCutToClipboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_cut_to_clipboard.png")));
-        menuItemCutToClipboard.setText(bundle.getString("AppFrame.menuItemCutToClipboard.text"));
-        menuItemCutToClipboard.setEnabled(false);
-        menuEdit.add(menuItemCutToClipboard);
-
-        menuItemPasteFromClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemPasteFromClipboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_paste_from_clipboard.png")));
-        menuItemPasteFromClipboard.setText(bundle.getString("AppFrame.menuItemPasteFromClipboard.text"));
-        menuItemPasteFromClipboard.setEnabled(false);
-        menuEdit.add(menuItemPasteFromClipboard);
-        menuEdit.add(jSeparator14);
-
-        menuItemCopyMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemCopyMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_copy_metadata.png")));
-        menuItemCopyMetadata.setText(Bundle.getString("AppFrame.menuItemCopyMetadata.text"));
-        menuItemCopyMetadata.setEnabled(false);
-        menuEdit.add(menuItemCopyMetadata);
-
-        menuItemPasteMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemPasteMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_paste_metadata.png")));
-        menuItemPasteMetadata.setText(Bundle.getString("AppFrame.menuItemPasteMetadata.text"));
-        menuItemPasteMetadata.setEnabled(false);
-        menuEdit.add(menuItemPasteMetadata);
 
         menuBar.add(menuEdit);
 
-        menuView.setText(Bundle.getString("AppFrame.menuView.text"));
+        menuView.setText(Bundle.getString("AppFrame.menuView.text")); // NOI18N
 
-        menuSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_sort.png")));
-        menuSort.setText(Bundle.getString("AppFrame.menuSort.text"));
+        menuSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_sort.png"))); // NOI18N
+        menuSort.setText(Bundle.getString("AppFrame.menuSort.text")); // NOI18N
 
-        radioButtonMenuItemSortFilepathAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilepathAscending.text"));
+        radioButtonMenuItemSortFilepathAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilepathAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilepathAscending);
 
-        radioButtonMenuItemSortFilepathDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilepathDescending.text"));
+        radioButtonMenuItemSortFilepathDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFilepathDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilepathDescending);
         menuSort.add(jSeparator26);
 
-        radioButtonMenuItemSortFilenameAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text"));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        radioButtonMenuItemSortFilenameAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilenameAscending);
 
-        radioButtonMenuItemSortFilenameDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text"));
+        radioButtonMenuItemSortFilenameDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilenameDescending);
         menuSort.add(jSeparator2);
 
-        radioButtonMenuItemSortFileTypeAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text"));
+        radioButtonMenuItemSortFileTypeAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFileTypeAscending);
 
-        radioButtonMenuItemSortFileTypeDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text"));
+        radioButtonMenuItemSortFileTypeDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFileTypeDescending);
         menuSort.add(jSeparator3);
 
-        radioButtonMenuItemSortLastModifiedAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text"));
+        radioButtonMenuItemSortLastModifiedAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortLastModifiedAscending);
 
-        radioButtonMenuItemSortLastModifiedDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text"));
+        radioButtonMenuItemSortLastModifiedDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
         menuSort.add(jSeparator15);
 
-        radioButtonMenuItemSortExifDateTimeOriginalAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text"));
+        radioButtonMenuItemSortExifDateTimeOriginalAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalAscending);
 
-        radioButtonMenuItemSortExifDateTimeOriginalDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text"));
+        radioButtonMenuItemSortExifDateTimeOriginalDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalDescending);
         menuSort.add(jSeparator16);
 
-        radioButtonMenuItemSortExifIsoSpeedRatingAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text"));
+        radioButtonMenuItemSortExifIsoSpeedRatingAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifIsoSpeedRatingAscending);
 
-        radioButtonMenuItemSortExifIsoSpeedRatingDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text"));
+        radioButtonMenuItemSortExifIsoSpeedRatingDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifIsoSpeedRatingDescending);
         menuSort.add(jSeparator17);
 
-        radioButtonMenuItemSortExifFocalLengthAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text"));
+        radioButtonMenuItemSortExifFocalLengthAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifFocalLengthAscending);
 
-        radioButtonMenuItemSortExifFocalLengthDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text"));
+        radioButtonMenuItemSortExifFocalLengthDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifFocalLengthDescending);
         menuSort.add(jSeparator18);
 
-        radioButtonMenuItemSortExifRecordingEquipmentAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text"));
+        radioButtonMenuItemSortExifRecordingEquipmentAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifRecordingEquipmentAscending);
 
-        radioButtonMenuItemSortExifRecordingEquipmentDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text"));
+        radioButtonMenuItemSortExifRecordingEquipmentDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifRecordingEquipmentDescending);
         menuSort.add(jSeparator22);
 
-        radioButtonMenuItemSortXmpIptcLocationAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text"));
+        radioButtonMenuItemSortXmpIptcLocationAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpIptcLocationAscending);
 
-        radioButtonMenuItemSortXmpIptcLocationDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text"));
+        radioButtonMenuItemSortXmpIptcLocationDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpIptcLocationDescending);
         menuSort.add(jSeparator19);
 
-        radioButtonMenuItemSortXmpRatingAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortXmpRatingAscending.text"));
+        radioButtonMenuItemSortXmpRatingAscending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortXmpRatingAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpRatingAscending);
 
-        radioButtonMenuItemSortXmpRatingDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortXmpRatingDescending.text"));
+        radioButtonMenuItemSortXmpRatingDescending.setText(Bundle.getString("AppFrame.radioButtonMenuItemSortXmpRatingDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpRatingDescending);
 
         menuView.add(menuSort);
         menuView.add(jSeparator6);
 
         menuItemThumbnailSizeIncrease.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_PLUS, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemThumbnailSizeIncrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_size_increase.png")));
-        menuItemThumbnailSizeIncrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeIncrease.text"));
+        menuItemThumbnailSizeIncrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_size_increase.png"))); // NOI18N
+        menuItemThumbnailSizeIncrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeIncrease.text")); // NOI18N
         menuView.add(menuItemThumbnailSizeIncrease);
 
         menuItemThumbnailSizeDecrease.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemThumbnailSizeDecrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_size_decrease.png")));
-        menuItemThumbnailSizeDecrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeDecrease.text"));
+        menuItemThumbnailSizeDecrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_size_decrease.png"))); // NOI18N
+        menuItemThumbnailSizeDecrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeDecrease.text")); // NOI18N
         menuView.add(menuItemThumbnailSizeDecrease);
         menuView.add(jSeparator10);
 
         checkBoxMenuItemKeywordOverlay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        checkBoxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text"));
-        checkBoxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText"));
+        checkBoxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text")); // NOI18N
+        checkBoxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText")); // NOI18N
         menuView.add(checkBoxMenuItemKeywordOverlay);
 
         menuBar.add(menuView);
 
-        menuGoto.setText(Bundle.getString("AppFrame.menuGoto.text"));
+        menuGoto.setText(Bundle.getString("AppFrame.menuGoto.text")); // NOI18N
 
         menuItemGotoFastSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoFastSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png")));
-        menuItemGotoFastSearch.setText(Bundle.getString("AppFrame.menuItemGotoFastSearch.text"));
+        menuItemGotoFastSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png"))); // NOI18N
+        menuItemGotoFastSearch.setText(Bundle.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
         menuGoto.add(menuItemGotoFastSearch);
 
         menuItemGotoEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png")));
-        menuItemGotoEdit.setText(Bundle.getString("AppFrame.menuItemGotoEdit.text"));
+        menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png"))); // NOI18N
+        menuItemGotoEdit.setText(Bundle.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
         menuGoto.add(menuItemGotoEdit);
         menuGoto.add(jSeparator7);
 
         menuItemGotoDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_folder.png")));
-        menuItemGotoDirectories.setText(Bundle.getString("AppFrame.menuItemGotoDirectories.text"));
+        menuItemGotoDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_folder.png"))); // NOI18N
+        menuItemGotoDirectories.setText(Bundle.getString("AppFrame.menuItemGotoDirectories.text")); // NOI18N
         menuGoto.add(menuItemGotoDirectories);
 
         menuItemGotoSavedSearches.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoSavedSearches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png")));
-        menuItemGotoSavedSearches.setText(Bundle.getString("AppFrame.menuItemGotoSavedSearches.text"));
+        menuItemGotoSavedSearches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png"))); // NOI18N
+        menuItemGotoSavedSearches.setText(Bundle.getString("AppFrame.menuItemGotoSavedSearches.text")); // NOI18N
         menuGoto.add(menuItemGotoSavedSearches);
 
         menuItemGotoCollections.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoCollections.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_imagecollection.png")));
-        menuItemGotoCollections.setText(Bundle.getString("AppFrame.menuItemGotoCollections.text"));
+        menuItemGotoCollections.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_imagecollection.png"))); // NOI18N
+        menuItemGotoCollections.setText(Bundle.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
         menuGoto.add(menuItemGotoCollections);
 
         menuItemGotoFavoriteDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoFavoriteDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_favorite.png")));
-        menuItemGotoFavoriteDirectories.setText(Bundle.getString("AppFrame.menuItemGotoFavoriteDirectories.text"));
+        menuItemGotoFavoriteDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_favorite.png"))); // NOI18N
+        menuItemGotoFavoriteDirectories.setText(Bundle.getString("AppFrame.menuItemGotoFavoriteDirectories.text")); // NOI18N
         menuGoto.add(menuItemGotoFavoriteDirectories);
 
         menuItemGotoKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")));
-        menuItemGotoKeywords.setText(Bundle.getString("AppFrame.menuItemGotoKeywords.text"));
+        menuItemGotoKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png"))); // NOI18N
+        menuItemGotoKeywords.setText(Bundle.getString("AppFrame.menuItemGotoKeywords.text")); // NOI18N
         menuGoto.add(menuItemGotoKeywords);
 
         menuItemGotoTimeline.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoTimeline.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_timeline.png")));
-        menuItemGotoTimeline.setText(Bundle.getString("AppFrame.menuItemGotoTimeline.text"));
+        menuItemGotoTimeline.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_timeline.png"))); // NOI18N
+        menuItemGotoTimeline.setText(Bundle.getString("AppFrame.menuItemGotoTimeline.text")); // NOI18N
         menuGoto.add(menuItemGotoTimeline);
 
         menuItemGotoMiscMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoMiscMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png")));
-        menuItemGotoMiscMetadata.setText(Bundle.getString("AppFrame.menuItemGotoMiscMetadata.text"));
+        menuItemGotoMiscMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png"))); // NOI18N
+        menuItemGotoMiscMetadata.setText(Bundle.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
         menuGoto.add(jSeparator8);
 
         menuItemGotoThumbnailsPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_thumbnails.png")));
-        menuItemGotoThumbnailsPanel.setText(Bundle.getString("AppFrame.menuItemGotoThumbnailsPanel.text"));
+        menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_thumbnails.png"))); // NOI18N
+        menuItemGotoThumbnailsPanel.setText(Bundle.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
         menuGoto.add(menuItemGotoThumbnailsPanel);
         menuGoto.add(jSeparator9);
 
         menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
-        menuItemGotoIptcMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_iptc.png")));
-        menuItemGotoIptcMetadata.setText(Bundle.getString("AppFrame.menuItemGotoIptcMetadata.text"));
+        menuItemGotoIptcMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_iptc.png"))); // NOI18N
+        menuItemGotoIptcMetadata.setText(Bundle.getString("AppFrame.menuItemGotoIptcMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoIptcMetadata);
 
         menuItemGotoExifMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_MASK));
-        menuItemGotoExifMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exif.png")));
-        menuItemGotoExifMetadata.setText(Bundle.getString("AppFrame.menuItemGotoExifMetadata.text"));
+        menuItemGotoExifMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exif.png"))); // NOI18N
+        menuItemGotoExifMetadata.setText(Bundle.getString("AppFrame.menuItemGotoExifMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoExifMetadata);
 
         menuItemGotoXmpMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.ALT_MASK));
-        menuItemGotoXmpMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png")));
-        menuItemGotoXmpMetadata.setText(Bundle.getString("AppFrame.menuItemGotoXmpMetadata.text"));
+        menuItemGotoXmpMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"))); // NOI18N
+        menuItemGotoXmpMetadata.setText(Bundle.getString("AppFrame.menuItemGotoXmpMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoXmpMetadata);
 
         menuItemGotoHierarchicalKeywords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
-        menuItemGotoHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png")));
-        menuItemGotoHierarchicalKeywords.setText(Bundle.getString("AppFrame.menuItemGotoHierarchicalKeywords.text"));
+        menuItemGotoHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png"))); // NOI18N
+        menuItemGotoHierarchicalKeywords.setText(Bundle.getString("AppFrame.menuItemGotoHierarchicalKeywords.text")); // NOI18N
         menuGoto.add(menuItemGotoHierarchicalKeywords);
 
         menuBar.add(menuGoto);
 
-        menuTools.setText(Bundle.getString("AppFrame.menuTools.text"));
+        menuTools.setText(Bundle.getString("AppFrame.menuTools.text")); // NOI18N
 
         menuItemToolIptcToXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemToolIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png")));
-        menuItemToolIptcToXmp.setText(Bundle.getString("AppFrame.menuItemToolIptcToXmp.text"));
+        menuItemToolIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"))); // NOI18N
+        menuItemToolIptcToXmp.setText(Bundle.getString("AppFrame.menuItemToolIptcToXmp.text")); // NOI18N
         menuTools.add(menuItemToolIptcToXmp);
 
-        menuItemExtractEmbeddedXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png")));
-        menuItemExtractEmbeddedXmp.setText(Bundle.getString("AppFrame.menuItemExtractEmbeddedXmp.text"));
+        menuItemExtractEmbeddedXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"))); // NOI18N
+        menuItemExtractEmbeddedXmp.setText(Bundle.getString("AppFrame.menuItemExtractEmbeddedXmp.text")); // NOI18N
         menuTools.add(menuItemExtractEmbeddedXmp);
 
         menuItemRenameInXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemRenameInXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_replace_in_xmp.png")));
-        menuItemRenameInXmp.setText(Bundle.getString("AppFrame.menuItemRenameInXmp.text"));
+        menuItemRenameInXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_replace_in_xmp.png"))); // NOI18N
+        menuItemRenameInXmp.setText(Bundle.getString("AppFrame.menuItemRenameInXmp.text")); // NOI18N
         menuItemRenameInXmp.setEnabled(false);
         menuTools.add(menuItemRenameInXmp);
 
-        menuItemRenameFilenamesInDb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_file.png")));
-        menuItemRenameFilenamesInDb.setText(Bundle.getString("AppFrame.menuItemRenameFilenamesInDb.text"));
+        menuItemRenameFilenamesInDb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_file.png"))); // NOI18N
+        menuItemRenameFilenamesInDb.setText(Bundle.getString("AppFrame.menuItemRenameFilenamesInDb.text")); // NOI18N
         menuTools.add(menuItemRenameFilenamesInDb);
 
-        menuItemCopyKeywordsToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png")));
-        menuItemCopyKeywordsToHierarchicalKeywords.setText(bundle.getString("AppFrame.menuItemCopyKeywordsToHierarchicalKeywords.text"));
+        menuItemCopyKeywordsToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png"))); // NOI18N
+        menuItemCopyKeywordsToHierarchicalKeywords.setText(bundle.getString("AppFrame.menuItemCopyKeywordsToHierarchicalKeywords.text")); // NOI18N
         menuTools.add(menuItemCopyKeywordsToHierarchicalKeywords);
 
         menuBar.add(menuTools);
 
-        menuWindow.setText(Bundle.getString("AppFrame.menuWindow.text"));
+        menuWindow.setText(Bundle.getString("AppFrame.menuWindow.text")); // NOI18N
 
         menuItemInputHelper.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
-        menuItemInputHelper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_edit.png")));
-        menuItemInputHelper.setText(Bundle.getString("AppFrame.menuItemInputHelper.text"));
+        menuItemInputHelper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_edit.png"))); // NOI18N
+        menuItemInputHelper.setText(Bundle.getString("AppFrame.menuItemInputHelper.text")); // NOI18N
         menuWindow.add(menuItemInputHelper);
 
         menuItemLastEditedWords.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_insert_words.png")));
-        menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text"));
+        menuItemLastEditedWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_insert_words.png"))); // NOI18N
+        menuItemLastEditedWords.setText(Bundle.getString("AppFrame.menuItemLastEditedWords.text")); // NOI18N
         menuWindow.add(menuItemLastEditedWords);
 
         menuItemActions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
-        menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_action.png")));
-        menuItemActions.setText(Bundle.getString("AppFrame.menuItemActions.text"));
+        menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_action.png"))); // NOI18N
+        menuItemActions.setText(Bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
         menuWindow.add(menuItemActions);
         menuWindow.add(jSeparator20);
 
-        menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text"));
+        menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
         menuWindow.add(menuItemOutputWindow);
         menuWindow.add(jSeparator21);
 
-        menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text"));
+        menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
         menuWindow.add(menuItemDisplayLogfile);
 
         menuBar.add(menuWindow);
 
-        menuHelp.setText(Bundle.getString("AppFrame.menuHelp.text"));
+        menuHelp.setText(Bundle.getString("AppFrame.menuHelp.text")); // NOI18N
 
         menuItemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        menuItemHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_help.png")));
-        menuItemHelp.setText(Bundle.getString("AppFrame.menuItemHelp.text"));
+        menuItemHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_help.png"))); // NOI18N
+        menuItemHelp.setText(Bundle.getString("AppFrame.menuItemHelp.text")); // NOI18N
         menuHelp.add(menuItemHelp);
 
-        menuItemOpenPdfUserManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_pdf_manual.png")));
-        menuItemOpenPdfUserManual.setText(Bundle.getString("AppFrame.menuItemOpenPdfUserManual.text"));
+        menuItemOpenPdfUserManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_pdf_manual.png"))); // NOI18N
+        menuItemOpenPdfUserManual.setText(Bundle.getString("AppFrame.menuItemOpenPdfUserManual.text")); // NOI18N
         menuHelp.add(menuItemOpenPdfUserManual);
 
-        menuItemAcceleratorKeys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyboard.png")));
-        menuItemAcceleratorKeys.setText(bundle.getString("AppFrame.menuItemAcceleratorKeys.text"));
+        menuItemAcceleratorKeys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyboard.png"))); // NOI18N
+        menuItemAcceleratorKeys.setText(bundle.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
         menuHelp.add(menuItemAcceleratorKeys);
         menuHelp.add(jSeparator12);
 
-        menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_app_small.png")));
-        menuItemAbout.setText(Bundle.getString("AppFrame.menuItemAbout.text"));
+        menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_app_small.png"))); // NOI18N
+        menuItemAbout.setText(Bundle.getString("AppFrame.menuItemAbout.text")); // NOI18N
         menuHelp.add(menuItemAbout);
 
         menuBar.add(menuHelp);
@@ -768,8 +709,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
@@ -799,9 +738,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
     private javax.swing.JMenuItem menuItemCopyKeywordsToHierarchicalKeywords;
-    private javax.swing.JMenuItem menuItemCopyMetadata;
-    private javax.swing.JMenuItem menuItemCopyToClipboard;
-    private javax.swing.JMenuItem menuItemCutToClipboard;
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportKeywords;
@@ -827,8 +763,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
     private javax.swing.JMenuItem menuItemOutputWindow;
-    private javax.swing.JMenuItem menuItemPasteFromClipboard;
-    private javax.swing.JMenuItem menuItemPasteMetadata;
     private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
     private javax.swing.JMenuItem menuItemRenameInXmp;
     private javax.swing.JMenuItem menuItemScanDirectory;

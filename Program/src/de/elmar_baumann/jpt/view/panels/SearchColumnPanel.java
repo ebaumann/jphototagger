@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.lib.thirdparty.DateChooserDialog;
 import de.elmar_baumann.jpt.data.SavedSearchPanel;
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -47,7 +46,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -60,10 +58,10 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private final List<SearchListener>         searchListener     = new ArrayList<SearchListener>();
     private final ListCellRendererTableColumns columnRenderer     = new ListCellRendererTableColumns();
-    private       boolean                      isFirst            = false;
     private       boolean                      isOperatorsEnabled = true;
     private       boolean                      listenToActions    = true;
-    private       boolean                      changed            = false;
+    private       boolean                      isFirst;
+    private       boolean                      changed;
 
     public SearchColumnPanel() {
         initComponents();
@@ -71,7 +69,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void postInitComponents() {
-        initModels();
+        setComboboxSelIndices();
         setFormatter();
     }
 
@@ -95,11 +93,10 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxColumns.setSelectedIndex(0);
         comboBoxComparators.setSelectedIndex(0);
         comboBoxOperators.setSelectedIndex(0);
-        textFieldValue.setText(""); //
+        textFieldValue.setText("");
         setChanged(false);
         setFormatter();
         setInputVerifier();
-        setAutoComplete();
         listenToActions = true;
     }
 
@@ -141,14 +138,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private void setInputVerifier() {
         textFieldValue.setInputVerifier(
                 InputVerifierFactory.getInputVerifyerOf(getColumn()));
-    }
-
-    private void setAutoComplete() {
-        Column column = getColumn();
-        AutoCompleteDecorator.decorate(
-                textFieldValue,
-                AutoCompleteDataOfColumn.INSTANCE.get(column).getData(),
-                false);
     }
 
     private Column getColumn() {
@@ -203,9 +192,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxOperators.setEnabled(enable);
     }
 
-    private void initModels() {
+    private void setComboboxSelIndices() {
         listenToActions  = false;
-
         comboBoxOperators.setSelectedIndex(0);
         comboBoxColumns.setSelectedIndex(0);
         comboBoxComparators.setSelectedIndex(0);
@@ -347,7 +335,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      * 
      * @param savedSearchPanel Paneldaten
      */
-    public void setSavedSearchData(SavedSearchPanel savedSearchPanel) {
+    public void setSavedSearchPanel(SavedSearchPanel savedSearchPanel) {
         listenToActions = false;
         toggleButtonBracketRight.setSelected(savedSearchPanel.isBracketRightSelected());
         comboBoxColumns         .getModel().setSelectedItem(ColumnIds.getColumn(savedSearchPanel.getColumnId()));
@@ -437,7 +425,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setChanged();
         setFormatter();
         setInputVerifier();
-        setAutoComplete();
         setEnabledCalendarButton();
     }
 
