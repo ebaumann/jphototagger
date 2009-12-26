@@ -24,8 +24,6 @@ import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.TextEntryContent;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropList;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -47,7 +45,6 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -427,8 +424,10 @@ public final class EditRepeatableTextEntryPanel
         String oldName = model.getElementAt(index).toString();
         String newName = null;
         do {
-            newName = JOptionPane.showInputDialog(this, Bundle.getString("EditRepeatableTextEntryPanel.Input.RenameListItem"), //
-                    oldName);
+            newName = MessageDisplayer.input(
+                    "EditRepeatableTextEntryPanel.Input.RenameListItem", //
+                    oldName,
+                    getClass().getName());
             ready = newName == null;
             if (newName != null && newName.trim().equalsIgnoreCase(oldName)) {
                 ready = confirm("EditRepeatableTextEntryPanel.Confirm.SameNames"). //

@@ -53,7 +53,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -423,9 +422,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         if (isSavedSearch) {
             return searchName;
         } else {
-            return JOptionPane.showInputDialog(null,
-                    Bundle.getString("AdvancedSearchDialog.Input.SearchName"),
-                    searchName);
+            return MessageDisplayer.input(
+                    "AdvancedSearchDialog.Input.SearchName",
+                    searchName,
+                    getClass().getName());
         }
     }
 

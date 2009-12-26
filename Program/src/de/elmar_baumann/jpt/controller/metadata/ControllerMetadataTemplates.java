@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
 import de.elmar_baumann.jpt.event.listener.MetadataEditPanelListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataEditTemplates;
-import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
@@ -34,7 +33,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -199,8 +197,10 @@ public final class ControllerMetadataTemplates
         boolean abort = false;
         String name = null;
         while (exists && !abort) {
-            name = JOptionPane.showInputDialog(buttonMetadataTemplateCreate,
-                    Bundle.getString("ControllerMetadataTemplates.Input.TemplateName"), name);
+            name = MessageDisplayer.input(
+                    "ControllerMetadataTemplates.Input.TemplateName",
+                    name,
+                    getClass().getName());
             exists = name != null && db.existsMetadataEditTemplate(name);
             if (exists) {
                 abort = confirmOverride(name);

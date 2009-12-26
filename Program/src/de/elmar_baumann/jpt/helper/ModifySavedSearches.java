@@ -23,10 +23,8 @@ import de.elmar_baumann.jpt.comparator.ComparatorSavedSearch;
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.database.DatabaseSavedSearches;
 import de.elmar_baumann.jpt.model.ListModelSavedSearches;
-import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ListUtil;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -151,9 +149,10 @@ public final class ModifySavedSearches {
     }
 
     private static String getInput(String oldName) {
-        return JOptionPane.showInputDialog(
-                null,
-                Bundle.getString("SavedSearchesModifier.Input.NewName"), oldName);
+        return MessageDisplayer.input(
+                "SavedSearchesModifier.Input.NewName", 
+                oldName,
+                ModifySavedSearches.class.getName());
     }
 
     private static boolean confirmInputDifferentName(String input) {
