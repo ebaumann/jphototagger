@@ -1241,6 +1241,16 @@ public final class Settings {
     }
 
     /**
+     * Returns whether the properties contains a specific key.
+     * 
+     * @param  key key
+     * @return     true if the properties contains that key
+     */
+    public boolean containsKey(String key) {
+        return properties.containsKey(key);
+    }
+
+    /**
      * Sets to a component the persistent written size. If the key does not
      * exist, nothing will be done.
      *
