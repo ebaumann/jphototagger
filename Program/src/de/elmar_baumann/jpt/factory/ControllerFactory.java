@@ -83,7 +83,6 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerDeleteThumbnailsFromD
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import de.elmar_baumann.jpt.controller.metadata.ControllerRenameXmpMetadata;
-import de.elmar_baumann.jpt.controller.metadata.ControllerShowTextSelectionDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerPlugins;
 import de.elmar_baumann.jpt.controller.nometadata.ControllerNoMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.rating.ControllerSetRating;
@@ -176,7 +175,6 @@ public final class ControllerFactory {
             new ControllerPickReject();
             new ControllerHighlightHierarchicalKeywords();
             new ControllerShowHierarchicalKeywordsDialog();
-            new ControllerShowTextSelectionDialog();
             new ControllerImportHierarchicalKeywords();
             new ControllerExportHierarchicalKeywords();
             new ControllerSetRating();
