@@ -141,7 +141,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
                 new String[]{XMPConst.NS_IPTCCORE});
         namespacesOfXmpTableModel.put(
                 metadataTableModels.getXmpTableModelLightroom(),
-                new String[]{"http://ns.adobe.com/lightroom/1.0/"}); //;
+                new String[]{"http://ns.adobe.com/lightroom/1.0/"});
         namespacesOfXmpTableModel.put(
                 metadataTableModels.getXmpTableModelPhotoshop(),
                 new String[]{XMPConst.NS_PHOTOSHOP});
