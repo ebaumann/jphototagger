@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.misc;
 
+import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,11 @@ public final class ControllerShowSystemOutput implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemOutputWindow().addActionListener(this);
+        if (AppInit.isCaptureOutput()) {
+            GUI.INSTANCE.getAppFrame().getMenuItemOutputWindow().addActionListener(this);
+        } else {
+            GUI.INSTANCE.getAppFrame().getMenuItemOutputWindow().setEnabled(false);
+        }
     }
 
     @Override
