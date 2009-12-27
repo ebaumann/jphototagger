@@ -228,10 +228,6 @@
             <title>Werkzeuge &gt; Alle Stichwörter kopieren in den Stichwortbaum</title>
         </page>
         <page>
-            <url>dialog_edit_metadata_text_selection.html</url>
-            <title>Fenster &gt; Zuletzt eingegebene Begriffe</title>
-        </page>
-        <page>
             <url>dialog_input_helpers.html</url>
             <title>Fenster &gt; Eingabehilfen</title>
         </page>
