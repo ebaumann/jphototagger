@@ -48,6 +48,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -58,10 +59,14 @@ import javax.swing.JTextField;
  */
 public final class SearchColumnPanel extends javax.swing.JPanel {
 
-    private final List<SearchListener>         searchListener     = new ArrayList<SearchListener>();
-    private final ListCellRendererTableColumns columnRenderer     = new ListCellRendererTableColumns();
-    private       boolean                      isOperatorsEnabled = true;
-    private       boolean                      listenToActions    = true;
+    private final String                       SEL_LEFT_BRACKET      = "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
+    private final String                       NOT_SEL_LEFT_BRACKET  = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
+    private final String                       SEL_RIGHT_BRACKET     = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
+    private final String                       NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
+    private final List<SearchListener>         searchListener        = new ArrayList<SearchListener>();
+    private final ListCellRendererTableColumns columnRenderer        = new ListCellRendererTableColumns();
+    private       boolean                      isOperatorsEnabled    = true;
+    private       boolean                      listenToActions       = true;
     private       boolean                      isFirst;
     private       boolean                      changed;
 
@@ -73,6 +78,9 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private void postInitComponents() {
         setComboboxSelIndices();
         setFormatter();
+        setToggleButtonsTexts(toggleButtonBracketLeft1, true);
+        setToggleButtonsTexts(toggleButtonBracketLeft2, true);
+        setToggleButtonsTexts(toggleButtonBracketRight, false);
     }
 
     /**
@@ -159,10 +167,31 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         if (toggleButtonBracketLeft1.isSelected()) {
             toggleButtonBracketLeft2.setSelected(false);
         }
-        toggleButtonBracketLeft1.setEnabled(isOperatorsEnabled &&
-                !toggleButtonBracketLeft2.isSelected());
-        toggleButtonBracketLeft2.setEnabled(
-                !toggleButtonBracketLeft1.isSelected());
+        toggleButtonBracketLeft1.setEnabled(
+                isOperatorsEnabled && !toggleButtonBracketLeft2.isSelected());
+        toggleButtonBracketLeft2.setEnabled(!toggleButtonBracketLeft1.isSelected());
+        setToggleButtonsText();
+    }
+
+    private void setToggleButtonsText() {
+        setToggleButtonsTexts(toggleButtonBracketLeft1, true);
+        setToggleButtonsTexts(toggleButtonBracketLeft2, true);
+        setToggleButtonsTexts(toggleButtonBracketRight, false);
+    }
+
+    private void setToggleButtonsTexts(JToggleButton tb, boolean left) {
+        boolean sel   = tb.isSelected();
+        boolean right = !left;
+
+        tb.setText(
+                left && sel
+                ? SEL_LEFT_BRACKET
+                : left && !sel
+                ? NOT_SEL_LEFT_BRACKET
+                : right && sel
+                ? SEL_RIGHT_BRACKET
+                : NOT_SEL_RIGHT_BRACKET
+                );
     }
 
     private synchronized void notifySearchListener(SearchEvent evt) {
@@ -348,6 +377,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         if (savedSearchPanel.hasValue()) {
             textFieldValue.setText(savedSearchPanel.getValue());
         }
+        setToggleButtonsText();
         listenToActions = true;
     }
 
@@ -403,6 +433,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void handleTaggleButtonBracketLeft2ActionPerformed() {
+        setToggleButtonsTexts(toggleButtonBracketLeft2, true);
         if (listenToActions) {
             checkToggleButtons();
             setChanged(true);
@@ -410,6 +441,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void handleTaggleButtonBracketLeftActionPerformed() {
+        setToggleButtonsTexts(toggleButtonBracketLeft1, true);
         if (listenToActions) {
             checkToggleButtons();
             setChanged(true);
@@ -466,6 +498,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
         toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft1.setText("(");
+        toggleButtonBracketLeft1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketLeft1.setContentAreaFilled(false);
         toggleButtonBracketLeft1.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -475,6 +509,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         add(toggleButtonBracketLeft1, gridBagConstraints);
 
         comboBoxOperators.setModel(new DefaultComboBoxModel(Operator.values()));
@@ -491,6 +526,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
         toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft2.setText("(");
+        toggleButtonBracketLeft2.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketLeft2.setContentAreaFilled(false);
         toggleButtonBracketLeft2.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -500,6 +537,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketLeft2, gridBagConstraints);
 
@@ -544,6 +583,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
         toggleButtonBracketRight.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketRight.setText(")");
+        toggleButtonBracketRight.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketRight.setContentAreaFilled(false);
         toggleButtonBracketRight.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -553,10 +594,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
 
-        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_calendar.png"))); //
+        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_calendar.png"))); // NOI18N
         buttonCalendar.setPreferredSize(new java.awt.Dimension(16, 16));
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -595,6 +638,7 @@ private void comboBoxComparatorsActionPerformed(java.awt.event.ActionEvent evt) 
 }//GEN-LAST:event_comboBoxComparatorsActionPerformed
 
 private void toggleButtonBracketRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketRightActionPerformed
+    setToggleButtonsTexts(toggleButtonBracketRight, false);
     setChanged();
 }//GEN-LAST:event_toggleButtonBracketRightActionPerformed
 
