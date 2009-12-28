@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 
 /**
  * Formats an EXIF entry of the type {@link ExifTag#GPS_SATELLITES}.
@@ -30,16 +31,16 @@ import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
  */
 public final class ExifFormatterGpsSatellites extends ExifFormatter {
 
-    public static final ExifFormatterGpsSatellites INSTANCE =
-            new ExifFormatterGpsSatellites();
+    public static final ExifFormatterGpsSatellites INSTANCE = new ExifFormatterGpsSatellites();
 
     private ExifFormatterGpsSatellites() {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.GPS_SATELLITES.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        return ExifAscii.decode(entry.getRawValue());
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.GPS_SATELLITES);
+
+        return ExifAscii.decode(entry.rawValue());
     }
 }

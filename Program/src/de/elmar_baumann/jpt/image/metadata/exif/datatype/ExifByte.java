@@ -18,6 +18,8 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+
 /**
  * EXIF data type <code>BYTE</code> as defined in the EXIF standard:
  * An 8-bit unsigned integer.
@@ -36,15 +38,15 @@ public final class ExifByte {
      * 
      * @param  rawValue  raw value
      * @throws IllegalArgumentException if the raw value byte count is not
-     *         equals to {@link #getRawValueByteCount()} or negativ
+     *         equals to {@link #byteCount()} or negativ
      */
     public ExifByte(byte[] rawValue) {
-        if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + rawValue.length);
+
+        Ensure.length(rawValue, byteCount());
+
         value = (int) rawValue[0];
-        if (value < 0)
-            throw new IllegalArgumentException("Negativ value: " + value);
+
+        Ensure.positive(value);
     }
 
     /**
@@ -52,19 +54,24 @@ public final class ExifByte {
      *
      * @return valid raw value byte count
      */
-    public static int getRawValueByteCount() {
+    public static int byteCount() {
         return 1;
     }
 
-    public static boolean isRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRawValueByteCount();
+    public static boolean byteCountOk(byte[] rawValue) {
+        return rawValue.length == byteCount();
     }
 
-    public ExifType getDataTyp() {
+    public static ExifType dataType() {
         return ExifType.BYTE;
     }
 
-    public int getValue() {
+    public int value() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(value);
     }
 }

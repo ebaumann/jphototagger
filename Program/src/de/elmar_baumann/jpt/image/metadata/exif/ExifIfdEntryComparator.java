@@ -21,18 +21,18 @@ package de.elmar_baumann.jpt.image.metadata.exif;
 import java.util.Comparator;
 
 /**
- * Vergleicht Objekte des Typs IdfEntryProxy.
+ * Vergleicht Objekte des Typs IfdEntryProxy.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-08-24
- * @see     de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy
+ * @see     de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy
  */
-public final class ExifIfdEntryComparator implements Comparator<IdfEntryProxy> {
+public final class ExifIfdEntryComparator implements Comparator<IfdEntryProxy> {
 
     public static final ExifIfdEntryComparator INSTANCE = new ExifIfdEntryComparator();
 
     @Override
-    public int compare(IdfEntryProxy o1, IdfEntryProxy o2) {
+    public int compare(IfdEntryProxy o1, IfdEntryProxy o2) {
         return o1.compareTo(o2);
     }
 

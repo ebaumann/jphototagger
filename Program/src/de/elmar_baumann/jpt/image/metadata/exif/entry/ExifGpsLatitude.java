@@ -51,54 +51,59 @@ public final class ExifGpsLatitude {
     private Ref ref;
     private ExifDegrees degrees;
 
-    public ExifGpsLatitude(byte[] refRawValue, byte[] degreesRawValue,
-            ExifByteOrder byteOrder) {
-        if (!isRefRawValueByteCountOk(refRawValue))
-            throw new IllegalArgumentException(
-                    "Illegal ref raw value byte count: " + refRawValue.length);
-        if (!isRawValueByteCountOk(degreesRawValue))
-            throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + degreesRawValue.length);
+    public ExifGpsLatitude(byte[] refRawValue, byte[] degreesRawValue, ExifByteOrder byteOrder) {
 
-        this.ref = getRef(refRawValue);
+        ensureByteCount(refRawValue, degreesRawValue);
+
+        this.ref     = ref(refRawValue);
         this.degrees = new ExifDegrees(degreesRawValue, byteOrder);
     }
 
-    private static Ref getRef(byte[] rawValue) {
+    private static Ref ref(byte[] rawValue) {
         String s = null;
         if (rawValue != null && rawValue.length == 2) {
-            s = new StringBuilder(1).append((char) new Byte(rawValue[0]).
-                    intValue()).toString();
+            s = new StringBuilder(1).append((char)
+                    new Byte(rawValue[0]).intValue()).toString();
         }
         return REF_OF_STRING.get(s);
     }
 
-    public static int getRawValueByteCount() {
+    public static int byteCount() {
         return 24;
     }
 
-    public static int getRefRawValueByteCount() {
+    public static int refByteCount() {
         return 2;
     }
 
-    public static boolean isRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRawValueByteCount();
+    public static boolean byteCountOk(byte[] rawValue) {
+        return rawValue.length == byteCount();
     }
 
-    public static boolean isRefRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRefRawValueByteCount();
+    public static boolean refByteCountOk(byte[] rawValue) {
+        return rawValue.length == refByteCount();
     }
 
     public String localizedString() {
-        return ExifGpsUtil.degreesToString(degrees) + " " +
-                LOCALIZED_STRING_OF_REF.get(ref);
+        return ExifGpsUtil.degreesToString(degrees) + " " + LOCALIZED_STRING_OF_REF.get(ref);
     }
 
-    public ExifDegrees getDegrees() {
+    public ExifDegrees degrees() {
         return degrees;
     }
 
-    public Ref getRef() {
+    public Ref ref() {
         return ref;
+    }
+
+    private void ensureByteCount(byte[] refRawValue, byte[] degreesRawValue) throws IllegalArgumentException {
+
+        if (!refByteCountOk(refRawValue))
+            throw new IllegalArgumentException(
+                    "Illegal ref raw value byte count: " + refRawValue.length);
+
+        if (!byteCountOk(degreesRawValue))
+            throw new IllegalArgumentException(
+                    "Illegal raw value byte count: " + degreesRawValue.length);
     }
 }

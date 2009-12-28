@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import de.elmar_baumann.lib.lang.Util;
 
 /**
@@ -37,14 +38,18 @@ public final class ExifFormatterFlash extends ExifFormatter {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.FLASH.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        byte[] rawValue = entry.getRawValue();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.FLASH);
+
+        byte[] rawValue = entry.rawValue();
+
         if (rawValue != null && rawValue.length >= 1) {
+
             boolean[] bitsByte1 = Util.getBits(rawValue[0]);
-            boolean fired = bitsByte1[0];
-            boolean hasFlash = !bitsByte1[5];
+            boolean   fired     = bitsByte1[0];
+            boolean   hasFlash  = !bitsByte1[5];
+
             if (!hasFlash) {
                 return TRANSLATION.translate("FlashNone");
             }

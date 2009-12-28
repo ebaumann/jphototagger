@@ -30,65 +30,37 @@ import java.util.Map;
  */
 public final class ExifFormatterFactory {
 
-    private static final Map<Integer, ExifFormatter> FORMATTER_OF_TAG_ID =
-            new HashMap<Integer, ExifFormatter>();
+    private static final Map<Integer, ExifFormatter> FORMATTER_OF_TAG_ID = new HashMap<Integer, ExifFormatter>();
 
     static {
         // Ordered alphabetically for faster check
-        FORMATTER_OF_TAG_ID.put(ExifTag.CONTRAST.getId(),
-                ExifFormatterContrast.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.COPYRIGHT.getId(),
-                ExifFormatterCopyright.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.DATE_TIME_ORIGINAL.getId(),
-                ExifFormatterDateTime.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.EXPOSURE_PROGRAM.getId(),
-                ExifFormatterExposureProgram.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.EXPOSURE_TIME.getId(),
-                ExifFormatterExposureTime.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.FILE_SOURCE.getId(),
-                ExifFormatterFileSource.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.FLASH.getId(),
-                ExifFormatterFlash.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.FOCAL_LENGTH.getId(),
-                ExifFormatterFocalLength.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId(),
-                ExifFormatterFocalLengthIn35mm.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.F_NUMBER.getId(),
-                ExifFormatterFnumber.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.GPS_DATE_STAMP.getId(),
-                ExifFormatterGpsDateStamp.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.GPS_SATELLITES.getId(),
-                ExifFormatterGpsSatellites.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.GPS_TIME_STAMP.getId(),
-                ExifFormatterGpsTimeStamp.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.GPS_VERSION_ID.getId(),
-                ExifFormatterGpsVersionId.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.IMAGE_UNIQUE_ID.getId(),
-                ExifFormatterAscii.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.ISO_SPEED_RATINGS.getId(),
-                ExifFormatterIsoSpeedRatings.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.METERING_MODE.getId(),
-                ExifFormatterMeteringMode.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.SATURATION.getId(),
-                ExifFormatterSaturation.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.SHARPNESS.getId(),
-                ExifFormatterSharpness.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.USER_COMMENT.getId(),
-                ExifFormatterUserComment.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.WHITE_BALANCE.getId(),
-                ExifFormatterWhiteBalance.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.ARTIST.getId(),
-                ExifFormatterAscii.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.IMAGE_DESCRIPTION.getId(),
-                ExifFormatterAscii.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.MAKE.getId(),
-                ExifFormatterAscii.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.MODEL.getId(),
-                ExifFormatterAscii.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.SOFTWARE.getId(),
-                ExifFormatterAscii.INSTANCE);
-        FORMATTER_OF_TAG_ID.put(ExifTag.SPECTRAL_SENSITIVITY.getId(),
-                ExifFormatterAscii.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.CONTRAST                  .tagId(), ExifFormatterContrast.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.COPYRIGHT                 .tagId(), ExifFormatterCopyright.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.DATE_TIME_ORIGINAL        .tagId(), ExifFormatterDateTime.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.EXPOSURE_PROGRAM          .tagId(), ExifFormatterExposureProgram.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.EXPOSURE_TIME             .tagId(), ExifFormatterExposureTime.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.FILE_SOURCE               .tagId(), ExifFormatterFileSource.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.FLASH                     .tagId(), ExifFormatterFlash.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.FOCAL_LENGTH              .tagId(), ExifFormatterFocalLength.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.tagId(), ExifFormatterFocalLengthIn35mm.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.F_NUMBER                  .tagId(), ExifFormatterFnumber.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.GPS_DATE_STAMP            .tagId(), ExifFormatterGpsDateStamp.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.GPS_SATELLITES            .tagId(), ExifFormatterGpsSatellites.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.GPS_TIME_STAMP            .tagId(), ExifFormatterGpsTimeStamp.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.GPS_VERSION_ID            .tagId(), ExifFormatterGpsVersionId.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.IMAGE_UNIQUE_ID           .tagId(), ExifFormatterAscii.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.ISO_SPEED_RATINGS         .tagId(), ExifFormatterIsoSpeedRatings.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.METERING_MODE             .tagId(), ExifFormatterMeteringMode.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.SATURATION                .tagId(), ExifFormatterSaturation.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.SHARPNESS                 .tagId(), ExifFormatterSharpness.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.USER_COMMENT              .tagId(), ExifFormatterUserComment.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.WHITE_BALANCE             .tagId(), ExifFormatterWhiteBalance.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.ARTIST                    .tagId(), ExifFormatterAscii.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.IMAGE_DESCRIPTION         .tagId(), ExifFormatterAscii.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.MAKE                      .tagId(), ExifFormatterAscii.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.MODEL                     .tagId(), ExifFormatterAscii.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.SOFTWARE                  .tagId(), ExifFormatterAscii.INSTANCE);
+        FORMATTER_OF_TAG_ID.put(ExifTag.SPECTRAL_SENSITIVITY      .tagId(), ExifFormatterAscii.INSTANCE);
     }
 
     /**

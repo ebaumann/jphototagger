@@ -32,22 +32,21 @@ public final class ExifGpsTimeStamp {
     private ExifRational minutes;
     private ExifRational seconds;
 
-    public ExifGpsTimeStamp(ExifRational hours, ExifRational minutes,
-            ExifRational seconds) {
-        this.hours = hours;
+    public ExifGpsTimeStamp(ExifRational hours, ExifRational minutes, ExifRational seconds) {
+        this.hours   = hours;
         this.minutes = minutes;
         this.seconds = seconds;
     }
 
-    public ExifRational getHours() {
+    public ExifRational hours() {
         return hours;
     }
 
-    public ExifRational getMinutes() {
+    public ExifRational minutes() {
         return minutes;
     }
 
-    public ExifRational getSeconds() {
+    public ExifRational seconds() {
         return seconds;
     }
 }

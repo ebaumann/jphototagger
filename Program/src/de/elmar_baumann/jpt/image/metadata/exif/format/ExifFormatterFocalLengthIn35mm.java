@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -32,22 +33,24 @@ import java.text.NumberFormat;
  */
 public final class ExifFormatterFocalLengthIn35mm extends ExifFormatter {
 
-    public static final ExifFormatterFocalLengthIn35mm INSTANCE =
-            new ExifFormatterFocalLengthIn35mm();
+    public static final ExifFormatterFocalLengthIn35mm INSTANCE = new ExifFormatterFocalLengthIn35mm();
 
     private ExifFormatterFocalLengthIn35mm() {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.FOCAL_LENGTH_IN_35_MM_FILM.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(),
-                    entry.getByteOrder());
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.FOCAL_LENGTH_IN_35_MM_FILM);
+
+        if (ExifShort.byteCountOk(entry.rawValue())) {
+
+            ExifShort     es = new ExifShort(entry.rawValue(), entry.byteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
+
             df.applyPattern("#.# mm");
-            return df.format(es.getValue());
+
+            return df.format(es.value());
         }
         return "?";
     }

@@ -19,11 +19,11 @@
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifFieldValueFormatter;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,25 +35,27 @@ import java.util.Date;
  */
 public final class ExifFormatterGpsDateStamp extends ExifFormatter {
 
-    public static final ExifFormatterGpsDateStamp INSTANCE =
-            new ExifFormatterGpsDateStamp();
+    public static final ExifFormatterGpsDateStamp INSTANCE = new ExifFormatterGpsDateStamp();
 
     private ExifFormatterGpsDateStamp() {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.GPS_DATE_STAMP.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        byte[] rawValue = entry.getRawValue();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.GPS_DATE_STAMP);
+
+        byte[] rawValue  = entry.rawValue();
         String rawString = new String(rawValue);
-        if (rawString.length() != 11)
-            return rawString;
+
+        if (rawString.length() != 11) return rawString;
+
         try {
-            DateFormat df = new SimpleDateFormat("yyyy:MM:dd");
-            Date date = df.parse(rawString.substring(0, 10));
+            DateFormat df   = new SimpleDateFormat("yyyy:MM:dd");
+            Date       date = df.parse(rawString.substring(0, 10));
+
             return DateFormat.getDateInstance(DateFormat.FULL).format(date);
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             AppLog.logSevere(ExifFieldValueFormatter.class, ex);
         }
         return rawString;

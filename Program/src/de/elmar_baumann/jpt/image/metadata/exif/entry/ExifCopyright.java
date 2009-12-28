@@ -30,6 +30,23 @@ import java.util.Arrays;
  */
 public final class ExifCopyright {
 
+    private final String photographerCopyright;
+    private final String editorCopyright;
+
+    public ExifCopyright(byte[] photographerCopyright, byte[] editorCopyright) {
+
+        this.photographerCopyright = photographerCopyright(photographerCopyright);
+        this.editorCopyright       = editorCopyright(editorCopyright);
+    }
+
+    public String editorCopyright() {
+        return editorCopyright;
+    }
+
+    public String photographerCopyright() {
+        return photographerCopyright;
+    }
+
     /**
      * Returns the copyright information of the image's photographer.
      *
@@ -38,11 +55,11 @@ public final class ExifCopyright {
      *                   information is not in the raw value
      *
      */
-    public static String getPhotographerCopyright(byte[] rawValue) {
-        Pair<Integer, Integer> photographerOffsets = getPhotographerOffsets(
-                rawValue);
-        return string(rawValue, photographerOffsets.getFirst(),
-                photographerOffsets.getSecond());
+    public static String photographerCopyright(byte[] rawValue) {
+
+        Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
+
+        return string(rawValue, photographerOffsets.getFirst(), photographerOffsets.getSecond());
     }
 
     /**
@@ -53,40 +70,45 @@ public final class ExifCopyright {
      *                   information is not in the raw value
      *
      */
-    public static String getEditorCopyright(byte[] rawValue) {
-        Pair<Integer, Integer> editorOffsets = getEditorOffsets(rawValue);
-        return string(rawValue, editorOffsets.getFirst(),
-                editorOffsets.getSecond());
+    public static String editorCopyright(byte[] rawValue) {
+
+        Pair<Integer, Integer> editorOffsets = editorOffsets(rawValue);
+
+        return string(rawValue, editorOffsets.getFirst(), editorOffsets.getSecond());
     }
 
     private static String string(byte[] ba, int first, int last) {
-        if (first < 0 || first > ba.length || last < first || last > ba.length)
-            return "";
-        return new String(Arrays.copyOfRange(ba, first, last), Charset.forName(
-                "US-ASCII"));
+
+        if (first < 0 || first > ba.length || last < first || last > ba.length) return "";
+
+        return new String(Arrays.copyOfRange(ba, first, last), Charset.forName("US-ASCII"));
     }
 
-    private static Pair<Integer, Integer> getPhotographerOffsets(byte[] rawValue) {
+    private static Pair<Integer, Integer> photographerOffsets(byte[] rawValue) {
+
         if (rawValue.length < 2) return new Pair<Integer, Integer>(-1, -1);
+
         boolean end = false;
-        int i = 0;
+        int     i   = 0;
         while (!end && i < rawValue.length) {
             end = rawValue[i++] == 0x0;
         }
         return new Pair<Integer, Integer>(0, i - 1);
     }
 
-    private static Pair<Integer, Integer> getEditorOffsets(byte[] rawValue) {
-        if (rawValue.length < 3) return new Pair<Integer, Integer>(-1, -1);
-        Pair<Integer, Integer> photographerOffsets = getPhotographerOffsets(
-                rawValue);
-        if (photographerOffsets.getFirst() == -1 ||
-                photographerOffsets.getSecond() == rawValue.length)
-            return new Pair<Integer, Integer>(-1, -1);
-        return new Pair<Integer, Integer>(photographerOffsets.getSecond() + 1,
-                rawValue.length - 1);
-    }
+    private static Pair<Integer, Integer> editorOffsets(byte[] rawValue) {
 
-    private ExifCopyright() {
+        if (rawValue.length < 3) return new Pair<Integer, Integer>(-1, -1);
+
+        Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
+
+        if (photographerOffsets.getFirst() == -1 || 
+            photographerOffsets.getSecond() == rawValue.length) {
+
+            return new Pair<Integer, Integer>(-1, -1);
+        }
+
+        return new Pair<Integer, Integer>(
+                photographerOffsets.getSecond() + 1, rawValue.length - 1);
     }
 }

@@ -18,8 +18,9 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 
 /**
  * Formats an EXIF entry of the type {@link ExifTag#FILE_SOURCE}.
@@ -29,19 +30,22 @@ import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
  */
 public final class ExifFormatterFileSource extends ExifFormatter {
 
-    public static final ExifFormatterFileSource INSTANCE =
-            new ExifFormatterFileSource();
+    public static final ExifFormatterFileSource INSTANCE = new ExifFormatterFileSource();
 
     private ExifFormatterFileSource() {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.FILE_SOURCE.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        byte[] rawValue = entry.getRawValue();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.FILE_SOURCE);
+
+        byte[] rawValue = entry.rawValue();
+
         if (rawValue.length >= 1) {
+
             int value = rawValue[0];
+
             if (value == 3) {
                 return TRANSLATION.translate("FileSourceDigitalCamera");
             }

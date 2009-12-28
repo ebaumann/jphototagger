@@ -18,115 +18,86 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif;
 
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifCount;
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifType;
-
 /**
- * Exif-Tags.
+ * Exif tags (better to interpret than the tag IDs).
  * 
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
 public enum ExifTag {
 
     // Ordered by tag ID
-    GPS_VERSION_ID(0, ExifType.BYTE, ExifCount.NUMBER_4),
-    GPS_LATITUDE_REF(1, ExifType.ASCII, ExifCount.NUMBER_2),
-    GPS_LATITUDE(2, ExifType.RATIONAL, ExifCount.NUMBER_3),
-    GPS_LONGITUDE_REF(3, ExifType.ASCII, ExifCount.NUMBER_2),
-    GPS_LONGITUDE(4, ExifType.RATIONAL, ExifCount.NUMBER_3),
-    GPS_ALTITUDE_REF(5, ExifType.BYTE, ExifCount.NUMBER_1),
-    GPS_ALTITUDE(6, ExifType.RATIONAL, ExifCount.NUMBER_1),
-    GPS_TIME_STAMP(7, ExifType.RATIONAL, ExifCount.NUMBER_3),
-    GPS_SATELLITES(8, ExifType.ASCII, ExifCount.ANY),
-    GPS_DATE_STAMP(29, ExifType.ASCII, ExifCount.NUMBER_11),
-    IMAGE_WIDTH(256, ExifType.SHORT_OR_LONG, ExifCount.NUMBER_1),
-    IMAGE_LENGTH(257, ExifType.SHORT_OR_LONG, ExifCount.NUMBER_1),
-    BITS_PER_SAMPLE(258, ExifType.SHORT, ExifCount.NUMBER_3),
-    IMAGE_DESCRIPTION(270, ExifType.ASCII, ExifCount.ANY),
-    MAKE(271, ExifType.ASCII, ExifCount.ANY),
-    MODEL(272, ExifType.ASCII, ExifCount.ANY),
-    SOFTWARE(305, ExifType.ASCII, ExifCount.ANY),
-    DATE_TIME(306, ExifType.ASCII, ExifCount.NUMBER_20),
-    ARTIST(315, ExifType.ASCII, ExifCount.ANY),
-    COPYRIGHT(33432, ExifType.ASCII, ExifCount.ANY),
-    EXPOSURE_TIME(33434, ExifType.RATIONAL, ExifCount.NUMBER_1),
-    F_NUMBER(33437, ExifType.RATIONAL, ExifCount.NUMBER_1),
-    EXPOSURE_PROGRAM(34850, ExifType.SHORT, ExifCount.NUMBER_1),
-    SPECTRAL_SENSITIVITY(34852, ExifType.ASCII, ExifCount.ANY),
-    ISO_SPEED_RATINGS(34855, ExifType.SHORT, ExifCount.ANY),
-    DATE_TIME_ORIGINAL(36867, ExifType.ASCII, ExifCount.NUMBER_20),
-    DATE_TIME_DIGITIZED(36868, ExifType.ASCII, ExifCount.NUMBER_20),
-    METERING_MODE(37383, ExifType.SHORT, ExifCount.NUMBER_1),
-    FLASH(37385, ExifType.SHORT, ExifCount.NUMBER_1),
-    FOCAL_LENGTH(37386, ExifType.RATIONAL, ExifCount.NUMBER_1),
-    USER_COMMENT(37510, ExifType.UNDEFINED, ExifCount.ANY),
-    FILE_SOURCE(41728, ExifType.UNDEFINED, ExifCount.NUMBER_1),
-    EXPOSURE_MODE(41986, ExifType.SHORT, ExifCount.NUMBER_1),
-    WHITE_BALANCE(41987, ExifType.SHORT, ExifCount.NUMBER_1),
-    FOCAL_LENGTH_IN_35_MM_FILM(41989, ExifType.SHORT, ExifCount.NUMBER_1),
-    CONTRAST(41992, ExifType.SHORT, ExifCount.NUMBER_1),
-    SATURATION(41993, ExifType.SHORT, ExifCount.NUMBER_1),
-    SHARPNESS(41994, ExifType.SHORT, ExifCount.NUMBER_1),
-    SUBJECT_DISTANCE_RANGE(41996, ExifType.SHORT, ExifCount.NUMBER_1),
-    IMAGE_UNIQUE_ID(42016, ExifType.ASCII, ExifCount.NUMBER_33),;
+    GPS_VERSION_ID            (    0),
+    GPS_LATITUDE_REF          (    1),
+    GPS_LATITUDE              (    2),
+    GPS_LONGITUDE_REF         (    3),
+    GPS_LONGITUDE             (    4),
+    GPS_ALTITUDE_REF          (    5),
+    GPS_ALTITUDE              (    6),
+    GPS_TIME_STAMP            (    7),
+    GPS_SATELLITES            (    8),
+    GPS_DATE_STAMP            (   29),
+    IMAGE_WIDTH               (  256),
+    IMAGE_LENGTH              (  257),
+    BITS_PER_SAMPLE           (  258),
+    IMAGE_DESCRIPTION         (  270),
+    MAKE                      (  271),
+    MODEL                     (  272),
+    SOFTWARE                  (  305),
+    DATE_TIME                 (  306),
+    ARTIST                    (  315),
+    COPYRIGHT                 (33432),
+    EXPOSURE_TIME             (33434),
+    F_NUMBER                  (33437),
+    EXPOSURE_PROGRAM          (34850),
+    SPECTRAL_SENSITIVITY      (34852),
+    ISO_SPEED_RATINGS         (34855),
+    DATE_TIME_ORIGINAL        (36867),
+    DATE_TIME_DIGITIZED       (36868),
+    METERING_MODE             (37383),
+    FLASH                     (37385),
+    FOCAL_LENGTH              (37386),
+    USER_COMMENT              (37510),
+    FILE_SOURCE               (41728),
+    EXPOSURE_MODE             (41986),
+    WHITE_BALANCE             (41987),
+    FOCAL_LENGTH_IN_35_MM_FILM(41989),
+    CONTRAST                  (41992),
+    SATURATION                (41993),
+    SHARPNESS                 (41994),
+    SUBJECT_DISTANCE_RANGE    (41996),
+    IMAGE_UNIQUE_ID           (42016),
+    ;
+
     /**
      * Tag ID as specified in the EXIF standard
      */
     private final int tagId;
-    /**
-     * Data type of the EXIF tag
-     */
-    private final ExifType type;
-    /**
-     * Count of data
-     */
-    private final ExifCount count;
 
     /**
      * Returns the Tag ID.
      * 
      * @return tag ID
      */
-    public int getId() {
+    public int tagId() {
         return tagId;
     }
 
     /**
-     * Returns a tag with an ID.
+     * Returns a tag with an specific ID.
      * 
-     * @param  id ID
-     * @return Tag or null if the ID is invalid
+     * @param  tagId tag ID
+     * @return       Tag or null if the ID is invalid
      */
-    public static ExifTag getTag(int id) {
+    public static ExifTag getTag(int tagId) {
         for (ExifTag tag : ExifTag.values()) {
-            if (tag.tagId == id) {
+            if (tag.tagId == tagId) {
                 return tag;
             }
         }
         return null;
     }
 
-    /**
-     * Returns the data type of the EXIF tag.
-     *
-     * @return data type
-     */
-    public ExifType getType() {
-        return type;
-    }
-
-    /**
-     * Returns the count of data.
-     *
-     * @return count
-     */
-    public ExifCount getCount() {
-        return count;
-    }
-
-    private ExifTag(int tagNumber, ExifType type, ExifCount count) {
-        this.tagId = tagNumber;
-        this.type = type;
-        this.count = count;
+    private ExifTag(int tagId) {
+        this.tagId = tagId;
     }
 }
