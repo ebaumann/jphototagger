@@ -54,6 +54,8 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
                        Integer.toString(denominator) + " s";
             } else if (numerator > 1) {
                 return Integer.toString(numerator) + " s";
+            } else if (numerator / denominator == 1) {
+                return "1 s";
             }
         }
         return "?";
