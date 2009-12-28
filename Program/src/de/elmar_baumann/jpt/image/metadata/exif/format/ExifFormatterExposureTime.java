@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import de.elmar_baumann.lib.generics.Pair;
 
 /**
@@ -31,25 +32,26 @@ import de.elmar_baumann.lib.generics.Pair;
  */
 public final class ExifFormatterExposureTime extends ExifFormatter {
 
-    public static final ExifFormatterExposureTime INSTANCE =
-            new ExifFormatterExposureTime();
+    public static final ExifFormatterExposureTime INSTANCE = new ExifFormatterExposureTime();
 
     private ExifFormatterExposureTime() {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.EXPOSURE_TIME.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        if (ExifRational.getRawValueByteCount() == entry.getRawValue().length) {
-            ExifRational time = new ExifRational(entry.getRawValue(), entry.
-                    getByteOrder());
-            Pair<Integer, Integer> pair = getAsExposureTime(time);
-            int numerator = pair.getFirst();
-            int denominator = pair.getSecond();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.EXPOSURE_TIME);
+
+        if (ExifRational.byteCount() == entry.rawValue().length) {
+
+            ExifRational           time        = new ExifRational(entry.rawValue(), entry.byteOrder());
+            Pair<Integer, Integer> pair        = getAsExposureTime(time);
+            int                    numerator   = pair.getFirst();
+            int                    denominator = pair.getSecond();
+
             if (denominator > 1) {
-                return Integer.toString(numerator) + " / " +
-                        Integer.toString(denominator) + " s";
+                return Integer.toString(numerator  ) + " / " +
+                       Integer.toString(denominator) + " s";
             } else if (numerator > 1) {
                 return Integer.toString(numerator) + " s";
             }
@@ -58,15 +60,21 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
     }
 
     private static Pair<Integer, Integer> getAsExposureTime(ExifRational er) {
-        int numerator = er.getNumerator();
-        int denominator = er.getDenominator();
-        double result = (double) numerator / (double) denominator;
+
+        int    numerator   = er.numerator();
+        int    denominator = er.denominator();
+        double result      = (double) numerator / (double) denominator;
+
         if (result < 1) {
-            return new Pair<Integer, Integer>(1, (int) ((double) denominator /
-                    (double) numerator + 0.5));
+
+            return new Pair<Integer, Integer>(
+                    1, (int) ((double) denominator / (double) numerator + 0.5));
+
         } else if (result >= 1) {
-            return new Pair<Integer, Integer>((int) ((double) numerator /
-                    (double) denominator + 0.5), 1);
+
+            return new Pair<Integer, Integer>(
+                    (int) ((double) numerator / (double) denominator + 0.5), 1);
+
         } else {
             return new Pair<Integer, Integer>(0, 0);
         }

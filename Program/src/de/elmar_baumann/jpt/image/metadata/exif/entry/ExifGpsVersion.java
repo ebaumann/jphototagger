@@ -27,58 +27,61 @@ package de.elmar_baumann.jpt.image.metadata.exif.entry;
  */
 public final class ExifGpsVersion {
 
-    private int first = Integer.MIN_VALUE;
+    private int first  = Integer.MIN_VALUE;
     private int second = Integer.MIN_VALUE;
-    private int third = Integer.MIN_VALUE;
+    private int third  = Integer.MIN_VALUE;
     private int fourth = Integer.MIN_VALUE;
 
     public ExifGpsVersion(int first, int second, int third, int fourth) {
-        this.first = first;
+        this.first  = first;
         this.second = second;
-        this.third = third;
+        this.third  = third;
         this.fourth = fourth;
     }
 
     public ExifGpsVersion(byte[] rawValue) {
-        if (rawValue != null && isRawValueByteCountOk(rawValue)) {
-            first = new Byte(rawValue[0]).intValue();
+
+        if (rawValue != null && byteCountOk(rawValue)) {
+            first  = new Byte(rawValue[0]).intValue();
             second = new Byte(rawValue[1]).intValue();
-            third = new Byte(rawValue[2]).intValue();
+            third  = new Byte(rawValue[2]).intValue();
             fourth = new Byte(rawValue[3]).intValue();
         }
     }
 
-    public static int getRawValueByteCount() {
+    public static int byteCount() {
         return 4;
     }
 
-    public static boolean isRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRawValueByteCount();
+    public static boolean byteCountOk(byte[] rawValue) {
+        return rawValue.length == byteCount();
     }
 
-    public int getFirst() {
+    public int first() {
         return first;
     }
 
-    public int getFourth() {
+    public int fourth() {
         return fourth;
     }
 
-    public int getSecond() {
+    public int second() {
         return second;
     }
 
-    public int getThird() {
+    public int third() {
         return third;
     }
 
     @Override
     public String toString() {
+
         StringBuffer sb = new StringBuffer(6);
-        sb.append(Integer.toString(first) + ".");
+        sb.append(Integer.toString(first)  + ".");
         sb.append(Integer.toString(second) + ".");
-        sb.append(Integer.toString(third) + ".");
+        sb.append(Integer.toString(third)  + ".");
         sb.append(Integer.toString(fourth));
+
         return sb.toString();
     }
 }

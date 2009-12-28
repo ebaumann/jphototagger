@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,10 +33,8 @@ import java.util.Map;
  */
 public final class ExifFormatterWhiteBalance extends ExifFormatter {
 
-    public static final ExifFormatterWhiteBalance INSTANCE =
-            new ExifFormatterWhiteBalance();
-    private static final Map<Integer, String> EXIF_KEY_OF_WHITE_BALANCE =
-            new HashMap<Integer, String>();
+    public static final ExifFormatterWhiteBalance INSTANCE                  = new ExifFormatterWhiteBalance();
+    private static final Map<Integer, String>     EXIF_KEY_OF_WHITE_BALANCE = new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_WHITE_BALANCE.put(0, "WhiteBalanceAutomatic");
@@ -46,16 +45,17 @@ public final class ExifFormatterWhiteBalance extends ExifFormatter {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.WHITE_BALANCE.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(),
-                    entry.getByteOrder());
-            int value = es.getValue();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.WHITE_BALANCE);
+
+        if (ExifShort.byteCountOk(entry.rawValue())) {
+
+            ExifShort es    = new ExifShort(entry.rawValue(), entry.byteOrder());
+            int       value = es.value();
+
             if (EXIF_KEY_OF_WHITE_BALANCE.containsKey(value)) {
-                return TRANSLATION.translate(
-                        EXIF_KEY_OF_WHITE_BALANCE.get(value));
+                return TRANSLATION.translate(EXIF_KEY_OF_WHITE_BALANCE.get(value));
             }
         }
         return "?";

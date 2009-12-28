@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifByte;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import java.util.Arrays;
 
 /**
@@ -31,28 +32,29 @@ import java.util.Arrays;
  */
 public final class ExifFormatterGpsVersionId extends ExifFormatter {
 
-    public static final ExifFormatterGpsVersionId INSTANCE =
-            new ExifFormatterGpsVersionId();
+    public static final ExifFormatterGpsVersionId INSTANCE = new ExifFormatterGpsVersionId();
 
     private ExifFormatterGpsVersionId() {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.GPS_VERSION_ID.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        byte[] rawValue = entry.getRawValue();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.GPS_VERSION_ID);
+
+        byte[] rawValue = entry.rawValue();
         assert rawValue.length == 4 : rawValue.length;
-        if (rawValue.length != 4)
-            return new String(rawValue);
-        ExifByte first = new ExifByte(Arrays.copyOfRange(rawValue, 0, 1));
+
+        if (rawValue.length != 4) return new String(rawValue);
+
+        ExifByte first  = new ExifByte(Arrays.copyOfRange(rawValue, 0, 1));
         ExifByte second = new ExifByte(Arrays.copyOfRange(rawValue, 1, 2));
-        ExifByte third = new ExifByte(Arrays.copyOfRange(rawValue, 2, 3));
+        ExifByte third  = new ExifByte(Arrays.copyOfRange(rawValue, 2, 3));
         ExifByte fourth = new ExifByte(Arrays.copyOfRange(rawValue, 3, 4));
 
-        return first.getValue() +
-                "." + second.getValue() +
-                "." + third.getValue() +
-                "." + fourth.getValue();
+        return first.value() +
+                "." + second.value() +
+                "." + third.value() +
+                "." + fourth.value();
     }
 }

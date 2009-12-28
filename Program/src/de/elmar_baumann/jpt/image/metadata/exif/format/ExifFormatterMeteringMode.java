@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,10 +33,8 @@ import java.util.Map;
  */
 public final class ExifFormatterMeteringMode extends ExifFormatter {
 
-    public static final ExifFormatterMeteringMode INSTANCE =
-            new ExifFormatterMeteringMode();
-    private static final Map<Integer, String> EXIF_KEY_OF_METERING_MODE =
-            new HashMap<Integer, String>();
+    public static final  ExifFormatterMeteringMode INSTANCE                  = new ExifFormatterMeteringMode();
+    private static final Map<Integer, String>      EXIF_KEY_OF_METERING_MODE = new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_METERING_MODE.put(0, "MeteringModeUnknown");
@@ -51,16 +50,17 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.METERING_MODE.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(),
-                    entry.getByteOrder());
-            int value = es.getValue();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.METERING_MODE);
+
+        if (ExifShort.byteCountOk(entry.rawValue())) {
+
+            ExifShort es    = new ExifShort(entry.rawValue(), entry.byteOrder());
+            int       value = es.value();
+
             if (EXIF_KEY_OF_METERING_MODE.containsKey(value)) {
-                return TRANSLATION.translate(
-                        EXIF_KEY_OF_METERING_MODE.get(value));
+                return TRANSLATION.translate(EXIF_KEY_OF_METERING_MODE.get(value));
             }
         }
         return "?";

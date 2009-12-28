@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import java.util.Arrays;
 
 /**
@@ -39,32 +40,18 @@ public final class ExifRational {
      * @param  rawValue   raw value
      * @param  byteOrder  byte order
      * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #getRawValueByteCount()} or if the result is
+     *         equals to {@link #byteCount()} or if the result is
      *         negativ or if the denominator is zero
      */
     public ExifRational(byte[] rawValue, ExifByteOrder byteOrder) {
 
-        if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + rawValue.length);
+        Ensure.length(rawValue, byteCount());
 
-        numerator = ExifDatatypeUtil.intFromRawValue(
-                Arrays.copyOfRange(rawValue, 0, 4),
-                byteOrder);
-        denominator = ExifDatatypeUtil.intFromRawValue(
-                Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
+        numerator   = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
+        denominator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
 
-        if (isNegativ())
-            throw new IllegalArgumentException("Negativ expression: " +
-                    numerator + "/" + denominator);
-        if (denominator == 0)
-            throw new IllegalArgumentException("Illegal denominator: " +
-                    denominator);
-    }
-
-    private boolean isNegativ() {
-        return numerator < 0 && denominator > 0 || numerator > 0 &&
-                denominator < 0;
+        Ensure.positive(numerator, denominator);
+        Ensure.noZeroDivision(denominator);
     }
 
     /**
@@ -72,12 +59,12 @@ public final class ExifRational {
      *
      * @return valid raw value byte count
      */
-    public static int getRawValueByteCount() {
+    public static int byteCount() {
         return 8;
     }
 
-    public static boolean isRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRawValueByteCount();
+    public static boolean byteCountOk(byte[] rawValue) {
+        return rawValue.length == byteCount();
     }
 
     /**
@@ -85,7 +72,7 @@ public final class ExifRational {
      *
      * @return denominator {@code >= 0}
      */
-    public int getDenominator() {
+    public int denominator() {
         return denominator;
     }
 
@@ -94,11 +81,16 @@ public final class ExifRational {
      *
      * @return numerator {@code >= 0}
      */
-    public int getNumerator() {
+    public int numerator() {
         return numerator;
     }
 
-    public ExifType getDataTyp() {
+    public static ExifType dataType() {
         return ExifType.RATIONAL;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(denominator) + "/" + Integer.toString(numerator);
     }
 }

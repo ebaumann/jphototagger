@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.metadata.selections.ExifInDatabase;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifFieldValueFormatter;
 import de.elmar_baumann.jpt.image.metadata.exif.entry.ExifGpsMetadata;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.Translation;
 import de.elmar_baumann.lib.componentutil.TableUtil;
@@ -57,15 +57,15 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
             setContentFont(cellLabel);
         }
 
-        if (value instanceof IdfEntryProxy) {
-            IdfEntryProxy ifdEntry = (IdfEntryProxy) value;
+        if (value instanceof IfdEntryProxy) {
+            IfdEntryProxy ifdEntry = (IfdEntryProxy) value;
 
             setIsStoredInDatabaseColor(cellLabel, ifdEntry, isSelected);
 
             if (column == 0) {
                 String translated = TRANSLATION.translate(
-                        Integer.toString(ifdEntry.getTag()),
-                        ifdEntry.getName());
+                        Integer.toString(ifdEntry.tagId()),
+                        ifdEntry.name());
                 TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                         translated.trim(),
                         AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
@@ -92,8 +92,8 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
     }
 
     private void setIsStoredInDatabaseColor(
-            JLabel cellLabel, IdfEntryProxy ifdEntry, boolean isSelected) {
-        if (ExifInDatabase.isInDatabase(ifdEntry.getTag())) {
+            JLabel cellLabel, IfdEntryProxy ifdEntry, boolean isSelected) {
+        if (ExifInDatabase.isInDatabase(ifdEntry.tagId())) {
             setIsStoredInDatabaseColors(cellLabel, isSelected);
         }
     }

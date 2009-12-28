@@ -35,8 +35,8 @@ public final class ExifFieldValueFormatter {
      * @param  entry  entry
      * @return entry formatted
      */
-    public static String format(IdfEntryProxy entry) {
-        ExifFormatter formatter = ExifFormatterFactory.get(entry.getTag());
+    public static String format(IfdEntryProxy entry) {
+        ExifFormatter formatter = ExifFormatterFactory.get(entry.tagId());
         if (formatter != null) {
             return formatter.format(entry);
         }

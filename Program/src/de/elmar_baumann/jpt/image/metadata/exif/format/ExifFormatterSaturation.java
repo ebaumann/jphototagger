@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,10 +33,8 @@ import java.util.Map;
  */
 public final class ExifFormatterSaturation extends ExifFormatter {
 
-    public static final ExifFormatterSaturation INSTANCE =
-            new ExifFormatterSaturation();
-    private static final Map<Integer, String> exifKeyOfSaturation =
-            new HashMap<Integer, String>();
+    public static final ExifFormatterSaturation INSTANCE            = new ExifFormatterSaturation();
+    private static final Map<Integer, String>   exifKeyOfSaturation = new HashMap<Integer, String>();
 
 
     static {
@@ -48,13 +47,15 @@ public final class ExifFormatterSaturation extends ExifFormatter {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.SATURATION.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(),
-                    entry.getByteOrder());
-            int value = es.getValue();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.SATURATION);
+
+        if (ExifShort.byteCountOk(entry.rawValue())) {
+
+            ExifShort es    = new ExifShort(entry.rawValue(), entry.byteOrder());
+            int       value = es.value();
+
             if (exifKeyOfSaturation.containsKey(value)) {
                 return TRANSLATION.translate(exifKeyOfSaturation.get(value));
             }

@@ -27,6 +27,12 @@ package de.elmar_baumann.jpt.image.metadata.exif.datatype;
  */
 public final class ExifAscii {
 
+    private final String value;
+
+    public ExifAscii(byte[] rawValue) {
+        value = decode(rawValue);
+    }
+
     /**
      * Decodes a raw value.
      *
@@ -34,15 +40,23 @@ public final class ExifAscii {
      * @return          decoded value
      */
     public static String decode(byte[] rawValue) {
+
         String nullTerminatedValue = new String(rawValue);
-        int length = nullTerminatedValue.length();
+        int    length              = nullTerminatedValue.length();
+
         return length > 0 ? nullTerminatedValue.substring(0, length - 1) : "";
     }
 
-    public ExifType getDataTyp() {
+    public static ExifType dataType() {
         return ExifType.ASCII;
     }
 
-    private ExifAscii() {
+    public String value() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
     }
 }

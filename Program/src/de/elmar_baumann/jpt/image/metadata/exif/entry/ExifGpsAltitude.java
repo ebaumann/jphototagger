@@ -52,15 +52,11 @@ public final class ExifGpsAltitude {
     private Ref ref;
     private ExifRational value;
 
-    public ExifGpsAltitude(byte[] refRawValue, byte[] rawValue,
-            ExifByteOrder byteOrder) {
+    public ExifGpsAltitude(byte[] refRawValue, byte[] rawValue, ExifByteOrder byteOrder) {
 
-        if (!isRefRawValueByteCountOk(refRawValue))
-            throw new IllegalArgumentException("Illegal ref raw value byte count: " + refRawValue.length);
-        if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
+        ensureByteCount(refRawValue, rawValue);
 
-        this.ref = getRef(refRawValue);
+        this.ref   = ref(refRawValue);
         this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
     }
 
@@ -69,7 +65,7 @@ public final class ExifGpsAltitude {
      *
      * @return valid raw value byte count
      */
-    public static int getRefRawValueByteCount() {
+    public static int refByteCount() {
         return 1;
     }
 
@@ -78,34 +74,44 @@ public final class ExifGpsAltitude {
      *
      * @return valid raw value byte count
      */
-    public static int getRawValueByteCount() {
+    public static int byteCount() {
         return 8;
     }
 
-    public static boolean isRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRawValueByteCount();
+    public static boolean byteCountOk(byte[] rawValue) {
+        return rawValue.length == byteCount();
     }
 
-    public static boolean isRefRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRefRawValueByteCount();
+    public static boolean refByteCountOk(byte[] rawValue) {
+        return rawValue.length == refByteCount();
     }
 
-    private static Ref getRef(byte[] rawValue) {
+    private static Ref ref(byte[] rawValue) {
         int i = new Byte(rawValue[0]).intValue();
         return REF_OF_INTEGER.get(i);
     }
 
     public String localizedString() {
         MessageFormat msg = new MessageFormat("{0} m {1}");
-        return msg.format(new Object[]{ExifDatatypeUtil.toLong(value),
-                    LOCALIZED_STRING_OF_REF.get(ref)});
+        return msg.format(new Object[]{ExifDatatypeUtil.toLong(value), LOCALIZED_STRING_OF_REF.get(ref)});
     }
 
-    public Ref getRef() {
+    public Ref ref() {
         return ref;
     }
 
-    public ExifRational getValue() {
+    public ExifRational value() {
         return value;
+    }
+
+    private void ensureByteCount(byte[] refRawValue, byte[] rawValue) throws IllegalArgumentException {
+
+        if (!refByteCountOk(refRawValue))
+            throw new IllegalArgumentException(
+                    "Illegal ref raw value byte count: " + refRawValue.length);
+
+        if (!byteCountOk(rawValue))
+            throw new IllegalArgumentException(
+                    "Illegal raw value byte count: " + rawValue.length);
     }
 }

@@ -29,9 +29,12 @@ import java.nio.ByteBuffer;
 public final class ExifDatatypeUtil {
 
     public static double toDouble(ExifRational rational) {
-        double numerator = rational.getNumerator();
-        double denominator = rational.getDenominator();
+
+        double numerator   = rational.numerator();
+        double denominator = rational.denominator();
+
         assert denominator > 0 : denominator;
+
         return numerator / denominator;
     }
 
@@ -44,18 +47,19 @@ public final class ExifDatatypeUtil {
         return buf.getInt();
     }
 
-    public static short shortFromRawValue(byte[] rawValue,
-            ExifByteOrder byteOrder) {
+    public static short shortFromRawValue(byte[] rawValue, ExifByteOrder byteOrder) {
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
         return buf.getShort();
     }
 
-    private static ByteBuffer getByeBuffer(byte[] rawValue,
-            ExifByteOrder byteOrder) {
+    private static ByteBuffer getByeBuffer(byte[] rawValue, ExifByteOrder byteOrder) {
+
         ByteBuffer buf = ByteBuffer.wrap(rawValue);
+
         buf.order(byteOrder.equals(ExifByteOrder.LITTLE_ENDIAN)
                   ? java.nio.ByteOrder.LITTLE_ENDIAN
                   : java.nio.ByteOrder.BIG_ENDIAN);
+
         return buf;
     }
 

@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.entry;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifByteOrder;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import java.util.Arrays;
@@ -41,18 +42,15 @@ public final class ExifDegrees {
      * @param  rawValue   raw value
      * @param  byteOrder  byte order
      * @throws IllegalArgumentException if the length of raw value is not equals
-     *         to {@link #getRawValueByteCount()}
+     *         to {@link #byteCount()}
      */
     public ExifDegrees(byte[] rawValue, ExifByteOrder byteOrder) {
-        if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + rawValue.length);
-        degrees =
-                new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
-        minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16),
-                byteOrder);
-        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24),
-                byteOrder);
+
+        Ensure.length(rawValue, byteCount());
+
+        degrees = new ExifRational(Arrays.copyOfRange(rawValue,  0,  8), byteOrder);
+        minutes = new ExifRational(Arrays.copyOfRange(rawValue,  8, 16), byteOrder);
+        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24), byteOrder);
     }
 
     /**
@@ -60,23 +58,23 @@ public final class ExifDegrees {
      *
      * @return valid raw value byte count
      */
-    public static int getRawValueByteCount() {
+    public static int byteCount() {
         return 24;
     }
 
-    public boolean isRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRawValueByteCount();
+    public boolean byteCountOk(byte[] rawValue) {
+        return rawValue.length == byteCount();
     }
 
-    public ExifRational getDegrees() {
+    public ExifRational degrees() {
         return degrees;
     }
 
-    public ExifRational getMinutes() {
+    public ExifRational minutes() {
         return minutes;
     }
 
-    public ExifRational getSeconds() {
+    public ExifRational seconds() {
         return seconds;
     }
 }

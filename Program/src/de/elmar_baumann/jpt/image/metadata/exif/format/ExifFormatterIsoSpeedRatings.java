@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 
 /**
  * Formats an EXIF entry of the type {@link ExifTag#ISO_SPEED_RATINGS}.
@@ -30,22 +31,23 @@ import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
  */
 public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
 
-    public static final ExifFormatterIsoSpeedRatings INSTANCE =
-            new ExifFormatterIsoSpeedRatings();
-    private static final String postfix = " ISO";
+    public static final  ExifFormatterIsoSpeedRatings INSTANCE = new ExifFormatterIsoSpeedRatings();
+    private static final String                       POSTFIX  = " ISO";
 
     private ExifFormatterIsoSpeedRatings() {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.ISO_SPEED_RATINGS.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        if (ExifShort.isRawValueByteCountOk(entry.getRawValue())) {
-            ExifShort es = new ExifShort(entry.getRawValue(),
-                    entry.getByteOrder());
-            return Integer.toString(es.getValue()) + postfix;
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.ISO_SPEED_RATINGS);
+
+        if (ExifShort.byteCountOk(entry.rawValue())) {
+
+            ExifShort es = new ExifShort(entry.rawValue(),entry.byteOrder());
+
+            return Integer.toString(es.value()) + POSTFIX;
         }
-        return "?" + postfix;
+        return "?" + POSTFIX;
     }
 }

@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,10 +33,8 @@ import java.util.Map;
  */
 public final class ExifFormatterSharpness extends ExifFormatter {
 
-    public static final ExifFormatterSharpness INSTANCE =
-            new ExifFormatterSharpness();
-    private static final Map<Integer, String> EXIF_KEY_OF_SHARPNESS =
-            new HashMap<Integer, String>();
+    public static final  ExifFormatterSharpness INSTANCE              = new ExifFormatterSharpness();
+    private static final Map<Integer, String>   EXIF_KEY_OF_SHARPNESS = new HashMap<Integer, String>();
 
 
     static {
@@ -48,13 +47,15 @@ public final class ExifFormatterSharpness extends ExifFormatter {
     }
 
     @Override
-    public String format(IdfEntryProxy entry) {
-        if (entry.getTag() != ExifTag.SHARPNESS.getId())
-            throw new IllegalArgumentException("Wrong tag: " + entry);
-        if (ExifShort.getRawValueByteCount() == entry.getRawValue().length) {
-            ExifShort es = new ExifShort(entry.getRawValue(),
-                    entry.getByteOrder());
-            int value = es.getValue();
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.tagId(entry, ExifTag.SHARPNESS);
+
+        if (ExifShort.byteCount() == entry.rawValue().length) {
+
+            ExifShort es    = new ExifShort(entry.rawValue(), entry.byteOrder());
+            int       value = es.value();
+
             if (EXIF_KEY_OF_SHARPNESS.containsKey(value)) {
                 return TRANSLATION.translate(EXIF_KEY_OF_SHARPNESS.get(value));
             }

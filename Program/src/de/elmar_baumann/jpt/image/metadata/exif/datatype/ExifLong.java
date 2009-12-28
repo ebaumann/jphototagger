@@ -18,6 +18,8 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+
 /**
  * EXIF data type LONG as described in the standard: A 32-bit (4-byte) unsigned
  * integer.
@@ -38,19 +40,16 @@ public final class ExifLong {
      * @param  rawValue   raw value
      * @param  byteOrder  byte order
      * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #getRawValueByteCount()} or if the value is
+     *         equals to {@link #byteCount()} or if the value is
      *         negativ
      */
     public ExifLong(byte[] rawValue, ExifByteOrder byteOrder) {
 
-        if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal raw value count: " +
-                    rawValue.length);
+        Ensure.length(rawValue, byteCount());
 
         value = ExifDatatypeUtil.intFromRawValue(rawValue, byteOrder);
 
-        if (value < 0)
-            throw new IllegalArgumentException("Negativ value: " + value);
+        Ensure.positive(value);
     }
 
     /**
@@ -58,15 +57,15 @@ public final class ExifLong {
      *
      * @return valid raw value byte count
      */
-    public static int getRawValueByteCount() {
+    public static int byteCount() {
         return 4;
     }
 
-    public static boolean isRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRawValueByteCount();
+    public static boolean byteCountOk(byte[] rawValue) {
+        return rawValue.length == byteCount();
     }
 
-    public ExifType getDataTyp() {
+    public static ExifType dataType() {
         return ExifType.LONG;
     }
 
@@ -75,7 +74,12 @@ public final class ExifLong {
      *
      * @return value {@code >= 0}
      */
-    public int getValue() {
+    public int value() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(value);
     }
 }

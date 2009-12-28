@@ -18,6 +18,8 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+
 /**
  * EXIF data type <code>SHORT</code> as defined in the EXIF standard:
  * A 16-bit (2-byte) unsigned integer.
@@ -38,18 +40,15 @@ public final class ExifShort {
      * @param  rawValue   raw value
      * @param  byteOrder  byte order
      * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #getRawValueByteCount()} or negativ
+     *         equals to {@link #byteCount()} or negativ
      */
     public ExifShort(byte[] rawValue, ExifByteOrder byteOrder) {
 
-        if (!isRawValueByteCountOk(rawValue))
-            throw new IllegalArgumentException("Illegal byte count: " +
-                    rawValue.length);
+        Ensure.length(rawValue, byteCount());
 
         value = ExifDatatypeUtil.shortFromRawValue(rawValue, byteOrder);
 
-        if (value < 0)
-            throw new IllegalArgumentException("Negativ value: " + value);
+        Ensure.positive(value);
     }
 
     /**
@@ -57,7 +56,7 @@ public final class ExifShort {
      *
      * @return value
      */
-    public short getValue() {
+    public short value() {
         return value;
     }
 
@@ -66,15 +65,20 @@ public final class ExifShort {
      *
      * @return valid raw value byte count
      */
-    public static int getRawValueByteCount() {
+    public static int byteCount() {
         return 2;
     }
 
-    public static boolean isRawValueByteCountOk(byte[] rawValue) {
-        return rawValue.length == getRawValueByteCount();
+    public static boolean byteCountOk(byte[] rawValue) {
+        return rawValue.length == byteCount();
     }
 
-    public ExifType getDataTyp() {
+    public static ExifType dataType() {
         return ExifType.SHORT;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(value);
     }
 }

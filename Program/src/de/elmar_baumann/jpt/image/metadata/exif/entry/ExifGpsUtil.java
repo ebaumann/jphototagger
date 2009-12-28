@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.image.metadata.exif.entry;
 
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import java.text.DecimalFormat;
@@ -37,95 +37,102 @@ import java.util.Locale;
  */
 public final class ExifGpsUtil {
 
-    public static double getDegrees(ExifDegrees degrees) {
-        return ExifDatatypeUtil.toDouble(degrees.getDegrees()) +
-                ExifDatatypeUtil.toDouble(degrees.getMinutes()) / 60 +
-                ExifDatatypeUtil.toDouble(degrees.getSeconds()) / 3600;
+    public static double degrees(ExifDegrees degrees) {
+        return ExifDatatypeUtil.toDouble(degrees.degrees()) +
+               ExifDatatypeUtil.toDouble(degrees.minutes()) / 60 +
+               ExifDatatypeUtil.toDouble(degrees.seconds()) / 3600;
     }
 
-    public static double getSecondsOfMinutes(ExifRational minutes) {
+    public static double secondsOfMinutes(ExifRational minutes) {
+
         double doubleMinutes = ExifDatatypeUtil.toDouble(minutes);
         double integerMinutes = ExifDatatypeUtil.toLong(minutes);
+
         return (doubleMinutes - integerMinutes) * 60;
     }
 
     public static String degreesToString(ExifDegrees degrees) {
-        MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''");
-        double deg = ExifDatatypeUtil.toDouble(degrees.getDegrees());
-        double min = ExifDatatypeUtil.toDouble(degrees.getMinutes());
-        double sec = ExifDatatypeUtil.toDouble(degrees.getSeconds());
-        if (sec == 0) {
-            min = ExifDatatypeUtil.toLong(degrees.getMinutes());
-            sec = ExifGpsUtil.getSecondsOfMinutes(degrees.getMinutes());
-        }
-        DecimalFormat dfDegMin = new DecimalFormat("#");
-        DecimalFormat dfSec = new DecimalFormat("#.##");
 
-        Object[] params = {dfDegMin.format(deg), dfDegMin.format(min), dfSec.
-            format(sec)};
+        MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''");
+        double        deg = ExifDatatypeUtil.toDouble(degrees.degrees());
+        double        min = ExifDatatypeUtil.toDouble(degrees.minutes());
+        double        sec = ExifDatatypeUtil.toDouble(degrees.seconds());
+
+        if (sec == 0) {
+            min = ExifDatatypeUtil.toLong(degrees.minutes());
+            sec = ExifGpsUtil.secondsOfMinutes(degrees.minutes());
+        }
+
+        DecimalFormat dfDegMin = new DecimalFormat("#");
+        DecimalFormat dfSec    = new DecimalFormat("#.##");
+
+        Object[] params = {dfDegMin.format(deg), dfDegMin.format(min), dfSec.format(sec)};
+
         return msg.format(params);
     }
 
-    public static String getGoogleMapsUrl(ExifGpsLongitude longitude,
-            ExifGpsLatitude latitude) {
-        MessageFormat msg =
-                new MessageFormat(
-                "http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
-        DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(
-                Locale.ENGLISH);
+    public static String googleMapsUrl(ExifGpsLongitude longitude, ExifGpsLatitude latitude) {
+
+        MessageFormat msg = new MessageFormat("http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
+        DecimalFormat df  = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+
         df.applyPattern("#.########");
 
-        double latititudeValue = getDegrees(latitude.getDegrees());
-        double longitudeValue = getDegrees(longitude.getDegrees());
+        double latititudeValue = degrees(latitude.degrees());
+        double longitudeValue  = degrees(longitude.degrees());
 
         Object[] params = {df.format(latititudeValue), df.format(longitudeValue)};
+
         return msg.format(params);
     }
 
-    public static ExifGpsMetadata getGpsMetadata(List<IdfEntryProxy> entries) {
+    public static ExifGpsMetadata gpsMetadata(List<IfdEntryProxy> entries) {
+
         ExifGpsMetadata data = new ExifGpsMetadata();
 
-        setGpsLatitude(data, entries);
+        setGpsLatitude (data, entries);
         setGpsLongitude(data, entries);
-        setGpsAltitude(data, entries);
+        setGpsAltitude    (data, entries);
 
         return data;
     }
 
-    private static void setGpsAltitude(ExifGpsMetadata data,
-            List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryAltitudeRef = ExifMetadata.findEntryWithTag(entries,
-                ExifTag.GPS_ALTITUDE_REF.getId());
-        IdfEntryProxy entryAltitude = ExifMetadata.findEntryWithTag(entries,
-                ExifTag.GPS_ALTITUDE.getId());
+    private static void setGpsAltitude(ExifGpsMetadata data, List<IfdEntryProxy> entries) {
+
+        IfdEntryProxy entryAltitudeRef = ExifMetadata.getEntry(entries, ExifTag.GPS_ALTITUDE_REF.tagId());
+        IfdEntryProxy entryAltitude    = ExifMetadata.getEntry(entries, ExifTag.GPS_ALTITUDE.tagId());
+
         if (entryAltitudeRef != null && entryAltitude != null) {
-            data.setAltitude(new ExifGpsAltitude(entryAltitudeRef.getRawValue(),
-                    entryAltitude.getRawValue(), entryAltitude.getByteOrder()));
+            data.setAltitude(new ExifGpsAltitude(
+                    entryAltitudeRef.rawValue(),
+                    entryAltitude   .rawValue(),
+                    entryAltitude   .byteOrder()));
         }
     }
 
-    private static void setGpsLatitude(ExifGpsMetadata data,
-            List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryLatitudeRef = ExifMetadata.findEntryWithTag(entries,
-                ExifTag.GPS_LATITUDE_REF.getId());
-        IdfEntryProxy entryLatitude = ExifMetadata.findEntryWithTag(entries,
-                ExifTag.GPS_LATITUDE.getId());
+    private static void setGpsLatitude(ExifGpsMetadata data, List<IfdEntryProxy> entries) {
+
+        IfdEntryProxy entryLatitudeRef = ExifMetadata.getEntry(entries, ExifTag.GPS_LATITUDE_REF.tagId());
+        IfdEntryProxy entryLatitude    = ExifMetadata.getEntry(entries, ExifTag.GPS_LATITUDE.tagId());
+
         if (entryLatitudeRef != null && entryLatitude != null) {
-            data.setLatitude(new ExifGpsLatitude(entryLatitudeRef.getRawValue(),
-                    entryLatitude.getRawValue(), entryLatitude.getByteOrder()));
+            data.setLatitude(new ExifGpsLatitude(
+                    entryLatitudeRef.rawValue(),
+                    entryLatitude   .rawValue(),
+                    entryLatitude   .byteOrder()));
         }
     }
 
-    private static void setGpsLongitude(ExifGpsMetadata data,
-            List<IdfEntryProxy> entries) {
-        IdfEntryProxy entryLongitudeRef = ExifMetadata.findEntryWithTag(entries,
-                ExifTag.GPS_LONGITUDE_REF.getId());
-        IdfEntryProxy entryLongitude = ExifMetadata.findEntryWithTag(entries,
-                ExifTag.GPS_LONGITUDE.getId());
+    private static void setGpsLongitude(ExifGpsMetadata data, List<IfdEntryProxy> entries) {
+
+        IfdEntryProxy entryLongitudeRef = ExifMetadata.getEntry(entries, ExifTag.GPS_LONGITUDE_REF.tagId());
+        IfdEntryProxy entryLongitude    = ExifMetadata.getEntry(entries, ExifTag.GPS_LONGITUDE.tagId());
+
         if (entryLongitudeRef != null && entryLongitude != null) {
             data.setLongitude(new ExifGpsLongitude(
-                    entryLongitudeRef.getRawValue(),
-                    entryLongitude.getRawValue(), entryLongitude.getByteOrder()));
+                    entryLongitudeRef.rawValue(),
+                    entryLongitude    .rawValue(),
+                    entryLongitude    .byteOrder()));
         }
     }
 

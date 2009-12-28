@@ -18,11 +18,10 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
-import java.util.ArrayList;
-import java.util.List;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifType;
 
 /**
  * Formats EXIF metadata fields in ASCII format.
@@ -32,31 +31,16 @@ import java.util.List;
  */
 public final class ExifFormatterAscii extends ExifFormatter {
 
-    private static final List<Integer> ASCII_TAGS = new ArrayList<Integer>();
-    public static final ExifFormatterAscii INSTANCE = new ExifFormatterAscii();
+    public static final  ExifFormatterAscii INSTANCE = new ExifFormatterAscii();
 
     private ExifFormatterAscii() {
     }
 
-    static {
-        // Ordered alphabetically for faster checks
-        // *****************************************************
-        // *** Add every new tag ID to ExifFormatterFactory! ***
-        // *****************************************************
-        ASCII_TAGS.add(ExifTag.ARTIST.getId());
-        ASCII_TAGS.add(ExifTag.IMAGE_DESCRIPTION.getId());
-        ASCII_TAGS.add(ExifTag.IMAGE_UNIQUE_ID.getId());
-        ASCII_TAGS.add(ExifTag.MAKE.getId());
-        ASCII_TAGS.add(ExifTag.MODEL.getId());
-        ASCII_TAGS.add(ExifTag.SOFTWARE.getId());
-        ASCII_TAGS.add(ExifTag.SPECTRAL_SENSITIVITY.getId());
-    }
-
     @Override
-    public String format(IdfEntryProxy entry) {
-        boolean isAsciiTag = ASCII_TAGS.contains(entry.getTag());
-        if (!isAsciiTag) throw new IllegalArgumentException(
-                    "Not an ASCII-Tag: " + entry);
-        return ExifAscii.decode(entry.getRawValue());
+    public String format(IfdEntryProxy entry) {
+
+        Ensure.type(entry, ExifType.ASCII);
+
+        return ExifAscii.decode(entry.rawValue());
     }
 }

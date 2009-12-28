@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.format;
 
-import de.elmar_baumann.jpt.image.metadata.exif.IdfEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import de.elmar_baumann.jpt.resource.Translation;
 
 /**
@@ -29,8 +29,7 @@ import de.elmar_baumann.jpt.resource.Translation;
  */
 public abstract class ExifFormatter {
 
-    protected static final Translation TRANSLATION = new Translation(
-            "ExifFieldValueTranslations");
+    protected static final Translation TRANSLATION = new Translation("ExifFieldValueTranslations");
 
     /**
      * Formats an EXIF entry.
@@ -39,5 +38,5 @@ public abstract class ExifFormatter {
      * @return string with formatted entry data
      * @throws IllegalArgumentException if the entry has the wrong type
      */
-    public abstract String format(IdfEntryProxy entry);
+    public abstract String format(IfdEntryProxy entry);
 }
