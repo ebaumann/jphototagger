@@ -64,7 +64,9 @@ public final class ImageUtil {
      * @return       image files of that files
      */
     public static List<File> getImageFiles(Collection<? extends File> files) {
+
         List<File> imageFiles = new ArrayList<File>(files.size());
+
         for (File file : files) {
             if (isImageFile(file)) {
                 imageFiles.add(file);
@@ -73,25 +75,43 @@ public final class ImageUtil {
         return imageFiles;
     }
 
+    public enum ConfirmOverwrite {
+        YES,
+        NO;
+
+        public boolean yes() {
+            return this.equals(YES);
+        }
+
+        public static ConfirmOverwrite fromBoolean(boolean b) {
+            return b ? YES : NO;
+        }
+    }
+
     /**
      * Copies image files to a directory with the {@link CopyToDirectoryDialog}.
      *
      * @param sourceFiles     source files
      * @param targetDirectory target directory
-     * @param confirmYesNo         true if the user shall confirmYesNo copying
+     * @param confirm         {@link ConfirmOverwrite#YES} if the user must
+     *                        confirm overwrite existing files
      */
     public static void copyImageFiles(
-            List<File> sourceFiles, File targetDirectory, boolean confirm) {
+            List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
 
-        if (confirm && !confirmFileAction(
-                "IoUtil.Confirm.Copy", sourceFiles.size(),
-                targetDirectory.getAbsolutePath())) return;
+        if (confirm.yes() &&
+            !confirmFileAction("IoUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
+            return;
+        }
 
         CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
+
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
         dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
+
         addProgressListener(dialog);
+
         dialog.copy(true, UserSettings.INSTANCE.getCopyMoveFilesOptions());
     }
 
@@ -100,32 +120,35 @@ public final class ImageUtil {
      *
      * @param sourceFiles     source files
      * @param targetDirectory target directory
-     * @param confirmYesNo         true if the user shall confirmYesNo copying
+     * @param confirm         {@link ConfirmOverwrite#YES} if the user must
+     *                        confirm overwrite existing files
      */
     public static void moveImageFiles(
-            List<File> sourceFiles, File targetDirectory, boolean confirm) {
+            List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
 
-        if (confirm && !confirmFileAction(
-                "IoUtil.Confirm.Move", sourceFiles.size(),
-                targetDirectory.getAbsolutePath())) return;
+        if (confirm.yes() &&
+            !confirmFileAction("IoUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
+            return;
+        }
 
         MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
+
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
+
         addProgressListener(dialog);
+
         dialog.setVisible(true);
     }
 
-    private static boolean confirmFileAction(
-            String bundleKey, int size, String absolutePath) {
+    private static boolean confirmFileAction(String bundleKey, int size, String absolutePath) {
         return MessageDisplayer.confirmYesNo(
                 null,
                 bundleKey,
                 size, absolutePath);
     }
 
-    private synchronized static void addProgressListener(
-            MoveToDirectoryDialog dialog) {
+    private synchronized static void addProgressListener(MoveToDirectoryDialog dialog) {
 
         dialog.addProgressListener(new ProgressListener() {
 
@@ -147,8 +170,7 @@ public final class ImageUtil {
 
     }
 
-    private synchronized static void addProgressListener(
-            CopyToDirectoryDialog dialog) {
+    private synchronized static void addProgressListener(CopyToDirectoryDialog dialog) {
 
         dialog.addProgressListener(new ProgressListener() {
 
@@ -181,11 +203,15 @@ public final class ImageUtil {
      */
     public static List<File> addSidecarFiles(List<File> imageFiles) {
         List<File> files = new ArrayList<File>(imageFiles.size() * 2);
+
         for (File imageFile : imageFiles) {
+
             if (imageFile != null && isImageFile(imageFile)) {
+
                 files.add(imageFile);
-                File sidecarFile =
-                        XmpMetadata.getSidecarFileOfImageFileIfExists(imageFile);
+
+                File sidecarFile = XmpMetadata.getSidecarFileOfImageFileIfExists(imageFile);
+
                 if (sidecarFile != null) {
                     files.add(sidecarFile);
                 }

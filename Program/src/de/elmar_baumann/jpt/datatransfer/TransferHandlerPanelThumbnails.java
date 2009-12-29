@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.io.ImageUtil;
+import de.elmar_baumann.jpt.io.ImageUtil.ConfirmOverwrite;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.types.ContentUtil;
@@ -57,14 +58,14 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-        ThumbnailsPanel tnPanel =
-                (ThumbnailsPanel) transferSupport.getComponent();
+
+        ThumbnailsPanel tnPanel = (ThumbnailsPanel) transferSupport.getComponent();
+
         return metadataTransferred(transferSupport) ||
-                isImageCollection(tnPanel) ||
-                !transferSupport.isDataFlavorSupported(
-                Flavors.THUMBNAILS_PANEL_FLAVOR) &&
-                canImportFiles(tnPanel) &&
-                Flavors.hasFiles(transferSupport.getTransferable());
+               isImageCollection(tnPanel) ||
+               !transferSupport.isDataFlavorSupported(Flavors.THUMBNAILS_PANEL_FLAVOR) &&
+               canImportFiles(tnPanel) &&
+               Flavors.hasFiles(transferSupport.getTransferable());
     }
 
     private boolean canImportFiles(ThumbnailsPanel tnPanel) {
@@ -80,8 +81,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     @Override
     protected Transferable createTransferable(JComponent c) {
         return new TransferableObject(
-                ImageUtil.addSidecarFiles(
-                ((ThumbnailsPanel) c).getSelectedFiles()),
+                ImageUtil.addSidecarFiles(((ThumbnailsPanel) c).getSelectedFiles()),
                 Flavors.THUMBNAILS_PANEL_FLAVOR,
                 Flavors.FILE_LIST_FLAVOR,
                 Flavors.URI_LIST_FLAVOR);
@@ -97,9 +97,8 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
         if (!transferSupport.isDrop()) return false;
 
-        ThumbnailsPanel panel =
-                (ThumbnailsPanel) transferSupport.getComponent();
-        boolean imagesSelected = panel.getSelectionCount() > 0;
+        ThumbnailsPanel panel          = (ThumbnailsPanel) transferSupport.getComponent();
+        boolean         imagesSelected = panel.getSelectionCount() > 0;
 
         if (metadataTransferred(transferSupport)) {
             insertMetadata(transferSupport);
@@ -128,11 +127,14 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         // ignore, moving removes files from source directory
     }
 
-    private void moveSelectedImages(
-            TransferSupport transferSupport, ThumbnailsPanel panel) {
+    private void moveSelectedImages(TransferSupport transferSupport, ThumbnailsPanel panel) {
+
         Point dropPoint = transferSupport.getDropLocation().getDropPoint();
+
         panel.moveSelectedToIndex(panel.getDnDIndex(dropPoint.x, dropPoint.y));
+
         String imageCollectionName = getImageCollectionName();
+
         if (imageCollectionName != null) {
             DatabaseImageCollections.INSTANCE.insertImageCollection(
                     imageCollectionName,
@@ -141,28 +143,34 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     }
 
     private String getImageCollectionName() {
-        JList listImageCollections = GUI.INSTANCE.getAppPanel().
-                getListImageCollections();
-        Object element = null;
-        int index = listImageCollections.getSelectedIndex();
-        if (index >= 0) {
-            element = listImageCollections.getModel().getElementAt(index);
+        JList  listImageCollections = GUI.INSTANCE.getAppPanel().getListImageCollections();
+        Object selElement           = null;
+        int    selIndex             = listImageCollections.getSelectedIndex();
+
+        if (selIndex >= 0) {
+            selElement = listImageCollections.getModel().getElementAt(selIndex);
         }
-        return element == null
+
+        return selElement == null
                 ? null
-                : element.toString();
+                : selElement.toString();
     }
 
     private boolean insertMetadata(TransferSupport transferSupport) {
-        if (!GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().isEditable())
+
+        if (!GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().isEditable()) {
             return true;
+        }
+
         Transferable t = transferSupport.getTransferable();
+
         if (Flavors.hasKeywords(transferSupport)) {
+
             importStrings(Flavors.KEYWORDS_FLAVOR, Support.getKeywords(t));
+
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
-            List<DefaultMutableTreeNode> nodes =
-                    Support.getHierarchicalKeywordsNodes(t);
-            for (DefaultMutableTreeNode node : nodes) {
+
+            for (DefaultMutableTreeNode node : Support.getHierarchicalKeywordsNodes(t)) {
                 HierarchicalKeywordsHelper.addKeywordsToEditPanel(node);
             }
         } else {
@@ -173,6 +181,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     public void importStrings(DataFlavor dataFlavor, Object[] strings) {
         if (strings == null || strings.length <= 0) return;
+
         EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
         Column                  column     = dataFlavor.equals(Flavors.KEYWORDS_FLAVOR)
                                                 ? ColumnXmpDcSubjectsSubject.INSTANCE
@@ -183,37 +192,43 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     }
 
     public boolean isDropOverSelectedThumbnail(TransferSupport transferSupport) {
-        Point p = transferSupport.getDropLocation().getDropPoint();
-        ThumbnailsPanel panel =
-                (ThumbnailsPanel) transferSupport.getComponent();
+
+        Point           p     = transferSupport.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel = (ThumbnailsPanel) transferSupport.getComponent();
+
         return panel.isSelected(panel.getDnDIndex(p.x, p.y));
     }
 
     private boolean importFiles(File targetDir, TransferSupport transferSupport) {
+
         if (targetDir == null) return false;
-        List<File> srcFiles =
-                TransferUtil.getFiles(transferSupport.getTransferable(), "");
-        int dropAction = transferSupport.getDropAction();
+
+        List<File> srcFiles   = TransferUtil.getFiles(transferSupport.getTransferable(), "");
+        int        dropAction = transferSupport.getDropAction();
+
         if (dropAction == TransferHandler.COPY) {
             ImageUtil.copyImageFiles(
-                    ImageUtil.getImageFiles(srcFiles), targetDir, true);
+                    ImageUtil.getImageFiles(srcFiles), targetDir, ConfirmOverwrite.YES);
             return true;
         } else if (dropAction == TransferHandler.MOVE) {
             ImageUtil.moveImageFiles(
-                    ImageUtil.getImageFiles(srcFiles), targetDir, true);
+                    ImageUtil.getImageFiles(srcFiles), targetDir, ConfirmOverwrite.YES);
             return true;
         }
         return false;
     }
 
     private File getCurrentDirectory() {
+
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        JTree treeFavorites = GUI.INSTANCE.getAppPanel().getTreeFavorites();
+        JTree treeFavorites   = GUI.INSTANCE.getAppPanel().getTreeFavorites();
+
         if (treeDirectories.getSelectionCount() > 0) {
             return ViewUtil.getSelectedFile(treeDirectories);
         } else if (treeFavorites.getSelectionCount() > 0) {
             return ViewUtil.getSelectedDirectoryFromFavoriteDirectories();
         }
+
         return null;
     }
 }

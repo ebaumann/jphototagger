@@ -70,8 +70,6 @@ public final class ControllerPasteFilesFromClipboard
         thumbnailsPanel.addThumbnailsPanelListener(this);
         GUI.INSTANCE.getAppFrame().getMenuEdit().addMenuListener(this);
         thumbnailsPanel.addKeyListener(this);
-        GUI.INSTANCE.getAppPanel().getTreeDirectories().addKeyListener(this);
-        GUI.INSTANCE.getAppPanel().getTreeFavorites().addKeyListener(this);
     }
 
     @Override
@@ -105,11 +103,9 @@ public final class ControllerPasteFilesFromClipboard
     private File getDirectory() {
         Content content = thumbnailsPanel.getContent();
         if (content.equals(Content.DIRECTORY)) {
-            return ViewUtil.getSelectedFile(
-                    GUI.INSTANCE.getAppPanel().getTreeDirectories());
+            return ViewUtil.getSelectedFile(GUI.INSTANCE.getAppPanel().getTreeDirectories());
         } else if (content.equals(Content.FAVORITE)) {
-            return ViewUtil.getSelectedFile(
-                    GUI.INSTANCE.getAppPanel().getTreeFavorites());
+            return ViewUtil.getSelectedFile(GUI.INSTANCE.getAppPanel().getTreeFavorites());
         }
         return null;
     }
@@ -120,8 +116,7 @@ public final class ControllerPasteFilesFromClipboard
 
             @Override
             public void run() {
-                List<File> files =
-                        ClipboardUtil.getFilesFromSystemClipboard("\n");
+                List<File> files = ClipboardUtil.getFilesFromSystemClipboard("\n");
                 TransferHandlerTreeDirectories.handleDroppedFiles(
                         getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();
