@@ -32,18 +32,17 @@ import java.util.Map;
  */
 public final class ExifThumbnailUtil {
 
-    private static final Map<String, Double> ROTATION_ANGLE_OF_STRING =
-            new HashMap<String, Double>();
+    private static final Map<String, Double> ROTATION_ANGLE_OF_STRING = new HashMap<String, Double>();
 
     static {
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-left", new Double(0)); // 1
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-right", new Double(0)); // 2
-        ROTATION_ANGLE_OF_STRING.put("0, 0) is bottom-right", new Double(180)); // 3
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is bottom-left", new Double(180)); // 4
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-top", new Double(90)); // 5
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-top", new Double(90)); // 6
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-left"    , new Double(0));   // 1
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-right"   , new Double(0));   // 2
+        ROTATION_ANGLE_OF_STRING.put("0, 0) is bottom-right" , new Double(180)); // 3
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is bottom-left" , new Double(180)); // 4
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-top"    , new Double(90));  // 5
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-top"   , new Double(90));  // 6
         ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-bottom", new Double(270)); // 7
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-bottom", new Double(270)); // 8
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-bottom" , new Double(270)); // 8
     }
 
     /**
@@ -55,7 +54,7 @@ public final class ExifThumbnailUtil {
     public static double getThumbnailRotationAngle(List<IfdEntryProxy> entries) {
         IfdEntryProxy entry = ExifMetadata.getEntry(entries, 274);
         if (entry != null) {
-            Double angle = ROTATION_ANGLE_OF_STRING.get(entry.toString());
+            Double angle = ROTATION_ANGLE_OF_STRING.get(entry.stringValue());
             if (angle == null) {
                 return 0;
             }
