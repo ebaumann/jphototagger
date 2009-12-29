@@ -34,14 +34,11 @@ import javax.swing.KeyStroke;
  */
 public final class PopupMenuImageCollections extends JPopupMenu {
 
-    private static final String                    DISPLAY_NAME_ACTION_DELETE = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete");
-    private static final String                    DISPLAY_NAME_ACTION_RENAME = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename");
-    private static final String                    DISPLAY_NAME_ACTION_CREATE = Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Create");
-    private final        JMenuItem                 itemDelete                 = new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
-    private final        JMenuItem                 itemRename                 = new JMenuItem(DISPLAY_NAME_ACTION_RENAME);
-    private final        JMenuItem                 itemCreate                 = new JMenuItem(DISPLAY_NAME_ACTION_CREATE);
+    private final        JMenuItem                 itemDelete = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete"), AppLookAndFeel.getIcon("icon_remove.png"));
+    private final        JMenuItem                 itemRename = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename"), AppLookAndFeel.getIcon("icon_rename.png"));
+    private final        JMenuItem                 itemCreate = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Create"), AppLookAndFeel.getIcon("icon_add.png"));
     public               int                       itemIndex;
-    public static final  PopupMenuImageCollections INSTANCE                   = new PopupMenuImageCollections();
+    public static final  PopupMenuImageCollections INSTANCE   = new PopupMenuImageCollections();
 
     private PopupMenuImageCollections() {
         init();
@@ -69,7 +66,6 @@ public final class PopupMenuImageCollections extends JPopupMenu {
 
     private void init() {
         addItems();
-        setIcons();
         setAccelerators();
     }
 
@@ -77,12 +73,6 @@ public final class PopupMenuImageCollections extends JPopupMenu {
         add(itemCreate);
         add(itemRename);
         add(itemDelete);
-    }
-
-    private void setIcons() {
-        itemDelete.setIcon(AppLookAndFeel.getIcon("icon_remove.png"));
-        itemRename.setIcon(AppLookAndFeel.getIcon("icon_rename.png"));
-        itemCreate.setIcon(AppLookAndFeel.getIcon("icon_add.png"));
     }
 
     private void setAccelerators() {

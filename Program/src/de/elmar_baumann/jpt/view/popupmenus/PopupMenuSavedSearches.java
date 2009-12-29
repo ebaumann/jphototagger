@@ -35,16 +35,12 @@ import javax.swing.KeyStroke;
  */
 public final class PopupMenuSavedSearches extends JPopupMenu {
 
-    private static final String                 DISPLAY_NAME_ACTION_DELETE = Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Delete");
-    private static final String                 DISPLAY_NAME_ACTION_EDIT   = Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit");
-    private static final String                 DISPLAY_NAME_ACTION_NEW    = Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New");
-    private static final String                 DISPLAY_NAME_ACTION_RENAME = Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename");
-    private final        JMenuItem              itemDelete                 = new JMenuItem(DISPLAY_NAME_ACTION_DELETE);
-    private final        JMenuItem              itemEdit                   = new JMenuItem(DISPLAY_NAME_ACTION_EDIT);
-    private final        JMenuItem              itemCreate                 = new JMenuItem(DISPLAY_NAME_ACTION_NEW);
-    private final        JMenuItem              itemRename                 = new JMenuItem(DISPLAY_NAME_ACTION_RENAME);
+    private final        JMenuItem              itemDelete   = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"), AppLookAndFeel.getIcon("icon_remove.png"));
+    private final        JMenuItem              itemEdit     = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit")  , AppLookAndFeel.getIcon("icon_edit.png"));
+    private final        JMenuItem              itemCreate   = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New")   , AppLookAndFeel.getIcon("icon_add.png"));
+    private final        JMenuItem              itemRename   = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"), AppLookAndFeel.getIcon("icon_rename.png"));
     private              SavedSearch            savedSearch;
-    public static final  PopupMenuSavedSearches INSTANCE                   = new PopupMenuSavedSearches();
+    public static final  PopupMenuSavedSearches INSTANCE     = new PopupMenuSavedSearches();
 
     private PopupMenuSavedSearches() {
         init();
@@ -86,7 +82,6 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
 
     private void init() {
         addItems();
-        setIcons();
         setAccelerators();
     }
 
@@ -95,13 +90,6 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
         add(itemEdit);
         add(itemRename);
         add(itemDelete);
-    }
-
-    private void setIcons() {
-        itemCreate.setIcon(AppLookAndFeel.getIcon("icon_add.png"));
-        itemDelete.setIcon(AppLookAndFeel.getIcon("icon_remove.png"));
-        itemEdit  .setIcon(AppLookAndFeel.getIcon("icon_edit.png"));
-        itemRename.setIcon(AppLookAndFeel.getIcon("icon_rename.png"));
     }
 
     private void setAccelerators() {

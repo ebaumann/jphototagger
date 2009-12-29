@@ -56,15 +56,15 @@ public final class ControllerRotateThumbnail implements ActionListener {
     }
 
     private void initAngleOfItem() {
-        angleOfItem.put(popupMenu.getItemRotateThumbnai90(), new Float(90));
+        angleOfItem.put(popupMenu.getItemRotateThumbnail90(), new Float(90));
         angleOfItem.put(popupMenu.getItemRotateThumbnai180(), new Float(180));
-        angleOfItem.put(popupMenu.getItemRotateThumbnai270(), new Float(270));
+        angleOfItem.put(popupMenu.getItemRotateThumbnail270(), new Float(270));
     }
 
     private void listen() {
-        popupMenu.getItemRotateThumbnai90().addActionListener(this);
+        popupMenu.getItemRotateThumbnail90().addActionListener(this);
         popupMenu.getItemRotateThumbnai180().addActionListener(this);
-        popupMenu.getItemRotateThumbnai270().addActionListener(this);
+        popupMenu.getItemRotateThumbnail270().addActionListener(this);
     }
 
     private float getRotateAngle(Object obj) {
