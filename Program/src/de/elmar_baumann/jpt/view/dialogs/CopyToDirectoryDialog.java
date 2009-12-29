@@ -34,6 +34,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
+import de.elmar_baumann.lib.util.Settings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,24 +53,21 @@ public final class CopyToDirectoryDialog
         extends Dialog
         implements ProgressListener {
 
-    private static final String KEY_LAST_DIRECTORY =
-            "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory"; //
-    private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp"; //
-    private final Set<ProgressListener> progressListeners =
-            Collections.synchronizedSet(new HashSet<ProgressListener>());
-    private final Set<FileSystemActionListener> fileSystemActionListeners =
-            Collections.synchronizedSet(new HashSet<FileSystemActionListener>());
-    private CopyFiles copyTask;
-    private boolean copy = false;
-    private boolean writeProperties = true;
-    private Collection<File> sourceFiles;
-    private File targetDirectory = new File(""); //
+    private static final String                        KEY_LAST_DIRECTORY        = "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory";
+    private static final String                        KEY_COPY_XMP              = "CopyToDirectoryDialog.CopyXmp";
+    private final        Set<ProgressListener>         progressListeners         = Collections.synchronizedSet(new HashSet<ProgressListener>());
+    private final        Set<FileSystemActionListener> fileSystemActionListeners = Collections.synchronizedSet(new HashSet<FileSystemActionListener>());
+    private              CopyFiles                     copyTask;
+    private              boolean                       copy;
+    private              boolean                       writeProperties           = true;
+    private              Collection<File>              sourceFiles;
+    private              File                          targetDirectory           = new File("");
 
     public CopyToDirectoryDialog() {
         super((java.awt.Frame) null, false);
         initComponents();
         setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents")); //
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
     }
 
@@ -133,18 +131,19 @@ public final class CopyToDirectoryDialog
 
     private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
-            MessageDisplayer.error(
-                    this,
-                    "CopyToDirectoryDialog.Error.CopyErrorsOccured"); //
+            MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.CopyErrorsOccured"); //
         }
     }
 
     private void start(boolean addXmp, Options options) {
+
         copyTask = new CopyFiles(getFiles(addXmp), options);
+
         copyTask.addProgressListener(this);
+
         Thread thread = new Thread(copyTask);
-        thread.setName("Copying files to directories" + " @ " + //
-                getClass().getName());
+
+        thread.setName("Copying files to directories" + " @ " + getClass().getName());
         thread.start();
     }
 
@@ -152,33 +151,36 @@ public final class CopyToDirectoryDialog
         return radioButtonForceOverwrite.isSelected()
                ? CopyFiles.Options.FORCE_OVERWRITE
                : radioButtonRenameIfTargetFileExists.isSelected()
-                 ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
-                 : CopyFiles.Options.CONFIRM_OVERWRITE;
+               ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
+               : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
     private List<Pair<File, File>> getFiles(boolean addXmp) {
+
         List<Pair<File, File>> filePairs = new ArrayList<Pair<File, File>>();
+
         for (File sourceFile : sourceFiles) {
-            File targetFile = new File(targetDirectory + File.separator +
-                    sourceFile.getName());
-            filePairs.add(new Pair<File, File>(sourceFile, targetFile));
+            File targetFile = new File(targetDirectory + File.separator + sourceFile.getName());
+            // XMP first to avoid dynamically creating sidecar files before copied
+            // when the embedded option is true and the image has IPTC or emb. XMP
             if (addXmp) {
                 addXmp(sourceFile, filePairs);
             }
+            filePairs.add(new Pair<File, File>(sourceFile, targetFile));
         }
         return filePairs;
     }
 
     private void addXmp(File sourceFile, List<Pair<File, File>> filePairs) {
-        String sidecarFilename =
-                XmpMetadata.getSidecarFilenameOfImageFileIfExists(sourceFile.
-                getAbsolutePath());
+
+        String sidecarFilename = XmpMetadata.getSidecarFilenameOfImageFileIfExists(sourceFile.getAbsolutePath());
+
         if (sidecarFilename != null) {
+
             File sourceSidecarFile = new File(sidecarFilename);
-            File targetSidecarFile = new File(targetDirectory +
-                    File.separator + sourceSidecarFile.getName());
-            filePairs.add(new Pair<File, File>(sourceSidecarFile,
-                    targetSidecarFile));
+            File targetSidecarFile = new File(targetDirectory + File.separator + sourceSidecarFile.getName());
+
+            filePairs.add(new Pair<File, File>(sourceSidecarFile,targetSidecarFile));
         }
     }
 
@@ -188,37 +190,36 @@ public final class CopyToDirectoryDialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory,
-                UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+
         dialog.setVisible(true);
         if (dialog.accepted()) {
+
             List<File> files = dialog.getSelectedDirectories();
+
             if (files.size() > 0) {
+
                 targetDirectory = files.get(0);
+
                 if (targetDirectory.canWrite()) {
-                    labelTargetDirectory.setText(
-                            targetDirectory.getAbsolutePath());
+                    labelTargetDirectory.setText(targetDirectory.getAbsolutePath());
                     setIconToLabelTargetDirectory();
                     buttonStart.setEnabled(true);
                 } else {
-                    MessageDisplayer.error(
-                            this,
-                            "CopyToDirectoryDialog.TargetDirNotWritable", //
-                            targetDirectory);
+                    MessageDisplayer.error(this, "CopyToDirectoryDialog.TargetDirNotWritable", targetDirectory);
                 }
             }
         } else {
             File dir = new File(labelTargetDirectory.getText().trim());
-            buttonStart.setEnabled(
-                    FileUtil.existsDirectory(dir) && dir.canWrite());
+            buttonStart.setEnabled(FileUtil.existsDirectory(dir) && dir.canWrite());
         }
     }
 
     private void setIconToLabelTargetDirectory() {
         File dir = new File(labelTargetDirectory.getText());
+
         if (dir.isDirectory()) {
-            labelTargetDirectory.setIcon(
-                    FileSystemView.getFileSystemView().getSystemIcon(dir));
+            labelTargetDirectory.setIcon(FileSystemView.getFileSystemView().getSystemIcon(dir));
         }
     }
 
@@ -300,23 +301,25 @@ public final class CopyToDirectoryDialog
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getCheckBox(checkBoxCopyXmp,
-                KEY_COPY_XMP);
-        String dir = UserSettings.INSTANCE.getSettings().getString(
-                KEY_LAST_DIRECTORY);
-        File directory = new File(dir);
+        Settings settings = UserSettings.INSTANCE.getSettings();
+
+        settings.getSizeAndLocation(this);
+        settings.getCheckBox(checkBoxCopyXmp, KEY_COPY_XMP);
+
+        File directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY));
+
         if (FileUtil.existsDirectory(directory)) {
             targetDirectory = directory;
         }
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setString(
-                targetDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
-        UserSettings.INSTANCE.getSettings().setCheckBox(
-                checkBoxCopyXmp, KEY_COPY_XMP);
+        Settings settings = UserSettings.INSTANCE.getSettings();
+
+        settings.setSizeAndLocation(this);
+        settings.setString(targetDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
+        settings.setCheckBox(checkBoxCopyXmp, KEY_COPY_XMP);
+
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -339,22 +342,26 @@ public final class CopyToDirectoryDialog
         notifyProgressListenerStarted(evt);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        @SuppressWarnings("unchecked")
+
         Pair<File, File> files = (Pair<File, File>) evt.getInfo();
+
         labelCurrentFilename.setText(files.getFirst().getAbsolutePath());
-        notifyFileSystemActionListenersCopied(
-                files.getFirst(), files.getSecond());
+
+        notifyFileSystemActionListenersCopied(files.getFirst(), files.getSecond());
         notifyProgressListenerPerformed(evt);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void progressEnded(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
-        @SuppressWarnings("unchecked")
+
         List<String> errorFiles = (List<String>) evt.getInfo();
+
         checkError(errorFiles);
         buttonStop.setEnabled(false);
         buttonStart.setEnabled(true);
@@ -374,11 +381,8 @@ public final class CopyToDirectoryDialog
     }
 
     private void setOptionsToRadioButtons(Options options) {
-        radioButtonForceOverwrite.setSelected(
-                options.equals(CopyFiles.Options.FORCE_OVERWRITE));
-        radioButtonRenameIfTargetFileExists.setSelected(
-                options.equals(
-                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
+        radioButtonForceOverwrite          .setSelected(options.equals(CopyFiles.Options.FORCE_OVERWRITE));
+        radioButtonRenameIfTargetFileExists.setSelected(options.equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
     }
 
     /** This method is called from within the constructor to
