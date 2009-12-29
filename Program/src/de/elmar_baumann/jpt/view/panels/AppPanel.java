@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
@@ -303,10 +302,6 @@ public final class AppPanel extends javax.swing.JPanel implements
         return labelThumbnailInfo;
     }
 
-    public JLabel getLabelInfo() {
-        return labelInfo;
-    }
-
     public JLabel getLabelMetadataFilename() {
         return labelMetadataFilename;
     }
@@ -377,6 +372,10 @@ public final class AppPanel extends javax.swing.JPanel implements
 
     public JRadioButton getRadioButtonKeywordsMultipleSelOne() {
         return radioButtonKeywordsMultipleSelOne;
+    }
+
+    public JLabel getLabelError() {
+        return labelError;
     }
 
     private void initTableArrays() {
@@ -491,8 +490,22 @@ public final class AppPanel extends javax.swing.JPanel implements
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
     }
 
-    public void showMessage(String message, boolean error, final long milliseconds) {
-        labelInfo.setForeground(error ? Color.RED : Color.BLACK);
+    public enum MessageType {
+        INFO,
+        ERROR
+        ;
+
+        public boolean isError() {
+            return this.equals(ERROR);
+        }
+
+        public boolean isInfo() {
+            return this.equals(INFO);
+        }
+    }
+    
+    public void showMessage(String message, MessageType type, final long milliseconds) {
+        labelInfo.setForeground(type.isError() ? Color.RED : Color.BLACK);
         labelInfo.setText(message);
         Thread thread = new Thread(new HideInfoMessage(milliseconds));
         thread.setName("Hiding message popup @ " + getClass().getName()); //
@@ -633,6 +646,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         labelThumbnailInfo = new javax.swing.JLabel();
         labelInfo = new javax.swing.JLabel();
         sliderThumbnailSize = new javax.swing.JSlider();
+        labelError = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
 
         setLayout(new java.awt.GridBagLayout());
@@ -653,7 +667,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         gridBagConstraints.weightx = 1.0;
         panelSearch.add(comboBoxFastSearch, gridBagConstraints);
 
-        textFieldSearch.setToolTipText(Bundle.getString("AppPanel.textFieldSearch.toolTipText")); //
+        textFieldSearch.setToolTipText(Bundle.getString("AppPanel.textFieldSearch.toolTipText")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -663,8 +677,8 @@ public final class AppPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelSearch.add(textFieldSearch, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); //
-        buttonSearch.setText(bundle.getString("AppPanel.buttonSearch.text")); //
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        buttonSearch.setText(bundle.getString("AppPanel.buttonSearch.text")); // NOI18N
         buttonSearch.setMargin(new java.awt.Insets(0, 2, 0, 2));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -686,7 +700,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         treeDirectories.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories());
         treeDirectories.setDragEnabled(true);
-        treeDirectories.setName("treeDirectories"); //
+        treeDirectories.setName("treeDirectories"); // NOI18N
         scrollPaneDirectories.setViewportView(treeDirectories);
         treeDirectories.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeDirectories());
         treeFavorites.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeDirectories());
@@ -702,7 +716,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
         );
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelDirectories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_folder.png")), panelDirectories); //
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelDirectories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_folder.png")), panelDirectories); // NOI18N
 
         listSavedSearches.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Lade..." };
@@ -711,7 +725,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         });
         listSavedSearches.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listSavedSearches.setCellRenderer(new ListCellRendererSavedSearches());
-        listSavedSearches.setName("listSavedSearches"); //
+        listSavedSearches.setName("listSavedSearches"); // NOI18N
         scrollPaneSavedSearches.setViewportView(listSavedSearches);
 
         javax.swing.GroupLayout panelSavedSearchesLayout = new javax.swing.GroupLayout(panelSavedSearches);
@@ -725,7 +739,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
         );
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSavedSearches.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png")), panelSavedSearches); //
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSavedSearches.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png")), panelSavedSearches); // NOI18N
 
         listImageCollections.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Lade..." };
@@ -735,7 +749,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listImageCollections.setCellRenderer(new ListCellRendererImageCollections());
         listImageCollections.setDragEnabled(true);
-        listImageCollections.setName("listImageCollections"); //
+        listImageCollections.setName("listImageCollections"); // NOI18N
         scrollPaneImageCollections.setViewportView(listImageCollections);
         listImageCollections.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerListImageCollections());
 
@@ -750,7 +764,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
         );
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelImageCollections.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_imagecollection.png")), panelImageCollections); //
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelImageCollections.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_imagecollection.png")), panelImageCollections); // NOI18N
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Bitte warten");
@@ -775,7 +789,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
         );
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelFavorites.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_favorite.png")), panelFavorites); //
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelFavorites.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_favorite.png")), panelFavorites); // NOI18N
 
         panelKeywords.setLayout(new java.awt.CardLayout());
 
@@ -787,14 +801,14 @@ public final class AppPanel extends javax.swing.JPanel implements
         treeSelHierarchicalKeywords.setShowsRootHandles(true);
         scrollPaneSelHierarchicalKeywords.setViewportView(treeSelHierarchicalKeywords);
 
-        buttonToggleExpandAllNodesHierKw.setText(bundle.getString("AppPanel.buttonToggleExpandAllNodesHierKw.text")); //
+        buttonToggleExpandAllNodesHierKw.setText(bundle.getString("AppPanel.buttonToggleExpandAllNodesHierKw.text")); // NOI18N
         buttonToggleExpandAllNodesHierKw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonToggleExpandAllNodesHierKwActionPerformed(evt);
             }
         });
 
-        buttonDisplayFlatKeywords.setText(bundle.getString("AppPanel.buttonDisplayFlatKeywords.text")); //
+        buttonDisplayFlatKeywords.setText(bundle.getString("AppPanel.buttonDisplayFlatKeywords.text")); // NOI18N
         buttonDisplayFlatKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDisplayFlatKeywordsActionPerformed(evt);
@@ -838,17 +852,17 @@ public final class AppPanel extends javax.swing.JPanel implements
         });
         listKeywords.setCellRenderer(new ListCellRendererKeywords());
         listKeywords.setDragEnabled(true);
-        listKeywords.setName("listKeywords"); //
+        listKeywords.setName("listKeywords"); // NOI18N
         scrollPaneKeywords.setViewportView(listKeywords);
         listKeywords.setTransferHandler(new TransferHandlerListKeywords());
 
-        panelKeywordsMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppPanel.panelKeywordsMultipleSelection.border.title"))); //
+        panelKeywordsMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppPanel.panelKeywordsMultipleSelection.border.title"))); // NOI18N
 
         buttonGroupKeywordsMultipleSel.add(radioButtonKeywordsMultipleSelAll);
-        radioButtonKeywordsMultipleSelAll.setText(bundle.getString("AppPanel.radioButtonKeywordsMultipleSelAll.text")); //
+        radioButtonKeywordsMultipleSelAll.setText(bundle.getString("AppPanel.radioButtonKeywordsMultipleSelAll.text")); // NOI18N
 
         buttonGroupKeywordsMultipleSel.add(radioButtonKeywordsMultipleSelOne);
-        radioButtonKeywordsMultipleSelOne.setText(bundle.getString("AppPanel.radioButtonKeywordsMultipleSelOne.text")); //
+        radioButtonKeywordsMultipleSelOne.setText(bundle.getString("AppPanel.radioButtonKeywordsMultipleSelOne.text")); // NOI18N
 
         javax.swing.GroupLayout panelKeywordsMultipleSelectionLayout = new javax.swing.GroupLayout(panelKeywordsMultipleSelection);
         panelKeywordsMultipleSelection.setLayout(panelKeywordsMultipleSelectionLayout);
@@ -869,7 +883,7 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        buttonDisplayKeywordsTree.setText(bundle.getString("AppPanel.buttonDisplayKeywordsTree.text")); //
+        buttonDisplayKeywordsTree.setText(bundle.getString("AppPanel.buttonDisplayKeywordsTree.text")); // NOI18N
         buttonDisplayKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDisplayKeywordsTreeActionPerformed(evt);
@@ -901,7 +915,7 @@ public final class AppPanel extends javax.swing.JPanel implements
 
         panelKeywords.add(panelFlatKeywords, "flatKeywords");
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")), panelKeywords); //
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")), panelKeywords); // NOI18N
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Bitte warten");
@@ -925,7 +939,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
         );
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelTimeline.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_timeline.png")), panelTimeline); //
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelTimeline.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_timeline.png")), panelTimeline); // NOI18N
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Bitte warten");
@@ -949,7 +963,7 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
         );
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelMiscMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png")), panelMiscMetadata); //
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelMiscMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png")), panelMiscMetadata); // NOI18N
 
         listNoMetadata.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listNoMetadata.setCellRenderer(new de.elmar_baumann.jpt.view.renderer.ListCellRendererNoMetadata());
@@ -970,7 +984,7 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
         );
 
-        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelNoMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_no_metadata.png")), panelNoMetadata); //
+        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelNoMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_no_metadata.png")), panelNoMetadata); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1021,7 +1035,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         splitPaneThumbnailsMetadata.setLeftComponent(panelThumbnailsContent);
 
         labelMetadataFilename.setBackground(new java.awt.Color(255, 255, 255));
-        labelMetadataFilename.setText(Bundle.getString("AppPanel.labelMetadataFilename.text")); //
+        labelMetadataFilename.setText(Bundle.getString("AppPanel.labelMetadataFilename.text")); // NOI18N
         labelMetadataFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelMetadataFilename.setOpaque(true);
 
@@ -1029,13 +1043,13 @@ public final class AppPanel extends javax.swing.JPanel implements
 
         tableIptc.setAutoCreateRowSorter(true);
         tableIptc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableIptc.setName("tableIptc"); //
+        tableIptc.setName("tableIptc"); // NOI18N
         scrollPaneIptc.setViewportView(tableIptc);
 
-        buttonIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"))); //
+        buttonIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"))); // NOI18N
         buttonIptcToXmp.setMnemonic('x');
-        buttonIptcToXmp.setText(Bundle.getString("AppPanel.buttonIptcToXmp.text")); //
-        buttonIptcToXmp.setToolTipText(Bundle.getString("AppPanel.buttonIptcToXmp.toolTipText")); //
+        buttonIptcToXmp.setText(Bundle.getString("AppPanel.buttonIptcToXmp.text")); // NOI18N
+        buttonIptcToXmp.setToolTipText(Bundle.getString("AppPanel.buttonIptcToXmp.toolTipText")); // NOI18N
 
         javax.swing.GroupLayout panelIptcLayout = new javax.swing.GroupLayout(panelIptc);
         panelIptc.setLayout(panelIptcLayout);
@@ -1056,74 +1070,74 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addContainerGap())
         );
 
-        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelIptc.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_iptc.png")), panelIptc); //
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelIptc.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_iptc.png")), panelIptc); // NOI18N
 
         tableExif.setAutoCreateRowSorter(true);
         tableExif.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableExif.setName("tableExif"); //
+        tableExif.setName("tableExif"); // NOI18N
         scrollPaneExif.setViewportView(tableExif);
 
-        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.scrollPaneExif.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exif.png")), scrollPaneExif); //
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.scrollPaneExif.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exif.png")), scrollPaneExif); // NOI18N
 
         tabbedPaneXmp.setOpaque(true);
 
         tableXmpTiff.setAutoCreateRowSorter(true);
         tableXmpTiff.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpTiff.setName("tableXmpTiff"); //
+        tableXmpTiff.setName("tableXmpTiff"); // NOI18N
         scrollPaneXmpTiff.setViewportView(tableXmpTiff);
 
-        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpTiff.TabConstraints.tabTitle"), scrollPaneXmpTiff); //
+        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpTiff.TabConstraints.tabTitle"), scrollPaneXmpTiff); // NOI18N
 
         tableXmpExif.setAutoCreateRowSorter(true);
         tableXmpExif.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpExif.setName("tableXmpExif"); //
+        tableXmpExif.setName("tableXmpExif"); // NOI18N
         scrollPaneXmpExif.setViewportView(tableXmpExif);
 
-        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpExif.TabConstraints.tabTitle"), scrollPaneXmpExif); //
+        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpExif.TabConstraints.tabTitle"), scrollPaneXmpExif); // NOI18N
 
         tableXmpDc.setAutoCreateRowSorter(true);
         tableXmpDc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpDc.setName("tableXmpDc"); //
+        tableXmpDc.setName("tableXmpDc"); // NOI18N
         scrollPaneXmpDc.setViewportView(tableXmpDc);
 
-        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpDc.TabConstraints.tabTitle"), scrollPaneXmpDc); //
+        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpDc.TabConstraints.tabTitle"), scrollPaneXmpDc); // NOI18N
 
         tableXmpIptc.setAutoCreateRowSorter(true);
         tableXmpIptc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpIptc.setName("tableXmpIptc"); //
+        tableXmpIptc.setName("tableXmpIptc"); // NOI18N
         scrollPaneXmpIptc.setViewportView(tableXmpIptc);
 
-        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpIptc.TabConstraints.tabTitle"), scrollPaneXmpIptc); //
+        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpIptc.TabConstraints.tabTitle"), scrollPaneXmpIptc); // NOI18N
 
         tableXmpPhotoshop.setAutoCreateRowSorter(true);
         tableXmpPhotoshop.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpPhotoshop.setName("tableXmpPhotoshop"); //
+        tableXmpPhotoshop.setName("tableXmpPhotoshop"); // NOI18N
         scrollPaneXmpPhotoshop.setViewportView(tableXmpPhotoshop);
 
-        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpPhotoshop.TabConstraints.tabTitle"), scrollPaneXmpPhotoshop); //
+        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpPhotoshop.TabConstraints.tabTitle"), scrollPaneXmpPhotoshop); // NOI18N
 
         tableXmpXap.setAutoCreateRowSorter(true);
         tableXmpXap.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpXap.setName("tableXmpXap"); //
+        tableXmpXap.setName("tableXmpXap"); // NOI18N
         scrollPaneXmpXap.setViewportView(tableXmpXap);
 
-        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpXap.TabConstraints.tabTitle"), scrollPaneXmpXap); //
+        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpXap.TabConstraints.tabTitle"), scrollPaneXmpXap); // NOI18N
 
         tableXmpLightroom.setAutoCreateRowSorter(true);
         tableXmpLightroom.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpLightroom.setName("tableXmpLightroom"); //
+        tableXmpLightroom.setName("tableXmpLightroom"); // NOI18N
         scrollPaneXmpLightroom.setViewportView(tableXmpLightroom);
 
-        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpLightroom.TabConstraints.tabTitle"), scrollPaneXmpLightroom); //
+        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpLightroom.TabConstraints.tabTitle"), scrollPaneXmpLightroom); // NOI18N
 
         tableXmpCameraRawSettings.setAutoCreateRowSorter(true);
         tableXmpCameraRawSettings.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpCameraRawSettings.setName("tableXmpCameraRawSettings"); //
+        tableXmpCameraRawSettings.setName("tableXmpCameraRawSettings"); // NOI18N
         scrollPaneXmpCameraRawSettings.setViewportView(tableXmpCameraRawSettings);
 
-        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpCameraRawSettings.TabConstraints.tabTitle"), scrollPaneXmpCameraRawSettings); //
+        tabbedPaneXmp.addTab(Bundle.getString("AppPanel.scrollPaneXmpCameraRawSettings.TabConstraints.tabTitle"), scrollPaneXmpCameraRawSettings); // NOI18N
 
-        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.tabbedPaneXmp.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png")), tabbedPaneXmp); //
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.tabbedPaneXmp.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png")), tabbedPaneXmp); // NOI18N
 
         javax.swing.GroupLayout panelEditMetadataLayout = new javax.swing.GroupLayout(panelEditMetadata);
         panelEditMetadata.setLayout(panelEditMetadataLayout);
@@ -1160,15 +1174,15 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addComponent(panelScrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png")), panelTabEditMetadata); //
-        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelHierarchicalKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png")), panelHierarchicalKeywords); //
+        tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png")), panelTabEditMetadata); // NOI18N
+        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelHierarchicalKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png")), panelHierarchicalKeywords); // NOI18N
         new ControllerToggleRealHierarchicalKeyword(panelHierarchicalKeywords);
         new ControllerRenameHierarchicalKeyword(panelHierarchicalKeywords);
         new ControllerAddHierarchicalKeyword(panelHierarchicalKeywords);
         new ControllerRemoveHierarchicalKeyword(panelHierarchicalKeywords);
         new ControllerAddHierarchicalKeywordsToEditPanel(panelHierarchicalKeywords);
         new ControllerRemoveHierarchicalKeywordFromEditPanel(panelHierarchicalKeywords);
-        new ControllerCopyCutPasteHierarchicalKeyword(panelHierarchicalKeywords);
+        new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword(panelHierarchicalKeywords);
         new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages();
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
@@ -1219,11 +1233,14 @@ public final class AppPanel extends javax.swing.JPanel implements
         sliderThumbnailSize.setMajorTickSpacing(5);
         sliderThumbnailSize.setMinimum(10);
         sliderThumbnailSize.setSnapToTicks(true);
-        sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); //
+        sliderThumbnailSize.setToolTipText(Bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
+
+        labelError.setOpaque(true);
+        labelError.setPreferredSize(new java.awt.Dimension(12, 12));
 
         progressBar.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY);
         progressBar.setMaximumSize(new java.awt.Dimension(300, 14));
-        progressBar.setName("progressBar"); //
+        progressBar.setName("progressBar"); // NOI18N
 
         javax.swing.GroupLayout panelStatusbarLayout = new javax.swing.GroupLayout(panelStatusbar);
         panelStatusbar.setLayout(panelStatusbarLayout);
@@ -1232,9 +1249,11 @@ public final class AppPanel extends javax.swing.JPanel implements
             .addGroup(panelStatusbarLayout.createSequentialGroup()
                 .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1244,6 +1263,7 @@ public final class AppPanel extends javax.swing.JPanel implements
                 .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(labelInfo)
+                .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1277,6 +1297,7 @@ public final class AppPanel extends javax.swing.JPanel implements
     private javax.swing.JButton buttonSearch;
     private javax.swing.JToggleButton buttonToggleExpandAllNodesHierKw;
     private javax.swing.JComboBox comboBoxFastSearch;
+    private javax.swing.JLabel labelError;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelThumbnailInfo;

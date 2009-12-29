@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
+import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -91,7 +92,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
         if (pick && isPickCollection() || !pick && isRejectCollection()) return;
         if (panelThumbnails.getSelectionCount() > 0) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
-            GUI.INSTANCE.getAppPanel().showMessage(getPopupMessage(pick), false, 1000);
+            GUI.INSTANCE.getAppPanel().showMessage(getPopupMessage(pick), AppPanel.MessageType.INFO, 1000);
             addToCollection(
                     pick
                     ? AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED
