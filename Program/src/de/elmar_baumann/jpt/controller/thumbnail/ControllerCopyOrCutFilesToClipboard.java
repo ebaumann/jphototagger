@@ -68,7 +68,7 @@ public final class ControllerCopyOrCutFilesToClipboard
         if (thumbnailsPanel.getSelectionCount() <= 0) return;
         if (KeyEventUtil.isControl(e, KeyEvent.VK_C)) {
             perform(FileAction.COPY);
-        } else if (KeyEventUtil.isControl(e, KeyEvent.VK_V)) {
+        } else if (KeyEventUtil.isControl(e, KeyEvent.VK_X)) {
             perform(FileAction.CUT);
         }
     }

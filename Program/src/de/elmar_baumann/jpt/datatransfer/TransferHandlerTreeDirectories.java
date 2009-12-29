@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.data.FavoriteDirectory;
 import de.elmar_baumann.jpt.io.ImageUtil;
+import de.elmar_baumann.jpt.io.ImageUtil.ConfirmOverwrite;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import java.awt.datatransfer.Transferable;
@@ -41,11 +42,13 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
+
         if (!Flavors.hasFiles(transferSupport.getTransferable())) {
             return false;
         }
-        JTree.DropLocation dropLocation =
-                (JTree.DropLocation) transferSupport.getDropLocation();
+
+        JTree.DropLocation dropLocation = (JTree.DropLocation) transferSupport.getDropLocation();
+
         return dropLocation.getPath() != null;
     }
 
@@ -62,10 +65,13 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
     @Override
     @SuppressWarnings("unchecked")
     public boolean importData(TransferSupport transferSupport) {
+
         if (!transferSupport.isDrop()) return false;
+
         File targetDirectory = getTargetDirectory(transferSupport);
-        List<File> sourceFiles =
-                TransferUtil.getFiles(transferSupport.getTransferable(), "");
+
+        List<File> sourceFiles = TransferUtil.getFiles(transferSupport.getTransferable(), "");
+
         if (targetDirectory != null && !sourceFiles.isEmpty()) {
             handleDroppedFiles(
                     transferSupport.getUserDropAction(), sourceFiles,
@@ -87,29 +93,33 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
      * @param sourceFiles
      * @param targetDirectory  target directory
      */
-    public static void handleDroppedFiles(
-            int dropAction, List<File> sourceFiles, File targetDirectory) {
+    public static void handleDroppedFiles(int dropAction, List<File> sourceFiles, File targetDirectory) {
+
         List<File> imageFiles = IoUtil.filterImageFiles(sourceFiles);
+
         if (imageFiles.isEmpty()) return;
+
         if (dropAction == COPY) {
-            ImageUtil.copyImageFiles(imageFiles, targetDirectory, true);
+            ImageUtil.copyImageFiles(imageFiles, targetDirectory, ConfirmOverwrite.YES);
         } else if (dropAction == MOVE) {
-            ImageUtil.moveImageFiles(imageFiles, targetDirectory, true);
+            ImageUtil.moveImageFiles(imageFiles, targetDirectory, ConfirmOverwrite.YES);
         }
     }
 
     private File getTargetDirectory(TransferSupport transferSupport) {
-        TreePath path =
-                ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
-        Object selNode = path.getLastPathComponent();
+
+        TreePath path    = ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
+        Object   selNode = path.getLastPathComponent();
+
         if (selNode instanceof DefaultMutableTreeNode) {
-            Object userObject =
-                    ((DefaultMutableTreeNode) selNode).getUserObject();
+            Object userObject = ((DefaultMutableTreeNode) selNode).getUserObject();
+
             if (userObject instanceof File) {
                 return (File) userObject;
             } else if (userObject instanceof FavoriteDirectory) {
                 return ((FavoriteDirectory) userObject).getDirectory();
             }
+
             return (File) selNode;
         }
         return null;
