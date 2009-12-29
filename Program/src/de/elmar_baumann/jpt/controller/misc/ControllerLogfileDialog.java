@@ -20,14 +20,21 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLoggingSystem;
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.ErrorListener;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
+import de.elmar_baumann.lib.event.util.MouseEventUtil;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
 /**
@@ -36,11 +43,16 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-11
  */
-public final class ControllerLogfileDialog implements ActionListener,
-                                                      ErrorListener {
+public final class ControllerLogfileDialog
+        extends    MouseAdapter
+        implements ActionListener,
+                   ErrorListener {
 
     private static final long      MILLISECONDS_ERROR_DISPLAY = 4000;
-    private final        JMenuItem itemShowDlg = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
+    private static final String    LABEL_ERROR_TOOLTIP_TEXT   = Bundle.getString("ControllerLogfileDialog.LabelErrorTooltipText");
+    private static final String    STATUSBAR_ERROR_TEXT       = Bundle.getString("Error.Info");
+    private final        JMenuItem itemShowDlg                = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
+    private final        JLabel    labelError                 = GUI.INSTANCE.getAppPanel().getLabelError();
 
     public ControllerLogfileDialog() {
         listen();
@@ -48,13 +60,25 @@ public final class ControllerLogfileDialog implements ActionListener,
 
     private void listen() {
         itemShowDlg.addActionListener(this);
+        labelError.addMouseListener(this);
         ErrorListeners.INSTANCE.addErrorListener(this);
     }
 
     @Override
+    public void mouseClicked(MouseEvent e) {
+        if (MouseEventUtil.isLeftClick(e) && itemShowDlg.isEnabled()) {
+            showLogfileDialog();
+            labelError.setIcon(null);
+            labelError.setToolTipText("");
+        }
+    }
+
+    @Override
     public void error(ErrorEvent evt) {
-        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("Error.Info"), true, MILLISECONDS_ERROR_DISPLAY);
+        GUI.INSTANCE.getAppPanel().showMessage(STATUSBAR_ERROR_TEXT, AppPanel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         itemShowDlg.setEnabled(true);
+        labelError.setIcon(AppLookAndFeel.getIcon("icon_error12.png"));
+        labelError.setToolTipText(LABEL_ERROR_TOOLTIP_TEXT);
     }
 
     @Override

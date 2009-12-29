@@ -58,10 +58,10 @@ import javax.swing.tree.TreeModel;
 public final class ModelFactory {
 
     static final ModelFactory INSTANCE = new ModelFactory();
-    private boolean init = false;
+    private      boolean      init;
 
     synchronized void init() {
-        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Init.Start"), false, 1000);
+        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Init.Start"), AppPanel.MessageType.INFO, 1000);
         Util.checkInit(ModelFactory.class, init);
         if (!init) {
             init = true;
@@ -74,10 +74,9 @@ public final class ModelFactory {
     }
 
     private void setComboBoxModels(final AppPanel appPanel) {
-        appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().
-                setModel(new ComboBoxModelMetadataEditTemplates());
+        appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(new ComboBoxModelMetadataEditTemplates());
         new ControllerMetadataTemplates();
-        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ComboBoxModels"), false, 1000);
+        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ComboBoxModels"), AppPanel.MessageType.INFO, 1000);
     }
 
     private void setListModels(final AppPanel appPanel) {
@@ -88,19 +87,19 @@ public final class ModelFactory {
     }
 
     private void setListModelSavedSearches(final AppPanel appPanel) {
-        JList list = appPanel.getListSavedSearches();
+        JList  list       = appPanel.getListSavedSearches();
         Cursor listCursor = setWaitCursor(list);
         list.setModel(new ListModelSavedSearches());
         list.setCursor(listCursor);
-        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelSavedSearches"), false, 1000);
+        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelSavedSearches"), AppPanel.MessageType.INFO, 1000);
     }
 
     private void setListModelImageCollections(final AppPanel appPanel) {
-        JList list = appPanel.getListImageCollections();
+        JList  list       = appPanel.getListImageCollections();
         Cursor listCursor = setWaitCursor(list);
         list.setModel(new ListModelImageCollections());
         list.setCursor(listCursor);
-        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelImageCollections"), false, 1000);
+        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelImageCollections"), AppPanel.MessageType.INFO, 1000);
     }
 
     private void setListModelKeywords(final AppPanel appPanel) {
@@ -108,13 +107,14 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                JList listAppPanel = appPanel.getListKeywords();
-                Cursor listAppPanelCursor = setWaitCursor(listAppPanel);
-                ListModel model = new SortedListModel(new ListModelKeywords());
+                JList     listAppPanel       = appPanel.getListKeywords();
+                Cursor    listAppPanelCursor = setWaitCursor(listAppPanel);
+                ListModel model              = new SortedListModel(new ListModelKeywords());
+
                 listAppPanel.setModel(model);
                 InputHelperDialog.INSTANCE.setModelKeywords(model);
                 listAppPanel.setCursor(listAppPanelCursor);
-                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelKeywords"), false, 1000);
+                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelKeywords"), AppPanel.MessageType.INFO, 1000);
             }
         });
         thread.setName("Creating keywords model @ " + getClass().getName());
@@ -123,7 +123,7 @@ public final class ModelFactory {
 
     private void setListModelNoMetadata(AppPanel appPanel) {
         appPanel.getListNoMetadata().setModel(new de.elmar_baumann.jpt.model.ListModelNoMetadata());
-        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelNoMetadata"), false, 1000);
+        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelNoMetadata"), AppPanel.MessageType.INFO, 1000);
     }
 
     private void setTableModels(final AppPanel appPanel) {
@@ -138,12 +138,13 @@ public final class ModelFactory {
         appPanel.getTableXmpXap()              .setModel(new TableModelXmp());
         appPanel.getTableExif()                .setModel(new TableModelExif());
         new ControllerShowMetadata();
-        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TableModels"), false, 1000);
+        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TableModels"), AppPanel.MessageType.INFO, 1000);
     }
 
     private Cursor setWaitCursor(JList list) {
         Cursor listCursor = list.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
+
         list.setCursor(waitCursor);
         return listCursor;
     }
@@ -151,6 +152,7 @@ public final class ModelFactory {
     private synchronized Cursor setWaitCursor(JTree tree) {
         Cursor treeCursor = tree.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
+
         tree.setCursor(waitCursor);
         return treeCursor;
     }
@@ -164,11 +166,14 @@ public final class ModelFactory {
     }
 
     private void setTreeModelHierarchicalKeywords() {
-        TreeModel m = new TreeModelHierarchicalKeywords();
-        GUI.INSTANCE.getAppPanel().getTreeSelHierarchicalKeywords().setModel(m);
-        GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().setModel(m);
-        InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(m);
-        GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelHierarchicalKeywords"), false, 1000);
+        TreeModel model    = new TreeModelHierarchicalKeywords();
+        AppPanel  appPanel = GUI.INSTANCE.getAppPanel();
+
+        appPanel.getTreeSelHierarchicalKeywords().setModel(model);
+        appPanel.getTreeHierarchicalKeywords().setModel(model);
+        InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(model);
+
+        appPanel.showMessage(Bundle.getString("ModelFactory.Finished.TreeModelHierarchicalKeywords"), AppPanel.MessageType.INFO, 1000);
     }
 
     private void setTreeModelMiscMetadata(final AppPanel appPanel) {
@@ -176,17 +181,18 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                JTree tree = appPanel.getTreeMiscMetadata();
-                Cursor treeCursor = setWaitCursor(tree);
-                TreeModel model = new TreeModelMiscMetadata();
+                JTree     tree       = appPanel.getTreeMiscMetadata();
+                Cursor    treeCursor = setWaitCursor(tree);
+                TreeModel model      = new TreeModelMiscMetadata();
+
                 tree.setModel(model);
                 new ControllerMiscMetadataItemSelected();
                 tree.setCursor(treeCursor);
-                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelMiscMetadata"), false, 1000);
+
+                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelMiscMetadata"), AppPanel.MessageType.INFO, 1000);
             }
         });
-        thread.setName("Creating model of tree misc metadata" + " @ " +
-                getClass().getName());
+        thread.setName("Creating model of tree misc metadata" + " @ " + getClass().getName());
         thread.start();
     }
 
@@ -195,17 +201,18 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                JTree tree = appPanel.getTreeTimeline();
-                Cursor treeCursor = setWaitCursor(tree);
-                TreeModel model = new TreeModelTimeline();
+                JTree     tree       = appPanel.getTreeTimeline();
+                Cursor    treeCursor = setWaitCursor(tree);
+                TreeModel model      = new TreeModelTimeline();
+
                 tree.setModel(model);
                 new ControllerTimelineItemSelected();
                 tree.setCursor(treeCursor);
-                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelTimeline"), false, 1000);
+
+                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelTimeline"), AppPanel.MessageType.INFO, 1000);
             }
         });
-        thread.setName("Creating model of tree timeline" + " @ " +
-                getClass().getName());
+        thread.setName("Creating model of tree timeline" + " @ " + getClass().getName());
         thread.start();
     }
 
@@ -214,14 +221,16 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                JTree tree = appPanel.getTreeFavorites();
-                Cursor treeCursor = setWaitCursor(tree);
-                TreeModelFavorites model = new TreeModelFavorites(tree);
+                JTree              tree       = appPanel.getTreeFavorites();
+                Cursor             treeCursor = setWaitCursor(tree);
+                TreeModelFavorites model      = new TreeModelFavorites(tree);
+
                 tree.setModel(model);
                 new ControllerFavoriteSelected();
                 model.readFromProperties();
                 tree.setCursor(treeCursor);
-                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelFavorites"), false, 1000);
+
+                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelFavorites"), AppPanel.MessageType.INFO, 1000);
             }
         });
         thread.setName("Creating model of tree favorite directories" + " @ " + getClass());
@@ -233,18 +242,17 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                JTree tree = appPanel.getTreeDirectories();
-                Cursor treeCursor = setWaitCursor(tree);
-                TreeModel model =
-                        new TreeModelAllSystemDirectories(tree,
-                        UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
+                JTree     tree       = appPanel.getTreeDirectories();
+                Cursor    treeCursor = setWaitCursor(tree);
+                TreeModel model      = new TreeModelAllSystemDirectories(tree, UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
+
                 tree.setModel(model);
                 new ControllerDirectorySelected();
                 if (UserSettings.INSTANCE.isTreeDirectoriesSelectLastDirectory()) {
                     ViewUtil.readTreeDirectoriesFromProperties();
                 }
                 tree.setCursor(treeCursor);
-                GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelDirectories"), false, 1000);
+                appPanel.showMessage(Bundle.getString("ModelFactory.Finished.TreeModelDirectories"), AppPanel.MessageType.INFO, 1000);
             }
         });
         thread.setName("Creating model of tree directories" + " @ " + getClass());
