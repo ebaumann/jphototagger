@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.controller.hierarchicalkeywords.HierarchicalKeywordTreeNodesClipboard;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.HierarchicalKeywordsTreePathExpander;
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
@@ -54,20 +55,17 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
         JTree tree = (JTree) c;
         TreePath[] selPaths = tree.getSelectionPaths();
         if (selPaths != null) {
-            List<DefaultMutableTreeNode> selNodes =
-                    new ArrayList<DefaultMutableTreeNode>();
+            List<DefaultMutableTreeNode> selNodes = new ArrayList<DefaultMutableTreeNode>();
             for (TreePath selPath : selPaths) {
                 Object node = selPath.getLastPathComponent();
                 if (node instanceof DefaultMutableTreeNode) {
-                    Object userObject =
-                            ((DefaultMutableTreeNode) node).getUserObject();
+                    Object userObject = ((DefaultMutableTreeNode) node).getUserObject();
                     if (userObject instanceof HierarchicalKeyword) {
                         selNodes.add((DefaultMutableTreeNode) node);
                     }
                 }
             }
-            return new TransferableObject(
-                    selNodes, Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
+            return new TransferableObject(selNodes, Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
         }
         return null;
     }
@@ -79,16 +77,18 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
 
     @Override
     public boolean importData(TransferSupport transferSupport) {
-        if (!checkImportSelection(transferSupport)) return false;
+
         DefaultMutableTreeNode dropNode = getDropNode(transferSupport);
         if (dropNode != null) {
             JTree tree = (JTree) transferSupport.getComponent();
-            TreeModelHierarchicalKeywords tm =
-                    (TreeModelHierarchicalKeywords) tree.getModel();
+            TreeModelHierarchicalKeywords tm = (TreeModelHierarchicalKeywords) tree.getModel();
             if (Flavors.hasKeywords(transferSupport)) {
+                if (!checkImportSelection(transferSupport)) return false;
                 addKeywords(tm, dropNode, transferSupport);
             } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
+                if (!checkImportSelection(transferSupport)) return false;
                 moveKeywords(transferSupport, tm, dropNode);
+                HierarchicalKeywordTreeNodesClipboard.INSTANCE.empty();
             }
             HierarchicalKeywordsTreePathExpander.expand(dropNode);
         }
@@ -96,16 +96,19 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
     }
 
     private DefaultMutableTreeNode getDropNode(TransferSupport transferSupport) {
+
         if (transferSupport.isDrop()) {
-            JTree.DropLocation dropLocation =
-                    (JTree.DropLocation) transferSupport.getDropLocation();
-            Object dropObject = dropLocation.getPath().getLastPathComponent();
+            JTree.DropLocation dropLocation = (JTree.DropLocation) transferSupport.getDropLocation();
+            Object             dropObject   = dropLocation.getPath().getLastPathComponent();
+
             return dropObject instanceof DefaultMutableTreeNode
                     ? (DefaultMutableTreeNode) dropObject
                     : null;
         }
-        JTree tree = (JTree) transferSupport.getComponent();
+
+        JTree    tree    = (JTree) transferSupport.getComponent();
         TreePath selPath = tree.getSelectionPath();
+
         if (selPath != null) {
             Object o = selPath.getLastPathComponent();
             if (o instanceof DefaultMutableTreeNode) {
@@ -128,30 +131,30 @@ public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandl
 
     private void addKeywords(
             TreeModelHierarchicalKeywords treeModel,
-            DefaultMutableTreeNode node,
-            TransferSupport transferSupport) {
+            DefaultMutableTreeNode        node,
+            TransferSupport               transferSupport) {
 
-        Object[] keywords = TransferHandlerListKeywords.getKeywords(
-                transferSupport.getTransferable());
+        Object[] keywords = TransferHandlerListKeywords.getKeywords(transferSupport.getTransferable());
         if (keywords == null) return;
         for (Object keyword : keywords) {
             treeModel.addKeyword(node, keyword.toString(), true);
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void moveKeywords(
-            TransferSupport transferSupport,
+            TransferSupport               transferSupport,
             TreeModelHierarchicalKeywords treeModel,
-            DefaultMutableTreeNode dropNode) {
+            DefaultMutableTreeNode        dropNode
+            ) {
         try {
-            @SuppressWarnings("unchecked")
-            List<DefaultMutableTreeNode> sourceNodes = (List<DefaultMutableTreeNode>) transferSupport.getTransferable().
-                    getTransferData(Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
+            List<DefaultMutableTreeNode> sourceNodes = (List<DefaultMutableTreeNode>)
+                    transferSupport.getTransferable().getTransferData(Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
             for (DefaultMutableTreeNode sourceNode : sourceNodes) {
                 Object userObject = sourceNode.getUserObject();
                 if (userObject instanceof HierarchicalKeyword) {
                     HierarchicalKeyword sourceKeyword = (HierarchicalKeyword) userObject;
-                    HierarchicalKeyword srcCopy = new HierarchicalKeyword(sourceKeyword);
+                    HierarchicalKeyword srcCopy       = new HierarchicalKeyword(sourceKeyword);
                     treeModel.move(sourceNode, dropNode, sourceKeyword);
                     HierarchicalKeywordsHelper.moveInFiles(
                             HierarchicalKeywordsHelper.getParentKeywordNames(

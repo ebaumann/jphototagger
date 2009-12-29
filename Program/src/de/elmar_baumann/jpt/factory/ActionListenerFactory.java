@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCutPasteHierarchicalKeyword;
+import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
@@ -55,19 +55,16 @@ public final class ActionListenerFactory {
             init = true;
             AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
-            appFrame.getMenuItemAbout().addActionListener(
-                    new ControllerAboutApp());
+            appFrame.getMenuItemAbout().addActionListener(new ControllerAboutApp());
+
             ControllerHelp ctrlHelp = new ControllerHelp();
-            appFrame.getMenuItemHelp().addActionListener(ctrlHelp);
-            appFrame.getMenuItemAcceleratorKeys().addActionListener(ctrlHelp);
-            appFrame.getMenuItemMaintainDatabase().addActionListener(
-                    new ControllerMaintainDatabase());
-            appFrame.getMenuItemScanDirectory().addActionListener(
-                    new ControllerShowUpdateMetadataDialog());
-            appFrame.getMenuItemSettings().addActionListener(
-                    new ControllerShowUserSettingsDialog());
-            appFrame.getMenuItemSearch().addActionListener(
-                    new ControllerShowAdvancedSearchDialog());
+
+            appFrame.getMenuItemHelp()            .addActionListener(ctrlHelp);
+            appFrame.getMenuItemAcceleratorKeys() .addActionListener(ctrlHelp);
+            appFrame.getMenuItemMaintainDatabase().addActionListener(new ControllerMaintainDatabase());
+            appFrame.getMenuItemScanDirectory()   .addActionListener(new ControllerShowUpdateMetadataDialog());
+            appFrame.getMenuItemSettings()        .addActionListener(new ControllerShowUserSettingsDialog());
+            appFrame.getMenuItemSearch()          .addActionListener(new ControllerShowAdvancedSearchDialog());
             listenToPopupMenuHierarchicalKeywords();
         }
     }
@@ -78,32 +75,30 @@ public final class ActionListenerFactory {
      * more then one panel using it (2 panels: popup twice, 3 p. 3 times ...)
      */
     private void listenToPopupMenuHierarchicalKeywords() {
-        HierarchicalKeywordsPanel hkwPanel =
-                InputHelperDialog.INSTANCE.getPanelKeywords();
-        ControllerRenameHierarchicalKeyword cRename =
-                new ControllerRenameHierarchicalKeyword(hkwPanel);
-        ControllerRemoveHierarchicalKeyword cRemove =
-                new ControllerRemoveHierarchicalKeyword(hkwPanel);
-        ControllerAddHierarchicalKeyword cAdd =
-                new ControllerAddHierarchicalKeyword(hkwPanel);
-        ControllerToggleRealHierarchicalKeyword cToggleReal =
-                new ControllerToggleRealHierarchicalKeyword(hkwPanel);
-        ControllerAddHierarchicalKeywordsToEditPanel cAddToEditPanel =
-                new ControllerAddHierarchicalKeywordsToEditPanel(hkwPanel);
-        ControllerRemoveHierarchicalKeywordFromEditPanel cRemoveFromEPn =
-                new ControllerRemoveHierarchicalKeywordFromEditPanel(hkwPanel);
-        ControllerCutPasteHierarchicalKeyword cCutPaste =
-                new ControllerCutPasteHierarchicalKeyword(hkwPanel);
+        HierarchicalKeywordsPanel                        hkwPanel        = InputHelperDialog.INSTANCE.getPanelKeywords();
+        ControllerRenameHierarchicalKeyword              cRename         = new ControllerRenameHierarchicalKeyword(hkwPanel);
+        ControllerRemoveHierarchicalKeyword              cRemove         = new ControllerRemoveHierarchicalKeyword(hkwPanel);
+        ControllerAddHierarchicalKeyword                 cAdd            = new ControllerAddHierarchicalKeyword(hkwPanel);
+        ControllerToggleRealHierarchicalKeyword          cToggleReal     = new ControllerToggleRealHierarchicalKeyword(hkwPanel);
+        ControllerAddHierarchicalKeywordsToEditPanel     cAddToEditPanel = new ControllerAddHierarchicalKeywordsToEditPanel(hkwPanel);
+        ControllerRemoveHierarchicalKeywordFromEditPanel cRemoveFromEPn  = new ControllerRemoveHierarchicalKeywordFromEditPanel(hkwPanel);
+        ControllerCopyCutPasteHierarchicalKeyword        cCopyCutPaste   = new ControllerCopyCutPasteHierarchicalKeyword(hkwPanel);
+
         new ControllerHierarchicalKeywordsDisplayImages();
-        PopupMenuHierarchicalKeywords popup =
-                PopupMenuHierarchicalKeywords.INSTANCE;
-        popup.getMenuItemAdd().addActionListener(cAdd);
-        popup.getMenuItemRename().addActionListener(cRename);
-        popup.getMenuItemRemove().addActionListener(cRemove);
-        popup.getMenuItemAddToEditPanel().addActionListener(cAddToEditPanel);
+
+        hkwPanel.addKeyListener(cCopyCutPaste);
+        GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().addKeyListener(cCopyCutPaste);
+
+        PopupMenuHierarchicalKeywords popup = PopupMenuHierarchicalKeywords.INSTANCE;
+
+        popup.getMenuItemAdd()                .addActionListener(cAdd);
+        popup.getMenuItemRename()             .addActionListener(cRename);
+        popup.getMenuItemRemove()             .addActionListener(cRemove);
+        popup.getMenuItemAddToEditPanel()     .addActionListener(cAddToEditPanel);
         popup.getMenuItemRemoveFromEditPanel().addActionListener(cRemoveFromEPn);
-        popup.getMenuItemToggleReal().addActionListener(cToggleReal);
-        popup.getMenuItemCut().addActionListener(cCutPaste);
-        popup.getMenuItemPaste().addActionListener(cCutPaste);
+        popup.getMenuItemToggleReal()         .addActionListener(cToggleReal);
+        popup.getMenuItemCopy()               .addActionListener(cCopyCutPaste);
+        popup.getMenuItemCut()                .addActionListener(cCopyCutPaste);
+        popup.getMenuItemPaste()              .addActionListener(cCopyCutPaste);
     }
 }

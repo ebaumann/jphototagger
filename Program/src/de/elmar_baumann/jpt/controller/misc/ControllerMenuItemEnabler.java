@@ -99,11 +99,11 @@ public final class ControllerMenuItemEnabler
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getItemAddToImageCollection());
         itemsRequiresSelectedImages.add(
-                popupThumbnails.getItemRotateThumbnai90());
+                popupThumbnails.getItemRotateThumbnail90());
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getItemRotateThumbnai180());
         itemsRequiresSelectedImages.add(
-                popupThumbnails.getItemRotateThumbnai270());
+                popupThumbnails.getItemRotateThumbnail270());
         itemsRequiresSelectedImages.add(
                 popupThumbnails.getItemFileSystemCopyToDirectory());
         itemsRequiresSelectedImages.add(

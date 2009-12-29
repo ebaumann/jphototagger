@@ -57,6 +57,7 @@ public final class MouseListenerHierarchicalKeywords extends MouseListenerTree {
                     !TreeUtil.isRootItemPosition(e) &&
                     path.getLastPathComponent() instanceof DefaultMutableTreeNode;
 
+            popupMenu.setTree((JTree)e.getSource());
             popupMenu.setTreePath(path);
             setMenuItemsEnabled(isHkNode);
             popupMenu.getMenuItemAdd().setEnabled(path != null);
@@ -71,7 +72,7 @@ public final class MouseListenerHierarchicalKeywords extends MouseListenerTree {
         popupMenu.getMenuItemAddToEditPanel()     .setEnabled(hkNode);
         popupMenu.getMenuItemRemoveFromEditPanel().setEnabled(hkNode);
         popupMenu.getMenuItemCut()                .setEnabled(hkNode);
-        popupMenu.getMenuItemPaste()              .setEnabled(hkNode && HierarchicalKeywordTreeNodesClipboard.INSTANCE.hasContent());
+        popupMenu.getMenuItemPaste()              .setEnabled(hkNode && !HierarchicalKeywordTreeNodesClipboard.INSTANCE.isEmpty());
         popupMenu.getMenuItemExpandAllSubitems()  .setEnabled(hkNode);
         popupMenu.getMenuItemCollapseAllSubitems().setEnabled(hkNode);
     }

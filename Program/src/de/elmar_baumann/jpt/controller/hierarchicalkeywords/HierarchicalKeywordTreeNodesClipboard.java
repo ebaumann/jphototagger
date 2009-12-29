@@ -30,31 +30,49 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class HierarchicalKeywordTreeNodesClipboard {
 
-    public static final HierarchicalKeywordTreeNodesClipboard INSTANCE =
-            new HierarchicalKeywordTreeNodesClipboard();
-    private final List<DefaultMutableTreeNode> nodes =
-            new ArrayList<DefaultMutableTreeNode>();
+    public enum Action {
+        COPY, MOVE, UNKNOWN
+    }
 
-    public boolean hasContent() {
-        return nodes.size() > 0;
+    public static final HierarchicalKeywordTreeNodesClipboard INSTANCE = new HierarchicalKeywordTreeNodesClipboard();
+    private Action                                            action   = Action.UNKNOWN;
+    private final List<DefaultMutableTreeNode>                nodes    = new ArrayList<DefaultMutableTreeNode>();
+
+    public boolean isEmpty() {
+        return nodes.size() <= 0;
     }
 
     public List<DefaultMutableTreeNode> getContent() {
         return nodes;
     }
 
-    public void setContent(DefaultMutableTreeNode node) {
+    public void setContent(DefaultMutableTreeNode node, Action action) {
         nodes.clear();
         nodes.add(node);
+        this.action = action;
     }
 
-    public void setContent(List<DefaultMutableTreeNode> nodes) {
+    public void setContent(List<DefaultMutableTreeNode> nodes, Action action) {
         nodes.clear();
         this.nodes.addAll(nodes);
+        this.action = action;
+    }
+
+    public Action getAction() {
+        return action;
     }
 
     public void empty() {
         nodes.clear();
+        action = Action.UNKNOWN;
+    }
+
+    public boolean isMove() {
+        return action.equals(Action.MOVE);
+    }
+
+    public boolean isCopy() {
+        return action.equals(Action.COPY);
     }
 
     private HierarchicalKeywordTreeNodesClipboard() {

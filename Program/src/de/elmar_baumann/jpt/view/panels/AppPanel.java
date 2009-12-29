@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCutPasteHierarchicalKeyword;
+import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
@@ -1168,7 +1168,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         new ControllerRemoveHierarchicalKeyword(panelHierarchicalKeywords);
         new ControllerAddHierarchicalKeywordsToEditPanel(panelHierarchicalKeywords);
         new ControllerRemoveHierarchicalKeywordFromEditPanel(panelHierarchicalKeywords);
-        new ControllerCutPasteHierarchicalKeyword(panelHierarchicalKeywords);
+        new ControllerCopyCutPasteHierarchicalKeyword(panelHierarchicalKeywords);
         new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages();
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
