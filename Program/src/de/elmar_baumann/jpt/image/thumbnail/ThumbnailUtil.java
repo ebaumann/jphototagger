@@ -102,6 +102,8 @@ public final class ThumbnailUtil {
 
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
+            if (FileType.isJpegFile(file.getName())) return getScaledImage(file, maxLength);
+
             AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions  procOptions = new ImageProcOptions();
@@ -186,8 +188,8 @@ public final class ThumbnailUtil {
 
         AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImage.Information", file, maxLength);
 
-        BufferedImage  image = loadImage(file);
-        BufferedImage  scaledImage = null;
+        BufferedImage image       = loadImage(file);
+        BufferedImage scaledImage = null;
 
         if (image != null) {
             scaledImage = stepScaleImage(image, maxLength, 0.5);
