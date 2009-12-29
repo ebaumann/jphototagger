@@ -40,7 +40,7 @@ public final class ExifFieldValueFormatter {
         if (formatter != null) {
             return formatter.format(entry);
         }
-        return entry.toString().trim();
+        return entry.stringValue().trim();
     }
 
     private ExifFieldValueFormatter() {

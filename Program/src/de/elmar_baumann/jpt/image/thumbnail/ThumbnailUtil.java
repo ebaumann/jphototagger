@@ -66,25 +66,22 @@ public final class ThumbnailUtil {
      */
     public static Image getThumbnail(File file, int maxLength, boolean embedded) {
         if (!file.exists()) return null;
-        Image thumbnail =
-                (embedded || FileType.isRawFile(file.getName())
-                ? getRotatedThumbnail(file)
+        Image thumbnail = (embedded || FileType.isRawFile(file.getName())
+                ? getEmbeddedThumbnailRotated(file)
                 : getScaledImageImagero(file, maxLength));
         if (thumbnail == null) {
-            thumbnail =
-                    (embedded
+            thumbnail = (embedded
                     ? getScaledImageImagero(file, maxLength)
-                    : getRotatedThumbnail(file));
+                    : getEmbeddedThumbnailRotated(file));
         }
         return thumbnail;
     }
 
-    private static Pair<Image, ImageReader> getFileEmbeddedThumbnail(File file) {
-        Image thumbnail = null;
-        ImageReader reader = null;
+    private static Pair<Image, ImageReader> getEmbeddedThumbnail(File file) {
+        Image       thumbnail = null;
+        ImageReader reader    = null;
         try {
-            AppLog.logInfo(ThumbnailUtil.class,
-                    "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file);
+            AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file);
             reader = ReaderFactory.createReader(file);
             if (reader instanceof JpegReader) {
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
@@ -93,8 +90,7 @@ public final class ThumbnailUtil {
             } else if (reader instanceof TiffReader) {
                 TiffReader tiffReader = (TiffReader) reader;
                 if (tiffReader.getThumbnailCount() > 0) {
-                    thumbnail = Toolkit.getDefaultToolkit().createImage(
-                            tiffReader.getThumbnail(0));
+                    thumbnail = Toolkit.getDefaultToolkit().createImage(tiffReader.getThumbnail(0));
                 }
             }
         } catch (Exception ex) {
@@ -106,10 +102,9 @@ public final class ThumbnailUtil {
 
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
-            AppLog.logInfo(ThumbnailUtil.class,
-                    "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
+            AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
             IOParameterBlock ioParamBlock = new IOParameterBlock();
-            ImageProcOptions procOptions = new ImageProcOptions();
+            ImageProcOptions  procOptions = new ImageProcOptions();
 
             ioParamBlock.setSource(file);
             procOptions.setSource(ioParamBlock);
@@ -125,12 +120,11 @@ public final class ThumbnailUtil {
     }
 
     private static void logExternalAppCommand(String cmd) {
-        AppLog.logFinest(ThumbnailUtil.class,
-                "ThumbnailUtil.Info.ExternalAppCreationCommand", cmd);
+        AppLog.logFinest(ThumbnailUtil.class, "ThumbnailUtil.Info.ExternalAppCreationCommand", cmd);
     }
 
-    private static Image getRotatedThumbnail(File file) {
-        Pair<Image, ImageReader> pair = getFileEmbeddedThumbnail(file);
+    private static Image getEmbeddedThumbnailRotated(File file) {
+        Pair<Image, ImageReader> pair = getEmbeddedThumbnail(file);
         Image thumbnail = pair.getFirst();
         Image rotatedThumbnail = thumbnail;
         if (thumbnail != null) {
@@ -138,8 +132,7 @@ public final class ThumbnailUtil {
                     ExifThumbnailUtil.getThumbnailRotationAngle(
                     ExifMetadata.getExifEntries(file));
             if (rotateAngle != 0) {
-                AppLog.logInfo(ThumbnailUtil.class,
-                        "ThumbnailUtil.GetRotatedThumbnail.Information", file);
+                AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetRotatedThumbnail.Information", file);
                 rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
             }
         }
@@ -155,24 +148,21 @@ public final class ThumbnailUtil {
      * @param maxLength maximum length of the image in pixel
      * @return          thumbnail or null if errors occured
      */
-    public static Image getThumbnailFromExternalApplication(
-            File file, String command, int maxLength) {
+    public static Image getThumbnailFromExternalApplication(File file, String command, int maxLength) {
 
         if (!file.exists()) {
             return null;
         }
         Image image = null;
 
-        AppLog.logInfo(ThumbnailUtil.class,
-                "ThumbnailUtil.GetThumbnailFromExternalApplication.Information",
-                file, maxLength);
-        String cmd = command.replace("%s", file.getAbsolutePath()).
-                replace("%i", new Integer(maxLength).toString());
+        AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", file, maxLength);
+        String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", new Integer(maxLength).toString());
         logExternalAppCommand(cmd);
         Pair<byte[], byte[]> output =
-                External.executeGetOutput(cmd,
-                UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() *
-                1000);
+                External.executeGetOutput(
+                    cmd,
+                    UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() *
+                    1000);
 
         if (output == null) {
             return null;
@@ -181,11 +171,9 @@ public final class ThumbnailUtil {
         byte[] stdout = output.getFirst();
         if (stdout != null) {
             try {
-                image = javax.imageio.ImageIO.read(new ByteArrayInputStream(
-                        stdout));
+                image = javax.imageio.ImageIO.read(new ByteArrayInputStream(stdout));
             } catch (Exception ex) {
-                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE,
-                        null, ex);
+                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (output.getSecond() != null) {
@@ -195,13 +183,16 @@ public final class ThumbnailUtil {
     }
 
     public static Image getScaledImage(File file, int maxLength) {
-        AppLog.logInfo(ThumbnailUtil.class,
-                "ThumbnailUtil.GetScaledImage.Information", file, maxLength);
-        BufferedImage image = loadImage(file);
-        BufferedImage scaledImage = null;
+
+        AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImage.Information", file, maxLength);
+
+        BufferedImage  image = loadImage(file);
+        BufferedImage  scaledImage = null;
+
         if (image != null) {
             scaledImage = stepScaleImage(image, maxLength, 0.5);
         }
+
         return scaledImage;
     }
 
@@ -236,32 +227,32 @@ public final class ThumbnailUtil {
      * @param qfactor Ein Wert zwichen 0 und 1. Je kleiner die Zahl, desto mehr Duchgänge wird der Skalierungsprozess machen. Empfohlener Wert ist 0.5.
      * @return Das skalierte Bild.
      */
-    private static BufferedImage stepScaleImage(BufferedImage image,
-            int minWidth, double qfactor) {
+    private static BufferedImage stepScaleImage(BufferedImage image, int minWidth, double qfactor) {
         // Damit Assertions ausgewertet werden, muss die VM mit dem Argument -ea gestartet werden.
         assert qfactor < 1.0 : "qfactor must be < 1.0"; // wir wollen nur verkleinern! :-)
         BufferedImage scaledImage = null;
         try {
-            int origHeight = image.getHeight(); // Orignalhöhe
-            int origWidth = image.getWidth(); // Originalbreite
-            double factor = getScaleFactor(origWidth, origHeight, minWidth); // Skalierungsfaktor von Originalgröße auf Zielgröße
-            int scaledWidth = (int) (origWidth / factor); // Zielbreite
-            int scaledHeight = (int) (origHeight / factor); // Zielhöhe
-            int pass = 1; // Zähler für die Durchläufe - nur für Debugging
+            int    origHeight   = image.getHeight(); // Orignalhöhe
+            int    origWidth    = image.getWidth(); // Originalbreite
+            double factor       = getScaleFactor(origWidth, origHeight, minWidth); // Skalierungsfaktor von Originalgröße auf Zielgröße
+            int    scaledWidth  = (int) (origWidth / factor); // Zielbreite
+            int    scaledHeight = (int) (origHeight / factor); // Zielhöhe
+            int    pass         = 1; // Zähler für die Durchläufe - nur für Debugging
 
             // Je nach qfactor läuft diese Schleife unterschiedlich oft durch. Sie prüft vor jedem Schleifendurchlauf,
             // ob die Zielgröße im folgenden Schritt unterschritten werden würde.. Wenn nein, wird ein neuer Duchlauf
             // gestartet und wieder ein wenig skaliert.
             // In jedem Schleifendurchlauf werden origHeight und origWidth auf die aktuelle Größe gesetzt.
-            while (((origWidth * qfactor) > scaledWidth) || ((origHeight *
-                    qfactor) > scaledHeight)) {
-                int width = (int) (origWidth * qfactor); // Die Breite in diesesm Skalierungsschritt
+            while (((origWidth * qfactor) > scaledWidth) || 
+                    ((origHeight * qfactor) > scaledHeight)) {
+
+                int width  = (int) (origWidth * qfactor); // Die Breite in diesesm Skalierungsschritt
                 int height = (int) (origHeight * qfactor); // Die Höhe in diesem Skalierungsschritt
 
                 // Skalierungsschritt
                 image = scaleImage(width, height, image);
 
-                origWidth = image.getWidth(); // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
+                origWidth  = image.getWidth(); // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
                 origHeight = image.getHeight(); // Die neue Ausgangshöhe für den nächsten Skalierungsschritt
                 pass++;
             }
@@ -290,18 +281,16 @@ public final class ThumbnailUtil {
      * @param image Das zu skalierende Image.
      * @return Das skalierte Image.
      */
-    public static BufferedImage scaleImage(int scaledWidth, int scaledHeight,
-            BufferedImage image) {
-        BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight,
-                BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics2D = scaledImage.createGraphics();
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,
-                RenderingHints.VALUE_RENDER_QUALITY);
+    public static BufferedImage scaleImage(int scaledWidth, int scaledHeight, BufferedImage image) {
+
+        BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D    graphics2D  = scaledImage.createGraphics();
+
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING , RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING    , RenderingHints.VALUE_RENDER_QUALITY);
         graphics2D.drawImage(image, 0, 0, scaledWidth, scaledHeight, null);
+
         return scaledImage;
     }
 
@@ -340,8 +329,7 @@ public final class ThumbnailUtil {
                 ? ""
                 : new String(stderr).trim());
         if (!errorMsg.isEmpty()) {
-            AppLog.logWarning(ThumbnailUtil.class,
-                    "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg);
+            AppLog.logWarning(ThumbnailUtil.class, "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg);
         }
     }
 

@@ -104,7 +104,7 @@ public final class TableModelExif extends DefaultTableModel {
             if (entries != null) {
                 Collections.sort(entries, ExifIfdEntryDisplayComparator.INSTANCE);
                 for (IfdEntryProxy entry : entries) {
-                    String value = entry.toString();
+                    String value = entry.stringValue();
                     if (value.length() > 0) {
                         addRow(entry);
                     }

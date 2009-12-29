@@ -195,7 +195,7 @@ public final class ExifMetadata {
 
     private static void setExifDateTimeOriginal(Exif exifData, IfdEntryProxy entry) {
 
-        String datestring = entry.toString(); // did throw a null pointer exception
+        String datestring = entry.stringValue(); // did throw a null pointer exception
 
         if (datestring != null && datestring.trim().length() >= 11) {
             try {
@@ -218,13 +218,13 @@ public final class ExifMetadata {
 
     private static void setExifEquipment(Exif exifData, IfdEntryProxy entry) {
         if (entry != null) {
-            exifData.setRecordingEquipment(entry.toString().trim());
+            exifData.setRecordingEquipment(entry.stringValue().trim());
         }
     }
 
     private static void setExifFocalLength(Exif exifData, IfdEntryProxy entry) {
         try {
-            String          length    = entry.toString().trim();
+            String          length    = entry.stringValue().trim();
             StringTokenizer tokenizer = new StringTokenizer(length, "/:");
 
             if (tokenizer.countTokens() >= 1) {
@@ -246,9 +246,9 @@ public final class ExifMetadata {
         }
     }
 
-    private static void setExifIsoSpeedRatings(Exif exifData, IfdEntryProxy enry) {
+    private static void setExifIsoSpeedRatings(Exif exifData, IfdEntryProxy entry) {
         try {
-            exifData.setIsoSpeedRatings(new Short(enry.toString().trim()).shortValue());
+            exifData.setIsoSpeedRatings(new Short(entry.stringValue().trim()).shortValue());
         } catch (Exception ex) {
             AppLog.logSevere(ExifMetadata.class, ex);
         }
