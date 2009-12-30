@@ -26,7 +26,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Icon;
+import java.util.Locale;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
@@ -42,14 +43,12 @@ public final class AppLookAndFeel {
      * Foreground color of table cells containing text which is stored in the
      * database
      */
-    public static final Color COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE =
-            Color.BLACK;
+    public static final Color COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE = Color.BLACK;
     /**
      * Background color of table cells containing text which is stored in the
      * database
      */
-    public static final Color COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE =
-            new Color(251, 249, 241);
+    public static final Color COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE = new Color(251, 249, 241);
     /**
      * Foreground color of selected table cells
      */
@@ -57,8 +56,7 @@ public final class AppLookAndFeel {
     /**
      * Background color of selected table cells
      */
-    public static final Color COLOR_BACKGROUND_TABLE_TEXT_SELECTED =
-            new Color(226, 226, 255);
+    public static final Color COLOR_BACKGROUND_TABLE_TEXT_SELECTED = new Color(226, 226, 255);
     /**
      * Default foreground color of table cells
      */
@@ -71,64 +69,55 @@ public final class AppLookAndFeel {
      * Background color of a hierarchical keyword if that keyword is a keyword
      * of a selected image
      */
-    public static final Color COLOR_BACKGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD =
-            new Color(100, 100, 100);
+    public static final Color COLOR_BACKGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(100, 100, 100);
     /**
      * Foreground color of a hierarchical keyword if that keyword is a keyword
      * of a selected image
      */
-    public static final Color COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD =
-            new Color(255, 255, 255);
+    public static final Color COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(255, 255, 255);
     /**
      * Selection foreground color of highlighted tree nodes when a popup menu
      * was invoked obove a tree node
      */
-    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE =
-            Color.BLACK;
+    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE = Color.BLACK;
     /**
      * Selection background color of highlighted tree nodes when a popup menu
      * was invoked obove a tree node
      */
-    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE =
-            new Color(251, 232, 158);
+    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE = new Color(251, 232, 158);
     /**
      * Selection foreground color of highlighted list items when a popup menu
      * was invoked obove a list item
      */
-    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST =
-            COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE;
+    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST = COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE;
     /**
      * Selection background color of highlighted list items when a popup menu
      * was invoked obove a list item
      */
-    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST =
-            COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE;
+    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST = COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE;
     /**
      * Path where all icons stored
      */
-    private static final String PATH_ICONS =
-            "/de/elmar_baumann/jpt/resource/icons";
+    private static final String PATH_ICONS = "/de/elmar_baumann/jpt/resource/icons";
     /**
      * Path to the small application's icon (16 x 16 pixels)
      */
-    private static final String PATH_APP_ICON_SMALL =
-            PATH_ICONS + "/icon_app_small.png"; 
+    private static final String PATH_APP_ICON_SMALL = PATH_ICONS + "/icon_app_small.png";
     /**
      * Path to the medium sized application's icon (32 x 32 pixels)
      */
-    private static final String PATH_APP_ICON_MEDIUM =
-            PATH_ICONS + "/icon_app_medium.png"; 
-    private static List<String> appIconPaths = new ArrayList<String>();
-    private static List<Image> appIcons = new ArrayList<Image>();
+    private static final String       PATH_APP_ICON_MEDIUM = PATH_ICONS + "/icon_app_medium.png";
+    private static final List<String> APP_ICON_PATHS       = new ArrayList<String>();
+    private static final List<Image>  APP_ICONS            = new ArrayList<Image>();
 
     static {
-        appIconPaths.add(PATH_APP_ICON_SMALL);
-        appIconPaths.add(PATH_APP_ICON_MEDIUM);
+        APP_ICON_PATHS.add(PATH_APP_ICON_SMALL);
+        APP_ICON_PATHS.add(PATH_APP_ICON_MEDIUM);
     }
 
     static {
-        appIcons.add(IconUtil.getIconImage(PATH_APP_ICON_SMALL));
-        appIcons.add(IconUtil.getIconImage(PATH_APP_ICON_MEDIUM));
+        APP_ICONS.add(IconUtil.getIconImage(PATH_APP_ICON_SMALL));
+        APP_ICONS.add(IconUtil.getIconImage(PATH_APP_ICON_MEDIUM));
     }
 
     /**
@@ -137,7 +126,7 @@ public final class AppLookAndFeel {
      * @return icons
      */
     public static List<Image> getAppIcons() {
-        return appIcons;
+        return APP_ICONS;
     }
 
     /**
@@ -146,7 +135,59 @@ public final class AppLookAndFeel {
      * @return Pfade
      */
     public static List<String> getAppIconPaths() {
-        return appIconPaths;
+        return APP_ICON_PATHS;
+    }
+
+    /**
+     * Converts a path to a localized path.
+     * <p>
+     * A localized path is the path where before the last path component the
+     * default locale's language code will be added as path component. If the
+     * language code is <code>"de"</code> and the path is
+     * <code>"/de/elmar_baumann/jpt/resoure/images/image.png"</code>, the
+     * localized path will be
+     * <code>"/de/elmar_baumann/jpt/resoure/images/de/image.png"</code>.
+     *
+     * @param  path path
+     * @return      localized path
+     * @throws      NullPointerException if <code>path</code> is null
+     * @throws      IllegalArgumentException if the trimmed path is empty
+     */
+    public static String toLocalizedPath(String path) {
+
+        if (path == null         ) throw new NullPointerException("path == null");
+        if (path.trim().isEmpty()) throw new IllegalArgumentException("path is empty!");
+
+        String lang          = Locale.getDefault().getLanguage();
+        int    lastPathDelim = path.lastIndexOf("/");
+
+        return lastPathDelim >= 0
+                ? path.substring(0, lastPathDelim + 1) + lang + "/" + path.substring(lastPathDelim + 1)
+                : lang + "/" + path
+                ;
+    }
+
+    /**
+     * Returns a localized image if exists.
+     * <p>
+     * A localized icon has the same path plus the default locale's language
+     * code before the last path component.
+     *
+     * @param  path not localized path, e.g. <code>"/de/elmar_baumann/jpt/resoure/images/image.png"</code>
+     * @return      localized icon, e.g. if the path is the same as in the
+     *              the parameter doc obove, the icon of the path
+     *              <code>"/de/elmar_baumann/jpt/resoure/images/de/image.png"</code>.
+     *              If a localized icon does not exist, the icon of the path
+     *              will be returned or null if the icon of the path does not
+     *              exist.
+     */
+    public static Image localizedImage(String path) {
+        java.net.URL imgURL = IconUtil.class.getResource(toLocalizedPath(path));
+        if (imgURL != null) {
+            return new ImageIcon(imgURL).getImage();
+        } else {
+            return IconUtil.getIconImage(path);
+        }
     }
 
     /**
@@ -155,19 +196,17 @@ public final class AppLookAndFeel {
      * @param  name  name of the icon file
      * @return icon
      */
-    public static Icon getIcon(String name) {
+    public static ImageIcon getIcon(String name) {
         return IconUtil.getImageIcon(PATH_ICONS + "/" + name);
     }
     /**
      * CSS of the table row headers
      */
-    public static final String TABLE_CSS_ROW_HEADER =
-            "margin-left:3px;margin-right:3px;";
+    public static final String TABLE_CSS_ROW_HEADER = "margin-left:3px;margin-right:3px;";
     /**
      * CSS of the table cells
      */
-    public static final String TABLE_CSS_CELL =
-            "margin-left:3px;margin-right:3px;";
+    public static final String TABLE_CSS_CELL = "margin-left:3px;margin-right:3px;";
     /**
      * Maximum character count in the table row headers before breaking into
      * lines
@@ -186,56 +225,58 @@ public final class AppLookAndFeel {
     }
 
     private static void setFonts() {
-        setFontWeight("Button.font", false);
-        setFontWeight("CheckBox.font", false);
-        setFontWeight("CheckBoxMenuItem.font", false);
-        setFontWeight("ColorChooser.font", false);
-        setFontWeight("ComboBox.font", false);
-        setFontWeight("EditorPane.font", false);
-        setFontWeight("FormattedTextField.font", false);
-        setFontWeight("Label.font", false);
-        setFontWeight("List.font", false);
-        setFontWeight("MenuBar.font", false);
-        setFontWeight("Menu.font", false);
-        setFontWeight("MenuItem.font", false);
-        setFontWeight("OptionPane.font", false);
-        setFontWeight("Panel.font", false);
-        setFontWeight("PopupMenu.font", false);
-        setFontWeight("RadioButton.font", false);
-        setFontWeight("RadioButtonMenuItem.font", false);
-        setFontWeight("ScrollPane.font", false);
-        setFontWeight("Slider.font", false);
-        setFontWeight("Spinner.font", false);
-        setFontWeight("TabbedPane.font", false);
-        setFontWeight("Table.font", false);
-        setFontWeight("TextArea.font", false);
-        setFontWeight("TextField.font", false);
-        setFontWeight("Text.font", false);
-        setFontWeight("TextPane.font", false);
-        setFontWeight("TextPane.font", false);
-        setFontWeight("ToggleButton.font", false);
-        setFontWeight("ToolBar.font", false);
-        setFontWeight("ToolTip.font", false);
-        setFontWeight("Tree.font", false);
-        setFontWeight("Viewport.font", false);
+        setBoldFont("Button.font"             , false);
+        setBoldFont("CheckBox.font"           , false);
+        setBoldFont("CheckBoxMenuItem.font"   , false);
+        setBoldFont("ColorChooser.font"       , false);
+        setBoldFont("ComboBox.font"           , false);
+        setBoldFont("EditorPane.font"         , false);
+        setBoldFont("FormattedTextField.font" , false);
+        setBoldFont("Label.font"              , false);
+        setBoldFont("List.font"               , false);
+        setBoldFont("MenuBar.font"            , false);
+        setBoldFont("Menu.font"               , false);
+        setBoldFont("MenuItem.font"           , false);
+        setBoldFont("OptionPane.font"         , false);
+        setBoldFont("Panel.font"              , false);
+        setBoldFont("PopupMenu.font"          , false);
+        setBoldFont("RadioButton.font"        , false);
+        setBoldFont("RadioButtonMenuItem.font", false);
+        setBoldFont("ScrollPane.font"         , false);
+        setBoldFont("Slider.font"             , false);
+        setBoldFont("Spinner.font"            , false);
+        setBoldFont("TabbedPane.font"         , false);
+        setBoldFont("Table.font"              , false);
+        setBoldFont("TextArea.font"           , false);
+        setBoldFont("TextField.font"          , false);
+        setBoldFont("Text.font"               , false);
+        setBoldFont("TextPane.font"           , false);
+        setBoldFont("TextPane.font"           , false);
+        setBoldFont("ToggleButton.font"       , false);
+        setBoldFont("ToolBar.font"            , false);
+        setBoldFont("ToolTip.font"            , false);
+        setBoldFont("Tree.font"               , false);
+        setBoldFont("Viewport.font"           , false);
         // Bold
-        setFontWeight("PasswordField.font", true);
-        setFontWeight("ProgressBar.font", true);
-        setFontWeight("TableHeader.font", true);
-        setFontWeight("TitledBorder.font.font", true);
+        setBoldFont("PasswordField.font"      , true);
+        setBoldFont("ProgressBar.font"        , true);
+        setBoldFont("TableHeader.font"        , true);
+        setBoldFont("TitledBorder.font.font"  , true);
     }
 
-    private static void setFontWeight(String key, boolean bold) {
+    private static void setBoldFont(String key, boolean bold) {
+
         Font defaultFont = UIManager.getFont(key);
-        int weight = bold
-                ? Font.BOLD
-                : Font.PLAIN;
+        int  weight      = bold ? Font.BOLD : Font.PLAIN;
+
         if (defaultFont != null) {
+
             Font plainFont = new Font(defaultFont.getName(),
                     defaultFont.isItalic()
-                    ? weight | Font.ITALIC
-                    : Font.PLAIN,
+                        ? weight | Font.ITALIC
+                        : Font.PLAIN,
                     defaultFont.getSize());
+
             UIManager.put(key, new FontUIResource(plainFont));
         }
     }
