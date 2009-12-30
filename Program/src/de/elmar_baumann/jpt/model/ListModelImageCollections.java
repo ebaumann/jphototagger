@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.comparator.ComparatorStringAscending;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;

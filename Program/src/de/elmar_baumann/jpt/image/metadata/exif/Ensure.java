@@ -46,16 +46,16 @@ public final class Ensure {
     /**
      * Ensures that an EXIF tag is of a specific dataType.
      *
-     * @param  exifTag tag
-     * @param  dataType    dataType
-     * @throws         IllegalArgumentException if the tag doesn't have that dataType
+     * @param  exifTag  tag
+     * @param  dataType dataType
+     * @throws          IllegalArgumentException if the tag doesn't have that dataType
      */
-    public static void exifDataType(ExifTag exifTag, ExifDataType type) throws IllegalArgumentException {
+    public static void exifDataType(ExifTag exifTag, ExifDataType dataType) throws IllegalArgumentException {
 
-        if (!exifTag.dataType().equals(type))
+        if (!exifTag.dataType().equals(dataType))
             throw new IllegalArgumentException(
                     "Wrong type: " + exifTag.dataType() +
-                    ". Expected: " + type);
+                    ". Expected: " + dataType);
     }
 
     /**

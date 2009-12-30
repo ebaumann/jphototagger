@@ -19,13 +19,11 @@
 package de.elmar_baumann.jpt.controller.keywords;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.util.Settings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
