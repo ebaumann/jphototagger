@@ -75,8 +75,23 @@ public final class ImageTextField extends JTextField {
      * @param imagePath path, e.g. <code>"/com/mydomain/myproject/res/search.png"</code>
      */
     public void setImagePath(String imagePath) {
+
         this.imagePath = imagePath;
         this.image     = IconUtil.getIconImage(imagePath);
+
+        setOpaque(false);
+    }
+
+    /**
+     * Sets an image rather than an image path.
+     *
+     * @param image image
+     */
+    public void setImage(Image image) {
+
+        this.image     = image;
+        this.imagePath = null;
+
         setOpaque(false);
     }
 
