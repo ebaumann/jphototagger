@@ -25,6 +25,7 @@ import java.util.Set;
 
 /**
  *
+ * @param <CI> 
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */

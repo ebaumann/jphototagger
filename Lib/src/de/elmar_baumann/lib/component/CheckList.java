@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.lib.component;
 
-import de.elmar_baumann.lib.util.ArrayUtil;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

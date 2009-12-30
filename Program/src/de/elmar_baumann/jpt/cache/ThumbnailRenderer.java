@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.cache;
 
 import java.awt.Image;
-import java.io.File;
 
 /**
  * This object is responsible for rendering a complete thumbnail include

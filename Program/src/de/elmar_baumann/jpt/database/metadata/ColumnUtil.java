@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.database.metadata;
 
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.model.ListModelSelectedColumns;
 import de.elmar_baumann.lib.component.CheckList;
 import java.lang.reflect.Field;
