@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif;
 
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifType;
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDataType;
 
 /**
  * Checks conditions and throws Exceptions if not fullified.
@@ -29,32 +29,32 @@ import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifType;
 public final class Ensure {
 
     /**
-     * Ensures that an entry has a specific tag ID.
+     * Ensures that an EXIF tag has a specific tag ID.
      *
-     * @param  entry entry
-     * @param  tag   tag id
-     * @throws       IllegalArgumentException if the enty doesn't have that tag ID
+     * @param  exifTag tag
+     * @param  id      tag id
+     * @throws         IllegalArgumentException if the tag doesn't have that ID
      */
-    public static void tagId(IfdEntryProxy entry, ExifTag tag) throws IllegalArgumentException {
+    public static void exifTagId(ExifTag exifTag, ExifTag.Id id) throws IllegalArgumentException {
 
-        if (entry.tagId() != tag.tagId())
+        if (exifTag.idValue() != id.value())
             throw new IllegalArgumentException(
-                    "Wrong tag: "  + entry.tagId() +
-                    ". Expected: " + tag.tagId());
+                    "Wrong tag: "  + exifTag.idValue() +
+                    ". Expected: " + id.value());
     }
 
     /**
-     * Ensures that an entry is of a specific type.
+     * Ensures that an EXIF tag is of a specific dataType.
      *
-     * @param  entry entry
-     * @param  type  type
-     * @throws       IllegalArgumentException if the entry doesn't have that type
+     * @param  exifTag tag
+     * @param  dataType    dataType
+     * @throws         IllegalArgumentException if the tag doesn't have that dataType
      */
-    public static void type(IfdEntryProxy entry, ExifType type) throws IllegalArgumentException {
+    public static void exifDataType(ExifTag exifTag, ExifDataType type) throws IllegalArgumentException {
 
-        if (!entry.type().equals(type))
+        if (!exifTag.dataType().equals(type))
             throw new IllegalArgumentException(
-                    "Wrong type: " + entry.type() +
+                    "Wrong type: " + exifTag.dataType() +
                     ". Expected: " + type);
     }
 
@@ -92,7 +92,7 @@ public final class Ensure {
      * @throws             IllegalArgumentException if the denominator is equals
      *                     to zero
      */
-    public static void noZeroDivision(long denominator) throws IllegalArgumentException {
+    public static void noDivisionByZero(long denominator) throws IllegalArgumentException {
 
         if (denominator ==  0)
             throw new IllegalArgumentException("Zero division");

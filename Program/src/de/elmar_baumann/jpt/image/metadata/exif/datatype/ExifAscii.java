@@ -47,8 +47,8 @@ public final class ExifAscii {
         return length > 0 ? nullTerminatedValue.substring(0, length - 1) : "";
     }
 
-    public static ExifType dataType() {
-        return ExifType.ASCII;
+    public static ExifDataType dataType() {
+        return ExifDataType.ASCII;
     }
 
     public String value() {

@@ -19,9 +19,10 @@
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import java.nio.ByteOrder;
 
 /**
- * EXIF data type <code>SHORT</code> as defined in the EXIF standard:
+ * EXIF data exifDataType <code>SHORT</code> as defined in the EXIF standard:
  * A 16-bit (2-byte) unsigned integer.
  *
  * BUGS: Possibly too small because the EXIF SHORT is unsigned and has the
@@ -42,7 +43,7 @@ public final class ExifShort {
      * @throws IllegalArgumentException if the length of the raw value is not
      *         equals to {@link #byteCount()} or negativ
      */
-    public ExifShort(byte[] rawValue, ExifByteOrder byteOrder) {
+    public ExifShort(byte[] rawValue, ByteOrder byteOrder) {
 
         Ensure.length(rawValue, byteCount());
 
@@ -73,8 +74,8 @@ public final class ExifShort {
         return rawValue.length == byteCount();
     }
 
-    public static ExifType dataType() {
-        return ExifType.SHORT;
+    public static ExifDataType dataType() {
+        return ExifDataType.SHORT;
     }
 
     @Override

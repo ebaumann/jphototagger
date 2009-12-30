@@ -21,13 +21,12 @@ package de.elmar_baumann.jpt.model;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.image.metadata.exif.entry.ExifGpsMetadata;
-import de.elmar_baumann.jpt.image.metadata.exif.entry.ExifGpsUtil;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifIfdEntryDisplayComparator;
+import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsMetadata;
+import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsUtil;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTagDisplayComparator;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTagsToDisplay;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadataToDisplay;
-import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.Translation;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
@@ -50,11 +49,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelExif extends DefaultTableModel {
 
-    private File file;
-    private ExifGpsMetadata gps;
-    private List<IfdEntryProxy> allEntries;
-    private static final Translation TRANSLATION = new Translation(
-            "ExifTagIdTagNameTranslations");
+    private              File            file;
+    private              ExifGpsMetadata gps;
+    private              List<ExifTag>   allExifTags;
+    private static final Translation     TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
 
     public TableModelExif() {
         setRowHeaders();
@@ -83,7 +81,7 @@ public final class TableModelExif extends DefaultTableModel {
         this.file = file;
         removeAllElements();
         try {
-            setExifData();
+            setExifTags();
         } catch (Exception ex) {
             AppLog.logSevere(TableModelExif.class, ex);
         }
@@ -97,55 +95,58 @@ public final class TableModelExif extends DefaultTableModel {
 
     }
 
-    private void setExifData() {
-        allEntries = ExifMetadata.getExifEntries(file);
-        if (allEntries != null) {
-            List<IfdEntryProxy> entries = ExifMetadataToDisplay.get(allEntries);
-            if (entries != null) {
-                Collections.sort(entries, ExifIfdEntryDisplayComparator.INSTANCE);
-                for (IfdEntryProxy entry : entries) {
-                    String value = entry.stringValue();
+    private void setExifTags() {
+
+        allExifTags = ExifMetadata.getExifTags(file);
+
+        if (allExifTags != null) {
+
+            List<ExifTag> exifTagsToDisplay = ExifTagsToDisplay.get(allExifTags);
+
+            if (exifTagsToDisplay != null) {
+
+                Collections.sort(exifTagsToDisplay, ExifTagDisplayComparator.INSTANCE);
+
+                for (ExifTag exifTagToDisplay : exifTagsToDisplay) {
+
+                    String value = exifTagToDisplay.stringValue();
+
                     if (value.length() > 0) {
-                        addRow(entry);
+
+                        addTableRow(exifTagToDisplay);
                     }
                 }
             }
-            addGps();
+            addGpsTags();
         }
     }
 
-    private void addGps() {
-        gps = ExifGpsUtil.gpsMetadata(allEntries);
+    private void addGpsTags() {
+        gps = ExifGpsUtil.gpsMetadata(allExifTags);
         if (gps.latitude() != null) {
-            String prompt = TRANSLATION.translate(Integer.toString(
-                    ExifTag.GPS_LATITUDE.tagId()));
-            super.addRow(new Object[]{prompt,
-                        gps.latitude().localizedString()});
+            String prompt = TRANSLATION.translate(Integer.toString(ExifTag.Id.GPS_LATITUDE.value()));
+            super.addRow(new Object[]{prompt, gps.latitude().localizedString()});
         }
         if (gps.longitude() != null) {
-            String prompt = TRANSLATION.translate(Integer.toString(
-                    ExifTag.GPS_LONGITUDE.tagId()));
-            super.addRow(new Object[]{prompt,
-                        gps.longitude().localizedString()});
+            String prompt = TRANSLATION.translate(Integer.toString(ExifTag.Id.GPS_LONGITUDE.value()));
+            super.addRow(new Object[]{prompt, gps.longitude().localizedString()});
         }
         if (gps.altitude() != null) {
-            String prompt = TRANSLATION.translate(Integer.toString(
-                    ExifTag.GPS_ALTITUDE.tagId()));
-            super.addRow(new Object[]{prompt,
-                        gps.altitude().localizedString()});
+            String prompt = TRANSLATION.translate(Integer.toString(ExifTag.Id.GPS_ALTITUDE.value()));
+            super.addRow(new Object[]{prompt, gps.altitude().localizedString()});
         }
         if (gps.longitude() != null && gps.latitude() != null) {
             JButton button = new JButton(Bundle.getString("TableModelExif.Button.GoogleMaps"));
-            button.addActionListener(new GpsListener());
+            button.addActionListener(new GpsButtonListener());
             super.addRow(new Object[]{gps, button});
         }
     }
 
-    private void addRow(IfdEntryProxy entry) {
-        List<IfdEntryProxy> row = new ArrayList<IfdEntryProxy>();
-        row.add(entry);
-        row.add(entry);
-        super.addRow(row.toArray(new IfdEntryProxy[row.size()]));
+    private void addTableRow(ExifTag exifTag) {
+        List<ExifTag> row = new ArrayList<ExifTag>();
+        row.add(exifTag);
+        row.add(exifTag);
+        super.addRow(row.toArray(new ExifTag[row.size()]));
     }
 
     @Override
@@ -153,9 +154,9 @@ public final class TableModelExif extends DefaultTableModel {
         return false;
     }
 
-    private class GpsListener implements ActionListener {
+    private class GpsButtonListener implements ActionListener {
 
-        public GpsListener() {
+        public GpsButtonListener() {
         }
 
         @Override
@@ -187,8 +188,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private void startWebBrowser(String webBrowser) {
             if (gps != null) {
-                String url = ExifGpsUtil.googleMapsUrl(gps.longitude(),
-                        gps.latitude());
+                String url = ExifGpsUtil.googleMapsUrl(gps.longitude(), gps.latitude());
                 String cmd = "\"" + webBrowser + "\" \"" + url + "\"";
                 logExternalAppCommand(cmd);
                 External.execute(cmd);
@@ -196,8 +196,7 @@ public final class TableModelExif extends DefaultTableModel {
         }
 
         private void logExternalAppCommand(String cmd) {
-            AppLog.logFinest(GpsListener.class,
-                    "TableModelExif.ExternalAppCommand", cmd);
+            AppLog.logFinest(GpsButtonListener.class, "TableModelExif.ExternalAppCommand", cmd);
         }
     }
 }

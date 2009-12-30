@@ -19,10 +19,11 @@
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 
 /**
- * EXIF data type RATIONAL as described in the standard: Two LONGs. The first
+ * EXIF data exifDataType RATIONAL as described in the standard: Two LONGs. The first
  * LONG is the numerator and the second LONG expresses the denominator.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -43,7 +44,7 @@ public final class ExifRational {
      *         equals to {@link #byteCount()} or if the result is
      *         negativ or if the denominator is zero
      */
-    public ExifRational(byte[] rawValue, ExifByteOrder byteOrder) {
+    public ExifRational(byte[] rawValue, ByteOrder byteOrder) {
 
         Ensure.length(rawValue, byteCount());
 
@@ -51,7 +52,7 @@ public final class ExifRational {
         denominator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
 
         Ensure.positive(numerator, denominator);
-        Ensure.noZeroDivision(denominator);
+        Ensure.noDivisionByZero(denominator);
     }
 
     /**
@@ -85,8 +86,8 @@ public final class ExifRational {
         return numerator;
     }
 
-    public static ExifType dataType() {
-        return ExifType.RATIONAL;
+    public static ExifDataType dataType() {
+        return ExifDataType.RATIONAL;
     }
 
     @Override
