@@ -213,6 +213,19 @@ public final class ArrayUtil {
         }
     }
 
+    public static boolean byteArraysEquals(byte[] left, byte[] right) {
+
+        if (left == null)  throw new NullPointerException("Left byte array is null!");
+        if (right == null) throw new NullPointerException("Right byte array is null!");
+
+        if (left.length != right.length) return false;
+
+        for (int i = 0; i < left.length; i++) {
+            if (left[i] != right[i]) return false;
+        }
+        return true;
+    }
+
     private ArrayUtil() {
     }
 }

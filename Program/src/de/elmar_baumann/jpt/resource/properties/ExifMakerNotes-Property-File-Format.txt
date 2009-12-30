@@ -1,0 +1,35 @@
+Format of a ExifMakerNotes property file
+----------------------------------------
+
+Only valid when the maker uses a standard TIFF directory beginning at a specific
+offset within the EXIF maker note, Tag ID 37500.
+
+MagicBytePatterns:   First Bytes identifying a Maker Note defined in that
+                     properties file hexadecimal (without 0x at begin), bytes
+                     separated by commas, multiple patterns separated by
+                     semicolons
+
+ByteOffsetToTiffIfd: Byte offset to the IFD (TIFF Image File Directory)
+
+Tag<n>             : Zero based tag number, tag position. Semicolon separated:
+                     1. Offset in bytes to the raw value as decimal integer
+                     2. Bytes to read from offset or the string value "all" if
+                        all bytes should be read
+                     3. data type: A full qualified path to a
+                        de.elmar_baumann.jpt.image.metadata.exif.datatype class
+                     4. String "null" or fully qualified path to a formatter
+                        to use for formatting the raw value. That formatter has
+                        to implement a method with the sinature:
+                        "String format(byte[])" where the byte parameter
+                        contains the raw value and the returnd string contains
+                        the formatted value which will be displayed.
+                        If no formatter is specified then the toString() method
+                        of the data type in 3. will be called. If the string is
+                        "null" no formatter will be used
+                     5. Property key name in the same properties file
+                        for the description (display "prompt") of the value
+                     6. Empty or an existing EXIF tag ID that is equals to that
+                        proprietary tag. E.g. the Nikon D70 does not set the
+                        ISO speed rating to the correct EXIF tag but to a
+                        proprietary marker note. If the field is not empty a
+                        valid EXIF tag can be created from that proprietary tag.

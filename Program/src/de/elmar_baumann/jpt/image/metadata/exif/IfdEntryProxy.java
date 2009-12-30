@@ -49,24 +49,49 @@ public final class IfdEntryProxy implements Comparable<IfdEntryProxy> {
     private String        string;
     private String        name;
     private ExifByteOrder byteOrder;
+    private int           byteOrderValue;
+    private Class         formatterClass;
 
     public IfdEntryProxy(IFDEntry entry) {
         try {
-            string    = entry.toString();
-            tagId       = entry.getEntryMeta().getTag();
-            type      = dataTypeOfTagId(entry.getType());
-            name      = entry.getEntryMeta().getName();
-            rawValue  = Arrays.copyOf(entry.getRawValue(), entry.getRawValue().length);
-            byteOrder = entry.parent.getByteOrder() == 0x4949 // 18761
-                            ? ExifByteOrder.LITTLE_ENDIAN
-                            : ExifByteOrder.BIG_ENDIAN;
+            string         = entry.toString();
+            tagId          = entry.getEntryMeta().getTag();
+            type           = dataTypeOfTagId(entry.getType());
+            name           = entry.getEntryMeta().getName();
+            byteOrderValue = entry.parent.getByteOrder();
+            rawValue       = Arrays.copyOf(entry.getRawValue(), entry.getRawValue().length);
+            byteOrder      = byteOrderValue == 0x4949 // 18761
+                                ? ExifByteOrder.LITTLE_ENDIAN
+                                : ExifByteOrder.BIG_ENDIAN;
         } catch (Exception ex) {
             AppLog.logSevere(ExifMetadata.class, ex);
         }
     }
 
+    public IfdEntryProxy(
+            int           tagId,
+            ExifType      type,
+            byte[]        rawValue,
+            String        string,
+            String        name,
+            ExifByteOrder byteOrder,
+            int           byteOrderValue
+            ) {
+        this.tagId          = tagId;
+        this.type           = type;
+        this.rawValue       = rawValue;
+        this.string         = string;
+        this.name           = name;
+        this.byteOrder      = byteOrder;
+        this.byteOrderValue = byteOrderValue;
+    }
+
     public ExifByteOrder byteOrder() {
         return byteOrder;
+    }
+
+    public int byteOrderValue() {
+        return byteOrderValue;
     }
 
     public String name() {
@@ -79,6 +104,14 @@ public final class IfdEntryProxy implements Comparable<IfdEntryProxy> {
 
     public String stringValue() {
         return string;
+    }
+
+    public Class getFormatterClass() {
+        return formatterClass;
+    }
+
+    public void setFormatterClass(Class formatterClass) {
+        this.formatterClass = formatterClass;
     }
 
     @Override
@@ -105,7 +138,6 @@ public final class IfdEntryProxy implements Comparable<IfdEntryProxy> {
 
     private ExifType dataTypeOfTagId(int tagId) {
         ExifType t = DATA_TYPE_OF_TAG_ID.get(tagId);
-        assert t != null;
         if (t == null) return ExifType.UNDEFINED;
         return t;
     }
