@@ -53,6 +53,7 @@ public final class ExifMetadataToDisplay {
         TAGS_TO_DISPLAY.add(ExifTag.IMAGE_UNIQUE_ID.tagId());
         TAGS_TO_DISPLAY.add(ExifTag.ISO_SPEED_RATINGS.tagId());
         TAGS_TO_DISPLAY.add(ExifTag.MAKE.tagId());
+        //TAGS_TO_DISPLAY.add(ExifTag.MAKER_NOTE.tagId());
         TAGS_TO_DISPLAY.add(ExifTag.METERING_MODE.tagId());
         TAGS_TO_DISPLAY.add(ExifTag.MODEL.tagId());
         TAGS_TO_DISPLAY.add(ExifTag.SATURATION.tagId());

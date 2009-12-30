@@ -24,15 +24,19 @@ import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
+import com.imagero.uio.bio.ByteArrayRandomAccessIO;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.image.metadata.exif.entry.ExifMakerNote;
+import de.elmar_baumann.jpt.image.metadata.exif.entry.ExifMakerNoteFactory;
 import de.elmar_baumann.jpt.types.FileType;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -62,7 +66,22 @@ public final class ExifMetadata {
         } catch (Exception ex) {
             AppLog.logSevere(ExifMetadata.class, ex);
         }
+        addMakerNotes(entries);
         return entries;
+    }
+    
+    private static void addMakerNotes(List<IfdEntryProxy> entries) {
+        for (IfdEntryProxy entry : entries) {
+            if (entry.tagId() == ExifTag.MAKER_NOTE.tagId()) {
+
+                ExifMakerNote makerNote = ExifMakerNoteFactory.INSTANCE.get(entry.rawValue());
+
+                if (makerNote != null) {
+                    makerNote.addMakerNotes(entries);
+                }
+                return;
+            } 
+        }
     }
 
     private static void addEntries(File imageFile, List<IfdEntryProxy> entries) throws IOException {
@@ -142,11 +161,50 @@ public final class ExifMetadata {
      * @param tagValue tag value as defined in the EXIF standard
      * @return         first matching Entry or null if not found
      */
-    public static IfdEntryProxy getEntry(List<IfdEntryProxy> entries, int tagValue) {
+    public static IfdEntryProxy getEntry(Collection<IfdEntryProxy> entries, int tagValue) {
 
         for (IfdEntryProxy entry : entries) {
             if (entry.tagId() == tagValue) {
                 return entry;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the EXIF maker note entries from a list of entries.
+     * <p>
+     * Searches the list of entries for the EXIF maker note tag 37500 and
+     * returns all properitary entries.
+     *
+     * @param   entries     entries to search
+     * @param   byteOffsetToIfd offset to the TIFF image file directory within the
+     *                      raw value of the entry with the tag 37500
+     * @return              Entries or null
+     */
+    public static List<IfdEntryProxy> getMakerNodeEntries(
+            Collection<IfdEntryProxy> entries,
+            int                 byteOffsetToIfd
+            ) {
+
+        List<IfdEntryProxy> mnEntries = new ArrayList<IfdEntryProxy>();
+        IfdEntryProxy       entry     = getEntry(ExifTag.MAKER_NOTE, entries);
+
+        if (entry != null)  {
+            byte[] raw   = entry.rawValue();
+            byte[] bytes = new byte[raw.length - byteOffsetToIfd];
+
+            System.arraycopy(raw, byteOffsetToIfd, bytes, 0, bytes.length);
+
+            try {
+                ImageFileDirectory ifd = new ImageFileDirectory(
+                        new ByteArrayRandomAccessIO(bytes), entry.byteOrderValue());
+
+                addEntries(ifd, mnEntries);
+
+                return mnEntries;
+            } catch (Exception ex) {
+                AppLog.logSevere(ExifMetadata.class, ex);
             }
         }
         return null;
@@ -189,8 +247,8 @@ public final class ExifMetadata {
         return exif;
     }
 
-    private static IfdEntryProxy getEntry(ExifTag tag, List<IfdEntryProxy> entries) {
-        return ExifMetadata.getEntry(entries, tag.tagId());
+    private static IfdEntryProxy getEntry(ExifTag tag, Collection<IfdEntryProxy> entries) {
+        return getEntry(entries, tag.tagId());
     }
 
     private static void setExifDateTimeOriginal(Exif exifData, IfdEntryProxy entry) {

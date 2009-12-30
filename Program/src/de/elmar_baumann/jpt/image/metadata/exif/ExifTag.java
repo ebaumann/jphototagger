@@ -53,6 +53,7 @@ public enum ExifTag {
     ISO_SPEED_RATINGS         (34855),
     DATE_TIME_ORIGINAL        (36867),
     DATE_TIME_DIGITIZED       (36868),
+    MAKER_NOTE                (37500),
     METERING_MODE             (37383),
     FLASH                     (37385),
     FOCAL_LENGTH              (37386),
