@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
-import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,13 +48,13 @@ public final class ExifThumbnailUtil {
     /**
      * Returns the rotation angle of an embedded thumbnail.
      *
-     * @param  entries EXIF metadata
-     * @return         rotation angle
+     * @param  exifTags EXIF tags
+     * @return          rotation angle
      */
-    public static double getThumbnailRotationAngle(List<IfdEntryProxy> entries) {
-        IfdEntryProxy entry = ExifMetadata.getEntry(entries, 274);
-        if (entry != null) {
-            Double angle = ROTATION_ANGLE_OF_STRING.get(entry.stringValue());
+    public static double getThumbnailRotationAngle(List<ExifTag> exifTags) {
+        ExifTag exifTag = ExifMetadata.getExifTagIn(exifTags, 274);
+        if (exifTag != null) {
+            Double angle = ROTATION_ANGLE_OF_STRING.get(exifTag.stringValue());
             if (angle == null) {
                 return 0;
             }

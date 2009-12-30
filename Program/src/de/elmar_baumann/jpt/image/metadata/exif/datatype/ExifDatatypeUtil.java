@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  *
@@ -42,23 +43,21 @@ public final class ExifDatatypeUtil {
         return (long) Math.floor(toDouble(rational));
     }
 
-    public static int intFromRawValue(byte[] rawValue, ExifByteOrder byteOrder) {
+    public static int intFromRawValue(byte[] rawValue, ByteOrder byteOrder) {
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
         return buf.getInt();
     }
 
-    public static short shortFromRawValue(byte[] rawValue, ExifByteOrder byteOrder) {
+    public static short shortFromRawValue(byte[] rawValue, ByteOrder byteOrder) {
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
         return buf.getShort();
     }
 
-    private static ByteBuffer getByeBuffer(byte[] rawValue, ExifByteOrder byteOrder) {
+    private static ByteBuffer getByeBuffer(byte[] rawValue, ByteOrder byteOrder) {
 
         ByteBuffer buf = ByteBuffer.wrap(rawValue);
 
-        buf.order(byteOrder.equals(ExifByteOrder.LITTLE_ENDIAN)
-                  ? java.nio.ByteOrder.LITTLE_ENDIAN
-                  : java.nio.ByteOrder.BIG_ENDIAN);
+        buf.order(byteOrder);
 
         return buf;
     }

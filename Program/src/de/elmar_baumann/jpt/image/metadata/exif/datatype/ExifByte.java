@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 
 /**
- * EXIF data type <code>BYTE</code> as defined in the EXIF standard:
+ * EXIF data exifDataType <code>BYTE</code> as defined in the EXIF standard:
  * An 8-bit unsigned integer.
  *
  *
@@ -33,7 +33,7 @@ public final class ExifByte {
     private final int value;
 
     /**
-     * EXIF data type BYTE as described in the standard: An 8-bit unsigned
+     * EXIF data exifDataType BYTE as described in the standard: An 8-bit unsigned
      * integer.
      * 
      * @param  rawValue  raw value
@@ -62,8 +62,8 @@ public final class ExifByte {
         return rawValue.length == byteCount();
     }
 
-    public static ExifType dataType() {
-        return ExifType.BYTE;
+    public static ExifDataType dataType() {
+        return ExifDataType.BYTE;
     }
 
     public int value() {

@@ -16,41 +16,41 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.image.metadata.exif.datatype;
+package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import java.nio.ByteOrder;
+import java.util.Arrays;
 
 /**
- * EXIF data exifDataType LONG as described in the standard: A 32-bit (4-byte) unsigned
- * integer.
- *
- * BUGS: Possibly too small because the EXIF LONG is unsigned and has the
- * same byte count.
+ * A coordinate described in degrees (minutes and seconds are the 1/60 and
+ * 1/3600 or a degree).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009-04-04
+ * @version 2009-03-30
  */
-public final class ExifLong {
+public final class ExifDegrees {
 
-    private final int value;
+    private final ExifRational degrees;
+    private final ExifRational minutes;
+    private final ExifRational seconds;
 
     /**
      * Creates a new instance.
      *
      * @param  rawValue   raw value
      * @param  byteOrder  byte order
-     * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #byteCount()} or if the value is
-     *         negativ
+     * @throws IllegalArgumentException if the length of raw value is not equals
+     *         to {@link #byteCount()}
      */
-    public ExifLong(byte[] rawValue, ByteOrder byteOrder) {
+    public ExifDegrees(byte[] rawValue, ByteOrder byteOrder) {
 
         Ensure.length(rawValue, byteCount());
 
-        value = ExifDatatypeUtil.intFromRawValue(rawValue, byteOrder);
-
-        Ensure.positive(value);
+        degrees = new ExifRational(Arrays.copyOfRange(rawValue,  0,  8), byteOrder);
+        minutes = new ExifRational(Arrays.copyOfRange(rawValue,  8, 16), byteOrder);
+        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24), byteOrder);
     }
 
     /**
@@ -59,28 +59,22 @@ public final class ExifLong {
      * @return valid raw value byte count
      */
     public static int byteCount() {
-        return 4;
+        return 24;
     }
 
-    public static boolean byteCountOk(byte[] rawValue) {
+    public boolean byteCountOk(byte[] rawValue) {
         return rawValue.length == byteCount();
     }
 
-    public static ExifDataType dataType() {
-        return ExifDataType.LONG;
+    public ExifRational degrees() {
+        return degrees;
     }
 
-    /**
-     * Returns the value.
-     *
-     * @return value {@code >= 0}
-     */
-    public int value() {
-        return value;
+    public ExifRational minutes() {
+        return minutes;
     }
 
-    @Override
-    public String toString() {
-        return Integer.toString(value);
+    public ExifRational seconds() {
+        return seconds;
     }
 }

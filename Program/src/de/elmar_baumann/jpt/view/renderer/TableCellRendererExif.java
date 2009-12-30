@@ -20,9 +20,9 @@ package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.metadata.selections.ExifInDatabase;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifFieldValueFormatter;
-import de.elmar_baumann.jpt.image.metadata.exif.entry.ExifGpsMetadata;
-import de.elmar_baumann.jpt.image.metadata.exif.IfdEntryProxy;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTagValueFormatter;
+import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsMetadata;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.Translation;
 import de.elmar_baumann.lib.componentutil.TableUtil;
@@ -44,11 +44,12 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
             new Translation("ExifTagIdTagNameTranslations");
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
         assert column < 2 : column;
 
         JLabel cellLabel = new JLabel();
+
         setDefaultCellColors(cellLabel, isSelected);
 
         if (column == 0) {
@@ -57,22 +58,23 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
             setContentFont(cellLabel);
         }
 
-        if (value instanceof IfdEntryProxy) {
-            IfdEntryProxy ifdEntry = (IfdEntryProxy) value;
+        if (value instanceof ExifTag) {
 
-            setIsStoredInDatabaseColor(cellLabel, ifdEntry, isSelected);
+            ExifTag exifTag = (ExifTag) value;
+
+            setIsStoredInDatabaseColor(cellLabel, exifTag, isSelected);
 
             if (column == 0) {
                 String translated = TRANSLATION.translate(
-                        Integer.toString(ifdEntry.tagId()),
-                        ifdEntry.name());
+                        Integer.toString(exifTag.idValue()),
+                        exifTag.name());
                 TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                         translated.trim(),
                         AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
                         AppLookAndFeel.TABLE_CSS_ROW_HEADER);
             } else {
                 TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
-                        ExifFieldValueFormatter.format(ifdEntry),
+                        ExifTagValueFormatter.format(exifTag),
                         AppLookAndFeel.TABLE_MAX_CHARS_CELL,
                         AppLookAndFeel.TABLE_CSS_CELL);
             }
@@ -92,8 +94,8 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
     }
 
     private void setIsStoredInDatabaseColor(
-            JLabel cellLabel, IfdEntryProxy ifdEntry, boolean isSelected) {
-        if (ExifInDatabase.isInDatabase(ifdEntry.tagId())) {
+            JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
+        if (ExifInDatabase.isInDatabase(exifTag.idValue())) {
             setIsStoredInDatabaseColors(cellLabel, isSelected);
         }
     }
