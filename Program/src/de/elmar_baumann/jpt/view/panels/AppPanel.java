@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
@@ -40,6 +41,7 @@ import de.elmar_baumann.jpt.view.renderer.ListCellRendererSavedSearches;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererMiscMetadata;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererTimeline;
+import de.elmar_baumann.lib.component.ImageTextField;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
@@ -105,6 +107,13 @@ public final class AppPanel extends javax.swing.JPanel implements
         tableExif.addMouseListener(new TableButtonMouseListener(tableExif));
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
         displayInitKeywordsView();
+        setTextFieldSearchImage();
+    }
+
+    private void setTextFieldSearchImage() {
+        ((ImageTextField) textFieldSearch).setImage(
+                AppLookAndFeel.localizedImage(
+                    "/de/elmar_baumann/jpt/resource/images/textfield_search.png"));
     }
 
     private void displaySearchButton() {
@@ -568,7 +577,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         panelSelection = new javax.swing.JPanel();
         panelSearch = new javax.swing.JPanel();
         comboBoxFastSearch = new javax.swing.JComboBox();
-        textFieldSearch = new javax.swing.JTextField();
+        textFieldSearch = new ImageTextField();
         buttonSearch = new javax.swing.JButton();
         tabbedPaneSelection = new javax.swing.JTabbedPane();
         panelDirectories = new javax.swing.JPanel();
