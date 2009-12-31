@@ -44,65 +44,89 @@ public final class AppLookAndFeel {
      * database
      */
     public static final Color COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE = Color.BLACK;
+
     /**
      * Background color of table cells containing text which is stored in the
      * database
      */
     public static final Color COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE = new Color(251, 249, 241);
+
+    /**
+     * Foreground color of table cells containing text which is from an EXIF maker note
+     */
+    public static final Color COLOR_FOREGROUND_TABLE_TEXT_EXIF_MAKER_NOTE = Color.BLACK;
+
+    /**
+     * Foreground color of table cells containing text which is from an EXIF maker note
+     */
+    public static final Color COLOR_BACKGROUND_TABLE_TEXT_EXIF_MAKER_NOTE = new Color(226, 226, 255);
+
     /**
      * Foreground color of selected table cells
      */
     public static final Color COLOR_FOREGROUND_TABLE_TEXT_SELECTED = Color.BLACK;
+
     /**
      * Background color of selected table cells
      */
     public static final Color COLOR_BACKGROUND_TABLE_TEXT_SELECTED = new Color(226, 226, 255);
+
     /**
      * Default foreground color of table cells
      */
     public static final Color COLOR_FOREGROUND_TABLE_TEXT_DEFAULT = Color.BLACK;
+
     /**
      * Default background color of table cells
      */
     public static final Color COLOR_BACKGROUND_TABLE_TEXT_DEFAULT = Color.WHITE;
+
     /**
      * Background color of a hierarchical keyword if that keyword is a keyword
      * of a selected image
      */
     public static final Color COLOR_BACKGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(100, 100, 100);
+
     /**
      * Foreground color of a hierarchical keyword if that keyword is a keyword
      * of a selected image
      */
     public static final Color COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(255, 255, 255);
+
     /**
      * Selection foreground color of highlighted tree nodes when a popup menu
      * was invoked obove a tree node
      */
     public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE = Color.BLACK;
+
     /**
      * Selection background color of highlighted tree nodes when a popup menu
      * was invoked obove a tree node
      */
     public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE = new Color(251, 232, 158);
+
     /**
      * Selection foreground color of highlighted list items when a popup menu
      * was invoked obove a list item
      */
     public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST = COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE;
+
     /**
      * Selection background color of highlighted list items when a popup menu
      * was invoked obove a list item
      */
     public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST = COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE;
+
     /**
      * Path where all icons stored
      */
     private static final String PATH_ICONS = "/de/elmar_baumann/jpt/resource/icons";
+
     /**
      * Path to the small application's icon (16 x 16 pixels)
      */
     private static final String PATH_APP_ICON_SMALL = PATH_ICONS + "/icon_app_small.png";
+
     /**
      * Path to the medium sized application's icon (32 x 32 pixels)
      */
@@ -203,15 +227,18 @@ public final class AppLookAndFeel {
      * CSS of the table row headers
      */
     public static final String TABLE_CSS_ROW_HEADER = "margin-left:3px;margin-right:3px;";
+
     /**
      * CSS of the table cells
      */
     public static final String TABLE_CSS_CELL = "margin-left:3px;margin-right:3px;";
+
     /**
      * Maximum character count in the table row headers before breaking into
      * lines
      */
     public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
+
     /**
      * Maximum character count in the table cells before breaking into
      * lines

@@ -62,11 +62,11 @@ public final class ExifMetadata {
         } catch (Exception ex) {
             AppLog.logSevere(ExifMetadata.class, ex);
         }
-        addMakerNotesTo(exifTags);
+        addMakerNotesTo(exifTags, imageFile);
         return exifTags;
     }
     
-    private static void addMakerNotesTo(List<ExifTag> exifTags) {
+    private static void addMakerNotesTo(List<ExifTag> exifTags, File imageFile) {
         for (ExifTag exifTag : exifTags) {
 
             if (exifTag.idValue() == ExifTag.Id.MAKER_NOTE.value()) {
@@ -204,7 +204,7 @@ public final class ExifMetadata {
             int                 byteOffsetToIfd
             ) {
 
-        List<ExifTag> markerNoteTags = new ArrayList<ExifTag>();
+        List<ExifTag> makerNoteTags = new ArrayList<ExifTag>();
         ExifTag       exifTag        = getExifTagIn(exifTags, ExifTag.Id.MAKER_NOTE.value());
 
         if (exifTag != null)  {
@@ -217,16 +217,17 @@ public final class ExifMetadata {
                 ImageFileDirectory ifd = new ImageFileDirectory(
                         new ByteArrayRandomAccessIO(bytes), exifTag.byteOrderValue());
 
-                addExifTags(ifd, markerNoteTags);
+                assert ifd.getIFDCount() == 0 : "References " + ifd.getIFDCount() + " other IFDs!";
+                addExifTags(ifd, makerNoteTags);
+                for (ExifTag et : makerNoteTags) System.out.println(et);
 
-                return markerNoteTags;
+                return makerNoteTags;
             } catch (Exception ex) {
                 AppLog.logSevere(ExifMetadata.class, ex);
             }
         }
         return null;
     }
-
     /**
      * Returns EXIF metadata of a image file.
      * 

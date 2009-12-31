@@ -50,7 +50,7 @@ import javax.swing.table.DefaultTableModel;
 public final class TableModelExif extends DefaultTableModel {
 
     private              File            file;
-    private              ExifGpsMetadata gps;
+    private              ExifGpsMetadata exifGpsMetadata;
     private              List<ExifTag>   allExifTags;
     private static final Translation     TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
 
@@ -122,23 +122,33 @@ public final class TableModelExif extends DefaultTableModel {
     }
 
     private void addGpsTags() {
-        gps = ExifGpsUtil.gpsMetadata(allExifTags);
-        if (gps.latitude() != null) {
-            String prompt = TRANSLATION.translate(Integer.toString(ExifTag.Id.GPS_LATITUDE.value()));
-            super.addRow(new Object[]{prompt, gps.latitude().localizedString()});
+        exifGpsMetadata = ExifGpsUtil.gpsMetadata(allExifTags);
+        if (exifGpsMetadata.latitude() != null) {
+
+            final String tagId   = Integer.toString(ExifTag.Id.GPS_LATITUDE.value());
+            final String tagName = TRANSLATION.translate(tagId, tagId);
+
+            super.addRow(new Object[]{tagName, exifGpsMetadata.latitude().localizedString()});
         }
-        if (gps.longitude() != null) {
-            String prompt = TRANSLATION.translate(Integer.toString(ExifTag.Id.GPS_LONGITUDE.value()));
-            super.addRow(new Object[]{prompt, gps.longitude().localizedString()});
+        if (exifGpsMetadata.longitude() != null) {
+
+            final String tagId   = Integer.toString(ExifTag.Id.GPS_LONGITUDE.value());
+            final String tagName = TRANSLATION.translate(tagId, tagId);
+            super.addRow(new Object[]{tagName, exifGpsMetadata.longitude().localizedString()});
         }
-        if (gps.altitude() != null) {
-            String prompt = TRANSLATION.translate(Integer.toString(ExifTag.Id.GPS_ALTITUDE.value()));
-            super.addRow(new Object[]{prompt, gps.altitude().localizedString()});
+        if (exifGpsMetadata.altitude() != null) {
+
+            final String tagId   = Integer.toString(ExifTag.Id.GPS_ALTITUDE.value());
+            final String tagName = TRANSLATION.translate(tagId, tagId);
+
+            super.addRow(new Object[]{tagName, exifGpsMetadata.altitude().localizedString()});
         }
-        if (gps.longitude() != null && gps.latitude() != null) {
-            JButton button = new JButton(Bundle.getString("TableModelExif.Button.GoogleMaps"));
+        if (exifGpsMetadata.longitude() != null && exifGpsMetadata.latitude() != null) {
+
+            final JButton button = new JButton(Bundle.getString("TableModelExif.Button.GoogleMaps"));
+
             button.addActionListener(new GpsButtonListener());
-            super.addRow(new Object[]{gps, button});
+            super.addRow(new Object[]{exifGpsMetadata, button});
         }
     }
 
@@ -187,8 +197,8 @@ public final class TableModelExif extends DefaultTableModel {
         }
 
         private void startWebBrowser(String webBrowser) {
-            if (gps != null) {
-                String url = ExifGpsUtil.googleMapsUrl(gps.longitude(), gps.latitude());
+            if (exifGpsMetadata != null) {
+                String url = ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(), exifGpsMetadata.latitude());
                 String cmd = "\"" + webBrowser + "\" \"" + url + "\"";
                 logExternalAppCommand(cmd);
                 External.execute(cmd);

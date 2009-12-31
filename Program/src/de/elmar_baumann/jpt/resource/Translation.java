@@ -31,14 +31,14 @@ import java.util.ResourceBundle;
  */
 public final class Translation {
 
-    private static final String PATH_PREFIX =
-            "de/elmar_baumann/jpt/resource/properties/";
-    private ResourceBundle bundle;
+    private static final String         PATH_PREFIX = "de/elmar_baumann/jpt/resource/properties/";
+    private              ResourceBundle bundle;
 
     public Translation(String propertiesFileBasename) {
         try {
-            bundle = ResourceBundle.getBundle(
-                    PATH_PREFIX + propertiesFileBasename);
+
+            bundle = ResourceBundle.getBundle(PATH_PREFIX + propertiesFileBasename);
+
         } catch (MissingResourceException ex) {
             AppLog.logSevere(Translation.class, ex);
         }
@@ -56,11 +56,17 @@ public final class Translation {
     public String translate(String string) {
         try {
             return bundle.getString(string);
+
         } catch (MissingResourceException ex) {
+
             AppLog.logSevere(Translation.class, ex);
+
         } catch (NullPointerException ex) {
+
             throw ex;
+
         } catch (Exception ex) {
+
             AppLog.logSevere(Translation.class, ex);
         }
         return string;
@@ -79,10 +85,19 @@ public final class Translation {
     public String translate(String string, String alternate) {
         try {
             return bundle.getString(string);
+
         } catch (MissingResourceException ex) {
-            AppLog.logSevere(Translation.class, ex);
+
+            // ignore, using alternate
+
+        } catch (NullPointerException ex) {
+
+            throw ex;
+
         } catch (Exception ex) {
+
             AppLog.logSevere(Translation.class, ex);
+
         }
         return alternate;
     }

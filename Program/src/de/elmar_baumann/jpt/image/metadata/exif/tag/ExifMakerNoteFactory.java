@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.ResourceBundle;
 
 /**
  * 
@@ -29,12 +30,28 @@ import java.util.Collection;
  */
 public final class ExifMakerNoteFactory {
 
-    public static final  ExifMakerNoteFactory      INSTANCE    = new ExifMakerNoteFactory();
-    private static final Collection<ExifMakerNote> MAKER_NOTES = new ArrayList<ExifMakerNote>();
+    public static final  ExifMakerNoteFactory      INSTANCE             = new ExifMakerNoteFactory();
+    private static final String                    PROPERTY_FILE_PREFIX = "de/elmar_baumann/jpt/resource/properties/ExifMakerNote_";
+    private static final Collection<ExifMakerNote> MAKER_NOTES          = new ArrayList<ExifMakerNote>();
 
     static {
-        // Fixme: Reading JAR automatically
-        MAKER_NOTES.add(new ExifMakerNote("de/elmar_baumann/jpt/resource/properties/ExifMakerNotesNikon3"));
+        
+        boolean exists = true;
+        int     index  = 0;
+        while (exists) {
+
+            try {
+                // FIXME: Checking for existance rather than using the exception
+                // as stop criteria or even better: Reading the package content
+                // and getting all names of property files starting with
+                // "ExifMakerNote_" and load them
+                ResourceBundle bundle = ResourceBundle.getBundle(
+                            PROPERTY_FILE_PREFIX + Integer.toString(index++));
+                MAKER_NOTES.add(new ExifMakerNote(bundle));
+            } catch (Exception ex) {
+                exists = false;
+            }
+        }
     }
 
     public ExifMakerNote get(byte[] rawValue) {

@@ -37,34 +37,37 @@ import javax.swing.table.TableCellRenderer;
 public final class TableCellRendererIptc extends FormatterLabelMetadata
         implements TableCellRenderer {
 
-    private static final Translation TRANSLATION =
-            new Translation("IptcRecordDataSetNumberTranslations");
+    private static final Translation TRANSLATION = new Translation("IptcRecordDataSetNumberTranslations");
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
-        JLabel cellLabel = new JLabel();
+        JLabel    cellLabel = new JLabel();
         IptcEntry iptcEntry = (IptcEntry) value;
 
         setDefaultCellColors(cellLabel, isSelected);
 
-        String number =
-                Integer.toString(iptcEntry.getRecordNumber()) + ":" +
-                Integer.toString(iptcEntry.getDataSetNumber());
+        String number = Integer.toString(iptcEntry.getRecordNumber()) + ":" +
+                        Integer.toString(iptcEntry.getDataSetNumber());
+
         if (column == 0) {
+
             setContentFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                     number,
                     AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
                     AppLookAndFeel.TABLE_CSS_ROW_HEADER);
+
         } else if (column == 1) {
+
             setHeaderFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
-                    TRANSLATION.translate(number),
+                    TRANSLATION.translate(number, number),
                     AppLookAndFeel.TABLE_MAX_CHARS_CELL,
                     AppLookAndFeel.TABLE_CSS_CELL);
+
         } else {
+
             assert column < 3 : column;
             setContentFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
