@@ -62,23 +62,7 @@ public final class ExifMetadata {
         } catch (Exception ex) {
             AppLog.logSevere(ExifMetadata.class, ex);
         }
-        addMakerNotesTo(exifTags, imageFile);
         return exifTags;
-    }
-    
-    private static void addMakerNotesTo(List<ExifTag> exifTags, File imageFile) {
-        for (ExifTag exifTag : exifTags) {
-
-            if (exifTag.idValue() == ExifTag.Id.MAKER_NOTE.value()) {
-
-                ExifMakerNote makerNote = ExifMakerNoteFactory.INSTANCE.get(exifTag.rawValue());
-
-                if (makerNote != null) {
-                    makerNote.addMakerNotes(exifTags);
-                }
-                return;
-            } 
-        }
     }
 
     private static void addExifTags(File imageFile, List<ExifTag> exifTags) throws IOException {
@@ -101,9 +85,10 @@ public final class ExifMetadata {
             int count = ((TiffReader) imageReader).getIFDCount();
 
             for (int i = 0; i < count; i++) {
-                addAllExifTags(((TiffReader) imageReader).getIFD(i), exifTags);
+                addAllExifTags(((TiffReader) imageReader).getIFD(i), exifTags, false);
             }
         }
+        addMakerNotesTo(exifTags);
         close(imageReader);
     }
 
@@ -125,34 +110,50 @@ public final class ExifMetadata {
         }
     }
 
+    private static void addMakerNotesTo(List<ExifTag> exifTags) {
+        for (ExifTag exifTag : exifTags) {
+
+            if (exifTag.idValue() == ExifTag.Id.MAKER_NOTE.value()) {
+
+                ExifMakerNote makerNote = ExifMakerNoteFactory.INSTANCE.get(exifTag.rawValue());
+
+                if (makerNote != null) {
+                    makerNote.addMakerNotes(exifTags);
+                }
+                return;
+            }
+        }
+    }
+
     private static void close(ImageReader imageReader) {
         if (imageReader != null) {
             imageReader.close();
         }
     }
 
-    private static void addAllExifTags(ImageFileDirectory ifd, List<ExifTag> entries) {
+    private static void addAllExifTags(
+            ImageFileDirectory ifd,
+            List<ExifTag>      entries,
+            boolean            add
+            ) {
 
-        addExifTags(ifd, entries);
+        if (add) {
+            addExifTags(ifd, entries);
+        }
 
         for (int i = 0; i < ifd.getIFDCount(); i++) {
             ImageFileDirectory subIfd = ifd.getIFDAt(i);
-            addAllExifTags(subIfd, entries); // recursive
+            addAllExifTags(subIfd, entries, false); // recursive
         }
 
         ImageFileDirectory exifIFD = ifd.getExifIFD();
         if (exifIFD != null) {
-            addAllExifTags(exifIFD, entries); // recursive
+            addAllExifTags(exifIFD, entries, true); // recursive
         }
 
         ImageFileDirectory gpsIFD = ifd.getGpsIFD();
         if (gpsIFD != null) {
-            addAllExifTags(gpsIFD, entries); // recursive
-        }
-
-        ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
-        if (interoperabilityIFD != null) {
-            addAllExifTags(interoperabilityIFD, entries); // recursive
+            addAllExifTags(gpsIFD, entries, true); // recursive
         }
     }
 
