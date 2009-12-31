@@ -219,7 +219,6 @@ public final class ExifMetadata {
 
                 assert ifd.getIFDCount() == 0 : "References " + ifd.getIFDCount() + " other IFDs!";
                 addExifTags(ifd, makerNoteTags);
-                for (ExifTag et : makerNoteTags) System.out.println(et);
 
                 return makerNoteTags;
             } catch (Exception ex) {
