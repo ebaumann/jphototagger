@@ -156,7 +156,7 @@ public final class ExifMakerNote {
                         exifTag.fileOffset(),
                         rV,
                         info.exifFormatterClass == null ? dataType.toString() : format(info.exifFormatterClass, rV),
-                        exifTag.byteOrderValue(),
+                        exifTag.byteOrderId(),
                         bundle.getString(info.tagNameBundleKey));
 
                 allTags.add(makerNoteTag);

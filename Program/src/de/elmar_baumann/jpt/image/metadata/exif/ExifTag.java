@@ -131,54 +131,54 @@ public final class ExifTag implements Comparable<ExifTag> {
         }
     }
 
-    private final int          idValue;
-    private final int          valueCount;
-    private final long         fileOffset;
-    private final ExifDataType dataType;
-    private       byte[]       rawValue;
-    private final String       stringValue;
-    private final String       name;
-    private final int          byteOrderValue;
+    private final int    idValue;
+    private final int    valueCount;
+    private final long   fileOffset;
+    private final int    dataTypeId;
+    private       byte[] rawValue;
+    private final String stringValue;
+    private final String name;
+    private final int    byteOrderId;
 
     public ExifTag(IFDEntry entry) {
-            idValue        = entry.getTag();
-            valueCount     = entry.getCount();
-            fileOffset     = entry.getValueOffset();
-            dataType       = dataTypeOfTagId(entry.getType());
-            name           = entry.getEntryMeta().getName();
-            byteOrderValue = entry.parent.getByteOrder();
-            rawValue       = rawValueDeepCopy(entry);
-            stringValue    = entry.toString();
+            idValue     = entry.getTag();
+            valueCount  = entry.getCount();
+            fileOffset  = entry.getValueOffset();
+            dataTypeId  = entry.getType();
+            name        = entry.getEntryMeta().getName();
+            byteOrderId = entry.parent.getByteOrder();
+            rawValue    = rawValueDeepCopy(entry);
+            stringValue = entry.toString();
     }
 
     public ExifTag(
             int    tagId,
-            int    datTypeId,
+            int    dataTypeId,
             int    valueCount,
             long   fileOffset,
             byte[] rawValue,
             String stringValue,
-            int    byteOrderValue,
+            int    byteOrderId,
             String name
             ) {
-        this.idValue        = tagId;
-        this.dataType       = dataTypeOfTagId(datTypeId);
-        this.valueCount     = valueCount;
-        this.fileOffset     = fileOffset;
-        this.rawValue       = rawValue;
-        this.stringValue    = stringValue;
-        this.name           = name;
-        this.byteOrderValue = byteOrderValue;
+        this.idValue     = tagId;
+        this.dataTypeId  = dataTypeId;
+        this.valueCount  = valueCount;
+        this.fileOffset  = fileOffset;
+        this.rawValue    = rawValue;
+        this.stringValue = stringValue;
+        this.name        = name;
+        this.byteOrderId = byteOrderId;
     }
 
     public ByteOrder byteOrder() {
-        return byteOrderValue == 18761
+        return byteOrderId == 18761
                 ? ByteOrder.LITTLE_ENDIAN
                 : ByteOrder.BIG_ENDIAN;
     }
 
-    public int byteOrderValue() {
-        return byteOrderValue;
+    public int byteOrderId() {
+        return byteOrderId;
     }
 
     public String name() {
@@ -210,7 +210,11 @@ public final class ExifTag implements Comparable<ExifTag> {
     }
 
     public ExifDataType dataType() {
-        return dataType;
+        return dataTypeOfTagId(dataTypeId);
+    }
+
+    public int dataTypeId() {
+        return dataTypeId;
     }
 
     private byte[] rawValueDeepCopy(IFDEntry entry) {
@@ -249,7 +253,7 @@ public final class ExifTag implements Comparable<ExifTag> {
                                 ", Name: " + (name   == null ? " Undefined " : name) +
                     ", Number of values: " + valueCount +
                          ", File offset: " + fileOffset +
-                           ", Data type: " + dataType.toString() +
+                           ", Data type: " + dataType().toString() +
                 ", Raw value byte count: " + (rawValue == null ? 0 : rawValue.length) +
                           ", Byte order: " + byteOrder().toString() +
                         ", String Value: " + (stringValue == null ? "" : stringValue) +
