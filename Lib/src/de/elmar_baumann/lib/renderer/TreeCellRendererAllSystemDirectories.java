@@ -102,7 +102,6 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
     private void renderHighlightPopup(int row) {
         if (row == popupHighLightRow && foregroundColorHighlightPopup != null &&
                 backgroundColorHighlightPopup != null) {
-            System.out.println("row: " + row + " hlr: " + popupHighLightRow);
             setOpaque(true);
             setForeground(foregroundColorHighlightPopup);
             setBackground(backgroundColorHighlightPopup);
