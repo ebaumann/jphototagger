@@ -215,7 +215,7 @@ public final class ExifMetadata {
 
             try {
                 ImageFileDirectory ifd = new ImageFileDirectory(
-                        new ByteArrayRandomAccessIO(bytes), exifTag.byteOrderValue());
+                        new ByteArrayRandomAccessIO(bytes), exifTag.byteOrderId());
 
                 assert ifd.getIFDCount() == 0 : "References " + ifd.getIFDCount() + " other IFDs!";
                 addExifTags(ifd, makerNoteTags);
