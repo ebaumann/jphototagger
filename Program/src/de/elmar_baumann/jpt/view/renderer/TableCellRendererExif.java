@@ -40,8 +40,7 @@ import javax.swing.table.TableCellRenderer;
 public final class TableCellRendererExif extends FormatterLabelMetadata
         implements TableCellRenderer {
 
-    private static final Translation TRANSLATION =
-            new Translation("ExifTagIdTagNameTranslations");
+    private static final Translation TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -62,12 +61,13 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
 
             ExifTag exifTag = (ExifTag) value;
 
-            setIsStoredInDatabaseColor(cellLabel, exifTag, isSelected);
+            setIsMakerNoteTagColor    (cellLabel, exifTag, isSelected);
+            setIsStoredInDatabaseColor(cellLabel, exifTag, isSelected); // override maker note (more important)
 
             if (column == 0) {
                 String translated = TRANSLATION.translate(
-                        Integer.toString(exifTag.idValue()),
-                        exifTag.name());
+                                        Integer.toString(exifTag.idValue()),
+                                        exifTag.name());
                 TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                         translated.trim(),
                         AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
@@ -93,8 +93,15 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
         return cellLabel;
     }
 
-    private void setIsStoredInDatabaseColor(
-            JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
+    private void setIsMakerNoteTagColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
+
+        if (exifTag.idValue() >= ExifTag.Id.DISPLAYABLE_MAKER_NOTE.value()) {
+            setIsExifMakerNoteColors(cellLabel, isSelected);
+        }
+    }
+
+    private void setIsStoredInDatabaseColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
+
         if (ExifInDatabase.isInDatabase(exifTag.idValue())) {
             setIsStoredInDatabaseColors(cellLabel, isSelected);
         }

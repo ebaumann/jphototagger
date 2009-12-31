@@ -42,29 +42,26 @@ import javax.swing.table.TableCellRenderer;
 public final class TableCellRendererXmp extends FormatterLabelMetadata
         implements TableCellRenderer {
 
-    private static final String DELIMITER_PATH = "/";
-    private static final String DELIMITER_NAMESPACE = ":";
-    private static final Translation TRANSLATION_XMP = new Translation(
-            "XmpPropertyTranslations");
-    private static final Translation TRANSLATION_XMP_EXIF_TAG_ID = new Translation(
-            "XmpPropertyExifTagIdTranslations");
-    private static final Translation TRANSLATION_EXIF = new Translation(
-            "ExifTagIdTagNameTranslations");
+    private static final String DELIMITER_PATH                   = "/";
+    private static final String DELIMITER_NAMESPACE              = ":";
+    private static final Translation TRANSLATION_XMP             = new Translation("XmpPropertyTranslations");
+    private static final Translation TRANSLATION_XMP_EXIF_TAG_ID = new Translation("XmpPropertyExifTagIdTranslations");
+    private static final Translation TRANSLATION_EXIF            = new Translation("ExifTagIdTagNameTranslations");
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
-        JLabel cellLabel = new JLabel();
+        JLabel          cellLabel       = new JLabel();
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
 
-        setDefaultCellColors(cellLabel, isSelected);
+        setDefaultCellColors      (cellLabel, isSelected);
         setIsStoredInDatabaseColor(cellLabel, xmpPropertyInfo, isSelected);
 
         if (column == 0) {
             setHeaderFont(cellLabel);
+            String xmpPath = xmpPropertyInfo.getPath();
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
-                    translate(xmpPropertyInfo.getPath()),
+                    translate(xmpPath, xmpPath),
                     AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
                     AppLookAndFeel.TABLE_CSS_ROW_HEADER);
         } else {
@@ -85,68 +82,87 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
         }
     }
 
-    private static String translate(String path) {
-        StringBuffer newPath = new StringBuffer();
-        List<String> pathComponents = getPathComponents(path);
-        int count = pathComponents.size();
-        for (int i = 0; i < count; i++) {
+    private static String translate(String path, String alternate) {
+
+        StringBuffer newPath             = new StringBuffer();
+        List<String> pathComponents      = getPathComponents(path);
+        int          pathComponentsCount = pathComponents.size();
+
+        for (int i = 0; i < pathComponentsCount; i++) {
+
             String pathComponent = pathComponents.get(i);
-            String withoutIndex = getWithoutIndex(pathComponent);
-            String translated = (isExifNamespace(pathComponent)
-                                 ? TRANSLATION_EXIF.translate(
-                    TRANSLATION_XMP_EXIF_TAG_ID.translate(withoutIndex))
-                                 : TRANSLATION_XMP.translate(withoutIndex));
+            String withoutIndex  = getWithoutIndex(pathComponent);
+            String translated    = (isExifNamespace(pathComponent)
+                                        ? TRANSLATION_EXIF.translate(TRANSLATION_XMP_EXIF_TAG_ID.translate(withoutIndex, alternate))
+                                        : TRANSLATION_XMP .translate(withoutIndex, alternate));
             newPath.append(
                     getWithoutNamespace(translated) +
                     getIndexString(pathComponent) +
-                    (count > 1 && i < count - 1
-                     ? DELIMITER_PATH
-                     : ""));
+                    (pathComponentsCount > 1 && i < pathComponentsCount - 1
+                        ? DELIMITER_PATH
+                        : ""));
         }
 
         return newPath.toString();
     }
 
     private static List<String> getPathComponents(String path) {
+
         List<String> components = new ArrayList<String>();
+
         StringTokenizer tokenizer = new StringTokenizer(path, DELIMITER_PATH);
+
         while (tokenizer.hasMoreTokens()) {
+
             components.add(tokenizer.nextToken());
         }
         return components;
     }
 
     private static String getWithoutIndex(String string) {
+
         if (hasIndex(string)) {
+
             int startIndex = string.lastIndexOf("[");
+
             return string.substring(0, startIndex);
         }
         return string;
     }
 
     private static String getIndexString(String string) {
+
         if (hasIndex(string)) {
+
             int startIndex = string.lastIndexOf("[");
+
             return string.substring(startIndex);
         }
         return "";
     }
 
     private static boolean hasIndex(String string) {
+
         return string.matches("..*\\[[0-9]+\\]$");
     }
 
     private static String getWithoutNamespace(String string) {
+
         if (hasNamespace(string)) {
+
             int indexDelim = string.indexOf(DELIMITER_NAMESPACE);
+
             return string.substring(indexDelim + 1);
         }
         return string;
     }
 
     private static boolean hasNamespace(String string) {
+
         int indexDelim = string.indexOf(DELIMITER_NAMESPACE);
+
         if (indexDelim > 0) {
+
             return XmpMetadata.isKnownNamespace(string.substring(0, indexDelim));
         }
         return false;

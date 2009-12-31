@@ -89,6 +89,18 @@ public class FormatterLabelMetadata {
                 : AppLookAndFeel.COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE);
     }
 
+    protected void setIsExifMakerNoteColors(JLabel cellLabel,
+            boolean isSelected) {
+        cellLabel.setForeground(
+                isSelected
+                ? AppLookAndFeel.COLOR_FOREGROUND_TABLE_TEXT_SELECTED
+                : AppLookAndFeel.COLOR_FOREGROUND_TABLE_TEXT_EXIF_MAKER_NOTE);
+        cellLabel.setBackground(
+                isSelected
+                ? AppLookAndFeel.COLOR_BACKGROUND_TABLE_TEXT_SELECTED
+                : AppLookAndFeel.COLOR_BACKGROUND_TABLE_TEXT_EXIF_MAKER_NOTE);
+    }
+
     private void initFonts(JLabel cellLabel) {
         if (headerFont == null) {
             Font cellFont = cellLabel.getFont();

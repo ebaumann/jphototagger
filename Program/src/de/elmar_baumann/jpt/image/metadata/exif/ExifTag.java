@@ -69,6 +69,11 @@ public final class ExifTag implements Comparable<ExifTag> {
         DATE_TIME_ORIGINAL        (36867),
         DATE_TIME_DIGITIZED       (36868),
         MAKER_NOTE                (37500),
+        /**
+         * Maker note that shall be displayed. Alle maker notes equals to or
+         * grater than this value will be displayed.
+         */
+        DISPLAYABLE_MAKER_NOTE    (3750000),
         METERING_MODE             (37383),
         FLASH                     (37385),
         FOCAL_LENGTH              (37386),
@@ -126,51 +131,50 @@ public final class ExifTag implements Comparable<ExifTag> {
         }
     }
 
-    private int          idValue;
-    private ExifDataType dataType;
-    private byte[]       rawValue;
-    private String       stringValue;
-    private String       name;
-    private ByteOrder    byteOrder;
-    private int          byteOrderValue;
-    private Class        formatterClass;
+    private final int          idValue;
+    private final int          valueCount;
+    private final long         fileOffset;
+    private final ExifDataType dataType;
+    private       byte[]       rawValue;
+    private final String       stringValue;
+    private final String       name;
+    private final int          byteOrderValue;
 
     public ExifTag(IFDEntry entry) {
-        try {
-            stringValue    = entry.toString();
-            idValue        = entry.getEntryMeta().getTag();
+            idValue        = entry.getTag();
+            valueCount     = entry.getCount();
+            fileOffset     = entry.getValueOffset();
             dataType       = dataTypeOfTagId(entry.getType());
             name           = entry.getEntryMeta().getName();
             byteOrderValue = entry.parent.getByteOrder();
-            rawValue       = Arrays.copyOf(entry.getRawValue(), entry.getRawValue().length);
-            byteOrder      = byteOrderValue == 0x4949 // 18761
-                                ? ByteOrder.LITTLE_ENDIAN
-                                : ByteOrder.BIG_ENDIAN;
-        } catch (Exception ex) {
-            AppLog.logSevere(ExifMetadata.class, ex);
-        }
+            rawValue       = rawValueDeepCopy(entry);
+            stringValue    = entry.toString();
     }
 
     public ExifTag(
-            int          tagId,
-            ExifDataType type,
-            byte[]       rawValue,
-            String       stringValue,
-            String       name,
-            ByteOrder    byteOrder,
-            int          byteOrderValue
+            int    tagId,
+            int    datTypeId,
+            int    valueCount,
+            long   fileOffset,
+            byte[] rawValue,
+            String stringValue,
+            int    byteOrderValue,
+            String name
             ) {
-        this.idValue          = tagId;
-        this.dataType           = type;
+        this.idValue        = tagId;
+        this.dataType       = dataTypeOfTagId(datTypeId);
+        this.valueCount     = valueCount;
+        this.fileOffset     = fileOffset;
         this.rawValue       = rawValue;
         this.stringValue    = stringValue;
         this.name           = name;
-        this.byteOrder      = byteOrder;
         this.byteOrderValue = byteOrderValue;
     }
 
     public ByteOrder byteOrder() {
-        return byteOrder;
+        return byteOrderValue == 18761
+                ? ByteOrder.LITTLE_ENDIAN
+                : ByteOrder.BIG_ENDIAN;
     }
 
     public int byteOrderValue() {
@@ -189,32 +193,42 @@ public final class ExifTag implements Comparable<ExifTag> {
         return stringValue;
     }
 
-    public Class formatterClass() {
-        return formatterClass;
-    }
-
-    public void setFormatterClass(Class formatterClass) {
-        this.formatterClass = formatterClass;
-    }
-
-    @Override
-    public String toString() {
-        return "EXIF Tag [ID: " + idValue +
-                " "   + dataType.toString() +
-                ", Name: " + (name   == null ? " Undefined " : name  ) +
-                ", Byte order: " + byteOrder.toString() +
-                ", String Value: " + (stringValue == null ? "" : stringValue +
-                ", Formatter: " + formatterClass == null ? " None" : formatterClass.getName() +
-                "]"
-                );
-    }
-
     public int idValue() {
         return idValue;
     }
 
+    public Id id() {
+        return Id.fromValue(idValue);
+    }
+
+    public long fileOffset() {
+        return fileOffset;
+    }
+
+    public int valueCount() {
+        return valueCount;
+    }
+
     public ExifDataType dataType() {
         return dataType;
+    }
+
+    private byte[] rawValueDeepCopy(IFDEntry entry) {
+        try {
+            return Arrays.copyOf(entry.getRawValue(), entry.getRawValue().length);
+        } catch (Exception ex) {
+            AppLog.logSevere(ExifMetadata.class, ex);
+        }
+        return null;
+    }
+
+    private ExifDataType dataTypeOfTagId(int tagId) {
+
+        ExifDataType t = DATA_TYPE_OF_TAG_ID.get(tagId);
+
+        if (t == null) return ExifDataType.UNDEFINED;
+
+        return t;
     }
 
     /**
@@ -228,12 +242,18 @@ public final class ExifTag implements Comparable<ExifTag> {
         return idValue - otherTag.idValue;
     }
 
-    private ExifDataType dataTypeOfTagId(int tagId) {
-
-        ExifDataType t = DATA_TYPE_OF_TAG_ID.get(tagId);
-
-        if (t == null) return ExifDataType.UNDEFINED;
-
-        return t;
+    @Override
+    public String toString() {
+        return "EXIF Tag [" +
+                                    "ID: " + idValue +
+                                ", Name: " + (name   == null ? " Undefined " : name) +
+                    ", Number of values: " + valueCount +
+                         ", File offset: " + fileOffset +
+                           ", Data type: " + dataType.toString() +
+                ", Raw value byte count: " + (rawValue == null ? 0 : rawValue.length) +
+                          ", Byte order: " + byteOrder().toString() +
+                        ", String Value: " + (stringValue == null ? "" : stringValue) +
+                "]"
+                ;
     }
 }

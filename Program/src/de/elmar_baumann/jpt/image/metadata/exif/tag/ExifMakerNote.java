@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifLong;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
+import de.elmar_baumann.jpt.image.metadata.exif.formatter.ExifRawValueFormatter;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import de.elmar_baumann.lib.util.RegexUtil;
 import java.lang.reflect.Constructor;
@@ -49,8 +50,10 @@ public final class ExifMakerNote {
     private       int            byteOffsetToIfd;
     private       byte[][]       magicBytePatterns = null;
 
-    public ExifMakerNote(String bundlePath) {
-        this.bundle = ResourceBundle.getBundle(bundlePath);
+    public ExifMakerNote(ResourceBundle bundle) {
+
+        this.bundle = bundle;
+
         setMagicBytePatterns();
         setByteOffsetToIfd();
     }
@@ -75,20 +78,23 @@ public final class ExifMakerNote {
 
     public void addMakerNotes(Collection<ExifTag> exifTags) {
 
-        List<ExifTag> markerNoteTags = ExifMetadata.getExifMakerNoteTagsIn(exifTags, byteOffsetToIfd);
+        List<ExifTag> makerNoteTags = ExifMetadata.getExifMakerNoteTagsIn(exifTags, byteOffsetToIfd);
 
-        if (markerNoteTags != null) {
+        if (makerNoteTags != null) {
             try {
-            add(markerNoteTags, exifTags);
+            add(makerNoteTags, exifTags);
             } catch (Exception ex) {
                 AppLog.logSevere(ExifMakerNote.class, ex);
             }
         }
     }
 
-    private void add(List<ExifTag> from, Collection<ExifTag> to) throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    private void add(
+            List<ExifTag> makerNoteTags, Collection<ExifTag> allTags
+            )
+            throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
-        List<String>     keys  = RegexUtil.getMatches(bundleKeys(), "^Tag[0-9]+");
+        List<String>       keys  = RegexUtil.getMatches(bundleKeys(), "^Tag[0-9]+");
         List<MakerTagInfo> infos = new ArrayList<MakerTagInfo>();
 
         for (String key : keys) {
@@ -98,7 +104,7 @@ public final class ExifMakerNote {
                 AppLog.logSevere(ExifMakerNote.class, ex);
             }
         }
-        add(from, to, infos);
+        add(makerNoteTags, allTags, infos);
     }
 
     private List<String> bundleKeys() {
@@ -115,24 +121,24 @@ public final class ExifMakerNote {
 
     @SuppressWarnings("unchecked")
     private void add(
-            List<ExifTag>       from,
-            Collection<ExifTag> to,
+            List<ExifTag>       makerNoteTags,
+            Collection<ExifTag> allTags,
             List<MakerTagInfo>  infos
-            ) throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            )
+            throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
-        int index = 0;
-        for (ExifTag exifTag : from) {
-            int pos = indexOf(index++, infos);
+        for (ExifTag exifTag : makerNoteTags) {
+            int pos = indexOf(exifTag.idValue(), infos);
             if (pos >= 0) {
                 MakerTagInfo info        = infos.get(pos);
                 byte[]       rawValue    = exifTag.rawValue();
-                int          offset      = info.rawValueOffset();
+                int          offset      = info.rawValueOffset;
                 int          bytesToRead = info.readAllBytes() ? rawValue.length - offset : info.bytesToRead;
                 byte[]       rV          = new byte[bytesToRead];
 
                 System.arraycopy(rawValue, offset, rV, 0, bytesToRead);
 
-                Class  dataTypeClass = info.exifDataTypeClass();
+                Class  dataTypeClass = info.exifDataTypeClass;
                 Object dataType      = null;
 
                 if  (requiresByteOrder(dataTypeClass)) {
@@ -143,24 +149,32 @@ public final class ExifMakerNote {
                     dataType = c.newInstance(rV);
                 }
 
-                ExifTag markerNoteTag = new ExifTag(
-                        info.equalsToExifTag() ? info.equalsToExifTagId : ExifTag.Id.MAKER_NOTE.value(),
-                        exifTag.dataType(),
+                ExifTag makerNoteTag = new ExifTag(
+                        info.equalsToExifTag() ? info.equalsToExifTagId : ExifTag.Id.DISPLAYABLE_MAKER_NOTE.value() + exifTag.idValue(),
+                        exifTag.dataType().getValue(),
+                        exifTag.valueCount(),
+                        exifTag.fileOffset(),
                         rV,
-                        dataType.toString(),
-                        bundle.getString(info.promptPropertyKey()),
-                        exifTag.byteOrder(),
-                        exifTag.byteOrderValue());
-                markerNoteTag.setFormatterClass(info.exifFormatterClass);
-                to.add(markerNoteTag);
+                        info.exifFormatterClass == null ? dataType.toString() : format(info.exifFormatterClass, rV),
+                        exifTag.byteOrderValue(),
+                        bundle.getString(info.tagNameBundleKey));
+
+                allTags.add(makerNoteTag);
             }
         }
     }
 
-    private int indexOf(int tagIndex, List<MakerTagInfo> infos) {
+    private String format(Class formatterClass, byte[] rawValue) throws InstantiationException, IllegalAccessException {
+
+        ExifRawValueFormatter formatter = (ExifRawValueFormatter) formatterClass.newInstance();
+
+        return formatter.format(rawValue);
+    }
+
+    private int indexOf(int tagIdValue, List<MakerTagInfo> infos) {
         int index = 0;
         for (MakerTagInfo info : infos) {
-            if (tagIndex == info.tagIndex) return index;
+            if (tagIdValue == info.tagIdValue) return index;
             index++;
         }
         return -1;
@@ -180,16 +194,17 @@ public final class ExifMakerNote {
 
     private static class MakerTagInfo {
 
-        private final int    tagIndex;
+        private final int    tagIdValue;
         private       int    rawValueOffset;
         private       int    bytesToRead        = -1;
         private       Class  exifDataTypeClass;
         private       Class  exifFormatterClass;
-        private       String promptPropertyKey;
+        private       String tagNameBundleKey;
         private       int    equalsToExifTagId  = -1;
 
         public MakerTagInfo(int tagIndex, String propertyValue) throws ClassNotFoundException {
-            this.tagIndex = tagIndex;
+            this.tagIdValue    = tagIndex;
+            tagNameBundleKey = "Tag" + Integer.toString(tagIndex) + "DisplayName";
             init(propertyValue);
         }
 
@@ -204,38 +219,9 @@ public final class ExifMakerNote {
                     case 1: bytesToRead        = token.equals("all")  ? - 1  : Integer.parseInt(token); break;
                     case 2: exifDataTypeClass  = Class.forName(token)                                 ; break;
                     case 3: exifFormatterClass = token.equals("null") ? null : Class.forName(token)   ; break;
-                    case 4: promptPropertyKey  = token;                                               ; break;
-                    case 5: equalsToExifTagId  = token.isEmpty()      ? -1   : Integer.parseInt(token); break;
+                    case 4: equalsToExifTagId  = token.isEmpty()      ? -1   : Integer.parseInt(token); break;
                 }
             }
-        }
-
-        public int bytesToRead() {
-            return bytesToRead;
-        }
-
-        public int equalExifTagId() {
-            return equalsToExifTagId;
-        }
-
-        public Class exifDataTypeClass() {
-            return exifDataTypeClass;
-        }
-
-        public Class exifFormatterClass() {
-            return exifFormatterClass;
-        }
-
-        public String promptPropertyKey() {
-            return promptPropertyKey;
-        }
-
-        public int rawValueOffset() {
-            return rawValueOffset;
-        }
-
-        public int tagIndex() {
-            return tagIndex;
         }
 
         public boolean hasFormatterClass() {
