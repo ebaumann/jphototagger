@@ -18,6 +18,8 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 /**
  * Formats a raw value of an EXIF tag (Generic raw value formatter).
  *
@@ -29,9 +31,9 @@ public interface ExifRawValueFormatter {
     /**
      * Formats a raw value of an EXIF tag.
      *
-     * @param  rawValue raw value
-     * @return          formatted string
+     * @param exifTag tag to format
+     * @return        formatted string
      */
-    public String format(byte[] rawValue);
+    public String format(ExifTag exifTag);
 
 }

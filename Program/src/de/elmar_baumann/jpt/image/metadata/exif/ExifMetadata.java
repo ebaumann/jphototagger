@@ -21,16 +21,15 @@ package de.elmar_baumann.jpt.image.metadata.exif;
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.MetadataUtils;
 import com.imagero.reader.jpeg.JpegReader;
+import com.imagero.reader.tiff.EXIF;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
-import com.imagero.uio.bio.ByteArrayRandomAccessIO;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifMakerNote;
-import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifMakerNoteFactory;
 import de.elmar_baumann.jpt.types.FileType;
+import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ import java.util.List;
 
 /**
  * Extracts EXIF metadata from images as {@link ExifTag} and
- * {@link Exif} objects.
+ * {@link EXIF} objects.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -52,20 +51,27 @@ public final class ExifMetadata {
      * @param  imageFile image file
      * @return           EXIF entries or null if errors occured
      */
-    public static List<ExifTag> getExifTags(File imageFile) {
+    public static ExifTags getExifTags(File imageFile) {
 
         if (imageFile == null || !imageFile.exists()) return null;
 
-        List<ExifTag> exifTags = new ArrayList<ExifTag>();
+        ExifTags exifTags = new ExifTags();
+
         try {
+
             addExifTags(imageFile, exifTags);
+
         } catch (Exception ex) {
+
             AppLog.logSevere(ExifMetadata.class, ex);
         }
+
+        addExifMakerNoteTags(exifTags);
+
         return exifTags;
     }
 
-    private static void addExifTags(File imageFile, List<ExifTag> exifTags) throws IOException {
+    private static void addExifTags(File imageFile, ExifTags exifTags) throws IOException {
 
         ImageReader imageReader = null;
 
@@ -85,14 +91,13 @@ public final class ExifMetadata {
             int count = ((TiffReader) imageReader).getIFDCount();
 
             for (int i = 0; i < count; i++) {
-                addAllExifTags(((TiffReader) imageReader).getIFD(i), exifTags, false);
+                addTagsOfIfd(((TiffReader) imageReader).getIFD(i), IfdType.UNDEFINED, exifTags);
             }
         }
-        addMakerNotesTo(exifTags);
         close(imageReader);
     }
 
-    private static void addAllExifTags(JpegReader jpegReader, List<ExifTag> exifTags) {
+    private static void addAllExifTags(JpegReader jpegReader, ExifTags exifTags) {
 
         IFDEntry[][] allIfdEntries = MetadataUtils.getExif(jpegReader);
 
@@ -104,23 +109,10 @@ public final class ExifMetadata {
 
                 for (int j = 0; j < currentIfdEntry.length; j++) {
 
-                    exifTags.add(new ExifTag(currentIfdEntry[j]));
+                    IFDEntry entry = currentIfdEntry[j];
+
+                    exifTags.addExifTag(new ExifTag(entry, IfdType.EXIF));
                 }
-            }
-        }
-    }
-
-    private static void addMakerNotesTo(List<ExifTag> exifTags) {
-        for (ExifTag exifTag : exifTags) {
-
-            if (exifTag.idValue() == ExifTag.Id.MAKER_NOTE.value()) {
-
-                ExifMakerNote makerNote = ExifMakerNoteFactory.INSTANCE.get(exifTag.rawValue());
-
-                if (makerNote != null) {
-                    makerNote.addMakerNotes(exifTags);
-                }
-                return;
             }
         }
     }
@@ -131,33 +123,58 @@ public final class ExifMetadata {
         }
     }
 
-    private static void addAllExifTags(
+    public enum IfdType {
+        EXIF            ("EXIF IFD"),
+        GPS             ("GPS IFD"),
+        INTEROPERABILITY("Interoperability IFD"),
+        MAKER_NOTE      ("Maker note"),
+        UNDEFINED       ("Undefined"),
+        ;
+
+        private final String name;
+
+        private IfdType(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    private static void addTagsOfIfd(
             ImageFileDirectory ifd,
-            List<ExifTag>      entries,
-            boolean            add
+            IfdType            ifdType,
+            ExifTags           exifTags
             ) {
 
-        if (add) {
-            addExifTags(ifd, entries);
+        if (!ifdType.equals(IfdType.UNDEFINED)) {
+            addExifTags(ifd, ifdType, exifTags);
         }
 
         for (int i = 0; i < ifd.getIFDCount(); i++) {
             ImageFileDirectory subIfd = ifd.getIFDAt(i);
-            addAllExifTags(subIfd, entries, false); // recursive
+            addTagsOfIfd(subIfd, IfdType.UNDEFINED, exifTags); // recursive
         }
 
         ImageFileDirectory exifIFD = ifd.getExifIFD();
         if (exifIFD != null) {
-            addAllExifTags(exifIFD, entries, true); // recursive
+            addTagsOfIfd(exifIFD, IfdType.EXIF, exifTags); // recursive
         }
 
         ImageFileDirectory gpsIFD = ifd.getGpsIFD();
         if (gpsIFD != null) {
-            addAllExifTags(gpsIFD, entries, true); // recursive
+            addTagsOfIfd(gpsIFD, IfdType.GPS, exifTags); // recursive
+        }
+
+        ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
+        if (interoperabilityIFD != null) {
+            addTagsOfIfd(interoperabilityIFD, IfdType.INTEROPERABILITY, exifTags); // recursive
         }
     }
 
-    private static void addExifTags(ImageFileDirectory ifd, List<ExifTag> exifTags) {
+    private static void addExifTags(ImageFileDirectory ifd, IfdType ifdType, ExifTags exifTags) {
 
         int entryCount = ifd.getEntryCount();
 
@@ -167,7 +184,14 @@ public final class ExifMetadata {
 
             if (ifdEntry != null) {
 
-                exifTags.add(new ExifTag(ifdEntry));
+                ExifTag exifTag = new ExifTag(ifdEntry, ifdType);
+                switch (ifdType) {
+                    case EXIF            : exifTags.addExifTag(exifTag)            ; break;
+                    case GPS             : exifTags.addGpsTag(exifTag)             ; break;
+                    case INTEROPERABILITY: exifTags.addInteroperabilityTag(exifTag); break;
+                    case MAKER_NOTE      : exifTags.addMakerNoteTag(exifTag)       ; break;
+                    default              : assert(false);
+                }
             }
         }
     }
@@ -189,45 +213,84 @@ public final class ExifMetadata {
         return null;
     }
 
-    /**
-     * Returns the EXIF maker note entries from a list of entries.
-     * <p>
-     * Searches the list of entries for the EXIF maker note tag 37500 and
-     * returns all properitary entries.
-     *
-     * @param   exifTags     entries to search
-     * @param   byteOffsetToIfd offset to the TIFF image file directory within the
-     *                      raw value of the entry with the tag 37500
-     * @return              Entries or null
-     */
-    public static List<ExifTag> getExifMakerNoteTagsIn(
-            Collection<ExifTag> exifTags,
-            int                 byteOffsetToIfd
+    private static void addExifMakerNoteTags(ExifTags exifTags) {
+
+        ExifTag makerNoteTag = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE.value());
+
+        if (makerNoteTag != null) {
+            addExifMakerNoteTags(makerNoteTag, exifTags);
+        }
+    }
+
+    private static void addExifMakerNoteTags(
+            ExifTag  exifMakerNote,
+            ExifTags exifTags
             ) {
 
-        List<ExifTag> makerNoteTags = new ArrayList<ExifTag>();
-        ExifTag       exifTag        = getExifTagIn(exifTags, ExifTag.Id.MAKER_NOTE.value());
+        assert exifMakerNote.id().equals(ExifTag.Id.MAKER_NOTE);
 
-        if (exifTag != null)  {
-            byte[] raw   = exifTag.rawValue();
-            byte[] bytes = new byte[raw.length - byteOffsetToIfd];
+        DisplayableExifMakerNote makerNote = DisplayableExifMakerNoteFactory.INSTANCE.get(exifMakerNote.rawValue());
 
-            System.arraycopy(raw, byteOffsetToIfd, bytes, 0, bytes.length);
+        if (makerNote == null) return;
 
-            try {
-                ImageFileDirectory ifd = new ImageFileDirectory(
-                        new ByteArrayRandomAccessIO(bytes), exifTag.byteOrderId());
+        List<ExifTag> allMakerNoteTags = new ArrayList<ExifTag>();
+        int           offset           = makerNote.getByteOffsetToIfd();
 
-                assert ifd.getIFDCount() == 0 : "References " + ifd.getIFDCount() + " other IFDs!";
-                addExifTags(ifd, makerNoteTags);
+        try {
+            byte[] raw   = exifMakerNote.rawValue();
+            byte[] bytes = new byte[raw.length - offset];
 
-                return makerNoteTags;
-            } catch (Exception ex) {
-                AppLog.logSevere(ExifMetadata.class, ex);
+            System.arraycopy(raw, offset, bytes, 0, bytes.length);
+
+            TiffReader r = new TiffReader(bytes);
+            ImageFileDirectory ifd = r.getIFD(0);
+
+            int count = ifd.getEntryCount();
+            for (int i = 0; i < count; i++) {
+                allMakerNoteTags.add(new ExifTag(ifd.getEntryAt(i), IfdType.MAKER_NOTE));
+            }
+
+            exifTags.addMakerNoteTags(
+                    makerNote.getDisplayableMakerNotesOf(allMakerNoteTags));
+            exifTags.setMakerNoteDescription(makerNote.getDescription());
+            mergeMakerNoteTags(exifTags, makerNote.getTagIdsEqualInExifIfd());
+
+        } catch (Exception ex) {
+            AppLog.logSevere(ExifMetadata.class, ex);
+        }
+    }
+
+    private static void mergeMakerNoteTags(ExifTags exifTags, List<Pair<Integer, Integer>> equalTagIds) {
+
+        for (Pair<Integer, Integer> pair : equalTagIds) {
+            ExifTag makerNoteTag = exifTags.makerNoteTagById(pair.getFirst());
+
+            if (makerNoteTag != null) {
+
+                ExifTag exifTag = exifTags.exifTagById(pair.getSecond());
+
+                exifTags.removeMakerNoteTag(makerNoteTag);
+
+                // prefering existing tag
+                if (exifTag == null) {
+
+                    exifTags.addExifTag(
+                            new ExifTag(
+                                pair.getSecond(),
+                                makerNoteTag.dataTypeId(),
+                                makerNoteTag.valueCount(),
+                                makerNoteTag.valueOffset(),
+                                makerNoteTag.rawValue(),
+                                makerNoteTag.stringValue(),
+                                makerNoteTag.byteOrderId(),
+                                makerNoteTag.name(),
+                                IfdType.EXIF
+                            ));
+                }
             }
         }
-        return null;
     }
+
     /**
      * Returns EXIF metadata of a image file.
      * 

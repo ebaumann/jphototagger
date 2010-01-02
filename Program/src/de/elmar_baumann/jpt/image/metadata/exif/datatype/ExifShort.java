@@ -79,6 +79,26 @@ public final class ExifShort {
     }
 
     @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+
+        if (getClass() != obj.getClass()) return false;
+
+        final ExifShort other = (ExifShort) obj;
+
+        return this.value == other.value;
+    }
+
+    @Override
+    public int hashCode() {
+
+        final int hash = 5;
+
+        return 59 * hash + this.value;
+    }
+
+    @Override
     public String toString() {
         return Integer.toString(value);
     }

@@ -32,14 +32,14 @@ public final class ExifCopyrightFormatter extends ExifFormatter {
 
     public static final ExifCopyrightFormatter INSTANCE = new ExifCopyrightFormatter();
 
-    private ExifCopyrightFormatter() {
-    }
-
     @Override
     public String format(ExifTag exifTag) {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.COPYRIGHT);
 
         return ExifCopyright.photographerCopyright(exifTag.rawValue());
+    }
+
+    private ExifCopyrightFormatter() {
     }
 }

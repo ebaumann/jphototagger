@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.lib.lang.Util;
@@ -50,11 +51,11 @@ public final class ExifFormatterFlash extends ExifFormatter {
             boolean   hasFlash  = !bitsByte1[5];
 
             if (!hasFlash) {
-                return TRANSLATION.translate("FlashNone");
+                return translate(IfdType.EXIF, "FlashNone");
             }
             return fired
-                   ? TRANSLATION.translate("FlashFired")
-                   : TRANSLATION.translate("FlashNotFired");
+                   ? translate(IfdType.EXIF, "FlashFired")
+                   : translate(IfdType.EXIF, "FlashNotFired");
         }
         return ExifAscii.decode(rawValue);
     }

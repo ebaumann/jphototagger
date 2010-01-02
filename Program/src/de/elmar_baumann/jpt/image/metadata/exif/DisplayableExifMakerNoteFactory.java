@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.image.metadata.exif.tag;
+package de.elmar_baumann.jpt.image.metadata.exif;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,11 +28,11 @@ import java.util.ResourceBundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-30
  */
-public final class ExifMakerNoteFactory {
+final class DisplayableExifMakerNoteFactory {
 
-    public static final  ExifMakerNoteFactory      INSTANCE             = new ExifMakerNoteFactory();
+    static final         DisplayableExifMakerNoteFactory      INSTANCE             = new DisplayableExifMakerNoteFactory();
     private static final String                    PROPERTY_FILE_PREFIX = "de/elmar_baumann/jpt/resource/properties/ExifMakerNote_";
-    private static final Collection<ExifMakerNote> MAKER_NOTES          = new ArrayList<ExifMakerNote>();
+    private static final Collection<DisplayableExifMakerNote> MAKER_NOTES          = new ArrayList<DisplayableExifMakerNote>();
 
     static {
         
@@ -45,23 +45,22 @@ public final class ExifMakerNoteFactory {
                 // as stop criteria or even better: Reading the package content
                 // and getting all names of property files starting with
                 // "ExifMakerNote_" and load them
-                ResourceBundle bundle = ResourceBundle.getBundle(
-                            PROPERTY_FILE_PREFIX + Integer.toString(index++));
-                MAKER_NOTES.add(new ExifMakerNote(bundle));
+                ResourceBundle bundle = ResourceBundle.getBundle(PROPERTY_FILE_PREFIX + Integer.toString(index++));
+                MAKER_NOTES.add(new DisplayableExifMakerNote(bundle));
             } catch (Exception ex) {
                 exists = false;
             }
         }
     }
 
-    public ExifMakerNote get(byte[] rawValue) {
-        for (ExifMakerNote makerNote : MAKER_NOTES) {
-            if (makerNote.matches(rawValue)) return makerNote;
+    DisplayableExifMakerNote get(byte[] rawValue) {
+        for (DisplayableExifMakerNote makerNote : MAKER_NOTES) {
+            if (makerNote.matchesMagicBytePattern(rawValue)) return makerNote;
         }
         return null;
     }
 
-    private ExifMakerNoteFactory() {
+    private DisplayableExifMakerNoteFactory() {
     }
 
 }

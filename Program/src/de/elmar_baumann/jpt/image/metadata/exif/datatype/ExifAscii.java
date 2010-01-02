@@ -56,6 +56,22 @@ public final class ExifAscii {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        final ExifAscii other = (ExifAscii) obj;
+        if ((this.value == null) ? (other.value != null) : !this.value.equals(other.value)) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + (this.value != null ? this.value.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
     public String toString() {
         return value;
     }

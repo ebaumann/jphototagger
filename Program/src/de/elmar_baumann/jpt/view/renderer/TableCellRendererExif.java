@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.metadata.selections.ExifInDatabase;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTagValueFormatter;
 import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
@@ -65,9 +66,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
             setIsStoredInDatabaseColor(cellLabel, exifTag, isSelected); // override maker note (more important)
 
             if (column == 0) {
-                String translated = TRANSLATION.translate(
-                                        Integer.toString(exifTag.idValue()),
-                                        exifTag.name());
+                String translated = getTagName(exifTag);
                 TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                         translated.trim(),
                         AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
@@ -93,9 +92,17 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
         return cellLabel;
     }
 
+    private String getTagName(ExifTag exifTag) {
+        String tagName = exifTag.name();
+
+        if (exifTag.ifdType().equals(IfdType.MAKER_NOTE)) return tagName;
+
+        return TRANSLATION.translate(Integer.toString(exifTag.idValue()), tagName);
+    }
+
     private void setIsMakerNoteTagColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
 
-        if (exifTag.idValue() >= ExifTag.Id.DISPLAYABLE_MAKER_NOTE.value()) {
+        if (exifTag.ifdType().equals(IfdType.MAKER_NOTE)) {
             setIsExifMakerNoteColors(cellLabel, isSelected);
         }
     }

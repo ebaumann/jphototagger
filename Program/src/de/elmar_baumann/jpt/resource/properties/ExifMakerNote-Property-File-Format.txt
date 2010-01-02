@@ -1,8 +1,9 @@
 Format of a ExifMakerNote property file
 ---------------------------------------
 
-Only usable when the maker note EXIF raw data contains a standard TIFF
-directory beginning at a specific offset. The maker note has the  tag ID 37500.
+Only usable if the maker note EXIF raw data contains a standard TIFF header
+which references a TIFF image file directory (IFD) beginning at a specific
+offset. The maker note has the  tag ID 37500.
 
 Every property file *must* have the name "ExifMakerNote_[0-9]+\.properties",
 e.g. "ExifMakerNote_0.properties" and:
@@ -21,37 +22,48 @@ e.g. "ExifMakerNote_0.properties" and:
 
 Alle required property keys and their values are described in this file.
 
-MagicBytePatterns  : All first Bytes in the EXIF tag 37500 raw data identifying
-                     a specific Maker Note, e.g. "Nikon Type 3 Maker Note".
-                     Every byte is notated hexadecimal *without* 0x at begin.
-                     The bytes are separated by commas. Multiple patterns
-                     describing the same Maker note type can be separated by
-                     semicolons.
+Description           : *Unique* Description (shall be used to identify tags
+                        for database storage because the tag ids are depending
+                        on a specific marker note, even within the same
+                        company, e.g. Nikon)
 
-ByteOffsetToTiffIfd: Byte offset to the IFD (TIFF Image File Directory) in the
-                       EXIF tag 37500 raw data. If the offset depends on the magic
-                       byte pattern a separate property file has to be created.
+MagicBytePatterns     : All first Bytes in the EXIF tag 37500 raw data identifying
+                        a specific Maker Note, e.g. "Nikon Type 3 Maker Note".
+                        Every byte is notated hexadecimal *without* 0x at begin.
+                        The bytes are separated by commas. Multiple patterns
+                        describing the same Maker note type can be separated by
+                        semicolons.
 
-Tag[0-9]+          : Tag number whitin the marker notes IFD. Semicolon separated:
-                     1. Zero based offset in bytes to the raw value as decimal
-                        integer. E.g. if the raw data contains 4 Bytes but only
-                        the last two bytes shoul be read, the offset is 2
-                     2. Bytes to read from offset in 1. or the string value
-                        "all" if all bytes shall be read
-                     3. EXIF data type: A full qualified path to a
-                        de.elmar_baumann.jpt.image.metadata.exif.datatype class
-                     4. String "null" or fully qualified path to a formatter
-                        to use for formatting the raw value. This value will be
-                        displayed. That formatter has to implement the interface
-                        de.elmar_baumann.jpt.image.metadata.exif.formatter.ExifRawValueFormatter.
-                        If no formatter is specified ("null") then the
-                        toString() method of the EXIF data type in 3. will be
-                        called.
-                     5. Empty or an existing EXIF tag ID that is equals to that
-                        proprietary tag. E.g. the Nikon D70 does not set the
-                        ISO speed rating to the correct EXIF tag but to a
-                        proprietary marker note. If the field is not empty a
-                        valid EXIF tag can be created from that proprietary tag.
+ByteOffsetToTiffHeader: Byte offset to the TIFF header in the EXIF tag 37500 raw
+                        data. If the offset depends on the magic byte pattern, a
+                        separate property file has to be created.
+
+Tag[0-9]+             : Tag number whitin the marker notes IFD. Semicolon
+                        separated, strings are case sensitive:
+                        1. Zero based offset in bytes to the raw value as
+                           decimal integer. E.g. if the raw data contains
+                           4 Bytes but only the last two bytes shoul be read,
+                           the offset is 2
+                        2. Bytes to read from offset in 1. or the string value
+                           "all" if all bytes shall be read
+                        3. EXIF data type: A full qualified path to a
+                           de.elmar_baumann.jpt.image.metadata.exif.datatype
+                           class. If the data type is undefined, use the class
+                           de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii
+                        4. String "null" or fully qualified path to a formatter
+                           to use for formatting the raw value. This value will
+                           be displayed. That formatter has to implement the
+                           interface
+                           de.elmar_baumann.jpt.image.metadata.exif.formatter.ExifRawValueFormatter.
+                           If no formatter is specified ("null") then the
+                           toString() method of the EXIF data type in 3. will be
+                           used.
+                        5. Empty or an existing EXIF tag ID that is equals to
+                           that proprietary tag within the EXIF IFD.
+                           E.g. the Nikon D70 does not set the ISO speed rating
+                           to the correct EXIF tag but to a proprietary marker
+                           note. If the field is not empty a valid EXIF tag can
+                           be created from that proprietary tag.
 
 Every "Tag[0-9]+" key must have a property key in that properties file for
 displaying it's tag name. The property key name has to be "Tag[0-9]+DisplayName"

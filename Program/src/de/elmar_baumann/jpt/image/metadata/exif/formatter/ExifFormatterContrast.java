@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import java.util.HashMap;
@@ -41,9 +42,6 @@ public final class ExifFormatterContrast extends ExifFormatter {
         EXIF_KEY_OF_CONTRAST.put(2, "ContrastHigh");
     }
 
-    private ExifFormatterContrast() {
-    }
-
     @Override
     public String format(ExifTag exifTag) {
 
@@ -55,9 +53,12 @@ public final class ExifFormatterContrast extends ExifFormatter {
             int       value = es.value();
 
             if (EXIF_KEY_OF_CONTRAST.containsKey(value)) {
-                return TRANSLATION.translate(EXIF_KEY_OF_CONTRAST.get(value));
+                return translate(IfdType.EXIF, EXIF_KEY_OF_CONTRAST.get(value));
             }
         }
         return "?";
+    }
+
+    private ExifFormatterContrast() {
     }
 }

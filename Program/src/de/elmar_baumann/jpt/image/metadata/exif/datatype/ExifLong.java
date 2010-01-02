@@ -83,4 +83,24 @@ public final class ExifLong {
     public String toString() {
         return Integer.toString(value);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+
+        if (getClass() != obj.getClass()) return false;
+
+        final ExifLong other = (ExifLong) obj;
+
+        return this.value == other.value;
+    }
+
+    @Override
+    public int hashCode() {
+
+        final int hash = 7;
+
+        return 71 * hash + this.value;
+    }
 }
