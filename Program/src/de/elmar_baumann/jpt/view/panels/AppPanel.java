@@ -1247,7 +1247,6 @@ public final class AppPanel extends javax.swing.JPanel implements
         labelError.setOpaque(true);
         labelError.setPreferredSize(new java.awt.Dimension(12, 12));
 
-        progressBar.setToolTipText(AppTexts.TOOLTIP_TEXT_PROGRESSBAR_DIRECTORY);
         progressBar.setMaximumSize(new java.awt.Dimension(300, 14));
         progressBar.setName("progressBar"); // NOI18N
 
