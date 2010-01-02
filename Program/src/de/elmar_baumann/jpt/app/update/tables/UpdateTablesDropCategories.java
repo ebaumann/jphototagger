@@ -42,6 +42,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+// Unproper handling if only one of the two actions completed
 /**
  * 
  *
@@ -59,11 +60,25 @@ final class UpdateTablesDropCategories {
         messages.message(Bundle.getString("UpdateTablesDropCategories.Info"));
         messages.setIndeterminate(true);
 
-        if (saveCategoriesToFile(connection)) {
+        if (!categoriesAlreadyDropped(connection) && saveCategoriesToFile(connection)) {
             updateDatabase(connection);
             fixSavedSearches(connection);
         }
         messages.setIndeterminate(false);
+    }
+
+    private boolean categoriesAlreadyDropped(Connection connection) throws SQLException {
+        return
+            !DatabaseMetadata.INSTANCE.existsColumn(
+                connection,
+                "xmp",
+                "photoshop_category"
+                ) ||
+            !DatabaseMetadata.INSTANCE.existsColumn(
+                connection,
+                "xmp_photoshop_supplementalcategories",
+                "supplementalcategory"
+                );
     }
 
     private boolean saveCategoriesToFile(Connection connection) throws SQLException {
