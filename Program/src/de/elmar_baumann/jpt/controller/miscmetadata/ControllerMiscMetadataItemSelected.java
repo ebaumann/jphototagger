@@ -93,8 +93,8 @@ public final class ControllerMiscMetadataItemSelected implements
         }
 
         private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
+            Object userObject = node.getUserObject();
             if (node.isLeaf()) {
-                Object userObject       = node.getUserObject();
                 Object parentUserObject = ((DefaultMutableTreeNode) node.getParent()).getUserObject();
                 if (parentUserObject instanceof Column) {
                     Column column = (Column) parentUserObject;
@@ -106,6 +106,12 @@ public final class ControllerMiscMetadataItemSelected implements
                 } else {
                     setTitle();
                 }
+            } else if (userObject instanceof Column) {
+                Column column = (Column) userObject;
+                setTitle(column);
+                thumbnailsPanel.setFiles(
+                        DatabaseImageFiles.INSTANCE.getFilesColumnNotNull(column),
+                        Content.MISC_METADATA);
             } else {
                 thumbnailsPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);
                 setTitle();
@@ -113,8 +119,12 @@ public final class ControllerMiscMetadataItemSelected implements
         }
 
         private void setTitle() {
+            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata"));
+        }
+
+        private void setTitle(Column column) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("AppFrame.Title.Metadata"));
+                    Bundle.getString("AppFrame.Title.Metadata.Column", column.getDescription()));
         }
 
         private void setTitle(Column column, Object userObject) {

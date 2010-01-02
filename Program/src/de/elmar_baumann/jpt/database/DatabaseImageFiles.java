@@ -1557,6 +1557,46 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
+     * Returns files with specific values (where the column is not null), e.g.
+     * files with ISO speed ratings in the EXIF table.
+     *
+     * @param  column column of a table which can be joined through a column
+     *                named <code>id_files</code> with the table files, column
+     *                <code>id</code>
+     * @return        all distinct files with values in that column
+     */
+    public List<File> getFilesColumnNotNull(Column column) {
+        assert !column.isForeignKey() : column;
+        List<File> files = new ArrayList<File>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String tableName = column.getTable().getName();
+            String columnName = column.getName();
+            String sql =
+                    "SELECT DISTINCT files.filename" +
+                    " FROM " + tableName +
+                    " INNER JOIN files" +
+                    " ON " + tableName + ".id_files = files.id" +
+                    " WHERE " + tableName + "." + columnName +
+                    " IS NOT NULL" +
+                    " ORDER BY files.filename ASC";
+            Statement stmt = connection.createStatement();
+            logFinest(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                files.add(new File(rs.getString(1)));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return files;
+    }
+
+    /**
      * Returns files where:
      *
      * <ul>
