@@ -49,10 +49,10 @@ final class UpdateTablesAddColumns {
                 "action",
                 "BOOLEAN",
                 new IndexOfColumn(
-                "programs",
-                "action",
-                "idx_programs_action",
-                false)));
+                    "programs",
+                    "action",
+                    "idx_programs_action",
+                    false)));
         columns.add(new ColumnInfo("programs",
                 "input_before_execute",
                 "BOOLEAN",
@@ -87,10 +87,10 @@ final class UpdateTablesAddColumns {
                 "real",
                 "BOOLEAN",
                 new IndexOfColumn(
-                "hierarchical_subjects",
-                "real",
-                "idx_hierarchical_subjects_real",
-                false)));
+                    "hierarchical_subjects",
+                    "real",
+                    "idx_hierarchical_subjects_real",
+                    false)));
         columns.add(new ColumnInfo(
                 "xmp",
                 "rating",
@@ -101,6 +101,15 @@ final class UpdateTablesAddColumns {
                 "rating",
                 "BINARY",
                 null));
+        columns.add(new ColumnInfo(
+                "exif",
+                "exif_lens",
+                "VARCHAR_IGNORECASE(256)",
+                new IndexOfColumn(
+                    "exif",
+                    "exif_lens",
+                    "idx_exif_lens",
+                    false)));
     }
 
     void update(Connection connection) throws SQLException {

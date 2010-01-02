@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
+import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
@@ -74,6 +75,7 @@ public final class AdvancedSearchColumns {
         COLUMNS.add(ColumnXmpRating.INSTANCE);
         COLUMNS.add(ColumnExifDateTimeOriginal.INSTANCE);
         COLUMNS.add(ColumnExifFocalLength.INSTANCE);
+        COLUMNS.add(ColumnExifLens.INSTANCE);
         COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
         COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
         COLUMNS.add(ColumnFilesFilename.INSTANCE);

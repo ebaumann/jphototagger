@@ -28,10 +28,11 @@ import java.sql.Date;
  */
 public final class Exif {
 
-    private Date dateTimeOriginal;
+    private Date   dateTimeOriginal;
     private double focalLength = -1;
-    private short isoSpeedRatings = -1;
+    private short  isoSpeedRatings = -1;
     private String recordingEquipment;
+    private String lens;
 
     /**
      * Returns the date when the image was created.
@@ -110,6 +111,14 @@ public final class Exif {
                 recordingEquipment.equals("0")
                                   ? null
                                   : recordingEquipment;
+    }
+
+    public String getLens() {
+        return lens;
+    }
+
+    public void setLens(String lens) {
+        this.lens = lens;
     }
 
     /**

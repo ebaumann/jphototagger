@@ -75,6 +75,7 @@ public final class ExifTag {
          * grater than this value will be displayed.
          */
         DISPLAYABLE_MAKER_NOTE    (3750000),
+        MAKER_NOTE_LENS           (3750010),
         METERING_MODE             (37383),
         FLASH                     (37385),
         FOCAL_LENGTH              (37386),

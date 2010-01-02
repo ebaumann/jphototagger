@@ -1304,45 +1304,52 @@ public final class DatabaseImageFiles extends Database {
                 ", exif_date_time_original" +  // -- 3 --
                 ", exif_focal_length" +        // -- 4 --
                 ", exif_iso_speed_ratings" +   // -- 5 --
+                ", exif_lens" +                // -- 6 --
                 ")" +
-                " VALUES (?, ?, ?, ?, ?)";
+                " VALUES (?, ?, ?, ?, ?, ?)";
     }
 
     private void setExifValues(
-            PreparedStatement stmt, long idFile, Exif exifData)
+            PreparedStatement stmt, long idFile, Exif exif)
             throws SQLException {
 
         stmt.setLong(1, idFile);
-        String recordingEquipment = exifData.getRecordingEquipment();
+        String recordingEquipment = exif.getRecordingEquipment();
         if (recordingEquipment == null || recordingEquipment.trim().isEmpty()) {
             stmt.setNull(2, java.sql.Types.VARCHAR);
         } else {
             stmt.setString(2, recordingEquipment);
         }
-        Date date = exifData.getDateTimeOriginal();
+        Date date = exif.getDateTimeOriginal();
         if (date == null) {
             stmt.setNull(2, java.sql.Types.DATE);
         } else {
             stmt.setDate(3, date);
         }
-        double focalLength = exifData.getFocalLength();
+        double focalLength = exif.getFocalLength();
         if (focalLength > 0) {
             stmt.setDouble(4, focalLength);
         } else {
             stmt.setNull(4, java.sql.Types.DOUBLE);
         }
-        short iso = exifData.getIsoSpeedRatings();
+        short iso = exif.getIsoSpeedRatings();
         if (iso > 0) {
             stmt.setShort(5, iso);
         } else {
             stmt.setNull(5, java.sql.Types.SMALLINT);
         }
+        String lens = exif.getLens();
+        if (lens == null) {
+            stmt.setNull(6, java.sql.Types.VARCHAR);
+        } else {
+            stmt.setString(6, lens);
+        }
     }
 
-    private void updateExif(Connection connection, long idFile, Exif exifData)
+    private void updateExif(Connection connection, long idFile, Exif exif)
             throws SQLException {
 
-        if (exifData != null) {
+        if (exif != null) {
             long idExif = getIdExifFromIdFile(connection, idFile);
             if (idExif > 0) {
                 PreparedStatement stmt = connection.prepareStatement(
@@ -1352,17 +1359,17 @@ public final class DatabaseImageFiles extends Database {
                 stmt.executeUpdate();
                 stmt.close();
             }
-            insertExif(connection, idFile, exifData);
+            insertExif(connection, idFile, exif);
         }
     }
 
-    private void insertExif(Connection connection, long idFile, Exif exifData)
+    private void insertExif(Connection connection, long idFile, Exif exif)
             throws SQLException {
 
-        if (exifData != null && !exifData.isEmpty()) {
+        if (exif != null && !exif.isEmpty()) {
             PreparedStatement stmt =
                     connection.prepareStatement(getInsertIntoExifStatement());
-            setExifValues(stmt, idFile, exifData);
+            setExifValues(stmt, idFile, exif);
             logFiner(stmt);
             stmt.executeUpdate();
             stmt.close();
@@ -1621,6 +1628,7 @@ public final class DatabaseImageFiles extends Database {
                 exif.setDateTimeOriginal(rs.getDate(2));
                 exif.setFocalLength(rs.getDouble(3));
                 exif.setIsoSpeedRatings(rs.getShort(4));
+                exif.setLens(rs.getString(5));
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -1633,10 +1641,11 @@ public final class DatabaseImageFiles extends Database {
 
     private String getExifOfFileStatement() {
         return "SELECT" +
-                " exif_recording_equipment" + // -- 1 --
+                " exif_recording_equipment" +      // -- 1 --
                 ", exif.exif_date_time_original" + // -- 2 --
-                ", exif.exif_focal_length" + // -- 3 --
-                ", exif.exif_iso_speed_ratings" + // -- 4 --
+                ", exif.exif_focal_length" +       // -- 3 --
+                ", exif.exif_iso_speed_ratings" +  // -- 4 --
+                ", exif.exif_lens" +               // -- 5 --
                 " FROM files INNER JOIN exif" +
                 " ON files.id = exif.id_files" +
                 " AND files.filename = ?";

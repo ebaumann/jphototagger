@@ -61,6 +61,7 @@ public final class ExifTagsToDisplay {
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.USER_COMMENT.value());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.WHITE_BALANCE.value());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.SPECTRAL_SENSITIVITY.value());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.MAKER_NOTE_LENS.value());
 
         ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Id.GPS_DATE_STAMP.value());
         ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Id.GPS_SATELLITES.value());

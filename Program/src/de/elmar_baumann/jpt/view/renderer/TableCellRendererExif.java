@@ -109,7 +109,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
 
     private void setIsStoredInDatabaseColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
 
-        if (ExifInDatabase.isInDatabase(exifTag.idValue())) {
+        if (ExifInDatabase.isInDatabase(exifTag.ifdType(), exifTag.id())) {
             setIsStoredInDatabaseColors(cellLabel, isSelected);
         }
     }

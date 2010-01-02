@@ -48,11 +48,11 @@ public final class ExifThumbnailUtil {
     /**
      * Returns the rotation angle of an embedded thumbnail.
      *
-     * @param  exifTags EXIF tags
-     * @return          rotation angle
+     * @param  exifTag EXIF tag
+     * @return         rotation angle
      */
-    public static double getThumbnailRotationAngle(List<ExifTag> exifTags) {
-        ExifTag exifTag = ExifMetadata.getExifTagIn(exifTags, 274);
+    public static double getThumbnailRotationAngle(ExifTag exifTag) {
+        assert exifTag == null || exifTag.idValue() == 274;
         if (exifTag != null) {
             Double angle = ROTATION_ANGLE_OF_STRING.get(exifTag.stringValue());
             if (angle == null) {
