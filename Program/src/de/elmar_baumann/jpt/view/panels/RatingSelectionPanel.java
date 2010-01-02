@@ -28,7 +28,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -52,7 +54,9 @@ public class RatingSelectionPanel
     private       boolean                  editable;
     private       int                      value                     = 0;
     private       JButton                  buttons[]                 = new JButton[5];
+    private       JButton                  lastClickedButton;
     private       TextEntryListenerSupport textEntryListenerSupport  = new TextEntryListenerSupport();
+    private final Map<JButton, String>     textOfButton              = new HashMap<JButton, String>();
 
     public RatingSelectionPanel(Column column) {
         this.column = column;
@@ -68,6 +72,16 @@ public class RatingSelectionPanel
         buttons[3] = buttonStar4;
         buttons[4] = buttonStar5;
         setPropmt();
+        setTextOfButtonMap();
+    }
+
+    private void setTextOfButtonMap() {
+        textOfButton.put(buttonStar1   , "1");
+        textOfButton.put(buttonStar2   , "2");
+        textOfButton.put(buttonStar3   , "3");
+        textOfButton.put(buttonStar4   , "4");
+        textOfButton.put(buttonStar5   , "5");
+        textOfButton.put(buttonNoRating, "" );
     }
 
     private void setPropmt() {
@@ -90,7 +104,6 @@ public class RatingSelectionPanel
     }
 
     @Override
-    @SuppressWarnings("empty-statement")
     public void setText(String text) {
         int val = 0;
         try {
@@ -188,11 +201,18 @@ public class RatingSelectionPanel
     @Override
     public List<Component> getInputComponents() {
         return Arrays.asList(
+                (Component)buttonNoRating,
                 (Component)buttonStar1,
                 (Component)buttonStar2,
                 (Component)buttonStar3,
                 (Component)buttonStar4,
                 (Component)buttonStar5);
+    }
+
+    public void repeatLastClick() {
+        if (lastClickedButton != null) {
+            handleButtonPressed(lastClickedButton);
+        }
     }
 
     @Override
@@ -209,6 +229,23 @@ public class RatingSelectionPanel
         for (Component component : inputComponents) {
             component.removeMouseListener(l);
         }
+    }
+
+    private void handleButtonPressed(JButton button) {
+
+        assert textOfButton.containsKey(button);
+
+        lastClickedButton = button;
+
+        if (!editable) return;
+
+        String oldVal = getText();
+
+        setText(textOfButton.get(button));
+
+        dirty = true;
+
+        notifyTextChanged(column, oldVal, getText());
     }
 
     /** This method is called from within the constructor to
@@ -336,45 +373,27 @@ public class RatingSelectionPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonNoRatingMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonNoRatingMousePressed
-        String oldVal = getText();
-        setText("");
-        dirty = true;
-        notifyTextChanged(column, oldVal, getText());
+        handleButtonPressed((JButton) evt.getSource());
     }//GEN-LAST:event_buttonNoRatingMousePressed
 
     private void buttonStar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar1MousePressed
-        String oldVal = getText();
-        setText("1");
-        dirty = true;
-        notifyTextChanged(column, oldVal, getText());
+        handleButtonPressed((JButton) evt.getSource());
     }//GEN-LAST:event_buttonStar1MousePressed
 
     private void buttonStar2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar2MousePressed
-        String oldVal = getText();
-        setText("2");
-        dirty = true;
-        notifyTextChanged(column, oldVal, getText());
+        handleButtonPressed((JButton) evt.getSource());
     }//GEN-LAST:event_buttonStar2MousePressed
 
     private void buttonStar3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar3MousePressed
-        String oldVal = getText();
-        setText("3");
-        dirty = true;
-        notifyTextChanged(column, oldVal, getText());
+        handleButtonPressed((JButton) evt.getSource());
     }//GEN-LAST:event_buttonStar3MousePressed
 
     private void buttonStar4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar4MousePressed
-        String oldVal = getText();
-        setText("4");
-        dirty = true;
-        notifyTextChanged(column, oldVal, getText());
+        handleButtonPressed((JButton) evt.getSource());
     }//GEN-LAST:event_buttonStar4MousePressed
 
     private void buttonStar5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar5MousePressed
-        String oldVal = getText();
-        setText("5");
-        dirty = true;
-        notifyTextChanged(column, oldVal, getText());
+        handleButtonPressed((JButton) evt.getSource());
     }//GEN-LAST:event_buttonStar5MousePressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNoRating;
