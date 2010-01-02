@@ -54,6 +54,9 @@ public final class DatabaseMetadata extends Database {
 
     public boolean existsColumn(
             Connection connection, String tableName, String columnName) throws SQLException {
+
+        if (!existsTable(connection, tableName)) return false;
+
         boolean exists = false;
         Statement         stmt        = connection.createStatement();
         String            sql         = "select * from " + tableName + " WHERE 1 = 0"; // "WHERE 1 = 0": speed, memory!
