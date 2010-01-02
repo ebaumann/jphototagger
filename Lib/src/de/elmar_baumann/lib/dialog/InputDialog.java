@@ -2,6 +2,7 @@ package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.util.Settings;
+import java.awt.event.KeyEvent;
 import java.util.Properties;
 
 /**
@@ -111,6 +112,11 @@ public class InputDialog extends Dialog {
         textFieldInput.requestFocusInWindow();
     }
 
+    private void setAccepted(boolean accepted) {
+        this.accepted = accepted && !textFieldInput.getText().trim().isEmpty();
+        setVisible(false);
+    }
+
     private void writeProperties() {
         if (settings != null && propertyKey != null) {
             settings.setSize    (this, propertyKey);
@@ -120,8 +126,7 @@ public class InputDialog extends Dialog {
 
     @Override
     protected void escape() {
-        accepted = false;
-        setVisible(false);
+        setAccepted(accepted);
     }
 
     /** This method is called from within the constructor to
@@ -143,6 +148,12 @@ public class InputDialog extends Dialog {
         setTitle(bundle.getString("InputDialog.title")); // NOI18N
 
         labelPrompt.setText(bundle.getString("InputDialog.labelPrompt.text")); // NOI18N
+
+        textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldInputKeyPressed(evt);
+            }
+        });
 
         buttonCancel.setMnemonic('a');
         buttonCancel.setText(bundle.getString("InputDialog.buttonCancel.text")); // NOI18N
@@ -193,14 +204,18 @@ public class InputDialog extends Dialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
-        accepted = true;
-        setVisible(false);
+        setAccepted(true);
     }//GEN-LAST:event_buttonOkActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        accepted = false;
-        setVisible(false);
+        setAccepted(false);
     }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            setAccepted(true);
+        }
+    }//GEN-LAST:event_textFieldInputKeyPressed
 
     /**
     * @param args the command line arguments
