@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import java.util.HashMap;
@@ -56,7 +57,7 @@ public final class ExifFormatterSaturation extends ExifFormatter {
             int       value = es.value();
 
             if (exifKeyOfSaturation.containsKey(value)) {
-                return TRANSLATION.translate(exifKeyOfSaturation.get(value));
+                return translate(IfdType.EXIF, exifKeyOfSaturation.get(value));
             }
         }
         return "?";

@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 
 /**
@@ -46,7 +47,7 @@ public final class ExifFormatterFileSource extends ExifFormatter {
             int value = rawValue[0];
 
             if (value == 3) {
-                return TRANSLATION.translate("FileSourceDigitalCamera");
+                return translate(IfdType.EXIF, "FileSourceDigitalCamera");
             }
         }
         return "?";

@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.image.metadata.exif;
 
 import com.imagero.reader.tiff.IFDEntry;
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDataType;
 import java.nio.ByteOrder;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ import java.util.Map;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-15
  */
-public final class ExifTag implements Comparable<ExifTag> {
+public final class ExifTag {
 
     /**
      * Human understandable tag IDs (rather than the integer IDs).
@@ -127,51 +128,77 @@ public final class ExifTag implements Comparable<ExifTag> {
 
     static {
         for (ExifDataType type : ExifDataType.values()) {
-            DATA_TYPE_OF_TAG_ID.put(type.getValue(), type);
+            DATA_TYPE_OF_TAG_ID.put(type.value(), type);
         }
     }
 
+    /**
+     * IFD where the tag comes from
+     */
+    private final IfdType ifdType;
+
+    /**
+     * Tag identifier, bytes 0 - 1 in the IFD entry
+     */
     private final int    idValue;
-    private final int    valueCount;
-    private final long   fileOffset;
+    /**
+     * Data type identifier, bytes 2 - 3 in the IFD entry
+     */
     private final int    dataTypeId;
+    /**
+     * Value count, bytes 4 - 7 in the IFD entry
+     *
+     * (!= byte count, 1 SHORT == value count of 1 even it requires 2 bytes of
+     * storage)
+     */
+    private final int    valueCount;
+    /**
+     * Offset in bytes from the TIFF header to the value, bytes 8 - 11 in the
+     * IFD entry. If the value fits in 4 bytes the value itself, starting from
+     * left.
+     */
+    private final long   valueOffset;
     private       byte[] rawValue;
     private final String stringValue;
     private final String name;
     private final int    byteOrderId;
 
-    public ExifTag(IFDEntry entry) {
-            idValue     = entry.getTag();
-            valueCount  = entry.getCount();
-            fileOffset  = entry.getValueOffset();
-            dataTypeId  = entry.getType();
-            name        = entry.getEntryMeta().getName();
-            byteOrderId = entry.parent.getByteOrder();
-            rawValue    = rawValueDeepCopy(entry);
-            stringValue = entry.toString();
+    public ExifTag(IFDEntry entry, ExifMetadata.IfdType ifdType) {
+            idValue      = entry.getTag();
+            valueCount   = entry.getCount();
+            valueOffset  = entry.getValueOffset();
+            dataTypeId   = entry.getType();
+            name         = entry.getEntryMeta().getName();
+            byteOrderId  = entry.parent.getByteOrder();
+            rawValue     = rawValueDeepCopy(entry);
+            stringValue  = entry.toString();
+            this.ifdType = ifdType;
     }
 
     public ExifTag(
-            int    tagId,
-            int    dataTypeId,
-            int    valueCount,
-            long   fileOffset,
-            byte[] rawValue,
-            String stringValue,
-            int    byteOrderId,
-            String name
+            int                  tagId,
+            int                  dataTypeId,
+            int                  valueCount,
+            long                 valueOffset,
+            byte[]               rawValue,
+            String               stringValue,
+            int                  byteOrderId,
+            String               name,
+            ExifMetadata.IfdType ifdType
             ) {
         this.idValue     = tagId;
         this.dataTypeId  = dataTypeId;
         this.valueCount  = valueCount;
-        this.fileOffset  = fileOffset;
+        this.valueOffset  = valueOffset;
         this.rawValue    = rawValue;
         this.stringValue = stringValue;
         this.name        = name;
         this.byteOrderId = byteOrderId;
+        this.ifdType     = ifdType;
     }
 
     public ByteOrder byteOrder() {
+        // 0x4949 (18761) == little endian, 0x4D4D (19789) == big endian
         return byteOrderId == 18761
                 ? ByteOrder.LITTLE_ENDIAN
                 : ByteOrder.BIG_ENDIAN;
@@ -201,8 +228,12 @@ public final class ExifTag implements Comparable<ExifTag> {
         return Id.fromValue(idValue);
     }
 
-    public long fileOffset() {
-        return fileOffset;
+    public IfdType ifdType() {
+        return ifdType;
+    }
+
+    public long valueOffset() {
+        return valueOffset;
     }
 
     public int valueCount() {
@@ -235,28 +266,45 @@ public final class ExifTag implements Comparable<ExifTag> {
         return t;
     }
 
-    /**
-     * Compares the ID values.
-     *
-     * @param  otherTag other tag
-     * @return          see interface doc
-     */
     @Override
-    public int compareTo(ExifTag otherTag) {
-        return idValue - otherTag.idValue;
+    public String toString() {
+        return name == null ? " Undefined " : name;
     }
 
     @Override
-    public String toString() {
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+
+        if (getClass() != obj.getClass()) return false;
+
+        final ExifTag other = (ExifTag) obj;
+
+        assert ifdType != null && other.ifdType != null;
+
+        return ifdType.equals(other.ifdType) &&
+               idValue == other.idValue;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + (this.ifdType != null ? this.ifdType.hashCode() : 0);
+        hash = 13 * hash + this.idValue;
+        return hash;
+    }
+
+    public String info() {
         return "EXIF Tag [" +
                                     "ID: " + idValue +
                                 ", Name: " + (name   == null ? " Undefined " : name) +
                     ", Number of values: " + valueCount +
-                         ", File offset: " + fileOffset +
+                        ", Value offset: " + valueOffset +
                            ", Data type: " + dataType().toString() +
                 ", Raw value byte count: " + (rawValue == null ? 0 : rawValue.length) +
                           ", Byte order: " + byteOrder().toString() +
                         ", String Value: " + (stringValue == null ? "" : stringValue) +
+                            ", IFD Type: " + ifdType.toString() +
                 "]"
                 ;
     }

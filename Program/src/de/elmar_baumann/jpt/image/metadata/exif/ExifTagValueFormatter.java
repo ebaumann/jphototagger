@@ -35,7 +35,7 @@ public final class ExifTagValueFormatter {
      * @return         formatted tag value
      */
     public static String format(ExifTag exifTag) {
-        ExifFormatter formatter = ExifFormatterFactory.get(exifTag.idValue());
+        ExifFormatter formatter = ExifFormatterFactory.get(exifTag);
         if (formatter != null) {
             return formatter.format(exifTag);
         }

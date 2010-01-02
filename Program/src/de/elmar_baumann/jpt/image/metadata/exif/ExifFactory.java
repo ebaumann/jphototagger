@@ -44,33 +44,40 @@ final class ExifFactory {
      */
     static Exif getExif(File imageFile) {
 
-        Exif                exif    = null;
-        List<ExifTag> exifTags = ExifMetadata.getExifTags(imageFile);
+        Exif     exif     = new Exif();
+        ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
 
-        if (exifTags != null) {
-            exif = new Exif();
-            try {
-                ExifTag dateTimeOriginal = getTag(ExifTag.Id.DATE_TIME_ORIGINAL, exifTags);
-                ExifTag focalLength      = getTag(ExifTag.Id.FOCAL_LENGTH      , exifTags);
-                ExifTag isoSpeedRatings  = getTag(ExifTag.Id.ISO_SPEED_RATINGS , exifTags);
-                ExifTag model            = getTag(ExifTag.Id.MODEL             , exifTags);
+        if (exifTags == null) return null;
 
-                if (dateTimeOriginal != null) {
-                    setExifDateTimeOriginal(exif, dateTimeOriginal);
-                }
-                if (focalLength != null) {
-                    setExifFocalLength(exif, focalLength);
-                }
-                if (isoSpeedRatings != null) {
-                    setExifIsoSpeedRatings(exif, isoSpeedRatings);
-                }
-                setExifEquipment(exif, model);
-            } catch (Exception ex) {
-                AppLog.logSevere(ExifMetadata.class, ex);
-                exif = null;
+        List<ExifTag> allTags  = exifTags.asList();
+
+        try {
+
+            ExifTag dateTimeOriginal = getTag(ExifTag.Id.DATE_TIME_ORIGINAL, allTags);
+            ExifTag focalLength      = getTag(ExifTag.Id.FOCAL_LENGTH      , allTags);
+            ExifTag isoSpeedRatings  = getTag(ExifTag.Id.ISO_SPEED_RATINGS , allTags);
+            ExifTag model            = getTag(ExifTag.Id.MODEL             , allTags);
+
+            if (dateTimeOriginal != null) {
+                setExifDateTimeOriginal(exif, dateTimeOriginal);
             }
+
+            if (focalLength != null) {
+                setExifFocalLength(exif, focalLength);
+            }
+
+            if (isoSpeedRatings != null) {
+                setExifIsoSpeedRatings(exif, isoSpeedRatings);
+            }
+
+            setExifEquipment(exif, model);
+
+            return exif;
+
+        } catch (Exception ex) {
+            AppLog.logSevere(ExifMetadata.class, ex);
         }
-        return exif;
+        return null;
     }
 
     private static ExifTag getTag(ExifTag.Id tagId, Collection<ExifTag> exifTag) {

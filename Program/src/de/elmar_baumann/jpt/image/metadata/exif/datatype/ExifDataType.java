@@ -121,7 +121,7 @@ public enum ExifDataType {
      *
      * @return value
      */
-    public int getValue() {
+    public int value() {
         return value;
     }
 
@@ -130,7 +130,7 @@ public enum ExifDataType {
      *
      * @return bit count
      */
-    public int getBitCount() {
+    public int bitCount() {
         return bitCount;
     }
 
@@ -139,7 +139,7 @@ public enum ExifDataType {
      *
      * @return string
      */
-    public String getValueString() {
+    public String valueString() {
         return string;
     }
 

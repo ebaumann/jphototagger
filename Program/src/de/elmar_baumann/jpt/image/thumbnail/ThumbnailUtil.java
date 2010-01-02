@@ -29,6 +29,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.metadata.exif.ExifThumbnailUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
 import de.elmar_baumann.jpt.types.FileType;
 import de.elmar_baumann.lib.image.util.ImageTransform;
 import de.elmar_baumann.lib.runtime.External;
@@ -62,7 +63,7 @@ public final class ThumbnailUtil {
      * @param  file       file
      * @param  maxLength  maximum length of the image
      * @param  embedded   true if get embedded thumbnail instead of a scaled image
-     * @return thumbnail or null if errors occured
+     * @return            thumbnail or null if errors occured
      */
     public static Image getThumbnail(File file, int maxLength, boolean embedded) {
         if (!file.exists()) return null;
@@ -130,9 +131,10 @@ public final class ThumbnailUtil {
         Image thumbnail = pair.getFirst();
         Image rotatedThumbnail = thumbnail;
         if (thumbnail != null) {
+            ExifTags exifTags = ExifMetadata.getExifTags(file);
+            if (exifTags == null) return null;
             double rotateAngle =
-                    ExifThumbnailUtil.getThumbnailRotationAngle(
-                    ExifMetadata.getExifTags(file));
+                    ExifThumbnailUtil.getThumbnailRotationAngle(exifTags.asList());
             if (rotateAngle != 0) {
                 AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetRotatedThumbnail.Information", file);
                 rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);

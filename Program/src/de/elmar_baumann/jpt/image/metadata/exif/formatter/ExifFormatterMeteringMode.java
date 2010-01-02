@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
             int       value = es.value();
 
             if (EXIF_KEY_OF_METERING_MODE.containsKey(value)) {
-                return TRANSLATION.translate(EXIF_KEY_OF_METERING_MODE.get(value));
+                return translate(IfdType.EXIF, EXIF_KEY_OF_METERING_MODE.get(value));
             }
         }
         return "?";

@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTagDisplayComparator;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTagsToDisplay;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.Translation;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
@@ -36,6 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
@@ -51,7 +53,7 @@ public final class TableModelExif extends DefaultTableModel {
 
     private              File            file;
     private              ExifGpsMetadata exifGpsMetadata;
-    private              List<ExifTag>   allExifTags;
+    private              ExifTags        exifTags;
     private static final Translation     TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
 
     public TableModelExif() {
@@ -97,32 +99,38 @@ public final class TableModelExif extends DefaultTableModel {
 
     private void setExifTags() {
 
-        allExifTags = ExifMetadata.getExifTags(file);
+        exifTags = ExifMetadata.getExifTags(file);
 
-        if (allExifTags != null) {
+        if (exifTags == null) return;
 
-            List<ExifTag> exifTagsToDisplay = ExifTagsToDisplay.get(allExifTags);
+        addExifTags(exifTags.getExifTags());
+        addExifTags(exifTags.getInteroperabilityTags());
+        addGpsTags();
+        addExifTags(exifTags.getMakerNoteTags());
+    }
 
-            if (exifTagsToDisplay != null) {
+    private void addExifTags(Collection<ExifTag> tags) {
 
-                Collections.sort(exifTagsToDisplay, ExifTagDisplayComparator.INSTANCE);
+        List<ExifTag> exifTagsToDisplay = ExifTagsToDisplay.get(tags);
 
-                for (ExifTag exifTagToDisplay : exifTagsToDisplay) {
+        if (exifTagsToDisplay != null) {
 
-                    String value = exifTagToDisplay.stringValue();
+            Collections.sort(exifTagsToDisplay, ExifTagDisplayComparator.INSTANCE);
 
-                    if (value.length() > 0) {
+            for (ExifTag exifTagToDisplay : exifTagsToDisplay) {
 
-                        addTableRow(exifTagToDisplay);
-                    }
+                String value = exifTagToDisplay.stringValue();
+
+                if (value.length() > 0) {
+
+                    addTableRow(exifTagToDisplay);
                 }
             }
-            addGpsTags();
         }
     }
 
     private void addGpsTags() {
-        exifGpsMetadata = ExifGpsUtil.gpsMetadata(allExifTags);
+        setGpsMetadata();
         if (exifGpsMetadata.latitude() != null) {
 
             final String tagId   = Integer.toString(ExifTag.Id.GPS_LATITUDE.value());
@@ -149,6 +157,16 @@ public final class TableModelExif extends DefaultTableModel {
 
             button.addActionListener(new GpsButtonListener());
             super.addRow(new Object[]{exifGpsMetadata, button});
+        }
+    }
+
+    private void setGpsMetadata() {
+
+        exifGpsMetadata = ExifGpsUtil.gpsMetadata(exifTags.getGpsTags());
+
+        // 2nd try
+        if (!exifGpsMetadata.hasCoordinates()) {
+            exifGpsMetadata = ExifGpsUtil.gpsMetadata(exifTags.asList());
         }
     }
 

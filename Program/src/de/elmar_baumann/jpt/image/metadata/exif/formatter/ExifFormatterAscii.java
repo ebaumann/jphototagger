@@ -31,10 +31,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDataType;
  */
 public final class ExifFormatterAscii extends ExifFormatter {
 
-    public static final  ExifFormatterAscii INSTANCE = new ExifFormatterAscii();
-
-    private ExifFormatterAscii() {
-    }
+    public static final ExifFormatterAscii INSTANCE = new ExifFormatterAscii();
 
     @Override
     public String format(ExifTag exifTag) {

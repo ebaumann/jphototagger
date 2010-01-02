@@ -91,6 +91,30 @@ public final class ExifRational {
     }
 
     @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+
+        if (getClass() != obj.getClass()) return false;
+
+        final ExifRational other = (ExifRational) obj;
+
+        return this.numerator   == other.numerator &&
+               this.denominator == other.denominator;
+    }
+
+    @Override
+    public int hashCode() {
+
+        int hash = 3;
+
+        hash = 13 * hash + this.numerator;
+        hash = 13 * hash + this.denominator;
+
+        return hash;
+    }
+
+    @Override
     public String toString() {
         return Integer.toString(denominator) + "/" + Integer.toString(numerator);
     }

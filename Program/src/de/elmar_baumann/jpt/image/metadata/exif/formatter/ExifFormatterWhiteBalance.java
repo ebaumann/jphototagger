@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import java.util.HashMap;
@@ -54,7 +55,7 @@ public final class ExifFormatterWhiteBalance extends ExifFormatter {
             int       value = es.value();
 
             if (EXIF_KEY_OF_WHITE_BALANCE.containsKey(value)) {
-                return TRANSLATION.translate(EXIF_KEY_OF_WHITE_BALANCE.get(value));
+                return translate(IfdType.EXIF, EXIF_KEY_OF_WHITE_BALANCE.get(value));
             }
         }
         return "?";

@@ -32,68 +32,84 @@ import java.util.Map;
  */
 public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
 
-    private static final Map<Integer, Integer>    ORDER_OF_TAG_ID_VALUE = new HashMap<Integer, Integer>();
-    private static final List<Integer>            TAG_ID_VALUES         = new ArrayList<Integer>(30);
-    public static final  ExifTagDisplayComparator INSTANCE              = new ExifTagDisplayComparator();
+    private static final Map<Integer, Integer>    ORDER_OF_TAG_ID_VALUE  = new HashMap<Integer, Integer>();
+    private static final List<Integer>            EXIF_IFD_TAG_ID_VALUES = new ArrayList<Integer>(30);
+    private static final List<Integer>            GPS_IFD_TAG_ID_VALUES  = new ArrayList<Integer>(30);
+    private static final int MAX_ORDERERD_ID;
+    public static final  ExifTagDisplayComparator INSTANCE               = new ExifTagDisplayComparator();
 
     static {
         // display order
-        TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME_ORIGINAL.value());
-        TAG_ID_VALUES.add(ExifTag.Id.IMAGE_DESCRIPTION.value());
-        TAG_ID_VALUES.add(ExifTag.Id.MAKE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.MODEL.value());
-        TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH.value());
-        TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM.value());
-        TAG_ID_VALUES.add(ExifTag.Id.SUBJECT_DISTANCE_RANGE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_TIME.value());
-        TAG_ID_VALUES.add(ExifTag.Id.F_NUMBER.value());
-        TAG_ID_VALUES.add(ExifTag.Id.ISO_SPEED_RATINGS.value());
-        TAG_ID_VALUES.add(ExifTag.Id.METERING_MODE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_MODE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_PROGRAM.value());
-        TAG_ID_VALUES.add(ExifTag.Id.FLASH.value());
-        TAG_ID_VALUES.add(ExifTag.Id.WHITE_BALANCE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.SATURATION.value());
-        TAG_ID_VALUES.add(ExifTag.Id.SHARPNESS.value());
-        TAG_ID_VALUES.add(ExifTag.Id.CONTRAST.value());
-        TAG_ID_VALUES.add(ExifTag.Id.USER_COMMENT.value());
-        TAG_ID_VALUES.add(ExifTag.Id.COPYRIGHT.value());
-        TAG_ID_VALUES.add(ExifTag.Id.ARTIST.value());
-        TAG_ID_VALUES.add(ExifTag.Id.IMAGE_WIDTH.value());
-        TAG_ID_VALUES.add(ExifTag.Id.IMAGE_LENGTH.value());
-        TAG_ID_VALUES.add(ExifTag.Id.BITS_PER_SAMPLE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME_DIGITIZED.value());
-        TAG_ID_VALUES.add(ExifTag.Id.FILE_SOURCE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME.value());
-        TAG_ID_VALUES.add(ExifTag.Id.SOFTWARE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_VERSION_ID.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE_REF.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_LONGITUDE_REF.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_LONGITUDE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_ALTITUDE_REF.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_ALTITUDE.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_TIME_STAMP.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_SATELLITES.value());
-        TAG_ID_VALUES.add(ExifTag.Id.GPS_DATE_STAMP.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME_ORIGINAL.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_DESCRIPTION.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MAKE.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MODEL.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SUBJECT_DISTANCE_RANGE.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_TIME.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.F_NUMBER.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.ISO_SPEED_RATINGS.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.METERING_MODE.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_MODE.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_PROGRAM.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FLASH.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.WHITE_BALANCE.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SATURATION.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SHARPNESS.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.CONTRAST.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.USER_COMMENT.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.COPYRIGHT.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.ARTIST.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_WIDTH.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_LENGTH.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.BITS_PER_SAMPLE.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME_DIGITIZED.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FILE_SOURCE.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SOFTWARE.value());
 
-        int size = TAG_ID_VALUES.size();
-        for (int i = 0; i < size; i++) {
-            ORDER_OF_TAG_ID_VALUE.put(TAG_ID_VALUES.get(i), i);
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_VERSION_ID.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE_REF.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LONGITUDE_REF.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LONGITUDE.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_ALTITUDE_REF.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_ALTITUDE.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_TIME_STAMP.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_SATELLITES.value());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_DATE_STAMP.value());
+
+        int order = 0;
+
+        // 1. EXIF IFD
+        int size  = EXIF_IFD_TAG_ID_VALUES.size();
+
+        for (int index = 0; index < size; index++) {
+            ORDER_OF_TAG_ID_VALUE.put(EXIF_IFD_TAG_ID_VALUES.get(index), order++);
         }
+     
+        // 2. GPS IFD
+        size = GPS_IFD_TAG_ID_VALUES.size();
+
+        for (int index = 0; index < size; index++) {
+            ORDER_OF_TAG_ID_VALUE.put(GPS_IFD_TAG_ID_VALUES.get(index), order++);
+        }
+
+        MAX_ORDERERD_ID = order;
     }
 
     @Override
     public int compare(ExifTag exifTagLeft, ExifTag exifTagRight) {
 
-        int tagLeft  = exifTagLeft.idValue();
-        int tagRight = exifTagRight.idValue();
+        int tagIdLeft  = exifTagLeft.idValue();
+        int tagIdRight = exifTagRight.idValue();
 
-        if (  ORDER_OF_TAG_ID_VALUE.containsKey(tagLeft)
-           && ORDER_OF_TAG_ID_VALUE.containsKey(tagRight)) {
-            return ORDER_OF_TAG_ID_VALUE.get(tagLeft) - ORDER_OF_TAG_ID_VALUE.get(tagRight);
+        if (  ORDER_OF_TAG_ID_VALUE.containsKey(tagIdLeft)
+           && ORDER_OF_TAG_ID_VALUE.containsKey(tagIdRight)) {
+            return ORDER_OF_TAG_ID_VALUE.get(tagIdLeft) - ORDER_OF_TAG_ID_VALUE.get(tagIdRight);
         }
-        return tagLeft - tagRight;
+        return tagIdLeft - tagIdRight;
     }
 
     private ExifTagDisplayComparator() {

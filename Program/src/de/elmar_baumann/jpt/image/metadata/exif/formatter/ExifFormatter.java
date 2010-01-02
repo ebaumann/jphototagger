@@ -18,8 +18,11 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.jpt.resource.Translation;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Formats EXIF metadata.
@@ -29,7 +32,11 @@ import de.elmar_baumann.jpt.resource.Translation;
  */
 public abstract class ExifFormatter {
 
-    protected static final Translation TRANSLATION = new Translation("ExifFieldValueTranslations");
+    private static final Map<IfdType, Translation> TRANSLATION_OF_IFD = new HashMap<IfdType, Translation>();
+
+    static {
+        TRANSLATION_OF_IFD.put(IfdType.EXIF, new Translation("ExifExifIfdFieldValueTranslations"));
+    }
 
     /**
      * Formats an EXIF tag.
@@ -39,4 +46,13 @@ public abstract class ExifFormatter {
      * @throws         IllegalArgumentException if the entry has the wrong type
      */
     public abstract String format(ExifTag exifTag);
+
+    protected String translate(IfdType ifdType, String propertyKey) {
+
+        Translation translation = TRANSLATION_OF_IFD.get(ifdType);
+
+        assert translation != null;
+
+        return translation == null ? "?" : translation.translate(propertyKey);
+    }
 }

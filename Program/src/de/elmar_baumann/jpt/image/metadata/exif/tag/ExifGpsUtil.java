@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
-import java.util.List;
+import java.util.Collection;
 import java.util.Locale;
 
 /**
@@ -85,7 +85,7 @@ public final class ExifGpsUtil {
         return msg.format(params);
     }
 
-    public static ExifGpsMetadata gpsMetadata(List<ExifTag> exifTags) {
+    public static ExifGpsMetadata gpsMetadata(Collection<ExifTag> exifTags) {
 
         ExifGpsMetadata gpsMetaData = new ExifGpsMetadata();
 
@@ -96,7 +96,7 @@ public final class ExifGpsUtil {
         return gpsMetaData;
     }
 
-    private static void setGpsAltitude(ExifGpsMetadata gpsMetaData, List<ExifTag> exifTags) {
+    private static void setGpsAltitude(ExifGpsMetadata gpsMetaData, Collection<ExifTag> exifTags) {
 
         ExifTag tagAltitudeRef = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_ALTITUDE_REF.value());
         ExifTag tagAltitude    = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_ALTITUDE.value());
@@ -109,7 +109,7 @@ public final class ExifGpsUtil {
         }
     }
 
-    private static void setGpsLatitude(ExifGpsMetadata gpsMetaData, List<ExifTag> exifTags) {
+    private static void setGpsLatitude(ExifGpsMetadata gpsMetaData, Collection<ExifTag> exifTags) {
 
         ExifTag tagLatitudeRef = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_LATITUDE_REF.value());
         ExifTag tagLatitude    = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_LATITUDE.value());
@@ -122,7 +122,7 @@ public final class ExifGpsUtil {
         }
     }
 
-    private static void setGpsLongitude(ExifGpsMetadata gpsMetaData, List<ExifTag> exifTags) {
+    private static void setGpsLongitude(ExifGpsMetadata gpsMetaData, Collection<ExifTag> exifTags) {
 
         ExifTag tagLongitudeRef = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_LONGITUDE_REF.value());
         ExifTag tagLongitude    = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_LONGITUDE.value());
