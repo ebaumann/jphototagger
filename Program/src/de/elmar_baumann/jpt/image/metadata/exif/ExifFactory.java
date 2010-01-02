@@ -81,7 +81,7 @@ final class ExifFactory {
         return null;
     }
 
-    private static void setExifDateTimeOriginal(Exif exifData, ExifTag exifTag) {
+    private static void setExifDateTimeOriginal(Exif exif, ExifTag exifTag) {
 
         String datestring = exifTag.stringValue(); // did throw a null pointer exception
 
@@ -94,7 +94,7 @@ final class ExifFactory {
 
                 calendar.set(year, month - 1, day);
                 try {
-                    exifData.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
+                    exif.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
                 } catch (Exception ex) {
                     AppLog.logSevere(ExifMetadata.class, ex);
                 }
@@ -104,13 +104,13 @@ final class ExifFactory {
         }
     }
 
-    private static void setExifEquipment(Exif exifData, ExifTag exifTag) {
+    private static void setExifEquipment(Exif exif, ExifTag exifTag) {
         if (exifTag != null) {
-            exifData.setRecordingEquipment(exifTag.stringValue().trim());
+            exif.setRecordingEquipment(exifTag.stringValue().trim());
         }
     }
 
-    private static void setExifFocalLength(Exif exifData, ExifTag exifTag) {
+    private static void setExifFocalLength(Exif exif, ExifTag exifTag) {
         try {
             String          length    = exifTag.stringValue().trim();
             StringTokenizer tokenizer = new StringTokenizer(length, "/:");
@@ -127,16 +127,16 @@ final class ExifFactory {
                     double numerator = new Double(numeratorString);
                     focalLength      = denominator / numerator;
                 }
-                exifData.setFocalLength(focalLength);
+                exif.setFocalLength(focalLength);
             }
         } catch (Exception ex) {
             AppLog.logSevere(ExifMetadata.class, ex);
         }
     }
 
-    private static void setExifIsoSpeedRatings(Exif exifData, ExifTag exifTag) {
+    private static void setExifIsoSpeedRatings(Exif exif, ExifTag exifTag) {
         try {
-            exifData.setIsoSpeedRatings(new Short(exifTag.stringValue().trim()).shortValue());
+            exif.setIsoSpeedRatings(new Short(exifTag.stringValue().trim()).shortValue());
         } catch (Exception ex) {
             AppLog.logSevere(ExifMetadata.class, ex);
         }

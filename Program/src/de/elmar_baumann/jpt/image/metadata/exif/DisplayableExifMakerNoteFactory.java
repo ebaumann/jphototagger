@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 final class DisplayableExifMakerNoteFactory {
 
     static final         DisplayableExifMakerNoteFactory      INSTANCE             = new DisplayableExifMakerNoteFactory();
-    private static final String                    PROPERTY_FILE_PREFIX = "de/elmar_baumann/jpt/resource/properties/ExifMakerNote_";
+    private static final String                               PROPERTY_FILE_PREFIX = "de/elmar_baumann/jpt/resource/properties/ExifMakerNote_";
     private static final Collection<DisplayableExifMakerNote> MAKER_NOTES          = new ArrayList<DisplayableExifMakerNote>();
 
     static {
@@ -53,9 +53,13 @@ final class DisplayableExifMakerNoteFactory {
         }
     }
 
-    DisplayableExifMakerNote get(byte[] rawValue) {
+    DisplayableExifMakerNote get(ExifTags exifTags, byte[] rawValue) {
+
         for (DisplayableExifMakerNote makerNote : MAKER_NOTES) {
-            if (makerNote.matchesMagicBytePattern(rawValue)) return makerNote;
+
+            if (makerNote.matches(exifTags, rawValue)) {
+                return makerNote;
+            }
         }
         return null;
     }

@@ -55,6 +55,8 @@ import java.util.StringTokenizer;
 final class DisplayableExifMakerNote {
 
     private final String                       description;
+    private final String                       exifTagMatchPattern;
+    private final int                          exifMatchTagId;
     private final ResourceBundle               bundle;
     private final int                          byteOffsetToTiffHeader;
     private final byte[][]                     magicBytePatterns;
@@ -78,21 +80,23 @@ final class DisplayableExifMakerNote {
      */
     public DisplayableExifMakerNote(ResourceBundle bundle) throws MissingResourceException {
 
-        this.bundle                 = bundle;
-        this.byteOffsetToTiffHeader = Integer.parseInt(bundle.getString("ByteOffsetToTiffHeader"));
-        this.description            = bundle.getString("Description");
+        this.bundle                  = bundle;
+        this.description             = bundle.getString("Description");
+        this.exifTagMatchPattern     = bundle.getString("MatchTagPattern");
+        this.exifMatchTagId          = Integer.parseInt(bundle.getString("MatchTag"));
+        this.byteOffsetToTiffHeader  = Integer.parseInt(bundle.getString("ByteOffsetToTiffHeader"));
 
-        StringTokenizer tokenizerAllPatterns = new StringTokenizer(bundle.getString("MagicBytePatterns"), ";");
-        int             count                = tokenizerAllPatterns.countTokens();
+        StringTokenizer tokenizerAllPatterns   = new StringTokenizer(bundle.getString("MagicBytePatterns"), ";");
+        int             countMagicBytePatterns = tokenizerAllPatterns.countTokens();
 
-        if (count > 0) {
-            magicBytePatterns = new byte[count][];
+        if (countMagicBytePatterns > 0) {
+            magicBytePatterns = new byte[countMagicBytePatterns][];
             setMagicBytePatterns(tokenizerAllPatterns);
-            setMakerNoteTagInfos();
-            setTagIdsEqualInExifIfd();
         } else {
             magicBytePatterns = null;
         }
+        setMakerNoteTagInfos();
+        setTagIdsEqualInExifIfd();
     }
 
     private void setMagicBytePatterns(StringTokenizer tokenizerAllPatterns) {
@@ -116,7 +120,24 @@ final class DisplayableExifMakerNote {
         }
     }
 
-    boolean matchesMagicBytePattern(byte[] makerNoteRawValue) {
+    boolean matches(ExifTags exifTags, byte[] makerNoteRawValue) {
+
+        ExifTag exifTag = exifTags.exifTagById(exifMatchTagId);
+
+        if (exifTag == null) return false;
+
+        boolean matches = exifTag.stringValue().matches(exifTagMatchPattern);
+
+        if (magicBytePatterns == null) {
+
+            return matches;
+        } else {
+
+            return matches && matchesMagicBytePattern(makerNoteRawValue);
+        }
+    }
+
+    private boolean matchesMagicBytePattern(byte[] makerNoteRawValue) {
 
         if (magicBytePatterns == null) return false;
 
