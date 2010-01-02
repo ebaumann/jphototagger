@@ -89,8 +89,9 @@ public final class ExifMetadata {
 
             int count = ((TiffReader) imageReader).getIFDCount();
 
+            // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD?
             for (int i = 0; i < count; i++) {
-                addTagsOfIfd(((TiffReader) imageReader).getIFD(i), IfdType.UNDEFINED, exifTags);
+                addTagsOfIfd(((TiffReader) imageReader).getIFD(i), IfdType.EXIF, exifTags);
             }
         }
         close(imageReader);
@@ -211,7 +212,8 @@ public final class ExifMetadata {
 
         assert exifMakerNote.id().equals(ExifTag.Id.MAKER_NOTE);
 
-        DisplayableExifMakerNote makerNote = DisplayableExifMakerNoteFactory.INSTANCE.get(exifMakerNote.rawValue());
+        DisplayableExifMakerNote makerNote =
+                DisplayableExifMakerNoteFactory.INSTANCE.get(exifTags, exifMakerNote.rawValue());
 
         if (makerNote == null) return;
 

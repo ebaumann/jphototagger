@@ -27,6 +27,13 @@ Description           : *Unique* Description (shall be used to identify tags
                         on a specific marker note, even within the same
                         company, e.g. Nikon)
 
+MatchTag               : EXIF Tag number which value has to to match against a
+                         pattern defined in "MatchTagPattern"
+
+MatchTagPattern        : Regular expression of the EXIF tag value defined in
+                         "MatchTag". That tag in the image's EXIF data has to
+                         match that pattern, e.g. ".*[Nn][Ii][Kk][Oo][Nn].*"
+
 MagicBytePatterns     : All first Bytes in the EXIF tag 37500 raw data identifying
                         a specific Maker Note, e.g. "Nikon Type 3 Maker Note".
                         Every byte is notated hexadecimal *without* 0x at begin.
@@ -34,9 +41,14 @@ MagicBytePatterns     : All first Bytes in the EXIF tag 37500 raw data identifyi
                         describing the same Maker note type can be separated by
                         semicolons.
 
+                        Empty string if there is not a magic byte pattern, e.g.
+                        if the raw data contains only a tiff directory
+
 ByteOffsetToTiffHeader: Byte offset to the TIFF header in the EXIF tag 37500 raw
                         data. If the offset depends on the magic byte pattern, a
                         separate property file has to be created.
+
+                        If there is no magic byte pattern the value is zero
 
 Tag[0-9]+             : Tag number whitin the marker notes IFD. Semicolon
                         separated, strings are case sensitive:
