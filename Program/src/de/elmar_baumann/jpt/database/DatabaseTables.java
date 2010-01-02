@@ -213,7 +213,7 @@ public final class DatabaseTables extends Database {
             stmt.execute(
                     "CREATE INDEX idx_exif_iso_speed_ratings ON exif (exif_iso_speed_ratings)");
             stmt.execute(
-                    "CREATE INDEX idx_exif_lens ON exif (lens)");
+                    "CREATE INDEX idx_exif_lens ON exif (exif_lens)");
         }
     }
 
