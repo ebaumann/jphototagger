@@ -817,7 +817,11 @@ public final class EditMetadataPanelsArray implements FocusListener,
         
         private void listenToEntries() {
             for (TextEntry entry : entries) {
-                entry.setText(Bundle.getString("DisableIfMultipleValues.Info.TextEntry"));
+                if (entry instanceof RatingSelectionPanel) {
+                    // Text not parsable as number leads to an exception
+                } else {
+                    entry.setText(Bundle.getString("DisableIfMultipleValues.Info.TextEntry"));
+                }
                 entry.addMouseListenerToInputComponents(this);
                 entry.setDirty(false);
                 entry.setEditable(false);
@@ -851,7 +855,13 @@ public final class EditMetadataPanelsArray implements FocusListener,
         public void mousePressed(MouseEvent e) {
             synchronized (this) {
                 if (!editable || !listen) return;
-                enableEdit(getTextEntry(e.getSource()));
+
+                TextEntry entry = getTextEntry(e.getSource());
+
+                if (enableEdit(entry) && entry instanceof RatingSelectionPanel) {
+
+                    ((RatingSelectionPanel) entry).repeatLastClick();
+                }
             }
         }
 
@@ -872,12 +882,14 @@ public final class EditMetadataPanelsArray implements FocusListener,
             return null;
         }
 
-        public void enableEdit(TextEntry entry) {
+        public boolean enableEdit(TextEntry entry) {
             if (MessageDisplayer.confirmYesNo(
                     null,
                     "DisableIfMultipleValues.Confirm.Edit")) {
                 releaseEntry(entry);
+                return true;
             }
+            return false;
         }
     }
 }
