@@ -33,7 +33,6 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -194,23 +193,6 @@ public final class ExifMetadata {
                 }
             }
         }
-    }
-
-    /**
-     * Finds in a list an EXIF entry of a specific EXIF tag value.
-     * 
-     * @param exifTags  EXIF Entries to look in
-     * @param tagValue  tag value as defined in the EXIF standard
-     * @return          first matching Entry or null if not found
-     */
-    public static ExifTag getExifTagIn(Collection<ExifTag> exifTags, int tagValue) {
-
-        for (ExifTag exifTag : exifTags) {
-            if (exifTag.idValue() == tagValue) {
-                return exifTag;
-            }
-        }
-        return null;
     }
 
     private static void addExifMakerNoteTags(ExifTags exifTags) {

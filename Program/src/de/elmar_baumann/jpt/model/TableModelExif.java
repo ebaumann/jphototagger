@@ -130,7 +130,8 @@ public final class TableModelExif extends DefaultTableModel {
     }
 
     private void addGpsTags() {
-        setGpsMetadata();
+        exifGpsMetadata = ExifGpsUtil.gpsMetadata(exifTags);
+
         if (exifGpsMetadata.latitude() != null) {
 
             final String tagId   = Integer.toString(ExifTag.Id.GPS_LATITUDE.value());
@@ -157,16 +158,6 @@ public final class TableModelExif extends DefaultTableModel {
 
             button.addActionListener(new GpsButtonListener());
             super.addRow(new Object[]{exifGpsMetadata, button});
-        }
-    }
-
-    private void setGpsMetadata() {
-
-        exifGpsMetadata = ExifGpsUtil.gpsMetadata(exifTags.getGpsTags());
-
-        // 2nd try
-        if (!exifGpsMetadata.hasCoordinates()) {
-            exifGpsMetadata = ExifGpsUtil.gpsMetadata(exifTags.asList());
         }
     }
 

@@ -199,6 +199,7 @@ public final class DatabaseTables extends Database {
                     ", exif_date_time_original DATE" +                                                       // -- 4 --
                     ", exif_focal_length REAL" +                                                             // -- 5 --
                     ", exif_iso_speed_ratings SMALLINT" +                                                    // -- 6 --
+                    ", exif_lens VARCHAR_IGNORECASE(256)" +                                                  // -- 7 --
                     ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" +
                     ");");
             stmt.execute(
@@ -211,6 +212,8 @@ public final class DatabaseTables extends Database {
                     "CREATE INDEX idx_exif_focal_length ON exif (exif_focal_length)");
             stmt.execute(
                     "CREATE INDEX idx_exif_iso_speed_ratings ON exif (exif_iso_speed_ratings)");
+            stmt.execute(
+                    "CREATE INDEX idx_exif_lens ON exif (lens)");
         }
     }
 

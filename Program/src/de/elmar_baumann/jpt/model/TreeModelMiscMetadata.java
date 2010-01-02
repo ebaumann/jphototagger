@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
+import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
@@ -66,6 +67,7 @@ public final class TreeModelMiscMetadata
     static {
         EXIF_COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
         EXIF_COLUMNS.add(ColumnExifFocalLength.INSTANCE);
+        EXIF_COLUMNS.add(ColumnExifLens.INSTANCE);
         EXIF_COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
 
         XMP_COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
@@ -230,6 +232,10 @@ public final class TreeModelMiscMetadata
         double f = exif.getFocalLength();
         if (f > 0) {
             checkInserted(ColumnExifFocalLength.INSTANCE, Double.valueOf(f));
+        }
+        String lens = exif.getLens();
+        if (lens != null) {
+            checkInserted(ColumnExifLens.INSTANCE, lens);
         }
     }
 

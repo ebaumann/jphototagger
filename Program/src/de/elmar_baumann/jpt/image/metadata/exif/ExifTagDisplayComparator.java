@@ -68,6 +68,7 @@ public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FILE_SOURCE.value());
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME.value());
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SOFTWARE.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MAKER_NOTE_LENS.value());
 
         GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_VERSION_ID.value());
         GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE_REF.value());

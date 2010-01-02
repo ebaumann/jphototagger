@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
+import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
@@ -45,38 +46,24 @@ import javax.swing.Icon;
  */
 public final class ColumnIcons {
 
-    private static final Icon ICON_UNDEFINED = AppLookAndFeel.getIcon(
-            "icon_table_undefined.png");
-    private static final Map<Column, Icon> ICON_OF_COLUMN =
-            new HashMap<Column, Icon>();
+    private static final Icon              ICON_UNDEFINED = AppLookAndFeel.getIcon("icon_table_undefined.png");
+    private static final Map<Column, Icon> ICON_OF_COLUMN = new HashMap<Column, Icon>();
 
     static {
-        ICON_OF_COLUMN.put(ColumnXmpRating.INSTANCE,
-                AppLookAndFeel.getIcon("icon_xmp_rating_set.png"));
-        ICON_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE,
-                AppLookAndFeel.getIcon("icon_xmp_dc_rights.png"));
-        ICON_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE,
-                AppLookAndFeel.getIcon("icon_xmp_dc_creator.png"));
-        ICON_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE,
-                AppLookAndFeel.getIcon("icon_xmp_photoshop_source.png"));
-        ICON_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                AppLookAndFeel.getIcon("icon_xmp_iptc4_core_location.png"));
-        ICON_OF_COLUMN.put(ColumnExifIsoSpeedRatings.INSTANCE,
-                AppLookAndFeel.getIcon("icon_exif_iso_speed_ratings.png"));
-        ICON_OF_COLUMN.put(ColumnExifFocalLength.INSTANCE,
-                AppLookAndFeel.getIcon("icon_exif_focal_length.png"));
-        ICON_OF_COLUMN.put(ColumnExifRecordingEquipment.INSTANCE,
-                AppLookAndFeel.getIcon("icon_exif_recording_equipment.png"));
-        ICON_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE,
-                AppLookAndFeel.getIcon("icon_keyword.png"));
-        ICON_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE,
-                AppLookAndFeel.getIcon("icon_xmp_dc_description.png"));
-        ICON_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE,
-                AppLookAndFeel.getIcon("icon_xmp_photoshop_headline.png"));
-        ICON_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE,
-                AppLookAndFeel.getIcon("icon_xmp_dc_title.png"));
-        ICON_OF_COLUMN.put(ColumnFilesFilename.INSTANCE,
-                AppLookAndFeel.getIcon("icon_file.png"));
+        ICON_OF_COLUMN.put(ColumnXmpRating.INSTANCE              , AppLookAndFeel.getIcon("icon_xmp_rating_set.png"));
+        ICON_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE            , AppLookAndFeel.getIcon("icon_xmp_dc_rights.png"));
+        ICON_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE           , AppLookAndFeel.getIcon("icon_xmp_dc_creator.png"));
+        ICON_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE     , AppLookAndFeel.getIcon("icon_xmp_photoshop_source.png"));
+        ICON_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_iptc4_core_location.png"));
+        ICON_OF_COLUMN.put(ColumnExifIsoSpeedRatings.INSTANCE    , AppLookAndFeel.getIcon("icon_exif_iso_speed_ratings.png"));
+        ICON_OF_COLUMN.put(ColumnExifFocalLength.INSTANCE        , AppLookAndFeel.getIcon("icon_exif_focal_length.png"));
+        ICON_OF_COLUMN.put(ColumnExifLens.INSTANCE               , AppLookAndFeel.getIcon("icon_exif_focal_length.png"));
+        ICON_OF_COLUMN.put(ColumnExifRecordingEquipment.INSTANCE , AppLookAndFeel.getIcon("icon_exif_recording_equipment.png"));
+        ICON_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE   , AppLookAndFeel.getIcon("icon_keyword.png"));
+        ICON_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE       , AppLookAndFeel.getIcon("icon_xmp_dc_description.png"));
+        ICON_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE   , AppLookAndFeel.getIcon("icon_xmp_photoshop_headline.png"));
+        ICON_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE             , AppLookAndFeel.getIcon("icon_xmp_dc_title.png"));
+        ICON_OF_COLUMN.put(ColumnFilesFilename.INSTANCE          , AppLookAndFeel.getIcon("icon_file.png"));
     }
 
     /**

@@ -23,9 +23,7 @@ import de.elmar_baumann.jpt.data.Exif;
 import java.io.File;
 import java.sql.Date;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -49,14 +47,13 @@ final class ExifFactory {
 
         if (exifTags == null) return null;
 
-        List<ExifTag> allTags  = exifTags.asList();
-
         try {
 
-            ExifTag dateTimeOriginal = getTag(ExifTag.Id.DATE_TIME_ORIGINAL, allTags);
-            ExifTag focalLength      = getTag(ExifTag.Id.FOCAL_LENGTH      , allTags);
-            ExifTag isoSpeedRatings  = getTag(ExifTag.Id.ISO_SPEED_RATINGS , allTags);
-            ExifTag model            = getTag(ExifTag.Id.MODEL             , allTags);
+            ExifTag dateTimeOriginal = exifTags.exifTagById(ExifTag.Id.DATE_TIME_ORIGINAL.value());
+            ExifTag focalLength      = exifTags.exifTagById(ExifTag.Id.FOCAL_LENGTH.value());
+            ExifTag isoSpeedRatings  = exifTags.exifTagById(ExifTag.Id.ISO_SPEED_RATINGS.value());
+            ExifTag model            = exifTags.exifTagById(ExifTag.Id.MODEL.value());
+            ExifTag lens             = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE_LENS.value());
 
             if (dateTimeOriginal != null) {
                 setExifDateTimeOriginal(exif, dateTimeOriginal);
@@ -72,16 +69,16 @@ final class ExifFactory {
 
             setExifEquipment(exif, model);
 
+            if (lens != null) {
+                exif.setLens(lens.stringValue());
+            }
+
             return exif;
 
         } catch (Exception ex) {
             AppLog.logSevere(ExifMetadata.class, ex);
         }
         return null;
-    }
-
-    private static ExifTag getTag(ExifTag.Id tagId, Collection<ExifTag> exifTag) {
-        return ExifMetadata.getExifTagIn(exifTag, tagId.value());
     }
 
     private static void setExifDateTimeOriginal(Exif exifData, ExifTag exifTag) {

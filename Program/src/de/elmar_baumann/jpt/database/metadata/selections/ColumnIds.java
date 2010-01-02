@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.database.metadata.collections.ColumnCollectionnamesN
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
+import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesLastModified;
@@ -95,7 +96,8 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(26, ColumnCollectionnamesName.INSTANCE);
         COLUMN_OF_ID.put(27, ColumnSavedSearchesName.INSTANCE);
         COLUMN_OF_ID.put(28, ColumnXmpRating.INSTANCE);
-        // Next ID: 29 - UPDATE ID after assigning! --
+        COLUMN_OF_ID.put(29, ColumnExifLens.INSTANCE);
+        // Next ID: 30 - UPDATE ID after assigning! --
 
         Set<Integer> keys = COLUMN_OF_ID.keySet();
         for (Integer key : keys) {

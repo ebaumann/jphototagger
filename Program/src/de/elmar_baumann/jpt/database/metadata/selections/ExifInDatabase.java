@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.database.metadata.selections;
 
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +31,15 @@ import java.util.List;
  */
 public final class ExifInDatabase {
 
-    private static final List<ExifTag.Id> STORED_TAG_IDS = new ArrayList<ExifTag.Id>();
+    private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD = new ArrayList<ExifTag.Id>();
     
 
     static {
-        STORED_TAG_IDS.add(ExifTag.Id.DATE_TIME_ORIGINAL);
-        STORED_TAG_IDS.add(ExifTag.Id.FOCAL_LENGTH);
-        STORED_TAG_IDS.add(ExifTag.Id.ISO_SPEED_RATINGS);
-        STORED_TAG_IDS.add(ExifTag.Id.MODEL);
+        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.DATE_TIME_ORIGINAL);
+        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.FOCAL_LENGTH);
+        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.ISO_SPEED_RATINGS);
+        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.MODEL);
+        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.MAKER_NOTE_LENS);
     }
 
     /**
@@ -48,20 +50,24 @@ public final class ExifInDatabase {
      * @return           true, falls gespeichert
      */
     public static boolean isInDatabase(ExifTag.Id exifTagId) {
-        return STORED_TAG_IDS.contains(exifTagId);
+        return STORED_TAG_IDS_EXIF_IFD.contains(exifTagId);
     }
 
     /**
      * Liefert, ob die Metadaten eines EXIF-Tags in die Datenbank gespeichert
      * werden.
      * 
-     * @param  exifTagIdValue ID des Tags
-     * @return                true, falls gespeichert
+     * @param ifdType IFD type
+     * @param id      id
+     * @return        true, falls gespeichert
      */
-    public static boolean isInDatabase(int exifTagIdValue) {
-        ExifTag.Id exifTagId = ExifTag.Id.fromValue(exifTagIdValue);
-        if (exifTagId != null) {
-            return STORED_TAG_IDS.contains(exifTagId);
+
+    public static boolean isInDatabase(IfdType ifdType, ExifTag.Id id) {
+        if (id != null) {
+            switch (ifdType) {
+                case EXIF: return STORED_TAG_IDS_EXIF_IFD.contains(id);
+                default  : return false;
+            }
         }
         return false;
     }

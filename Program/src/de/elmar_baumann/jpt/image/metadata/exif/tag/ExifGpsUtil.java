@@ -18,14 +18,13 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
-import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
-import java.util.Collection;
 import java.util.Locale;
 
 /**
@@ -85,7 +84,7 @@ public final class ExifGpsUtil {
         return msg.format(params);
     }
 
-    public static ExifGpsMetadata gpsMetadata(Collection<ExifTag> exifTags) {
+    public static ExifGpsMetadata gpsMetadata(ExifTags exifTags) {
 
         ExifGpsMetadata gpsMetaData = new ExifGpsMetadata();
 
@@ -96,10 +95,10 @@ public final class ExifGpsUtil {
         return gpsMetaData;
     }
 
-    private static void setGpsAltitude(ExifGpsMetadata gpsMetaData, Collection<ExifTag> exifTags) {
+    private static void setGpsAltitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
 
-        ExifTag tagAltitudeRef = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_ALTITUDE_REF.value());
-        ExifTag tagAltitude    = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_ALTITUDE.value());
+        ExifTag tagAltitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_ALTITUDE_REF.value());
+        ExifTag tagAltitude    = exifTags.gpsTagById(ExifTag.Id.GPS_ALTITUDE.value());
 
         if (tagAltitudeRef != null && tagAltitude != null) {
             gpsMetaData.setAltitude(new ExifGpsAltitude(
@@ -109,10 +108,10 @@ public final class ExifGpsUtil {
         }
     }
 
-    private static void setGpsLatitude(ExifGpsMetadata gpsMetaData, Collection<ExifTag> exifTags) {
+    private static void setGpsLatitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
 
-        ExifTag tagLatitudeRef = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_LATITUDE_REF.value());
-        ExifTag tagLatitude    = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_LATITUDE.value());
+        ExifTag tagLatitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_LATITUDE_REF.value());
+        ExifTag tagLatitude    = exifTags.gpsTagById(ExifTag.Id.GPS_LATITUDE.value());
 
         if (tagLatitudeRef != null && tagLatitude != null) {
             gpsMetaData.setLatitude(new ExifGpsLatitude(
@@ -122,10 +121,10 @@ public final class ExifGpsUtil {
         }
     }
 
-    private static void setGpsLongitude(ExifGpsMetadata gpsMetaData, Collection<ExifTag> exifTags) {
+    private static void setGpsLongitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
 
-        ExifTag tagLongitudeRef = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_LONGITUDE_REF.value());
-        ExifTag tagLongitude    = ExifMetadata.getExifTagIn(exifTags, ExifTag.Id.GPS_LONGITUDE.value());
+        ExifTag tagLongitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_LONGITUDE_REF.value());
+        ExifTag tagLongitude    = exifTags.gpsTagById(ExifTag.Id.GPS_LONGITUDE.value());
 
         if (tagLongitudeRef != null && tagLongitude != null) {
             gpsMetaData.setLongitude(new ExifGpsLongitude(
