@@ -64,7 +64,7 @@ public final class DeleteOrphanedXmp
     /**
      * Fügt einen Fortschrittsbeobachter hinzu. Delegiert an diesen Aufrufe
      * von Database.deleteNotExistingImageFiles().
-     * 
+     *
      * @param listener Fortschrittsbeobachter
      */
     public synchronized void addProgressListener(ProgressListener listener) {

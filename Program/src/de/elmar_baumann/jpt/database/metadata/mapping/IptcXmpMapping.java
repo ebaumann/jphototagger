@@ -105,7 +105,7 @@ public final class IptcXmpMapping {
     /**
      * Liefert die beiden Spalten gemeinsame Beschreibung: Es wird die IPTC-
      * Beschreibung geliefert ausschließlich " [...".
-     * 
+     *
      * @param  iptcColumn IPTC-Spalte
      * @return Beschreibung
      */

@@ -113,7 +113,7 @@ public final class XmpColumnXmpDataTypeMapping {
 
     /**
      * Liefert den XMP-Datentyp eines Property-Werts für eine Spalte.
-     * 
+     *
      * @param  column  Spalte
      * @return Typ oder null bei ungültiger Spalte
      */
@@ -123,7 +123,7 @@ public final class XmpColumnXmpDataTypeMapping {
 
     /**
      * Liefert, ob der Spaltenwert in einem Array zu speichern ist.
-     * 
+     *
      * @param  column  Spalte
      * @return true, wenn der Wert in einem Array zu speichern ist
      */
@@ -141,7 +141,7 @@ public final class XmpColumnXmpDataTypeMapping {
      * Liefert, ob eine Spalte den Wert einer alternativen Sprache enthält.
      * Dies impliziert, dass für die Spalte gilt:
      * {@link #isArray(de.elmar_baumann.jpt.database.metadata.Column)}.
-     * 
+     *
      * @param   xmpColumn Spalte
      * @return  true, wenn der Spaltenwert für eine alternative Sprache gilt
      */
@@ -152,7 +152,7 @@ public final class XmpColumnXmpDataTypeMapping {
 
     /**
      * Liefert, ob der Spaltenwert ein einfacher String ist.
-     * 
+     *
      * @param  column  Spalte
      * @return true, wenn der Spaltenwert ein einfacher String ist
      */

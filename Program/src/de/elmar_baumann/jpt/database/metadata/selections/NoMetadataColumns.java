@@ -82,7 +82,7 @@ public final class NoMetadataColumns {
 
     /**
      * Liefert die Spalten für die erweiterte Suche.
-     * 
+     *
      * @return Suchspalten
      */
     public static List<Column> get() {

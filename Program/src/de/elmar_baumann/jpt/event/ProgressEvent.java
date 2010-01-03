@@ -43,7 +43,7 @@ public final class ProgressEvent {
      * <li>{@link #isIndeterminate()} liefert <code>false</code>
      * <li>{@link #getMilliSecondsRemaining()} liefert <code>-1</code>
      * </ul>
-     * 
+     *
      * @param source  Quelle des Ereignisses
      * @param minimum Minimale Ereignisanzahl
      * @param maximum Maximale  Ereignisanzahl
@@ -101,7 +101,7 @@ public final class ProgressEvent {
 
     /**
      * Liefert die Ereignisquelle.
-     * 
+     *
      * @return Ereignisquelle
      */
     public Object getSource() {
@@ -110,7 +110,7 @@ public final class ProgressEvent {
 
     /**
      * Liefert die minimale Ereignisanzahl.
-     * 
+     *
      * @return Minimale Ereignisanzahl
      */
     public int getMinimum() {
@@ -119,7 +119,7 @@ public final class ProgressEvent {
 
     /**
      * Liefert die maximale Ereignisanzahl.
-     * 
+     *
      * @return Maximale Ereignisanzahl
      */
     public int getMaximum() {
@@ -128,7 +128,7 @@ public final class ProgressEvent {
 
     /**
      * Liefert die Anzahl aktuell verarbeiteter Ereignisse.
-     * 
+     *
      * @return Aktuelle Ereignisanzahl
      */
     public int getValue() {
@@ -137,7 +137,7 @@ public final class ProgressEvent {
 
     /**
      * Setzt die Anzahl aktuell verarbeiteter Ereignisse.
-     * 
+     *
      * @param value Anzahl
      */
     public void setValue(int value) {
@@ -146,7 +146,7 @@ public final class ProgressEvent {
 
     /**
      * Liefert die Information zum aktuellen Ereignis.
-     * 
+     *
      * @return Information
      */
     public Object getInfo() {
@@ -155,7 +155,7 @@ public final class ProgressEvent {
 
     /**
      * Setzt die Information zum aktuellen Ereignis.
-     * 
+     *
      * @param info Information
      */
     public void setInfo(Object info) {
@@ -164,7 +164,7 @@ public final class ProgressEvent {
 
     /**
      * Liefert die noch verbleibenden Millisekunden bis zum Abschluss.
-     * 
+     *
      * @return Verbleibende Millisekunden oder -1, wenn diese nicht berechnet wurden
      */
     public long getMilliSecondsRemaining() {
@@ -180,7 +180,7 @@ public final class ProgressEvent {
 
     /**
      * Liefert, ob die Quelle die Aktion abbrechen soll.
-     * 
+     *
      * @return true, wenn die Aktion abgebrochen werden soll
      */
     public boolean isStop() {
@@ -189,7 +189,7 @@ public final class ProgressEvent {
 
     /**
      * Returns wheter the progress is indeterminate.
-     * 
+     *
      * @return true if indeterminate
      */
     public boolean isIndeterminate() {

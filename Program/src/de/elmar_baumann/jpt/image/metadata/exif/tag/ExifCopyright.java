@@ -102,7 +102,7 @@ public final class ExifCopyright {
 
         Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
 
-        if (photographerOffsets.getFirst() == -1 || 
+        if (photographerOffsets.getFirst() == -1 ||
             photographerOffsets.getSecond() == rawValue.length) {
 
             return new Pair<Integer, Integer>(-1, -1);

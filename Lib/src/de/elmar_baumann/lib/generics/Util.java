@@ -32,7 +32,7 @@ public final class Util {
 
     /**
      * Returns the first elements of a collection of pairs.
-     * 
+     *
      * @param <A>   type of first elements
      * @param <B>   type of second elements
      * @param pairs pairs

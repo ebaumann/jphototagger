@@ -70,7 +70,7 @@ import javax.swing.JViewport;
 import javax.swing.TransferHandler;
 
 /**
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -131,7 +131,7 @@ public class ThumbnailsPanel extends JPanel
     public RenderedThumbnailCache renderedThumbnailCache =
             RenderedThumbnailCache.INSTANCE;
     ThumbnailPanelRenderer renderer = new ThumbnailPanelRenderer(this);
-    
+
     private Content content = Content.UNDEFINED;
     private ControllerDoubleklickThumbnail controllerDoubleklick;
     private FileAction fileAction = FileAction.UNDEFINED;
@@ -245,7 +245,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Sets the width of a thumbnail.
-     * 
+     *
      * @param width  width in pixel
      */
     public synchronized void setThumbnailWidth(int width) {
@@ -279,7 +279,7 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Enables the Drag gesture whithin the thumbnails panel. Whitout calling
      * this, {@link #handleMouseDragged(java.awt.event.MouseEvent)} will never called.
-     * 
+     *
      * @param enabled true if enabled. Default: false
      */
     public synchronized void setDragEnabled(boolean enabled) {
@@ -296,7 +296,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Liefert die Indexe aller selektierten Thumbnails.
-     * 
+     *
      * @return Indexe
      */
     public synchronized List<Integer> getSelectedIndices() {
@@ -305,7 +305,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Setzt die Indexe selektierter Thumbnails.
-     * 
+     *
      * @param indices Indexe
      */
     public void setSelected(List<Integer> indices) {
@@ -335,7 +335,7 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Setzt ein Thumbnail an einem bestimmten Index (neu). Der Cache wird mit
      * diesem Thumbnail aktualisiert.
-     * 
+     *
      * @param index Index
      */
     protected synchronized void repaint(int index) {
@@ -357,7 +357,7 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Zum Überschreiben für abgeleitete Klassen. Diese Klasse unternimmt
      * nichts.
-     * 
+     *
      * @param e              Auslösendes Mausereignis
      * @param thumbnailIndex Index des Thumbnails, bei dem geklickt wurde
      */
@@ -366,7 +366,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Fügt einem Thumbnail ein Flag hinzu.
-     * 
+     *
      * @param index Index des Thumbnails
      * @param flag  Flag
      */
@@ -376,7 +376,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Liefert, ob ein Thumbnail ein Flag hat.
-     * 
+     *
      * @param index Thumbnailindex
      * @return      true, wenn das Thumbnail ein Flag hat
      */
@@ -386,7 +386,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Liefert das Flag eines Thumbnails.
-     * 
+     *
      * @param index Thumbnailindex
      * @return      Flag oder null, wenn das Thumbnail kein Flag hat
      */
@@ -457,7 +457,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Liefert, ob ein Thumbnail mit bestimmtem Index selektiert ist.
-     * 
+     *
      * @param index Thumbnailindex
      * @return      true, wenn das Thumbnail selektiert ist
      */
@@ -468,10 +468,10 @@ public class ThumbnailsPanel extends JPanel
     public synchronized boolean isSelected(File file) {
         return selectedThumbnails.contains(getIndexOf(file));
     }
-    
+
     /**
      * Liefert die Anzahl der selektierten Thumbnails.
-     * 
+     *
      * @return Anzahl
      */
     public synchronized int getSelectionCount() {
@@ -913,7 +913,7 @@ public class ThumbnailsPanel extends JPanel
     private void notifyRefreshListeners() {
         synchronized (refreshListenersOfContent) {
             AppLog.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
-           
+
             for (RefreshListener listener : refreshListenersOfContent.get(content)) {
                 listener.refresh();
             }
@@ -1193,7 +1193,7 @@ public class ThumbnailsPanel extends JPanel
      * If a viewport ist set, some additional functions supported, e.g.
      * special keyboard keys that are not handled through the viewport
      * and a scroll pane.
-     * 
+     *
      * @param viewport  Viewport
      */
     public synchronized void setViewport(JViewport viewport) {
@@ -1202,7 +1202,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Returns the viewport within this panel is displayed.
-     * 
+     *
      * @return viewport or null if not set or if the panel is not in a viewport
      */
     public synchronized JViewport getViewport() {

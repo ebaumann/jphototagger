@@ -28,7 +28,7 @@ import java.util.List;
  * <code>addErrorListener()</code> und <code>removeErrorListener()</code>.
  * Diese rufen statt dessen bei dieser Instanz auf:
  * {@link #notifyErrorListener(de.elmar_baumann.jpt.event.ErrorEvent)}.
- * 
+ *
  * Klassen, die sich für Fehler interessieren, melden sich bei der Instanz
  * dieser Klasse an.
  *
@@ -42,7 +42,7 @@ public final class ErrorListeners {
 
     /**
      * Meldet einen Beobachter an.
-     * 
+     *
      * @param listener  Beobachter
      */
     public synchronized void addErrorListener(ErrorListener listener) {
@@ -51,7 +51,7 @@ public final class ErrorListeners {
 
     /**
      * Meldet allen angemeldeten Errorlistenern einen Fehler.
-     * 
+     *
      * @param evt  Fehlerereignis
      */
     public synchronized void notifyErrorListener(ErrorEvent evt) {

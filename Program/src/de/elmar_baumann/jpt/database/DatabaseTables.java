@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-21
@@ -184,7 +184,7 @@ public final class DatabaseTables extends Database {
             stmt.execute("CREATE INDEX idx_xmp_dc_subjects_id_xmp" +
                     " ON xmp_dc_subjects (id_xmp)");
             stmt.execute("CREATE INDEX idx_xmp_dc_subjects_subject" +
-                    " ON xmp_dc_subjects (subject)"); 
+                    " ON xmp_dc_subjects (subject)");
         }
     }
 
@@ -229,7 +229,7 @@ public final class DatabaseTables extends Database {
             stmt.execute(
                     "CREATE UNIQUE INDEX idx_collection_names_id ON collection_names (id)");
             stmt.execute(
-                    "CREATE INDEX idx_collection_names_name ON collection_names (name)"); 
+                    "CREATE INDEX idx_collection_names_name ON collection_names (name)");
         }
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "collections")) {
             stmt.execute("CREATE CACHED TABLE collections" +
@@ -262,7 +262,7 @@ public final class DatabaseTables extends Database {
             stmt.execute(
                     "CREATE UNIQUE INDEX idx_saved_searches_id ON saved_searches (id)");
             stmt.execute(
-                    "CREATE UNIQUE INDEX idx_saved_searches_name ON saved_searches (name)"); 
+                    "CREATE UNIQUE INDEX idx_saved_searches_name ON saved_searches (name)");
         }
         if (!DatabaseMetadata.INSTANCE.existsTable(connection,
                 "saved_searches_values")) {
@@ -318,25 +318,25 @@ public final class DatabaseTables extends Database {
                 "metadata_edit_templates")) {
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" +
                     " (" +
-                    "name VARCHAR_IGNORECASE(256)" +             //  1 
-                    ", dcSubjects BINARY" +                      //  2 
-                    ", dcTitle BINARY" +                         //  3 
-                    ", photoshopHeadline BINARY" +               //  4 
-                    ", dcDescription BINARY" +                   //  5 
-                    ", photoshopCaptionwriter BINARY" +          //  6 
-                    ", iptc4xmpcoreLocation BINARY" +            //  7 
-                    ", iptc4xmpcoreCountrycode BINARY" +         //  8 
-                    ", dcRights BINARY" +                        // 11 
-                    ", dcCreator BINARY" +                       // 12 
-                    ", photoshopAuthorsposition BINARY" +        // 13 
-                    ", photoshopCity BINARY" +                   // 14 
-                    ", photoshopState BINARY" +                  // 15 
-                    ", photoshopCountry BINARY" +                // 16 
-                    ", photoshopTransmissionReference BINARY" +  // 17 
-                    ", photoshopInstructions BINARY" +           // 18 
-                    ", photoshopCredit BINARY" +                 // 19 
-                    ", photoshopSource BINARY" +                 // 20 
-                    ", rating BINARY" +                          // 21 
+                    "name VARCHAR_IGNORECASE(256)" +             //  1
+                    ", dcSubjects BINARY" +                      //  2
+                    ", dcTitle BINARY" +                         //  3
+                    ", photoshopHeadline BINARY" +               //  4
+                    ", dcDescription BINARY" +                   //  5
+                    ", photoshopCaptionwriter BINARY" +          //  6
+                    ", iptc4xmpcoreLocation BINARY" +            //  7
+                    ", iptc4xmpcoreCountrycode BINARY" +         //  8
+                    ", dcRights BINARY" +                        // 11
+                    ", dcCreator BINARY" +                       // 12
+                    ", photoshopAuthorsposition BINARY" +        // 13
+                    ", photoshopCity BINARY" +                   // 14
+                    ", photoshopState BINARY" +                  // 15
+                    ", photoshopCountry BINARY" +                // 16
+                    ", photoshopTransmissionReference BINARY" +  // 17
+                    ", photoshopInstructions BINARY" +           // 18
+                    ", photoshopCredit BINARY" +                 // 19
+                    ", photoshopSource BINARY" +                 // 20
+                    ", rating BINARY" +                          // 21
                     ");");
             stmt.execute(
                     "CREATE UNIQUE INDEX idx_metadata_edit_templates_name ON metadata_edit_templates (name)");
@@ -441,7 +441,7 @@ public final class DatabaseTables extends Database {
     /**
      * Creates the table for internal application usage such as update
      * information etc.
-     * 
+     *
      * @param connection connection
      * @param stmt       sql statement
      * @throws           SQLException on sql errors

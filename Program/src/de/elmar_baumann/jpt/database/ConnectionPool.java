@@ -52,10 +52,10 @@ import java.util.List;
  * <p />
  * <b>Notice:</b><br />
  * Compatible with J2SE 1.6.0 and above</b>
- * 
+ *
  * @version 1.0
  * @since 2005-10-03
- * @author Tobias Stening  
+ * @author Tobias Stening
  */
 public final class ConnectionPool implements Runnable {
 
@@ -93,7 +93,7 @@ public final class ConnectionPool implements Runnable {
      */
     private LinkedList<Connection> busyConnections;
     /**
-     * 
+     *
      */
     private boolean connectionPending = false;
     /**
@@ -109,7 +109,7 @@ public final class ConnectionPool implements Runnable {
         url = "jdbc:hsqldb:file:" +
                 UserSettings.INSTANCE.getDatabaseFileName(
                 Filename.FULL_PATH_NO_SUFFIX) +
-                ";shutdown=true"; 
+                ";shutdown=true";
 
         driver = "org.hsqldb.jdbcDriver";
         username = "sa";
@@ -194,7 +194,7 @@ public final class ConnectionPool implements Runnable {
     }
 
     /* NOTICE
-     * 
+     *
      * You can't just make a new connection in the foreground
      * when none are available, since this can take several
      * seconds with a slow network connection. Instead,
@@ -276,7 +276,7 @@ public final class ConnectionPool implements Runnable {
         return (availableConnections.size() + busyConnections.size());
     }
 
-    /** 
+    /**
      * Close all the connections. Use with caution:
      *  be sure no connections are in use before
      *  calling. Note that you are not <I>required</I> to
@@ -310,7 +310,7 @@ public final class ConnectionPool implements Runnable {
     }
 
     /**
-     * 
+     *
      */
     @Override
     public synchronized String toString() {

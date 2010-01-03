@@ -23,7 +23,7 @@ import java.awt.Color;
 
 /**
  * Flag für ein Thumbnail.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-aumann.de>
  * @version 2008-09-09
  */
@@ -40,7 +40,7 @@ public final class ThumbnailFlag {
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param color  Farbe des Flags
      * @param string String mit Bedeutung des Flags
      */
@@ -51,7 +51,7 @@ public final class ThumbnailFlag {
 
     /**
      * Liefert die Farbe des Flags.
-     * 
+     *
      * @return Farbe
      */
     public Color getColor() {
@@ -60,7 +60,7 @@ public final class ThumbnailFlag {
 
     /**
      * Liefert den String mit der Bedeutung des Flags.
-     * 
+     *
      * @return String mit Bedeutung
      */
     public String getString() {

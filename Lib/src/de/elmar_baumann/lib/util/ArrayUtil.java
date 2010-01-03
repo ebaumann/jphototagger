@@ -40,7 +40,7 @@ public final class ArrayUtil {
      * be omitted: If a string within tokens is <code>"a,,b,,c"</code> and the
      * delimiter string is <code>","</code>, the returned list of strings
      * contains the tree elements <code>"a", "b", "c"</code>.
-     * 
+     *
      * @param string    String within tokens
      * @param delimiter Delimiter that separates the tokens. Every character
      *                  of the delimiter string is a separate delimiter. If
@@ -52,9 +52,9 @@ public final class ArrayUtil {
      */
     public static List<String> stringTokenToList(String string, String delimiter) {
         if (string == null)
-            throw new NullPointerException("string == null"); //
+            throw new NullPointerException("string == null");
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); //
+            throw new NullPointerException("delimiter == null");
 
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
         List<String> list = new ArrayList<String>(tokenizer.countTokens());
@@ -72,7 +72,7 @@ public final class ArrayUtil {
      *
      * <em>It is expected, that each token can be parsed as an integer or is
      * empty!</em>
-     * 
+     *
      * @param string    String within tokens parsable as integer
      * @param delimiter Delimiter between the integer tokens. Every character
      *                  of the delimiter string is a separate delimiter. If
@@ -87,9 +87,9 @@ public final class ArrayUtil {
     public static List<Integer> integerTokenToList(String string,
             String delimiter) {
         if (string == null)
-            throw new NullPointerException("string == null"); //
+            throw new NullPointerException("string == null");
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); //
+            throw new NullPointerException("delimiter == null");
 
         List<Integer> integerList = new ArrayList<Integer>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
@@ -102,7 +102,7 @@ public final class ArrayUtil {
     /**
      * Converts an array of objects into an array of strings. The strings are
      * created with the object's <code>toString()</code> method.
-     * 
+     *
      * @param  objectArray array of objects
      * @return array of strings
      * @throws IllegalArgumentException if an element in the array of objects
@@ -110,17 +110,17 @@ public final class ArrayUtil {
      */
     public static String[] toStringArray(Object[] objectArray) {
         if (objectArray == null)
-            throw new NullPointerException("array == null"); //
+            throw new NullPointerException("array == null");
 
         String[] stringArray = new String[objectArray.length];
         for (int i = 0; i < objectArray.length; i++) {
             if (objectArray[i] == null)
                 throw new IllegalArgumentException(
-                        "Element with index " + i + " is not an object: " + //
-                        objectArray[i] + " (" + objectArray.toString() + ")"); //
+                        "Element with index " + i + " is not an object: " +
+                        objectArray[i] + " (" + objectArray.toString() + ")");
 
             Object object = objectArray[i];
-            stringArray[i] = object.toString(); //
+            stringArray[i] = object.toString();
         }
         return stringArray;
     }
@@ -183,7 +183,7 @@ public final class ArrayUtil {
         int index = 0;
         for (Object o : collection) {
             tokenString.append((index++ == 0
-                                ? "" //
+                                ? ""
                                 : delimiter) +
                     o.toString().replace(delimiter, delimiterReplacement));
         }
@@ -203,7 +203,7 @@ public final class ArrayUtil {
     public static <T> void addNotContainedElements(
             Collection<? extends T> src, Collection<? super T> target) {
 
-        assert src != target : "Collections equals!"; //
+        assert src != target : "Collections equals!";
         if (src == target) return;
 
         for (T t : src) {

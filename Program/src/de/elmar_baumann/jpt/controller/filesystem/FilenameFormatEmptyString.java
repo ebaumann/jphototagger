@@ -35,7 +35,7 @@ public final class FilenameFormatEmptyString extends FilenameFormat {
 
     /**
      * Returns false.
-     * 
+     *
      * @return false
      */
     @Override
@@ -45,7 +45,7 @@ public final class FilenameFormatEmptyString extends FilenameFormat {
 
     /**
      * Returns an empty String.
-     * 
+     *
      * @return ""
      */
     @Override

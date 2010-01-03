@@ -52,7 +52,7 @@ public final class HelpIndexParser {
     /**
      * Reads the index file from an input stream and returns an the root node of
      * the index tree structure.
-     * 
+     *
      * @param  is  input stream
      * @return help root node of the index or null when errors occured
      */

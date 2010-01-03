@@ -34,7 +34,7 @@ public final class SavedSearch {
 
     /**
      * Liefert die Paneldaten.
-     * 
+     *
      * @return Paneldaten
      */
     public List<SavedSearchPanel> getPanels() {
@@ -45,7 +45,7 @@ public final class SavedSearch {
 
     /**
      * Setzt die Paneldaten.
-     * 
+     *
      * @param panels panels
      */
     public void setPanels(List<SavedSearchPanel> panels) {
@@ -58,7 +58,7 @@ public final class SavedSearch {
 
     /**
      * Fügt Paneldaten hinzu.
-     * 
+     *
      * @param panel Panel
      */
     public void addPanel(SavedSearchPanel panel) {
@@ -70,7 +70,7 @@ public final class SavedSearch {
 
     /**
      * Setzt die Satementdaten.
-     * 
+     *
      * @return <strong>reference</strong> to satement data
      */
     public SavedSearchParamStatement getParamStatement() {
@@ -81,7 +81,7 @@ public final class SavedSearch {
 
     /**
      * Sets the param statement.
-     * 
+     *
      * @param paramStatement Satement
      */
     public void setParamStatement(SavedSearchParamStatement paramStatement) {
@@ -90,7 +90,7 @@ public final class SavedSearch {
 
     /**
      * Liefert, ob Statementdaten existieren.
-     * 
+     *
      * @return true, wenn Statementdaten existieren
      */
     public boolean hasParamStatement() {
@@ -99,7 +99,7 @@ public final class SavedSearch {
 
     /**
      * Liefert, ob Paneldaten existieren.
-     * 
+     *
      * @return true, wenn Paneldaten existieren
      */
     public boolean hasPanels() {
@@ -130,7 +130,7 @@ public final class SavedSearch {
     /**
      * Liefert den Namen des parametrisierten Statements. Diesen liefert auch
      * {@link #toString()}.
-     * 
+     *
      * @return Name
      * @see    de.elmar_baumann.jpt.database.metadata.ParamStatement#getName()
      */
@@ -146,7 +146,7 @@ public final class SavedSearch {
 
     /**
      * Setzt den Namen des parametrisierten Statements.
-     * 
+     *
      * @param name Name
      * @see    de.elmar_baumann.jpt.database.metadata.ParamStatement#setName(java.lang.String)
      */

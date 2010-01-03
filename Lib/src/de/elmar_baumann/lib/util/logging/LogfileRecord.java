@@ -24,7 +24,7 @@ import java.util.logging.Level;
 
 /**
  * Datensatz einer Logdatei, geschrieben von <code>java.util.logging.Logger</code>.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -47,7 +47,7 @@ public final class LogfileRecord {
     /**
      * Liefert bei lokalisierten Nachrichten den Namen des Resource-Bundles
      * des Loggers.
-     * 
+     *
      * @return Name des Resource-Bundles oder null, falls nicht gesetzt
      * @see    #hasCatalog()
      */
@@ -58,7 +58,7 @@ public final class LogfileRecord {
     /**
      * Setzt bei lokalisierten Nachrichten den Namen des Resource-Bundles
      * des Loggers.
-     * 
+     *
      * @param catalog Name des Resource-Bundles
      */
     public void setCatalog(String catalog) {
@@ -68,7 +68,7 @@ public final class LogfileRecord {
     /**
      * Liefert bei lokalisierten Nachrichten den Schlüssel der Nachricht
      * zum Laden aus der Properties-Datei.
-     * 
+     *
      * @return Schlüssel oder null, falls nicht gesetzt
      * @see    #getMessage()
      * @see    #hasKey()
@@ -79,7 +79,7 @@ public final class LogfileRecord {
 
     /**
      * Setzt bei lokalisierten Nachrichten den Schlüssel der Nachricht.
-     * 
+     *
      * @param key Schlüssel
      * @see       #setMessage(java.lang.String)
      */
@@ -109,7 +109,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert den Namen der Klasse, die den Logeintrag veranlasste.
-     * 
+     *
      * @return className Klassenname oder null, falls nicht gesetzt
      * @see              #hasClassname()
      */
@@ -118,9 +118,9 @@ public final class LogfileRecord {
     }
 
     /**
-     * Setzt den vollständig qualifizierten Namen der Klasse, die den Logeintrag 
+     * Setzt den vollständig qualifizierten Namen der Klasse, die den Logeintrag
      * veranlasste, z.B. <code>javax.marsupial.Wombat</code>.
-     * 
+     *
      * @param classname Klasenname
      */
     public void setClassname(String classname) {
@@ -130,7 +130,7 @@ public final class LogfileRecord {
     /**
      * Liefert Datum und Uhrzeit der Erzeugung des Logdatei-Datensatzes im
      * ISO 8601-Format.
-     * 
+     *
      * @return Datum und Uhrzeit der Erzeugung
      */
     public String getDate() {
@@ -140,7 +140,7 @@ public final class LogfileRecord {
     /**
      * Setzt Datum und Uhrzeit der Erzeugung des Logdatei-Datensatzes im
      * ISO 8601-Format.
-     * 
+     *
      * @param date Datum und Uhrzeit der Erzeugung im ISO 8601-Format
      */
     public void setDate(String date) {
@@ -149,7 +149,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert den Loglevel.
-     * 
+     *
      * @return Loglevel
      */
     public Level getLevel() {
@@ -158,7 +158,7 @@ public final class LogfileRecord {
 
     /**
      * Setzt den Loglevel.
-     * 
+     *
      * @param level Loglevel
      */
     public void setLevel(String level) {
@@ -167,7 +167,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert den Namen des Logger-Objekts.
-     * 
+     *
      * @return Name des Logger-Objekts oder null, falls nicht gesetzt
      * @see    #hasLogger()
      */
@@ -177,7 +177,7 @@ public final class LogfileRecord {
 
     /**
      * Setzt den Namen des Logger-Objekts.
-     * 
+     *
      * @param logger Name des Logger-Objekts
      */
     public void setLogger(String logger) {
@@ -186,7 +186,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert die Nachricht des Logdatensatzes.
-     * 
+     *
      * @return Nachricht
      */
     public String getMessage() {
@@ -195,7 +195,7 @@ public final class LogfileRecord {
 
     /**
      * Setzt die Nachricht des Logdatensatzes.
-     * 
+     *
      * @param message Nachricht
      */
     public void setMessage(String message) {
@@ -207,7 +207,7 @@ public final class LogfileRecord {
      * ein unqualifizierte Methodenname sein wie z.B. <code>fred</code> oder
      * Informationen über die Parametertypen in Klammern enthalten, z.B.
      * <code>fred(int,String)</code>.
-     * 
+     *
      * @return Methodenname oder null, falls nicht gesetzt
      * @see #hasMethodname()
      */
@@ -220,7 +220,7 @@ public final class LogfileRecord {
      * ein unqualifizierte Methodenname sein wie z.B. <code>fred</code> oder
      * Informationen über die Parametertypen in Klammern enthalten, z.B.
      * <code>fred(int,String)</code>.
-     * 
+     *
      * @param methodname Methodenname
      */
     public void setMethodname(String methodname) {
@@ -233,7 +233,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert eine eindeutige Sequenznummer in der Quell-VM.
-     * 
+     *
      * @return Sequenznummer in der Quell-VM
      */
     public String getSequence() {
@@ -242,7 +242,7 @@ public final class LogfileRecord {
 
     /**
      * Setzt eine eindeutige Sequenznummer in der Quell-VM.
-     * 
+     *
      * @param sequence Sequenznummer in der Quell-VM
      */
     public void setSequence(String sequence) {
@@ -251,7 +251,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert die ID des Threads.
-     * 
+     *
      * @return Thread-ID (Integer) oder null, falls nicht gesetzt
      * @see    #hasThread()
      */
@@ -261,7 +261,7 @@ public final class LogfileRecord {
 
     /**
      * Setzt die ID des Threads.
-     * 
+     *
      * @param thread Thread-ID (Integer)
      */
     public void setThread(String thread) {
@@ -272,7 +272,7 @@ public final class LogfileRecord {
      * Liefert bei lokalisierten Nachrichten jeden der Parameter des Strings
      * (erhalten mit <code>Object.toString()</code>) des korrespondierenden
      * Logdatensatz-Parameters.
-     * 
+     *
      * @return Parameter oder null, falls nicht gesetzt
      * @see    #getMessage()
      * @see    #hasParams()
@@ -285,7 +285,7 @@ public final class LogfileRecord {
      * Setzt bei lokalisierten Nachrichten jeden der Parameter des Strings
      * (erhalten mit <code>Object.toString()</code>) des korrespondierenden
      * Logdatensatz-Parameters.
-     * 
+     *
      * @param params Parameter
      * @see          #setMessage(java.lang.String)
      */
@@ -297,7 +297,7 @@ public final class LogfileRecord {
      * Fügt bei lokalisierten Nachrichten einen der Parameter des Strings
      * (erhalten mit <code>Object.toString()</code>) des korrespondierenden
      * Logdatensatz-Parameters hinzu.
-     * 
+     *
      * @param param Parameter
      * @see         #setMessage(java.lang.String)
      */
@@ -310,7 +310,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert eine Ausnahme.
-     * 
+     *
      * @return Ausnahme oder null, falls nicht gesetzt
      * @see    #hasException()
      */
@@ -320,7 +320,7 @@ public final class LogfileRecord {
 
     /**
      * Setzt eine Ausnahme.
-     * 
+     *
      * @param ex Ausnahme
      */
     public void setException(LogfileRecordException ex) {
@@ -329,7 +329,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert, ob im Logdateidatensatz ein Logger existiert.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasLogger() {
@@ -338,7 +338,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert, ob im Logdateidatensatz ein Klassenname existiert.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasClassname() {
@@ -347,7 +347,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert, ob im Logdateidatensatz ein Methodenname existiert.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasMethodname() {
@@ -356,7 +356,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert, ob im Logdateidatensatz ein Thread existiert.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasThread() {
@@ -365,7 +365,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert, ob im Logdateidatensatz ein Key existiert.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasKey() {
@@ -374,7 +374,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert, ob im Logdateidatensatz ein Katalog existiert.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasCatalog() {
@@ -383,7 +383,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert, ob im Logdateidatensatz Parameter existieren.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasParams() {
@@ -392,7 +392,7 @@ public final class LogfileRecord {
 
     /**
      * Liefert, ob im Logdateidatensatz eine Ausnahme existiert.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasException() {
@@ -403,14 +403,14 @@ public final class LogfileRecord {
      * Liefert, ob ein Teilstring in irgendeinem der Inhalte vorkommt.
      * Nicht gesucht wird nach dem Level und Inhalten für lokalisierte
      * Ausgabe. Die Suche ignoriert Groß- und Kleinschreibung.
-     * 
+     *
      * @param substring Teilstring
      * @return          true, wenn der Teilstring in irgendeinem der Inhalte vorkommt
      * @throws          NullPointerException if substring is null
      */
     public boolean contains(String substring) {
         if (substring == null)
-            throw new NullPointerException("substring == null"); //
+            throw new NullPointerException("substring == null");
 
         return containsSubstring(getMessage(), substring) ||
             containsSubstring(getClassname(), substring) ||

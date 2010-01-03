@@ -35,7 +35,7 @@ public class FormatterLabelMetadata {
 
     /**
      * Setzt die Standard-Vorder- und Hintergrundfarbe einer Zelle.
-     * 
+     *
      * @param cellLabel   Label
      * @param isSelected  true, wenn die Zelle selektiert ist
      */
@@ -52,7 +52,7 @@ public class FormatterLabelMetadata {
 
     /**
      * Setzt den Font eines Spaltenheaders.
-     * 
+     *
      * @param cellLabel  Label
      */
     protected void setHeaderFont(JLabel cellLabel) {
@@ -62,7 +62,7 @@ public class FormatterLabelMetadata {
 
     /**
      * Setzt den Standardfont einer Zelle.
-     * 
+     *
      * @param cellLabel  Label
      */
     protected void setContentFont(JLabel cellLabel) {
@@ -73,7 +73,7 @@ public class FormatterLabelMetadata {
     /**
      * Setzt die Farben von Zellen, deren Inhalt in der Datenbank gespeichert
      * ist.
-     * 
+     *
      * @param cellLabel Label  Label
      * @param isSelected
      */

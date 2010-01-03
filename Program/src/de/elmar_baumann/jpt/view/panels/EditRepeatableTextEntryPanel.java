@@ -59,7 +59,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  *
  * Text in the input field will be added to the list on hitting the ENTER key
  * or pushing the ADD button.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-18
  */
@@ -144,7 +144,7 @@ public final class EditRepeatableTextEntryPanel
     public void setSuggest(Suggest suggest) {
         this.suggest = suggest;
         buttonSuggestion.setEnabled(editable && suggest != null);
-        buttonSuggestion.setToolTipText(suggest == null ? "" : suggest.getDescription()); //
+        buttonSuggestion.setToolTipText(suggest == null ? "" : suggest.getDescription());
     }
 
     /**
@@ -155,7 +155,7 @@ public final class EditRepeatableTextEntryPanel
      */
     @Override
     public void setText(String text) {
-        assert false : "Don't call this (Called with text: '" + text + "')"; //
+        assert false : "Don't call this (Called with text: '" + text + "')";
     }
 
     /**
@@ -164,7 +164,7 @@ public final class EditRepeatableTextEntryPanel
      * @param texts text to set, every text is a list item
      */
     public void setText(Collection<String> texts) {
-        textFieldInput.setText(""); //
+        textFieldInput.setText("");
         model.removeAllElements();
         addToList(texts);
         setEnabledButtons();
@@ -173,13 +173,13 @@ public final class EditRepeatableTextEntryPanel
 
     @Override
     public void empty(boolean dirty) {
-        textFieldInput.setText(""); //
+        textFieldInput.setText("");
         model.removeAllElements();
         this.dirty = dirty;
     }
 
     public void removeText(String text) {
-        assert editable : "Edit is not enabled!"; //
+        assert editable : "Edit is not enabled!";
         if (!editable) return;
         model.removeElement(text);
         notifyTextRemoved(column, text);
@@ -193,7 +193,7 @@ public final class EditRepeatableTextEntryPanel
      * @param text text
      */
     public void addText(String text) {
-        assert editable : "Edit is not enabled!"; //
+        assert editable : "Edit is not enabled!";
         if (!editable) return;
         addToList(Collections.singleton(text));
         dirty = true;
@@ -222,7 +222,7 @@ public final class EditRepeatableTextEntryPanel
 
     private void addInputToList() {
         if (addToList(Collections.singleton(textFieldInput.getText())) > 0) {
-            textFieldInput.setText(""); //
+            textFieldInput.setText("");
         }
     }
 
@@ -418,14 +418,14 @@ public final class EditRepeatableTextEntryPanel
 
     private void renameListItem(int index) {
         assert model.getElementAt(index) != null :
-                "Invalid model index: " + index + //
-                ". Valid: 0.." + (model.size() - 1); //
+                "Invalid model index: " + index +
+                ". Valid: 0.." + (model.size() - 1);
         boolean ready = false;
         String oldName = model.getElementAt(index).toString();
         String newName = null;
         do {
             newName = MessageDisplayer.input(
-                    "EditRepeatableTextEntryPanel.Input.RenameListItem", //
+                    "EditRepeatableTextEntryPanel.Input.RenameListItem",
                     oldName,
                     getClass().getName());
             ready = newName == null;
@@ -454,7 +454,7 @@ public final class EditRepeatableTextEntryPanel
 
     private boolean checkSelected(int selCount) {
         if (selCount <= 0) {
-            MessageDisplayer.error(this, "EditRepeatableTextEntryPanel.Error.Select"); //
+            MessageDisplayer.error(this, "EditRepeatableTextEntryPanel.Error.Select");
             return false;
         }
         return true;

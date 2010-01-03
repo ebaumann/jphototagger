@@ -36,7 +36,7 @@ public final class FilenameFormatArray implements FilenameFormatListener {
     /**
      * Adds a format. {@link #format()} returns the filename built in the
      * same order of the calls to this function.
-     * 
+     *
      * @param format  format
      */
     public void addFormat(FilenameFormat format) {
@@ -72,7 +72,7 @@ public final class FilenameFormatArray implements FilenameFormatListener {
     /**
      * Returns the formatted filename: the appended strings of all formats
      * ({@link FilenameFormat#format()}).
-     * 
+     *
      * @return filename
      */
     public String format() {

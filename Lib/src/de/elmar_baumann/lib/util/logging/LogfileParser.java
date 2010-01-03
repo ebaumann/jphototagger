@@ -40,9 +40,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Parst Java-Logdateien <em>im XML-Format</em> geschrieben von 
+ * Parst Java-Logdateien <em>im XML-Format</em> geschrieben von
  * <code>java.util.logging.Logger</code>.
- * 
+ *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
@@ -54,14 +54,14 @@ public final class LogfileParser implements EntityResolver {
 
     /**
      * Parst eine Logdatei und liefert deren Datensätze.
-     * 
+     *
      * @param filename Dateiname
      * @return         Datensätze
      * @throws         NullPointerException wenn der Dateiname null ist
      */
     public static List<LogfileRecord> parseLogfile(String filename) {
         if (filename == null)
-            throw new NullPointerException("filename == null"); //
+            throw new NullPointerException("filename == null");
 
         List<LogfileRecord> records = new ArrayList<LogfileRecord>();
         try {
@@ -70,23 +70,23 @@ public final class LogfileParser implements EntityResolver {
             builder.setEntityResolver(new LogfileParser());
             Document document = builder.parse(getFileAsInputStream(filename));
 
-            NodeList recordNodeList = document.getElementsByTagName("record"); //
+            NodeList recordNodeList = document.getElementsByTagName("record");
             int recordCount = recordNodeList.getLength();
             for (int index = 0; index < recordCount; index++) {
                 Node recordNode = recordNodeList.item(index);
                 if (recordNode.getNodeType() == Node.ELEMENT_NODE) {
                     LogfileRecord record = new LogfileRecord();
-                    record.setDate(getElement(recordNode, "date")); //
-                    record.setMillis(new Long(getElement(recordNode, "millis"))); //
-                    record.setSequence(getElement(recordNode, "sequence")); //
-                    record.setLogger(getElement(recordNode, "logger")); //
-                    record.setLevel(getElement(recordNode, "level")); //
-                    record.setClassname(getElement(recordNode, "class")); //
-                    record.setMethodname(getElement(recordNode, "method")); //
-                    record.setThread(getElement(recordNode, "thread")); //
-                    record.setMessage(getElement(recordNode, "message")); //
-                    record.setKey(getElement(recordNode, "key")); //
-                    record.setCatalog(getElement(recordNode, "catalog")); //
+                    record.setDate(getElement(recordNode, "date"));
+                    record.setMillis(new Long(getElement(recordNode, "millis")));
+                    record.setSequence(getElement(recordNode, "sequence"));
+                    record.setLogger(getElement(recordNode, "logger"));
+                    record.setLevel(getElement(recordNode, "level"));
+                    record.setClassname(getElement(recordNode, "class"));
+                    record.setMethodname(getElement(recordNode, "method"));
+                    record.setThread(getElement(recordNode, "thread"));
+                    record.setMessage(getElement(recordNode, "message"));
+                    record.setKey(getElement(recordNode, "key"));
+                    record.setCatalog(getElement(recordNode, "catalog"));
                     setException(record, recordNode);
                     setParams(record, recordNode);
                     records.add(record);
@@ -108,12 +108,12 @@ public final class LogfileParser implements EntityResolver {
         assert record != null : record;
         assert recordNode != null : recordNode;
 
-        NodeList nodeList = ((Element) recordNode).getElementsByTagName("exception"); //
+        NodeList nodeList = ((Element) recordNode).getElementsByTagName("exception");
         if (nodeList != null && nodeList.getLength() == 1) {
             Node exceptionNode = nodeList.item(0);
             if (recordNode.getNodeType() == Node.ELEMENT_NODE) {
                 LogfileRecordException ex = new LogfileRecordException();
-                ex.setMessage(getElement(exceptionNode, "message")); //
+                ex.setMessage(getElement(exceptionNode, "message"));
                 setFrames(ex, exceptionNode);
                 record.setException(ex);
             }
@@ -125,16 +125,16 @@ public final class LogfileParser implements EntityResolver {
         assert exceptionNode != null : exceptionNode;
 
         NodeList nodeList = ((Element) exceptionNode).getElementsByTagName(
-            "frame"); //
+            "frame");
         if (nodeList != null) {
             int nodeCount = nodeList.getLength();
             for (int index = 0; index < nodeCount; index++) {
                 Node node = nodeList.item(index);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     LogfileRecordFrame frame = new LogfileRecordFrame();
-                    frame.setClassName(getElement(node, "class")); //
-                    frame.setLine(getElement(node, "line")); //
-                    frame.setMethodName(getElement(node, "method")); //
+                    frame.setClassName(getElement(node, "class"));
+                    frame.setLine(getElement(node, "line"));
+                    frame.setMethodName(getElement(node, "method"));
                     ex.addFrame(frame);
                 }
             }
@@ -145,13 +145,13 @@ public final class LogfileParser implements EntityResolver {
         assert record != null : record;
         assert recordNode != null : recordNode;
 
-        NodeList nodeList = ((Element) recordNode).getElementsByTagName("param"); //
+        NodeList nodeList = ((Element) recordNode).getElementsByTagName("param");
         if (nodeList != null) {
             int count = nodeList.getLength();
             for (int index = 0; index < count; index++) {
                 Node node = nodeList.item(index);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    String param = getElement(node, "param"); //
+                    String param = getElement(node, "param");
                     if (param != null) {
                         record.addParam(param);
                     }
@@ -162,7 +162,7 @@ public final class LogfileParser implements EntityResolver {
 
     /**
      * Liefert den Inhalt eines untergeordneten Elements.
-     * 
+     *
      * @param node    Node
      * @param tagName Name des Tags, dessen Inhalt geliefert werden soll
      * @return        Inhalt oder null
@@ -192,9 +192,9 @@ public final class LogfileParser implements EntityResolver {
     public InputSource resolveEntity(String publicId, String systemId) throws
         SAXException, IOException {
         InputStream stream = null;
-        if (systemId.endsWith("logger.dtd")) { //
+        if (systemId.endsWith("logger.dtd")) {
             stream = EntityResolver.class.getResourceAsStream(
-                "/de/elmar_baumann/lib/resource/dtd/logger.dtd"); //
+                "/de/elmar_baumann/lib/resource/dtd/logger.dtd");
         }
         return new InputSource(new InputStreamReader(stream));
     }
@@ -212,10 +212,10 @@ public final class LogfileParser implements EntityResolver {
             }
             String content = stringBuffer.toString();
             if (!content.endsWith("</log>")) { // // Sonst Parse-Exception
-                content += "</log>"; //
+                content += "</log>";
             }
             return new ByteArrayInputStream(content.getBytes(System.getProperty(
-                "file.encoding"))); //
+                "file.encoding")));
         } catch (IOException ex) {
             Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

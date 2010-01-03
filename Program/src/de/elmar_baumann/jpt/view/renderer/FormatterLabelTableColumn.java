@@ -32,7 +32,7 @@ public final class FormatterLabelTableColumn {
 
     /**
      * Setzt Icon und Text eines Labels, das eine Tabellenspalte darstellt.
-     * 
+     *
      * @param label   Label
      * @param column  Tabellenspalte
      */

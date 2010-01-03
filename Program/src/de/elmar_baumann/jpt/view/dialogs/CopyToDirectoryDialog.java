@@ -123,7 +123,7 @@ public final class CopyToDirectoryDialog
         if (copy) {
             MessageDisplayer.error(
                     this,
-                    "CopyToDirectoryDialog.Error.AbortBeforeClose"); //
+                    "CopyToDirectoryDialog.Error.AbortBeforeClose");
         } else {
             setVisible(false);
         }
@@ -131,7 +131,7 @@ public final class CopyToDirectoryDialog
 
     private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
-            MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.CopyErrorsOccured"); //
+            MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.CopyErrorsOccured");
         }
     }
 
@@ -225,7 +225,7 @@ public final class CopyToDirectoryDialog
 
     /**
      * Setzt die zu kopierenden Quelldateien.
-     * 
+     *
      * @param sourceFiles  Quelldateien
      */
     public void setSourceFiles(Collection<File> sourceFiles) {
@@ -234,7 +234,7 @@ public final class CopyToDirectoryDialog
 
     /**
      * Sets the target directory if exists.
-     * 
+     *
      * @param directory target directory
      */
     public void setTargetDirectory(File directory) {
@@ -277,14 +277,14 @@ public final class CopyToDirectoryDialog
     private void errorMessageTargetDirectoryDoesNotExist() {
         MessageDisplayer.error(
                 this,
-                "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist", //
+                "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist",
                 targetDirectory.getAbsolutePath());
     }
 
     private void errorMessageMissingSourceFiles() {
         MessageDisplayer.error(
                 this,
-                "CopyToDirectoryDialog.Error.MissingSourceFiles"); //
+                "CopyToDirectoryDialog.Error.MissingSourceFiles");
     }
 
     @Override
@@ -372,7 +372,7 @@ public final class CopyToDirectoryDialog
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.CopyToDirectoryDialog")); //
+        help(Bundle.getString("Help.Url.CopyToDirectoryDialog"));
     }
 
     @Override
@@ -409,17 +409,17 @@ public final class CopyToDirectoryDialog
         buttonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("CopyToDirectoryDialog.title")); //
+        setTitle(Bundle.getString("CopyToDirectoryDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelInfo.setText(Bundle.getString("CopyToDirectoryDialog.labelInfo.text")); //
+        labelInfo.setText(Bundle.getString("CopyToDirectoryDialog.labelInfo.text"));
 
         buttonChooseDirectory.setMnemonic('a');
-        buttonChooseDirectory.setText(Bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); //
+        buttonChooseDirectory.setText(Bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text"));
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -429,25 +429,25 @@ public final class CopyToDirectoryDialog
         labelTargetDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonGroupFileExists.add(radioButtonForceOverwrite);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); //
-        radioButtonForceOverwrite.setText(bundle.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text")); //
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
+        radioButtonForceOverwrite.setText(bundle.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text"));
 
         buttonGroupFileExists.add(radioButtonRenameIfTargetFileExists);
-        radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); //
+        radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text"));
 
         checkBoxCopyXmp.setMnemonic('x');
         checkBoxCopyXmp.setSelected(true);
-        checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); //
+        checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text"));
 
-        labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); //
+        labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text"));
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(Bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); //
+        labelInfoIsThread.setText(Bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text"));
 
         buttonStop.setMnemonic('o');
-        buttonStop.setText(Bundle.getString("CopyToDirectoryDialog.buttonStop.text")); //
+        buttonStop.setText(Bundle.getString("CopyToDirectoryDialog.buttonStop.text"));
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,7 +456,7 @@ public final class CopyToDirectoryDialog
         });
 
         buttonStart.setMnemonic('s');
-        buttonStart.setText(Bundle.getString("CopyToDirectoryDialog.buttonStart.text")); //
+        buttonStart.setText(Bundle.getString("CopyToDirectoryDialog.buttonStart.text"));
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

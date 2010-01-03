@@ -34,7 +34,7 @@ public final class ModifyImageCollections {
 
     /**
      * Fügt in die Datenbank eine neue Bildsammlung ein.
-     * 
+     *
      * @param filenames Namen der Bilddateien
      * @return          Name der Sammlung oder null, wenn keine eingefügt wurde
      */
@@ -53,7 +53,7 @@ public final class ModifyImageCollections {
 
     /**
      * Entfernt Bilder aus einer Bildsammlung.
-     * 
+     *
      * @param collectionName Name der Bildsammlung
      * @param filenames      Zu entfernende Bilder
      * @return               true, wenn die Bilder entfernt wurden
@@ -76,7 +76,7 @@ public final class ModifyImageCollections {
 
     /**
      * Entfernt eine Bildsammlung. Zeigt vorher einen Dialog zur Bestätigung.
-     * 
+     *
      * @param collectionName Name der Bildsammlung
      * @return               true wenn gelöscht
      */
@@ -96,7 +96,7 @@ public final class ModifyImageCollections {
 
     /**
      * Fügt einer Bildsammlung Bilder hinzu.
-     * 
+     *
      * @param collectionName Name der Bildsammlung
      * @param filenames      Hinzuzufügende Bilddateien
      * @return               true bei Erfolg
@@ -113,7 +113,7 @@ public final class ModifyImageCollections {
 
     /**
      * Benennt eine Bildsammlung um.
-     * 
+     *
      * @param oldName Alter Name, der neue wird durch eine Eingabe erfragt.
      * @return        Neuer Name oder null, wenn die Sammlung nicht umbenannt
      *                wurde

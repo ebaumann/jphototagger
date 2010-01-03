@@ -30,7 +30,7 @@ public interface MetadataEditPanelListener {
 
     /**
      * Ein Ereignis fand statt.
-     * 
+     *
      * @param event  Ereignis
      */
     public void actionPerformed(MetadataEditPanelEvent event);

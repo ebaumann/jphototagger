@@ -95,7 +95,7 @@ public final class ControllerAdvancedSearch
                     SavedSearchParamStatement paramStmt = savedSearch.getParamStatement();
                     if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);
-                        List<String> filenames = 
+                        List<String> filenames =
                                 DatabaseSearch.INSTANCE.searchFilenames(paramStmt.createStatement());
 
                         setTitle(paramStmt.getName());

@@ -54,7 +54,7 @@ public final class Join {
      * Liefert den JOIN-Anteil eines SQL-Statements für eine Verknüpfung
      * der Tabelle <code>exif</code> mit verschiedenen EXIF-Tabellen (INNER JOIN;
      * aktuell gibt es nur eine EXIF-Tabele).
-     * 
+     *
      * @param type       type of join between {@link TableFiles} and
      *                   {@link TableExif}
      * @param tablenames Namen der Tabellen
@@ -67,7 +67,7 @@ public final class Join {
     /**
      * Liefert den JOIN-Anteil eines SQL-Statements für eine Verknüpfung
      * der xmp-Tabelle mit verschiedenen XMP-Tabellen (LEFT JOIN).
-     * 
+     *
      * @param typeFiles  type of join between {@link TableFiles} and
      *                   {@link TableXmp}
      * @param typeXmp    type of join between {@link TableXmp} and one of it's

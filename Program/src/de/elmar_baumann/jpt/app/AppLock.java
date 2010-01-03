@@ -38,7 +38,7 @@ public final class AppLock {
 
     /**
      * Returns whether the application ist locked.
-     * 
+     *
      * @return  true if locked
      */
     public static synchronized boolean isLocked() {
@@ -47,7 +47,7 @@ public final class AppLock {
 
     /**
      * Locks the application.
-     * 
+     *
      * @return true if locked
      */
     public static synchronized boolean lock() {
@@ -59,7 +59,7 @@ public final class AppLock {
 
     /**
      * Unlocks the application. Typically called before exiting the VM.
-     * 
+     *
      * @return true if successful
      */
     public static synchronized boolean unlock() {
@@ -72,7 +72,7 @@ public final class AppLock {
     /**
      * Displays an error message that the lock file couldn't be created and offers
      * the option to unlock - delete - it.
-     * 
+     *
      * @return  true if unlocked
      */
     public static synchronized boolean forceUnlock() {

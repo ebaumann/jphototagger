@@ -32,10 +32,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * {@link TransferHandlerDragListItems} or from a
  * {@link DefaultMutableTreeNode} with an {@link HierarchicalKeyword} as user
  * object.
- * 
+ *
  * The list model has to be <em>of the type {@link DefaultListModel}</em> and
  * it's elements {@link String}s.
- * 
+ *
  * Does <em>not</em> support moving data.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>

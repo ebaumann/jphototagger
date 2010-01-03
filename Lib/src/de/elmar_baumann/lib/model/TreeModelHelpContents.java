@@ -82,7 +82,7 @@ public final class TreeModelHelpContents implements TreeModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param url  URL of the XML file for the class
      */
     public TreeModelHelpContents(String url) {

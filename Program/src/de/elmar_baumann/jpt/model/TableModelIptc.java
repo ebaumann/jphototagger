@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * IPTC-Daten eines Bilds.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -46,7 +46,7 @@ public final class TableModelIptc extends DefaultTableModel {
     /**
      * Setzt die Bilddatei. Der bisherige Inhalt wird ersetzt
      * durch die IPTC-Daten des Bilds.
-     * 
+     *
      * @param file  Datei
      */
     public void setFile(File file) {
@@ -65,7 +65,7 @@ public final class TableModelIptc extends DefaultTableModel {
 
     /**
      * Liefert die Bilddatei.
-     * 
+     *
      * @return Dateiname. Null, falls nicht gesetzt.
      */
     public File getFile() {

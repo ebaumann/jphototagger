@@ -29,7 +29,7 @@ package de.elmar_baumann.lib.resource;
  * to call {@link #isAvailable()} every time before using the resource,
  * even if You got previously a reference to it or You set the reference to
  * null before You call {@link #releaseResource(java.lang.Object)}!</em>
- * 
+ *
  * Specialized classes are singletons and set spezialized objects
  * through {@link #setResource(java.lang.Object)}.
  *
@@ -50,7 +50,7 @@ public class MutualExcludedResource<T> {
     /**
      * Returns, whether a resource can be used: It exists (is not null)
      * and it is not locked.
-     * 
+     *
      * @return true, if the resource can be used
      */
     public synchronized boolean isAvailable() {
@@ -59,10 +59,10 @@ public class MutualExcludedResource<T> {
 
     /**
      * Returns the resource, locks it and sets the owner of the resource.
-     * 
+     *
      * <em>If the resource isn't needed anymore, it has to be released with
      * {@link #releaseResource(java.lang.Object)}!</em>
-     * 
+     *
      * @param  owner  owner. Only the owner can unlock the resource an has to
      *                do that!
      * @return Resource or null, if not available. If the returned resource
@@ -83,7 +83,7 @@ public class MutualExcludedResource<T> {
 
     /**
      * Releases (unlocks) the resource.
-     * 
+     *
      * @param  owner owner of the resource. Only the owner can release the
      *               resource.
      * @return true, if released. If the return value is true,

@@ -221,7 +221,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     /**
      * Setzt eine gespeicherte Suche.
-     * 
+     *
      * @param search Gespeicherte Suche
      */
     public void setSavedSearch(SavedSearch search) {
@@ -297,7 +297,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         tabbedPane.setSelectedComponent(c);
         writeProperties();
     }
-    
+
     private boolean existsSimpleSqlValue() {
         for (SearchColumnPanel panel : searchColumnPanels) {
             if (!panel.getValue().trim().isEmpty()) return true;
@@ -355,10 +355,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             for (SearchColumnPanel panel : searchColumnPanels) {
                 panel.reset();
             }
-        } 
+        }
         if (allPanels || selComponent == panelKeywords) {
             panelKeywordsInput.setText(new ArrayList<String>());
-        } 
+        }
         if (allPanels || selComponent == panelCustomSql) {
             textAreaCustomSqlQuery.setText("");
         }
@@ -579,7 +579,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private String getJoinFiles(Table joinTable, Column joinColumn) {
-        return " INNER JOIN " + 
+        return " INNER JOIN " +
                 joinTable.getName() +
                 " ON " +
                 joinTable.getName() + "." + joinColumn.getName() +

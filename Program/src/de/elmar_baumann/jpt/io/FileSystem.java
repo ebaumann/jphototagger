@@ -68,7 +68,7 @@ public class FileSystem {
 
     protected synchronized void notifyActionListenersPerformed(
         FileSystemEvent action, File src, File target) {
-        
+
         for (FileSystemActionListener listener : actionListeners) {
             listener.actionPerformed(action, src, target);
         }
@@ -76,7 +76,7 @@ public class FileSystem {
 
     protected synchronized void notifyActionListenersFailed(
         FileSystemEvent action, FileSystemError error, File src, File target) {
-        
+
         for (FileSystemActionListener listener : actionListeners) {
             listener.actionFailed(action, error, src, target);
         }

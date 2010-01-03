@@ -42,7 +42,7 @@ public final class ListUtil {
 
     /**
      * Clears alls selected items in all lists.
-     * 
+     *
      * @param lists  lists
      */
     public static void clearSelection(List<JList> lists) {
@@ -58,7 +58,7 @@ public final class ListUtil {
 
     /**
      * Returns the first item of a list model with a specific text.
-     * 
+     *
      * @param  text  searched item text
      * @param  model list model
      * @return list item or null if not found
@@ -83,7 +83,7 @@ public final class ListUtil {
 
     /**
      * Replaces the elements of a list model with elements from a token string.
-     * 
+     *
      * @param str    string
      * @param delim  delimiter between the tokens in <code>string</code>
      * @param model  model
@@ -105,7 +105,7 @@ public final class ListUtil {
 
     /**
      * Returns a token string with each element in a list model.
-     * 
+     *
      * @param  model  model
      * @param  delim  delimiter between the list elements in the returned string
      * @return token  string
@@ -128,7 +128,7 @@ public final class ListUtil {
 
     /**
      * Inserts an element sorted into a list model.
-     * 
+     *
      * @param model      model
      * @param o          object to insert
      * @param c          comparator

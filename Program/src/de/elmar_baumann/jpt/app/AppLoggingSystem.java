@@ -138,7 +138,7 @@ public final class AppLoggingSystem {
 
     private static String getLogfilePrefix() {
         return UserSettings.INSTANCE.getSettingsDirectoryName() +
-                File.separator + "imagemetadataviewerlog"; 
+                File.separator + "imagemetadataviewerlog";
     }
 
     private static String getLogfileSuffix() {

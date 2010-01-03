@@ -45,7 +45,7 @@ public final class UpdateAllThumbnails
 
     /**
      * Adds an action listener. It will be notified when the work is done.
-     * 
+     *
      * @param listener  action listener
      */
     public synchronized void addActionListener(ActionListener listener) {

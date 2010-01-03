@@ -40,7 +40,7 @@ public final class ParamStatement {
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param sql      SQL-Statement-String
      * @param values   Parameterwerte
      * @param isQuery  true, wenn das Statement eine Abfrage ist
@@ -59,7 +59,7 @@ public final class ParamStatement {
 
     /**
      * Liefert den SQL-String.
-     * 
+     *
      * @return SQL-String
      */
     public String getSql() {
@@ -68,7 +68,7 @@ public final class ParamStatement {
 
     /**
      * Setzt den SQL-String.
-     * 
+     *
      * @param sql SQL-String. Default: null.
      */
     public void setSql(String sql) {
@@ -77,7 +77,7 @@ public final class ParamStatement {
 
     /**
      * Liefert die Parameterwerte.
-     * 
+     *
      * @return Parameterwerte oder null, wenn es keine gibt
      */
     public Object[] getValues() {
@@ -88,7 +88,7 @@ public final class ParamStatement {
 
     /**
      * Setzt die Parameterwerte.
-     * 
+     *
      * @param values Parameterwerte. Default: null.
      */
     public void setValues(Object[] values) {
@@ -101,7 +101,7 @@ public final class ParamStatement {
 
     /**
      * Liefert die Werte als Liste.
-     * 
+     *
      * @return Werte als Stringarray
      */
     public List<String> getValuesAsStringList() {
@@ -115,7 +115,7 @@ public final class ParamStatement {
 
     /**
      * Liefert, ob das Statement eine Abfrage ist.
-     * 
+     *
      * @return true, wenn das Statement eine Abfrage ist
      */
     public boolean isQuery() {
@@ -124,7 +124,7 @@ public final class ParamStatement {
 
     /**
      * Setzt, ob das Statement eine Abfrage ist.
-     * 
+     *
      * @param isQuery true, wenn das Statement eine Abfrage ist.
      *     Default: true.
      */
@@ -134,7 +134,7 @@ public final class ParamStatement {
 
     /**
      * Liefert den Namen des Statements.
-     * 
+     *
      * @return Name
      */
     public String getName() {
@@ -143,7 +143,7 @@ public final class ParamStatement {
 
     /**
      * Setzt den Namen des Statements.
-     * 
+     *
      * @param name Name. Default: null.
      */
     public void setName(String name) {

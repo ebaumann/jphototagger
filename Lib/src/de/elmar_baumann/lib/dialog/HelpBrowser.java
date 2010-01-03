@@ -54,7 +54,7 @@ import javax.swing.tree.TreeSelectionModel;
 /**
  * Browser for HTML help files. Usually those are packaged with the application
  * in a JAR file.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -103,7 +103,7 @@ public final class HelpBrowser
 
     /**
      * Adds an action listener.
-     * 
+     *
      * @param listener  listener
      */
     public synchronized void addHelpBrowserListener(HelpBrowserListener listener) {
@@ -112,7 +112,7 @@ public final class HelpBrowser
 
     /**
      * Removes an action listener.
-     * 
+     *
      * @param listener  listener
      */
     public synchronized void removeHelpBrowserListener(HelpBrowserListener listener) {
@@ -137,7 +137,7 @@ public final class HelpBrowser
 
     /**
      * Shows a page with a specific URL. Call this, if the dialog is visible.
-     * 
+     *
      * @param url  URL
      */
     public synchronized void showUrl(String url) {
@@ -150,7 +150,7 @@ public final class HelpBrowser
      * Sets the URL of the page to be initial displayed. It has to be relative
      * and exist in the contents XML-File set with
      * {@link #setDisplayUrl(java.lang.String)}.
-     * 
+     *
      * @param url  URL, eg. <code>firststeps.html</code>
      */
     public synchronized void setDisplayUrl(String url) {
@@ -162,7 +162,7 @@ public final class HelpBrowser
      * <code>helpindex.dtd</code> is in this library:
      * <code>/de/elmar_baumann/lib/resource/dtd/helpindex.dtd</code>
      * All paths to help pages within this file have to be relative.
-     * 
+     *
      * @param url URL, eg. <code>/de/elmar_baumann/jpt/resource/doc/de/contents.xml</code>
      */
     public synchronized void setContentsUrl(String url) {
@@ -314,7 +314,7 @@ public final class HelpBrowser
 
     /**
      * Returns the last path component of an URL.
-     * 
+     *
      * @param  url  URL
      * @return last path component
      */

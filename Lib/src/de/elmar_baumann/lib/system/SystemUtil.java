@@ -33,7 +33,7 @@ public final class SystemUtil {
 
     /**
      * Returns the Version of the JVM.
-     * 
+     *
      * @return Version or null if not found
      */
     public static Version getJavaVersion() {

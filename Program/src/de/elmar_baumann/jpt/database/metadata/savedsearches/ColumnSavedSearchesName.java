@@ -28,9 +28,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
  * @version 2008-09-17
  */
 public final class ColumnSavedSearchesName extends Column {
-    
+
     public static final ColumnSavedSearchesName INSTANCE = new ColumnSavedSearchesName();
-    
+
     private ColumnSavedSearchesName() {
         super(
             TableSavedSearches.INSTANCE,

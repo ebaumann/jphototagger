@@ -44,7 +44,7 @@ import java.sql.Statement;
 
 // Unproper handling if only one of the two actions completed
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-24

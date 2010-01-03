@@ -40,7 +40,7 @@ import javax.swing.tree.TreeSelectionModel;
 /**
  * Folder to choose one or multiple directories. Can create new directories,
  * delete and rename existing.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -65,7 +65,7 @@ public final class DirectoryChooser extends Dialog {
 
     /**
      * Creates an instance.
-     * 
+     *
      * @param parent          Elternframe
      * @param startDirectory  start directory, will be selected or {@code new File("")}
      * @param options         options
@@ -106,15 +106,15 @@ public final class DirectoryChooser extends Dialog {
     private void setUsageText() {
         labelUsage.setText(
                 directoryFilter.contains(Option.MULTI_SELECTION)
-                ? Bundle.getString("DirectoryChooser.LabelUsage.MultipleSelection") //
-                : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection")); //
+                ? Bundle.getString("DirectoryChooser.LabelUsage.MultipleSelection")
+                : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
     private void setTitle() {
         setTitle(
                 directoryFilter.contains(Option.MULTI_SELECTION)
-                ? Bundle.getString("DirectoryChooser.Title.MultipleSelection") //
-                : Bundle.getString("DirectoryChooser.Title.SingleSelection")); //
+                ? Bundle.getString("DirectoryChooser.Title.MultipleSelection")
+                : Bundle.getString("DirectoryChooser.Title.SingleSelection"));
     }
 
     @Override
@@ -147,7 +147,7 @@ public final class DirectoryChooser extends Dialog {
 
     /**
      * Liefert, ob der Benutzer (mindestens) ein Verzeichnis auswählte.
-     * 
+     *
      * @return true, wenn ein Verzeichnis ausgewählt wurde und der Dialog
      *         nicht abgebrochen wurde
      */
@@ -157,7 +157,7 @@ public final class DirectoryChooser extends Dialog {
 
     /**
      * Liefert alle selektierten Verzeichnisse.
-     * 
+     *
      * @return Verzeichnisse
      */
     public List<File> getSelectedDirectories() {
@@ -212,8 +212,8 @@ public final class DirectoryChooser extends Dialog {
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this,
-                        Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen"), //
-                        Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen.Title"), //
+                        Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen"),
+                        Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen.Title"),
                         JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -269,16 +269,16 @@ public final class DirectoryChooser extends Dialog {
 
     private boolean confirmDelete() {
         return JOptionPane.showConfirmDialog(this,
-                Bundle.getString("DirectoryChooser.Confirm.Delete"), //
-                Bundle.getString("DirectoryChooser.Confirm.Delete.Title"), //
+                Bundle.getString("DirectoryChooser.Confirm.Delete"),
+                Bundle.getString("DirectoryChooser.Confirm.Delete.Title"),
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
     private boolean checkSelected() {
         if (treeDirectories.getSelectionCount() <= 0) {
             JOptionPane.showMessageDialog(this,
-                    Bundle.getString("DirectoryChooser.Error.NothingSelected"), //
-                    Bundle.getString("DirectoryChooser.Error.NothingSelected.Title"), //
+                    Bundle.getString("DirectoryChooser.Error.NothingSelected"),
+                    Bundle.getString("DirectoryChooser.Error.NothingSelected.Title"),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -305,8 +305,8 @@ public final class DirectoryChooser extends Dialog {
         buttonChoose = new javax.swing.JButton();
         buttonRefresh = new javax.swing.JButton();
 
-        menuItemAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_folder_add.png"))); //
-        menuItemAdd.setText(Bundle.getString("DirectoryChooser.menuItemAdd.text")); //
+        menuItemAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_folder_add.png")));
+        menuItemAdd.setText(Bundle.getString("DirectoryChooser.menuItemAdd.text"));
         menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddActionPerformed(evt);
@@ -314,8 +314,8 @@ public final class DirectoryChooser extends Dialog {
         });
         popupMenu.add(menuItemAdd);
 
-        menuItemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_folder_rename.png"))); //
-        menuItemRename.setText(Bundle.getString("DirectoryChooser.menuItemRename.text")); //
+        menuItemRename.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_folder_rename.png")));
+        menuItemRename.setText(Bundle.getString("DirectoryChooser.menuItemRename.text"));
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRenameActionPerformed(evt);
@@ -323,8 +323,8 @@ public final class DirectoryChooser extends Dialog {
         });
         popupMenu.add(menuItemRename);
 
-        menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_folder_delete.png"))); //
-        menuItemDelete.setText(Bundle.getString("DirectoryChooser.menuItemDelete.text")); //
+        menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_folder_delete.png")));
+        menuItemDelete.setText(Bundle.getString("DirectoryChooser.menuItemDelete.text"));
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
@@ -333,8 +333,8 @@ public final class DirectoryChooser extends Dialog {
         popupMenu.add(menuItemDelete);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); //
-        setTitle(bundle.getString("DirectoryChooser.title")); //
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle");
+        setTitle(bundle.getString("DirectoryChooser.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -343,16 +343,16 @@ public final class DirectoryChooser extends Dialog {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treeDirectories.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        treeDirectories.setToolTipText(Bundle.getString("DirectoryChooser.Tree directory chooser.toolTipText")); //
+        treeDirectories.setToolTipText(Bundle.getString("DirectoryChooser.Tree directory chooser.toolTipText"));
         treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories());
         treeDirectories.setComponentPopupMenu(popupMenu);
-        treeDirectories.setName("Tree directory chooser"); //
+        treeDirectories.setName("Tree directory chooser");
         scrollPaneTreeDirectories.setViewportView(treeDirectories);
 
-        labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); //
+        labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text"));
 
         buttonCancel.setMnemonic('b');
-        buttonCancel.setText(bundle.getString("DirectoryChooser.buttonCancel.text")); //
+        buttonCancel.setText(bundle.getString("DirectoryChooser.buttonCancel.text"));
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -360,15 +360,15 @@ public final class DirectoryChooser extends Dialog {
         });
 
         buttonChoose.setMnemonic('a');
-        buttonChoose.setText(bundle.getString("DirectoryChooser.buttonChoose.text")); //
+        buttonChoose.setText(bundle.getString("DirectoryChooser.buttonChoose.text"));
         buttonChoose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseActionPerformed(evt);
             }
         });
 
-        buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_refresh.png"))); //
-        buttonRefresh.setToolTipText(Bundle.getString("DirectoryChooser.buttonRefresh.toolTipText")); //
+        buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_refresh.png")));
+        buttonRefresh.setToolTipText(Bundle.getString("DirectoryChooser.buttonRefresh.toolTipText"));
         buttonRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
         buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -450,7 +450,7 @@ private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GE
             @Override
             public void run() {
                 DirectoryChooser dialog = new DirectoryChooser(
-                        new javax.swing.JFrame(), new File(""), //
+                        new javax.swing.JFrame(), new File(""),
                         new HashSet<DirectoryChooser.Option>());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 

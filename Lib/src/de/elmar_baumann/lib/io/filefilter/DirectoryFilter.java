@@ -57,7 +57,7 @@ public final class DirectoryFilter implements java.io.FileFilter {
 
     /**
      * Constructor.
-     * 
+     *
      * @param options  options
      */
     public DirectoryFilter(Set<Option> options) {

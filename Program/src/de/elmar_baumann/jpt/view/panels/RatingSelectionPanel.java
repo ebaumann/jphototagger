@@ -41,7 +41,7 @@ import javax.swing.JPanel;
  * @author  Martin Pohlack  <martinp@gmx.de>
  * @version 2009-08-01
  */
-public class RatingSelectionPanel 
+public class RatingSelectionPanel
         extends    JPanel
         implements TextEntry {
 

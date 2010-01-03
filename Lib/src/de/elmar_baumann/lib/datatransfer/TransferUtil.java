@@ -93,7 +93,7 @@ public final class TransferUtil {
      * {@link java.awt.datatransfer.StringSelection}.
      *
      * Each integer is separated by a delimiter.
-     * 
+     *
      * @param  integers  integers
      * @param  delimiter delimiter
      * @return           {@link StringSelection}: A String within integer token
@@ -122,7 +122,7 @@ public final class TransferUtil {
      * {@link java.awt.datatransfer.StringSelection}.
      *
      * Each string is separated by a delimiter.
-     * 
+     *
      * @param  strings   strings
      * @param  delimiter delimiter
      * @return           <code>StringSelection</code>: A String within integer
@@ -147,9 +147,9 @@ public final class TransferUtil {
     }
 
     /**
-     * Returns the flavor of a string with a URI list, needed to get files from 
+     * Returns the flavor of a string with a URI list, needed to get files from
      * {@link #getFilesFromUriList(java.awt.datatransfer.Transferable)}.
-     * 
+     *
      * @return flavor
      */
     public static DataFlavor getUriListFlavor() {
@@ -160,7 +160,7 @@ public final class TransferUtil {
      * Returns a list of files from a string within URIs, e.g.
      * <code>file:///home/elmar/workspace</code>. Linux file managers like
      * Konqueror and Nautilus sends such transfer data.
-     * 
+     *
      * @param  transferable transferable
      * @return              files
      */
@@ -189,7 +189,7 @@ public final class TransferUtil {
     /**
      * Returns a list of files from a string within file names, e.g.
      * <code>/home/elmar/workspace</code>.
-     * 
+     *
      * @param  transferable transferable
      * @param  delimiter    delimiter which separates the file names
      * @return              files
@@ -219,7 +219,7 @@ public final class TransferUtil {
     /**
      * Returns a list of files in a transferable which supports
      * {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}.
-     * 
+     *
      * @param   transferable transferable
      * @return               list of files
      */
@@ -244,7 +244,7 @@ public final class TransferUtil {
      * Returns a file list from a transferable. First ist checks the supported
      * flavors and then ist calls the appropriate function which retrieves the
      * file list.
-     * 
+     *
      * @param  transferable transferable
      * @param  delimiter    token delimiter if files names are in a token string
      * @return              files
@@ -269,7 +269,7 @@ public final class TransferUtil {
 
     /**
      * Returns wheter a transferable contains file data.
-     * 
+     *
      * @param  transferable transferable
      * @return              true, if the transferable maybe contain file data
      */
@@ -314,7 +314,7 @@ public final class TransferUtil {
 
     /**
      * Returns whether a flavor is in a flavor array.
-     * 
+     *
      * @param  flavors flavor array
      * @param  flavor  flavor to search
      * @return true    if found (supported)

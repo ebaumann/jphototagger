@@ -33,7 +33,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-26
@@ -88,7 +88,7 @@ public final class TransferHandlerTreeDirectories extends TransferHandler {
     /**
      * Handles dropped files: Asks whether to copy or move and if confirmed
      * copys or moves the files.
-     * 
+     *
      * @param dropAction
      * @param sourceFiles
      * @param targetDirectory  target directory

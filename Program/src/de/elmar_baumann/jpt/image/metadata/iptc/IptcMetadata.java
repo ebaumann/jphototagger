@@ -39,7 +39,7 @@ public final class IptcMetadata {
 
     /**
      * Returns {@link IptcEntry} instances of an image file.
-     * 
+     *
      * @param  imageFile image file
      * @return           Metadata or empty list if the image has no IPTC
      *                   metadata or when errors occur
@@ -96,7 +96,7 @@ public final class IptcMetadata {
 
     /**
      * Filters IPTC entries.
-     * 
+     *
      * @param  entries IPTC entries
      * @param  filter  filter
      * @return         filtered entries
@@ -114,7 +114,7 @@ public final class IptcMetadata {
 
     /**
      * Returns a {@link Iptc} instance of an image file.
-     * 
+     *
      * @param  imageFile image file
      * @return           IPTC of that image file or null if the image has no
      *                   IPTC metadata or when errors occur

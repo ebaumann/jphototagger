@@ -176,7 +176,7 @@ public final class ExifGpsMetadata {
 
     /**
      * Returns the name of GPS area.
-     * 
+     *
      * @return name of GPS area
      */
     public String gpsAreaInformation() {

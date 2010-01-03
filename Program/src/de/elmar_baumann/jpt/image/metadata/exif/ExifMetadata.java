@@ -46,7 +46,7 @@ public final class ExifMetadata {
 
     /**
      * Returns {@link ExifTag} instances of an image file.
-     * 
+     *
      * @param  imageFile image file
      * @return           EXIF entries or null if errors occured
      */
@@ -277,7 +277,7 @@ public final class ExifMetadata {
 
     /**
      * Returns EXIF metadata of a image file.
-     * 
+     *
      * @param  imageFile image file
      * @return           EXIF metadata or null if errors occured
      */

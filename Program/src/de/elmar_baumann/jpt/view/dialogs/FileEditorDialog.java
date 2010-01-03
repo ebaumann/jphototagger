@@ -28,7 +28,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
 /**
  * Dialog with a {@link de.elmar_baumann.jpt.view.panels.FileEditorPanel}.
  * Closing is disabled as long as the file editor runs.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-05-22
  */

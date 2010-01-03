@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.data;
 /**
  * Daten gespeicherter Suchen für ein {@link de.elmar_baumann.jpt.view.panels.SearchColumnPanel}-Objekt.
  * Die Indexe sind Indexe von Listenitems in Comboboxen oder Listboxen.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
  */
@@ -52,7 +52,7 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert den Panelindex.
-     * 
+     *
      * @return Panelindex
      */
     public int getPanelIndex() {
@@ -61,7 +61,7 @@ public final class SavedSearchPanel {
 
     /**
      * Setzt den Panelindex.
-     * 
+     *
      * @param index Panelindex
      */
     public void setPanelIndex(int index) {
@@ -70,7 +70,7 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert, ob die rechte Klammer ausgewählt ist.
-     * 
+     *
      * @return true, wenn ausgewählt
      */
     public boolean isBracketRightSelected() {
@@ -79,7 +79,7 @@ public final class SavedSearchPanel {
 
     /**
      * Wählt die rechte Klammer aus.
-     * 
+     *
      * @param selected true, wenn ausgewählt
      */
     public void setBracketRightSelected(boolean selected) {
@@ -88,7 +88,7 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert die ID der Spalte.
-     * 
+     *
      * @return Spalten-ID
      */
     public int getColumnId() {
@@ -97,7 +97,7 @@ public final class SavedSearchPanel {
 
     /**
      * Setzt die ID der Spalte.
-     * 
+     *
      * @param id Spalten-ID
      */
     public void setColumnId(int id) {
@@ -106,7 +106,7 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert die ID des Vergleichs.
-     * 
+     *
      * @return Vergleichs-ID
      */
     public int getComparatorId() {
@@ -115,7 +115,7 @@ public final class SavedSearchPanel {
 
     /**
      * Setzt die ID des Vergleichs.
-     * 
+     *
      * @param id ID
      */
     public void setComparatorId(int id) {
@@ -124,7 +124,7 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert, ob die 1. Klammer links ausgewählt ist.
-     * 
+     *
      * @return true, wenn ausgewählt
      */
     public boolean isBracketLeft1Selected() {
@@ -133,7 +133,7 @@ public final class SavedSearchPanel {
 
     /**
      * Setzt die 1. Klammer links auf ausgewählt.
-     * 
+     *
      * @param selected true, wenn ausgewählt
      */
     public void setBracketLeft1Selected(boolean selected) {
@@ -142,7 +142,7 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert, ob die 2. Klammer links ausgewählt ist.
-     * 
+     *
      * @return true, wenn ausgewählt
      */
     public boolean isBracketLeft2Selected() {
@@ -151,7 +151,7 @@ public final class SavedSearchPanel {
 
     /**
      * Setzt die 2. Klammer links auf ausgewählt.
-     * 
+     *
      * @param leftBracket2Selected true, wenn ausgewählt
      */
     public void setBracketLeft2Selected(boolean leftBracket2Selected) {
@@ -160,7 +160,7 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert die ID des Operators.
-     * 
+     *
      * @return Operator-ID
      */
     public int getOperatorId() {
@@ -169,7 +169,7 @@ public final class SavedSearchPanel {
 
     /**
      * Setzt die ID des Operators.
-     * 
+     *
      * @param id ID
      */
     public void setOperatorId(int id) {
@@ -178,7 +178,7 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert, ob ein Wert definiert ist.
-     * 
+     *
      * @return true, wenn ein Wert definiert ist
      */
     public boolean hasValue() {
@@ -187,9 +187,9 @@ public final class SavedSearchPanel {
 
     /**
      * Liefert den Wert.
-     * 
+     *
      * @return Wert oder null wenn nicht gesetzt
-     * @see    #hasValue() 
+     * @see    #hasValue()
      */
     public String getValue() {
         return value;
@@ -197,7 +197,7 @@ public final class SavedSearchPanel {
 
     /**
      * Setzt den Wert.
-     * 
+     *
      * @param value Wert
      */
     public void setValue(String value) {

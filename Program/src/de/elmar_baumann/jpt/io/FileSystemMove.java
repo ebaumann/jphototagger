@@ -46,7 +46,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
     /**
      * Moves sources files to a target directory.
-     * 
+     *
      * @param sourceFiles              source files
      * @param targetDirectory          target directory
      * @param renameIfTargetFileExists renaming automatically the file if the
@@ -58,7 +58,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
             boolean    renameIfTargetFileExists
             ) {
         this.sourceFiles.clear();
-        
+
         this.sourceFiles.addAll(sourceFiles);
 
         this.targetDirectory          = targetDirectory;
@@ -69,7 +69,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
     /**
      * Moves source files to target files.
-     * 
+     *
      * @param sourceFiles              source files
      * @param targetFiles              target files - size must be equals to
      *                                 sourceFiles

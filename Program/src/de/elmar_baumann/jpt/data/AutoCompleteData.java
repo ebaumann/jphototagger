@@ -41,7 +41,7 @@ public final class AutoCompleteData {
 
     /**
      * Creates a new instance of this class.
-     * 
+     *
      * @param columns columns. All words of
      *               {@link DatabaseContent#getContent(de.elmar_baumann.jpt.database.metadata.Column)}
      *               will be added to the autocomplete data.
@@ -53,7 +53,7 @@ public final class AutoCompleteData {
 
     /**
      * Adds a string to the autocomplete data if it does not already exist.
-     * 
+     *
      * @param string new string
      */
     void addString(String string) {

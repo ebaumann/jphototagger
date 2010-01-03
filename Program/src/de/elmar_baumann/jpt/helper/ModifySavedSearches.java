@@ -154,7 +154,7 @@ public final class ModifySavedSearches {
 
     private static String getInput(String oldName) {
         return MessageDisplayer.input(
-                "SavedSearchesModifier.Input.NewName", 
+                "SavedSearchesModifier.Input.NewName",
                 oldName,
                 ModifySavedSearches.class.getName());
     }

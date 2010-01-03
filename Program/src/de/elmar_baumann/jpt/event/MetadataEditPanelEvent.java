@@ -40,13 +40,13 @@ public final class MetadataEditPanelEvent {
          */
         EDIT_DISABLED
     }
-    
+
     private final EditMetadataPanelsArray source;
     private final Type type;
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param source  Ereignisquelle
      * @param type    Ereignistyp
      */
@@ -57,7 +57,7 @@ public final class MetadataEditPanelEvent {
 
     /**
      * Liefert die Ereignisquelle.
-     * 
+     *
      * @return Ereignisquelle
      */
     public EditMetadataPanelsArray getSource() {
@@ -66,7 +66,7 @@ public final class MetadataEditPanelEvent {
 
     /**
      * Liefert den Ereignistyp.
-     * 
+     *
      * @return Ereignistyp
      */
     public Type getType() {

@@ -46,7 +46,7 @@ public enum Relation {
 
     /**
      * Liefert die Verknüpfung in der Landessprache.
-     * 
+     *
      * @return Lokalisierter String.
      */
     public String toLocalizedString() {
@@ -55,7 +55,7 @@ public enum Relation {
 
     /**
      * Liefert den String für ein SQL-Statement.
-     * 
+     *
      * @return SQL-String
      */
     public String toSqlString() {

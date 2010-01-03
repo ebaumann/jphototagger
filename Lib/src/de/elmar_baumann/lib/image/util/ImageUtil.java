@@ -42,7 +42,7 @@ public final class ImageUtil {
 
     /**
      * Returns a <code>ByteArrayInputStream</code> of an image.
-     * 
+     *
      * @param image      image
      * @param formatName a String containg the informal name of the format
      * @return           stream oder null on errors

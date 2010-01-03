@@ -136,7 +136,7 @@ public class Dialog extends JDialog {
     /**
      * Sets the contents URL of the help and must be called <em>before</em>
      * {@link #help(java.lang.String)}.
-     * 
+     *
      * @param url  contents URL
      * @see HelpBrowser#setContentsUrl(java.lang.String)
      */
@@ -172,9 +172,9 @@ public class Dialog extends JDialog {
     /**
      * Shows the help dialog with an specific URL. Previous to this call once
      * {@link #setHelpContentsUrl(java.lang.String)} have to be called.
-     * 
+     *
      * The dialog is an instance of {@link HelpBrowser}.
-     * 
+     *
      * @param url  URL to display
      */
     protected void help(String url) {

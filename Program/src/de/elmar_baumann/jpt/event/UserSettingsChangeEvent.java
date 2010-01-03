@@ -27,12 +27,12 @@ import java.util.logging.Level;
 
 /**
  * Action: The user has changed the settings.
- * 
+ *
  * <em>The get...() methos returns only valid content for the appropriate
  * action. E.g. if the action is {@link Type#AUTOCOPY_DIRECTORY} the
  * appropriate method ist {@link #getAutoCopyDirectory()}. Other getters
  * will return null or an unitialized value!</em>
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-14
  */

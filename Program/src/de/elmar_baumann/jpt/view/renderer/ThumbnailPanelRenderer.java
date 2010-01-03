@@ -60,7 +60,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
     /**
      * Font of the text below the thumbnails
      */
-    private static final Font FONT = new Font("Arial", Font.PLAIN, FONT_HEIGHT); 
+    private static final Font FONT = new Font("Arial", Font.PLAIN, FONT_HEIGHT);
     /**
      * Height of the text font for text below the thumbnails in pixels,
      * computed from FONT_HEIGHT.

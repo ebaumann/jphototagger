@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Utils für Datenbankmetadaten.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -32,7 +32,7 @@ public final class DatabaseMetadataUtil {
 
     /**
      * Liefert aus verschiedenen Spalten die gemeinsamen Tabellennamen.
-     * 
+     *
      * @param columns Spalten
      * @return        Tabellennamen
      */
@@ -50,7 +50,7 @@ public final class DatabaseMetadataUtil {
 
     /**
      * Liefert aus verschiedenen Tabellen die gemeinsamen.
-     * 
+     *
      * @param tables Tabellen
      * @return       Gemeinsame Tabellen
      */
@@ -66,7 +66,7 @@ public final class DatabaseMetadataUtil {
 
     /**
      * Liefert aus verschiedenen Spalten die gemeinsamen Tabellen.
-     * 
+     *
      * @param columns Spalten
      * @return        Tabellen
      */
@@ -83,7 +83,7 @@ public final class DatabaseMetadataUtil {
 
     /**
      * Liefert aus verschiedenen Spalten die gemeinsamen.
-     * 
+     *
      * @param columns Spalten
      * @return        Spalten
      */
@@ -100,9 +100,9 @@ public final class DatabaseMetadataUtil {
     /**
      * Liefert von mehreren Tabellen alle, die eine bestimmte (andere) Tabelle
      * referenzieren: In einer der Tabellen ist (mindestens) eine Spalte
-     * Fremdschlüssel der den Primärschlüssel dieser Tabelle 
+     * Fremdschlüssel der den Primärschlüssel dieser Tabelle
      * (<code>referenceTable</code>) referenziert.
-     * 
+     *
      * @param tables         Tabellen
      * @param referenceTable Tabelle, die referenziert werden soll
      * @param direction      Richtung der Referenz
@@ -125,7 +125,7 @@ public final class DatabaseMetadataUtil {
     }
 
     /**
-     * 
+     *
      * @param tableColumns Tabellenspalten (beliebiger Tabellen)
      * @param tablename    Name der Tabelle: Alle Tabellen, deren Namen damit
      *                     anfangen, werden hinzugefügt
@@ -144,7 +144,7 @@ public final class DatabaseMetadataUtil {
 
     /**
      * Liefert einen String mit "SELECT spalte, spalte, ... FROM tabelle, ..."
-     * 
+     *
      * @param tableColumns Spalten
      * @return             SQL-String
      */

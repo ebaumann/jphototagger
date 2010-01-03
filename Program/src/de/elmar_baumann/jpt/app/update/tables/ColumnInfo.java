@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-06

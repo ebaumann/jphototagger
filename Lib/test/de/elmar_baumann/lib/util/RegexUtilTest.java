@@ -33,7 +33,7 @@ public class RegexUtilTest {
     @Test
     public void testGetMatches() {
         System.out.println("getMatches");
-        
+
         Collection<String> strings = new ArrayList<String>();
 
         final String s1 = "Bill";
@@ -49,7 +49,7 @@ public class RegexUtilTest {
         strings.add(s4);
         strings.add(s5);
         strings.add(s6);
-        
+
         String pattern = ".*Montag$";
         List<String> expResult = Arrays.asList(s2);
         List<String> result = RegexUtil.getMatches(strings, pattern);
@@ -87,7 +87,7 @@ public class RegexUtilTest {
     @Test
     public void testContainsMatch() {
         System.out.println("containsMatch");
-        
+
         Collection<String> patterns = new ArrayList<String>();
 
         patterns.add(".*Montag$");

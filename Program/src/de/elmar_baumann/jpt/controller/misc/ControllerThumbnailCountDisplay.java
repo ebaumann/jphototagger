@@ -30,7 +30,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * Zeigt die Anzahl der Thumbnails an. 
+ * Zeigt die Anzahl der Thumbnails an.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-25

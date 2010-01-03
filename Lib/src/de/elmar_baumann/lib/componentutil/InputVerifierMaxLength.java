@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 /**
  * Verifies Input in a <code>JTextField</code> or <code>JTextArea</code> against
  * a maximum allowed length. Shows a message dialog on errors.
- * 
+ *
  * To use other components, enhance the private method <code>lengthOk()</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>

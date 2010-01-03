@@ -51,7 +51,7 @@ import java.util.Set;
 
 /**
  * Writes image file metadata into the database if out of date or not existing.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -101,7 +101,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     /**
      * Constructor.
-     * 
+     *
      * @param filenames names of the <em>image</em> files to be updated
      * @param what      which image metadata to insert
      */
@@ -268,7 +268,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             return true;
         }
         boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFilename) != null; // slow if large image file whitout XMP
-        
+
         if (!hasEmbeddedXmp) { // Avoid unneccesary 2nd calls
             db.setLastModifiedXmp(imageFilename, fileTime);
         }

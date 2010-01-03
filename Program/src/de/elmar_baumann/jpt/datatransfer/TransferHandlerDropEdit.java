@@ -35,9 +35,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * a {@link TransferHandlerDragListItems} or from a
  * {@link DefaultMutableTreeNode} with an {@link HierarchicalKeyword} as user
  * object when it's data flavor is {@link DataFlavor#stringFlavor}.
- * 
+ *
  * When multiple items exported, only the first will be inserted.
- * 
+ *
  * Does <em>not</em> support moving data.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -86,19 +86,19 @@ public final class TransferHandlerDropEdit extends TransferHandler {
             sb.append(index++ == 0 ? "" : ";");
             sb.append(o.toString());
         }
-        
+
         return sb.toString();
     }
 
     private String getStrings(List<DefaultMutableTreeNode> nodes) {
         if (nodes.size() <= 0) return null;
-        
+
         List<String> keywords = new ArrayList<String>();
-        
+
         for (DefaultMutableTreeNode node : nodes) {
             keywords.addAll(HierarchicalKeywordsHelper.getKeywordStrings(node, true));
         }
-        
+
         if (keywords.size() == 0) return null;
 
         StringBuilder sb = new StringBuilder();

@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata;
 
 /**
  * Eine Tabellenspalte.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007-07-29
  */
@@ -66,12 +66,12 @@ public class Column {
      */
     public enum ReferenceDirection {
 
-        /** 
+        /**
          * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
          * n-Teil
          */
         BACKWARDS,
-        /** 
+        /**
          * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
          * 1-Teil
          */
@@ -80,7 +80,7 @@ public class Column {
 
     /**
      * Erzeugt eine Instanz.
-     * 
+     *
      * @param table Tabelle, in der die Spalte ist
      * @param name  Spaltenname
      * @param type  Spaltentyp
@@ -120,7 +120,7 @@ public class Column {
 
     /**
      * Liefert, ob unterschieden wird zwischen Groß- und Kleinschreibung.
-     * 
+     *
      * @return true, wenn unterschieden wird zwischen Groß- und Kleinschreibung
      */
     public boolean isIgnoreCase() {
@@ -129,7 +129,7 @@ public class Column {
 
     /**
      * Liefert, ob ein Index existiert für diese Spalte.
-     * 
+     *
      * @return true, wenn ein Index existiert für diese Spalte
      */
     public boolean isIndexed() {
@@ -138,7 +138,7 @@ public class Column {
 
     /**
      * Liefert, ob die Spalte (Teil eines) Primärschlüssels ist.
-     * 
+     *
      * @return true, wenn die Spalte (Teil eines) Primärschlüssels ist
      */
     public boolean isPrimaryKey() {
@@ -147,7 +147,7 @@ public class Column {
 
     /**
      * Setzt, dass die Spalte (Teil eines) Primärschlüssels ist.
-     * 
+     *
      * @param isPrimaryKey true, wenn die Spalte (Teil eines) Primärschlüssels
      *                     ist. Default: false.
      */
@@ -160,7 +160,7 @@ public class Column {
 
     /**
      * Liefert, ob die Spalte leer sein kann.
-     * 
+     *
      * @return true, wenn die Spalte leer sein kann
      */
     public boolean isCanBeNull() {
@@ -169,7 +169,7 @@ public class Column {
 
     /**
      * Setzt, ob die Spalte leer sein kann.
-     * 
+     *
      * @param canBeNull true, wenn die Spalte leer sein kann.
      *                   Default: true, bei Primärschlüsselspalten false
      */
@@ -180,7 +180,7 @@ public class Column {
     /**
      * Liefert, ob alle Werte in dieser Spalte in der Tabelle nur einmal
      * vorkommen.
-     * 
+     *
      * @return true, wenn alle Werte in dieser Spalte in der Tabelle nur
      *         einmal vorkommen
      */
@@ -191,7 +191,7 @@ public class Column {
     /**
      * Setzt, dass alle Werte in dieser Spalte in der Tabelle nur einmal
      * vorkommen.
-     * 
+     *
      * @param isUnique true, wenn alle Werte in dieser Spalte in der Tabelle
      *                 nur einmal vorkommen. Default: false.
      */
@@ -201,7 +201,7 @@ public class Column {
 
     /**
      * Liefert die (maximale) Länge dieser Spalte.
-     * 
+     *
      * @return (maximale) Länge dieser Spalte
      */
     public int getLength() {
@@ -210,7 +210,7 @@ public class Column {
 
     /**
      * Setzt die (maximale) Länge dieser Spalte.
-     * 
+     *
      * @param length (maximale) Länge dieser Spalte.
      *               Default: 0.
      */
@@ -220,7 +220,7 @@ public class Column {
 
     /**
      * Liefert einen Schlüssel, z.B. zum persistenten Abspeichern.
-     * 
+     *
      * @return Schlüssel
      */
     public String getKey() {
@@ -229,7 +229,7 @@ public class Column {
 
     /**
      * Liefert die Tabelle, in der sich diese Spalte befindet.
-     * 
+     *
      * @return Tabelle
      */
     public Table getTable() {
@@ -238,7 +238,7 @@ public class Column {
 
     /**
      * Setzt die Tabelle, in der sich diese Spalte befindet.
-     * 
+     *
      * @param table die Tabelle, in der sich diese Spalte befindet
      */
     protected void setTable(Table table) {
@@ -249,7 +249,7 @@ public class Column {
      * Liefert, welche Spalte (einer anderen Tabelle) diese Spalte referenziert.
      * Das heißt, diese Spalte enthält den (Teil eines) Primärschlüssel(s) einer
      * anderen Tabelle; sie ist ein Fremdschlüssel.
-     * 
+     *
      * @return Referenzierte Spalte (einer anderen Tabelle) oder null, wenn
      *         diese Spalte keine andere Spalte referenziert
      */
@@ -261,7 +261,7 @@ public class Column {
      * Setzt, welche Spalte (einer anderen Tabelle) diese Spalte refernziert.
      * Das heißt, diese Spalte enthält den (Teil eines) Primärschlüssel(s) einer
      * anderen Tabelle; sie ist ein Fremdschlüssel.
-     * 
+     *
      * @param references Refernziert Spalte.
      *                   Default: null.
      */
@@ -271,7 +271,7 @@ public class Column {
 
     /**
      * Liefert den Namen der Spalte.
-     * 
+     *
      * @return Spaltenname
      */
     public String getName() {
@@ -280,16 +280,16 @@ public class Column {
 
     /**
      * Liefert eine Beschreibung der Spalte.
-     * 
+     *
      * @return Beschreibung der Spalte
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * Returns the longer description.
-     * 
+     *
      * @return description or null if not set
      */
     public String getLongerDescription() {
@@ -298,16 +298,16 @@ public class Column {
 
     /**
      * Setzt die Beschreibung der Spalte.
-     * 
+     *
      * @param description Beschreibung der Spalte
      */
     protected void setDescription(String description) {
         this.description = description;
     }
-    
+
     /**
      * Sets a longer description e.g. for tooltip texts.
-     * 
+     *
      * @param description  description
      */
     protected void setLongerDescription(String description) {
@@ -316,7 +316,7 @@ public class Column {
 
     /**
      * Liefert den Datentyp der Spalte.
-     * 
+     *
      * @return Datentyp der Spalte
      */
     public DataType getDataType() {
@@ -326,7 +326,7 @@ public class Column {
     /**
      * Liefert, ob die Spalte Fremdschlüssel ist. Abkürzung für
      * getReferences() != null.
-     * 
+     *
      * @return true, wenn die Spalte Fremdschlüssel ist
      */
     public boolean isForeignKey() {
@@ -335,7 +335,7 @@ public class Column {
 
     /**
      * Liefert die Richtung der Referenz.
-     * 
+     *
      * @return Richtung der Referenz
      */
     public ReferenceDirection getReferenceDirection() {
@@ -344,7 +344,7 @@ public class Column {
 
     /**
      * Setzt die Richtung der Referenz.
-     * 
+     *
      * @param referenceDirection Richtung der Referenz.
      *                           Default: BACKWARDS
      */

@@ -69,7 +69,7 @@ public enum Comparator {
 
     /**
      * Liefert die ID des Comparators.
-     * 
+     *
      * @return ID
      */
     public int getId() {
@@ -78,7 +78,7 @@ public enum Comparator {
 
     /**
      * Liefert einen Comparator mit bestimmter ID.
-     * 
+     *
      * @param  id ID
      * @return Comparator oder null bei ungültiger ID
      */
@@ -93,7 +93,7 @@ public enum Comparator {
 
     /**
      * Liefert den Operator in der Landessprache.
-     * 
+     *
      * @return Lokalisierter String.
      */
     public String toLocalizedString() {
@@ -102,7 +102,7 @@ public enum Comparator {
 
     /**
      * Liefert den String für ein SQL-Statement.
-     * 
+     *
      * @return SQL-String
      */
     public String toSqlString() {

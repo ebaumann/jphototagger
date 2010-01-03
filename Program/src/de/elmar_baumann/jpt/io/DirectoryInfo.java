@@ -35,7 +35,7 @@ public final class DirectoryInfo {
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param directory Verzeichnis
      */
     public DirectoryInfo(File directory) {
@@ -45,7 +45,7 @@ public final class DirectoryInfo {
 
     /**
      * Liefert das Verzeichnis.
-     * 
+     *
      * @return Verzeichnis
      */
     public File getDirectory() {
@@ -54,7 +54,7 @@ public final class DirectoryInfo {
 
     /**
      * Liefert, ob im Verzeichnis Bilddateien sind.
-     * 
+     *
      * @return true, wenn im Verzeichnis Bilder sind.
      */
     public boolean hasImageFiles() {
@@ -63,7 +63,7 @@ public final class DirectoryInfo {
 
     /**
      * Liefert die Anzahl der Bilddateien in diesem Verzeichnis.
-     * 
+     *
      * @return Anzahl der Bilddateien
      */
     public int getImageFileCount() {
@@ -72,9 +72,9 @@ public final class DirectoryInfo {
 
     /**
      * Liefert die Bilddateien des Verzeichnisses.
-     * 
+     *
      * @return Bilddateien
-     * @see    #hasImageFiles() 
+     * @see    #hasImageFiles()
      */
     public List<File> getImageFiles() {
         return new ArrayList<File>(imageFiles);

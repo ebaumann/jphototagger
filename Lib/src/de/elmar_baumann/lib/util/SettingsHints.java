@@ -90,7 +90,7 @@ public final class SettingsHints {
     /**
      * Fügt ein Attribut hinzu, dessen Inhalt <em>nicht</em> persistent gespeichert
      * werden soll.
-     * 
+     *
      * @param member Attribut, genauer Pfad, z.B.
      *               <code>de.elmar_baumann.jpt.view.AppPanel.tableXmp</code>
      *               Default: Kein Attribut ist ausgeschlossen.
@@ -106,7 +106,7 @@ public final class SettingsHints {
      * Liefert, ob der Inhalt eines Attributs gespeichert werden soll. Diese
      * Operation ist invers zu
      * {@link PersistentSettingsHints#isExcludedMember(java.lang.String)}.
-     * 
+     *
      * @param member Attribut, genauer Pfad, z.B.
      *               <code>de.elmar_baumann.jpt.view.AppPanel.tableXmp</code>
      * @return       true, wenn der Inhalt des Attributs gespeichert werden soll

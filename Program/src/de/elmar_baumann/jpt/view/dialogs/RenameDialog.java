@@ -54,7 +54,7 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  * Dialog for renaming filenames.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class RenameDialog extends Dialog {
@@ -114,7 +114,7 @@ public final class RenameDialog extends Dialog {
 
     /**
      * Sets the files to rename;
-     * 
+     *
      * @param files  files
      */
     public void setFiles(List<File> files) {

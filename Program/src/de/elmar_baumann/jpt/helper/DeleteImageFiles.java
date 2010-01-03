@@ -40,7 +40,7 @@ public final class DeleteImageFiles {
     /**
      * Deletes image files from the file system <strong>and</strong> their
      * sidecar files.
-     * 
+     *
      * @param  imageFiles  image files to delete
      * @param  options     options
      * @return all deleted files

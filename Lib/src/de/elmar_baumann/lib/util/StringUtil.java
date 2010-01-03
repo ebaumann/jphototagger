@@ -47,7 +47,7 @@ public final class StringUtil {
      * Wraps text into lines where a line has a maximum number of chars. After
      * wrapping leading word delimiters will not be removed, only one delimiter
      * per line will be removed.
-     * 
+     *
      * @param text            text
      * @param maxCharsPerLine maximum numbers per line
      * @param wordDelimiter   characters where lines shall be breaked. Only if

@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-29

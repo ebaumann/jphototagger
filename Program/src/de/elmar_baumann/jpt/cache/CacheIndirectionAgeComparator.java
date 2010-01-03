@@ -27,7 +27,7 @@ import java.util.Map.Entry;
  * Comparator for sorting cache-indirection objects based on their age,
  * usefull for cache-replacement strategies etc.
  *
- * @param <C> 
+ * @param <C>
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */

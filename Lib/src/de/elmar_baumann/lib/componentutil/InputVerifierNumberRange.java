@@ -30,7 +30,7 @@ import javax.swing.JTextField;
 /**
  * Verifies Input in a <code>JTextField</code> or <code>JTextArea</code> against
  * a maximum and maximum number.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-05
  */

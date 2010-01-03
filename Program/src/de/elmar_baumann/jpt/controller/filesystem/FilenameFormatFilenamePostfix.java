@@ -28,7 +28,7 @@ public final class FilenameFormatFilenamePostfix extends FilenameFormat {
 
     /**
      * Postfix prepanded by a period.
-     * 
+     *
      * @return postfix
      */
     @Override

@@ -64,7 +64,7 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
 
     /**
      * Setzt die gespeicherte Suche.
-     * 
+     *
      * @param savedSearch Gespeicherte Suche. Default: null.
      */
     public void setSavedSearch(SavedSearch savedSearch) {
@@ -73,7 +73,7 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
 
     /**
      * Liefert die gespeicherte Suche.
-     * 
+     *
      * @return Gespeicherte Suche
      */
     public SavedSearch getSavedSearch() {

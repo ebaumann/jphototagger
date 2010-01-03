@@ -87,7 +87,7 @@ public final class XmpMetadata {
 
     /**
      * Returns all {@link XMPPropertyInfo}s of a specific namespace.
-     * 
+     *
      * @param propertyInfos XMP property infos of arbitrary namespaces
      * @param namespace     namespace
      * @return              property infos of <code>propertyInfos</code>
@@ -107,7 +107,7 @@ public final class XmpMetadata {
 
     /**
      * Returns XMP metadata of an image file.
-     * 
+     *
      * @param imageFilename name of the image file
      * @return              Metadata or null if the image file has no XMP
      *                      metadata or on errors while reading
@@ -173,7 +173,7 @@ public final class XmpMetadata {
      * sidecar file, the sidecar file has the same name as the image file with
      * exception of the suffix: it's <code>xmp</code>. When the image file has
      * the name <code>dog.jpg</code> the sidecar name is <code>dog.xmp</code>.
-     * 
+     *
      * @param  imageFilename name of the image file
      * @return               sidecar filename
      */
@@ -194,7 +194,7 @@ public final class XmpMetadata {
     /**
      * Returns the name of an image's sidecar file (only) if the image has
      * a sidecar file.
-     * 
+     *
      * @param imageFilename image filename
      * @return              name of the sidecar file or null, if the image
      *                      hasn't a sidecar file
@@ -217,7 +217,7 @@ public final class XmpMetadata {
     /**
      * Returns the XMP sidecar file of an image file (only) if the image has a
      * sidecar file.
-     * 
+     *
      * @param  imageFile image file
      * @return           sidecar file or null if the image hasn't a sidecar file
      */
@@ -250,7 +250,7 @@ public final class XmpMetadata {
 
     /**
      * Returns wheter a string is a known XMP namespace.
-     * 
+     *
      * @param string string
      * @return       true if that string is a known namespace
      */
@@ -260,7 +260,7 @@ public final class XmpMetadata {
 
     /**
      * Returns all {@link XMPPropertyInfo}s matching a {@link IPTCEntryMeta}.
-     * 
+     *
      * @param  iptcEntryMeta IPTC entry metadata
      * @param  propertyInfos arbitrary property infos
      * @return               property infos of <code>propertyInfos</code>
@@ -285,7 +285,7 @@ public final class XmpMetadata {
     /**
      * Returns whether an image has a sidecar file and the sidecar file exists
      * in the same directory as the image file.
-     * 
+     *
      * @param  imageFilename name of the image file
      * @return               true if the image has a sidecar file
      */
@@ -301,7 +301,7 @@ public final class XmpMetadata {
      * Returns whether a sidecar file can be written to the file system. This
      * is true if the sidecar file exists an is writable or if it does not
      * exist and the directory is writable.
-     * 
+     *
      * @param  imageFilename  name of the image file
      * @return                true if possible
      */
@@ -322,7 +322,7 @@ public final class XmpMetadata {
     /**
      * Writes the values of a {@link Xmp} instance as or into a XMP sidecar
      * file.
-     * 
+     *
      * @param  sidecarFilename  name of the sidecar file
      * @param  metadata         metadata
      * @return                  true if successfully written
@@ -506,7 +506,7 @@ public final class XmpMetadata {
      * Returns XMP metadata of a image file. If the image has a sidecar file,
      * it's metadata will be read. If the image hasn't a sidecar file but
      * embedded XMP metadata, the embedded XMP metadata will be read.
-     * 
+     *
      * @param  imageFilename name of the image file
      * @return               XMP metadata of the image file or null if the image
      *                       file has no XMP metadata or on errors while reading

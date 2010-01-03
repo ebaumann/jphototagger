@@ -48,50 +48,50 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-// Code geringfügig modifiziert Elmar Baumann <eb@elmar-baumann.de>:
-// * Konstruktoren private
-// * Buttons für Monatswechsel mit Icons
-// * Icons für die Titelleiste können wahlweise gesetzt werden
-// * Strings aus Bundle
-// * main() entfernt
-
-//
-// URL: http://groups.google.de/group/comp.lang.java.gui/browse_thread/thread/d69c86b8831c787f/1674081f7286a171?hl=de&lnk=st&q=#1674081f7286a171
-//
-//  JDateChooser
-//
-//  Written by: Knute Johnson
-//
-//  Date        Version     Modification
-//  ---------   -------
-//---------------------------------------------------
-//  04 jun 05   01.00       incept
-//
-//
-//  Constructor Summary
-//      JDateChooser()
-//          Creates a new JDateChooser with today's date displayed
-//      JDateChooser(GregorianCalendar gc)
-//          Creates a new JDateChooser with the specified date displayed
-//
-//  Method Summary
-//      GregorianCalendar getCalendar()
-//          Gets the selected date
-//      void setCalendar(GregorianCalendar gc)
-//          Sets and display's the specified date
-//      static GregorianCalendar showDialog(Component comp)
-//          Displays a JDateChooser in a modal JDialog and returns the
-//           selected date or null if dismissed.
-//      static GregorianCalendar showDialog(Component comp,GregorianCalendar gc)
-//          Displays a JDateChooser in a modal JDialog with the specified date
-//           and returns the selected date or null if dismissed.
-//
-//
-//
 /**
- * Dialog zur Auswahl eines Datums.
- * 
- * @author Knute Johnson
+ * Code geringfügig modifiziert Elmar Baumann <eb@elmar-baumann.de>:
+ * - Konstruktoren private
+ * - Buttons für Monatswechsel mit Icons
+ * - Icons für die Titelleiste können wahlweise gesetzt werden
+ * - Strings aus Bundle
+ * - main() entfernt
+ *
+ *
+ * URL: http://groups.google.de/group/comp.lang.java.gui/browse_thread/thread/d69c86b8831c787f/1674081f7286a171?hl=de&lnk=st&q=#1674081f7286a171
+ *
+ *  JDateChooser
+ *
+ *  Written by: Knute Johnson
+ *
+ *  Date        Version     Modification
+ *  ---------   -------
+ *---------------------------------------------------
+ *  04 jun 05   01.00       incept
+ *
+ *
+ *  Constructor Summary
+ *      JDateChooser()
+ *          Creates a new JDateChooser with today's date displayed
+ *      JDateChooser(GregorianCalendar gc)
+ *          Creates a new JDateChooser with the specified date displayed
+ *
+ *  Method Summary
+ *      GregorianCalendar getCalendar()
+ *          Gets the selected date
+ *      void setCalendar(GregorianCalendar gc)
+ *          Sets and display's the specified date
+ *      static GregorianCalendar showDialog(Component comp)
+ *          Displays a JDateChooser in a modal JDialog and returns the
+ *           selected date or null if dismissed.
+ *      static GregorianCalendar showDialog(Component comp,GregorianCalendar gc)
+ *          Displays a JDateChooser in a modal JDialog with the specified date
+ *           and returns the selected date or null if dismissed.
+ */
+
+/**
+ * Date Chooser Dialog.
+ *
+ * @author Knute Johnson, Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class DateChooserDialog extends JComponent {
 
@@ -131,7 +131,7 @@ public final class DateChooserDialog extends JComponent {
 
         c.anchor = GridBagConstraints.WEST;
         previousButton = new JButton();
-        previousButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_datechooser_prev.png")); 
+        previousButton.setIcon(IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_datechooser_prev.png"));
         previousButton.setBorder(BorderFactory.createEmptyBorder());
         previousButton.setPreferredSize(new Dimension(16, 16));
         previousButton.addActionListener(new ActionListener() {
@@ -272,8 +272,8 @@ public final class DateChooserDialog extends JComponent {
     }
 
     /**
-     * Zeigt den Datumsauswahldialog an, benutzt die Default-Locale. 
-     * 
+     * Zeigt den Datumsauswahldialog an, benutzt die Default-Locale.
+     *
      * @param comp  Komponente, die den Dialog nutzt
      * @param icons Icons oder null, wenn keine gesetzt werden sollen
      * @return      Kalender mit ausgewähltem Datum oder null, wenn keines
@@ -284,8 +284,8 @@ public final class DateChooserDialog extends JComponent {
     }
 
     /**
-     * Zeigt den Datumsauswahldialog an. 
-     * 
+     * Zeigt den Datumsauswahldialog an.
+     *
      * @param comp     Komponente, die den Dialog nutzt
      * @param calendar Kalender mit Startdatum
      * @param locale   Locale
@@ -354,7 +354,7 @@ public final class DateChooserDialog extends JComponent {
     public void setFont(Font font) {
         if (font == null)
             throw new NullPointerException("font == null");
-        
+
         previousButton.setFont(font);
         nextButton.setFont(font);
         for (int i = 0; i < dayOfWeekLabels.length; i++) {

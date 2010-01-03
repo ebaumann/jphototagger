@@ -36,7 +36,7 @@ public final class HelpPage {
 
     /**
      * Returns the title of the help page.
-     * 
+     *
      * @return title
      */
     public String getTitle() {
@@ -45,7 +45,7 @@ public final class HelpPage {
 
     /**
      * Sets the title of the help page.
-     * 
+     *
      * @param title  title
      */
     public void setTitle(String title) {
@@ -57,7 +57,7 @@ public final class HelpPage {
 
     /**
      * Returns the URL of the help page.
-     * 
+     *
      * @return URL
      */
     public String getUrl() {
@@ -66,7 +66,7 @@ public final class HelpPage {
 
     /**
      * Sets the URL of the help page.
-     * 
+     *
      * @param url  URL
      */
     public void setUrl(String url) {
@@ -78,7 +78,7 @@ public final class HelpPage {
 
     /**
      * Returns the parent node.
-     * 
+     *
      * @return parent node
      */
     public HelpNode getParent() {
@@ -87,7 +87,7 @@ public final class HelpPage {
 
     /**
      * Sets the parent node.
-     * 
+     *
      * @param parent  parent
      */
     void setParent(HelpNode parent) {

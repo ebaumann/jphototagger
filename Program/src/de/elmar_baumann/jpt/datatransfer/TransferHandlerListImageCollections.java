@@ -35,9 +35,9 @@ import javax.swing.TransferHandler;
 
 /**
  * Adds images to an image collection (item hitted) or creates a new one (free
- * list area hitted) if thumbnails are dropped on the list with image 
+ * list area hitted) if thumbnails are dropped on the list with image
  * collections.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-24
  */

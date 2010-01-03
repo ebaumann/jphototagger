@@ -46,7 +46,7 @@ public final class ImageTransform {
 
     /**
      * Rotiert ein Bild.
-     * 
+     *
      * @param img   Bild
      * @param angle Winkel
      * @return      Rotiertes Bild

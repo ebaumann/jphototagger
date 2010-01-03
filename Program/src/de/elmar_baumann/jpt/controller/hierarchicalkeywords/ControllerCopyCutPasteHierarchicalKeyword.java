@@ -88,7 +88,7 @@ public class ControllerCopyCutPasteHierarchicalKeyword
     @Override
     public void keyPressed(KeyEvent e) {
         assert e.getSource() instanceof JTree : e.getSource();
-        
+
         JTree tree = (JTree)e.getSource();
 
         if (tree.isSelectionEmpty()) return;

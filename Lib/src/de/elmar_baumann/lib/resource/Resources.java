@@ -44,7 +44,7 @@ public final class Resources {
      * <p>
      * Each path is a single icon image, e.g.
      * <code>"/de/elmar_baumann/jpt/resource/help.png"</code>.
-     * 
+     *
      * @return paths
      */
     public List<String> getFramesIconImagesPaths() {
@@ -57,7 +57,7 @@ public final class Resources {
      * <p>
      *  Each path is a single icon image, e.g.
      * <code>"/de/elmar_baumann/jpt/resource/help.png"</code>.
-     * 
+     *
      * @param paths paths
      */
     public void setFramesIconImagesPath(List<String> paths) {
@@ -90,7 +90,7 @@ public final class Resources {
     /**
      * Returns, whether at least one path to an icon image set to frames is
      * defined.
-     * 
+     *
      * @return true, if one ore more paths to icon images are defined
      */
     public boolean hasFrameIconImages() {

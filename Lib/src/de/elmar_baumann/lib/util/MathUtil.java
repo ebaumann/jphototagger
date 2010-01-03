@@ -28,7 +28,7 @@ public final class MathUtil {
 
     /**
      * Returns whether a double value is integer (has no decimal places).
-     * 
+     *
      * @param  value  double value
      * @return true if the value is integer
      */

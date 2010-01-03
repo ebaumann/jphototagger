@@ -23,7 +23,7 @@ import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-29

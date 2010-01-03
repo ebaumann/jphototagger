@@ -68,7 +68,7 @@ public final class ColumnIcons {
 
     /**
      * Returns the icon of a column.
-     * 
+     *
      * @param  column column
      * @return        icon
      */

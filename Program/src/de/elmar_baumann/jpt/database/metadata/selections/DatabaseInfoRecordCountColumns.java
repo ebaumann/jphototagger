@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-08
@@ -54,7 +54,7 @@ import java.util.List;
 public final class DatabaseInfoRecordCountColumns {
 
     private static final List<Column> COLUMNS = new ArrayList<Column>();
-    
+
 
     static {
         COLUMNS.add(ColumnFilesFilename.INSTANCE);

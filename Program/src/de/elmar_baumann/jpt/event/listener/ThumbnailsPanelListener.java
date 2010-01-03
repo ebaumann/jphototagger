@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.event.listener;
 
 /**
  * Listens to {@link de.elmar_baumann.jpt.view.panels.ThumbnailsPanel}.
- * 
+ *
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
 public interface ThumbnailsPanelListener {

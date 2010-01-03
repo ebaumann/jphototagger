@@ -59,7 +59,7 @@ public final class HelpBrowserEvent {
 
     /**
      * Returns the action type.
-     * 
+     *
      * @return action type
      */
     public Type getType() {
@@ -68,7 +68,7 @@ public final class HelpBrowserEvent {
 
     /**
      * Returns the url if the action was {@link Type#URL_CHANGED}.
-     * 
+     *
      * @return URL or null if unaprobriate action
      */
     public URL getUrl() {
@@ -78,7 +78,7 @@ public final class HelpBrowserEvent {
     /**
      * Returns the source of the action, usually an instance of
      * {@link de.elmar_baumann.lib.dialog.HelpBrowser}
-     * 
+     *
      * @return instance
      */
     public Object getSource() {

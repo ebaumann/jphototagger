@@ -82,7 +82,7 @@ public final class DatabaseImageEvent {
 
     /**
      * Returns the event type.
-     * 
+     *
      * @return event type
      */
     public Type getType() {
@@ -91,7 +91,7 @@ public final class DatabaseImageEvent {
 
     /**
      * Sets the event type.
-     * 
+     *
      * @param type event type
      */
     public void setType(Type type) {
@@ -100,7 +100,7 @@ public final class DatabaseImageEvent {
 
     /**
      * Returns the related image file of the event.
-     * 
+     *
      * @return related image file
      */
     public ImageFile getImageFile() {
@@ -109,7 +109,7 @@ public final class DatabaseImageEvent {
 
     /**
      * Sets the related image file of the event.
-     * 
+     *
      * @param imageFile related image file
      */
     public void setImageFile(ImageFile imageFile) {

@@ -112,7 +112,7 @@ public final class ListModelImageCollections extends DefaultListModel {
      * Checks whether an image collection isn't a special collection and when it
      * is, displays a warning message with the name of the image collection as
      * parameter.
-     * 
+     *
      * @param  collectionName name of the image collection
      * @param  propertyKey    property key to load the warning message. If it
      *                        has a parameter zero, that will be replaced with

@@ -44,7 +44,7 @@ public final class AppFileFilter {
             ".*\\.[tT][hH][mM];" +
             ".*\\.[tT][iI][fF];" +
             ".*\\.[tT][iI][fF][fF];",
-            ";"); 
+            ";");
 
     private AppFileFilter() {
     }

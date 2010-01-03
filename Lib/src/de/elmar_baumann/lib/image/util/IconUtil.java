@@ -31,7 +31,7 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  * Werkzeuge für Icons.
- * 
+ *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
@@ -43,7 +43,7 @@ public final class IconUtil {
 
     /**
      * Liefert ein Bild eines Icons (z.B. aus einem JAR-File).
-     * 
+     *
      * @param  path Pfad zum Icon, z.B.
      *              <code>/de/elmar_baumann/jpt/resource/frameicon.png</code>
      * @return Bild des Icons (<code>ImageIcon</code>-Objekt) oder null,
@@ -65,7 +65,7 @@ public final class IconUtil {
 
     /**
      * Liefert mehrere Bilder von Icons.
-     * 
+     *
      * @param  paths Pfade zu den Bildern
      * @return Bilder, die geladen werden konnten (ungleich null sind)
      * @see    #getIconImage(java.lang.String)
@@ -86,7 +86,7 @@ public final class IconUtil {
 
     /**
      * Liefert ein Icon (z.B. aus einem JAR-File).
-     * 
+     *
      * @param  path Pfad zum Icon, z.B.
      *              <code>/de/elmar_baumann/jpt/resource/frameicon.png</code>
      * @return Icon des Typs <code>ImageIcon</code> oder null, falls dieses
@@ -108,7 +108,7 @@ public final class IconUtil {
 
     /**
      * Liefert mehrere Icons.
-     * 
+     *
      * @param  paths Pfade zu den Icons
      * @return Icons des Typs <code>ImageIcon</code>, die geladen werden konnten
      *         (ungleich null sind)
@@ -130,7 +130,7 @@ public final class IconUtil {
 
     /**
      * Returns a system specific icon of a file.
-     * 
+     *
      * @param  file file
      * @return icon or null on errors
      */

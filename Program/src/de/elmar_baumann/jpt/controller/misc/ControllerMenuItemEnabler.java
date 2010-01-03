@@ -36,7 +36,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-27

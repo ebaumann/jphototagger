@@ -26,7 +26,7 @@ import java.util.StringTokenizer;
 /**
  * Filter für Dateien, Verzeichnisse werden abgelehnt. Akzeptiert
  * reguläre Ausdrücke als Match-Pattern.
- * 
+ *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
@@ -40,16 +40,16 @@ public final class RegexFileFilter implements java.io.FileFilter {
 
     /**
      * Erzeugt einen Dateifilter.
-     * 
+     *
      * @param acceptedPatterns String mit regulären Ausdrücken für akzeptierte
      *                         Dateien
      * @param delim            Begrenzer zwischen den einzelnen Mustern
      */
     public RegexFileFilter(String acceptedPatterns, String delim) {
         if (acceptedPatterns == null)
-            throw new NullPointerException("acceptedPatterns == null"); //
+            throw new NullPointerException("acceptedPatterns == null");
         if (delim == null)
-            throw new NullPointerException("delim == null"); //
+            throw new NullPointerException("delim == null");
 
         setAcceptedValues(acceptedPatterns, delim);
     }

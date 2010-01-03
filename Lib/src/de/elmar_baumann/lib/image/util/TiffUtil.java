@@ -21,7 +21,7 @@ package de.elmar_baumann.lib.image.util;
 import java.nio.ByteOrder;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-03

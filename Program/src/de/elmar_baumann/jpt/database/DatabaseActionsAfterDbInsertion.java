@@ -46,7 +46,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     /**
      * Inserts a new action. Prevoius You should call
      * {@link DatabasePrograms#hasProgram()}.
-     * 
+     *
      * @param action  action
      * @param order   order of the action
      * @return true if inserted
@@ -81,7 +81,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
 
     /**
      * Deletes an action. <em>The ID must exist!</em>
-     * 
+     *
      * @param  action  action to delete
      * @return true if deleted
      */
@@ -110,7 +110,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
 
     /**
      * Returns all Actions ordered by their aliases.
-     * 
+     *
      * @return programs sorted ascending by their order
      */
     public List<Program> getAll() {

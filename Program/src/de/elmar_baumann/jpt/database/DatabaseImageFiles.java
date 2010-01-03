@@ -1880,7 +1880,7 @@ public final class DatabaseImageFiles extends Database {
                     tableName))
                      : Join.getSqlFilesXmpJoin(Type.LEFT, Type.LEFT, Arrays.
                     asList(tableName))) +
-                    " WHERE " + tableName + "." + columnName + " IS NULL"; 
+                    " WHERE " + tableName + "." + columnName + " IS NULL";
             PreparedStatement stmt = connection.prepareStatement(sql);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -1940,7 +1940,7 @@ public final class DatabaseImageFiles extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            String sql = "SELECT filename FROM files"; 
+            String sql = "SELECT filename FROM files";
             Statement stmt = connection.createStatement();
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);

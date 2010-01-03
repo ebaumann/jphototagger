@@ -31,7 +31,7 @@ import java.util.TreeSet;
  * Map containing SoftReferences for dropping mapped-to stuff in case of
  * memory shortage.
  *
- * @param <C> 
+ * @param <C>
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */

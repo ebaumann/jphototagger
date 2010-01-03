@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Provides Listener. Listener to GUIs add themselve here and the GUIs fetch
  * them here. To increase speed:
- * 
+ *
  * <ul>
  *     <li><strong>Declaring</strong> a field of a <code>ListenerProvider</code></li>
  *     <li>During <strong>construction</strong>

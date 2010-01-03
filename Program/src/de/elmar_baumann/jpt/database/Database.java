@@ -36,7 +36,7 @@ import java.util.Set;
 
 /**
  * Base class of specialized database classes.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -103,7 +103,7 @@ public class Database {
     /**
      * Returns a connection from the Connection Pool.
      * @return The connection from the pool.
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected Connection getConnection() throws SQLException {
         return ConnectionPool.getInstance().getConnection();
@@ -126,7 +126,7 @@ public class Database {
     /**
      * Rolls back the transaction, catches and logs an exception when thrown
      * through <code>Connection#rollback()</code>.
-     * 
+     *
      * @param connection  connection
      */
     protected void rollback(Connection connection) {

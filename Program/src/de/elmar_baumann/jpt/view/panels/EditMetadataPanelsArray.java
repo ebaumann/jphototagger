@@ -151,7 +151,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     /**
      * Setzt, ob die Daten bearbeitet werden können.
-     * 
+     *
      * @param editable  true, wenn bearbeitbar
      */
     public void setEditable(boolean editable) {
@@ -167,7 +167,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     /**
      * Liefert, ob die Daten bearbeitet werden können.
-     * 
+     *
      * @return true, wenn Bearbeiten möglich ist.
      *         Default: true.
      */
@@ -378,7 +378,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     /**
      * Setzt ein Metadaten-Edit-Template.
-     * 
+     *
      * @param template  Template
      */
     public void setMetadataEditTemplate(MetadataEditTemplate template) {
@@ -401,7 +401,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     /**
      * Liefert ein Metadaten-Edit-Template mit den Daten der Panels.
-     * 
+     *
      * @return Template <em>ohne</em> Name
      *         ({@link de.elmar_baumann.jpt.data.MetadataEditTemplate#getName()})
      */
@@ -424,7 +424,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
 
     /**
      * Sets the edit status.
-     * 
+     *
      * @param dirty  true if changes were made
      */
     public void setDirty(boolean dirty) {
@@ -814,7 +814,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
             }
             this.listen = listen;
         }
-        
+
         private void listenToEntries() {
             for (TextEntry entry : entries) {
                 if (entry instanceof RatingSelectionPanel) {

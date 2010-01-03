@@ -60,7 +60,7 @@ public final class ThumbnailUtil {
     /**
      * Returns a thumbnail of an image file. If the preferred method fails -
      * ebeddded or scaled - the other method will be used.
-     * 
+     *
      * @param  file       file
      * @param  maxLength  maximum length of the image
      * @param  embedded   true if get embedded thumbnail instead of a scaled image
@@ -157,7 +157,7 @@ public final class ThumbnailUtil {
 
     /**
      * Returns a thumbnail created by an external application to stdout.
-     * 
+     *
      * @param file      file
      * @param command   command to create the thumbnail
      * @param maxLength maximum length of the image in pixel
@@ -220,11 +220,11 @@ public final class ThumbnailUtil {
      * Zielgröße ist 150 x 112 Pixel
      * maxWidth = 150
      * qfactor = 0.75
-     * 
+     *
      * Durchläufe:
      * In jedem Durchgang wird das Bild auf 75% seine vorherigen Größe skaliert.
      * Der letzte Schritt Pass 10 in diesem Fall skaliert es auf die Zielgröße.
-     * 
+     *
      * Scaling image F:\Digicam\2008\05 - Mai\BMW 320i Coupe\IMG_1386.JPG
      * Pass 1: Scaling 2272 x 1704 - > 1704 x 1278
      * Pass 2: Scaling 1704 x 1278 - > 1278 x 958
@@ -236,7 +236,7 @@ public final class ThumbnailUtil {
      * Pass 8: Scaling 302 x 226 - > 226 x 169
      * Pass 9: Scaling 226 x 169 - > 169 x 126
      * Pass 10: Scaling 169 x 126 - > 150 x 112
-     * 
+     *
      * @param image Das Bild, welches skaliert werden soll.
      * @param minWidth Die Breite des skalierten Bildes.
      * @param qfactor Ein Wert zwichen 0 und 1. Je kleiner die Zahl, desto mehr Duchgänge wird der Skalierungsprozess machen. Empfohlener Wert ist 0.5.
@@ -258,7 +258,7 @@ public final class ThumbnailUtil {
             // ob die Zielgröße im folgenden Schritt unterschritten werden würde.. Wenn nein, wird ein neuer Duchlauf
             // gestartet und wieder ein wenig skaliert.
             // In jedem Schleifendurchlauf werden origHeight und origWidth auf die aktuelle Größe gesetzt.
-            while (((origWidth * qfactor) > scaledWidth) || 
+            while (((origWidth * qfactor) > scaledWidth) ||
                     ((origHeight * qfactor) > scaledHeight)) {
 
                 int width  = (int) (origWidth * qfactor); // Die Breite in diesesm Skalierungsschritt
@@ -290,7 +290,7 @@ public final class ThumbnailUtil {
 
     /**
      * Skaliert ein Image auf eine definierte Zielgröße.
-     * 
+     *
      * @param scaledWidth Breite des skalierten Images.
      * @param scaledHeight Höhe des skalierten Images.
      * @param image Das zu skalierende Image.
@@ -311,7 +311,7 @@ public final class ThumbnailUtil {
 
     /**
      * Diese Methode lädt ein Bild mit Hilfe des MediaTrackers.
-     * 
+     *
      * @param file Das zu ladende Bild.
      * @return Ein BufferedImage als Ergebnis.
      */

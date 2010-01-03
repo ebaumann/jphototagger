@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 
 /**
  * Tabellenspalte <code>lastmodified</code> der Tabelle <code>files</code>.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007-07-29
  */

@@ -33,7 +33,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-14

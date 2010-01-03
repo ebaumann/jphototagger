@@ -232,10 +232,10 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns wheter to create thumbnails with an external application.
-     * 
+     *
      * @return true if an external application shall create the thumbnails.
      *         Default: <code>false</code>
-     * @see    #getExternalThumbnailCreationCommand() 
+     * @see    #getExternalThumbnailCreationCommand()
      */
     public boolean isCreateThumbnailsWithExternalApp() {
         return properties.containsKey(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
@@ -246,7 +246,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns the command line of the external program which creates the
      * thumbnails.
-     * 
+     *
      * @return command line or empty string when not defined
      * @see    #isCreateThumbnailsWithExternalApp()
      */
@@ -274,7 +274,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns the log level.
-     * 
+     *
      * @return log level as returned from {@link Level#getLocalizedName()}.
      *         Default: {@link Level#INFO}
      */
@@ -298,7 +298,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns the columns to include into the fast search.
-     * 
+     *
      * @return columns. Default: Empty list
      */
     public List<Column> getFastSearchColumns() {
@@ -315,7 +315,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns the edit columns the user want to see in the edit columns panel
      * array.
-     * 
+     *
      * @return edit columns
      */
     public List<Column> getEditColumns() {
@@ -330,7 +330,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns the path to the application which opens images when double
      * clicking onto a thumbnail.
-     * 
+     *
      * @return path or empty string if not defined
      */
     public String getDefaultImageOpenApp() {
@@ -339,7 +339,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns whether a default image open application is defined.
-     * 
+     *
      * @return true if defined
      */
     public boolean hasDefaultImageOpenApp() {
@@ -348,7 +348,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns the maximum length of the thumbnail width.
-     * 
+     *
      * @return maximum length in pixel. Default: Internal constant
      *         <code>DEFAULT_MAX_THUMBNAIL_LENGTH</code>.
      */
@@ -362,7 +362,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns wheter to use in image files embedded thumbnails rather than
      * rendering them.
-     * 
+     *
      * @return true, if when embedded thumbnails shall be used.
      *         Default: <code>false</code>
      */
@@ -439,7 +439,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns the charset for decoding IPTC metadata strings.
-     * 
+     *
      * @return charset. Default: <code>"ISO-8859-1"</code>
      */
     public String getIptcCharset() {
@@ -452,7 +452,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns whether automatated scans of directories for updating the
      * database shall include subdirectories.
-     * 
+     *
      * @return true if include subdirectories. Default: <code>true</code>
      */
     public boolean isAutoscanIncludeSubdirectories() {
@@ -476,7 +476,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     /**
      * Returns the class object of the logfile formatter.
-     * 
+     *
      * @return Class object of the logfile formatter.
      *         Default: {@link XMLFormatter}
      */
@@ -495,7 +495,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns the miniutes to wait after starting before the application starts
      * the automated tasks.
-     * 
+     *
      * @return minutes. Default: Internal constant
      *         <code>DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS</code>
      */
@@ -520,7 +520,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns whether directory choosers and -trees shall show hidden
      * directories and if directory scans shall include them.
-     * 
+     *
      * @return true, if accepted. Default: <code>false</code>
      */
     public boolean isAcceptHiddenDirectories() {
@@ -532,7 +532,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     /**
      * Returns the autocopy directory, a source directory from which all
      * image files should be copied to another directory automatically.
-     * 
+     *
      * @return Existing directory or null if not defined or not existing.
      *         Default: <code>null</code>
      */

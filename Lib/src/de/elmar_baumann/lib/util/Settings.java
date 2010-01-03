@@ -1242,7 +1242,7 @@ public final class Settings {
 
     /**
      * Returns whether the properties contains a specific key.
-     * 
+     *
      * @param  key key
      * @return     true if the properties contains that key
      */

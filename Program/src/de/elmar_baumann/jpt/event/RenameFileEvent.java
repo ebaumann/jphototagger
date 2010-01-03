@@ -27,7 +27,7 @@ import java.io.File;
  * @version 2008-10-13
  */
 public final class RenameFileEvent {
-    
+
     private final File oldFile;
     private final File newFile;
 

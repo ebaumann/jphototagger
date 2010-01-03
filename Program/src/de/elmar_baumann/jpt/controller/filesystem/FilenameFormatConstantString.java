@@ -34,7 +34,7 @@ public final class FilenameFormatConstantString extends FilenameFormat {
 
     /**
      * Returns false.
-     * 
+     *
      * @return false
      */
     @Override
@@ -44,7 +44,7 @@ public final class FilenameFormatConstantString extends FilenameFormat {
 
     /**
      * Returns {@link FilenameFormat#getFormat()}.
-     * 
+     *
      * @return format
      */
     @Override

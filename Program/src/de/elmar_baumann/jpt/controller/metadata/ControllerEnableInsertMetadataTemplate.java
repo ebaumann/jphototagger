@@ -29,7 +29,7 @@ import javax.swing.event.TreeSelectionListener;
 /**
  * Listens for selections of items in the directory tree view. A tree item
  * represents a directory. If a new item is selected, this controller enables or
- * disables the button {@link AppPanel#getButtonMetadataTemplateInsert()} 
+ * disables the button {@link AppPanel#getButtonMetadataTemplateInsert()}
  * depending on whether the directory is writable or not (when a directory is
  * not writable, no XMP metadata files can be written into this directory).
  *
