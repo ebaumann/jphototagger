@@ -18,27 +18,27 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.io.File;
 import java.util.List;
 
 /**
- * Refreshes the EXIF metadata of all known imagesfiles whithout time stamp
+ * Refreshes the XMP metadata of all known imagesfiles whithout time stamp
  * check.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2010-01-02
+ * @version 2010-01-04
  */
-public final class RefreshExifInDbOfKnownFiles extends HelperThread {
+public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
     private volatile boolean stop;
 
-    public RefreshExifInDbOfKnownFiles() {
-        setName("Refreshing EXIF in the database of known files @ " + getClass().getSimpleName());
-        setInfo(Bundle.getString("RefreshExifInDbOfKnownFiles.Info"));
+    public RefreshXmpInDbOfKnownFiles() {
+        setName("Refreshing XMP in the database of known files @ " + getClass().getSimpleName());
+        setInfo(Bundle.getString("RefreshXmpInDbOfKnownFiles.Info"));
     }
 
     @Override
@@ -53,10 +53,10 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
         for (int i = 0; !stop && i < fileCount; i++) {
 
             File imageFile = new File(filenames.get(i));
-            Exif exif      = ExifMetadata.getExif(imageFile);
+            Xmp  xmp       = XmpMetadata.getXmpOfImageFile(imageFile.getAbsolutePath());
 
-            if (exif != null) {
-                db.insertOrUpdateExif(imageFile.getAbsolutePath(), exif);
+            if (xmp != null) {
+                db.insertOrUpdateXmp(imageFile.getAbsolutePath(), xmp);
             }
             progressPerformed(i + 1, imageFile);
         }

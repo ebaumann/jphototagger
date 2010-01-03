@@ -180,16 +180,56 @@ public final class DatabaseImageFiles extends Database {
 
     private void notifyExifInsertedOrUpdated(String filename, Exif oldExif, Exif newExif) {
 
-        ImageFile imageFile    = new ImageFile();
+        ImageFile newImageFile    = new ImageFile();
         ImageFile oldImageFile = new ImageFile();
 
-        imageFile.setExif(newExif);
-        imageFile.setFilename(filename);
+        newImageFile.setExif(newExif);
+        newImageFile.setFilename(filename);
 
         oldImageFile.setExif(oldExif);
         oldImageFile.setFilename(filename);
 
-        notifyDatabaseListener(DatabaseImageEvent.Type.EXIF_UPDATED, imageFile);
+        notifyDatabaseListener(DatabaseImageEvent.Type.EXIF_UPDATED, oldImageFile, newImageFile);
+    }
+
+    public synchronized boolean insertOrUpdateXmp(String filename, Xmp xmp) {
+
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(false);
+
+            long idFile = getIdFile(connection, filename);
+            if (idFile < 0) return false;
+
+            Xmp oldXmp = getXmpOfFile(filename);
+
+            insertOrUpdateXmp(connection, idFile, xmp);
+            setLastModifiedXmp(filename, xmp.getLastModified());
+
+            notifyXmpInsertedOrUpdated(filename, oldXmp, xmp);
+
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+            rollback(connection);
+        } finally {
+            free(connection);
+        }
+        return true;
+    }
+
+    private void notifyXmpInsertedOrUpdated(String filename, Xmp oldXmp, Xmp newXmp) {
+
+        ImageFile newImageFile    = new ImageFile();
+        ImageFile oldImageFile = new ImageFile();
+
+        newImageFile.setXmp(newXmp);
+        newImageFile.setFilename(filename);
+
+        oldImageFile.setXmp(oldXmp);
+        oldImageFile.setFilename(filename);
+
+        notifyDatabaseListener(DatabaseImageEvent.Type.XMP_UPDATED, oldImageFile, newImageFile);
     }
 
     /**

@@ -11,9 +11,12 @@
 
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.helper.HelperThread;
 import de.elmar_baumann.jpt.helper.RefreshExifInDbOfKnownFiles;
+import de.elmar_baumann.jpt.helper.RefreshXmpInDbOfKnownFiles;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.RenameFilenamesInDbDialog;
@@ -34,31 +37,48 @@ public class DatabaseUpdatePanel extends JPanel implements ProgressListener {
 
     public DatabaseUpdatePanel() {
         initComponents();
-        buttons = new AbstractButton[] { toggleButtonRefreshExif, buttonRenameFiles };
+
+        buttons = new AbstractButton[] {
+            buttonRenameFiles,
+            toggleButtonRefreshExif,
+            toggleButtonRefreshXmp,
+        };
     }
 
     private synchronized void handleButtonRefreshExifPerformed() {
+        startOrStopHelperThread(toggleButtonRefreshExif, RefreshExifInDbOfKnownFiles.class);
+    }
 
-        boolean isSelected = toggleButtonRefreshExif.isSelected();
+    private void handleButtonRefreshXmpPerformed() {
+        startOrStopHelperThread(toggleButtonRefreshXmp, RefreshXmpInDbOfKnownFiles.class);
+    }
 
-        if (isSelected) {
+    private synchronized void startOrStopHelperThread(JToggleButton button, Class helperThreadClass) {
 
-            disableOtherButtons(toggleButtonRefreshExif);
+        if (button.isSelected()) {
 
-            RefreshExifInDbOfKnownFiles action = new RefreshExifInDbOfKnownFiles();
+            try {
+                HelperThread  helperThread = (HelperThread) helperThreadClass.newInstance();
 
-            action.setProgressBar(progressBar);
-            action.addProgressListener(this);
+                disableOtherButtons(button);
 
-            stop = false;
-            action.start();
+                helperThread.setProgressBar(progressBar);
+                helperThread.addProgressListener(this);
+
+                stop = false;
+                helperThread.start();
+
+
+                button.setText(BUTTON_TEXT_STOP);
+            } catch (Exception ex) {
+                AppLog.logSevere(DatabaseUpdatePanel.class, ex);
+            }
 
         } else {
             stop = true;
             setEnabledAllButtons(true);
+            button.setText(BUTTON_TEXT_START);
         }
-
-        toggleButtonRefreshExif.setText(isSelected ? BUTTON_TEXT_STOP : BUTTON_TEXT_START);
     }
 
     private synchronized void disableOtherButtons(JToggleButton buttonEnabled) {
@@ -72,6 +92,15 @@ public class DatabaseUpdatePanel extends JPanel implements ProgressListener {
     private synchronized void setEnabledAllButtons(boolean enabled) {
         for (AbstractButton button : buttons) {
             button.setEnabled(enabled);
+        }
+    }
+
+    private synchronized void deselectAllToggleButtons() {
+        for (AbstractButton button : buttons) {
+            if (button instanceof JToggleButton) {
+                ((JToggleButton) button).setSelected(false);
+                button.setText(BUTTON_TEXT_START);
+            }
         }
     }
 
@@ -101,6 +130,8 @@ public class DatabaseUpdatePanel extends JPanel implements ProgressListener {
     @Override
     public void progressEnded(ProgressEvent evt) {
         checkStop(evt);
+        setEnabledAllButtons(true);
+        deselectAllToggleButtons();
     }
 
     /** This method is called from within the constructor to
@@ -114,9 +145,11 @@ public class DatabaseUpdatePanel extends JPanel implements ProgressListener {
 
         labelRefreshExif = new javax.swing.JLabel();
         toggleButtonRefreshExif = new javax.swing.JToggleButton();
-        progressBar = new javax.swing.JProgressBar();
+        labelRefreshXmp = new javax.swing.JLabel();
+        toggleButtonRefreshXmp = new javax.swing.JToggleButton();
         labelRenameFiles = new javax.swing.JLabel();
         buttonRenameFiles = new javax.swing.JButton();
+        progressBar = new javax.swing.JProgressBar();
 
         labelRefreshExif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exif.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
@@ -126,6 +159,16 @@ public class DatabaseUpdatePanel extends JPanel implements ProgressListener {
         toggleButtonRefreshExif.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonRefreshExifActionPerformed(evt);
+            }
+        });
+
+        labelRefreshXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"))); // NOI18N
+        labelRefreshXmp.setText(bundle.getString("DatabaseUpdatePanel.labelRefreshXmp.text")); // NOI18N
+
+        toggleButtonRefreshXmp.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text")); // NOI18N
+        toggleButtonRefreshXmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleButtonRefreshXmpActionPerformed(evt);
             }
         });
 
@@ -152,13 +195,17 @@ public class DatabaseUpdatePanel extends JPanel implements ProgressListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(toggleButtonRefreshExif))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelRefreshXmp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(toggleButtonRefreshXmp))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(labelRenameFiles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                         .addComponent(buttonRenameFiles)))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonRenameFiles, toggleButtonRefreshExif});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonRenameFiles, toggleButtonRefreshExif, toggleButtonRefreshXmp});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,6 +214,10 @@ public class DatabaseUpdatePanel extends JPanel implements ProgressListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelRefreshExif)
                     .addComponent(toggleButtonRefreshExif))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelRefreshXmp)
+                    .addComponent(toggleButtonRefreshXmp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelRenameFiles)
@@ -185,12 +236,18 @@ public class DatabaseUpdatePanel extends JPanel implements ProgressListener {
         handleButtonRenameFilesPerformed();
     }//GEN-LAST:event_buttonRenameFilesActionPerformed
 
+    private void toggleButtonRefreshXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshXmpActionPerformed
+        handleButtonRefreshXmpPerformed();
+    }//GEN-LAST:event_toggleButtonRefreshXmpActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonRenameFiles;
     private javax.swing.JLabel labelRefreshExif;
+    private javax.swing.JLabel labelRefreshXmp;
     private javax.swing.JLabel labelRenameFiles;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JToggleButton toggleButtonRefreshExif;
+    private javax.swing.JToggleButton toggleButtonRefreshXmp;
     // End of variables declaration//GEN-END:variables
 }
