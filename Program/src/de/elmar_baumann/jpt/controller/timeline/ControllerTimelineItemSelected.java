@@ -89,8 +89,7 @@ public final class ControllerTimelineItemSelected implements
                     });
                 }
             });
-            thread.setName("Timeline item selected" + " @ " +
-                    getClass().getName());
+            thread.setName("Timeline item selected @ " + getClass().getSimpleName());
             thread.start();
         }
     }

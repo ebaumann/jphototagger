@@ -158,8 +158,7 @@ public final class IptcToXmpDialog extends Dialog
                 getAsFilenames(getFiles()));
         converter.addProgressListener(this);
         Thread thread = new Thread(converter);
-        thread.setName("Writing IPTC to XMP sidecar files" + " @ " + //
-                getClass().getName());
+        thread.setName("Writing IPTC to XMP sidecar files @ " + getClass().getSimpleName());
         thread.start();
         buttonStop.setEnabled(true);
     }

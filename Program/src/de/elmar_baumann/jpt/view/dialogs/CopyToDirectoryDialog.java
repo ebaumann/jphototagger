@@ -143,7 +143,7 @@ public final class CopyToDirectoryDialog
 
         Thread thread = new Thread(copyTask);
 
-        thread.setName("Copying files to directories" + " @ " + getClass().getName());
+        thread.setName("Copying files to directories @ " + getClass().getSimpleName());
         thread.start();
     }
 

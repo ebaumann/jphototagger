@@ -241,7 +241,7 @@ public final class HierarchicalKeywordsHelper {
             this.oldName = oldName;
             this.newName = newName;
             this.filenames.addAll(filenames);
-            setName("Renaming keywords in files @ " + getClass());
+            setName("Renaming keywords in files @ " + getClass().getSimpleName());
         }
 
         @Override
@@ -271,7 +271,7 @@ public final class HierarchicalKeywordsHelper {
             this.toReplace.addAll(toReplace);
             this.replacement.addAll(replacement);
             this.filenames.addAll(filenames);
-            setName("Replacing keywords in files @ " + getClass());
+            setName("Replacing keywords in files @ " + getClass().getSimpleName());
         }
 
         @Override
@@ -297,7 +297,7 @@ public final class HierarchicalKeywordsHelper {
 
         public CheckExists(Collection<String> keywords) {
             this.keywords.addAll(keywords);
-            setName("Checking keywords existence in keywords tree @ " + getClass());
+            setName("Checking keywords existence in keywords tree @ " + getClass().getSimpleName());
         }
 
         @Override

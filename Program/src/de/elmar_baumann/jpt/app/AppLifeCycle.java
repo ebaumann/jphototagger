@@ -41,13 +41,11 @@ import javax.swing.JFrame;
  */
 public final class AppLifeCycle {
 
-    public static AppLifeCycle INSTANCE = new AppLifeCycle();
-    private final Set<Object> saveObjects =
-            Collections.synchronizedSet(new HashSet<Object>());
-    private final List<AppExitListener> exitListeners =
-            new ArrayList<AppExitListener>();
-    private AppFrame appFrame;
-    private boolean started;
+    public static AppLifeCycle          INSTANCE      = new AppLifeCycle();
+    private final Set<Object>           saveObjects   = Collections.synchronizedSet(new HashSet<Object>());
+    private final List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
+    private       AppFrame              appFrame;
+    private       boolean               started;
 
     /**
      * Has be to call <em>once</em> after the {@link AppFrame} has been created.
@@ -60,8 +58,7 @@ public final class AppLifeCycle {
             started = true;
             this.appFrame = appFrame;
             Thread thread = new Thread(MetaFactory.INSTANCE);
-            thread.setName("Initializing meta factory" + " @ " +
-                    getClass().getName());
+            thread.setName("Initializing meta factory @ " + getClass().getSimpleName());
             thread.start();
             addAppExitListener(appFrame.getAppPanel());
             listenForQuit();
@@ -164,8 +161,7 @@ public final class AppLifeCycle {
         long timeoutMilliSeconds = 120 * 1000;
         long checkIntervalMilliSeconds = 2000;
         if (saveObjects.size() > 0) {
-            AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting",
-                    saveObjects);
+            AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", saveObjects);
             while (saveObjects.size() > 0 &&
                     elapsedMilliseconds < timeoutMilliSeconds) {
                 try {

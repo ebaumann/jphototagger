@@ -42,7 +42,7 @@ public final class RefreshExifInDbOfKnownFiles
     private volatile boolean stop;
 
     public RefreshExifInDbOfKnownFiles() {
-        setName("Refreshing EXIF in the database of known files @ " + getClass());
+        setName("Refreshing EXIF in the database of known files @ " + getClass().getSimpleName());
         setInfo(Bundle.getString("RefreshExifInDbOfKnownFiles.Info"));
     }
 

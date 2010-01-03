@@ -36,6 +36,7 @@ import java.util.Stack;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * Database maintainance tasks.
@@ -43,36 +44,27 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-08
  */
-public final class DatabaseMaintainancePanel extends javax.swing.JPanel
-        implements ProgressListener {
+public final class DatabaseMaintainancePanel extends JPanel implements ProgressListener {
 
-    private static final Icon ICON_FINISHED =
-            AppLookAndFeel.getIcon("icon_finished.png");
-    private static final String METHOD_NAME_CANCEL = "cancel";
-    private final Stack<Runnable> runnables = new Stack<Runnable>();
-    private final Map<Class, JLabel> finishedLabelOfRunnable =
-            new HashMap<Class, JLabel>();
-    private final Set<JCheckBox> checkBoxes = new HashSet<JCheckBox>();
-    private final Map<JCheckBox, JLabel> labelOfCheckBox =
-            new HashMap<JCheckBox, JLabel>();
-    private volatile Runnable currentRunnable;
-    private volatile boolean stop = false;
-    private volatile boolean canClose = true;
+    private static final Icon                   ICON_FINISHED           = AppLookAndFeel.getIcon("icon_finished.png");
+    private static final String                 METHOD_NAME_CANCEL      = "cancel";
+    private final        Stack<Runnable>        runnables               = new Stack<Runnable>();
+    private final        Map<Class, JLabel>     finishedLabelOfRunnable = new HashMap<Class, JLabel>();
+    private final        Set<JCheckBox>         checkBoxes              = new HashSet<JCheckBox>();
+    private final        Map<JCheckBox, JLabel> labelOfCheckBox         = new HashMap<JCheckBox, JLabel>();
+    private volatile     Runnable               currentRunnable;
+    private volatile     boolean                stop;
+    private volatile     boolean                canClose                = true;
 
-    /** Creates new form DatabaseMaintainancePanel */
     public DatabaseMaintainancePanel() {
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
-        // When two values are equal, this does not work!
-        finishedLabelOfRunnable.put(CompressDatabase.class,
-                labelFinishedCompressDatabase);
-        finishedLabelOfRunnable.put(DatabaseImageFiles.class,
-                labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
-        finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class,
-                labelFinishedDeleteOrphanedThumbnails);
+        finishedLabelOfRunnable.put(CompressDatabase.class        , labelFinishedCompressDatabase);
+        finishedLabelOfRunnable.put(DatabaseImageFiles.class      , labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+        finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
         initCheckBoxes();
     }
 
@@ -81,12 +73,9 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         checkBoxes.add(checkBoxDeleteOrphanedThumbnails);
         checkBoxes.add(checkBoxDeleteRecordsOfNotExistingFilesInDatabase);
 
-        labelOfCheckBox.put(checkBoxCompressDatabase,
-                labelFinishedCompressDatabase);
-        labelOfCheckBox.put(checkBoxDeleteOrphanedThumbnails,
-                labelFinishedDeleteOrphanedThumbnails);
-        labelOfCheckBox.put(checkBoxDeleteRecordsOfNotExistingFilesInDatabase,
-                labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+        labelOfCheckBox.put(checkBoxCompressDatabase                         , labelFinishedCompressDatabase);
+        labelOfCheckBox.put(checkBoxDeleteOrphanedThumbnails                 , labelFinishedDeleteOrphanedThumbnails);
+        labelOfCheckBox.put(checkBoxDeleteRecordsOfNotExistingFilesInDatabase, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
     }
 
     private void setProgressbarStart(ProgressEvent evt) {
@@ -155,8 +144,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         if (runnables.size() > 0) {
             currentRunnable = runnables.pop();
             Thread thread = new Thread(currentRunnable);
-            thread.setName("Database maintainance next task" + " @ " +
-                    getClass().getName());
+            thread.setName("Database maintainance next task @ " + getClass().getSimpleName());
             thread.start();
         }
     }
@@ -173,8 +161,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         Method methodCancel = null;
         if (hasCancelMethod(currentRunnable)) {
             try {
-                methodCancel = currentRunnable.getClass().getMethod(
-                        METHOD_NAME_CANCEL);
+                methodCancel = currentRunnable.getClass().getMethod(METHOD_NAME_CANCEL);
                 methodCancel.invoke(currentRunnable);
             } catch (Exception ex) {
                 AppLog.logSevere(getClass(), ex);
@@ -244,8 +231,7 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
         appendMessage(evt.getInfo().toString());
         buttonDeleteMessages.setEnabled(false);
         setProgressbarStart(evt);
-        buttonAbortAction.setEnabled(
-                !(evt.getSource() instanceof CompressDatabase));
+        buttonAbortAction.setEnabled(!(evt.getSource() instanceof CompressDatabase));
         checkStopEvent(evt);
     }
 
@@ -259,10 +245,11 @@ public final class DatabaseMaintainancePanel extends javax.swing.JPanel
     public void progressEnded(ProgressEvent evt) {
         setProgressbarEnd(evt);
         appendMessage(evt.getInfo().toString());
-        Object source = evt.getSource();
-        assert source != null;
-        Class sourceClass = source.getClass();
+
+        Object source        = evt.getSource(); assert source != null;
+        Class  sourceClass   = source.getClass();
         JLabel labelFinished = finishedLabelOfRunnable.get(sourceClass);
+
         if (labelFinished != null) {
             labelFinished.setIcon(ICON_FINISHED);
         }

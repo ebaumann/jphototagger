@@ -88,7 +88,7 @@ public final class ControllerImageCollectionSelected implements
                 setMetadataEditable();
             }
         });
-        thread.setName("Image collection selected" + " @ " + getClass());
+        thread.setName("Image collection selected @ " + getClass().getSimpleName());
         thread.start();
     }
 

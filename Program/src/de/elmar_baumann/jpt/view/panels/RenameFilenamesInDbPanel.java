@@ -134,8 +134,7 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
                             "RenameFilenamesInDbPanel.Info.CountReplaced", count);
                 }
             });
-            thread.setName("Replacing filename substrings in the database @ " +
-                    getClass().getName());
+            thread.setName("Replacing filename substrings in the database @ " + getClass().getSimpleName());
             thread.start();
         }
     }

@@ -108,7 +108,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     public InsertImageFilesIntoDatabase(List<String> filenames, EnumSet<Insert> what) {
         this.filenames = new ArrayList<String>(filenames);
         this.what      = what;
-        setName("Inserting image files into database @ " + getClass().getName());
+        setName("Inserting image files into database @ " + getClass().getSimpleName());
     }
 
     /**

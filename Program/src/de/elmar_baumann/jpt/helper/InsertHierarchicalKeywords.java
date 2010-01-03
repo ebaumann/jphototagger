@@ -40,8 +40,7 @@ public final class InsertHierarchicalKeywords extends Thread {
 
     public InsertHierarchicalKeywords(List<String> keywords) {
         this.keywords = new ArrayList<String>(keywords);
-        setName("Inserting string list into hierarchical keywords @ " +
-                getClass().getName());
+        setName("Inserting string list into hierarchical keywords @ " +getClass().getSimpleName());
     }
 
     @Override
