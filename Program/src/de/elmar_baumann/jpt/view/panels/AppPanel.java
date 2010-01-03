@@ -690,6 +690,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
         panelSearch.add(buttonSearch, gridBagConstraints);
