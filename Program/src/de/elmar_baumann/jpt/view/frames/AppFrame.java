@@ -223,14 +223,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemToolIptcToXmp;
     }
 
-    public JMenuItem getMenuItemThumbnailSizeDecrease() {
-        return menuItemThumbnailSizeDecrease;
-    }
-
-    public JMenuItem getMenuItemThumbnailSizeIncrease() {
-        return menuItemThumbnailSizeIncrease;
-    }
-
     public JMenuItem getMenuItemInputHelper() {
         return menuItemInputHelper;
     }
@@ -333,9 +325,6 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortXmpRatingAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortXmpRatingDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator6 = new javax.swing.JSeparator();
-        menuItemThumbnailSizeIncrease = new javax.swing.JMenuItem();
-        menuItemThumbnailSizeDecrease = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JSeparator();
         checkBoxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
         menuGoto = new javax.swing.JMenu();
@@ -514,17 +503,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuSort.add(radioButtonMenuItemSortXmpRatingDescending);
 
         menuView.add(menuSort);
-        menuView.add(jSeparator6);
-
-        menuItemThumbnailSizeIncrease.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_PLUS, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemThumbnailSizeIncrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_size_increase.png"))); // NOI18N
-        menuItemThumbnailSizeIncrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeIncrease.text")); // NOI18N
-        menuView.add(menuItemThumbnailSizeIncrease);
-
-        menuItemThumbnailSizeDecrease.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemThumbnailSizeDecrease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_size_decrease.png"))); // NOI18N
-        menuItemThumbnailSizeDecrease.setText(bundle.getString("AppFrame.menuItemThumbnailSizeDecrease.text")); // NOI18N
-        menuView.add(menuItemThumbnailSizeDecrease);
         menuView.add(jSeparator10);
 
         checkBoxMenuItemKeywordOverlay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -696,7 +674,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
@@ -739,8 +716,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;
-    private javax.swing.JMenuItem menuItemThumbnailSizeDecrease;
-    private javax.swing.JMenuItem menuItemThumbnailSizeIncrease;
     private javax.swing.JMenuItem menuItemToolIptcToXmp;
     private javax.swing.JMenu menuSort;
     private javax.swing.JMenu menuTools;

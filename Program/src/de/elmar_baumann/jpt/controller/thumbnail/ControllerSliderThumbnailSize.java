@@ -24,11 +24,13 @@ import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
+import java.awt.AWTEvent;
+import java.awt.Toolkit;
+import java.awt.event.AWTEventListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
@@ -41,23 +43,21 @@ import javax.swing.event.ChangeListener;
  * @version 2008-10-12
  */
 public final class ControllerSliderThumbnailSize
-        implements ActionListener, ChangeListener, ThumbnailsPanelListener,
+        implements AWTEventListener,
+                   ChangeListener,
+                   ThumbnailsPanelListener,
                    UserSettingsChangeListener {
 
-    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
-    private final JSlider slider = appPanel.getSliderThumbnailSize();
-    private static final int STEP_WIDTH = 1;
-    private static final int LARGER_STEP_WIDTH = 10;
-    private static final int MIN_MAGINFICATION_PERCENT = 10;
-    private static final int MAX_MAGINFICATION_PERCENT = 100;
-    private static final String KEY_SLIDER_VALUE =
-            ControllerSliderThumbnailSize.class.getName() + "." + "SliderValue";
-    private int currentValue = 100;
-    private int maxThumbnailWidth =
-            UserSettings.INSTANCE.getMaxThumbnailLength();
+    private final        AppPanel        appPanel                  = GUI.INSTANCE.getAppPanel();
+    private final        ThumbnailsPanel thumbnailsPanel           = appPanel.getPanelThumbnails();
+    private final        JSlider         slider                    = appPanel.getSliderThumbnailSize();
+    private static final int             STEP_WIDTH                = 1;
+    private static final int             LARGER_STEP_WIDTH         = 10;
+    private static final int             MIN_MAGINFICATION_PERCENT = 10;
+    private static final int             MAX_MAGINFICATION_PERCENT = 100;
+    private static final String          KEY_SLIDER_VALUE          = "de.elmar_baumann.jpt.controller.thumbnail.ControllerSliderThumbnailSize." + "SliderValue";
+    private              int             currentValue              = 100;
+    private              int             maxThumbnailWidth         = UserSettings.INSTANCE.getMaxThumbnailLength();
 
     public ControllerSliderThumbnailSize() {
         initSlider();
@@ -68,8 +68,7 @@ public final class ControllerSliderThumbnailSize
         thumbnailsPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
         ListenerProvider.INSTANCE.addUserSettingsChangeListener(this);
-        appFrame.getMenuItemThumbnailSizeDecrease().addActionListener(this);
-        appFrame.getMenuItemThumbnailSizeIncrease().addActionListener(this);
+        Toolkit.getDefaultToolkit().addAWTEventListener(this, AWTEvent.KEY_EVENT_MASK);
     }
 
     private void initSlider() {
@@ -88,12 +87,18 @@ public final class ControllerSliderThumbnailSize
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(appFrame.getMenuItemThumbnailSizeDecrease())) {
-            moveSlider(LARGER_STEP_WIDTH, false);
-        } else if (e.getSource().equals(
-                appFrame.getMenuItemThumbnailSizeIncrease())) {
+    public void eventDispatched(AWTEvent awtEvent) {
+        KeyEvent keyEvent = (KeyEvent)awtEvent;
+        if (keyEvent.getID() == KeyEvent.KEY_PRESSED) {
+            keyPressed(keyEvent);
+        }
+    }
+
+    private void keyPressed(KeyEvent e) {
+        if (KeyEventUtil.isControl(e, KeyEvent.VK_PLUS)) {
             moveSlider(LARGER_STEP_WIDTH, true);
+        } else if (KeyEventUtil.isControl(e, KeyEvent.VK_MINUS)) {
+            moveSlider(LARGER_STEP_WIDTH, false);
         }
     }
 
@@ -106,10 +111,9 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void addToSliderValue(int increment) {
-        int value = slider.getValue();
-        int newValue = Math.min(Math.max(value + increment,
-                                         MIN_MAGINFICATION_PERCENT),
-                                MAX_MAGINFICATION_PERCENT);
+        int value    = slider.getValue();
+        int newValue = Math.min(Math.max(value + increment, MIN_MAGINFICATION_PERCENT), MAX_MAGINFICATION_PERCENT);
+
         slider.setValue(newValue);
     }
 
@@ -125,8 +129,7 @@ public final class ControllerSliderThumbnailSize
 
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(
-                UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
             maxThumbnailWidth = evt.getMaxThumbnailWidth();
             setThumbnailWidth();
         }
@@ -144,8 +147,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void readProperties() {
-        Integer value = UserSettings.INSTANCE.getSettings().getInt(
-                KEY_SLIDER_VALUE);
+        Integer value = UserSettings.INSTANCE.getSettings().getInt(KEY_SLIDER_VALUE);
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
         }
@@ -164,8 +166,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setInt(currentValue,
-                KEY_SLIDER_VALUE);
+        UserSettings.INSTANCE.getSettings().setInt(currentValue, KEY_SLIDER_VALUE);
         UserSettings.INSTANCE.writeToFile();
     }
 }
