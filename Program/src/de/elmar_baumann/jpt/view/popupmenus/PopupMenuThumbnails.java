@@ -115,6 +115,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
         menuRefresh.add(itemUpdateThumbnail);
         menuRefresh.add(itemUpdateMetadata);
+        menuRefresh.add(itemDeleteImageFromDatabase);
         menuRefresh.add(itemRefresh);
         add(menuRefresh);
 
@@ -160,7 +161,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
         add(new JSeparator());
         menuMisc.add(itemIptcToXmp);
-        menuMisc.add(itemDeleteImageFromDatabase);
         add(menuMisc);
     }
 
