@@ -318,7 +318,7 @@ public final class DatabaseImageFiles extends Database {
                 updateThumbnailFile(PersistentThumbnails.getMd5File(filename), imageFile.getThumbnail());
             }
             if (imageFile.isInsertXmpIntoDb()) {
-                updateXmp(connection, idFile, imageFile.getXmp());
+                insertOrUpdateXmp(connection, idFile, imageFile.getXmp());
             }
             if (imageFile.isInsertExifIntoDb()) {
                 insertOrUpdateExif(connection, idFile, imageFile.getExif());
@@ -672,13 +672,10 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private void insertXmpDcSubjects(
-            Connection connection, long idXmp, List<String> dcSubjects) throws
-            SQLException {
+    private void insertXmpDcSubjects(Connection connection, long idXmp, List<String> dcSubjects) throws SQLException {
 
         if (dcSubjects != null) {
-            String sql =
-                    "INSERT INTO xmp_dc_subjects (id_xmp, subject)";
+            String sql = "INSERT INTO xmp_dc_subjects (id_xmp, subject)";
             insertValues(
                     connection,
                     sql,
@@ -693,8 +690,7 @@ public final class DatabaseImageFiles extends Database {
             long id,
             List<String> values) throws SQLException {
 
-        PreparedStatement stmt = connection.prepareStatement(sql +
-                " VALUES (?, ?)");
+        PreparedStatement stmt = connection.prepareStatement(sql + " VALUES (?, ?)");
         for (String value : values) {
             stmt.setLong(1, id);
             stmt.setString(2, value);
@@ -702,6 +698,30 @@ public final class DatabaseImageFiles extends Database {
             stmt.executeUpdate();
         }
         stmt.close();
+    }
+
+
+    private String getUpdateXmpStatement() {
+        return "UPDATE xmp SET" +
+                " id_files = ?" +                         // --  1 --
+                ", dc_creator = ?" +                      // --  2 --
+                ", dc_description = ?" +                  // --  3 --
+                ", dc_rights = ?" +                       // --  4 --
+                ", dc_title = ?" +                        // --  5 --
+                ", iptc4xmpcore_countrycode = ?" +        // --  6 --
+                ", iptc4xmpcore_location = ?" +           // --  7 --
+                ", photoshop_authorsposition = ?" +       // --  8 --
+                ", photoshop_captionwriter = ?" +         // --  9 --
+                ", photoshop_city = ?" +                  // -- 10 --
+                ", photoshop_country = ?" +               // -- 11 --
+                ", photoshop_credit = ?" +                // -- 12 --
+                ", photoshop_headline = ?" +              // -- 13 --
+                ", photoshop_instructions = ?" +          // -- 14 --
+                ", photoshop_source = ?" +                // -- 15 --
+                ", photoshop_state = ?" +                 // -- 16 --
+                ", photoshop_transmissionReference = ?" + // -- 17 --
+                ", rating = ?" +                          // -- 18 --
+                " WHERE id = ?";                          // -- 19 --
     }
 
     private String getInsertIntoXmpStatement() {
@@ -758,23 +778,34 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private void updateXmp(Connection connection, long idFile, Xmp xmp)
-            throws SQLException {
+    private void insertOrUpdateXmp(Connection connection, long idFile, Xmp xmp) throws SQLException {
 
         if (xmp != null) {
             long idXmp = getIdXmpFromIdFile(connection, idFile);
             if (idXmp > 0) {
-                PreparedStatement stmt = connection.prepareStatement(
-                        "DELETE FROM xmp where id = ?");
-                stmt.setLong(1, idXmp);
+                PreparedStatement stmt = connection.prepareStatement(getUpdateXmpStatement());
+                setXmpValues(stmt, idFile, xmp);
+                stmt.setLong(19, idXmp);
                 logFiner(stmt);
                 stmt.executeUpdate();
                 stmt.close();
+                deleteXmpDcSubjects(connection, idXmp);
+                insertXmpDcSubjects(connection, idXmp, xmp.getDcSubjects());
+            } else {
+                insertXmp(connection, idFile, xmp);
             }
-            insertXmp(connection, idFile, xmp);
         }
     }
 
+    private void deleteXmpDcSubjects(Connection connection, long idXmp) throws SQLException {
+        String            sql  = "DELETE FROM xmp_dc_subjects WHERE id_xmp = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+
+        stmt.setLong(1, idXmp);
+        logFiner(stmt);
+        stmt.executeUpdate();
+        stmt.close();
+    }
     /**
      * Deletes XMP-Data of image files when a XMP sidecar file does not
      * exist but in the database is XMP data for this image file.
