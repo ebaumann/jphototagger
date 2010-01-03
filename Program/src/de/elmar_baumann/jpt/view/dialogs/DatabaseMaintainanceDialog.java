@@ -106,17 +106,20 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         tabbedPane = new javax.swing.JTabbedPane();
         panelCount = new de.elmar_baumann.jpt.view.panels.DatabaseInfoCountPanel();
         panelMaintainance = new de.elmar_baumann.jpt.view.panels.DatabaseMaintainancePanel();
+        panelDatabaseUpdate = new de.elmar_baumann.jpt.view.panels.DatabaseUpdatePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("DatabaseMaintainanceDialog.title"));
+        setTitle(Bundle.getString("DatabaseMaintainanceDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount);
-        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance);
+        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
+        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        tabbedPane.addTab(bundle.getString("DatabaseMaintainanceDialog.panelDatabaseUpdate.TabConstraints.tabTitle"), panelDatabaseUpdate); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,7 +127,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 564, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -165,6 +168,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.jpt.view.panels.DatabaseInfoCountPanel panelCount;
+    private de.elmar_baumann.jpt.view.panels.DatabaseUpdatePanel panelDatabaseUpdate;
     private de.elmar_baumann.jpt.view.panels.DatabaseMaintainancePanel panelMaintainance;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables

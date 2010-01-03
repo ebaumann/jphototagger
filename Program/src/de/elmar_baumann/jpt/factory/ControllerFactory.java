@@ -68,7 +68,6 @@ import de.elmar_baumann.jpt.controller.metadata.ControllerIptcToXmp;
 import de.elmar_baumann.jpt.controller.misc.ControllerItemsMutualExcludeSelection;
 import de.elmar_baumann.jpt.controller.misc.ControllerLogfileDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerMenuItemEnabler;
-import de.elmar_baumann.jpt.controller.misc.ControllerRenameFilenamesInDb;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.jpt.controller.misc.ControllerThumbnailCountDisplay;
 import de.elmar_baumann.jpt.controller.search.ControllerCreateSavedSearch;
@@ -82,7 +81,6 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerCreateMetadataOfSelec
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerRefreshThumbnailsPanel;
-import de.elmar_baumann.jpt.controller.metadata.ControllerRenameXmpMetadata;
 import de.elmar_baumann.jpt.controller.misc.ControllerPlugins;
 import de.elmar_baumann.jpt.controller.nometadata.ControllerNoMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.rating.ControllerSetRating;
@@ -143,7 +141,6 @@ public final class ControllerFactory {
             new ControllerDeleteFavorite();
             new ControllerUpdateFavorite();
             new ControllerCopyFilesToDirectory();
-            new ControllerRenameXmpMetadata();
             new ControllerIptcToXmp();
             new ControllerGoTo();
             new ControllerSliderThumbnailSize();
@@ -163,7 +160,6 @@ public final class ControllerFactory {
             new ControllerExtractEmbeddedXmp();
             new ControllerShowSystemOutput();
             new ControllerMoveFavorite();
-            new ControllerRenameFilenamesInDb();
             new ControllerCreateDirectory();
             new ControllerRenameDirectory();
             new ControllerDeleteDirectory();

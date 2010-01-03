@@ -216,18 +216,6 @@
             <title>Werkzeuge &gt; Eingebettete XMP-Daten in Filialdateien schreiben</title>
         </page>
         <page>
-            <url>action_metadata_replace_in_xmp.html</url>
-            <title>Werkzeuge &gt; XMP-Daten in ausgewählten Bildern ersetzen</title>
-        </page>
-        <page>
-            <url>action_refresh_exif_in_db.html</url>
-            <title>Werkzeuge &gt; EXIF in DB aktualisieren</title>
-        </page>
-        <page>
-            <url>action_database_rename_filenames.html</url>
-            <title>Werkzeuge &gt; In der Datenbank Dateinamen umbenennen</title>
-        </page>
-        <page>
             <url>action_copy_keywords_to_hierarchical_keywords.html</url>
             <title>Werkzeuge &gt; Alle Stichwörter kopieren in den Stichwortbaum</title>
         </page>

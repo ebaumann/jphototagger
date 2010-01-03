@@ -167,10 +167,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemExtractEmbeddedXmp;
     }
 
-    public JMenuItem getMenuItemRenameInXmp() {
-        return menuItemRenameInXmp;
-    }
-
     public JMenuItem getMenuItemCopyFromAutocopyDirectory() {
         return menuItemCopyFromAutocopyDirectory;
     }
@@ -193,10 +189,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemAbout() {
         return menuItemAbout;
-    }
-
-    public JMenuItem getMenuItemRenameFilenamesInDb() {
-        return menuItemRenameFilenamesInDb;
     }
 
     public JMenuItem getMenuItemActions() {
@@ -269,10 +261,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemDisplayLogfile() {
         return menuItemDisplayLogfile;
-    }
-
-    public JMenuItem getMenuItemRefreshExifInDb() {
-        return menuItemRefreshExifInDb;
     }
 
     public JMenu getMenuEdit() {
@@ -370,13 +358,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoHierarchicalKeywords = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
-        jSeparator23 = new javax.swing.JPopupMenu.Separator();
         menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
-        menuItemRenameInXmp = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
-        menuItemRefreshExifInDb = new javax.swing.JMenuItem();
-        menuItemRenameFilenamesInDb = new javax.swing.JMenuItem();
-        jSeparator14 = new javax.swing.JPopupMenu.Separator();
         menuItemCopyKeywordsToHierarchicalKeywords = new javax.swing.JMenuItem();
         menuWindow = new javax.swing.JMenu();
         menuItemInputHelper = new javax.swing.JMenuItem();
@@ -634,28 +617,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemToolIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_iptc.png"))); // NOI18N
         menuItemToolIptcToXmp.setText(Bundle.getString("AppFrame.menuItemToolIptcToXmp.text")); // NOI18N
         menuTools.add(menuItemToolIptcToXmp);
-        menuTools.add(jSeparator23);
 
         menuItemExtractEmbeddedXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"))); // NOI18N
         menuItemExtractEmbeddedXmp.setText(Bundle.getString("AppFrame.menuItemExtractEmbeddedXmp.text")); // NOI18N
         menuTools.add(menuItemExtractEmbeddedXmp);
-
-        menuItemRenameInXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemRenameInXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_replace_in_xmp.png"))); // NOI18N
-        menuItemRenameInXmp.setText(Bundle.getString("AppFrame.menuItemRenameInXmp.text")); // NOI18N
-        menuItemRenameInXmp.setEnabled(false);
-        menuTools.add(menuItemRenameInXmp);
         menuTools.add(jSeparator13);
-
-        menuItemRefreshExifInDb.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemRefreshExifInDb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exif.png"))); // NOI18N
-        menuItemRefreshExifInDb.setText(Bundle.getString("AppFrame.menuItemRefreshExifInDb.text")); // NOI18N
-        menuTools.add(menuItemRefreshExifInDb);
-
-        menuItemRenameFilenamesInDb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_file.png"))); // NOI18N
-        menuItemRenameFilenamesInDb.setText(Bundle.getString("AppFrame.menuItemRenameFilenamesInDb.text")); // NOI18N
-        menuTools.add(menuItemRenameFilenamesInDb);
-        menuTools.add(jSeparator14);
 
         menuItemCopyKeywordsToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png"))); // NOI18N
         menuItemCopyKeywordsToHierarchicalKeywords.setText(bundle.getString("AppFrame.menuItemCopyKeywordsToHierarchicalKeywords.text")); // NOI18N
@@ -717,7 +683,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
-    private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
@@ -727,7 +692,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
-    private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JSeparator jSeparator26;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -772,9 +736,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
     private javax.swing.JMenuItem menuItemOutputWindow;
-    private javax.swing.JMenuItem menuItemRefreshExifInDb;
-    private javax.swing.JMenuItem menuItemRenameFilenamesInDb;
-    private javax.swing.JMenuItem menuItemRenameInXmp;
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;
