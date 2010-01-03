@@ -57,6 +57,12 @@ public final class DatabaseImageEvent {
          * XMP metadata was updated
          */
         XMP_UPDATED,
+        /**
+         * EXIF metadata was updated. The only valid getter is
+         * {@link ImageFile#getExif() } of {@link #getImageFile()} or
+         *  {@link #getOldImageFile()}.
+         */
+        EXIF_UPDATED
     };
     private static final List<Type> TEXT_METADATA_EVENTS = new ArrayList<Type>(5);
     private              ImageFile  imageFile;
