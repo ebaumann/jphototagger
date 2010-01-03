@@ -26,7 +26,8 @@ import java.util.Set;
 import javax.swing.JProgressBar;
 
 /**
- * Base class of user task threads.
+ * Base class for helper threads managing progress listeners and providing a
+ * progress bar.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-02
@@ -36,21 +37,59 @@ public abstract class HelperThread extends Thread {
     private              String                info;
     private final        Set<ProgressListener> progressListeners = new HashSet<ProgressListener>();
     private              JProgressBar          progressBar;
+    private volatile     boolean               customProgressBar;
     private volatile     int                   minimum;
     private volatile     int                   maximum;
 
     protected abstract void stopRequested();
 
+    /**
+     * Adds a progress listener.
+     * <p>
+     * On {@link #progressStarted(int, int, int, java.lang.Object)},
+     * {@link #progressPerformed(int, java.lang.Object)} and
+     * {@link #progressEnded(java.lang.Object)} all progress listeners will
+     * be notified through the apporpriate progress listener interface method.
+     * <p>
+     * If a progress listener calls {@link ProgressEvent#stop()},
+     * {@link #stopRequested()} will called.
+     *
+     * @param listener progress listener
+     */
     public void addProgressListener(ProgressListener listener) {
         synchronized (progressListeners) {
             progressListeners.add(listener);
         }
     }
 
+    /**
+     * Sets a custom progress bar.
+     * <p>
+     * If no progress bar is set, {@link ProgressBar} will be used.
+     *
+     * @param progressBar progress bar
+     */
+    public synchronized void setProgressBar(JProgressBar progressBar) {
+        this.progressBar = progressBar;
+        customProgressBar = true;
+    }
+
+    /**
+     * Sets an information text.
+     * <p>
+     * This text will be set as progress bar string.
+     *
+     * @param info info
+     */
     public synchronized void setInfo(String info) {
         this.info = info;
     }
 
+    /**
+     * Removes a progress listener.
+     *
+     * @param listener progress listener
+     */
     public void removeProgressListener(ProgressListener listener) {
         synchronized (progressListeners) {
             progressListeners.remove(listener);
@@ -113,23 +152,47 @@ public abstract class HelperThread extends Thread {
         return new ProgressEvent(this, minimum, maximum, value, info);
     }
 
+    /**
+     * Notifies all progress listeners that the progress has been started and
+     * updates the progress bar.
+     *
+     * @param minimum minium value
+     * @param value   current value
+     * @param maximum maximum value
+     * @param info    null or object set as {@link ProgressEvent#setInfo(java.lang.Object)}
+     */
     protected void progressStarted(int minimum, int value, int maximum, Object info) {
         this.minimum = minimum;
         this.maximum = maximum;
         notifyProgressStarted(progressEvent(value, info));
     }
 
+    /**
+     * Notifies all progress listeners that the progress has been performed and
+     * updates the progress bar.
+     *
+     * @param value current value
+     * @param info  null or object set as {@link ProgressEvent#setInfo(java.lang.Object)}
+     */
     protected void progressPerformed(int value, Object info) {
         notifyProgressPerformed(progressEvent(value, info));
     }
 
+    /**
+     * Notifies all progress listeners that the progress has been ended and
+     * updates the progress bar.
+     *
+     * @param info null or object set as {@link ProgressEvent#setInfo(java.lang.Object)}
+     */
     protected void progressEnded(Object info) {
         notifyProgressEnded(progressEvent(0, info));
         if (progressBar != null) {
             progressBar.setString("");
             progressBar.setStringPainted(false);
-            ProgressBar.INSTANCE.releaseResource(this);
-            progressBar = null;
+            if (!customProgressBar) {
+                ProgressBar.INSTANCE.releaseResource(this);
+                progressBar = null;
+            }
         }
     }
 }
