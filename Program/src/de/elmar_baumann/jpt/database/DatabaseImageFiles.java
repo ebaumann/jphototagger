@@ -659,8 +659,7 @@ public final class DatabaseImageFiles extends Database {
                  : xmp.getLastModified();
     }
 
-    private void insertXmp(Connection connection, long idFile, Xmp xmp) throws
-            SQLException {
+    private void insertXmp(Connection connection, long idFile, Xmp xmp) throws SQLException {
 
         if (xmp != null && !xmp.isEmpty()) {
             PreparedStatement stmt = connection.prepareStatement(getInsertIntoXmpStatement());
@@ -725,7 +724,7 @@ public final class DatabaseImageFiles extends Database {
                 ", photoshop_source" +                // -- 15 --
                 ", photoshop_state" +                 // -- 16 --
                 ", photoshop_transmissionReference" + // -- 17 --
-                ", rating" + // -- 18 --
+                ", rating" +                          // -- 18 --
                 ")" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
