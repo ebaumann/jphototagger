@@ -61,7 +61,7 @@ public final class SaveEditedMetadata extends Thread {
 
         AppLifeCycle.INSTANCE.addSaveObject(this);
         this.filenamesXmp = new ArrayList<Pair<String, Xmp>>(filenamesXmp);
-        setName("Saving edited metadata @ " + getClass().getName());
+        setName("Saving edited metadata @ " + getClass().getSimpleName());
     }
 
     @Override

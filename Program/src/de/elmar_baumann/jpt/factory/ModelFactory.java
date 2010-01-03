@@ -117,7 +117,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelKeywords"), AppPanel.MessageType.INFO, 1000);
             }
         });
-        thread.setName("Creating keywords model @ " + getClass().getName());
+        thread.setName("Creating keywords model @ " + getClass().getSimpleName());
         thread.start();
     }
 
@@ -192,7 +192,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelMiscMetadata"), AppPanel.MessageType.INFO, 1000);
             }
         });
-        thread.setName("Creating model of tree misc metadata" + " @ " + getClass().getName());
+        thread.setName("Creating model of tree misc metadata @ " + getClass().getSimpleName());
         thread.start();
     }
 
@@ -212,7 +212,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelTimeline"), AppPanel.MessageType.INFO, 1000);
             }
         });
-        thread.setName("Creating model of tree timeline" + " @ " + getClass().getName());
+        thread.setName("Creating model of tree timeline @ " + getClass().getSimpleName());
         thread.start();
     }
 
@@ -233,7 +233,7 @@ public final class ModelFactory {
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.TreeModelFavorites"), AppPanel.MessageType.INFO, 1000);
             }
         });
-        thread.setName("Creating model of tree favorite directories" + " @ " + getClass());
+        thread.setName("Creating model of tree favorite directories @ " + getClass().getSimpleName());
         thread.start();
     }
 
@@ -255,7 +255,7 @@ public final class ModelFactory {
                 appPanel.showMessage(Bundle.getString("ModelFactory.Finished.TreeModelDirectories"), AppPanel.MessageType.INFO, 1000);
             }
         });
-        thread.setName("Creating model of tree directories" + " @ " + getClass());
+        thread.setName("Creating model of tree directories @ " + getClass().getSimpleName());
         thread.start();
     }
 }

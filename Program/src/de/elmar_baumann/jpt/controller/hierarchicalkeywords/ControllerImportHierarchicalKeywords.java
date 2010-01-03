@@ -83,7 +83,7 @@ public final class ControllerImportHierarchicalKeywords implements ActionListene
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             this.paths = paths;
-            setName("Importing keywords @ " + getClass().getName());
+            setName("Importing keywords @ " + getClass().getSimpleName());
         }
 
         private void getProgressBar() {

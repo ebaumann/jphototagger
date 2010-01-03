@@ -211,8 +211,7 @@ public final class ConnectionPool implements Runnable {
         connectionPending = true;
         try {
             Thread connectThread = new Thread(this);
-            connectThread.setName("Connection pool creating connection" + " @ " +
-                    getClass().getName());
+            connectThread.setName("Connection pool creating connection @ " + getClass().getSimpleName());
             connectThread.start();
         } catch (OutOfMemoryError oome) {
             // Give up on new connection

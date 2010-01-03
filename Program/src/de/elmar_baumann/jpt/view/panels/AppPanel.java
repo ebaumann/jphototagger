@@ -517,7 +517,7 @@ public final class AppPanel extends javax.swing.JPanel implements
         labelInfo.setForeground(type.isError() ? Color.RED : Color.BLACK);
         labelInfo.setText(message);
         Thread thread = new Thread(new HideInfoMessage(milliseconds));
-        thread.setName("Hiding message popup @ " + getClass().getName()); //
+        thread.setName("Hiding message popup @ " + getClass().getSimpleName()); //
         thread.setPriority(Thread.MIN_PRIORITY);
         thread.start();
     }

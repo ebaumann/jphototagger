@@ -61,7 +61,7 @@ public final class RenameXmpMetadata extends Thread {
         this.oldValue  = oldValue;
         this.newValue  = newValue;
 
-        setName("Renaming XMP metadata " + column + " @ " + getClass());
+        setName("Renaming XMP metadata " + column + " @ " + getClass().getSimpleName());
     }
 
     @Override

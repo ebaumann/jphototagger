@@ -92,8 +92,7 @@ public final class StartPrograms {
         public Execute(Program program, List<File> imageFiles) {
             this.imageFiles = new ArrayList<File>(imageFiles);
             this.program = program;
-            setName("Executing program " + program.getAlias() + " @ " +
-                    getClass().getName());
+            setName("Executing program " + program.getAlias() + " @ " + getClass().getSimpleName());
         }
 
         @Override

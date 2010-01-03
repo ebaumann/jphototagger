@@ -135,8 +135,7 @@ public final class MoveToDirectoryDialog extends Dialog
                 CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         addListenerToMoveTask();
         Thread thread = new Thread(moveTask);
-        thread.setName("Moving files to directory " + targetDirectory.
-                getAbsolutePath() + " @ " + getClass().getName());
+        thread.setName("Moving files to directory " + targetDirectory.getAbsolutePath() + " @ " + getClass().getSimpleName());
         thread.start();
         runs = true;
     }

@@ -125,8 +125,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
 
         public SetCountThread() {
             super();
-            setName("Setting count in database info" + " @ " +
-                    getClass().getName());
+            setName("Setting count in database info @ " + getClass().getSimpleName());
             setPriority(MIN_PRIORITY);
         }
 
