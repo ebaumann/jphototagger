@@ -14,7 +14,7 @@
             Datenbank und Möglichkeiten zur Wartung.
         </p>
 
-        <h2>Info</h2>
+        <h2>Kartenreiter <q>Info</q></h2>
 
         <p>Auf dem <strong>Info</strong>-Kartenreiter sehen Sie, welche Daten
             enthalten sind in wie vielen Datensätzen. Die Spalte
@@ -42,7 +42,7 @@
                     alt="" />
         </p>
 
-        <h2>Wartung</h2>
+        <h2>Kartenreiter <q>Wartung</q></h2>
 
         <p>Der Kartenreiter Wartung bietet an, <strong>Datensätze zu
             entfernen</strong>, für die es keine Bilder mehr gibt. Das ist
@@ -68,6 +68,30 @@
                     width="598"
                     height="387"
                     alt="" />
+        </p>
+
+        <h2>Kartenreiter <q>Aktualisieren</q></h2>
+
+        <h3>EXIF neu einlesen aus allen bekannten Dateien</h3>
+
+        <p>Dieser Befehl aktualisiert <em>in der Datenbank</em> die EXIF-Daten
+            aller bekannten Bilder. Dazu liest <strong>JPhotoTagger</strong>
+            erneut alle EXIF-Daten der Bilder und überschreibt mit diesen die
+            alten Datenbankwerte. Hatte ein Bild mit EXIF früher keine
+            EXIF-Daten, werden diese nun in die Datenbank geschrieben.
+        </p>
+
+        <p>Das ist auch sinnvoll, falls (erst) in einer neueren Version von
+            <strong>JPhotoTagger</strong> neue kamera-spezifische Eigenschaften
+            in der Datenbank gespeichert werden, denn automatisch werden die
+            EXIF-Daten erst aktualisiert, falls das Dateidatum des Bilds
+            sich ändert und <strong>JPhotoTagger</strong> dies bemerkt.
+        </p>
+
+        <h3>Dateien in der Datenbank umbenennen</h3>
+
+        <p>Öffnet einen Dialog, Erklärung
+            <a href="action_database_rename_filenames.html">siehe hier</a>.
         </p>
 
     </body>

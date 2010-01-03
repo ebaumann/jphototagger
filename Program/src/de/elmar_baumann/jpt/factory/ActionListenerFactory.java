@@ -32,7 +32,6 @@ import de.elmar_baumann.jpt.controller.misc.ControllerMaintainDatabase;
 import de.elmar_baumann.jpt.controller.search.ControllerShowAdvancedSearchDialog;
 import de.elmar_baumann.jpt.controller.metadata.ControllerShowUpdateMetadataDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowUserSettingsDialog;
-import de.elmar_baumann.jpt.helper.RefreshExifInDbOfKnownFiles;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
@@ -66,7 +65,6 @@ public final class ActionListenerFactory {
             appFrame.getMenuItemScanDirectory()   .addActionListener(new ControllerShowUpdateMetadataDialog());
             appFrame.getMenuItemSettings()        .addActionListener(new ControllerShowUserSettingsDialog());
             appFrame.getMenuItemSearch()          .addActionListener(new ControllerShowAdvancedSearchDialog());
-            appFrame.getMenuItemRefreshExifInDb() .addActionListener(new RefreshExifInDbOfKnownFiles());
             listenToPopupMenuHierarchicalKeywords();
         }
     }
