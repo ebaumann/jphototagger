@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>EXIF in DB aktualisieren</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>EXIF in DB aktualisieren</h1>
+
+        <p>Dieser Befehl aktualisiert <em>in der Datenbank</em> die EXIF-Daten
+            aller bekannten Bilder. Dazu liest <strong>JPhotoTagger</strong>
+            erneut alle EXIF-Daten der Bilder und überschreibt mit diesen die
+            alten Datenbankwerte. Hatte ein Bild mit EXIF früher keine
+            EXIF-Daten, werden diese nun in die Datenbank geschrieben.
+        </p>
+
+        <p>Das ist auch sinnvoll, falls (erst) in einer neueren Version von
+            <strong>JPhotoTagger</strong> neue kamera-spezifische Eigenschaften
+            in der Datenbank gespeichert werden, denn automatisch werden die
+            EXIF-Daten erst aktualisiert, falls das Dateidatum des Bilds
+            sich ändert und <strong>JPhotoTagger</strong> dies bemerkt.
+        </p>
+
+    </body>
+</html>

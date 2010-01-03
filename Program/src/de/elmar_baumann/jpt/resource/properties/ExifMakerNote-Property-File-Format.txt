@@ -27,12 +27,12 @@ Description           : *Unique* Description (shall be used to identify tags
                         on a specific marker note, even within the same
                         company, e.g. Nikon)
 
-MatchTag               : EXIF Tag number which value has to to match against a
-                         pattern defined in "MatchTagPattern"
+MatchTag              : EXIF Tag number which value has to to match against a
+                        pattern defined in "MatchTagPattern"
 
-MatchTagPattern        : Regular expression of the EXIF tag value defined in
-                         "MatchTag". That tag in the image's EXIF data has to
-                         match that pattern, e.g. ".*[Nn][Ii][Kk][Oo][Nn].*"
+MatchTagPattern       : Regular expression of the EXIF tag value defined in
+                        "MatchTag". That tag in the image's EXIF data has to
+                        match that pattern, e.g. ".*[Nn][Ii][Kk][Oo][Nn].*"
 
 MagicBytePatterns     : All first Bytes in the EXIF tag 37500 raw data identifying
                         a specific Maker Note, e.g. "Nikon Type 3 Maker Note".

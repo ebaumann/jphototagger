@@ -220,6 +220,10 @@
             <title>Werkzeuge &gt; XMP-Daten in ausgewählten Bildern ersetzen</title>
         </page>
         <page>
+            <url>action_refresh_exif_in_db.html</url>
+            <title>Werkzeuge &gt; EXIF in DB aktualisieren</title>
+        </page>
+        <page>
             <url>action_database_rename_filenames.html</url>
             <title>Werkzeuge &gt; In der Datenbank Dateinamen umbenennen</title>
         </page>

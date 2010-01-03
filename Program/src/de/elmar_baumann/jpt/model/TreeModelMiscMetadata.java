@@ -94,16 +94,21 @@ public final class TreeModelMiscMetadata
 
     @Override
     public void actionPerformed(DatabaseImageEvent event) {
+
         DatabaseImageEvent.Type eventType = event.getType();
+
         if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)) {
             checkImageInserted(event.getImageFile());
 
         } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED) &&
                 event.getOldImageFile() != null) {
+
             checkImageDeleted(event.getOldImageFile());
 
         } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
+
             ImageFile imageFile = event.getImageFile();
+
             if (imageFile != null && 
                (imageFile.isInsertExifIntoDb() || imageFile.isInsertXmpIntoDb())) {
 
@@ -112,6 +117,10 @@ public final class TreeModelMiscMetadata
                     checkImageDeleted(event.getOldImageFile());
                 }
             }
+        } else if (eventType.equals(DatabaseImageEvent.Type.EXIF_UPDATED)) {
+
+            if (event.getImageFile()    != null) checkImageInserted(event.getImageFile());
+            if (event.getOldImageFile() != null) checkImageDeleted (event.getOldImageFile());
         }
     }
 
@@ -185,6 +194,10 @@ public final class TreeModelMiscMetadata
         double f = exif.getFocalLength();
         if (f > 0) {
             checkDeleted(ColumnExifFocalLength.INSTANCE, Double.valueOf(f));
+        }
+        String lens = exif.getLens();
+        if (lens != null) {
+            checkDeleted(ColumnExifLens.INSTANCE, lens);
         }
     }
 

@@ -99,6 +99,31 @@ public final class DatabaseImageFiles extends Database {
         return count;
     }
 
+    public List<String> getAllImageFiles() {
+        List<String> files = new ArrayList<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+
+            String    sql = "SELECT filename FROM files";
+            Statement stmt = connection.createStatement();
+
+            logFinest(sql);
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                files.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return files;
+    }
+
     /**
      * Renames filenames starting with a substring. Usage: Renaming a directory
      * in the filesystem.
@@ -127,6 +152,44 @@ public final class DatabaseImageFiles extends Database {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
         }
         return countDeleted;
+    }
+
+    public synchronized boolean insertOrUpdateExif(String filename, Exif exif) {
+
+        Connection connection = null;
+        try {
+            connection = getConnection();
+
+            long idFile = getIdFile(connection, filename);
+            if (idFile < 0) return false;
+
+            Exif oldExif = getExifOfFile(filename);
+
+            insertOrUpdateExif(connection, idFile, exif);
+
+            notifyExifInsertedOrUpdated(filename, oldExif, exif);
+
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+            rollback(connection);
+        } finally {
+            free(connection);
+        }
+        return true;
+    }
+
+    private void notifyExifInsertedOrUpdated(String filename, Exif oldExif, Exif newExif) {
+
+        ImageFile imageFile    = new ImageFile();
+        ImageFile oldImageFile = new ImageFile();
+
+        imageFile.setExif(newExif);
+        imageFile.setFilename(filename);
+
+        oldImageFile.setExif(oldExif);
+        oldImageFile.setFilename(filename);
+
+        notifyDatabaseListener(DatabaseImageEvent.Type.EXIF_UPDATED, imageFile);
     }
 
     /**
@@ -258,7 +321,7 @@ public final class DatabaseImageFiles extends Database {
                 updateXmp(connection, idFile, imageFile.getXmp());
             }
             if (imageFile.isInsertExifIntoDb()) {
-                updateExif(connection, idFile, imageFile.getExif());
+                insertOrUpdateExif(connection, idFile, imageFile.getExif());
             }
             connection.commit();
             success = true;
@@ -1296,6 +1359,34 @@ public final class DatabaseImageFiles extends Database {
         return filenames;
     }
 
+    private String getUpdateExifStatement() {
+        return "UPDATE exif" +
+                " SET id_files = ?" +              // -- 1 --
+                ", exif_recording_equipment = ?" + // -- 2 --
+                ", exif_date_time_original = ?" +  // -- 3 --
+                ", exif_focal_length = ?" +        // -- 4 --
+                ", exif_iso_speed_ratings = ?" +   // -- 5 --
+                ", exif_lens = ?" +                // -- 6 --
+                " WHERE id_files = ?";             // -- 7 --
+    }
+
+    private void insertOrUpdateExif(Connection connection, long idFile, Exif exif) throws SQLException {
+
+        if (exif != null) {
+            long idExif = getIdExifFromIdFile(connection, idFile);
+            if (idExif > 0) {
+                PreparedStatement stmt = connection.prepareStatement(getUpdateExifStatement());
+                setExifValues(stmt, idFile, exif);
+                stmt.setLong(7, idFile);
+                logFiner(stmt);
+                stmt.executeUpdate();
+                stmt.close();
+            } else {
+                insertExif(connection, idFile, exif);
+            }
+        }
+    }
+
     private String getInsertIntoExifStatement() {
         return "INSERT INTO exif" +
                 " (" +
@@ -1309,9 +1400,20 @@ public final class DatabaseImageFiles extends Database {
                 " VALUES (?, ?, ?, ?, ?, ?)";
     }
 
-    private void setExifValues(
-            PreparedStatement stmt, long idFile, Exif exif)
-            throws SQLException {
+    private void insertExif(Connection connection, long idFile, Exif exif) throws SQLException {
+
+        if (exif != null && !exif.isEmpty()) {
+            PreparedStatement stmt =
+                    connection.prepareStatement(getInsertIntoExifStatement());
+            setExifValues(stmt, idFile, exif);
+            logFiner(stmt);
+            stmt.executeUpdate();
+            stmt.close();
+        }
+    }
+
+
+    private void setExifValues(PreparedStatement stmt, long idFile, Exif exif) throws SQLException {
 
         stmt.setLong(1, idFile);
         String recordingEquipment = exif.getRecordingEquipment();
@@ -1343,36 +1445,6 @@ public final class DatabaseImageFiles extends Database {
             stmt.setNull(6, java.sql.Types.VARCHAR);
         } else {
             stmt.setString(6, lens);
-        }
-    }
-
-    private void updateExif(Connection connection, long idFile, Exif exif)
-            throws SQLException {
-
-        if (exif != null) {
-            long idExif = getIdExifFromIdFile(connection, idFile);
-            if (idExif > 0) {
-                PreparedStatement stmt = connection.prepareStatement(
-                        "DELETE FROM exif where id = ?");
-                stmt.setLong(1, idExif);
-                logFiner(stmt);
-                stmt.executeUpdate();
-                stmt.close();
-            }
-            insertExif(connection, idFile, exif);
-        }
-    }
-
-    private void insertExif(Connection connection, long idFile, Exif exif)
-            throws SQLException {
-
-        if (exif != null && !exif.isEmpty()) {
-            PreparedStatement stmt =
-                    connection.prepareStatement(getInsertIntoExifStatement());
-            setExifValues(stmt, idFile, exif);
-            logFiner(stmt);
-            stmt.executeUpdate();
-            stmt.close();
         }
     }
 
