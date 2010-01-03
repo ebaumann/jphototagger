@@ -39,7 +39,7 @@ public abstract class FilenameFormat {
 
     /**
      * Returns a format string.
-     * 
+     *
      * @return string or null if not set
      */
     public String getFormat() {
@@ -48,7 +48,7 @@ public abstract class FilenameFormat {
 
     /**
      * Sets a format string.
-     * 
+     *
      * @param format  format
      */
     public void setFormat(String format) {
@@ -57,7 +57,7 @@ public abstract class FilenameFormat {
 
     /**
      * Sets the affected file.
-     * 
+     *
      * @param file  file
      */
     public void setFile(File file) {
@@ -67,7 +67,7 @@ public abstract class FilenameFormat {
 
     /**
      * Returns the affected file.
-     * 
+     *
      * @return file or null if not set
      */
     public File getFile() {
@@ -92,7 +92,7 @@ public abstract class FilenameFormat {
 
     /**
      * Returns wheter the format will change.
-     * 
+     *
      * @return true if changes are possible. This implementation returns true
      */
     public boolean isDynamic() {
@@ -101,7 +101,7 @@ public abstract class FilenameFormat {
 
     /**
      * Returns the formatted filename or part of a filename.
-     * 
+     *
      * @return filename (-part)
      */
     abstract public String format();

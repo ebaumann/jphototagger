@@ -30,7 +30,7 @@ import java.util.Properties;
 
 /**
  * Nichtmodaler Dialog mit Fortschrittsbalken.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-08-03
  */
@@ -41,7 +41,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param parent      Elternframe
      */
     public ProgressDialog(java.awt.Frame parent) {
@@ -59,7 +59,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Adds an action listener. It is called, when a user clicks the stop button.
-     * 
+     *
      * @param listener  action listener
      */
     public synchronized void addActionListener(ActionListener listener) {
@@ -68,7 +68,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Removes an action listener.
-     * 
+     *
      * @param listener  action listener
      */
     public synchronized void removeActionListener(ActionListener listener) {
@@ -77,7 +77,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Setzt den aktuellen Zustand des Fortschrittsbalkens.
-     * 
+     *
      * @param value Wert
      */
     public void setValue(int value) {
@@ -86,7 +86,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Setzt das Minimum des Fortschrittsbalkens.
-     * 
+     *
      * @param minimum Minimum
      */
     public void setMinimum(int minimum) {
@@ -95,7 +95,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Setzt das Maximum des Fortschrittsbalkens.
-     * 
+     *
      * @param maximum Maximum
      */
     public void setMaximum(int maximum) {
@@ -104,7 +104,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Anzuzeigender Text über Fortschrittsbalken.
-     * 
+     *
      * @param text  Text
      */
     public void setInfoText(String text) {
@@ -114,7 +114,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
     /**
      * Sets the text below the progress bar to give detailled info about the
      * current progress.
-     * 
+     *
      * @param text  text
      */
     public void setCurrentProgressInfoText(String text) {
@@ -123,7 +123,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Sets the progress bar in the intermediate state.
-     * 
+     *
      * @param intermediate  true, if intermediate
      */
     public void setIndeterminate(boolean intermediate) {
@@ -133,7 +133,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Enables closing the dialog.
-     * 
+     *
      * @param enabled  true, if enabled. Default: true.
      */
     public void setEnabledClose(boolean enabled) {
@@ -142,7 +142,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
     /**
      * Sets the stop button enabled.
-     * 
+     *
      * @param stop  true, if enabled. Default: true.
      */
     public void setEnabledStop(boolean stop) {

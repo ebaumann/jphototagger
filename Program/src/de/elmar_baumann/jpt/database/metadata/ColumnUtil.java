@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-02
@@ -36,7 +36,7 @@ public final class ColumnUtil {
     /**
      * Creates via Reflection columns from the keys of the columns
      * ({@link Column#getKey()}).
-     * 
+     *
      * @param  columnKeys  column keys
      * @return columns of valid keys
      */
@@ -62,7 +62,7 @@ public final class ColumnUtil {
 
     /**
      * Returns the descriptions of columns ({@link Column#getDescription()}).
-     * 
+     *
      * @param  columns  columns
      * @return descriptions in the same order as in <code>columns</code>
      */
@@ -78,7 +78,7 @@ public final class ColumnUtil {
      * Returns all selected columns in a
      * {@link de.elmar_baumann.lib.component.CheckList} with a
      * {@link de.elmar_baumann.jpt.model.ListModelSelectedColumns}.
-     * 
+     *
      * @param  list  check list
      * @return selected columns
      */

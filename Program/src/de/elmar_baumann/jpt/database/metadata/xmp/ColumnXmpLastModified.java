@@ -28,9 +28,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
  * @version 2008-10-23
  */
 public final class ColumnXmpLastModified extends Column {
-    
+
     public static final ColumnXmpLastModified INSTANCE = new ColumnXmpLastModified();
-    
+
     private ColumnXmpLastModified() {
         super(
             TableXmp.INSTANCE,

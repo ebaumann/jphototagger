@@ -75,7 +75,7 @@ public final class TreeUtil {
 
     /**
      * Liefert, ob der Mauszeiger über dem Wurzelitem steht.
-     * 
+     *
      * @param  e  Mausereigenis
      * @return true, falls der Zeiger über dem Wurzelitem steht
      */
@@ -100,7 +100,7 @@ public final class TreeUtil {
 
     /**
      * Deselektiert alle Treeitems von mehreren Trees.
-     * 
+     *
      * @param trees Trees
      */
     public static void clearSelection(List<JTree> trees) {
@@ -115,7 +115,7 @@ public final class TreeUtil {
 
     /**
      * Liefert aus einem Model den Pfad anhand eines Strings, der diesen spezifiziert.
-     * 
+     *
      * @param treeModel     Model
      * @param pathString    String mit Pfad
      * @param pathSeparator Separator zwischen den einzelnen Pfadbestandteilen
@@ -171,7 +171,7 @@ public final class TreeUtil {
 
     /**
      * Öffnet den Tree auch, wenn das letzte Element eines Pfads ein Blatt ist.
-     * 
+     *
      * @param tree Tree
      * @param path Pfad
      */
@@ -192,7 +192,7 @@ public final class TreeUtil {
      * Expands a path step by step. First the path with not parents will be
      * expanded, then the child path of this, then the child path of the
      * child path until the last path component is reached.
-     * 
+     *
      * @param tree tree
      * @param path path to expand in <code>tree</code>
      */
@@ -238,7 +238,7 @@ public final class TreeUtil {
      *
      * <em>Expects that the nodes of the tree having the type
      * {@link DefaultMutableTreeNode}!</em>
-     * 
+     *
      * @param  file   file
      * @param  model  model when the root is not a file, else null
      * @return path
@@ -267,7 +267,7 @@ public final class TreeUtil {
 
     /**
      * Adds all nodes with a specific user object of a node and it's children.
-     * 
+     *
      * @param foundNodes container to add found nodes
      * @param rootNode   node to search
      * @param userObject user object to compare with equals

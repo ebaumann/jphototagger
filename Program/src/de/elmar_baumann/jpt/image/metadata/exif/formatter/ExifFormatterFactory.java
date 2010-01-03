@@ -82,7 +82,7 @@ public final class ExifFormatterFactory {
             case GPS : return FORMATTER_OF_EXIF_GPS_IFD_TAG_ID.get(tagId);
             default  : return null;
         }
-        
+
     }
 
     private ExifFormatterFactory() {

@@ -36,9 +36,9 @@ import javax.swing.JMenuItem;
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,
  * ausgelöst von {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
- * 
+ *
  * <em>Nur eine Instanz erzeugen!</em>
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */

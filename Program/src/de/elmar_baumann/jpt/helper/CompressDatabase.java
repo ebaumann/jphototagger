@@ -49,7 +49,7 @@ public final class CompressDatabase implements Runnable {
 
     /**
      * Returns the success of the database operation.
-     * 
+     *
      * @return true if successfully compressed.
      */
     public boolean getSuccess() {

@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Verzeichnis im Dateisystem gefiltert nach Bilddateien.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -42,7 +42,7 @@ public final class ImageFilteredDirectory {
 
     /**
      * Liefert die gefilterten Dateien (nur Bilddateien).
-     * 
+     *
      * @return Dateien
      */
     public List<File> getFiles() {
@@ -52,7 +52,7 @@ public final class ImageFilteredDirectory {
     /**
      * Setzt das Verzeichnis, dessen Dateien angezeigt werden.
      * Die Dateien des Verzeichnisses ersetzen die existierenden.
-     * 
+     *
      * @param directory Verzeichnis
      */
     public void setDirectory(File directory) {
@@ -70,7 +70,7 @@ public final class ImageFilteredDirectory {
 
     /**
      * Liefert alle Bilddateien eines Verzeichnisses.
-     * 
+     *
      * @param  directory  Verzeichnis
      * @return Bilddateien dieses Verzeichnisses
      */
@@ -94,7 +94,7 @@ public final class ImageFilteredDirectory {
 
     /**
      * Liefert alle Bilddateien mehrerer Verzeichnisse.
-     * 
+     *
      * @param  directories  Verzeichnisse
      * @return Bilddateien in diesen Verzeichnissen
      */

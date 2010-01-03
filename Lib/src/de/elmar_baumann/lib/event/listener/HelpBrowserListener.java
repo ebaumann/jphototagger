@@ -31,9 +31,9 @@ public interface HelpBrowserListener {
 
     /**
      * An action was performed.
-     * 
+     *
      * @param action  action
      */
     public void actionPerformed(HelpBrowserEvent action);
-    
+
 }

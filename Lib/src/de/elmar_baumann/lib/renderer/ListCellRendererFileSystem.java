@@ -31,7 +31,7 @@ import javax.swing.filechooser.FileSystemView;
  * Renders an file specific icon for cell values that are an instance of
  * {@link java.io.File}. Uses
  * {@link javax.swing.filechooser.FileSystemView#getSystemIcon(java.io.File)}.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-14
  */
@@ -43,7 +43,7 @@ public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
 
     /**
      * Constructor.
-     * 
+     *
      * @param absolutePathName true, if the absolute path shall be displayed and
      *                     false, if only the file name shall be displayed.
      *                     Default: false (only the file name shall be displayed).

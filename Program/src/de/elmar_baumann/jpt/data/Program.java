@@ -24,7 +24,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * External program to start within the application. It is written persistent 
+ * External program to start within the application. It is written persistent
  * into the database {@link DatabasePrograms}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>

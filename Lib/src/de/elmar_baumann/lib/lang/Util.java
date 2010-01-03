@@ -35,7 +35,7 @@ public final class Util {
 
     /**
      * Liefert die in einem Byte gesetzten Bits.
-     * 
+     *
      * @param b Byte
      * @return  true für jedes gesetzte Bit, false für jedes nicht gesetzte
      */
@@ -50,10 +50,10 @@ public final class Util {
     /**
      * Gibt das Bitmuster der Bytes aus, 0 für ein nicht gesetztes Bit und 1 für
      * ein gesetzts.
-     * 
+     *
      * Die Bytes werden in der Array-Reihenfolge ausgegeben, die Bits jedes
      * Bytes von rechts nach links.
-     * 
+     *
      * @param b   Bytearray
      * @param out Ausgabe
      */

@@ -34,9 +34,9 @@ public class WorkQueue<E> {
 
     /**
      * Add a new import work item to head of list
-     * 
+     *
      * If the item was already in the queue, move to head.
-     * 
+     *
      * @param e
      */
     public synchronized void push(E e) {

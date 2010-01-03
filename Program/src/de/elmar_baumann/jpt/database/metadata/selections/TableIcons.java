@@ -46,7 +46,7 @@ public final class TableIcons {
     private static final Icon             ICON_IMAGE_COLLECTION = AppLookAndFeel.getIcon("icon_imagecollection.png");
     private static final Icon             ICON_SAVED_SEARCH     = AppLookAndFeel.getIcon("icon_search.png");
     private static final Map<Table, Icon> ICON_OF_TABLE         = new HashMap<Table, Icon>();
-    
+
 
     static {
         ICON_OF_TABLE.put(TableExif.INSTANCE           , ICON_EXIF);
@@ -60,7 +60,7 @@ public final class TableIcons {
 
     /**
      * Liefert das Icon für eine Tabelle.
-     * 
+     *
      * @param  table Tabelle
      * @return Icon der Tabelle oder ein Icon für eine undefinierte Tabelle
      *         (Standard-Tabellenicon)

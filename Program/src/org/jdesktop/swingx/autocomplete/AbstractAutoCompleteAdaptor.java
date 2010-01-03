@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -36,22 +36,22 @@ import javax.swing.text.JTextComponent;
  * @author Thomas Bierhance
  */
 public abstract class AbstractAutoCompleteAdaptor {
-    
+
     /** the string representation in use for the currently selected item*/
     private String selectedItemAsString;
-    
+
     /**
      * Returns the currently selected item.
      * @return the selected item
      */
     public abstract Object getSelectedItem();
-    
+
     /**
      * Sets the selected item.
      * @param item the item that is to be selected
      */
     public abstract void setSelectedItem(Object item);
-    
+
     /**
      * Returns the string representation in use for the currently selected item.
      * @return the string representation in use for the currently selected item
@@ -59,7 +59,7 @@ public abstract class AbstractAutoCompleteAdaptor {
     public String getSelectedItemAsString() {
         return this.selectedItemAsString;
     }
-    
+
     /**
      * Sets the string representation in use for the currently selected item.
      * @param itemAsString the string representation in use for the currently selected item
@@ -73,14 +73,14 @@ public abstract class AbstractAutoCompleteAdaptor {
      * @return the number of items in the list
      */
     public abstract int getItemCount();
-    
+
     /**
      * Returns the item at a given index. It is supposed that <code>0&lt;=index&lt;<b>getItemCount()</b></code>.
      * @param index the index of the item that is to be returned
      * @return the item at the given <code>index</code>
      */
     public abstract Object getItem(int index);
-    
+
     /**
      * Returns true if the list contains the currently selected item.
      * @return true if the list contains the currently selected item.
@@ -92,20 +92,20 @@ public abstract class AbstractAutoCompleteAdaptor {
         }
         return false;
     }
-    
+
     /**
      * Returns the text component that is being used for the automatic completion.
      * @return the text component being used for the automatic completion
      */
     public abstract JTextComponent getTextComponent();
-    
+
     /**
      * Marks/selects the entire text that is displayed inside the text component.
      */
     public void markEntireText() {
         markText(0);
     }
-    
+
     /**
      * Marks/selects the text that is displayed inside the text component starting from the
      * character with index <tt>start</tt>.

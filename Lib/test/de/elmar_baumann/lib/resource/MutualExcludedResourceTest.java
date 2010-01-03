@@ -29,7 +29,7 @@ public class MutualExcludedResourceTest {
         System.out.println("isAvailable");
 
         MutualExcludedResource res = new TestClass();
-        
+
         assertTrue(res.isAvailable());
         res.getResource(this);
         assertFalse(res.isAvailable());

@@ -55,7 +55,7 @@ public final class XmpInDatabase {
     /**
      * Liefert, ob die Metadaten eines XMP-Pfads in die Datenbank gespeichert
      * werden.
-     * 
+     *
      * @param  path  Pfad
      * @return true, falls gespeichert
      */

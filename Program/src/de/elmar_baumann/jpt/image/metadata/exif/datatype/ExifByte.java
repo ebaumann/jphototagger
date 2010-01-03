@@ -35,7 +35,7 @@ public final class ExifByte {
     /**
      * EXIF data exifDataType BYTE as described in the standard: An 8-bit unsigned
      * integer.
-     * 
+     *
      * @param  rawValue  raw value
      * @throws IllegalArgumentException if the raw value byte count is not
      *         equals to {@link #byteCount()} or negativ

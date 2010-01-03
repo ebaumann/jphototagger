@@ -29,7 +29,7 @@ import javax.swing.table.TableModel;
 
 /**
  * Werkzeuge für Tabellen.
- * 
+ *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
@@ -83,9 +83,9 @@ public final class TableUtil {
     /**
      * Setzt die Spaltenbreiten so, dass auch die größte Zelle vollständig
      * dargestellt wird.
-     * 
+     *
      * BUG: Die Kopfspalte wird nicht berücksichtigt.
-     * 
+     *
      * @param table Tabelle
      */
     public static void resizeColumnWidthsToFit(JTable table) {
@@ -124,7 +124,7 @@ public final class TableUtil {
 
     /**
      * Setzt die Breite einer Spalte auf einen festen Wert.
-     * 
+     *
      * @param width  Breite
      * @param column Spalte
      */

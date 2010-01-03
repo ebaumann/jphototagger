@@ -30,7 +30,7 @@ public final class ExifTagValueFormatter {
 
     /**
      * Formatis an EXIF tag value.
-     * 
+     *
      * @param  exifTag tag
      * @return         formatted tag value
      */

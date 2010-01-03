@@ -109,7 +109,7 @@ public final class TreeModelMiscMetadata
 
             ImageFile imageFile = event.getImageFile();
 
-            if (imageFile != null && 
+            if (imageFile != null &&
                (imageFile.isInsertExifIntoDb() || imageFile.isInsertXmpIntoDb())) {
 
                 checkImageInserted(event.getImageFile());

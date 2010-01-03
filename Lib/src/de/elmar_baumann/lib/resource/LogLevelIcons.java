@@ -66,7 +66,7 @@ public final class LogLevelIcons {
 
     /**
      * Returns an icon associated with a log level.
-     * 
+     *
      * @param level log level
      * @return      Icon or null, if the icon couldn't be constructed or if the
      *              level ist not associated with an icon. Levels whitout icons

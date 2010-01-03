@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-30
@@ -35,7 +35,7 @@ final class DisplayableExifMakerNoteFactory {
     private static final Collection<DisplayableExifMakerNote> MAKER_NOTES          = new ArrayList<DisplayableExifMakerNote>();
 
     static {
-        
+
         boolean exists = true;
         int     index  = 0;
         while (exists) {

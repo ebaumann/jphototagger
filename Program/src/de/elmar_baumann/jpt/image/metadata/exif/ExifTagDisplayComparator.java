@@ -89,7 +89,7 @@ public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
         for (int index = 0; index < size; index++) {
             ORDER_OF_TAG_ID_VALUE.put(EXIF_IFD_TAG_ID_VALUES.get(index), order++);
         }
-     
+
         // 2. GPS IFD
         size = GPS_IFD_TAG_ID_VALUES.size();
 

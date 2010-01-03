@@ -28,7 +28,7 @@ import java.util.Map;
  * {@link com.imagero.reader.iptc.IPTCEntryMeta}
  * und dem Start eines
  * {@link com.adobe.xmp.properties.XMPPropertyInfo#getPath()}.
- * 
+ *
  * Das Adobe-SDK fügt bei mehrfach vorkommenden Properties einen Index in
  * eckigen Klammern an, weshalb es keine vollständige Abdeckung geben kann.
  *
@@ -62,7 +62,7 @@ public final class IptcEntryXmpPathStartMapping {
 
     /**
      * Liefert den Start des XMP-Pfads für IPTC-Entry-Metadaten.
-     * 
+     *
      * @param  entryMeta  IPTC-Entry-Metadaten
      * @return Pfadstart oder null bei unzugeordneten Metadaten
      */

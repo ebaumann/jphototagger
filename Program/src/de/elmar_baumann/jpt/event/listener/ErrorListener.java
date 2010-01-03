@@ -30,7 +30,7 @@ public interface ErrorListener {
 
     /**
      * Wird bei Fehlern aufgerufen.
-     * 
+     *
      * @param evt Fehlerereigis
      */
     public void error(ErrorEvent evt);

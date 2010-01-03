@@ -21,7 +21,7 @@ package de.elmar_baumann.lib.event.util;
 import java.awt.event.KeyEvent;
 
 /**
- * 
+ *
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -33,9 +33,9 @@ import java.awt.event.KeyEvent;
 public final class KeyEventUtil {
 
     /**
-     * Returns whether to copy, i.e. that the key combination 
+     * Returns whether to copy, i.e. that the key combination
      * <code>Ctrl+C</code> is pressed.
-     * 
+     *
      * @param  e  key event
      * @return true if insert
      */
@@ -48,9 +48,9 @@ public final class KeyEventUtil {
     }
 
     /**
-     * Returns whether to cut, i.e. that the key combination 
+     * Returns whether to cut, i.e. that the key combination
      * <code>Ctrl+X</code> is pressed.
-     * 
+     *
      * @param  e  key event
      * @return true if insert
      */
@@ -65,7 +65,7 @@ public final class KeyEventUtil {
     /**
      * Returns whether to paste, i.e. that the key combination
      * <code>Ctrl+V</code> is pressed.
-     * 
+     *
      * @param  e  key event
      * @return true if insert
      */

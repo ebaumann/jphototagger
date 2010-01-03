@@ -63,7 +63,7 @@ public final class External {
 
     /**
      * Executes an external program and returns it's output.
-     * 
+     *
      * @param  command          command, e.g. <code>/bin/ls -l /home</code>
      * @param  maxMilliseconds  Maximum time in milliseconds to wait for closing
      *                          the process' streams. If this time is exceeded,

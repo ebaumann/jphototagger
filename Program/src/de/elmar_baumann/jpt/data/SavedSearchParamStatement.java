@@ -49,7 +49,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Liefert den Namen.
-     * 
+     *
      * @return Name
      */
     public String getName() {
@@ -58,7 +58,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Setzt den Namen.
-     * 
+     *
      * @param name Name
      */
     public void setName(String name) {
@@ -67,7 +67,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Liefert, ob das Statement eine Abrage ist.
-     * 
+     *
      * @return true bei einer Abfrage, false bei einem Update
      */
     public boolean isQuery() {
@@ -76,7 +76,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Setzt, ob das Statement eine Abfrage ist.
-     * 
+     *
      * @param query true bei einer Abfrage, false bei einem Update
      */
     public void setQuery(boolean query) {
@@ -85,7 +85,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Liefert das Statement.
-     * 
+     *
      * @return Statement
      */
     public String getSql() {
@@ -94,7 +94,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Setzt das Statement.
-     * 
+     *
      * @param sql Statement
      */
     public void setSql(String sql) {
@@ -103,7 +103,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Liefert die Werte.
-     * 
+     *
      * @return Werte
      */
     public List<String> getValues() {
@@ -114,7 +114,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Setzt die Werte.
-     * 
+     *
      * @param values Werte
      */
     public void setValues(List<String> values) {
@@ -125,7 +125,7 @@ public final class SavedSearchParamStatement {
 
     /**
      * Erzeugt ein parametrisiertes Statement aus den Daten.
-     * 
+     *
      * @return Statement oder null, wenn die Daten ungültig sind
      */
     public ParamStatement createStatement() {

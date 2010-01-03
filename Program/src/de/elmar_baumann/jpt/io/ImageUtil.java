@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Utilities for images.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-14
  */
@@ -190,10 +190,10 @@ public final class ImageUtil {
 
     /**
      * Adds to a list of image files sidecar files.
-     * 
+     *
      * If a file in <code>imageFiles</code> is not an image file it will not
      * be added.
-     * 
+     *
      * @param  imageFiles image files
      * @return            image files and their sidecar files
      */

@@ -28,7 +28,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-03-31

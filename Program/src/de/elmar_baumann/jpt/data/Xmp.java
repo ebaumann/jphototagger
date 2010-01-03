@@ -69,7 +69,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of dc:creator (photographer).
-     * 
+     *
      * @return value of dc:creator (photographer) or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getByLines()
      */
@@ -79,7 +79,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of dc:creator (photographer).
-     * 
+     *
      * @param creator value of dc:creator (photographer) not null
      * @see           de.elmar_baumann.jpt.data.Iptc#addByLine(java.lang.String)
      */
@@ -89,7 +89,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of dc:description (image description).
-     * 
+     *
      * @return value of dc:description (image description) or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getCaptionAbstract()
      */
@@ -99,7 +99,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of dc:description (image description).
-     * 
+     *
      * @param dcDescription value of dc:description (image description)
      * @see                 de.elmar_baumann.jpt.data.Iptc#setCaptionAbstract(java.lang.String)
      */
@@ -109,7 +109,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of dc:rights (Copyright).
-     * 
+     *
      * @return value of dc:rights (Copyright) or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getCopyrightNotice()
      */
@@ -119,7 +119,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of dc:rights (Copyright).
-     * 
+     *
      * @param dcRights value of dc:rights (Copyright)
      * @see            de.elmar_baumann.jpt.data.Iptc#setCopyrightNotice(java.lang.String)
      */
@@ -129,7 +129,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the values of dc:subject (keywords, tags).
-     * 
+     *
      * @return value of dc:subject (keywords, tags) or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getKeywords()
      */
@@ -152,7 +152,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Adds a value to dc:subject (keyword, tag).
-     * 
+     *
      * @param subject value of dc:subject (keyword, tag) not null
      * @see           de.elmar_baumann.jpt.data.Iptc#addKeyword(java.lang.String)
      */
@@ -162,7 +162,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of dc:title (image title).
-     * 
+     *
      * @return value of dc:title (image title) or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getObjectName()
      */
@@ -172,7 +172,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of dc:title (image title).
-     * 
+     *
      * @param dcTitle value of dc:title (image title)
      * @see           de.elmar_baumann.jpt.data.Iptc#setObjectName(java.lang.String)
      */
@@ -182,7 +182,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of Iptc4xmpCore:CountryCode (ISO country code).
-     * 
+     *
      * @return value of Iptc4xmpCore:CountryCode (ISO country code) or null if not
      *         set
      * @see             de.elmar_baumann.jpt.data.Iptc#getContentLocationCodes()
@@ -193,7 +193,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of Iptc4xmpCore:CountryCode (ISO country code).
-     * 
+     *
      * @param iptc4xmpcoreCountrycode value of Iptc4xmpCore:CountryCode (ISO country code)
      */
     public void setIptc4xmpcoreCountrycode(String iptc4xmpcoreCountrycode) {
@@ -203,7 +203,7 @@ public final class Xmp implements TextEntryListener {
     /**
      * Returns the XMP value of Iptc4xmpCore:Location (location where the image
      * was taken).
-     * 
+     *
      * @return value of Iptc4xmpCore:Location or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getContentLocationNames()
      */
@@ -214,7 +214,7 @@ public final class Xmp implements TextEntryListener {
     /**
      * Sets the value of Iptc4xmpCore:Location (location where the image
      * was taken).
-     * 
+     *
      * @param iptc4xmpcoreLocation value of Iptc4xmpCore:Location
      */
     public void setIptc4xmpcoreLocation(String iptc4xmpcoreLocation) {
@@ -223,7 +223,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Liefert value of photoshop:AuthorsPosition (position of the photographer).
-     * 
+     *
      * @return value of photoshop:AuthorsPosition (position of the photographer)
      *         or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getByLinesTitles()
@@ -234,7 +234,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:AuthorsPosition (position of the photographer).
-     * 
+     *
      * @param photoshopAuthorsposition value of photoshop:AuthorsPosition
      *        (position of the photographer)
      */
@@ -245,7 +245,7 @@ public final class Xmp implements TextEntryListener {
     /**
      * Returns the XMP value of photoshop:CaptionWriter (author of the
      * description).
-     * 
+     *
      * @return value of photoshop:CaptionWriter (author of the description) or
      *         null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getWritersEditors()
@@ -256,7 +256,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:CaptionWriter (author of the description).
-     * 
+     *
      * @param photoshopCaptionwriter value of photoshop:CaptionWriter (author of
      *                               the description)
      */
@@ -266,7 +266,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of photoshop:City (city of the photographer).
-     * 
+     *
      * @return value of photoshop:City (city of the photographer) or null if not
      *         set
      * @see    de.elmar_baumann.jpt.data.Iptc#getCity()
@@ -277,7 +277,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:City (city of the photographer).
-     * 
+     *
      * @param photoshopCity value of photoshop:City (city of the photographer)
      * @see                 de.elmar_baumann.jpt.data.Iptc#setCity(java.lang.String)
      */
@@ -287,7 +287,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of photoshop:Country (country of the photographer).
-     * 
+     *
      * @return value of photoshop:Country (country of the photographer) or null
      *         if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getCountryPrimaryLocationName()
@@ -298,7 +298,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:Country (country of the photographer).
-     * 
+     *
      * @param photoshopCountry value of photoshop:Country (country of the
      *                         photographer)
      * @see   de.elmar_baumann.jpt.data.Iptc#setCountryPrimaryLocationName(java.lang.String)
@@ -309,7 +309,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of photoshop:Credit (provider of the image).
-     * 
+     *
      * @return value of photoshop:Credit (provider of the image) or null if not
      *         set
      * @see    de.elmar_baumann.jpt.data.Iptc#getCredit()
@@ -320,7 +320,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:Credit (provider of the image).
-     * 
+     *
      * @param photoshopCredit value of photoshop:Credit (provider of the image)
      * @see   de.elmar_baumann.jpt.data.Iptc#setCredit(java.lang.String)
      */
@@ -330,7 +330,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of photoshop:Headline (image title).
-     * 
+     *
      * @return value of photoshop:Headline (image title) or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getHeadline()
      */
@@ -340,7 +340,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:Headline (image title).
-     * 
+     *
      * @param photoshopHeadline value of photoshop:Headline (image title)
      * @see                     de.elmar_baumann.jpt.data.Iptc#setHeadline(java.lang.String)
      */
@@ -350,7 +350,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of photoshop:Instructions (instructions).
-     * 
+     *
      * @return value of photoshop:Instructions (instructions) or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getSpecialInstructions()
      */
@@ -360,7 +360,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:Instructions (instructions).
-     * 
+     *
      * @param photoshopInstructions value of photoshop:Instructions
      *                              (instructions)
      * @see                         de.elmar_baumann.jpt.data.Iptc#setSpecialInstructions(java.lang.String)
@@ -371,7 +371,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of photoshop:Source (image source).
-     * 
+     *
      * @return value of photoshop:Source (image source) or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getSource()
      */
@@ -381,7 +381,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:Source (image source).
-     * 
+     *
      * @param photoshopSource value of photoshop:Source (image source)
      * @see                   de.elmar_baumann.jpt.data.Iptc#setSource(java.lang.String)
      */
@@ -391,7 +391,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of photoshop:State (state of the photographer).
-     * 
+     *
      * @return value of photoshop:State (state of the photographer) or null if
      *         not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getProvinceState()
@@ -402,7 +402,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:State (state of the photographer).
-     * 
+     *
      * @param photoshopState value of photoshop:State (state of the photographer)
      * @see                  de.elmar_baumann.jpt.data.Iptc#setProvinceState(java.lang.String)
      */
@@ -412,7 +412,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the XMP value of photoshop:TransmissionReference.
-     * 
+     *
      * @return value of photoshop:TransmissionReference or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getOriginalTransmissionReference()
      */
@@ -422,7 +422,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the value of photoshop:TransmissionReference.
-     * 
+     *
      * @param photoshopTransmissionReference value of
      *                                       photoshop:TransmissionReference
      * @see                                  de.elmar_baumann.jpt.data.Iptc#setOriginalTransmissionReference(java.lang.String)
@@ -451,7 +451,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Sets the last modification time of the XMP data.
-     * 
+     *
      * @param lastModified  milliseconds since 1970 of the modification time
      */
     public void setLastModified(long lastModified) {
@@ -460,7 +460,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns the last modification time of the XMP data.
-     * 
+     *
      * @return milliseconds since 1970 of the modification time or null
      *         if not defined
      */
@@ -564,7 +564,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns a value of a XMP column.
-     * 
+     *
      * @param  xmpColumn  XMP column
      * @return Value or null if not set. Current values:
      *         <ul>
@@ -590,7 +590,7 @@ public final class Xmp implements TextEntryListener {
     /**
      * Sets a value of a column. When the column has repetable values it will
      * be added to it's list.
-     * 
+     *
      * @param xmpColumn  XMP column
      * @param value      value
      */
@@ -604,7 +604,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Removes a value of a XMP column.
-     * 
+     *
      * @param xmpColumn  XMP column
      * @param value      value not null. If the column contains a repeatable
      *                   value it will be removed from it's list.
@@ -632,7 +632,7 @@ public final class Xmp implements TextEntryListener {
 
     /**
      * Returns, whether no value was set.
-     * 
+     *
      * @return true if no values were set.
      */
     public boolean isEmpty() {

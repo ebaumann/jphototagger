@@ -33,7 +33,7 @@ import javax.swing.table.TableCellRenderer;
  * Renders the {@link java.util.logging.Level} icons displayed in the GUI of
  * {@link de.elmar_baumann.lib.dialog.LogfileDialog}. Also formats dates and
  * selected table rows.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-08-03
  */

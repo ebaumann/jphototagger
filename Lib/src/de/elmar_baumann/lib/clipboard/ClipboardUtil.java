@@ -29,7 +29,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * 
+ *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
@@ -47,7 +47,7 @@ public final class ClipboardUtil {
 
     /**
      * Copies files to the system clipboard.
-     * 
+     *
      * @param files  files
      * @param owner  owner of the clipboard, can be null
      */
@@ -63,7 +63,7 @@ public final class ClipboardUtil {
 
     /**
      * Copies files to a clipboard.
-     * 
+     *
      * @param files      files
      * @param clipboard  clipboard
      * @param owner      owner of the clipboard, can be null
@@ -82,8 +82,8 @@ public final class ClipboardUtil {
 
     /**
      * Returns a list of files from the system clipboard.
-     * 
-     * @param delimiterStringList  delimiter which separates file names if in 
+     *
+     * @param delimiterStringList  delimiter which separates file names if in
      *                             the clipboard is a string with file names
      * @return                     list of files or null if no files in the
      *                             clipboard
@@ -100,10 +100,10 @@ public final class ClipboardUtil {
     }
 
     /**
-     * Returns a list of files from a clipboard. 
-     * 
+     * Returns a list of files from a clipboard.
+     *
      * @param  clipboard            clipboard
-     * @param  delimiterStringList  delimiter which separates file names if in 
+     * @param  delimiterStringList  delimiter which separates file names if in
      *                              the clipboard is a string with file names
      * @return                      list of files or null if no files in the
      *                              clipboard

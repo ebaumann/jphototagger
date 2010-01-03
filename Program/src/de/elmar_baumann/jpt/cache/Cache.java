@@ -25,12 +25,12 @@ import java.util.Set;
 
 /**
  *
- * @param <CI> 
+ * @param <CI>
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
 public abstract class Cache<CI extends CacheIndirection> {
-    
+
     protected static int currentAge = 0;
     protected final int MAX_ENTRIES = 1500;
     protected final Set<ThumbnailUpdateListener> updateListeners =

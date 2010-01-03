@@ -28,7 +28,7 @@ import java.util.Arrays;
 /**
  * IPTC-Eintrag in einer Bilddatei. Dekodiert die Daten (getData()) als
  * ISO-8859-1-String.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-02-17
  */
@@ -42,7 +42,7 @@ public final class IptcEntry {
 
     /**
      * Erzeugt ein neues Objekt.
-     * 
+     *
      * @param entry IPTC-Eintrag
      */
     public IptcEntry(IPTCEntry entry) {
@@ -55,7 +55,7 @@ public final class IptcEntry {
 
     /**
      * Liefert den Namen der IPTC-Eigenschaft.
-     * 
+     *
      * @return Name
      */
     public String getName() {
@@ -64,7 +64,7 @@ public final class IptcEntry {
 
     /**
      * Liefert die Recordnummer der IPTC-Eigenschaft.
-     * 
+     *
      * @return Recordnummer
      */
     public int getRecordNumber() {
@@ -73,7 +73,7 @@ public final class IptcEntry {
 
     /**
      * Liefert die Daten der IPTC-Eigenschaft.
-     * 
+     *
      * @return Daten
      */
     public String getData() {
@@ -82,7 +82,7 @@ public final class IptcEntry {
 
     /**
      * Liefert die Datensatznummer der IPTC-Eigenschaft.
-     * 
+     *
      * @return Datensatznummer.
      */
     public int getDataSetNumber() {

@@ -42,7 +42,7 @@ public final class HelpNode {
 
     /**
      * Rerturns the chapter's title.
-     * 
+     *
      * @return title
      */
     public String getTitle() {
@@ -51,24 +51,24 @@ public final class HelpNode {
 
     /**
      * Sets the chapter's title.
-     * 
+     *
      * @param title tile
      */
     public void setTitle(String title) {
         if (title == null)
-            throw new NullPointerException("title == null"); //
+            throw new NullPointerException("title == null");
 
         this.title = title;
     }
 
     /**
      * Adds a help page.
-     * 
+     *
      * @param page help page
      */
     public void addPage(HelpPage page) {
         if (page == null)
-            throw new NullPointerException("page == null"); //
+            throw new NullPointerException("page == null");
 
         page.setParent(this);
         children.add(page);
@@ -76,12 +76,12 @@ public final class HelpNode {
 
     /**
      * Adds a chapter.
-     * 
+     *
      * @param chapter chapter
      */
     public void addNode(HelpNode chapter) {
         if (chapter == null)
-            throw new NullPointerException("chapter == null"); //
+            throw new NullPointerException("chapter == null");
 
         chapter.parent = this;
         children.add(chapter);
@@ -89,7 +89,7 @@ public final class HelpNode {
 
     /**
      * Returns the number of children: help pages and chapters.
-     * 
+     *
      * @return children count
      */
     public int getChildCount() {
@@ -99,7 +99,7 @@ public final class HelpNode {
     /**
      * Returns a specific child.
      * @param  index the child's index {@code >= 0}
-     * 
+     *
      * @return child: an object of the type
      *         {@link HelpNode} or {@link HelpPage}
      *         or null if the index is invalid
@@ -107,27 +107,27 @@ public final class HelpNode {
      */
     public Object getChild(int index) {
         if (index < 0)
-            throw new IndexOutOfBoundsException("index < 0: " + index); //
+            throw new IndexOutOfBoundsException("index < 0: " + index);
 
         return children.get(index);
     }
 
     /**
      * Returns the index of a specific child.
-     * 
+     *
      * @param  child  child
      * @return index or -1 if the child does not exist
      */
     public int getIndexOfChild(Object child) {
         if (child == null)
-            throw new NullPointerException("child == null"); //
+            throw new NullPointerException("child == null");
 
         return children.indexOf(child);
     }
 
     /**
      * Returns the parent node.
-     * 
+     *
      * @return parent or null if the node is the root node
      */
     public HelpNode getParent() {
@@ -136,13 +136,13 @@ public final class HelpNode {
 
     /**
      * Returns the path of a help page with an specific URL.
-     * 
+     *
      * @param  url URL
      * @return path or null if a page with the URL doesn't exist
      */
     public Object[] getPagePath(String url) {
         if (url == null)
-            throw new NullPointerException("url == null"); //
+            throw new NullPointerException("url == null");
 
         List<Object> found = new ArrayList<Object>();
         findPath(url, found);
@@ -151,9 +151,9 @@ public final class HelpNode {
 
     private void findPath(String url, List<Object> found) {
         if (url == null)
-            throw new NullPointerException("url == null"); //
+            throw new NullPointerException("url == null");
         if (found == null)
-            throw new NullPointerException("found == null"); //
+            throw new NullPointerException("found == null");
 
         int size = children.size();
         for (int i = 0; found.size() <= 0 && i < size; i++) {
@@ -171,7 +171,7 @@ public final class HelpNode {
 
     private Stack<Object> getPagePath(HelpPage helpPage) {
         if (helpPage == null)
-            throw new NullPointerException("helpPage == null"); //
+            throw new NullPointerException("helpPage == null");
 
         Stack<Object> path = new Stack<Object>();
         path.push(helpPage);

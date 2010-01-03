@@ -30,7 +30,7 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-26
@@ -44,7 +44,7 @@ public class ViewUtil {
      * Returns the selected file in a {@link JTree} if the selected node is a
      * {@link DefaultMutableTreeNode} and it's user object is a {@link File} or
      * a {@link FavoriteDirectory}.
-     * 
+     *
      * @param  tree a tree
      * @return      file or null if no node with a file user object is selected
      */
@@ -66,7 +66,7 @@ public class ViewUtil {
 
     /**
      * Returns the selected directory in the tree with favorite directories.
-     * 
+     *
      * @return directory or null if no directory is selected
      */
     public static File getSelectedDirectoryFromFavoriteDirectories() {

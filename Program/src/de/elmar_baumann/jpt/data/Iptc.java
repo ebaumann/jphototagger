@@ -29,7 +29,7 @@ import java.util.Map;
  * IPTC metadata of an image file. The documentation of the mehtods contains
  * a link to the corresponding {@link Xmp} method in the <code>see</code>
  * section.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -40,7 +40,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC fields 2:85 (By-line Title).
-     * 
+     *
      * @return IPTC fields 2:85 or null if not defined
      * @see    Xmp#getPhotoshopAuthorsposition()
      */
@@ -53,7 +53,7 @@ public final class Iptc {
 
     /**
      * Adds a value to the IPTC field 2:85 (By-line Title).
-     * 
+     *
      * @param byLineTitle IPTC field 2:85 (By-line Title)
      * @see               Xmp#setPhotoshopAuthorsposition(java.lang.String)
      */
@@ -63,7 +63,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC fields 2:80 (Byline).
-     * 
+     *
      * @return IPTC fields 2:80 (Byline) or null if not defined
      * @see    Xmp#getDcCreator()
      */
@@ -76,7 +76,7 @@ public final class Iptc {
 
     /**
      * Adds a value to the IPTC field 2:80 (Byline).
-     * 
+     *
      * @param byLine IPTC field 2:80 (Byline)
      * @see          Xmp#setDcCreator(java.lang.String)
      */
@@ -86,7 +86,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:120 (Caption/Abstract).
-     * 
+     *
      * @return IPTC field 2:120 (Caption/Abstract) or null if not defined
      * @see    Xmp#getDcDescription()
      */
@@ -96,7 +96,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:120 (Caption/Abstract).
-     * 
+     *
      * @param captionAbstract IPTC field 2:120 (Caption/Abstract)
      * @see                   Xmp#setDcDescription(java.lang.String)
      */
@@ -106,7 +106,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:90 (City).
-     * 
+     *
      * @return IPTC field 2:90 (City) or null if not defined
      * @see    Xmp#getPhotoshopCity()
      */
@@ -116,7 +116,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:90 (City).
-     * 
+     *
      * @param city IPTC field 2:90 (City)
      * @see        Xmp#setPhotoshopCity(java.lang.String)
      */
@@ -126,7 +126,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC fields 2:26 (Content Location Code).
-     * 
+     *
      * @return IPTC fields 2:26 (Content Location Code) or null if not defined
      * @see    Xmp#getIptc4xmpcoreCountrycode()
      */
@@ -139,7 +139,7 @@ public final class Iptc {
 
     /**
      * Adds a value to the IPTC field 2:26 (Content Location Code).
-     * 
+     *
      * @param contentLocationCode IPTC field 2:26 (Content Location Code)
      * @see                       Xmp#setIptc4xmpcoreCountrycode(java.lang.String)
      */
@@ -149,7 +149,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC fields 2:27 (Content Location Name).
-     * 
+     *
      * @return IPTC fields 2:27 (Content Location Name) or null if not defined
      * @see    Xmp#getIptc4xmpcoreLocation()
      */
@@ -162,7 +162,7 @@ public final class Iptc {
 
     /**
      * Fügt ein IPTC field 2:27 (Content Location Name) hinzu.
-     * 
+     *
      * @param contentLocationName IPTC field 2:27 (Content Location Name)
      * @see                       Xmp#setIptc4xmpcoreLocation(java.lang.String)
      */
@@ -172,7 +172,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:116 (Copyright Notice).
-     * 
+     *
      * @return IPTC field 2:116 (Copyright Notice) or null if not defined
      * @see    Xmp#getDcRights()
      */
@@ -182,7 +182,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:116 (Copyright Notice).
-     * 
+     *
      * @param copyrightNotice IPTC field 2:116 (Copyright Notice)
      * @see                   Xmp#setDcRights(java.lang.String)
      */
@@ -192,7 +192,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:101 (Country/Primary Location Name).
-     * 
+     *
      * @return IPTC field 2:101 (Country/Primary Location Name) or null if not
      *         defined
      * @see    Xmp#getPhotoshopCountry()
@@ -203,7 +203,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:101 (Country/Primary Location Name).
-     * 
+     *
      * @param countryPrimaryLocationName IPTC field 2:101 (Country/Primary
      *                                   Location Name)
      * @see                              Xmp#setPhotoshopCountry(java.lang.String)
@@ -215,7 +215,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:110 (Credit).
-     * 
+     *
      * @return IPTC field 2:110 (Credit) or null if not defined
      * @see    Xmp#getPhotoshopCredit()
      */
@@ -225,7 +225,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:110 (Credit).
-     * 
+     *
      * @param credit IPTC field 2:110 (Credit)
      * @see          Xmp#setPhotoshopCredit(java.lang.String)
      */
@@ -235,7 +235,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:105 (Headline).
-     * 
+     *
      * @return IPTC field 2:105 (Headline) or null if not defined
      * @see    Xmp#getPhotoshopHeadline()
      */
@@ -245,7 +245,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:105 (Headline).
-     * 
+     *
      * @param headline IPTC field 2:105 (Headline)
      * @see            Xmp#setPhotoshopHeadline(java.lang.String)
      */
@@ -255,7 +255,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC fields 2:25 (Keywords).
-     * 
+     *
      * @return IPTC fields 2:25 (Keywords) or null if not defined
      * @see    Xmp#getDcSubjects()
      */
@@ -268,7 +268,7 @@ public final class Iptc {
 
     /**
      * Fügt ein IPTC field 2:25 (Keywords) hinzu.
-     * 
+     *
      * @param keyword IPTC field 2:25 (Keyword)
      * @see           Xmp#addDcSubject(java.lang.String)
      */
@@ -278,7 +278,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:05 (Object Name).
-     * 
+     *
      * @return IPTC field 2:05 (Object Name) or null if not defined
      * @see    Xmp#getDcTitle()
      */
@@ -288,7 +288,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:05 (Object Name).
-     * 
+     *
      * @param objectName IPTC field 2:05 (Object Name)
      * @see              Xmp#setDcTitle(java.lang.String)
      */
@@ -298,7 +298,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:103 (Original Transmission Reference).
-     * 
+     *
      * @return IPTC field 2:103 (Original Transmission Reference) or null if not
      *         defined
      * @see    Xmp#getPhotoshopTransmissionReference()
@@ -309,7 +309,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:103 (Original Transmission Reference).
-     * 
+     *
      * @param originalTransmissionReference IPTC field 2:103 (Original
      *                                      Transmission Reference)
      * @see                                 Xmp#setPhotoshopTransmissionReference(java.lang.String)
@@ -322,7 +322,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:95 (Province/State).
-     * 
+     *
      * @return IPTC field 2:95 (Province/State) or null if not defined
      * @see    Xmp#getPhotoshopState()
      */
@@ -332,7 +332,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:95 (Province/State).
-     * 
+     *
      * @param provinceState IPTC field 2:95 (Province/State)
      * @see                 Xmp#setPhotoshopState(java.lang.String)
      */
@@ -342,7 +342,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:115 (Source).
-     * 
+     *
      * @return IPTC field 2:115 (Source) or null if not defined
      * @see    Xmp#getPhotoshopSource()
      */
@@ -352,7 +352,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:115 (Source).
-     * 
+     *
      * @param source IPTC field 2:115 (Source)
      * @see          Xmp#setPhotoshopSource(java.lang.String)
      */
@@ -362,7 +362,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC field 2:40 (Special Instructions).
-     * 
+     *
      * @return ITPTC-Feld 2:40 (Special Instructions) or null if not defined
      * @see    Xmp#getPhotoshopInstructions()
      */
@@ -372,7 +372,7 @@ public final class Iptc {
 
     /**
      * Sets the IPTC field 2:40 (Special Instructions).
-     * 
+     *
      * @param specialInstructions IPTC field 2:40 (Special Instructions)
      * @see                       Xmp#setPhotoshopInstructions(java.lang.String)
      */
@@ -383,7 +383,7 @@ public final class Iptc {
 
     /**
      * Returns the IPTC fields 2:122 (Writer/Editor).
-     * 
+     *
      * @return IPTC fields 2:122 (Writer/Editor) or null if not defined
      * @see    Xmp#getPhotoshopCaptionwriter()
      */
@@ -396,7 +396,7 @@ public final class Iptc {
 
     /**
      * Adds a value to the IPTC field 2:122 (Writer/Editor).
-     * 
+     *
      * @param writerEditor IPTC field 2:122 (Writer/Editor)
      * @see                Xmp#setPhotoshopCaptionwriter(java.lang.String)
      */
@@ -406,7 +406,7 @@ public final class Iptc {
 
     /**
      * Returns the value of an IPTC entry.
-     * 
+     *
      * @param  iptcEntry  IPTC entry
      * @return value. It's a string for not repeatable values or a string list
      *         for repeatable values or null if this entry has no value
@@ -428,7 +428,7 @@ public final class Iptc {
     /**
      * Sets the value of an IPTC entry. If the value is repeatable, it will be
      * added to it's array.
-     * 
+     *
      * @param iptcEntry IPTC entry
      * @param value     value of the entry
      */

@@ -46,7 +46,7 @@ public final class FilenameFormatDate extends FilenameFormat {
     /**
      * Sets the date from the EXIF date of a file, If this is not possible
      * the last modification time of the file system will be used.
-     * 
+     *
      * @param file file
      */
     private void setFromExif(File file) {
@@ -67,7 +67,7 @@ public final class FilenameFormatDate extends FilenameFormat {
 
     /**
      * Sets the date from the last modification time of the file system.
-     * 
+     *
      * @param file file
      */
     private void setFromFilesystem(File file) {

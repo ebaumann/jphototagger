@@ -259,9 +259,9 @@ final class DisplayableExifMakerNote {
             }
         }
     }
-    
+
     private static final Collection<Class> BYTE_ORDER_CLASSES = new HashSet<Class>();
-    
+
     static {
         BYTE_ORDER_CLASSES.add(ExifShort.class);
         BYTE_ORDER_CLASSES.add(ExifRational.class);

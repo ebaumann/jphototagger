@@ -33,7 +33,7 @@ import javax.swing.plaf.FontUIResource;
 
 /**
  * Look and feel of this application.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-06
  */

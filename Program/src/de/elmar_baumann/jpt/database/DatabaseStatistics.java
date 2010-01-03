@@ -28,7 +28,7 @@ import java.sql.Statement;
 import java.util.List;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-21
@@ -73,9 +73,9 @@ public final class DatabaseStatistics extends Database {
     /**
      * Returns the count of records in a table for a specific column (where
      * the column value is not NULL).
-     * 
+     *
      * @param  column  column
-     * @return count count of records in the column's table where 
+     * @return count count of records in the column's table where
      * <code>column</code> is not null
      */
     public int getTotalRecordCount(Column column) {
@@ -189,7 +189,7 @@ public final class DatabaseStatistics extends Database {
 
     /**
      * Returns whether one column in a list of columns has at least one value.
-     * 
+     *
      * @param  columns  columns
      * @param  value    value
      * @return true if the value exists into the column
@@ -226,7 +226,7 @@ public final class DatabaseStatistics extends Database {
 
     /**
      * Returns whether a column has at least one value.
-     * 
+     *
      * @param  column  column
      * @param  value   value
      * @return true if the value exists in the column

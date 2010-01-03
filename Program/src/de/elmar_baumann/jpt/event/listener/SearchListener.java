@@ -30,7 +30,7 @@ public interface SearchListener {
 
     /**
      * Ereignis fand statt.
-     * 
+     *
      * @param evt Ereignis
      */
     public void actionPerformed(SearchEvent evt);

@@ -29,7 +29,7 @@ public final class FileType {
     /**
      * Liefert, ob eine Datei eine JPEG-Datei ist. Es wird lediglich der Name
      * herangezogen (Endungen .jpg oder .jpeg), nicht der interne Aufbau.
-     * 
+     *
      * @param filename Dateiname
      * @return         true, wenn die Datei eine JPEG-Datei ist
      */
@@ -42,7 +42,7 @@ public final class FileType {
     /**
      * Liefert, ob eine Datei eine RAW-Datei ist. Es wird lediglich der Name
      * herangezogen (Endungen), nicht der interne Aufbau.
-     * 
+     *
      * @param filename Dateiname
      * @return         true, wenn die Datei eine RAW-Datei ist
      */
@@ -54,7 +54,7 @@ public final class FileType {
             filenameLowerCase.endsWith("jpg") ||
             filenameLowerCase.endsWith("jpeg") ||
             filenameLowerCase.endsWith("gif") ||
-            filenameLowerCase.endsWith("png");   
+            filenameLowerCase.endsWith("png");
         return !isCommonImageFile;
     }
 

@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.resource;
 import com.imagero.util.R3;
 
 /**
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-02-17
  */

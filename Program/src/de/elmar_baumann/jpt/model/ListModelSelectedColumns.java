@@ -27,7 +27,7 @@ import javax.swing.JCheckBox;
 /**
  * Model mit Spaltenauswahlen. Gültiges Model für
  * {@link de.elmar_baumann.lib.component.CheckList}.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  * @see     de.elmar_baumann.lib.component.CheckList
@@ -49,7 +49,7 @@ public final class ListModelSelectedColumns extends DefaultListModel {
 
     /**
      * Liefert eine Tabellenspalte mit bestimmtem Index.
-     * 
+     *
      * @param index Index
      * @return      Spalte
      */

@@ -21,7 +21,7 @@ package de.elmar_baumann.lib.event.util;
 import java.awt.event.MouseEvent;
 
 /**
- * 
+ *
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -33,10 +33,10 @@ import java.awt.event.MouseEvent;
 public final class MouseEventUtil {
 
     /**
-     * Workaround for some operating systems where 
+     * Workaround for some operating systems where
      * {@link java.awt.event.MouseEvent#isPopupTrigger()} does not return true
      * if the user clicked down the right mouse button.
-     * 
+     *
      * @param  e  mouse event
      * @return true if the right mouse button is down
      */
@@ -48,9 +48,9 @@ public final class MouseEventUtil {
     }
 
     /**
-     * A more descriptive variant of 
+     * A more descriptive variant of
      * {@link java.awt.event.MouseEvent#getClickCount()} == 2.
-     * 
+     *
      * @param  e  mouse event
      * @return true, if the user clicked twice or more often
      */
@@ -63,7 +63,7 @@ public final class MouseEventUtil {
 
     /**
      * Returns, whether the left mouse button was clicked.
-     * 
+     *
      * @param  e  mouse event
      * @return true if the left mouse button was clicked
      */

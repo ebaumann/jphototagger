@@ -40,7 +40,7 @@ import javax.swing.JPanel;
 
 /**
  * Database maintainance tasks.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-08
  */
@@ -114,7 +114,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         buttonStartMaintain.setEnabled(isACheckBoxSelected());
         removeFinishedIcons();
     }
-    
+
     private boolean isACheckBoxSelected() {
         for (JCheckBox checkBox : checkBoxes) {
             if (checkBox.isSelected()) {

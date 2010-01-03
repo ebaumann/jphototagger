@@ -49,7 +49,7 @@ public final class FileUtil {
 
     /**
      * Returns the content of a file as string.
-     * 
+     *
      * @param file file
      * @param encoding
      * @return     content or null when errors occur
@@ -76,7 +76,7 @@ public final class FileUtil {
 
     /**
      * Returns the content of a file als bytes.
-     * 
+     *
      * @param file file
      * @return     content or null when errors occur
      */
@@ -112,7 +112,7 @@ public final class FileUtil {
     /**
      * Ensures that a file exists. Creates the file if it does not exist, even
      * necessary directories.
-     * 
+     *
      * @param  file file
      * @return      true if the file exists
      */
@@ -139,7 +139,7 @@ public final class FileUtil {
 
     /**
      * Returns wheter a file exists and it's <em>not</em> a directory.
-     * 
+     *
      * @param file file
      * @return     true if the file exists and it is not a directory
      */
@@ -155,7 +155,7 @@ public final class FileUtil {
      * Ensures that a directory exists. If it does not exists, this method
      * creates a new directory including it's parent directories if they does
      * not exist.
-     * 
+     *
      * @param directory directory
      * @return          true if successful
      */
@@ -181,7 +181,7 @@ public final class FileUtil {
 
     /**
      * Returns whether a directory exists and it's a directory.
-     * 
+     *
      * @param  directory directory
      * @return           true if the directory exists and the file type is
      *                   a directory
@@ -196,7 +196,7 @@ public final class FileUtil {
 
     /**
      * Copies a file (fast).
-     * 
+     *
      * @param  source  source file
      * @param  target  target file
      * @throws         java.io.IOException on errors
@@ -232,7 +232,7 @@ public final class FileUtil {
 
     /**
      * Liefert den Pfad einer Datei nach oben bis zur Wurzel.
-     * 
+     *
      * @param  file Datei
      * @return Pfad, das oberste Element ist die Wurzel
      */
@@ -254,7 +254,7 @@ public final class FileUtil {
     /**
      * Liefert alle Unterverzeichnisse eines Verzeichnisses einschließlich
      * derer Unterverzeichnisse bis zur untersten Ebene.
-     * 
+     *
      * @param  directory  Verzeichnis
      * @param  options    file filtering optins
      * @return Unterverzeichnisse
@@ -287,7 +287,7 @@ public final class FileUtil {
 
     /**
      * Liefert die absoluten Pfadnamen mehrerer Dateien.
-     * 
+     *
      * @param files Dateien
      * @return      Pfadnamen
      */
@@ -305,7 +305,7 @@ public final class FileUtil {
 
     /**
      * Returns a list of files from an array of filenames.
-     * 
+     *
      * @param  filenames filenames
      * @return files
      */
@@ -323,7 +323,7 @@ public final class FileUtil {
 
     /**
      * Returns an array of filenames (absolute path) from an array of files.
-     * 
+     *
      * @param  files  files
      * @return filenames
      */
@@ -341,7 +341,7 @@ public final class FileUtil {
 
     /**
      * Returns a list of files from a list of object where every object is a file.
-     * 
+     *
      * @param  objects files as object
      * @return files
      */
@@ -362,7 +362,7 @@ public final class FileUtil {
 
     /**
      * Returns an array of files from a collection of files.
-     * 
+     *
      * @param  files collection
      * @return array
      */
@@ -382,7 +382,7 @@ public final class FileUtil {
 
     /**
      * Returns the directories of a list of files.
-     * 
+     *
      * @param  files    files
      * @return existing directories within <code>files</code>
      */
@@ -426,7 +426,7 @@ public final class FileUtil {
 
     /**
      * Returns a not existing file.
-     * 
+     *
      * @param  file suggested file
      * @return      file in the same path with a unique number prepending the
      *              suffix
@@ -490,7 +490,7 @@ public final class FileUtil {
      * Returns the directory path of a file.
      * <p>
      * The directory path is path of the parent file without the root.
-     * 
+     *
      * @param  file file
      * @return      directory path
      */

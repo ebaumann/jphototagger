@@ -26,7 +26,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-17

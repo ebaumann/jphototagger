@@ -56,7 +56,7 @@ public final class IptcRepeatableValues {
     /**
      * Returns whether an {@link com.imagero.reader.iptc.IPTCEntryMeta} contains
      * repeatable values.
-     * 
+     *
      * @param  meta metadata
      * @return true if repeatable
      * @throws IllegalArgumentException if metadata is unknown

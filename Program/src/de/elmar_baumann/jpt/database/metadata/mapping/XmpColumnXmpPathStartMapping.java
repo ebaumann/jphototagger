@@ -53,7 +53,7 @@ public final class XmpColumnXmpPathStartMapping {
 
     /**
      * Liefert den Start des XMP-Pfads für eine XMP-Spalte.
-     * 
+     *
      * @param  column  XMP-Spalte
      * @return Pfadstart oder null bei unzugeordneter Spalte
      */

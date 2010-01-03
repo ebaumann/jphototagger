@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -50,22 +50,22 @@ public class AutoCompleteDocument implements StyledDocument {
      * as they are likely have been caused by the adapted Component that
      * is trying to set the text for the selected component.*/
     boolean selecting=false;
-    
+
     /**
      * true, if only items from the adaptors's list can be entered
      * false, otherwise (selected item might not be in the adaptors's list)
      */
     boolean strictMatching;
-    
+
     /**
      * The adaptor that is used to find and select items.
      */
     AbstractAutoCompleteAdaptor adaptor;
-    
+
     ObjectToStringConverter stringConverter;
-    
+
     private Document delegate;
-    
+
     /**
      * Creates a new AutoCompleteDocument for the given AbstractAutoCompleteAdaptor.
      * @param adaptor The adaptor that will be used to find and select matching
@@ -81,14 +81,14 @@ public class AutoCompleteDocument implements StyledDocument {
         this.strictMatching = strictMatching;
         this.stringConverter = stringConverter == null ? DEFAULT_IMPLEMENTATION : stringConverter;
         this.delegate = delegate == null ? new PlainDocument() : delegate;
-        
+
         // Handle initially selected object
         Object selected = adaptor.getSelectedItem();
         if (selected!=null) setText(stringConverter.getPreferredStringForItem(selected));
         adaptor.markEntireText();
     }
-    
-    
+
+
     /**
      * Creates a new AutoCompleteDocument for the given AbstractAutoCompleteAdaptor.
      * @param adaptor The adaptor that will be used to find and select matching
@@ -100,7 +100,7 @@ public class AutoCompleteDocument implements StyledDocument {
     public AutoCompleteDocument(AbstractAutoCompleteAdaptor adaptor, boolean strictMatching, ObjectToStringConverter stringConverter) {
         this(adaptor, strictMatching, stringConverter, null);
     }
-    
+
     /**
      * Creates a new AutoCompleteDocument for the given AbstractAutoCompleteAdaptor.
      * @param strictMatching true, if only items from the adaptor's list should
@@ -111,7 +111,7 @@ public class AutoCompleteDocument implements StyledDocument {
     public AutoCompleteDocument(AbstractAutoCompleteAdaptor adaptor, boolean strictMatching) {
         this(adaptor, strictMatching, null);
     }
-    
+
     /**
      * Returns if only items from the adaptor's list should be allowed to be entered.
      * @return if only items from the adaptor's list should be allowed to be entered
@@ -119,7 +119,7 @@ public class AutoCompleteDocument implements StyledDocument {
     public boolean isStrictMatching() {
         return strictMatching;
     }
-    
+
     public void remove(int offs, int len) throws BadLocationException {
         // return immediately when selecting an item
         if (selecting) return;
@@ -129,7 +129,7 @@ public class AutoCompleteDocument implements StyledDocument {
             adaptor.getTextComponent().setCaretPosition(offs);
         }
     }
-    
+
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
         // return immediately when selecting an item
         if (selecting) return;
@@ -160,10 +160,10 @@ public class AutoCompleteDocument implements StyledDocument {
         // select the completed part
         adaptor.markText(offs+str.length());
     }
-    
+
     /**
      * Sets the text of this AutoCompleteDocument to the given text.
-     * 
+     *
      * @param text the text that will be set for this document
      */
     private void setText(String text) {
@@ -175,7 +175,7 @@ public class AutoCompleteDocument implements StyledDocument {
             throw new RuntimeException(e.toString());
         }
     }
-    
+
     /**
      * Selects the given item using the AbstractAutoCompleteAdaptor.
      * @param itemAsString string representation of the item to be selected
@@ -187,18 +187,18 @@ public class AutoCompleteDocument implements StyledDocument {
         adaptor.setSelectedItemAsString(itemAsString);
         selecting = false;
     }
-    
+
     /**
      * Searches for an item that matches the given pattern. The AbstractAutoCompleteAdaptor
      * is used to access the candidate items. The match is not case-sensitive
      * and will only match at the beginning of each item's string representation.
-     * 
+     *
      * @param pattern the pattern that should be matched
      * @return the first item that matches the pattern or <code>null</code> if no item matches
      */
     private LookupResult lookupItem(String pattern) {
         Object selectedItem = adaptor.getSelectedItem();
-        
+
         String[] possibleStrings;
 
         // iterate over all items to find an exact match
@@ -238,7 +238,7 @@ public class AutoCompleteDocument implements StyledDocument {
         // no item starts with the pattern => return null
         return new LookupResult(null, "");
     }
-    
+
     private static class LookupResult {
         Object matchingItem;
         String matchingString;
@@ -247,7 +247,7 @@ public class AutoCompleteDocument implements StyledDocument {
             this.matchingString = matchingString;
         }
     }
-    
+
     /**
      * Returns true if <code>base</code> starts with <code>prefix</code> (ignoring case).
      * @param base the string to be checked

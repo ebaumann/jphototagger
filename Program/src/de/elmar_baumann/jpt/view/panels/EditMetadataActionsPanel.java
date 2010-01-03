@@ -23,7 +23,7 @@ import javax.swing.JComboBox;
 
 /**
  * Panel for action sources (buttons) related to edit metadata.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class EditMetadataActionsPanel extends javax.swing.JPanel {
@@ -32,7 +32,7 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
     public EditMetadataActionsPanel() {
         initComponents();
     }
-    
+
     public JComboBox getComboBoxMetadataTemplates() {
         return comboBoxMetadataTemplates;
     }

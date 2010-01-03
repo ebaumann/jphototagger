@@ -45,7 +45,7 @@ import java.util.List;
 import javax.swing.ListModel;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-19

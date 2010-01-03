@@ -32,7 +32,7 @@ import java.util.List;
 public final class ExifInDatabase {
 
     private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD = new ArrayList<ExifTag.Id>();
-    
+
 
     static {
         STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.DATE_TIME_ORIGINAL);
@@ -45,7 +45,7 @@ public final class ExifInDatabase {
     /**
      * Liefert, ob die Metadaten eines EXIF-Tags in die Datenbank gespeichert
      * werden.
-     * 
+     *
      * @param  exifTagId Tag ID
      * @return           true, falls gespeichert
      */
@@ -56,7 +56,7 @@ public final class ExifInDatabase {
     /**
      * Liefert, ob die Metadaten eines EXIF-Tags in die Datenbank gespeichert
      * werden.
-     * 
+     *
      * @param ifdType IFD type
      * @param id      id
      * @return        true, falls gespeichert

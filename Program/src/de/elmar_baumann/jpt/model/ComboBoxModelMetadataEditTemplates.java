@@ -45,7 +45,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
 
     /**
      * Löscht ein Template.
-     * 
+     *
      * @param template  Template
      */
     public void deleteMetadataEditTemplate(MetadataEditTemplate template) {
@@ -60,7 +60,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
 
     /**
      * Fügt ein Template hinzu.
-     * 
+     *
      * @param template  Template
      */
     public void insertTemplate(MetadataEditTemplate template) {
@@ -78,7 +78,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
 
     /**
      * Aktualisiert die Daten eines Templates.
-     * 
+     *
      * @param template  Template
      */
     public void updateTemplate(MetadataEditTemplate template) {
@@ -96,7 +96,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
 
     /**
      * Benennt ein Template um.
-     * 
+     *
      * @param template  Template
      * @param newName   Neuer Name
      */

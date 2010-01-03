@@ -23,7 +23,7 @@ import de.elmar_baumann.lib.util.Version;
 
 /**
  * Informations about this application.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-06-21
  */
@@ -45,7 +45,7 @@ public final class AppInfo {
     /**
      * The application's name
      */
-    public static final String APP_NAME = "JPhotoTagger"; 
+    public static final String APP_NAME = "JPhotoTagger";
     /**
      * Title of the application
      */

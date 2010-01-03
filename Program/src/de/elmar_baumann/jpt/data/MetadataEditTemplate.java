@@ -34,7 +34,7 @@ public final class MetadataEditTemplate {
 
     /**
      * Returns the template's name.
-     * 
+     *
      * @return Name oder null if not defined
      */
     public String getName() {
@@ -48,7 +48,7 @@ public final class MetadataEditTemplate {
     /**
      * Liefert, ob ein Name für das Template enthalten ist. Dieser ist
      * Identifikator.
-     * 
+     *
      * @return true, wenn ein Name vorhanden ist
      */
     public boolean hasName() {
@@ -57,7 +57,7 @@ public final class MetadataEditTemplate {
 
     /**
      * Returns a value of a XMP column.
-     * 
+     *
      * @param  column column
      * @return        value or null if the column has no value
      */
@@ -67,7 +67,7 @@ public final class MetadataEditTemplate {
 
     /**
      * Setzt den Wert einer XMP-Spalte.
-     * 
+     *
      * @param column  Spalte
      * @param data    Wert
      */

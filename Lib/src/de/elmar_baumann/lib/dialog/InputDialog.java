@@ -42,7 +42,7 @@ public class InputDialog extends Dialog {
 
     /**
      * Sets the info text ("prompt").
-     * 
+     *
      * @param info info text
      */
     public void setInfo(String info) {
@@ -57,26 +57,26 @@ public class InputDialog extends Dialog {
     public void setInput(String input) {
         textFieldInput.setText(input);
     }
-    
+
     /**
      * Returns whether the dialog was closed with <strong>OK</strong> and the
      * user input shall be used.
-     * 
+     *
      * @return true if closed with OK
      */
     public boolean isAccepted() {
         return accepted;
     }
-    
+
     /**
      * Returns the user input.
-     * 
+     *
      * @return input
      */
     public String getInput() {
         return textFieldInput.getText();
     }
-    
+
     /**
      * Sets the properties to put size and location.
      *

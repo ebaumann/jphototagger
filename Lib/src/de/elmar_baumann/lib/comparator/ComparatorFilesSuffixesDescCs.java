@@ -37,7 +37,7 @@ public final class ComparatorFilesSuffixesDescCs
     public int compare(File leftFile, File rightFile) {
 
         Pair<String, String> suffixes = Util.getCmpSuffixes(leftFile, rightFile, false);
-        
+
         return suffixes.getFirst().compareTo(suffixes.getSecond()) * -1;
     }
 }

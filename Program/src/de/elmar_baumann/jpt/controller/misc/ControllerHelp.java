@@ -41,7 +41,7 @@ import java.util.Locale;
 import javax.swing.JMenuItem;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12

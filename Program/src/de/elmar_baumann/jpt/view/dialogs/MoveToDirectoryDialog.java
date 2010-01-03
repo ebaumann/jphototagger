@@ -198,7 +198,7 @@ public final class MoveToDirectoryDialog extends Dialog
      * Sets the target directory. If it exists, move will done after calling
      * {@link #setVisible(boolean)} with <code>true</code> as argument whitout
      * user interaction.
-     * 
+     *
      * @param directory  target directory
      */
     public void setTargetDirectory(File directory) {

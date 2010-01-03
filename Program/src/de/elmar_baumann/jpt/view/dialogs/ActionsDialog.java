@@ -31,7 +31,7 @@ import javax.swing.JProgressBar;
 /**
  * Non modal dialog for actions: {@link de.elmar_baumann.jpt.data.Program}
  * where {@link de.elmar_baumann.jpt.data.Program#isAction()} is true.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class ActionsDialog extends Dialog implements ProgramActionListener {

@@ -30,7 +30,7 @@ public interface UserSettingsChangeListener {
 
     /**
      * Wende die neuen Einstellungen des Benutzers an.
-     * 
+     *
      * @param evt Ereignis
      */
     void applySettings(UserSettingsChangeEvent evt);

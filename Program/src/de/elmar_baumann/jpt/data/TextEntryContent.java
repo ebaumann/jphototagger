@@ -85,7 +85,7 @@ public final class TextEntryContent implements TextEntry {
 
     /**
      * Returns false.
-     * 
+     *
      * @return false
      */
     @Override
@@ -95,7 +95,7 @@ public final class TextEntryContent implements TextEntry {
 
     /**
      * Does nothing.
-     * 
+     *
      * @param dirty  see interface documentation
      */
     @Override
@@ -110,7 +110,7 @@ public final class TextEntryContent implements TextEntry {
 
     /**
      * Returns false.
-     * 
+     *
      * @return false
      */
     @Override

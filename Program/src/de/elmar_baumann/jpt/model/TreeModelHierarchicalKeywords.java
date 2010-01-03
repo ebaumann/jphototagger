@@ -59,7 +59,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
      *                that name
      */
     public DefaultMutableTreeNode findChildByName(DefaultMutableTreeNode parent, String name) {
-        
+
         for (Enumeration e = parent.children(); e.hasMoreElements();) {
 
             DefaultMutableTreeNode child      = (DefaultMutableTreeNode) e.nextElement();
@@ -190,14 +190,14 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
         List<HierarchicalKeyword> delKeywords = new ArrayList<HierarchicalKeyword>();
         Object                    o           = keywordNode.getUserObject();
-        
+
         assert o instanceof HierarchicalKeyword : "Not a HierarchicalKeyword: " + o;
-        
+
         for (Enumeration e = keywordNode.preorderEnumeration(); e.hasMoreElements();) {
             Object el = e.nextElement(); assert el instanceof DefaultMutableTreeNode : el;
             if (el instanceof DefaultMutableTreeNode) {
                 Object userObject = ((DefaultMutableTreeNode) el).getUserObject();
-                
+
                 assert userObject instanceof HierarchicalKeyword : userObject;
 
                 if (userObject instanceof HierarchicalKeyword) {
@@ -235,7 +235,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
     /**
      * Moves a node to another node.
-     * 
+     *
      * @param source  node to move
      * @param target  new parent of <code>source</code>
      * @param keyword keyword of <code>source</code>

@@ -53,7 +53,7 @@ import javax.swing.JToggleButton;
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
  * und Suchtext.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -85,7 +85,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Fügt einen Suchen-Beobachter hinzu.
-     * 
+     *
      * @param listener Beobachter
      */
     public synchronized void addSearchListener(SearchListener listener) {
@@ -203,7 +203,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     /**
      * Setzt, ob dieses Panel das erste ist. In diesem Fall wird die erste
      * Verknüpfung (AND, OR) nicht mit dem Statement geliefert.
-     * 
+     *
      * @param isFirst true, wenn das Panel das erste von mehreren ist.
      *                Default: false.
      */
@@ -213,7 +213,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Aktiviert die Combobox mit den Operatoren (AND, OR).
-     * 
+     *
      * @param enable true, wenn aktiv.
      *               Default: true.
      */
@@ -237,7 +237,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert die Anzahl geöffneter Klammern.
-     * 
+     *
      * @return Anzahl
      */
     public int getCountOpenBrackets() {
@@ -253,7 +253,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert die Anzahl gschlossener Klammern.
-     * 
+     *
      * @return Anzahl
      */
     public int getCountClosedBrackets() {
@@ -266,7 +266,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert, ob ein gültiger SQL-String geliefert werden kann.
-     * 
+     *
      * @return true, wenn ein gültiger SQL-String geliefert werden kann
      */
     public boolean hasSql() {
@@ -278,7 +278,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert einen SQL-String mit Parameter.
-     * 
+     *
      * @return SQL-String oder null, wenn keiner geliefert werden kann, da
      *         Auswahlen und Eingaben unvollständig sind
      * @see    #hasSql()
@@ -290,15 +290,15 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             Comparator operator = (Comparator) comboBoxComparators.getModel().getSelectedItem();
 
             StringBuffer buffer = new StringBuffer();
-            buffer.append(toggleButtonBracketLeft1.isSelected() ? " (" : ""); //
+            buffer.append(toggleButtonBracketLeft1.isSelected() ? " (" : "");
             if (!isFirst) {
-                buffer.append(" " + relation.toSqlString()); //
+                buffer.append(" " + relation.toSqlString());
             }
-            buffer.append(toggleButtonBracketLeft2.isSelected() ? " (" : ""); //
-            buffer.append(" " + column.getTable().getName() + "." + column.getName()); //
-            buffer.append(" " + operator.toSqlString()); //
-            buffer.append(" ?"); //
-            buffer.append(toggleButtonBracketRight.isSelected() ? ")" : ""); //
+            buffer.append(toggleButtonBracketLeft2.isSelected() ? " (" : "");
+            buffer.append(" " + column.getTable().getName() + "." + column.getName());
+            buffer.append(" " + operator.toSqlString());
+            buffer.append(" ?");
+            buffer.append(toggleButtonBracketRight.isSelected() ? ")" : "");
 
             return buffer.toString();
         }
@@ -307,7 +307,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert den Wert der Abfrage (zum Einsetzen in den SQL-String).
-     * 
+     *
      * @return Wert
      */
     public String getValue() {
@@ -316,7 +316,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert die ausgewählte Spalte.
-     * 
+     *
      * @return Spalte oder null, wenn keine ausgewählt ist
      * @see    #isColumnSelected()
      */
@@ -330,7 +330,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert ob eine Spalte selektiert ist.
-     * 
+     *
      * @return true, wenn eine Spalte selektiert ist
      */
     public boolean isColumnSelected() {
@@ -340,7 +340,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert Daten für eine gespeicherte Suche.
-     * 
+     *
      * @return Daten für eine gespeicherte Suche
      */
     public SavedSearchPanel getSavedSearchData() {
@@ -363,7 +363,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Setzt die Daten einer gespeicherten Suche.
-     * 
+     *
      * @param savedSearchPanel Paneldaten
      */
     public void setSavedSearchPanel(SavedSearchPanel savedSearchPanel) {
@@ -385,7 +385,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      * Setzt den Status auf verändert (modifiziert). Das ist nur bei
      * Initialisierungen notwendig. Modifiziert der Benutzer ein Element
      * dieses Panels, wird der Status automatisch auf true gesetzt.
-     * 
+     *
      * @param changed true, wenn modifiziert. Default: false.
      */
     public void setChanged(boolean changed) {
@@ -394,7 +394,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     /**
      * Liefert, ob ein Element des Panels modifiziert wurde.
-     * 
+     *
      * @return true, wenn modifiziert
      */
     public boolean isChanged() {
@@ -408,14 +408,14 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             String month = getDateFormatted(Integer.toString(cal.get(Calendar.MONTH)));
             String day   = getDateFormatted(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
 
-            textFieldValue.setText(year + "-" + month + "-" + day); //
+            textFieldValue.setText(year + "-" + month + "-" + day);
             setChanged(true);
         }
     }
 
     private String getDateFormatted(String dayOrMonth) {
         if (dayOrMonth.length() < 2) {
-            return "0" + dayOrMonth; //
+            return "0" + dayOrMonth;
         }
         return dayOrMonth;
     }

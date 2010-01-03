@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppInit;
 
 /**
  * Calls {@link AppInit#init(java.lang.String[])}.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-02-17
  */

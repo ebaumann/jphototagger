@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 /**
  * Übersetzt Strings. Die Übersetzungen stehen in einer locale-spezifischen
  * Properties-Datei.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-05
  */
@@ -46,7 +46,7 @@ public final class Translation {
 
     /**
      * Übersetzt einen String.
-     * 
+     *
      * @param string Fremdsprachiger String (Key eines Propertys)
      * @return       Übersetzter String (Value eines Propertys) oder zu
      *               übersetzender String, falls keine Übersetzung möglich ist
@@ -74,7 +74,7 @@ public final class Translation {
 
     /**
      * Übersetzt einen String.
-     * 
+     *
      * @param string    Fremdsprachiger String (Key eines Propertys)
      * @param alternate Alternative Übersetzung, die geliefert wird, wenn
      *                  keine Übersetzung gefunden wurde

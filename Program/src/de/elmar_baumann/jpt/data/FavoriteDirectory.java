@@ -34,7 +34,7 @@ public final class FavoriteDirectory {
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param favoriteName   Name des Favoriten (Alias)
      * @param directoryName  Name des Verzeichnisses
      * @param index          Reihenfolge innerhalb der Favoriten
@@ -48,7 +48,7 @@ public final class FavoriteDirectory {
 
     /**
      * Kopierkonstruktor (klont).
-     * 
+     *
      * @param favorite  Anderer Favorit
      */
     public FavoriteDirectory(FavoriteDirectory favorite) {
@@ -57,7 +57,7 @@ public final class FavoriteDirectory {
 
     /**
      * Zuweisung (klont).
-     * 
+     *
      * @param favorite  Anderer Favorit
      */
     public void set(FavoriteDirectory favorite) {
@@ -68,7 +68,7 @@ public final class FavoriteDirectory {
 
     /**
      * Liefert den Verzeichnisnamen.
-     * 
+     *
      * @return Verzeichnisname
      */
     public String getDirectoryName() {
@@ -88,7 +88,7 @@ public final class FavoriteDirectory {
 
     /**
      * Setzt den Verzeichnisnamen.
-     * 
+     *
      * @param directoryName  Verzeichnisname
      */
     public void setDirectoryName(String directoryName) {
@@ -97,7 +97,7 @@ public final class FavoriteDirectory {
 
     /**
      * Liefert den Favoritennamen (Alias).
-     * 
+     *
      * @return Favoritenname
      */
     public String getFavoriteName() {
@@ -106,7 +106,7 @@ public final class FavoriteDirectory {
 
     /**
      * Setzt den Favoritennamen (Alias).
-     * 
+     *
      * @param favoriteName  Favoritenname
      */
     public void setFavoriteName(String favoriteName) {
@@ -115,7 +115,7 @@ public final class FavoriteDirectory {
 
     /**
      * Liefert die Reihenfolge innerhalb der Favoriten.
-     * 
+     *
      * @return Reihenfolge
      */
     public int getIndex() {
@@ -124,7 +124,7 @@ public final class FavoriteDirectory {
 
     /**
      * Setzt die Reihenfolge innerhalb der Favoriten.
-     * 
+     *
      * @param index  Reihenfolge
      */
     public void setIndex(int index) {

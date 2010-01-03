@@ -35,14 +35,14 @@ public final class SplashScreen {
 
     /**
      * Prints a message onto the splashscreen.
-     * 
+     *
      * @param message message
      */
     public static void setMessageToSplashScreen(String message) {
         java.awt.SplashScreen splash = java.awt.SplashScreen.getSplashScreen();
         if (splash != null) {
             Graphics2D g = splash.createGraphics();
-            Font font = new Font("Arial", Font.PLAIN, 12); 
+            Font font = new Font("Arial", Font.PLAIN, 12);
             g.setFont(font);
             g.setComposite(AlphaComposite.Clear);
             g.setPaintMode();
@@ -72,7 +72,7 @@ public final class SplashScreen {
                 (int) (standardFontSize * 1.5 + 0.5));
         g.setFont(fontBold);
         g.setColor(Color.BLACK);
-        g.drawString(AppInfo.APP_NAME + " " + AppInfo.APP_VERSION, MESSAGES_X, y); 
+        g.drawString(AppInfo.APP_NAME + " " + AppInfo.APP_VERSION, MESSAGES_X, y);
         g.setFont(standardFont);
         g.setColor(Color.BLUE);
         g.drawString(AppInfo.APP_DESCRIPTION, MESSAGES_X, y + standardFontSize +

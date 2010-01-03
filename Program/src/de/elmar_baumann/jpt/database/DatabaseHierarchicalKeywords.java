@@ -126,7 +126,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
      *
      * <em>The keyword ({@link HierarchicalKeyword#getKeyword()}) must have
      * a not empty string!</em>
-     * 
+     *
      * @param  keyword keyword
      * @return         true if updated
      */
@@ -356,7 +356,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
                       " WHERE id_parent IS NULL AND subject = ?"
                     : "SELECT COUNT(*) FROM hierarchical_subjects" +
                       " WHERE id_parent = ? AND subject = ?";
-            
+
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             if (!parentIsRoot) {

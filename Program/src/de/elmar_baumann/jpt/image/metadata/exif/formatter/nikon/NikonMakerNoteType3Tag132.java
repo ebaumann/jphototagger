@@ -35,7 +35,7 @@ public final class NikonMakerNoteType3Tag132 implements ExifRawValueFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
-        
+
         byte[] rawValue = exifTag.rawValue();
 
         if (rawValue.length != 32) return "?";

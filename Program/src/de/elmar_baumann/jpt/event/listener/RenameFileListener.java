@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.event.RenameFileEvent;
 
 /**
  * Listens to file rename actions.
- * 
+ *
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
 public interface RenameFileListener {

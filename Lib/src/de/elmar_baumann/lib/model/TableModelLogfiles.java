@@ -56,7 +56,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
 
     /**
      * Fügt einen Logfiledatensatz hinzu.
-     * 
+     *
      * @param record Datensatz
      */
     public void addRecord(LogfileRecord record) {
@@ -79,7 +79,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
 
     /**
      * Liefert einen Logfiledatensatz.
-     * 
+     *
      * @param  index  Index des Datensatzes
      * @return Datensatz
      * @throws IllegalArgumentException if the index is not valid
@@ -100,7 +100,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
 
     /**
      * Setzt Datensätze einer Logdatei.
-     * 
+     *
      * @param records Datensätze
      */
     public void setRecords(List<LogfileRecord> records) {

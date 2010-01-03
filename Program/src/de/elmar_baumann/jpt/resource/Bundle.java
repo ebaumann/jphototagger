@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 /**
  * Verkürzter Zugriff auf String-Ressourcen.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-02
  */

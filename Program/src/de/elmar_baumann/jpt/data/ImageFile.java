@@ -27,7 +27,7 @@ import java.util.Set;
 
 /**
  * Daten einer Bilddatei.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-07-28
  */
@@ -71,7 +71,7 @@ public final class ImageFile {
 
     /**
      * Liefert den Namen der Bilddatei.
-     * 
+     *
      * @return Dateiname oder null, wenn nicht definiert
      */
     public String getFilename() {
@@ -80,7 +80,7 @@ public final class ImageFile {
 
     /**
      * Shortcut for {@code new File(imageFile.getFilename())}.
-     * 
+     *
      * @return new created file of {@link #getFilename()}
      */
     public File getFile() {
@@ -89,7 +89,7 @@ public final class ImageFile {
 
     /**
      * Setzt den Namen der Bilddatei.
-     * 
+     *
      * @param filename Dateiname
      */
     public void setFilename(String filename) {
@@ -98,7 +98,7 @@ public final class ImageFile {
 
     /**
      * Liefert die IPTC-Metadaten der Bilddatei.
-     * 
+     *
      * @return IPTC-Metadaten oder null, wenn nicht definiert
      */
     public Iptc getIptc() {
@@ -107,7 +107,7 @@ public final class ImageFile {
 
     /**
      * Setzt die IPTC-Metadaten der Bilddatei.
-     * 
+     *
      * @param iptc IPTC-Metadaten
      */
     public void setIptc(Iptc iptc) {
@@ -116,7 +116,7 @@ public final class ImageFile {
 
     /**
      * Liefert die XMP-Metadaten der Bilddatei.
-     * 
+     *
      * @return XMP-Metadaten oder null, wenn nicht definiert
      */
     public Xmp getXmp() {
@@ -125,7 +125,7 @@ public final class ImageFile {
 
     /**
      * Setzt die XMP-Metadaten der Bilddatei.
-     * 
+     *
      * @param xmp XMP-Metadaten
      */
     public void setXmp(Xmp xmp) {
@@ -134,7 +134,7 @@ public final class ImageFile {
 
     /**
      * Liefert, wann die Bilddatei das letzte Mal modifiziert wurde.
-     * 
+     *
      * @return Millisekunden seit 1970 der letzten Modifikation oder -1, wenn nicht definiert
      */
     public long getLastmodified() {
@@ -143,7 +143,7 @@ public final class ImageFile {
 
     /**
      * Setzt, wann die Bilddatei das letzte Mal modifiziert wurde.
-     * 
+     *
      * @param lastmodified Millisekunden seit 1970 der letzten Modifikation
      */
     public void setLastmodified(long lastmodified) {
@@ -152,7 +152,7 @@ public final class ImageFile {
 
     /**
      * Liefert ein Thumbnail der Bilddatei.
-     * 
+     *
      * @return Thumbnail oder null, wenn nicht definiert
      */
     public Image getThumbnail() {
@@ -161,7 +161,7 @@ public final class ImageFile {
 
     /**
      * Setzt das Thumbnail der Bilddatei.
-     * 
+     *
      * @param thumbnail Thumbnail
      */
     public void setThumbnail(Image thumbnail) {
@@ -170,7 +170,7 @@ public final class ImageFile {
 
     /**
      * Liefert die EXIF-Daten der Bilddatei.
-     * 
+     *
      * @return EXIF-Daten oder null, wenn nicht definiert
      */
     public Exif getExif() {
@@ -179,7 +179,7 @@ public final class ImageFile {
 
     /**
      * Setzt die EXIF-Daten der Bilddatei.
-     * 
+     *
      * @param exif EXIF-Daten
      */
     public void setExif(Exif exif) {

@@ -14,9 +14,9 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     private final String       progressBarString;
     private       JProgressBar progressBar;
-   
+
     /**
-     * 
+     *
      * @param progressBarString string to paint on the progress bar or null
      */
     public ProgressBarUpdater(String progressBarString) {

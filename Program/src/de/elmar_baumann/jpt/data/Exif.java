@@ -36,7 +36,7 @@ public final class Exif {
 
     /**
      * Returns the date when the image was created.
-     * 
+     *
      * @return date or null if not defined
      */
     public Date getDateTimeOriginal() {
@@ -47,7 +47,7 @@ public final class Exif {
 
     /**
      * Sets the date when the image was created.
-     * 
+     *
      * @param dateTimeOriginal date
      */
     public void setDateTimeOriginal(Date dateTimeOriginal) {
@@ -56,7 +56,7 @@ public final class Exif {
 
     /**
      * Returns the focal length of the camera's lens which projected the image.
-     * 
+     *
      * @return focal length in mm
      */
     public double getFocalLength() {
@@ -65,7 +65,7 @@ public final class Exif {
 
     /**
      * Sets the focal length of the camera's lens which projected the image.
-     * 
+     *
      * @param focalLength focal length in mm
      */
     public void setFocalLength(double focalLength) {
@@ -74,7 +74,7 @@ public final class Exif {
 
     /**
      * Returns the ISO adjustment of the camera which took the image.
-     * 
+     *
      * @return ISO
      */
     public short getIsoSpeedRatings() {
@@ -83,7 +83,7 @@ public final class Exif {
 
     /**
      * Sets the ISO adjustment of the camera which took the image
-     * 
+     *
      * @param isoSpeedRatings ISO
      */
     public void setIsoSpeedRatings(short isoSpeedRatings) {
@@ -92,7 +92,7 @@ public final class Exif {
 
     /**
      * Returns the camera which took the image.
-     * 
+     *
      * @return camera
      */
     public String getRecordingEquipment() {
@@ -101,7 +101,7 @@ public final class Exif {
 
     /**
      * Sets the camera which took the image.
-     * 
+     *
      * @param recordingEquipment camera
      */
     public void setRecordingEquipment(String recordingEquipment) {
@@ -123,7 +123,7 @@ public final class Exif {
 
     /**
      * Returns wheter no EXIF field of this class was set.
-     * 
+     *
      * @return true if no EXIF field was set
      */
     public boolean isEmpty() {

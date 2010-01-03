@@ -62,24 +62,24 @@ public final class CheckList extends JList {
      * Fügt einen Beobachter hinzu. Wird eine Checkbox an- oder abgekreuzt,
      * wird dieser benachrichtigt. Der Index der Checkbox wird geliefert mit
      * {@link java.awt.event.ActionEvent#getID()}.
-     * 
+     *
      * @param listener Beobachter
      */
     public synchronized void addActionListener(ActionListener listener) {
         if (listener == null)
-            throw new NullPointerException("listener == null"); //
+            throw new NullPointerException("listener == null");
 
         actionListeners.add(listener);
     }
 
     /**
      * Entfernt einen Beobachter.
-     * 
+     *
      * @param listener Beobachter
      */
     public synchronized void removeActionListener(ActionListener listener) {
         if (listener == null)
-            throw new NullPointerException("listener == null"); //
+            throw new NullPointerException("listener == null");
 
         actionListeners.remove(listener);
     }
@@ -105,13 +105,13 @@ public final class CheckList extends JList {
 
     private synchronized void notifyActionListener(int index) {
         for (ActionListener listener : actionListeners) {
-            listener.actionPerformed(new ActionEvent(this, index, "")); //
+            listener.actionPerformed(new ActionEvent(this, index, ""));
         }
     }
 
     /**
      * Liefert, ob mindestens ein Item selektiert ist.
-     * 
+     *
      * @return true, wenn mindestens eines selektiert ist
      */
     public synchronized boolean hasSelectedItems() {
@@ -120,7 +120,7 @@ public final class CheckList extends JList {
 
     /**
      * Liefert die Anzahl selektierter Items.
-     * 
+     *
      * @return Anzahl
      */
     public synchronized int getSelectionCount() {
@@ -129,7 +129,7 @@ public final class CheckList extends JList {
 
     /**
      * Liefert alle selektierten Items.
-     * 
+     *
      * @return Items
      */
     public synchronized List<JCheckBox> getSelectedItems() {
@@ -150,7 +150,7 @@ public final class CheckList extends JList {
 
     /**
      * Liefert die Indexe aller selektierten Items.
-     * 
+     *
      * @return Indizes
      */
     public synchronized List<Integer> getSelectedItemIndices() {
@@ -168,7 +168,7 @@ public final class CheckList extends JList {
 
     /**
      * Liefert die Texte aller selektierten Items.
-     * 
+     *
      * @return Itemtexte
      */
     public synchronized List<String> getSelectedItemTexts() {
@@ -182,13 +182,13 @@ public final class CheckList extends JList {
 
     /**
      * Liefert die Texte aller selektierten Items als einen String.
-     * 
+     *
      * @param delimiter Begrenzer zwischen den Itemtexten
      * @return          Texte
      */
     public synchronized String getSelectedItemTexts(String delimiter) {
         if (delimiter == null)
-            throw new NullPointerException("delimiter == null"); //
+            throw new NullPointerException("delimiter == null");
 
         List<String> texts = getSelectedItemTexts();
         StringBuffer textBuffer = new StringBuffer();
@@ -200,7 +200,7 @@ public final class CheckList extends JList {
 
     /**
      * Selektiert alle Items mit bestimmten Texten.
-     * 
+     *
      * @param texts  Texte
      * @param select true, wenn selektiert werden soll, false, wenn deselektiert
      *               werden soll
@@ -209,7 +209,7 @@ public final class CheckList extends JList {
     public synchronized void setSelectedItemsWithText(List<String> texts,
             boolean select) {
         if (texts == null)
-            throw new NullPointerException("texts == null"); //
+            throw new NullPointerException("texts == null");
 
         for (String text : texts) {
             setSelectedItemsWithText(text, select);
@@ -218,7 +218,7 @@ public final class CheckList extends JList {
 
     /**
      * Selektiert alle Items mit bestimmtem Text.
-     * 
+     *
      * @param text Text
      * @param select true, wenn selektiert werden soll, false, wenn deselektiert
      *     werden soll
@@ -227,7 +227,7 @@ public final class CheckList extends JList {
     public synchronized void setSelectedItemsWithText(String text,
             boolean select) {
         if (text == null)
-            throw new NullPointerException("text == null"); //
+            throw new NullPointerException("text == null");
 
         ListModel model = getModel();
         int count = model.getSize();
@@ -265,7 +265,7 @@ public final class CheckList extends JList {
                 checkBox.setBorderPainted(true);
                 checkBox.setBorder(
                         isSelected
-                        ? UIManager.getBorder("List.focusCellHighlightBorder") //
+                        ? UIManager.getBorder("List.focusCellHighlightBorder")
                         : BORDER_NO_FOCUS);
                 return checkBox;
             } else if (value instanceof String) {

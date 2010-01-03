@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Mapping zwischen 
+ * Mapping zwischen
  * {@link de.elmar_baumann.jpt.database.metadata.Column} und
  * einem Namespace-URI
  *
@@ -77,7 +77,7 @@ public final class XmpColumnNamespaceUriMapping {
 
     /**
      * Liefert den Namespace-URI für eine Spalte.
-     * 
+     *
      * @param  column  Spalte
      * @return Namespace-URI oder null bei unbekannter Spalte
      */

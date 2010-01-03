@@ -53,7 +53,7 @@ public final class SearchEvent {
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param type Ereignistyp
      */
     public SearchEvent(Type type) {
@@ -62,7 +62,7 @@ public final class SearchEvent {
 
     /**
      * Liefert den Typ des Ereignisses.
-     * 
+     *
      * @return Typ
      */
     public Type getType() {
@@ -71,7 +71,7 @@ public final class SearchEvent {
 
     /**
      * Liefert die Daten.
-     * 
+     *
      * @return Daten
      */
     public SavedSearch getSavedSearch() {
@@ -80,7 +80,7 @@ public final class SearchEvent {
 
     /**
      * Setzt die Daten.
-     * 
+     *
      * @param savedSearch Daten
      */
     public void setData(SavedSearch savedSearch) {
@@ -88,11 +88,11 @@ public final class SearchEvent {
     }
 
     /**
-     * Liefert, ob gespeicherte Suchen ohne Nachfrage überschrieben werden 
+     * Liefert, ob gespeicherte Suchen ohne Nachfrage überschrieben werden
      * sollen.
-     * 
+     *
      * Auswertung sinnvoll bei {@link Type#SAVE}.
-     * 
+     *
      * @return true, wenn ohne Nachfrage
      */
     public boolean isForceOverwrite() {
@@ -102,9 +102,9 @@ public final class SearchEvent {
     /**
      * Setzt, dass gespeicherte Suchen ohne Nachfrage überschrieben werden
      * sollen.
-     * 
+     *
      * Sinnvoll bei {@link Type#SAVE}.
-     * 
+     *
      * @param forceOverwrite true, wenn ohne Nachfrage überschreiben.
      *                       Default: false
      */

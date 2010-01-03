@@ -47,7 +47,7 @@ public final class DatabasePrograms extends Database {
 
     /**
      * Inserts a new program. Prevoius You should call {@link #hasProgram()}.
-     * 
+     *
      * @param  program  program
      * @return true if inserted
      */
@@ -129,7 +129,7 @@ public final class DatabasePrograms extends Database {
 
     /**
      * Updates a program. <em>The id must exist!</em>
-     * 
+     *
      * @param   program  program
      * @return  true if updated
      */
@@ -198,7 +198,7 @@ public final class DatabasePrograms extends Database {
 
     /**
      * Deletes a program. <em>The ID must exist!</em>
-     * 
+     *
      * @param  program   program
      * @return true if deleted
      */
@@ -229,7 +229,7 @@ public final class DatabasePrograms extends Database {
 
     /**
      * Returns all programs ordered by their aliases.
-     * 
+     *
      * @param action  true if only return actions, false if only return
      *                programs
      * @return programs
@@ -344,7 +344,7 @@ public final class DatabasePrograms extends Database {
 
     /**
      * Returns whether the database contains at least one program.
-     * 
+     *
      * @return true if at least one program (ore more) exists
      */
     public boolean hasProgram() {

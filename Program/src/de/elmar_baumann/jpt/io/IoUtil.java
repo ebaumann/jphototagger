@@ -34,15 +34,15 @@ import java.util.List;
 
 /**
  * I/O utils.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
 public final class IoUtil {
 
     private static final String QUOTE                = "\"";
-    private static final String SEPARATOR            = " "; 
-    private static final String EMPTY                = "";  
+    private static final String SEPARATOR            = " ";
+    private static final String EMPTY                = "";
     private static final String PATTERN_FS_PATH      = "%s";
     private static final String PATTERN_FS_ROOT      = "%d";
     private static final String PATTERN_FS_DIR_PATH  = "%p";
@@ -53,7 +53,7 @@ public final class IoUtil {
      * Executes an application and desplays a message dialog on errors.
      *
      * Does <em>not</em> quote any of the parameters.
-     * 
+     *
      * @param appPath   path to the external application
      * @param arguments arguments added to the path
      */
@@ -73,7 +73,7 @@ public final class IoUtil {
 
     /**
      * Filters from a collection of arbitrary file image files.
-     * 
+     *
      * @param  arbitraryFiles arbitrary files
      * @return                image files of <code>files</code>
      */

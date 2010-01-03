@@ -31,7 +31,7 @@ public final class ErrorEvent {
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param message Fehlernachricht
      * @param source  Fehlerquelle
      */
@@ -42,7 +42,7 @@ public final class ErrorEvent {
 
     /**
      * Liefert die Fehlernachricht.
-     * 
+     *
      * @return Fehlernachricht
      */
     public String getMessage() {
@@ -51,7 +51,7 @@ public final class ErrorEvent {
 
     /**
      * Liefert die Fehlerquelle (Objekt, bei dem der Fehler auftrat).
-     * 
+     *
      * @return Fehlerquelle
      */
     public Object getSource() {

@@ -146,7 +146,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         menuImageCollection.add(itemAddToImageCollection);
         menuImageCollection.add(itemDeleteFromImageCollection);
         add(menuImageCollection);
-        
+
         menuFsOps.add(itemCopyToClipboard);
         menuFsOps.add(itemCutToClipboard);
         menuFsOps.add(itemPasteFromClipboard);

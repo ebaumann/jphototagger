@@ -174,7 +174,7 @@ public final class TreeFileSystemDirectories {
     /**
      * Inserts into a model a file if the model has the type
      * {@link DefaultTreeModel}.
-     * 
+     *
      * @param model      model
      * @param parentNode parent node
      * @param file       file to insert as user object in a

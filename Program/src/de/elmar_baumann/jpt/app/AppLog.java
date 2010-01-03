@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  * Uses {@link Bundle} to get the messages. If a message must not be displayed
  * to the user, the following bundle key can be used: * {@link #USE_STRING}.
  * Example:
- * 
+ *
  * {@code
  * AppLog.logFiner(MyClass.class, AppLog.USE_STRING, "For developers only");
  * }
@@ -106,7 +106,7 @@ public final class AppLog {
     /**
      * Logs an exception with the class' logger and notifies the error listeners.
      * The log level is {@link java.util.logging.Level#SEVERE}.
-     * 
+     *
      * @param c   logger's class
      * @param ex  Exception
      */

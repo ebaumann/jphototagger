@@ -101,14 +101,14 @@ public final class CopyFiles implements Runnable {
      * das mit {@link  de.elmar_baumann.jpt.event.ProgressEvent#getInfo()}
      * ein {@link de.elmar_baumann.lib.generics.Pair}-Objekt liefert mit der
      * aktuellen Quelldatei als erstes Element und der Zieldatei als zweites.
-     * 
+     *
      * {@link de.elmar_baumann.jpt.event.listener.ProgressListener#progressEnded(de.elmar_baumann.jpt.event.ProgressEvent)}
      * liefert ein
      * {@link  de.elmar_baumann.jpt.event.ProgressEvent}-Objekt,
      * das mit {@link  de.elmar_baumann.jpt.event.ProgressEvent#getInfo()}
      * ein {@link java.util.List}-Objekt mit den Dateinamen der Dateien, die nicht
      * kopiert werden konnten.
-     * 
+     *
      * @param listener  Beobachter
      */
     public synchronized void addProgressListener(ProgressListener listener) {

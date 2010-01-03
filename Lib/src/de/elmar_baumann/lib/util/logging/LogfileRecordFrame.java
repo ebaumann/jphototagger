@@ -63,7 +63,7 @@ public final class LogfileRecordFrame {
     /**
      * Liefert ob die Zeilennummer innerhalb der Quellcodedatei der Klasse
      * existiert.
-     * 
+     *
      * @return true, falls existent
      */
     public boolean hasLine() {
@@ -105,7 +105,7 @@ public final class LogfileRecordFrame {
 
     /**
      * Liefert, ob ein Teilstring in irgendeinem der Inhalte vorkommt.
-     * 
+     *
      * @param substring Teilstring
      * @return  true, wenn der Teilstring in irgendeinem der Inhalte vorkommt
      * @throws  NullPointerException if substring is null

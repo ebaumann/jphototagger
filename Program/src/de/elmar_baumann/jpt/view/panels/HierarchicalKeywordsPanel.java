@@ -26,7 +26,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 /**
  * A tree for hierarchical keywords.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-10
  */

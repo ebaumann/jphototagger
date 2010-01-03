@@ -28,7 +28,7 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-28
@@ -40,7 +40,7 @@ public final class FormatterFactory {
     private static DefaultFormatterFactory dateFormatterFactory;
     private static DefaultFormatterFactory defaultFormatterFactory =
             new DefaultFormatterFactory(new DefaultFormatter());
-    
+
 
     static {
         try {

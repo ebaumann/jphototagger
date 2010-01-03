@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
@@ -72,16 +71,15 @@ import javax.swing.tree.TreeSelectionModel;
 
 /**
  * Panel der Anwendung.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class AppPanel extends javax.swing.JPanel implements
-        AppExitListener {
+public final class AppPanel extends javax.swing.JPanel implements AppExitListener {
 
-    private static final String      KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain"; //
-    private static final String      KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails"; //
-    private static final String      KEY_KEYWORDS_VIEW                   = "AppPanel.KeywordsView"; //
+    private static final String      KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain";
+    private static final String      KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails";
+    private static final String      KEY_KEYWORDS_VIEW                   = "AppPanel.KeywordsView";
     private static final int         DEFAULT_DIVIDER_LOCATION_MAIN       = 100;
     private static final int         DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
     private final List<JTable>       xmpTables                           = new ArrayList<JTable>();
@@ -463,11 +461,11 @@ public final class AppPanel extends javax.swing.JPanel implements
     public SettingsHints getPersistentSettingsHints() {
         SettingsHints hints     = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         String        className = getClass().getName();
-        hints.addExclude(className + ".textFieldSearch"); //
-        hints.addExclude(className + ".panelEditMetadata"); //
-        hints.addExclude(className + ".treeDirectories"); //
-        hints.addExclude(className + ".treeFavorites"); //
-        //hints.addExclude(className + ".listNoMetadata"); //
+        hints.addExclude(className + ".textFieldSearch");
+        hints.addExclude(className + ".panelEditMetadata");
+        hints.addExclude(className + ".treeDirectories");
+        hints.addExclude(className + ".treeFavorites");
+        //hints.addExclude(className + ".listNoMetadata");
         return hints;
     }
 
@@ -512,12 +510,12 @@ public final class AppPanel extends javax.swing.JPanel implements
             return this.equals(INFO);
         }
     }
-    
+
     public void showMessage(String message, MessageType type, final long milliseconds) {
         labelInfo.setForeground(type.isError() ? Color.RED : Color.BLACK);
         labelInfo.setText(message);
         Thread thread = new Thread(new HideInfoMessage(milliseconds));
-        thread.setName("Hiding message popup @ " + getClass().getSimpleName()); //
+        thread.setName("Hiding message popup @ " + getClass().getSimpleName());
         thread.setPriority(Thread.MIN_PRIORITY);
         thread.start();
     }
@@ -527,8 +525,8 @@ public final class AppPanel extends javax.swing.JPanel implements
         TreeUtil.expandAll(treeSelHierarchicalKeywords, selected);
         buttonToggleExpandAllNodesHierKw.setText(
                 selected
-                ? Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected") //
-                : Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected")); //
+                ? Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
     private void displayCard(String name) {

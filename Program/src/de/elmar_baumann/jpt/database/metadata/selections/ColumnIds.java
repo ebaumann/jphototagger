@@ -107,7 +107,7 @@ public final class ColumnIds {
 
     /**
      * Liefert eine Spalte mit bestimmter ID.
-     * 
+     *
      * @param  id ID
      * @return Spalte oder null bei ungültiger ID
      */
@@ -117,7 +117,7 @@ public final class ColumnIds {
 
     /**
      * Liefert die ID einer Spalte.
-     * 
+     *
      * @param  column Spalte
      * @return ID
      */

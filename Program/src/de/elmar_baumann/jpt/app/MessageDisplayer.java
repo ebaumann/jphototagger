@@ -69,7 +69,7 @@ public final class MessageDisplayer {
 
     /**
      * Displays an error message.
-     * 
+     *
      * @param component   parent component or null
      * @param propertyKey property key for {@link Bundle}. If in the property
      *                    file exists a key having the same name plus the

@@ -73,7 +73,7 @@ public final class DatabaseImageCollectionEvent {
 
     /**
      * Returns the event type.
-     * 
+     *
      * @return event type
      */
     public Type getType() {
@@ -91,7 +91,7 @@ public final class DatabaseImageCollectionEvent {
 
     /**
      * Returns the affected image filenames.
-     * 
+     *
      * @return affected image filenames
      */
     public Set<String> getFilenames() {

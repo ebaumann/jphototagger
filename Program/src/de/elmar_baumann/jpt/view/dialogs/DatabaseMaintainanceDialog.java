@@ -28,7 +28,7 @@ import java.util.EnumSet;
 
 /**
  * Modaler Dialog zur Wartung der Thumbnaildatenbank.
- * 
+ *
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
 public final class DatabaseMaintainanceDialog extends Dialog {

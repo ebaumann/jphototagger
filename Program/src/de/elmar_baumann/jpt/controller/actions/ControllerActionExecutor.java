@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.view.dialogs.ActionsDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 
 /**
- * Executes actions of the dialog 
+ * Executes actions of the dialog
  * {@link de.elmar_baumann.jpt.view.dialogs.ActionsDialog}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>

@@ -27,7 +27,7 @@ import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-30

@@ -48,7 +48,7 @@ public final class StartPrograms {
 
     /**
      * Constructor.
-     * 
+     *
      * @param progressBar  progressbar or null, if the progress shouldn't be
      *                     displayed
      */
@@ -58,7 +58,7 @@ public final class StartPrograms {
 
     /**
      * Executes a program.
-     * 
+     *
      * @param  program     program
      * @param  imageFiles  files to process
      */

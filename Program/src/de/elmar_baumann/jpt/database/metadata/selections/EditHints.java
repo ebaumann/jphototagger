@@ -50,7 +50,7 @@ public final class EditHints {
 
     /**
      * Konstruktor.
-     * 
+     *
      * @param repeatable     true, wenn der Spaltenwert sich wiederholt
      * @param sizeEditField  Größenvorschlag
      */
@@ -61,7 +61,7 @@ public final class EditHints {
 
     /**
      * Liefert, ob der Spaltenwert sich wiederholt.
-     * 
+     *
      * @return true, wenn der Spaltenwert sich wiederholt
      */
     public boolean isRepeatable() {
@@ -70,7 +70,7 @@ public final class EditHints {
 
     /**
      * Liefert den Größenvorschlag.
-     * 
+     *
      * @return Größenvorschlag
      */
     public SizeEditField getSizeEditField() {

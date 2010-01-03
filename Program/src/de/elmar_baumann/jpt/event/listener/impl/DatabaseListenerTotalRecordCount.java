@@ -46,7 +46,7 @@ public final class DatabaseListenerTotalRecordCount implements DatabaseListener 
 
     /**
      * Sets wheter to listen to the database.
-     * 
+     *
      * @param listen  true if listen. Default: false
      */
     public void setListenToDatabase(boolean listen) {
@@ -56,7 +56,7 @@ public final class DatabaseListenerTotalRecordCount implements DatabaseListener 
     /**
      * Fügt ein Label hinzu. In dieses wird die Anzahl der Datensätze nach
      * Modifikationen der Datenbank geschrieben.
-     * 
+     *
      * @param label Label
      */
     public void addLabel(JLabel label) {
@@ -65,7 +65,7 @@ public final class DatabaseListenerTotalRecordCount implements DatabaseListener 
 
     /**
      * Entfernt ein Label.
-     * 
+     *
      * @param label Label
      */
     public void removeLabel(JLabel label) {

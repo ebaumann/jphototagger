@@ -35,7 +35,7 @@ public abstract class Table {
 
     /**
      * Erzeugt eine Instanz.
-     * 
+     *
      * @param name Tabellenname
      */
     protected Table(String name) {
@@ -44,7 +44,7 @@ public abstract class Table {
 
     /**
      * Liefert den Tabellennamen.
-     * 
+     *
      * @return Tabellenname
      */
     public String getName() {
@@ -71,7 +71,7 @@ public abstract class Table {
 
     /**
      * Fügt der Tabelle eine Spalte hinzu. Setzt diese Tabelle bei der Spalte.
-     * 
+     *
      * @param column Spalte
      * @see          de.elmar_baumann.jpt.database.metadata.Column#setTable(de.elmar_baumann.jpt.database.metadata.Table)
      */
@@ -85,7 +85,7 @@ public abstract class Table {
 
     /**
      * Liefert die Spalten der Tabelle.
-     * 
+     *
      * @return Spalten
      */
     public List<Column> getColumns() {
@@ -97,7 +97,7 @@ public abstract class Table {
 
     /**
      * Liefert alle Spalten, die Spalten einer anderen Tabelle referenzieren.
-     * 
+     *
      * @return Referenzspalten
      */
     public List<Column> getReferenceColumns() {
@@ -115,7 +115,7 @@ public abstract class Table {
     /**
      * Liefert, ob die Tabelle Spalten hat, die Spalten anderer Tabellen
      * referenzieren (Fremdschlüsselspalten):
-     * 
+     *
      * @return true, wenn die Tabelle Fremdschlüsselspalten hat
      */
     public boolean hasReferenceColumns() {
@@ -124,7 +124,7 @@ public abstract class Table {
 
     /**
      * Liefert die Spalten, die eine bestimmte Tabelle referenzieren.
-     * 
+     *
      * @param table Tabelle
      * @return Spalten
      */
@@ -141,7 +141,7 @@ public abstract class Table {
 
     /**
      * Liefert alle Spalten, die den Primärschlüssel bilden.
-     * 
+     *
      * @return Primärschlüsselspalten
      */
     public List<Column> getPrimaryKeyColumns() {

@@ -48,7 +48,7 @@ public enum Operator {
 
     /**
      * Liefert die ID des Operators.
-     * 
+     *
      * @return ID
      */
     public int getId() {
@@ -57,7 +57,7 @@ public enum Operator {
 
     /**
      * Liefert einen Operator mit bestimmter ID.
-     * 
+     *
      * @param  id ID
      * @return Operator oder null bei ungültiger ID
      */
@@ -72,7 +72,7 @@ public enum Operator {
 
     /**
      * Liefert die Verknüpfung in der Landessprache.
-     * 
+     *
      * @return Lokalisierter String.
      */
     public String toLocalizedString() {
@@ -81,7 +81,7 @@ public enum Operator {
 
     /**
      * Liefert den String für ein SQL-Statement.
-     * 
+     *
      * @return SQL-String
      */
     public String toSqlString() {

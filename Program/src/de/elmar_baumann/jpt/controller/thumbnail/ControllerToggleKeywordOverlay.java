@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * 
+ *
  *
  * @author  Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-16

@@ -45,7 +45,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * EXIF-Daten eines Bilds.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
@@ -67,7 +67,7 @@ public final class TableModelExif extends DefaultTableModel {
 
     /**
      * Returns the file.
-     * 
+     *
      * @return file or null if not set
      */
     public File getFile() {
@@ -76,7 +76,7 @@ public final class TableModelExif extends DefaultTableModel {
 
     /**
      * Sets the file with exif metadata to be displayed.
-     * 
+     *
      * @param file file
      */
     public void setFile(File file) {

@@ -37,10 +37,10 @@ final class UpdateTablesDropColumns {
     private final        UpdateTablesMessages messages    = UpdateTablesMessages.INSTANCE;
     private final        List<ColumnInfo>     dropColumns = new ArrayList<ColumnInfo>();
     private static final List<ColumnInfo>     COLUMNS     = new ArrayList<ColumnInfo>();
-    
+
 
     static {
-        
+
         COLUMNS.add(new ColumnInfo("xmp_dc_subjects"        , "id", null, null));
         COLUMNS.add(new ColumnInfo("autoscan_directories"   , "id", null, null));
         COLUMNS.add(new ColumnInfo("favorite_directories"   , "id", null, null));

@@ -28,16 +28,16 @@ import java.util.logging.Logger;
 /**
  * Liest aus einer <em>Nicht</em>-XMP-Datei die XMP-Daten. Voraussetzung ist,
  * dass diese in einen <strong>XMP Packet Wrapper</strong> eingeschlossen sind.
- * 
+ *
  * Motivation: Das Adobe XMP SDK hat für Java (noch) nicht XMPFiles
  * implementiert.
- * 
+ *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
  * <strong>Bug:</strong> Liest nur UTF-8-kodierte XMP-Pakete richtig.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2007-11-08
  */
@@ -55,15 +55,15 @@ public final class XmpFileReader {
 
     /**
      * Liest eine Datei und liefert einen String mit den XMP-Informationen.
-     * 
+     *
      * Es wird alles geliefert was dem Tag '<?xpacket ... ?>' folgt bis
      * einschließlich '</x:xmpmeta>'. Nach weiteren XMP-Paketen wird nicht
      * gesucht.
-     * 
+     *
      * Die Validität des Packets wird nicht geprüft (Sind die required-Attribute
      * begin und id definiert? Sind ihre Werte gültig? Ist das gesamte Tag
      * gültig?).
-     * 
+     *
      * @param filename Name der Datei
      * @return         String mit den XMP-Informationen aus der Datei oder null, wenn
      *                 die Datei nicht existiert, keine XMP-Informationen enthält oder
@@ -126,7 +126,7 @@ public final class XmpFileReader {
 
     /**
      * Liefert, ob eine Datei XMP-Informationen enthält.
-     * 
+     *
      * @param filename Dateiname
      * @return         true, wenn die Datei XMP-Informationen enthält
      */

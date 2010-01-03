@@ -40,7 +40,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.
- * 
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-18
  */
@@ -94,7 +94,7 @@ public final class EditTextEntryPanel
 
     @Override
     public void empty(boolean dirty) {
-        textAreaEdit.setText(""); //
+        textAreaEdit.setText("");
         this.dirty = dirty;
     }
 
@@ -140,19 +140,19 @@ public final class EditTextEntryPanel
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText()); //
+        notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText()); //
+        notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        notifyTextChanged(column, "", textAreaEdit.getText()); //
+        notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
     }
 
@@ -205,7 +205,7 @@ public final class EditTextEntryPanel
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text")); //
+        labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text"));
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

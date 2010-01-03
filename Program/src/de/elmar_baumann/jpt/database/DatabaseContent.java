@@ -28,7 +28,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-21
@@ -42,7 +42,7 @@ public final class DatabaseContent extends Database {
 
     /**
      * Liefert den Inhalt einer ganzen Tabellenspalte.
-     * 
+     *
      * @param column Tabellenspalte
      * @return Werte DISTINCT
      */
@@ -79,7 +79,7 @@ public final class DatabaseContent extends Database {
 
     /**
      * Liefert den Inhalt von Tabellenspalten.
-     * 
+     *
      * @param columns Tabellenspalten
      * @return Werte DISTINCT
      */

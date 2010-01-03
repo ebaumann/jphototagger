@@ -28,7 +28,7 @@ import javax.swing.TransferHandler;
 
 /**
  * Transfer handler for {@link AppPanel#getListKeywords() }.
- * 
+ *
  * Creates a {@link Transferable} with selected keywords as content. The
  * transferable is a {@link TransferableObject} instance which supports the data
  * flavor {@link Flavors#KEYWORDS_FLAVOR}.

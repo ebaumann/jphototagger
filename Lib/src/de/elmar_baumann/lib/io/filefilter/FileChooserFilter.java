@@ -40,7 +40,7 @@ public final class FileChooserFilter extends javax.swing.filechooser.FileFilter 
     /**
      * Returns {@link java.io.FileFilter#accept(java.io.File)} from this
      * instance.
-     * 
+     *
      * @param  f  file
      * @return true when accepted
      */

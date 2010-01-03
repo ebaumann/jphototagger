@@ -42,7 +42,7 @@ public final class TransferHandlerDragListItems extends TransferHandler {
 
     /**
      * Returns all selected items.
-     * 
+     *
      * @param  c component
      * @return   transferrable
      */

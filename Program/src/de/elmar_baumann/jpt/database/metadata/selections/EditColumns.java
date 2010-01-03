@@ -51,7 +51,7 @@ public final class EditColumns {
 
     private static final Map<Column, EditHints> EDIT_HINT_OF_COLUMN =
             new LinkedHashMap<Column, EditHints>();
-    
+
 
     static {
         EditHints notRepeatableHintSmall = new EditHints(false, SizeEditField.SMALL);

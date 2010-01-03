@@ -24,14 +24,14 @@ import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 
 /**
  * Listens to events in the database.
- * 
+ *
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
 public interface DatabaseListener {
 
     /**
      * An image event occured.
-     * 
+     *
      * @param event event
      */
     public void actionPerformed(DatabaseImageEvent event);

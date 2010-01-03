@@ -22,7 +22,7 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-14
@@ -33,7 +33,7 @@ final class Util {
         String leftSuffix  = Util.filenameSuffix(leftFile);
         String rightSuffix = Util.filenameSuffix(rightFile);
 
-        boolean suffixesEquals = ignoreCase 
+        boolean suffixesEquals = ignoreCase
                 ? leftSuffix.equalsIgnoreCase(rightSuffix)
                 : leftSuffix.equals(rightSuffix);
 

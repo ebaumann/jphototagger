@@ -29,7 +29,7 @@ import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
 
 /**
- * 
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-24
@@ -50,7 +50,7 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     /**
      * Liefert den ausgewählten Verzeichnisnamen.
-     * 
+     *
      * @return Name oder null, wenn nicht auf ein Verzeichnis geklickt wurde
      */
     public String getDirectoryName() {
@@ -59,7 +59,7 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     /**
      * Setzt den Verzeichnisnamen, auf den geklickt wurde.
-     * 
+     *
      * @param directoryName  Verzeichnisname
      */
     public void setDirectoryName(String directoryName) {

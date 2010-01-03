@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -50,7 +50,7 @@ import java.io.Serializable;
  * </p>
  */
 public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellEditor, Serializable {
-    
+
     /** the combo box */
     private JComboBox comboBox;
 
@@ -60,13 +60,13 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
      */
     public ComboBoxCellEditor(final JComboBox comboBox) {
         this.comboBox = comboBox;
-        
+
         Handler handler = new Handler();
-        
+
         // Don't do this:
         // this.comboBox.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         // it probably breaks various things
-        
+
         // hitting enter in the combo box should stop cellediting
         JComponent editorComponent = (JComponent) comboBox.getEditor().getEditorComponent();
         editorComponent.addKeyListener(handler);
@@ -77,7 +77,7 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
         // the new editor component needs to be modified then (keyListener, border)
         comboBox.addPropertyChangeListener(handler);
     }
-    
+
     // ------ Implementing CellEditor ------
     /**
      * Returns the value contained in the combo box
@@ -86,7 +86,7 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
     public Object getCellEditorValue() {
         return comboBox.getSelectedItem();
     }
-    
+
     /**
      * Tells the combo box to stop editing and accept any partially edited value as the value of the combo box.
      * Always returns true.
@@ -100,7 +100,7 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
         fireEditingStopped();
         return true;
     }
-    
+
     // ------ Implementing TableCellEditor ------
     /**
      * Sets an initial value for the combo box.
@@ -117,14 +117,14 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
         comboBox.setSelectedItem(value);
         return comboBox;
     }
-    
+
     // ------ Implementing TreeCellEditor ------
 //    public java.awt.Component getTreeCellEditorComponent(javax.swing.JTree tree, Object value, boolean isSelected, boolean expanded, boolean leaf, int row) {
 //        String stringValue = tree.convertValueToText(value, isSelected, expanded, leaf, row, false);
 //        comboBox.setSelectedItem(stringValue);
 //        return comboBox;
 //    }
-    
+
     class Handler extends KeyAdapter implements PropertyChangeListener {
         public void keyPressed(KeyEvent keyEvent) {
             int keyCode = keyEvent.getKeyCode();
