@@ -21,7 +21,11 @@ package de.elmar_baumann.lib.component;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
 /**
@@ -32,32 +36,41 @@ import javax.swing.text.Document;
  * <p>
  * Can be used as custom control within the <strong>NetBeans</strong> IDE:
  * Changing the property <code>imagePath</code> changes the background image.
+ * <p>
+ * When the field contains text, the image will not be displayed to avoid
+ * overlaying the text. If the text field is empty, the image will be displayed.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-30
  */
-public final class ImageTextField extends JTextField {
+public final class ImageTextField extends JTextField implements KeyListener {
 
-    private   Image  image;
-    protected String imagePath;
+    private   Image   image;
+    private   boolean paintImage;
+    protected String  imagePath;
 
     public ImageTextField(Document doc, String text, int columns) {
         super(doc, text, columns);
+        addKeyListener(this);
     }
 
     public ImageTextField(String text, int columns) {
         super(text, columns);
+        addKeyListener(this);
     }
 
     public ImageTextField(int columns) {
         super(columns);
+        addKeyListener(this);
     }
 
     public ImageTextField(String text) {
         super(text);
+        addKeyListener(this);
     }
 
     public ImageTextField() {
+        addKeyListener(this);
     }
 
     /**
@@ -77,7 +90,8 @@ public final class ImageTextField extends JTextField {
     public void setImagePath(String imagePath) {
 
         this.imagePath = imagePath;
-        this.image     = IconUtil.getIconImage(imagePath);
+        image          = IconUtil.getIconImage(imagePath);
+        paintImage     = image != null;
 
         setOpaque(false);
     }
@@ -91,6 +105,7 @@ public final class ImageTextField extends JTextField {
 
         this.image     = image;
         this.imagePath = null;
+        paintImage     = image != null;
 
         setOpaque(false);
     }
@@ -103,12 +118,30 @@ public final class ImageTextField extends JTextField {
 
     private void drawImage(Graphics g) {
 
-        if (image == null) return;
+        if (paintImage) {
 
-        int imgHeight  = image.getHeight(this);
-        int thisHeight = getHeight();
-        int imgY       = imgHeight >= thisHeight ? 0 : (int) (((double)(thisHeight - imgHeight)) / 2.0 + 0.5);
+            int imgHeight  = image.getHeight(this);
+            int thisHeight = getHeight();
+            int imgY       = imgHeight >= thisHeight ? 0 : (int) (((double)(thisHeight - imgHeight)) / 2.0 + 0.5);
 
-        g.drawImage(image, 0, imgY, this);
+            g.drawImage(image, 0, imgY, this);
+
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        paintImage = getDocument().getLength() <= 0 && e.getKeyChar() < 20;
+        setOpaque(!paintImage);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // ignore
     }
 }
