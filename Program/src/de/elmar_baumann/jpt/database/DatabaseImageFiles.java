@@ -122,40 +122,65 @@ public final class DatabaseImageFiles extends Database {
         return files;
     }
 
+    private long getFileCountNameStartingWith(Connection connection, String start) throws SQLException {
+        long              count = 0;
+        String            sql   = "SELECT COUNT(*) FROM files WHERE filename LIKE ?";
+        PreparedStatement stmt  = connection.prepareStatement(sql);
+
+        stmt.setString(1, start + "%");
+        logFinest(stmt);
+
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            count = rs.getLong(1);
+        }
+        return count;
+    }
+
     /**
      * Renames filenames starting with a substring. Usage: Renaming a directory
      * in the filesystem.
      *
-     * @param  start    start substring of the old filenames
-     * @param  newStart new start substring
-     * @return          count of renamed files
+     * @param  start           start substring of the old filenames
+     * @param  newStart        new start substring
+     * @param progressListener null or progress listener. The progress listener
+     *                         can stop renaming via
+     *                         {@link ProgressEvent#setStop(boolean)} (no rollback).
+     * @return                 count of renamed files
      */
-    public synchronized int updateRenameImageFilenamesStartingWith(String start, String newStart) {
+    public synchronized int updateRenameImageFilenamesStartingWith(
+            final String start, final String newStart, final ProgressListener progressListener) {
 
         if (start.equals(newStart)) return 0;
 
-        int        count      = 0;
-        Connection connection = null;
+              int           countRenamed  = 0;
+        final int           startLength   = start.length();
+              Connection    connection    = null;
+        final ProgressEvent progressEvent = new ProgressEvent(this, 0, 0, 0, null);
         try {
             connection = getConnection();
-
             connection.setAutoCommit(true);
 
-            String            sql  = "SELECT filename FROM files WHERE filename LIKE ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            String            sql           = "SELECT filename FROM files WHERE filename LIKE ?";
+            PreparedStatement stmt          = connection.prepareStatement(sql);
 
             stmt.setString(1, start + "%");
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
 
-            int startLength = start.length();
-            while (rs.next()) {
+            progressEvent.setMaximum((int) getFileCountNameStartingWith(connection, start));
+            boolean stop = notifyProgressListenerStart(progressListener, progressEvent);
+
+            while (!stop && rs.next()) {
 
                 String oldFilename = rs.getString(1);
                 String newFilename = newStart + oldFilename.substring(startLength);
 
                 updateFilename(connection, oldFilename, newFilename);
-                count++;
+                countRenamed++;
+
+                progressEvent.setValue(countRenamed);
+                stop = notifyProgressListenerPerformed(progressListener, progressEvent);
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -163,9 +188,10 @@ public final class DatabaseImageFiles extends Database {
             rollback(connection);
         } finally {
             free(connection);
+            notifyProgressListenerEnd(progressListener, null);
         }
 
-        return count;
+        return countRenamed;
     }
 
     private void updateFilename(Connection connection, String oldFileName, String newFileName) throws SQLException {

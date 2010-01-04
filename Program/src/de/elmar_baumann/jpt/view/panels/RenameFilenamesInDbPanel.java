@@ -20,17 +20,14 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
-import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
+import de.elmar_baumann.jpt.event.ProgressEvent;
+import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.types.SubstringPosition;
 import de.elmar_baumann.lib.util.SettingsHints;
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.JRadioButton;
+import javax.swing.JPanel;
 
 /**
  * Uses
@@ -40,12 +37,8 @@ import javax.swing.JRadioButton;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-16
  */
-public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
+public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener {
 
-    private final Map<JRadioButton, SubstringPosition> stringPositionOfRadioButton =
-            new HashMap<JRadioButton, SubstringPosition>();
-    private final List<JRadioButton> radioButtonsPositions =
-            new ArrayList<JRadioButton>(5);
     private volatile boolean runs;
 
     public RenameFilenamesInDbPanel() {
@@ -54,97 +47,69 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
     }
 
     private void postInitComponents() {
-        initStringPositionsOfRadioButtons();
-        initRadioButtonList();
-        UserSettings.INSTANCE.getSettings().getComponent(this,
-                new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
         setButtonReplaceEnabled();
-    }
-
-    private void initStringPositionsOfRadioButtons() {
-        stringPositionOfRadioButton.put(radioButtonExactMatch,
-                SubstringPosition.EXACT_MATCH);
-        stringPositionOfRadioButton.put(radioButtonPositionAnywhere,
-                SubstringPosition.ANYWHERE);
-        stringPositionOfRadioButton.put(radioButtonPositionBegin,
-                SubstringPosition.BEGIN);
-        stringPositionOfRadioButton.put(radioButtonPositionEnd,
-                SubstringPosition.END);
-        stringPositionOfRadioButton.put(radioButtonPositionMiddle,
-                SubstringPosition.MIDDLE);
-    }
-
-    private void initRadioButtonList() {
-        radioButtonsPositions.add(radioButtonExactMatch);
-        radioButtonsPositions.add(radioButtonPositionAnywhere);
-        radioButtonsPositions.add(radioButtonPositionBegin);
-        radioButtonsPositions.add(radioButtonPositionEnd);
-        radioButtonsPositions.add(radioButtonPositionMiddle);
     }
 
     public boolean runs() {
         return runs;
     }
 
-    private boolean radioButtonPositionSelected() {
-        for (JRadioButton radioButton : radioButtonsPositions) {
-            if (radioButton.isSelected()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private synchronized JRadioButton getSelectedRadioButton() {
-        for (JRadioButton radioButton : radioButtonsPositions) {
-            if (radioButton.isSelected()) {
-                return radioButton;
-            }
-        }
-        return null;
-    }
-
-    private void replace() {
+    private void replace(final ProgressListener progressListener) {
         if (confirmReplace()) {
             runs = true;
-            buttonReplace.setEnabled(false);
+            setInputEnabled(false);
             Thread thread = new Thread(new Runnable() {
 
                 @Override
                 public void run() {
-                    JRadioButton selectedRadioButton = getSelectedRadioButton();
-                    if (selectedRadioButton != null) {
-                        progressBar.setIndeterminate(true);
-                        int count = DatabaseMaintainance.INSTANCE.replaceString(
-                                ColumnFilesFilename.INSTANCE,
-                                textFieldSearch.getText(),
-                                textFieldReplacement.getText(),
-                                stringPositionOfRadioButton.get(
-                                selectedRadioButton));
-                        progressBar.setIndeterminate(false);
-                        informationReplaced(count);
-                    }
+                    int count = DatabaseImageFiles.INSTANCE.updateRenameImageFilenamesStartingWith(
+                            textFieldSearch.getText(),
+                            textFieldReplacement.getText(),
+                            progressListener);
+                    MessageDisplayer.information(null, "RenameFilenamesInDbPanel.Info.Count", count);
                     runs = false;
-                    buttonReplace.setEnabled(true);
                 }
 
-                private void informationReplaced(int count) {
-                    MessageDisplayer.information(
-                            null,
-                            "RenameFilenamesInDbPanel.Info.CountReplaced", count);
-                }
             });
             thread.setName("Replacing filename substrings in the database @ " + getClass().getSimpleName());
             thread.start();
         }
     }
 
+    @Override
+    public void progressStarted(ProgressEvent evt) {
+        progressBar.setMinimum(evt.getMinimum());
+        progressBar.setMaximum(evt.getMaximum());
+        progressBar.setValue(evt.getValue());
+    }
+
+    @Override
+    public void progressPerformed(ProgressEvent evt) {
+        progressBar.setValue(evt.getValue());
+    }
+
+    @Override
+    public void progressEnded(ProgressEvent evt) {
+        progressBar.setValue(0);
+        setInputEnabled(true);
+    }
+
+    private void setInputEnabled(boolean enabled) {
+        buttonReplace       .setEnabled(enabled);
+        textFieldSearch     .setEnabled(enabled);
+        textFieldReplacement.setEnabled(enabled);
+    }
+
     private void setButtonReplaceEnabled() {
-        String searchText = textFieldSearch.getText().trim();
-        String replacementText = textFieldReplacement.getText().trim();
-        boolean equals = searchText.equals(replacementText);
-        buttonReplace.setEnabled(!searchText.isEmpty() && !equals &&
-                radioButtonPositionSelected());
+        String  searchText      = textFieldSearch.getText().trim();
+        String  replacementText = textFieldReplacement.getText().trim();
+        boolean textsEquals     = searchText.equals(replacementText);
+
+        buttonReplace.setEnabled(
+                !searchText.isEmpty() &&
+                !replacementText.isEmpty() &&
+                !textsEquals);
     }
 
     private boolean confirmReplace() {
@@ -155,8 +120,7 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
     }
 
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setComponent(
-                this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -175,21 +139,14 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
         textFieldSearch = new javax.swing.JTextField();
         labelReplacement = new javax.swing.JLabel();
         textFieldReplacement = new javax.swing.JTextField();
-        panelPosition = new javax.swing.JPanel();
-        radioButtonPositionBegin = new javax.swing.JRadioButton();
-        radioButtonPositionMiddle = new javax.swing.JRadioButton();
-        radioButtonPositionEnd = new javax.swing.JRadioButton();
-        radioButtonPositionAnywhere = new javax.swing.JRadioButton();
-        radioButtonExactMatch = new javax.swing.JRadioButton();
         progressBar = new javax.swing.JProgressBar();
         buttonReplace = new javax.swing.JButton();
 
         labelTitle.setForeground(new java.awt.Color(0, 0, 255));
-        labelTitle.setText(Bundle.getString("RenameFilenamesInDbPanel.labelTitle.text"));
-        labelTitle.setPreferredSize(new java.awt.Dimension(605, 38));
+        labelTitle.setText(Bundle.getString("RenameFilenamesInDbPanel.labelTitle.text")); // NOI18N
 
         labelSearch.setForeground(new java.awt.Color(0, 196, 0));
-        labelSearch.setText(Bundle.getString("RenameFilenamesInDbPanel.labelSearch.text"));
+        labelSearch.setText(Bundle.getString("RenameFilenamesInDbPanel.labelSearch.text")); // NOI18N
 
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -198,55 +155,16 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
         });
 
         labelReplacement.setForeground(new java.awt.Color(0, 196, 0));
-        labelReplacement.setText(Bundle.getString("RenameFilenamesInDbPanel.labelReplacement.text"));
+        labelReplacement.setText(Bundle.getString("RenameFilenamesInDbPanel.labelReplacement.text")); // NOI18N
 
-        panelPosition.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameFilenamesInDbPanel.panelPosition.border.title")));
-
-        buttonGroupPosition.add(radioButtonPositionBegin);
-        radioButtonPositionBegin.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionBegin.text"));
-
-        buttonGroupPosition.add(radioButtonPositionMiddle);
-        radioButtonPositionMiddle.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionMiddle.text"));
-
-        buttonGroupPosition.add(radioButtonPositionEnd);
-        radioButtonPositionEnd.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionEnd.text"));
-
-        buttonGroupPosition.add(radioButtonPositionAnywhere);
-        radioButtonPositionAnywhere.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonPositionAnywhere.text"));
-
-        buttonGroupPosition.add(radioButtonExactMatch);
-        radioButtonExactMatch.setText(Bundle.getString("RenameFilenamesInDbPanel.radioButtonExactMatch.text"));
-
-        javax.swing.GroupLayout panelPositionLayout = new javax.swing.GroupLayout(panelPosition);
-        panelPosition.setLayout(panelPositionLayout);
-        panelPositionLayout.setHorizontalGroup(
-            panelPositionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPositionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelPositionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioButtonExactMatch)
-                    .addComponent(radioButtonPositionAnywhere, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                    .addComponent(radioButtonPositionEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                    .addComponent(radioButtonPositionMiddle, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                    .addComponent(radioButtonPositionBegin, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelPositionLayout.setVerticalGroup(
-            panelPositionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPositionLayout.createSequentialGroup()
-                .addComponent(radioButtonPositionBegin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonPositionMiddle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonPositionEnd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonPositionAnywhere)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonExactMatch))
-        );
+        textFieldReplacement.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldReplacementKeyReleased(evt);
+            }
+        });
 
         buttonReplace.setMnemonic('n');
-        buttonReplace.setText(Bundle.getString("RenameFilenamesInDbPanel.buttonReplace.text"));
+        buttonReplace.setText(Bundle.getString("RenameFilenamesInDbPanel.buttonReplace.text")); // NOI18N
         buttonReplace.setEnabled(false);
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,17 +179,16 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelSearch, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelReplacement, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                            .addComponent(textFieldReplacement, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)))
-                    .addComponent(panelPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                            .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(textFieldReplacement, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                     .addComponent(buttonReplace, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -279,7 +196,7 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,12 +206,10 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
                     .addComponent(labelReplacement)
                     .addComponent(textFieldReplacement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonReplace)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textFieldReplacement, textFieldSearch});
@@ -302,25 +217,24 @@ public class RenameFilenamesInDbPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReplaceActionPerformed
-        replace();
+        replace(this);
     }//GEN-LAST:event_buttonReplaceActionPerformed
 
     private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSearchKeyReleased
         setButtonReplaceEnabled();
     }//GEN-LAST:event_textFieldSearchKeyReleased
+
+    private void textFieldReplacementKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldReplacementKeyReleased
+        setButtonReplaceEnabled();
+    }//GEN-LAST:event_textFieldReplacementKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupPosition;
     private javax.swing.JButton buttonReplace;
     private javax.swing.JLabel labelReplacement;
     private javax.swing.JLabel labelSearch;
     private javax.swing.JLabel labelTitle;
-    private javax.swing.JPanel panelPosition;
     private javax.swing.JProgressBar progressBar;
-    private javax.swing.JRadioButton radioButtonExactMatch;
-    private javax.swing.JRadioButton radioButtonPositionAnywhere;
-    private javax.swing.JRadioButton radioButtonPositionBegin;
-    private javax.swing.JRadioButton radioButtonPositionEnd;
-    private javax.swing.JRadioButton radioButtonPositionMiddle;
     private javax.swing.JTextField textFieldReplacement;
     private javax.swing.JTextField textFieldSearch;
     // End of variables declaration//GEN-END:variables

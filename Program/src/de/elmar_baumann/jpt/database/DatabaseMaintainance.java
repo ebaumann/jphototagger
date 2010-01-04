@@ -20,10 +20,7 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.types.SubstringPosition;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -35,11 +32,7 @@ import java.sql.Statement;
  */
 public final class DatabaseMaintainance extends Database {
 
-    public static final DatabaseMaintainance INSTANCE =
-            new DatabaseMaintainance();
-
-    private DatabaseMaintainance() {
-    }
+    public static final DatabaseMaintainance INSTANCE = new DatabaseMaintainance();
 
     /**
      * Shuts down the database.
@@ -82,49 +75,6 @@ public final class DatabaseMaintainance extends Database {
         return success;
     }
 
-    /**
-     * Replaces in a column all strings or substrings with another string.
-     *
-     * @param  column      column <em>has to be of the type</em>
-     *                     {@link Column#dataType}
-     * @param  search      string to replace
-     * @param  replacement string that replaces <code>search</code>
-     * @param  pos         position of the string to search
-     * @return             count of changed strings (affected rows)
-     */
-    public int replaceString(Column column, String search, String replacement,
-            SubstringPosition pos) {
-        int affectedRows = 0;
-        if (!column.getDataType().equals(Column.DataType.STRING))
-            return 0;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            String tableName = column.getTable().getName();
-            String columnName = column.getName();
-            String quotedSearch = escapeStringForQuotes(search);
-            String quotedReplacement = escapeStringForQuotes(replacement);
-            String sql = "UPDATE " + tableName + " SET " + columnName +
-                    " = REPLACE(" + columnName + ", '" + quotedSearch + "', '" +
-                    quotedReplacement + "') WHERE " + columnName + " " +
-                    SubstringPosition.getSqlFilterOperator(pos) + " ?"; //;
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, SubstringPosition.getSqlFilter(pos, search));
-            logFiner(stmt);
-            affectedRows = stmt.executeUpdate();
-            connection.commit();
-            stmt.close();
-        } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageFiles.class, ex);
-            rollback(connection);
-        } finally {
-            free(connection);
-        }
-        return affectedRows;
-    }
-
-    private String escapeStringForQuotes(String s) {
-        return s.replace("'", "\\'");
+    private DatabaseMaintainance() {
     }
 }

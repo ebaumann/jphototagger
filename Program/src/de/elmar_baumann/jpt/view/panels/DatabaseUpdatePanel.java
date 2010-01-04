@@ -117,16 +117,13 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         }
     }
 
-    private void handleButtonRenameFilesPerformed() {
-        // Modal dialog, nothing to disable
+    private void renameFilesInDb() {
         RenameFilenamesInDbDialog dlg =
                 new RenameFilenamesInDbDialog(GUI.INSTANCE.getAppFrame());
 
+        setEnabledAllButtons(false);
         dlg.setVisible(true);
-
-        if (MessageDisplayer.confirmYesNo(this, "DatabaseUpdatePanel.Confirm.UpdateThumbnailsAfterRen")) {
-            updateThumbnails();
-        }
+        setEnabledAllButtons(true);
     }
 
     private void checkStop(ProgressEvent evt) {
@@ -280,7 +277,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     }//GEN-LAST:event_toggleButtonRefreshExifActionPerformed
 
     private void buttonRenameFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameFilesActionPerformed
-        handleButtonRenameFilesPerformed();
+        renameFilesInDb();
     }//GEN-LAST:event_buttonRenameFilesActionPerformed
 
     private void toggleButtonRefreshXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshXmpActionPerformed
