@@ -77,23 +77,18 @@ public final class FileSystemDirectories {
      */
     public static File rename(File directory) {
         if (directory.isDirectory()) {
-            String newDirectoryName = TreeFileSystemDirectories.getNewName(
-                    directory);
-            if (newDirectoryName != null &&
-                    !newDirectoryName.trim().isEmpty()) {
-                File newDirectory = new File(directory.getParentFile(),
-                        newDirectoryName);
+            String newDirectoryName = TreeFileSystemDirectories.getNewName(directory);
+            if (newDirectoryName != null && !newDirectoryName.trim().isEmpty()) {
+
+                File newDirectory = new File(directory.getParentFile(), newDirectoryName);
                 if (TreeFileSystemDirectories.checkDoesNotExist(newDirectory)) {
                     try {
                         if (directory.renameTo(newDirectory)) {
-                            String oldParentDir = directory.getAbsolutePath() +
-                                    File.separator;
-                            String newParentDir =
-                                    newDirectory.getAbsolutePath() +
-                                    File.separator;
-                            int dbCount = DatabaseImageFiles.INSTANCE.
-                                    updateRenameImageFilenamesStartingWith(
-                                    oldParentDir, newParentDir);
+
+                            String oldParentDir = directory.getAbsolutePath() + File.separator;
+                            String newParentDir = newDirectory.getAbsolutePath() + File.separator;
+                            int    dbCount      = DatabaseImageFiles.INSTANCE.updateRenameImageFilenamesStartingWith(oldParentDir, newParentDir, null);
+
                             logInfoRenamed(directory, newDirectory, dbCount);
                             return newDirectory;
                         }
