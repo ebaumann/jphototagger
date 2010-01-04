@@ -37,28 +37,28 @@ import java.util.List;
  */
 public final class DatabaseTables extends Database {
 
-    private static final List<String> TABLE_NAMES = new ArrayList<String>();
-    public static final DatabaseTables INSTANCE = new DatabaseTables();
+    private static final List<String>   TABLE_NAMES = new ArrayList<String>();
+    public static final  DatabaseTables INSTANCE    = new DatabaseTables();
 
     static {
         // TODO PERMANENT: Update after adding a table
-        TABLE_NAMES.add("files");
-        TABLE_NAMES.add("xmp");
-        TABLE_NAMES.add("xmp_dc_subjects");
-        TABLE_NAMES.add("exif");
+        TABLE_NAMES.add("actions_after_db_insertion");
+        TABLE_NAMES.add("application");
+        TABLE_NAMES.add("autoscan_directories");
         TABLE_NAMES.add("collection_names");
         TABLE_NAMES.add("collections");
-        TABLE_NAMES.add("saved_searches");
-        TABLE_NAMES.add("saved_searches_values");
-        TABLE_NAMES.add("saved_searches_panels");
-        TABLE_NAMES.add("autoscan_directories");
-        TABLE_NAMES.add("metadata_edit_templates");
+        TABLE_NAMES.add("exif");
         TABLE_NAMES.add("favorite_directories");
         TABLE_NAMES.add("file_exclude_pattern");
-        TABLE_NAMES.add("programs");
-        TABLE_NAMES.add("actions_after_db_insertion");
+        TABLE_NAMES.add("files");
         TABLE_NAMES.add("hierarchical_subjects");
-        TABLE_NAMES.add("application");
+        TABLE_NAMES.add("metadata_edit_templates");
+        TABLE_NAMES.add("programs");
+        TABLE_NAMES.add("saved_searches");
+        TABLE_NAMES.add("saved_searches_panels");
+        TABLE_NAMES.add("saved_searches_values");
+        TABLE_NAMES.add("xmp");
+        TABLE_NAMES.add("xmp_dc_subjects");
     }
 
     public static List<String> getTableNames() {
