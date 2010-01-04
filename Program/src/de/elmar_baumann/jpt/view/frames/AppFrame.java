@@ -243,10 +243,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemAcceleratorKeys;
     }
 
-    public JMenuItem getMenuItemCopyKeywordsToHierarchicalKeywords() {
-        return menuItemCopyKeywordsToHierarchicalKeywords;
-    }
-
     public JMenuItem getMenuItemOutputWindow() {
         return menuItemOutputWindow;
     }
@@ -348,8 +344,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuTools = new javax.swing.JMenu();
         menuItemToolIptcToXmp = new javax.swing.JMenuItem();
         menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
-        jSeparator13 = new javax.swing.JPopupMenu.Separator();
-        menuItemCopyKeywordsToHierarchicalKeywords = new javax.swing.JMenuItem();
         menuWindow = new javax.swing.JMenu();
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
@@ -599,11 +593,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemExtractEmbeddedXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"))); // NOI18N
         menuItemExtractEmbeddedXmp.setText(Bundle.getString("AppFrame.menuItemExtractEmbeddedXmp.text")); // NOI18N
         menuTools.add(menuItemExtractEmbeddedXmp);
-        menuTools.add(jSeparator13);
-
-        menuItemCopyKeywordsToHierarchicalKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png"))); // NOI18N
-        menuItemCopyKeywordsToHierarchicalKeywords.setText(bundle.getString("AppFrame.menuItemCopyKeywordsToHierarchicalKeywords.text")); // NOI18N
-        menuTools.add(menuItemCopyKeywordsToHierarchicalKeywords);
 
         menuBar.add(menuTools);
 
@@ -660,7 +649,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
@@ -688,7 +676,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAcceleratorKeys;
     private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
-    private javax.swing.JMenuItem menuItemCopyKeywordsToHierarchicalKeywords;
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportKeywords;

@@ -56,7 +56,7 @@
         </page>
         <page>
             <url>mainwindow_panel_collections.html</url>
-            <title>Bildsammlungen</title>
+            <title>Fotoalben</title>
         </page>
         <page>
             <url>mainwindow_panel_keywords.html</url>
@@ -214,10 +214,6 @@
         <page>
             <url>action_metadata_embedded_xmp_to_xmp_sidecar_file.html</url>
             <title>Werkzeuge &gt; Eingebettete XMP-Daten in Filialdateien schreiben</title>
-        </page>
-        <page>
-            <url>action_copy_keywords_to_hierarchical_keywords.html</url>
-            <title>Werkzeuge &gt; Alle Stichwörter kopieren in den Stichwortbaum</title>
         </page>
         <page>
             <url>dialog_input_helpers.html</url>
