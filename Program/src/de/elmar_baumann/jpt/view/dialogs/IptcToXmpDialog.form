@@ -29,18 +29,18 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="progressBar" alignment="0" pref="661" max="32767" attributes="0"/>
                   <Component id="checkBoxSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelDirectoryName" alignment="0" pref="631" max="32767" attributes="1"/>
-                  <Component id="labelInfo" alignment="0" pref="631" max="32767" attributes="1"/>
+                  <Component id="labelDirectoryName" alignment="0" pref="661" max="32767" attributes="1"/>
+                  <Component id="labelInfo" alignment="0" pref="661" max="32767" attributes="1"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelDirectoryPrompt" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="458" max="32767" attributes="0"/>
                       <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="progressBar" alignment="0" pref="631" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -65,8 +65,8 @@
               <Component id="labelDirectoryName" min="-2" pref="18" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="checkBoxSubdirectories" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="progressBar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="progressBar" min="-2" pref="20" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonStart" alignment="3" min="-2" max="-2" attributes="0"/>

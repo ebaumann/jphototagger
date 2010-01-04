@@ -632,9 +632,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelColumn3 = new de.elmar_baumann.jpt.view.panels.SearchColumnPanel();
         panelColumn4 = new de.elmar_baumann.jpt.view.panels.SearchColumnPanel();
         panelColumn5 = new de.elmar_baumann.jpt.view.panels.SearchColumnPanel();
-        buttonAddColumn = new javax.swing.JButton();
-        buttonRemoveColumn = new javax.swing.JButton();
         labelInfoDelete = new javax.swing.JLabel();
+        buttonRemoveColumn = new javax.swing.JButton();
+        buttonAddColumn = new javax.swing.JButton();
         panelCustomSql = new javax.swing.JPanel();
         labelCustomSqlInfo = new javax.swing.JLabel();
         scrollPaneCustomSqlQuery = new javax.swing.JScrollPane();
@@ -654,8 +654,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
-        labelInfoKeywords.setText(bundle.getString("AdvancedSearchPanel.labelInfoKeywords.text"));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        labelInfoKeywords.setText(bundle.getString("AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
 
         javax.swing.GroupLayout panelKeywordsLayout = new javax.swing.GroupLayout(panelKeywords);
         panelKeywords.setLayout(panelKeywordsLayout);
@@ -678,7 +678,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords);
+        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
 
         scrollPaneColumns.setBorder(null);
 
@@ -711,14 +711,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         scrollPaneColumns.setViewportView(panelColumns);
 
-        buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text"));
-        buttonAddColumn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAddColumnActionPerformed(evt);
-            }
-        });
+        labelInfoDelete.setForeground(new java.awt.Color(0, 0, 255));
+        labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
 
-        buttonRemoveColumn.setText(bundle.getString("AdvancedSearchPanel.buttonRemoveColumn.text"));
+        buttonRemoveColumn.setText(bundle.getString("AdvancedSearchPanel.buttonRemoveColumn.text")); // NOI18N
         buttonRemoveColumn.setEnabled(false);
         buttonRemoveColumn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -726,8 +722,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         });
 
-        labelInfoDelete.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text"));
+        buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
+        buttonAddColumn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddColumnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSimpleSqlLayout = new javax.swing.GroupLayout(panelSimpleSql);
         panelSimpleSql.setLayout(panelSimpleSqlLayout);
@@ -761,9 +761,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql);
+        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
 
-        labelCustomSqlInfo.setText(bundle.getString("AdvancedSearchPanel.labelCustomSqlInfo.text"));
+        labelCustomSqlInfo.setText(bundle.getString("AdvancedSearchPanel.labelCustomSqlInfo.text")); // NOI18N
 
         textAreaCustomSqlQuery.setColumns(20);
         textAreaCustomSqlQuery.setLineWrap(true);
@@ -792,7 +792,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql);
+        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -806,14 +806,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         add(tabbedPane, gridBagConstraints);
 
         buttonSaveSearch.setMnemonic('p');
-        buttonSaveSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text"));
+        buttonSaveSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveSearchActionPerformed(evt);
             }
         });
 
-        buttonSaveAs.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveAs.text"));
+        buttonSaveAs.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
         buttonSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveAsActionPerformed(evt);
@@ -821,7 +821,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         });
 
         buttonResetColumns.setMnemonic('e');
-        buttonResetColumns.setText(Bundle.getString("AdvancedSearchPanel.buttonResetColumns.text"));
+        buttonResetColumns.setText(Bundle.getString("AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
         buttonResetColumns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonResetColumnsActionPerformed(evt);
@@ -829,7 +829,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         });
 
         buttonSearch.setMnemonic('s');
-        buttonSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSearch.text"));
+        buttonSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSearchActionPerformed(evt);

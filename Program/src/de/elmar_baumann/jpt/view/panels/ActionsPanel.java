@@ -182,11 +182,11 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
         scrollPane.setViewportView(list);
 
-        progressBar.setToolTipText(Bundle.getString("ActionsPanel.progressBar.toolTipText"));
+        progressBar.setToolTipText(Bundle.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
 
         buttonDelete.setMnemonic('l');
-        buttonDelete.setText(Bundle.getString("ActionsPanel.buttonDelete.text"));
-        buttonDelete.setToolTipText(Bundle.getString("ActionsPanel.buttonDelete.toolTipText"));
+        buttonDelete.setText(Bundle.getString("ActionsPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setToolTipText(Bundle.getString("ActionsPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,8 +195,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
 
         buttonEdit.setMnemonic('b');
-        buttonEdit.setText(Bundle.getString("ActionsPanel.buttonEdit.text"));
-        buttonEdit.setToolTipText(Bundle.getString("ActionsPanel.buttonEdit.toolTipText"));
+        buttonEdit.setText(Bundle.getString("ActionsPanel.buttonEdit.text")); // NOI18N
+        buttonEdit.setToolTipText(Bundle.getString("ActionsPanel.buttonEdit.toolTipText")); // NOI18N
         buttonEdit.setEnabled(false);
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,8 +205,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
 
         buttonNew.setMnemonic('n');
-        buttonNew.setText(Bundle.getString("ActionsPanel.buttonNew.text"));
-        buttonNew.setToolTipText(Bundle.getString("ActionsPanel.buttonNew.toolTipText"));
+        buttonNew.setText(Bundle.getString("ActionsPanel.buttonNew.text")); // NOI18N
+        buttonNew.setToolTipText(Bundle.getString("ActionsPanel.buttonNew.toolTipText")); // NOI18N
         buttonNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNewActionPerformed(evt);
@@ -214,8 +214,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
 
         buttonExecute.setMnemonic('a');
-        buttonExecute.setText(Bundle.getString("ActionsPanel.buttonExecute.text"));
-        buttonExecute.setToolTipText(Bundle.getString("ActionsPanel.buttonExecute.toolTipText"));
+        buttonExecute.setText(Bundle.getString("ActionsPanel.buttonExecute.text")); // NOI18N
+        buttonExecute.setToolTipText(Bundle.getString("ActionsPanel.buttonExecute.toolTipText")); // NOI18N
         buttonExecute.setEnabled(false);
         buttonExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,12 +227,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonEdit)
@@ -248,8 +248,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonExecute)
                     .addComponent(buttonNew)

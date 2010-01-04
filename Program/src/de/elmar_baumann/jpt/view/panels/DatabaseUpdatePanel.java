@@ -19,17 +19,21 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.helper.HelperThread;
+import de.elmar_baumann.jpt.helper.InsertHierarchicalKeywords;
 import de.elmar_baumann.jpt.helper.RefreshExifInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.RefreshXmpInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.RenameFilenamesInDbDialog;
+import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -50,6 +54,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         initComponents();
 
         buttons = new AbstractButton[] {
+            buttonCopyKeywordsToKeywordsTree,
             buttonRenameFiles,
             buttonUpdateThumbnails,
             toggleButtonRefreshExif,
@@ -132,6 +137,16 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         setEnabledAllButtons(true);
     }
 
+    private void copyKeywordsToKeywordsTree() {
+        List<String> keywords = ListUtil.toStringList(GUI.INSTANCE.getAppPanel().getListKeywords().getModel());
+        if (keywords.size() > 0) {
+            setEnabledAllButtons(false);
+            new InsertHierarchicalKeywords(keywords).run(); // Run not as thread
+            MessageDisplayer.information(this, "DatabaseUpdatePanel.Info.CopyKeywordsToTree");
+            setEnabledAllButtons(true);
+        }
+    }
+
     private void checkStop(ProgressEvent evt) {
         if (stop) {
             evt.setStop(stop);
@@ -177,10 +192,12 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         toggleButtonRefreshExif = new javax.swing.JToggleButton();
         labelRefreshXmp = new javax.swing.JLabel();
         toggleButtonRefreshXmp = new javax.swing.JToggleButton();
-        labelRenameFiles = new javax.swing.JLabel();
-        buttonRenameFiles = new javax.swing.JButton();
         labelUpdateThumbnails = new javax.swing.JLabel();
         buttonUpdateThumbnails = new javax.swing.JButton();
+        labelRenameFiles = new javax.swing.JLabel();
+        buttonRenameFiles = new javax.swing.JButton();
+        labelCopyKeywordsToKeywordsTree = new javax.swing.JLabel();
+        buttonCopyKeywordsToKeywordsTree = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
 
         labelRefreshExif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exif.png"))); // NOI18N
@@ -204,6 +221,16 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
             }
         });
 
+        labelUpdateThumbnails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_image.png"))); // NOI18N
+        labelUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
+
+        buttonUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
+        buttonUpdateThumbnails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateThumbnailsActionPerformed(evt);
+            }
+        });
+
         labelRenameFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_rename.png"))); // NOI18N
         labelRenameFiles.setText(bundle.getString("DatabaseUpdatePanel.labelRenameFiles.text")); // NOI18N
 
@@ -214,13 +241,13 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
             }
         });
 
-        labelUpdateThumbnails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_image.png"))); // NOI18N
-        labelUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
+        labelCopyKeywordsToKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_tree.png"))); // NOI18N
+        labelCopyKeywordsToKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.labelCopyKeywordsToKeywordsTree.text")); // NOI18N
 
-        buttonUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
-        buttonUpdateThumbnails.addActionListener(new java.awt.event.ActionListener() {
+        buttonCopyKeywordsToKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text")); // NOI18N
+        buttonCopyKeywordsToKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUpdateThumbnailsActionPerformed(evt);
+                buttonCopyKeywordsToKeywordsTreeActionPerformed(evt);
             }
         });
 
@@ -247,11 +274,15 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelRenameFiles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                        .addComponent(buttonRenameFiles)))
+                        .addComponent(buttonRenameFiles))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelCopyKeywordsToKeywordsTree)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(buttonCopyKeywordsToKeywordsTree)))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonRenameFiles, buttonUpdateThumbnails, toggleButtonRefreshExif, toggleButtonRefreshXmp});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCopyKeywordsToKeywordsTree, buttonRenameFiles, buttonUpdateThumbnails, toggleButtonRefreshExif, toggleButtonRefreshXmp});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,6 +303,10 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelRenameFiles)
                     .addComponent(buttonRenameFiles))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCopyKeywordsToKeywordsTree)
+                    .addComponent(buttonCopyKeywordsToKeywordsTree))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -294,10 +329,16 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         updateThumbnails();
     }//GEN-LAST:event_buttonUpdateThumbnailsActionPerformed
 
+    private void buttonCopyKeywordsToKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
+        copyKeywordsToKeywordsTree();
+    }//GEN-LAST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCopyKeywordsToKeywordsTree;
     private javax.swing.JButton buttonRenameFiles;
     private javax.swing.JButton buttonUpdateThumbnails;
+    private javax.swing.JLabel labelCopyKeywordsToKeywordsTree;
     private javax.swing.JLabel labelRefreshExif;
     private javax.swing.JLabel labelRefreshXmp;
     private javax.swing.JLabel labelRenameFiles;

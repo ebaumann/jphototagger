@@ -170,39 +170,22 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
         panelActionsAfterDatabaseInsertion = new javax.swing.JPanel();
         scrollPaneActionsAfterDatabaseInsertion = new javax.swing.JScrollPane();
         listActionsAfterDatabaseInsertion = new javax.swing.JList();
-        radioButtonActionsAfterDatabaseInsertionExecuteAlways = new javax.swing.JRadioButton();
-        radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp = new javax.swing.JRadioButton();
         buttonActionsAfterDatabaseInsertionMoveUp = new javax.swing.JButton();
         buttonActionsAfterDatabaseInsertionMoveDown = new javax.swing.JButton();
+        radioButtonActionsAfterDatabaseInsertionExecuteAlways = new javax.swing.JRadioButton();
+        radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp = new javax.swing.JRadioButton();
         buttonActionsAfterDatabaseInsertionEdit = new javax.swing.JButton();
         buttonActionsAfterDatabaseInsertionRemove = new javax.swing.JButton();
         buttonActionsAfterDatabaseInsertionAdd = new javax.swing.JButton();
 
-        panelActionsAfterDatabaseInsertion.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsActionsPanel.panelActionsAfterDatabaseInsertion.border.title")));
+        panelActionsAfterDatabaseInsertion.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsActionsPanel.panelActionsAfterDatabaseInsertion.border.title"))); // NOI18N
 
         listActionsAfterDatabaseInsertion.setModel(modelActionsAfterDbInsertion);
         listActionsAfterDatabaseInsertion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listActionsAfterDatabaseInsertion.setCellRenderer(new ListCellRendererActions());
         scrollPaneActionsAfterDatabaseInsertion.setViewportView(listActionsAfterDatabaseInsertion);
 
-        buttonGroupActionsAfterDatabaseInsertion.add(radioButtonActionsAfterDatabaseInsertionExecuteAlways);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
-        radioButtonActionsAfterDatabaseInsertionExecuteAlways.setText(bundle.getString("SettingsActionsPanel.radioButtonActionsAfterDatabaseInsertionExecuteAlways.text"));
-        radioButtonActionsAfterDatabaseInsertionExecuteAlways.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed(evt);
-            }
-        });
-
-        buttonGroupActionsAfterDatabaseInsertion.add(radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp);
-        radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.setText(bundle.getString("SettingsActionsPanel.radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.text"));
-        radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed(evt);
-            }
-        });
-
-        buttonActionsAfterDatabaseInsertionMoveUp.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveUp.text"));
+        buttonActionsAfterDatabaseInsertionMoveUp.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveUp.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionMoveUp.setEnabled(false);
         buttonActionsAfterDatabaseInsertionMoveUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +193,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
             }
         });
 
-        buttonActionsAfterDatabaseInsertionMoveDown.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveDown.text"));
+        buttonActionsAfterDatabaseInsertionMoveDown.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveDown.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionMoveDown.setEnabled(false);
         buttonActionsAfterDatabaseInsertionMoveDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,14 +201,31 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
             }
         });
 
-        buttonActionsAfterDatabaseInsertionEdit.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionEdit.text"));
+        buttonGroupActionsAfterDatabaseInsertion.add(radioButtonActionsAfterDatabaseInsertionExecuteAlways);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        radioButtonActionsAfterDatabaseInsertionExecuteAlways.setText(bundle.getString("SettingsActionsPanel.radioButtonActionsAfterDatabaseInsertionExecuteAlways.text")); // NOI18N
+        radioButtonActionsAfterDatabaseInsertionExecuteAlways.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed(evt);
+            }
+        });
+
+        buttonGroupActionsAfterDatabaseInsertion.add(radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp);
+        radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.setText(bundle.getString("SettingsActionsPanel.radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.text")); // NOI18N
+        radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed(evt);
+            }
+        });
+
+        buttonActionsAfterDatabaseInsertionEdit.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionEdit.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionsAfterDatabaseInsertionEditActionPerformed(evt);
             }
         });
 
-        buttonActionsAfterDatabaseInsertionRemove.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionRemove.text"));
+        buttonActionsAfterDatabaseInsertionRemove.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionRemove.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionRemove.setEnabled(false);
         buttonActionsAfterDatabaseInsertionRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,7 +233,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
             }
         });
 
-        buttonActionsAfterDatabaseInsertionAdd.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionAdd.text"));
+        buttonActionsAfterDatabaseInsertionAdd.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionAdd.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionsAfterDatabaseInsertionAddActionPerformed(evt);
@@ -247,12 +247,6 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
             .addGroup(panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelActionsAfterDatabaseInsertionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
-                        .addComponent(buttonActionsAfterDatabaseInsertionEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonActionsAfterDatabaseInsertionRemove)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonActionsAfterDatabaseInsertionAdd))
                     .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp)
                     .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteAlways)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
@@ -260,7 +254,13 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelActionsAfterDatabaseInsertionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonActionsAfterDatabaseInsertionMoveUp)
-                            .addComponent(buttonActionsAfterDatabaseInsertionMoveDown))))
+                            .addComponent(buttonActionsAfterDatabaseInsertionMoveDown)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
+                        .addComponent(buttonActionsAfterDatabaseInsertionEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonActionsAfterDatabaseInsertionRemove)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonActionsAfterDatabaseInsertionAdd)))
                 .addContainerGap())
         );
 
@@ -279,12 +279,12 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
                 .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteAlways)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelActionsAfterDatabaseInsertionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonActionsAfterDatabaseInsertionAdd)
                     .addComponent(buttonActionsAfterDatabaseInsertionRemove)
                     .addComponent(buttonActionsAfterDatabaseInsertionEdit))
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

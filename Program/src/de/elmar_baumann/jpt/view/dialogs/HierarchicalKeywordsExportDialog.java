@@ -187,48 +187,48 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
         labelInfoFilename = new javax.swing.JLabel();
         labelFilename = new javax.swing.JLabel();
         buttonChooseFile = new javax.swing.JButton();
-        buttonExport = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+        buttonExport = new javax.swing.JButton();
 
-        setTitle(Bundle.getString("HierarchicalKeywordsExportDialog.title"));
+        setTitle(Bundle.getString("HierarchicalKeywordsExportDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelFormat.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelFormat.text"));
+        labelFormat.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelFormat.text")); // NOI18N
 
         comboBoxExporter.setModel(comboBoxModelExporter);
         comboBoxExporter.setRenderer(new de.elmar_baumann.jpt.view.renderer.ListCellRendererHierarchicalKeywordsImExporter());
 
-        labelInfoFilename.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelInfoFilename.text"));
+        labelInfoFilename.setText(Bundle.getString("HierarchicalKeywordsExportDialog.labelInfoFilename.text")); // NOI18N
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         buttonChooseFile.setMnemonic('d');
-        buttonChooseFile.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonChooseFile.text"));
+        buttonChooseFile.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
         });
 
-        buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png")));
+        buttonCancel.setMnemonic('a');
+        buttonCancel.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
+
+        buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
         buttonExport.setMnemonic('e');
-        buttonExport.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonExport.text"));
+        buttonExport.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonExport.text")); // NOI18N
         buttonExport.setEnabled(false);
         buttonExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExportActionPerformed(evt);
-            }
-        });
-
-        buttonCancel.setMnemonic('a');
-        buttonCancel.setText(Bundle.getString("HierarchicalKeywordsExportDialog.buttonCancel.text"));
-        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelActionPerformed(evt);
             }
         });
 
@@ -247,9 +247,9 @@ public class HierarchicalKeywordsExportDialog extends Dialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboBoxExporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonChooseFile)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonExport)))

@@ -52,7 +52,6 @@ import de.elmar_baumann.jpt.controller.metadata.ControllerEmptyMetadata;
 import de.elmar_baumann.jpt.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.jpt.controller.search.ControllerAdvancedSearch;
 import de.elmar_baumann.jpt.controller.filesystem.ControllerAutocopyDirectory;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerInsertIntoHierarchicalKeywords;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerExportHierarchicalKeywords;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDbUpdates;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsSelection;
@@ -179,7 +178,6 @@ public final class ControllerFactory {
             new ControllerCopyPasteMetadata();
             new ControllerHierarchicalKeywordsSelection();
             new ControllerPlugins();
-            new ControllerInsertIntoHierarchicalKeywords();
             new ControllerHierarchicalKeywordsDbUpdates();
             init = true;
             GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Finished"), AppPanel.MessageType.INFO, 1000);

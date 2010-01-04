@@ -53,16 +53,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="buttonActionsAfterDatabaseInsertionEdit" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonActionsAfterDatabaseInsertionRemove" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonActionsAfterDatabaseInsertionAdd" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <Component id="radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="radioButtonActionsAfterDatabaseInsertionExecuteAlways" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
@@ -72,6 +65,13 @@
                               <Component id="buttonActionsAfterDatabaseInsertionMoveUp" linkSize="1" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonActionsAfterDatabaseInsertionMoveDown" linkSize="1" min="-2" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="buttonActionsAfterDatabaseInsertionEdit" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonActionsAfterDatabaseInsertionRemove" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonActionsAfterDatabaseInsertionAdd" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -93,13 +93,13 @@
                   <Component id="radioButtonActionsAfterDatabaseInsertionExecuteAlways" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonActionsAfterDatabaseInsertionAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonActionsAfterDatabaseInsertionRemove" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonActionsAfterDatabaseInsertionEdit" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -125,6 +125,28 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="buttonActionsAfterDatabaseInsertionMoveUp">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveUp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonActionsAfterDatabaseInsertionMoveUpActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonActionsAfterDatabaseInsertionMoveDown">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveDown.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonActionsAfterDatabaseInsertionMoveDownActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JRadioButton" name="radioButtonActionsAfterDatabaseInsertionExecuteAlways">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
@@ -149,28 +171,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonActionsAfterDatabaseInsertionMoveUp">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveUp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonActionsAfterDatabaseInsertionMoveUpActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonActionsAfterDatabaseInsertionMoveDown">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveDown.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonActionsAfterDatabaseInsertionMoveDownActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonActionsAfterDatabaseInsertionEdit">

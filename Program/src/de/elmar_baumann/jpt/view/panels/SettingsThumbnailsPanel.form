@@ -65,11 +65,11 @@
                           <Component id="labelMaxThumbnailWidth" min="-2" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="spinnerMaxThumbnailWidth" min="-2" pref="58" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="buttonUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -165,8 +165,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="checkBoxIsCreateThumbnailsWithExternalApp" alignment="0" min="-2" max="-2" attributes="1"/>
-                      <Component id="labelIsCreateThumbnailsWithExternalApp" alignment="0" pref="537" max="32767" attributes="2"/>
-                      <Component id="textFieldExternalThumbnailCreationCommand" alignment="0" pref="537" max="32767" attributes="2"/>
+                      <Component id="labelIsCreateThumbnailsWithExternalApp" alignment="0" pref="549" max="32767" attributes="2"/>
+                      <Component id="textFieldExternalThumbnailCreationCommand" alignment="0" pref="549" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
