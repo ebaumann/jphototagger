@@ -28,7 +28,6 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Join;
 import de.elmar_baumann.jpt.database.metadata.Join.Type;
-import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
@@ -36,7 +35,6 @@ import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
-import de.elmar_baumann.jpt.types.SubstringPosition;
 import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Image;
 import java.io.File;
@@ -132,11 +130,68 @@ public final class DatabaseImageFiles extends Database {
      * @param  newStart new start substring
      * @return          count of renamed files
      */
-    public int updateRenameImageFilenamesStartingWith(
-            String start, String newStart) {
-        return DatabaseMaintainance.INSTANCE.replaceString(
-                ColumnFilesFilename.INSTANCE, start, newStart,
-                SubstringPosition.BEGIN);
+    public synchronized int updateRenameImageFilenamesStartingWith(String start, String newStart) {
+
+        if (start.equals(newStart)) return 0;
+
+        int        count      = 0;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+
+            connection.setAutoCommit(true);
+
+            String            sql  = "SELECT filename FROM files WHERE filename LIKE ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, start + "%");
+            logFinest(stmt);
+            ResultSet rs = stmt.executeQuery();
+
+            int startLength = start.length();
+            while (rs.next()) {
+
+                String oldFilename = rs.getString(1);
+                String newFilename = newStart + oldFilename.substring(startLength);
+
+                updateFilename(connection, oldFilename, newFilename);
+                count++;
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+            rollback(connection);
+        } finally {
+            free(connection);
+        }
+
+        return count;
+    }
+
+    private void updateFilename(Connection connection, String oldFileName, String newFileName) throws SQLException {
+
+        if (oldFileName.equals(newFileName)) return;
+
+        String            sql  = "UPDATE files SET filename = ? WHERE filename = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+
+        stmt.setString(1, newFileName);
+        stmt.setString(2, oldFileName);
+        logFiner(stmt);
+        stmt.executeUpdate();
+        stmt.close();
+        renameThumbnail(oldFileName, newFileName);
+    }
+
+    private void renameThumbnail(String oldFileName, String newFileName) {
+
+        File oldTnFile = PersistentThumbnails.getThumbnailFileOfImageFile(oldFileName);
+
+        if (oldTnFile.exists()) {
+
+            File newTnFile = PersistentThumbnails.getThumbnailfile(PersistentThumbnails.getMd5File(newFileName));
+            oldTnFile.renameTo(newTnFile);
+        }
     }
 
     private int deleteRowWithFilename(Connection connection, String filename) {
