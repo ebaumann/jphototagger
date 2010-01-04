@@ -122,13 +122,25 @@ public final class ProgressDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Sets the progress bar in the intermediate state.
+     * Sets the progress bar in the indeterminate state.
      *
-     * @param intermediate  true, if intermediate
+     * @param indeterminate  true, if indeterminate
      */
-    public void setIndeterminate(boolean intermediate) {
-        progressBar.setIndeterminate(intermediate);
-        progressBar.setStringPainted(!intermediate);
+    public void setIndeterminate(boolean indeterminate) {
+        progressBar.setIndeterminate(indeterminate);
+    }
+
+    /**
+     * Sets the progress bar string painted (progress bar displays a string).
+     * 
+     * @param stringPainted true, if string painted
+     */
+    public void setStringPainted(boolean stringPainted) {
+        progressBar.setStringPainted(stringPainted);
+    }
+
+    public void setProgressBarString(String string) {
+        progressBar.setString(string);
     }
 
     /**
@@ -205,12 +217,10 @@ public final class ProgressDialog extends javax.swing.JDialog {
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle");
-        labelInfo.setText(bundle.getString("ProgressDialogLabelMessageText"));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
+        labelInfo.setText(bundle.getString("ProgressDialogLabelMessageText")); // NOI18N
 
-        progressBar.setStringPainted(true);
-
-        buttonStop.setText(Bundle.getString("ProgressDialog.buttonStop.text"));
+        buttonStop.setText(Bundle.getString("ProgressDialog.buttonStop.text")); // NOI18N
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStopActionPerformed(evt);
@@ -226,12 +236,12 @@ public final class ProgressDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStop))
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE))
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -247,6 +257,8 @@ public final class ProgressDialog extends javax.swing.JDialog {
                 .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonStop, progressBar});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
