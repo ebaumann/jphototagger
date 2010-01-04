@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
@@ -113,8 +114,7 @@ public final class DatabaseFileExcludePattern extends Database {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt =
-                    connection.prepareStatement(
+            PreparedStatement stmt = connection.prepareStatement(
                     "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFinest(stmt);
@@ -168,28 +168,29 @@ public final class DatabaseFileExcludePattern extends Database {
      * @param   listener  progress listener, can cancel the action
      * @return  count of deleted files
      */
-    public int deleteFilesWithPattern(List<String> patterns,
-            ProgressListener listener) {
+    public int deleteFilesWithPattern(List<String> patterns, ProgressListener listener) {
 
         Connection connection = null;
         int count = 0;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            List<String> deletedFiles = new LinkedList<String>();
-            Statement stmtQuery = connection.createStatement();
-            String sqlUpdate = "DELETE FROM files WHERE filename = ?";
-            PreparedStatement stmtUpdate =
-                    connection.prepareStatement(sqlUpdate);
-            String sqlQuery = "SELECT filename FROM files";
+
+            List<String>      deletedFiles = new LinkedList<String>();
+            Statement         stmtQuery    = connection.createStatement();
+            String            sqlUpdate    = "DELETE FROM files WHERE filename = ?";
+            PreparedStatement stmtUpdate   = connection.prepareStatement(sqlUpdate);
+            String            sqlQuery     = "SELECT filename FROM files";
+
             logFinest(sqlQuery);
             ResultSet rs = stmtQuery.executeQuery(sqlQuery);
-            int patternCount = patterns.size();
-            int progress = 0;
-            ProgressEvent event =
-                    new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.
-                    getFileCount() * patternCount, 0, null);
+
+            int           patternCount = patterns.size();
+            int           progress     = 0;
+            ProgressEvent event        = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount() * patternCount, 0, null);
+
             notifyProgressListenerStart(listener, event);
+
             boolean stop = event.isStop();
             while (!stop && rs.next()) {
                 String filename = rs.getString(1);
@@ -197,17 +198,18 @@ public final class DatabaseFileExcludePattern extends Database {
                     progress++;
                     String pattern = patterns.get(i);
                     if (filename.matches(pattern)) {
+
                         stmtUpdate.setString(1, filename);
                         deletedFiles.add(filename);
                         logFiner(stmtUpdate);
                         int affectedRows = stmtUpdate.executeUpdate();
                         count += affectedRows;
                         if (affectedRows > 0) {
+
+                            PersistentThumbnails.getThumbnailFileOfImageFile(filename).delete();
                             ImageFile deletedImageFile = new ImageFile();
                             deletedImageFile.setFilename(filename);
-                            notifyDatabaseListener(
-                                    DatabaseImageEvent.Type.IMAGEFILE_DELETED,
-                                    deletedImageFile);
+                            notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_DELETED, deletedImageFile);
                         }
 
                         stop = event.isStop();
