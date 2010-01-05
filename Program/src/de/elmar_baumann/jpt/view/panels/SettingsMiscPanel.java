@@ -211,6 +211,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         notifyChangeListener(evt);
     }
 
+    private void handleActionPerformedAutoDownload() {
+        UserSettings.INSTANCE.setAutoDownloadNewerVersions(checkBoxAutoDownloadCheck.isSelected());
+        UserSettings.INSTANCE.writeToFile();
+    }
+
     private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
@@ -239,6 +244,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
         radioButtonCopyMoveFileRenameIfExists.setSelected(
                 settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
+        checkBoxAutoDownloadCheck.setSelected(settings.isAutoDownloadNewerVersions());
         setIconDatabaseDirectory();
     }
 
@@ -310,27 +316,28 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
+        checkBoxAutoDownloadCheck = new javax.swing.JCheckBox();
 
-        labelInfoWebBrowser.setText(Bundle.getString("SettingsMiscPanel.labelInfoWebBrowser.text"));
+        labelInfoWebBrowser.setText(Bundle.getString("SettingsMiscPanel.labelInfoWebBrowser.text")); // NOI18N
 
         labelWebBrowser.setForeground(new java.awt.Color(0, 0, 255));
         labelWebBrowser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonChooseWebBrowser.setMnemonic('u');
-        buttonChooseWebBrowser.setText(Bundle.getString("SettingsMiscPanel.buttonChooseWebBrowser.text"));
+        buttonChooseWebBrowser.setText(Bundle.getString("SettingsMiscPanel.buttonChooseWebBrowser.text")); // NOI18N
         buttonChooseWebBrowser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseWebBrowserActionPerformed(evt);
             }
         });
 
-        labelInfoPdfViewer.setText(Bundle.getString("SettingsMiscPanel.labelInfoPdfViewer.text"));
+        labelInfoPdfViewer.setText(Bundle.getString("SettingsMiscPanel.labelInfoPdfViewer.text")); // NOI18N
 
         labelPdfViewer.setForeground(new java.awt.Color(0, 0, 255));
         labelPdfViewer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonChoosePdfViewer.setMnemonic('u');
-        buttonChoosePdfViewer.setText(Bundle.getString("SettingsMiscPanel.buttonChoosePdfViewer.text"));
+        buttonChoosePdfViewer.setText(Bundle.getString("SettingsMiscPanel.buttonChoosePdfViewer.text")); // NOI18N
         buttonChoosePdfViewer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChoosePdfViewerActionPerformed(evt);
@@ -378,13 +385,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle"), panelExternalApplications);
+        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle"), panelExternalApplications); // NOI18N
 
         labelDatabaseDirectory.setForeground(new java.awt.Color(0, 0, 255));
         labelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonSetStandardDatabaseDirectoryName.setMnemonic('S');
-        buttonSetStandardDatabaseDirectoryName.setText(Bundle.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text"));
+        buttonSetStandardDatabaseDirectoryName.setText(Bundle.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text")); // NOI18N
         buttonSetStandardDatabaseDirectoryName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetStandardDatabaseDirectoryNameActionPerformed(evt);
@@ -392,7 +399,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         buttonChooseDatabaseDirectory.setMnemonic('w');
-        buttonChooseDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text"));
+        buttonChooseDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text")); // NOI18N
         buttonChooseDatabaseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDatabaseDirectoryActionPerformed(evt);
@@ -400,7 +407,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         labelInfoDatabaseDirectory.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.labelInfoDatabaseDirectory.text"));
+        labelInfoDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.labelInfoDatabaseDirectory.text")); // NOI18N
 
         javax.swing.GroupLayout panelDatabaseDirectoryLayout = new javax.swing.GroupLayout(panelDatabaseDirectory);
         panelDatabaseDirectory.setLayout(panelDatabaseDirectoryLayout);
@@ -431,9 +438,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap(120, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.TabConstraints.tabTitle"), panelDatabaseDirectory);
+        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.TabConstraints.tabTitle"), panelDatabaseDirectory); // NOI18N
 
-        labelLogLevel.setText(Bundle.getString("SettingsMiscPanel.labelLogLevel.text"));
+        labelLogLevel.setText(Bundle.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
 
         comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
         comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
@@ -442,7 +449,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             }
         });
 
-        labelLogLogfileFormatterClass.setText(Bundle.getString("SettingsMiscPanel.labelLogLogfileFormatterClass.text"));
+        labelLogLogfileFormatterClass.setText(Bundle.getString("SettingsMiscPanel.labelLogLogfileFormatterClass.text")); // NOI18N
 
         comboBoxLogfileFormatterClass.setModel(new ComboBoxModelLogfileFormatter());
         comboBoxLogfileFormatterClass.setRenderer(new ListCellRendererLogfileFormatter());
@@ -453,7 +460,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         labelInfoLogfile.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoLogfile.setText(Bundle.getString("SettingsMiscPanel.labelInfoLogfile.text"));
+        labelInfoLogfile.setText(Bundle.getString("SettingsMiscPanel.labelInfoLogfile.text")); // NOI18N
 
         javax.swing.GroupLayout panelLogfileLayout = new javax.swing.GroupLayout(panelLogfile);
         panelLogfile.setLayout(panelLogfileLayout);
@@ -489,13 +496,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap(120, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelLogfile.TabConstraints.tabTitle"), panelLogfile);
+        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelLogfile.TabConstraints.tabTitle"), panelLogfile); // NOI18N
 
         labelAutocopyDirectory.setForeground(new java.awt.Color(0, 0, 255));
         labelAutocopyDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonChooseAutocopyDirectory.setMnemonic('a');
-        buttonChooseAutocopyDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseAutocopyDirectory.text"));
+        buttonChooseAutocopyDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseAutocopyDirectory.text")); // NOI18N
         buttonChooseAutocopyDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseAutocopyDirectoryActionPerformed(evt);
@@ -523,10 +530,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap(141, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelAutoCopyDirectory.TabConstraints.tabTitle"), panelAutoCopyDirectory);
+        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelAutoCopyDirectory.TabConstraints.tabTitle"), panelAutoCopyDirectory); // NOI18N
 
         checkBoxIsAcceptHiddenDirectories.setMnemonic('o');
-        checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text"));
+        checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
@@ -534,7 +541,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         checkBoxTreeDirectoriesSelectLastDirectory.setMnemonic('s');
-        checkBoxTreeDirectoriesSelectLastDirectory.setText(Bundle.getString("SettingsMiscPanel.checkBoxTreeDirectoriesSelectLastDirectory.text"));
+        checkBoxTreeDirectoriesSelectLastDirectory.setText(Bundle.getString("SettingsMiscPanel.checkBoxTreeDirectoriesSelectLastDirectory.text")); // NOI18N
         checkBoxTreeDirectoriesSelectLastDirectory.setPreferredSize(new java.awt.Dimension(631, 28));
         checkBoxTreeDirectoriesSelectLastDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -542,11 +549,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
-        panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsMiscPanel.panelCopyMoveFiles.border.title")));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsMiscPanel.panelCopyMoveFiles.border.title"))); // NOI18N
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite);
-        radioButtonCopyMoveFileConfirmOverwrite.setText(bundle.getString("SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text"));
+        radioButtonCopyMoveFileConfirmOverwrite.setText(bundle.getString("SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
         radioButtonCopyMoveFileConfirmOverwrite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCopyMoveFileConfirmOverwriteActionPerformed(evt);
@@ -554,7 +561,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
-        radioButtonCopyMoveFileRenameIfExists.setText(bundle.getString("SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text"));
+        radioButtonCopyMoveFileRenameIfExists.setText(bundle.getString("SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
         radioButtonCopyMoveFileRenameIfExists.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCopyMoveFileRenameIfExistsActionPerformed(evt);
@@ -581,6 +588,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
+        checkBoxAutoDownloadCheck.setText(bundle.getString("SettingsMiscPanel.checkBoxAutoDownloadCheck.text")); // NOI18N
+        checkBoxAutoDownloadCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAutoDownloadCheckActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMiscLayout = new javax.swing.GroupLayout(panelMisc);
         panelMisc.setLayout(panelMiscLayout);
         panelMiscLayout.setHorizontalGroup(
@@ -588,9 +602,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(panelMiscLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkBoxAutoDownloadCheck)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE))
+                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                    .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelMiscLayout.setVerticalGroup(
@@ -601,11 +616,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxAutoDownloadCheck)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc);
+        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -663,6 +680,10 @@ private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(java.awt.event
     handleActionPerformedCopyMoveFiles();
 }//GEN-LAST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
 
+private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
+    handleActionPerformedAutoDownload();
+}//GEN-LAST:event_checkBoxAutoDownloadCheckActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseAutocopyDirectory;
     private javax.swing.JButton buttonChooseDatabaseDirectory;
@@ -670,6 +691,7 @@ private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(java.awt.event
     private javax.swing.JButton buttonChooseWebBrowser;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetStandardDatabaseDirectoryName;
+    private javax.swing.JCheckBox checkBoxAutoDownloadCheck;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JCheckBox checkBoxTreeDirectoriesSelectLastDirectory;
     private javax.swing.JComboBox comboBoxLogLevel;
