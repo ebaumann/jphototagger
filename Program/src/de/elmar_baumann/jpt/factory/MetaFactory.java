@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.update.UpdateDownload;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -51,6 +52,7 @@ public final class MetaFactory implements Runnable {
         MouseListenerFactory.INSTANCE.init();
         RendererFactory.INSTANCE.init();
         readAppPanelFromProperties();
+        UpdateDownload.checkForNewerVersion(60 * 1000);
     }
 
     private void readAppFrameFromProperties() {

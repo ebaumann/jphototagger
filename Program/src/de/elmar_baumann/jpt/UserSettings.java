@@ -64,6 +64,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String         KEY_ACCEPT_HIDDEN_DIRECTORIES                                 = "UserSettings.IsAcceptHiddenDirectories";
     private static final String         KEY_AUTOCOPY_DIRECTORY                                        = "UserSettings.AutocopyDirectory";
     private static final String         KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES                           = "UserSettings.IsAutoscanIncludeSubdirectories";
+    private static final String         KEY_AUTODOWNLOAD_NEWER_VERSIONS                               = "UserSettings.AutoDownloadNewerVersions";
     private static final String         KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP                       = "UserSettings.IsCreateThumbnailsWithExternalApp";
     private static final String         KEY_DATABASE_DIRECTORY_NAME                                   = "UserSettings.DatabaseDirectoryName";
     private static final String         KEY_DEFAULT_IMAGE_OPEN_APP                                    = "UserSettings.DefaultImageOpenApp";
@@ -546,6 +547,27 @@ public final class UserSettings implements UserSettingsChangeListener {
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         writeProperties(evt);
+    }
+
+    /**
+     * Returns wheter to check and auto download newer program versions.
+     * 
+     * @return true, if to check and auto download
+     */
+    public boolean isAutoDownloadNewerVersions() {
+        return properties.containsKey(KEY_AUTODOWNLOAD_NEWER_VERSIONS)
+                ? settings.getBoolean(KEY_AUTODOWNLOAD_NEWER_VERSIONS)
+                : true;
+    }
+
+    /**
+     * Sets wheter to check and auto download newer program versions.
+     *
+     * @param auto true if to check and auto download.
+     *             Default: true.
+     */
+    public void setAutoDownloadNewerVersions(boolean auto) {
+        settings.setBoolean(auto, KEY_AUTODOWNLOAD_NEWER_VERSIONS);
     }
 
     /**
