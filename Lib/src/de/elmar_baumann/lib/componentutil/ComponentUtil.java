@@ -20,8 +20,11 @@ package de.elmar_baumann.lib.componentutil;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.Window;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -58,6 +61,41 @@ public final class ComponentUtil {
         Rectangle frameBounds = window.getBounds();
         window.setLocation((screenDimension.width - frameBounds.width) / 2,
                 (screenDimension.height - frameBounds.height) / 2);
+    }
+
+    /**
+     * Finds frames with an icon: Frames of {@link Frame#getFrames()} where
+     * {@link Frame#getIconImage()} returns not null.
+     *
+     * @return frames with an icon or an empty list
+     * @see    #getFrameWithIcon()
+     */
+    public static List<Frame> findFramesWithIcons() {
+        List<Frame> frames    = new ArrayList<Frame>();
+        Frame[]     allFrames = Frame.getFrames();
+
+        for (Frame frame : allFrames) {
+            if (frame.getIconImage() != null) {
+                frames.add(frame);
+            }
+        }
+
+        return frames;
+    }
+
+    /**
+     * Returns the first found frame of {@link #findFramesWithIcons()}.
+     * <p>
+     * Especially for usage in a <code>JOptionPane#show...Dialog()</code>
+     * instead of null. Then in the dialog frame an icon will be displayed
+     * that is different to the Java "coffee cup" icon.
+     *
+     * @return frame or null
+     */
+    public static Frame getFrameWithIcon() {
+        List<Frame> frames = findFramesWithIcons();
+
+        return frames.size() == 0 ? null : frames.get(0);
     }
 
     private ComponentUtil() {
