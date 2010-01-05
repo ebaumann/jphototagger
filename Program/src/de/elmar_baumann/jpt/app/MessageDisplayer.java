@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.InputDialog;
 import java.awt.Component;
 import java.util.HashMap;
@@ -177,7 +178,7 @@ public final class MessageDisplayer {
             ) {
 
         int exit = JOptionPane.showConfirmDialog(
-                        component,
+                        component == null ? GUI.INSTANCE.getAppFrame() : component,
                         Bundle.getString(propertyKey, params),
                         getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
                         JOptionPane.YES_NO_CANCEL_OPTION);
@@ -206,7 +207,7 @@ public final class MessageDisplayer {
             ) {
 
         return JOptionPane.showConfirmDialog(
-                    component,
+                    component == null ? GUI.INSTANCE.getAppFrame() : component,
                     Bundle.getString(propertyKey, params),
                     getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
                     JOptionPane.YES_NO_OPTION)
@@ -217,17 +218,18 @@ public final class MessageDisplayer {
             Component component, String propertyKey, int type, Object... params) {
 
         JOptionPane.showMessageDialog(
-                component,
+                component == null ? GUI.INSTANCE.getAppFrame() : component,
                 Bundle.getString(propertyKey, params),
                 getTitle(propertyKey, type),
                 type);
     }
 
     private static String getTitle(String propertyKey, int messageType) {
-        assert defaultTitleOfMessageType.containsKey(messageType) :
-                "Message type " + messageType + " is not in " +
-                defaultTitleOfMessageType.keySet();
+
+        assert defaultTitleOfMessageType.containsKey(messageType) : "Message type " + messageType + " is not in " + defaultTitleOfMessageType.keySet();
+
         String titlePropertyKey = propertyKey + ".Title";
+
         return Bundle.containsKey(titlePropertyKey)
                 ? Bundle.getString(titlePropertyKey)
                 : defaultTitleOfMessageType.get(messageType);
