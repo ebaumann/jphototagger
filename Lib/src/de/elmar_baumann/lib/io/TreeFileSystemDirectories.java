@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.lib.io;
 
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
 import java.util.logging.Level;
@@ -210,7 +211,7 @@ public final class TreeFileSystemDirectories {
      * @return      new name or null if the user didn't input a name
      */
     public static String getNewName(File file) {
-        return JOptionPane.showInputDialog(null,
+        return JOptionPane.showInputDialog(ComponentUtil.getFrameWithIcon(),
                 Bundle.getString("TreeFileSystemDirectories.Input.NewName", file), file.getName());
     }
 
@@ -223,7 +224,7 @@ public final class TreeFileSystemDirectories {
      */
     public static boolean checkDoesNotExist(File file) {
         if (file.exists()) {
-            JOptionPane.showMessageDialog(null,
+            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
                     Bundle.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists", file.getAbsolutePath()),
                     Bundle.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title"),
                     JOptionPane.ERROR_MESSAGE);
@@ -239,7 +240,7 @@ public final class TreeFileSystemDirectories {
      */
     public static boolean confirmDelete(String directoryName) {
         return JOptionPane.showConfirmDialog(
-                null,
+                ComponentUtil.getFrameWithIcon(),
                 Bundle.getString("TreeFileSystemDirectories.Confirm.Delete", directoryName),
                 Bundle.getString("TreeFileSystemDirectories.Confirm.Delete.Title"),
                 JOptionPane.YES_NO_OPTION) ==
@@ -253,14 +254,14 @@ public final class TreeFileSystemDirectories {
      * @param directoryName name of the directory
      */
     public static void errorMessageDelete(String directoryName) {
-        JOptionPane.showMessageDialog(null,
+        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
                 Bundle.getString("TreeFileSystemDirectories.Error.Delete", directoryName),
                 Bundle.getString("TreeFileSystemDirectories.Error.Delete.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private static String getSubDirectoryName() {
-        return JOptionPane.showInputDialog(null,
+        return JOptionPane.showInputDialog(ComponentUtil.getFrameWithIcon(),
                 Bundle.getString("TreeFileSystemDirectories.Input.SubDirectoryName"));
     }
 
