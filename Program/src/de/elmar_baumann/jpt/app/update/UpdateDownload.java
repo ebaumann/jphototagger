@@ -22,6 +22,8 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.net.HttpUtil;
 import de.elmar_baumann.lib.net.VersionCheck;
 import de.elmar_baumann.lib.util.Version;
@@ -29,6 +31,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+import javax.swing.JProgressBar;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending
@@ -39,12 +42,13 @@ import java.net.URL;
  */
 public final class UpdateDownload extends Thread {
 
-    private static final String URL_CHECK         = "http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html";
-    private static final String URL_JAR           = "http://www.elmar-baumann.de/fotografie/download/JPhotoTagger.zip";
-    private static final String URL_WIN_INSTALLER = "http://www.elmar-baumann.de/fotografie/download/JPhotoTagger-setup.exe";
-    private static final String VERSION_DELIMITER = ".";
-    private static final String FILENAME_WINDOWS  = "JPhotoTagger-Setup.exe";
-    private static final String FILENAME_JAR      = "JPhotoTagger.jar";
+    private static final String       URL_CHECK         = "http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/jphototagger-version.txt";
+    private static final String       URL_JAR           = "http://www.elmar-baumann.de/fotografie/download/JPhotoTagger.zip";
+    private static final String       URL_WIN_INSTALLER = "http://www.elmar-baumann.de/fotografie/download/JPhotoTagger-setup.exe";
+    private static final String       VERSION_DELIMITER = ".";
+    private static final String       FILENAME_WINDOWS  = "JPhotoTagger-Setup.exe";
+    private static final String       FILENAME_JAR      = "JPhotoTagger.jar";
+    private              JProgressBar progressBar;
 
     public UpdateDownload() {
         setName("Checking for and downloading newer version @ " + getClass().getSimpleName());
@@ -69,8 +73,11 @@ public final class UpdateDownload extends Thread {
 
     @Override
     public void run() {
+
+        if (!UserSettings.INSTANCE.isAutoDownloadNewerVersions()) return;
+        startProgressBar();
         try {
-            if (!UserSettings.INSTANCE.isAutoDownloadNewerVersions()) return;
+
             if (VersionCheck.existsNewer(URL_CHECK, VERSION_DELIMITER, currentVersion())) {
                 if (MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.Download")) {
                     download();
@@ -78,6 +85,8 @@ public final class UpdateDownload extends Thread {
             }
         } catch (Exception ex) {
             AppLog.logInfo(UpdateDownload.class, "UpdateDownload.Error.Compare", ex.getLocalizedMessage());
+        } finally {
+            stopProgressBar();
         }
     }
 
@@ -115,5 +124,23 @@ public final class UpdateDownload extends Thread {
     private boolean isWindows() {
         String os = System.getProperty("os.name").toLowerCase();
         return os.contains("windows");
+    }
+
+    private void startProgressBar() {
+        progressBar = ProgressBar.INSTANCE.getResource(this);
+        if (progressBar != null) {
+            progressBar.setIndeterminate(true);
+            progressBar.setStringPainted(true);
+            progressBar.setString(Bundle.getString("UpdateDownload.Info.ProgressBar"));
+        }
+    }
+
+    private void stopProgressBar() {
+        if (progressBar != null) {
+            progressBar.setIndeterminate(false);
+            progressBar.setString("");
+            progressBar.setStringPainted(false);
+            ProgressBar.INSTANCE.releaseResource(this);
+        }
     }
 }
