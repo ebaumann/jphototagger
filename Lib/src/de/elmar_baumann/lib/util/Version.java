@@ -124,6 +124,6 @@ public final class Version implements Comparable<Version> {
 
     @Override
     public String toString() {
-        return MessageFormat.format("{0}.{1}", new Object[]{major, minor1});
+        return MessageFormat.format("{0}.{1}.{2}.{3}", new Object[]{major, minor1, minor2, minor3});
     }
 }
