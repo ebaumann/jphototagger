@@ -26,6 +26,7 @@ import de.elmar_baumann.jpt.helper.HelperThread;
 import de.elmar_baumann.jpt.helper.InsertHierarchicalKeywords;
 import de.elmar_baumann.jpt.helper.RefreshExifInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.RefreshXmpInDbOfKnownFiles;
+import de.elmar_baumann.jpt.helper.SetExifDateToXmpDateCreated;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -59,6 +60,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
             buttonUpdateThumbnails,
             toggleButtonRefreshExif,
             toggleButtonRefreshXmp,
+            toggleButtonExifDateToXmpDateCreated,
         };
     }
 
@@ -75,6 +77,10 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
 
     private void updateXmp() {
         startOrStopHelperThread(toggleButtonRefreshXmp, RefreshXmpInDbOfKnownFiles.class);
+    }
+
+    private void exifDateToXmpDateCreated() {
+        startOrStopHelperThread(toggleButtonExifDateToXmpDateCreated, SetExifDateToXmpDateCreated.class);
     }
 
     private synchronized void startOrStopHelperThread(JToggleButton button, Class helperThreadClass) {
@@ -198,7 +204,9 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         buttonRenameFiles = new javax.swing.JButton();
         labelCopyKeywordsToKeywordsTree = new javax.swing.JLabel();
         buttonCopyKeywordsToKeywordsTree = new javax.swing.JButton();
+        labelExifDateToXmpDateCreated = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
+        toggleButtonExifDateToXmpDateCreated = new javax.swing.JToggleButton();
 
         labelRefreshExif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exif.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
@@ -251,6 +259,15 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
             }
         });
 
+        labelExifDateToXmpDateCreated.setText(bundle.getString("DatabaseUpdatePanel.labelExifDateToXmpDateCreated.text")); // NOI18N
+
+        toggleButtonExifDateToXmpDateCreated.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text")); // NOI18N
+        toggleButtonExifDateToXmpDateCreated.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleButtonExifDateToXmpDateCreatedActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -278,11 +295,15 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelCopyKeywordsToKeywordsTree)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(buttonCopyKeywordsToKeywordsTree)))
+                        .addComponent(buttonCopyKeywordsToKeywordsTree))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelExifDateToXmpDateCreated)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addComponent(toggleButtonExifDateToXmpDateCreated)))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCopyKeywordsToKeywordsTree, buttonRenameFiles, buttonUpdateThumbnails, toggleButtonRefreshExif, toggleButtonRefreshXmp});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCopyKeywordsToKeywordsTree, buttonRenameFiles, buttonUpdateThumbnails, toggleButtonExifDateToXmpDateCreated, toggleButtonRefreshExif, toggleButtonRefreshXmp});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,6 +328,10 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCopyKeywordsToKeywordsTree)
                     .addComponent(buttonCopyKeywordsToKeywordsTree))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelExifDateToXmpDateCreated)
+                    .addComponent(toggleButtonExifDateToXmpDateCreated))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -333,17 +358,23 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         copyKeywordsToKeywordsTree();
     }//GEN-LAST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
 
+    private void toggleButtonExifDateToXmpDateCreatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
+       exifDateToXmpDateCreated();
+    }//GEN-LAST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCopyKeywordsToKeywordsTree;
     private javax.swing.JButton buttonRenameFiles;
     private javax.swing.JButton buttonUpdateThumbnails;
     private javax.swing.JLabel labelCopyKeywordsToKeywordsTree;
+    private javax.swing.JLabel labelExifDateToXmpDateCreated;
     private javax.swing.JLabel labelRefreshExif;
     private javax.swing.JLabel labelRefreshXmp;
     private javax.swing.JLabel labelRenameFiles;
     private javax.swing.JLabel labelUpdateThumbnails;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JToggleButton toggleButtonExifDateToXmpDateCreated;
     private javax.swing.JToggleButton toggleButtonRefreshExif;
     private javax.swing.JToggleButton toggleButtonRefreshXmp;
     // End of variables declaration//GEN-END:variables
