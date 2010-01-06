@@ -47,6 +47,7 @@ public final class IptcEntryXmpPathStartMapping {
         XMP_PATH_START_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.OBJECT_NAME                    , "dc:title");
         XMP_PATH_START_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CONTENT_LOCATION_CODE          , "Iptc4xmpCore:CountryCode");
         XMP_PATH_START_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CONTENT_LOCATION_NAME          , "Iptc4xmpCore:Location");
+        XMP_PATH_START_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.DATE_CREATED                   , "Iptc4xmpCore:DateCreated");
         XMP_PATH_START_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.BYLINE_TITLE                   , "photoshop:AuthorsPosition");
         XMP_PATH_START_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.WRITER_EDITOR                  , "photoshop:CaptionWriter");
         XMP_PATH_START_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CITY                           , "photoshop:City");

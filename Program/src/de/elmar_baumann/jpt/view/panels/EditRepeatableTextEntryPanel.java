@@ -29,7 +29,6 @@ import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Suggest;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywordsEdit;
-import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -90,7 +89,7 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private void postInitComponents() {
-        textFieldInput.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
+        textFieldInput.setInputVerifier(column.getInputVerifier());
         textFieldInput.getDocument().addDocumentListener(this);
         model.addListDataListener(this);
         setPropmt();

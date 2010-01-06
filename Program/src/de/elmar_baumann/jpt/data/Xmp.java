@@ -29,6 +29,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
@@ -187,7 +188,7 @@ public final class Xmp implements TextEntryListener {
      *         set
      * @see             de.elmar_baumann.jpt.data.Iptc#getContentLocationCodes()
      */
-    public String getIptc4xmpcoreCountrycode() {
+    public String getIptc4XmpCoreCountrycode() {
         return stringValueOf(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
     }
 
@@ -196,7 +197,7 @@ public final class Xmp implements TextEntryListener {
      *
      * @param iptc4xmpcoreCountrycode value of Iptc4xmpCore:CountryCode (ISO country code)
      */
-    public void setIptc4xmpcoreCountrycode(String iptc4xmpcoreCountrycode) {
+    public void setIptc4XmpCoreCountrycode(String iptc4xmpcoreCountrycode) {
         valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, iptc4xmpcoreCountrycode);
     }
 
@@ -207,7 +208,7 @@ public final class Xmp implements TextEntryListener {
      * @return value of Iptc4xmpCore:Location or null if not set
      * @see    de.elmar_baumann.jpt.data.Iptc#getContentLocationNames()
      */
-    public String getIptc4xmpcoreLocation() {
+    public String getIptc4XmpCoreLocation() {
         return stringValueOf(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
     }
 
@@ -217,8 +218,16 @@ public final class Xmp implements TextEntryListener {
      *
      * @param iptc4xmpcoreLocation value of Iptc4xmpCore:Location
      */
-    public void setIptc4xmpcoreLocation(String iptc4xmpcoreLocation) {
+    public void setIptc4XmpCoreLocation(String iptc4xmpcoreLocation) {
         valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, iptc4xmpcoreLocation);
+    }
+
+    public void setIptc4XmpCoreDateCreated(String date) {
+        valueOfColumn.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, date);
+    }
+
+    public String getIptc4XmpCoreDateCreated() {
+        return stringValueOf(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
     }
 
     /**

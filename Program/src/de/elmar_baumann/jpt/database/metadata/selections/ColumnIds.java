@@ -36,6 +36,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
@@ -97,7 +98,8 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(27, ColumnSavedSearchesName.INSTANCE);
         COLUMN_OF_ID.put(28, ColumnXmpRating.INSTANCE);
         COLUMN_OF_ID.put(29, ColumnExifLens.INSTANCE);
-        // Next ID: 30 - UPDATE ID after assigning! --
+        COLUMN_OF_ID.put(30, ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+        // Next ID: 31 - UPDATE ID after assigning! --
 
         Set<Integer> keys = COLUMN_OF_ID.keySet();
         for (Integer key : keys) {

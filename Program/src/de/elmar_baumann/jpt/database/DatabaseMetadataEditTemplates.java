@@ -26,6 +26,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
@@ -107,8 +108,9 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ", photoshopCredit" +                 // -- 17 --
                     ", photoshopSource" +                 // -- 18 --
                     ", rating" +                          // -- 19 --
+                    ", iptc4xmpcore_datecreated" +        // -- 20 --
                     ")" +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             setMetadataEditTemplate(stmt, template);
             logFiner(stmt);
             stmt.executeUpdate();
@@ -185,6 +187,9 @@ public class DatabaseMetadataEditTemplates extends Database {
         stmt.setBytes(19, template.getValueOfColumn(ColumnXmpRating.INSTANCE) == null
                           ? null
                           : ((String)template.getValueOfColumn(ColumnXmpRating.INSTANCE)).getBytes());
+        stmt.setBytes(20, template.getValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE) == null
+                          ? null
+                          : ((String)template.getValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)).getBytes());
     }
 
     private String fromRepeatable(Collection<String> strings) {
@@ -295,6 +300,7 @@ public class DatabaseMetadataEditTemplates extends Database {
         ", photoshopCredit" +                 // -- 17 --
         ", photoshopSource" +                 // -- 18 --
         ", rating" +                          // -- 19 --
+        ", iptc4xmpcore_datecreated" +        // -- 20 --
         " FROM metadata_edit_templates"
         ;
     }
@@ -338,6 +344,8 @@ public class DatabaseMetadataEditTemplates extends Database {
         template.setValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE, rs.wasNull() ? null : new String(bytes));
         bytes = rs.getBytes(19);
         template.setValueOfColumn(ColumnXmpRating.INSTANCE, rs.wasNull() ? null : new String(bytes));
+        bytes = rs.getBytes(20);
+        template.setValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, rs.wasNull() ? null : new String(bytes));
     }
 
     /**
@@ -374,10 +382,11 @@ public class DatabaseMetadataEditTemplates extends Database {
                     ", photoshopInstructions = ?" +           // -- 16 --
                     ", photoshopCredit = ?" +                 // -- 17 --
                     ", photoshopSource = ?" +                 // -- 18 --
-                    ", rating= ?" +                           // -- 19 --
-                    " WHERE name = ?");                       // -- 20 --
+                    ", rating = ?" +                          // -- 19 --
+                    ", iptc4xmpcore_datecreated = ?" +        // -- 20 --
+                    " WHERE name = ?");                       // -- 21 --
             setMetadataEditTemplate(stmt, template);
-            stmt.setString(20, template.getName());
+            stmt.setString(21, template.getName());
             logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();

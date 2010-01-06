@@ -162,7 +162,7 @@ public final class XmpMetadata {
 
     private static boolean hasContent(XMPPropertyInfo xmpPropertyInfo) {
         return !xmpPropertyInfo.getOptions().isQualifier() &&
-                xmpPropertyInfo.getPath() != null &&
+                xmpPropertyInfo.getPath()  != null &&
                 xmpPropertyInfo.getValue() != null &&
                 xmpPropertyInfo.getValue().toString().length() > 0;
     }
@@ -199,8 +199,7 @@ public final class XmpMetadata {
      * @return              name of the sidecar file or null, if the image
      *                      hasn't a sidecar file
      */
-    public static String getSidecarFilenameOfImageFileIfExists(
-            String imageFilename) {
+    public static String getSidecarFilenameOfImageFileIfExists(String imageFilename) {
         int indexExtension = imageFilename.lastIndexOf(".");
         if (indexExtension > 0) {
             String sidecarFilename = imageFilename.substring(0, indexExtension +
@@ -575,43 +574,47 @@ public final class XmpMetadata {
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
-                if (xmpPropertyInfo.getPath().startsWith("dc:creator")) {
-                    xmp.setDcCreator(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:subject")) {
-                    xmp.addDcSubject(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:description")) {
-                    xmp.setDcDescription(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:rights")) {
-                    xmp.setDcRights(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("dc:title")) {
-                    xmp.setDcTitle(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("Iptc4xmpCore:CountryCode")) {
-                    xmp.setIptc4xmpcoreCountrycode(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("Iptc4xmpCore:Location")) {
-                    xmp.setIptc4xmpcoreLocation(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:AuthorsPosition")) {
-                    xmp.setPhotoshopAuthorsposition(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:CaptionWriter")) {
-                    xmp.setPhotoshopCaptionwriter(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:City")) {
-                    xmp.setPhotoshopCity(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Country")) {
-                    xmp.setPhotoshopCountry(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Credit")) {
-                    xmp.setPhotoshopCredit(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Headline")) {
-                    xmp.setPhotoshopHeadline(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Instructions")) {
-                    xmp.setPhotoshopInstructions(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:Source")) {
-                    xmp.setPhotoshopSource(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:State")) {
-                    xmp.setPhotoshopState(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("photoshop:TransmissionReference")) {
-                    xmp.setPhotoshopTransmissionReference(xmpPropertyInfo.getValue().toString());
-                } else if (xmpPropertyInfo.getPath().startsWith("xap:Rating")) {
+                String path  = xmpPropertyInfo.getPath();
+                Object value = xmpPropertyInfo.getValue();
+                if (path.startsWith("dc:creator")) {
+                    xmp.setDcCreator(value.toString());
+                } else if (path.startsWith("dc:subject")) {
+                    xmp.addDcSubject(value.toString());
+                } else if (path.startsWith("dc:description")) {
+                    xmp.setDcDescription(value.toString());
+                } else if (path.startsWith("dc:rights")) {
+                    xmp.setDcRights(value.toString());
+                } else if (path.startsWith("dc:title")) {
+                    xmp.setDcTitle(value.toString());
+                } else if (path.startsWith("Iptc4xmpCore:CountryCode")) {
+                    xmp.setIptc4XmpCoreCountrycode(value.toString());
+                } else if (path.startsWith("Iptc4xmpCore:DateCreated")) {
+                    xmp.setIptc4XmpCoreDateCreated(value.toString());
+                } else if (path.startsWith("Iptc4xmpCore:Location")) {
+                    xmp.setIptc4XmpCoreLocation(value.toString());
+                } else if (path.startsWith("photoshop:AuthorsPosition")) {
+                    xmp.setPhotoshopAuthorsposition(value.toString());
+                } else if (path.startsWith("photoshop:CaptionWriter")) {
+                    xmp.setPhotoshopCaptionwriter(value.toString());
+                } else if (path.startsWith("photoshop:City")) {
+                    xmp.setPhotoshopCity(value.toString());
+                } else if (path.startsWith("photoshop:Country")) {
+                    xmp.setPhotoshopCountry(value.toString());
+                } else if (path.startsWith("photoshop:Credit")) {
+                    xmp.setPhotoshopCredit(value.toString());
+                } else if (path.startsWith("photoshop:Headline")) {
+                    xmp.setPhotoshopHeadline(value.toString());
+                } else if (path.startsWith("photoshop:Instructions")) {
+                    xmp.setPhotoshopInstructions(value.toString());
+                } else if (path.startsWith("photoshop:Source")) {
+                    xmp.setPhotoshopSource(value.toString());
+                } else if (path.startsWith("photoshop:State")) {
+                    xmp.setPhotoshopState(value.toString());
+                } else if (path.startsWith("photoshop:TransmissionReference")) {
+                    xmp.setPhotoshopTransmissionReference(value.toString());
+                } else if (path.startsWith("xap:Rating")) {
                     try {
-                        xmp.setRating(Long.valueOf(xmpPropertyInfo.getValue().toString()));
+                        xmp.setRating(Long.valueOf(value.toString()));
                     } catch (Exception ex) {
                         AppLog.logSevere(XmpMetadata.class, ex);
                     }

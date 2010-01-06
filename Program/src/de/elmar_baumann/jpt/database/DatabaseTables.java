@@ -140,7 +140,8 @@ public final class DatabaseTables extends Database {
                     ", photoshop_source VARCHAR_IGNORECASE(32)" +                                            // -- 17 --
                     ", photoshop_state VARCHAR_IGNORECASE(32)" +                                             // -- 18 --
                     ", photoshop_transmissionReference VARCHAR_IGNORECASE(32)" +                             // -- 19 --
-                    ", rating BIGINT" +                                                                      // -- 20 --
+                    ", rating BIGINT" +
+                    ", iptc4xmpcore_datecreated VARCHAR_IGNORECASE(10)" +                                                                      // -- 20 --
                     ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" +
                     ");");
             stmt.execute(
@@ -173,6 +174,8 @@ public final class DatabaseTables extends Database {
                     " ON xmp (photoshop_state)");
             stmt.execute("CREATE INDEX idx_xmp_photoshop_transmissionReference" +
                     " ON xmp (photoshop_transmissionReference)");
+            stmt.execute("CREATE INDEX idx_iptc4xmpcore_datecreated" +
+                    " ON xmp (iptc4xmpcore_datecreated)");
         }
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp_dc_subjects")) {
             stmt.execute("CREATE CACHED TABLE xmp_dc_subjects" +
@@ -337,6 +340,7 @@ public final class DatabaseTables extends Database {
                     ", photoshopCredit BINARY" +                 // 19
                     ", photoshopSource BINARY" +                 // 20
                     ", rating BINARY" +                          // 21
+                    ", iptc4xmpcore_datecreated BINARY" +        // 22
                     ");");
             stmt.execute(
                     "CREATE UNIQUE INDEX idx_metadata_edit_templates_name ON metadata_edit_templates (name)");
