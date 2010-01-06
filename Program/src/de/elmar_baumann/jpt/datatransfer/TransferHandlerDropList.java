@@ -45,31 +45,41 @@ public final class TransferHandlerDropList extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return Flavors.hasKeywords(transferSupport) ||
-                Flavors.hasHierarchicalKeywords(transferSupport);
+        return  Flavors.hasKeywords            (transferSupport) ||
+                Flavors.hasHierarchicalKeywords(transferSupport) ||
+                Flavors.hasMetadataEditTemplate(transferSupport);
     }
 
     @Override
     public boolean importData(TransferHandler.TransferSupport transferSupport) {
         if (!transferSupport.isDrop()) return false;
 
-        JList list = (JList) transferSupport.getComponent();
-        DefaultListModel listModel = (DefaultListModel) list.getModel();
-        Transferable transferable = transferSupport.getTransferable();
+        JList            list         = (JList) transferSupport.getComponent();
+        DefaultListModel listModel    = (DefaultListModel) list.getModel();
+        Transferable     transferable = transferSupport.getTransferable();
 
         if (Flavors.hasKeywords(transferSupport)) {
+
             return importKeywords(transferable, listModel);
+
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
-            return importHierarchicalKeywords(
-                    listModel, transferSupport.getTransferable());
+
+            return importHierarchicalKeywords(listModel, transferSupport.getTransferable());
+
+        } else if (Flavors.hasMetadataEditTemplate(transferSupport)) {
+
+            MetadataEditTemplateSupport.setMetadataEditTemplate(transferSupport);
+            return true;
         }
         return false;
     }
 
-    private boolean importKeywords(
-            Transferable transferable, DefaultListModel listModel) {
+    private boolean importKeywords(Transferable transferable, DefaultListModel listModel) {
+
         Object[] keywords = Support.getKeywords(transferable);
+
         if (keywords == null) return false;
+
         return importStringArray(listModel, keywords);
     }
 
@@ -80,20 +90,20 @@ public final class TransferHandlerDropList extends TransferHandler {
         return true;
     }
 
-    private boolean importHierarchicalKeywords(
-            DefaultListModel listModel, Transferable transferable) {
-        List<DefaultMutableTreeNode> nodes =
-                Support.getHierarchicalKeywordsNodes(transferable);
+    private boolean importHierarchicalKeywords(DefaultListModel listModel, Transferable transferable) {
+
+        List<DefaultMutableTreeNode> nodes = Support.getHierarchicalKeywordsNodes(transferable);
+
         for (DefaultMutableTreeNode node : nodes) {
             importHierarchicalKeywords(node, listModel);
         }
         return true;
     }
 
-    private void importHierarchicalKeywords(
-            DefaultMutableTreeNode node, DefaultListModel listModel) {
-        for (String keyword :
-                HierarchicalKeywordsHelper.getKeywordStrings(node, true)) {
+    private void importHierarchicalKeywords(DefaultMutableTreeNode node, DefaultListModel listModel) {
+
+        for (String keyword : HierarchicalKeywordsHelper.getKeywordStrings(node, true)) {
+
             if (!listModel.contains(keyword)) {
                 listModel.addElement(keyword);
             }

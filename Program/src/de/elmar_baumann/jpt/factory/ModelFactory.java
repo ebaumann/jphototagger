@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.controller.timeline.ControllerTimelineItemSelected;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataEditTemplates;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.model.ListModelKeywords;
+import de.elmar_baumann.jpt.model.ListModelMetadataEditTemplates;
 import de.elmar_baumann.jpt.model.ListModelSavedSearches;
 import de.elmar_baumann.jpt.model.TableModelExif;
 import de.elmar_baumann.jpt.model.TableModelIptc;
@@ -172,6 +173,7 @@ public final class ModelFactory {
         appPanel.getTreeSelHierarchicalKeywords().setModel(model);
         appPanel.getTreeHierarchicalKeywords().setModel(model);
         InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(model);
+        InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList().setModel(new ListModelMetadataEditTemplates());
 
         appPanel.showMessage(Bundle.getString("ModelFactory.Finished.TreeModelHierarchicalKeywords"), AppPanel.MessageType.INFO, 1000);
     }

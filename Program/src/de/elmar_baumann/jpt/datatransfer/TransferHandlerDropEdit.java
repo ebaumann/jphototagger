@@ -49,8 +49,9 @@ public final class TransferHandlerDropEdit extends TransferHandler {
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
 
         return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor) ||
-                Flavors.hasHierarchicalKeywords(transferSupport) ||
-                Flavors.hasKeywords(transferSupport);
+                Flavors.hasHierarchicalKeywords     (transferSupport) ||
+                Flavors.hasKeywords                 (transferSupport) ||
+                Flavors.hasMetadataEditTemplate     (transferSupport);
     }
 
     @Override
@@ -60,17 +61,33 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         Transferable transferable = transferSupport.getTransferable();
 
         if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+
             string = Support.getString(transferable);
+
         } else if (Flavors.hasKeywords(transferSupport)) {
+
             string = getStrings(Support.getKeywords(transferable));
+
         } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
+
             string = getStrings(Support.getHierarchicalKeywordsNodes(transferable));
+
+        } else if (Flavors.hasMetadataEditTemplate(transferSupport)) {
+            
+            MetadataEditTemplateSupport.setMetadataEditTemplate(transferSupport);
+            return true;
         }
+
         if (string == null) return false;
+
         if (component instanceof JTextArea) {
+
             setText((JTextArea) component, string);
+
         } else if (component instanceof JTextField) {
+
             setText((JTextField) component, string);
+
         } else {
             return false;
         }
