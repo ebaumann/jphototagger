@@ -21,8 +21,6 @@ package de.elmar_baumann.jpt.view.renderer;
 import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Component;
-import java.util.Calendar;
-import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -56,8 +54,8 @@ public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
         Object userObject = node.getUserObject();
         TreeNode root = node.getRoot();
-        if (userObject instanceof Calendar) {
-            Calendar cal = (Calendar) userObject;
+        if (userObject instanceof Timeline.Date) {
+            Timeline.Date date = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.
                     getParent();
             if (parent != null) {
@@ -69,11 +67,10 @@ public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
                           ? ICON_MONTH
                           : ICON_DAY);
                 setText(isYear
-                        ? String.valueOf(cal.get(Calendar.YEAR))
+                        ? String.valueOf(date.year)
                         : isMonth
-                          ? cal.getDisplayName(Calendar.MONTH, Calendar.LONG,
-                        Locale.getDefault())
-                          : String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+                          ? date.getMonthDisplayName()
+                          : String.valueOf(date.day));
             }
         } else if (node.equals(Timeline.getUnknownNode())) {
             setIcon(ICON_UNKNOWN);

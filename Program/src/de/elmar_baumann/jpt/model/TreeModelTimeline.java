@@ -27,7 +27,6 @@ import de.elmar_baumann.jpt.event.DatabaseImageEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseListener;
 import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
-import java.util.Calendar;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -37,15 +36,14 @@ import javax.swing.tree.DefaultTreeModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12
  */
-public final class TreeModelTimeline extends DefaultTreeModel implements
-        DatabaseListener {
+public final class TreeModelTimeline extends DefaultTreeModel implements DatabaseListener {
 
-    private final Timeline timeline;
+    private final Timeline           timeline;
     private final DatabaseImageFiles db;
 
     public TreeModelTimeline() {
         super(new DefaultMutableTreeNode());
-        db = DatabaseImageFiles.INSTANCE;
+        db       = DatabaseImageFiles.INSTANCE;
         timeline = db.getTimeline();
         setRoot(timeline.getRoot());
         listen();
@@ -76,12 +74,8 @@ public final class TreeModelTimeline extends DefaultTreeModel implements
         if (exif != null) {
             java.sql.Date day = exif.getDateTimeOriginal();
             if (day != null && !db.existsExifDay(day)) {
-                Calendar calDay = Calendar.getInstance();
-                calDay.setTime(day);
-                TreeModelUpdateInfo.NodeAndChild info = timeline.removeDay(
-                        calDay);
-                nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(),
-                        info.getUpdatedChild());
+                TreeModelUpdateInfo.NodeAndChild info = timeline.removeDay(new Timeline.Date(day));
+                nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(), info.getUpdatedChild());
             }
         }
     }
@@ -91,13 +85,10 @@ public final class TreeModelTimeline extends DefaultTreeModel implements
         if (exif != null) {
             java.sql.Date day = exif.getDateTimeOriginal();
             if (day != null) {
-                Calendar calDay = Calendar.getInstance();
-                calDay.setTime(day);
-                if (!timeline.existsDay(calDay)) {
-                    TreeModelUpdateInfo.NodesAndChildIndices info =
-                            timeline.add(calDay);
-                    for (TreeModelUpdateInfo.NodeAndChildIndices node : info.
-                            getInfo()) {
+                Timeline.Date date = new Timeline.Date(day);
+                if (!timeline.existsDay(date)) {
+                    TreeModelUpdateInfo.NodesAndChildIndices info = timeline.add(date);
+                    for (TreeModelUpdateInfo.NodeAndChildIndices node : info.getInfo()) {
                         nodesWereInserted(node.getNode(), node.getChildIndices());
                     }
                 }

@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.timeline;
 
+import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
@@ -30,7 +31,6 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
@@ -43,8 +43,9 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12
  */
-public final class ControllerTimelineItemSelected implements
-        TreeSelectionListener, RefreshListener {
+public final class ControllerTimelineItemSelected
+        implements TreeSelectionListener,
+                   RefreshListener {
 
     private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
     private final JTree           treeTimeline    = appPanel.getTreeTimeline();
@@ -105,32 +106,39 @@ public final class ControllerTimelineItemSelected implements
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             thumbnailsPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesOfUnknownExifDate(), Content.TIMELINE);
-        } else if (userObject instanceof Calendar) {
-            Calendar               cal    = (Calendar) userObject;
+        } else if (userObject instanceof Timeline.Date) {
+            Timeline.Date          date   = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
             if (parent != null) {
                 boolean isYear = parent.equals(node.getRoot());
                 boolean isMonth = !isYear && node.getChildCount() > 0;
-                int year = cal.get(Calendar.YEAR);
                 int month = isYear
                             ? -1
-                            : cal.get(Calendar.MONTH) + 1;
+                            : date.month;
                 int day = isMonth
                           ? -1
-                          : cal.get(Calendar.DAY_OF_MONTH);
-                setTitle(isYear, year, isMonth, month, cal);
+                          : date.day;
+                setTitle(isYear, date.year, isMonth, month, date);
                 thumbnailsPanel.setFiles(
-                        DatabaseImageFiles.INSTANCE.getFilesOf(year, month, day), Content.TIMELINE);
+                        DatabaseImageFiles.INSTANCE.getFilesOf(date.year, month, day), Content.TIMELINE);
             }
         }
     }
 
     private void setTitle() {
-        GUI.INSTANCE.getAppFrame().setTitle(
-                Bundle.getString("AppFrame.Title.Timline.Unknown"));
+        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timline.Unknown"));
     }
 
-    private void setTitle(boolean isYear, int year, boolean isMonth, int month, Calendar cal) {
+    private void setTitle(boolean isYear, int year, boolean isMonth, int month, Timeline.Date date) {
+        java.util.Date d = null;
+        if (date.isComplete()) {
+            DateFormat df = new SimpleDateFormat("y-M-d");
+            try {
+                d = df.parse(Integer.toString(date.year) + "-" + Integer.toString(date.month) + "-" + Integer.toString(date.day));
+            } catch (Exception ex) {
+                AppLog.logSevere(getClass(), ex);
+            }
+        }
         NumberFormat yf    = new DecimalFormat("####");
         DateFormat   mf    = new SimpleDateFormat("MMMMM");
         DateFormat   df    = DateFormat.getDateInstance(DateFormat.LONG);
@@ -138,7 +146,7 @@ public final class ControllerTimelineItemSelected implements
                              ? yf.format(year)
                              : isMonth
                              ? mf.format(month) + " " + yf.format(year)
-                             : df.format(cal.getTime());
+                             : d == null ? "" : df.format(d);
 
         GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timeline.Date", fDate));
     }
