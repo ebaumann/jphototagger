@@ -25,16 +25,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * 
+ * Grabs version information from the net.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
  */
-public final class VersionCheck {
+public final class NetVersion {
 
     /**
-     * Compares in a simple way two Versions for e.g. to check whether a new
-     * application version is available on the web.
+     * Returns a Version from a version file over the HTTP.
      * <p>
      * Converts a HTTP stream into a string, searches for the first occurence
      * of the substring <code>&lt;span class="version"&gt;</code> and grabs
@@ -45,8 +44,8 @@ public final class VersionCheck {
      * @param httpUrl          HTTP URL, e.g. <code>http://mysite.com/version.html</code>
      * @param versionDelimiter delimiter in the version string within the Stream
      *                         of <code>httpUrl</code>
-     * @param compareToVersion version to compare the got HTTP version info
-     * @return                 true if the HTTP version is newer than <code>version</code>
+     * @return                 Version or null if the version format is not
+     *                         as descriped whitin span tags
      *
      * @throws MalformedURLException     if the URL string is bad formed
      * @throws IOException               on read/write errors
@@ -54,10 +53,9 @@ public final class VersionCheck {
      * @throws IllegalArgumentException  if the version does not contain 2 up to
      *                                   4 integer numbers
      */
-    public static boolean existsNewer(
+    public static Version getOverHttp(
             String  httpUrl,
-            String  versionDelimiter,
-            Version compareToVersion
+            String  versionDelimiter
             )
             throws MalformedURLException, IOException, NumberFormatException, IllegalArgumentException {
 
@@ -71,18 +69,17 @@ public final class VersionCheck {
 
         if (beginIndex >= 0) {
 
-            int endIndex = content.indexOf("</span>", beginIndex + 26); // <span class="version">x.x.x
+            int endIndex = content.indexOf("</span>", beginIndex + 1);
 
-            if (endIndex <= beginIndex) return false;
+            if (endIndex <= beginIndex) return null;
 
             String  versionString = content.substring(beginIndex + 22, endIndex);
-            Version urlVersion    = Version.parseVersion(versionString, versionDelimiter);
 
-            return urlVersion.compareTo(compareToVersion) > 0;
+            return Version.parseVersion(versionString, versionDelimiter);
         }
-        return false;
+        return null;
     }
 
-    private VersionCheck() {
+    private NetVersion() {
     }
 }

@@ -26,7 +26,7 @@ public class VersionCheckTest {
     }
 
     /**
-     * Test of existsNewer method, of class VersionCheck.
+     * Test of existsNewer method, of class NetVersion.
      * @throws Exception
      */
     @Test
@@ -39,13 +39,7 @@ public class VersionCheckTest {
 
         Version compareToVersion = new Version(0, 7, 2);
         boolean expResult        = true;
-        boolean result           = VersionCheck.existsNewer(urlHtml, versionDelimiter, compareToVersion);
-
-        assertEquals(expResult, result);
-
-        compareToVersion = new Version(999999, 0, 0);
-        expResult        = false;
-        result           = VersionCheck.existsNewer(urlHtml, versionDelimiter, compareToVersion);
+        boolean result           = compareToVersion.compareTo(NetVersion.getOverHttp(urlHtml, versionDelimiter)) < 0;
 
         assertEquals(expResult, result);
     }
