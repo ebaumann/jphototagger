@@ -38,6 +38,7 @@ public abstract class HelperThread extends Thread {
     private final        Set<ProgressListener> progressListeners = new HashSet<ProgressListener>();
     private              JProgressBar          progressBar;
     private volatile     boolean               customProgressBar;
+    private volatile     boolean               infoChanged;
     private volatile     int                   minimum;
     private volatile     int                   maximum;
 
@@ -83,6 +84,7 @@ public abstract class HelperThread extends Thread {
      */
     public synchronized void setInfo(String info) {
         this.info = info;
+        infoChanged = true;
     }
 
     /**
@@ -129,21 +131,25 @@ public abstract class HelperThread extends Thread {
     private void getProgressBar() {
         if (progressBar == null) {
             progressBar = ProgressBar.INSTANCE.getResource(this);
+            if (progressBar != null) {
+                progressBar.setIndeterminate(false);
+                progressBar.setMinimum(minimum);
+                progressBar.setMaximum(maximum);
+            }
         }
     }
 
     private void setProgressBar(int value) {
         getProgressBar();
         if (progressBar != null) {
-            progressBar.setMinimum(minimum);
-            progressBar.setMaximum(maximum);
-            progressBar.setValue(value);
-            if (info != null) {
+            if (infoChanged && info != null) {
                 if (!progressBar.isStringPainted()){
                     progressBar.setStringPainted(true);
                 }
                 progressBar.setString(info);
+                infoChanged = false;
             }
+            progressBar.setValue(value);
         }
     }
 
