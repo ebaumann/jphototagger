@@ -21,6 +21,8 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.componentutil.InputVerifierNumberRange;
+import javax.swing.InputVerifier;
 
 /**
  * Spalte <code>rating</code> der Tabelle <code>xmp</code>.
@@ -66,5 +68,10 @@ public final class ColumnXmpRating extends Column {
      */
     public static int getMaxValue() {
         return 5;
+    }
+
+    @Override
+    public InputVerifier getInputVerifier() {
+        return new InputVerifierNumberRange(1, 5);
     }
 }

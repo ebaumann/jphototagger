@@ -26,6 +26,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
@@ -71,6 +72,7 @@ public final class IptcXmpMapping {
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.KEYWORDS                       , ColumnXmpDcSubjectsSubject.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.BYLINE                         , ColumnXmpDcCreator.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CONTENT_LOCATION_NAME          , ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.DATE_CREATED                   , ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CONTENT_LOCATION_CODE          , ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.WRITER_EDITOR                  , ColumnXmpPhotoshopCaptionwriter.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.BYLINE_TITLE                   , ColumnXmpPhotoshopAuthorsposition.INSTANCE);

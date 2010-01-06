@@ -30,6 +30,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
@@ -63,6 +64,7 @@ public final class DatabaseInfoRecordCountColumns {
         COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);
         COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        COLUMNS.add(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
         COLUMNS.add(ColumnXmpDcCreator.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopCity.INSTANCE);

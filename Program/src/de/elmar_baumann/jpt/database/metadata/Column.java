@@ -18,6 +18,9 @@
  */
 package de.elmar_baumann.jpt.database.metadata;
 
+import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
+import javax.swing.InputVerifier;
+
 /**
  * Eine Tabellenspalte.
  *
@@ -340,6 +343,17 @@ public class Column {
      */
     public ReferenceDirection getReferenceDirection() {
         return referenceDirection;
+    }
+
+    /**
+     * Returns an appropriate input verifier for a text component.
+     *
+     * @return this class returns an {@link InputVerifierMaxLength} with this
+     *         column's length. Specialized classes can return an instance with
+     *         a better verification.
+     */
+    public InputVerifier getInputVerifier() {
+        return new InputVerifierMaxLength(getLength());
     }
 
     /**

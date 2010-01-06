@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.ColumnIds;
 import de.elmar_baumann.jpt.database.metadata.Comparator;
 import de.elmar_baumann.jpt.database.metadata.FormatterFactory;
-import de.elmar_baumann.jpt.database.metadata.InputVerifierFactory;
 import de.elmar_baumann.jpt.database.metadata.Operator;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.jpt.database.metadata.selections.AdvancedSearchColumns;
@@ -146,8 +145,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setInputVerifier() {
-        textFieldValue.setInputVerifier(
-                InputVerifierFactory.getInputVerifyerOf(getColumn()));
+        textFieldValue.setInputVerifier(getColumn().getInputVerifier());
     }
 
     private Column getColumn() {

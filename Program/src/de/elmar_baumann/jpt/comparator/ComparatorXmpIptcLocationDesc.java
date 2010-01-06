@@ -40,8 +40,8 @@ public final class ComparatorXmpIptcLocationDesc
     public int compare(File fileLeft, File fileRight) {
         Xmp    xmpLeft  = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileLeft.getAbsolutePath());
         Xmp    xmpRight = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileRight.getAbsolutePath());
-        String locLeft  =  xmpLeft == null ? null : xmpLeft .getIptc4xmpcoreLocation();
-        String locRight = xmpRight == null ? null : xmpRight.getIptc4xmpcoreLocation();
+        String locLeft  =  xmpLeft == null ? null : xmpLeft .getIptc4XmpCoreLocation();
+        String locRight = xmpRight == null ? null : xmpRight.getIptc4XmpCoreLocation();
 
         return locLeft == null && locRight == null
                 ? 0

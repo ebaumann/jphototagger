@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import java.awt.Color;
 import java.awt.Component;
@@ -63,7 +62,7 @@ public final class EditTextEntryPanel
 
     private void postInitComponents() {
         setPropmt();
-        textAreaEdit.setInputVerifier(new InputVerifierMaxLength(column.getLength()));
+        textAreaEdit.setInputVerifier(column.getInputVerifier());
         textAreaEdit.getDocument().addDocumentListener(this);
     }
 

@@ -842,7 +842,8 @@ public final class DatabaseImageFiles extends Database {
                 ", photoshop_state = ?" +                 // -- 16 --
                 ", photoshop_transmissionReference = ?" + // -- 17 --
                 ", rating = ?" +                          // -- 18 --
-                " WHERE id = ?";                          // -- 19 --
+                ", iptc4xmpcore_datecreated = ?" +        // -- 19 --
+                " WHERE id = ?";                          // -- 20 --
     }
 
     private String getInsertIntoXmpStatement() {
@@ -866,8 +867,9 @@ public final class DatabaseImageFiles extends Database {
                 ", photoshop_state" +                 // -- 16 --
                 ", photoshop_transmissionReference" + // -- 17 --
                 ", rating" +                          // -- 18 --
+                ", iptc4xmpcore_datecreated = ?" +    // -- 19 --
                 ")" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmp)
@@ -877,8 +879,8 @@ public final class DatabaseImageFiles extends Database {
         stmt.setString( 3, xmp.getDcDescription());
         stmt.setString( 4, xmp.getDcRights());
         stmt.setString( 5, xmp.getDcTitle());
-        stmt.setString( 6, xmp.getIptc4xmpcoreCountrycode());
-        stmt.setString( 7, xmp.getIptc4xmpcoreLocation());
+        stmt.setString( 6, xmp.getIptc4XmpCoreCountrycode());
+        stmt.setString( 7, xmp.getIptc4XmpCoreLocation());
         stmt.setString( 8, xmp.getPhotoshopAuthorsposition());
         stmt.setString( 9, xmp.getPhotoshopCaptionwriter());
         stmt.setString(10, xmp.getPhotoshopCity());
@@ -897,6 +899,7 @@ public final class DatabaseImageFiles extends Database {
                              ? rating
                              : ColumnXmpRating.getMaxValue());
         }
+        stmt.setString(19, xmp.getIptc4XmpCoreDateCreated());
     }
 
     private void insertOrUpdateXmp(Connection connection, long idFile, Xmp xmp) throws SQLException {
@@ -906,7 +909,7 @@ public final class DatabaseImageFiles extends Database {
             if (idXmp > 0) {
                 PreparedStatement stmt = connection.prepareStatement(getUpdateXmpStatement());
                 setXmpValues(stmt, idFile, xmp);
-                stmt.setLong(19, idXmp);
+                stmt.setLong(20, idXmp);
                 logFiner(stmt);
                 stmt.executeUpdate();
                 stmt.close();
@@ -1008,6 +1011,7 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp.photoshop_transmissionReference" +                       // -- 17 --
                 ", xmp_dc_subjects.subject" +                                   // -- 18 --
                 ", xmp.rating" +                                                // -- 19 --
+                ", xmp.iptc4xmpcore_datecreated" +                              // -- 20 --
                 " FROM" +
                 " files LEFT JOIN xmp" +
                 " ON files.id = xmp.id_files" +
@@ -1047,8 +1051,8 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setDcDescription(                 rs.getString(3));
                 xmp.setDcRights(                      rs.getString(4));
                 xmp.setDcTitle(                       rs.getString(5));
-                xmp.setIptc4xmpcoreCountrycode(       rs.getString(6));
-                xmp.setIptc4xmpcoreLocation(          rs.getString(7));
+                xmp.setIptc4XmpCoreCountrycode(       rs.getString(6));
+                xmp.setIptc4XmpCoreLocation(          rs.getString(7));
                 xmp.setPhotoshopAuthorsposition(      rs.getString(8));
                 xmp.setPhotoshopCaptionwriter(        rs.getString(9));
                 xmp.setPhotoshopCity(                 rs.getString(10));
@@ -1070,6 +1074,7 @@ public final class DatabaseImageFiles extends Database {
                               : rating <= ColumnXmpRating.getMaxValue()
                                 ? rating
                                 : ColumnXmpRating.getMaxValue());
+                xmp.setIptc4XmpCoreDateCreated(rs.getString(20));
                 if (!filename.equals(prevFilename)) {
                     list.add(new Pair<String, Xmp>(filename, xmp));
                 }
@@ -1128,6 +1133,7 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp.photoshop_transmissionReference" +                       // -- 16 --
                 ", xmp_dc_subjects.subject" +                                   // -- 17 --
                 ", xmp.rating" +                                                // -- 18 --
+                ", xmp.iptc4xmpcore_datecreated" +                              // -- 19 --
                 " FROM" +
                 " files INNER JOIN xmp" +
                 " ON files.id = xmp.id_files" +
@@ -1156,8 +1162,8 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setDcDescription(                  rs.getString(2));
                 xmp.setDcRights(                       rs.getString(3));
                 xmp.setDcTitle(                        rs.getString(4));
-                xmp.setIptc4xmpcoreCountrycode(        rs.getString(5));
-                xmp.setIptc4xmpcoreLocation(           rs.getString(6));
+                xmp.setIptc4XmpCoreCountrycode(        rs.getString(5));
+                xmp.setIptc4XmpCoreLocation(           rs.getString(6));
                 xmp.setPhotoshopAuthorsposition(       rs.getString(7));
                 xmp.setPhotoshopCaptionwriter(         rs.getString(8));
                 xmp.setPhotoshopCity(                  rs.getString(9));
@@ -1179,6 +1185,7 @@ public final class DatabaseImageFiles extends Database {
                               : rating <= ColumnXmpRating.getMaxValue()
                                 ? rating
                                 : ColumnXmpRating.getMaxValue());
+                xmp.setIptc4XmpCoreDateCreated(rs.getString(19));
             }
             stmt.close();
         } catch (SQLException ex) {

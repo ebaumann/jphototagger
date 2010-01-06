@@ -32,7 +32,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-06
  */
-final class UpdateTablesAddColumns {
+final class UpdateTablesInsertColumns {
 
     private final        UpdateTablesMessages messages       = UpdateTablesMessages.INSTANCE;
     private final        List<ColumnInfo>     missingColumns = new ArrayList<ColumnInfo>();
@@ -110,6 +110,20 @@ final class UpdateTablesAddColumns {
                     "exif_lens",
                     "idx_exif_lens",
                     false)));
+        columns.add(new ColumnInfo(
+                "xmp",
+                "iptc4xmpcore_datecreated",
+                "VARCHAR_IGNORECASE(32)",
+                new IndexOfColumn(
+                    "xmp",
+                    "iptc4xmpcore_datecreated",
+                    "idx_iptc4xmpcore_datecreated",
+                    false)));
+        columns.add(new ColumnInfo(
+                "metadata_edit_templates",
+                "iptc4xmpcore_datecreated",
+                "BINARY",
+                null));
     }
 
     void update(Connection connection) throws SQLException {

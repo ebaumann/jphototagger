@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
@@ -63,6 +64,7 @@ public final class EditColumns {
         EDIT_HINT_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE                 , notRepeatableHintLarge);
         EDIT_HINT_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE             , notRepeatableHintSmall);
         EDIT_HINT_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE          , notRepeatableHintSmall);
+        EDIT_HINT_OF_COLUMN.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE       , notRepeatableHintSmall);
         EDIT_HINT_OF_COLUMN.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE      , notRepeatableHintSmall);
         EDIT_HINT_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE                     , notRepeatableHintSmall);
         EDIT_HINT_OF_COLUMN.put(ColumnXmpPhotoshopCity.INSTANCE                 , notRepeatableHintSmall);
