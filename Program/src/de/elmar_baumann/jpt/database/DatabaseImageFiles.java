@@ -867,7 +867,7 @@ public final class DatabaseImageFiles extends Database {
                 ", photoshop_state" +                 // -- 16 --
                 ", photoshop_transmissionReference" + // -- 17 --
                 ", rating" +                          // -- 18 --
-                ", iptc4xmpcore_datecreated = ?" +    // -- 19 --
+                ", iptc4xmpcore_datecreated" +        // -- 19 --
                 ")" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
