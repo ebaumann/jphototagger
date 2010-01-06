@@ -23,59 +23,36 @@ import javax.swing.JComponent;
 import javax.swing.text.JTextComponent;
 
 /**
- * Verifies wheter a text component's text matches a regex string pattern.
+ * A valid input of a <code>JTextComponent</code> has to be empty.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-06
  */
-public final class InputVerifierStringPattern extends InputVerifier {
+public final class InputVerifierEmpty extends InputVerifier {
 
-    private final String  pattern;
     private final boolean trim;
 
     /**
-     * Verifies the untrimmed input.
+     * Constructor setting whether the text shall be trimmed.
      *
-     * @param pattern pattern
+     * @param trim true if the text shall be trimmed before verifying.
+     *             Default: false.
      */
-    public InputVerifierStringPattern(String pattern) {
-        this.pattern = pattern;
-        trim         = false;
-    }
-
-    /**
-     * Verifies trimmed or untrimmed input.
-     *
-     * @param pattern pattern
-     * @param trim    true if the input shall be trimmed before verifyng
-     */
-    public InputVerifierStringPattern(String pattern, boolean trim) {
-        this.pattern = pattern;
+    public InputVerifierEmpty(boolean trim) {
         this.trim = trim;
     }
 
-    /**
-     * Verifies the input.
-     *
-     * @param  input an instance of <code>JTextComponent</code>
-     * @return       true if input is ok
-     */
-    @Override
-    public boolean verify(JComponent input) {
-
-        assert input instanceof JTextComponent : input;
-
-        if (input instanceof JTextComponent) {
-
-            return isValid((JTextComponent) input);
-        }
-        return  true;
+    public InputVerifierEmpty() {
+        trim = false;
     }
 
-    private boolean isValid(JTextComponent textComponent) {
-
-         String text = trim ? textComponent.getText().trim() : textComponent.getText();
-
-         return text.matches(pattern);
+    @Override
+    public boolean verify(JComponent input) {
+        assert input instanceof JTextComponent;
+        if (input instanceof JTextComponent) {
+            String text = ((JTextComponent) input).getText();
+            return trim ? text.trim().isEmpty() : text.isEmpty();
+        }
+        return false;
     }
 }
