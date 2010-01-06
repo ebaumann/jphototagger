@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.data;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * EXIF metadata or an image file.
@@ -119,6 +120,12 @@ public final class Exif {
 
     public void setLens(String lens) {
         this.lens = lens;
+    }
+
+    public String getXmpDateCreated() {
+        if (dateTimeOriginal == null) return "";
+
+        return new SimpleDateFormat("yyyy-MM-dd").format(dateTimeOriginal);
     }
 
     /**

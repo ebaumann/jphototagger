@@ -46,6 +46,11 @@
                       <EmptySpace pref="32" max="32767" attributes="0"/>
                       <Component id="buttonCopyKeywordsToKeywordsTree" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="labelExifDateToXmpDateCreated" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="112" max="32767" attributes="0"/>
+                      <Component id="toggleButtonExifDateToXmpDateCreated" linkSize="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -78,6 +83,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelCopyKeywordsToKeywordsTree" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonCopyKeywordsToKeywordsTree" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelExifDateToXmpDateCreated" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="toggleButtonExifDateToXmpDateCreated" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="progressBar" min="-2" pref="23" max="-2" attributes="0"/>
@@ -187,7 +197,24 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCopyKeywordsToKeywordsTreeActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JLabel" name="labelExifDateToXmpDateCreated">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelExifDateToXmpDateCreated.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JProgressBar" name="progressBar">
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="toggleButtonExifDateToXmpDateCreated">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleButtonExifDateToXmpDateCreatedActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

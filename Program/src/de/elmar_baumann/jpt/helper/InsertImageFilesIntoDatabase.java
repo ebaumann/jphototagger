@@ -177,6 +177,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                                                 ? filenames.get(index + 1)
                                                 : filename);
             if (isUpdate(imageFile)) {
+                setExifDateToXmpDateCreated(imageFile);
                 logInsertImageFile(imageFile);
                 db.insertOrUpdateImageFile(imageFile);
                 runActionsAfterInserting(imageFile);
@@ -319,6 +320,22 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
         }
         return xmp;
+    }
+
+    private void setExifDateToXmpDateCreated(ImageFile imageFile) {
+        Exif exif = imageFile.getExif();
+        Xmp  xmp  = imageFile.getXmp();
+
+        if (exif == null || xmp == null || exif.getDateTimeOriginal() == null ||
+                xmp.getIptc4XmpCoreDateCreated() != null) return;
+
+        xmp.setIptc4XmpCoreDateCreated(exif.getXmpDateCreated());
+
+        File xmpFile = new File(XmpMetadata.suggestSidecarFilenameForImageFile(imageFile.getFilename()));
+        if (xmpFile.canWrite()) {
+            XmpMetadata.writeMetadataToSidecarFile(xmpFile.getAbsolutePath(), xmp);
+            xmp.setLastModified(xmpFile.lastModified());
+        }
     }
 
     private void writeSidecarFileIfNotExists(String imageFilename, Xmp xmp) {
