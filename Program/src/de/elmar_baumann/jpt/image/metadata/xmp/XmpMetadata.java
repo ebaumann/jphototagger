@@ -97,6 +97,7 @@ public final class XmpMetadata {
             List<XMPPropertyInfo> propertyInfos, String namespace) {
 
         List<XMPPropertyInfo> propertyInfosNs = new ArrayList<XMPPropertyInfo>();
+
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
             if (propertyInfo.getNamespace().equals(namespace)) {
                 propertyInfosNs.add(propertyInfo);
@@ -112,31 +113,26 @@ public final class XmpMetadata {
      * @return              Metadata or null if the image file has no XMP
      *                      metadata or on errors while reading
      */
-    public static List<XMPPropertyInfo> getPropertyInfosOfImageFile(
-            String imageFilename) {
+    public static List<XMPPropertyInfo> getPropertyInfosOfImageFile(String imageFilename) {
+        if (imageFilename == null || !FileUtil.existsFile(new File(imageFilename))) return null;
 
-        if (imageFilename == null ||
-                !FileUtil.existsFile(new File(imageFilename))) {
-            return null;
-        }
-        return getPropertyInfosOfXmpString(getXmpAsStringFromImageFile(
-                imageFilename));
+        return getPropertyInfosOfXmpString(getXmpAsStringFromImageFile(imageFilename));
     }
 
     private static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmp) {
-        List<XMPPropertyInfo> metadata = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
         try {
             if (xmp != null && xmp.length() > 0) {
                 XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmp);
                 if (xmpMeta != null) {
-                    addXmpPropertyInfosTo(xmpMeta, metadata);
+                    addXmpPropertyInfosTo(xmpMeta, propertyInfos);
                 }
             }
         } catch (Exception ex) {
-            metadata = null;
+            propertyInfos = null;
             AppLog.logSevere(XmpMetadata.class, ex);
         }
-        return metadata;
+        return propertyInfos;
     }
 
     /**
@@ -178,11 +174,9 @@ public final class XmpMetadata {
      * @return               sidecar filename
      */
     public static String suggestSidecarFilenameForImageFile(String imageFilename) {
-        String existingFilename =
-                getSidecarFilenameOfImageFileIfExists(imageFilename);
-        if (existingFilename != null) {
-            return existingFilename;
-        }
+        String existingFilename = getSidecarFilenameOfImageFileIfExists(imageFilename);
+        if (existingFilename != null) return existingFilename;
+
         int indexExtension = imageFilename.lastIndexOf(".");
         if (indexExtension > 0) {
             return imageFilename.substring(0, indexExtension + 1) + "xmp";
@@ -202,9 +196,7 @@ public final class XmpMetadata {
     public static String getSidecarFilenameOfImageFileIfExists(String imageFilename) {
         int indexExtension = imageFilename.lastIndexOf(".");
         if (indexExtension > 0) {
-            String sidecarFilename = imageFilename.substring(0, indexExtension +
-                    1) +
-                    "xmp";
+            String sidecarFilename = imageFilename.substring(0, indexExtension + 1) + "xmp";
             File sidecarFile = new File(sidecarFilename);
             if (sidecarFile.exists()) {
                 return sidecarFile.getAbsolutePath();
@@ -221,28 +213,22 @@ public final class XmpMetadata {
      * @return           sidecar file or null if the image hasn't a sidecar file
      */
     public static File getSidecarFileOfImageFileIfExists(File imageFile) {
-        String sidecarFilename = getSidecarFilenameOfImageFileIfExists(
-                imageFile.getAbsolutePath());
+        String sidecarFilename = getSidecarFilenameOfImageFileIfExists(imageFile.getAbsolutePath());
         return sidecarFilename == null
                ? null
                : new File(sidecarFilename);
     }
 
     private static String getXmpAsStringFromImageFile(String imageFilename) {
-
         if (!FileUtil.existsFile(new File(imageFilename))) return null;
-        String xmpString = null;
-        String sidecarFilename =
-                getSidecarFilenameOfImageFileIfExists(imageFilename);
+        String xmpString       = null;
+        String sidecarFilename = getSidecarFilenameOfImageFileIfExists(imageFilename);
         if (sidecarFilename == null) {
-            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp",
-                    imageFilename);
+            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp", imageFilename);
             xmpString = XmpFileReader.readFile(imageFilename);
         } else {
-            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadSidecarFile",
-                    sidecarFilename, imageFilename);
-            xmpString = FileUtil.getFileContentAsString(
-                    new File(sidecarFilename), "UTF-8");
+            AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadSidecarFile", sidecarFilename, imageFilename);
+            xmpString = FileUtil.getFileContentAsString(new File(sidecarFilename), "UTF-8");
         }
         return xmpString;
     }
@@ -268,10 +254,8 @@ public final class XmpMetadata {
     public static List<XMPPropertyInfo> getFilteredPropertyInfosOfIptcEntryMeta(
             IPTCEntryMeta iptcEntryMeta, List<XMPPropertyInfo> propertyInfos) {
 
-        List<XMPPropertyInfo> filteredPropertyInfos =
-                new ArrayList<XMPPropertyInfo>();
-        String startsWith = IptcEntryXmpPathStartMapping.
-                getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
+        List<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<XMPPropertyInfo>();
+        String                startsWith            = IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
 
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
             if (propertyInfo.getPath().startsWith(startsWith)) {
@@ -289,8 +273,7 @@ public final class XmpMetadata {
      * @return               true if the image has a sidecar file
      */
     public static boolean hasImageASidecarFile(String imageFilename) {
-        String sidecarFilename = getSidecarFilenameOfImageFileIfExists(
-                imageFilename);
+        String sidecarFilename = getSidecarFilenameOfImageFileIfExists(imageFilename);
         return sidecarFilename == null
                ? false
                : new File(sidecarFilename).exists();
@@ -306,9 +289,9 @@ public final class XmpMetadata {
      */
     public static boolean canWriteSidecarFileForImageFile(String imageFilename) {
         if (imageFilename != null) {
-            File directory = new File(imageFilename).getParentFile();
-            String sidecarFilename = getSidecarFilenameOfImageFileIfExists(
-                    imageFilename);
+            File   directory       = new File(imageFilename).getParentFile();
+            String sidecarFilename = getSidecarFilenameOfImageFileIfExists(imageFilename);
+
             if (sidecarFilename != null) {
                 return new File(sidecarFilename).canWrite();
             } else if (directory != null) {
@@ -326,35 +309,32 @@ public final class XmpMetadata {
      * @param  metadata         metadata
      * @return                  true if successfully written
      */
-    public static boolean writeMetadataToSidecarFile(
-            String sidecarFilename, Xmp metadata) {
+    public static boolean writeMetadataToSidecarFile(String sidecarFilename, Xmp metadata) {
         try {
             XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
+
             deleteAllEditableMetadataFrom(xmpMeta);
             setMetadata(xmpMeta, metadata);
+
             return writeSidecarFile(sidecarFilename, xmpMeta);
+
         } catch (Exception ex) {
             AppLog.logSevere(XmpMetadata.class, ex);
             return false;
         }
     }
 
-    private static void setMetadata(XMPMeta xmpMeta, Xmp metadata)
-            throws XMPException {
-        Set<Column> xmpColumns = EditColumns.get();
-        for (Column column : xmpColumns) {
-            String namespaceUri = XmpColumnNamespaceUriMapping.
-                    getNamespaceUriOfColumn(column);
-            String propertyName = XmpColumnXmpPathStartMapping.
-                    getXmpPathStartOfColumn(column);
-            setSidecarFileSetMetadata(
-                    column, metadata, xmpMeta, namespaceUri, propertyName);
+    private static void setMetadata(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
+        for (Column column : EditColumns.get()) {
+            String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(column);
+            String propertyName = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(column);
+            setSidecarFileSetMetadata(column, metadata, xmpMeta, namespaceUri, propertyName);
         }
     }
 
-    private static XMPMeta getXmpMetaOfSidecarFile(String sidecarFilename)
-            throws XMPException {
+    private static XMPMeta getXmpMetaOfSidecarFile(String sidecarFilename) throws XMPException {
         File sidecarFile = new File(sidecarFilename);
+
         if (FileUtil.existsFile(sidecarFile)) {
             String xmp = FileUtil.getFileContentAsString(sidecarFile, "UTF-8");
             if (xmp != null && !xmp.trim().isEmpty()) {
@@ -372,10 +352,8 @@ public final class XmpMetadata {
     private static void deleteAllEditableMetadataFrom(XMPMeta xmpMeta) {
         Set<Column> editableXmpColumns = EditColumns.get();
         for (Column editableColumn : editableXmpColumns) {
-            String namespaceUri = XmpColumnNamespaceUriMapping.
-                    getNamespaceUriOfColumn(editableColumn);
-            String propertyName = XmpColumnXmpPathStartMapping.
-                    getXmpPathStartOfColumn(editableColumn);
+            String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(editableColumn);
+            String propertyName = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(editableColumn);
             xmpMeta.deleteProperty(namespaceUri, propertyName);
         }
     }
@@ -391,11 +369,12 @@ public final class XmpMetadata {
      * @throws XMPException  if the namespace or uri or data is invalid
      */
     private static void setSidecarFileSetMetadata(
-            Column column,
-            Xmp metadata,
+            Column  column,
+            Xmp     metadata,
             XMPMeta xmpMeta,
-            String namespaceUri,
-            String propertyName)
+            String  namespaceUri,
+            String  propertyName
+            )
             throws XMPException {
         Object metadataValue = metadata.getValue(column);
         if (metadataValue != null) {
@@ -408,29 +387,23 @@ public final class XmpMetadata {
                     xmpMeta.setProperty(namespaceUri, propertyName, value);
                 } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
                         column)) {
-                    xmpMeta.setLocalizedText(namespaceUri, propertyName, "",
-                            "x-default",
-                            value);
+                    xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", value);
                 }
             } else if (metadataValue instanceof List) {
                 @SuppressWarnings("unchecked")
                 List<String> values = (List<String>) metadataValue;
                 for (String value : values) {
                     value = value.trim();
-                    if (!doesArrayItemExist(
-                            xmpMeta, namespaceUri, propertyName, value)) {
+                    if (!doesArrayItemExist(xmpMeta, namespaceUri, propertyName, value)) {
                         xmpMeta.appendArrayItem(namespaceUri, propertyName,
                                 getArrayPropertyOptions(column), value, null);
                     }
                 }
             } else if (metadataValue instanceof Long) {
                 Long value = (Long) metadataValue;
-                xmpMeta.setProperty(
-                        namespaceUri, propertyName, Long.toString(value));
+                xmpMeta.setProperty(namespaceUri, propertyName, Long.toString(value));
             } else {
-                AppLog.logWarning(XmpMetadata.class,
-                        "XmpMetadata.Error.WriteSetMetadata",
-                        metadataValue.getClass());
+                AppLog.logWarning(XmpMetadata.class, "XmpMetadata.Error.WriteSetMetadata", metadataValue.getClass());
             }
         }
     }
@@ -442,8 +415,7 @@ public final class XmpMetadata {
             String item)
             throws XMPException {
         if (xmpMeta.doesPropertyExist(namespaceUri, propertyName)) {
-            for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName,
-                    new IteratorOptions()); it.hasNext();) {
+            for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName, new IteratorOptions()); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
                 if (xmpPropertyInfo != null) {
                     Object value = xmpPropertyInfo.getValue();
@@ -460,8 +432,8 @@ public final class XmpMetadata {
     }
 
     private static PropertyOptions getArrayPropertyOptions(Column xmpColumn) {
-        XmpValueType valueType = XmpColumnXmpDataTypeMapping.
-                getXmpValueTypeOfColumn(xmpColumn);
+        XmpValueType valueType = XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
+
         if (valueType.equals(XmpValueType.BAG_TEXT)) {
             return new PropertyOptions().setArray(true);
         } else if (valueType.equals(XmpValueType.SEQ_PROPER_NAME)) {
@@ -475,16 +447,14 @@ public final class XmpMetadata {
     }
 
     private static boolean writeSidecarFile(String sidecarFilename, XMPMeta meta) {
-        FileOutputStream out = null;
-        File sidecarFile = new File(sidecarFilename);
+        FileOutputStream out         = null;
+        File             sidecarFile = new File(sidecarFilename);
         if (!IoUtil.lockLogWarning(sidecarFile, XmpMetadata.class))
             return false;
         try {
             out = new FileOutputStream(sidecarFile);
             out.getChannel().lock();
-            XMPMetaFactory.serialize(meta, out,
-                    new SerializeOptions().setPadding(10).setOmitPacketWrapper(
-                    true));
+            XMPMetaFactory.serialize(meta, out, new SerializeOptions().setPadding(10).setOmitPacketWrapper(true));
             return true;
         } catch (Exception ex) {
             AppLog.logSevere(XmpMetadata.class, ex);
@@ -515,8 +485,7 @@ public final class XmpMetadata {
         XmpLocation xmpType = hasImageASidecarFile(imageFilename)
                               ? XmpLocation.SIDECAR_FILE
                               : XmpLocation.EMBEDDED;
-        return getXmp(xmpType, imageFilename,
-                getPropertyInfosOfImageFile(imageFilename));
+        return getXmp(xmpType, imageFilename, getPropertyInfosOfImageFile(imageFilename));
     }
 
     /**
@@ -531,8 +500,7 @@ public final class XmpMetadata {
         String xmpString = getXmpAsStringFromImageFile(imageFilename);
         return xmpString == null
                ? null
-               : getXmp(XmpLocation.EMBEDDED, imageFilename,
-                getPropertyInfosOfXmpString(xmpString));
+               : getXmp(XmpLocation.EMBEDDED, imageFilename, getPropertyInfosOfXmpString(xmpString));
     }
 
     /**
@@ -568,8 +536,7 @@ public final class XmpMetadata {
         return propertyInfoWithPathStart;
     }
 
-    private static Xmp getXmp(XmpLocation xmpType, String imageFilename,
-            List<XMPPropertyInfo> xmpPropertyInfos) {
+    private static Xmp getXmp(XmpLocation xmpType, String imageFilename, List<XMPPropertyInfo> xmpPropertyInfos) {
         Xmp xmp = null;
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
