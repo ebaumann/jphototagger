@@ -70,6 +70,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final       JMenuItem               itemUpdateMetadata                   = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateMetadata")           , AppLookAndFeel.getIcon("icon_metadata_refresh.png"));
     private final       JMenuItem               itemUpdateThumbnail                  = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail")          , AppLookAndFeel.getIcon("icon_image_refresh.png"));
     private final       JMenuItem               itemIptcToXmp                        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.IptcToXmp")                , AppLookAndFeel.getIcon("icon_iptc.png"));
+    private final       JMenuItem               itemExifToXmp                        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.ExifToXmp")                , AppLookAndFeel.getIcon("icon_exif.png"));
     private final       JMenuItem               itemCreateImageCollection            = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.CreateImageCollection")    , AppLookAndFeel.getIcon("icon_imagecollection.png"));
     private final       JMenuItem               itemAddToImageCollection             = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.AddToImageCollection")     , AppLookAndFeel.getIcon("icon_imagecollection_add_to.png"));
     private final       JMenuItem               itemDeleteFromImageCollection        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.DeleteFromImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection_remove_from.png"));
@@ -161,6 +162,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
         add(new JSeparator());
         menuMisc.add(itemIptcToXmp);
+        menuMisc.add(itemExifToXmp);
         add(menuMisc);
     }
 
@@ -289,6 +291,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return itemIptcToXmp;
     }
 
+    public JMenuItem getItemExifToXmp() {
+        return itemExifToXmp;
+    }
+
     public JMenuItem getItemPick() {
         return itemPick;
     }
@@ -378,6 +384,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private void init() {
         initRatingOfItem();
         addItems();
+        setStandardAppIcon();
         setItemsEnabled();
         setAccelerators();
     }

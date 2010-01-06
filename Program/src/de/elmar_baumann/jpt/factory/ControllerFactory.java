@@ -60,6 +60,7 @@ import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerImportHier
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerShowHierarchicalKeywordsDialog;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerPickReject;
 import de.elmar_baumann.jpt.controller.metadata.ControllerCopyPasteMetadata;
+import de.elmar_baumann.jpt.controller.metadata.ControllerExifToXmp;
 import de.elmar_baumann.jpt.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.jpt.controller.search.ControllerFastSearch;
 import de.elmar_baumann.jpt.controller.misc.ControllerGoTo;
@@ -141,6 +142,7 @@ public final class ControllerFactory {
             new ControllerUpdateFavorite();
             new ControllerCopyFilesToDirectory();
             new ControllerIptcToXmp();
+            new ControllerExifToXmp();
             new ControllerGoTo();
             new ControllerSliderThumbnailSize();
             new ControllerToggleKeywordOverlay();

@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.helper.HelperThread;
 import de.elmar_baumann.jpt.helper.InsertHierarchicalKeywords;
 import de.elmar_baumann.jpt.helper.RefreshExifInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.RefreshXmpInDbOfKnownFiles;
-import de.elmar_baumann.jpt.helper.SetExifDateToXmpDateCreated;
+import de.elmar_baumann.jpt.helper.SetExifToXmp;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -80,7 +80,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     }
 
     private void exifDateToXmpDateCreated() {
-        startOrStopHelperThread(toggleButtonExifDateToXmpDateCreated, SetExifDateToXmpDateCreated.class);
+        startOrStopHelperThread(toggleButtonExifDateToXmpDateCreated, SetExifToXmp.class);
     }
 
     private synchronized void startOrStopHelperThread(JToggleButton button, Class helperThreadClass) {

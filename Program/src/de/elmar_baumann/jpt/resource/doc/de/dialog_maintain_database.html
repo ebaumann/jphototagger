@@ -121,12 +121,15 @@
             in den Stichwortbaum übertragen.
         </p>
 
-        <h3>EXIF-Datum übertragen nach XMP</h3>
+        <h3>EXIF-Daten übertragen nach XMP</h3>
 
-        <p>Liest EXIF-Daten aus allen bekannten Datei. Hat eine Datei kein Datum
-            in den XMP-Metadaten, wird das EXIF-Aufnahmedatum in dieses
-            geschrieben, sofern existent.
+        <p>Liest EXIF-Daten aus allen bekannten Dateien und überträgt diese nach
+            XMP. Hat eine Datei keine entsprechenden XMP-Metadaten, werden die
+            EXIF-Daten übertragen, sofern existent, existierende XMP-Werte
+            werden nicht überschrieben.
         </p>
+
+        <p>Aktuell wird nur das Aufnahmedatum übertragen.</p>
 
     </body>
 </html>
