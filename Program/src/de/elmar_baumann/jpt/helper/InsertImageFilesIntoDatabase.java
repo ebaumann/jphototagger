@@ -264,7 +264,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             return true;
         }
         long dbTime   = db.getLastModifiedXmp(imageFilename);
-        long fileTime = new File(imageFilename).lastModified();
+        long fileTime = new File(XmpMetadata.suggestSidecarFilenameForImageFile(imageFilename)).lastModified();
         if (dbTime == fileTime) {
             return true;
         }
