@@ -535,20 +535,17 @@ public final class Xmp implements TextEntryListener {
         if (options.equals(SetIptc.REPLACE_EXISTING_VALUES)) {
             empty();
         }
-        List<Pair<IPTCEntryMeta, Column>> mappings =
-                IptcXmpMapping.getAllPairs();
+        List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getAllPairs();
         for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
             Column xmpColumn = mappingPair.getSecond();
-            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.
-                    getIptcEntryMetaOfXmpColumn(xmpColumn);
+            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             Object iptcValue = iptc.getValue(iptcEntryMeta);
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
                     String iptcString = (String) iptcValue;
-                    boolean isSet = options.equals(
-                            SetIptc.REPLACE_EXISTING_VALUES) ||
-                            getValue(xmpColumn) == null;
+                    boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES) || getValue(xmpColumn) == null;
                     if (isSet) {
+                        iptcString = formatIptcDate(xmpColumn, iptcString);
                         setValue(xmpColumn, iptcString);
                     }
                 } else if (iptcValue instanceof List) {
@@ -571,6 +568,17 @@ public final class Xmp implements TextEntryListener {
         }
     }
 
+    private String formatIptcDate(Column xmpColumn, String iptcString) {
+        if (iptcString == null) return null;
+        if (xmpColumn.equals(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE) && iptcString.length() == 8) {
+            if (iptcString.contains("-")) return iptcString;
+            return        iptcString.substring(0, 4) +
+                    "-" + iptcString.substring(4, 6) +
+                    "-" + iptcString.substring(6);
+        }
+        return iptcString;
+    }
+
     /**
      * Returns a value of a XMP column.
      *
@@ -587,8 +595,7 @@ public final class Xmp implements TextEntryListener {
     @SuppressWarnings("unchecked")
     public Object getValue(Column xmpColumn) {
         Object o = valueOfColumn.get(xmpColumn);
-        assert o == null || o instanceof List || o instanceof String ||
-                o instanceof Long : "Neither List nor String nor Long: " + o;
+        assert o == null || o instanceof List || o instanceof String || o instanceof Long : "Neither List nor String nor Long: " + o;
         return o instanceof List
                ? new ArrayList<String>((List) o)
                : o instanceof String || o instanceof Long
