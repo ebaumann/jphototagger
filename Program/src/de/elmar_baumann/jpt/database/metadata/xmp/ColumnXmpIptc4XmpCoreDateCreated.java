@@ -18,15 +18,21 @@
  */
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
+import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.componentutil.InputVerifierEmpty;
 import de.elmar_baumann.lib.componentutil.InputVerifierStringPattern;
+import de.elmar_baumann.lib.componentutil.InputVerifiersOr;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.text.JTextComponent;
 
 /**
- *
+ * "IPTC Core" Schema for XMP,  property name <strong>DateCreated</strong>,
+ * IIM Dataset name <strong>2:55 Date Created</strong>, IIM format
+ * <strong>CCYYMMDD</strong>, XMP Property Value Type <strong>Date</strong>
+ * formatted as <code>YYYY</code> or <code>YYYY-MM</code> or
+ * <code>YYYY-MM-DD</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-06
@@ -54,24 +60,29 @@ public final class ColumnXmpIptc4XmpCoreDateCreated extends Column {
 
     private static class InputVerifierDateCreated extends InputVerifier {
 
-        private final InputVerifierStringPattern INPUT_VERIFIER = new InputVerifierStringPattern("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
+        private final InputVerifiersOr inputVerifiersOr = new InputVerifiersOr();
 
         public InputVerifierDateCreated() {
-            INPUT_VERIFIER.setErrorHint(Bundle.getString("ColumnXmpIptc4XmpCoreDateCreated.Rules"));
+            InputVerifierEmpty         inputVerifierEmpty = new InputVerifierEmpty(true);
+            InputVerifierStringPattern inputVerifierY     = new InputVerifierStringPattern("[0-9][0-9][0-9][0-9]");
+            InputVerifierStringPattern inputVerifierYM    = new InputVerifierStringPattern("[0-9][0-9][0-9][0-9]-[0-1][0-9]");
+            InputVerifierStringPattern inputVerifierYMD   = new InputVerifierStringPattern("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
+
+            inputVerifiersOr.addVerifier(inputVerifierEmpty);
+            inputVerifiersOr.addVerifier(inputVerifierY);
+            inputVerifiersOr.addVerifier(inputVerifierYM);
+            inputVerifiersOr.addVerifier(inputVerifierYMD);
         }
 
         @Override
         public boolean verify(JComponent input) {
-            if (input instanceof JTextComponent) {
-
-                String text = ((JTextComponent) input).getText().trim();
-
-                if (text.isEmpty()) return true;
-
-                return this.INPUT_VERIFIER.verify(input);
-            }
-            return true;
+            boolean valid = inputVerifiersOr.verify(input);
+            if (!valid) errorMessage(input);
+            return valid;
         }
 
-    }
+        private void errorMessage(JComponent input) {
+            MessageDisplayer.error(input, "ColumnXmpIptc4XmpCoreDateCreated.Rules");
+        }
+   }
 }
