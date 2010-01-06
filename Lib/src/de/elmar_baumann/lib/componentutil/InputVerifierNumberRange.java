@@ -21,36 +21,45 @@ package de.elmar_baumann.lib.componentutil;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 /**
- * Verifies Input in a <code>JTextField</code> or <code>JTextArea</code> against
- * a maximum and maximum number.
+ * Verifies Input in a <code>JTextComponent</code> against a maximum and maximum
+ * number and displays an error message dialog on errors.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-05
  */
-public final class InputVerifierNumberRange extends InputVerifierExt {
+public final class InputVerifierNumberRange extends InputVerifier {
 
-    private final double min;
-    private final double max;
+    private final double  min;
+    private final double  max;
+    private       boolean message  = true;
 
     /**
      * Constructor.
      *
-     * @param min minimum value
-     * @param max maximum value
+     * @param  min minimum value
+     * @param  max maximum value
      * @throws IllegalArgumentException if maximum is less than minimum
      */
     public InputVerifierNumberRange(double min, double max) {
-        if (max < min) throw new IllegalArgumentException(
-                    "Maximum is less than minimum! " + max + " < " + min);
+        if (max < min) throw new IllegalArgumentException("Maximum is less than minimum! " + max + " < " + min);
 
         this.min = min;
         this.max = max;
+    }
+
+    /**
+     * Sets whether to display an error message on invalid input.
+     *
+     * @param display true if display an error message. Default: true.
+     */
+    public void setDisplayMessage(boolean display) {
+        this.message = display;
     }
 
     @Override
@@ -59,11 +68,10 @@ public final class InputVerifierNumberRange extends InputVerifierExt {
         if (!lengthOk) {
             errorMessage(component);
         }
-        return lengthOk && super.verify(component);
+        return lengthOk;
     }
 
     private boolean lengthOk(JComponent component) {
-        assert component != null : component;
 
         String string = getString(component);
         if (string.isEmpty()) return true;
@@ -74,14 +82,13 @@ public final class InputVerifierNumberRange extends InputVerifierExt {
     }
 
     private String getString(JComponent component) {
-        if (component instanceof JTextField) {
-            return (((JTextField) component).getText()).trim();
-        } else if (component instanceof JTextArea) {
-            return (((JTextArea) component).getText()).trim();
-        } else {
-            assert false : "Unknown component: " +
-                    component.getClass().toString();
+
+        assert component instanceof JTextComponent : component;
+
+        if (component instanceof JTextComponent) {
+            return ((JTextComponent) component).getText().trim();
         }
+
         return "";
     }
 
@@ -95,6 +102,7 @@ public final class InputVerifierNumberRange extends InputVerifierExt {
     }
 
     private void errorMessage(JComponent input) {
+        if (!message) return;
         JOptionPane.showMessageDialog(
                 input,
                 Bundle.getString("InputVerifierNumberRange.ErrorMessage", min, max),

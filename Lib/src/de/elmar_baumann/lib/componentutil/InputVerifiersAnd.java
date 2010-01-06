@@ -18,42 +18,30 @@
  */
 package de.elmar_baumann.lib.componentutil;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 
 /**
- * Extended input verifier, can extended by other verfiers.
- * <p>
- * A specialiced class has to call {@link #verify()} of this class to ensure,
- * that all added verifiers will verify the input.
+ * All added input verifiers must return true for a valid input.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-06
  */
-public class InputVerifierExt extends InputVerifier {
+public final class InputVerifiersAnd extends InputVerifiers {
 
-    private final Set<InputVerifier> otherVerifiers = new HashSet<InputVerifier>();
-
-    public void addVerifier(InputVerifier verifier) {
-        synchronized (otherVerifiers) {
-            otherVerifiers.add(verifier);
-        }
-    }
-
-    public void removeVerifier(InputVerifier verifier) {
-        synchronized (otherVerifiers) {
-            otherVerifiers.remove(verifier);
-        }
-    }
-
+    /**
+     * All added verifiers must verify the input as true for a valid input.
+     *
+     * @param  input input
+     * @return       true if all of the added verifiers returning true, false
+     *               if one of the added verifiers returns false
+     */
     @Override
     public boolean verify(JComponent input) {
-        synchronized (otherVerifiers) {
-
-            for (InputVerifier verifier : otherVerifiers) {
-
+        List<InputVerifier> verifiers = getVerifiers();
+        synchronized (verifiers) {
+            for (InputVerifier verifier : verifiers) {
                 if (!verifier.verify(input)) return false;
             }
         }

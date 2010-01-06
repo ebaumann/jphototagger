@@ -19,23 +19,22 @@
 package de.elmar_baumann.lib.componentutil;
 
 import de.elmar_baumann.lib.resource.Bundle;
+import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 /**
- * Verifies Input in a <code>JTextField</code> or <code>JTextArea</code> against
- * a maximum allowed length. Shows a message dialog on errors.
- *
- * To use other components, enhance the private method <code>lengthOk()</code>.
+ * Verifies Input in a <code>JTextComponent</code> against a maximum allowed
+ * length and displays an error message dialog on errors.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-28
  */
-public final class InputVerifierMaxLength extends InputVerifierExt {
+public final class InputVerifierMaxLength extends InputVerifier {
 
-    private final int maxLength;
+    private final int     maxLength;
+    private       boolean message  = true;
 
     /**
      * Constructor.
@@ -44,11 +43,18 @@ public final class InputVerifierMaxLength extends InputVerifierExt {
      * @throws IllegalArgumentException if {@code maxLength < 0}
      */
     public InputVerifierMaxLength(int maxLength) {
-        if (maxLength < 0) {
-            throw new IllegalArgumentException("maxLength < 0: " + maxLength);
-        }
+        if (maxLength < 0) throw new IllegalArgumentException("maxLength < 0: " + maxLength);
 
         this.maxLength = maxLength;
+    }
+
+    /**
+     * Sets whether to display an error message on invalid input.
+     *
+     * @param display true if display an error message. Default: true.
+     */
+    public void setDisplayMessage(boolean display) {
+        this.message = display;
     }
 
     @Override
@@ -57,23 +63,26 @@ public final class InputVerifierMaxLength extends InputVerifierExt {
         if (!lengthOk) {
             errorMessage(input);
         }
-        return lengthOk && super.verify(input);
+        return lengthOk;
     }
 
-    private boolean lengthOk(JComponent input) {
-        assert input != null : input;
+    private boolean lengthOk(JComponent component) {
+        return getString(component).length() <= maxLength;
+    }
 
-        if (input instanceof JTextField) {
-            return ((JTextField) input).getText().length() <= maxLength;
-        } else if (input instanceof JTextArea) {
-            return ((JTextArea) input).getText().length() <= maxLength;
-        } else {
-            assert false : "Unknown component: " + input.getClass().toString();
+    private String getString(JComponent component) {
+
+        assert component instanceof JTextComponent : component;
+
+        if (component instanceof JTextComponent) {
+            return ((JTextComponent) component).getText().trim();
         }
-        return true;
+
+        return "";
     }
 
     private void errorMessage(JComponent input) {
+        if (!message) return;
         JOptionPane.showMessageDialog(
                 input,
                 Bundle.getString("InputVerifierMaxLength.ErrorMessage", maxLength),
