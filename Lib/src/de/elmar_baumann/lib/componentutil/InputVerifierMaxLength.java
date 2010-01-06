@@ -19,7 +19,6 @@
 package de.elmar_baumann.lib.componentutil;
 
 import de.elmar_baumann.lib.resource.Bundle;
-import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -34,7 +33,7 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-28
  */
-public final class InputVerifierMaxLength extends InputVerifier {
+public final class InputVerifierMaxLength extends InputVerifierExt {
 
     private final int maxLength;
 
@@ -58,7 +57,7 @@ public final class InputVerifierMaxLength extends InputVerifier {
         if (!lengthOk) {
             errorMessage(input);
         }
-        return lengthOk;
+        return lengthOk && super.verify(input);
     }
 
     private boolean lengthOk(JComponent input) {

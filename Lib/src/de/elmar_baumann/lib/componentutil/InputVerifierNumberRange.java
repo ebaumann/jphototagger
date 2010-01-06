@@ -21,7 +21,6 @@ package de.elmar_baumann.lib.componentutil;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -34,7 +33,7 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-05
  */
-public final class InputVerifierNumberRange extends InputVerifier {
+public final class InputVerifierNumberRange extends InputVerifierExt {
 
     private final double min;
     private final double max;
@@ -60,7 +59,7 @@ public final class InputVerifierNumberRange extends InputVerifier {
         if (!lengthOk) {
             errorMessage(component);
         }
-        return lengthOk;
+        return lengthOk && super.verify(component);
     }
 
     private boolean lengthOk(JComponent component) {
