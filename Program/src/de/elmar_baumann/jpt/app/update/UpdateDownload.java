@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.net.HttpUtil;
-import de.elmar_baumann.lib.net.VersionCheck;
+import de.elmar_baumann.lib.net.NetVersion;
 import de.elmar_baumann.lib.util.Version;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -49,6 +49,8 @@ public final class UpdateDownload extends Thread {
     private static final String       FILENAME_WINDOWS  = "JPhotoTagger-Setup.exe";
     private static final String       FILENAME_JAR      = "JPhotoTagger.jar";
     private              JProgressBar progressBar;
+    private              Version      currentVersion;
+    private              Version      netVersion;
 
     public UpdateDownload() {
         setName("Checking for and downloading newer version @ " + getClass().getSimpleName());
@@ -77,11 +79,9 @@ public final class UpdateDownload extends Thread {
         if (!UserSettings.INSTANCE.isAutoDownloadNewerVersions()) return;
         startProgressBar();
         try {
-
-            if (VersionCheck.existsNewer(URL_CHECK, VERSION_DELIMITER, currentVersion())) {
-                if (MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.Download")) {
-                    download();
-                }
+            if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.Download", currentVersion, netVersion)) {
+                progressBarDownloadInfo();
+                download();
             }
         } catch (Exception ex) {
             AppLog.logInfo(UpdateDownload.class, "UpdateDownload.Error.Compare", ex.getLocalizedMessage());
@@ -94,7 +94,9 @@ public final class UpdateDownload extends Thread {
         int    index         = AppInfo.APP_VERSION.indexOf(" ");
         String versionString = AppInfo.APP_VERSION.substring(0, index > 0 ? index : AppInfo.APP_VERSION.length());
 
-        return Version.parseVersion(versionString, VERSION_DELIMITER);
+        currentVersion = Version.parseVersion(versionString, VERSION_DELIMITER);
+
+        return currentVersion;
     }
 
     private void download() {
@@ -135,6 +137,12 @@ public final class UpdateDownload extends Thread {
         }
     }
 
+    private void progressBarDownloadInfo() {
+        if (progressBar != null) {
+            progressBar.setString(Bundle.getString("UpdateDownload.Info.ProgressBarDownload"));
+        }
+    }
+
     private void stopProgressBar() {
         if (progressBar != null) {
             progressBar.setIndeterminate(false);
@@ -142,5 +150,10 @@ public final class UpdateDownload extends Thread {
             progressBar.setStringPainted(false);
             ProgressBar.INSTANCE.releaseResource(this);
         }
+    }
+
+    private boolean hasNewerVersion() throws Exception {
+        netVersion = NetVersion.getOverHttp(URL_CHECK, VERSION_DELIMITER);
+        return currentVersion().compareTo(netVersion) < 0;
     }
 }
