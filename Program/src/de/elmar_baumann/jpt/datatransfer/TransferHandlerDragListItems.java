@@ -26,7 +26,7 @@ import javax.swing.TransferHandler;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 
 /**
- * Creates a {@link Transferable} with selected list items as string.
+ * Creates a {@link TransferableObject} with selected list items as object array.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-02

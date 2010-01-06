@@ -18,6 +18,8 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
+import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.data.MetadataEditTemplate;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
@@ -73,9 +75,10 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     }
 
     private boolean metadataTransferred(TransferSupport transferSupport) {
+        final boolean dropOverSelectedThumbnail = isDropOverSelectedThumbnail(transferSupport);
         return (Flavors.hasKeywords(transferSupport) ||
-                Flavors.hasHierarchicalKeywords(transferSupport)) &&
-                isDropOverSelectedThumbnail(transferSupport);
+                Flavors.hasHierarchicalKeywords(transferSupport)) && dropOverSelectedThumbnail ||
+                Flavors.hasMetadataEditTemplate(transferSupport)  && dropOverSelectedThumbnail;
     }
 
     @Override
@@ -173,6 +176,8 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
             for (DefaultMutableTreeNode node : Support.getHierarchicalKeywordsNodes(t)) {
                 HierarchicalKeywordsHelper.addKeywordsToEditPanel(node);
             }
+        } else if (Flavors.hasMetadataEditTemplate(transferSupport)) {
+            importMetadataEditTemplate(transferSupport);
         } else {
             return false;
         }
@@ -230,5 +235,23 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         }
 
         return null;
+    }
+
+    private void importMetadataEditTemplate(TransferSupport transferSupport) {
+        try {
+            Object[] selTemplates = (Object[]) transferSupport
+                                        .getTransferable()
+                                        .getTransferData(Flavors.METADATA_EDIT_TEMPLATES);
+
+            if (selTemplates == null) return;
+
+            assert selTemplates.length == 1;
+
+            GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray()
+                    .setMetadataEditTemplate((MetadataEditTemplate)selTemplates[0]);
+
+        } catch (Exception ex) {
+            AppLog.logSevere(TransferHandlerPanelThumbnails.class, ex);
+        }
     }
 }

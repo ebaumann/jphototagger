@@ -40,13 +40,15 @@ public final class Flavors {
     private final class KEYWORDS {
     }
 
+    private final class METADATA_EDIT_TEMPLATES {
+    }
+
     private final class THUMBNAILS_PANEL {
     }
     /**
      * {@link DataFlavor#javaFileListFlavor}
      */
-    public static final DataFlavor FILE_LIST_FLAVOR =
-            DataFlavor.javaFileListFlavor;
+    public static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
     /**
      * {@link TransferUtil#getUriListFlavor()}
      */
@@ -55,6 +57,7 @@ public final class Flavors {
     public static final DataFlavor KEYWORDS_FLAVOR              = new DataFlavor(KEYWORDS.class, null);
     public static final DataFlavor THUMBNAILS_PANEL_FLAVOR      = new DataFlavor(THUMBNAILS_PANEL.class, null);
     public static final DataFlavor IMAGE_COLLECTION_FLAVOR      = new DataFlavor(IMAGE_COLLECTION.class, null);
+    public static final DataFlavor METADATA_EDIT_TEMPLATES      = new DataFlavor(METADATA_EDIT_TEMPLATES.class, null);
     /**
      * Contains {@link DataFlavor#javaFileListFlavor} and
      * {@link TransferUtil#getUriListFlavor()}.
@@ -84,6 +87,10 @@ public final class Flavors {
      */
     public static boolean hasKeywords(TransferSupport transferSupport) {
         return transferSupport.isDataFlavorSupported(KEYWORDS_FLAVOR);
+    }
+
+    public static boolean hasMetadataEditTemplate(TransferSupport transferSupport) {
+        return transferSupport.isDataFlavorSupported(METADATA_EDIT_TEMPLATES);
     }
 
     /**
