@@ -19,8 +19,13 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.datatransfer.Flavors;
+import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
+import java.awt.CardLayout;
+import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -32,8 +37,8 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
 
-    private static final String KEY_TREE =
-            "HierarchicalKeywordsPanel.Tree.SelectedNode";
+    private String keyTree = "HierarchicalKeywordsPanel.Tree.SelectedNode";
+    private String keyCard = "HierarchicalKeywordsPanel.Card";
 
     public HierarchicalKeywordsPanel() {
         initComponents();
@@ -49,18 +54,49 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         return tree;
     }
 
+    public JList getList() {
+        return list;
+    }
+
+    public void setKeyCard(String key) {
+        keyCard = key;
+    }
+
+    public void setKeyTree(String key) {
+        keyTree = key;
+    }
+
     /**
      * Reads the persistent properties, currently the selected tree node.
      */
     public void readProperties() {
-        UserSettings.INSTANCE.getSettings().getTree(tree, KEY_TREE);
+        UserSettings.INSTANCE.getSettings().getTree(tree, keyTree);
+        readCardProperties();
+    }
+
+    private void readCardProperties() {
+        String name = "Tree";
+        if (UserSettings.INSTANCE.getProperties().containsKey(keyCard)) {
+            String s = UserSettings.INSTANCE.getSettings().getString(keyCard);
+            if (s.equals("Tree") || s.equals("List")) {
+                name = s;
+            }
+        }
+        displayCard(name);
+    }
+
+    private void displayCard(String name) {
+        CardLayout cl = (CardLayout)(getLayout());
+        cl.show(this, name);
+        UserSettings.INSTANCE.getSettings().setString(name, keyCard);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     /**
      * Writes the persistent properties, currently the selected tree node.
      */
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setTree(tree, KEY_TREE);
+        UserSettings.INSTANCE.getSettings().setTree(tree, keyTree);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -105,18 +141,28 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = new javax.swing.JScrollPane();
+        panelTree = new javax.swing.JPanel();
+        scrollPaneTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
+        panelButtons = new javax.swing.JPanel();
+        buttonAsList = new javax.swing.JButton();
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
+        panelList = new javax.swing.JPanel();
+        scrollPaneList = new javax.swing.JScrollPane();
+        list = new javax.swing.JList();
+        list.setTransferHandler(new TransferHandlerDragListItems(Flavors.KEYWORDS_FLAVOR));
+        buttonAsTree = new javax.swing.JButton();
 
-        setLayout(new java.awt.GridBagLayout());
+        setLayout(new java.awt.CardLayout());
+
+        panelTree.setLayout(new java.awt.GridBagLayout());
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setCellRenderer(new de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords());
         tree.setDragEnabled(true);
         tree.setShowsRootHandles(true);
-        scrollPane.setViewportView(tree);
+        scrollPaneTree.setViewportView(tree);
         tree.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeHierarchicalKeywords());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -125,10 +171,27 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        add(scrollPane, gridBagConstraints);
+        panelTree.add(scrollPaneTree, gridBagConstraints);
+
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        buttonAsList.setText(bundle.getString("HierarchicalKeywordsPanel.buttonAsList.text")); // NOI18N
+        buttonAsList.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonAsList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAsListActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
+        panelButtons.add(buttonAsList, gridBagConstraints);
+
         buttonToggleExpandAllNodes.setText(bundle.getString("HierarchicalKeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
+        buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonToggleExpandAllNodesActionPerformed(evt);
@@ -136,19 +199,72 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
+        panelButtons.add(buttonToggleExpandAllNodes, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 3, 3);
-        add(buttonToggleExpandAllNodes, gridBagConstraints);
+        panelTree.add(panelButtons, gridBagConstraints);
+
+        add(panelTree, "Tree");
+
+        panelList.setLayout(new java.awt.GridBagLayout());
+
+        list.setCellRenderer(new ListCellRendererKeywords());
+        list.setDragEnabled(true);
+        scrollPaneList.setViewportView(list);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelList.add(scrollPaneList, gridBagConstraints);
+
+        buttonAsTree.setText(bundle.getString("HierarchicalKeywordsPanel.buttonAsTree.text")); // NOI18N
+        buttonAsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAsTreeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
+        panelList.add(buttonAsTree, gridBagConstraints);
+
+        add(panelList, "List");
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonToggleExpandAllNodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
         handleButtonToggleExpandAllNodesActionPerformed();
     }//GEN-LAST:event_buttonToggleExpandAllNodesActionPerformed
 
+    private void buttonAsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAsListActionPerformed
+        displayCard("List");
+    }//GEN-LAST:event_buttonAsListActionPerformed
+
+    private void buttonAsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAsTreeActionPerformed
+        displayCard("Tree");
+    }//GEN-LAST:event_buttonAsTreeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAsList;
+    private javax.swing.JButton buttonAsTree;
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
-    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JList list;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelList;
+    private javax.swing.JPanel panelTree;
+    private javax.swing.JScrollPane scrollPaneList;
+    private javax.swing.JScrollPane scrollPaneTree;
     private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
 }

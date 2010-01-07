@@ -113,6 +113,7 @@ public final class ModelFactory {
                 ListModel model              = new SortedListModel(new ListModelKeywords());
 
                 listAppPanel.setModel(model);
+                appPanel.getListKeywordsMetadata().setModel(model);
                 InputHelperDialog.INSTANCE.setModelKeywords(model);
                 listAppPanel.setCursor(listAppPanelCursor);
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelKeywords"), AppPanel.MessageType.INFO, 1000);
