@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -46,7 +46,7 @@ public class ControllerRemoveHierarchicalKeyword
         implements ActionListener,
                    KeyListener {
 
-    public ControllerRemoveHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
+    public ControllerRemoveHierarchicalKeyword(KeywordsPanel _panel) {
         super(_panel);
     }
 

@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionListener;
@@ -43,7 +43,7 @@ public class ControllerToggleRealHierarchicalKeyword
         implements ActionListener, KeyListener {
 
     public ControllerToggleRealHierarchicalKeyword(
-            HierarchicalKeywordsPanel _panel) {
+            KeywordsPanel _panel) {
         super(_panel);
     }
 

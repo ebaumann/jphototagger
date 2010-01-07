@@ -144,7 +144,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     }
 
     private void copyKeywordsToKeywordsTree() {
-        List<String> keywords = ListUtil.toStringList(GUI.INSTANCE.getAppPanel().getListKeywords().getModel());
+        List<String> keywords = ListUtil.toStringList(GUI.INSTANCE.getAppPanel().getListSelKeywords().getModel());
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
             new InsertHierarchicalKeywords(keywords).run(); // Run not as thread

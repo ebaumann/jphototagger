@@ -35,12 +35,12 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-10
  */
-public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
+public class KeywordsPanel extends javax.swing.JPanel {
 
     private String keyTree = "HierarchicalKeywordsPanel.Tree.SelectedNode";
     private String keyCard = "HierarchicalKeywordsPanel.Card";
 
-    public HierarchicalKeywordsPanel() {
+    public KeywordsPanel() {
         initComponents();
         postInitComponents();
     }
@@ -176,7 +176,7 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        buttonAsList.setText(bundle.getString("HierarchicalKeywordsPanel.buttonAsList.text")); // NOI18N
+        buttonAsList.setText(bundle.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
         buttonAsList.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonAsList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +190,7 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
         panelButtons.add(buttonAsList, gridBagConstraints);
 
-        buttonToggleExpandAllNodes.setText(bundle.getString("HierarchicalKeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
+        buttonToggleExpandAllNodes.setText(bundle.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
         buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,7 +226,7 @@ public class HierarchicalKeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelList.add(scrollPaneList, gridBagConstraints);
 
-        buttonAsTree.setText(bundle.getString("HierarchicalKeywordsPanel.buttonAsTree.text")); // NOI18N
+        buttonAsTree.setText(bundle.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
         buttonAsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

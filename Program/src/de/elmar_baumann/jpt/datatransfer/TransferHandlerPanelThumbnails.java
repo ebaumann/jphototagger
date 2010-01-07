@@ -161,7 +161,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
     private boolean insertMetadata(TransferSupport transferSupport) {
 
-        if (!GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().isEditable()) {
+        if (!GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray().isEditable()) {
             return true;
         }
 
@@ -187,7 +187,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
     public void importStrings(DataFlavor dataFlavor, Object[] strings) {
         if (strings == null || strings.length <= 0) return;
 
-        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
+        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         Column                  column     = dataFlavor.equals(Flavors.KEYWORDS_FLAVOR)
                                                 ? ColumnXmpDcSubjectsSubject.INSTANCE
                                                 : null;
@@ -247,7 +247,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
             assert selTemplates.length == 1;
 
-            GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray()
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray()
                     .setMetadataEditTemplate((MetadataEditTemplate)selTemplates[0]);
 
         } catch (Exception ex) {

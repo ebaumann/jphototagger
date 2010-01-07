@@ -58,7 +58,7 @@ public final class HierarchicalKeywordsHelper {
      *             {@link DefaultMutableTreeNode}!</em>
      */
     public static void addKeywordsToEditPanel(DefaultMutableTreeNode node) {
-        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
+        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         for (String keyword : getKeywordStrings(node, true)) {
             editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
         }
@@ -112,7 +112,7 @@ public final class HierarchicalKeywordsHelper {
     }
 
     /**
-     * Selects in {@link AppPanel#getTreeSelHierarchicalKeywords()} a node with
+     * Selects in {@link AppPanel#getTreeSelKeywords()} a node with
      * a specific hierarchical keyword.
      *
      * @param tree    tree with {@link TreeModelHierarchicalKeywords} and all
@@ -305,7 +305,7 @@ public final class HierarchicalKeywordsHelper {
             for (String keyword : keywords) {
                 if (!DatabaseHierarchicalKeywords.INSTANCE.existsKeyword(keyword)
                         && DatabaseImageFiles.INSTANCE.exists(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)) {
-                    JTree                         treeKeywords = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords();
+                    JTree                         treeKeywords = GUI.INSTANCE.getAppPanel().getTreeEditKeywords();
                     TreeModelHierarchicalKeywords model        = (TreeModelHierarchicalKeywords)treeKeywords.getModel();
                     model.addKeyword((DefaultMutableTreeNode) model.getRoot(), keyword, true);
                 }

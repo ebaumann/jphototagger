@@ -52,22 +52,18 @@ public final class MiscFactory {
         Util.checkInit(MiscFactory.class, init);
         if (!init) {
             init = true;
-            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-            PopupMenuThumbnails popupMenuPanelThumbnails =
-                    PopupMenuThumbnails.INSTANCE;
-            UserSettings userSettings = UserSettings.INSTANCE;
+            AppPanel            appPanel                 = GUI.INSTANCE.getAppPanel();
+            PopupMenuThumbnails popupMenuPanelThumbnails = PopupMenuThumbnails.INSTANCE;
+            UserSettings        userSettings             = UserSettings.INSTANCE;
+            ListenerProvider    listenerProvider         = ListenerProvider.INSTANCE;
 
-            DatabaseImageFiles.INSTANCE.addDatabaseListener(
-                    appPanel.getEditPanelsArray());
-            appPanel.getEditPanelsArray().setAutocomplete();
+            DatabaseImageFiles.INSTANCE.addDatabaseListener(appPanel.getEditMetadataPanelsArray());
+            appPanel.getEditMetadataPanelsArray().setAutocomplete();
 
             popupMenuPanelThumbnails.addOtherPrograms();
-            ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
-            listenerProvider.addUserSettingsChangeListener(
-                    popupMenuPanelThumbnails);
+            listenerProvider.addUserSettingsChangeListener(popupMenuPanelThumbnails);
             listenerProvider.addUserSettingsChangeListener(userSettings);
-            AppLifeCycle.INSTANCE.addAppExitListener(
-                    appPanel.getPanelThumbnails());
+            AppLifeCycle.INSTANCE.addAppExitListener(appPanel.getPanelThumbnails());
             ScheduledTasks.INSTANCE.run();
             setPopupMenuHighlighter();
         }
@@ -75,29 +71,20 @@ public final class MiscFactory {
 
     private void setPopupMenuHighlighter() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-        new TreeCellPopupHighlighter(
-                appPanel.getTreeFavorites(), PopupMenuFavorites.INSTANCE);
-        new TreeCellPopupHighlighter(appPanel.getTreeDirectories(),
-                PopupMenuDirectories.INSTANCE);
-        new TreeCellPopupHighlighter(appPanel.getTreeHierarchicalKeywords(),
-                PopupMenuHierarchicalKeywords.INSTANCE);
-        new TreeCellPopupHighlighter(
-                InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
-                PopupMenuHierarchicalKeywords.INSTANCE);
-        new ListItemPopupHighlighter(appPanel.getListImageCollections(),
-                PopupMenuImageCollections.INSTANCE);
-        new ListItemPopupHighlighter(
-                appPanel.getListSavedSearches(), PopupMenuSavedSearches.INSTANCE);
+        new TreeCellPopupHighlighter(appPanel.getTreeFavorites()                            , PopupMenuFavorites.INSTANCE);
+        new TreeCellPopupHighlighter(appPanel.getTreeDirectories()                          , PopupMenuDirectories.INSTANCE);
+        new TreeCellPopupHighlighter(appPanel.getTreeEditKeywords()                 , PopupMenuHierarchicalKeywords.INSTANCE);
+        new TreeCellPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(), PopupMenuHierarchicalKeywords.INSTANCE);
+        new ListItemPopupHighlighter(appPanel.getListImageCollections()                     , PopupMenuImageCollections.INSTANCE);
+        new ListItemPopupHighlighter(appPanel.getListSavedSearches()                        , PopupMenuSavedSearches.INSTANCE);
 
         setColorsToRendererTreeDirectories();
     }
 
     private void setColorsToRendererTreeDirectories() {
-        TreeCellRenderer r =
-                GUI.INSTANCE.getAppPanel().getTreeDirectories().getCellRenderer();
+        TreeCellRenderer r = GUI.INSTANCE.getAppPanel().getTreeDirectories().getCellRenderer();
         if (r instanceof TreeCellRendererAllSystemDirectories) {
-            TreeCellRendererAllSystemDirectories renderer =
-                    (TreeCellRendererAllSystemDirectories) r;
+            TreeCellRendererAllSystemDirectories renderer = (TreeCellRendererAllSystemDirectories) r;
             renderer.setHighlightColorsForPopup(
                     AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE,
                     AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);

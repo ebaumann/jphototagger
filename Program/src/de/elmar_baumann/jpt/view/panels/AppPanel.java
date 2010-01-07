@@ -101,7 +101,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
         setBackgroundColorTablesScrollPanes();
         setTreesSingleSelection();
-        initArrays();
+        initCollections();
         tableExif.addMouseListener(new TableButtonMouseListener(tableExif));
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
         displayInitKeywordsView();
@@ -120,13 +120,13 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         }
     }
 
-    private void initArrays() {
-        initTableArrays();
-        initSelectionTreeArray();
-        initSelectionListArray();
+    private void initCollections() {
+        initTablesCollection();
+        initSelectionTreesCollection();
+        initSelectionListsCollection();
     }
 
-    public EditMetadataPanelsArray getMetadataEditPanelsArray() {
+    public EditMetadataPanelsArray getEditMetadataPanelsArray() {
         return editPanelsArray;
     }
 
@@ -166,7 +166,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     }
 
     public Component getTabMetadataHierarchicaKeywords() {
-        return panelHierarchicalKeywords;
+        return panelEditKeywords;
     }
 
     public Component getTabMetadataEdit() {
@@ -198,11 +198,11 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     }
 
     public JPanel getTabSelectionKeywords() {
-        return panelKeywords;
+        return panelSelKeywords;
     }
 
     public JPanel getTabSelectionHierarchicalKeywords() {
-        return panelSelHierarchicalKeywords;
+        return panelSelKeywordsTree;
     }
 
     public JTree getTreeTimeline() {
@@ -213,12 +213,12 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return treeMiscMetadata;
     }
 
-    public JTree getTreeHierarchicalKeywords() {
-        return panelHierarchicalKeywords.getTree();
+    public JTree getTreeEditKeywords() {
+        return panelEditKeywords.getTree();
     }
 
-    public JTree getTreeSelHierarchicalKeywords() {
-        return treeSelHierarchicalKeywords;
+    public JTree getTreeSelKeywords() {
+        return treeSelKeywords;
     }
 
     JProgressBar getProgressBar() {
@@ -237,8 +237,8 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return panelThumbnails;
     }
 
-    public HierarchicalKeywordsPanel getPanelHierarchicalKeywords() {
-        return panelHierarchicalKeywords;
+    public KeywordsPanel getPanelEditKeywords() {
+        return panelEditKeywords;
     }
 
     public JList getListImageCollections() {
@@ -257,12 +257,12 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return treeFavorites;
     }
 
-    public JList getListKeywords() {
-        return listKeywords;
+    public JList getListSelKeywords() {
+        return listSelKeywords;
     }
 
-    public JList getListKeywordsMetadata() {
-        return panelHierarchicalKeywords.getList();
+    public JList getListEditKeywords() {
+        return panelEditKeywords.getList();
     }
 
     public JList getListNoMetadata() {
@@ -325,10 +325,6 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return textFieldSearch;
     }
 
-    public EditMetadataPanelsArray getEditPanelsArray() {
-        return editPanelsArray;
-    }
-
     public List<JTable> getMetadataTables() {
         return metadataTables;
     }
@@ -381,30 +377,30 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return comboBoxFastSearch;
     }
 
-    public JRadioButton getRadioButtonKeywordsMultipleSelAll() {
-        return radioButtonKeywordsMultipleSelAll;
+    public JRadioButton getRadioButtonSelKeywordsMultipleSelAll() {
+        return radioButtonSelKeywordsMultipleSelAll;
     }
 
-    public JRadioButton getRadioButtonKeywordsMultipleSelOne() {
-        return radioButtonKeywordsMultipleSelOne;
+    public JRadioButton getRadioButtonSelKeywordsMultipleSelOne() {
+        return radioButtonSelKeywordsMultipleSelOne;
     }
 
     public JLabel getLabelError() {
         return labelError;
     }
 
-    private void initTableArrays() {
-        initXmpTableArray();
-        initMetadataTablesArray();
+    private void initTablesCollection() {
+        initXmpTablesCollection();
+        initMetadataTablesCollection();
     }
 
-    private void initMetadataTablesArray() {
+    private void initMetadataTablesCollection() {
         metadataTables.addAll(xmpTables);
         metadataTables.add(tableExif);
         metadataTables.add(tableIptc);
     }
 
-    private void initXmpTableArray() {
+    private void initXmpTablesCollection() {
         xmpTables.add(tableXmpCameraRawSettings);
         xmpTables.add(tableXmpDc);
         xmpTables.add(tableXmpExif);
@@ -415,17 +411,17 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         xmpTables.add(tableXmpXap);
     }
 
-    private void initSelectionTreeArray() {
+    private void initSelectionTreesCollection() {
         selectionTrees.add(treeDirectories);
         selectionTrees.add(treeFavorites);
         selectionTrees.add(treeMiscMetadata);
         selectionTrees.add(treeTimeline);
-        selectionTrees.add(treeSelHierarchicalKeywords);
+        selectionTrees.add(treeSelKeywords);
     }
 
-    private void initSelectionListArray() {
+    private void initSelectionListsCollection() {
         selectionLists.add(listImageCollections);
-        selectionLists.add(listKeywords);
+        selectionLists.add(listSelKeywords);
         selectionLists.add(listSavedSearches);
         selectionLists.add(listNoMetadata);
     }
@@ -441,9 +437,9 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     }
 
     private void displayInitKeywordsView() {
-        panelHierarchicalKeywords.setKeyCard("AppPanel.Keywords.Card");
-        panelHierarchicalKeywords.setKeyTree("AppPanel.Keywords.Tree");
-        panelHierarchicalKeywords.readProperties();
+        panelEditKeywords.setKeyCard("AppPanel.Keywords.Card");
+        panelEditKeywords.setKeyTree("AppPanel.Keywords.Tree");
+        panelEditKeywords.readProperties();
 
         String name = "keywordsTree";
         if (UserSettings.INSTANCE.getProperties().containsKey(KEY_KEYWORDS_VIEW)) {
@@ -452,7 +448,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
                 name = s;
             }
         }
-        displayCard(name);
+        displaySelKeywordsCard(name);
     }
 
     @Override
@@ -467,7 +463,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         settings.setInt(splitPaneMain.getDividerLocation(), KEY_DIVIDER_LOCATION_MAIN);
         settings.setInt(splitPaneThumbnailsMetadata.getDividerLocation(), KEY_DIVIDER_LOCATION_THUMBNAILS);
         ViewUtil.writeTreeDirectoriesToProperties();
-        panelHierarchicalKeywords.writeProperties();
+        panelEditKeywords.writeProperties();
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -503,7 +499,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         setSingleSelection(treeFavorites);
         setSingleSelection(treeMiscMetadata);
         setSingleSelection(treeTimeline);
-        setSingleSelection(treeSelHierarchicalKeywords);
+        setSingleSelection(treeSelKeywords);
     }
 
     private void setSingleSelection(JTree tree) {
@@ -533,18 +529,18 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         thread.start();
     }
 
-    private void handleToggleButtonHierarchicalKeywords() {
-        boolean selected = buttonToggleExpandAllNodesHierKw.isSelected();
-        TreeUtil.expandAll(treeSelHierarchicalKeywords, selected);
-        buttonToggleExpandAllNodesHierKw.setText(
+    private void handleToggleButtonSelKeywords() {
+        boolean selected = toggleButtonExpandAllNodesSelKeywords.isSelected();
+        TreeUtil.expandAll(treeSelKeywords, selected);
+        toggleButtonExpandAllNodesSelKeywords.setText(
                 selected
                 ? Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
                 : Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
-    private void displayCard(String name) {
-        CardLayout cl = (CardLayout)(panelKeywords.getLayout());
-        cl.show(panelKeywords, name);
+    private void displaySelKeywordsCard(String name) {
+        CardLayout cl = (CardLayout)(panelSelKeywords.getLayout());
+        cl.show(panelSelKeywords, name);
         UserSettings.INSTANCE.getSettings().setString(name, KEY_KEYWORDS_VIEW);
         UserSettings.INSTANCE.writeToFile();
     }
@@ -603,19 +599,19 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelFavorites = new javax.swing.JPanel();
         scrollPaneFavorites = new javax.swing.JScrollPane();
         treeFavorites = new javax.swing.JTree();
-        panelKeywords = new javax.swing.JPanel();
-        panelSelHierarchicalKeywords = new javax.swing.JPanel();
-        scrollPaneSelHierarchicalKeywords = new javax.swing.JScrollPane();
-        treeSelHierarchicalKeywords = new javax.swing.JTree();
-        buttonToggleExpandAllNodesHierKw = new javax.swing.JToggleButton();
-        buttonDisplayFlatKeywords = new javax.swing.JButton();
-        panelFlatKeywords = new javax.swing.JPanel();
-        scrollPaneKeywords = new javax.swing.JScrollPane();
-        listKeywords = new javax.swing.JList();
-        panelKeywordsMultipleSelection = new javax.swing.JPanel();
-        radioButtonKeywordsMultipleSelAll = new javax.swing.JRadioButton();
-        radioButtonKeywordsMultipleSelOne = new javax.swing.JRadioButton();
-        buttonDisplayKeywordsTree = new javax.swing.JButton();
+        panelSelKeywords = new javax.swing.JPanel();
+        panelSelKeywordsTree = new javax.swing.JPanel();
+        scrollPaneSelKeywordsTree = new javax.swing.JScrollPane();
+        treeSelKeywords = new javax.swing.JTree();
+        toggleButtonExpandAllNodesSelKeywords = new javax.swing.JToggleButton();
+        buttonDisplaySelKeywordsList = new javax.swing.JButton();
+        panelSelKeywordsList = new javax.swing.JPanel();
+        scrollPaneSelKeywordsList = new javax.swing.JScrollPane();
+        listSelKeywords = new javax.swing.JList();
+        panelSelKeywordsListMultipleSelection = new javax.swing.JPanel();
+        radioButtonSelKeywordsMultipleSelAll = new javax.swing.JRadioButton();
+        radioButtonSelKeywordsMultipleSelOne = new javax.swing.JRadioButton();
+        buttonDisplaySelKeywordsTree = new javax.swing.JButton();
         panelTimeline = new javax.swing.JPanel();
         scrollPaneTimeline = new javax.swing.JScrollPane();
         treeTimeline = new javax.swing.JTree();
@@ -663,7 +659,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelScrollPaneEditMetadata = new javax.swing.JPanel();
         scrollPaneEditMetadata = new javax.swing.JScrollPane();
         panelEditMetadata = new javax.swing.JPanel();
-        panelHierarchicalKeywords = new de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel();
+        panelEditKeywords = new de.elmar_baumann.jpt.view.panels.KeywordsPanel();
         panelStatusbar = new javax.swing.JPanel();
         labelThumbnailInfo = new javax.swing.JLabel();
         labelInfo = new javax.swing.JLabel();
@@ -814,17 +810,17 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelFavorites.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_favorite.png")), panelFavorites); // NOI18N
 
-        panelKeywords.setLayout(new java.awt.CardLayout());
+        panelSelKeywords.setLayout(new java.awt.CardLayout());
 
-        panelSelHierarchicalKeywords.setLayout(new java.awt.GridBagLayout());
+        panelSelKeywordsTree.setLayout(new java.awt.GridBagLayout());
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Laden...");
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Laden...");
         treeNode1.add(treeNode2);
-        treeSelHierarchicalKeywords.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        treeSelHierarchicalKeywords.setCellRenderer(new TreeCellRendererHierarchicalKeywords());
-        treeSelHierarchicalKeywords.setShowsRootHandles(true);
-        scrollPaneSelHierarchicalKeywords.setViewportView(treeSelHierarchicalKeywords);
+        treeSelKeywords.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        treeSelKeywords.setCellRenderer(new TreeCellRendererHierarchicalKeywords());
+        treeSelKeywords.setShowsRootHandles(true);
+        scrollPaneSelKeywordsTree.setViewportView(treeSelKeywords);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -833,13 +829,13 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        panelSelHierarchicalKeywords.add(scrollPaneSelHierarchicalKeywords, gridBagConstraints);
+        panelSelKeywordsTree.add(scrollPaneSelKeywordsTree, gridBagConstraints);
 
-        buttonToggleExpandAllNodesHierKw.setText(bundle.getString("AppPanel.buttonToggleExpandAllNodesHierKw.text")); // NOI18N
-        buttonToggleExpandAllNodesHierKw.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        buttonToggleExpandAllNodesHierKw.addActionListener(new java.awt.event.ActionListener() {
+        toggleButtonExpandAllNodesSelKeywords.setText(bundle.getString("AppPanel.toggleButtonExpandAllNodesSelKeywords.text")); // NOI18N
+        toggleButtonExpandAllNodesSelKeywords.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        toggleButtonExpandAllNodesSelKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonToggleExpandAllNodesHierKwActionPerformed(evt);
+                toggleButtonExpandAllNodesSelKeywordsActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -847,13 +843,13 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 1, 0);
-        panelSelHierarchicalKeywords.add(buttonToggleExpandAllNodesHierKw, gridBagConstraints);
+        panelSelKeywordsTree.add(toggleButtonExpandAllNodesSelKeywords, gridBagConstraints);
 
-        buttonDisplayFlatKeywords.setText(bundle.getString("AppPanel.buttonDisplayFlatKeywords.text")); // NOI18N
-        buttonDisplayFlatKeywords.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        buttonDisplayFlatKeywords.addActionListener(new java.awt.event.ActionListener() {
+        buttonDisplaySelKeywordsList.setText(bundle.getString("AppPanel.buttonDisplaySelKeywordsList.text")); // NOI18N
+        buttonDisplaySelKeywordsList.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonDisplaySelKeywordsList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDisplayFlatKeywordsActionPerformed(evt);
+                buttonDisplaySelKeywordsListActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -861,22 +857,22 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 1, 0);
-        panelSelHierarchicalKeywords.add(buttonDisplayFlatKeywords, gridBagConstraints);
+        panelSelKeywordsTree.add(buttonDisplaySelKeywordsList, gridBagConstraints);
 
-        panelKeywords.add(panelSelHierarchicalKeywords, "keywordsTree");
+        panelSelKeywords.add(panelSelKeywordsTree, "keywordsTree");
 
-        panelFlatKeywords.setLayout(new java.awt.GridBagLayout());
+        panelSelKeywordsList.setLayout(new java.awt.GridBagLayout());
 
-        listKeywords.setModel(new javax.swing.AbstractListModel() {
+        listSelKeywords.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Lade..." };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        listKeywords.setCellRenderer(new ListCellRendererKeywords());
-        listKeywords.setDragEnabled(true);
-        listKeywords.setName("listKeywords"); // NOI18N
-        scrollPaneKeywords.setViewportView(listKeywords);
-        listKeywords.setTransferHandler(new TransferHandlerListKeywords());
+        listSelKeywords.setCellRenderer(new ListCellRendererKeywords());
+        listSelKeywords.setDragEnabled(true);
+        listSelKeywords.setName("listSelKeywords"); // NOI18N
+        scrollPaneSelKeywordsList.setViewportView(listSelKeywords);
+        listSelKeywords.setTransferHandler(new TransferHandlerListKeywords());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -884,29 +880,29 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        panelFlatKeywords.add(scrollPaneKeywords, gridBagConstraints);
+        panelSelKeywordsList.add(scrollPaneSelKeywordsList, gridBagConstraints);
 
-        panelKeywordsMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppPanel.panelKeywordsMultipleSelection.border.title"))); // NOI18N
-        panelKeywordsMultipleSelection.setLayout(new java.awt.GridBagLayout());
+        panelSelKeywordsListMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppPanel.panelSelKeywordsListMultipleSelection.border.title"))); // NOI18N
+        panelSelKeywordsListMultipleSelection.setLayout(new java.awt.GridBagLayout());
 
-        buttonGroupKeywordsMultipleSel.add(radioButtonKeywordsMultipleSelAll);
-        radioButtonKeywordsMultipleSelAll.setText(bundle.getString("AppPanel.radioButtonKeywordsMultipleSelAll.text")); // NOI18N
+        buttonGroupKeywordsMultipleSel.add(radioButtonSelKeywordsMultipleSelAll);
+        radioButtonSelKeywordsMultipleSelAll.setText(bundle.getString("AppPanel.radioButtonSelKeywordsMultipleSelAll.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
-        panelKeywordsMultipleSelection.add(radioButtonKeywordsMultipleSelAll, gridBagConstraints);
+        panelSelKeywordsListMultipleSelection.add(radioButtonSelKeywordsMultipleSelAll, gridBagConstraints);
 
-        buttonGroupKeywordsMultipleSel.add(radioButtonKeywordsMultipleSelOne);
-        radioButtonKeywordsMultipleSelOne.setText(bundle.getString("AppPanel.radioButtonKeywordsMultipleSelOne.text")); // NOI18N
+        buttonGroupKeywordsMultipleSel.add(radioButtonSelKeywordsMultipleSelOne);
+        radioButtonSelKeywordsMultipleSelOne.setText(bundle.getString("AppPanel.radioButtonSelKeywordsMultipleSelOne.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
-        panelKeywordsMultipleSelection.add(radioButtonKeywordsMultipleSelOne, gridBagConstraints);
+        panelSelKeywordsListMultipleSelection.add(radioButtonSelKeywordsMultipleSelOne, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -914,13 +910,13 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
-        panelFlatKeywords.add(panelKeywordsMultipleSelection, gridBagConstraints);
+        panelSelKeywordsList.add(panelSelKeywordsListMultipleSelection, gridBagConstraints);
 
-        buttonDisplayKeywordsTree.setText(bundle.getString("AppPanel.buttonDisplayKeywordsTree.text")); // NOI18N
-        buttonDisplayKeywordsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonDisplayKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
+        buttonDisplaySelKeywordsTree.setText(bundle.getString("AppPanel.buttonDisplaySelKeywordsTree.text")); // NOI18N
+        buttonDisplaySelKeywordsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonDisplaySelKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDisplayKeywordsTreeActionPerformed(evt);
+                buttonDisplaySelKeywordsTreeActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -928,11 +924,11 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 0);
-        panelFlatKeywords.add(buttonDisplayKeywordsTree, gridBagConstraints);
+        panelSelKeywordsList.add(buttonDisplaySelKeywordsTree, gridBagConstraints);
 
-        panelKeywords.add(panelFlatKeywords, "flatKeywords");
+        panelSelKeywords.add(panelSelKeywordsList, "flatKeywords");
 
-        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")), panelKeywords); // NOI18N
+        tabbedPaneSelection.addTab(Bundle.getString("AppPanel.panelSelKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")), panelSelKeywords); // NOI18N
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Bitte warten");
@@ -1211,14 +1207,14 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         );
 
         tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png")), panelTabEditMetadata); // NOI18N
-        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelHierarchicalKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")), panelHierarchicalKeywords); // NOI18N
-        new ControllerToggleRealHierarchicalKeyword(panelHierarchicalKeywords);
-        new ControllerRenameHierarchicalKeyword(panelHierarchicalKeywords);
-        new ControllerAddHierarchicalKeyword(panelHierarchicalKeywords);
-        new ControllerRemoveHierarchicalKeyword(panelHierarchicalKeywords);
-        new ControllerAddHierarchicalKeywordsToEditPanel(panelHierarchicalKeywords);
-        new ControllerRemoveHierarchicalKeywordFromEditPanel(panelHierarchicalKeywords);
-        new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword(panelHierarchicalKeywords);
+        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelEditKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")), panelEditKeywords); // NOI18N
+        new ControllerToggleRealHierarchicalKeyword(panelEditKeywords);
+        new ControllerRenameHierarchicalKeyword(panelEditKeywords);
+        new ControllerAddHierarchicalKeyword(panelEditKeywords);
+        new ControllerRemoveHierarchicalKeyword(panelEditKeywords);
+        new ControllerAddHierarchicalKeywordsToEditPanel(panelEditKeywords);
+        new ControllerRemoveHierarchicalKeywordFromEditPanel(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword(panelEditKeywords);
         new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages();
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
@@ -1312,52 +1308,51 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         add(panelStatusbar, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonToggleExpandAllNodesHierKwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesHierKwActionPerformed
-        handleToggleButtonHierarchicalKeywords();
-    }//GEN-LAST:event_buttonToggleExpandAllNodesHierKwActionPerformed
+    private void toggleButtonExpandAllNodesSelKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonExpandAllNodesSelKeywordsActionPerformed
+        handleToggleButtonSelKeywords();
+    }//GEN-LAST:event_toggleButtonExpandAllNodesSelKeywordsActionPerformed
 
-    private void buttonDisplayFlatKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplayFlatKeywordsActionPerformed
-        displayCard("flatKeywords");
-    }//GEN-LAST:event_buttonDisplayFlatKeywordsActionPerformed
+    private void buttonDisplaySelKeywordsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsListActionPerformed
+        displaySelKeywordsCard("flatKeywords");
+    }//GEN-LAST:event_buttonDisplaySelKeywordsListActionPerformed
 
-    private void buttonDisplayKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplayKeywordsTreeActionPerformed
-        displayCard("keywordsTree");
-    }//GEN-LAST:event_buttonDisplayKeywordsTreeActionPerformed
+    private void buttonDisplaySelKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsTreeActionPerformed
+        displaySelKeywordsCard("keywordsTree");
+    }//GEN-LAST:event_buttonDisplaySelKeywordsTreeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonDisplayFlatKeywords;
-    private javax.swing.JButton buttonDisplayKeywordsTree;
+    private javax.swing.JButton buttonDisplaySelKeywordsList;
+    private javax.swing.JButton buttonDisplaySelKeywordsTree;
     private javax.swing.JButton buttonExifToXmp;
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
     private javax.swing.JButton buttonIptcToXmp;
     private javax.swing.JButton buttonSearch;
-    private javax.swing.JToggleButton buttonToggleExpandAllNodesHierKw;
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JLabel labelError;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelThumbnailInfo;
     private javax.swing.JList listImageCollections;
-    private javax.swing.JList listKeywords;
     private javax.swing.JList listNoMetadata;
     private javax.swing.JList listSavedSearches;
+    private javax.swing.JList listSelKeywords;
     private javax.swing.JPanel panelDirectories;
+    private de.elmar_baumann.jpt.view.panels.KeywordsPanel panelEditKeywords;
     private javax.swing.JPanel panelEditMetadata;
     private javax.swing.JPanel panelExif;
     private javax.swing.JPanel panelFavorites;
-    private javax.swing.JPanel panelFlatKeywords;
-    private de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel panelHierarchicalKeywords;
     private javax.swing.JPanel panelImageCollections;
     private javax.swing.JPanel panelIptc;
-    private javax.swing.JPanel panelKeywords;
-    private javax.swing.JPanel panelKeywordsMultipleSelection;
     private javax.swing.JPanel panelMetadata;
     private javax.swing.JPanel panelMiscMetadata;
     private javax.swing.JPanel panelNoMetadata;
     private javax.swing.JPanel panelSavedSearches;
     private javax.swing.JPanel panelScrollPaneEditMetadata;
     private javax.swing.JPanel panelSearch;
-    private javax.swing.JPanel panelSelHierarchicalKeywords;
+    private javax.swing.JPanel panelSelKeywords;
+    private javax.swing.JPanel panelSelKeywordsList;
+    private javax.swing.JPanel panelSelKeywordsListMultipleSelection;
+    private javax.swing.JPanel panelSelKeywordsTree;
     private javax.swing.JPanel panelSelection;
     private javax.swing.JPanel panelStatusbar;
     private javax.swing.JPanel panelTabEditMetadata;
@@ -1366,19 +1361,19 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     private javax.swing.JPanel panelThumbnailsMetadata;
     private javax.swing.JPanel panelTimeline;
     private javax.swing.JProgressBar progressBar;
-    private javax.swing.JRadioButton radioButtonKeywordsMultipleSelAll;
-    private javax.swing.JRadioButton radioButtonKeywordsMultipleSelOne;
+    private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelAll;
+    private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelOne;
     private javax.swing.JScrollPane scrollPaneDirectories;
     private javax.swing.JScrollPane scrollPaneEditMetadata;
     private javax.swing.JScrollPane scrollPaneExif;
     private javax.swing.JScrollPane scrollPaneFavorites;
     private javax.swing.JScrollPane scrollPaneImageCollections;
     private javax.swing.JScrollPane scrollPaneIptc;
-    private javax.swing.JScrollPane scrollPaneKeywords;
     private javax.swing.JScrollPane scrollPaneMiscMetadata;
     private javax.swing.JScrollPane scrollPaneNoMetadata;
     private javax.swing.JScrollPane scrollPaneSavedSearches;
-    private javax.swing.JScrollPane scrollPaneSelHierarchicalKeywords;
+    private javax.swing.JScrollPane scrollPaneSelKeywordsList;
+    private javax.swing.JScrollPane scrollPaneSelKeywordsTree;
     private javax.swing.JScrollPane scrollPaneThumbnails;
     private javax.swing.JScrollPane scrollPaneTimeline;
     private javax.swing.JScrollPane scrollPaneXmpCameraRawSettings;
@@ -1406,10 +1401,11 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     private javax.swing.JTable tableXmpTiff;
     private javax.swing.JTable tableXmpXap;
     private javax.swing.JTextField textFieldSearch;
+    private javax.swing.JToggleButton toggleButtonExpandAllNodesSelKeywords;
     private javax.swing.JTree treeDirectories;
     private javax.swing.JTree treeFavorites;
     private javax.swing.JTree treeMiscMetadata;
-    private javax.swing.JTree treeSelHierarchicalKeywords;
+    private javax.swing.JTree treeSelKeywords;
     private javax.swing.JTree treeTimeline;
     // End of variables declaration//GEN-END:variables
 }

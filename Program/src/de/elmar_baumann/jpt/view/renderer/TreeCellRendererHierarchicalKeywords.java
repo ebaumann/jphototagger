@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +32,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
  * Renders items and text for nodes in the tree of the
- * {@link HierarchicalKeywordsPanel}.
+ * {@link KeywordsPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12

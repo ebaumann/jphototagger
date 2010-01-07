@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.popupmenus;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
@@ -31,7 +31,7 @@ import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
 
 /**
- * Popup menu for the tree in a {@link HierarchicalKeywordsPanel}.
+ * Popup menu for the tree in a {@link KeywordsPanel}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-29

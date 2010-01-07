@@ -35,7 +35,7 @@ import de.elmar_baumann.jpt.controller.misc.ControllerShowUserSettingsDialog;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 
 /**
@@ -75,7 +75,7 @@ public final class ActionListenerFactory {
      * more then one panel using it (2 panels: popup twice, 3 p. 3 times ...)
      */
     private void listenToPopupMenuHierarchicalKeywords() {
-        HierarchicalKeywordsPanel                        hkwPanel        = InputHelperDialog.INSTANCE.getPanelKeywords();
+        KeywordsPanel                        hkwPanel        = InputHelperDialog.INSTANCE.getPanelKeywords();
         ControllerRenameHierarchicalKeyword              cRename         = new ControllerRenameHierarchicalKeyword(hkwPanel);
         ControllerRemoveHierarchicalKeyword              cRemove         = new ControllerRemoveHierarchicalKeyword(hkwPanel);
         ControllerAddHierarchicalKeyword                 cAdd            = new ControllerAddHierarchicalKeyword(hkwPanel);
@@ -87,7 +87,7 @@ public final class ActionListenerFactory {
         new ControllerHierarchicalKeywordsDisplayImages();
 
         hkwPanel.addKeyListener(cCopyCutPaste);
-        GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().addKeyListener(cCopyCutPaste);
+        GUI.INSTANCE.getAppPanel().getTreeEditKeywords().addKeyListener(cCopyCutPaste);
 
         PopupMenuHierarchicalKeywords popup = PopupMenuHierarchicalKeywords.INSTANCE;
 

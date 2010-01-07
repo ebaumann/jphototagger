@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.controller.hierarchicalkeywords.HierarchicalKeywordT
 import de.elmar_baumann.jpt.datatransfer.Flavors;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeHierarchicalKeywords;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -56,13 +56,13 @@ import javax.swing.tree.TreePath;
 public class ControllerCopyCutPasteHierarchicalKeyword
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel     panel;
+    private final KeywordsPanel     panel;
     private final PopupMenuHierarchicalKeywords popup     = PopupMenuHierarchicalKeywords.INSTANCE;
     private final JMenuItem                     itemCopy  = popup.getMenuItemCopy();
     private final JMenuItem                     itemCut   = popup.getMenuItemCut();
     private final JMenuItem                     itemPaste = popup.getMenuItemPaste();
 
-    public ControllerCopyCutPasteHierarchicalKeyword(HierarchicalKeywordsPanel panel) {
+    public ControllerCopyCutPasteHierarchicalKeyword(KeywordsPanel panel) {
         this.panel = panel;
     }
 

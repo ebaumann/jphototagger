@@ -46,7 +46,7 @@ public final class ControllerMetadataTemplates
 
     private final DatabaseMetadataEditTemplates      db                           = DatabaseMetadataEditTemplates.INSTANCE;
     private final AppPanel                           appPanel                     = GUI.INSTANCE.getAppPanel();
-    private final EditMetadataPanelsArray            editPanels                   = appPanel.getEditPanelsArray();
+    private final EditMetadataPanelsArray            editPanels                   = appPanel.getEditMetadataPanelsArray();
     private final JComboBox                          comboBoxMetadataTemplates    = appPanel.getComboBoxMetadataTemplates();
     private final ComboBoxModelMetadataEditTemplates model                        = (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.getModel();
     private final JButton                            buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();

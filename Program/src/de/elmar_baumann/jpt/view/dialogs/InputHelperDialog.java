@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.datatransfer.Flavors;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
@@ -77,7 +77,7 @@ public class InputHelperDialog extends Dialog {
         UserSettings.INSTANCE.writeToFile();
     }
 
-    public HierarchicalKeywordsPanel getPanelKeywords() {
+    public KeywordsPanel getPanelKeywords() {
         return panelHierarchicalKeywords;
     }
 
@@ -105,7 +105,7 @@ public class InputHelperDialog extends Dialog {
     private void initComponents() {
 
         tabbedPane = new javax.swing.JTabbedPane();
-        panelHierarchicalKeywords = new de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel();
+        panelHierarchicalKeywords = new de.elmar_baumann.jpt.view.panels.KeywordsPanel();
         panelMetaDataEditTemplates = new de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel();
         panelMetaDataEditTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(Flavors.METADATA_EDIT_TEMPLATES));
         labelInfo = new javax.swing.JLabel();
@@ -177,7 +177,7 @@ public class InputHelperDialog extends Dialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelInfo;
-    private de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel panelHierarchicalKeywords;
+    private de.elmar_baumann.jpt.view.panels.KeywordsPanel panelHierarchicalKeywords;
     private de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel panelMetaDataEditTemplates;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables

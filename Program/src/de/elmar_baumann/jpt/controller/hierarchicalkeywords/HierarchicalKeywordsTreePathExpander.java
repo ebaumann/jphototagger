@@ -20,12 +20,12 @@ package de.elmar_baumann.jpt.controller.hierarchicalkeywords;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * Expands the path of all {@link HierarchicalKeywordsPanel}s trees.
+ * Expands the path of all {@link KeywordsPanel}s trees.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-31
@@ -34,7 +34,7 @@ public final class HierarchicalKeywordsTreePathExpander {
 
     public static void expand(DefaultMutableTreeNode node) {
         TreePath path = new TreePath(node.getPath());
-        GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().expandPath(path);
+        GUI.INSTANCE.getAppPanel().getTreeEditKeywords().expandPath(path);
         InputHelperDialog.INSTANCE.getPanelKeywords().getTree().expandPath(path);
     }
 

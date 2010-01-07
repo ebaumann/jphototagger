@@ -81,7 +81,7 @@ public class ControllerHierarchicalKeywordsDisplayImages
         appPanel.getTabbedPaneSelection().setSelectedComponent(
                 appPanel.getTabSelectionHierarchicalKeywords());
         HierarchicalKeywordsHelper.selectNode(
-                appPanel.getTreeSelHierarchicalKeywords(),
+                appPanel.getTreeSelKeywords(),
                 hierarchicalKeyword);
     }
 
@@ -89,6 +89,6 @@ public class ControllerHierarchicalKeywordsDisplayImages
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         appPanel.getTabbedPaneSelection().setSelectedComponent(
                 appPanel.getTabSelectionKeywords());
-        ListUtil.select(appPanel.getListKeywords(), keyword, 0);
+        ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
     }
 }

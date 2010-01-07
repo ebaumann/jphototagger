@@ -47,7 +47,7 @@ public final class ControllerImageCollectionSelected implements
 
     private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels      = appPanel.getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels      = appPanel.getEditMetadataPanelsArray();
     private final JList                   list            = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
