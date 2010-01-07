@@ -45,17 +45,11 @@ import javax.swing.tree.TreeNode;
  */
 public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer {
 
-    private static final ImageIcon ICON_MISC_METADATA = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png");
-    private static final ImageIcon ICON_EXIF = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_exif.png");
-    private static final ImageIcon ICON_XMP = IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_xmp.png");
-    private static final ImageIcon ICON_DETAIL =
-            IconUtil.getImageIcon(
-            "/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata_detail.png");
-    private static final Map<Column, ImageIcon> ICON_OF_COLUMN =
-            new HashMap<Column, ImageIcon>();
+    private static final ImageIcon              ICON_MISC_METADATA = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png");
+    private static final ImageIcon              ICON_EXIF          = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_exif.png");
+    private static final ImageIcon              ICON_XMP           = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png");
+    private static final ImageIcon              ICON_DETAIL        = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata_detail.png");
+    private static final Map<Column, ImageIcon> ICON_OF_COLUMN     = new HashMap<Column, ImageIcon>();
 
     static {
         for (Column exifColumn : TreeModelMiscMetadata.getExifColumns()) {
@@ -67,17 +61,13 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value,
-            boolean sel, boolean expanded, boolean leaf, int row,
-            boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
-                row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
-        DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) node.
-                getParent();
-        Object userObject = node.getUserObject();
-        Object parentUserObject = parentNode == null
+        DefaultMutableTreeNode node             = (DefaultMutableTreeNode) value;
+        DefaultMutableTreeNode parentNode       = (DefaultMutableTreeNode) node.getParent();
+        Object                 userObject       = node.getUserObject();
+        Object                 parentUserObject = parentNode == null
                                   ? null
                                   : parentNode.getUserObject();
         setIcon(userObject,
@@ -85,25 +75,29 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
                 parentNode,
                 (TreeNode) tree.getModel().getRoot(),
                 leaf);
+
         setText(userObject, parentUserObject);
 
         return this;
     }
 
     private void setIcon(
-            Object userObject,
-            Object parentUserObject,
+            Object                 userObject,
+            Object                 parentUserObject,
             DefaultMutableTreeNode parentNode,
-            TreeNode root,
-            boolean leaf) {
-
+            TreeNode               root,
+            boolean                leaf
+            ) {
         if (userObject instanceof Column) {
+
             setColumnIcon((Column) userObject);
         } else if (leaf) {
+
             Icon iconDetail = getIconDetail(parentUserObject);
             setIcon(iconDetail == null
                     ? ICON_DETAIL
                     : iconDetail);
+
         } else if (parentNode != null && parentNode.equals(root)) {
             setIcon(ICON_MISC_METADATA);
         }
@@ -128,8 +122,10 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
 
     private void setText(Object userObject, Object parentUserObject) {
         if (userObject == null) return;
-        DecimalFormat shortFormat = new DecimalFormat("#");
+
+        DecimalFormat shortFormat  = new DecimalFormat("#");
         DecimalFormat doubleFormat = new DecimalFormat("#.#");
+
         if (userObject instanceof Column) {
             Column col = (Column) (userObject);
             setText(col.getDescription());
@@ -138,14 +134,11 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
         } else if (userObject instanceof Short || userObject instanceof Long) {
             setText(shortFormat.format(userObject));
         } else if (userObject instanceof Double) {
-            setText(doubleFormat.format(userObject) +
-                    getTextPostfix(parentUserObject));
+            setText(doubleFormat.format(userObject) + getTextPostfix(parentUserObject));
         } else if (userObject instanceof Long) {
-            setText(Long.toString((Long) userObject) +
-                    getTextPostfix(parentUserObject));
+            setText(Long.toString((Long) userObject) + getTextPostfix(parentUserObject));
         } else {
-            assert false : "Unrecognized data type: " +
-                    userObject.getClass().getName();
+            assert false : "Unrecognized data type: " + userObject.getClass().getName();
         }
     }
 

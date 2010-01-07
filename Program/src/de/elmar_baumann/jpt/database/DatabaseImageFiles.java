@@ -1646,6 +1646,7 @@ public final class DatabaseImageFiles extends Database {
                 timeline.add(cal);
             }
             stmt.close();
+            addXmpDateCreated(connection, timeline);
             timeline.addUnknownNode();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -1653,6 +1654,25 @@ public final class DatabaseImageFiles extends Database {
             free(connection);
         }
         return timeline;
+    }
+
+    private void addXmpDateCreated(Connection connection, Timeline timeline) throws SQLException {
+        String    sql  = "SELECT iptc4xmpcore_datecreated FROM xmp" +
+                         " WHERE iptc4xmpcore_datecreated IS NOT NULL";
+        Statement stmt = connection.createStatement();
+
+        logFinest(sql);
+
+        ResultSet     rs   = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            Timeline.Date date = new Timeline.Date(-1, -1, -1);
+            date.setXmpDateCreated(rs.getString(1));
+            if (date.isValid()) {
+                timeline.add(date);
+            }
+        }
+        stmt.close();
     }
 
     /**
@@ -1665,27 +1685,25 @@ public final class DatabaseImageFiles extends Database {
      *               month should be returned
      * @return       image files taken on that date
      */
-    public List<File> getFilesOf(int year, int month, int day) {
-        List<File> files = new ArrayList<File>();
+    public Set<File> getFilesOf(int year, int month, int day) {
+        Set<File> files = new HashSet<File>();
         Connection connection = null;
         try {
             connection = getConnection();
-            String sqlDate = String.valueOf(year) + "-" +
-                    (month > 0
-                     ? getMonthDayPrefix(month) + String.valueOf(month)
-                     : "%") +
-                    "-" +
-                    (month > 0 && day > 0
-                     ? getMonthDayPrefix(day) + String.valueOf(day)
-                     : "%");
             String sql =
                     "SELECT files.filename" +
                     " FROM exif LEFT JOIN files" +
                     " ON exif.id_files = files.id" +
                     " WHERE exif.exif_date_time_original LIKE ?" +
+                    " UNION" +
+                    " SELECT files.filename" +
+                    " FROM xmp LEFT JOIN files" +
+                    " ON xmp.id_files = files.id" +
+                    " WHERE xmp.iptc4xmpcore_datecreated LIKE ?" +
                     " ORDER BY files.filename ASC";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, sqlDate);
+            stmt.setString(1, sqlDate(year, month, day));
+            stmt.setString(2, xmpDate(year, month, day));
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -1700,6 +1718,26 @@ public final class DatabaseImageFiles extends Database {
         return files;
     }
 
+    public String sqlDate(int year, int month, int day) {
+        return String.valueOf(year) +
+                "-" + (month > 0
+                          ? getMonthDayPrefix(month) + String.valueOf(month)
+                          : "%") +
+                "-" + (month > 0 && day > 0
+                          ? getMonthDayPrefix(day) + String.valueOf(day)
+                          : "%");
+    }
+
+    public String xmpDate(int year, int month, int day) {
+        return String.valueOf(year) +
+                      (month > 0
+                          ? "-" + getMonthDayPrefix(month) + String.valueOf(month)
+                          : "%") +
+                      (month > 0 && day > 0
+                          ? "-" + getMonthDayPrefix(day) + String.valueOf(day)
+                          : "");
+    }
+
     private static String getMonthDayPrefix(int i) {
         return i >= 10
                ? ""
@@ -1707,11 +1745,12 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns image files without EXIF date time taken.
+     * Returns image files without EXIF date time taken or without XMP date
+     * created.
      *
      * @return image files
      */
-    public List<File> getFilesOfUnknownExifDate() {
+    public List<File> getFilesOfUnknownDate() {
         List<File> files = new ArrayList<File>();
         Connection connection = null;
         try {
@@ -1721,7 +1760,13 @@ public final class DatabaseImageFiles extends Database {
                     " FROM exif INNER JOIN files" +
                     " ON exif.id_files = files.id" +
                     " WHERE exif.exif_date_time_original IS NULL" +
-                    " ORDER BY files.filename ASC";
+                    " UNION " +
+                    " SELECT files.filename" +
+                    " FROM xmp INNER JOIN files" +
+                    " ON xmp.id_files = files.id" +
+                    " WHERE xmp.iptc4xmpcore_datecreated IS NULL" +
+                    " ORDER BY files.filename ASC"
+                    ;
             Statement stmt = connection.createStatement();
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
@@ -1921,7 +1966,7 @@ public final class DatabaseImageFiles extends Database {
                 " AND files.filename = ?";
     }
 
-    public boolean existsExifDay(java.sql.Date date) {
+    public boolean existsExifDate(java.sql.Date date) {
         boolean exists = false;
         Connection connection = null;
         try {
@@ -1940,6 +1985,32 @@ public final class DatabaseImageFiles extends Database {
             Statement stmt = connection.createStatement();
             logFinest(sql);
             ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLog.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return exists;
+    }
+
+    public boolean existsXMPDateCreated(String date) {
+        boolean    exists     = false;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT COUNT(*)" +
+                    " FROM xmp" +
+                    " WHERE iptc4xmpcore_datecreated = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, date);
+            logFinest(sql);
+            ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
