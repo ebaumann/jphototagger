@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
 import de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel;
-import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
 import javax.swing.ListModel;
@@ -38,10 +37,8 @@ import javax.swing.ListModel;
  */
 public class InputHelperDialog extends Dialog {
 
-    public static final InputHelperDialog INSTANCE =
-            new InputHelperDialog();
-    private static final String KEY_SEL_INDEX_TABBED_PANE =
-            "InputHelperDialog.SelIndexTabbedPane";
+    public static final  InputHelperDialog INSTANCE                  = new InputHelperDialog();
+    private static final String            KEY_SEL_INDEX_TABBED_PANE = "InputHelperDialog.SelIndexTabbedPane";
 
     public InputHelperDialog() {
         super((java.awt.Frame) null, false);
@@ -54,10 +51,12 @@ public class InputHelperDialog extends Dialog {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers"));
         registerKeyStrokes();
+        panelHierarchicalKeywords.setKeyCard("InputHelperDialog.Keywords.Card");
+        panelHierarchicalKeywords.setKeyTree("InputHelperDialog.Keywords.Tree");
     }
 
     public void setModelKeywords(ListModel model) {
-        listKeywords.setModel(model);
+        panelHierarchicalKeywords.getList().setModel(model);
     }
 
     private void readProperties() {
@@ -107,9 +106,6 @@ public class InputHelperDialog extends Dialog {
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelHierarchicalKeywords = new de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel();
-        panelKeywords = new javax.swing.JPanel();
-        scrollPaneKeywords = new javax.swing.JScrollPane();
-        listKeywords = new javax.swing.JList();
         panelMetaDataEditTemplates = new de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel();
         panelMetaDataEditTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(Flavors.METADATA_EDIT_TEMPLATES));
         labelInfo = new javax.swing.JLabel();
@@ -125,25 +121,6 @@ public class InputHelperDialog extends Dialog {
 
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelHierarchicalKeywords.TabConstraints.tabTitle"), panelHierarchicalKeywords); // NOI18N
-
-        listKeywords.setToolTipText(Bundle.getString("InputHelperDialog.listKeywords.toolTipText")); // NOI18N
-        listKeywords.setCellRenderer(new ListCellRendererKeywords());
-        listKeywords.setDragEnabled(true);
-        scrollPaneKeywords.setViewportView(listKeywords);
-        listKeywords.setTransferHandler(new TransferHandlerDragListItems(Flavors.KEYWORDS_FLAVOR));
-
-        javax.swing.GroupLayout panelKeywordsLayout = new javax.swing.GroupLayout(panelKeywords);
-        panelKeywords.setLayout(panelKeywordsLayout);
-        panelKeywordsLayout.setHorizontalGroup(
-            panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-        );
-        panelKeywordsLayout.setVerticalGroup(
-            panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-        );
-
-        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMetaDataEditTemplates.TabConstraints.tabTitle"), panelMetaDataEditTemplates); // NOI18N
 
@@ -200,11 +177,8 @@ public class InputHelperDialog extends Dialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelInfo;
-    private javax.swing.JList listKeywords;
     private de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel panelHierarchicalKeywords;
-    private javax.swing.JPanel panelKeywords;
     private de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel panelMetaDataEditTemplates;
-    private javax.swing.JScrollPane scrollPaneKeywords;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }
