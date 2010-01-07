@@ -33,7 +33,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
 
 /**
@@ -43,7 +42,7 @@ import javax.swing.tree.TreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12
  */
-public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer {
+public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
 
     private static final ImageIcon              ICON_MISC_METADATA = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png");
     private static final ImageIcon              ICON_EXIF          = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_exif.png");
@@ -77,6 +76,7 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
                 leaf);
 
         setText(userObject, parentUserObject);
+        highlightRow(row);
 
         return this;
     }
@@ -152,5 +152,9 @@ public final class TreeCellRendererMiscMetadata extends DefaultTreeCellRenderer 
             }
         }
         return "";
+    }
+
+    public void setHighlightIndexForPopup(int index) {
+        popupHighLightRow = index;
     }
 }

@@ -73,7 +73,7 @@ public final class MiscFactory {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         new TreeCellPopupHighlighter(appPanel.getTreeFavorites()                            , PopupMenuFavorites.INSTANCE);
         new TreeCellPopupHighlighter(appPanel.getTreeDirectories()                          , PopupMenuDirectories.INSTANCE);
-        new TreeCellPopupHighlighter(appPanel.getTreeEditKeywords()                 , PopupMenuHierarchicalKeywords.INSTANCE);
+        new TreeCellPopupHighlighter(appPanel.getTreeEditKeywords()                         , PopupMenuHierarchicalKeywords.INSTANCE);
         new TreeCellPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(), PopupMenuHierarchicalKeywords.INSTANCE);
         new ListItemPopupHighlighter(appPanel.getListImageCollections()                     , PopupMenuImageCollections.INSTANCE);
         new ListItemPopupHighlighter(appPanel.getListSavedSearches()                        , PopupMenuSavedSearches.INSTANCE);
