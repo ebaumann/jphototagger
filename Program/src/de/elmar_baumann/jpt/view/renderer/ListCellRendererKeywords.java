@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import java.awt.Component;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -31,16 +30,20 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-25
  */
-public final class ListCellRendererKeywords extends DefaultListCellRenderer {
+public final class ListCellRendererKeywords extends ListCellRendererExt {
 
     private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(
-                list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        highlight(index, label);
         label.setIcon(ICON);
         return label;
+    }
+
+    @Override
+    public void setHighlightIndexForPopup(int index) {
+        popupHighLightRow = index;
     }
 }

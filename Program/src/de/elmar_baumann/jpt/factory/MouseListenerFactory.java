@@ -23,10 +23,13 @@ import de.elmar_baumann.jpt.event.listener.impl.MouseListenerImageCollections;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerSavedSearches;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerFavorites;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerHierarchicalKeywords;
+import de.elmar_baumann.jpt.event.listener.impl.MouseListenerKeywords;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerTreeExpand;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywords;
+import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
 import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
 
 /**
@@ -50,6 +53,7 @@ public final class MouseListenerFactory {
 
             appPanel.getTreeDirectories()                          .addMouseListener(new MouseListenerDirectories());
             appPanel.getListSavedSearches()                        .addMouseListener(new MouseListenerSavedSearches());
+            appPanel.getListEditKeywords()                         .addMouseListener(new MouseListenerKeywords());
             appPanel.getListImageCollections()                     .addMouseListener(new MouseListenerImageCollections());
             appPanel.getTreeFavorites()                            .addMouseListener(new MouseListenerFavorites());
 
@@ -59,10 +63,14 @@ public final class MouseListenerFactory {
 
             appPanel.getTreeEditKeywords()                         .addMouseListener(listenerHierarchicalKeywords);
             InputHelperDialog.INSTANCE.getPanelKeywords().getTree().addMouseListener(listenerHierarchicalKeywords);
+            InputHelperDialog.INSTANCE.getPanelKeywords().getList().addMouseListener(new MouseListenerKeywords());
 
             new TreeCellPopupHighlighter(appPanel.getTreeMiscMetadata(), listenerTreeExpand.getPopupMenu());
             new TreeCellPopupHighlighter(appPanel.getTreeTimeline()    , listenerTreeExpand.getPopupMenu());
             new TreeCellPopupHighlighter(appPanel.getTreeSelKeywords() , listenerTreeExpand.getPopupMenu());
+
+            new ListItemPopupHighlighter(appPanel.getListEditKeywords()                         , PopupMenuKeywords.INSTANCE);
+            new ListItemPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getList(), PopupMenuKeywords.INSTANCE);
         }
     }
 }

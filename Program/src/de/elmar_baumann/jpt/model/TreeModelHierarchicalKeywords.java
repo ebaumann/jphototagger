@@ -26,6 +26,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
@@ -292,6 +293,55 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode childNode = new TreeNodeSortedChildren(child);
             insertNode(parentNode, childNode);
             insertChildren(childNode); // recursive
+        }
+    }
+
+    /**
+     * Sets all real keywords with a specific name to a different name.
+     * <p>
+     * Renames the keywords in the database, does not touch the sidecar files.
+     *
+     * @param oldName old name
+     * @param newName new name
+     */
+    public synchronized void setAllRenamed(String oldName, String newName) {
+        assert !newName.equalsIgnoreCase(oldName) : oldName;
+        if (db.updateRenameAll(oldName, newName) > 0) {
+            for (Enumeration e = ROOT.depthFirstEnumeration(); e.hasMoreElements(); ) {
+                DefaultMutableTreeNode node       = (DefaultMutableTreeNode) e.nextElement();
+                Object                 userObject = node.getUserObject();
+
+                if (userObject instanceof HierarchicalKeyword) {
+                    HierarchicalKeyword kw = (HierarchicalKeyword) userObject;
+                    if (kw.isReal() && kw.getKeyword().equalsIgnoreCase(oldName)) {
+                        kw.setKeyword(newName);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Removes a real keyword with a specific name if it has no children.
+     * <p>
+     * Also updates the database; does not change the sidecar files.
+     *
+     * @param name keyword name.
+     */
+    public synchronized void removeRootItemWithoutChildren(String name) {
+        for (Enumeration e = ROOT.children(); e.hasMoreElements(); ) {
+            DefaultMutableTreeNode node       = (DefaultMutableTreeNode) e.nextElement();
+            Object                 userObject = node.getUserObject();
+
+            if (node.getChildCount() <= 0 && userObject instanceof HierarchicalKeyword) {
+                HierarchicalKeyword kw = (HierarchicalKeyword) userObject;
+                if (kw.isReal() && kw.getKeyword().equalsIgnoreCase(name) &&
+                        db.delete(Arrays.asList(kw))) {
+                    int index = ROOT.getIndex(node);
+                    ROOT.remove(node);
+                    fireTreeNodesRemoved(this, ROOT.getPath(), new int[]{index}, new Object[]{node});
+                }
+            }
         }
     }
 }

@@ -59,6 +59,8 @@ import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHighlightH
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerImportHierarchicalKeywords;
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerShowHierarchicalKeywordsDialog;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerPickReject;
+import de.elmar_baumann.jpt.controller.keywords.ControllerDeleteKeywords;
+import de.elmar_baumann.jpt.controller.keywords.ControllerRenameKeywords;
 import de.elmar_baumann.jpt.controller.metadata.ControllerCopyPasteMetadata;
 import de.elmar_baumann.jpt.controller.metadata.ControllerExifToXmp;
 import de.elmar_baumann.jpt.controller.metadata.ControllerExtractEmbeddedXmp;
@@ -181,6 +183,8 @@ public final class ControllerFactory {
             new ControllerHierarchicalKeywordsSelection();
             new ControllerPlugins();
             new ControllerHierarchicalKeywordsDbUpdates();
+            new ControllerRenameKeywords();
+            new ControllerDeleteKeywords();
             init = true;
             GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Finished"), AppPanel.MessageType.INFO, 1000);
         }

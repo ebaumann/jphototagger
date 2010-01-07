@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -41,20 +42,21 @@ public final class RenameXmpMetadata extends Thread {
     private final String       newValue;
 
     public static synchronized void update(
-            List<String> filenames,
-            Column column,
-            String oldValue,
-            String newValue) {
-
+            Collection<String> filenames,
+            Column             column,
+            String             oldValue,
+            String             newValue
+            ) {
         UserTasks.INSTANCE.add(
                 new RenameXmpMetadata(filenames, column, oldValue, newValue));
     }
 
-    private RenameXmpMetadata(
-            List<String> filenames,
-            Column column,
-            String oldValue,
-            String newValue) {
+    public RenameXmpMetadata(
+            Collection<String> filenames,
+            Column             column,
+            String             oldValue,
+            String             newValue
+            ) {
 
         this.filenames = new ArrayList<String>(filenames);
         this.column    = column;
