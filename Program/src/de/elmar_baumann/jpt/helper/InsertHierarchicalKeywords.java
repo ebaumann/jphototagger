@@ -49,7 +49,7 @@ public final class InsertHierarchicalKeywords extends Thread {
     }
 
     private void copy() {
-        TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().
+        TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeEditKeywords().
                 getModel();
         assert tm instanceof TreeModelHierarchicalKeywords :
                 "Invalid model: " + tm;
@@ -84,7 +84,7 @@ public final class InsertHierarchicalKeywords extends Thread {
     }
 
     private void expandRoot() {
-        JTree tree = GUI.INSTANCE.getAppPanel().getTreeSelHierarchicalKeywords();
+        JTree tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
         Object root = tree.getModel().getRoot();
         tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
     }

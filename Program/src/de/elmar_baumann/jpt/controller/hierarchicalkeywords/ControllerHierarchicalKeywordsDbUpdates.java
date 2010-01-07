@@ -51,7 +51,7 @@ public final class ControllerHierarchicalKeywordsDbUpdates implements DatabaseLi
 
     private void addKeyword(String keyword) {
         TreeModelHierarchicalKeywords model =
-                (TreeModelHierarchicalKeywords) GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().getModel();
+                (TreeModelHierarchicalKeywords) GUI.INSTANCE.getAppPanel().getTreeEditKeywords().getModel();
         model.addKeyword((DefaultMutableTreeNode)model.getRoot(), keyword, true);
     }
 

@@ -85,7 +85,7 @@ public final class ControllerSetRating
 
     public void setRating(Long rating) {
         EditMetadataPanelsArray editPanel =
-                GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray();
+                GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         if (editPanel.isEditable()) {
             editPanel.setRating(rating);
         }

@@ -135,7 +135,7 @@ public final class HierarchicalKeywordsExporterJpt
         DOMImplementation impl = builder.getDOMImplementation();
         Document doc = impl.createDocument(null, null, null);
         Object rootNode = GUI.INSTANCE.getAppPanel().
-                getTreeHierarchicalKeywords().getModel().getRoot();
+                getTreeEditKeywords().getModel().getRoot();
         Element rootElement = doc.createElement(TAGNAME_ROOT);
         doc.appendChild(rootElement);
         appendChildren(doc, rootElement, (DefaultMutableTreeNode) rootNode);

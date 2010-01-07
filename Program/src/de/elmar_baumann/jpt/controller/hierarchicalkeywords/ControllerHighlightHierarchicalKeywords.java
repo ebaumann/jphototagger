@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords;
 import java.io.File;
@@ -36,24 +36,20 @@ import javax.swing.tree.TreeCellRenderer;
 
 /**
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree
- * of a  {@link HierarchicalKeywordsPanel} the keywords of the selected image.
+ * of a  {@link KeywordsPanel} the keywords of the selected image.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-23
  */
-public final class ControllerHighlightHierarchicalKeywords
-        implements ThumbnailsPanelListener {
+public final class ControllerHighlightHierarchicalKeywords implements ThumbnailsPanelListener {
 
-    private final ThumbnailsPanel tnPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final HierarchicalKeywordsPanel appHkPanel =
-            appPanel.getPanelHierarchicalKeywords();
-    private final HierarchicalKeywordsPanel dlgHkPanel =
-            InputHelperDialog.INSTANCE.getPanelKeywords();
-    private final JTree treeAppPanel = appHkPanel.getTree();
-    private final JTree treeDialog = dlgHkPanel.getTree();
+    private final ThumbnailsPanel           tnPanel      = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles        db           = DatabaseImageFiles.INSTANCE;
+    private final AppPanel                  appPanel     = GUI.INSTANCE.getAppPanel();
+    private final KeywordsPanel appHkPanel   = appPanel.getPanelEditKeywords();
+    private final KeywordsPanel dlgHkPanel   = InputHelperDialog.INSTANCE.getPanelKeywords();
+    private final JTree                     treeAppPanel = appHkPanel.getTree();
+    private final JTree                     treeDialog   = dlgHkPanel.getTree();
 
     public ControllerHighlightHierarchicalKeywords() {
         listen();
@@ -70,30 +66,19 @@ public final class ControllerHighlightHierarchicalKeywords
             List<File> selFile = tnPanel.getSelectedFiles();
             assert selFile.size() == 1;
             if (selFile.size() == 1 && hasSidecarFile(selFile)) {
-                Collection<String> keywords =
-                        db.getDcSubjectsOfFile(selFile.get(0).getAbsolutePath());
+                Collection<String> keywords = db.getDcSubjectsOfFile(selFile.get(0).getAbsolutePath());
                 setKeywords(treeAppPanel, keywords);
                 setKeywords(treeDialog, keywords);
-                //expandTreeNodes(appHkPanel);
-                //expandTreeNodes(dlgHkPanel);
             }
         }
     }
 
     private void setKeywords(JTree tree, Collection<String> keywords) {
         TreeCellRenderer r = tree.getCellRenderer();
-        assert r instanceof TreeCellRendererHierarchicalKeywords :
-                "Not a TreeCellRendererHierarchicalKeywords: " + r;
+        assert r instanceof TreeCellRendererHierarchicalKeywords : "Not a TreeCellRendererHierarchicalKeywords: " + r;
         if (r instanceof TreeCellRendererHierarchicalKeywords) {
-            //TreeUtil.expandAll(tree, true);
             ((TreeCellRendererHierarchicalKeywords) r).setKeywords(keywords);
             tree.repaint();
-        }
-    }
-
-    private void expandTreeNodes(HierarchicalKeywordsPanel panel) {
-        if (!panel.isExpandedAll()) {
-            panel.expandAll(true);
         }
     }
 
@@ -103,8 +88,7 @@ public final class ControllerHighlightHierarchicalKeywords
     }
 
     private boolean hasSidecarFile(List<File> selFile) {
-        assert selFile.size() == 1 :
-                "Size < 1: " + selFile.size() + " - " + selFile;
+        assert selFile.size() == 1 : "Size < 1: " + selFile.size() + " - " + selFile;
         return XmpMetadata.hasImageASidecarFile(selFile.get(0).getAbsolutePath());
     }
 

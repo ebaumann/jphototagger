@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -48,7 +48,7 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
         implements ActionListener, KeyListener {
 
     public ControllerRemoveHierarchicalKeywordFromEditPanel(
-            HierarchicalKeywordsPanel _panel) {
+            KeywordsPanel _panel) {
         super(_panel);
     }
 
@@ -67,7 +67,7 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
 
     private void removeFromEditPanel(String keyword) {
         EditMetadataPanelsArray editPanels =
-                GUI.INSTANCE.getAppPanel().getEditPanelsArray();
+                GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         JPanel panel = editPanels.getEditPanel(
                 ColumnXmpDcSubjectsSubject.INSTANCE);
         if (panel instanceof EditRepeatableTextEntryPanel) {

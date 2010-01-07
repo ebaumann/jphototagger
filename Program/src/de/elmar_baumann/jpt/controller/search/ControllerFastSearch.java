@@ -86,7 +86,7 @@ public final class ControllerFastSearch
     private final        List<Column>            fastSearchColumns      = UserSettings.INSTANCE.getFastSearchColumns();
     private final        List<JTree>             selectionTrees         = appPanel.getSelectionTrees();
     private final        List<JList>             selectionLists         = appPanel.getSelectionLists();
-    private final        EditMetadataPanelsArray editPanels             = appPanel.getEditPanelsArray();
+    private final        EditMetadataPanelsArray editPanels             = appPanel.getEditMetadataPanelsArray();
 
     public ControllerFastSearch() {
         setEnabledSearchTextField();

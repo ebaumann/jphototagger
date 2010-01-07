@@ -51,7 +51,7 @@ public final class ControllerFavoriteSelected implements
     private final AppPanel                appPanel                = GUI.INSTANCE.getAppPanel();
     private final JTree                   treeFavoriteDirectories = appPanel.getTreeFavorites();
     private final ThumbnailsPanel         thumbnailsPanel         = appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels              = appPanel.getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels              = appPanel.getEditMetadataPanelsArray();
 
     public ControllerFavoriteSelected() {
         listen();

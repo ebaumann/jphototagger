@@ -47,11 +47,11 @@ public final class ControllerKeywordItemSelected implements
     private static final String KEY_RADIO_BUTTON =
             "ControllerKeywordItemSelected.RadioButton";
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList listKeywords = appPanel.getListKeywords();
+    private final JList listKeywords = appPanel.getListSelKeywords();
     private final JRadioButton radioButtonAllKeywords =
-            appPanel.getRadioButtonKeywordsMultipleSelAll();
+            appPanel.getRadioButtonSelKeywordsMultipleSelAll();
     private final JRadioButton radioButtonOneKeyword =
-            appPanel.getRadioButtonKeywordsMultipleSelOne();
+            appPanel.getRadioButtonSelKeywordsMultipleSelOne();
     private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
 

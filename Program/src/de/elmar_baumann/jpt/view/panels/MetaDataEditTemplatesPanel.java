@@ -48,7 +48,7 @@ public class MetaDataEditTemplatesPanel extends javax.swing.JPanel {
 
         assert selValue instanceof MetadataEditTemplate : selValue;
 
-        GUI.INSTANCE.getAppPanel().getMetadataEditPanelsArray().setMetadataEditTemplate(
+        GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray().setMetadataEditTemplate(
                 (MetadataEditTemplate) selValue);
 
     }
@@ -60,7 +60,7 @@ public class MetaDataEditTemplatesPanel extends javax.swing.JPanel {
     private boolean isEditable() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         return     appPanel.getPanelThumbnails().getSelectionCount() > 0
-                && appPanel.getMetadataEditPanelsArray().isEditable();
+                && appPanel.getEditMetadataPanelsArray().isEditable();
     }
 
     private boolean isItemSelected() {

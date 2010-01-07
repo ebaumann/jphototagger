@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -50,7 +50,7 @@ public class ControllerRenameHierarchicalKeyword
 
     private final DatabaseHierarchicalKeywords db = DatabaseHierarchicalKeywords.INSTANCE;
 
-    public ControllerRenameHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
+    public ControllerRenameHierarchicalKeyword(KeywordsPanel _panel) {
         super(_panel);
     }
 

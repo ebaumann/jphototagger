@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.controller.hierarchicalkeywords;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,9 +39,9 @@ import javax.swing.tree.TreePath;
 public abstract class ControllerHierarchicalKeywords
         implements ActionListener, KeyListener {
 
-    private final HierarchicalKeywordsPanel panel;
+    private final KeywordsPanel panel;
 
-    public ControllerHierarchicalKeywords(HierarchicalKeywordsPanel _panel) {
+    public ControllerHierarchicalKeywords(KeywordsPanel _panel) {
         panel = _panel;
         listen();
     }
@@ -52,7 +52,7 @@ public abstract class ControllerHierarchicalKeywords
         panel.getTree().addKeyListener(this);
     }
 
-    protected HierarchicalKeywordsPanel getHKPanel() {
+    protected KeywordsPanel getHKPanel() {
         return panel;
     }
 

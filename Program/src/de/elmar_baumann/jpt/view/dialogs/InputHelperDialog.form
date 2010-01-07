@@ -60,7 +60,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel" name="panelHierarchicalKeywords">
+        <Component class="de.elmar_baumann.jpt.view.panels.KeywordsPanel" name="panelHierarchicalKeywords">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Stichw&#xf6;rter">

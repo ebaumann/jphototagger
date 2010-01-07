@@ -108,12 +108,12 @@ public final class ModelFactory {
 
             @Override
             public void run() {
-                JList     listAppPanel       = appPanel.getListKeywords();
+                JList     listAppPanel       = appPanel.getListSelKeywords();
                 Cursor    listAppPanelCursor = setWaitCursor(listAppPanel);
                 ListModel model              = new SortedListModel(new ListModelKeywords());
 
                 listAppPanel.setModel(model);
-                appPanel.getListKeywordsMetadata().setModel(model);
+                appPanel.getListEditKeywords().setModel(model);
                 InputHelperDialog.INSTANCE.setModelKeywords(model);
                 listAppPanel.setCursor(listAppPanelCursor);
                 GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ListModelKeywords"), AppPanel.MessageType.INFO, 1000);
@@ -171,8 +171,8 @@ public final class ModelFactory {
         TreeModel model    = new TreeModelHierarchicalKeywords();
         AppPanel  appPanel = GUI.INSTANCE.getAppPanel();
 
-        appPanel.getTreeSelHierarchicalKeywords().setModel(model);
-        appPanel.getTreeHierarchicalKeywords().setModel(model);
+        appPanel.getTreeSelKeywords().setModel(model);
+        appPanel.getTreeEditKeywords().setModel(model);
         InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(model);
         InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList().setModel(new ListModelMetadataEditTemplates());
 

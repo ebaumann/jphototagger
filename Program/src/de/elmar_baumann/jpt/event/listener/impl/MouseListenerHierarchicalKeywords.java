@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.controller.hierarchicalkeywords.HierarchicalKeywordTreeNodesClipboard;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
@@ -29,7 +29,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * Listens to mouse events in a {@link HierarchicalKeywordsPanel}'s tree and
+ * Listens to mouse events in a {@link KeywordsPanel}'s tree and
  * shows the {@link PopupMenuHierarchicalKeywords} when the popup trigger mouse
  * button is pressed.
  *

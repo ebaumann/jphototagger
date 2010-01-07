@@ -53,7 +53,7 @@ public final class ControllerAdvancedSearch
     private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
     private final List<JTree>             selectionTrees  = appPanel.getSelectionTrees();
-    private final EditMetadataPanelsArray editPanels      = appPanel.getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels      = appPanel.getEditMetadataPanelsArray();
 
     public ControllerAdvancedSearch() {
         listen();

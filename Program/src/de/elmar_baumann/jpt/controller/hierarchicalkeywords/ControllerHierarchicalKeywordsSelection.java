@@ -32,7 +32,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * Listens to {@link AppPanel#getTreeSelHierarchicalKeywords()} and on selection
+ * Listens to {@link AppPanel#getTreeSelKeywords()} and on selection
  * shows thumbnails of the selected keyword and all it's
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -42,7 +42,7 @@ public final class ControllerHierarchicalKeywordsSelection
         implements TreeSelectionListener {
 
     private final JTree tree = GUI.INSTANCE.getAppPanel().
-            getTreeSelHierarchicalKeywords();
+            getTreeSelKeywords();
 
     public ControllerHierarchicalKeywordsSelection() {
         listen();

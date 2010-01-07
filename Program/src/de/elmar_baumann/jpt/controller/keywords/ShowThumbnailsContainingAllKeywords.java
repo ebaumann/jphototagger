@@ -40,7 +40,7 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     private final DatabaseImageFiles      db              = DatabaseImageFiles.INSTANCE;
     private final ThumbnailsPanel         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels      = GUI.INSTANCE.getAppPanel().getEditPanelsArray();
+    private final EditMetadataPanelsArray editPanels      = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
     private final List<String>            keywords;
 
     /**

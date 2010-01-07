@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.database.DatabaseHierarchicalKeywords;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionListener;
@@ -47,7 +47,7 @@ public class ControllerAddHierarchicalKeyword
         extends ControllerHierarchicalKeywords
         implements ActionListener, KeyListener {
 
-    public ControllerAddHierarchicalKeyword(HierarchicalKeywordsPanel _panel) {
+    public ControllerAddHierarchicalKeyword(KeywordsPanel _panel) {
         super(_panel);
     }
 

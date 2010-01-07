@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.controller.hierarchicalkeywords.HierarchicalKeywords
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
-import de.elmar_baumann.jpt.view.panels.HierarchicalKeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * Handles drags and drops for a {@link HierarchicalKeywordsPanel}'s tree.
+ * Handles drags and drops for a {@link KeywordsPanel}'s tree.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-11

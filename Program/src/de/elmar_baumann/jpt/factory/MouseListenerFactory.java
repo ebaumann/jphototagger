@@ -53,8 +53,8 @@ public final class MouseListenerFactory {
             appPanel.getTreeFavorites()                            .addMouseListener(new MouseListenerFavorites());
             appPanel.getTreeMiscMetadata()                         .addMouseListener(listenerTreeExpand);
             appPanel.getTreeTimeline()                             .addMouseListener(listenerTreeExpand);
-            appPanel.getTreeSelHierarchicalKeywords()              .addMouseListener(listenerTreeExpand);
-            appPanel.getTreeHierarchicalKeywords()                 .addMouseListener(listenerHierarchicalKeywords);
+            appPanel.getTreeSelKeywords()              .addMouseListener(listenerTreeExpand);
+            appPanel.getTreeEditKeywords()                 .addMouseListener(listenerHierarchicalKeywords);
             InputHelperDialog.INSTANCE.getPanelKeywords().getTree().addMouseListener(listenerHierarchicalKeywords);
         }
     }

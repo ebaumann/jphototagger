@@ -59,7 +59,7 @@ final class HierarchicalKeywordsExporterLightroom
 
     @Override
     public void export(File file) {
-        TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeHierarchicalKeywords().
+        TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeEditKeywords().
                 getModel();
         assert tm instanceof TreeModelHierarchicalKeywords :
                 "Not a TreeModelHierarchicalKeywords: " + tm;
