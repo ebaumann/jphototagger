@@ -133,8 +133,6 @@ public abstract class HelperThread extends Thread {
             progressBar = ProgressBar.INSTANCE.getResource(this);
             if (progressBar != null) {
                 progressBar.setIndeterminate(false);
-                progressBar.setMinimum(minimum);
-                progressBar.setMaximum(maximum);
             }
         }
     }
@@ -149,6 +147,8 @@ public abstract class HelperThread extends Thread {
                 progressBar.setString(info);
                 infoChanged = false;
             }
+            progressBar.setMinimum(minimum);
+            progressBar.setMaximum(maximum);
             progressBar.setValue(value);
         }
     }
