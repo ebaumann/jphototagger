@@ -24,7 +24,6 @@ import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
 
 /**
@@ -33,12 +32,12 @@ import javax.swing.tree.TreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12
  */
-public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
+public final class TreeCellRendererTimeline extends TreeCellRendererExt {
 
-    private static final ImageIcon ICON_YEAR    = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_timeline.png");
-    private static final ImageIcon ICON_MONTH   = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_timeline_month.png");
-    private static final ImageIcon ICON_DAY     = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_timeline_day.png");
-    private static final ImageIcon ICON_UNKNOWN = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_timeline_unknown.png");
+    private static final ImageIcon ICON_YEAR         = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_timeline.png");
+    private static final ImageIcon ICON_MONTH        = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_timeline_month.png");
+    private static final ImageIcon ICON_DAY          = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_timeline_day.png");
+    private static final ImageIcon ICON_UNKNOWN      = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_timeline_unknown.png");
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -69,6 +68,13 @@ public final class TreeCellRendererTimeline extends DefaultTreeCellRenderer {
             setIcon(ICON_UNKNOWN);
             setText(node.getUserObject().toString());
         }
+
+        highlightRow(row);
+
         return this;
+    }
+
+    public void setHighlightIndexForPopup(int index) {
+        popupHighLightRow = index;
     }
 }

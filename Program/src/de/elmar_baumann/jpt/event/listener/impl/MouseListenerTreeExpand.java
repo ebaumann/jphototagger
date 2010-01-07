@@ -45,6 +45,10 @@ public final class MouseListenerTreeExpand
         listenCollapseAllSubItems(itemCollapse, true);
     }
 
+    public JPopupMenu getPopupMenu() {
+        return popupMenu;
+    }
+
     @Override
     protected void popupTrigger(JTree tree, TreePath path, int x, int y) {
         popupMenu.show(tree, x, y);

@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.event.listener.impl.MouseListenerTreeExpand;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
 
 /**
  * Erzeugt und verbindet MouseListener.
@@ -51,11 +52,17 @@ public final class MouseListenerFactory {
             appPanel.getListSavedSearches()                        .addMouseListener(new MouseListenerSavedSearches());
             appPanel.getListImageCollections()                     .addMouseListener(new MouseListenerImageCollections());
             appPanel.getTreeFavorites()                            .addMouseListener(new MouseListenerFavorites());
+
             appPanel.getTreeMiscMetadata()                         .addMouseListener(listenerTreeExpand);
             appPanel.getTreeTimeline()                             .addMouseListener(listenerTreeExpand);
-            appPanel.getTreeSelKeywords()              .addMouseListener(listenerTreeExpand);
-            appPanel.getTreeEditKeywords()                 .addMouseListener(listenerHierarchicalKeywords);
+            appPanel.getTreeSelKeywords()                          .addMouseListener(listenerTreeExpand);
+
+            appPanel.getTreeEditKeywords()                         .addMouseListener(listenerHierarchicalKeywords);
             InputHelperDialog.INSTANCE.getPanelKeywords().getTree().addMouseListener(listenerHierarchicalKeywords);
+
+            new TreeCellPopupHighlighter(appPanel.getTreeMiscMetadata(), listenerTreeExpand.getPopupMenu());
+            new TreeCellPopupHighlighter(appPanel.getTreeTimeline()    , listenerTreeExpand.getPopupMenu());
+            new TreeCellPopupHighlighter(appPanel.getTreeSelKeywords() , listenerTreeExpand.getPopupMenu());
         }
     }
 }
