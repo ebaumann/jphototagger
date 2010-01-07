@@ -131,6 +131,10 @@ public class SortedListModel extends AbstractListModel {
         return element;
     }
 
+    public ListModel getUnsortedModel() {
+        return unsortedModel;
+    }
+
     /**
      * Retrieve the size of the underlying model
      * @return size of the model
