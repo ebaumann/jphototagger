@@ -39,22 +39,17 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellRenderer {
 
-    private static final Icon ICON_REAL = AppLookAndFeel.getIcon("icon_keyword.png");
-    private static final Icon ICON_REAL_HIGHLIGHTED =
-            AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
-    private static final Icon ICON_HELPER = AppLookAndFeel.getIcon("icon_folder.png");
-    private final List<String> keywords = new ArrayList<String>();
-    private int popupHighLightRow = -1;
+    private static final Icon         ICON_REAL             = AppLookAndFeel.getIcon("icon_keyword.png");
+    private static final Icon         ICON_REAL_HIGHLIGHTED = AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
+    private static final Icon         ICON_HELPER           = AppLookAndFeel.getIcon("icon_folder.png");
+    private final        List<String> keywords              = new ArrayList<String>();
+    private              int          popupHighLightRow     = -1;
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value,
-            boolean sel, boolean expanded, boolean leaf, int row,
-            boolean hasFocus) {
-        super.getTreeCellRendererComponent(
-                tree, value, sel, expanded, false, row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
-        assert value instanceof DefaultMutableTreeNode :
-                "Not a DefaultMutableTreeNode: " + value;
+        assert value instanceof DefaultMutableTreeNode : "Not a DefaultMutableTreeNode: " + value;
         render(((DefaultMutableTreeNode) value).getUserObject(), row);
         return this;
     }
@@ -63,23 +58,18 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
         boolean highlight = false;
         if (userObject instanceof HierarchicalKeyword) {
             HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
-            boolean real = keyword.isReal() == null
-                           ? false
-                           : keyword.isReal();
-            highlight =
-                    keyword.isReal() && isKeyword(keyword.getKeyword());
+            boolean real = keyword.isReal() == null ? false : keyword.isReal();
+            highlight = keyword.isReal() && isKeyword(keyword.getKeyword());
             setText(keyword.getKeyword());
-            setIcon(real
-                    ? ICON_REAL
-                    : ICON_HELPER);
+            setIcon(real ? ICON_REAL : ICON_HELPER);
             if (highlight) {
-                setForeground(
-                        AppLookAndFeel.COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
-                setBackground(
-                        AppLookAndFeel.COLOR_BACKGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
+                setForeground(AppLookAndFeel.COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
+                setBackground(AppLookAndFeel.COLOR_BACKGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);
                 // Necessary here and not obove
                 setIcon(ICON_REAL_HIGHLIGHTED);
             }
+        } else { // Root item
+            setIcon(ICON_REAL);
         }
         setOpaque(row == popupHighLightRow || highlight);
         if (row == popupHighLightRow) {
@@ -101,8 +91,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
      * @param keywords keywords
      */
     public void setKeywords(Collection<? extends String> keywords) {
-        if (keywords == null)
-            throw new NullPointerException("keywords == null");
+        if (keywords == null) throw new NullPointerException("keywords == null");
         synchronized (this.keywords) {
             this.keywords.clear();
             this.keywords.addAll(keywords);
