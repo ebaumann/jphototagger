@@ -29,7 +29,6 @@ import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
@@ -72,7 +71,6 @@ public final class TreeModelMiscMetadata
         EXIF_COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
 
         XMP_COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        XMP_COLUMNS.add(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         XMP_COLUMNS.add(ColumnXmpDcCreator.INSTANCE);
         XMP_COLUMNS.add(ColumnXmpDcRights.INSTANCE);
         XMP_COLUMNS.add(ColumnXmpPhotoshopSource.INSTANCE);

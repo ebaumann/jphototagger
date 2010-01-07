@@ -27,10 +27,13 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
@@ -105,7 +108,7 @@ public final class ControllerTimelineItemSelected
         Object userObject = node.getUserObject();
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
-            thumbnailsPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesOfUnknownExifDate(), Content.TIMELINE);
+            thumbnailsPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesOfUnknownDate(), Content.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date          date   = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
@@ -119,8 +122,8 @@ public final class ControllerTimelineItemSelected
                           ? -1
                           : date.day;
                 setTitle(isYear, date.year, isMonth, month, date);
-                thumbnailsPanel.setFiles(
-                        DatabaseImageFiles.INSTANCE.getFilesOf(date.year, month, day), Content.TIMELINE);
+                List<File> files = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getFilesOf(date.year, month, day));
+                thumbnailsPanel.setFiles(files, Content.TIMELINE);
             }
         }
     }

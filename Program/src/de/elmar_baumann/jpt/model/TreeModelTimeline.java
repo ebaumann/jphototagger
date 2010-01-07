@@ -21,6 +21,8 @@ package de.elmar_baumann.jpt.model;
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.Timeline;
+import de.elmar_baumann.jpt.data.Timeline.Date;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
@@ -62,7 +64,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
             checkInserted(event.getImageFile());
         } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
             ImageFile imageFile = event.getImageFile();
-            if (imageFile != null && imageFile.isInsertExifIntoDb()) {
+            if (imageFile != null && (imageFile.isInsertExifIntoDb() || imageFile.isInsertXmpIntoDb())) {
                 checkDeleted(event.getOldImageFile());
                 checkInserted(event.getImageFile());
             }
@@ -70,28 +72,77 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
     }
 
     private void checkDeleted(ImageFile imageFile) {
-        Exif exif = imageFile.getExif();
+        Exif          exif           = imageFile.getExif();
+        Xmp           xmp            = imageFile.getXmp();
+        java.sql.Date exifDate       = null;
+        String        xmpDate        = null;
+        boolean       exifDateExists = false;
+        boolean       xmpDateExists  = false;
+
         if (exif != null) {
-            java.sql.Date day = exif.getDateTimeOriginal();
-            if (day != null && !db.existsExifDay(day)) {
-                TreeModelUpdateInfo.NodeAndChild info = timeline.removeDay(new Timeline.Date(day));
-                nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(), info.getUpdatedChild());
+            exifDate       = exif.getDateTimeOriginal();
+            exifDateExists = exifDate != null && db.existsExifDate(exifDate);
+        }
+
+        if (xmp != null) {
+            xmpDate       = xmp.getIptc4XmpCoreDateCreated();
+            xmpDateExists = xmpDate != null && db.existsXMPDateCreated(xmpDate);
+        }
+
+        if (!exifDateExists && exifDate != null) {
+            Timeline.Date date = new Timeline.Date(exifDate);
+
+            if (!db.existsExifDate(exifDate)) {
+                removeDate(date);
+            }
+        }
+
+        if (!xmpDateExists && xmpDate != null) {
+            Timeline.Date date = new Timeline.Date(-1, -1, -1);
+
+            date.setXmpDateCreated(xmpDate);
+            if (date.isValid() && !db.existsXMPDateCreated(xmpDate)) {
+                removeDate(date);
             }
         }
     }
 
     private void checkInserted(ImageFile imageFile) {
         Exif exif = imageFile.getExif();
+        Xmp  xmp  = imageFile.getXmp();
+
         if (exif != null) {
             java.sql.Date day = exif.getDateTimeOriginal();
             if (day != null) {
                 Timeline.Date date = new Timeline.Date(day);
-                if (!timeline.existsDay(date)) {
-                    TreeModelUpdateInfo.NodesAndChildIndices info = timeline.add(date);
-                    for (TreeModelUpdateInfo.NodeAndChildIndices node : info.getInfo()) {
-                        nodesWereInserted(node.getNode(), node.getChildIndices());
-                    }
-                }
+                setDate(date);
+            }
+        }
+
+        if (xmp != null && xmp.getIptc4XmpCoreDateCreated() != null) {
+            String        xmpDate = xmp.getIptc4XmpCoreDateCreated();
+            Timeline.Date date    = new Timeline.Date(-1, -1, -1);
+
+            date.setXmpDateCreated(xmpDate);
+            if (date.isValid()) {
+                setDate(date);
+            }
+        }
+    }
+
+    public void removeDate(Date date) {
+        TreeModelUpdateInfo.NodeAndChild info = timeline.removeDay(date);
+        nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(), info.getUpdatedChild());
+    }
+
+    public void setDate(Date date) {
+        if (!timeline.existsDate(date)) {
+
+            TreeModelUpdateInfo.NodesAndChildIndices info = timeline.add(date);
+
+            for (TreeModelUpdateInfo.NodeAndChildIndices node : info.getInfo()) {
+
+                nodesWereInserted(node.getNode(), node.getChildIndices());
             }
         }
     }
