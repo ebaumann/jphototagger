@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Contains all Keywords.
@@ -39,8 +38,7 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-25
  */
-public final class ListModelKeywords extends DefaultListModel
-        implements DatabaseListener {
+public final class ListModelKeywords extends DefaultListModel implements DatabaseListener {
 
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
@@ -56,6 +54,48 @@ public final class ListModelKeywords extends DefaultListModel
         }
     }
 
+    /**
+     * Returns whether a keyword exists whithin this model, does <em>not</em>
+     * check the database.
+     *
+     * @param  keyword keywords
+     * @return         true if this model contains that keyword
+     */
+    public synchronized boolean existsKeyword(String keyword) {
+        return contains(keyword);
+    }
+
+    /**
+     * Renames a keyword whithin this model, does <em>not</em> update the
+     * database or sidecar files.
+     *
+     * @param  oldName old keyword name
+     * @param  newName new keyword name
+     * @return         true if renamed
+     */
+    public synchronized boolean renameKeyword(String oldName, String newName) {
+        assert !oldName.equals(newName);
+        int index = indexOf(oldName);
+        if (index < 0) return false;
+        remove(index);
+        add(index, newName);
+        return true;
+    }
+
+    /**
+     * Removes a keyword from this model, does <em>not</em> update the dataase
+     * or sidecar files.
+     *
+     * @param  keyword keyword
+     * @return         true if removed
+     */
+    public synchronized boolean removeKeyword(String keyword) {
+        int index = indexOf(keyword);
+        if (index < 0) return false;
+        remove(index);
+        return true;
+    }
+
     @Override
     public void actionPerformed(DatabaseImageEvent event) {
         if (event.isTextMetadataAffected()) {
@@ -65,34 +105,22 @@ public final class ListModelKeywords extends DefaultListModel
     }
 
     private void checkForNewKeywords(final ImageFile imageFile) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                List<String> keywords = getKeywords(imageFile);
-                for (String keyword : keywords) {
-                    if (!contains(keyword)) {
-                        addElement(keyword);
-                    }
-                }
+        List<String> keywords = getKeywords(imageFile);
+        for (String keyword : keywords) {
+            if (!contains(keyword)) {
+                addElement(keyword);
             }
-        });
+        }
     }
 
     private void removeNotExistingKeywords(final ImageFile imageFile) {
         if (imageFile == null) return;
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                List<String> keywords = getKeywords(imageFile);
-                for (String keyword : keywords) {
-                    if (contains(keyword) && !databaseHasKeyword(keyword)) {
-                        removeElement(keyword);
-                    }
-                }
+        List<String> keywords = getKeywords(imageFile);
+        for (String keyword : keywords) {
+            if (contains(keyword) && !databaseHasKeyword(keyword)) {
+                removeElement(keyword);
             }
-        });
+        }
     }
 
     boolean databaseHasKeyword(String keyword) {

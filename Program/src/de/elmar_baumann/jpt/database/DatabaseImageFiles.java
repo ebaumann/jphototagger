@@ -1212,15 +1212,15 @@ public final class DatabaseImageFiles extends Database {
             Column xmpColumn,
             String oldValue,
             String newValue,
-            ProgressListener listener) {
-
-        int countRenamed = 0;
-        int filecount = filenames.size();
-        String tableName = xmpColumn.getTable().getName();
-        String columnName = tableName + "." + xmpColumn.getName();
-        boolean isXmpTable = xmpColumn.getTable().equals(TableXmp.INSTANCE);
-        ProgressEvent event = new ProgressEvent(this, 0, filecount, 0, null);
-        Connection connection = null;
+            ProgressListener listener
+            ) {
+        int           countRenamed = 0;
+        int           filecount    = filenames.size();
+        String        tableName    = xmpColumn.getTable().getName();
+        String        columnName   = tableName + "." + xmpColumn.getName();
+        boolean       isXmpTable   = xmpColumn.getTable().equals(TableXmp.INSTANCE);
+        ProgressEvent event        = new ProgressEvent(this, 0, filecount, 0, null);
+        Connection    connection   = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
@@ -1252,12 +1252,10 @@ public final class DatabaseImageFiles extends Database {
                     if (!newValue.isEmpty()) {
                         xmp.setValue(xmpColumn, newValue);
                     }
-                    if (XmpMetadata.writeMetadataToSidecarFile(
-                            XmpMetadata.suggestSidecarFilenameForImageFile(
-                            filename), xmp)) {
-                        long idXmp = rs.getLong(2);
-                        deleteXmp(connection, idXmp);
-                        insertXmp(connection, idFile, xmp);
+                    String sidecarFilename = XmpMetadata.suggestSidecarFilenameForImageFile(filename);
+                    if (XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp)) {
+                        updateLastModifiedXmp(connection, idFile, new File(sidecarFilename).lastModified());
+                        insertOrUpdateXmp(connection, idFile, xmp);
                         countRenamed++;
                         imageFile.setFilename(filename);
                         notifyDatabaseListener(DatabaseImageEvent.Type.XMP_UPDATED, imageFile);
@@ -1280,14 +1278,13 @@ public final class DatabaseImageFiles extends Database {
         return countRenamed;
     }
 
-    private void deleteXmp(Connection connection, long idXmp) throws
-            SQLException {
-        PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM xmp WHERE id = ?");
-        stmt.setLong(1, idXmp);
+    private void updateLastModifiedXmp(Connection connection, long idFile, long lastModifiedXmp) throws SQLException {
+        String sql = "UPDATE files set xmp_lastmodified = ? WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setLong(1, lastModifiedXmp);
+        stmt.setLong(2, idFile);
         logFiner(stmt);
-        int count = stmt.executeUpdate();
-        assert count > 0;
+        stmt.executeUpdate();
         stmt.close();
     }
 

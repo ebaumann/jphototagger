@@ -440,7 +440,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
         try {
             connection = getConnection();
             String sql = "SELECT COUNT(*) FROM hierarchical_subjects" +
-                         " WHERE  subject = ?";
+                         " WHERE subject = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, keyword);
             logFinest(stmt);
@@ -455,6 +455,34 @@ public final class DatabaseHierarchicalKeywords extends Database {
             free(connection);
         }
         return exists;
+    }
+
+    /**
+     * Renames all real subjects whith a specific name regardless of their parent.
+     *
+     * @param  oldName old name
+     * @param  newName new name
+     * @return         count of renamed subjects
+     */
+    public int updateRenameAll(String oldName, String newName) {
+        int count = 0;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql = "UPDATE hierarchical_subjects SET subject = ?" +
+                         " WHERE subject = ? AND real = TRUE";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, newName);
+            stmt.setString(2, oldName);
+            logFinest(stmt);
+            count = stmt.executeUpdate();
+            stmt.close();
+        } catch (Exception ex) {
+            AppLog.logSevere(DatabaseHierarchicalKeywords.class, ex);
+        } finally {
+            free(connection);
+        }
+        return count;
     }
 
     public enum Select {
