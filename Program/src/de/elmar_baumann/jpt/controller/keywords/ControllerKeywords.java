@@ -89,14 +89,4 @@ public abstract class ControllerKeywords extends Controller {
         }
         return selStrings;
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
-    }
 }
