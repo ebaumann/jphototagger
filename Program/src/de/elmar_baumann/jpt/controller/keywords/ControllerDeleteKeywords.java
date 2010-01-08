@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.helper.RenameXmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywords;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,8 +46,8 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
     }
 
     @Override
-    protected boolean myActionSource(Object o) {
-        return o == PopupMenuKeywords.INSTANCE.getItemDelete();
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == PopupMenuKeywords.INSTANCE.getItemDelete();
     }
 
     @Override
