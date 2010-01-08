@@ -41,8 +41,8 @@ import java.util.Set;
 public final class ControllerDeleteKeywords extends ControllerKeywords {
 
     @Override
-    protected boolean myKey(KeyEvent e) {
-        return e.getKeyCode() == KeyEvent.VK_DELETE;
+    protected boolean myKey(KeyEvent evt) {
+        return evt.getKeyCode() == KeyEvent.VK_DELETE;
     }
 
     @Override
