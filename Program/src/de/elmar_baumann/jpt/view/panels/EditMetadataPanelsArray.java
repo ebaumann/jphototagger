@@ -67,8 +67,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import javax.swing.JComponent;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
@@ -76,9 +79,11 @@ import javax.swing.JTextField;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class EditMetadataPanelsArray implements FocusListener,
-                                                      DatabaseListener,
-                                                      AppExitListener
+public final class EditMetadataPanelsArray
+        implements FocusListener,
+                   DatabaseListener,
+                   AppExitListener,
+                   ListDataListener
 {
 
     private final List<JPanel>                    panels               = new ArrayList<JPanel>();
@@ -615,6 +620,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
                     panel.setSuggest(new SuggestHierarchicalKeywords());
                 }
+                listenToList(panel);
                 panels.add(panel);
             } else {
                 if (column.equals(ColumnXmpRating.INSTANCE)) {
@@ -769,6 +775,29 @@ public final class EditMetadataPanelsArray implements FocusListener,
             }
         }
         wrapFocusComponent = lastInputComponent;
+    }
+
+    private void listenToList(EditRepeatableTextEntryPanel panel) {
+        for (Component c : panel.getInputComponents()) {
+            if (c instanceof JList) {
+                ((JList) c).getModel().addListDataListener(this);
+            }
+        }
+    }
+
+    @Override
+    public void intervalAdded(ListDataEvent e) {
+        checkSaveOnChanges();
+    }
+
+    @Override
+    public void intervalRemoved(ListDataEvent e) {
+        checkSaveOnChanges();
+    }
+
+    @Override
+    public void contentsChanged(ListDataEvent e) {
+        checkSaveOnChanges();
     }
 
     private class WatchDifferentValues extends MouseAdapter {
