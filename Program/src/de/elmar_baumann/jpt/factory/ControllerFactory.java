@@ -67,6 +67,11 @@ import de.elmar_baumann.jpt.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.jpt.controller.search.ControllerFastSearch;
 import de.elmar_baumann.jpt.controller.misc.ControllerGoTo;
 import de.elmar_baumann.jpt.controller.metadata.ControllerIptcToXmp;
+import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataEditTemplateAdd;
+import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataEditTemplateDelete;
+import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataEditTemplateEdit;
+import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataEditTemplateRename;
+import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataEditTemplateSetToSelImages;
 import de.elmar_baumann.jpt.controller.misc.ControllerItemsMutualExcludeSelection;
 import de.elmar_baumann.jpt.controller.misc.ControllerLogfileDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerMenuItemEnabler;
@@ -185,6 +190,11 @@ public final class ControllerFactory {
             new ControllerHierarchicalKeywordsDbUpdates();
             new ControllerRenameKeywords();
             new ControllerDeleteKeywords();
+            new ControllerMetadataEditTemplateSetToSelImages();
+            new ControllerMetadataEditTemplateAdd();
+            new ControllerMetadataEditTemplateEdit();
+            new ControllerMetadataEditTemplateDelete();
+            new ControllerMetadataEditTemplateRename();
             init = true;
             GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Finished"), AppPanel.MessageType.INFO, 1000);
         }

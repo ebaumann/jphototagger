@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.data;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpRepeatableValues;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
@@ -43,6 +44,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
+import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.List;
@@ -509,6 +511,16 @@ public final class Xmp implements TextEntryListener {
             }
         } else {
             setValue(column, newText);
+        }
+    }
+
+    public void setMetaDataEditTemplate(MetadataEditTemplate template) {
+        for (Table xmpTable : XmpTables.get()) {
+            for (Column column : xmpTable.getColumns()) {
+                if (!column.isPrimaryKey() && !column.isForeignKey()) {
+                    valueOfColumn.put(column, template.getValueOfColumn(column));
+                }
+            }
         }
     }
 

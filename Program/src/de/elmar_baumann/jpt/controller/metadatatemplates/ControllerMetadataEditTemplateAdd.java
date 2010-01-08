@@ -16,40 +16,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.view.renderer;
+package de.elmar_baumann.jpt.controller.metadatatemplates;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import java.awt.Component;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JList;
+import de.elmar_baumann.jpt.view.dialogs.EditMetaDataTemplateDialog;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2010-01-05
+ * @version 2010-01-08
  */
-public final class ListCellRendererMetadataEditTemplates extends ListCellRendererExt {
-
-    private static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_edit.png");
+public final class ControllerMetadataEditTemplateAdd extends ControllerMetadataEditTemplate {
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        String name  = ((MetadataEditTemplate) value).getName();
-
-        label.setText(name);
-        label.setIcon(ICON);
-        highlight(index, label);
-
-        return label;
+    protected boolean myKey(KeyEvent evt) {
+        return KeyEventUtil.isControl(evt, KeyEvent.VK_N);
     }
 
     @Override
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == PopupMenuMetadataEditTemplates.INSTANCE.getItemAdd();
+    }
+
+    @Override
+    protected void action(MetadataEditTemplate template) {
+        EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
+        MetadataEditTemplate       t   = new MetadataEditTemplate();
+
+        dlg.setTemplate(t);
+        dlg.setVisible(true);
+        dlg.toFront();
     }
 }

@@ -505,11 +505,12 @@ public final class EditRepeatableTextEntryPanel
     @Override
     public List<Component> getInputComponents() {
         return Arrays.asList(
-                (Component)textFieldInput,
-                (Component)list,
-                (Component)buttonAddInput,
-                (Component)buttonRemoveSelection,
-                (Component)buttonSuggestion);
+                (Component) list,
+                (Component) buttonRemoveSelection,
+                (Component) buttonAddInput,
+                (Component) buttonSuggestion,
+                (Component) textFieldInput
+                );
     }
 
     @Override

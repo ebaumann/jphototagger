@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -51,26 +52,30 @@ public class RatingSelectionPanel
         extends    JPanel
         implements TextEntry, FocusListener, KeyListener {
 
-    private final Icon                     star;
-    private final Icon                     dark_star;
-    private final Icon                     icon_rating_remove;
-    private final Icon                     icon_rating_remove_not_set;
-    private       boolean                  dirty                     = false;
-    private       Column                   column;
+    private final Icon                     star                       = AppLookAndFeel.getIcon("icon_xmp_rating_set.png");
+    private final Icon                     dark_star                  = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png");;
+    private final Icon                     icon_rating_remove         = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
+    private final Icon                     icon_rating_remove_not_set = AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png");
+    private final Column                   column;
     private       boolean                  editable;
-    private       int                      value                     = 0;
-    private       JButton                  buttons[]                 = new JButton[5];
+    private       boolean                  dirty                      = false;
+    private       int                      value                      = 0;
+    private       JButton                  buttons[]                  = new JButton[5];
     private       JButton                  lastClickedButton;
-    private       TextEntryListenerSupport textEntryListenerSupport  = new TextEntryListenerSupport();
-    private final Map<JButton, String>     textOfButton              = new HashMap<JButton, String>();
+    private       TextEntryListenerSupport textEntryListenerSupport   = new TextEntryListenerSupport();
+    private final Map<JButton, String>     textOfButton               = new HashMap<JButton, String>();
 
     public RatingSelectionPanel(Column column) {
         this.column = column;
+        init();
+    }
+    
+    public RatingSelectionPanel() {
+        this.column = ColumnXmpRating.INSTANCE;
+        init();
+    }
 
-        star                       = AppLookAndFeel.getIcon("icon_xmp_rating_set.png");
-        dark_star                  = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png");
-        icon_rating_remove         = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
-        icon_rating_remove_not_set = AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png");
+    private void init() {
         initComponents();
         buttons[0] = buttonStar1;
         buttons[1] = buttonStar2;

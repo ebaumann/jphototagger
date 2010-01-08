@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.TextEntryContent;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
@@ -54,16 +55,26 @@ public final class EditTextEntryPanel
     private                boolean                  editable;
     private                TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
 
+    public EditTextEntryPanel() {
+        column = ColumnXmpDcTitle.INSTANCE;
+        initComponents();
+    }
+
     public EditTextEntryPanel(Column column) {
         this.column = column;
         initComponents();
-        postInitComponents();
+        postSetColumn();
     }
 
-    private void postInitComponents() {
+    private void postSetColumn() {
         setPropmt();
         textAreaEdit.setInputVerifier(column.getInputVerifier());
         textAreaEdit.getDocument().addDocumentListener(this);
+    }
+
+    public void setColumn(Column column) {
+        this.column = column;
+        postSetColumn();
     }
 
     private void setPropmt() {

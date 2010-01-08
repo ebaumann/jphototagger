@@ -19,6 +19,8 @@
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.Table;
+import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
 import java.util.HashMap;
 
 /**
@@ -103,5 +105,15 @@ public final class MetadataEditTemplate {
                             ? this.name.hashCode()
                             : 0);
         return hash;
+    }
+
+    public void setXmp(Xmp xmp) {
+        for (Table xmpTable : XmpTables.get()) {
+            for (Column column : xmpTable.getColumns()) {
+                if (!column.isPrimaryKey() && ! column.isForeignKey()) {
+                    fieldOfColumn.put(column, xmp.getValue(column));
+                }
+            }
+        }
     }
 }
