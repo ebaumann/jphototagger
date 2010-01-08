@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
  * Listens to all action- and key events of
  * {@link #listenToActionsOf(java.lang.Object[])} and
  * {@link #listenToKeyEventsOf(java.lang.Object[])}. If
- * {@link #myActionSource(java.lang.Object)} or
+ * {@link #myAction(java.awt.event.ActionEvent)} or
  * {@link #myKey(java.awt.event.KeyEvent)} returning true,
  * {@link #action(java.awt.event.ActionEvent)} or
  * {@link #action(java.awt.event.KeyEvent)} will be called.
@@ -54,14 +54,14 @@ public abstract class Controller implements ActionListener, KeyListener {
      * Returning, whether {@link #action(java.awt.event.ActionEvent)} shall be
      * called if an action occured.
      *
-     * @param  src source of the action
+     * @param  evt action event
      * @return     true, if that source action shall trigger a controller action
      */
-    abstract protected boolean myActionSource(Object src);
+    abstract protected boolean myAction(ActionEvent evt);
 
     /**
      * Will be called if an action on an observed source occured and
-     * {@link #myActionSource(java.lang.Object)} returned true.
+     * {@link #myAction(java.lang.Object)} returned true.
      *
      * @param evt action event
      */
@@ -84,7 +84,7 @@ public abstract class Controller implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (myActionSource(evt.getSource())) {
+        if (myAction(evt)) {
             action(evt);
         }
     }

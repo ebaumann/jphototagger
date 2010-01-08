@@ -30,6 +30,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywords;
 import de.elmar_baumann.lib.dialog.InputDialog;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,8 +51,8 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
     }
 
     @Override
-    protected boolean myActionSource(Object o) {
-        return o == PopupMenuKeywords.INSTANCE.getItemRename();
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == PopupMenuKeywords.INSTANCE.getItemRename();
     }
 
     @Override
