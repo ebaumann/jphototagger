@@ -77,7 +77,7 @@ public final class ControllerHighlightHierarchicalKeywords implements Thumbnails
         TreeCellRenderer r = tree.getCellRenderer();
         assert r instanceof TreeCellRendererHierarchicalKeywords : "Not a TreeCellRendererHierarchicalKeywords: " + r;
         if (r instanceof TreeCellRendererHierarchicalKeywords) {
-            ((TreeCellRendererHierarchicalKeywords) r).setKeywords(keywords);
+            ((TreeCellRendererHierarchicalKeywords) r).setHighlightKeywords(keywords);
             tree.repaint();
         }
     }

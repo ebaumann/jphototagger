@@ -86,6 +86,7 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String         KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY                    = "UserSettings.TreeDirectoriesSelectLastDirectory";
     private static final String         KEY_USE_EMBEDDED_THUMBNAILS                                   = "UserSettings.IsUseEmbeddedThumbnails";
     private static final String         KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser";
+    private static final String         KEY_SAVE_INPUT_EARLY                                          = "UserSettings.SaveInputEarly";
     private static final String         PROPERTIES_FILENAME                                           = "Settings.properties"; // NEVER CHANGE!
     private final        Properties     properties                                                    = new Properties();
     private final        PropertiesFile propertiesToFile                                              = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
@@ -473,6 +474,28 @@ public final class UserSettings implements UserSettingsChangeListener {
         return properties.containsKey(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
                ? settings.getBoolean(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
                : false;
+    }
+
+    /**
+     * Returns whether to save input early, e.g. when an input control has been
+     * leaved.
+     *
+     * @return true if input shall be saved early
+     */
+    public boolean isSaveInputEarly() {
+        return properties.containsKey(KEY_SAVE_INPUT_EARLY)
+                ? settings.getBoolean(KEY_SAVE_INPUT_EARLY)
+                : true;
+    }
+
+    /**
+     * Sets whether to save input early, e.g. when an input control has been
+     * leaved.
+     *
+     * @param early true if input shall be saved early. Default: true.
+     */
+    public void setSaveInputEarly(boolean early) {
+        settings.setBoolean(early, KEY_SAVE_INPUT_EARLY);
     }
 
     /**

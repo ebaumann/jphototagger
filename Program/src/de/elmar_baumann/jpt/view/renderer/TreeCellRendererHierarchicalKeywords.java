@@ -42,7 +42,7 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
     private static final Icon         ICON_REAL             = AppLookAndFeel.getIcon("icon_keyword.png");
     private static final Icon         ICON_REAL_HIGHLIGHTED = AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
     private static final Icon         ICON_HELPER           = AppLookAndFeel.getIcon("icon_folder.png");
-    private final        List<String> keywords              = new ArrayList<String>();
+    private final        List<String> highLightKeywords              = new ArrayList<String>();
     private              int          popupHighLightRow     = -1;
 
     @Override
@@ -80,8 +80,8 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
 
     private boolean isKeyword(Object value) {
         assert value != null : "value is null!";
-        synchronized (keywords) {
-            return keywords.contains(value.toString());
+        synchronized (highLightKeywords) {
+            return highLightKeywords.contains(value.toString());
         }
     }
 
@@ -90,11 +90,34 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
      *
      * @param keywords keywords
      */
-    public void setKeywords(Collection<? extends String> keywords) {
-        if (keywords == null) throw new NullPointerException("keywords == null");
-        synchronized (this.keywords) {
-            this.keywords.clear();
-            this.keywords.addAll(keywords);
+    public void setHighlightKeywords(Collection<? extends String> keywords) {
+        synchronized (this.highLightKeywords) {
+            this.highLightKeywords.clear();
+            this.highLightKeywords.addAll(keywords);
+        }
+    }
+
+    public void addHighlightKeywords(Collection<? extends String> keywords) {
+        synchronized(this.highLightKeywords) {
+            this.highLightKeywords.addAll(keywords);
+        }
+    }
+
+    public void removeHighlightKeywords(Collection<? extends String> keywords) {
+        synchronized(this.highLightKeywords) {
+            this.highLightKeywords.removeAll(keywords);
+        }
+    }
+
+    public void addHighlightKeyword(String keyword) {
+        synchronized (highLightKeywords) {
+            highLightKeywords.add(keyword);
+        }
+    }
+
+    public void removeHighlightKeyword(String keyword) {
+        synchronized (highLightKeywords) {
+            highLightKeywords.remove(keyword);
         }
     }
 
