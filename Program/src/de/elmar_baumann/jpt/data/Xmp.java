@@ -654,7 +654,7 @@ public final class Xmp implements TextEntryListener {
     /**
      * Removes all XMP values.
      */
-    private void empty() {
+    public void empty() {
         valueOfColumn.clear();
     }
 

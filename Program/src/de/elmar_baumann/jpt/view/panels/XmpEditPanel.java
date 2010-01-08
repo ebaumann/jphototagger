@@ -127,6 +127,7 @@ public class XmpEditPanel extends javax.swing.JPanel implements FocusListener {
     }
 
     public void setInputToXmp() {
+        xmp.empty();
         for (TextEntry textEntry : textEntries) {
             Column column = textEntry.getColumn();
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
