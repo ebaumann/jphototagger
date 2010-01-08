@@ -76,7 +76,7 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  template  Template
      * @return           true bei Erfolg
      */
-    public boolean insertMetadataEditTemplate(MetadataEditTemplate template) {
+    public boolean insertOrUpdateMetadataEditTemplate(MetadataEditTemplate template) {
 
         if (existsMetadataEditTemplate(template.getName())) {
             return updateMetadataEditTemplate(template);

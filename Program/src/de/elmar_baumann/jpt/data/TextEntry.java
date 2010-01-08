@@ -109,6 +109,13 @@ public interface TextEntry {
      */
     public void setDirty(boolean dirty);
 
+    /**
+     * Returns all input components in order of their appearance, especially the
+     * last component in the list is the last component in tab order.
+     *
+     * @return input components or empty list if the text entry has no input
+     *         components
+     */
     public List<Component> getInputComponents();
 
     public TextEntry clone();

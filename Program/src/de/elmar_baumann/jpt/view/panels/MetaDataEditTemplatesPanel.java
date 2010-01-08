@@ -18,10 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererMetadataEditTemplates;
-import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import javax.swing.JList;
 
 /**
@@ -40,33 +37,6 @@ public class MetaDataEditTemplatesPanel extends javax.swing.JPanel {
         return list;
     }
 
-    private void setSelTemplateToSelectedImages() {
-
-        Object selValue = list.getSelectedValue();
-
-        if (selValue == null || !isEditable()) return;
-
-        assert selValue instanceof MetadataEditTemplate : selValue;
-
-        GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray().setMetadataEditTemplate(
-                (MetadataEditTemplate) selValue);
-
-    }
-
-    private void enableMenuItems() {
-        menuItemSet.setEnabled(isEditable() && isItemSelected());
-    }
-
-    private boolean isEditable() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-        return     appPanel.getPanelThumbnails().getSelectionCount() > 0
-                && appPanel.getEditMetadataPanelsArray().isEditable();
-    }
-
-    private boolean isItemSelected() {
-        return list.getSelectedIndex() >= 0;
-    }
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -76,39 +46,12 @@ public class MetaDataEditTemplatesPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        popupMenu = new javax.swing.JPopupMenu();
-        menuItemSet = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
 
-        popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                popupMenuPopupMenuWillBecomeVisible(evt);
-            }
-        });
-
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        menuItemSet.setText(bundle.getString("MetaDataEditTemplatesPanel.menuItemSet.text")); // NOI18N
-        menuItemSet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemSetActionPerformed(evt);
-            }
-        });
-        popupMenu.add(menuItemSet);
-
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new ListCellRendererMetadataEditTemplates());
-        list.setComponentPopupMenu(popupMenu);
         list.setDragEnabled(true);
-        list.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listMouseClicked(evt);
-            }
-        });
         scrollPane.setViewportView(list);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -123,23 +66,8 @@ public class MetaDataEditTemplatesPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuItemSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSetActionPerformed
-        setSelTemplateToSelectedImages();
-    }//GEN-LAST:event_menuItemSetActionPerformed
-
-    private void popupMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popupMenuPopupMenuWillBecomeVisible
-        enableMenuItems();
-    }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
-
-    private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
-        if (MouseEventUtil.isDoubleClick(evt)) {
-            setSelTemplateToSelectedImages();
-        }
-    }//GEN-LAST:event_listMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList list;
-    private javax.swing.JMenuItem menuItemSet;
-    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }

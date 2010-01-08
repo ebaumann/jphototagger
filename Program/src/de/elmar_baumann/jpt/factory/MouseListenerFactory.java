@@ -24,11 +24,13 @@ import de.elmar_baumann.jpt.event.listener.impl.MouseListenerSavedSearches;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerFavorites;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerHierarchicalKeywords;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerKeywords;
+import de.elmar_baumann.jpt.event.listener.impl.MouseListenerMetadataEditTemplates;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerTreeExpand;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywords;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
 import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
 import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
 
@@ -51,26 +53,28 @@ public final class MouseListenerFactory {
             MouseListenerTreeExpand           listenerTreeExpand           = new MouseListenerTreeExpand();
             MouseListenerHierarchicalKeywords listenerHierarchicalKeywords = new MouseListenerHierarchicalKeywords();
 
-            appPanel.getTreeDirectories()                          .addMouseListener(new MouseListenerDirectories());
-            appPanel.getListSavedSearches()                        .addMouseListener(new MouseListenerSavedSearches());
-            appPanel.getListEditKeywords()                         .addMouseListener(new MouseListenerKeywords());
-            appPanel.getListImageCollections()                     .addMouseListener(new MouseListenerImageCollections());
-            appPanel.getTreeFavorites()                            .addMouseListener(new MouseListenerFavorites());
+            appPanel.getTreeDirectories()                                       .addMouseListener(new MouseListenerDirectories());
+            appPanel.getListSavedSearches()                                     .addMouseListener(new MouseListenerSavedSearches());
+            appPanel.getListEditKeywords()                                      .addMouseListener(new MouseListenerKeywords());
+            appPanel.getListImageCollections()                                  .addMouseListener(new MouseListenerImageCollections());
+            appPanel.getTreeFavorites()                                         .addMouseListener(new MouseListenerFavorites());
 
-            appPanel.getTreeMiscMetadata()                         .addMouseListener(listenerTreeExpand);
-            appPanel.getTreeTimeline()                             .addMouseListener(listenerTreeExpand);
-            appPanel.getTreeSelKeywords()                          .addMouseListener(listenerTreeExpand);
+            appPanel.getTreeMiscMetadata()                                      .addMouseListener(listenerTreeExpand);
+            appPanel.getTreeTimeline()                                          .addMouseListener(listenerTreeExpand);
+            appPanel.getTreeSelKeywords()                                       .addMouseListener(listenerTreeExpand);
 
-            appPanel.getTreeEditKeywords()                         .addMouseListener(listenerHierarchicalKeywords);
-            InputHelperDialog.INSTANCE.getPanelKeywords().getTree().addMouseListener(listenerHierarchicalKeywords);
-            InputHelperDialog.INSTANCE.getPanelKeywords().getList().addMouseListener(new MouseListenerKeywords());
+            appPanel.getTreeEditKeywords()                                      .addMouseListener(listenerHierarchicalKeywords);
+            InputHelperDialog.INSTANCE.getPanelKeywords().getTree()             .addMouseListener(listenerHierarchicalKeywords);
+            InputHelperDialog.INSTANCE.getPanelKeywords().getList()             .addMouseListener(new MouseListenerKeywords());
+            InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList().addMouseListener(new MouseListenerMetadataEditTemplates());
 
             new TreeCellPopupHighlighter(appPanel.getTreeMiscMetadata(), listenerTreeExpand.getPopupMenu());
             new TreeCellPopupHighlighter(appPanel.getTreeTimeline()    , listenerTreeExpand.getPopupMenu());
             new TreeCellPopupHighlighter(appPanel.getTreeSelKeywords() , listenerTreeExpand.getPopupMenu());
 
-            new ListItemPopupHighlighter(appPanel.getListEditKeywords()                         , PopupMenuKeywords.INSTANCE);
-            new ListItemPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getList(), PopupMenuKeywords.INSTANCE);
+            new ListItemPopupHighlighter(appPanel.getListEditKeywords()                                      , PopupMenuKeywords.INSTANCE);
+            new ListItemPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getList()             , PopupMenuKeywords.INSTANCE);
+            new ListItemPopupHighlighter(InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList(), PopupMenuMetadataEditTemplates.INSTANCE);
         }
     }
 }

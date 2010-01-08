@@ -21,6 +21,8 @@ package de.elmar_baumann.jpt.model;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.MetadataEditTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataEditTemplates;
+import de.elmar_baumann.jpt.event.MetadataEditTemplateEvent;
+import de.elmar_baumann.jpt.event.listener.MetadataEditTemplateEventListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -34,13 +36,16 @@ import javax.swing.DefaultComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxModel {
+public final class ComboBoxModelMetadataEditTemplates
+        extends    DefaultComboBoxModel
+        implements MetadataEditTemplateEventListener
+{
 
-    private final DatabaseMetadataEditTemplates db =
-            DatabaseMetadataEditTemplates.INSTANCE;
+    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.INSTANCE;
 
     public ComboBoxModelMetadataEditTemplates() {
         addElements();
+        db.addMetadataEditTemplateEventListener(this);
     }
 
     /**
@@ -67,7 +72,7 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
         if (getIndexOf(template) >= 0) {
             return;
         }
-        if (db.insertMetadataEditTemplate(template)) {
+        if (db.insertOrUpdateMetadataEditTemplate(template)) {
             addElement(template);
             setSelectedItem(template);
         } else {
@@ -126,5 +131,28 @@ public final class ComboBoxModelMetadataEditTemplates extends DefaultComboBoxMod
                 null,
                 "ComboBoxModelMetadataEditTemplates.Error.Template",
                 name, cause);
+    }
+
+    @Override
+    public void actionPerformed(MetadataEditTemplateEvent evt) {
+
+        if (evt.wasAdded()) {
+
+            addElement(evt.getTemplate());
+
+        } else if (evt.wasDeleted()) {
+
+            removeElement(evt.getTemplate());
+
+        } else if (evt.wasUpdated()) {
+
+            int index = getIndexOf(evt.getOldTemplate());
+            if (index >= 0) {
+
+                removeElementAt(index);
+                insertElementAt(evt.getTemplate(), index);
+                if (index == 0) setSelectedItem(evt.getTemplate());
+            }
+        }
     }
 }

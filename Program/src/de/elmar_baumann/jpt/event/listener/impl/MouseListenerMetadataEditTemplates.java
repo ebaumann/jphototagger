@@ -16,40 +16,35 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.view.renderer;
+package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import java.awt.Component;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
 import javax.swing.JList;
+import javax.swing.ListSelectionModel;
 
 /**
  *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2010-01-05
+ * @version 2010-01-07
  */
-public final class ListCellRendererMetadataEditTemplates extends ListCellRendererExt {
-
-    private static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_edit.png");
+public final class MouseListenerMetadataEditTemplates extends MouseListenerList {
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    protected void showPopup(JList list, int x, int y) {
 
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        String name  = ((MetadataEditTemplate) value).getName();
+        assert list.getSelectionMode() == ListSelectionModel.SINGLE_SELECTION;
 
-        label.setText(name);
-        label.setIcon(ICON);
-        highlight(index, label);
-
-        return label;
+        PopupMenuMetadataEditTemplates.INSTANCE.setSelIndex(getIndex());
+        PopupMenuMetadataEditTemplates.INSTANCE.setList(list);
+        enableItems();
+        PopupMenuMetadataEditTemplates.INSTANCE.show(list, x, y);
     }
 
-    @Override
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    private void enableItems() {
+        PopupMenuMetadataEditTemplates.INSTANCE.getItemSetToSelImages().setEnabled(
+                GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() > 0);
     }
+
 }
