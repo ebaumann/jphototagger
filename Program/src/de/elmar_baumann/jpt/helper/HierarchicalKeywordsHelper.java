@@ -26,8 +26,10 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +40,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
@@ -311,6 +314,40 @@ public final class HierarchicalKeywordsHelper {
                 }
             }
         }
+    }
+
+    public static void addHighlightKeywords(Collection<String> keywords) {
+        for (TreeCellRendererHierarchicalKeywords r : getCellRenderer()) {
+            r.addHighlightKeywords(keywords);
+        }
+    }
+
+    public static void removeHighlightKeyword(String keyword) {
+        for (TreeCellRendererHierarchicalKeywords r : getCellRenderer()) {
+            r.removeHighlightKeyword(keyword);
+        }
+    }
+
+    private static List<TreeCellRendererHierarchicalKeywords> getCellRenderer() {
+        List<TreeCellRendererHierarchicalKeywords> renderer = new ArrayList<TreeCellRendererHierarchicalKeywords>();
+
+        for (JTree tree : getKeywordTrees()) {
+            TreeCellRenderer r = tree.getCellRenderer();
+            if (r instanceof TreeCellRendererHierarchicalKeywords) {
+                renderer.add((TreeCellRendererHierarchicalKeywords) r);
+            }
+        }
+        return renderer;
+    }
+
+    private static List<JTree> getKeywordTrees() {
+        List<JTree> trees = new ArrayList<JTree>();
+
+        trees.add(GUI.INSTANCE.getAppPanel().getTreeEditKeywords());
+        trees.add(GUI.INSTANCE.getAppPanel().getTreeSelKeywords());
+        trees.add(InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
+
+        return trees;
     }
 
     private HierarchicalKeywordsHelper() {

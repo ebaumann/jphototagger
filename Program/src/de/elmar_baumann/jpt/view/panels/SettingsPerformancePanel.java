@@ -57,6 +57,11 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         notifyChangeListener(evt);
     }
 
+    private void handleSaveEarly() {
+        UserSettings.INSTANCE.setSaveInputEarly(checkBoxSaveInputEarly.isSelected());
+        UserSettings.INSTANCE.writeToFile();
+    }
+
     private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }
@@ -65,8 +70,8 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     public void readProperties() {
         UserSettings settings = UserSettings.INSTANCE;
         checkBoxScanForEmbeddedXmp.setSelected(settings.isScanForEmbeddedXmp());
-        spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(settings.
-                getMaxSecondsToTerminateExternalPrograms());
+        checkBoxSaveInputEarly.setSelected(settings.isSaveInputEarly());
+        spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(settings.getMaxSecondsToTerminateExternalPrograms());
     }
 
     @Override
@@ -82,12 +87,10 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelProcessingTime = new javax.swing.JPanel();
         labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
         checkBoxScanForEmbeddedXmp = new javax.swing.JCheckBox();
-
-        panelProcessingTime.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsPerformancePanel.panelProcessingTime.border.title"))); // NOI18N
+        checkBoxSaveInputEarly = new javax.swing.JCheckBox();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
@@ -106,30 +109,12 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        javax.swing.GroupLayout panelProcessingTimeLayout = new javax.swing.GroupLayout(panelProcessingTime);
-        panelProcessingTime.setLayout(panelProcessingTimeLayout);
-        panelProcessingTimeLayout.setHorizontalGroup(
-            panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProcessingTimeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(checkBoxScanForEmbeddedXmp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
-                    .addGroup(panelProcessingTimeLayout.createSequentialGroup()
-                        .addComponent(labelMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
-        );
-        panelProcessingTimeLayout.setVerticalGroup(
-            panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProcessingTimeLayout.createSequentialGroup()
-                .addGroup(panelProcessingTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(labelMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxScanForEmbeddedXmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        checkBoxSaveInputEarly.setText(bundle.getString("SettingsPerformancePanel.checkBoxSaveInputEarly.text")); // NOI18N
+        checkBoxSaveInputEarly.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxSaveInputEarlyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,14 +122,26 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelProcessingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxSaveInputEarly)
+                    .addComponent(checkBoxScanForEmbeddedXmp, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                        .addGap(46, 46, 46)
+                        .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelProcessingTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxScanForEmbeddedXmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxSaveInputEarly)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -156,10 +153,15 @@ private void spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(javax.
 private void checkBoxScanForEmbeddedXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxScanForEmbeddedXmpActionPerformed
     handleScanForEmbeddedXmpActionPerformed();
 }//GEN-LAST:event_checkBoxScanForEmbeddedXmpActionPerformed
+
+private void checkBoxSaveInputEarlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSaveInputEarlyActionPerformed
+    handleSaveEarly();
+}//GEN-LAST:event_checkBoxSaveInputEarlyActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxSaveInputEarly;
     private javax.swing.JCheckBox checkBoxScanForEmbeddedXmp;
     private javax.swing.JLabel labelMaximumSecondsToTerminateExternalPrograms;
-    private javax.swing.JPanel panelProcessingTime;
     private javax.swing.JSpinner spinnerMaximumSecondsToTerminateExternalPrograms;
     // End of variables declaration//GEN-END:variables
 }

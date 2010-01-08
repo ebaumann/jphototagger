@@ -38,7 +38,6 @@ import de.elmar_baumann.jpt.database.metadata.selections.EditHints.SizeEditField
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.TextSelectionEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseListener;
@@ -46,7 +45,6 @@ import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
 import de.elmar_baumann.jpt.event.listener.MetadataEditPanelListener;
-import de.elmar_baumann.jpt.event.listener.TextSelectionListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -58,8 +56,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -72,7 +68,6 @@ import java.util.Set;
 import java.util.Stack;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -83,9 +78,8 @@ import javax.swing.JTextField;
  */
 public final class EditMetadataPanelsArray implements FocusListener,
                                                       DatabaseListener,
-                                                      AppExitListener,
-                                                      TextSelectionListener,
-                                                      KeyListener {
+                                                      AppExitListener
+{
 
     private final List<JPanel>                    panels               = new ArrayList<JPanel>();
     private final List<Pair<String, Xmp>>         filenamesXmp         = new ArrayList<Pair<String, Xmp>>();
@@ -94,14 +88,16 @@ public final class EditMetadataPanelsArray implements FocusListener,
     private       WatchDifferentValues            watchDifferentValues = new WatchDifferentValues();
     private       JComponent                      container;
     private       EditMetadataActionsPanel        editActionsPanel;
-    private       Component                       lastFocussedComponent;
+    private       Component                       lastFocussedEditControl;
     private       ListenerProvider                listenerProvider;
+    private       Component                       wrapFocusComponent;
 
     public EditMetadataPanelsArray(JComponent container) {
         this.container   = container;
         listenerProvider = ListenerProvider.INSTANCE;
         listeners        = listenerProvider.getMetadataEditPanelListeners();
         createEditPanels();
+        setWrapFocusComponent();
         addPanels();
         setFocusToFirstEditField();
         listenToActionSources();
@@ -119,7 +115,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
     private void checkDirty() {
         if (isDirty()) {
             save();
-            setFocusToLastFocussedComponent();
+            setFocusToLastFocussedEditControl();
             SelectedFile.INSTANCE.setFile(new File(""), null);
         }
     }
@@ -268,6 +264,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
         if (panelAdd instanceof EditRepeatableTextEntryPanel) {
             ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
         }
+        checkSaveOnChanges();
     }
 
     /**
@@ -347,7 +344,8 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 assert false : "Unknown panel type: " + panel;
             }
         }
-    }
+        checkSaveOnChanges();
+   }
 
     /**
      * Sets the rating if the rating panel is present.
@@ -370,6 +368,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
             RatingSelectionPanel ratingPanel = (RatingSelectionPanel) panelToSet;
             ratingPanel.setTextAndNotify(Long.toString(rating));
         }
+        checkSaveOnChanges();
     }
 
     public Collection<Pair<String, Xmp>> getFilenamesXmp() {
@@ -382,6 +381,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
      * @param template  Template
      */
     public void setMetadataEditTemplate(MetadataEditTemplate template) {
+        if (!isEditable()) return;
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             Object    value     = template.getValueOfColumn(textEntry.getColumn());
@@ -397,6 +397,7 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 ((EditRepeatableTextEntryPanel) textEntry).setText(strings);
             }
         }
+        checkSaveOnChanges();
     }
 
     /**
@@ -588,13 +589,13 @@ public final class EditMetadataPanelsArray implements FocusListener,
         if (panels.size() > 0) {
             TextEntry textEntry = (TextEntry) panels.get(0);
             textEntry.focus();
-            lastFocussedComponent = panels.get(0);
+            lastFocussedEditControl = panels.get(0);
         }
     }
 
-    public void setFocusToLastFocussedComponent() {
-        if (lastFocussedComponent != null) {
-            lastFocussedComponent.requestFocus();
+    public void setFocusToLastFocussedEditControl() {
+        if (lastFocussedEditControl != null) {
+            lastFocussedEditControl.requestFocus();
         } else {
             setFocusToFirstEditField();
         }
@@ -611,20 +612,20 @@ public final class EditMetadataPanelsArray implements FocusListener,
             if (isRepeatable) {
                 EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(column);
                 panel.textFieldInput.addFocusListener(this);
-                panel.textFieldInput.addKeyListener(this);
                 if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
                     panel.setSuggest(new SuggestHierarchicalKeywords());
                 }
                 panels.add(panel);
             } else {
                 if (column.equals(ColumnXmpRating.INSTANCE)) {
-                    RatingSelectionPanel panel =
-                            new RatingSelectionPanel(column);
+                    RatingSelectionPanel panel = new RatingSelectionPanel(column);
+                    for (Component c : panel.getInputComponents()) {
+                        c.addFocusListener(this);
+                    }
                     panels.add(panel);
                 } else {
                     EditTextEntryPanel panel = new EditTextEntryPanel(column);
                     panel.textAreaEdit.addFocusListener(this);
-                    panel.textAreaEdit.addKeyListener(this);
                     panel.textAreaEdit.setRows(large ? 2 : 1);
                     panels.add(panel);
                 }
@@ -654,48 +655,45 @@ public final class EditMetadataPanelsArray implements FocusListener,
     @Override
     public void focusGained(FocusEvent e) {
         Component source = (Component) e.getSource();
-        if (isEditArea(source)) {
-            lastFocussedComponent = source;
-            scrollToVisible(e.getSource());
-        } else {
-            setFocusToFirstEditField();
+        if (isEditControl(source)) {
+            lastFocussedEditControl = source;
         }
-        setTextToTextSelectionPanel(source);
-    }
-
-    private boolean isEditArea(Component c) {
-        return c instanceof TabOrEnterLeavingTextArea || c instanceof JTextField;
-    }
-
-    private void setTextToTextSelectionPanel(Component c) {
-        String text = "";
-        if (c instanceof JTextField) {
-            text = ((JTextField) c).getText().trim();
-        } else if (c instanceof JTextArea) {
-            text = ((JTextArea) c).getText().trim();
-        }
+        scrollToVisible(e.getSource());
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-        // noting to do
+        checkSaveOnChanges();
+        if (e.getSource() == wrapFocusComponent) {
+            setFocusToFirstEditField();
+        }
+    }
+
+    private boolean isEditControl(Component c) {
+        return c instanceof TabOrEnterLeavingTextArea ||
+               c instanceof JTextField ||
+               c instanceof RatingSelectionPanel
+               ;
     }
 
     private void scrollToVisible(Object inputSource) {
-        Component parent = null;
-        if (inputSource instanceof JTextField) {
-            JTextField textField = (JTextField) inputSource;
-            parent = textField.getParent();
-            container.scrollRectToVisible(parent.getBounds());
-        } else if (inputSource instanceof TabOrEnterLeavingTextArea) {
-            TabOrEnterLeavingTextArea textArea =
-                    (TabOrEnterLeavingTextArea) inputSource;
-            if (textArea.getParent().getParent() != null &&
-                    textArea.getParent().getParent().getParent() != null) {
-                parent = textArea.getParent().getParent().getParent();
-                container.scrollRectToVisible(parent.getBounds());
+        Component c = getParentNextToContainer(inputSource);
+        if (c != null) {
+            container.scrollRectToVisible(c.getBounds());
+        }
+    }
+
+    private Component getParentNextToContainer(Object o) {
+        if (o instanceof Component) {
+            Component c = (Component) o;
+            while (c != null) {
+                if (c.getParent() == container) {
+                    return c;
+                }
+                c = c.getParent();
             }
         }
+        return null;
     }
 
     @Override
@@ -759,47 +757,18 @@ public final class EditMetadataPanelsArray implements FocusListener,
     }
 
     @Override
-    public void textSelected(TextSelectionEvent evt) {
-        if (lastFocussedComponent == null) return;
-        if (!lastFocussedComponent.isVisible()) return;
-        if (lastFocussedComponent instanceof JTextField) {
-            ((JTextField) lastFocussedComponent).setText(evt.getText());
-        } else if (lastFocussedComponent instanceof JTextArea) {
-            ((JTextArea) lastFocussedComponent).setText(evt.getText());
-        }
-        lastFocussedComponent.requestFocusInWindow();
-    }
-
-    @Override
-    public void textDeselected(TextSelectionEvent evt) {
-        // ignore
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (lastFocussedComponent == null) return;
-            if (lastFocussedComponent instanceof JTextField) {
-                setTextToTextSelectionPanel(lastFocussedComponent);
-            } else if (lastFocussedComponent instanceof JTextArea) {
-                setTextToTextSelectionPanel(lastFocussedComponent);
-            }
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
     public void actionPerformed(DatabaseImageCollectionEvent event) {
         // ignore
+    }
+
+    private void setWrapFocusComponent() {
+        Component lastInputComponent = null;
+        for (JPanel panel : panels) {
+            for (Component inputComponent : ((TextEntry)panel).getInputComponents()) {
+                lastInputComponent = inputComponent;
+            }
+        }
+        wrapFocusComponent = lastInputComponent;
     }
 
     private class WatchDifferentValues extends MouseAdapter {
@@ -890,6 +859,16 @@ public final class EditMetadataPanelsArray implements FocusListener,
                 return true;
             }
             return false;
+        }
+    }
+
+    /**
+     * Checks whether content was changed and saves in that case the content.
+     */
+    public void checkSaveOnChanges() {
+        if (!isEditable()) return;
+        if (UserSettings.INSTANCE.isSaveInputEarly() && isDirty()) {
+            save();
         }
     }
 }

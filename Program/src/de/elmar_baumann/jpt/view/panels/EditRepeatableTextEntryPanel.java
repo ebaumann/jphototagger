@@ -241,6 +241,7 @@ public final class EditRepeatableTextEntryPanel
     @Override
     public void focus() {
         textFieldInput.requestFocus();
+        textFieldInput.selectAll();
     }
 
     /**

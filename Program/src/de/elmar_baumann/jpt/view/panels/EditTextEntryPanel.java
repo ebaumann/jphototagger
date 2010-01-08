@@ -118,6 +118,7 @@ public final class EditTextEntryPanel
     @Override
     public void focus() {
         textAreaEdit.requestFocus();
+        textAreaEdit.selectAll();
     }
 
     @Override

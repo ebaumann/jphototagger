@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.controller.hierarchicalkeywords;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.HierarchicalKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
 import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
@@ -75,6 +76,8 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
                     (EditRepeatableTextEntryPanel) panel;
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
+                editPanels.checkSaveOnChanges();
+                HierarchicalKeywordsHelper.removeHighlightKeyword(keyword);
             } else {
                 MessageDisplayer.error(
                         null,
