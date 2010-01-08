@@ -43,8 +43,6 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.swing.JScrollPane;
-import javax.swing.JViewport;
 import javax.swing.text.JTextComponent;
 
 /**
@@ -76,6 +74,7 @@ public class XmpEditPanel extends javax.swing.JPanel implements FocusListener {
         initComponents();
         setColumns();
         addTextEntries();
+        setAutocomplete();
         addAsFocusListener();
         firstInputComponent = panelDcSubjects.textFieldInput;
         lastInputComponent  = panelRating.getInputComponents().get(panelRating.getInputComponents().size() - 1);
@@ -106,6 +105,12 @@ public class XmpEditPanel extends javax.swing.JPanel implements FocusListener {
             if (c instanceof TextEntry) {
                 textEntries.add((TextEntry) c);
             }
+        }
+    }
+
+    private void setAutocomplete() {
+        for (TextEntry textEntry : textEntries) {
+            textEntry.setAutocomplete();
         }
     }
 
