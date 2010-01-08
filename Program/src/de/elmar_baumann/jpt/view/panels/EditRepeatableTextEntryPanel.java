@@ -262,8 +262,7 @@ public final class EditRepeatableTextEntryPanel
     private boolean confirmRemoveSelectedItems() {
         return MessageDisplayer.confirmYesNo(
                 this,
-                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems",
-                column.getDescription());
+                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
     }
 
     @Override
