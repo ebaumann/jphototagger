@@ -46,7 +46,8 @@ public final class ControllerMetadataEditTemplateSetToSelImages extends Controll
     protected void action(MetadataEditTemplate template) {
         if (!imagesSelected()) return;
         GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray().setMetadataEditTemplate(template);
-    }
+        focusList();
+   }
 
     private boolean imagesSelected() {
         return GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() > 0;

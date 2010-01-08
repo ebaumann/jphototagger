@@ -63,6 +63,10 @@ public abstract class ControllerMetadataEditTemplate extends Controller {
         action(getTemplateOfList());
     }
 
+    protected void focusList() {
+        InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList().requestFocusInWindow();
+    }
+
     private MetadataEditTemplate getTemplateOfPopupMenu() {
         int                            index = PopupMenuMetadataEditTemplates.INSTANCE.getSelIndex();
         ListModelMetadataEditTemplates model = (ListModelMetadataEditTemplates)

@@ -51,5 +51,6 @@ public final class ControllerMetadataEditTemplateAdd extends ControllerMetadataE
         dlg.setTemplate(t);
         dlg.setVisible(true);
         dlg.toFront();
+        focusList();
     }
 }

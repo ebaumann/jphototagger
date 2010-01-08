@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.controller.metadatatemplates;
 
 import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.EditMetaDataTemplateDialog;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
@@ -66,6 +65,7 @@ public final class ControllerMetadataEditTemplateEdit
         dlg.setTemplate(template);
         dlg.setVisible(true);
         dlg.toFront();
+        focusList();
     }
 
     @Override
