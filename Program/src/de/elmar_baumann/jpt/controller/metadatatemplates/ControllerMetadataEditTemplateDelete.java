@@ -51,5 +51,6 @@ public final class ControllerMetadataEditTemplateDelete extends ControllerMetada
                 MessageDisplayer.error(null, "ControllerMetadataEditTemplateDelete.Error", name);
             }
         }
+        focusList();
     }
 }

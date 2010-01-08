@@ -53,5 +53,6 @@ public final class ControllerMetadataEditTemplateRename extends ControllerMetada
                 MessageDisplayer.error(null, "ControllerMetadataEditTemplateRename.Error", oldName);
             }
         }
+        focusList();
     }
 }
