@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
+import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.event.ProgramEvent;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
@@ -38,12 +39,10 @@ import javax.swing.JProgressBar;
  */
 public final class ActionsPanel extends javax.swing.JPanel {
 
-    private final ListModelPrograms model = new ListModelPrograms(true);
-    private final List<ProgramActionListener> actionListeners =
-            new ArrayList<ProgramActionListener>();
-    private Object progressBarOwner;
+    private final ListModelPrograms           model           = new ListModelPrograms(Type.ACTION);
+    private final List<ProgramActionListener> actionListeners = new ArrayList<ProgramActionListener>();
+    private       Object                      progressBarOwner;
 
-    /** Creates new form ActionsPanel */
     public ActionsPanel() {
         initComponents();
     }

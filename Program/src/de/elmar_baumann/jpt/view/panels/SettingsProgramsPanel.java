@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
+import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
@@ -41,8 +42,8 @@ import javax.swing.JFileChooser;
 public final class SettingsProgramsPanel extends javax.swing.JPanel
         implements Persistence {
 
-    private final ListModelPrograms model = new ListModelPrograms(false);
-    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private final ListModelPrograms model            = new ListModelPrograms(Type.PROGRAM);
+    private final ListenerProvider  listenerProvider = ListenerProvider.INSTANCE;
 
     /** Creates new form SettingsProgramsPanel */
     public SettingsProgramsPanel() {

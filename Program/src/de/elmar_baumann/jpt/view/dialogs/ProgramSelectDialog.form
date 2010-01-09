@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-      <Connection code="action ? Bundle.getString(&quot;ProgramSelectDialog.Title.Actions&quot;) : Bundle.getString(&quot;ProgramSelectDialog.Title.Programs&quot;)" type="code"/>
+      <Connection code="type.equals(Type.ACTION) ? Bundle.getString(&quot;ProgramSelectDialog.Title.Actions&quot;) : Bundle.getString(&quot;ProgramSelectDialog.Title.Programs&quot;)" type="code"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -74,7 +74,7 @@
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="action ? new ListCellRendererActions() : new ListCellRendererPrograms()" type="code"/>
+              <Connection code="type.equals(Type.ACTION) ? new ListCellRendererActions() : new ListCellRendererPrograms()" type="code"/>
             </Property>
           </Properties>
           <Events>

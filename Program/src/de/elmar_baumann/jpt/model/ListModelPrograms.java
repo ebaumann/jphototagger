@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.model;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
+import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -33,10 +34,10 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelPrograms extends DefaultListModel {
 
-    private boolean action;
+    private Type type;
 
-    public ListModelPrograms(boolean action) {
-        this.action = action;
+    public ListModelPrograms(Type type) {
+        this.type = type;
         addElements();
     }
 
@@ -75,7 +76,7 @@ public final class ListModelPrograms extends DefaultListModel {
     }
 
     private void addElements() {
-        List<Program> programs = DatabasePrograms.INSTANCE.getAll(action);
+        List<Program> programs = DatabasePrograms.INSTANCE.getAll(type);
         for (Program program : programs) {
             addElement(program);
         }

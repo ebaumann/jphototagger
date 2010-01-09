@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.Program;
+import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
@@ -37,19 +38,19 @@ import java.awt.event.MouseEvent;
 public class ProgramSelectDialog extends Dialog {
 
     private final ListModelPrograms model;
-    private final boolean action;
+    private final Type type;
     private boolean accepted;
 
     /**
      * Contructor.
      *
      * @param parent  parent frame
-     * @param action  true, if the program acts as action
+     * @param type    type
      */
-    public ProgramSelectDialog(java.awt.Frame parent, boolean action) {
+    public ProgramSelectDialog(java.awt.Frame parent, Type type) {
         super(parent, true);
-        this.action = action;
-        model = new ListModelPrograms(action);
+        this.type = type;
+        model = new ListModelPrograms(type);
         initComponents();
         postInitComponents();
     }
@@ -132,7 +133,7 @@ public class ProgramSelectDialog extends Dialog {
         buttonSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(action ? Bundle.getString("ProgramSelectDialog.Title.Actions") : Bundle.getString("ProgramSelectDialog.Title.Programs"));
+        setTitle(type.equals(Type.ACTION) ? Bundle.getString("ProgramSelectDialog.Title.Actions") : Bundle.getString("ProgramSelectDialog.Title.Programs"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -143,7 +144,7 @@ public class ProgramSelectDialog extends Dialog {
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPrograms.setCellRenderer(action ? new ListCellRendererActions() : new ListCellRendererPrograms());
+        listPrograms.setCellRenderer(type.equals(Type.ACTION) ? new ListCellRendererActions() : new ListCellRendererPrograms());
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listProgramsMouseClicked(evt);
@@ -151,7 +152,7 @@ public class ProgramSelectDialog extends Dialog {
         });
         scrollPanePrograms.setViewportView(listPrograms);
 
-        buttonSelect.setText(Bundle.getString("ProgramSelectDialog.buttonSelect.text"));
+        buttonSelect.setText(Bundle.getString("ProgramSelectDialog.buttonSelect.text")); // NOI18N
         buttonSelect.setEnabled(false);
         buttonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,7 +207,7 @@ public class ProgramSelectDialog extends Dialog {
 
             @Override
             public void run() {
-                ProgramSelectDialog dialog = new ProgramSelectDialog(new javax.swing.JFrame(), true);
+                ProgramSelectDialog dialog = new ProgramSelectDialog(new javax.swing.JFrame(), Type.ACTION);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

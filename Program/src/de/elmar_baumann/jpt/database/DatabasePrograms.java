@@ -228,20 +228,27 @@ public final class DatabasePrograms extends Database {
     }
 
     /**
+     *
+     */
+    public enum Type {
+        ACTION,
+        PROGRAM
+    }
+
+    /**
      * Returns all programs ordered by their aliases.
      *
-     * @param action  true if only return actions, false if only return
-     *                programs
-     * @return programs
+     * @param  type program type
+     * @return      programs
      */
-    public List<Program> getAll(boolean action) {
+    public List<Program> getAll(Type type) {
         List<Program> programs = new LinkedList<Program>();
         Connection connection = null;
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                     getSelectProgramStmt(WhereFilter.ACTION));
-            stmt.setBoolean(1, action);
+            stmt.setBoolean(1, type.equals(Type.ACTION));
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
