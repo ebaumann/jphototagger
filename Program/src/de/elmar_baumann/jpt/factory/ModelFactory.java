@@ -25,10 +25,10 @@ import de.elmar_baumann.jpt.controller.metadata.ControllerMetadataTemplates;
 import de.elmar_baumann.jpt.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.jpt.controller.miscmetadata.ControllerMiscMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.timeline.ControllerTimelineItemSelected;
-import de.elmar_baumann.jpt.model.ComboBoxModelMetadataEditTemplates;
+import de.elmar_baumann.jpt.model.ComboBoxModelMetadataTemplates;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.model.ListModelKeywords;
-import de.elmar_baumann.jpt.model.ListModelMetadataEditTemplates;
+import de.elmar_baumann.jpt.model.ListModelMetadataTemplates;
 import de.elmar_baumann.jpt.model.ListModelSavedSearches;
 import de.elmar_baumann.jpt.model.TableModelExif;
 import de.elmar_baumann.jpt.model.TableModelIptc;
@@ -75,7 +75,7 @@ public final class ModelFactory {
     }
 
     private void setComboBoxModels(final AppPanel appPanel) {
-        appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(new ComboBoxModelMetadataEditTemplates());
+        appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(new ComboBoxModelMetadataTemplates());
         new ControllerMetadataTemplates();
         GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ModelFactory.Finished.ComboBoxModels"), AppPanel.MessageType.INFO, 1000);
     }
@@ -174,7 +174,7 @@ public final class ModelFactory {
         appPanel.getTreeSelKeywords().setModel(model);
         appPanel.getTreeEditKeywords().setModel(model);
         InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(model);
-        InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList().setModel(new ListModelMetadataEditTemplates());
+        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().setModel(new ListModelMetadataTemplates());
 
         appPanel.showMessage(Bundle.getString("ModelFactory.Finished.TreeModelHierarchicalKeywords"), AppPanel.MessageType.INFO, 1000);
     }

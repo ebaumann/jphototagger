@@ -18,10 +18,10 @@
  */
 package de.elmar_baumann.jpt.controller.metadatatemplates;
 
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.view.dialogs.EditMetaDataTemplateDialog;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import java.awt.event.ActionEvent;
@@ -35,17 +35,17 @@ import java.awt.event.MouseListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-08
  */
-public final class ControllerMetadataEditTemplateEdit
-        extends    ControllerMetadataEditTemplate
+public final class ControllerMetadataTemplateEdit
+        extends    ControllerMetadataTemplate
         implements MouseListener
 {
 
-    public ControllerMetadataEditTemplateEdit() {
+    public ControllerMetadataTemplateEdit() {
         listen();
     }
 
     private void listen() {
-        InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList().addMouseListener(this);
+        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().addMouseListener(this);
     }
 
     @Override
@@ -55,11 +55,11 @@ public final class ControllerMetadataEditTemplateEdit
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == PopupMenuMetadataEditTemplates.INSTANCE.getItemEdit();
+        return evt.getSource() == PopupMenuMetadataTemplates.INSTANCE.getItemEdit();
     }
 
     @Override
-    protected void action(MetadataEditTemplate template) {
+    protected void action(MetadataTemplate template) {
         EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
 
         dlg.setTemplate(template);
@@ -71,9 +71,9 @@ public final class ControllerMetadataEditTemplateEdit
     @Override
     public void mouseClicked(MouseEvent e) {
         if (MouseEventUtil.isDoubleClick(e)) {
-            Object selValue = InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList().getSelectedValue();
+            Object selValue = InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().getSelectedValue();
             if (selValue != null) {
-                action((MetadataEditTemplate) selValue);
+                action((MetadataTemplate) selValue);
             }
         }
     }

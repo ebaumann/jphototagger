@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
@@ -39,8 +39,8 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.MetadataEditTemplateEvent;
-import de.elmar_baumann.jpt.event.listener.MetadataEditTemplateEventListener;
+import de.elmar_baumann.jpt.event.MetadataTemplateEvent;
+import de.elmar_baumann.jpt.event.listener.MetadataTemplateEventListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,13 +60,13 @@ import java.util.StringTokenizer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-21
  */
-public class DatabaseMetadataEditTemplates extends Database {
+public class DatabaseMetadataTemplates extends Database {
 
     private static final String                          DELIM_REPEATABLE_STRINGS = "\t";
-    public static final  DatabaseMetadataEditTemplates   INSTANCE                 = new DatabaseMetadataEditTemplates();
-    private final Set<MetadataEditTemplateEventListener> listeners                = Collections.synchronizedSet(new HashSet<MetadataEditTemplateEventListener>());
+    public static final  DatabaseMetadataTemplates   INSTANCE                 = new DatabaseMetadataTemplates();
+    private final Set<MetadataTemplateEventListener> listeners                = Collections.synchronizedSet(new HashSet<MetadataTemplateEventListener>());
 
-    private DatabaseMetadataEditTemplates() {
+    private DatabaseMetadataTemplates() {
     }
 
     /**
@@ -76,7 +76,7 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  template  Template
      * @return           true bei Erfolg
      */
-    public boolean insertOrUpdateMetadataEditTemplate(MetadataEditTemplate template) {
+    public boolean insertOrUpdateMetadataEditTemplate(MetadataTemplate template) {
 
         if (existsMetadataEditTemplate(template.getName())) {
             return updateMetadataEditTemplate(template);
@@ -117,9 +117,9 @@ public class DatabaseMetadataEditTemplates extends Database {
             connection.commit();
             inserted = true;
             stmt.close();
-            notifyListeners(new MetadataEditTemplateEvent(MetadataEditTemplateEvent.Type.ADDED, template, this));
+            notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.ADDED, template, this));
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataEditTemplates.class, ex);
+            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -129,7 +129,7 @@ public class DatabaseMetadataEditTemplates extends Database {
 
     @SuppressWarnings("unchecked")
     private void setMetadataEditTemplate(
-            PreparedStatement stmt, MetadataEditTemplate template) throws
+            PreparedStatement stmt, MetadataTemplate template) throws
             SQLException {
 
         stmt.setString(1, template.getName());
@@ -218,9 +218,9 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  name template name
      * @return      template or null if no template has that name or on errors
      */
-    public MetadataEditTemplate getMetadataEditTemplate(String name) {
+    public MetadataTemplate getMetadataEditTemplate(String name) {
 
-        MetadataEditTemplate template   = null;
+        MetadataTemplate template   = null;
         Connection           connection = null;
         try {
             connection = getConnection();
@@ -234,12 +234,12 @@ public class DatabaseMetadataEditTemplates extends Database {
 
             ResultSet rs   = stmt.executeQuery();
             if (rs.next()) {
-                template = new MetadataEditTemplate();
+                template = new MetadataTemplate();
                 setValues(template, rs);
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataEditTemplates.class, ex);
+            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);
         }
@@ -251,9 +251,9 @@ public class DatabaseMetadataEditTemplates extends Database {
      *
      * @return Templates
      */
-    public List<MetadataEditTemplate> getMetadataEditTemplates() {
+    public List<MetadataTemplate> getMetadataEditTemplates() {
 
-        List<MetadataEditTemplate> templates  = new ArrayList<MetadataEditTemplate>();
+        List<MetadataTemplate> templates  = new ArrayList<MetadataTemplate>();
         Connection                 connection = null;
         try {
             connection = getConnection();
@@ -265,13 +265,13 @@ public class DatabaseMetadataEditTemplates extends Database {
 
             ResultSet rs   = stmt.executeQuery(sql);
             while (rs.next()) {
-                MetadataEditTemplate template = new MetadataEditTemplate();
+                MetadataTemplate template = new MetadataTemplate();
                 setValues(template, rs);
                 templates.add(template);
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataEditTemplates.class, ex);
+            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);
         }
@@ -305,7 +305,7 @@ public class DatabaseMetadataEditTemplates extends Database {
         ;
     }
 
-    private void setValues(MetadataEditTemplate template, ResultSet rs) throws SQLException {
+    private void setValues(MetadataTemplate template, ResultSet rs) throws SQLException {
         byte[] bytes;
         template.setName(rs.getString(1));
         bytes = rs.getBytes(2);
@@ -354,14 +354,14 @@ public class DatabaseMetadataEditTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public boolean updateMetadataEditTemplate(MetadataEditTemplate template) {
+    public boolean updateMetadataEditTemplate(MetadataTemplate template) {
 
         boolean updated = false;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            MetadataEditTemplate oldTemplate = getMetadataEditTemplate(template.getName());
+            MetadataTemplate oldTemplate = getMetadataEditTemplate(template.getName());
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE metadata_edit_templates" +
                     " SET name = ?" +                         // --  1 --
@@ -392,9 +392,9 @@ public class DatabaseMetadataEditTemplates extends Database {
             connection.commit();
             updated = count > 0;
             stmt.close();
-            if (updated) notifyListeners(new MetadataEditTemplateEvent(MetadataEditTemplateEvent.Type.UPDATED, template, oldTemplate, this));
+            if (updated) notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.UPDATED, template, oldTemplate, this));
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataEditTemplates.class, ex);
+            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -417,7 +417,7 @@ public class DatabaseMetadataEditTemplates extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            MetadataEditTemplate oldTemplate = getMetadataEditTemplate(oldName);
+            MetadataTemplate oldTemplate = getMetadataEditTemplate(oldName);
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE metadata_edit_templates SET name = ? WHERE name = ?");
             stmt.setString(1, newName);
@@ -428,11 +428,11 @@ public class DatabaseMetadataEditTemplates extends Database {
             renamed = count > 0;
             stmt.close();
             if (renamed) {
-                MetadataEditTemplate newTemplate = getMetadataEditTemplate(newName);
-                notifyListeners(new MetadataEditTemplateEvent(MetadataEditTemplateEvent.Type.UPDATED, newTemplate, oldTemplate, this));
+                MetadataTemplate newTemplate = getMetadataEditTemplate(newName);
+                notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.UPDATED, newTemplate, oldTemplate, this));
             }
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataEditTemplates.class, ex);
+            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -452,7 +452,7 @@ public class DatabaseMetadataEditTemplates extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            MetadataEditTemplate template = getMetadataEditTemplate(name);
+            MetadataTemplate template = getMetadataEditTemplate(name);
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
@@ -461,9 +461,9 @@ public class DatabaseMetadataEditTemplates extends Database {
             connection.commit();
             deleted = count > 0;
             stmt.close();
-            if (deleted) notifyListeners(new MetadataEditTemplateEvent(MetadataEditTemplateEvent.Type.DELETED, template, this));
+            if (deleted) notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.DELETED, template, this));
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataEditTemplates.class, ex);
+            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -488,24 +488,24 @@ public class DatabaseMetadataEditTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataEditTemplates.class, ex);
+            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);
         }
         return exists;
     }
 
-    public void addMetadataEditTemplateEventListener(MetadataEditTemplateEventListener listener) {
+    public void addMetadataTemplateEventListener(MetadataTemplateEventListener listener) {
         listeners.add(listener);
     }
 
-    public void removeMetadataEditTemplateEventListener(MetadataEditTemplateEventListener listener) {
+    public void removeMetadataTemplateEventListener(MetadataTemplateEventListener listener) {
         listeners.remove(listener);
     }
 
-    private void notifyListeners(MetadataEditTemplateEvent evt) {
+    private void notifyListeners(MetadataTemplateEvent evt) {
         synchronized (listeners) {
-            for (MetadataEditTemplateEventListener listener : listeners) {
+            for (MetadataTemplateEventListener listener : listeners) {
                 listener.actionPerformed(evt);
             }
         }

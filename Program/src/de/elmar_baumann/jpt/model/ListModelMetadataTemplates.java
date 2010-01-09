@@ -18,10 +18,10 @@
  */
 package de.elmar_baumann.jpt.model;
 
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import de.elmar_baumann.jpt.database.DatabaseMetadataEditTemplates;
-import de.elmar_baumann.jpt.event.MetadataEditTemplateEvent;
-import de.elmar_baumann.jpt.event.listener.MetadataEditTemplateEventListener;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
+import de.elmar_baumann.jpt.event.MetadataTemplateEvent;
+import de.elmar_baumann.jpt.event.listener.MetadataTemplateEventListener;
 import javax.swing.DefaultListModel;
 
 /**
@@ -30,23 +30,23 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
  */
-public final class ListModelMetadataEditTemplates
+public final class ListModelMetadataTemplates
         extends    DefaultListModel
-        implements MetadataEditTemplateEventListener {
+        implements MetadataTemplateEventListener {
 
-    public ListModelMetadataEditTemplates() {
+    public ListModelMetadataTemplates() {
         addItems();
-        DatabaseMetadataEditTemplates.INSTANCE.addMetadataEditTemplateEventListener(this);
+        DatabaseMetadataTemplates.INSTANCE.addMetadataTemplateEventListener(this);
     }
 
     private void addItems() {
-        for (MetadataEditTemplate t : DatabaseMetadataEditTemplates.INSTANCE.getMetadataEditTemplates()) {
+        for (MetadataTemplate t : DatabaseMetadataTemplates.INSTANCE.getMetadataEditTemplates()) {
             addElement(t);
         }
     }
 
     @Override
-    public void actionPerformed(MetadataEditTemplateEvent evt) {
+    public void actionPerformed(MetadataTemplateEvent evt) {
 
         if (evt.wasAdded()) {
 

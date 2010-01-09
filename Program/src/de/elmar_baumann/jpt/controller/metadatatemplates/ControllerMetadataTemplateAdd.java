@@ -18,9 +18,10 @@
  */
 package de.elmar_baumann.jpt.controller.metadatatemplates;
 
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.view.dialogs.EditMetaDataTemplateDialog;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
+import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -30,27 +31,26 @@ import java.awt.event.KeyEvent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-08
  */
-public final class ControllerMetadataEditTemplateSetToSelImages extends ControllerMetadataEditTemplate {
+public final class ControllerMetadataTemplateAdd extends ControllerMetadataTemplate {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        return evt.getKeyCode() == KeyEvent.VK_INSERT;
+        return KeyEventUtil.isControl(evt, KeyEvent.VK_N);
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == PopupMenuMetadataEditTemplates.INSTANCE.getItemSetToSelImages();
+        return evt.getSource() == PopupMenuMetadataTemplates.INSTANCE.getItemAdd();
     }
 
     @Override
-    protected void action(MetadataEditTemplate template) {
-        if (!imagesSelected()) return;
-        GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray().setMetadataEditTemplate(template);
+    protected void action(MetadataTemplate template) {
+        EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
+        MetadataTemplate           t   = new MetadataTemplate();
+
+        dlg.setTemplate(t);
+        dlg.setVisible(true);
+        dlg.toFront();
         focusList();
-   }
-
-    private boolean imagesSelected() {
-        return GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() > 0;
     }
-
 }

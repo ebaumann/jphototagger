@@ -38,7 +38,7 @@
           <Properties>
             <Property name="selectionMode" type="int" value="0"/>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new ListCellRendererMetadataEditTemplates()" type="code"/>
+              <Connection code="new de.elmar_baumann.jpt.view.renderer.ListCellRendererMetadataTemplates()" type="code"/>
             </Property>
             <Property name="dragEnabled" type="boolean" value="true"/>
           </Properties>

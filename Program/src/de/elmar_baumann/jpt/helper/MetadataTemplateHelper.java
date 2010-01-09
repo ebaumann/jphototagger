@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.database.DatabaseMetadataEditTemplates;
+import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.dialog.InputDialog;
 
@@ -30,7 +30,7 @@ import de.elmar_baumann.lib.dialog.InputDialog;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-08
  */
-public final class MetadataEditTemplateHelper {
+public final class MetadataTemplateHelper {
 
     /**
      * Returns a not existing template name.
@@ -43,7 +43,7 @@ public final class MetadataEditTemplateHelper {
         InputDialog dlg = new InputDialog();
 
         dlg.setIconImages(AppLookAndFeel.getAppIcons());
-        dlg.setInfo(Bundle.getString("MetadataEditTemplateHelper.Info.InputName"));
+        dlg.setInfo(Bundle.getString("MetadataTemplateHelper.Info.InputName"));
         if (oldName != null) dlg.setInput(oldName);
 
         while (true) {
@@ -54,13 +54,13 @@ public final class MetadataEditTemplateHelper {
             if (name == null || name.trim().length() == 0) return null;
             boolean namesEqual = oldName != null && name.equalsIgnoreCase(oldName);
             if (namesEqual) {
-                if (!MessageDisplayer.confirmYesNo(null, "MetadataEditTemplateHelper.Error.NamEquals")) {
+                if (!MessageDisplayer.confirmYesNo(null, "MetadataTemplateHelper.Error.NamEquals")) {
                     return null;
                 }
             }
             if (!namesEqual &&
-                DatabaseMetadataEditTemplates.INSTANCE.existsMetadataEditTemplate(name)) {
-                    if (!MessageDisplayer.confirmYesNo(null, "MetadataEditTemplateHelper.Error.NameExists", name)) {
+                DatabaseMetadataTemplates.INSTANCE.existsMetadataEditTemplate(name)) {
+                    if (!MessageDisplayer.confirmYesNo(null, "MetadataTemplateHelper.Error.NameExists", name)) {
                         return null;
                     }
             } else {
@@ -69,6 +69,6 @@ public final class MetadataEditTemplateHelper {
         }
     }
 
-    private MetadataEditTemplateHelper() {
+    private MetadataTemplateHelper() {
     }
 }

@@ -89,7 +89,7 @@ public final class Flavors {
         return transferSupport.isDataFlavorSupported(KEYWORDS_FLAVOR);
     }
 
-    public static boolean hasMetadataEditTemplate(TransferSupport transferSupport) {
+    public static boolean hasMetadataTemplate(TransferSupport transferSupport) {
         return transferSupport.isDataFlavorSupported(METADATA_EDIT_TEMPLATES);
     }
 

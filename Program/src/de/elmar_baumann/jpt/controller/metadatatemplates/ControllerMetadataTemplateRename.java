@@ -19,9 +19,10 @@
 package de.elmar_baumann.jpt.controller.metadatatemplates;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import de.elmar_baumann.jpt.database.DatabaseMetadataEditTemplates;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
+import de.elmar_baumann.jpt.helper.MetadataTemplateHelper;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -31,24 +32,25 @@ import java.awt.event.KeyEvent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-08
  */
-public final class ControllerMetadataEditTemplateDelete extends ControllerMetadataEditTemplate {
+public final class ControllerMetadataTemplateRename extends ControllerMetadataTemplate {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        return evt.getKeyCode() == KeyEvent.VK_DELETE;
+        return evt.getKeyCode() == KeyEvent.VK_F2;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == PopupMenuMetadataEditTemplates.INSTANCE.getItemDelete();
+        return evt.getSource() == PopupMenuMetadataTemplates.INSTANCE.getItemRename();
     }
 
     @Override
-    protected void action(MetadataEditTemplate template) {
-        String name = template.getName();
-        if (MessageDisplayer.confirmYesNo(null, "ControllerMetadataEditTemplateDelete.Confirm", name)) {
-            if (!DatabaseMetadataEditTemplates.INSTANCE.deleteMetadataEditTemplate(name)) {
-                MessageDisplayer.error(null, "ControllerMetadataEditTemplateDelete.Error", name);
+    protected void action(MetadataTemplate template) {
+        String oldName = template.getName();
+        String newName = MetadataTemplateHelper.getNewTemplateName(oldName);
+        if (newName != null) {
+            if (!DatabaseMetadataTemplates.INSTANCE.updateRenameMetadataEditTemplate(oldName, newName)) {
+                MessageDisplayer.error(null, "ControllerMetadataTemplateRename.Error", oldName);
             }
         }
         focusList();
