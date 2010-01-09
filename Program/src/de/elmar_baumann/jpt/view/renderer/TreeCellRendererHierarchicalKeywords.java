@@ -59,8 +59,8 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
         if (userObject instanceof HierarchicalKeyword) {
             HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
             boolean real = keyword.isReal() == null ? false : keyword.isReal();
-            highlight = keyword.isReal() && isKeyword(keyword.getKeyword());
-            setText(keyword.getKeyword());
+            highlight = keyword.isReal() && isKeyword(keyword.getName());
+            setText(keyword.getName());
             setIcon(real ? ICON_REAL : ICON_HELPER);
             if (highlight) {
                 setForeground(AppLookAndFeel.COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD);

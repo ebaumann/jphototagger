@@ -77,7 +77,7 @@ public class ControllerRenameHierarchicalKeyword
         if (tm instanceof TreeModelHierarchicalKeywords) {
             String newName = getName(keyword, db, getHKPanel().getTree());
             if (newName != null && !newName.trim().isEmpty()) {
-                String oldName = keyword.getKeyword();
+                String oldName = keyword.getName();
                 keyword.setKeyword(newName);
                 HierarchicalKeywordsHelper.renameInFiles(oldName, keyword);
                 ((TreeModelHierarchicalKeywords) tm).changed(node, keyword);
@@ -94,7 +94,7 @@ public class ControllerRenameHierarchicalKeyword
             JTree tree) {
 
         String newName = null;
-        String oldName = keyword.getKeyword();
+        String oldName = keyword.getName();
         boolean confirmed = true;
         while (newName == null && confirmed) {
             newName = MessageDisplayer.input(

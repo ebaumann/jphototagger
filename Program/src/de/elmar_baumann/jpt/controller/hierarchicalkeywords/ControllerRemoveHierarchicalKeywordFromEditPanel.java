@@ -95,7 +95,7 @@ public class ControllerRemoveHierarchicalKeywordFromEditPanel
         if (userObject instanceof HierarchicalKeyword) {
             HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
             if (keyword.isReal()) {
-                return keyword.getKeyword();
+                return keyword.getName();
             }
         }
         return null;

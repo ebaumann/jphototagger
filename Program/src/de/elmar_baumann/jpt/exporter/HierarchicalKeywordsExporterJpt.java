@@ -162,7 +162,7 @@ public final class HierarchicalKeywordsExporterJpt
 
     private void setElementAttributes(Element el, HierarchicalKeyword keyword)
             throws DOMException {
-        el.setAttribute(ATTRIBUTE_NAME, keyword.getKeyword());
+        el.setAttribute(ATTRIBUTE_NAME, keyword.getName());
         el.setAttribute(
                 ATTRIBUTE_TYPE, VALUE_OF_ATTRIBUTE_TYPE.get(keyword.isReal()));
     }

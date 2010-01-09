@@ -102,7 +102,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
             } else {
                 stmt.setLong(1, keyword.getIdParent());
             }
-            stmt.setString(2, keyword.getKeyword());
+            stmt.setString(2, keyword.getName());
             if (keyword.isReal() == null) {
                 stmt.setNull(3, java.sql.Types.BOOLEAN);
             } else {
@@ -133,8 +133,8 @@ public final class DatabaseHierarchicalKeywords extends Database {
     public boolean insert(HierarchicalKeyword keyword) {
         boolean inserted = false;
         Connection connection = null;
-        assert keyword.getKeyword() != null : "Keyword is null!";
-        assert !keyword.getKeyword().trim().isEmpty() : "Keyword is empty!";
+        assert keyword.getName() != null : "Keyword is null!";
+        assert !keyword.getName().trim().isEmpty() : "Keyword is empty!";
         if (hasParentChildWithEqualName(keyword)) return false;
         try {
             connection = getConnection();
@@ -149,7 +149,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
             } else {
                 stmt.setLong(2, keyword.getIdParent());
             }
-            stmt.setString(3, keyword.getKeyword().trim());
+            stmt.setString(3, keyword.getName().trim());
             if (keyword.isReal() == null) {
                 stmt.setNull(4, java.sql.Types.BOOLEAN);
             } else {
@@ -345,9 +345,9 @@ public final class DatabaseHierarchicalKeywords extends Database {
         boolean    parentIsRoot = keyword.getIdParent() == null;
         Connection connection   = null;
 
-        assert keyword.getKeyword() != null;
+        assert keyword.getName() != null;
 
-        if (keyword.getKeyword() == null) return false;
+        if (keyword.getName() == null) return false;
 
         try {
             connection = getConnection();
@@ -362,7 +362,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
             if (!parentIsRoot) {
                 stmt.setLong(1, keyword.getIdParent());
             }
-            stmt.setString(parentIsRoot ? 1 : 2, keyword.getKeyword());
+            stmt.setString(parentIsRoot ? 1 : 2, keyword.getName());
 
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
@@ -411,14 +411,14 @@ public final class DatabaseHierarchicalKeywords extends Database {
         boolean    exists     = false;
         Connection connection = null;
 
-        if (kw.getIdParent() == null) return existsRootKeyword(kw.getKeyword());
+        if (kw.getIdParent() == null) return existsRootKeyword(kw.getName());
 
         try {
             connection = getConnection();
             String sql = "SELECT COUNT(*) FROM hierarchical_subjects" +
                          " WHERE  subject = ? AND id_parent = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, kw.getKeyword());
+            stmt.setString(1, kw.getName());
             stmt.setLong  (2, kw.getIdParent());
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();

@@ -102,7 +102,7 @@ public class ControllerAddHierarchicalKeywordsToEditPanel
         if (userObject instanceof HierarchicalKeyword) {
             HierarchicalKeyword keyword = (HierarchicalKeyword) userObject;
             if (keyword.isReal()) {
-                keywords.add(keyword.getKeyword());
+                keywords.add(keyword.getName());
             }
         }
         TreeNode parent = node.getParent();

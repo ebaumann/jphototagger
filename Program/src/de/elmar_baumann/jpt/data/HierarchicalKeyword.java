@@ -105,7 +105,7 @@ public final class HierarchicalKeyword
      *
      * @return keyword or null if undefined
      */
-    public String getKeyword() {
+    public String getName() {
         return keyword;
     }
 
@@ -173,6 +173,6 @@ public final class HierarchicalKeyword
     public int compareTo(HierarchicalKeyword o) {
         if (o == null) return 1;
         if (o == this) return 0;
-        return o.getKeyword().compareToIgnoreCase(keyword);
+        return o.getName().compareToIgnoreCase(keyword);
     }
 }
