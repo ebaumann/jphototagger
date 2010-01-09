@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
+import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.jpt.plugin.Plugin;
@@ -194,7 +195,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     public void addOtherPrograms() {
         menuPrograms.removeAll();
         programOfMenuItem.clear();
-        List<Program> programs = DatabasePrograms.INSTANCE.getAll(false);
+        List<Program> programs = DatabasePrograms.INSTANCE.getAll(Type.PROGRAM);
         if (!programs.isEmpty()) {
             for (Program program : programs) {
                 String alias = program.getAlias();

@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
+import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.model.ListModelActionsAfterDbInsertion;
@@ -65,7 +66,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements
     }
 
     private void handleActionsAfterDatabaseInsertionAdd() {
-        ProgramSelectDialog dlg = new ProgramSelectDialog(null, true);
+        ProgramSelectDialog dlg = new ProgramSelectDialog(null, Type.ACTION);
         dlg.setVisible(true);
         Program action = dlg.getSelectedProgram();
         if (dlg.accepted() && !modelActionsAfterDbInsertion.contains(action)) {

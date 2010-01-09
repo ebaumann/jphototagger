@@ -32,20 +32,20 @@ import java.util.List;
  */
 public final class Program {
 
-    private long id = Long.MIN_VALUE;
-    private static final String EMPTY = "";
-    private boolean action = false;
-    private File file;
-    private String alias;
-    private String parametersBeforeFilename;
-    private String parametersAfterFilename;
-    private String pattern;
-    private boolean usePattern;
-    private boolean inputBeforeExecute = false;
-    private boolean inputBeforeExecutePerFile = false;
-    private boolean singleFileProcessing = false;
-    private boolean changeFile = false;
-    private int sequenceNumber = Integer.MIN_VALUE;
+    private              long    id                        = Long.MIN_VALUE;
+    private static final String  EMPTY                     = "";
+    private              boolean action                    = false;
+    private              File    file;
+    private              String  alias;
+    private              String  parametersBeforeFilename;
+    private              String  parametersAfterFilename;
+    private              String  pattern;
+    private              boolean usePattern;
+    private              boolean inputBeforeExecute        = false;
+    private              boolean inputBeforeExecutePerFile = false;
+    private              boolean singleFileProcessing      = false;
+    private              boolean changeFile                = false;
+    private              int     sequenceNumber            = Integer.MIN_VALUE;
 
     public Program() {
     }
