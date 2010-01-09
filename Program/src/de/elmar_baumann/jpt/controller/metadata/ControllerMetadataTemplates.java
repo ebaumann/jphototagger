@@ -20,12 +20,12 @@ package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import de.elmar_baumann.jpt.database.DatabaseMetadataEditTemplates;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
 import de.elmar_baumann.jpt.event.listener.MetadataEditPanelListener;
-import de.elmar_baumann.jpt.model.ComboBoxModelMetadataEditTemplates;
+import de.elmar_baumann.jpt.model.ComboBoxModelMetadataTemplates;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
@@ -44,11 +44,11 @@ import javax.swing.SwingUtilities;
 public final class ControllerMetadataTemplates
     implements ActionListener, MetadataEditPanelListener {
 
-    private final DatabaseMetadataEditTemplates      db                           = DatabaseMetadataEditTemplates.INSTANCE;
+    private final DatabaseMetadataTemplates      db                           = DatabaseMetadataTemplates.INSTANCE;
     private final AppPanel                           appPanel                     = GUI.INSTANCE.getAppPanel();
     private final EditMetadataPanelsArray            editPanels                   = appPanel.getEditMetadataPanelsArray();
     private final JComboBox                          comboBoxMetadataTemplates    = appPanel.getComboBoxMetadataTemplates();
-    private final ComboBoxModelMetadataEditTemplates model                        = (ComboBoxModelMetadataEditTemplates) comboBoxMetadataTemplates.getModel();
+    private final ComboBoxModelMetadataTemplates model                        = (ComboBoxModelMetadataTemplates) comboBoxMetadataTemplates.getModel();
     private final JButton                            buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
     private final JButton                            buttonMetadataTemplateUpdate = appPanel.getButtonMetadataTemplateUpdate();
     private final JButton                            buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();
@@ -114,9 +114,9 @@ public final class ControllerMetadataTemplates
             public void run() {
                 final String name = getNewName();
                 if (name != null) {
-                    MetadataEditTemplate template = editPanels.getMetadataEditTemplate();
+                    MetadataTemplate template = editPanels.getMetadataTemplate();
                     template.setName(name);
-                    model.insertTemplate(template);
+                    model.insert(template);
                 }
             }
         });
@@ -128,10 +128,10 @@ public final class ControllerMetadataTemplates
             @Override
             public void run() {
                 Object o = model.getSelectedItem();
-                if (o instanceof MetadataEditTemplate) {
-                    MetadataEditTemplate template = (MetadataEditTemplate) o;
+                if (o instanceof MetadataTemplate) {
+                    MetadataTemplate template = (MetadataTemplate) o;
                     if (confirmDelete(template.getName())) {
-                        model.deleteMetadataEditTemplate(template);
+                        model.delete(template);
                     }
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
@@ -149,7 +149,7 @@ public final class ControllerMetadataTemplates
                 Object o = model.getSelectedItem();
                 String name = getNewName();
                 if (name != null) {
-                    model.renameTemplate((MetadataEditTemplate) o, name);
+                    model.rename((MetadataTemplate) o, name);
                 }
             }
         });
@@ -161,12 +161,11 @@ public final class ControllerMetadataTemplates
             @Override
             public void run() {
                 Object o = model.getSelectedItem();
-                if (o instanceof MetadataEditTemplate) {
-                    MetadataEditTemplate oldTemplate = (MetadataEditTemplate) o;
-                    MetadataEditTemplate newTemplate = editPanels.
-                            getMetadataEditTemplate();
+                if (o instanceof MetadataTemplate) {
+                    MetadataTemplate oldTemplate = (MetadataTemplate) o;
+                    MetadataTemplate newTemplate = editPanels.getMetadataTemplate();
                     newTemplate.setName(oldTemplate.getName());
-                    model.updateTemplate(newTemplate);
+                    model.update(newTemplate);
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
                             "ControllerMetadataTemplates.Error.WrongObject", o);
@@ -182,8 +181,8 @@ public final class ControllerMetadataTemplates
             public void run() {
                 Object o = model.getSelectedItem();
                 if (o != null) {
-                    MetadataEditTemplate template = (MetadataEditTemplate) o;
-                    editPanels.setMetadataEditTemplate(template);
+                    MetadataTemplate template = (MetadataTemplate) o;
+                    editPanels.setMetadataTemplate(template);
                 } else {
                     AppLog.logWarning(ControllerMetadataTemplates.class,
                             "ControllerMetadataTemplates.Error.InsertTemplateIsNull");

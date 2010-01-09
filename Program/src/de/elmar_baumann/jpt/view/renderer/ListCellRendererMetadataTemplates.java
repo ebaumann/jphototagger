@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -31,7 +31,7 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
  */
-public final class ListCellRendererMetadataEditTemplates extends ListCellRendererExt {
+public final class ListCellRendererMetadataTemplates extends ListCellRendererExt {
 
     private static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_edit.png");
 
@@ -39,7 +39,7 @@ public final class ListCellRendererMetadataEditTemplates extends ListCellRendere
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        String name  = ((MetadataEditTemplate) value).getName();
+        String name  = ((MetadataTemplate) value).getName();
 
         label.setText(name);
         label.setIcon(ICON);

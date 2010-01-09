@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.datatransfer.Flavors;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
-import de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel;
+import de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
 import javax.swing.ListModel;
@@ -81,8 +81,8 @@ public class InputHelperDialog extends Dialog {
         return panelHierarchicalKeywords;
     }
 
-    public MetaDataEditTemplatesPanel getPanelMetaDataEditTemplates() {
-        return panelMetaDataEditTemplates;
+    public MetaDataTemplatesPanel getPanelMetaDataTemplates() {
+        return panelMetaDataTemplates;
     }
 
     @Override
@@ -106,8 +106,8 @@ public class InputHelperDialog extends Dialog {
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelHierarchicalKeywords = new de.elmar_baumann.jpt.view.panels.KeywordsPanel();
-        panelMetaDataEditTemplates = new de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel();
-        panelMetaDataEditTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(Flavors.METADATA_EDIT_TEMPLATES));
+        panelMetaDataTemplates = new de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel();
+        panelMetaDataTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(Flavors.METADATA_EDIT_TEMPLATES));
         labelInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -122,7 +122,7 @@ public class InputHelperDialog extends Dialog {
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelHierarchicalKeywords.TabConstraints.tabTitle"), panelHierarchicalKeywords); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMetaDataEditTemplates.TabConstraints.tabTitle"), panelMetaDataEditTemplates); // NOI18N
+        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
 
         labelInfo.setText(bundle.getString("InputHelperDialog.labelInfo.text")); // NOI18N
 
@@ -141,7 +141,7 @@ public class InputHelperDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -178,7 +178,7 @@ public class InputHelperDialog extends Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelInfo;
     private de.elmar_baumann.jpt.view.panels.KeywordsPanel panelHierarchicalKeywords;
-    private de.elmar_baumann.jpt.view.panels.MetaDataEditTemplatesPanel panelMetaDataEditTemplates;
+    private de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel panelMetaDataTemplates;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

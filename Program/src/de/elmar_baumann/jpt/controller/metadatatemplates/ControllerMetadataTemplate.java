@@ -19,10 +19,10 @@
 package de.elmar_baumann.jpt.controller.metadatatemplates;
 
 import de.elmar_baumann.jpt.controller.Controller;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import de.elmar_baumann.jpt.model.ListModelMetadataEditTemplates;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.model.ListModelMetadataTemplates;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -32,24 +32,24 @@ import java.awt.event.KeyEvent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-08
  */
-public abstract class ControllerMetadataEditTemplate extends Controller {
+public abstract class ControllerMetadataTemplate extends Controller {
 
-    protected abstract void action(MetadataEditTemplate template);
+    protected abstract void action(MetadataTemplate template);
 
-    public ControllerMetadataEditTemplate() {
+    public ControllerMetadataTemplate() {
         listen();
     }
 
     private void listen() {
         listenToActionsOf(
-                PopupMenuMetadataEditTemplates.INSTANCE.getItemSetToSelImages(),
-                PopupMenuMetadataEditTemplates.INSTANCE.getItemAdd(),
-                PopupMenuMetadataEditTemplates.INSTANCE.getItemEdit(),
-                PopupMenuMetadataEditTemplates.INSTANCE.getItemRename(),
-                PopupMenuMetadataEditTemplates.INSTANCE.getItemDelete()
+                PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages(),
+                PopupMenuMetadataTemplates.INSTANCE.getItemAdd(),
+                PopupMenuMetadataTemplates.INSTANCE.getItemEdit(),
+                PopupMenuMetadataTemplates.INSTANCE.getItemRename(),
+                PopupMenuMetadataTemplates.INSTANCE.getItemDelete()
                 );
         listenToKeyEventsOf(
-                InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList()
+                InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList()
                 );
     }
 
@@ -64,19 +64,18 @@ public abstract class ControllerMetadataEditTemplate extends Controller {
     }
 
     protected void focusList() {
-        InputHelperDialog.INSTANCE.getPanelMetaDataEditTemplates().getList().requestFocusInWindow();
+        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().requestFocusInWindow();
     }
 
-    private MetadataEditTemplate getTemplateOfPopupMenu() {
-        int                            index = PopupMenuMetadataEditTemplates.INSTANCE.getSelIndex();
-        ListModelMetadataEditTemplates model = (ListModelMetadataEditTemplates)
-                PopupMenuMetadataEditTemplates.INSTANCE.getList().getModel();
+    private MetadataTemplate getTemplateOfPopupMenu() {
+        int                        index = PopupMenuMetadataTemplates.INSTANCE.getSelIndex();
+        ListModelMetadataTemplates model = (ListModelMetadataTemplates) PopupMenuMetadataTemplates.INSTANCE.getList().getModel();
 
-        return (MetadataEditTemplate) model.get(index);
+        return (MetadataTemplate) model.get(index);
     }
 
-    private MetadataEditTemplate getTemplateOfList() {
-        return (MetadataEditTemplate) InputHelperDialog.INSTANCE
-                .getPanelMetaDataEditTemplates().getList().getSelectedValue();
+    private MetadataTemplate getTemplateOfList() {
+        return (MetadataTemplate) InputHelperDialog.INSTANCE
+                .getPanelMetaDataTemplates().getList().getSelectedValue();
     }
 }

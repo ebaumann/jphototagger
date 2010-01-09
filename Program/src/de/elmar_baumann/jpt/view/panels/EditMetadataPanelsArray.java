@@ -27,7 +27,7 @@ import de.elmar_baumann.jpt.data.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.helper.SaveEditedMetadata;
 import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.data.SelectedFile;
@@ -385,7 +385,7 @@ public final class EditMetadataPanelsArray
      *
      * @param template  Template
      */
-    public void setMetadataEditTemplate(MetadataEditTemplate template) {
+    public void setMetadataTemplate(MetadataTemplate template) {
         if (!isEditable()) return;
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
@@ -409,10 +409,10 @@ public final class EditMetadataPanelsArray
      * Liefert ein Metadaten-Edit-Template mit den Daten der Panels.
      *
      * @return Template <em>ohne</em> Name
-     *         ({@link de.elmar_baumann.jpt.data.MetadataEditTemplate#getName()})
+     *         ({@link de.elmar_baumann.jpt.data.MetadataTemplate#getName()})
      */
-    public MetadataEditTemplate getMetadataEditTemplate() {
-        MetadataEditTemplate template = new MetadataEditTemplate();
+    public MetadataTemplate getMetadataTemplate() {
+        MetadataTemplate template = new MetadataTemplate();
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             if (textEntry instanceof EditRepeatableTextEntryPanel) {

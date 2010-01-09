@@ -85,7 +85,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="de.elmar_baumann.jpt.view.panels.XmpEditPanel" name="panelXmpEdit">
+        <Component class="de.elmar_baumann.jpt.view.panels.EditXmpPanel" name="panelXmpEdit">
         </Component>
       </SubComponents>
     </Container>

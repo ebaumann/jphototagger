@@ -29,7 +29,7 @@ import java.util.HashMap;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-22
  */
-public final class MetadataEditTemplate {
+public final class MetadataTemplate {
 
     private String                        name;
     private final HashMap<Column, Object> fieldOfColumn = new HashMap<Column, Object>();
@@ -91,7 +91,7 @@ public final class MetadataEditTemplate {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MetadataEditTemplate other = (MetadataEditTemplate) obj;
+        final MetadataTemplate other = (MetadataTemplate) obj;
         if (this.name == null || !this.name.equals(other.name)) {
             return false;
         }

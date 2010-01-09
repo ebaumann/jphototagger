@@ -47,7 +47,7 @@ public final class TransferHandlerDropList extends TransferHandler {
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
         return  Flavors.hasKeywords            (transferSupport) ||
                 Flavors.hasHierarchicalKeywords(transferSupport) ||
-                Flavors.hasMetadataEditTemplate(transferSupport);
+                Flavors.hasMetadataTemplate    (transferSupport);
     }
 
     @Override
@@ -66,9 +66,9 @@ public final class TransferHandlerDropList extends TransferHandler {
 
             return importHierarchicalKeywords(listModel, transferSupport.getTransferable());
 
-        } else if (Flavors.hasMetadataEditTemplate(transferSupport)) {
+        } else if (Flavors.hasMetadataTemplate(transferSupport)) {
 
-            MetadataEditTemplateSupport.setMetadataEditTemplate(transferSupport);
+            MetadataTemplateSupport.setTemplate(transferSupport);
             return true;
         }
         return false;

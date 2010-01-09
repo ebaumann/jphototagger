@@ -514,7 +514,7 @@ public final class Xmp implements TextEntryListener {
         }
     }
 
-    public void setMetaDataEditTemplate(MetadataEditTemplate template) {
+    public void setMetaDataTemplate(MetadataTemplate template) {
         for (Table xmpTable : XmpTables.get()) {
             for (Column column : xmpTable.getColumns()) {
                 if (!column.isPrimaryKey() && !column.isForeignKey()) {

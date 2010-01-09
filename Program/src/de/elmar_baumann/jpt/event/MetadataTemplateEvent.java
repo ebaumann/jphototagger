@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.event;
 
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
 
 /**
  *
@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.data.MetadataEditTemplate;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
  */
-public final class MetadataEditTemplateEvent {
+public final class MetadataTemplateEvent {
 
     public enum Type {
         ADDED,
@@ -35,26 +35,26 @@ public final class MetadataEditTemplateEvent {
         ;
     }
 
-    private final Type                 type;
-    private final MetadataEditTemplate template;
-    private final MetadataEditTemplate oldTemplate;
-    private final Object               source;
+    private final Type             type;
+    private final MetadataTemplate template;
+    private final MetadataTemplate oldTemplate;
+    private final Object           source;
 
-    public MetadataEditTemplateEvent(Type type, MetadataEditTemplate template, MetadataEditTemplate oldTemplate, Object source) {
+    public MetadataTemplateEvent(Type type, MetadataTemplate template, MetadataTemplate oldTemplate, Object source) {
         this.type        = type;
         this.template    = template;
         this.oldTemplate = oldTemplate;
         this.source      = source;
     }
 
-    public MetadataEditTemplateEvent(Type type, MetadataEditTemplate template, Object source) {
+    public MetadataTemplateEvent(Type type, MetadataTemplate template, Object source) {
         this.type        = type;
         this.template    = template;
         this.source      = source;
         this.oldTemplate = null;
     }
 
-    public MetadataEditTemplate getOldTemplate() {
+    public MetadataTemplate getOldTemplate() {
         return oldTemplate;
     }
 
@@ -62,7 +62,7 @@ public final class MetadataEditTemplateEvent {
         return source;
     }
 
-    public MetadataEditTemplate getTemplate() {
+    public MetadataTemplate getTemplate() {
         return template;
     }
 

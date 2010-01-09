@@ -20,19 +20,19 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.data.Xmp;
-import de.elmar_baumann.jpt.database.DatabaseMetadataEditTemplates;
+import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 
 /**
- * Modal dialog for modifying and saving a {@link MetadataEditTemplate} into the
+ * Modal dialog for modifying and saving a {@link MetadataTemplate} into the
  * database.
  * <p>
  * You <strong>have to call</strong>
- * {@link #setTemplate(de.elmar_baumann.jpt.data.MetadataEditTemplate)} before
+ * {@link #setTemplate(de.elmar_baumann.jpt.data.MetadataTemplate)} before
  * calling {@link #setVisible(boolean)}!
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -40,8 +40,8 @@ import de.elmar_baumann.lib.dialog.Dialog;
  */
 public class EditMetaDataTemplateDialog extends Dialog {
 
-    private MetadataEditTemplate template;
-    private Xmp                  xmp     = new Xmp();
+    private MetadataTemplate template;
+    private Xmp              xmp     = new Xmp();
 
     public EditMetaDataTemplateDialog() {
         super(GUI.INSTANCE.getAppFrame(), true);
@@ -59,7 +59,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
      * @param template template, will be inserted or updated in the database on
      *                 save action
      */
-    public void setTemplate(MetadataEditTemplate template) {
+    public void setTemplate(MetadataTemplate template) {
         this.template = template;
         String name = template.getName();
         if (name != null) {
@@ -102,7 +102,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
     private void templateToInput() {
         assert template != null : "Template was not set via #setTemplate()!";
-        xmp.setMetaDataEditTemplate(template);
+        xmp.setMetaDataTemplate(template);
         panelXmpEdit.setXmp(xmp);
     }
 
@@ -123,7 +123,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         if (panelXmpEdit.isDirty() && checkSaveTemplateName()) {
             panelXmpEdit.setInputToXmp();
             template.setXmp(xmp);
-            if (DatabaseMetadataEditTemplates.INSTANCE.insertOrUpdateMetadataEditTemplate(template)) {
+            if (DatabaseMetadataTemplates.INSTANCE.insertOrUpdateMetadataEditTemplate(template)) {
                 panelXmpEdit.setDirty(false);
             } else {
                 MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.Save");
@@ -137,7 +137,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             boolean textfieldHasName = name != null && !name.trim().isEmpty();
 
             if (textfieldHasName) {
-                if (DatabaseMetadataEditTemplates.INSTANCE.existsMetadataEditTemplate(name)) {
+                if (DatabaseMetadataTemplates.INSTANCE.existsMetadataEditTemplate(name)) {
                     MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.NameExists", name);
                     textFieldName.requestFocusInWindow();
                     textFieldName.selectAll();
@@ -166,7 +166,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         labelName = new javax.swing.JLabel();
         textFieldName = new javax.swing.JTextField();
         scrollPane = new javax.swing.JScrollPane();
-        panelXmpEdit = new de.elmar_baumann.jpt.view.panels.XmpEditPanel();
+        panelXmpEdit = new de.elmar_baumann.jpt.view.panels.EditXmpPanel();
         buttonCancel = new javax.swing.JButton();
         buttonSave = new javax.swing.JButton();
 
@@ -272,7 +272,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonSave;
     private javax.swing.JLabel labelName;
-    private de.elmar_baumann.jpt.view.panels.XmpEditPanel panelXmpEdit;
+    private de.elmar_baumann.jpt.view.panels.EditXmpPanel panelXmpEdit;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextField textFieldName;
     // End of variables declaration//GEN-END:variables

@@ -84,7 +84,7 @@ public final class DatabaseTables extends Database {
             createCollectionsTables(connection, stmt);
             createSavedSearchesTables(connection, stmt);
             createAutoScanDirectoriesTable(connection, stmt);
-            createMetadataEditTemplateTable(connection, stmt);
+            createMetadataTemplateTable(connection, stmt);
             createFavoriteDirectoriesTable(connection, stmt);
             createFileExcludePatternTable(connection, stmt);
             createProgramsTable(connection, stmt);
@@ -315,7 +315,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createMetadataEditTemplateTable(Connection connection,
+    private void createMetadataTemplateTable(Connection connection,
             Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection,
                 "metadata_edit_templates")) {

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.view.renderer.ListCellRendererMetadataEditTemplates;
+import de.elmar_baumann.jpt.view.renderer.ListCellRendererMetadataTemplates;
 import javax.swing.JList;
 
 /**
@@ -27,9 +27,9 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
  */
-public class MetaDataEditTemplatesPanel extends javax.swing.JPanel {
+public class MetaDataTemplatesPanel extends javax.swing.JPanel {
 
-    public MetaDataEditTemplatesPanel() {
+    public MetaDataTemplatesPanel() {
         initComponents();
     }
 
@@ -50,7 +50,7 @@ public class MetaDataEditTemplatesPanel extends javax.swing.JPanel {
         list = new javax.swing.JList();
 
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new ListCellRendererMetadataEditTemplates());
+        list.setCellRenderer(new ListCellRendererMetadataTemplates());
         list.setDragEnabled(true);
         scrollPane.setViewportView(list);
 

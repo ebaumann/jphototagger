@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataEditTemplates;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
@@ -29,21 +29,21 @@ import javax.swing.ListSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-07
  */
-public final class MouseListenerMetadataEditTemplates extends MouseListenerList {
+public final class MouseListenerMetadataTemplates extends MouseListenerList {
 
     @Override
     protected void showPopup(JList list, int x, int y) {
 
         assert list.getSelectionMode() == ListSelectionModel.SINGLE_SELECTION;
 
-        PopupMenuMetadataEditTemplates.INSTANCE.setSelIndex(getIndex());
-        PopupMenuMetadataEditTemplates.INSTANCE.setList(list);
+        PopupMenuMetadataTemplates.INSTANCE.setSelIndex(getIndex());
+        PopupMenuMetadataTemplates.INSTANCE.setList(list);
         enableItems();
-        PopupMenuMetadataEditTemplates.INSTANCE.show(list, x, y);
+        PopupMenuMetadataTemplates.INSTANCE.show(list, x, y);
     }
 
     private void enableItems() {
-        PopupMenuMetadataEditTemplates.INSTANCE.getItemSetToSelImages().setEnabled(
+        PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages().setEnabled(
                 GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() > 0);
     }
 

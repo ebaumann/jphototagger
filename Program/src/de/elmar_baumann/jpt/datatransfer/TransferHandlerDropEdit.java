@@ -51,7 +51,7 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor) ||
                 Flavors.hasHierarchicalKeywords     (transferSupport) ||
                 Flavors.hasKeywords                 (transferSupport) ||
-                Flavors.hasMetadataEditTemplate     (transferSupport);
+                Flavors.hasMetadataTemplate         (transferSupport);
     }
 
     @Override
@@ -72,9 +72,9 @@ public final class TransferHandlerDropEdit extends TransferHandler {
 
             string = getStrings(Support.getHierarchicalKeywordsNodes(transferable));
 
-        } else if (Flavors.hasMetadataEditTemplate(transferSupport)) {
+        } else if (Flavors.hasMetadataTemplate(transferSupport)) {
             
-            MetadataEditTemplateSupport.setMetadataEditTemplate(transferSupport);
+            MetadataTemplateSupport.setTemplate(transferSupport);
             return true;
         }
 

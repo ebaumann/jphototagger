@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.MetadataEditTemplateEvent;
+import de.elmar_baumann.jpt.event.MetadataTemplateEvent;
 
 /**
  *
@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.event.MetadataEditTemplateEvent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
  */
-public interface MetadataEditTemplateEventListener {
+public interface MetadataTemplateEventListener {
 
-    public void actionPerformed(MetadataEditTemplateEvent evt);
+    public void actionPerformed(MetadataTemplateEvent evt);
 }

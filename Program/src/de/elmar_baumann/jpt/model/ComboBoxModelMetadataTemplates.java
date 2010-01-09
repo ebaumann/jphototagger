@@ -19,33 +19,33 @@
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
-import de.elmar_baumann.jpt.database.DatabaseMetadataEditTemplates;
-import de.elmar_baumann.jpt.event.MetadataEditTemplateEvent;
-import de.elmar_baumann.jpt.event.listener.MetadataEditTemplateEventListener;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
+import de.elmar_baumann.jpt.event.MetadataTemplateEvent;
+import de.elmar_baumann.jpt.event.listener.MetadataTemplateEventListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 /**
  * Model mit
- * {@link de.elmar_baumann.jpt.data.MetadataEditTemplate}-Objekten.
+ * {@link de.elmar_baumann.jpt.data.MetadataTemplate}-Objekten.
  * Führt alle Änderungen zuerst in der Datenbank aus und bei Erfolg im Model
  * selbst.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ComboBoxModelMetadataEditTemplates
+public final class ComboBoxModelMetadataTemplates
         extends    DefaultComboBoxModel
-        implements MetadataEditTemplateEventListener
+        implements MetadataTemplateEventListener
 {
 
-    private final DatabaseMetadataEditTemplates db = DatabaseMetadataEditTemplates.INSTANCE;
+    private final DatabaseMetadataTemplates db = DatabaseMetadataTemplates.INSTANCE;
 
-    public ComboBoxModelMetadataEditTemplates() {
+    public ComboBoxModelMetadataTemplates() {
         addElements();
-        db.addMetadataEditTemplateEventListener(this);
+        db.addMetadataTemplateEventListener(this);
     }
 
     /**
@@ -53,13 +53,11 @@ public final class ComboBoxModelMetadataEditTemplates
      *
      * @param template  Template
      */
-    public void deleteMetadataEditTemplate(MetadataEditTemplate template) {
-        if (getIndexOf(template) >= 0 &&
-                db.deleteMetadataEditTemplate(template.getName())) {
+    public void delete(MetadataTemplate template) {
+        if (getIndexOf(template) >= 0 && db.deleteMetadataEditTemplate(template.getName())) {
             removeElement(template);
         } else {
-            errorMessage(template.getName(),
-                    Bundle.getString("ComboBoxModelMetadataEditTemplates.Error.ParamDelete"));
+            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamDelete"));
         }
     }
 
@@ -68,7 +66,7 @@ public final class ComboBoxModelMetadataEditTemplates
      *
      * @param template  Template
      */
-    public void insertTemplate(MetadataEditTemplate template) {
+    public void insert(MetadataTemplate template) {
         if (getIndexOf(template) >= 0) {
             return;
         }
@@ -76,8 +74,7 @@ public final class ComboBoxModelMetadataEditTemplates
             addElement(template);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(),
-                    Bundle.getString("ComboBoxModelMetadataEditTemplates.Error.ParamInsert"));
+            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamInsert"));
         }
     }
 
@@ -86,7 +83,7 @@ public final class ComboBoxModelMetadataEditTemplates
      *
      * @param template  Template
      */
-    public void updateTemplate(MetadataEditTemplate template) {
+    public void update(MetadataTemplate template) {
         int index = getIndexOf(template);
         if (index >= 0 && db.updateMetadataEditTemplate(template)) {
             removeElementAt(index);
@@ -94,7 +91,7 @@ public final class ComboBoxModelMetadataEditTemplates
             setSelectedItem(template);
         } else {
             errorMessage(template.getName(),
-                    Bundle.getString("ComboBoxModelMetadataEditTemplates.Error.ParamUpdate"));
+                    Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
         }
 
     }
@@ -105,23 +102,22 @@ public final class ComboBoxModelMetadataEditTemplates
      * @param template  Template
      * @param newName   Neuer Name
      */
-    public void renameTemplate(MetadataEditTemplate template, String newName) {
+    public void rename(MetadataTemplate template, String newName) {
         int index = getIndexOf(template);
-        if (index >= 0 &&
-                db.updateRenameMetadataEditTemplate(template.getName(), newName)) {
+        if (index >= 0 && db.updateRenameMetadataEditTemplate(template.getName(), newName)) {
             template.setName(newName);
             removeElementAt(index);
             insertElementAt(template, index);
             setSelectedItem(template);
         } else {
             errorMessage(template.getName(),
-                    Bundle.getString("ComboBoxModelMetadataEditTemplates.Error.ParamRename"));
+                    Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamRename"));
         }
     }
 
     private void addElements() {
-        List<MetadataEditTemplate> templates = db.getMetadataEditTemplates();
-        for (MetadataEditTemplate template : templates) {
+        List<MetadataTemplate> templates = db.getMetadataEditTemplates();
+        for (MetadataTemplate template : templates) {
             addElement(template);
         }
     }
@@ -129,12 +125,12 @@ public final class ComboBoxModelMetadataEditTemplates
     private void errorMessage(String name, String cause) {
         MessageDisplayer.error(
                 null,
-                "ComboBoxModelMetadataEditTemplates.Error.Template",
+                "ComboBoxModelMetadataTemplates.Error.Template",
                 name, cause);
     }
 
     @Override
-    public void actionPerformed(MetadataEditTemplateEvent evt) {
+    public void actionPerformed(MetadataTemplateEvent evt) {
 
         if (evt.wasAdded()) {
 

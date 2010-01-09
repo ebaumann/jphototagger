@@ -171,10 +171,10 @@ final class UpdateTablesInsertColumns {
     }
 
     private void fixBugs(Connection connection) throws SQLException {
-        fixBugsMetaDataEditTemplates(connection);
+        fixBugsMetaDataTemplates(connection);
     }
 
-    private void fixBugsMetaDataEditTemplates(Connection connection) throws SQLException {
+    private void fixBugsMetaDataTemplates(Connection connection) throws SQLException {
         final String tableName  = "metadata_edit_templates";
         final String columnName = "rating";
         if (!DatabaseMetadata.INSTANCE.existsColumn(connection, tableName, columnName)) {
@@ -190,7 +190,7 @@ final class UpdateTablesInsertColumns {
             boolean                     indexOk = info.ORDINAL_POSITION == 21;
             boolean                     isOk    = typeOk && indexOk;
             if (!isOk) {
-                messages.message(Bundle.getString("UpdateTablesAddColumns.Info.DropColumnMetaDataEditTemplates",
+                messages.message(Bundle.getString("UpdateTablesAddColumns.Info.DropColumnMetaDataTemplates",
                         tableName, columnName, typeOk, indexOk));
                 dropColumn(connection, tableName, columnName);
             }

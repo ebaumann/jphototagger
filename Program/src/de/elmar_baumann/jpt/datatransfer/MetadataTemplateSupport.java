@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.data.MetadataEditTemplate;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
@@ -33,10 +33,10 @@ import javax.swing.TransferHandler.TransferSupport;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-06
  */
-final class MetadataEditTemplateSupport {
+final class MetadataTemplateSupport {
 
     @SuppressWarnings("unchecked")
-    public static void setMetadataEditTemplate(TransferSupport transferSupport) {
+    public static void setTemplate(TransferSupport transferSupport) {
         try {
             Object[]  selTemplates = (Object[]) transferSupport
                                          .getTransferable()
@@ -44,9 +44,9 @@ final class MetadataEditTemplateSupport {
             TextEntry textEntry = findParentTextEntry(transferSupport.getComponent());
 
             if (selTemplates != null && textEntry != null) {
-                Column               column    = textEntry.getColumn();
-                MetadataEditTemplate template  = (MetadataEditTemplate) selTemplates[0];
-                Object               value     = template.getValueOfColumn(column);
+                Column           column    = textEntry.getColumn();
+                MetadataTemplate template  = (MetadataTemplate) selTemplates[0];
+                Object           value     = template.getValueOfColumn(column);
 
                 if (value instanceof String) {
                     textEntry.setText((String) value);
@@ -88,6 +88,6 @@ final class MetadataEditTemplateSupport {
         return null;
     }
 
-    private MetadataEditTemplateSupport() {
+    private MetadataTemplateSupport() {
     }
 }
