@@ -110,7 +110,7 @@ public final class ControllerMiscMetadataItemSelected implements
                 Column column = (Column) userObject;
                 setTitle(column);
                 thumbnailsPanel.setFiles(
-                        DatabaseImageFiles.INSTANCE.getFilesColumnNotNull(column),
+                        DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column),
                         Content.MISC_METADATA);
             } else {
                 thumbnailsPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);

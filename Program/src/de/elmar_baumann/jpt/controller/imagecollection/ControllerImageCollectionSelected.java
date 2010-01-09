@@ -98,7 +98,7 @@ public final class ControllerImageCollectionSelected implements
             @Override
             public void run() {
                 List<String> filenames = DatabaseImageCollections.INSTANCE
-                        .getFilenamesOfImageCollection(collectionName);
+                        .getFilenamesOf(collectionName);
                 setTitle();
                 thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.IMAGE_COLLECTION);
             }

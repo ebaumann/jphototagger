@@ -63,7 +63,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
                 @Override
                 public void run() {
-                    int count = DatabaseImageFiles.INSTANCE.updateRenameImageFilenamesStartingWith(
+                    int count = DatabaseImageFiles.INSTANCE.updateRenameFilenamesStartingWith(
                             textFieldSearch.getText(),
                             textFieldReplacement.getText(),
                             progressListener);

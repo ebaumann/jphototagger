@@ -48,14 +48,14 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param  favoriteDirectory  Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public boolean insertOrUpdateFavoriteDirectory(
+    public boolean insertOrUpdate(
             FavoriteDirectory favoriteDirectory) {
 
         boolean inserted = false;
         Connection connection = null;
         try {
-            if (existsFavoriteDirectory(favoriteDirectory.getFavoriteName())) {
-                return updateFavoriteDirectory(
+            if (exists(favoriteDirectory.getFavoriteName())) {
+                return update(
                         favoriteDirectory.getFavoriteName(), favoriteDirectory);
             }
             connection = getConnection();
@@ -89,7 +89,7 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param  favoriteName Favoritenname
      * @return true bei Erfolg
      */
-    public boolean deleteFavoriteDirectory(String favoriteName) {
+    public boolean delete(String favoriteName) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -119,7 +119,7 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param favorite          Favoritenverzeichnis
      * @return true bei Erfolg
      */
-    public boolean updateFavoriteDirectory(String favoriteName,
+    public boolean update(String favoriteName,
             FavoriteDirectory favorite) {
 
         boolean updated = false;
@@ -156,7 +156,7 @@ public final class DatabaseFavoriteDirectories extends Database {
      *
      * @return Favoritenverzeichnisse
      */
-    public List<FavoriteDirectory> getFavoriteDirectories() {
+    public List<FavoriteDirectory> getAll() {
         List<FavoriteDirectory> directories = new ArrayList<FavoriteDirectory>();
         Connection connection = null;
         try {
@@ -190,7 +190,7 @@ public final class DatabaseFavoriteDirectories extends Database {
      * @param  favoriteName  Name des Favoriten (Alias)
      * @return true wenn existent
      */
-    public boolean existsFavoriteDirectory(String favoriteName) {
+    public boolean exists(String favoriteName) {
         boolean exists = false;
         Connection connection = null;
         try {

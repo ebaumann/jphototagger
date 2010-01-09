@@ -77,7 +77,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         synchronized (monitor) {
             favoriteDirectory.setIndex(getNextNewFavoriteIndex());
             if (!existsFavoriteDirectory(favoriteDirectory) &&
-                    db.insertOrUpdateFavoriteDirectory(favoriteDirectory)) {
+                    db.insertOrUpdate(favoriteDirectory)) {
                 addDirectory(favoriteDirectory);
             } else {
                 errorMessage(favoriteDirectory.getFavoriteName(), Bundle.
@@ -90,7 +90,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         synchronized (monitor) {
             DefaultMutableTreeNode favNode = getNode(favoriteDirctory);
             if (favNode != null &&
-                    db.deleteFavoriteDirectory(
+                    db.delete(
                     favoriteDirctory.getFavoriteName())) {
                 removeNodeFromParent(favNode);
                 for (Enumeration children = rootNode.children(); children.
@@ -101,7 +101,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                     if (userObject instanceof FavoriteDirectory) {
                         FavoriteDirectory fav = (FavoriteDirectory) userObject;
                         fav.setIndex(newIndex++);
-                        db.updateFavoriteDirectory(fav.getFavoriteName(), fav);
+                        db.update(fav.getFavoriteName(), fav);
                     }
                 }
             } else {
@@ -117,7 +117,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         synchronized (monitor) {
             DefaultMutableTreeNode oldNode = getNode(oldFavorite);
             if (oldNode != null &&
-                    db.updateFavoriteDirectory(oldFavorite.getFavoriteName(),
+                    db.update(oldFavorite.getFavoriteName(),
                     newFavorite)) {
                 oldFavorite.setDirectoryName(newFavorite.getDirectoryName());
                 oldFavorite.setFavoriteName(newFavorite.getFavoriteName());
@@ -179,7 +179,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         if (userObject instanceof FavoriteDirectory) {
             FavoriteDirectory favoriteDirectory = (FavoriteDirectory) userObject;
             favoriteDirectory.setIndex(newIndex);
-            return db.updateFavoriteDirectory(
+            return db.update(
                     favoriteDirectory.getFavoriteName(),
                     favoriteDirectory);
         }
@@ -187,7 +187,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private void addDirectories() {
-        List<FavoriteDirectory> directories = db.getFavoriteDirectories();
+        List<FavoriteDirectory> directories = db.getAll();
         for (FavoriteDirectory directory : directories) {
             if (FileUtil.existsDirectory(directory.getDirectory())) {
                 addDirectory(directory);
@@ -195,7 +195,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 AppLog.logWarning(TreeModelFavorites.class,
                         "TreeModelFavorites.Error.DbDirectoryDoesNotExist",
                         directory.getDirectoryName());
-                db.deleteFavoriteDirectory(directory.getFavoriteName());
+                db.delete(directory.getFavoriteName());
             }
         }
     }
@@ -281,7 +281,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         for (DefaultMutableTreeNode childNodeToRemove : nodesToRemove) {
             Object userObject = childNodeToRemove.getUserObject();
             if (userObject instanceof FavoriteDirectory) {
-                db.deleteFavoriteDirectory(
+                db.delete(
                         ((FavoriteDirectory) userObject).getDirectoryName());
             }
             removeNodeFromParent(childNodeToRemove);

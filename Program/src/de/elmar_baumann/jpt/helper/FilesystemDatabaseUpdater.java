@@ -72,7 +72,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
             removeFileFromDatabase(src);
         } else if (action.equals(FileSystemEvent.MOVE) ||
                 action.equals(FileSystemEvent.RENAME)) {
-            DatabaseImageFiles.INSTANCE.updateRenameImageFilename(
+            DatabaseImageFiles.INSTANCE.updateRename(
                     src.getAbsolutePath(), target.getAbsolutePath());
         }
     }
@@ -98,8 +98,8 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
     private void removeFileFromDatabase(File file) {
         DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         String filename = file.getAbsolutePath();
-        if (db.existsFilename(filename)) {
-            db.deleteImageFiles(Arrays.asList(filename));
+        if (db.exists(filename)) {
+            db.delete(Arrays.asList(filename));
         }
     }
 }

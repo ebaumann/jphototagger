@@ -46,13 +46,13 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
 
     public void insertPattern(String pattern) {
         String trimmedPattern = pattern.trim();
-        if (db.existsFileExcludePattern(trimmedPattern)) {
+        if (db.exists(trimmedPattern)) {
             MessageDisplayer.error(
                     null,
                     "ListModelFileExcludePatterns.Error.InsertPattern.Exists",
                     trimmedPattern);
         }
-        if (db.insertFileExcludePattern(trimmedPattern)) {
+        if (db.insert(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
@@ -65,7 +65,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
 
     public void deletePattern(String pattern) {
         String trimmedPattern = pattern.trim();
-        if (db.deleteFileExcludePattern(trimmedPattern)) {
+        if (db.delete(trimmedPattern)) {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
@@ -77,7 +77,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     }
 
     private void addElements() {
-        patterns = db.getFileExcludePatterns();
+        patterns = db.getAll();
         for (String pattern : patterns) {
             addElement(pattern);
         }

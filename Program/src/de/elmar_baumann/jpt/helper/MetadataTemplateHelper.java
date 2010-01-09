@@ -59,7 +59,7 @@ public final class MetadataTemplateHelper {
                 }
             }
             if (!namesEqual &&
-                DatabaseMetadataTemplates.INSTANCE.existsMetadataEditTemplate(name)) {
+                DatabaseMetadataTemplates.INSTANCE.exists(name)) {
                     if (!MessageDisplayer.confirmYesNo(null, "MetadataTemplateHelper.Error.NameExists", name)) {
                         return null;
                     }

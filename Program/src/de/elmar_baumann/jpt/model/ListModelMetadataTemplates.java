@@ -36,11 +36,11 @@ public final class ListModelMetadataTemplates
 
     public ListModelMetadataTemplates() {
         addItems();
-        DatabaseMetadataTemplates.INSTANCE.addMetadataTemplateEventListener(this);
+        DatabaseMetadataTemplates.INSTANCE.addEventListener(this);
     }
 
     private void addItems() {
-        for (MetadataTemplate t : DatabaseMetadataTemplates.INSTANCE.getMetadataEditTemplates()) {
+        for (MetadataTemplate t : DatabaseMetadataTemplates.INSTANCE.getAll()) {
             addElement(t);
         }
     }

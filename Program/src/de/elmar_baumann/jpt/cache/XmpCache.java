@@ -105,7 +105,7 @@ public class XmpCache extends Cache<XmpCacheIndirection>
                             Thread.sleep(10);
                         } catch (InterruptedException ex) {}
                     }
-                    List<Pair<String, Xmp>> res = db.getXmpOfFiles(files);
+                    List<Pair<String, Xmp>> res = db.getXmpOf(files);
                     // send updates to request results
                     for (Pair<String, Xmp> p : res) {
                         String temp = p.getFirst();

@@ -51,7 +51,7 @@ public final class FileSystemDirectories {
                     List<File> imageFiles = ImageFilteredDirectory.
                             getImageFilesOfDirAndSubDirs(directory);
                     if (FileUtil.deleteDirectoryRecursive(directory)) {
-                        int count = DatabaseImageFiles.INSTANCE.deleteImageFiles(
+                        int count = DatabaseImageFiles.INSTANCE.delete(
                                 FileUtil.getAsFilenames(imageFiles));
                         logDelete(directory, count);
                         return true;
@@ -87,7 +87,7 @@ public final class FileSystemDirectories {
 
                             String oldParentDir = directory.getAbsolutePath() + File.separator;
                             String newParentDir = newDirectory.getAbsolutePath() + File.separator;
-                            int    dbCount      = DatabaseImageFiles.INSTANCE.updateRenameImageFilenamesStartingWith(oldParentDir, newParentDir, null);
+                            int    dbCount      = DatabaseImageFiles.INSTANCE.updateRenameFilenamesStartingWith(oldParentDir, newParentDir, null);
 
                             logInfoRenamed(directory, newDirectory, dbCount);
                             return newDirectory;

@@ -46,7 +46,7 @@ public final class DatabasePrograms extends Database {
     }
 
     /**
-     * Inserts a new program. Prevoius You should call {@link #hasProgram()}.
+     * Inserts a new program. Prevoius You should call {@link #isEmpty()}.
      *
      * @param  program  program
      * @return true if inserted
@@ -245,7 +245,7 @@ public final class DatabasePrograms extends Database {
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                programs.add(getSelctedProgram(rs));
+                programs.add(getSelectedProgram(rs));
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -286,7 +286,7 @@ public final class DatabasePrograms extends Database {
                 " ORDER BY alias";
     }
 
-    private Program getSelctedProgram(ResultSet rs) throws SQLException {
+    private Program getSelectedProgram(ResultSet rs) throws SQLException {
         byte[]  parametersBeforeFilename = rs.getBytes(5);
         byte[]  parametersAfterFilename  = rs.getBytes(6);
         byte[]  pattern                  = rs.getBytes(13);
@@ -320,7 +320,7 @@ public final class DatabasePrograms extends Database {
      * @param  id  the program's ID
      * @return Program or null if no program has this ID
      */
-    public Program getProgram(long id) {
+    public Program find(long id) {
         Program program = null;
         Connection connection = null;
         try {
@@ -331,7 +331,7 @@ public final class DatabasePrograms extends Database {
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                program = getSelctedProgram(rs);
+                program = getSelectedProgram(rs);
             }
             stmt.close();
         } catch (SQLException ex) {
@@ -347,7 +347,7 @@ public final class DatabasePrograms extends Database {
      *
      * @return true if at least one program (ore more) exists
      */
-    public boolean hasProgram() {
+    public boolean isEmpty() {
         int count = 0;
         Connection connection = null;
         try {

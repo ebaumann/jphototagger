@@ -76,10 +76,10 @@ public class DatabaseMetadataTemplates extends Database {
      * @param  template  Template
      * @return           true bei Erfolg
      */
-    public boolean insertOrUpdateMetadataEditTemplate(MetadataTemplate template) {
+    public boolean insertOrUpdate(MetadataTemplate template) {
 
-        if (existsMetadataEditTemplate(template.getName())) {
-            return updateMetadataEditTemplate(template);
+        if (exists(template.getName())) {
+            return update(template);
         }
         boolean inserted = false;
         Connection connection = null;
@@ -111,7 +111,7 @@ public class DatabaseMetadataTemplates extends Database {
                     ", iptc4xmpcore_datecreated" +        // -- 20 --
                     ")" +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            setMetadataEditTemplate(stmt, template);
+            set(stmt, template);
             logFiner(stmt);
             stmt.executeUpdate();
             connection.commit();
@@ -128,7 +128,7 @@ public class DatabaseMetadataTemplates extends Database {
     }
 
     @SuppressWarnings("unchecked")
-    private void setMetadataEditTemplate(
+    private void set(
             PreparedStatement stmt, MetadataTemplate template) throws
             SQLException {
 
@@ -218,7 +218,7 @@ public class DatabaseMetadataTemplates extends Database {
      * @param  name template name
      * @return      template or null if no template has that name or on errors
      */
-    public MetadataTemplate getMetadataEditTemplate(String name) {
+    public MetadataTemplate find(String name) {
 
         MetadataTemplate template   = null;
         Connection           connection = null;
@@ -251,7 +251,7 @@ public class DatabaseMetadataTemplates extends Database {
      *
      * @return Templates
      */
-    public List<MetadataTemplate> getMetadataEditTemplates() {
+    public List<MetadataTemplate> getAll() {
 
         List<MetadataTemplate> templates  = new ArrayList<MetadataTemplate>();
         Connection                 connection = null;
@@ -354,14 +354,14 @@ public class DatabaseMetadataTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public boolean updateMetadataEditTemplate(MetadataTemplate template) {
+    public boolean update(MetadataTemplate template) {
 
         boolean updated = false;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            MetadataTemplate oldTemplate = getMetadataEditTemplate(template.getName());
+            MetadataTemplate oldTemplate = find(template.getName());
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE metadata_edit_templates" +
                     " SET name = ?" +                         // --  1 --
@@ -385,7 +385,7 @@ public class DatabaseMetadataTemplates extends Database {
                     ", rating = ?" +                          // -- 19 --
                     ", iptc4xmpcore_datecreated = ?" +        // -- 20 --
                     " WHERE name = ?");                       // -- 21 --
-            setMetadataEditTemplate(stmt, template);
+            set(stmt, template);
             stmt.setString(21, template.getName());
             logFiner(stmt);
             int count = stmt.executeUpdate();
@@ -409,7 +409,7 @@ public class DatabaseMetadataTemplates extends Database {
      * @param  newName  Neuer Name
      * @return true bei Erfolg
      */
-    public boolean updateRenameMetadataEditTemplate(
+    public boolean updateRename(
             String oldName, String newName) {
 
         boolean renamed = false;
@@ -417,7 +417,7 @@ public class DatabaseMetadataTemplates extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            MetadataTemplate oldTemplate = getMetadataEditTemplate(oldName);
+            MetadataTemplate oldTemplate = find(oldName);
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE metadata_edit_templates SET name = ? WHERE name = ?");
             stmt.setString(1, newName);
@@ -428,7 +428,7 @@ public class DatabaseMetadataTemplates extends Database {
             renamed = count > 0;
             stmt.close();
             if (renamed) {
-                MetadataTemplate newTemplate = getMetadataEditTemplate(newName);
+                MetadataTemplate newTemplate = find(newName);
                 notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.UPDATED, newTemplate, oldTemplate, this));
             }
         } catch (SQLException ex) {
@@ -446,13 +446,13 @@ public class DatabaseMetadataTemplates extends Database {
      * @param  name  Name des Templates
      * @return true bei Erfolg
      */
-    public boolean deleteMetadataEditTemplate(String name) {
+    public boolean delete(String name) {
         boolean deleted = false;
         Connection connection = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            MetadataTemplate template = getMetadataEditTemplate(name);
+            MetadataTemplate template = find(name);
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
@@ -471,7 +471,7 @@ public class DatabaseMetadataTemplates extends Database {
         return deleted;
     }
 
-    public boolean existsMetadataEditTemplate(String name) {
+    public boolean exists(String name) {
         boolean exists = false;
         Connection connection = null;
         try {
@@ -495,11 +495,11 @@ public class DatabaseMetadataTemplates extends Database {
         return exists;
     }
 
-    public void addMetadataTemplateEventListener(MetadataTemplateEventListener listener) {
+    public void addEventListener(MetadataTemplateEventListener listener) {
         listeners.add(listener);
     }
 
-    public void removeMetadataTemplateEventListener(MetadataTemplateEventListener listener) {
+    public void removeEventListener(MetadataTemplateEventListener listener) {
         listeners.remove(listener);
     }
 

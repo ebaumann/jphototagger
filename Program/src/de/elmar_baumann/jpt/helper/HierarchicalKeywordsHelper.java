@@ -306,7 +306,7 @@ public final class HierarchicalKeywordsHelper {
         @Override
         public void run() {
             for (String keyword : keywords) {
-                if (!DatabaseHierarchicalKeywords.INSTANCE.existsKeyword(keyword)
+                if (!DatabaseHierarchicalKeywords.INSTANCE.exists(keyword)
                         && DatabaseImageFiles.INSTANCE.exists(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)) {
                     JTree                         treeKeywords = GUI.INSTANCE.getAppPanel().getTreeEditKeywords();
                     TreeModelHierarchicalKeywords model        = (TreeModelHierarchicalKeywords)treeKeywords.getModel();

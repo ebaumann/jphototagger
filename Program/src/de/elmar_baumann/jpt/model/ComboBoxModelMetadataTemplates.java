@@ -45,7 +45,7 @@ public final class ComboBoxModelMetadataTemplates
 
     public ComboBoxModelMetadataTemplates() {
         addElements();
-        db.addMetadataTemplateEventListener(this);
+        db.addEventListener(this);
     }
 
     /**
@@ -54,7 +54,7 @@ public final class ComboBoxModelMetadataTemplates
      * @param template  Template
      */
     public void delete(MetadataTemplate template) {
-        if (getIndexOf(template) >= 0 && db.deleteMetadataEditTemplate(template.getName())) {
+        if (getIndexOf(template) >= 0 && db.delete(template.getName())) {
             removeElement(template);
         } else {
             errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamDelete"));
@@ -70,7 +70,7 @@ public final class ComboBoxModelMetadataTemplates
         if (getIndexOf(template) >= 0) {
             return;
         }
-        if (db.insertOrUpdateMetadataEditTemplate(template)) {
+        if (db.insertOrUpdate(template)) {
             addElement(template);
             setSelectedItem(template);
         } else {
@@ -85,7 +85,7 @@ public final class ComboBoxModelMetadataTemplates
      */
     public void update(MetadataTemplate template) {
         int index = getIndexOf(template);
-        if (index >= 0 && db.updateMetadataEditTemplate(template)) {
+        if (index >= 0 && db.update(template)) {
             removeElementAt(index);
             insertElementAt(template, index);
             setSelectedItem(template);
@@ -104,7 +104,7 @@ public final class ComboBoxModelMetadataTemplates
      */
     public void rename(MetadataTemplate template, String newName) {
         int index = getIndexOf(template);
-        if (index >= 0 && db.updateRenameMetadataEditTemplate(template.getName(), newName)) {
+        if (index >= 0 && db.updateRename(template.getName(), newName)) {
             template.setName(newName);
             removeElementAt(index);
             insertElementAt(template, index);
@@ -116,7 +116,7 @@ public final class ComboBoxModelMetadataTemplates
     }
 
     private void addElements() {
-        List<MetadataTemplate> templates = db.getMetadataEditTemplates();
+        List<MetadataTemplate> templates = db.getAll();
         for (MetadataTemplate template : templates) {
             addElement(template);
         }

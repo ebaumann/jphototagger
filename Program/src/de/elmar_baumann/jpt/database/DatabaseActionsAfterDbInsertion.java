@@ -45,7 +45,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
 
     /**
      * Inserts a new action. Prevoius You should call
-     * {@link DatabasePrograms#hasProgram()}.
+     * {@link DatabasePrograms#isEmpty()}.
      *
      * @param action  action
      * @param order   order of the action
@@ -128,7 +128,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             while (rs.next()) {
                 long idProgram = rs.getLong(1);
                 Program program =
-                        DatabasePrograms.INSTANCE.getProgram(idProgram);
+                        DatabasePrograms.INSTANCE.find(idProgram);
                 if (program == null) {
                     AppLog.logWarning(DatabaseActionsAfterDbInsertion.class,
                             "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist",
@@ -152,7 +152,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @param  action  action
      * @return true if the action exists
      */
-    public boolean existsAction(Program action) {
+    public boolean exists(Program action) {
         boolean exists = false;
         Connection connection = null;
         try {
@@ -185,7 +185,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      *                    actions is this index plus their list index
      * @return            true if reordered all actions
      */
-    public boolean reorder(List<Program> actions, int startIndex) {
+    public boolean setOrder(List<Program> actions, int startIndex) {
         Connection connection = null;
         boolean allReordered = false;
         try {

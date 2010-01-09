@@ -38,8 +38,8 @@ public final class ComparatorExifRecordingEquipmentAsc
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Exif exifLeft    = DatabaseImageFiles.INSTANCE.getExifOfFile(fileLeft.getAbsolutePath());
-        Exif exifRight   = DatabaseImageFiles.INSTANCE.getExifOfFile(fileRight.getAbsolutePath());
+        Exif exifLeft    = DatabaseImageFiles.INSTANCE.getExifOf(fileLeft.getAbsolutePath());
+        Exif exifRight   = DatabaseImageFiles.INSTANCE.getExifOf(fileRight.getAbsolutePath());
         String eqipLeft  = exifLeft  == null ? null : exifLeft .getRecordingEquipment();
         String eqipRight = exifRight == null ? null : exifRight.getRecordingEquipment();
 

@@ -51,9 +51,9 @@ public final class DatabaseFileExcludePattern extends Database {
      *
      * @param  pattern  pattern
      * @return true if inserted
-     * @see    #existsFileExcludePattern(java.lang.String)
+     * @see    #existsValueIn(java.lang.String)
      */
-    public boolean insertFileExcludePattern(String pattern) {
+    public boolean insert(String pattern) {
         boolean inserted = false;
         Connection connection = null;
         try {
@@ -81,7 +81,7 @@ public final class DatabaseFileExcludePattern extends Database {
      * @param  pattern  pattern
      * @return true if deleted
      */
-    public boolean deleteFileExcludePattern(String pattern) {
+    public boolean delete(String pattern) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -104,12 +104,12 @@ public final class DatabaseFileExcludePattern extends Database {
     }
 
     /**
-     * Returns wheter a file exclude pattern exists.
+     * Returns wheter a file exclude pattern existsValueIn.
      *
      * @param  pattern pattern
-     * @return true if exists
+     * @return true if existsValueIn
      */
-    public boolean existsFileExcludePattern(String pattern) {
+    public boolean exists(String pattern) {
         boolean exists = false;
         Connection connection = null;
         try {
@@ -136,7 +136,7 @@ public final class DatabaseFileExcludePattern extends Database {
      *
      * @return patterns
      */
-    public List<String> getFileExcludePatterns() {
+    public List<String> getAll() {
         List<String> patterns = new LinkedList<String>();
         Connection connection = null;
         try {
@@ -168,7 +168,7 @@ public final class DatabaseFileExcludePattern extends Database {
      * @param   listener  progress listener, can cancel the action
      * @return  count of deleted files
      */
-    public int deleteFilesWithPattern(List<String> patterns, ProgressListener listener) {
+    public int deleteMatchingFiles(List<String> patterns, ProgressListener listener) {
 
         Connection connection = null;
         int count = 0;

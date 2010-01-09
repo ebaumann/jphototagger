@@ -50,7 +50,7 @@ public final class DatabaseSearch extends Database {
      * @param  paramStatement Korrekt ausgefülltes Statement
      * @return                Dateiname
      */
-    public List<String> searchFilenames(ParamStatement paramStatement) {
+    public List<String> findFilenames(ParamStatement paramStatement) {
         List<String> filenames = new ArrayList<String>();
         Connection connection = null;
         try {
@@ -88,7 +88,7 @@ public final class DatabaseSearch extends Database {
      * @param searchString  Suchteilzeichenkette
      * @return              Alle gefundenen Dateinamen
      */
-    public List<String> searchFilenamesLikeOr(
+    public List<String> findFilenamesLikeOr(
             List<Column> searchColumns, String searchString) {
 
         List<String> filenames = new ArrayList<String>();

@@ -320,7 +320,7 @@ public final class ExifMetadata {
      */
     public static long timestampDateTimeOriginalDb(File imageFile) {
 
-        Exif exif = DatabaseImageFiles.INSTANCE.getExifOfFile(imageFile.getAbsolutePath());
+        Exif exif = DatabaseImageFiles.INSTANCE.getExifOf(imageFile.getAbsolutePath());
 
         if (exif == null || exif.getDateTimeOriginal() == null) {
             return imageFile.lastModified();

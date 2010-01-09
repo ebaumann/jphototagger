@@ -221,7 +221,7 @@ public final class ControllerFastSearch
 
             private List<String> searchFilenames(String userInput) {
                 if (isSearchAllDefinedColumns()) {
-                    return db.searchFilenamesLikeOr(
+                    return db.findFilenamesLikeOr(
                             UserSettings.INSTANCE.getFastSearchColumns(),
                             userInput);
                 } else {
@@ -229,7 +229,7 @@ public final class ControllerFastSearch
                     Column searchColumn = getSearchColumn();
                     if (searchColumn == null) return null;
                     if (searchWords.size() == 1) {
-                        return db.searchFilenamesLikeOr(
+                        return db.findFilenamesLikeOr(
                                 Arrays.asList(searchColumn), userInput);
                     } else if (searchWords.size() > 1) {
                         if (searchColumn.equals(

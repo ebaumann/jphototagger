@@ -100,7 +100,7 @@ public final class ControllerSavedSearchSelected
         }
 
         private void searchParamStatement(ParamStatement stmt) {
-            List<String> filenames = DatabaseSearch.INSTANCE.searchFilenames(stmt);
+            List<String> filenames = DatabaseSearch.INSTANCE.findFilenames(stmt);
             setTitle(stmt.getName());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
         }

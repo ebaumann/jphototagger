@@ -133,12 +133,12 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private void addToCollection(String collection, List<File> files) {
-        DatabaseImageCollections.INSTANCE.insertImagesIntoCollection(
+        DatabaseImageCollections.INSTANCE.insertImagesInto(
                 collection, FileUtil.getAsFilenames(files));
     }
 
     private void deleteFromCollection(String collection, List<File> files) {
-        DatabaseImageCollections.INSTANCE.deleteImagesFromCollection(
+        DatabaseImageCollections.INSTANCE.deleteImagesFrom(
                 collection, FileUtil.getAsFilenames(files));
     }
 

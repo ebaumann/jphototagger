@@ -63,7 +63,7 @@ public final class ControllerNoMetadataItemSelected
         assert selValue == null || selValue instanceof Column :
                 "Not a Column: " + selValue;
         if (selValue instanceof Column) {
-            List<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadata((Column) selValue);
+            List<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadataIn((Column) selValue);
             setTitle((Column) selValue);
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFiles(FileUtil.getAsFiles(filenames), Content.MISSING_METADATA);
         }

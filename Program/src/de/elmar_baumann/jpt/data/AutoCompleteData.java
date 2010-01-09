@@ -43,12 +43,12 @@ public final class AutoCompleteData {
      * Creates a new instance of this class.
      *
      * @param columns columns. All words of
-     *               {@link DatabaseContent#getContent(de.elmar_baumann.jpt.database.metadata.Column)}
+     *               {@link DatabaseContent#getDistinctValuesOf(de.elmar_baumann.jpt.database.metadata.Column)}
      *               will be added to the autocomplete data.
      */
     AutoCompleteData(Collection<? extends Column> columns) {
         this.columns = new LinkedHashSet<Column>(columns);
-        content.addAll(db.getContent(this.columns));
+        content.addAll(db.getDistinctValuesOf(this.columns));
     }
 
     /**

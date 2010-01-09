@@ -52,7 +52,7 @@ public final class ControllerMenuItemEnabler
     private final JMenuItem                     itemOpenFilesWithStandardApp             = popupThumbnails.getItemOpenFilesWithStandardApp();
     private final JMenu                         menuOtherOpenImageApps                   = popupThumbnails.getMenuOtherOpenImageApps();
     private final JMenu                         menuSort                                 = appFrame.getMenuSort();
-    private       boolean                       hasPrograms                              = DatabasePrograms.INSTANCE.hasProgram();
+    private       boolean                       hasPrograms                              = !DatabasePrograms.INSTANCE.isEmpty();
 
     public ControllerMenuItemEnabler() {
         init();
@@ -131,7 +131,7 @@ public final class ControllerMenuItemEnabler
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
-            hasPrograms = DatabasePrograms.INSTANCE.hasProgram();
+            hasPrograms = !DatabasePrograms.INSTANCE.isEmpty();
             setEnabled();
         }
     }

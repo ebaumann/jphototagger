@@ -96,7 +96,7 @@ public final class ControllerAdvancedSearch
                     if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);
                         List<String> filenames =
-                                DatabaseSearch.INSTANCE.searchFilenames(paramStmt.createStatement());
+                                DatabaseSearch.INSTANCE.findFilenames(paramStmt.createStatement());
 
                         setTitle(paramStmt.getName());
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);

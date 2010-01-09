@@ -41,7 +41,7 @@ public final class ControllerHierarchicalKeywordsDbUpdates implements DatabaseLi
              List<String> keywords = imageFile.getXmp().getDcSubjects();
              if (keywords != null) {
                 for (String keyword : keywords) {
-                   if (!DatabaseHierarchicalKeywords.INSTANCE.existsKeyword(keyword)) {
+                   if (!DatabaseHierarchicalKeywords.INSTANCE.exists(keyword)) {
                        addKeyword(keyword);
                    }
                 }

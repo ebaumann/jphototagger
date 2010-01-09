@@ -200,7 +200,7 @@ public final class ControllerMetadataTemplates
                     "ControllerMetadataTemplates.Input.TemplateName",
                     name,
                     getClass().getName());
-            exists = name != null && db.existsMetadataEditTemplate(name);
+            exists = name != null && db.exists(name);
             if (exists) {
                 abort = confirmOverride(name);
             }

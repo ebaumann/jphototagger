@@ -102,7 +102,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             isUpdateDatabase = true;
             stop = false;
             setEnabledButtons();
-            db.deleteFilesWithPattern(patterns, this);
+            db.deleteMatchingFiles(patterns, this);
         }
     }
 

@@ -123,7 +123,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         if (panelXmpEdit.isDirty() && checkSaveTemplateName()) {
             panelXmpEdit.setInputToXmp();
             template.setXmp(xmp);
-            if (DatabaseMetadataTemplates.INSTANCE.insertOrUpdateMetadataEditTemplate(template)) {
+            if (DatabaseMetadataTemplates.INSTANCE.insertOrUpdate(template)) {
                 panelXmpEdit.setDirty(false);
             } else {
                 MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.Save");
@@ -137,7 +137,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             boolean textfieldHasName = name != null && !name.trim().isEmpty();
 
             if (textfieldHasName) {
-                if (DatabaseMetadataTemplates.INSTANCE.existsMetadataEditTemplate(name)) {
+                if (DatabaseMetadataTemplates.INSTANCE.exists(name)) {
                     MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.NameExists", name);
                     textFieldName.requestFocusInWindow();
                     textFieldName.selectAll();

@@ -189,7 +189,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
         }
 
         private boolean insertPrevCollectionIntoDb() {
-            return DatabaseImageCollections.INSTANCE.insertImageCollection(
+            return DatabaseImageCollections.INSTANCE.insert(
                     AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT,
                     FileUtil.getAsFilenames(copiedFiles));
         }

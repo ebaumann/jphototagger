@@ -179,7 +179,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             if (isUpdate(imageFile)) {
                 setExifDateToXmpDateCreated(imageFile);
                 logInsertImageFile(imageFile);
-                db.insertOrUpdateImageFile(imageFile);
+                db.insertOrUpdate(imageFile);
                 runActionsAfterInserting(imageFile);
             }
             checkCount++;
