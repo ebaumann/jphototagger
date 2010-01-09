@@ -33,6 +33,10 @@ import java.awt.event.KeyEvent;
  */
 public final class ControllerMetadataTemplateAdd extends ControllerMetadataTemplate {
 
+    public ControllerMetadataTemplateAdd() {
+        listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemAdd());
+    }
+
     @Override
     protected boolean myKey(KeyEvent evt) {
         return KeyEventUtil.isControl(evt, KeyEvent.VK_N);

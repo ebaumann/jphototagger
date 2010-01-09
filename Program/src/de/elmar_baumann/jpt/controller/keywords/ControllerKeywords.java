@@ -46,10 +46,6 @@ public abstract class ControllerKeywords extends Controller {
     }
 
     private void listen() {
-        listenToActionsOf(
-            PopupMenuKeywords.INSTANCE.getItemDelete(),
-            PopupMenuKeywords.INSTANCE.getItemRename()
-            );
         listenToKeyEventsOf(
             GUI.INSTANCE.getAppPanel().getListEditKeywords(),
             InputHelperDialog.INSTANCE.getPanelKeywords().getList()

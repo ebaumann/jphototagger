@@ -41,13 +41,6 @@ public abstract class ControllerMetadataTemplate extends Controller {
     }
 
     private void listen() {
-        listenToActionsOf(
-                PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages(),
-                PopupMenuMetadataTemplates.INSTANCE.getItemAdd(),
-                PopupMenuMetadataTemplates.INSTANCE.getItemEdit(),
-                PopupMenuMetadataTemplates.INSTANCE.getItemRename(),
-                PopupMenuMetadataTemplates.INSTANCE.getItemDelete()
-                );
         listenToKeyEventsOf(
                 InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList()
                 );
@@ -64,6 +57,7 @@ public abstract class ControllerMetadataTemplate extends Controller {
     }
 
     protected void focusList() {
+        InputHelperDialog.INSTANCE.toFront();
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().requestFocusInWindow();
     }
 

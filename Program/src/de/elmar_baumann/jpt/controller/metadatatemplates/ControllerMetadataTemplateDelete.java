@@ -33,6 +33,10 @@ import java.awt.event.KeyEvent;
  */
 public final class ControllerMetadataTemplateDelete extends ControllerMetadataTemplate {
 
+    public ControllerMetadataTemplateDelete() {
+        listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemDelete());
+    }
+
     @Override
     protected boolean myKey(KeyEvent evt) {
         return evt.getKeyCode() == KeyEvent.VK_DELETE;
