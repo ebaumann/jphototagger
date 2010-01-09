@@ -47,9 +47,9 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @param  directoryName Verzeichnisname
      * @return true bei Erfolg
      */
-    public boolean insertAutoscanDirectory(String directoryName) {
+    public boolean insert(String directoryName) {
         boolean inserted = false;
-        if (!existsAutoscanDirectory(directoryName)) {
+        if (!exists(directoryName)) {
             Connection connection = null;
             try {
                 connection = getConnection();
@@ -77,7 +77,7 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @param  directoryNames Verzeichnisnamen
      * @return true bei Erfolg
      */
-    public boolean insertAutoscanDirectories(List<String> directoryNames) {
+    public boolean insert(List<String> directoryNames) {
 
         boolean inserted = false;
         Connection connection = null;
@@ -87,7 +87,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO autoscan_directories (directory) VALUES (?)");
             for (String directoryName : directoryNames) {
-                if (!existsAutoscanDirectory(directoryName)) {
+                if (!exists(directoryName)) {
                     stmt.setString(1, directoryName);
                     logFiner(stmt);
                     stmt.executeUpdate();
@@ -111,7 +111,7 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @param  directoryName Name des Verzeichnisses
      * @return true bei Erfolg
      */
-    public boolean deleteAutoscanDirectory(String directoryName) {
+    public boolean delete(String directoryName) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -139,7 +139,7 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @param  directoryName Verzeichnisname
      * @return true, wenn das Verzeichnis existiert
      */
-    public boolean existsAutoscanDirectory(String directoryName) {
+    public boolean exists(String directoryName) {
         boolean exists = false;
         Connection connection = null;
         try {
@@ -167,7 +167,7 @@ public final class DatabaseAutoscanDirectories extends Database {
      *
      * @return Verzeichnisnamen
      */
-    public List<String> getAutoscanDirectories() {
+    public List<String> getAll() {
         List<String> directories = new ArrayList<String>();
         Connection connection = null;
         try {

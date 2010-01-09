@@ -92,7 +92,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
                 indexSecondElement)) {
             fireContentsChanged(this, indexFirstElement, indexFirstElement);
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
-            if (!DatabaseActionsAfterDbInsertion.INSTANCE.reorder(getActions(),
+            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(getActions(),
                     0)) {
                 MessageDisplayer.error(
                         null,

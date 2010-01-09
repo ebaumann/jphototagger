@@ -96,7 +96,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
                 DeleteOption.CONFIRM_DELETE,
                 DeleteOption.MESSAGES_ON_FAILURES));
         if (deletedImageFiles.size() > 0) {
-            db.deleteImageFiles(FileUtil.getAsFilenames(deletedImageFiles));
+            db.delete(FileUtil.getAsFilenames(deletedImageFiles));
             thumbnailsPanel.remove(deletedImageFiles);
         }
     }

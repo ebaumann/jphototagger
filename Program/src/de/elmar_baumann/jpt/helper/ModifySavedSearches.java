@@ -48,7 +48,7 @@ public final class ModifySavedSearches {
 
                 @Override
                 public void run() {
-                    if (getDb().insertSavedSearch(savedSearch)) {
+                    if (getDb().insertOrUpdate(savedSearch)) {
                         ListModelSavedSearches model = getModel();
                         if (!model.contains(savedSearch)) {
                             ListUtil.insertSorted(model, savedSearch,
@@ -77,7 +77,7 @@ public final class ModifySavedSearches {
             public void run() {
                 String searchName = savedSearch.getParamStatement().getName();
                 if (confirmDelete(searchName)) {
-                    if (getDb().deleteSavedSearch(searchName)) {
+                    if (getDb().delete(searchName)) {
                         ListModelSavedSearches model = getModel();
                         model.removeElement(savedSearch);
                     } else {
@@ -104,8 +104,8 @@ public final class ModifySavedSearches {
                 String newName = getNewName(oldName);
                 if (newName != null) {
                     DatabaseSavedSearches db = getDb();
-                    if (db.updateRenameSavedSearch(oldName, newName)) {
-                        SavedSearch newSearch = db.getSavedSearch(newName);
+                    if (db.updateRename(oldName, newName)) {
+                        SavedSearch newSearch = db.find(newName);
                         if (newSearch == null) {
                             MessageDisplayer.error(
                                     null,
@@ -131,7 +131,7 @@ public final class ModifySavedSearches {
         while (hasInput) {
             input = getInput(oldName);
             hasInput = false;
-            if (input != null && getDb().existsSavedSearch(input)) {
+            if (input != null && getDb().exists(input)) {
                 hasInput = confirmInputDifferentName(input);
                 if (hasInput) {
                     oldName = input;
@@ -174,7 +174,7 @@ public final class ModifySavedSearches {
     }
 
     private static boolean confirmInsert(SavedSearch savedSearch) {
-        if (getDb().existsSavedSearch(savedSearch)) {
+        if (getDb().exists(savedSearch)) {
             return MessageDisplayer.confirmYesNo(
                 null,
                 "SavedSearchesModifier.Confirm.ReplaceExisting");

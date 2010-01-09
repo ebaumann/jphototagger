@@ -42,7 +42,7 @@ public final class ModifyImageCollections {
         String name = inputCollectionName("");
         if (name != null && !name.isEmpty()) {
             logAddImageCollection(name);
-            if (!DatabaseImageCollections.INSTANCE.insertImageCollection(
+            if (!DatabaseImageCollections.INSTANCE.insert(
                     name, filenames)) {
                 errorMessageAddImageCollection(name);
                 return null;
@@ -64,7 +64,7 @@ public final class ModifyImageCollections {
                 "ImageCollectionToDatabase.Confirm.DeleteSelectedFiles",
                 collectionName)) {
             boolean removed = DatabaseImageCollections.INSTANCE.
-                    deleteImagesFromCollection(collectionName, filenames) ==
+                    deleteImagesFrom(collectionName, filenames) ==
                     filenames.size();
             if (!removed) {
                 errorMessageDeleteImagesFromCollection(collectionName);
@@ -85,7 +85,7 @@ public final class ModifyImageCollections {
         if (confirmDelete(
                 "ImageCollectionToDatabase.Confirm.DeleteCollection",
                 collectionName)) {
-            deleted = DatabaseImageCollections.INSTANCE.deleteImageCollection(
+            deleted = DatabaseImageCollections.INSTANCE.delete(
                     collectionName);
             if (!deleted) {
                 errorMessageDeleteImageCollection(collectionName);
@@ -104,7 +104,7 @@ public final class ModifyImageCollections {
     public static boolean addImagesToCollection(String collectionName,
             List<String> filenames) {
         boolean added = DatabaseImageCollections.INSTANCE.
-                insertImagesIntoCollection(collectionName, filenames);
+                insertImagesInto(collectionName, filenames);
         if (!added) {
             errorMessageAddImagesToCollection(collectionName);
         }
@@ -122,7 +122,7 @@ public final class ModifyImageCollections {
         String newName = inputCollectionName(oldName);
         if (newName != null && !newName.isEmpty()) {
             boolean renamed = DatabaseImageCollections.INSTANCE.
-                    updateRenameImageCollection(oldName, newName) >
+                    updateRename(oldName, newName) >
                     0;
             if (renamed) {
                 return newName;
@@ -207,7 +207,7 @@ public final class ModifyImageCollections {
         while (name != null && willAdd) {
             willAdd = false;
             String nameNextTry = name;
-            if (DatabaseImageCollections.INSTANCE.existsImageCollection(name) ||
+            if (DatabaseImageCollections.INSTANCE.exists(name) ||
                     !checkIsValidName(name)) {
                 willAdd = MessageDisplayer.confirmYesNo(null, "ImageCollectionToDatabase.Confirm.InputNewCollectionName", name);
                 name = null;

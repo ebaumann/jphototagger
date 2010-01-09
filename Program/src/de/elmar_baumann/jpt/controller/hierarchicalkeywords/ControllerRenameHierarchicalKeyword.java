@@ -106,7 +106,7 @@ public class ControllerRenameHierarchicalKeyword
             if (newName != null && !newName.trim().isEmpty()) {
                 HierarchicalKeyword s = new HierarchicalKeyword(keyword.getId(),
                         keyword.getIdParent(), newName.trim(), keyword.isReal());
-                if (database.parentHasChild(s)) {
+                if (database.hasParentChildWithEqualName(s)) {
                     newName = null;
                     confirmed = MessageDisplayer.confirmYesNo(
                             null,

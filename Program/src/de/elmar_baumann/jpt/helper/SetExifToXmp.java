@@ -86,7 +86,7 @@ public final class SetExifToXmp extends HelperThread {
     @Override
     public void run() {
 
-        List<String> filenames = files == null ? DatabaseImageFiles.INSTANCE.getAllImageFiles() : files;
+        List<String> filenames = files == null ? DatabaseImageFiles.INSTANCE.getAllFilenames() : files;
         int          fileCount = filenames.size();
 
         progressStarted(0, 0, fileCount, fileCount > 0 ? filenames.get(0) : null);
@@ -131,7 +131,7 @@ public final class SetExifToXmp extends HelperThread {
                     imageFile.setXmp(xmp);
                     imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
 
-                    DatabaseImageFiles.INSTANCE.insertOrUpdateImageFile(imageFile);
+                    DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
                 }
             }
         }

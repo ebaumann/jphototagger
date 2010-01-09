@@ -46,7 +46,7 @@ public final class DatabaseContent extends Database {
      * @param column Tabellenspalte
      * @return Werte DISTINCT
      */
-    public Set<String> getContent(Column column) {
+    public Set<String> getDistinctValuesOf(Column column) {
         Set<String> content = new LinkedHashSet<String>();
         Connection connection = null;
         try {
@@ -83,10 +83,10 @@ public final class DatabaseContent extends Database {
      * @param columns Tabellenspalten
      * @return Werte DISTINCT
      */
-    public Set<String> getContent(Set<Column> columns) {
+    public Set<String> getDistinctValuesOf(Set<Column> columns) {
         Set<String> content = new LinkedHashSet<String>();
         for (Column column : columns) {
-            content.addAll(getContent(column));
+            content.addAll(getDistinctValuesOf(column));
         }
         return content;
     }

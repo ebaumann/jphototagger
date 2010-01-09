@@ -134,9 +134,9 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
             Set<Column> columns = bufferDifferentOfColumn.keySet();
             for (Column column : columns) {
                 setCountToBuffer(bufferDifferentOfColumn.get(column), db.
-                        getDistinctCount(column));
+                        getDistinctCountOf(column));
                 setCountToBuffer(bufferTotalOfColumn.get(column), db.
-                        getTotalRecordCount(column));
+                        getTotalRecordCountIn(column));
             }
             fireTableDataChanged();
         }

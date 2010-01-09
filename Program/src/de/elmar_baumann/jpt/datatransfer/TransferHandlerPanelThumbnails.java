@@ -139,7 +139,7 @@ public final class TransferHandlerPanelThumbnails extends TransferHandler {
         String imageCollectionName = getImageCollectionName();
 
         if (imageCollectionName != null) {
-            DatabaseImageCollections.INSTANCE.insertImageCollection(
+            DatabaseImageCollections.INSTANCE.insert(
                     imageCollectionName,
                     FileUtil.getAsFilenames(panel.getFiles()));
         }

@@ -48,14 +48,14 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
     }
 
     private void addElements() {
-        Set<String> keywords = db.getDcSubjects();
+        Set<String> keywords = db.getAllDcSubjects();
         for (String keyword : keywords) {
             addElement(keyword);
         }
     }
 
     /**
-     * Returns whether a keyword exists whithin this model, does <em>not</em>
+     * Returns whether a keyword existsValueIn whithin this model, does <em>not</em>
      * check the database.
      *
      * @param  keyword keywords
@@ -124,7 +124,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
     }
 
     boolean databaseHasKeyword(String keyword) {
-        return DatabaseStatistics.INSTANCE.exists(
+        return DatabaseStatistics.INSTANCE.existsValueIn(
                 ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
     }
 

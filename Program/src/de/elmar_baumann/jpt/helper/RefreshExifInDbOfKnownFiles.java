@@ -45,7 +45,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
     public void run() {
 
         DatabaseImageFiles db        = DatabaseImageFiles.INSTANCE;
-        List<String>       filenames = db.getAllImageFiles();
+        List<String>       filenames = db.getAllFilenames();
         int                fileCount = filenames.size();
 
         progressStarted(0, 0, fileCount, fileCount > 0 ? filenames.get(0) : null);

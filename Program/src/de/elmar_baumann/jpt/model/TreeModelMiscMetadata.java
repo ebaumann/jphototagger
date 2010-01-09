@@ -136,7 +136,7 @@ public final class TreeModelMiscMetadata
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(userObject);
         for (Column column : columns) {
             DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode(column);
-            addChildren(columnNode, db.getAllDistinctValues(column), column.getDataType());
+            addChildren(columnNode, db.getAllDistinctValuesOf(column), column.getDataType());
             node.add(columnNode);
         }
         ROOT.add(node);

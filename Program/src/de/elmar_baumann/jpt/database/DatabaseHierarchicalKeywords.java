@@ -124,7 +124,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
      * Inserts a hierarchical keyword. If successfully inserted the keyword
      * has a value for it's id ({@link HierarchicalKeyword#getId()}.
      *
-     * <em>The keyword ({@link HierarchicalKeyword#getKeyword()}) must have
+     * <em>The keyword ({@link HierarchicalKeyword#findKeyword()}) must have
      * a not empty string!</em>
      *
      * @param  keyword keyword
@@ -135,14 +135,14 @@ public final class DatabaseHierarchicalKeywords extends Database {
         Connection connection = null;
         assert keyword.getKeyword() != null : "Keyword is null!";
         assert !keyword.getKeyword().trim().isEmpty() : "Keyword is empty!";
-        if (parentHasChild(keyword)) return false;
+        if (hasParentChildWithEqualName(keyword)) return false;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
             String sql = "INSERT INTO hierarchical_subjects" +
                     " (id, id_parent, subject, real) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            long nextId = getNextId(connection);
+            long nextId = findNextId(connection);
             stmt.setLong(1, nextId);
             if (keyword.getIdParent() == null) {
                 stmt.setNull(2, java.sql.Types.BIGINT);
@@ -203,7 +203,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
         return deleted;
     }
 
-    private HierarchicalKeyword getKeyword(long id, Connection connection) throws SQLException {
+    private HierarchicalKeyword findKeyword(long id, Connection connection) throws SQLException {
         HierarchicalKeyword keyword = null;
         String sql = "SELECT id, id_parent, subject, real" +
                      " FROM hierarchical_subjects" +
@@ -235,7 +235,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
             connection = getConnection();
             Long idParent = keyword.getIdParent();
             while (idParent != null) {
-                HierarchicalKeyword parent = getKeyword(idParent, connection);
+                HierarchicalKeyword parent = findKeyword(idParent, connection);
                 parents.add(parent);
                 idParent = parent.getIdParent();
             }
@@ -316,7 +316,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
         return children;
     }
 
-    private synchronized long getNextId(Connection connection)
+    private synchronized long findNextId(Connection connection)
             throws Exception {
         long id = 1;
         String sql =
@@ -333,15 +333,15 @@ public final class DatabaseHierarchicalKeywords extends Database {
 
     /**
      * Returns whether a parent has a child with a specific
-     * {@link HierarchicalKeyword#getKeyword()}. The parent's ID is
+     * {@link HierarchicalKeyword#findKeyword()}. The parent's ID is
      * {@link HierarchicalKeyword#getIdParent()}. The keyword's ID
      * {@link HierarchicalKeyword#getId()} will not be compared.
      *
      * @param  keyword keyword
      * @return         true if the keyword exists
      */
-    public boolean parentHasChild(HierarchicalKeyword keyword) {
-        boolean     exists      = false;
+    public boolean hasParentChildWithEqualName(HierarchicalKeyword keyword) {
+        boolean    exists       = false;
         boolean    parentIsRoot = keyword.getIdParent() == null;
         Connection connection   = null;
 
@@ -407,7 +407,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
         return exists;
     }
 
-    private boolean existsKeyword(HierarchicalKeyword kw) {
+    private boolean exists(HierarchicalKeyword kw) {
         boolean    exists     = false;
         Connection connection = null;
 
@@ -434,7 +434,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
         return exists;
     }
 
-    public boolean existsKeyword(String keyword) {
+    public boolean exists(String keyword) {
         boolean    exists     = false;
         Connection connection = null;
         try {
@@ -547,7 +547,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
             Collection<HierarchicalKeyword> path, long idParent, Select select,
             Connection connection)
             throws SQLException {
-        HierarchicalKeyword keyword = getKeyword(idParent, connection);
+        HierarchicalKeyword keyword = findKeyword(idParent, connection);
         if (keyword != null) {
             Boolean real = keyword.isReal() || keyword.isReal() == null;
             if (select.equals(Select.ALL_KEYWORDS) ||

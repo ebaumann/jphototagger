@@ -43,7 +43,7 @@ public final class DatabaseStatistics extends Database {
      * @param  column  Spalte
      * @return Anzahl oder -1 bei Fehlern
      */
-    public int getDistinctCount(Column column) {
+    public int getDistinctCountOf(Column column) {
         int count = -1;
         Connection connection = null;
         try {
@@ -78,7 +78,7 @@ public final class DatabaseStatistics extends Database {
      * @return count count of records in the column's table where
      * <code>column</code> is not null
      */
-    public int getTotalRecordCount(Column column) {
+    public int getTotalRecordCountIn(Column column) {
         int count = -1;
         Connection connection = null;
         try {
@@ -192,9 +192,9 @@ public final class DatabaseStatistics extends Database {
      *
      * @param  columns  columns
      * @param  value    value
-     * @return true if the value exists into the column
+     * @return true if the value existsValueIn into the column
      */
-    public boolean exists(List<Column> columns, String value) {
+    public boolean existsValueIn(List<Column> columns, String value) {
         boolean exists = false;
         Connection connection = null;
         try {
@@ -229,9 +229,9 @@ public final class DatabaseStatistics extends Database {
      *
      * @param  column  column
      * @param  value   value
-     * @return true if the value exists in the column
+     * @return true if the value existsValueIn in the column
      */
-    public boolean exists(Column column, String value) {
+    public boolean existsValueIn(Column column, String value) {
         int count = 0;
         Connection connection = null;
         try {

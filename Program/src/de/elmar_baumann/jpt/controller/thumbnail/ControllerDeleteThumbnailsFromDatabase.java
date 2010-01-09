@@ -68,7 +68,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
                     List<String> files = FileUtil.getAsFilenames(
                             thumbnailsPanel.getSelectedFiles());
                     int countFiles = files.size();
-                    int countDeleted = db.deleteImageFiles(files);
+                    int countDeleted = db.delete(files);
                     if (countDeleted != countFiles) {
                         errorMessageDeleteImageFiles(countFiles, countDeleted);
                     }
@@ -82,7 +82,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
     private void repaint(final List<String> filenames) {
         List<String> deleted = new ArrayList<String>(filenames.size());
         for (String filename : filenames) {
-            if (!db.existsFilename(filename)) {
+            if (!db.exists(filename)) {
                 deleted.add(filename);
             }
         }

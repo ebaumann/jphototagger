@@ -45,19 +45,19 @@ public final class DatabaseSavedSearches extends Database {
 
     /**
      * Fügt eine gespeicherte Suche ein. Existiert die Suche, wird
-     * {@link #updateSavedSearch(de.elmar_baumann.jpt.data.SavedSearch)}
+     * {@link #update(de.elmar_baumann.jpt.data.SavedSearch)}
      * aufgerufen.
      *
      * @param   savedSearch Suche
      * @return              true bei Erfolg
      */
-    public boolean insertSavedSearch(SavedSearch savedSearch) {
+    public boolean insertOrUpdate(SavedSearch savedSearch) {
         boolean inserted = false;
         SavedSearchParamStatement paramStmt = savedSearch.getParamStatement();
         List<SavedSearchPanel> panels = savedSearch.getPanels();
         if (paramStmt != null && !paramStmt.getName().isEmpty()) {
-            if (existsSavedSearch(savedSearch)) {
-                return updateSavedSearch(savedSearch);
+            if (exists(savedSearch)) {
+                return update(savedSearch);
             }
             Connection connection = null;
             try {
@@ -74,7 +74,7 @@ public final class DatabaseSavedSearches extends Database {
                 stmt.setBoolean(3, paramStmt.isQuery());
                 logFiner(stmt);
                 stmt.executeUpdate();
-                long id = getIdSavedSearch(connection, paramStmt.getName());
+                long id = findId(connection, paramStmt.getName());
                 insertSavedSearchValues(connection, id, paramStmt.getValues());
                 insertSavedSearchPanels(connection, id, panels);
                 connection.commit();
@@ -153,7 +153,7 @@ public final class DatabaseSavedSearches extends Database {
         }
     }
 
-    private long getIdSavedSearch(Connection connection, String name) throws
+    private long findId(Connection connection, String name) throws
             SQLException {
         long id = -1;
         PreparedStatement stmt = connection.prepareStatement(
@@ -173,7 +173,7 @@ public final class DatabaseSavedSearches extends Database {
      *
      * @return Anzahl oder -1 bei Fehlern.
      */
-    public int getSavedSearchesCount() {
+    public int getCount() {
         int count = -1;
         Connection connection = null;
         try {
@@ -199,13 +199,13 @@ public final class DatabaseSavedSearches extends Database {
      *
      * @param  name Name der gespeicherten Suche
      * @return true, wenn die gespeicherte Suche existiert
-     * @see    #existsSavedSearch(de.elmar_baumann.jpt.data.SavedSearch)
+     * @see    #exists(de.elmar_baumann.jpt.data.SavedSearch)
      */
-    public boolean existsSavedSearch(String name) {
+    public boolean exists(String name) {
         Connection connection = null;
         try {
             connection = getConnection();
-            long id = getIdSavedSearch(connection, name);
+            long id = findId(connection, name);
             return id > 0;
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseSavedSearches.class, ex);
@@ -220,10 +220,10 @@ public final class DatabaseSavedSearches extends Database {
      *
      * @param  savedSearch search Gespeicherte Suche
      * @return true, wenn die gespeicherte Suche existiert
-     * @see    #existsSavedSearch(java.lang.String)
+     * @see    #exists(java.lang.String)
      */
-    public boolean existsSavedSearch(SavedSearch savedSearch) {
-        return existsSavedSearch(savedSearch.getName());
+    public boolean exists(SavedSearch savedSearch) {
+        return exists(savedSearch.getName());
     }
 
     /**
@@ -232,7 +232,7 @@ public final class DatabaseSavedSearches extends Database {
      * @param  name Name der Suche
      * @return true bei Erfolg
      */
-    public boolean deleteSavedSearch(String name) {
+    public boolean delete(String name) {
         boolean deleted = false;
         Connection connection = null;
         try {
@@ -262,7 +262,7 @@ public final class DatabaseSavedSearches extends Database {
      * @param  newName Neuer Name
      * @return true bei Erfolg
      */
-    public boolean updateRenameSavedSearch(String oldName, String newName) {
+    public boolean updateRename(String oldName, String newName) {
         boolean renamed = false;
         Connection connection = null;
         try {
@@ -295,11 +295,11 @@ public final class DatabaseSavedSearches extends Database {
      * @param  savedSearch Suche
      * @return             true bei Erfolg
      */
-    public boolean updateSavedSearch(SavedSearch savedSearch) {
+    public boolean update(SavedSearch savedSearch) {
         if (savedSearch.hasParamStatement()) {
             boolean updated =
-                    deleteSavedSearch(savedSearch.getParamStatement().getName()) &&
-                    insertSavedSearch(savedSearch);
+                    delete(savedSearch.getParamStatement().getName()) &&
+                    insertOrUpdate(savedSearch);
             return updated;
         }
         return false;
@@ -311,7 +311,7 @@ public final class DatabaseSavedSearches extends Database {
      * @param  name Name
      * @return      Suche oder null, wenn die Suche nicht erzeugt wurde
      */
-    public SavedSearch getSavedSearch(String name) {
+    public SavedSearch find(String name) {
         SavedSearch savedSearch = null;
         Connection connection = null;
         try {
@@ -351,7 +351,7 @@ public final class DatabaseSavedSearches extends Database {
      *
      * @return Gespeicherte Suchen
      */
-    public List<SavedSearch> getSavedSearches() {
+    public List<SavedSearch> getAll() {
         List<SavedSearch> allData = new ArrayList<SavedSearch>();
         Connection connection = null;
         try {

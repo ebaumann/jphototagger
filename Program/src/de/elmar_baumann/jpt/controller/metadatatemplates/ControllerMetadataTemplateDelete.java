@@ -47,7 +47,7 @@ public final class ControllerMetadataTemplateDelete extends ControllerMetadataTe
     protected void action(MetadataTemplate template) {
         String name = template.getName();
         if (MessageDisplayer.confirmYesNo(null, "ControllerMetadataTemplateDelete.Confirm", name)) {
-            if (!DatabaseMetadataTemplates.INSTANCE.deleteMetadataEditTemplate(name)) {
+            if (!DatabaseMetadataTemplates.INSTANCE.delete(name)) {
                 MessageDisplayer.error(null, "ControllerMetadataTemplateDelete.Error", name);
             }
         }

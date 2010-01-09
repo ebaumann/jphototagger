@@ -140,7 +140,7 @@ public final class FavoriteDirectoryPropertiesDialog extends Dialog {
     private void exitIfOk() {
         if (checkValuesOk()) {
             String favoriteName = textFieldFavoriteName.getText().trim();
-            boolean exists = db.existsFavoriteDirectory(favoriteName);
+            boolean exists = db.exists(favoriteName);
             if (!isUpdate && exists) {
                 MessageDisplayer.error(
                         this,

@@ -35,8 +35,8 @@ public final class ComparatorXmpRatingAsc
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Xmp  xmpLeft     = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileLeft.getAbsolutePath());
-        Xmp  xmpRight    = DatabaseImageFiles.INSTANCE.getXmpOfFile(fileRight.getAbsolutePath());
+        Xmp  xmpLeft     = DatabaseImageFiles.INSTANCE.getXmpOf(fileLeft.getAbsolutePath());
+        Xmp  xmpRight    = DatabaseImageFiles.INSTANCE.getXmpOf(fileRight.getAbsolutePath());
         Long ratingLeft  = xmpLeft .getRating();
         Long ratingRight = xmpRight.getRating();
 

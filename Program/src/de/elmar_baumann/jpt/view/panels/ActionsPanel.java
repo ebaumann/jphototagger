@@ -134,7 +134,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private boolean confirmDelete(Program program) {
         String programName = program.getAlias();
         boolean existsInActionsAfterDbInsertion =
-                DatabaseActionsAfterDbInsertion.INSTANCE.existsAction(program);
+                DatabaseActionsAfterDbInsertion.INSTANCE.exists(program);
         String propertiesKey = existsInActionsAfterDbInsertion
                                ? "ActionsPanel.Confirm.Delete.ExistsInOtherDb"
                                : "ActionsPanel.Confirm.Delete";

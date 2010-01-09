@@ -49,7 +49,7 @@ public final class ControllerMetadataTemplateRename extends ControllerMetadataTe
         String oldName = template.getName();
         String newName = MetadataTemplateHelper.getNewTemplateName(oldName);
         if (newName != null) {
-            if (!DatabaseMetadataTemplates.INSTANCE.updateRenameMetadataEditTemplate(oldName, newName)) {
+            if (!DatabaseMetadataTemplates.INSTANCE.updateRename(oldName, newName)) {
                 MessageDisplayer.error(null, "ControllerMetadataTemplateRename.Error", oldName);
             }
         }

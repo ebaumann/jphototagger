@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Creates a {@link InsertImageFilesIntoDatabase} instance for every directory
- * defined in {@link DatabaseAutoscanDirectories#getAutoscanDirectories()} and
+ * defined in {@link DatabaseAutoscanDirectories#getAll()} and
  * their subdirectories if {@link UserSettings#isAutoscanIncludeSubdirectories()}
  * is true.
  *
@@ -84,7 +84,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
 
     private static List<File> getDirectories() {
         List<String> directoryNames =
-                DatabaseAutoscanDirectories.INSTANCE.getAutoscanDirectories();
+                DatabaseAutoscanDirectories.INSTANCE.getAll();
         addSubdirectoryNames(directoryNames);
         Collections.sort(directoryNames);
         Collections.reverse(directoryNames);
