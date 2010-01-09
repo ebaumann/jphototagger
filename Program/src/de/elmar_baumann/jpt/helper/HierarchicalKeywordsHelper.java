@@ -109,7 +109,7 @@ public final class HierarchicalKeywordsHelper {
     public static List<String> getKeywordStrings(DefaultMutableTreeNode node, boolean real) {
         List<String> list = new ArrayList<String>();
         for (HierarchicalKeyword keyword : getKeywords(node, real)) {
-            list.add(keyword.getKeyword());
+            list.add(keyword.getName());
         }
         return list;
     }
@@ -156,7 +156,7 @@ public final class HierarchicalKeywordsHelper {
         for (HierarchicalKeyword kw : keywords) {
             List<String> parentNames = getParentKeywordNames(kw, true);
 
-            parentNames.add(kw.getKeyword());
+            parentNames.add(kw.getName());
             filenames.addAll(DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(parentNames));
         }
 
@@ -169,9 +169,9 @@ public final class HierarchicalKeywordsHelper {
         Collection<HierarchicalKeyword> children   = DatabaseHierarchicalKeywords.INSTANCE.getChildren(keyword.getId());
         List<String>                    childNames = new ArrayList<String>();
 
-        childNames.add(keyword.getKeyword());
+        childNames.add(keyword.getName());
         for (HierarchicalKeyword child : children) {
-            childNames.add(child.getKeyword());
+            childNames.add(child.getName());
         }
 
         return childNames;
@@ -185,7 +185,7 @@ public final class HierarchicalKeywordsHelper {
      * @param keywordAfterMove
      */
     public static void moveInFiles(List<String> parentKeywordNamesBeforeMove, HierarchicalKeyword keywordAfterMove) {
-        String       movedKeyword = keywordAfterMove.getKeyword();
+        String       movedKeyword = keywordAfterMove.getName();
         List<String> oldKeywords  = new ArrayList<String>(parentKeywordNamesBeforeMove);
         List<String> newKeywords  = getParentKeywordNames(keywordAfterMove, true);
 
@@ -205,14 +205,14 @@ public final class HierarchicalKeywordsHelper {
      * @param keyword keyword with new name
      */
     public static void renameInFiles(String oldName, HierarchicalKeyword keyword) {
-        boolean equals = oldName.equalsIgnoreCase(keyword.getKeyword()); assert !equals;
+        boolean equals = oldName.equalsIgnoreCase(keyword.getName()); assert !equals;
         if (equals) return;
         List<String> keywords = getParentKeywordNames(keyword, true);
 
         keywords.add(oldName);
         Collection<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(keywords);
         if (filenames.size() > 0) {
-            new Rename(oldName, keyword.getKeyword(), filenames).start();
+            new Rename(oldName, keyword.getName(), filenames).start();
         }
     }
 
@@ -229,7 +229,7 @@ public final class HierarchicalKeywordsHelper {
         for (HierarchicalKeyword parent : parents) {
             boolean add = !real || real && parent.isReal();
             if  (add) {
-                names.add(parent.getKeyword());
+                names.add(parent.getName());
             }
         }
         return names;

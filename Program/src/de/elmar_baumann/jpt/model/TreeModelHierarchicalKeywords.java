@@ -52,7 +52,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     }
 
     /**
-     * Returns a child with a specific name ({@link HierarchicalKeyword#getKeyword()}.
+     * Returns a child with a specific name ({@link HierarchicalKeyword#getName()}.
      *
      * @param  parent parent node
      * @param  name   name
@@ -67,7 +67,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             Object                 userObject = child.getUserObject();
 
             if (userObject instanceof HierarchicalKeyword) {
-                if (((HierarchicalKeyword) userObject).getKeyword().equalsIgnoreCase(name)) {
+                if (((HierarchicalKeyword) userObject).getName().equalsIgnoreCase(name)) {
                     return child;
                 }
             }
@@ -133,7 +133,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             ) {
         HierarchicalKeyword srcKeyword    = (HierarchicalKeyword) source.getUserObject();
         HierarchicalKeyword targetKeyword = (HierarchicalKeyword) target.getUserObject();
-        HierarchicalKeyword keyword       = new HierarchicalKeyword(null, targetKeyword.getId(), srcKeyword.getKeyword(), srcKeyword.isReal());
+        HierarchicalKeyword keyword       = new HierarchicalKeyword(null, targetKeyword.getId(), srcKeyword.getName(), srcKeyword.isReal());
 
         if (db.insert(keyword)) {
             DefaultMutableTreeNode node = new TreeNodeSortedChildren(keyword);
@@ -141,7 +141,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             fireTreeNodesInserted(this, target.getPath(), new int[]{target.getIndex(node)}, new Object[]{node});
             return node;
         } else {
-            MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.DbCopy", keyword.getKeyword(), targetKeyword.getKeyword());
+            MessageDisplayer.error(null, "TreeModelHierarchicalKeywords.Error.DbCopy", keyword.getName(), targetKeyword.getName());
         }
         return null;
     }
@@ -177,7 +177,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             if (o instanceof DefaultMutableTreeNode) {
                 Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
                 if (userObject instanceof HierarchicalKeyword) {
-                    String s = ((HierarchicalKeyword) userObject).getKeyword();
+                    String s = ((HierarchicalKeyword) userObject).getName();
                     if (s != null && s.equals(keyword)) {
                         return true;
                     }
@@ -246,7 +246,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode target,
             HierarchicalKeyword    keyword
             ) {
-        if (ensureIsNotChild(target, keyword.getKeyword()) &&
+        if (ensureIsNotChild(target, keyword.getName()) &&
             ensureTargetIsNotBelowSource(source, target) &&
             setIdParent(keyword, target)) {
 
@@ -313,7 +313,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
                 if (userObject instanceof HierarchicalKeyword) {
                     HierarchicalKeyword kw = (HierarchicalKeyword) userObject;
-                    if (kw.isReal() && kw.getKeyword().equalsIgnoreCase(oldName)) {
+                    if (kw.isReal() && kw.getName().equalsIgnoreCase(oldName)) {
                         kw.setKeyword(newName);
                     }
                 }
@@ -335,7 +335,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
             if (node.getChildCount() <= 0 && userObject instanceof HierarchicalKeyword) {
                 HierarchicalKeyword kw = (HierarchicalKeyword) userObject;
-                if (kw.isReal() && kw.getKeyword().equalsIgnoreCase(name) &&
+                if (kw.isReal() && kw.getName().equalsIgnoreCase(name) &&
                         db.delete(Arrays.asList(kw))) {
                     int index = ROOT.getIndex(node);
                     ROOT.remove(node);

@@ -70,7 +70,7 @@ public final class ControllerHierarchicalKeywordsSelection
         for (List<HierarchicalKeyword> kws : hkwp) {
             List<String> stringKeywords = new ArrayList<String>();
             for (HierarchicalKeyword kw : kws) {
-                stringKeywords.add(kw.getKeyword());
+                stringKeywords.add(kw.getName());
             }
             keywordPaths.add(stringKeywords);
         }

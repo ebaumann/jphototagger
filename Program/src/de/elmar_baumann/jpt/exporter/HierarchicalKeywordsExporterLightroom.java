@@ -109,7 +109,7 @@ final class HierarchicalKeywordsExporterLightroom
         if (userObject instanceof HierarchicalKeyword) {
             HierarchicalKeyword hkw = (HierarchicalKeyword) userObject;
             if (hkw.isReal()) {
-                writer.append(getLevelPrefix(level) + hkw.getKeyword() + "\n");
+                writer.append(getLevelPrefix(level) + hkw.getName() + "\n");
                 appended = true;
             }
         }

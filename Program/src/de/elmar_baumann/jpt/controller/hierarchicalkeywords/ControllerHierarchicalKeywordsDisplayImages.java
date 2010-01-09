@@ -62,7 +62,7 @@ public class ControllerHierarchicalKeywordsDisplayImages
         if (source == itemHk) {
             showImages(keyword);
         } else if (source == itemKw) {
-            showImages(keyword.getKeyword());
+            showImages(keyword.getName());
         }
     }
 

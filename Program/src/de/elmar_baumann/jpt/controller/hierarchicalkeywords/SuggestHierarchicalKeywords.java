@@ -57,7 +57,7 @@ public class SuggestHierarchicalKeywords implements Suggest {
         for (Collection<HierarchicalKeyword> keywords : keywordCollection) {
             List<String> keywordStrings = new ArrayList<String>(keywords.size());
             for (HierarchicalKeyword keyword : keywords) {
-                keywordStrings.add(keyword.getKeyword());
+                keywordStrings.add(keyword.getName());
             }
             strings.add(keywordStrings);
         }
