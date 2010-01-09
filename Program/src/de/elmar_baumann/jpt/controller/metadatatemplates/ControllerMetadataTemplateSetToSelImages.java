@@ -32,6 +32,10 @@ import java.awt.event.KeyEvent;
  */
 public final class ControllerMetadataTemplateSetToSelImages extends ControllerMetadataTemplate {
 
+    public ControllerMetadataTemplateSetToSelImages() {
+        listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages());
+    }
+
     @Override
     protected boolean myKey(KeyEvent evt) {
         return evt.getKeyCode() == KeyEvent.VK_INSERT;

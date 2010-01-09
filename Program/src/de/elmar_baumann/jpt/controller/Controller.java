@@ -35,6 +35,10 @@ import java.lang.reflect.Method;
  * {@link #myKey(java.awt.event.KeyEvent)} returning true,
  * {@link #action(java.awt.event.ActionEvent)} or
  * {@link #action(java.awt.event.KeyEvent)} will be called.
+ * <p>
+ * If a controller is derived from a subclass of this controller it maybe
+ * most effective that that controller registers itself it's actions and
+ * the base class controller the key events.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-07
@@ -87,6 +91,27 @@ public abstract class Controller implements ActionListener, KeyListener {
         if (myAction(evt)) {
             action(evt);
         }
+    }
+
+    protected Controller() {
+    }
+
+    protected enum Type {
+        ACTION,
+        KEY_EVENT,
+    }
+
+    protected Controller(Type type, Object[] sources) {
+        switch (type) {
+            case ACTION   : listenToActionsOf(sources)  ; break;
+            case KEY_EVENT: listenToKeyEventsOf(sources); break;
+            default       : assert false;
+        }
+    }
+
+    protected Controller(Object[] actionSources, Object[] keyEventSources) {
+        listenToActionsOf  (actionSources);
+        listenToKeyEventsOf(keyEventSources);
     }
 
     /**

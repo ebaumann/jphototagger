@@ -41,10 +41,11 @@ public final class ControllerMetadataTemplateEdit
 {
 
     public ControllerMetadataTemplateEdit() {
-        listen();
+        listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemEdit());
+        listenToDoubleClick();
     }
 
-    private void listen() {
+    private void listenToDoubleClick() {
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().addMouseListener(this);
     }
 

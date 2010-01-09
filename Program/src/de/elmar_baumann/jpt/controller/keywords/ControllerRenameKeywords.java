@@ -45,6 +45,10 @@ import java.util.Set;
  */
 public final class ControllerRenameKeywords extends ControllerKeywords {
 
+    public ControllerRenameKeywords() {
+        listenToActionsOf(PopupMenuKeywords.INSTANCE.getItemRename());
+    }
+
     @Override
     protected boolean myKey(KeyEvent evt) {
         return evt.getKeyCode() ==  KeyEvent.VK_F2;

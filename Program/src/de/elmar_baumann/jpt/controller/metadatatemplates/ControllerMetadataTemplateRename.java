@@ -34,6 +34,10 @@ import java.awt.event.KeyEvent;
  */
 public final class ControllerMetadataTemplateRename extends ControllerMetadataTemplate {
 
+    public ControllerMetadataTemplateRename() {
+        listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemRename());
+    }
+
     @Override
     protected boolean myKey(KeyEvent evt) {
         return evt.getKeyCode() == KeyEvent.VK_F2;
