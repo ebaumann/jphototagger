@@ -35,7 +35,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Listens to the menu item
- * {@link PopupMenuHierarchicalKeywords#getMenuItemRemoveFromEditPanel()}
+ * {@link PopupMenuHierarchicalKeywords#getItemRemoveFromEditPanel()}
  * and on action removes the selected hierarchical keyword from the edit
  * panel.  If a keyword was already present it is removed again.
  *

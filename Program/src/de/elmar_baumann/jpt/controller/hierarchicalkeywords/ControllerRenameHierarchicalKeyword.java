@@ -34,7 +34,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 /**
- * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getMenuItemRename()}
+ * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getItemRename()}
  * and on action renames in the tree the selected hierarchical keyword.
  *
  * Also listens to key events into the tree and renames the selected

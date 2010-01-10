@@ -32,7 +32,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 /**
- * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getMenuItemRemove()}
+ * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getItemRemove()}
  * and on action removes from the tree the selected hierarchical keyword.
  *
  * Also listens to key events into the tree and removes the selected
