@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#GPS_DATE_STAMP}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_DATE_STAMP}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

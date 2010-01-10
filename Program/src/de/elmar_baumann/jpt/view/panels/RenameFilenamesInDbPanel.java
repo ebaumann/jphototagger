@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -31,13 +30,15 @@ import javax.swing.JPanel;
 
 /**
  * Uses
- * {@link de.elmar_baumann.jpt.database.DatabaseMaintainance#replaceString(de.elmar_baumann.jpt.database.metadata.Column, java.lang.String, java.lang.String, de.elmar_baumann.jpt.types.SubstringPosition)}
+ * {@link DatabaseImageFiles#updateRenameFilenamesStartingWith(java.lang.String, java.lang.String, de.elmar_baumann.jpt.event.listener.ProgressListener)}
  * to replace substrings in filenames.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-16
  */
 public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener {
+
+    private static final long serialVersionUID = 1L;
 
     private volatile boolean runs;
 

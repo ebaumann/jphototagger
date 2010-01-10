@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#GPS_SATELLITES}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_SATELLITES}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

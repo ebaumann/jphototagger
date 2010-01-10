@@ -51,7 +51,7 @@ public final class DatabaseFileExcludePattern extends Database {
      *
      * @param  pattern  pattern
      * @return true if inserted
-     * @see    #existsValueIn(java.lang.String)
+     * @see    #exists(java.lang.String)
      */
     public boolean insert(String pattern) {
         boolean inserted = false;

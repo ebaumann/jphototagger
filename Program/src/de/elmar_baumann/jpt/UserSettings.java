@@ -247,7 +247,6 @@ public final class UserSettings implements UserSettingsChangeListener {
      * thumbnails.
      *
      * @return command line or empty string when not defined
-     * @see    #isCreateThumbnailsWithExternalApp()
      */
     public String getExternalThumbnailCreationCommand() {
         return settings.getString(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);

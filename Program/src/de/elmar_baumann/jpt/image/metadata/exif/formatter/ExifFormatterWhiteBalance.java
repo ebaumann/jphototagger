@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#WHITE_BALANCE}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#WHITE_BALANCE}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

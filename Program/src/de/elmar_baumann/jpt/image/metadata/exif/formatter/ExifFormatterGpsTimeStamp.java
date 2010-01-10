@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#GPS_TIME_STAMP}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_TIME_STAMP}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

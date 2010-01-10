@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.lib.lang.Util;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#FLASH}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#FLASH}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

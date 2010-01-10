@@ -34,8 +34,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JMenuItem;
 
 /**
- * Listens to the menu items {@link AppFrame#getMenuItemCopyMetadata()} and
- * {@link AppFrame#getMenuItemPasteMetadata()} and on action performed copies
+ * Listens to the menu items {@link PopupMenuThumbnails#getItemCopyMetadata()} and
+ * {@link PopupMenuThumbnails#getItemPasteMetadata()} and on action performed copies
  * XMP metadata of the {@link EditMetadataPanelsArray} or paste it via
  * {@link EditMetadataPanelsArray#getXmp()} or
  * {@link EditMetadataPanelsArray#setXmp(de.elmar_baumann.jpt.data.Xmp)}.

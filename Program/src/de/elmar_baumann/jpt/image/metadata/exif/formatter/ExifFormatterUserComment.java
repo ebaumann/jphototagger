@@ -24,7 +24,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#USER_COMMENT}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#USER_COMMENT}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

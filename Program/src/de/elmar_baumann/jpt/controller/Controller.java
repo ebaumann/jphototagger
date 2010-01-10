@@ -65,7 +65,7 @@ public abstract class Controller implements ActionListener, KeyListener {
 
     /**
      * Will be called if an action on an observed source occured and
-     * {@link #myAction(java.lang.Object)} returned true.
+     * {@link #myAction(java.awt.event.ActionEvent)} returned true.
      *
      * @param evt action event
      */

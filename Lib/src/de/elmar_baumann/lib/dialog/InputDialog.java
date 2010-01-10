@@ -9,7 +9,6 @@ import java.util.Properties;
  * Modal text input dialog writing it's location to a properties object on demand.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version
  */
 public class InputDialog extends Dialog {
 
