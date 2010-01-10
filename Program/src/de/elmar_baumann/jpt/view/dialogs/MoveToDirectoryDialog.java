@@ -51,18 +51,17 @@ import javax.swing.filechooser.FileSystemView;
 public final class MoveToDirectoryDialog extends Dialog
         implements ProgressListener, FileSystemActionListener {
 
-    private static final String KEY_TARGET_DIRECTORY =
-            "de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
-    private final List<File> movedFiles = new ArrayList<File>();
-    private final List<ProgressListener> progressListeners =
-            new ArrayList<ProgressListener>();
-    private FileSystemMove moveTask;
-    private boolean runs = false;
-    private boolean stop = false;
-    private boolean errors = false;
-    private List<File> sourceFiles;
-    private File targetDirectory = new File("");
-    private boolean moveIfVisible = false;
+    private static final String                 KEY_TARGET_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
+    private static final long                   serialVersionUID     = 3213926343815394815L;
+    private final        List<File>             movedFiles           = new ArrayList<File>();
+    private final        List<ProgressListener> progressListeners    = new ArrayList<ProgressListener>();
+    private              FileSystemMove         moveTask;
+    private              boolean                runs                 = false;
+    private              boolean                stop                 = false;
+    private              boolean                errors               = false;
+    private              List<File>             sourceFiles;
+    private              File                   targetDirectory      = new File("");
+    private              boolean                moveIfVisible        = false;
 
     public MoveToDirectoryDialog() {
         super((java.awt.Frame) null, false);

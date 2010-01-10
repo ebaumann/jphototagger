@@ -43,6 +43,8 @@ import javax.swing.TransferHandler;
  */
 public final class TransferHandlerListImageCollections extends TransferHandler {
 
+    private static final long serialVersionUID = 1375965940535469098L;
+
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
         return transferSupport.isDataFlavorSupported(

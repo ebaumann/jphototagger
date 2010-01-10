@@ -39,6 +39,7 @@ public class InputHelperDialog extends Dialog {
 
     public static final  InputHelperDialog INSTANCE                  = new InputHelperDialog();
     private static final String            KEY_SEL_INDEX_TABBED_PANE = "InputHelperDialog.SelIndexTabbedPane";
+    private static final long              serialVersionUID          = 38960516048549937L;
 
     public InputHelperDialog() {
         super((java.awt.Frame) null, false);

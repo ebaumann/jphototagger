@@ -32,9 +32,9 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelFileExcludePatterns extends DefaultListModel {
 
-    private final DatabaseFileExcludePattern db =
-            DatabaseFileExcludePattern.INSTANCE;
-    private List<String> patterns;
+    private static final long                       serialVersionUID = -8337739189362442866L;
+    private final        DatabaseFileExcludePattern db               = DatabaseFileExcludePattern.INSTANCE;
+    private              List<String>               patterns;
 
     public ListModelFileExcludePatterns() {
         addElements();

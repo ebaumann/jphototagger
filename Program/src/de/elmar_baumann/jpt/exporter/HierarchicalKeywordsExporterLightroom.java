@@ -87,7 +87,7 @@ final class HierarchicalKeywordsExporterLightroom
 
     private void addChildrenToRoot(DefaultMutableTreeNode root, Writer writer)
             throws IOException {
-        for (Enumeration e = root.children(); e.hasMoreElements();) {
+        for (Enumeration<?> e = root.children(); e.hasMoreElements();) {
             Object el = e.nextElement();
             assert el instanceof DefaultMutableTreeNode :
                     "Not a DefaultMutableTreeNode: " + el;
@@ -113,9 +113,9 @@ final class HierarchicalKeywordsExporterLightroom
                 appended = true;
             }
         }
-        for (Enumeration e = node.children(); e.hasMoreElements();) {
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> e = node.children(); e.hasMoreElements();) {
             addChildren(
-                    (DefaultMutableTreeNode) e.nextElement(),
+                    e.nextElement(),
                     appended
                     ? level + 1
                     : level,

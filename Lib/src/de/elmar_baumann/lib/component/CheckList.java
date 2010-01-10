@@ -48,9 +48,9 @@ import javax.swing.border.EmptyBorder;
  */
 public final class CheckList extends JList {
 
-    private static final Border BORDER_NO_FOCUS = new EmptyBorder(1, 1, 1, 1);
-    private final List<ActionListener> actionListeners =
-            new ArrayList<ActionListener>();
+    private static final Border        BORDER_NO_FOCUS  = new EmptyBorder(1, 1, 1, 1);
+    private static final long          serialVersionUID = 1512500064157540494L;
+    private final List<ActionListener> actionListeners  = new ArrayList<ActionListener>();
 
     public CheckList() {
         setCellRenderer(new CellRenderer());

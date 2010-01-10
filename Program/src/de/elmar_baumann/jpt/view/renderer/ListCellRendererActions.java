@@ -36,14 +36,13 @@ import javax.swing.JList;
  */
 public final class ListCellRendererActions extends DefaultListCellRenderer {
 
-    private static final Icon ICON_ACTION = AppLookAndFeel.getIcon("icon_action.png");
-    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png");
+    private static final Icon ICON_ACTION      = AppLookAndFeel.getIcon("icon_action.png");
+    private static final Icon ICON_ERROR       = AppLookAndFeel.getIcon("icon_error.png");
+    private static final long serialVersionUID = 8880764334564879502L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(
-                list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         Program program = (Program) value;
         label.setText(program.getAlias());
         File file = program.getFile();

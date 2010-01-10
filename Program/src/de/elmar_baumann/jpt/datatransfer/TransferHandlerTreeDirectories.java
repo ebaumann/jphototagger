@@ -40,6 +40,8 @@ import javax.swing.tree.TreePath;
  */
 public final class TransferHandlerTreeDirectories extends TransferHandler {
 
+    private static final long serialVersionUID = 667981391265349868L;
+
     @Override
     public boolean canImport(TransferSupport transferSupport) {
 

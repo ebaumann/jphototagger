@@ -26,6 +26,8 @@ package de.elmar_baumann.lib.dialog;
  */
 public class LongMessageDialog extends javax.swing.JDialog {
 
+    private static final long serialVersionUID = 4797253320918587438L;
+
     public LongMessageDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

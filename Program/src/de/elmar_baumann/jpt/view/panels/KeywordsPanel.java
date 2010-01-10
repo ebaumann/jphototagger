@@ -37,8 +37,9 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class KeywordsPanel extends javax.swing.JPanel {
 
-    private String keyTree = "HierarchicalKeywordsPanel.Tree.SelectedNode";
-    private String keyCard = "HierarchicalKeywordsPanel.Card";
+    private static final long   serialVersionUID = 5968799511284000903L;
+    private              String keyTree          = "HierarchicalKeywordsPanel.Tree.SelectedNode";
+    private              String keyCard          = "HierarchicalKeywordsPanel.Card";
 
     public KeywordsPanel() {
         initComponents();

@@ -39,10 +39,11 @@ import javax.swing.JFileChooser;
  */
 public final class ProgramPropertiesDialog extends Dialog {
 
-    private Program program = new Program();
-    private File file;
-    private boolean accecpted = false;
-    private boolean action;
+    private static final long    serialVersionUID = 5953007101307866505L;
+    private              Program program          = new Program();
+    private              File    file;
+    private              boolean accecpted        = false;
+    private              boolean action;
 
     public ProgramPropertiesDialog(boolean action) {
         super((java.awt.Frame) null, true);

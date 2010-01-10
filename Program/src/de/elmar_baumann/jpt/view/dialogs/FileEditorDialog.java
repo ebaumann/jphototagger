@@ -34,6 +34,8 @@ import de.elmar_baumann.lib.dialog.Dialog;
  */
 public class FileEditorDialog extends Dialog {
 
+    private static final long serialVersionUID = -3235645652277682178L;
+
     public FileEditorDialog(java.awt.Frame parent) {
         super(parent, false);
         initComponents();

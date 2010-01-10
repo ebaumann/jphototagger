@@ -68,6 +68,7 @@ public final class HelpBrowser
     private static final String                    KEY_SPLIT_PANE               = HelpBrowser.class.getName() + ".SplitPane";
     private static final String                    DISPLAY_NAME_ACTION_PREVIOUS = Bundle.getString("HelpBrowser.Action.Previous");
     private static final String                    DISPLAY_NAME_ACTION_NEXT     = Bundle.getString("HelpBrowser.Action.Next");
+    private static final long                      serialVersionUID             = 6909713450716449838L;
     private final        LinkedList<URL>           urlHistory                   = new LinkedList<URL>();
     private final        List<HelpBrowserListener> helpBrowserListeners         = new ArrayList<HelpBrowserListener>();
     private              int                       currentHistoryIndex          = -1;

@@ -34,7 +34,8 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelPrograms extends DefaultListModel {
 
-    private Type type;
+    private static final long serialVersionUID = 1107244876982338977L;
+    private              Type type;
 
     public ListModelPrograms(Type type) {
         this.type = type;

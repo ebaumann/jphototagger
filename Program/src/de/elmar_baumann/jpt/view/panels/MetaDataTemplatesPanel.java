@@ -29,6 +29,8 @@ import javax.swing.JList;
  */
 public class MetaDataTemplatesPanel extends javax.swing.JPanel {
 
+    private static final long serialVersionUID = 1760177225644789506L;
+
     public MetaDataTemplatesPanel() {
         initComponents();
     }

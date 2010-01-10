@@ -33,7 +33,8 @@ import javax.swing.JList;
  */
 public final class ListCellRendererMetadataTemplates extends ListCellRendererExt {
 
-    private static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_edit.png");
+    private static final ImageIcon ICON             = AppLookAndFeel.getIcon("icon_edit.png");
+    private static final long      serialVersionUID = 8409972246407893544L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

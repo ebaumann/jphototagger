@@ -35,7 +35,7 @@ import javax.swing.TransferHandler.TransferSupport;
  */
 final class MetadataTemplateSupport {
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "unchecked"})
     public static void setTemplate(TransferSupport transferSupport) {
         try {
             Object[]  selTemplates = (Object[]) transferSupport
@@ -51,11 +51,11 @@ final class MetadataTemplateSupport {
                 if (value instanceof String) {
                     textEntry.setText((String) value);
                     textEntry.setDirty(true);
-                } else if (value instanceof Collection) {
+                } else if (value instanceof Collection<?>) {
                     EditRepeatableTextEntryPanel panel = findRepeatableTextEntryPanel(transferSupport.getComponent());
                     if (panel == null) return;
 
-                    panel.setText((Collection) value);
+                    panel.setText((Collection<String>) value);
                     panel.setDirty(true);
                 }
             }

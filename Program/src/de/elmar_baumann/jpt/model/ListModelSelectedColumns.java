@@ -34,7 +34,8 @@ import javax.swing.JCheckBox;
  */
 public final class ListModelSelectedColumns extends DefaultListModel {
 
-    private List<Column> allColumns;
+    private static final long          serialVersionUID = 2895854023882249479L;
+    private               List<Column> allColumns;
 
     public ListModelSelectedColumns(List<Column> allColumns) {
         this.allColumns = new ArrayList<Column>(allColumns);

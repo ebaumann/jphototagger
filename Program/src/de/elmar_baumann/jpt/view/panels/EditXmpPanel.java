@@ -60,11 +60,12 @@ import javax.swing.text.JTextComponent;
  */
 public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
-    private final List<TextEntry> textEntries          = new ArrayList<TextEntry>(18);
-    private Component             firstInputComponent;
-    private Component             lastInputComponent;
-    private Component             lastFocussedComponent;
-    private Xmp                   xmp                  = new Xmp();
+    private static final long            serialVersionUID     = 7898855480121337499L;
+    private final        List<TextEntry> textEntries          = new ArrayList<TextEntry>(18);
+    private              Component       firstInputComponent;
+    private              Component       lastInputComponent;
+    private              Component       lastFocussedComponent;
+    private              Xmp             xmp                  = new Xmp();
 
     public EditXmpPanel() {
         init();

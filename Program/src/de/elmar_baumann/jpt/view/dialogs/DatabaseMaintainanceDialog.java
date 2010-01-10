@@ -33,8 +33,8 @@ import java.util.EnumSet;
  */
 public final class DatabaseMaintainanceDialog extends Dialog {
 
-    public static final DatabaseMaintainanceDialog INSTANCE =
-            new DatabaseMaintainanceDialog();
+    public static final  DatabaseMaintainanceDialog INSTANCE         = new DatabaseMaintainanceDialog();
+    private static final long                       serialVersionUID = -6775385212305459197L;
 
     private DatabaseMaintainanceDialog() {
         super((java.awt.Frame) null, false);

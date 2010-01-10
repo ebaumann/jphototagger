@@ -59,7 +59,7 @@ public final class TreeUtil {
             ) {
         if (userObject == null) return null;
 
-        for (Enumeration nodes = parent.preorderEnumeration(); nodes.hasMoreElements();) {
+        for (@SuppressWarnings("unchecked")Enumeration<Object> nodes = parent.preorderEnumeration(); nodes.hasMoreElements();) {
 
             Object node = nodes.nextElement();
             if (node instanceof DefaultMutableTreeNode) {
@@ -285,10 +285,9 @@ public final class TreeUtil {
 
         int foundNodeCount = foundNodes.size();
 
-        for (Enumeration children = rootNode.children(); children.hasMoreElements() &&
-                foundNodeCount <= maxCount;) {
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements() && foundNodeCount <= maxCount;) {
 
-            DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
+            DefaultMutableTreeNode child = children.nextElement();
 
             if (userObject.equals(child.getUserObject())) {
                 foundNodes.add(child);
@@ -357,8 +356,8 @@ public final class TreeUtil {
         // Traverse children
         TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0) {
-            for (Enumeration e = node.children(); e.hasMoreElements();) {
-                TreeNode n    = (TreeNode) e.nextElement();
+            for (@SuppressWarnings("unchecked")Enumeration<TreeNode> e = node.children(); e.hasMoreElements();) {
+                TreeNode n    = e.nextElement();
                 TreePath path = parent.pathByAddingChild(n);
                 expandAll(tree, path, expand);
             }

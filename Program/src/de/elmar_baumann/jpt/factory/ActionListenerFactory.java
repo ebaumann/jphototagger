@@ -91,14 +91,14 @@ public final class ActionListenerFactory {
 
         PopupMenuHierarchicalKeywords popup = PopupMenuHierarchicalKeywords.INSTANCE;
 
-        popup.getMenuItemAdd()                .addActionListener(cAdd);
-        popup.getMenuItemRename()             .addActionListener(cRename);
-        popup.getMenuItemRemove()             .addActionListener(cRemove);
-        popup.getMenuItemAddToEditPanel()     .addActionListener(cAddToEditPanel);
-        popup.getMenuItemRemoveFromEditPanel().addActionListener(cRemoveFromEPn);
-        popup.getMenuItemToggleReal()         .addActionListener(cToggleReal);
-        popup.getMenuItemCopy()               .addActionListener(cCopyCutPaste);
-        popup.getMenuItemCut()                .addActionListener(cCopyCutPaste);
-        popup.getMenuItemPaste()              .addActionListener(cCopyCutPaste);
+        popup.getItemAdd()                .addActionListener(cAdd);
+        popup.getItemRename()             .addActionListener(cRename);
+        popup.getItemRemove()             .addActionListener(cRemove);
+        popup.getItemAddToEditPanel()     .addActionListener(cAddToEditPanel);
+        popup.getItemRemoveFromEditPanel().addActionListener(cRemoveFromEPn);
+        popup.getItemToggleReal()         .addActionListener(cToggleReal);
+        popup.getItemCopy()               .addActionListener(cCopyCutPaste);
+        popup.getItemCut()                .addActionListener(cCopyCutPaste);
+        popup.getItemPaste()              .addActionListener(cCopyCutPaste);
     }
 }

@@ -345,10 +345,9 @@ public final class FileUtil {
      * @param  objects files as object
      * @return files
      */
-    public static List<File> objectCollectionToFileList(Collection objects) {
+    public static List<File> objectCollectionToFileList(Collection<Object> objects) {
 
-        if (objects == null)
-            throw new NullPointerException("objects == null");
+        if (objects == null) throw new NullPointerException("objects == null");
 
         List<File> fileList = new ArrayList<File>(objects.size());
         for (Object o : objects) {

@@ -37,9 +37,10 @@ import javax.swing.SwingUtilities;
  */
 public class SystemOutputPanel extends JPanel {
 
-    private static volatile int MAX_CHAR_COUNT = 100000;
-    private static volatile int MAX_CHARS_EXESS = 1000;
-    private boolean capture;
+    private static volatile int     MAX_CHAR_COUNT   = 100000;
+    private static volatile int     MAX_CHARS_EXESS  = 1000;
+    private static final    long    serialVersionUID = -6566007491609362675L;
+    private                 boolean capture;
 
     /**
      * Default constructor.

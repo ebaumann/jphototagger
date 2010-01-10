@@ -34,8 +34,8 @@ import de.elmar_baumann.lib.dialog.Dialog;
  */
 public final class AdvancedSearchDialog extends Dialog implements SearchListener {
 
-    public static final AdvancedSearchDialog INSTANCE =
-            new AdvancedSearchDialog(null, false);
+    public static final  AdvancedSearchDialog INSTANCE         = new AdvancedSearchDialog(null, false);
+    private static final long                 serialVersionUID = -7381253840654600441L;
 
     private AdvancedSearchDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

@@ -33,8 +33,9 @@ import javax.swing.JList;
  */
 public final class ListCellRendererSavedSearches extends DefaultListCellRenderer {
 
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_search.png");
-    private int popupHighLightRow = -1;
+    private static final Icon ICON              = AppLookAndFeel.getIcon("icon_search.png");
+    private static final long serialVersionUID  = 3108457488446314020L;
+    private              int  popupHighLightRow = -1;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,

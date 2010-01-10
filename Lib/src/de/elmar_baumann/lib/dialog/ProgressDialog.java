@@ -36,8 +36,9 @@ import java.util.Properties;
  */
 public final class ProgressDialog extends javax.swing.JDialog {
 
-    private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
-    private boolean closeEnabled = true;
+    private static final long                 serialVersionUID = 4604786111382584915L;
+    private final        List<ActionListener> actionListeners  = new ArrayList<ActionListener>();
+    private              boolean              closeEnabled     = true;
 
     /**
      * Konstruktor.

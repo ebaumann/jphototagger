@@ -51,10 +51,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelExif extends DefaultTableModel {
 
+    private static final long            serialVersionUID = -5656774233855745962L;
     private              File            file;
     private              ExifGpsMetadata exifGpsMetadata;
     private              ExifTags        exifTags;
-    private static final Translation     TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
+    private static final Translation     TRANSLATION      = new Translation("ExifTagIdTagNameTranslations");
 
     public TableModelExif() {
         setRowHeaders();

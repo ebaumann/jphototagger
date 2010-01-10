@@ -58,6 +58,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     private static final String                      KEY_SELECTED_FAV_NAME = "TreeModelFavorites.SelFavDir";
     private static final String                      KEY_SELECTED_DIR      = "TreeModelFavorites.SelDir";
+    private static final long                        serialVersionUID      = -2453748094818942669L;
     private final        DefaultMutableTreeNode      rootNode;
     private final        DatabaseFavoriteDirectories db;
     private final        JTree                       tree;
@@ -93,10 +94,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
                     db.delete(
                     favoriteDirctory.getFavoriteName())) {
                 removeNodeFromParent(favNode);
-                for (Enumeration children = rootNode.children(); children.
-                        hasMoreElements();) {
-                    Object userObject = ((DefaultMutableTreeNode) children.
-                            nextElement()).getUserObject();
+                for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
+                    Object userObject = children.nextElement().getUserObject();
                     int newIndex = 0;
                     if (userObject instanceof FavoriteDirectory) {
                         FavoriteDirectory fav = (FavoriteDirectory) userObject;
@@ -294,11 +293,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
     // work
     private synchronized int getNextNewFavoriteIndex() {
         int index = 0;
-        for (Enumeration children = rootNode.children(); children.
-                hasMoreElements();) {
-            Object userObject =
-                    ((DefaultMutableTreeNode) children.nextElement()).
-                    getUserObject();
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
+            Object userObject = children.nextElement().getUserObject();
             if (userObject instanceof FavoriteDirectory) {
                 index++;
             }
@@ -307,10 +303,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private DefaultMutableTreeNode getNode(FavoriteDirectory favoriteDirectory) {
-        for (Enumeration children = rootNode.children(); children.
-                hasMoreElements();) {
-            DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.
-                    nextElement();
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
+            DefaultMutableTreeNode child = children.nextElement();
             if (favoriteDirectory.equals(child.getUserObject())) {
                 return child;
             }
@@ -415,10 +409,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private DefaultMutableTreeNode getFavorite(String name) {
-        for (Enumeration children = rootNode.children();
-                children.hasMoreElements();) {
-            DefaultMutableTreeNode childNode =
-                    (DefaultMutableTreeNode) children.nextElement();
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
+            DefaultMutableTreeNode childNode = children.nextElement();
             Object userObject = childNode.getUserObject();
             if (userObject instanceof FavoriteDirectory) {
                 FavoriteDirectory fav = (FavoriteDirectory) userObject;
@@ -535,8 +527,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
         if (node.getChildCount() == 0) {
             addChildren(node);
         }
-        for (Enumeration children = node.children(); children.hasMoreElements();) {
-            addChildren((DefaultMutableTreeNode) children.nextElement());
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> children = node.children(); children.hasMoreElements();) {
+            addChildren(children.nextElement());
         }
         tree.setCursor(treeCursor);
     }

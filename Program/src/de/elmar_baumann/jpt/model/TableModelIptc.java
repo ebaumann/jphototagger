@@ -36,8 +36,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelIptc extends DefaultTableModel {
 
-    private File file;
-    private List<IptcEntry> iptcEntries = new ArrayList<IptcEntry>();
+    private static final long            serialVersionUID = -3988241922301609843L;
+    private              File            file;
+    private              List<IptcEntry> iptcEntries      = new ArrayList<IptcEntry>();
 
     public TableModelIptc() {
         addColumnHeaders();

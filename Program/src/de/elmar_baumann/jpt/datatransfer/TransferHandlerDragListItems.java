@@ -33,6 +33,8 @@ import de.elmar_baumann.lib.datatransfer.TransferableObject;
  */
 public final class TransferHandlerDragListItems extends TransferHandler {
 
+    private static final long serialVersionUID = 2228155163708066205L;
+
     private final DataFlavor[] dataFlavors;
 
     public TransferHandlerDragListItems(DataFlavor... dataFlavors) {

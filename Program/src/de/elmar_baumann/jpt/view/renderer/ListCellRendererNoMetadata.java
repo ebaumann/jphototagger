@@ -34,11 +34,11 @@ import javax.swing.JList;
  */
 public final class ListCellRendererNoMetadata extends DefaultListCellRenderer {
 
+    private static final long serialVersionUID = -5033440934166574955L;
+
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(
-                list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (value instanceof Column) {
             Column column = (Column) value;
             label.setText(column.getDescription());

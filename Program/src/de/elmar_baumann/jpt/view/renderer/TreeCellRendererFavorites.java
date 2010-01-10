@@ -37,9 +37,9 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
 
-    private final FileSystemView fileSystemView =
-            FileSystemView.getFileSystemView();
-    private int popupHighLightRow = -1;
+    private static final long           serialVersionUID  = 4280765256503091379L;
+    private final        FileSystemView fileSystemView    = FileSystemView.getFileSystemView();
+    private              int            popupHighLightRow = -1;
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value,

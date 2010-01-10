@@ -37,14 +37,12 @@ import javax.swing.JFileChooser;
  */
 public class HierarchicalKeywordsExportDialog extends Dialog {
 
-    private static final String KEY_PREV_EXPORT_FILE =
-            "HierarchicalKeywordsExportDialog.PrevExportFile";
-    private boolean accepted;
-    private File file;
-    private ComboBoxModelHierarchicalKeywordsExporters comboBoxModelExporter =
-            new ComboBoxModelHierarchicalKeywordsExporters();
-    private static final String KEY_SEL_EXPORTER_INDEX =
-            "HierarchicalKeywordsExportDialog.SelectedExporterIndex";
+    private static final String                                     KEY_PREV_EXPORT_FILE   = "HierarchicalKeywordsExportDialog.PrevExportFile";
+    private static final long                                       serialVersionUID       = 5431485480637999486L;
+    private              boolean accepted;
+    private              File                                       file;
+    private              ComboBoxModelHierarchicalKeywordsExporters comboBoxModelExporter  = new ComboBoxModelHierarchicalKeywordsExporters();
+    private static final String                                     KEY_SEL_EXPORTER_INDEX = "HierarchicalKeywordsExportDialog.SelectedExporterIndex";
 
     public HierarchicalKeywordsExportDialog() {
         super((java.awt.Frame) null, true);

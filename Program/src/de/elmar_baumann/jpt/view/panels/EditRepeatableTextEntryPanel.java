@@ -69,13 +69,14 @@ public final class EditRepeatableTextEntryPanel
                    DocumentListener,
                    ListDataListener {
 
-    private final DefaultListModel         model                    = new DefaultListModel();
-    private       Column                   column                   = ColumnXmpDcSubjectsSubject.INSTANCE;
-    private       boolean                  editable                 = true;
-    private       boolean                  dirty                    = false;
-    private       Suggest                  suggest;
-    private       boolean                  ignoreIntervalAdded;
-    private       TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private static final long                     serialVersionUID         = -5581799743101447535L;
+    private final        DefaultListModel         model                    = new DefaultListModel();
+    private              Column                   column                   = ColumnXmpDcSubjectsSubject.INSTANCE;
+    private              boolean                  editable                 = true;
+    private              boolean                  dirty                    = false;
+    private              Suggest                  suggest;
+    private              boolean                  ignoreIntervalAdded;
+    private              TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
 
     public EditRepeatableTextEntryPanel() {
         initComponents();

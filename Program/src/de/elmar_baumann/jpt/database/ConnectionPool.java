@@ -296,10 +296,10 @@ public final class ConnectionPool implements Runnable {
      * Closes one or more specific connections.
      * @param connections The connections to be closed.
      */
-    private void closeConnections(List connections) {
+    private void closeConnections(List<Connection> connections) {
         try {
             for (int i = 0; i < connections.size(); i++) {
-                Connection connection = (Connection) connections.get(i);
+                Connection connection = connections.get(i);
                 if (!connection.isClosed()) {
                     connection.close();
                 }

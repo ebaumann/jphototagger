@@ -44,11 +44,11 @@ import javax.swing.filechooser.FileSystemView;
 public final class IptcToXmpDialog extends Dialog
         implements ProgressListener {
 
-    private static final String KEY_DIRECTORY_NAME =
-            "de.elmar_baumann.jpt.view.dialogs.IptcToXmpDialog.LastDirectory";
-    private File directory = new File("");
-    private boolean stop = true;
-    private List<File> files;
+    private static final String     KEY_DIRECTORY_NAME = "de.elmar_baumann.jpt.view.dialogs.IptcToXmpDialog.LastDirectory";
+    private static final long       serialVersionUID   = 873528245237986989L;
+    private              File       directory          = new File("");
+    private              boolean    stop               = true;
+    private              List<File> files;
 
     public IptcToXmpDialog() {
         super((java.awt.Frame) null, false);

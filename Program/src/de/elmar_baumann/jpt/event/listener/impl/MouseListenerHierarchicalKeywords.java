@@ -43,8 +43,8 @@ public final class MouseListenerHierarchicalKeywords extends MouseListenerTree {
     private final PopupMenuHierarchicalKeywords popupMenu = PopupMenuHierarchicalKeywords.INSTANCE;
 
     public MouseListenerHierarchicalKeywords() {
-        listenExpandAllSubItems(popupMenu.getMenuItemExpandAllSubitems(), true);
-        listenCollapseAllSubItems(popupMenu.getMenuItemCollapseAllSubitems(), true);
+        listenExpandAllSubItems(popupMenu.getItemExpandAllSubitems(), true);
+        listenCollapseAllSubItems(popupMenu.getItemCollapseAllSubitems(), true);
     }
 
     @Override
@@ -60,21 +60,21 @@ public final class MouseListenerHierarchicalKeywords extends MouseListenerTree {
             popupMenu.setTree((JTree)e.getSource());
             popupMenu.setTreePath(path);
             setMenuItemsEnabled(isHkNode);
-            popupMenu.getMenuItemAdd().setEnabled(path != null);
+            popupMenu.getItemAdd().setEnabled(path != null);
             popupMenu.show((JTree) e.getSource(), e.getX(), e.getY());
         }
     }
 
     private void setMenuItemsEnabled(boolean hkNode) {
-        popupMenu.getMenuItemRemove()             .setEnabled(hkNode);
-        popupMenu.getMenuItemRename()             .setEnabled(hkNode);
-        popupMenu.getMenuItemToggleReal()         .setEnabled(hkNode);
-        popupMenu.getMenuItemAddToEditPanel()     .setEnabled(hkNode);
-        popupMenu.getMenuItemRemoveFromEditPanel().setEnabled(hkNode);
-        popupMenu.getMenuItemCut()                .setEnabled(hkNode);
-        popupMenu.getMenuItemPaste()              .setEnabled(hkNode && !HierarchicalKeywordTreeNodesClipboard.INSTANCE.isEmpty());
-        popupMenu.getMenuItemExpandAllSubitems()  .setEnabled(hkNode);
-        popupMenu.getMenuItemCollapseAllSubitems().setEnabled(hkNode);
+        popupMenu.getItemRemove()             .setEnabled(hkNode);
+        popupMenu.getItemRename()             .setEnabled(hkNode);
+        popupMenu.getItemToggleReal()         .setEnabled(hkNode);
+        popupMenu.getItemAddToEditPanel()     .setEnabled(hkNode);
+        popupMenu.getItemRemoveFromEditPanel().setEnabled(hkNode);
+        popupMenu.getItemCut()                .setEnabled(hkNode);
+        popupMenu.getItemPaste()              .setEnabled(hkNode && !HierarchicalKeywordTreeNodesClipboard.INSTANCE.isEmpty());
+        popupMenu.getItemExpandAllSubitems()  .setEnabled(hkNode);
+        popupMenu.getItemCollapseAllSubitems().setEnabled(hkNode);
     }
 
     @Override

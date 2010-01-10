@@ -36,6 +36,7 @@ import javax.swing.tree.TreePath;
  */
 public final class PopupMenuDirectories extends JPopupMenu {
 
+    private static final long                 serialVersionUID            = 4574458335277932153L;
     private final        JMenuItem            itemAddToFavorites          = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel.getIcon("icon_favorite.png"));
     private final        JMenuItem            itemCreateDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory")         , AppLookAndFeel.getIcon("icon_folder_add.png"));
     private final        JMenuItem            itemRenameDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory")         , AppLookAndFeel.getIcon("icon_folder_rename.png"));
@@ -94,11 +95,11 @@ public final class PopupMenuDirectories extends JPopupMenu {
         return itemRefresh;
     }
 
-    public JMenuItem getMenuItemCollapseAllSubitems() {
+    public JMenuItem getItemCollapseAllSubitems() {
         return menuItemCollapseAllSubitems;
     }
 
-    public JMenuItem getMenuItemExpandAllSubitems() {
+    public JMenuItem getItemExpandAllSubitems() {
         return menuItemExpandAllSubitems;
     }
 

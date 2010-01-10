@@ -48,8 +48,9 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
     private static final Icon                   ICON_FINISHED           = AppLookAndFeel.getIcon("icon_finished.png");
     private static final String                 METHOD_NAME_CANCEL      = "cancel";
+    private static final long                   serialVersionUID        = -4557401822534070313L;
     private final        Stack<Runnable>        runnables               = new Stack<Runnable>();
-    private final        Map<Class, JLabel>     finishedLabelOfRunnable = new HashMap<Class, JLabel>();
+    private final        Map<Class<?>, JLabel>  finishedLabelOfRunnable = new HashMap<Class<?>, JLabel>();
     private final        Set<JCheckBox>         checkBoxes              = new HashSet<JCheckBox>();
     private final        Map<JCheckBox, JLabel> labelOfCheckBox         = new HashMap<JCheckBox, JLabel>();
     private volatile     Runnable               currentRunnable;
@@ -247,9 +248,9 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         setProgressbarEnd(evt);
         appendMessage(evt.getInfo().toString());
 
-        Object source        = evt.getSource(); assert source != null;
-        Class  sourceClass   = source.getClass();
-        JLabel labelFinished = finishedLabelOfRunnable.get(sourceClass);
+        Object   source        = evt.getSource(); assert source != null;
+        Class<?> sourceClass   = source.getClass();
+        JLabel   labelFinished = finishedLabelOfRunnable.get(sourceClass);
 
         progressBar.setValue(0);
 

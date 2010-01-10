@@ -30,7 +30,8 @@ import javax.swing.JLabel;
  */
 public class ListCellRendererExt extends DefaultListCellRenderer {
 
-    protected int popupHighLightRow = -1;
+    private static final long serialVersionUID  = 7531004273695822498L;
+    protected            int  popupHighLightRow = -1;
 
     protected void highlight(int index, JLabel label) {
         setOpaque(true);

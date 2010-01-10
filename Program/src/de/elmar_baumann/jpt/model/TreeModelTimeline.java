@@ -40,8 +40,9 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public final class TreeModelTimeline extends DefaultTreeModel implements DatabaseListener {
 
-    private final Timeline           timeline;
-    private final DatabaseImageFiles db;
+    private static final long               serialVersionUID = 3932797263824188655L;
+    private final        Timeline           timeline;
+    private final        DatabaseImageFiles db;
 
     public TreeModelTimeline() {
         super(new DefaultMutableTreeNode());

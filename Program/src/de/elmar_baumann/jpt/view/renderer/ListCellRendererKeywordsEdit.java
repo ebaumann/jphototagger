@@ -33,7 +33,8 @@ import javax.swing.JList;
  */
 public final class ListCellRendererKeywordsEdit extends DefaultListCellRenderer {
 
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword_list.png");
+    private static final Icon ICON             = AppLookAndFeel.getIcon("icon_keyword_list.png");
+    private static final long serialVersionUID = -3496459487033704492L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

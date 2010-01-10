@@ -44,6 +44,8 @@ import javax.swing.tree.TreePath;
  */
 public final class TransferHandlerTreeHierarchicalKeywords extends TransferHandler {
 
+    private static final long serialVersionUID = 1714818504305178611L;
+
     @Override
     public boolean canImport(TransferSupport transferSupport) {
         return (Flavors.hasKeywords(transferSupport) ||

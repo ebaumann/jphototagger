@@ -38,17 +38,14 @@ import javax.swing.table.DefaultTableModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class TableModelDatabaseInfo extends DefaultTableModel
-        implements DatabaseListener {
+public final class TableModelDatabaseInfo extends DefaultTableModel implements DatabaseListener {
 
-    private static final List<DatabaseImageEvent.Type> COUNT_EVENTS =
-            new ArrayList<DatabaseImageEvent.Type>();
-    private final DatabaseStatistics db = DatabaseStatistics.INSTANCE;
-    private final LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn =
-            new LinkedHashMap<Column, StringBuffer>();
-    private final LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn =
-            new LinkedHashMap<Column, StringBuffer>();
-    private boolean listenToDatabase = false;
+    private static final List<DatabaseImageEvent.Type>       COUNT_EVENTS            = new ArrayList<DatabaseImageEvent.Type>();
+    private static final long                                serialVersionUID        = 1974343527501774916L;
+    private final        DatabaseStatistics                  db                      = DatabaseStatistics.INSTANCE;
+    private final        LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
+    private final        LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn     = new LinkedHashMap<Column, StringBuffer>();
+    private              boolean                             listenToDatabase        = false;
 
     static {
         COUNT_EVENTS.add(DatabaseImageEvent.Type.IMAGEFILE_DELETED);

@@ -38,7 +38,7 @@ import javax.swing.TransferHandler;
  */
 public final class TransferHandlerListKeywords extends TransferHandler {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4156977618928448144L;
 
     /**
      * Returns the keywords in a transferable object.

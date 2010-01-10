@@ -32,22 +32,19 @@ import javax.swing.JList;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-04
  */
-public final class ListCellRendererHierarchicalKeywordsImExporter
-        extends DefaultListCellRenderer {
+public final class ListCellRendererHierarchicalKeywordsImExporter extends DefaultListCellRenderer {
+
+    private static final long serialVersionUID = -2640679743272527934L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(
-                list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (value instanceof HierarchicalKeywordsImporter) {
-            HierarchicalKeywordsImporter importer =
-                    (HierarchicalKeywordsImporter) value;
+            HierarchicalKeywordsImporter importer = (HierarchicalKeywordsImporter) value;
             label.setText(importer.getDescription());
             label.setIcon(importer.getIcon());
         } else if (value instanceof HierarchicalKeywordsExporter) {
-            HierarchicalKeywordsExporter exporter =
-                    (HierarchicalKeywordsExporter) value;
+            HierarchicalKeywordsExporter exporter = (HierarchicalKeywordsExporter) value;
             label.setText(exporter.getDescription());
             label.setIcon(exporter.getIcon());
         }

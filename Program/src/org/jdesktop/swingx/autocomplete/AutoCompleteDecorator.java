@@ -200,6 +200,7 @@ public class AutoCompleteDecorator {
 
         // show the popup list when the user presses a key
         final KeyListener keyListener = new AutoCompleteKeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent keyEvent) {
                 // don't popup on action keys (cursor movements, etc...)
                 if (keyEvent.isActionKey()) return;
@@ -226,6 +227,7 @@ public class AutoCompleteDecorator {
         // Changing the l&f can change the combobox' editor which in turn
         // would not be autocompletion-enabled. The new editor needs to be set-up.
         comboBox.addPropertyChangeListener("editor", new AutoCompletePropertyChangeListener() {
+            @Override
             public void propertyChange(PropertyChangeEvent e) {
                 ComboBoxEditor editor = (ComboBoxEditor) e.getOldValue();
                 if (editor != null && editor.getEditorComponent() != null) {
@@ -268,6 +270,7 @@ public class AutoCompleteDecorator {
         // mark entire text when the text component gains focus
         // otherwise the last mark would have been retained which is quiet confusing
         textComponent.addFocusListener(new AutoCompleteFocusAdapter() {
+            @Override
             public void focusGained(FocusEvent e) {
                 adaptor.markEntireText();
             }
@@ -295,6 +298,7 @@ public class AutoCompleteDecorator {
     }
 
     static class NonStrictBackspaceAction extends TextAction {
+        private static final long serialVersionUID = -259559806203214719L;
         Action backspace;
         Action selectionBackward;
         AbstractAutoCompleteAdaptor adaptor;
@@ -306,6 +310,7 @@ public class AutoCompleteDecorator {
             this.adaptor = adaptor;
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             if (adaptor.listContainsSelectedItem()) {
                 selectionBackward.actionPerformed(e);
@@ -320,8 +325,13 @@ public class AutoCompleteDecorator {
      * the action. The error feedback is most likely a "beep".
      */
     static Object errorFeedbackAction = new TextAction("provide-error-feedback") {
+        private static final long serialVersionUID = 4377386270269629176L;
+        @Override
         public void actionPerformed(ActionEvent e) {
             UIManager.getLookAndFeel().provideErrorFeedback(getTextComponent(e));
         }
     };
+
+    private AutoCompleteDecorator() {
+    }
 }

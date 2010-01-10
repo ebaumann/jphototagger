@@ -36,7 +36,8 @@ import javax.swing.JProgressBar;
  */
 public final class ActionsDialog extends Dialog implements ProgramActionListener {
 
-    public static final ActionsDialog INSTANCE = new ActionsDialog();
+    public static final  ActionsDialog INSTANCE         = new ActionsDialog();
+    private static final long          serialVersionUID = -2671488119703014515L;
 
     private ActionsDialog() {
         super((java.awt.Frame) null, false);

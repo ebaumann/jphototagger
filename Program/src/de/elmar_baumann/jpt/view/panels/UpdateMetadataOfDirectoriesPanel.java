@@ -54,6 +54,7 @@ public final class UpdateMetadataOfDirectoriesPanel
     private static final String                       KEY_LAST_DIRECTORY   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.lastSelectedDirectory";
     private static final String                       KEY_FORCE            = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.force";
     private static final String                       KEY_SUBDIRECTORIES   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.subdirectories";
+    private static final long                         serialVersionUID     = -8953645248403117494L;
     private final        DefaultListModel             listModelDirectories = new DefaultListModel();
     private              File                         lastDirectory        = new File("");
     private              InsertImageFilesIntoDatabase imageFileInserter;

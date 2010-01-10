@@ -34,7 +34,8 @@ import javax.swing.ListModel;
  */
 public final class ImageCollectionsDialog extends Dialog {
 
-    private boolean ok = false;
+    private static final long    serialVersionUID = 1314098937293915298L;
+    private              boolean ok               = false;
 
     public ImageCollectionsDialog(java.awt.Frame parent) {
         super(parent, true);

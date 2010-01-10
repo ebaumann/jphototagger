@@ -61,6 +61,7 @@ public final class TreeModelMiscMetadata
     private static final Set<Column>            EXIF_COLUMNS        = new LinkedHashSet<Column>();
     private static final Set<Column>            XMP_COLUMNS         = new LinkedHashSet<Column>();
     private static final Set<Object>            COLUMN_USER_OBJECTS = new LinkedHashSet<Object>();
+    private static final long                   serialVersionUID    = 2498087635943355657L;
     private final        DatabaseImageFiles     db;
 
 

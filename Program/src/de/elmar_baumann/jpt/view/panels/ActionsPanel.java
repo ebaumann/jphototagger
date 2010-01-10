@@ -39,9 +39,10 @@ import javax.swing.JProgressBar;
  */
 public final class ActionsPanel extends javax.swing.JPanel {
 
-    private final ListModelPrograms           model           = new ListModelPrograms(Type.ACTION);
-    private final List<ProgramActionListener> actionListeners = new ArrayList<ProgramActionListener>();
-    private       Object                      progressBarOwner;
+    private static final long                        serialVersionUID = 8875330844851092391L;
+    private final        ListModelPrograms           model            = new ListModelPrograms(Type.ACTION);
+    private final        List<ProgramActionListener> actionListeners  = new ArrayList<ProgramActionListener>();
+    private              Object                      progressBarOwner;
 
     public ActionsPanel() {
         initComponents();

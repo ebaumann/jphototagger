@@ -30,6 +30,8 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {
 
+    private static final long serialVersionUID = -7817194934431355197L;
+
     public ComboBoxModelLogfileFormatter() {
         addElements();
     }

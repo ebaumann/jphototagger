@@ -40,8 +40,8 @@ public final class ComboBoxModelMetadataTemplates
         extends    DefaultComboBoxModel
         implements MetadataTemplateEventListener
 {
-
-    private final DatabaseMetadataTemplates db = DatabaseMetadataTemplates.INSTANCE;
+    private static final long                      serialVersionUID = 7895253533969078904L;
+    private final        DatabaseMetadataTemplates db               = DatabaseMetadataTemplates.INSTANCE;
 
     public ComboBoxModelMetadataTemplates() {
         addElements();

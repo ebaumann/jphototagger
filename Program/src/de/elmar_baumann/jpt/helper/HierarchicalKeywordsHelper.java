@@ -127,8 +127,8 @@ public final class HierarchicalKeywordsHelper {
                 (TreeModelHierarchicalKeywords) tree.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         DefaultMutableTreeNode selNode = null;
-        for (Enumeration e = root.breadthFirstEnumeration(); selNode == null && e.hasMoreElements();) {
-            DefaultMutableTreeNode node       = (DefaultMutableTreeNode) e.nextElement();
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> e = root.breadthFirstEnumeration(); selNode == null && e.hasMoreElements();) {
+            DefaultMutableTreeNode node       = e.nextElement();
             Object                 userObject = node.getUserObject();
             if (userObject instanceof HierarchicalKeyword) {
                 HierarchicalKeyword hkw = (HierarchicalKeyword) userObject;

@@ -31,7 +31,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Listens to the menu item
- * {@link PopupMenuHierarchicalKeywords#getMenuItemDisplayImages()} and on
+ * {@link PopupMenuHierarchicalKeywords#getItemDisplayImages()} and on
  * action displays images with the selected keyword.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -42,8 +42,8 @@ public class ControllerHierarchicalKeywordsDisplayImages
 
     private final PopupMenuHierarchicalKeywords popup =
             PopupMenuHierarchicalKeywords.INSTANCE;
-    private final JMenuItem itemHk = popup.getMenuItemDisplayImages();
-    private final JMenuItem itemKw = popup.getMenuItemDisplayImagesKw();
+    private final JMenuItem itemHk = popup.getItemDisplayImages();
+    private final JMenuItem itemKw = popup.getItemDisplayImagesKw();
 
     public ControllerHierarchicalKeywordsDisplayImages() {
         listen();

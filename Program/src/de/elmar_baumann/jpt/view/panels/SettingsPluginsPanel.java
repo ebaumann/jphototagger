@@ -37,11 +37,10 @@ import javax.swing.event.ChangeListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-27
  */
-public class SettingsPluginsPanel extends javax.swing.JPanel
-    implements ChangeListener {
+public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeListener {
 
-    private final Map<Component, String> helpContentsPathOfTab =
-            new HashMap<Component, String>();
+    private static final long                   serialVersionUID      = 6790634142245254676L;
+    private final        Map<Component, String> helpContentsPathOfTab = new HashMap<Component, String>();
 
     public SettingsPluginsPanel() {
         initComponents();

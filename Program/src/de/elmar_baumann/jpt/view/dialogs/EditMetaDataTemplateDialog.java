@@ -40,8 +40,9 @@ import de.elmar_baumann.lib.dialog.Dialog;
  */
 public class EditMetaDataTemplateDialog extends Dialog {
 
-    private MetadataTemplate template;
-    private Xmp              xmp     = new Xmp();
+    private static final long             serialVersionUID = -6621176928237283620L;
+    private              MetadataTemplate template;
+    private              Xmp              xmp              = new Xmp();
 
     public EditMetaDataTemplateDialog() {
         super(GUI.INSTANCE.getAppFrame(), true);

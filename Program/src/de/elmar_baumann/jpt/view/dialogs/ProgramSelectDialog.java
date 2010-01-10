@@ -37,9 +37,10 @@ import java.awt.event.MouseEvent;
  */
 public class ProgramSelectDialog extends Dialog {
 
-    private final ListModelPrograms model;
-    private final Type type;
-    private boolean accepted;
+    private static final long              serialVersionUID = -8970433115513988650L;
+    private final        ListModelPrograms model;
+    private final        Type              type;
+    private              boolean           accepted;
 
     /**
      * Contructor.

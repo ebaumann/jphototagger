@@ -330,9 +330,9 @@ public final class EditMetadataPanelsArray
                 EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
                 Column column = p.getColumn();
                 Object value  = xmp.getValue(column);
-                assert value == null || value instanceof Collection : "Not a collection: " + value;
-                if (value instanceof Collection) {
-                    Collection collection = (Collection) value;
+                assert value == null || value instanceof Collection<?> : "Not a collection: " + value;
+                if (value instanceof Collection<?>) {
+                    Collection<?> collection = (Collection<?>) value;
                     for (Object o : collection) {
                         assert o != null;
                         p.addText(o.toString()); // addText() sets the dirty flag
@@ -396,7 +396,7 @@ public final class EditMetadataPanelsArray
                     textEntry.setText(string);
                     textEntry.setDirty(true);
                 }
-            } else if (value instanceof Collection) {
+            } else if (value instanceof Collection<?>) {
                 @SuppressWarnings("unchecked")
                 Collection<String> strings = (Collection<String>) value;
                 ((EditRepeatableTextEntryPanel) textEntry).setText(strings);
@@ -474,9 +474,9 @@ public final class EditMetadataPanelsArray
         assert filenamesXmp.size() >= 1 : "No files!";
         if (filenamesXmp.size() == 1) {
             Object value = filenamesXmp.get(0).getSecond().getValue(column);
-            assert value == null || value instanceof List : value;
-            if (value instanceof List) {
-                return (List) value;
+            assert value == null || value instanceof List<?> : value;
+            if (value instanceof List<?>) {
+                return (List<String>) value;
             } else {
                 return new ArrayList<String>(1);
             }
@@ -486,9 +486,9 @@ public final class EditMetadataPanelsArray
         for (Pair<String, Xmp> pair : filenamesXmp) {
             Xmp    xmp   = pair.getSecond();
             Object value = xmp.getValue(column);
-            assert value == null || value instanceof List : value;
-            if (value instanceof List) {
-                lists.push((List) value);
+            assert value == null || value instanceof List<?> : value;
+            if (value instanceof List<?>) {
+                lists.push((List<String>) value);
             }
         }
         if (lists.size() != filenamesXmp.size()) {

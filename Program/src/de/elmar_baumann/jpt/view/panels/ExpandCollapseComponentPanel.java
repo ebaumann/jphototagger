@@ -47,6 +47,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
     private static final ImageIcon ICON_COLLAPSE         = IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
     private static final String    TOOLTIP_TEXT_EXPAND   = Bundle.getString("ExpandCollapseComponentPanel.TooltipTextExpand");
     private static final String    TOOLTIP_TEXT_COLLAPSE = Bundle.getString("ExpandCollapseComponentPanel.TooltipTextCollapse");
+    private static final long      serialVersionUID      = 7853123397325146125L;
     private              String    keyPersistence        = "";
     private final        Component component;
     private              JLabel    labelFill;

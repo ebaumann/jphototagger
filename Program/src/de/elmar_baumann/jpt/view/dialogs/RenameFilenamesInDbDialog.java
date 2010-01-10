@@ -31,6 +31,8 @@ import de.elmar_baumann.lib.dialog.Dialog;
  */
 public class RenameFilenamesInDbDialog extends Dialog {
 
+    private static final long serialVersionUID = 4052809300034354623L;
+
     public RenameFilenamesInDbDialog(java.awt.Frame parent) {
         super(parent, true);
         initComponents();

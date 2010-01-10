@@ -389,7 +389,7 @@ public final class XmpMetadata {
                         column)) {
                     xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", value);
                 }
-            } else if (metadataValue instanceof List) {
+            } else if (metadataValue instanceof List<?>) {
                 @SuppressWarnings("unchecked")
                 List<String> values = (List<String>) metadataValue;
                 for (String value : values) {

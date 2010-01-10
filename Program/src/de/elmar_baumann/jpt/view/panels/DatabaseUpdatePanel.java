@@ -47,6 +47,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
 
     private static final String              BUTTON_TEXT_START = Bundle.getString("DatabaseUpdatePanel.DisplayName.Start");
     private static final String              BUTTON_TEXT_STOP  = Bundle.getString("DatabaseUpdatePanel.DisplayName.Stop");
+    private static final long                serialVersionUID  = 3148751698141558616L;
     private              UpdateAllThumbnails thumbnailUpdater;
     private final        AbstractButton[]    buttons;
     private volatile     boolean             stop;
@@ -83,7 +84,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         startOrStopHelperThread(toggleButtonExifDateToXmpDateCreated, SetExifToXmp.class);
     }
 
-    private synchronized void startOrStopHelperThread(JToggleButton button, Class helperThreadClass) {
+    private synchronized void startOrStopHelperThread(JToggleButton button, Class<?> helperThreadClass) {
 
         if (button.isSelected()) {
 

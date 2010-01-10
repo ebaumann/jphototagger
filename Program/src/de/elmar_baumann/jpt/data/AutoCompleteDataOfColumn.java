@@ -76,9 +76,9 @@ public final class AutoCompleteDataOfColumn
         if (data != null) {
             if (data instanceof String) {
                 autoComplete.addString((String) data);
-            } else if (data instanceof List) {
+            } else if (data instanceof List<?>) {
                 @SuppressWarnings("unchecked")
-                List<String> list = (List) data;
+                List<String> list = (List<String>) data;
                 for (String string : list) {
                     autoComplete.addString(string);
                 }

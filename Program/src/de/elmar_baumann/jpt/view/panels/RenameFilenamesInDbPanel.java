@@ -38,7 +38,7 @@ import javax.swing.JPanel;
  */
 public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4207218985613254920L;
 
     private volatile boolean runs;
 

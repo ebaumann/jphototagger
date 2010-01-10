@@ -29,7 +29,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public class TreeCellRendererExt extends DefaultTreeCellRenderer {
 
-    protected int popupHighLightRow = -1;
+    private static final long serialVersionUID  = 7468243064122106211L;
+    protected            int  popupHighLightRow = -1;
 
     protected void highlightRow(int row) {
         setOpaque(row == popupHighLightRow);

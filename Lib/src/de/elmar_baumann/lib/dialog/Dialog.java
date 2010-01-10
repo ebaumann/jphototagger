@@ -44,19 +44,19 @@ import javax.swing.KeyStroke;
  */
 public class Dialog extends JDialog {
 
-    private ActionListener actionListenerEscape;
-    private ActionListener actionListenerHelp;
-    private String helpContentsUrl = "";
-    private String helpPageUrl;
-    private final HelpBrowser help = HelpBrowser.INSTANCE;
+    private static final long           serialVersionUID    = 847375186274302816L;
+    private              ActionListener actionListenerEscape;
+    private              ActionListener actionListenerHelp;
+    private              String         helpContentsUrl     = "";
+    private              String         helpPageUrl;
+    private final        HelpBrowser    help                = HelpBrowser.INSTANCE;
 
     protected Dialog() {
         super();
         init();
     }
 
-    public Dialog(Window owner, String title, ModalityType modalityType,
-            GraphicsConfiguration gc) {
+    public Dialog(Window owner, String title, ModalityType modalityType, GraphicsConfiguration gc) {
         super(owner, title, modalityType, gc);
         init();
     }
@@ -81,8 +81,7 @@ public class Dialog extends JDialog {
         init();
     }
 
-    public Dialog(Dialog owner, String title, boolean modal,
-            GraphicsConfiguration gc) {
+    public Dialog(Dialog owner, String title, boolean modal, GraphicsConfiguration gc) {
         super(owner, title, modal, gc);
         init();
     }
@@ -107,8 +106,7 @@ public class Dialog extends JDialog {
         init();
     }
 
-    public Dialog(Frame owner, String title, boolean modal,
-            GraphicsConfiguration gc) {
+    public Dialog(Frame owner, String title, boolean modal, GraphicsConfiguration gc) {
         super(owner, title, modal, gc);
         init();
     }
@@ -141,8 +139,7 @@ public class Dialog extends JDialog {
      * @see HelpBrowser#setContentsUrl(java.lang.String)
      */
     protected void setHelpContentsUrl(String url) {
-        if (url == null)
-            throw new NullPointerException("url == null");
+        if (url == null) throw new NullPointerException("url == null");
         helpContentsUrl = url;
     }
 
@@ -178,10 +175,9 @@ public class Dialog extends JDialog {
      * @param url  URL to display
      */
     protected void help(String url) {
-        if (url == null)
-            throw new NullPointerException("url == null");
+        if (url == null) throw new NullPointerException("url == null");
         if (help.getContentsUrl() == null ||
-                !help.getContentsUrl().equals(helpContentsUrl)) {
+           !help.getContentsUrl().equals(helpContentsUrl)) {
             help.setContentsUrl(helpContentsUrl);
         }
         if (help.isVisible()) {
@@ -210,16 +206,13 @@ public class Dialog extends JDialog {
      * the accelerators to all components.
      */
     protected void registerKeyStrokes() {
+        KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        KeyStroke strokeHelp   = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
         for (Component component : getComponents()) {
             if (component instanceof JComponent) {
-                JComponent jComponent = (JComponent) component;
-                KeyStroke strokeEscape = KeyStroke.getKeyStroke(
-                        KeyEvent.VK_ESCAPE, 0);
-                KeyStroke strokeHelp = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
-                jComponent.registerKeyboardAction(actionListenerEscape,
-                        strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
-                jComponent.registerKeyboardAction(actionListenerHelp, strokeHelp,
-                        JComponent.WHEN_IN_FOCUSED_WINDOW);
+                JComponent comp = (JComponent) component;
+                comp.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
+                comp.registerKeyboardAction(actionListenerHelp  , strokeHelp  , JComponent.WHEN_IN_FOCUSED_WINDOW);
             }
         }
     }
@@ -244,12 +237,11 @@ public class Dialog extends JDialog {
     @Override
     protected JRootPane createRootPane() {
         KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        KeyStroke strokeHelp = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
-        JRootPane pane = new JRootPane();
-        pane.registerKeyboardAction(actionListenerEscape, strokeEscape,
-                JComponent.WHEN_IN_FOCUSED_WINDOW);
-        pane.registerKeyboardAction(actionListenerHelp, strokeHelp,
-                JComponent.WHEN_IN_FOCUSED_WINDOW);
+        KeyStroke strokeHelp   = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
+        JRootPane pane         = new JRootPane();
+
+        pane.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        pane.registerKeyboardAction(actionListenerHelp  , strokeHelp  , JComponent.WHEN_IN_FOCUSED_WINDOW);
         return pane;
     }
 }

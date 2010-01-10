@@ -33,6 +33,8 @@ import javax.swing.JList;
  */
 public final class ListCellRendererTableColumns extends DefaultListCellRenderer {
 
+    private static final long serialVersionUID = -3987847245199721880L;
+
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
         int index, boolean isSelected, boolean cellHasFocus) {

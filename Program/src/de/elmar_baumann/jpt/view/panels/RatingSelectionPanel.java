@@ -52,18 +52,19 @@ public class RatingSelectionPanel
         extends    JPanel
         implements TextEntry, FocusListener, KeyListener {
 
-    private final Icon                     star                       = AppLookAndFeel.getIcon("icon_xmp_rating_set.png");
-    private final Icon                     dark_star                  = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png");;
-    private final Icon                     icon_rating_remove         = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
-    private final Icon                     icon_rating_remove_not_set = AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png");
-    private final Column                   column;
-    private       boolean                  editable;
-    private       boolean                  dirty                      = false;
-    private       int                      value                      = 0;
-    private       JButton                  buttons[]                  = new JButton[5];
-    private       JButton                  lastClickedButton;
-    private       TextEntryListenerSupport textEntryListenerSupport   = new TextEntryListenerSupport();
-    private final Map<JButton, String>     textOfButton               = new HashMap<JButton, String>();
+    private static final long                     serialVersionUID           = -7955649305451645120L;
+    private final        Icon                     star                       = AppLookAndFeel.getIcon("icon_xmp_rating_set.png");
+    private final        Icon                     dark_star                  = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png");;
+    private final        Icon                     icon_rating_remove         = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
+    private final        Icon                     icon_rating_remove_not_set = AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png");
+    private final        Column                   column;
+    private              boolean                  editable;
+    private              boolean                  dirty                      = false;
+    private              int                      value                      = 0;
+    private              JButton                  buttons[]                  = new JButton[5];
+    private              JButton                  lastClickedButton;
+    private              TextEntryListenerSupport textEntryListenerSupport   = new TextEntryListenerSupport();
+    private final        Map<JButton, String>     textOfButton               = new HashMap<JButton, String>();
 
     public RatingSelectionPanel(Column column) {
         this.column = column;

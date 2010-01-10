@@ -46,7 +46,7 @@ public final class ColumnUtil {
             try {
                 if (!key.contains("ColumnXmpPhotoshopCategory") &&
                     !key.contains("ColumnXmpPhotoshopSupplementalcategories")) {
-                    Class cl = Class.forName(key);
+                    Class<?> cl = Class.forName(key);
                     @SuppressWarnings("unchecked")
                     Field field = cl.getField("INSTANCE");
                     if (field.get(null) instanceof Column) {

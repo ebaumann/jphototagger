@@ -39,12 +39,11 @@ import javax.swing.ListSelectionModel;
 public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     implements ActionListener, Persistence {
 
-    private final CheckList list = new CheckList();
-    private final ListModelSelectedColumns model = new ListModelSelectedColumns(
-        FastSearchColumns.get());
-    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private static final long                     serialVersionUID = 8203085810742615278L;
+    private final        CheckList                list             = new CheckList();
+    private final        ListModelSelectedColumns model            = new ListModelSelectedColumns(FastSearchColumns.get());
+    private final        ListenerProvider         listenerProvider = ListenerProvider.INSTANCE;
 
-    /** Creates new form SettingsFastSearchColumnsPanel */
     public SettingsFastSearchColumnsPanel() {
         initComponents();
         postInitComponents();

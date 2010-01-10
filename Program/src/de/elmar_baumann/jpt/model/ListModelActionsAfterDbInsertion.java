@@ -36,8 +36,10 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-07
  */
-public final class ListModelActionsAfterDbInsertion extends DefaultListModel
+public final class ListModelActionsAfterDbInsertion extends DefaultListModel 
         implements DatabaseListener {
+
+    private static final long serialVersionUID = -6490813457178023686L;
 
     public ListModelActionsAfterDbInsertion() {
         addElements();
@@ -47,8 +49,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     public void add(Program action) {
         assert action.isAction() : "Program is not an action!";
         if (!contains(action) &&
-                DatabaseActionsAfterDbInsertion.INSTANCE.insert(action,
-                getSize())) {
+                DatabaseActionsAfterDbInsertion.INSTANCE.insert(action, getSize())) {
             addElement(action);
         } else {
             MessageDisplayer.error(

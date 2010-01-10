@@ -40,7 +40,8 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelKeywords extends DefaultListModel implements DatabaseListener {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private static final long               serialVersionUID = -9181622876402951455L;
+    private final        DatabaseImageFiles db               = DatabaseImageFiles.INSTANCE;
 
     public ListModelKeywords() {
         addElements();

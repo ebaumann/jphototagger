@@ -39,13 +39,12 @@ import javax.swing.ListSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-01
  */
-public final class SettingsEditColumnsPanel extends javax.swing.JPanel
-    implements ActionListener, Persistence {
+public final class SettingsEditColumnsPanel extends javax.swing.JPanel implements ActionListener, Persistence {
 
-    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
-    CheckList list;
+    private static final long             serialVersionUID = -2365119124503442395L;
+    private final        ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private              CheckList        list;
 
-    /** Creates new form SettingsEditColumnsPanel */
     public SettingsEditColumnsPanel() {
         initComponents();
         postInitComponents();
@@ -53,8 +52,7 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel
 
     private void postInitComponents() {
         list = new CheckList();
-        list.setModel(new ListModelSelectedColumns(
-            new ArrayList<Column>(EditColumns.get())));
+        list.setModel(new ListModelSelectedColumns(new ArrayList<Column>(EditColumns.get())));
         list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         list.addActionListener(this);
         scrollPane.setViewportView(list);
@@ -62,9 +60,7 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel
 
     @Override
     public void readProperties() {
-        list.setSelectedItemsWithText(
-            ColumnUtil.getDescriptionsOfColumns(
-            UserSettings.INSTANCE.getEditColumns()), true);
+        list.setSelectedItemsWithText(ColumnUtil.getDescriptionsOfColumns(UserSettings.INSTANCE.getEditColumns()), true);
     }
 
     @Override
@@ -72,8 +68,7 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel
     }
 
     private UserSettingsChangeEvent getUserSettingsChangeEvent() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.EDIT_COLUMNS, this);
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.EDIT_COLUMNS, this);
         evt.setEditColumns(ColumnUtil.getSelectedColumns(list));
         return evt;
     }

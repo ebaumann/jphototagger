@@ -32,7 +32,8 @@ import javax.swing.JList;
  */
 public final class ListCellRendererKeywords extends ListCellRendererExt {
 
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
+    private static final Icon ICON             = AppLookAndFeel.getIcon("icon_keyword.png");
+    private static final long serialVersionUID = 8358358177217506189L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

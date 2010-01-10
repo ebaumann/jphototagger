@@ -132,7 +132,7 @@ public final class ArrayUtil {
      * @param  index  index
      * @return true if the index is valid
      */
-    public static boolean isValidIndex(List list, int index) {
+    public static boolean isValidIndex(List<?> list, int index) {
         return index >= 0 && index < list.size();
     }
 

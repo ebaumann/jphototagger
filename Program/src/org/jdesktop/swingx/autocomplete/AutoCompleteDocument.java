@@ -120,6 +120,7 @@ public class AutoCompleteDocument implements StyledDocument {
         return strictMatching;
     }
 
+    @Override
     public void remove(int offs, int len) throws BadLocationException {
         // return immediately when selecting an item
         if (selecting) return;
@@ -130,6 +131,7 @@ public class AutoCompleteDocument implements StyledDocument {
         }
     }
 
+    @Override
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
         // return immediately when selecting an item
         if (selecting) return;
@@ -262,6 +264,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Style addStyle(String nm, Style parent) {
         return ((StyledDocument) delegate).addStyle(nm, parent);
     }
@@ -269,6 +272,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Color getBackground(AttributeSet attr) {
         return ((StyledDocument) delegate).getBackground(attr);
     }
@@ -276,6 +280,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Element getCharacterElement(int pos) {
         return ((StyledDocument) delegate).getCharacterElement(pos);
     }
@@ -283,6 +288,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Font getFont(AttributeSet attr) {
         return ((StyledDocument) delegate).getFont(attr);
     }
@@ -290,6 +296,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Color getForeground(AttributeSet attr) {
         return ((StyledDocument) delegate).getForeground(attr);
     }
@@ -297,6 +304,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Style getLogicalStyle(int p) {
         return ((StyledDocument) delegate).getLogicalStyle(p);
     }
@@ -304,6 +312,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Element getParagraphElement(int pos) {
         return ((StyledDocument) delegate).getParagraphElement(pos);
     }
@@ -311,6 +320,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Style getStyle(String nm) {
         return ((StyledDocument) delegate).getStyle(nm);
     }
@@ -318,6 +328,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void removeStyle(String nm) {
         ((StyledDocument) delegate).removeStyle(nm);
     }
@@ -325,6 +336,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setCharacterAttributes(int offset, int length, AttributeSet s, boolean replace) {
         ((StyledDocument) delegate).setCharacterAttributes(offset, length, s, replace);
     }
@@ -332,6 +344,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setLogicalStyle(int pos, Style s) {
         ((StyledDocument) delegate).setLogicalStyle(pos, s);
     }
@@ -339,6 +352,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setParagraphAttributes(int offset, int length, AttributeSet s, boolean replace) {
         ((StyledDocument) delegate).setParagraphAttributes(offset, length, s, replace);
     }
@@ -346,6 +360,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void addDocumentListener(DocumentListener listener) {
         delegate.addDocumentListener(listener);
     }
@@ -353,6 +368,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void addUndoableEditListener(UndoableEditListener listener) {
         delegate.addUndoableEditListener(listener);
     }
@@ -360,6 +376,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Position createPosition(int offs) throws BadLocationException {
         return delegate.createPosition(offs);
     }
@@ -367,6 +384,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Element getDefaultRootElement() {
         return delegate.getDefaultRootElement();
     }
@@ -374,6 +392,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Position getEndPosition() {
         return delegate.getEndPosition();
     }
@@ -381,6 +400,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getLength() {
         return delegate.getLength();
     }
@@ -388,6 +408,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object getProperty(Object key) {
         return delegate.getProperty(key);
     }
@@ -395,6 +416,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Element[] getRootElements() {
         return delegate.getRootElements();
     }
@@ -402,6 +424,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Position getStartPosition() {
         return delegate.getStartPosition();
     }
@@ -409,6 +432,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getText(int offset, int length) throws BadLocationException {
         return delegate.getText(offset, length);
     }
@@ -416,6 +440,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void getText(int offset, int length, Segment txt) throws BadLocationException {
         delegate.getText(offset, length, txt);
     }
@@ -423,6 +448,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void putProperty(Object key, Object value) {
         delegate.putProperty(key, value);
     }
@@ -430,6 +456,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void removeDocumentListener(DocumentListener listener) {
         delegate.removeDocumentListener(listener);
     }
@@ -437,6 +464,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void removeUndoableEditListener(UndoableEditListener listener) {
         delegate.removeUndoableEditListener(listener);
     }
@@ -444,6 +472,7 @@ public class AutoCompleteDocument implements StyledDocument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void render(Runnable r) {
         delegate.render(r);
     }

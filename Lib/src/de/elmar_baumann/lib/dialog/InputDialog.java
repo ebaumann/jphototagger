@@ -12,9 +12,10 @@ import java.util.Properties;
  */
 public class InputDialog extends Dialog {
 
-    private Settings settings;
-    private String   propertyKey;
-    private boolean  accepted;
+    private static final long     serialVersionUID = -4217215186067129031L;
+    private              Settings settings;
+    private              String   propertyKey;
+    private              boolean  accepted;
 
     public InputDialog() {
         super((java.awt.Frame) null, true);

@@ -35,17 +35,14 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelImageCollections extends DefaultListModel {
 
-    private static final List<String> SPECIAL_COLLECTIONS =
-            new ArrayList<String>();
+    private static final List<String> SPECIAL_COLLECTIONS = new ArrayList<String>();
+    private static final long         serialVersionUID    = -929229489709109467L;
 
     static {
         // Order of appearance
-        SPECIAL_COLLECTIONS.add(
-                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT);
-        SPECIAL_COLLECTIONS.add(
-                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED);
-        SPECIAL_COLLECTIONS.add(
-                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED);
+        SPECIAL_COLLECTIONS.add(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT);
+        SPECIAL_COLLECTIONS.add(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED);
+        SPECIAL_COLLECTIONS.add(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED);
     }
 
     public ListModelImageCollections() {

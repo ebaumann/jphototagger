@@ -59,15 +59,14 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class RenameDialog extends Dialog {
 
-    private final FilenameFormatArray filenameFormatArray =
-            new FilenameFormatArray();
-    private List<File> files = new ArrayList<File>();
-    private List<RenameFileListener> renameFileListeners =
-            new LinkedList<RenameFileListener>();
-    private ListenerProvider listenerProvider;
-    private int fileIndex = 0;
-    private boolean lockClose = false;
-    private boolean stop = false;
+    private static final long                     serialVersionUID    = 2975958115627670989L;
+    private final        FilenameFormatArray      filenameFormatArray = new FilenameFormatArray();
+    private              List<File>               files               = new ArrayList<File>();
+    private              List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
+    private              ListenerProvider         listenerProvider;
+    private              int                      fileIndex           = 0;
+    private              boolean                  lockClose           = false;
+    private              boolean                  stop                = false;
 
     public RenameDialog() {
         super((java.awt.Frame) null, true);

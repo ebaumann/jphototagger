@@ -41,6 +41,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellRenderer {
 
+    private static final long           serialVersionUID             = -1995225344254643215L;
     private final        FileSystemView fileSystemView               = FileSystemView.getFileSystemView();
     private              Icon           rootIcon                     = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
     private static final String         DISPLAY_NAME_ROOT            = Bundle.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
@@ -66,8 +67,7 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        Logger.getLogger(TreeCellRendererAllSystemDirectories.class.
-                                getName()).log(Level.WARNING, null, ex);
+                        Logger.getLogger(TreeCellRendererAllSystemDirectories.class.getName()).log(Level.WARNING, null, ex);
                     }
                 }
             }
