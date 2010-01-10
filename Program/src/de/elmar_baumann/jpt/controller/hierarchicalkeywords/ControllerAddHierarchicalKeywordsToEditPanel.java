@@ -39,7 +39,7 @@ import javax.swing.tree.TreeNode;
 
 /**
  * Listens to the menu item
- * {@link PopupMenuHierarchicalKeywords#getMenuItemAddToEditPanel()}
+ * {@link PopupMenuHierarchicalKeywords#getItemAddToEditPanel()}
  * and on action inserts the selected hierarchical keyword and it's real parents
  * into the edit panel.
  *

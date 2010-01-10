@@ -32,7 +32,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 /**
- * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getMenuItemToggleReal()}
+ * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getItemToggleReal()}
  * and toggles the real property of a keyword.
  *
  * @author  Martin Pohlack <martinp@gmx.de>

@@ -34,7 +34,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 /**
- * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getMenuItemAdd()}
+ * Listens to the menu item {@link PopupMenuHierarchicalKeywords#getItemAdd()}
  * and on action adds a new keyword below the selected keyword.
  *
  * Also listens to key events into the tree and adds a new keyword below the
