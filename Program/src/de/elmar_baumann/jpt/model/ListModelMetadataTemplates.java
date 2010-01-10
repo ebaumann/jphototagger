@@ -34,6 +34,8 @@ public final class ListModelMetadataTemplates
         extends    DefaultListModel
         implements MetadataTemplateEventListener {
 
+    private static final long serialVersionUID = -1726658041913008196L;
+
     public ListModelMetadataTemplates() {
         addItems();
         DatabaseMetadataTemplates.INSTANCE.addEventListener(this);

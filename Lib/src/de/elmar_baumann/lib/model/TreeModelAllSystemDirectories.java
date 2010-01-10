@@ -46,12 +46,12 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-29
  */
-public final class TreeModelAllSystemDirectories extends DefaultTreeModel
-        implements TreeWillExpandListener {
+public final class TreeModelAllSystemDirectories extends DefaultTreeModel implements TreeWillExpandListener {
 
-    private final DirectoryFilter directoryFilter;
-    private final DefaultMutableTreeNode rootNode;
-    private final JTree tree;
+    private static final long                   serialVersionUID = 8297582930734874242L;
+    private final        DirectoryFilter        directoryFilter;
+    private final        DefaultMutableTreeNode rootNode;
+    private final        JTree                  tree;
 
     /**
      * Constructor.
@@ -169,15 +169,13 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         Stack<File> filePath = FileUtil.getPathFromRoot(file);
         DefaultMutableTreeNode node = rootNode;
         while (node != null && !filePath.isEmpty()) {
-            node = TreeUtil.findChildNodeWithFile(
-                    node, filePath.pop());
+            node = TreeUtil.findChildNodeWithFile(node, filePath.pop());
             if (node != null && node.getChildCount() <= 0) {
                 addChildren(node);
             }
         }
         if (node != null && node.getParent() != null) {
-            DefaultMutableTreeNode parent =
-                    (DefaultMutableTreeNode) node.getParent();
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
             if (parent.getPath() != null) {
                 tree.expandPath(new TreePath(parent.getPath()));
                 if (select) {
@@ -206,35 +204,31 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
 
     private List<DefaultMutableTreeNode> getTreeRowNodes() {
         int rows = tree.getRowCount();
-        List<DefaultMutableTreeNode> nodes =
-                new ArrayList<DefaultMutableTreeNode>(rows);
+        List<DefaultMutableTreeNode> nodes =new ArrayList<DefaultMutableTreeNode>(rows);
         for (int i = 0; i < rows; i++) {
-            nodes.add((DefaultMutableTreeNode) tree.getPathForRow(i).
-                    getLastPathComponent());
+            nodes.add((DefaultMutableTreeNode) tree.getPathForRow(i).getLastPathComponent());
         }
         return nodes;
     }
 
     @Override
-    public void treeWillExpand(TreeExpansionEvent event) throws
-            ExpandVetoException {
+    public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
+
         Cursor treeCursor = tree.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
         tree.setCursor(waitCursor);
-        DefaultMutableTreeNode node =
-                (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
         if (node.getChildCount() == 0) {
             addChildren(node);
         }
-        for (Enumeration children = node.children(); children.hasMoreElements();) {
-            addChildren((DefaultMutableTreeNode) children.nextElement());
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> children = node.children(); children.hasMoreElements();) {
+            addChildren(children.nextElement());
         }
         tree.setCursor(treeCursor);
     }
 
     @Override
-    public void treeWillCollapse(TreeExpansionEvent event) throws
-            ExpandVetoException {
+    public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
         // ignore
     }
 }

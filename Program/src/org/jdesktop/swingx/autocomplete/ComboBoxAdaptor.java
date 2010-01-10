@@ -56,18 +56,22 @@ public class ComboBoxAdaptor extends AbstractAutoCompleteAdaptor implements Acti
      * @param actionEvent -
      */
     // ActionListener (listening to comboBox)
+    @Override
     public void actionPerformed(ActionEvent actionEvent) {
         markEntireText();
     }
 
+    @Override
     public int getItemCount() {
         return comboBox.getItemCount();
     }
 
+    @Override
     public Object getItem(int index) {
         return comboBox.getItemAt(index);
     }
 
+    @Override
     public void setSelectedItem(Object item) {
     	//SwingX 834: avoid moving when already selected
     	if (item == getSelectedItem()) {
@@ -100,10 +104,12 @@ public class ComboBoxAdaptor extends AbstractAutoCompleteAdaptor implements Acti
         comboBox.setSelectedItem(item);
     }
 
+    @Override
     public Object getSelectedItem() {
         return comboBox.getModel().getSelectedItem();
     }
 
+    @Override
     public JTextComponent getTextComponent() {
         // returning the component of the combobox's editor
         return (JTextComponent) comboBox.getEditor().getEditorComponent();

@@ -31,6 +31,8 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelNoMetadata extends DefaultListModel {
 
+    private static final long serialVersionUID = -1610826692746882410L;
+
     public ListModelNoMetadata() {
         addColumns();
     }

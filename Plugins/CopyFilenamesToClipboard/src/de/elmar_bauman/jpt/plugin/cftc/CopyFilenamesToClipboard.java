@@ -36,10 +36,10 @@ import javax.swing.JPanel;
  */
 public final class CopyFilenamesToClipboard extends Plugin {
 
-    public static final String KEY_FILENAME_DELIMITER =
-            CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
-    public static final String DEFAULT_FILENAME_DELIMITER = "\n";
-    private String fileNameDelimiter = DEFAULT_FILENAME_DELIMITER;
+    public static final  String KEY_FILENAME_DELIMITER     = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
+    public static final  String DEFAULT_FILENAME_DELIMITER = "\n";
+    private static final long   serialVersionUID           = -7900546898112962080L;
+    private              String fileNameDelimiter          = DEFAULT_FILENAME_DELIMITER;
 
     public CopyFilenamesToClipboard() {
     }
@@ -73,8 +73,7 @@ public final class CopyFilenamesToClipboard extends Plugin {
                        ? ""
                        : fileNameDelimiter) + file.getAbsolutePath());
         }
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
-                new StringSelection(sb.toString()), null);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
         notifyPluginListeners(Event.FINISHED_NO_ERRORS);
     }
 

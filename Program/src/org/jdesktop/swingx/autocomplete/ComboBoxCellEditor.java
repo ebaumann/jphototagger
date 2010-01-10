@@ -20,7 +20,6 @@
  */
 package org.jdesktop.swingx.autocomplete;
 
-import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -28,6 +27,10 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
+import javax.swing.AbstractCellEditor;
+import javax.swing.ComboBoxEditor;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 
 /**
  * <p>This is a cell editor that can be used when a combo box (that has been set
@@ -50,6 +53,8 @@ import java.io.Serializable;
  * </p>
  */
 public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellEditor, Serializable {
+
+    private static final long serialVersionUID = 5725406308427594892L;
 
     /** the combo box */
     private JComboBox comboBox;
@@ -83,6 +88,7 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
      * Returns the value contained in the combo box
      * @return the value contained in the combo box
      */
+    @Override
     public Object getCellEditorValue() {
         return comboBox.getSelectedItem();
     }
@@ -92,6 +98,7 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
      * Always returns true.
      * @return true
      */
+    @Override
     public boolean stopCellEditing() {
         if (comboBox.isEditable()) {
             // Notify the combo box that editing has stopped (e.g. User pressed F2)
@@ -113,6 +120,7 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
      * @param column the column of the cell being edited
      * @return the combo box for editing
      */
+    @Override
     public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value, boolean isSelected, int row, int column) {
         comboBox.setSelectedItem(value);
         return comboBox;
@@ -126,10 +134,12 @@ public class ComboBoxCellEditor extends AbstractCellEditor implements TableCellE
 //    }
 
     class Handler extends KeyAdapter implements PropertyChangeListener {
+        @Override
         public void keyPressed(KeyEvent keyEvent) {
             int keyCode = keyEvent.getKeyCode();
             if (keyCode==KeyEvent.VK_ENTER) stopCellEditing();
         }
+        @Override
         public void propertyChange(PropertyChangeEvent e) {
             if (e.getPropertyName().equals("editor")) {
                 ComboBoxEditor editor = comboBox.getEditor();

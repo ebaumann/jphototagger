@@ -39,15 +39,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelLogfiles extends DefaultTableModel {
 
-    private final List<LogfileRecord> records = new ArrayList<LogfileRecord>();
-    private final List<Level> visibleLevels;
-    private final String filter;
+    private static final long                serialVersionUID = -7886614829435568257L;
+    private final        List<LogfileRecord> records         = new ArrayList<LogfileRecord>();
+    private final        List<Level>         visibleLevels;
+    private final        String              filter;
 
     public TableModelLogfiles(String filter, List<Level> visibleLevels) {
-        if (filter == null)
-            throw new NullPointerException("filter == null");
-        if (visibleLevels == null)
-            throw new NullPointerException("visibleLevels == null");
+        if (filter == null) throw new NullPointerException("filter == null");
+        if (visibleLevels == null) throw new NullPointerException("visibleLevels == null");
 
         this.filter = filter;
         this.visibleLevels = visibleLevels;

@@ -44,13 +44,12 @@ import javax.swing.filechooser.FileSystemView;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-02
  */
-public final class SettingsMiscPanel extends javax.swing.JPanel
-        implements Persistence {
+public final class SettingsMiscPanel extends javax.swing.JPanel implements Persistence {
 
-    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
-    private final Map<Tab, Component> componentOfTab =
-            new HashMap<Tab, Component>();
-    private String lastSelectedAutocopyDirectory = "";
+    private static final long                serialVersionUID              = 479354601163285718L;
+    private final        ListenerProvider    listenerProvider              = ListenerProvider.INSTANCE;
+    private final        Map<Tab, Component> componentOfTab                = new HashMap<Tab, Component>();
+    private              String              lastSelectedAutocopyDirectory = "";
 
     public enum Tab {
 
@@ -195,8 +194,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     private void handleActionPerformedComboBoxLogfileFormatterClass() {
         UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
                 UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS, this);
-        evt.setLogfileFormatterClass(
-                (Class) comboBoxLogfileFormatterClass.getSelectedItem());
+        evt.setLogfileFormatterClass((Class<?>) comboBoxLogfileFormatterClass.getSelectedItem());
         notifyChangeListener(evt);
     }
 

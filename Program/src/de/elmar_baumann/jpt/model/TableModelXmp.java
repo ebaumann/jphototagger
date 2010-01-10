@@ -33,8 +33,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelXmp extends DefaultTableModel {
 
-    private List<XMPPropertyInfo> propertyInfos;
-    private String filename;
+    private static final long                  serialVersionUID = -647814140321831383L;
+    private              List<XMPPropertyInfo> propertyInfos;
+    private              String                filename;
 
     public TableModelXmp() {
         setRowHeaders();

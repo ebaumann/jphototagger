@@ -29,30 +29,23 @@ import de.elmar_baumann.jpt.types.Persistence;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-02
  */
-public final class SettingsPerformancePanel extends javax.swing.JPanel
-        implements Persistence {
+public final class SettingsPerformancePanel extends javax.swing.JPanel implements Persistence {
 
-    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private static final long             serialVersionUID = -422417143078270821L;
+    private final        ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
 
-    /** Creates new form SettingsPerformancePanel */
     public SettingsPerformancePanel() {
         initComponents();
     }
 
     private void handleMaximumSecondsToTerminateExternalProgramsStateChanged() {
-        UserSettingsChangeEvent evt =
-                new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
-                this);
-        evt.setMaxSecondsToTerminateExternalPrograms(
-                (Integer) spinnerMaximumSecondsToTerminateExternalPrograms.
-                getModel().getValue());
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, this);
+        evt.setMaxSecondsToTerminateExternalPrograms((Integer) spinnerMaximumSecondsToTerminateExternalPrograms.getModel().getValue());
         notifyChangeListener(evt);
     }
 
     private void handleScanForEmbeddedXmpActionPerformed() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.SCAN_FOR_EMBEDDED_XMP, this);
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.SCAN_FOR_EMBEDDED_XMP, this);
         evt.setScanForEmbeddedXmp(checkBoxScanForEmbeddedXmp.isSelected());
         notifyChangeListener(evt);
     }

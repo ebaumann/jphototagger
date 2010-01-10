@@ -24,8 +24,6 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
 /**
@@ -45,9 +43,10 @@ import javax.swing.text.Document;
  */
 public final class ImageTextField extends JTextField implements KeyListener {
 
-    private   Image   image;
-    private   boolean paintImage;
-    protected String  imagePath;
+    private static final long    serialVersionUID = -3386009175292905714L;
+    private              Image   image;
+    private              boolean paintImage;
+    protected            String  imagePath;
 
     public ImageTextField(Document doc, String text, int columns) {
         super(doc, text, columns);

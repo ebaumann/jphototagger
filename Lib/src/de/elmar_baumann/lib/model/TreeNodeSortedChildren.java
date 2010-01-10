@@ -30,8 +30,9 @@ import javax.swing.tree.MutableTreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-02
  */
-public final class TreeNodeSortedChildren extends DefaultMutableTreeNode
-        implements Comparable {
+public final class TreeNodeSortedChildren extends DefaultMutableTreeNode implements Comparable<Object> {
+
+    private static final long serialVersionUID = 5429135948886700418L;
 
     public TreeNodeSortedChildren() {
     }

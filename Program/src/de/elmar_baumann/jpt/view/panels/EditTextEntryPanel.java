@@ -49,11 +49,12 @@ public final class EditTextEntryPanel
         implements TextEntry,
                    DocumentListener {
 
-    private static final   Color                    EDITABLE_COLOR = Color.WHITE;
-    private                Column                   column;
-    private                boolean                  dirty           = false;
-    private                boolean                  editable;
-    private                TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private static final Color                    EDITABLE_COLOR           = Color.WHITE;
+    private static final long                     serialVersionUID         = -6455550547873630461L;
+    private              Column                   column;
+    private              boolean                  dirty                    = false;
+    private              boolean                  editable;
+    private              TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
 
     public EditTextEntryPanel() {
         column = ColumnXmpDcTitle.INSTANCE;

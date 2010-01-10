@@ -37,6 +37,7 @@ import javax.swing.tree.TreePath;
  */
 public final class PopupMenuFavorites extends JPopupMenu {
 
+    private static final long               serialVersionUID           = -7344945087460562958L;
     private final        JMenuItem          itemInsertFavorite         = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.InsertFavorite")        , AppLookAndFeel.getIcon("icon_add.png"));
     private final        JMenuItem          itemUpdateFavorite         = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.UpdateFavorite")        , AppLookAndFeel.getIcon("icon_edit.png"));
     private final        JMenuItem          itemDeleteFavorite         = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.DeleteFavorite")        , AppLookAndFeel.getIcon("icon_remove.png"));

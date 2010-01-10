@@ -41,6 +41,7 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
     private static final Icon              ICON_DEFAULT                 = AppLookAndFeel.getIcon("icon_imagecollection.png");
     private static final Color             COLOR_FOREGROUND_PREV_IMPORT = Color.BLUE;
     private static final Map<Object, Icon> ICON_OF_VALUE                = new HashMap<Object, Icon>();
+    private static final long              serialVersionUID             = -431048760716078334L;
     private              int               popupHighLightRow            = -1;
 
     {

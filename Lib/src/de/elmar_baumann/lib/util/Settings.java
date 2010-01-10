@@ -213,9 +213,8 @@ public final class Settings {
 
         if (properties.containsKey(key)) {
             String textOfSelectedButton = properties.getProperty(key);
-            for (Enumeration buttons = buttonGroup.getElements(); buttons.
-                    hasMoreElements();) {
-                AbstractButton button = (AbstractButton) buttons.nextElement();
+            for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+                AbstractButton button = buttons.nextElement();
                 if (button.getText().equals(textOfSelectedButton)) {
                     button.setSelected(true);
                     return;
@@ -814,9 +813,8 @@ public final class Settings {
             throw new NullPointerException("key == null");
 
         String textOfSelectedButton = null;
-        for (Enumeration buttons = buttonGroup.getElements(); buttons.
-                hasMoreElements();) {
-            AbstractButton button = (AbstractButton) buttons.nextElement();
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
             if (button.isSelected()) {
                 textOfSelectedButton = button.getText();
             }

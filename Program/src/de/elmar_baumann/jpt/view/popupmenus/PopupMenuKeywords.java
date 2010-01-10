@@ -34,11 +34,12 @@ import javax.swing.KeyStroke;
  */
 public final class PopupMenuKeywords extends JPopupMenu {
 
-    private final       JMenuItem         itemRename = new JMenuItem(Bundle.getString("PopupMenuKeywords.DisplayName.Action.Rename"), AppLookAndFeel.getIcon("icon_rename.png"));
-    private final       JMenuItem         itemDelete = new JMenuItem(Bundle.getString("PopupMenuKeywords.DisplayName.Action.Delete"), AppLookAndFeel.getIcon("icon_delete.png"));
-    private             int               selIndex;
-    private             JList             list;
-    public static final PopupMenuKeywords INSTANCE   = new PopupMenuKeywords();
+    private static final long              serialVersionUID = -552638878495121120L;
+    private final        JMenuItem         itemRename       = new JMenuItem(Bundle.getString("PopupMenuKeywords.DisplayName.Action.Rename"), AppLookAndFeel.getIcon("icon_rename.png"));
+    private final        JMenuItem         itemDelete       = new JMenuItem(Bundle.getString("PopupMenuKeywords.DisplayName.Action.Delete"), AppLookAndFeel.getIcon("icon_delete.png"));
+    private              int               selIndex;
+    private              JList             list;
+    public static final  PopupMenuKeywords INSTANCE         = new PopupMenuKeywords();
 
     private PopupMenuKeywords() {
         addItems();

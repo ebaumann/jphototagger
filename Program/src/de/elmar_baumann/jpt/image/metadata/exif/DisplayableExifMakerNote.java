@@ -191,14 +191,14 @@ final class DisplayableExifMakerNote {
 
                 System.arraycopy(rawValue, offset, rawValueMakerNote, 0, bytesToRead);
 
-                Class  dataTypeClass = info.exifDataTypeClass;
-                Object dataType      = null;
+                Class<?> dataTypeClass = info.exifDataTypeClass;
+                Object   dataType      = null;
 
                 if  (requiresByteOrder(dataTypeClass)) {
-                    Constructor c = dataTypeClass.getConstructor(byte[].class, ByteOrder.class);
+                    Constructor<?> c = dataTypeClass.getConstructor(byte[].class, ByteOrder.class);
                     dataType = c.newInstance(rawValueMakerNote, exifTag.byteOrder());
                 } else {
-                    Constructor c = dataTypeClass.getConstructor(byte[].class);
+                    Constructor<?> c = dataTypeClass.getConstructor(byte[].class);
                     dataType = c.newInstance(rawValueMakerNote);
                 }
 
@@ -221,8 +221,8 @@ final class DisplayableExifMakerNote {
 
     private List<String> bundleKeys() {
         List<String> keys = new ArrayList<String>();
-        for (Enumeration e = bundle.getKeys(); e.hasMoreElements(); ) {
-            keys.add((String) e.nextElement());
+        for (Enumeration<String> e = bundle.getKeys(); e.hasMoreElements(); ) {
+            keys.add(e.nextElement());
         }
         return keys;
     }
@@ -231,7 +231,7 @@ final class DisplayableExifMakerNote {
         return Integer.parseInt(tag.substring(3));
     }
 
-    private String format(Class formatterClass, ExifTag exifTag) throws InstantiationException, IllegalAccessException {
+    private String format(Class<?> formatterClass, ExifTag exifTag) throws InstantiationException, IllegalAccessException {
 
         ExifRawValueFormatter formatter = (ExifRawValueFormatter) formatterClass.newInstance();
 
@@ -260,7 +260,7 @@ final class DisplayableExifMakerNote {
         }
     }
 
-    private static final Collection<Class> BYTE_ORDER_CLASSES = new HashSet<Class>();
+    private static final Collection<Class<?>> BYTE_ORDER_CLASSES = new HashSet<Class<?>>();
 
     static {
         BYTE_ORDER_CLASSES.add(ExifShort.class);
@@ -268,7 +268,7 @@ final class DisplayableExifMakerNote {
         BYTE_ORDER_CLASSES.add(ExifLong.class);
     }
 
-    private boolean requiresByteOrder(Class clazz) {
+    private boolean requiresByteOrder(Class<?> clazz) {
         return BYTE_ORDER_CLASSES.contains(clazz);
     }
 
@@ -283,13 +283,13 @@ final class DisplayableExifMakerNote {
 
     private static class MakerNoteTagInfo {
 
-        private final int    tagIdValue;
-        private       int    rawValueOffset;
-        private       int    bytesToRead        = -1;
-        private       Class  exifDataTypeClass;
-        private       Class  exifFormatterClass;
-        private       String tagNameBundleKey;
-        private       int    equalsToExifTagId  = -1;
+        private final int      tagIdValue;
+        private       int      rawValueOffset;
+        private       int      bytesToRead        = -1;
+        private       Class<?> exifDataTypeClass;
+        private       Class<?> exifFormatterClass;
+        private       String   tagNameBundleKey;
+        private       int      equalsToExifTagId  = -1;
 
         public MakerNoteTagInfo(int tagIndex, String propertyValue) throws ClassNotFoundException {
             this.tagIdValue    = tagIndex;

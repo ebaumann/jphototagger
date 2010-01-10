@@ -31,7 +31,8 @@ import java.util.EnumSet;
  */
 public final class ProgramInputParametersDialog extends Dialog {
 
-    private boolean accepted = false;
+    private static final long    serialVersionUID = 7211489360676712179L;
+    private              boolean accepted         = false;
 
     public ProgramInputParametersDialog() {
         super((java.awt.Frame) null, true);

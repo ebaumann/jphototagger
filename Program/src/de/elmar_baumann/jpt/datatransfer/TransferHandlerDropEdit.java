@@ -45,6 +45,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class TransferHandlerDropEdit extends TransferHandler {
 
+    private static final long serialVersionUID = 4543789065456550151L;
+
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
 

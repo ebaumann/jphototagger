@@ -78,6 +78,8 @@ public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener,
         KeyListener, ThumbnailUpdateListener, AppExitListener {
 
+    private static final long serialVersionUID = 1034671645083632578L;
+
     /**
      * Background color of this panel
      */

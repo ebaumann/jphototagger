@@ -41,6 +41,7 @@ import javax.swing.JButton;
 public final class SettingsDialog extends Dialog {
 
     private static final String                 KEY_INDEX_TABBED_PANE = "UserSettingsDialog.TabbedPaneIndex";
+    private static final long                   serialVersionUID      = -7576495084117427485L;
     private final        Map<Tab, Integer>      indexOfTab            = new HashMap<Tab, Integer>();
     private final        Map<Integer, Tab>      tabOfIndex            = new HashMap<Integer, Tab>();
     private final        Map<Component, String> helpUrlOfComponent    = new HashMap<Component, String>();

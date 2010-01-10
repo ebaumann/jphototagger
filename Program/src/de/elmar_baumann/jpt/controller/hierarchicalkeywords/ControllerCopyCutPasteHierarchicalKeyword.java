@@ -44,8 +44,8 @@ import javax.swing.tree.TreePath;
 // the popup menu may not be the selected nodes as expected by the panel's
 // transfer handler.
 /**
- * Listens to the menu items {@link PopupMenuHierarchicalKeywords#getMenuItemCut()},
- * {@link PopupMenuHierarchicalKeywords#getMenuItemPaste()} and on action
+ * Listens to the menu items {@link PopupMenuHierarchicalKeywords#getItemCut()},
+ * {@link PopupMenuHierarchicalKeywords#getItemPaste()} and on action
  * cuts a keyword to the clipboard or pastes a cutted item.
  *
  * The key action Ctrl+X and Ctrl+V are handled by the JTree.
@@ -58,9 +58,9 @@ public class ControllerCopyCutPasteHierarchicalKeyword
 
     private final KeywordsPanel     panel;
     private final PopupMenuHierarchicalKeywords popup     = PopupMenuHierarchicalKeywords.INSTANCE;
-    private final JMenuItem                     itemCopy  = popup.getMenuItemCopy();
-    private final JMenuItem                     itemCut   = popup.getMenuItemCut();
-    private final JMenuItem                     itemPaste = popup.getMenuItemPaste();
+    private final JMenuItem                     itemCopy  = popup.getItemCopy();
+    private final JMenuItem                     itemCut   = popup.getItemCut();
+    private final JMenuItem                     itemPaste = popup.getItemPaste();
 
     public ControllerCopyCutPasteHierarchicalKeyword(KeywordsPanel panel) {
         this.panel = panel;

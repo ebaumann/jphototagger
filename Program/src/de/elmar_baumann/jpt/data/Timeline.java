@@ -287,11 +287,12 @@ public final class Timeline {
 
         if (monthNodeOfCal == null) return null;
 
-        Enumeration            days         = monthNodeOfCal.children();
-        DefaultMutableTreeNode dayNodeOfCal = null;
+        @SuppressWarnings("unchecked")
+        Enumeration<DefaultMutableTreeNode> days         = monthNodeOfCal.children();
+        DefaultMutableTreeNode              dayNodeOfCal = null;
 
         while (dayNodeOfCal == null && days.hasMoreElements()) {
-            DefaultMutableTreeNode childNode  = (DefaultMutableTreeNode) days.nextElement();
+            DefaultMutableTreeNode childNode  = days.nextElement();
             Object                 userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {
@@ -315,11 +316,12 @@ public final class Timeline {
 
         if (yearNodeOfCal == null) return null;
 
-        Enumeration            months         = yearNodeOfCal.children();
-        DefaultMutableTreeNode monthNodeOfCal = null;
+        @SuppressWarnings("unchecked")
+        Enumeration<DefaultMutableTreeNode> months         = yearNodeOfCal.children();
+        DefaultMutableTreeNode              monthNodeOfCal = null;
 
         while (monthNodeOfCal == null && months.hasMoreElements()) {
-            DefaultMutableTreeNode childNode  = (DefaultMutableTreeNode) months.nextElement();
+            DefaultMutableTreeNode childNode  = months.nextElement();
             Object                 userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {
@@ -339,11 +341,12 @@ public final class Timeline {
      * @return  node or null if no such node exists
      */
     private DefaultMutableTreeNode getNodeOfYear(Date date) {
-        Enumeration            years         = ROOT_NODE.children();
-        DefaultMutableTreeNode yearNodeOfCal = null;
+        @SuppressWarnings("unchecked")
+        Enumeration<DefaultMutableTreeNode> years         = ROOT_NODE.children();
+        DefaultMutableTreeNode              yearNodeOfCal = null;
 
         while (yearNodeOfCal == null && years.hasMoreElements()) {
-            DefaultMutableTreeNode childNode  = (DefaultMutableTreeNode) years.nextElement();
+            DefaultMutableTreeNode childNode  = years.nextElement();
             Object                 userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {

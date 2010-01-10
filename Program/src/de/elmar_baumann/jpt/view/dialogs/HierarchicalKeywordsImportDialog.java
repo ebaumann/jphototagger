@@ -36,14 +36,12 @@ import javax.swing.JFileChooser;
  */
 public class HierarchicalKeywordsImportDialog extends Dialog {
 
-    private static final String KEY_PREV_IMPORT_FILE =
-            "HierarchicalKeywordsImportDialog.PrevImportFile";
-    private static final String KEY_SEL_IMPORTER_INDEX =
-            "HierarchicalKeywordsImportDialog.SelectedImporterIndex";
-    private boolean accepted;
-    private File file;
-    private ComboBoxModelHierarchicalKeywordsImporters comboBoxModelImporter =
-            new ComboBoxModelHierarchicalKeywordsImporters();
+    private static final String                                     KEY_PREV_IMPORT_FILE   = "HierarchicalKeywordsImportDialog.PrevImportFile";
+    private static final String                                     KEY_SEL_IMPORTER_INDEX = "HierarchicalKeywordsImportDialog.SelectedImporterIndex";
+    private static final long                                       serialVersionUID       = 7441650879878050560L;
+    private              boolean                                    accepted;
+    private              File                                       file;
+    private              ComboBoxModelHierarchicalKeywordsImporters comboBoxModelImporter = new ComboBoxModelHierarchicalKeywordsImporters();
 
     public HierarchicalKeywordsImportDialog() {
         super((java.awt.Frame) null, true);

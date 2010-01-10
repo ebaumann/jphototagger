@@ -38,11 +38,12 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-07
  */
-public class SettingsActionsPanel extends javax.swing.JPanel implements
-        ListSelectionListener, Persistence {
+public class SettingsActionsPanel extends javax.swing.JPanel
+        implements ListSelectionListener, Persistence {
 
-    private final ListModelActionsAfterDbInsertion modelActionsAfterDbInsertion;
-    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private static final long                             serialVersionUID            = 6440789488453905704L;
+    private final        ListModelActionsAfterDbInsertion modelActionsAfterDbInsertion;
+    private final        ListenerProvider                 listenerProvider            = ListenerProvider.INSTANCE;
 
     public SettingsActionsPanel() {
         modelActionsAfterDbInsertion = new ListModelActionsAfterDbInsertion();

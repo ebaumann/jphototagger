@@ -46,10 +46,11 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public final class DirectoryChooser extends Dialog {
 
-    private final File startDirectory;
-    private final Set<Option> directoryFilter;
-    private boolean accepted;
-    private final TreeModelAllSystemDirectories model;
+    private static final long                          serialVersionUID = -4494883459031977084L;
+    private final        File                          startDirectory;
+    private final        Set<Option>                   directoryFilter;
+    private              boolean                       accepted;
+    private final        TreeModelAllSystemDirectories model;
 
     public enum Option {
 

@@ -34,10 +34,11 @@ import java.io.Serializable;
 public final class HierarchicalKeyword
         implements Comparable<HierarchicalKeyword>, Serializable {
 
-    private Long id;
-    private Long idParent;
-    private String keyword;
-    private Boolean real = true;
+    private static final long    serialVersionUID = -8175948472921889128L;
+    private              Long    id;
+    private              Long    idParent;
+    private              String  keyword;
+    private              Boolean real             = true;
 
     /**
      * Creates a new instance of this class.

@@ -35,12 +35,13 @@ import javax.swing.KeyStroke;
  */
 public final class PopupMenuSavedSearches extends JPopupMenu {
 
-    private final        JMenuItem              itemDelete   = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"), AppLookAndFeel.getIcon("icon_remove.png"));
-    private final        JMenuItem              itemEdit     = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit")  , AppLookAndFeel.getIcon("icon_edit.png"));
-    private final        JMenuItem              itemCreate   = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New")   , AppLookAndFeel.getIcon("icon_add.png"));
-    private final        JMenuItem              itemRename   = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"), AppLookAndFeel.getIcon("icon_rename.png"));
+    private static final long                   serialVersionUID = 3540766100829834971L;
+    private final        JMenuItem              itemDelete       = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"), AppLookAndFeel.getIcon("icon_remove.png"));
+    private final        JMenuItem              itemEdit         = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit")  , AppLookAndFeel.getIcon("icon_edit.png"));
+    private final        JMenuItem              itemCreate       = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New")   , AppLookAndFeel.getIcon("icon_add.png"));
+    private final        JMenuItem              itemRename       = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"), AppLookAndFeel.getIcon("icon_rename.png"));
     private              SavedSearch            savedSearch;
-    public static final  PopupMenuSavedSearches INSTANCE     = new PopupMenuSavedSearches();
+    public static final  PopupMenuSavedSearches INSTANCE         = new PopupMenuSavedSearches();
 
     private PopupMenuSavedSearches() {
         init();

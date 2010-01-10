@@ -77,17 +77,18 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public final class AppPanel extends javax.swing.JPanel implements AppExitListener {
 
-    private static final String      KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain";
-    private static final String      KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails";
-    private static final String      KEY_KEYWORDS_VIEW                   = "AppPanel.KeywordsView";
-    private static final int         DEFAULT_DIVIDER_LOCATION_MAIN       = 100;
-    private static final int         DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
-    private final List<JTable>       xmpTables                           = new ArrayList<JTable>();
-    private final List<JTable>       metadataTables                      = new ArrayList<JTable>();
-    private final List<JTree>        selectionTrees                      = new ArrayList<JTree>();
-    private final List<JList>        selectionLists                      = new ArrayList<JList>();
-    private EditMetadataPanelsArray  editPanelsArray;
-    private EditMetadataActionsPanel editActionsPanel;
+    private static final String                   KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain";
+    private static final String                   KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails";
+    private static final String                   KEY_KEYWORDS_VIEW                   = "AppPanel.KeywordsView";
+    private static final int                      DEFAULT_DIVIDER_LOCATION_MAIN       = 100;
+    private static final int                      DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
+    private static final long                     serialVersionUID                    = -7555272441595172631L;
+    private final        List<JTable>             xmpTables                           = new ArrayList<JTable>();
+    private final        List<JTable>             metadataTables                      = new ArrayList<JTable>();
+    private final        List<JTree>              selectionTrees                      = new ArrayList<JTree>();
+    private final        List<JList>              selectionLists                      = new ArrayList<JList>();
+    private              EditMetadataPanelsArray  editPanelsArray;
+    private              EditMetadataActionsPanel editActionsPanel;
 
     public AppPanel() {
         GUI.INSTANCE.setAppPanel(this);
@@ -569,6 +570,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         }
     }
 
+    @SuppressWarnings("serial")
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

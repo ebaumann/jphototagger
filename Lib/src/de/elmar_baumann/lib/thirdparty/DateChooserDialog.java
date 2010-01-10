@@ -95,18 +95,19 @@ import javax.swing.JPanel;
  */
 public final class DateChooserDialog extends JComponent {
 
-    private final String[] dayStr;
-    private final String[] monthStr;
-    private final JButton previousButton,  nextButton;
-    private final JLabel[] dayOfWeekLabels = new JLabel[7];
-    private final JLabel[] dayOfMonthLabels = new JLabel[42];
-    private final JLabel monthYearLabel;
-    private final Locale locale;
-    private GregorianCalendar gc;
-    private int thisYear,  thisMonth,  today;
-    private int selectedDay;
-    private static JDialog dialog;
-    private static GregorianCalendar retcod;
+    private static final long              serialVersionUID = 6639100896711582088L;
+    private final        String[]          dayStr;
+    private final        String[]          monthStr;
+    private final        JButton           previousButton,  nextButton;
+    private final        JLabel[]          dayOfWeekLabels   = new JLabel[7];
+    private final        JLabel[]          dayOfMonthLabels  = new JLabel[42];
+    private final        JLabel            monthYearLabel;
+    private final        Locale            locale;
+    private              GregorianCalendar gc;
+    private              int               thisYear,  thisMonth,  today;
+    private              int               selectedDay;
+    private static       JDialog           dialog;
+    private static       GregorianCalendar retcod;
 
     private DateChooserDialog() {
         this(new GregorianCalendar(), Locale.getDefault());

@@ -55,6 +55,7 @@ public final class CopyToDirectoryDialog
 
     private static final String                        KEY_LAST_DIRECTORY        = "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory";
     private static final String                        KEY_COPY_XMP              = "CopyToDirectoryDialog.CopyXmp";
+    private static final long                          serialVersionUID          = 2401347394410721552L;
     private final        Set<ProgressListener>         progressListeners         = Collections.synchronizedSet(new HashSet<ProgressListener>());
     private final        Set<FileSystemActionListener> fileSystemActionListeners = Collections.synchronizedSet(new HashSet<FileSystemActionListener>());
     private              CopyFiles                     copyTask;

@@ -32,6 +32,8 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelAutoscanDirectories extends DefaultListModel {
 
+    private static final long serialVersionUID = 5568827666022563702L;
+
     public ListModelAutoscanDirectories() {
         addElements();
     }

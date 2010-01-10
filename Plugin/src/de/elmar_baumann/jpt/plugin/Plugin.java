@@ -44,12 +44,12 @@ import javax.swing.JProgressBar;
  */
 public abstract class Plugin extends AbstractAction {
 
-    private Logger logger;
-    private Properties properties;
-    private JProgressBar progressBar;
-    private final List<File> files = new ArrayList<File>();
-    private final Set<PluginListener> pluginListeners =
-            Collections.synchronizedSet(new HashSet<PluginListener>());
+    private static final long                serialVersionUID = -7687802754449125574L;
+    private              Logger              logger;
+    private              Properties          properties;
+    private              JProgressBar        progressBar;
+    private final        List<File>          files = new ArrayList<File>();
+    private final        Set<PluginListener> pluginListeners = Collections.synchronizedSet(new HashSet<PluginListener>());
 
     protected Plugin() {
         putValues();

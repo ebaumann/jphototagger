@@ -78,12 +78,8 @@ public final class TransferUtil {
 
         for (int i = 0; i < values.length; i++) {
             Object val = values[i];
-            sb.append(val == null
-                          ? ""
-                          : val.toString());
-            sb.append(i != values.length - 1
-                          ? delimiter
-                          : "");
+            sb.append(val == null ? "" : val.toString());
+            sb.append(i != values.length - 1 ? delimiter : "");
         }
         return new StringSelection(sb.toString());
     }
@@ -110,9 +106,7 @@ public final class TransferUtil {
         for (int i = 0; i < size; i++) {
             Integer integer = integers.get(i);
             sb.append(integer.toString());
-            sb.append(i < size - 1
-                      ? delimiter
-                      : "");
+            sb.append(i < size - 1 ? delimiter : "");
         }
         return new StringSelection(sb.toString());
     }
@@ -139,9 +133,7 @@ public final class TransferUtil {
         for (int i = 0; i < size; i++) {
             String string = strings.get(i);
             sb.append(string);
-            sb.append(i < size - 1
-                          ? delimiter
-                          : "");
+            sb.append(i < size - 1 ? delimiter : "");
         }
         return new StringSelection(sb.toString());
     }
@@ -229,10 +221,11 @@ public final class TransferUtil {
 
         List<File> list = new ArrayList<File>();
         try {
-            List     files = (java.util.List) transferable.getTransferData(FILE_LIST_FLAVOR);
-            Iterator i     = files.iterator();
-            while (i.hasNext()) {
-                list.add((File) i.next());
+            @SuppressWarnings("unchecked")
+            List<File>     files = (List<File>) transferable.getTransferData(FILE_LIST_FLAVOR);
+            Iterator<File> it    = files.iterator();
+            while (it.hasNext()) {
+                list.add(it.next());
             }
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
@@ -258,10 +251,15 @@ public final class TransferUtil {
         DataFlavor[] flavors = transferable.getTransferDataFlavors();
 
         if (isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
+
             return getFilesFromJavaFileList(transferable);
+
         } else if (isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
+
             return getFilesFromUriList(transferable);
+
         } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
+
             return getFilesFromTokenString(transferable, delimiter);
         }
         return files;
@@ -285,10 +283,15 @@ public final class TransferUtil {
         final DataFlavor[] flavors = transferable.getTransferDataFlavors();
         try {
             if (isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
-                return ((java.util.List) transferable.getTransferData(FILE_LIST_FLAVOR)).size() > 0;
+
+                return ((java.util.List<?>) transferable.getTransferData(FILE_LIST_FLAVOR)).size() > 0;
+
             } else if (isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
+
                 return ((String) transferable.getTransferData(URI_LIST_FLAVOR)).startsWith("file:");
+
             } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
+
                 return new File((String) transferable.getTransferData(STRING_FLAVOR)).exists();
             }
         } catch (Exception ex) {
@@ -304,8 +307,7 @@ public final class TransferUtil {
      */
     public static boolean systemClipboardMaybeContainFiles() {
         try {
-            return maybeContainFileData(Toolkit.getDefaultToolkit().
-                    getSystemClipboard().getContents(TransferUtil.class));
+            return maybeContainFileData(Toolkit.getDefaultToolkit().getSystemClipboard().getContents(TransferUtil.class));
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, "", ex);
         }

@@ -39,13 +39,12 @@ import javax.swing.JFileChooser;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-02
  */
-public final class SettingsProgramsPanel extends javax.swing.JPanel
-        implements Persistence {
+public final class SettingsProgramsPanel extends javax.swing.JPanel implements Persistence {
 
-    private final ListModelPrograms model            = new ListModelPrograms(Type.PROGRAM);
-    private final ListenerProvider  listenerProvider = ListenerProvider.INSTANCE;
+    private static final long              serialVersionUID = 6156362511361451187L;
+    private final        ListModelPrograms model            = new ListModelPrograms(Type.PROGRAM);
+    private final        ListenerProvider  listenerProvider = ListenerProvider.INSTANCE;
 
-    /** Creates new form SettingsProgramsPanel */
     public SettingsProgramsPanel() {
         initComponents();
         setEnabled();

@@ -38,73 +38,74 @@ import javax.swing.tree.TreePath;
  */
 public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
 
-    private final        JMenuItem                     menuItemAdd                 = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionAddKeyword")         , AppLookAndFeel.getIcon("icon_add.png"));
-    private final        JMenuItem                     menuItemAddToEditPanel      = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionAddToEditPanel")     , AppLookAndFeel.getIcon("icon_edit.png"));
-    private final        JMenuItem                     menuItemRemove              = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveKeyword")      , AppLookAndFeel.getIcon("icon_remove.png"));
-    private final        JMenuItem                     menuItemRename              = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRenameKeyword")      , AppLookAndFeel.getIcon("icon_rename.png"));
-    private final        JMenuItem                     menuItemToggleReal          = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionToggleReal")         , AppLookAndFeel.getIcon("icon_keyword_real_helper.png"));
-    private final        JMenuItem                     menuItemRemoveFromEditPanel = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveFromEditPanel"), AppLookAndFeel.getIcon("icon_delete.png"));
-    private final        JMenuItem                     menuItemCopy                = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionCopy")               , AppLookAndFeel.getIcon("icon_copy_to_clipboard.png"));
-    private final        JMenuItem                     menuItemCut                 = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionCut")                , AppLookAndFeel.getIcon("icon_cut_to_clipboard.png"));
-    private final        JMenuItem                     menuItemPaste               = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionPaste")              , AppLookAndFeel.getIcon("icon_paste_from_clipboard.png"));
-    private final        JMenuItem                     menuItemDisplayImages       = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImages")      , AppLookAndFeel.getIcon("icon_thumbnails.png"));
-    private final        JMenuItem                     menuItemDisplayImagesKw     = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImagesKw")    , AppLookAndFeel.getIcon("icon_thumbnails.png"));
-    private final        JMenuItem                     menuItemExpandAllSubitems   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final        JMenuItem                     menuItemCollapseAllSubitems = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private static final long                          serialVersionUID        = 2140903704744267916L;
+    private final        JMenuItem                     itemAdd                 = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionAddKeyword")         , AppLookAndFeel.getIcon("icon_add.png"));
+    private final        JMenuItem                     itemAddToEditPanel      = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionAddToEditPanel")     , AppLookAndFeel.getIcon("icon_edit.png"));
+    private final        JMenuItem                     itemRemove              = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveKeyword")      , AppLookAndFeel.getIcon("icon_remove.png"));
+    private final        JMenuItem                     itemRename              = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRenameKeyword")      , AppLookAndFeel.getIcon("icon_rename.png"));
+    private final        JMenuItem                     itemToggleReal          = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionToggleReal")         , AppLookAndFeel.getIcon("icon_keyword_real_helper.png"));
+    private final        JMenuItem                     itemRemoveFromEditPanel = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionRemoveFromEditPanel"), AppLookAndFeel.getIcon("icon_delete.png"));
+    private final        JMenuItem                     itemCopy                = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionCopy")               , AppLookAndFeel.getIcon("icon_copy_to_clipboard.png"));
+    private final        JMenuItem                     itemCut                 = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionCut")                , AppLookAndFeel.getIcon("icon_cut_to_clipboard.png"));
+    private final        JMenuItem                     itemPaste               = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionPaste")              , AppLookAndFeel.getIcon("icon_paste_from_clipboard.png"));
+    private final        JMenuItem                     itemDisplayImages       = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImages")      , AppLookAndFeel.getIcon("icon_thumbnails.png"));
+    private final        JMenuItem                     itemDisplayImagesKw     = new JMenuItem(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.ActionDisplayImagesKw")    , AppLookAndFeel.getIcon("icon_thumbnails.png"));
+    private final        JMenuItem                     itemExpandAllSubitems   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final        JMenuItem                     itemCollapseAllSubitems = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
     private              JTree                         tree;
     private              TreePath                      path;
-    public static final  PopupMenuHierarchicalKeywords INSTANCE                    = new PopupMenuHierarchicalKeywords();
+    public static final  PopupMenuHierarchicalKeywords INSTANCE                = new PopupMenuHierarchicalKeywords();
 
-    public JMenuItem getMenuItemAdd() {
-        return menuItemAdd;
+    public JMenuItem getItemAdd() {
+        return itemAdd;
     }
 
-    public JMenuItem getMenuItemRemove() {
-        return menuItemRemove;
+    public JMenuItem getItemRemove() {
+        return itemRemove;
     }
 
-    public JMenuItem getMenuItemRename() {
-        return menuItemRename;
+    public JMenuItem getItemRename() {
+        return itemRename;
     }
 
-    public JMenuItem getMenuItemToggleReal() {
-        return menuItemToggleReal;
+    public JMenuItem getItemToggleReal() {
+        return itemToggleReal;
     }
 
-    public JMenuItem getMenuItemAddToEditPanel() {
-        return menuItemAddToEditPanel;
+    public JMenuItem getItemAddToEditPanel() {
+        return itemAddToEditPanel;
     }
 
-    public JMenuItem getMenuItemRemoveFromEditPanel() {
-        return menuItemRemoveFromEditPanel;
+    public JMenuItem getItemRemoveFromEditPanel() {
+        return itemRemoveFromEditPanel;
     }
 
-    public JMenuItem getMenuItemCut() {
-        return menuItemCut;
+    public JMenuItem getItemCut() {
+        return itemCut;
     }
 
-    public JMenuItem getMenuItemCopy() {
-        return menuItemCopy;
+    public JMenuItem getItemCopy() {
+        return itemCopy;
     }
 
-    public JMenuItem getMenuItemPaste() {
-        return menuItemPaste;
+    public JMenuItem getItemPaste() {
+        return itemPaste;
     }
 
-    public JMenuItem getMenuItemDisplayImages() {
-        return menuItemDisplayImages;
+    public JMenuItem getItemDisplayImages() {
+        return itemDisplayImages;
     }
 
-    public JMenuItem getMenuItemDisplayImagesKw() {
-        return menuItemDisplayImagesKw;
+    public JMenuItem getItemDisplayImagesKw() {
+        return itemDisplayImagesKw;
     }
 
-    public JMenuItem getMenuItemCollapseAllSubitems() {
-        return menuItemCollapseAllSubitems;
+    public JMenuItem getItemCollapseAllSubitems() {
+        return itemCollapseAllSubitems;
     }
 
-    public JMenuItem getMenuItemExpandAllSubitems() {
-        return menuItemExpandAllSubitems;
+    public JMenuItem getItemExpandAllSubitems() {
+        return itemExpandAllSubitems;
     }
 
     private PopupMenuHierarchicalKeywords() {
@@ -117,14 +118,6 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
 
     public TreePath getTreePath() {
         return path;
-    }
-
-    public TreePath getPath() {
-        return path;
-    }
-
-    public void setPath(TreePath path) {
-        this.path = path;
     }
 
     public JTree getTree() {
@@ -141,40 +134,40 @@ public final class PopupMenuHierarchicalKeywords extends JPopupMenu {
     }
 
     private void addItems() {
-        add(menuItemAddToEditPanel);
-        add(menuItemRemoveFromEditPanel);
+        add(itemAddToEditPanel);
+        add(itemRemoveFromEditPanel);
 
         JMenu menuEdit = new JMenu(Bundle.getString("PopupMenuHierarchicalKeywords.DisplayName.MenuEdit"));
-        menuEdit.add(menuItemAdd);
-        menuEdit.add(menuItemRemove);
-        menuEdit.add(menuItemRename);
-        menuEdit.add(menuItemToggleReal);
+        menuEdit.add(itemAdd);
+        menuEdit.add(itemRemove);
+        menuEdit.add(itemRename);
+        menuEdit.add(itemToggleReal);
         menuEdit.addSeparator();
-        menuEdit.add(menuItemCopy);
-        menuEdit.add(menuItemCut);
-        menuEdit.add(menuItemPaste);
+        menuEdit.add(itemCopy);
+        menuEdit.add(itemCut);
+        menuEdit.add(itemPaste);
 
         addSeparator();
         add(menuEdit);
 
         addSeparator();
-        add(menuItemExpandAllSubitems);
-        add(menuItemCollapseAllSubitems);
+        add(itemExpandAllSubitems);
+        add(itemCollapseAllSubitems);
 
         addSeparator();
-        add(menuItemDisplayImages);
-        add(menuItemDisplayImagesKw);
+        add(itemDisplayImages);
+        add(itemDisplayImagesKw);
     }
 
     private void setAccelerators() {
-        menuItemAdd                .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-        menuItemRemove             .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        menuItemRename             .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        menuItemToggleReal         .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
-        menuItemAddToEditPanel     .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_MASK));
-        menuItemRemoveFromEditPanel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
-        menuItemCopy               .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
-        menuItemCut                .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
-        menuItemPaste              .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK));
+        itemAdd                .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        itemRemove             .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemRename             .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemToggleReal         .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
+        itemAddToEditPanel     .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_MASK));
+        itemRemoveFromEditPanel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
+        itemCopy               .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
+        itemCut                .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
+        itemPaste              .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK));
     }
 }

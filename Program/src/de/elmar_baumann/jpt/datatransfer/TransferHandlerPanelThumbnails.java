@@ -58,6 +58,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class TransferHandlerPanelThumbnails extends TransferHandler {
 
+    private static final long serialVersionUID = 1831860682951562565L;
+
     @Override
     public boolean canImport(TransferSupport transferSupport) {
 

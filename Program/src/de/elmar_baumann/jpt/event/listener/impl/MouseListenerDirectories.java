@@ -38,8 +38,8 @@ public final class MouseListenerDirectories extends MouseListenerTree {
     private final PopupMenuDirectories popupMenu = PopupMenuDirectories.INSTANCE;
 
     public MouseListenerDirectories() {
-        listenExpandAllSubItems  (popupMenu.getMenuItemExpandAllSubitems()  , true);
-        listenCollapseAllSubItems(popupMenu.getMenuItemCollapseAllSubitems(), true);
+        listenExpandAllSubItems  (popupMenu.getItemExpandAllSubitems()  , true);
+        listenCollapseAllSubItems(popupMenu.getItemCollapseAllSubitems(), true);
     }
 
     @Override

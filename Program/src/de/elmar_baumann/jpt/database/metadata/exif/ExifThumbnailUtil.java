@@ -18,10 +18,8 @@
  */
 package de.elmar_baumann.jpt.database.metadata.exif;
 
-import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

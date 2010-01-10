@@ -42,8 +42,9 @@ public final class TreeCellRendererHierarchicalKeywords extends DefaultTreeCellR
     private static final Icon         ICON_REAL             = AppLookAndFeel.getIcon("icon_keyword.png");
     private static final Icon         ICON_REAL_HIGHLIGHTED = AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
     private static final Icon         ICON_HELPER           = AppLookAndFeel.getIcon("icon_folder.png");
-    private final        List<String> highLightKeywords              = new ArrayList<String>();
+    private static final long         serialVersionUID      = -1948927991470364757L;
     private              int          popupHighLightRow     = -1;
+    private final        List<String> highLightKeywords     = new ArrayList<String>();
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {

@@ -48,6 +48,7 @@ import java.text.Collator;
  * @author John O'Conner
  */
 public class SortedListModel extends AbstractListModel {
+    private static final long serialVersionUID = -8750012792310410918L;
 
     private SortedListModel() {}
 
@@ -82,7 +83,7 @@ public class SortedListModel extends AbstractListModel {
      *@param comp
      *
      */
-    public SortedListModel(ListModel model, SortOrder sortOrder, Comparator comp) {
+    public SortedListModel(ListModel model, SortOrder sortOrder, Comparator<Object> comp) {
         unsortedModel = model;
         unsortedModel.addListDataListener(new ListDataListener() {
             @Override
@@ -227,7 +228,7 @@ public class SortedListModel extends AbstractListModel {
     }
 
     @SuppressWarnings("unchecked")
-    public void setComparator(Comparator comp) {
+    public void setComparator(Comparator<Object> comp) {
         if (comp == null) {
             sortOrder = SortOrder.UNORDERED;
             comparator = Collator.getInstance();
@@ -346,7 +347,7 @@ public class SortedListModel extends AbstractListModel {
     private int findInsertionPoint(SortedListEntry entry) {
         int insertionPoint = sortedModel.size();
         if (sortOrder != SortOrder.UNORDERED)  {
-            insertionPoint = Collections.binarySearch((List)sortedModel, entry);
+            insertionPoint = Collections.binarySearch(sortedModel, entry);
             if (insertionPoint < 0) {
                 insertionPoint = -(insertionPoint +1);
             }
@@ -356,7 +357,7 @@ public class SortedListModel extends AbstractListModel {
 
     private List<SortedListEntry> sortedModel;
     private ListModel unsortedModel;
-    private Comparator comparator;
+    private Comparator<Object> comparator;
     private SortOrder sortOrder;
 
     public enum SortOrder {
@@ -365,7 +366,7 @@ public class SortedListModel extends AbstractListModel {
         DESCENDING;
     }
 
-    class SortedListEntry  implements Comparable {
+    class SortedListEntry  implements Comparable<Object> {
         private SortedListEntry() {
 
         }

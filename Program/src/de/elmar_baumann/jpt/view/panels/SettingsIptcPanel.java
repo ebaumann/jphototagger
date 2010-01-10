@@ -32,16 +32,15 @@ import de.elmar_baumann.jpt.types.Persistence;
 public final class SettingsIptcPanel extends javax.swing.JPanel
     implements Persistence {
 
-    private final ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private static final long             serialVersionUID = -1835927511615037315L;
+    private final        ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
 
-    /** Creates new form SettingsIptcPanel */
     public SettingsIptcPanel() {
         initComponents();
     }
 
     private void handleActionComboBoxIptcCharset() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-            UserSettingsChangeEvent.Type.IPTC_CHARSET, this);
+        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.IPTC_CHARSET, this);
         evt.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
         listenerProvider.notifyUserSettingsChangeListener(evt);
     }

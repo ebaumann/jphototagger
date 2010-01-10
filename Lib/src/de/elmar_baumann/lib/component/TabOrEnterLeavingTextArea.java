@@ -32,6 +32,8 @@ import javax.swing.JTextArea;
  */
 public final class TabOrEnterLeavingTextArea extends JTextArea {
 
+    private static final long serialVersionUID = -6104921627665799043L;
+
     @Override
     protected void processComponentKeyEvent(KeyEvent e) {
         if (e.getID() == KeyEvent.KEY_PRESSED && isLeave(e.getKeyCode())) {

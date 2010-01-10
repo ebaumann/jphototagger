@@ -28,16 +28,16 @@ import javax.swing.DefaultComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-public final class ComboBoxModelHierarchicalKeywordsImporters
-        extends DefaultComboBoxModel {
+public final class ComboBoxModelHierarchicalKeywordsImporters extends DefaultComboBoxModel {
+
+    private static final long serialVersionUID = 7228501230169153588L;
 
     public ComboBoxModelHierarchicalKeywordsImporters() {
         addElements();
     }
 
     private void addElements() {
-        for (HierarchicalKeywordsImporter importer :
-                HierarchicalKeywordsImporters.getAll()) {
+        for (HierarchicalKeywordsImporter importer : HierarchicalKeywordsImporters.getAll()) {
             addElement(importer);
         }
     }

@@ -129,6 +129,7 @@ public final class ListUtil {
     /**
      * Inserts an element sorted into a list model.
      *
+     * @param <T>
      * @param model      model
      * @param o          object to insert
      * @param c          comparator
@@ -136,15 +137,10 @@ public final class ListUtil {
      * @param endIndex   end index. List items behind ignored.
      */
     @SuppressWarnings("unchecked")
-    static public void insertSorted(
-            DefaultListModel model, Object o, Comparator c, int startIndex,
-            int endIndex) {
-        if (model == null)
-            throw new NullPointerException("model == null");
-        if (o == null)
-            throw new NullPointerException("o == null");
-        if (c == null)
-            throw new NullPointerException("c == null");
+    static public <T> void  insertSorted(DefaultListModel model, T o, Comparator<T> c, int startIndex, int endIndex) {
+        if (model == null) throw new NullPointerException("model == null");
+        if (o == null)     throw new NullPointerException("o == null");
+        if (c == null)     throw new NullPointerException("c == null");
 
         synchronized (model) {
             if (!model.contains(o)) {
@@ -152,7 +148,7 @@ public final class ListUtil {
                 boolean inserted = false;
                 for (int i = startIndex; !inserted && i <= endIndex && i < size;
                         i++) {
-                    if (c.compare(o, model.get(i)) < 0) {
+                    if (c.compare(o, (T) model.get(i)) < 0) {
                         model.add(i, o);
                         inserted = true;
                     }

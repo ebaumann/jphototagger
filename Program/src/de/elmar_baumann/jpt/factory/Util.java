@@ -35,7 +35,7 @@ final class Util {
      * @param  c    Factory class
      * @param  init true if the factory is already initialized
      */
-    static void checkInit(Class c, boolean init) {
+    static void checkInit(Class<?> c, boolean init) {
         if (init) {
             AppLog.logWarning(Util.class,
                     "Util.Error.InitCalledMoreThanOneTimes",

@@ -55,11 +55,12 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public final class AppFrame extends javax.swing.JFrame {
 
-    private final Map<Comparator<File>, JRadioButtonMenuItem> menuItemOfSortCmp = new HashMap<Comparator<File>, JRadioButtonMenuItem>();
-    private final Map<JRadioButtonMenuItem, Comparator<File>> sortCmpOfMenuItem = new HashMap<JRadioButtonMenuItem, Comparator<File>>();
-    private final Map<GoTo, JMenuItem>                        menuItemOfGoto    = new HashMap<GoTo, JMenuItem>();
-    private final Map<JMenuItem, GoTo>                        gotoOfMenuItem    = new HashMap<JMenuItem, GoTo>();
-    private AppPanel                                          appPanel;
+    private static final long                                        serialVersionUID  = -7374684230320795331L;
+    private final        Map<Comparator<File>, JRadioButtonMenuItem> menuItemOfSortCmp = new HashMap<Comparator<File>, JRadioButtonMenuItem>();
+    private final        Map<JRadioButtonMenuItem, Comparator<File>> sortCmpOfMenuItem = new HashMap<JRadioButtonMenuItem, Comparator<File>>();
+    private final        Map<GoTo, JMenuItem>                        menuItemOfGoto    = new HashMap<GoTo, JMenuItem>();
+    private final        Map<JMenuItem, GoTo>                        gotoOfMenuItem    = new HashMap<JMenuItem, GoTo>();
+    private              AppPanel                                    appPanel;
 
     private void initSortMenuItemsMap() {
         menuItemOfSortCmp.put(FileSort.PATHS_ASCENDING.getComparator()         , radioButtonMenuItemSortFilepathAscending);

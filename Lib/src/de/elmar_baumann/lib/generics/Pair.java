@@ -87,9 +87,9 @@ public class Pair<A, B> {
      */
     @Override
     public boolean equals(Object o) {
-        return o instanceof Pair &&
-            equals(first, ((Pair) o).first) &&
-            equals(second, ((Pair) o).second);
+        return o instanceof Pair<?, ?> &&
+                 equals(first , ((Pair<?, ?>) o).first) &&
+                 equals(second, ((Pair<?, ?>) o).second);
     }
 
     @Override

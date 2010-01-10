@@ -28,7 +28,8 @@ import javax.swing.JComboBox;
  */
 public final class EditMetadataActionsPanel extends javax.swing.JPanel {
 
-    /** Creates new form EditMetadataActionsPanel */
+    private static final long serialVersionUID = -8123589850440517504L;
+
     public EditMetadataActionsPanel() {
         initComponents();
         setTemplateName();

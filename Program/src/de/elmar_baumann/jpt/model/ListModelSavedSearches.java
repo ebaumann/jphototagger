@@ -33,6 +33,8 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelSavedSearches extends DefaultListModel {
 
+    private static final long serialVersionUID = 1979666986802551310L;
+
     public ListModelSavedSearches() {
         addElements();
     }

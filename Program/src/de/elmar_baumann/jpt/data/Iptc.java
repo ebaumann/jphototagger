@@ -414,12 +414,12 @@ public final class Iptc {
     @SuppressWarnings("unchecked")
     public Object getValue(IPTCEntryMeta iptcEntry) {
         Object value = valueOfEntryMeta.get(iptcEntry);
-        assert value == null || value instanceof List || value instanceof String :
+        assert value == null || value instanceof List<?> || value instanceof String :
                 "Neither List nor String: " + value;
         return value == null
                ? null
-               : value instanceof List
-                 ? new ArrayList<String>((List) value)
+               : value instanceof List<?>
+                 ? new ArrayList<String>((List<String>) value)
                  : value instanceof String
                    ? value
                    : null;
@@ -451,8 +451,8 @@ public final class Iptc {
             if (o instanceof String) {
                 String string = (String) o;
                 if (!string.trim().isEmpty()) return false;
-            } else if (o instanceof List) {
-                List list = (List) o;
+            } else if (o instanceof List<?>) {
+                List<?> list = (List<?>) o;
                 if (!list.isEmpty()) return false;
                 // zuletzt, da leere Liste != null ist, aber trotzdem ein leeres Element
             } else if (o != null) {
@@ -472,7 +472,7 @@ public final class Iptc {
     @SuppressWarnings("unchecked")
     private List<String> stringListOf(IPTCEntryMeta meta) {
         Object o = valueOfEntryMeta.get(meta);
-        return o instanceof List
+        return o instanceof List<?>
                ? (List<String>) o
                : null;
     }

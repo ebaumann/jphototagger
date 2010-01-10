@@ -43,6 +43,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class TransferHandlerDropList extends TransferHandler {
 
+    private static final long serialVersionUID = -3654778661471221382L;
+
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
         return  Flavors.hasKeywords            (transferSupport) ||

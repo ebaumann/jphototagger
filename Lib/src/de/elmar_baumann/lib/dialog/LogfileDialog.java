@@ -64,19 +64,17 @@ import javax.swing.text.html.HTMLDocument;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class LogfileDialog extends javax.swing.JDialog implements
-        ListSelectionListener, ActionListener {
+public final class LogfileDialog extends javax.swing.JDialog implements ListSelectionListener, ActionListener {
 
-    private static final long CRITICAL_LOGFILE_SIZE_IN_BYTES = 10 * 1024 * 1024;
-    private final Map<JCheckBox, Level> levelOfCheckBox =
-            new HashMap<JCheckBox, Level>();
-    private final Map<Class, Integer> paneIndexOfFormatterClass =
-            new HashMap<Class, Integer>();
-    private final List<Level> visibleLevels = new ArrayList<Level>();
-    private String filterString;
-    private List<LogfileRecord> logfileRecords;
-    private Class formatterClass;
-    private String logfilename;
+    private static final long                   MAX_BYTES                 = 10 * 1024 * 1024;
+    private static final long                   serialVersionUID          = 1L;
+    private final        Map<JCheckBox, Level> levelOfCheckBox            = new HashMap<JCheckBox, Level>();
+    private final        Map<Class<?>, Integer> paneIndexOfFormatterClass = new HashMap<Class<?>, Integer>();
+    private final        List<Level>            visibleLevels             = new ArrayList<Level>();
+    private              String                 filterString;
+    private              List<LogfileRecord>    logfileRecords;
+    private              Class<?>               formatterClass;
+    private              String                 logfilename;
 
     private void initPaneIndexOfLogfileType() {
         paneIndexOfFormatterClass.put(XMLFormatter.class, 0);
@@ -90,7 +88,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements
      * @param logfilename     Name der anzuzeigenden Logdatei
      * @param formatterClass  Formatierer der Logdatei
      */
-    public LogfileDialog(Frame parent, String logfilename, Class formatterClass) {
+    public LogfileDialog(Frame parent, String logfilename, Class<?> formatterClass) {
+
         super(parent, false);
         if (logfilename == null) {
             throw new NullPointerException("logfilename == null");
@@ -186,10 +185,10 @@ public final class LogfileDialog extends javax.swing.JDialog implements
                     Bundle.getString("LogfileDialog.Error.LogfileIsEmpty.Title"),
                     JOptionPane.ERROR_MESSAGE);
             return false;
-        } else if (logfileBytes >= CRITICAL_LOGFILE_SIZE_IN_BYTES) {
+        } else if (logfileBytes >= MAX_BYTES) {
             JOptionPane.showMessageDialog(
                     this,
-                    Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded", Math.round(logfileBytes / CRITICAL_LOGFILE_SIZE_IN_BYTES)),
+                    Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded", Math.round(logfileBytes / MAX_BYTES)),
                     Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded.Title"),
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -399,8 +398,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements
     }
 
     private void selectPane() {
-        Set<Class> classes = paneIndexOfFormatterClass.keySet();
-        for (Class c : classes) {
+        Set<Class<?>> classes = paneIndexOfFormatterClass.keySet();
+        for (Class<?> c : classes) {
             int panelIndex = paneIndexOfFormatterClass.get(c);
             boolean isCurrentFormatter = c.equals(formatterClass);
             if (isCurrentFormatter) {

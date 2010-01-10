@@ -28,8 +28,9 @@ import javax.swing.DefaultComboBoxModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-public final class ComboBoxModelHierarchicalKeywordsExporters
-        extends DefaultComboBoxModel {
+public final class ComboBoxModelHierarchicalKeywordsExporters extends DefaultComboBoxModel {
+
+    private static final long serialVersionUID = 9136865883087790779L;
 
     public ComboBoxModelHierarchicalKeywordsExporters() {
         addElements();

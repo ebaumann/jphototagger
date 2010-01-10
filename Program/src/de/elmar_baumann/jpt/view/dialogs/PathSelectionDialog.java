@@ -43,10 +43,11 @@ import javax.swing.event.ListSelectionListener;
  */
 public class PathSelectionDialog extends Dialog implements ListSelectionListener {
 
-    private boolean accepted;
-    private final Collection<Collection<String>> paths;
-    private Collection<Collection<String>> selPaths;
-    private final Mode mode;
+    private static final long                           serialVersionUID = -5988292432590183296L;
+    private              boolean                        accepted;
+    private final        Collection<Collection<String>> paths;
+    private              Collection<Collection<String>> selPaths;
+    private final        Mode                           mode;
 
     public enum Mode {
 
@@ -123,12 +124,11 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         List<Collection<String>> sel = new ArrayList<Collection<String>>();
         Object[] selValues = list.getSelectedValues();
         for (Object selValue : selValues) {
-            if (selValue instanceof Collection) {
-                Collection collection = (Collection) selValue;
+            if (selValue instanceof Collection<?>) {
+                Collection<String> collection = (Collection<String>) selValue;
                 sel.add(collection);
             } else if (selValue instanceof String) {
-                Collection<String> collection =
-                        Collections.singletonList((String) selValue);
+                Collection<String> collection = Collections.singletonList((String) selValue);
                 sel.add(collection);
             }
         }
@@ -145,6 +145,8 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
     private class Model extends DefaultListModel {
 
+        private static final long serialVersionUID = 7783311389163592108L;
+
         public Model() {
             if (mode.equals(Mode.DISTINCT_ELEMENTS)) {
                 addDistinctElements();
@@ -154,7 +156,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         }
 
         private void addPaths() {
-            for (Collection path : paths) {
+            for (Collection<?> path : paths) {
                 addElement(path);
             }
         }
@@ -170,6 +172,8 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
     private class Renderer extends DefaultListCellRenderer {
 
+        private static final long serialVersionUID = -3753515545397949621L;
+
         private final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
 
         @Override
@@ -177,7 +181,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
                 int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(
                     list, value, index, isSelected, cellHasFocus);
-            if (value instanceof Collection) {
+            if (value instanceof Collection<?>) {
                 renderCollection(value, label);
             } else if (value instanceof String) {
                 String padding = "  ";
@@ -188,7 +192,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         }
 
         private void renderCollection(Object value, JLabel label) {
-            Collection collection = (Collection) value;
+            Collection<? extends Object> collection = (Collection<? extends Object>) value;
             StringBuilder sb = new StringBuilder();
             String pathDelim = " > ";
             int i = 0;

@@ -157,8 +157,8 @@ public final class ControllerAutocopyDirectory implements ActionListener {
         @Override
         public void progressPerformed(ProgressEvent evt) {
             Object o = evt.getInfo();
-            if (o instanceof Pair) {
-                Pair pair = (Pair) o;
+            if (o instanceof Pair<?, ?>) {
+                Pair<?, ?> pair = (Pair<?, ?>) o;
                 Object fo = pair.getSecond();
                 if (fo instanceof File) {
                     File file = (File) fo;

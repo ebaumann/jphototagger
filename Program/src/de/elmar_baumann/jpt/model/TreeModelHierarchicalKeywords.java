@@ -42,8 +42,9 @@ import javax.swing.tree.TreeNode;
  */
 public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
-    private final DefaultMutableTreeNode       ROOT;
-    private final DatabaseHierarchicalKeywords db  = DatabaseHierarchicalKeywords.INSTANCE;
+    private static final long                         serialVersionUID = -1044898256327030256L;
+    private final        DefaultMutableTreeNode       ROOT;
+    private final        DatabaseHierarchicalKeywords db               = DatabaseHierarchicalKeywords.INSTANCE;
 
     public TreeModelHierarchicalKeywords() {
         super(new TreeNodeSortedChildren(Bundle.getString("TreeModelHierarchicalKeywords.DisplayName.Root")));
@@ -61,9 +62,9 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
      */
     public DefaultMutableTreeNode findChildByName(DefaultMutableTreeNode parent, String name) {
 
-        for (Enumeration e = parent.children(); e.hasMoreElements();) {
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> e = parent.children(); e.hasMoreElements();) {
 
-            DefaultMutableTreeNode child      = (DefaultMutableTreeNode) e.nextElement();
+            DefaultMutableTreeNode child      = e.nextElement();
             Object                 userObject = child.getUserObject();
 
             if (userObject instanceof HierarchicalKeyword) {
@@ -122,8 +123,8 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode target
             ) {
         DefaultMutableTreeNode newTarget = deepCopy(source, target);
-        for (Enumeration e = source.children(); e.hasMoreElements(); ) {
-            cpySubtree((DefaultMutableTreeNode) e.nextElement(), newTarget); // Recursive
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> e = source.children(); e.hasMoreElements(); ) {
+            cpySubtree(e.nextElement(), newTarget); // Recursive
         }
     }
 
@@ -172,7 +173,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     }
 
     private boolean childHasKeyword(DefaultMutableTreeNode parentNode, String keyword) {
-        for (Enumeration children = parentNode.children(); children.hasMoreElements();) {
+        for (Enumeration<?> children = parentNode.children(); children.hasMoreElements();) {
             Object o = children.nextElement();
             if (o instanceof DefaultMutableTreeNode) {
                 Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
@@ -194,7 +195,7 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
 
         assert o instanceof HierarchicalKeyword : "Not a HierarchicalKeyword: " + o;
 
-        for (Enumeration e = keywordNode.preorderEnumeration(); e.hasMoreElements();) {
+        for (Enumeration<?> e = keywordNode.preorderEnumeration(); e.hasMoreElements();) {
             Object el = e.nextElement(); assert el instanceof DefaultMutableTreeNode : el;
             if (el instanceof DefaultMutableTreeNode) {
                 Object userObject = ((DefaultMutableTreeNode) el).getUserObject();
@@ -307,8 +308,9 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
     public synchronized void setAllRenamed(String oldName, String newName) {
         assert !newName.equalsIgnoreCase(oldName) : oldName;
         if (db.updateRenameAll(oldName, newName) > 0) {
-            for (Enumeration e = ROOT.depthFirstEnumeration(); e.hasMoreElements(); ) {
-                DefaultMutableTreeNode node       = (DefaultMutableTreeNode) e.nextElement();
+            for (@SuppressWarnings("unchecked")
+Enumeration<DefaultMutableTreeNode> e = ROOT.depthFirstEnumeration(); e.hasMoreElements(); ) {
+                DefaultMutableTreeNode node       = e.nextElement();
                 Object                 userObject = node.getUserObject();
 
                 if (userObject instanceof HierarchicalKeyword) {
@@ -329,8 +331,8 @@ public final class TreeModelHierarchicalKeywords extends DefaultTreeModel {
      * @param name keyword name.
      */
     public synchronized void removeRootItemWithoutChildren(String name) {
-        for (Enumeration e = ROOT.children(); e.hasMoreElements(); ) {
-            DefaultMutableTreeNode node       = (DefaultMutableTreeNode) e.nextElement();
+        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> e = ROOT.children(); e.hasMoreElements(); ) {
+            DefaultMutableTreeNode node       = e.nextElement();
             Object                 userObject = node.getUserObject();
 
             if (node.getChildCount() <= 0 && userObject instanceof HierarchicalKeyword) {

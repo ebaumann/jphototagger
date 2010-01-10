@@ -71,6 +71,7 @@ public class ListAdaptor extends AbstractAutoCompleteAdaptor implements ListSele
      * @param listSelectionEvent -
      */
     // ListSelectionListener (listening to list)
+    @Override
     public void valueChanged(javax.swing.event.ListSelectionEvent listSelectionEvent) {
         // set the text to the currently selected item
         getTextComponent().setText(stringConverter.getPreferredStringForItem(list.getSelectedValue()));
@@ -78,22 +79,27 @@ public class ListAdaptor extends AbstractAutoCompleteAdaptor implements ListSele
         markEntireText();
     }
 
+    @Override
     public Object getSelectedItem() {
         return list.getSelectedValue();
     }
 
+    @Override
     public int getItemCount() {
         return list.getModel().getSize();
     }
 
+    @Override
     public Object getItem(int index) {
         return list.getModel().getElementAt(index);
     }
 
+    @Override
     public void setSelectedItem(Object item) {
         list.setSelectedValue(item, true);
     }
 
+    @Override
     public JTextComponent getTextComponent() {
         return textComponent;
     }

@@ -499,9 +499,9 @@ public final class Xmp implements TextEntryListener {
                 list.add(newText);
                 valueOfColumn.put(column, list);
             }
-            assert o instanceof List : "Not a List: " + o;
-            if (o instanceof List) {
-                List list = (List) o;
+            assert o instanceof List<?> : "Not a List: " + o;
+            if (o instanceof List<?>) {
+                List<String> list = (List<String>) o;
                 int index = list.indexOf(oldText);
                 if (index >= 0) {
                     list.set(index, newText);
@@ -560,7 +560,7 @@ public final class Xmp implements TextEntryListener {
                         iptcString = formatIptcDate(xmpColumn, iptcString);
                         setValue(xmpColumn, iptcString);
                     }
-                } else if (iptcValue instanceof List) {
+                } else if (iptcValue instanceof List<?>) {
                     @SuppressWarnings("unchecked")
                     List<String> array = (List<String>) iptcValue;
                     if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
@@ -607,9 +607,9 @@ public final class Xmp implements TextEntryListener {
     @SuppressWarnings("unchecked")
     public Object getValue(Column xmpColumn) {
         Object o = valueOfColumn.get(xmpColumn);
-        assert o == null || o instanceof List || o instanceof String || o instanceof Long : "Neither List nor String nor Long: " + o;
-        return o instanceof List
-               ? new ArrayList<String>((List) o)
+        assert o == null || o instanceof List<?> || o instanceof String || o instanceof Long : "Neither List nor String nor Long: " + o;
+        return o instanceof List<?>
+               ? new ArrayList<String>((List<String>) o)
                : o instanceof String || o instanceof Long
                  ? o
                  : null;
@@ -641,8 +641,8 @@ public final class Xmp implements TextEntryListener {
     public void removeValue(Column xmpColumn, String value) {
         Object o = valueOfColumn.get(xmpColumn);
         boolean remove = true;
-        if (o instanceof List) {
-            List list = (List) o;
+        if (o instanceof List<?>) {
+            List<String> list = (List<String>) o;
             list.remove(value);
             remove = list.isEmpty();
         }
@@ -669,8 +669,8 @@ public final class Xmp implements TextEntryListener {
             if (o instanceof String) {
                 String string = (String) o;
                 if (!string.trim().isEmpty()) return false;
-            } else if (o instanceof List) {
-                List list = (List) o;
+            } else if (o instanceof List<?>) {
+                List<?> list = (List<?>) o;
                 if (!list.isEmpty()) return false;
             } else if (o != null) { // last position, empty list can be != null but empty
                 return false;
@@ -696,8 +696,8 @@ public final class Xmp implements TextEntryListener {
     @SuppressWarnings("unchecked")
     private List<String> stringListReferenceOf(Column column) {
         Object o = valueOfColumn.get(column);
-        return o instanceof List
-               ? (List) o
+        return o instanceof List<?>
+               ? (List<String>) o
                : null;
     }
 
@@ -727,8 +727,8 @@ public final class Xmp implements TextEntryListener {
             Object o = xmp.valueOfColumn.get(column);
             if (isImmutable(o)) {
                 valueOfColumn.put(column, o);
-            } else if (o instanceof List) {
-                valueOfColumn.put(column, deepCopy((List) o));
+            } else if (o instanceof List<?>) {
+                valueOfColumn.put(column, deepCopy((List<?>) o));
             } else if (o != null) {
                 assert false : "Unregognized data type of: " + o;
             }
@@ -748,7 +748,7 @@ public final class Xmp implements TextEntryListener {
                 o instanceof String;
     }
 
-    private List<Object> deepCopy(List list) {
+    private List<Object> deepCopy(List<?> list) {
         List<Object> copy = new ArrayList<Object>(list.size());
         for (Object o : list) {
             if (isImmutable(o)) {

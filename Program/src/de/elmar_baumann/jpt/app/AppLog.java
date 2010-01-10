@@ -56,7 +56,7 @@ public final class AppLog {
      *                  described in {@link MessageFormat}
      * @param params    optional params for the message string
      */
-    public static void logFinest(Class c, String bundleKey, Object... params) {
+    public static void logFinest(Class<?> c, String bundleKey, Object... params) {
         log(c, Level.FINEST, bundleKey, params);
     }
 
@@ -70,7 +70,7 @@ public final class AppLog {
      *                  described in {@link MessageFormat}
      * @param params    optional params for the message string
      */
-    public static void logFiner(Class c, String bundleKey, Object... params) {
+    public static void logFiner(Class<?> c, String bundleKey, Object... params) {
         log(c, Level.FINER, bundleKey, params);
     }
 
@@ -84,7 +84,7 @@ public final class AppLog {
      *                  described in {@link MessageFormat}
      * @param params    optional params for the message string
      */
-    public static void logInfo(Class c, String bundleKey, Object... params) {
+    public static void logInfo(Class<?> c, String bundleKey, Object... params) {
         log(c, Level.INFO, bundleKey, params);
     }
 
@@ -98,7 +98,7 @@ public final class AppLog {
      *                  described in {@link MessageFormat}
      * @param params    optional params for the message string
      */
-    public static void logWarning(Class c, String bundleKey, Object... params) {
+    public static void logWarning(Class<?> c, String bundleKey, Object... params) {
         log(c, Level.WARNING, bundleKey, params);
         ErrorListeners.INSTANCE.notifyErrorListener(new ErrorEvent(bundleKey, c));
     }
@@ -110,14 +110,13 @@ public final class AppLog {
      * @param c   logger's class
      * @param ex  Exception
      */
-    public static void logSevere(Class c, Exception ex) {
+    public static void logSevere(Class<?> c, Exception ex) {
         Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
         ErrorListeners.INSTANCE.notifyErrorListener(
                 new ErrorEvent(ex.getMessage(), c));
     }
 
-    private static void log(
-            Class c, Level level, String bundleKey, Object... params) {
+    private static void log(Class<?> c, Level level, String bundleKey, Object... params) {
         Logger.getLogger(c.getName()).log(
                 level, Bundle.getString(bundleKey, params));
     }

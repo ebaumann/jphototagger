@@ -34,6 +34,8 @@ import java.util.List;
  */
 public class ShowFilesDialog extends Dialog {
 
+    private static final long serialVersionUID = 8190708049059659890L;
+
     public ShowFilesDialog(java.awt.Frame parent, List<File> files) {
         super(parent, true);
         initComponents();
@@ -136,7 +138,8 @@ public class ShowFilesDialog extends Dialog {
     private void setFiles(final List<File> fileList) {
         list.setModel(new javax.swing.AbstractListModel() {
 
-            private final List<File> files = fileList;
+            private static final long       serialVersionUID = -7481419481763835426L;
+            private final        List<File> files            = fileList;
 
             @Override
             public int getSize() {

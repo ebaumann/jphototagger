@@ -49,6 +49,7 @@ import javax.swing.filechooser.FileFilter;
 public final class FileEditorPanel extends javax.swing.JPanel {
 
     private static final String          KEY_DIRECTORY_NAME    = "de.elmar_baumann.jpt.view.FileEditorDialog.panels.Directory";
+    private static final long            serialVersionUID      = 1672989914070513384L;
     private              List<File>      selectedFiles         = new ArrayList<File>();
     private              List<File>      selectedDirectories   = new ArrayList<File>();
     private              File            prevSelectedDirectory = new File("");

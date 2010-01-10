@@ -35,7 +35,8 @@ import java.util.Properties;
  */
 public class SystemOutputDialog extends Dialog {
 
-    public static final SystemOutputDialog INSTANCE = new SystemOutputDialog();
+    public static final  SystemOutputDialog INSTANCE         = new SystemOutputDialog();
+    private static final long               serialVersionUID = 8736291024565598572L;
 
     public SystemOutputDialog() {
         super((java.awt.Frame)null, false);

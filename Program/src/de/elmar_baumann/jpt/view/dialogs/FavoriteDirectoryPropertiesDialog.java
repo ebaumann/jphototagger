@@ -39,16 +39,14 @@ import java.util.List;
  */
 public final class FavoriteDirectoryPropertiesDialog extends Dialog {
 
-    private static final List<Image> APP_ICONS = AppLookAndFeel.getAppIcons();
-    private static final String KEY_LAST_DIRECTORY =
-            "de.elmar_baumann.jpt.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
-    private final DatabaseFavoriteDirectories db =
-            DatabaseFavoriteDirectories.INSTANCE;
-    private String lastDirectory = "";
-    private boolean accepted = false;
-    private boolean isUpdate = false;
+    private static final List<Image>                 APP_ICONS          = AppLookAndFeel.getAppIcons();
+    private static final String                      KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
+    private static final long                        serialVersionUID   = 750583413264344283L;
+    private final        DatabaseFavoriteDirectories db                 = DatabaseFavoriteDirectories.INSTANCE;
+    private              String                      lastDirectory      = "";
+    private              boolean                     accepted           = false;
+    private              boolean                     isUpdate           = false;
 
-    /** Creates new form FavoriteDirectoryPropertiesDialog */
     public FavoriteDirectoryPropertiesDialog() {
         super((java.awt.Frame) null, true);
         initComponents();

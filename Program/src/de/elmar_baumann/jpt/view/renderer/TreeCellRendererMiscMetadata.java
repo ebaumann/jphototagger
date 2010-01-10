@@ -49,6 +49,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     private static final ImageIcon              ICON_XMP           = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_xmp.png");
     private static final ImageIcon              ICON_DETAIL        = IconUtil.getImageIcon("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata_detail.png");
     private static final Map<Column, ImageIcon> ICON_OF_COLUMN     = new HashMap<Column, ImageIcon>();
+    private static final long                   serialVersionUID   = 4497836207990199053L;
 
     static {
         for (Column exifColumn : TreeModelMiscMetadata.getExifColumns()) {
@@ -154,6 +155,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
         return "";
     }
 
+    @Override
     public void setHighlightIndexForPopup(int index) {
         popupHighLightRow = index;
     }
