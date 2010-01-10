@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.jpt.helper.CopyFiles;
+import de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator;
 import de.elmar_baumann.jpt.types.Filename;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
@@ -63,9 +64,8 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String         DOMAIN_NAME                                                   = "de.elmar_baumann"; // NEVER CHANGE!
     private static final String         KEY_ACCEPT_HIDDEN_DIRECTORIES                                 = "UserSettings.IsAcceptHiddenDirectories";
     private static final String         KEY_AUTOCOPY_DIRECTORY                                        = "UserSettings.AutocopyDirectory";
-    private static final String         KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES                           = "UserSettings.IsAutoscanIncludeSubdirectories";
     private static final String         KEY_AUTODOWNLOAD_NEWER_VERSIONS                               = "UserSettings.AutoDownloadNewerVersions";
-    private static final String         KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP                       = "UserSettings.IsCreateThumbnailsWithExternalApp";
+    private static final String         KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES                           = "UserSettings.IsAutoscanIncludeSubdirectories";
     private static final String         KEY_DATABASE_DIRECTORY_NAME                                   = "UserSettings.DatabaseDirectoryName";
     private static final String         KEY_DEFAULT_IMAGE_OPEN_APP                                    = "UserSettings.DefaultImageOpenApp";
     private static final String         KEY_DISPLAY_SEARCH_BUTTON                                     = "UserSettings.DisplaySearchButton";
@@ -82,11 +82,11 @@ public final class UserSettings implements UserSettingsChangeListener {
     private static final String         KEY_MINUTES_TO_START_SCHEDULED_TASKS                          = "UserSettings.MinutesToStartScheduledTasks";
     private static final String         KEY_OPTIONS_COPY_MOVE_FILES                                   = "UserSettings.CopyMoveFiles";
     private static final String         KEY_PDF_VIEWER                                                = "UserSettings.PdfViewer";
-    private static final String         KEY_SCAN_FOR_EMBEDDED_XMP                                     = "UserSettings.ScanForEmbeddedXmp";
-    private static final String         KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY                    = "UserSettings.TreeDirectoriesSelectLastDirectory";
-    private static final String         KEY_USE_EMBEDDED_THUMBNAILS                                   = "UserSettings.IsUseEmbeddedThumbnails";
-    private static final String         KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser";
     private static final String         KEY_SAVE_INPUT_EARLY                                          = "UserSettings.SaveInputEarly";
+    private static final String         KEY_SCAN_FOR_EMBEDDED_XMP                                     = "UserSettings.ScanForEmbeddedXmp";
+    private static final String         KEY_THUMBNAIL_CREATOR                                         = "UserSettings.ThumbnailCreator";
+    private static final String         KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY                    = "UserSettings.TreeDirectoriesSelectLastDirectory";
+    private static final String         KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser";
     private static final String         PROPERTIES_FILENAME                                           = "Settings.properties"; // NEVER CHANGE!
     private final        Properties     properties                                                    = new Properties();
     private final        PropertiesFile propertiesToFile                                              = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
@@ -232,17 +232,14 @@ public final class UserSettings implements UserSettingsChangeListener {
                           : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
-    /**
-     * Returns wheter to create thumbnails with an external application.
-     *
-     * @return true if an external application shall create the thumbnails.
-     *         Default: <code>false</code>
-     * @see    #getExternalThumbnailCreationCommand()
-     */
-    public boolean isCreateThumbnailsWithExternalApp() {
-        return properties.containsKey(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
-               ? settings.getBoolean(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
-               : false;
+    public void setThumbnailCreator(ThumbnailCreator creator) {
+        properties.put(KEY_THUMBNAIL_CREATOR, creator.name());
+    }
+
+    public ThumbnailCreator getThumbnailCreator() {
+        return properties.containsKey(KEY_THUMBNAIL_CREATOR)
+                ? ThumbnailCreator.valueOf(properties.getProperty(KEY_THUMBNAIL_CREATOR))
+                : ThumbnailCreator.JAVA_IMAGE_IO;
     }
 
     /**
@@ -359,19 +356,6 @@ public final class UserSettings implements UserSettingsChangeListener {
         return width != Integer.MIN_VALUE
                ? width
                : DEFAULT_MAX_THUMBNAIL_LENGTH;
-    }
-
-    /**
-     * Returns wheter to use in image files embedded thumbnails rather than
-     * rendering them.
-     *
-     * @return true, if when embedded thumbnails shall be used.
-     *         Default: <code>false</code>
-     */
-    public boolean isUseEmbeddedThumbnails() {
-        return properties.containsKey(KEY_USE_EMBEDDED_THUMBNAILS)
-               ? settings.getBoolean(KEY_USE_EMBEDDED_THUMBNAILS)
-               : false;
     }
 
     /**
@@ -504,7 +488,7 @@ public final class UserSettings implements UserSettingsChangeListener {
      * @return Class object of the logfile formatter.
      *         Default: {@link XMLFormatter}
      */
-    public Class getLogfileFormatterClass() {
+    public Class<?> getLogfileFormatterClass() {
         String className = settings.getString(KEY_LOGFILE_FORMATTER_CLASS);
         try {
             return Class.forName(className);
@@ -616,10 +600,6 @@ public final class UserSettings implements UserSettingsChangeListener {
             settings.setBoolean(evt.isAcceptHiddenDirectories(), KEY_ACCEPT_HIDDEN_DIRECTORIES);
         } else if (type.equals(UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES)) {
             settings.setBoolean(evt.isAutoscanIncludeSubdirectories(), KEY_AUTOSCAN_INCLUDE_SUBDIRECTORIES);
-        } else if (type.equals(UserSettingsChangeEvent.Type.IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)) {
-            writeToPropertiesCreateThumbnailsWithExternalApp(evt.isCreateThumbnailsWithExternalApp());
-        } else if (type.equals(UserSettingsChangeEvent.Type.IS_USE_EMBEDDED_THUMBNAILS)) {
-            writeToPropertiesUseEmbeddedThumbnails(evt.isUseEmbeddedThumbnails());
         } else if (type.equals(UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS)) {
             writeToPropertiesLogfileFormatterClass(evt.getLogfileFormatterClass());
         } else if (type.equals(UserSettingsChangeEvent.Type.LOG_LEVEL)) {
@@ -658,26 +638,12 @@ public final class UserSettings implements UserSettingsChangeListener {
         writeToFile();
     }
 
-    private void writeToPropertiesCreateThumbnailsWithExternalApp(boolean create) {
-        settings.setBoolean(create, KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP);
-        if (create) {
-            settings.setBoolean(false, KEY_USE_EMBEDDED_THUMBNAILS);
-        }
-    }
-
-    private void writeToPropertiesLogfileFormatterClass(Class formatterClass) {
+    private void writeToPropertiesLogfileFormatterClass(Class<?> formatterClass) {
         String classString = formatterClass.toString();
         int    index       = classString.lastIndexOf(" ");
         settings.setString(index >= 0 && index + 1 < classString.length()
                            ? classString.substring(index + 1)
                            : XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
-    }
-
-    private void writeToPropertiesUseEmbeddedThumbnails(boolean use) {
-        settings.setBoolean(use, KEY_USE_EMBEDDED_THUMBNAILS);
-        if (use) {
-            settings.setBoolean(false, KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP);
-        }
     }
 
     private String getColumnKeys(List<Column> columns) {
