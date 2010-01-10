@@ -349,7 +349,7 @@ public final class RenameDialog extends Dialog {
         Image thumbnail = null;
         if (FileType.isJpegFile(file.getName())) {
             thumbnail =
-                    ThumbnailUtil.getScaledImage(file, panelThumbnail.getWidth());
+                    ThumbnailUtil.getThumbnailFromJavaImageIo(file, panelThumbnail.getWidth());
         }
         if (thumbnail != null) {
             panelThumbnail.setImage(thumbnail);

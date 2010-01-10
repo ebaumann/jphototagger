@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.ImageFile;
@@ -501,18 +500,7 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private Image getThumbnailFromFile(String filename) {
-        UserSettings settings = UserSettings.INSTANCE;
-        int maxTnWidth = settings.getMaxThumbnailLength();
-        boolean useEmbeddedTn = settings.isUseEmbeddedThumbnails();
-        File file = new File(filename);
-        if (settings.isCreateThumbnailsWithExternalApp()) {
-            return ThumbnailUtil.getThumbnailFromExternalApplication(
-                    file,
-                    settings.getExternalThumbnailCreationCommand(),
-                    maxTnWidth);
-        } else {
-            return ThumbnailUtil.getThumbnail(file, maxTnWidth, useEmbeddedTn);
-        }
+        return ThumbnailUtil.getThumbnail(new File(filename));
     }
 
     /**

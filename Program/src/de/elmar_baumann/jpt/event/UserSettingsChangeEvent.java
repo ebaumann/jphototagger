@@ -40,15 +40,13 @@ public final class UserSettingsChangeEvent {
 
     private boolean           acceptHiddenDirectories;
     private boolean           autoscanIncludeSubdirectories;
-    private boolean           createThumbnailsWithExternalApp;
     private boolean           displaySearchButton;
     private boolean           executeActionsAfterImageChangeInDbAlways;
     private boolean           executeActionsAfterImageChangeInDbIfImageHasXmp;
     private boolean           noFastSearchColumns;
     private boolean           scanForEmbeddedXmp;
     private boolean           treeDirectoriesSelectLastDirectory;
-    private boolean           useEmbeddedThumbnails;
-    private Class             logfileFormatterClass;
+    private Class<?>          logfileFormatterClass;
     private CopyFiles.Options optionsCopyMoveFiles;
     private File              autoCopyDirectory;
     private File              defaultImageOpenApp;
@@ -80,8 +78,6 @@ public final class UserSettingsChangeEvent {
         IPTC_CHARSET,
         IS_ACCEPT_HIDDEN_DIRECTORIES,
         IS_AUTSCAN_INCLUDE_DIRECTORIES,
-        IS_CREATE_THUMBNAILS_WITH_EXTERNAL_APP,
-        IS_USE_EMBEDDED_THUMBNAILS,
         LOGFILE_FORMATTER_CLASS,
         LOG_LEVEL,
         MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
@@ -129,36 +125,23 @@ public final class UserSettingsChangeEvent {
         return treeDirectoriesSelectLastDirectory;
     }
 
-    public void setTreeDirectoriesSelectLastDirectory(
-            boolean treeDirectoriesSelectLastDirectory) {
-        this.treeDirectoriesSelectLastDirectory =
-                treeDirectoriesSelectLastDirectory;
+    public void setTreeDirectoriesSelectLastDirectory(boolean treeDirectoriesSelectLastDirectory) {
+        this.treeDirectoriesSelectLastDirectory = treeDirectoriesSelectLastDirectory;
     }
 
     public boolean isAutoscanIncludeSubdirectories() {
         return autoscanIncludeSubdirectories;
     }
 
-    public void setAutoscanIncludeSubdirectories(
-            boolean autoscanIncludeSubdirectories) {
+    public void setAutoscanIncludeSubdirectories(boolean autoscanIncludeSubdirectories) {
         this.autoscanIncludeSubdirectories = autoscanIncludeSubdirectories;
-    }
-
-    public boolean isCreateThumbnailsWithExternalApp() {
-        return createThumbnailsWithExternalApp;
-    }
-
-    public void setCreateThumbnailsWithExternalApp(
-            boolean createThumbnailsWithExternalApp) {
-        this.createThumbnailsWithExternalApp = createThumbnailsWithExternalApp;
     }
 
     public String getExternalThumbnailCreationCommand() {
         return externalThumbnailCreationCommand;
     }
 
-    public void setExternalThumbnailCreationCommand(
-            String externalThumbnailCreationCommand) {
+    public void setExternalThumbnailCreationCommand(String externalThumbnailCreationCommand) {
         this.externalThumbnailCreationCommand = externalThumbnailCreationCommand;
     }
 
@@ -202,11 +185,11 @@ public final class UserSettingsChangeEvent {
         this.logLevel = logLevel;
     }
 
-    public Class getLogfileFormatterClass() {
+    public Class<?> getLogfileFormatterClass() {
         return logfileFormatterClass;
     }
 
-    public void setLogfileFormatterClass(Class logfileFormatterClass) {
+    public void setLogfileFormatterClass(Class<?> logfileFormatterClass) {
         this.logfileFormatterClass = logfileFormatterClass;
     }
 
@@ -232,14 +215,6 @@ public final class UserSettingsChangeEvent {
 
     public void setNoFastSearchColumns(boolean noFastSearchColumns) {
         this.noFastSearchColumns = noFastSearchColumns;
-    }
-
-    public boolean isUseEmbeddedThumbnails() {
-        return useEmbeddedThumbnails;
-    }
-
-    public void setUseEmbeddedThumbnails(boolean useEmbeddedThumbnails) {
-        this.useEmbeddedThumbnails = useEmbeddedThumbnails;
     }
 
     public String getWebBrowser() {
@@ -286,8 +261,7 @@ public final class UserSettingsChangeEvent {
         return executeActionsAfterImageChangeInDbAlways;
     }
 
-    public void setExecuteActionsAfterImageChangeInDbAlways(
-            boolean executeActionAfterImageChangeInDbAlways) {
+    public void setExecuteActionsAfterImageChangeInDbAlways(boolean executeActionAfterImageChangeInDbAlways) {
         this.executeActionsAfterImageChangeInDbAlways = executeActionAfterImageChangeInDbAlways;
     }
 

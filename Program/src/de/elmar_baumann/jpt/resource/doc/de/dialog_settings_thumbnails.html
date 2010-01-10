@@ -22,28 +22,54 @@
             weiteren Vorschaubilder berechnen lassen.
         </p>
 
-        <h2>In den Bildern enthaltene Vorschaubilder benutzen</h2>
+        <h2>Wie sollen die Vorschaubilder erzeugt werden?</h2>
+
+        <p>Sie können sofort sehen, wie sich eine Einstellung auswirkt: Schieben
+            Sie den Einstellungen-Dialog zur Seite, wählen ein Vorschaubild aus,
+            klicken mit der linken Maustaste darauf und wählen aus dem
+            Kontextmenü <code>Aktualisieren &gt; Vorschaubild</code>. Falls
+            Ihnen das Ergebnis nicht gefällt, probieren Sie eine andere Option
+            und lassen erneut ein Vorschaubild erzeugen.
+        </p>
+
+        <h2>Erzeuge Vorschaubilder mit Java Image IO</h2>
+
+        <p>Die Vorschaubilder werden mit der <strong>Java Image IO</strong>
+            erzeugt. Von RAW-Dateien können so <em>keine</em> Vorschaubilder
+            erzeugt werden. Diese Vorgabe ist der Standard.
+        </p>
+
+        <h2>Erzeuge Vorschaubilder mit Imagero</h2>
+
+        <p>Die Vorschaubilder werden mit <strong>Imagero</strong>
+            (<code>http://reader.imagero.com/</code>) erzeugt. Von RAW-Dateien
+            können so <em>keine</em> Vorschaubilder erzeugt werden.
+        </p>
+
+        <h2>Benutze in den Bildern enthaltene Vorschaubilder (erzeuge keine)</h2>
 
         <p>Kreuzen Sie hier an, werden die Vorschaubilder geladen, die in den
             Bildern eingebettet sind. Das geht schneller, als die Vorschaubilder
             zu berechnen, aber manchmal sind die eingebetteten Vorschaubilder
-            von geringer Qualität.
+            von geringer Qualität. In RAW-Dateien eingebettete Vorschaubilder
+            werden erkannt.
         </p>
+
+        <h2>Erzeuge Vorschaubilder mit eigenem Programm</h2>
 
         <h2>Eigenes Programm zum Erzeugen der Vorschaubilder</h2>
 
-        <p>Die Vorschaubilder werden berechnet mit <strong>Imagero</strong>
-            (<code>http://reader.imagero.com/</code>). Sie können diese mit
-            einem beliebigen anderen Programm erzeugen lassen, sofern dies
-            <strong>JPEG</strong>s an die <strong>Standardausgabe</strong>
-            liefern kann. Ein anderes Programm ist sinnvoll, falls:
+        <p>Sie können Vorschaubilder mit einem beliebigen anderen Programm
+            erzeugen lassen, sofern dies <strong>JPEG</strong>s in die
+            <strong>Standardausgabe</strong> schreiben kann. Ein anderes
+            Programm ist sinnvoll, falls:
         </p>
 
         <ul>
             <li>Sie bei RAW-Dateien <em>nicht</em> die eingebetteten
                 Vorschaubilder haben wollen
             </li>
-            <li>Ihr Programm besonders hochwertige Vorschaubilder liefert
+            <li>Ihr Programm hochwertige Vorschaubilder liefert
             </li>
             <li>Ihr Programm Vorschaubilder schneller liefert
             </li>

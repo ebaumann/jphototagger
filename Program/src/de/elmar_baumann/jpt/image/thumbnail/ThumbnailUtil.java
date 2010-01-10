@@ -58,28 +58,88 @@ import javax.imageio.ImageIO;
 public final class ThumbnailUtil {
 
     /**
+     * Returns a thumbnail created with
+     * {@link UserSettings#setThumbnailCreator(de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator)}.
+     * <p>
+     * If the creator did not create a thumbnail, this method tries to get an
+     * embedded thumbnail.
+     *
+     * @param  file file
+     * @return      thumbnail or null on errors
+     */
+    public static Image getThumbnail(File file) {
+        if (!file.exists()) return null;
+
+        ThumbnailCreator creator        = UserSettings.INSTANCE.getThumbnailCreator();
+        int              maxLength      = UserSettings.INSTANCE.getMaxThumbnailLength();
+        boolean          isRawImage     = FileType.isRawFile(file.getName());
+        boolean          canCreateImage = !isRawImage || isRawImage && creator.equals(ThumbnailCreator.EXTERNAL_APP);
+        Image            thumbnail      = null;
+
+        if (creator.equals(ThumbnailCreator.EXTERNAL_APP)) { // has to be 1st.
+
+            thumbnail = getThumbnailFromExternalApplication(
+                            file,
+                            UserSettings.INSTANCE.getExternalThumbnailCreationCommand(),
+                            maxLength);
+
+        } else if (!canCreateImage || creator.equals(ThumbnailCreator.EMBEDDED)) {
+
+            thumbnail = ThumbnailUtil.getEmbeddedThumbnailRotated(file);
+
+        } else if (creator.equals(ThumbnailCreator.IMAGERO)) {
+
+            thumbnail = getScaledImageImagero(file, maxLength);
+
+        } else if (creator.equals(ThumbnailCreator.JAVA_IMAGE_IO)) {
+
+            thumbnail = getThumbnailFromJavaImageIo(file, maxLength);
+
+        } else {
+            assert false : "Not handled enum type (thumbnail create option)";
+        }
+        if (thumbnail == null) {
+            thumbnail = getEmbeddedThumbnailRotated(file);
+        }
+        return thumbnail;
+    }
+
+    /**
      * Returns a thumbnail of an image file. If the preferred method fails -
      * ebeddded or scaled - the other method will be used.
      *
      * @param  file       file
      * @param  maxLength  maximum length of the image
-     * @param  embedded   true if get embedded thumbnail instead of a scaled image
      * @return            thumbnail or null if errors occured
      */
-    public static Image getThumbnail(File file, int maxLength, boolean embedded) {
-        if (!file.exists()) return null;
-        Image thumbnail = (embedded || FileType.isRawFile(file.getName())
-                ? getEmbeddedThumbnailRotated(file)
-                : getScaledImageImagero(file, maxLength));
-        if (thumbnail == null) {
-            thumbnail = (embedded
-                    ? getScaledImageImagero(file, maxLength)
-                    : getEmbeddedThumbnailRotated(file));
-        }
-        return thumbnail;
+    public static Image getThumbnailFromImagero(File file, int maxLength) {
+        return getScaledImageImagero(file, maxLength);
     }
 
-    private static Pair<Image, ImageReader> getEmbeddedThumbnail(File file) {
+    public static Image getThumbnailFromJavaImageIo(File file, int maxLength) {
+        AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.CreateImage.Information.JavaIo", file, maxLength);
+
+        BufferedImage image       = loadImage(file);
+        BufferedImage scaledImage = null;
+
+        if (image != null) {
+            scaledImage = stepScaleImage(image, maxLength, 0.5);
+        }
+
+        return scaledImage;
+    }
+
+    /**
+     * Returns in files embedded thumbnails.
+     * 
+     * @param file file
+     * @return     thumbnail or null on errors
+     */
+    public static Image getEmbeddedThumbnail(File file) {
+        return getEmbeddedThumbnailRotated(file);
+    }
+
+    private static Pair<Image, ImageReader> getEmbeddedThumbnailWithReader(File file) {
         Image       thumbnail = null;
         ImageReader reader    = null;
         try {
@@ -104,9 +164,8 @@ public final class ThumbnailUtil {
 
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
-            if (FileType.isJpegFile(file.getName())) return getScaledImage(file, maxLength);
-
             AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
+
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions  procOptions = new ImageProcOptions();
 
@@ -129,7 +188,7 @@ public final class ThumbnailUtil {
 
     private static Image getEmbeddedThumbnailRotated(File file) {
 
-        Pair<Image, ImageReader> pair      = getEmbeddedThumbnail(file);
+        Pair<Image, ImageReader> pair      = getEmbeddedThumbnailWithReader(file);
         Image                    thumbnail = pair.getFirst();
         Image rotatedThumbnail = thumbnail;
 
@@ -165,13 +224,12 @@ public final class ThumbnailUtil {
      */
     public static Image getThumbnailFromExternalApplication(File file, String command, int maxLength) {
 
-        if (!file.exists()) {
-            return null;
-        }
-        Image image = null;
-
+        if (!file.exists()) return null;
         AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", file, maxLength);
-        String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", new Integer(maxLength).toString());
+
+        String cmd   = command.replace("%s", file.getAbsolutePath()).replace("%i", new Integer(maxLength).toString());
+        Image  image = null;
+
         logExternalAppCommand(cmd);
         Pair<byte[], byte[]> output =
                 External.executeGetOutput(
@@ -195,20 +253,6 @@ public final class ThumbnailUtil {
             logStderr(file, output);
         }
         return image;
-    }
-
-    public static Image getScaledImage(File file, int maxLength) {
-
-        AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImage.Information", file, maxLength);
-
-        BufferedImage image       = loadImage(file);
-        BufferedImage scaledImage = null;
-
-        if (image != null) {
-            scaledImage = stepScaleImage(image, maxLength, 0.5);
-        }
-
-        return scaledImage;
     }
 
     /**
@@ -296,7 +340,7 @@ public final class ThumbnailUtil {
      * @param image Das zu skalierende Image.
      * @return Das skalierte Image.
      */
-    public static BufferedImage scaleImage(int scaledWidth, int scaledHeight, BufferedImage image) {
+    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight, BufferedImage image) {
 
         BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D    graphics2D  = scaledImage.createGraphics();
@@ -315,7 +359,7 @@ public final class ThumbnailUtil {
      * @param file Das zu ladende Bild.
      * @return Ein BufferedImage als Ergebnis.
      */
-    public static BufferedImage loadImage(File file) {
+    private static BufferedImage loadImage(File file) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(file);

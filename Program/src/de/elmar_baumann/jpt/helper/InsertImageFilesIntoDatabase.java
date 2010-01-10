@@ -57,13 +57,10 @@ import java.util.Set;
  */
 public final class InsertImageFilesIntoDatabase extends Thread {
 
-    private final DatabaseImageFiles                     db                               = DatabaseImageFiles.INSTANCE;
-    private final int                                    maxThumbnailLength               = UserSettings.INSTANCE.getMaxThumbnailLength();
-    private final boolean                                useEmbeddedThumbnails            = UserSettings.INSTANCE.isUseEmbeddedThumbnails();
-    private final String                                 externalThumbnailCreationCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
-    private final ProgressListenerSupport                progressListenerSupport          = new ProgressListenerSupport();
-    private final Set<CheckingForUpdateMetadataListener> updateMetadataListeners          = Collections.synchronizedSet(new HashSet<CheckingForUpdateMetadataListener>());
-    private       ProgressEvent                          progressEvent                    = new ProgressEvent(this, null);
+    private final DatabaseImageFiles                     db                      = DatabaseImageFiles.INSTANCE;
+    private final ProgressListenerSupport                progressListenerSupport = new ProgressListenerSupport();
+    private final Set<CheckingForUpdateMetadataListener> updateMetadataListeners = Collections.synchronizedSet(new HashSet<CheckingForUpdateMetadataListener>());
+    private       ProgressEvent                          progressEvent           = new ProgressEvent(this, null);
     private final List<String>                           filenames;
     private final EnumSet<Insert>                        what;
     private       String                                 currentFilename;
@@ -277,19 +274,12 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void setThumbnail(ImageFile imageFile) {
-        String filename  = imageFile.getFilename();
-        Image  thumbnail = null;
-        File file = new File(filename);
-        if (UserSettings.INSTANCE.isCreateThumbnailsWithExternalApp()) {
-            thumbnail = ThumbnailUtil.getThumbnailFromExternalApplication(
-                    file, externalThumbnailCreationCommand, maxThumbnailLength);
-        } else {
-            thumbnail = ThumbnailUtil.getThumbnail(
-                    file, maxThumbnailLength, useEmbeddedThumbnails);
-        }
+        File   file      = imageFile.getFile();
+        Image  thumbnail = ThumbnailUtil.getThumbnail(file);
+
         imageFile.setThumbnail(thumbnail);
         if (thumbnail == null) {
-            errorMessageNullThumbnail(filename);
+            errorMessageNullThumbnail(file.getAbsolutePath());
         }
     }
 
