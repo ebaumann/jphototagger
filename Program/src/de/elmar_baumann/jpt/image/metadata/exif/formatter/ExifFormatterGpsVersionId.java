@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import java.util.Arrays;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#GPS_VERSION_ID}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_VERSION_ID}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

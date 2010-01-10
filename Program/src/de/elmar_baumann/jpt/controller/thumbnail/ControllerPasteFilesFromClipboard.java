@@ -44,7 +44,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 /**
- * Listens to {@link AppFrame#getMenuItemPasteFromClipboard()} and on action
+ * Listens to {@link PopupMenuThumbnails#getItemPasteFromClipboard()} and on action
  * performed this class pastes the images in the clipboard into the current
  * directory.
  *

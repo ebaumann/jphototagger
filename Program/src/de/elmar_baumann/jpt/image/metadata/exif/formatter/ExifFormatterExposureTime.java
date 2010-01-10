@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.lib.generics.Pair;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#EXPOSURE_TIME}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#EXPOSURE_TIME}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

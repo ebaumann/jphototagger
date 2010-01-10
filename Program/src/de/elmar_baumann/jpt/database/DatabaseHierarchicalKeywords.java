@@ -124,7 +124,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
      * Inserts a hierarchical keyword. If successfully inserted the keyword
      * has a value for it's id ({@link HierarchicalKeyword#getId()}.
      *
-     * <em>The keyword ({@link HierarchicalKeyword#findKeyword()}) must have
+     * <em>The keyword ({@link HierarchicalKeyword#getName()}) must have
      * a not empty string!</em>
      *
      * @param  keyword keyword
@@ -333,7 +333,7 @@ public final class DatabaseHierarchicalKeywords extends Database {
 
     /**
      * Returns whether a parent has a child with a specific
-     * {@link HierarchicalKeyword#findKeyword()}. The parent's ID is
+     * {@link HierarchicalKeyword#getName()}. The parent's ID is
      * {@link HierarchicalKeyword#getIdParent()}. The keyword's ID
      * {@link HierarchicalKeyword#getId()} will not be compared.
      *

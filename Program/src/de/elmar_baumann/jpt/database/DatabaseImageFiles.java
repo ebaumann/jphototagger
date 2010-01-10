@@ -1465,8 +1465,8 @@ public final class DatabaseImageFiles extends Database {
      *
      * @param  words  search words
      * @param  column column to search. The table of that column has to be
-     *                joinable with {@link TableFiles} through a column
-     *                <code>id_files</code>!
+     *                joinable with {@link de.elmar_baumann.jpt.database.metadata.file.TableFiles}
+     *                through a column <code>id_files</code>!
      * @return        images containing all of these terms in that column
      */
     public Set<String> getFilenamesOfAll(
@@ -2044,7 +2044,7 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns the names of files without specific metadata.
      *
-     * @param   column column where it's table has to be either {@link TableExif}
+     * @param   column column where it's table has to be either {@link de.elmar_baumann.jpt.database.metadata.exif.TableExif}
      *                 or {@link TableXmp}
      * @return         names of files without metadata for that column
      */

@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import java.awt.datatransfer.Transferable;
 import javax.swing.JComponent;
@@ -27,7 +27,7 @@ import javax.swing.JList;
 import javax.swing.TransferHandler;
 
 /**
- * Transfer handler for {@link AppPanel#getListKeywords() }.
+ * Transfer handler for {@link KeywordsPanel#getList()}.
  *
  * Creates a {@link Transferable} with selected keywords as content. The
  * transferable is a {@link TransferableObject} instance which supports the data
@@ -37,6 +37,8 @@ import javax.swing.TransferHandler;
  * @version 2009-07-11
  */
 public final class TransferHandlerListKeywords extends TransferHandler {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Returns the keywords in a transferable object.
@@ -49,8 +51,7 @@ public final class TransferHandlerListKeywords extends TransferHandler {
      */
     public static Object[] getKeywords(Transferable transferable) {
         try {
-            return (Object[]) transferable.getTransferData(
-                    Flavors.KEYWORDS_FLAVOR);
+            return (Object[]) transferable.getTransferData(Flavors.KEYWORDS_FLAVOR);
         } catch (Exception e) {
             AppLog.logSevere(TransferHandlerListKeywords.class, e);
         }

@@ -35,8 +35,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JMenuItem;
 
 /**
- * Listens to {@link AppFrame#getMenuItemCopyToClipboard()},
- * {@link AppFrame#getMenuItemCutToClipboard()} and on action
+ * Listens to {@link PopupMenuThumbnails#getItemCopyToClipboard()},
+ * {@link PopupMenuThumbnails#getItemCutToClipboard()} and on action
  * performed this class copies or cuts the selected files into the clipboard.
  *
  * Enables or disables that menu items based on selection.

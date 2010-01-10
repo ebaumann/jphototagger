@@ -27,7 +27,7 @@ import java.text.DateFormat;
 import java.util.GregorianCalendar;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#DATE_TIME_ORIGINAL}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#DATE_TIME_ORIGINAL}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10

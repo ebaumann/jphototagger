@@ -128,7 +128,7 @@ public final class Iptc {
      * Returns the IPTC fields 2:26 (Content Location Code).
      *
      * @return IPTC fields 2:26 (Content Location Code) or null if not defined
-     * @see    Xmp#getIptc4xmpcoreCountrycode()
+     * @see    Xmp#getIptc4XmpCoreCountrycode()
      */
     public List<String> getContentLocationCodes() {
         List<String> list = stringListOf(IPTCEntryMeta.CONTENT_LOCATION_CODE);
@@ -141,7 +141,7 @@ public final class Iptc {
      * Adds a value to the IPTC field 2:26 (Content Location Code).
      *
      * @param contentLocationCode IPTC field 2:26 (Content Location Code)
-     * @see                       Xmp#setIptc4xmpcoreCountrycode(java.lang.String)
+     * @see                       Xmp#setIptc4XmpCoreCountrycode(java.lang.String)
      */
     public void addContentLocationCode(String contentLocationCode) {
         addToStringList(IPTCEntryMeta.CONTENT_LOCATION_CODE, contentLocationCode);
@@ -151,7 +151,7 @@ public final class Iptc {
      * Returns the IPTC fields 2:27 (Content Location Name).
      *
      * @return IPTC fields 2:27 (Content Location Name) or null if not defined
-     * @see    Xmp#getIptc4xmpcoreLocation()
+     * @see    Xmp#getIptc4XmpCoreLocation()
      */
     public List<String> getContentLocationNames() {
         List<String> list = stringListOf(IPTCEntryMeta.CONTENT_LOCATION_NAME);
@@ -164,7 +164,7 @@ public final class Iptc {
      * Fügt ein IPTC field 2:27 (Content Location Name) hinzu.
      *
      * @param contentLocationName IPTC field 2:27 (Content Location Name)
-     * @see                       Xmp#setIptc4xmpcoreLocation(java.lang.String)
+     * @see                       Xmp#setIptc4XmpCoreLocation(java.lang.String)
      */
     public void addContentLocationName(String contentLocationName) {
         addToStringList(IPTCEntryMeta.CONTENT_LOCATION_NAME, contentLocationName);

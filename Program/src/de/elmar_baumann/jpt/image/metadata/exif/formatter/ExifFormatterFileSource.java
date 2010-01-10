@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 
 /**
- * Formats an EXIF entry of the dataType {@link ExifTag#FILE_SOURCE}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Id#FILE_SOURCE}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-10
