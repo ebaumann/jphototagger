@@ -71,7 +71,7 @@ public final class SaveEditedMetadata extends Thread {
         for (Pair<String, Xmp> pair : filenamesXmp) {
             String filename        = pair.getFirst();
             Xmp    xmp             = pair.getSecond();
-            String sidecarFilename = XmpMetadata.suggestSidecarFilenameForImageFile(filename);
+            String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
 
             if (XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp)) {
                 updateDatabase(filename);

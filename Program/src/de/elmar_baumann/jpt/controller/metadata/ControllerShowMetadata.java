@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.metadata;
 
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.metadata.selections.MetadataTableModels;
 import de.elmar_baumann.jpt.data.SelectedFile;
@@ -282,16 +283,18 @@ public final class ControllerShowMetadata implements DatabaseListener,
                 }
             }
             if (allInfos == null) {
-                allInfos =
-                        XmpMetadata.getPropertyInfosOfImageFile(filename);
+                String sidecarFilename = XmpMetadata.getSidecarFilename(filename);
+                allInfos = sidecarFilename != null
+                               ? XmpMetadata.getPropertyInfosOfSidecarFile(new File(sidecarFilename))
+                               : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                               ? XmpMetadata.getEmbeddedPropertyInfos(filename)
+                               : null
+                               ;
                 SelectedFile.INSTANCE.setFile(selFile, allInfos);
             }
             if (allInfos != null) {
-                for (TableModelXmp model :
-                        metadataTableModels.getXmpTableModels()) {
-                    setPropertyInfosToXmpTableModel(filename,
-                            model, allInfos,
-                            namespacesOfXmpTableModel.get(model));
+                for (TableModelXmp model : metadataTableModels.getXmpTableModels()) {
+                    setPropertyInfosToXmpTableModel(filename, model, allInfos, namespacesOfXmpTableModel.get(model));
                 }
             }
         }
@@ -301,7 +304,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
                 List<XMPPropertyInfo> allInfos, String[] namespaces) {
             List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
             for (int index = 0; index < namespaces.length; index++) {
-                infos.addAll(XmpMetadata.getPropertyInfosOfNamespace(
+                infos.addAll(XmpMetadata.filterPropertyInfosOfNamespace(
                         allInfos, namespaces[index]));
             }
             model.setPropertyInfosOfFile(filename, infos);
