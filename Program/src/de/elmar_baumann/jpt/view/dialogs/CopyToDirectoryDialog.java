@@ -174,7 +174,7 @@ public final class CopyToDirectoryDialog
 
     private void addXmp(File sourceFile, List<Pair<File, File>> filePairs) {
 
-        String sidecarFilename = XmpMetadata.getSidecarFilenameOfImageFileIfExists(sourceFile.getAbsolutePath());
+        String sidecarFilename = XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
 
         if (sidecarFilename != null) {
 

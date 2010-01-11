@@ -42,9 +42,12 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     @Override
     public void edit(File file) {
         if (!IoUtil.lockLogWarning(file, this)) return;
-        File sidecarFile = XmpMetadata.getSidecarFileOfImageFileIfExists(file);
-        if (sidecarFile != null && !confirmRemove(sidecarFile.getAbsolutePath()))
-            return;
+
+        String sidecarFilename = XmpMetadata.getSidecarFilename(file.getAbsolutePath());
+        File   sidecarFile     = sidecarFilename == null ? null : new File(sidecarFilename);
+
+        if (sidecarFile != null && !confirmRemove(sidecarFile.getAbsolutePath())) return;
+
         writeSidecarFile(file);
         FileLock.INSTANCE.unlock(file, this);
     }
@@ -72,8 +75,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
             try {
                 create(file);
                 fos = new FileOutputStream(new File(
-                        XmpMetadata.suggestSidecarFilenameForImageFile(file.
-                        getAbsolutePath())));
+                        XmpMetadata.suggestSidecarFilename(file.getAbsolutePath())));
                 fos.getChannel().lock();
                 fos.write(xmp.getBytes());
                 fos.flush();

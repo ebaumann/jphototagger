@@ -188,7 +188,7 @@ public final class EditMetadataPanelsArray
         for (String filename : filenames) {
             Xmp xmp = null;
             if (XmpMetadata.hasImageASidecarFile(filename)) {
-                xmp = XmpMetadata.getXmpOfImageFile(filename);
+                xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
             }
             if (xmp == null) {
                 xmp = new Xmp();

@@ -170,9 +170,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             String filename = filenames.get(index);
             currentFilename = filename;
             ImageFile imageFile = getImageFile(filename);
-            notifyPerformed(index + 1, index + 1 < count
-                                                ? filenames.get(index + 1)
-                                                : filename);
+            notifyPerformed(index + 1, index + 1 < count ? filenames.get(index + 1) : filename);
             if (isUpdate(imageFile)) {
                 setExifDateToXmpDateCreated(imageFile);
                 logInsertImageFile(imageFile);
@@ -213,8 +211,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private boolean isUpdateThumbnail(String filename) {
         return !existsThumbnail(filename) ||
                 what.contains(Insert.THUMBNAIL) ||
-                (what.contains(Insert.OUT_OF_DATE) &&
-                !isImageFileUpToDate(filename));
+                (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
     }
 
     private boolean existsThumbnail(String filename) {
@@ -223,14 +220,12 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private boolean isUpdateExif(String filename) {
         return what.contains(Insert.EXIF) ||
-                (what.contains(Insert.OUT_OF_DATE) &&
-                !isImageFileUpToDate(filename));
+               (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(filename));
     }
 
     private boolean isUpdateXmp(String filename) {
         return what.contains(Insert.XMP) ||
-                (what.contains(Insert.OUT_OF_DATE) &&
-                !isXmpFileUpToDate(filename));
+               (what.contains(Insert.OUT_OF_DATE) && !isXmpFileUpToDate(filename));
     }
 
     private boolean isImageFileUpToDate(String filename) {
@@ -241,10 +236,10 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private boolean isXmpFileUpToDate(String imageFilename) {
-        String sidecarFileName = XmpMetadata.getSidecarFilenameOfImageFileIfExists(imageFilename);
+        String sidecarFileName = XmpMetadata.getSidecarFilename(imageFilename);
 
         return sidecarFileName == null
-               ? isEmbeddedXmpUpToDate(imageFilename)
+               ? UserSettings.INSTANCE.isScanForEmbeddedXmp() && isEmbeddedXmpUpToDate(imageFilename)
                : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
     }
 
@@ -257,11 +252,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private boolean isEmbeddedXmpUpToDate(String imageFilename) {
-        if (!UserSettings.INSTANCE.isScanForEmbeddedXmp()) {
-            return true;
-        }
         long dbTime   = db.getLastModifiedXmp(imageFilename);
-        long fileTime = new File(XmpMetadata.suggestSidecarFilenameForImageFile(imageFilename)).lastModified();
+        long fileTime = new File(imageFilename).lastModified();
         if (dbTime == fileTime) {
             return true;
         }
@@ -292,7 +284,11 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private void setXmp(ImageFile imageFile) {
         String imageFilename = imageFile.getFilename();
-        Xmp    xmp           = XmpMetadata.getXmpOfImageFile(imageFilename);
+        Xmp    xmp           = XmpMetadata.hasImageASidecarFile(imageFilename)
+                                   ? XmpMetadata.getXmpFromSidecarFileOf(imageFilename)
+                                   : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                                   ? XmpMetadata.getEmbeddedXmp(imageFilename)
+                                   : null;
         if (xmp == null) {
             xmp = getXmpFromIptc(imageFilename);
         }
@@ -321,7 +317,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
         xmp.setIptc4XmpCoreDateCreated(exif.getXmpDateCreated());
 
-        File xmpFile = new File(XmpMetadata.suggestSidecarFilenameForImageFile(imageFile.getFilename()));
+        File xmpFile = new File(XmpMetadata.suggestSidecarFilename(imageFile.getFilename()));
         if (xmpFile.canWrite()) {
             XmpMetadata.writeMetadataToSidecarFile(xmpFile.getAbsolutePath(), xmp);
             xmp.setLastModified(xmpFile.lastModified());
@@ -332,7 +328,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         if (xmp != null && !XmpMetadata.hasImageASidecarFile(imageFilename) &&
                 XmpMetadata.canWriteSidecarFileForImageFile(imageFilename)) {
             XmpMetadata.writeMetadataToSidecarFile(
-                    XmpMetadata.suggestSidecarFilenameForImageFile(imageFilename),
+                    XmpMetadata.suggestSidecarFilename(imageFilename),
                     xmp);
         }
     }

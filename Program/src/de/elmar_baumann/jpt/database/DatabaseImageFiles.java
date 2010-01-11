@@ -942,7 +942,7 @@ public final class DatabaseImageFiles extends Database {
             boolean abort = notifyProgressListenerStart(listener, progressEvent);
             while (!abort && rs.next()) {
                 filename = rs.getString(1);
-                if (XmpMetadata.getSidecarFilenameOfImageFileIfExists(filename) == null) {
+                if (XmpMetadata.getSidecarFilename(filename) == null) {
                     countDeleted += deleteXmpOfFilename(connection, filename);
                 }
                 progressEvent.setValue(progressEvent.getValue() + 1);
@@ -1240,7 +1240,7 @@ public final class DatabaseImageFiles extends Database {
                     if (!newValue.isEmpty()) {
                         xmp.setValue(xmpColumn, newValue);
                     }
-                    String sidecarFilename = XmpMetadata.suggestSidecarFilenameForImageFile(filename);
+                    String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
                     if (XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp)) {
                         updateLastModifiedXmp(connection, idFile, new File(sidecarFilename).lastModified());
                         insertOrUpdateXmp(connection, idFile, xmp);

@@ -250,7 +250,7 @@ public final class KeywordsHelper {
         public void run() {
             List<Pair<String, Xmp>> xmps = new ArrayList<Pair<String, Xmp>>();
             for (String filename : filenames) {
-                Xmp xmp = XmpMetadata.getXmpOfImageFile(filename);
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
                 if (xmp != null) {
                     List<String> keywords = xmp.getDcSubjects();
                     keywords.remove(oldName);
@@ -280,7 +280,7 @@ public final class KeywordsHelper {
         public void run() {
             List<Pair<String, Xmp>> xmps = new ArrayList<Pair<String, Xmp>>();
             for (String filename : filenames) {
-                Xmp xmp = XmpMetadata.getXmpOfImageFile(filename);
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
                 if (xmp != null) {
                     List<String> keywords = xmp.getDcSubjects();
                     keywords.removeAll(toReplace);

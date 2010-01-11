@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
@@ -53,7 +54,11 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
         for (int i = 0; !stop && i < fileCount; i++) {
 
             File imageFile = new File(filenames.get(i));
-            Xmp  xmp       = XmpMetadata.getXmpOfImageFile(imageFile.getAbsolutePath());
+            Xmp  xmp       = XmpMetadata.hasImageASidecarFile(imageFile.getAbsolutePath())
+                                 ? XmpMetadata.getXmpFromSidecarFileOf(imageFile.getAbsolutePath())
+                                 : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                                 ? XmpMetadata.getEmbeddedXmp(imageFile.getAbsolutePath())
+                                 : null;
 
             if (xmp != null) {
                 db.insertOrUpdateXmp(imageFile.getAbsolutePath(), xmp);

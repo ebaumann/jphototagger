@@ -115,13 +115,13 @@ public final class SetExifToXmp extends HelperThread {
      */
     public static void set(String filename, boolean replaceExistingXmpData) {
         Exif exif = ExifMetadata.getExif(new File(filename));
-        Xmp  xmp  = XmpMetadata.getXmpOfImageFile(filename);
+        Xmp  xmp  = XmpMetadata.getXmpFromSidecarFileOf(filename);
 
         if (xmp == null) xmp = new Xmp();
         if (exif != null && exifHasValues(exif)) {
             if (isSet(xmp, replaceExistingXmpData)) {
                 setDateCreated(xmp, exif);
-                String xmpFilename = XmpMetadata.suggestSidecarFilenameForImageFile(filename);
+                String xmpFilename = XmpMetadata.suggestSidecarFilename(filename);
                 if (XmpMetadata.writeMetadataToSidecarFile(xmpFilename, xmp)) {
                     ImageFile imageFile = new ImageFile();
 

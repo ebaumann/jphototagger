@@ -206,7 +206,8 @@ public final class ImageUtil {
 
                 files.add(imageFile);
 
-                File sidecarFile = XmpMetadata.getSidecarFileOfImageFileIfExists(imageFile);
+                String sidecarFilename = XmpMetadata.getSidecarFilename(imageFile.getAbsolutePath());
+                File   sidecarFile     = sidecarFilename == null ? null : new File(sidecarFilename);
 
                 if (sidecarFile != null) {
                     files.add(sidecarFile);

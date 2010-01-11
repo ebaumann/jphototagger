@@ -92,7 +92,7 @@ public class ThumbnailsPanel extends JPanel
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
 
     private static String getSidecarFilename(File file) {
-        String sidecarfile = XmpMetadata.getSidecarFilenameOfImageFileIfExists(file.getAbsolutePath());
+        String sidecarfile = XmpMetadata.getSidecarFilename(file.getAbsolutePath());
         return sidecarfile == null ? "" : sidecarfile;
     }
     /**
