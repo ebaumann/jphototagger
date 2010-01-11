@@ -19,8 +19,6 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.model.ComboBoxModelLogfileFormatter;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -47,7 +45,6 @@ import javax.swing.filechooser.FileSystemView;
 public final class SettingsMiscPanel extends javax.swing.JPanel implements Persistence {
 
     private static final long                serialVersionUID              = 479354601163285718L;
-    private final        ListenerProvider    listenerProvider              = ListenerProvider.INSTANCE;
     private final        Map<Tab, Component> componentOfTab                = new HashMap<Tab, Component>();
     private              String              lastSelectedAutocopyDirectory = "";
 
@@ -86,9 +83,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             labelAutocopyDirectory.setText(directory);
             lastSelectedAutocopyDirectory = directory;
             labelAutocopyDirectory.setIcon(IconUtil.getSystemIcon(file));
-            UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.AUTOCOPY_DIRECTORY, this);
-            evt.setAutoCopyDirectory(file);
-            notifyChangeListener(evt);
+            UserSettings.INSTANCE.setAutoCopyDirectory(file);
         }
     }
 
@@ -121,16 +116,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.IS_ACCEPT_HIDDEN_DIRECTORIES, this);
-        evt.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.
-                isSelected());
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
     }
 
     private void handleActionPerformedCheckBoxTreeDirectoriesSelectLastDirectory() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY, this);
-        evt.setTreeDirectoriesSelectLastDirectory(checkBoxTreeDirectoriesSelectLastDirectory.isSelected());
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setTreeDirectoriesSelectLastDirectory(checkBoxTreeDirectoriesSelectLastDirectory.isSelected());
     }
 
     private void handleActionPerformedChooseDatabaseDirectory() {
@@ -144,9 +134,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void setDatabaseDirectoryName(String directoryName) {
         labelDatabaseDirectory.setText(directoryName);
         setIconDatabaseDirectory();
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.DATABASE_DIRECTORY, this);
-        evt.setDatabaseDirectoryName(directoryName);
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setDatabaseDirectoryName(directoryName);
     }
 
     private void setIconDatabaseDirectory() {
@@ -157,8 +145,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void handleActionPerformedSetStandardDatabaseDirectory() {
-        setDatabaseDirectoryName(UserSettings.INSTANCE.
-                getDefaultDatabaseDirectoryName());
+        setDatabaseDirectoryName(UserSettings.INSTANCE.getDefaultDatabaseDirectoryName());
     }
 
     private void handleActionPerformedChooseWebBrowser() {
@@ -167,9 +154,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             String browserPath = programFile.getAbsolutePath();
             labelWebBrowser.setText(browserPath);
             labelWebBrowser.setIcon(IconUtil.getSystemIcon(programFile));
-            UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.WEB_BROWSER, this);
-            evt.setWebBrowser(browserPath);
-            notifyChangeListener(evt);
+            UserSettings.INSTANCE.setWebBrowser(browserPath);
         }
     }
 
@@ -179,43 +164,28 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             String viewerPath = programFile.getAbsolutePath();
             labelPdfViewer.setText(viewerPath);
             labelPdfViewer.setIcon(IconUtil.getSystemIcon(programFile));
-            UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.PDF_VIEWER, this);
-            evt.setPdfViewer(viewerPath);
-            notifyChangeListener(evt);
+            UserSettings.INSTANCE.setPdfViewer(viewerPath);
         }
     }
 
     private void handleActionPerformedComboBoxLogLevel() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.LOG_LEVEL, this);
-        evt.setLogLevel(Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setLogLevel(Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
     }
 
     private void handleActionPerformedComboBoxLogfileFormatterClass() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.LOGFILE_FORMATTER_CLASS, this);
-        evt.setLogfileFormatterClass((Class<?>) comboBoxLogfileFormatterClass.getSelectedItem());
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setLogfileFormatterClass((Class<?>) comboBoxLogfileFormatterClass.getSelectedItem());
     }
 
     private void handleActionPerformedCopyMoveFiles() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.OPTIONS_COPY_MOVE_FILES, this);
-        evt.setOptionsCopyMoveFiles(radioButtonCopyMoveFileConfirmOverwrite.isSelected()
+        UserSettings.INSTANCE.setCopyMoveFilesOptions(radioButtonCopyMoveFileConfirmOverwrite.isSelected()
             ? CopyFiles.Options.CONFIRM_OVERWRITE
             : radioButtonCopyMoveFileRenameIfExists.isSelected()
                 ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
                 : CopyFiles.Options.CONFIRM_OVERWRITE);
-        notifyChangeListener(evt);
     }
 
     private void handleActionPerformedAutoDownload() {
         UserSettings.INSTANCE.setAutoDownloadNewerVersions(checkBoxAutoDownloadCheck.isSelected());
-        UserSettings.INSTANCE.writeToFile();
-    }
-
-    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
-        listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private void checkLogLevel() {

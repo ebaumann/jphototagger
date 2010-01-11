@@ -24,7 +24,6 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.keywords.tree.SuggestKeywords;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.helper.SaveEditedMetadata;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
@@ -40,8 +39,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
 import de.elmar_baumann.jpt.event.listener.MetadataEditPanelListener;
@@ -81,7 +79,7 @@ import javax.swing.event.ListDataListener;
  */
 public final class EditMetadataPanelsArray
         implements FocusListener,
-                   DatabaseListener,
+                   DatabaseImageFilesListener,
                    AppExitListener,
                    ListDataListener
 {
@@ -578,7 +576,7 @@ public final class EditMetadataPanelsArray
     }
 
     private void listenToActionSources() {
-        DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
@@ -755,16 +753,6 @@ public final class EditMetadataPanelsArray
     @Override
     public void appWillExit() {
         checkDirty();
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 
     private void setWrapFocusComponent() {

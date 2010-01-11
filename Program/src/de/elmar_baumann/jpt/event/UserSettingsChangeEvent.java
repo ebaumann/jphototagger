@@ -18,55 +18,23 @@
  */
 package de.elmar_baumann.jpt.event;
 
-import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.helper.CopyFiles;
-import de.elmar_baumann.jpt.helper.CopyFiles.Options;
-import java.io.File;
-import java.util.List;
-import java.util.logging.Level;
-
 /**
  * Action: The user has changed the settings.
- *
- * <em>The get...() methos returns only valid content for the appropriate
- * action. E.g. if the action is {@link Type#AUTOCOPY_DIRECTORY} the
- * appropriate method ist {@link #getAutoCopyDirectory()}. Other getters
- * will return null or an unitialized value!</em>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-14
  */
 public final class UserSettingsChangeEvent {
 
-    private boolean           acceptHiddenDirectories;
-    private boolean           autoscanIncludeSubdirectories;
-    private boolean           displaySearchButton;
-    private boolean           executeActionsAfterImageChangeInDbAlways;
-    private boolean           executeActionsAfterImageChangeInDbIfImageHasXmp;
-    private boolean           noFastSearchColumns;
-    private boolean           scanForEmbeddedXmp;
-    private boolean           treeDirectoriesSelectLastDirectory;
-    private Class<?>          logfileFormatterClass;
-    private CopyFiles.Options optionsCopyMoveFiles;
-    private File              autoCopyDirectory;
-    private File              defaultImageOpenApp;
-    private Integer           maxSecondsToTerminateExternalPrograms;
-    private Integer           maxThumbnailWidth;
-    private Integer           minutesToStartScheduledTasks;
-    private Level             logLevel;
-    private List<Column>      editColumns;
-    private List<Column>      fastSearchColumns;
-    private Object            source;
-    private String            databaseDirectoryName;
-    private String            externalThumbnailCreationCommand;
-    private String            iptcCharset;
-    private String            pdfViewer;
-    private String            webBrowser;
-    private Type              type;
+    private Object source;
+    private Type   type;
 
     public enum Type {
+        ACCEPT_HIDDEN_DIRECTORIES,
         AUTOCOPY_DIRECTORY,
-        AUTOSCAN_DIRECTORIES,
+        AUTO_DOWNLOAD_NEWER_VERSIONS,
+        AUTO_SCAN_DIRECTORIES,
+        AUTO_SCAN_INCLUDE_DIRECTORIES,
         DATABASE_DIRECTORY,
         DEFAULT_IMAGE_OPEN_APP,
         DISPLAY_SEARCH_BUTTON,
@@ -76,8 +44,6 @@ public final class UserSettingsChangeEvent {
         EXTERNAL_THUMBNAIL_CREATION_COMMAND,
         FAST_SEARCH_COLUMNS,
         IPTC_CHARSET,
-        IS_ACCEPT_HIDDEN_DIRECTORIES,
-        IS_AUTSCAN_INCLUDE_DIRECTORIES,
         LOGFILE_FORMATTER_CLASS,
         LOG_LEVEL,
         MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS,
@@ -85,10 +51,11 @@ public final class UserSettingsChangeEvent {
         MINUTES_TO_START_SCHEDULED_TASKS,
         NO_FAST_SEARCH_COLUMNS,
         OPTIONS_COPY_MOVE_FILES,
-        OTHER_IMAGE_OPEN_APPS,
         PDF_VIEWER,
+        SAVE_INPUT_EARLY,
         SCAN_FOR_EMBEDDED_XMP,
         TREE_DIRECTORIES_SELECT_LAST_DIRECTORY,
+        THUMBNAIL_CREATOR,
         WEB_BROWSER,
     }
 
@@ -103,189 +70,5 @@ public final class UserSettingsChangeEvent {
 
     public Object getSource() {
         return source;
-    }
-
-    public boolean isAcceptHiddenDirectories() {
-        return acceptHiddenDirectories;
-    }
-
-    public void setAcceptHiddenDirectories(boolean acceptHiddenDirectories) {
-        this.acceptHiddenDirectories = acceptHiddenDirectories;
-    }
-
-    public File getAutoCopyDirectory() {
-        return autoCopyDirectory;
-    }
-
-    public void setAutoCopyDirectory(File autoCopyDirectory) {
-        this.autoCopyDirectory = autoCopyDirectory;
-    }
-
-    public boolean isTreeDirectoriesSelectLastDirectory() {
-        return treeDirectoriesSelectLastDirectory;
-    }
-
-    public void setTreeDirectoriesSelectLastDirectory(boolean treeDirectoriesSelectLastDirectory) {
-        this.treeDirectoriesSelectLastDirectory = treeDirectoriesSelectLastDirectory;
-    }
-
-    public boolean isAutoscanIncludeSubdirectories() {
-        return autoscanIncludeSubdirectories;
-    }
-
-    public void setAutoscanIncludeSubdirectories(boolean autoscanIncludeSubdirectories) {
-        this.autoscanIncludeSubdirectories = autoscanIncludeSubdirectories;
-    }
-
-    public String getExternalThumbnailCreationCommand() {
-        return externalThumbnailCreationCommand;
-    }
-
-    public void setExternalThumbnailCreationCommand(String externalThumbnailCreationCommand) {
-        this.externalThumbnailCreationCommand = externalThumbnailCreationCommand;
-    }
-
-    public List<Column> getFastSearchColumns() {
-        return fastSearchColumns;
-    }
-
-    public void setFastSearchColumns(List<Column> fastSearchColumns) {
-        this.fastSearchColumns = fastSearchColumns;
-    }
-
-    public List<Column> getEditColumns() {
-        return editColumns;
-    }
-
-    public void setEditColumns(List<Column> editColumns) {
-        this.editColumns = editColumns;
-    }
-
-    public File getDefaultImageOpenApp() {
-        return defaultImageOpenApp;
-    }
-
-    public void setDefaultImageOpenApp(File app) {
-        defaultImageOpenApp = app;
-    }
-
-    public String getIptcCharset() {
-        return iptcCharset;
-    }
-
-    public void setIptcCharset(String iptcCharset) {
-        this.iptcCharset = iptcCharset;
-    }
-
-    public Level getLogLevel() {
-        return logLevel;
-    }
-
-    public void setLogLevel(Level logLevel) {
-        this.logLevel = logLevel;
-    }
-
-    public Class<?> getLogfileFormatterClass() {
-        return logfileFormatterClass;
-    }
-
-    public void setLogfileFormatterClass(Class<?> logfileFormatterClass) {
-        this.logfileFormatterClass = logfileFormatterClass;
-    }
-
-    public Integer getMaxThumbnailWidth() {
-        return maxThumbnailWidth;
-    }
-
-    public void setMaxThumbnailWidth(Integer maxThumbnailWidth) {
-        this.maxThumbnailWidth = maxThumbnailWidth;
-    }
-
-    public Integer getMinutesToStartScheduledTasks() {
-        return minutesToStartScheduledTasks;
-    }
-
-    public void setMinutesToStartScheduledTasks(Integer minutesToStartScheduledTasks) {
-        this.minutesToStartScheduledTasks = minutesToStartScheduledTasks;
-    }
-
-    public boolean isNoFastSearchColumns() {
-        return noFastSearchColumns;
-    }
-
-    public void setNoFastSearchColumns(boolean noFastSearchColumns) {
-        this.noFastSearchColumns = noFastSearchColumns;
-    }
-
-    public String getWebBrowser() {
-        return webBrowser;
-    }
-
-    public void setWebBrowser(String webBrowser) {
-        this.webBrowser = webBrowser;
-    }
-
-    public String getPdfViewer() {
-        return pdfViewer;
-    }
-
-    public void setPdfViewer(String pdfViewer) {
-        this.pdfViewer = pdfViewer;
-    }
-
-    public String getDatabaseDirectoryName() {
-        return databaseDirectoryName;
-    }
-
-    public void setDatabaseDirectoryName(String databaseDirectoryName) {
-        this.databaseDirectoryName = databaseDirectoryName;
-    }
-
-    public void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
-        maxSecondsToTerminateExternalPrograms = seconds;
-    }
-
-    public int getMaxSecondsToTerminateExternalPrograms() {
-        return maxSecondsToTerminateExternalPrograms;
-    }
-
-    public boolean isScanForEmbeddedXmp() {
-        return scanForEmbeddedXmp;
-    }
-
-    public void setScanForEmbeddedXmp(boolean scanForEmbeddedXmp) {
-        this.scanForEmbeddedXmp = scanForEmbeddedXmp;
-    }
-
-    public boolean isExecuteActionsAfterImageChangeInDbAlways() {
-        return executeActionsAfterImageChangeInDbAlways;
-    }
-
-    public void setExecuteActionsAfterImageChangeInDbAlways(boolean executeActionAfterImageChangeInDbAlways) {
-        this.executeActionsAfterImageChangeInDbAlways = executeActionAfterImageChangeInDbAlways;
-    }
-
-    public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
-        return executeActionsAfterImageChangeInDbIfImageHasXmp;
-    }
-
-    public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean executeActionAfterImageChangeInDbIfImageHasXmp) {
-        this.executeActionsAfterImageChangeInDbIfImageHasXmp = executeActionAfterImageChangeInDbIfImageHasXmp;
-    }
-
-    public boolean isDisplaySearchButton() {
-        return displaySearchButton;
-    }
-
-    public void setDisplaySearchButton(boolean displaySearchButton) {
-        this.displaySearchButton = displaySearchButton;
-    }
-
-    public Options getOptionsCopyMoveFiles() {
-        return optionsCopyMoveFiles;
-    }
-
-    public void setOptionsCopyMoveFiles(Options optionsCopyMoveFiles) {
-        this.optionsCopyMoveFiles = optionsCopyMoveFiles;
     }
 }

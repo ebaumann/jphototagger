@@ -23,7 +23,9 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
+import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -55,7 +57,8 @@ import javax.swing.KeyStroke;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class PopupMenuThumbnails extends JPopupMenu implements UserSettingsChangeListener {
+public final class PopupMenuThumbnails extends JPopupMenu
+        implements UserSettingsChangeListener, DatabaseProgramListener {
 
     public static final  PopupMenuThumbnails     INSTANCE                             = new PopupMenuThumbnails();
     private static final long                    serialVersionUID                     = 1415777088897583494L;
@@ -113,7 +116,6 @@ public final class PopupMenuThumbnails extends JPopupMenu implements UserSetting
     }
 
     private void addItems() {
-
 
         menuRefresh.add(itemUpdateThumbnail);
         menuRefresh.add(itemUpdateMetadata);
@@ -192,7 +194,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements UserSetting
         }
     }
 
-    public void addOtherPrograms() {
+    public void setOtherPrograms() {
         menuPrograms.removeAll();
         programOfMenuItem.clear();
         List<Program> programs = DatabasePrograms.INSTANCE.getAll(Type.PROGRAM);
@@ -214,10 +216,32 @@ public final class PopupMenuThumbnails extends JPopupMenu implements UserSetting
     }
 
     @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
-            addOtherPrograms();
+    public void actionPerformed(DatabaseProgramEvent event) {
+        if (isSetOtherPrograms(event.getType())) {
+            setOtherPrograms();
         }
+    }
+
+    private boolean isSetOtherPrograms(DatabaseProgramEvent.Type type) {
+        return type.equals(DatabaseProgramEvent.Type.PROGRAM_DELETED) ||
+               type.equals(DatabaseProgramEvent.Type.PROGRAM_INSERTED) ||
+               type.equals(DatabaseProgramEvent.Type.PROGRAM_UPDATED);
+    }
+
+    @Override
+    public void applySettings(UserSettingsChangeEvent evt) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP)) {
+            boolean exists = existsStandardImageOpenApp();
+            itemOpenFilesWithStandardApp.setEnabled(exists);
+            if (exists) {
+                setStandardAppIcon();
+            }
+        }
+    }
+
+    private boolean existsStandardImageOpenApp() {
+        String app = UserSettings.INSTANCE.getDefaultImageOpenApp();
+        return app != null && !app.trim().isEmpty() && new File(app).exists();
     }
 
     public JMenuItem getItemAddToImageCollection() {
@@ -370,7 +394,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements UserSetting
 
     public synchronized void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
         actionListenersOpenFilesWithOtherApp.add(listener);
-        addOtherPrograms();
+        setOtherPrograms();
     }
 
     public Program getProgram(Object source) {

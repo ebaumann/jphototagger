@@ -18,13 +18,12 @@
  */
 package de.elmar_baumann.jpt.model;
 
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.DatabaseInfoRecordCountColumns;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -38,7 +37,7 @@ import javax.swing.table.DefaultTableModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class TableModelDatabaseInfo extends DefaultTableModel implements DatabaseListener {
+public final class TableModelDatabaseInfo extends DefaultTableModel implements DatabaseImageFilesListener {
 
     private static final List<DatabaseImageEvent.Type>       COUNT_EVENTS            = new ArrayList<DatabaseImageEvent.Type>();
     private static final long                                serialVersionUID        = 1974343527501774916L;
@@ -65,7 +64,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
         initBufferOfColumn();
         addColumnHeaders();
         addRows();
-        db.addDatabaseListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
     }
 
     @Override
@@ -141,15 +140,5 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
 
     private void setCountToBuffer(StringBuffer buffer, Integer count) {
         buffer.replace(0, buffer.length(), count.toString());
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

@@ -21,14 +21,17 @@ package de.elmar_baumann.jpt.database;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Contains external Programs to start within the application. The primary
@@ -41,6 +44,7 @@ import java.util.List;
 public final class DatabasePrograms extends Database {
 
     public static final DatabasePrograms INSTANCE = new DatabasePrograms();
+    private final Set<DatabaseProgramListener> listeners = new HashSet<DatabaseProgramListener>();
 
     private DatabasePrograms() {
     }
@@ -81,6 +85,7 @@ public final class DatabasePrograms extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
+            notifyListeners(DatabaseProgramEvent.Type.PROGRAM_INSERTED, program);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -161,7 +166,7 @@ public final class DatabasePrograms extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
-            notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_UPDATED, program);
+            notifyListeners(DatabaseProgramEvent.Type.PROGRAM_UPDATED, program);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -217,7 +222,7 @@ public final class DatabasePrograms extends Database {
             // Hack because of dirty design of this table (no cascade possible)
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
             stmt.close();
-            notifyDatabaseListener(DatabaseProgramEvent.Type.PROGRAM_DELETED, program);
+            notifyListeners(DatabaseProgramEvent.Type.PROGRAM_DELETED, program);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -373,5 +378,31 @@ public final class DatabasePrograms extends Database {
             free(connection);
         }
         return count > 0;
+    }
+
+    public void addDatabaseProgramListener(DatabaseProgramListener listener) {
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
+    }
+
+    public void removeDatabaseProgramListener(DatabaseProgramListener listener) {
+        synchronized (listeners) {
+            listeners.remove(listener);
+        }
+    }
+
+    private void notifyListeners(
+            DatabaseProgramEvent.Type type,
+            Program                   program
+            ) {
+        DatabaseProgramEvent event = new DatabaseProgramEvent(type);
+
+        event.setProgram(program);
+        synchronized(listeners) {
+            for (DatabaseProgramListener listener : listeners) {
+                listener.actionPerformed(event);
+            }
+        }
     }
 }

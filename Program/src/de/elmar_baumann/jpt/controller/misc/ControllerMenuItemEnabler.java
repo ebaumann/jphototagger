@@ -20,9 +20,9 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
+import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
-import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
@@ -41,8 +41,7 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-27
  */
-public final class ControllerMenuItemEnabler
-        implements UserSettingsChangeListener, ThumbnailsPanelListener {
+public final class ControllerMenuItemEnabler implements DatabaseProgramListener, ThumbnailsPanelListener {
 
     private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresSelectedImages = new HashMap<JMenuItem, List<Content>>();
     private final List<JMenuItem>               itemsRequiresSelectedImages              = new ArrayList<JMenuItem>();
@@ -129,10 +128,8 @@ public final class ControllerMenuItemEnabler
     }
 
     @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS)) {
-            hasPrograms = !DatabasePrograms.INSTANCE.isEmpty();
-            setEnabled();
-        }
+    public void actionPerformed(DatabaseProgramEvent event) {
+        hasPrograms = !DatabasePrograms.INSTANCE.isEmpty();
+        setEnabled();
     }
 }

@@ -33,15 +33,11 @@ public final class DatabaseProgramEvent {
      */
     public enum Type {
 
-        /**
-         * A program was deleted
-         */
+        PROGRAM_INSERTED,
         PROGRAM_DELETED,
-        /**
-         * A program was updated
-         */
         PROGRAM_UPDATED,
     };
+
     private Type type;
     private Program program;
 

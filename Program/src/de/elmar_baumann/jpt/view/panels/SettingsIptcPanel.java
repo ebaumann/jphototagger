@@ -19,8 +19,6 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
 
@@ -29,26 +27,21 @@ import de.elmar_baumann.jpt.types.Persistence;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-02
  */
-public final class SettingsIptcPanel extends javax.swing.JPanel
-    implements Persistence {
+public final class SettingsIptcPanel extends javax.swing.JPanel implements Persistence {
 
-    private static final long             serialVersionUID = -1835927511615037315L;
-    private final        ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private static final long serialVersionUID = -1835927511615037315L;
 
     public SettingsIptcPanel() {
         initComponents();
     }
 
     private void handleActionComboBoxIptcCharset() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.IPTC_CHARSET, this);
-        evt.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
-        listenerProvider.notifyUserSettingsChangeListener(evt);
+        UserSettings.INSTANCE.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
     }
 
     @Override
     public void readProperties() {
-        comboBoxIptcCharset.getModel().setSelectedItem(
-            UserSettings.INSTANCE.getIptcCharset());
+        comboBoxIptcCharset.getModel().setSelectedItem(UserSettings.INSTANCE.getIptcCharset());
     }
 
     @Override

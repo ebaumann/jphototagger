@@ -31,6 +31,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
@@ -61,6 +62,22 @@ import java.util.Set;
 public final class DatabaseImageFiles extends Database {
 
     public static final DatabaseImageFiles INSTANCE = new DatabaseImageFiles();
+
+    private final Set<DatabaseImageFilesListener> listeners = new LinkedHashSet<DatabaseImageFilesListener>();
+
+    protected synchronized void notifyDatabaseListener(
+            DatabaseImageEvent.Type  type,
+            ImageFile                oldImageFile,
+            ImageFile                newImageFile) {
+
+        DatabaseImageEvent event = new DatabaseImageEvent(type);
+
+        event.setImageFile(newImageFile);
+        event.setOldImageFile(oldImageFile);
+        for (DatabaseImageFilesListener listener : listeners) {
+            listener.actionPerformed(event);
+        }
+    }
 
     private DatabaseImageFiles() {
     }
@@ -366,7 +383,7 @@ public final class DatabaseImageFiles extends Database {
             }
             connection.commit();
             success = true;
-            notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_INSERTED, imageFile);
+            notifyListener(DatabaseImageEvent.Type.IMAGEFILE_INSERTED, imageFile);
             stmt.close();
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -487,7 +504,7 @@ public final class DatabaseImageFiles extends Database {
                 progressEvent.setInfo(filename);
                 notifyProgressListenerPerformed(listener, progressEvent);
                 imageFile.setFilename(filename);
-                notifyDatabaseListener(DatabaseImageEvent.Type.THUMBNAIL_UPDATED, imageFile);
+                notifyListener(DatabaseImageEvent.Type.THUMBNAIL_UPDATED, imageFile);
             }
             stmt.close();
             notifyProgressListenerEnd(listener, progressEvent);
@@ -518,7 +535,7 @@ public final class DatabaseImageFiles extends Database {
             updateThumbnailFile(PersistentThumbnails.getMd5File(filename), thumbnail);
             ImageFile imageFile = new ImageFile();
             imageFile.setFilename(filename);
-            notifyDatabaseListener(DatabaseImageEvent.Type.THUMBNAIL_UPDATED, imageFile);
+            notifyListener(DatabaseImageEvent.Type.THUMBNAIL_UPDATED, imageFile);
             return true;
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageFiles.class, ex);
@@ -668,7 +685,7 @@ public final class DatabaseImageFiles extends Database {
                         PersistentThumbnails.getThumbnailFileOfImageFile(filename).delete();
                         ImageFile imageFile = new ImageFile();
                         imageFile.setFilename(filename);
-                        notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_DELETED, imageFile);
+                        notifyListener(DatabaseImageEvent.Type.IMAGEFILE_DELETED, imageFile);
                     }
                 }
                 event.setValue(event.getValue() + 1);
@@ -1246,7 +1263,7 @@ public final class DatabaseImageFiles extends Database {
                         insertOrUpdateXmp(connection, idFile, xmp);
                         countRenamed++;
                         imageFile.setFilename(filename);
-                        notifyDatabaseListener(DatabaseImageEvent.Type.XMP_UPDATED, imageFile);
+                        notifyListener(DatabaseImageEvent.Type.XMP_UPDATED, imageFile);
                     }
                 }
                 connection.commit();
@@ -2142,5 +2159,31 @@ public final class DatabaseImageFiles extends Database {
             free(connection);
         }
         return files;
+    }
+
+    public void addDatabaseImageFilesListener(DatabaseImageFilesListener listener) {
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
+    }
+
+    public void removeDatabaseImageFilesListener(DatabaseImageFilesListener listener) {
+        synchronized (listeners) {
+            listeners.remove(listener);
+        }
+    }
+
+    void notifyListener(
+            DatabaseImageEvent.Type type,
+            ImageFile               imageFile) {
+
+        DatabaseImageEvent event = new DatabaseImageEvent(type);
+
+        event.setImageFile(imageFile);
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.actionPerformed(event);
+            }
+        }
     }
 }

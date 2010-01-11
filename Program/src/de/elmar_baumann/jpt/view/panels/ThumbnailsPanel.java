@@ -761,8 +761,7 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public void appWillExit() {
-        UserSettings.INSTANCE.getSettings().setInt(getThumbnailWidth(),
-                ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
+        UserSettings.INSTANCE.getSettings().setInt(getThumbnailWidth(), ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
         UserSettings.INSTANCE.writeToFile();
     }
 

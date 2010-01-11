@@ -22,8 +22,6 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
@@ -43,7 +41,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
 
     private static final long              serialVersionUID = 6156362511361451187L;
     private final        ListModelPrograms model            = new ListModelPrograms(Type.PROGRAM);
-    private final        ListenerProvider  listenerProvider = ListenerProvider.INSTANCE;
 
     public SettingsProgramsPanel() {
         initComponents();
@@ -68,7 +65,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         File file = chooseFile(labelDefaultProgramFile.getText());
         if (file != null && file.exists()) {
             labelDefaultProgramFile.setText(file.getAbsolutePath());
-            notifyChangeListenerDefault();
+            UserSettings.INSTANCE.setDefaultImageOpenApp(new File(labelDefaultProgramFile.getText()));
         }
     }
 
@@ -89,7 +86,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         dialog.setVisible(true);
         if (dialog.accepted()) {
             model.add(dialog.getProgram());
-            notifyChangeListenerOther();
         }
     }
 
@@ -100,7 +96,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
             dialog.setVisible(true);
             if (dialog.accepted()) {
                 model.update(dialog.getProgram());
-                notifyChangeListenerOther();
             }
         }
     }
@@ -110,7 +105,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         if (index >= 0 && askRemove(model.getElementAt(index).toString())) {
             model.remove((Program) model.get(index));
             setEnabled();
-            notifyChangeListenerOther();
         }
     }
 
@@ -119,19 +113,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
                 this,
                 "UserSettingsDialog.Confirm.RemoveImageOpenApp",
                 otherImageOpenApp);
-    }
-
-    private synchronized void notifyChangeListenerOther() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.OTHER_IMAGE_OPEN_APPS, this);
-        listenerProvider.notifyUserSettingsChangeListener(evt);
-    }
-
-    private synchronized void notifyChangeListenerDefault() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.DEFAULT_IMAGE_OPEN_APP, this);
-        evt.setDefaultImageOpenApp(new File(labelDefaultProgramFile.getText()));
-        listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private void setEnabled() {

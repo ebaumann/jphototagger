@@ -20,11 +20,9 @@ package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
@@ -38,14 +36,14 @@ import javax.swing.SwingUtilities;
  * @version 2009-07-18
  */
 public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
-        implements DatabaseListener {
+        implements DatabaseImageFilesListener {
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
     private Image noPreviewThumbnail = IconUtil.getIconImage(Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private ThumbnailCache() {
-        db.addDatabaseListener(this);
+        db.addDatabaseImageFilesListener(this);
         new Thread(new ThumbnailFetcher(workQueue, this),
                 "ThumbnailFetcher").start();
     }
@@ -63,12 +61,6 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                 break;
         }
     }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {}
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {}
 
     private static class ThumbnailFetcher implements Runnable {
 

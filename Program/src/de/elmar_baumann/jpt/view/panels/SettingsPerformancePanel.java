@@ -19,8 +19,6 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
 
@@ -31,32 +29,22 @@ import de.elmar_baumann.jpt.types.Persistence;
  */
 public final class SettingsPerformancePanel extends javax.swing.JPanel implements Persistence {
 
-    private static final long             serialVersionUID = -422417143078270821L;
-    private final        ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
+    private static final long serialVersionUID = -422417143078270821L;
 
     public SettingsPerformancePanel() {
         initComponents();
     }
 
     private void handleMaximumSecondsToTerminateExternalProgramsStateChanged() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, this);
-        evt.setMaxSecondsToTerminateExternalPrograms((Integer) spinnerMaximumSecondsToTerminateExternalPrograms.getModel().getValue());
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setMaxSecondsToTerminateExternalPrograms((Integer) spinnerMaximumSecondsToTerminateExternalPrograms.getModel().getValue());
     }
 
     private void handleScanForEmbeddedXmpActionPerformed() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.SCAN_FOR_EMBEDDED_XMP, this);
-        evt.setScanForEmbeddedXmp(checkBoxScanForEmbeddedXmp.isSelected());
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setScanForEmbeddedXmp(checkBoxScanForEmbeddedXmp.isSelected());
     }
 
     private void handleSaveEarly() {
         UserSettings.INSTANCE.setSaveInputEarly(checkBoxSaveInputEarly.isSelected());
-        UserSettings.INSTANCE.writeToFile();
-    }
-
-    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
-        listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     @Override

@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.factory;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
@@ -54,15 +53,13 @@ public final class MiscFactory {
             init = true;
             AppPanel            appPanel                 = GUI.INSTANCE.getAppPanel();
             PopupMenuThumbnails popupMenuPanelThumbnails = PopupMenuThumbnails.INSTANCE;
-            UserSettings        userSettings             = UserSettings.INSTANCE;
             ListenerProvider    listenerProvider         = ListenerProvider.INSTANCE;
 
-            DatabaseImageFiles.INSTANCE.addDatabaseListener(appPanel.getEditMetadataPanelsArray());
+            DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(appPanel.getEditMetadataPanelsArray());
             appPanel.getEditMetadataPanelsArray().setAutocomplete();
 
-            popupMenuPanelThumbnails.addOtherPrograms();
+            popupMenuPanelThumbnails.setOtherPrograms();
             listenerProvider.addUserSettingsChangeListener(popupMenuPanelThumbnails);
-            listenerProvider.addUserSettingsChangeListener(userSettings);
             AppLifeCycle.INSTANCE.addAppExitListener(appPanel.getPanelThumbnails());
             ScheduledTasks.INSTANCE.run();
             setPopupMenuHighlighter();

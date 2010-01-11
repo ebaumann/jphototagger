@@ -22,8 +22,6 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.model.ListModelActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
@@ -43,7 +41,6 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
     private static final long                             serialVersionUID            = 6440789488453905704L;
     private final        ListModelActionsAfterDbInsertion modelActionsAfterDbInsertion;
-    private final        ListenerProvider                 listenerProvider            = ListenerProvider.INSTANCE;
 
     public SettingsActionsPanel() {
         modelActionsAfterDbInsertion = new ListModelActionsAfterDbInsertion();
@@ -98,24 +95,14 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private void handleActionsAfterDatabaseInsertionExecuteAlways() {
-        UserSettingsChangeEvent evt =
-                new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS,
-                this);
-        evt.setExecuteActionsAfterImageChangeInDbAlways(
+        UserSettings.INSTANCE.setExecuteActionsAfterImageChangeInDbAlways(
                 radioButtonActionsAfterDatabaseInsertionExecuteAlways.isSelected());
-        notifyChangeListener(evt);
     }
 
     private void handleActionsAfterDatabaseInsertionExecuteIfXmpExists() {
-        UserSettingsChangeEvent evt =
-                new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP,
-                this);
-        evt.setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
+        UserSettings.INSTANCE.setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
                 radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp.
                 isSelected());
-        notifyChangeListener(evt);
     }
 
     @Override
@@ -130,10 +117,6 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     @Override
     public void writeProperties() {
         // Nothing to write
-    }
-
-    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
-        listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private void handleActionsAfterDatabaseInsertionEdit() {

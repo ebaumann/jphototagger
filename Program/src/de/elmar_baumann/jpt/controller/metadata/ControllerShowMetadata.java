@@ -25,10 +25,8 @@ import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.metadata.selections.MetadataTableModels;
 import de.elmar_baumann.jpt.data.SelectedFile;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TableModelExif;
@@ -65,7 +63,7 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerShowMetadata implements DatabaseListener,
+public final class ControllerShowMetadata implements DatabaseImageFilesListener,
                                                      ThumbnailsPanelListener {
 
     private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel =
@@ -93,7 +91,7 @@ public final class ControllerShowMetadata implements DatabaseListener,
 
     private void listen() {
         appPanel.getPanelThumbnails().addThumbnailsPanelListener(this);
-        DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
     }
 
     private void initMetadatModels() {
@@ -349,15 +347,5 @@ public final class ControllerShowMetadata implements DatabaseListener,
         if (metadata.contains(Metadata.EXIF)) {
             metadataTableModels.getExifTableModel().removeAllElements();
         }
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

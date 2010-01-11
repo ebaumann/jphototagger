@@ -209,7 +209,7 @@ public final class DatabaseFileExcludePattern extends Database {
                             PersistentThumbnails.getThumbnailFileOfImageFile(filename).delete();
                             ImageFile deletedImageFile = new ImageFile();
                             deletedImageFile.setFilename(filename);
-                            notifyDatabaseListener(DatabaseImageEvent.Type.IMAGEFILE_DELETED, deletedImageFile);
+                            DatabaseImageFiles.INSTANCE.notifyListener(DatabaseImageEvent.Type.IMAGEFILE_DELETED, deletedImageFile);
                         }
 
                         stop = event.isStop();

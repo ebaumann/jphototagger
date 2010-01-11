@@ -22,8 +22,6 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.ColumnUtil;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.model.ListModelSelectedColumns;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
@@ -41,9 +39,8 @@ import javax.swing.ListSelectionModel;
  */
 public final class SettingsEditColumnsPanel extends javax.swing.JPanel implements ActionListener, Persistence {
 
-    private static final long             serialVersionUID = -2365119124503442395L;
-    private final        ListenerProvider listenerProvider = ListenerProvider.INSTANCE;
-    private              CheckList        list;
+    private static final long      serialVersionUID = -2365119124503442395L;
+    private              CheckList list;
 
     public SettingsEditColumnsPanel() {
         initComponents();
@@ -67,15 +64,9 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel implement
     public void writeProperties() {
     }
 
-    private UserSettingsChangeEvent getUserSettingsChangeEvent() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.EDIT_COLUMNS, this);
-        evt.setEditColumns(ColumnUtil.getSelectedColumns(list));
-        return evt;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        listenerProvider.notifyUserSettingsChangeListener(getUserSettingsChangeEvent());
+        UserSettings.INSTANCE.setEditColumns(ColumnUtil.getSelectedColumns(list));
     }
 
     /** This method is called from within the constructor to
