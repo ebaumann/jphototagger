@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemActionListener;
 import de.elmar_baumann.jpt.event.FileSystemError;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -51,9 +51,8 @@ public final class ControllerMoveFiles implements ActionListener,
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles().
-                addActionListener(this);
-        ListenerProvider.INSTANCE.addFileSystemActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles().addActionListener(this);
+        ListenerSupport.INSTANCE.addFileSystemActionListener(this);
     }
 
     @Override

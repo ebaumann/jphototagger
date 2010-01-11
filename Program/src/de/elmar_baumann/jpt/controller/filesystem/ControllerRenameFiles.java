@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.cache.RenderedThumbnailCache;
 import de.elmar_baumann.jpt.cache.ThumbnailCache;
 import de.elmar_baumann.jpt.cache.XmpCache;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.RenameFileEvent;
 import de.elmar_baumann.jpt.event.listener.RenameFileListener;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -64,7 +64,7 @@ public final class ControllerRenameFiles
     private void listen() {
         thumbnailsPanel.addKeyListener(this);
         menuItemRename.addActionListener(this);
-        ListenerProvider.INSTANCE.addRenameFileListener(this);
+        ListenerSupport.INSTANCE.addRenameFileListener(this);
     }
 
     @Override

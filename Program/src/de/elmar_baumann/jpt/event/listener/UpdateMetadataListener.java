@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent;
+import de.elmar_baumann.jpt.event.UpdateMetadataEvent;
 
 /**
  * Listens for updating metadata.
@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-06
  */
-public interface CheckingForUpdateMetadataListener {
+public interface UpdateMetadataListener {
 
-    public void actionPerformed(CheckForUpdateMetadataEvent evt);
+    public void actionPerformed(UpdateMetadataEvent evt);
 }

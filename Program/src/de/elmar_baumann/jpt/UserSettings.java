@@ -27,7 +27,7 @@ import de.elmar_baumann.jpt.database.metadata.ColumnUtil;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent.Type;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.helper.CopyFiles.Options;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator;
@@ -72,6 +72,7 @@ public final class UserSettings {
     private static final String           KEY_DEFAULT_IMAGE_OPEN_APP                                    = "UserSettings.DefaultImageOpenApp";
     private static final String           KEY_DISPLAY_SEARCH_BUTTON                                     = "UserSettings.DisplaySearchButton";
     private static final String           KEY_EDIT_COLUMNS                                              = "UserSettings.EditColumns";
+    private static final String           KEY_DISPLAY_IPTC                                              = "UserSettings.DisplayIptc";
     private static final String           KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS           = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
     private static final String           KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
     private static final String           KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND                       = "UserSettings.ExternalThumbnailCreationCommand";
@@ -94,7 +95,7 @@ public final class UserSettings {
     private final        PropertiesFile   propertiesToFile                                              = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
     private final        Settings         settings                                                      = new Settings(properties);
     public static final  UserSettings     INSTANCE                                                      = new UserSettings();
-    private final        ListenerProvider listenerProvider                                              = ListenerProvider.INSTANCE;
+    private final        ListenerSupport listenerProvider                                              = ListenerSupport.INSTANCE;
 
     private UserSettings() {
         propertiesToFile.readFromFile();
@@ -712,6 +713,7 @@ public final class UserSettings {
                ? dir
                : null;
     }
+
     /**
      * Sets wheter to check and auto download newer program versions.
      *
@@ -724,7 +726,6 @@ public final class UserSettings {
         notifyListener(Type.AUTO_DOWNLOAD_NEWER_VERSIONS);
     }
 
-
     /**
      * Returns wheter to check and auto download newer program versions.
      * 
@@ -733,6 +734,23 @@ public final class UserSettings {
     public boolean isAutoDownloadNewerVersions() {
         return properties.containsKey(KEY_AUTO_DOWNLOAD_NEWER_VERSIONS)
                 ? settings.getBoolean(KEY_AUTO_DOWNLOAD_NEWER_VERSIONS)
+                : true;
+    }
+
+    public void setDisplayIptc(boolean display) {
+        settings.setBoolean(display, KEY_DISPLAY_IPTC);
+        writeToFile();
+        notifyListener(Type.DISPLAY_IPTC);
+    }
+
+    /**
+     * Sets whether to display IPTC.
+     *
+     * @return true if display IPTC. Default: true.
+     */
+    public boolean isDisplayIptc() {
+        return properties.containsKey(KEY_DISPLAY_IPTC)
+                ? settings.getBoolean(KEY_DISPLAY_IPTC)
                 : true;
     }
 

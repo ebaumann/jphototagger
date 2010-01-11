@@ -28,11 +28,11 @@ import de.elmar_baumann.jpt.data.Iptc;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent;
-import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent.Type;
+import de.elmar_baumann.jpt.event.UpdateMetadataEvent;
+import de.elmar_baumann.jpt.event.UpdateMetadataEvent.Type;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.ProgressListenerSupport;
-import de.elmar_baumann.jpt.event.listener.CheckingForUpdateMetadataListener;
+import de.elmar_baumann.jpt.event.listener.UpdateMetadataListener;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
@@ -59,7 +59,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private final DatabaseImageFiles                     db                      = DatabaseImageFiles.INSTANCE;
     private final ProgressListenerSupport                progressListenerSupport = new ProgressListenerSupport();
-    private final Set<CheckingForUpdateMetadataListener> updateMetadataListeners = Collections.synchronizedSet(new HashSet<CheckingForUpdateMetadataListener>());
+    private final Set<UpdateMetadataListener> updateMetadataListeners = Collections.synchronizedSet(new HashSet<UpdateMetadataListener>());
     private       ProgressEvent                          progressEvent           = new ProgressEvent(this, null);
     private final List<String>                           filenames;
     private final EnumSet<Insert>                        what;
@@ -121,7 +121,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      *
      * @param listener listener
      */
-    public void addUpdateMetadataListener(CheckingForUpdateMetadataListener listener) {
+    public void addUpdateMetadataListener(UpdateMetadataListener listener) {
         updateMetadataListeners.add(listener);
     }
 
@@ -129,16 +129,16 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * Removes a listener.
      *
      * @param listener action listener
-     * @see   #addUpdateMetadataListener(CheckingForUpdateMetadataListener)
+     * @see   #addUpdateMetadataListener(UpdateMetadataListener)
      */
-    public void removeUpdateMetadataListener(CheckingForUpdateMetadataListener listener) {
+    public void removeUpdateMetadataListener(UpdateMetadataListener listener) {
         updateMetadataListeners.remove(listener);
     }
 
     private void notifyUpdateMetadataListener(Type type, String filename) {
-        CheckForUpdateMetadataEvent event = new CheckForUpdateMetadataEvent(type, filename);
+        UpdateMetadataEvent event = new UpdateMetadataEvent(type, filename);
         synchronized (updateMetadataListeners) {
-            for (CheckingForUpdateMetadataListener listener : updateMetadataListeners) {
+            for (UpdateMetadataListener listener : updateMetadataListeners) {
                 listener.actionPerformed(event);
             }
         }

@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.cache.RenderedThumbnailCache;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerDoubleklickThumbnail;
@@ -163,6 +164,7 @@ public class ThumbnailsPanel extends JPanel
         addMouseListener(this);
         addMouseMotionListener(this);
         addKeyListener(this);
+        AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
     private void empty() {

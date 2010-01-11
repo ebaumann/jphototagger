@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
@@ -67,7 +67,7 @@ public final class ControllerSliderThumbnailSize
     private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
-        ListenerProvider.INSTANCE.addUserSettingsChangeListener(this);
+        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
         Toolkit.getDefaultToolkit().addAWTEventListener(this, AWTEvent.KEY_EVENT_MASK);
     }
 

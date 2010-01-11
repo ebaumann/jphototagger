@@ -35,21 +35,26 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
         initComponents();
     }
 
-    private void handleMaximumSecondsToTerminateExternalProgramsStateChanged() {
+    private void setMaximumSecondsToTerminateExternalPrograms() {
         UserSettings.INSTANCE.setMaxSecondsToTerminateExternalPrograms((Integer) spinnerMaximumSecondsToTerminateExternalPrograms.getModel().getValue());
     }
 
-    private void handleScanForEmbeddedXmpActionPerformed() {
+    private void setScanForEmbeddedXmp() {
         UserSettings.INSTANCE.setScanForEmbeddedXmp(checkBoxScanForEmbeddedXmp.isSelected());
     }
 
-    private void handleSaveEarly() {
+    private void setSaveEarly() {
         UserSettings.INSTANCE.setSaveInputEarly(checkBoxSaveInputEarly.isSelected());
+    }
+
+    private void setDisplayIptc() {
+        UserSettings.INSTANCE.setDisplayIptc(checkBoxDisplayIptc.isSelected());
     }
 
     @Override
     public void readProperties() {
         UserSettings settings = UserSettings.INSTANCE;
+        checkBoxDisplayIptc.setSelected(settings.isDisplayIptc());
         checkBoxScanForEmbeddedXmp.setSelected(settings.isScanForEmbeddedXmp());
         checkBoxSaveInputEarly.setSelected(settings.isSaveInputEarly());
         spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(settings.getMaxSecondsToTerminateExternalPrograms());
@@ -71,6 +76,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
         labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
         checkBoxScanForEmbeddedXmp = new javax.swing.JCheckBox();
+        checkBoxDisplayIptc = new javax.swing.JCheckBox();
         checkBoxSaveInputEarly = new javax.swing.JCheckBox();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
@@ -90,6 +96,13 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
             }
         });
 
+        checkBoxDisplayIptc.setText(bundle.getString("SettingsPerformancePanel.checkBoxDisplayIptc.text")); // NOI18N
+        checkBoxDisplayIptc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDisplayIptcActionPerformed(evt);
+            }
+        });
+
         checkBoxSaveInputEarly.setText(bundle.getString("SettingsPerformancePanel.checkBoxSaveInputEarly.text")); // NOI18N
         checkBoxSaveInputEarly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,9 +118,10 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxSaveInputEarly)
-                    .addComponent(checkBoxScanForEmbeddedXmp, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                    .addComponent(checkBoxDisplayIptc)
+                    .addComponent(checkBoxScanForEmbeddedXmp, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                        .addComponent(labelMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                         .addGap(46, 46, 46)
                         .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -122,24 +136,31 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxScanForEmbeddedXmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxDisplayIptc)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxSaveInputEarly)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 private void spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
-    handleMaximumSecondsToTerminateExternalProgramsStateChanged();
+    setMaximumSecondsToTerminateExternalPrograms();
 }//GEN-LAST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
 
 private void checkBoxScanForEmbeddedXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxScanForEmbeddedXmpActionPerformed
-    handleScanForEmbeddedXmpActionPerformed();
+    setScanForEmbeddedXmp();
 }//GEN-LAST:event_checkBoxScanForEmbeddedXmpActionPerformed
 
 private void checkBoxSaveInputEarlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSaveInputEarlyActionPerformed
-    handleSaveEarly();
+    setSaveEarly();
 }//GEN-LAST:event_checkBoxSaveInputEarlyActionPerformed
 
+private void checkBoxDisplayIptcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplayIptcActionPerformed
+    setDisplayIptc();
+}//GEN-LAST:event_checkBoxDisplayIptcActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxDisplayIptc;
     private javax.swing.JCheckBox checkBoxSaveInputEarly;
     private javax.swing.JCheckBox checkBoxScanForEmbeddedXmp;
     private javax.swing.JLabel labelMaximumSecondsToTerminateExternalPrograms;

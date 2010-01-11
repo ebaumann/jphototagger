@@ -60,6 +60,7 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramListener,
 
     private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
+        DatabasePrograms.INSTANCE.addDatabaseProgramListener(this);
     }
 
     private void init() {

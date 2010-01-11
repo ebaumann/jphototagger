@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword;
@@ -28,7 +29,10 @@ import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsList;
+import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
+import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -75,7 +79,7 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class AppPanel extends javax.swing.JPanel implements AppExitListener {
+public final class AppPanel extends javax.swing.JPanel implements AppExitListener, UserSettingsChangeListener {
 
     private static final String                   KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain";
     private static final String                   KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails";
@@ -107,6 +111,9 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
         displayInitKeywordsView();
         setTextFieldSearchImage();
+        setEnabledDisplayIptc();
+        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
+        AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
     private void setTextFieldSearchImage() {
@@ -511,6 +518,24 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
     private void setSingleSelection(JTree tree) {
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+    }
+
+    @Override
+    public void applySettings(UserSettingsChangeEvent evt) {
+        if (evt.getType().equals(UserSettingsChangeEvent.Type.DISPLAY_IPTC)) {
+            setEnabledDisplayIptc();
+        }
+    }
+
+    private void setEnabledDisplayIptc() {
+        boolean display = UserSettings.INSTANCE.isDisplayIptc();
+        int     index   = tabbedPaneMetadata.indexOfComponent(panelIptc);
+
+        tabbedPaneMetadata.setEnabledAt(index, display);
+        tabbedPaneMetadata.setToolTipTextAt(index, display
+                ? ""
+                : Bundle.getString("TabMetadataIptc.TooltipText.Disabled")
+                );
     }
 
     public enum MessageType {
