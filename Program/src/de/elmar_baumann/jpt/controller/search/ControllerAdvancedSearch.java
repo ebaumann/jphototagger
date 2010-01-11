@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.data.SavedSearchParamStatement;
-import de.elmar_baumann.jpt.database.DatabaseSearch;
+import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
@@ -96,7 +96,7 @@ public final class ControllerAdvancedSearch
                     if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);
                         List<String> filenames =
-                                DatabaseSearch.INSTANCE.findFilenames(paramStmt.createStatement());
+                                DatabaseFind.INSTANCE.findFilenames(paramStmt.createParamStatement());
 
                         setTitle(paramStmt.getName());
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);

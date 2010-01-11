@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.jpt.data.ThumbnailFlag;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerPanelThumbnails;
+import de.elmar_baumann.jpt.datatransfer.TransferHandlerThumbnailsPanel;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
@@ -147,7 +147,7 @@ public class ThumbnailsPanel extends JPanel
         initRefreshListeners();
         controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
         setDragEnabled(true);
-        setTransferHandler(new TransferHandlerPanelThumbnails());
+        setTransferHandler(new TransferHandlerThumbnailsPanel());
         readProperties();
         // hack to activate Drag events
         //new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, this, true, null);

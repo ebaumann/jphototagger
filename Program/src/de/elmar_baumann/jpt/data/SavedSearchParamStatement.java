@@ -18,12 +18,11 @@
  */
 package de.elmar_baumann.jpt.data;
 
-import de.elmar_baumann.jpt.database.metadata.ParamStatement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Daten eines Objekts der Klasse {@link de.elmar_baumann.jpt.database.metadata.ParamStatement}.
+ * Daten eines Objekts der Klasse {@link de.elmar_baumann.jpt.data.ParamStatement}
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
@@ -128,7 +127,7 @@ public final class SavedSearchParamStatement {
      *
      * @return Statement oder null, wenn die Daten ungültig sind
      */
-    public ParamStatement createStatement() {
+    public ParamStatement createParamStatement() {
         ParamStatement stmt = null;
         if (!sql.isEmpty()) {
             stmt = new ParamStatement();

@@ -157,7 +157,7 @@
                             <Property name="name" type="java.lang.String" value="treeDirectories" noResource="true"/>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeDirectories());&#xd;&#xa;treeFavorites.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeDirectories());"/>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDirectoryTree());&#xd;&#xa;treeFavorites.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDirectoryTree());"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -265,7 +265,7 @@
                             <Property name="name" type="java.lang.String" value="listImageCollections" noResource="true"/>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listImageCollections.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerListImageCollections());"/>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listImageCollections.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerImageCollectionsList());"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -366,7 +366,7 @@
                                   <TreeModel code="Laden...&#xa;    Laden..."/>
                                 </Property>
                                 <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new TreeCellRendererHierarchicalKeywords()" type="code"/>
+                                  <Connection code="new de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords()" type="code"/>
                                 </Property>
                                 <Property name="showsRootHandles" type="boolean" value="true"/>
                               </Properties>
@@ -446,7 +446,7 @@
                                 <Property name="name" type="java.lang.String" value="listSelKeywords" noResource="true"/>
                               </Properties>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listSelKeywords.setTransferHandler(new TransferHandlerListKeywords());"/>
+                                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listSelKeywords.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsList());"/>
                               </AuxValues>
                             </Component>
                           </SubComponents>
@@ -1224,7 +1224,7 @@
                         </Container>
                         <Component class="de.elmar_baumann.jpt.view.panels.KeywordsPanel" name="panelEditKeywords">
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="new ControllerToggleRealHierarchicalKeyword(panelEditKeywords);&#xa;new ControllerRenameHierarchicalKeyword(panelEditKeywords);&#xa;new ControllerAddHierarchicalKeyword(panelEditKeywords);&#xa;new ControllerRemoveHierarchicalKeyword(panelEditKeywords);&#xa;new ControllerAddHierarchicalKeywordsToEditPanel(panelEditKeywords);&#xa;new ControllerRemoveHierarchicalKeywordFromEditPanel(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages();"/>
+                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="new de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeywordFromEditPanel(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages();"/>
                           </AuxValues>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">

@@ -27,13 +27,12 @@ package de.elmar_baumann.jpt.io;
 public final class CharEncoding {
 
     /**
-     * Character encoding of exported Adobe Photoshop Lightroom hierarchical
-     * keywords
+     * Character encoding of exported Adobe Photoshop Lightroom keywords
      */
     public static final String LIGHTROOM_KEYWORDS = "UTF8";
 
     /**
-     * Character encoding of exported JPhotoTagger hierarchical keywords
+     * Character encoding of exported JPhotoTagger keywords
      */
     public static final String JPT_KEYWORDS = "UTF8";
 

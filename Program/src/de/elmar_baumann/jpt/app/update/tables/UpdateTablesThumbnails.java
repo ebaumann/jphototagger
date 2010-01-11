@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.database.Database;
-import de.elmar_baumann.jpt.database.DatabaseApplication;
+import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -156,7 +156,7 @@ final class UpdateTablesThumbnails extends Database {
      */
     private void convertThumbnailIdNamesIntoHashNames(Connection connection) {
         try {
-            if (DatabaseApplication.INSTANCE.getBoolean(
+            if (DatabaseApplicationProperties.INSTANCE.getBoolean(
                     KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) return;
             File[] thumbnailFiles = getThumbnailFiles();
             int filecount = thumbnailFiles.length;
@@ -185,7 +185,7 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
             stmt.close();
-            DatabaseApplication.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
+            DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (SQLException ex) {
             AppLog.logSevere(UpdateTablesThumbnails.class, ex);
         }

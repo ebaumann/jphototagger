@@ -18,10 +18,10 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.FavoriteDirectoryPropertiesDialog;
+import de.elmar_baumann.jpt.view.dialogs.FavoritePropertiesDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -67,8 +67,8 @@ public final class ControllerUpdateFavorite
             if (node instanceof DefaultMutableTreeNode) {
                 Object userObject =
                         ((DefaultMutableTreeNode) node).getUserObject();
-                if (userObject instanceof FavoriteDirectory) {
-                    updateFavorite((FavoriteDirectory) userObject);
+                if (userObject instanceof Favorite) {
+                    updateFavorite((Favorite) userObject);
                 }
             }
         }
@@ -79,10 +79,10 @@ public final class ControllerUpdateFavorite
         updateFavorite(popupMenu.getFavoriteDirectory());
     }
 
-    private void updateFavorite(final FavoriteDirectory favorite) {
-        FavoriteDirectoryPropertiesDialog dialog =
-                new FavoriteDirectoryPropertiesDialog();
-        dialog.setFavoriteName(favorite.getFavoriteName());
+    private void updateFavorite(final Favorite favorite) {
+        FavoritePropertiesDialog dialog =
+                new FavoritePropertiesDialog();
+        dialog.setFavoriteName(favorite.getName());
         dialog.setDirectoryName(favorite.getDirectoryName());
         dialog.setVisible(true);
         if (dialog.accepted()) {
@@ -95,7 +95,7 @@ public final class ControllerUpdateFavorite
                     TreeModelFavorites model =
                             (TreeModelFavorites) appPanel.getTreeFavorites().
                             getModel();
-                    model.replaceFavorite(favorite, new FavoriteDirectory(
+                    model.replaceFavorite(favorite, new Favorite(
                             favoriteName,
                             directoryName,
                             favorite.getIndex()));

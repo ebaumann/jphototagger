@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.data.AutoCompleteDataOfColumn;
+import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.TextEntryContent;
 import de.elmar_baumann.jpt.database.metadata.Column;

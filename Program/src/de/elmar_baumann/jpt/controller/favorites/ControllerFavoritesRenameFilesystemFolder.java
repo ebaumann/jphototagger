@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.io.FileSystemDirectories;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
@@ -94,8 +94,8 @@ public final class ControllerFavoritesRenameFilesystemFolder
         Object userObject = node.getUserObject();
         if (userObject instanceof File) {
             return (File) userObject;
-        } else if (userObject instanceof FavoriteDirectory) {
-            return ((FavoriteDirectory) userObject).getDirectory();
+        } else if (userObject instanceof Favorite) {
+            return ((Favorite) userObject).getDirectory();
         }
         return null;
     }

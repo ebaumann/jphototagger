@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.data.Timeline;
 import java.awt.Component;
 import java.io.File;
@@ -58,11 +58,11 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
 
     private void render(Object userObject, int row) {
         File file = null;
-        if (userObject instanceof FavoriteDirectory) {
-            FavoriteDirectory favoriteDirectory =
-                    (FavoriteDirectory) userObject;
+        if (userObject instanceof Favorite) {
+            Favorite favoriteDirectory =
+                    (Favorite) userObject;
             file = favoriteDirectory.getDirectory();
-            setText(favoriteDirectory.getFavoriteName());
+            setText(favoriteDirectory.getName());
         } else if (userObject instanceof File) {
             file = (File) userObject;
             setText(file != null

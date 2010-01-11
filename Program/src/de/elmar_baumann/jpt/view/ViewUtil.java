@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
@@ -43,7 +43,7 @@ public class ViewUtil {
     /**
      * Returns the selected file in a {@link JTree} if the selected node is a
      * {@link DefaultMutableTreeNode} and it's user object is a {@link File} or
-     * a {@link FavoriteDirectory}.
+     * a {@link Favorite}.
      *
      * @param  tree a tree
      * @return      file or null if no node with a file user object is selected
@@ -56,8 +56,8 @@ public class ViewUtil {
                 Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
                 if (userObject instanceof File) {
                     return (File) userObject;
-                } else if (userObject instanceof FavoriteDirectory) {
-                    return ((FavoriteDirectory) userObject).getDirectory();
+                } else if (userObject instanceof Favorite) {
+                    return ((Favorite) userObject).getDirectory();
                 }
             }
         }
@@ -75,9 +75,9 @@ public class ViewUtil {
         if (o instanceof DefaultMutableTreeNode) {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
             Object userObject = node.getUserObject();
-            if (userObject instanceof FavoriteDirectory) {
-                FavoriteDirectory favoriteDirectory =
-                        (FavoriteDirectory) userObject;
+            if (userObject instanceof Favorite) {
+                Favorite favoriteDirectory =
+                        (Favorite) userObject;
                 return new File(favoriteDirectory.getDirectoryName());
             } else if (userObject instanceof File) {
                 return (File) userObject;

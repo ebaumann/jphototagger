@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
-import de.elmar_baumann.jpt.database.DatabaseApplication;
+import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
@@ -48,13 +48,13 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     void update(Connection connection) throws SQLException {
-        if (DatabaseApplication.INSTANCE.getBoolean(KEY_REMOVED_INVALID_EXIF)) return;
+        if (DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_REMOVED_INVALID_EXIF)) return;
         messages.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesDeleteInvalidExif.Info.update"));
         setNull(connection);
         messages.setIndeterminate(false);
         messages.clearMessage();
-        DatabaseApplication.INSTANCE.setBoolean(KEY_REMOVED_INVALID_EXIF, true);
+        DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_REMOVED_INVALID_EXIF, true);
     }
 
     private void setNull(Connection connection) throws SQLException {

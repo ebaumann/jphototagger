@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.datatransfer.Flavors;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
@@ -52,17 +51,17 @@ public class InputHelperDialog extends Dialog {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers"));
         registerKeyStrokes();
-        panelHierarchicalKeywords.setKeyCard("InputHelperDialog.Keywords.Card");
-        panelHierarchicalKeywords.setKeyTree("InputHelperDialog.Keywords.Tree");
+        panelKeywords.setKeyCard("InputHelperDialog.Keywords.Card");
+        panelKeywords.setKeyTree("InputHelperDialog.Keywords.Tree");
     }
 
     public void setModelKeywords(ListModel model) {
-        panelHierarchicalKeywords.getList().setModel(model);
+        panelKeywords.getList().setModel(model);
     }
 
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        panelHierarchicalKeywords.readProperties();
+        panelKeywords.readProperties();
         int selIndexTabbedPane = settings.getInt(KEY_SEL_INDEX_TABBED_PANE);
         if (selIndexTabbedPane >= 0 && selIndexTabbedPane < tabbedPane.getTabCount()) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
@@ -74,12 +73,12 @@ public class InputHelperDialog extends Dialog {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setSizeAndLocation(this);
         settings.setInt(tabbedPane.getSelectedIndex(), KEY_SEL_INDEX_TABBED_PANE);
-        panelHierarchicalKeywords.writeProperties();
+        panelKeywords.writeProperties();
         UserSettings.INSTANCE.writeToFile();
     }
 
     public KeywordsPanel getPanelKeywords() {
-        return panelHierarchicalKeywords;
+        return panelKeywords;
     }
 
     public MetaDataTemplatesPanel getPanelMetaDataTemplates() {
@@ -106,9 +105,9 @@ public class InputHelperDialog extends Dialog {
     private void initComponents() {
 
         tabbedPane = new javax.swing.JTabbedPane();
-        panelHierarchicalKeywords = new de.elmar_baumann.jpt.view.panels.KeywordsPanel();
+        panelKeywords = new de.elmar_baumann.jpt.view.panels.KeywordsPanel();
         panelMetaDataTemplates = new de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel();
-        panelMetaDataTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(Flavors.METADATA_EDIT_TEMPLATES));
+        panelMetaDataTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(de.elmar_baumann.jpt.datatransfer.Flavor.METADATA_TEMPLATES));
         labelInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -121,7 +120,7 @@ public class InputHelperDialog extends Dialog {
         });
 
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelHierarchicalKeywords.TabConstraints.tabTitle"), panelHierarchicalKeywords); // NOI18N
+        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
 
@@ -142,7 +141,7 @@ public class InputHelperDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -178,7 +177,7 @@ public class InputHelperDialog extends Dialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelInfo;
-    private de.elmar_baumann.jpt.view.panels.KeywordsPanel panelHierarchicalKeywords;
+    private de.elmar_baumann.jpt.view.panels.KeywordsPanel panelKeywords;
     private de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel panelMetaDataTemplates;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables

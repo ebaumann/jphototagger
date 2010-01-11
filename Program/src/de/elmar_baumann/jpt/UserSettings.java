@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.app.update.UpdateUserProperties;
+import de.elmar_baumann.jpt.app.update.UpdateUserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.ColumnUtil;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
@@ -95,7 +95,7 @@ public final class UserSettings implements UserSettingsChangeListener {
 
     private UserSettings() {
         propertiesToFile.readFromFile();
-        UpdateUserProperties.update(properties);
+        UpdateUserSettings.update(properties);
         settings.removeEmptyKeys();
         writeToFile();
         Resources.INSTANCE.setProperties(properties);

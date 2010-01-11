@@ -140,42 +140,27 @@ public final class DatabaseTables extends Database {
                     ", photoshop_source VARCHAR_IGNORECASE(32)" +                                            // -- 17 --
                     ", photoshop_state VARCHAR_IGNORECASE(32)" +                                             // -- 18 --
                     ", photoshop_transmissionReference VARCHAR_IGNORECASE(32)" +                             // -- 19 --
-                    ", rating BIGINT" +
-                    ", iptc4xmpcore_datecreated VARCHAR_IGNORECASE(10)" +                                                                      // -- 20 --
+                    ", rating BIGINT" +                                                                      // -- 20 --
+                    ", iptc4xmpcore_datecreated VARCHAR_IGNORECASE(10)" +                                    // -- 21 --
                     ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" +
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_xmp_id_files ON xmp (id_files)");
-            stmt.execute(
-                    "CREATE INDEX idx_xmp_dc_description ON xmp (dc_description)");
+            stmt.execute("CREATE UNIQUE INDEX idx_xmp_id_files ON xmp (id_files)");
+            stmt.execute("CREATE INDEX idx_xmp_dc_description ON xmp (dc_description)");
             stmt.execute("CREATE INDEX idx_xmp_dc_rights ON xmp (dc_rights)");
             stmt.execute("CREATE INDEX idx_xmp_dc_title ON xmp (dc_title)");
-            stmt.execute("CREATE INDEX idx_xmp_iptc4xmpcore_countrycode" +
-                    " ON xmp (iptc4xmpcore_countrycode)");
-            stmt.execute("CREATE INDEX idx_xmp_iptc4xmpcore_location" +
-                    " ON xmp (iptc4xmpcore_location)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_authorsposition" +
-                    " ON xmp (photoshop_authorsposition)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_captionwriter" +
-                    " ON xmp (photoshop_captionwriter)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_city" +
-                    " ON xmp (photoshop_city)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_country" +
-                    " ON xmp (photoshop_country)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_credit" +
-                    " ON xmp (photoshop_credit)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_headline" +
-                    " ON xmp (photoshop_headline)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_instructions" +
-                    " ON xmp (photoshop_instructions)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_source" +
-                    " ON xmp (photoshop_source)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_state" +
-                    " ON xmp (photoshop_state)");
-            stmt.execute("CREATE INDEX idx_xmp_photoshop_transmissionReference" +
-                    " ON xmp (photoshop_transmissionReference)");
-            stmt.execute("CREATE INDEX idx_iptc4xmpcore_datecreated" +
-                    " ON xmp (iptc4xmpcore_datecreated)");
+            stmt.execute("CREATE INDEX idx_xmp_iptc4xmpcore_countrycode ON xmp (iptc4xmpcore_countrycode)");
+            stmt.execute("CREATE INDEX idx_xmp_iptc4xmpcore_location ON xmp (iptc4xmpcore_location)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_authorsposition ON xmp (photoshop_authorsposition)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_captionwriter ON xmp (photoshop_captionwriter)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_city ON xmp (photoshop_city)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_country ON xmp (photoshop_country)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_credit ON xmp (photoshop_credit)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_headline ON xmp (photoshop_headline)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_instructions ON xmp (photoshop_instructions)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_source ON xmp (photoshop_source)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_state ON xmp (photoshop_state)");
+            stmt.execute("CREATE INDEX idx_xmp_photoshop_transmissionReference ON xmp (photoshop_transmissionReference)");
+            stmt.execute("CREATE INDEX idx_iptc4xmpcore_datecreated ON xmp (iptc4xmpcore_datecreated)");
         }
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp_dc_subjects")) {
             stmt.execute("CREATE CACHED TABLE xmp_dc_subjects" +
@@ -184,10 +169,8 @@ public final class DatabaseTables extends Database {
                     ", subject VARCHAR_IGNORECASE(64)" + // -- 2 --
                     ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" +
                     ");");
-            stmt.execute("CREATE INDEX idx_xmp_dc_subjects_id_xmp" +
-                    " ON xmp_dc_subjects (id_xmp)");
-            stmt.execute("CREATE INDEX idx_xmp_dc_subjects_subject" +
-                    " ON xmp_dc_subjects (subject)");
+            stmt.execute("CREATE INDEX idx_xmp_dc_subjects_id_xmp ON xmp_dc_subjects (id_xmp)");
+            stmt.execute("CREATE INDEX idx_xmp_dc_subjects_subject ON xmp_dc_subjects (subject)");
         }
     }
 
@@ -205,34 +188,25 @@ public final class DatabaseTables extends Database {
                     ", exif_lens VARCHAR_IGNORECASE(256)" +                                                  // -- 7 --
                     ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" +
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_exif_id_files ON exif (id_files)");
-            stmt.execute(
-                    "CREATE INDEX idx_exif_recording_equipment ON exif (exif_recording_equipment)");
-            stmt.execute(
-                    "CREATE INDEX idx_exif_date_time_original ON exif (exif_date_time_original)");
-            stmt.execute(
-                    "CREATE INDEX idx_exif_focal_length ON exif (exif_focal_length)");
-            stmt.execute(
-                    "CREATE INDEX idx_exif_iso_speed_ratings ON exif (exif_iso_speed_ratings)");
-            stmt.execute(
-                    "CREATE INDEX idx_exif_lens ON exif (exif_lens)");
+            stmt.execute("CREATE UNIQUE INDEX idx_exif_id_files ON exif (id_files)");
+            stmt.execute("CREATE INDEX idx_exif_recording_equipment ON exif (exif_recording_equipment)");
+            stmt.execute("CREATE INDEX idx_exif_date_time_original ON exif (exif_date_time_original)");
+            stmt.execute("CREATE INDEX idx_exif_focal_length ON exif (exif_focal_length)");
+            stmt.execute("CREATE INDEX idx_exif_iso_speed_ratings ON exif (exif_iso_speed_ratings)");
+            stmt.execute("CREATE INDEX idx_exif_lens ON exif (exif_lens)");
         }
     }
 
     private void createCollectionsTables(Connection connection, Statement stmt)
             throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "collection_names")) {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "collection_names")) {
             stmt.execute("CREATE CACHED TABLE collection_names" +
                     " (" +
                     "id BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1, INCREMENT BY 1) PRIMARY KEY" + // -- 1 --
                     ", name VARCHAR_IGNORECASE(256)" +                                                       // -- 2 --
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_collection_names_id ON collection_names (id)");
-            stmt.execute(
-                    "CREATE INDEX idx_collection_names_name ON collection_names (name)");
+            stmt.execute("CREATE UNIQUE INDEX idx_collection_names_id ON collection_names (id)");
+            stmt.execute("CREATE INDEX idx_collection_names_name ON collection_names (name)");
         }
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "collections")) {
             stmt.execute("CREATE CACHED TABLE collections" +
@@ -243,12 +217,9 @@ public final class DatabaseTables extends Database {
                     ", FOREIGN KEY (id_collectionnnames) REFERENCES collection_names (id) ON DELETE CASCADE" +
                     ", FOREIGN KEY (id_files) REFERENCES files (id) ON DELETE CASCADE" +
                     ");");
-            stmt.execute(
-                    "CREATE INDEX idx_collections_id_collectionnnames ON collections (id_collectionnnames)");
-            stmt.execute(
-                    "CREATE INDEX idx_collections_id_files ON collections (id_files)");
-            stmt.execute(
-                    "CREATE INDEX idx_collections_sequence_number ON collections (sequence_number)");
+            stmt.execute("CREATE INDEX idx_collections_id_collectionnnames ON collections (id_collectionnnames)");
+            stmt.execute("CREATE INDEX idx_collections_id_files ON collections (id_files)");
+            stmt.execute("CREATE INDEX idx_collections_sequence_number ON collections (sequence_number)");
         }
     }
 
@@ -262,13 +233,10 @@ public final class DatabaseTables extends Database {
                     ", sql_string BINARY" +                                                                  // -- 3 --
                     ", is_query BOOLEAN" +                                                                   // -- 4 --
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_saved_searches_id ON saved_searches (id)");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_saved_searches_name ON saved_searches (name)");
+            stmt.execute("CREATE UNIQUE INDEX idx_saved_searches_id ON saved_searches (id)");
+            stmt.execute("CREATE UNIQUE INDEX idx_saved_searches_name ON saved_searches (name)");
         }
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "saved_searches_values")) {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "saved_searches_values")) {
             stmt.execute("CREATE CACHED TABLE saved_searches_values" +
                     " (" +
                     "id_saved_searches BIGINT" + // -- 1 --
@@ -276,10 +244,8 @@ public final class DatabaseTables extends Database {
                     ", value_index INTEGER" +    // -- 3 --
                     ", FOREIGN KEY (id_saved_searches) REFERENCES saved_searches (id) ON DELETE CASCADE" +
                     ");");
-            stmt.execute(
-                    "CREATE INDEX idx_saved_searches_id_saved_searches ON saved_searches_values (id_saved_searches)");
-            stmt.execute(
-                    "CREATE INDEX idx_saved_searches_value_index ON saved_searches_values (value_index)");
+            stmt.execute("CREATE INDEX idx_saved_searches_id_saved_searches ON saved_searches_values (id_saved_searches)");
+            stmt.execute("CREATE INDEX idx_saved_searches_value_index ON saved_searches_values (value_index)");
         }
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "saved_searches_panels")) {
             stmt.execute("CREATE CACHED TABLE saved_searches_panels" +
@@ -295,30 +261,25 @@ public final class DatabaseTables extends Database {
                     ", bracket_right BOOLEAN" +  // -- 9 --
                     ", FOREIGN KEY (id_saved_searches) REFERENCES saved_searches (id) ON DELETE CASCADE" +
                     ");");
-            stmt.execute(
-                    "CREATE INDEX idx_saved_searches_panels_id_saved_searches ON saved_searches_panels (id_saved_searches)");
-            stmt.execute(
-                    "CREATE INDEX idx_saved_searches_panels_panel_index ON saved_searches_panels (panel_index)");
+            stmt.execute("CREATE INDEX idx_saved_searches_panels_id_saved_searches ON saved_searches_panels (id_saved_searches)");
+            stmt.execute("CREATE INDEX idx_saved_searches_panels_panel_index ON saved_searches_panels (panel_index)");
         }
     }
 
     private void createAutoScanDirectoriesTable(Connection connection,
             Statement stmt) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "autoscan_directories")) {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "autoscan_directories")) {
             stmt.execute("CREATE CACHED TABLE autoscan_directories" +
                     " (" +
                     "directory VARCHAR_IGNORECASE(1024)" + // -- 1 --
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_autoscan_directories_directory ON autoscan_directories (directory)");
+            stmt.execute("CREATE UNIQUE INDEX idx_autoscan_directories_directory ON autoscan_directories (directory)");
         }
     }
 
     private void createMetadataTemplateTable(Connection connection,
             Statement stmt) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "metadata_edit_templates")) {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "metadata_edit_templates")) {
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" +
                     " (" +
                     "name VARCHAR_IGNORECASE(256)" +             //  1
@@ -342,36 +303,31 @@ public final class DatabaseTables extends Database {
                     ", rating BINARY" +                          // 21
                     ", iptc4xmpcore_datecreated BINARY" +        // 22
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_metadata_edit_templates_name ON metadata_edit_templates (name)");
+            stmt.execute("CREATE UNIQUE INDEX idx_metadata_edit_templates_name ON metadata_edit_templates (name)");
         }
     }
 
     private void createFavoriteDirectoriesTable(Connection connection,
             Statement stmt) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "favorite_directories")) {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "favorite_directories")) {
             stmt.execute("CREATE CACHED TABLE favorite_directories" +
                     " (" +
                     "favorite_name VARCHAR_IGNORECASE(256)" + // -- 1 --
                     ", directory_name VARCHAR(512)" +         // -- 2 --
                     ", favorite_index INTEGER" +              // -- 3 --
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_favorite_directories_favorite_name ON favorite_directories (favorite_name)");
+            stmt.execute("CREATE UNIQUE INDEX idx_favorite_directories_favorite_name ON favorite_directories (favorite_name)");
         }
     }
 
     private void createFileExcludePatternTable(Connection connection,
             Statement stmt) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "file_exclude_pattern")) {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "file_exclude_pattern")) {
             stmt.execute("CREATE CACHED TABLE file_exclude_pattern" +
                     " (" +
                     "pattern VARCHAR_IGNORECASE(256)" + // -- 1 --
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_file_exclude_pattern_pattern ON file_exclude_pattern (pattern)");
+            stmt.execute("CREATE UNIQUE INDEX idx_file_exclude_pattern_pattern ON file_exclude_pattern (pattern)");
         }
     }
 
@@ -395,35 +351,29 @@ public final class DatabaseTables extends Database {
                     ", pattern BINARY" +                         // -- 13 --
                     ");");
             stmt.execute("CREATE UNIQUE INDEX idx_programs_id ON programs (id)");
-            stmt.execute(
-                    "CREATE INDEX idx_programs_filename ON programs (filename)");
+            stmt.execute("CREATE INDEX idx_programs_filename ON programs (filename)");
             stmt.execute("CREATE INDEX idx_programs_alias ON programs (alias)");
-            stmt.execute(
-                    "CREATE INDEX idx_programs_sequence_number ON programs (sequence_number)");
+            stmt.execute("CREATE INDEX idx_programs_sequence_number ON programs (sequence_number)");
             stmt.execute("CREATE INDEX idx_programs_action ON programs (action)");
         }
     }
 
     private void createActionsAfterDbInsertionTable(Connection connection,
             Statement stmt) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "actions_after_db_insertion")) {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "actions_after_db_insertion")) {
             stmt.execute("CREATE CACHED TABLE actions_after_db_insertion " +
                     " (" +
                     "id_programs BIGINT NOT NULL" + // -- 1 --
                     ", action_order INTEGER" +      // -- 2 --
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_actions_after_db_insertion_id_programs ON actions_after_db_insertion (id_programs)");
-            stmt.execute(
-                    "CREATE INDEX idx_actions_after_db_insertion_action_order ON actions_after_db_insertion (action_order)");
+            stmt.execute("CREATE UNIQUE INDEX idx_actions_after_db_insertion_id_programs ON actions_after_db_insertion (id_programs)");
+            stmt.execute("CREATE INDEX idx_actions_after_db_insertion_action_order ON actions_after_db_insertion (action_order)");
         }
     }
 
     private void createHierarchicalSubjectsTable(Connection connection,
             Statement stmt) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
-                "hierarchical_subjects")) {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "hierarchical_subjects")) {
             stmt.execute("CREATE CACHED TABLE hierarchical_subjects " +
                     " (" +
                     "id BIGINT NOT NULL" +                         // -- 1 --
@@ -431,14 +381,10 @@ public final class DatabaseTables extends Database {
                     ", subject  VARCHAR_IGNORECASE(64) NOT NULL" + // -- 3 -- Same size as xmp_dc_subjects.subject
                     ", real BOOLEAN" +                             // -- 4 --
                     ");");
-            stmt.execute(
-                    "CREATE UNIQUE INDEX idx_hierarchical_subjects_id ON hierarchical_subjects (id)");
-            stmt.execute(
-                    "CREATE INDEX idx_hierarchical_subjects_id_parent ON hierarchical_subjects (id_parent)");
-            stmt.execute(
-                    "CREATE INDEX idx_hierarchical_subjects_subject ON hierarchical_subjects (subject)");
-            stmt.execute(
-                    "CREATE INDEX idx_hierarchical_subjects_real ON hierarchical_subjects (real)");
+            stmt.execute("CREATE UNIQUE INDEX idx_hierarchical_subjects_id ON hierarchical_subjects (id)");
+            stmt.execute("CREATE INDEX idx_hierarchical_subjects_id_parent ON hierarchical_subjects (id_parent)");
+            stmt.execute("CREATE INDEX idx_hierarchical_subjects_subject ON hierarchical_subjects (subject)");
+            stmt.execute("CREATE INDEX idx_hierarchical_subjects_real ON hierarchical_subjects (real)");
         }
     }
 

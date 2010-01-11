@@ -18,8 +18,8 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
-import de.elmar_baumann.jpt.data.HierarchicalKeyword;
-import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
+import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import java.awt.datatransfer.Transferable;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -30,7 +30,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Imports into a {@link DefaultListModel} of strings strings exported via a
  * {@link TransferHandlerDragListItems} or from a
- * {@link DefaultMutableTreeNode} with an {@link HierarchicalKeyword} as user
+ * {@link DefaultMutableTreeNode} with an {@link Keyword} as user
  * object.
  *
  * The list model has to be <em>of the type {@link DefaultListModel}</em> and
@@ -47,9 +47,9 @@ public final class TransferHandlerDropList extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return  Flavors.hasKeywords            (transferSupport) ||
-                Flavors.hasHierarchicalKeywords(transferSupport) ||
-                Flavors.hasMetadataTemplate    (transferSupport);
+        return  Flavor.hasKeywordsFromList(transferSupport) ||
+                Flavor.hasKeywordsFromTree(transferSupport) ||
+                Flavor.hasMetadataTemplate(transferSupport);
     }
 
     @Override
@@ -60,15 +60,15 @@ public final class TransferHandlerDropList extends TransferHandler {
         DefaultListModel listModel    = (DefaultListModel) list.getModel();
         Transferable     transferable = transferSupport.getTransferable();
 
-        if (Flavors.hasKeywords(transferSupport)) {
+        if (Flavor.hasKeywordsFromList(transferSupport)) {
 
             return importKeywords(transferable, listModel);
 
-        } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
+        } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
 
-            return importHierarchicalKeywords(listModel, transferSupport.getTransferable());
+            return importKeywords(listModel, transferSupport.getTransferable());
 
-        } else if (Flavors.hasMetadataTemplate(transferSupport)) {
+        } else if (Flavor.hasMetadataTemplate(transferSupport)) {
 
             MetadataTemplateSupport.setTemplate(transferSupport);
             return true;
@@ -92,19 +92,19 @@ public final class TransferHandlerDropList extends TransferHandler {
         return true;
     }
 
-    private boolean importHierarchicalKeywords(DefaultListModel listModel, Transferable transferable) {
+    private boolean importKeywords(DefaultListModel listModel, Transferable transferable) {
 
-        List<DefaultMutableTreeNode> nodes = Support.getHierarchicalKeywordsNodes(transferable);
+        List<DefaultMutableTreeNode> nodes = Support.getKeywordNodes(transferable);
 
         for (DefaultMutableTreeNode node : nodes) {
-            importHierarchicalKeywords(node, listModel);
+            importKeywords(node, listModel);
         }
         return true;
     }
 
-    private void importHierarchicalKeywords(DefaultMutableTreeNode node, DefaultListModel listModel) {
+    private void importKeywords(DefaultMutableTreeNode node, DefaultListModel listModel) {
 
-        for (String keyword : HierarchicalKeywordsHelper.getKeywordStrings(node, true)) {
+        for (String keyword : KeywordsHelper.getKeywordStrings(node, true)) {
 
             if (!listModel.contains(keyword)) {
                 listModel.addElement(keyword);

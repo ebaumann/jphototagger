@@ -29,7 +29,7 @@ import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuImageCollections;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
@@ -73,8 +73,8 @@ public final class MiscFactory {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         new TreeCellPopupHighlighter(appPanel.getTreeFavorites()                            , PopupMenuFavorites.INSTANCE);
         new TreeCellPopupHighlighter(appPanel.getTreeDirectories()                          , PopupMenuDirectories.INSTANCE);
-        new TreeCellPopupHighlighter(appPanel.getTreeEditKeywords()                         , PopupMenuHierarchicalKeywords.INSTANCE);
-        new TreeCellPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(), PopupMenuHierarchicalKeywords.INSTANCE);
+        new TreeCellPopupHighlighter(appPanel.getTreeEditKeywords()                         , PopupMenuKeywordsTree.INSTANCE);
+        new TreeCellPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(), PopupMenuKeywordsTree.INSTANCE);
         new ListItemPopupHighlighter(appPanel.getListImageCollections()                     , PopupMenuImageCollections.INSTANCE);
         new ListItemPopupHighlighter(appPanel.getListSavedSearches()                        , PopupMenuSavedSearches.INSTANCE);
 

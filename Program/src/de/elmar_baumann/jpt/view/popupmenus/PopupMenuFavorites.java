@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.popupmenus;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -51,7 +51,7 @@ public final class PopupMenuFavorites extends JPopupMenu {
     private final        JMenuItem          itemExpandAllSubitems      = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
     private final        JMenuItem          itemCollapseAllSubitems    = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
     private              TreePath           treePath;
-    private              FavoriteDirectory  favoriteDirectory;
+    private              Favorite  favoriteDirectory;
     public static final  PopupMenuFavorites INSTANCE                   = new PopupMenuFavorites();
 
     public JMenuItem getItemDeleteFavorite() {
@@ -110,11 +110,11 @@ public final class PopupMenuFavorites extends JPopupMenu {
         this.treePath = treePath;
     }
 
-    public FavoriteDirectory getFavoriteDirectory() {
+    public Favorite getFavoriteDirectory() {
         return favoriteDirectory;
     }
 
-    public void setFavoriteDirectory(FavoriteDirectory favoriteDirectory) {
+    public void setFavoriteDirectory(Favorite favoriteDirectory) {
         this.favoriteDirectory = favoriteDirectory;
     }
 

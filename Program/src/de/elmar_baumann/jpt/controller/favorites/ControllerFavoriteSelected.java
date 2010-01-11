@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -95,8 +95,8 @@ public final class ControllerFavoriteSelected implements
                 File dir = null;
                 DefaultMutableTreeNode node       = (DefaultMutableTreeNode) path.getLastPathComponent();
                 Object                 userObject = node.getUserObject();
-                if (userObject instanceof FavoriteDirectory) {
-                    FavoriteDirectory favoriteDirectory = (FavoriteDirectory) userObject;
+                if (userObject instanceof Favorite) {
+                    Favorite favoriteDirectory = (Favorite) userObject;
                     dir = favoriteDirectory.getDirectory();
                 } else if (userObject instanceof File) {
                     dir = (File) userObject;

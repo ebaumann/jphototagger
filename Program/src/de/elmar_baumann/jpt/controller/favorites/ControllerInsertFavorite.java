@@ -18,10 +18,10 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.FavoriteDirectoryPropertiesDialog;
+import de.elmar_baumann.jpt.view.dialogs.FavoritePropertiesDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
@@ -89,8 +89,8 @@ public final class ControllerInsertFavorite
 
             @Override
             public void run() {
-                FavoriteDirectoryPropertiesDialog dialog =
-                        new FavoriteDirectoryPropertiesDialog();
+                FavoritePropertiesDialog dialog =
+                        new FavoritePropertiesDialog();
                 if (directoryName != null) {
                     dialog.setDirectoryName(directoryName);
                     dialog.setEnabledButtonChooseDirectory(false);
@@ -100,7 +100,7 @@ public final class ControllerInsertFavorite
                     TreeModelFavorites model =
                             (TreeModelFavorites) appPanel.getTreeFavorites().
                             getModel();
-                    model.insertFavorite(new FavoriteDirectory(
+                    model.insertFavorite(new Favorite(
                             dialog.getFavoriteName(), dialog.getDirectoryName(),
                             -1));
                 }

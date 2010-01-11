@@ -23,10 +23,9 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.data.SavedSearchPanel;
 import de.elmar_baumann.jpt.data.SavedSearchParamStatement;
-import de.elmar_baumann.jpt.database.Util;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.DatabaseMetadataUtil;
-import de.elmar_baumann.jpt.database.metadata.ParamStatement;
+import de.elmar_baumann.jpt.database.metadata.Util;
+import de.elmar_baumann.jpt.data.ParamStatement;
 import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIdFiles;
 import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
@@ -553,16 +552,16 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         statement.append((and ? " AND" : "") +
                 " xmp_dc_subjects.subject IN " +
-                Util.getParamsInParentheses(count) +
+                de.elmar_baumann.jpt.database.Util.getParamsInParentheses(count) +
                 " GROUP BY files.filename" +
                 " HAVING COUNT(*) = " + Integer.toString(count));
         values.addAll(keywords);
     }
 
     private void appendFrom(StringBuffer statement) {
-        List<Table>               allTables     = DatabaseMetadataUtil.getUniqueTablesOfColumnArray(getColumns());
+        List<Table>               allTables     = Util.getUniqueTablesOfColumnArray(getColumns());
         Column.ReferenceDirection back          = Column.ReferenceDirection.BACKWARDS;
-        List<Table>               refsXmpTables = DatabaseMetadataUtil.getTablesWithReferenceTo(allTables, TableXmp.INSTANCE, back);
+        List<Table>               refsXmpTables = Util.getTablesWithReferenceTo(allTables, TableXmp.INSTANCE, back);
 
         statement.append(" " + TableFiles.INSTANCE.getName());
 

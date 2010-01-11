@@ -44,13 +44,13 @@
                   <TreeModel code=""/>
                 </Property>
                 <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords()" type="code"/>
+                  <Connection code="new de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords()" type="code"/>
                 </Property>
                 <Property name="dragEnabled" type="boolean" value="true"/>
                 <Property name="showsRootHandles" type="boolean" value="true"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="tree.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeHierarchicalKeywords());"/>
+                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="tree.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsTree());"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -133,7 +133,7 @@
                 <Property name="dragEnabled" type="boolean" value="true"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="list.setTransferHandler(new TransferHandlerDragListItems(Flavors.KEYWORDS_FLAVOR));"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="list.setTransferHandler(new TransferHandlerDragListItems(de.elmar_baumann.jpt.datatransfer.Flavor.KEYWORDS_LIST));"/>
               </AuxValues>
             </Component>
           </SubComponents>

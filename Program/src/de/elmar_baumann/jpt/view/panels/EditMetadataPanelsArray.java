@@ -22,8 +22,8 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.SuggestHierarchicalKeywords;
-import de.elmar_baumann.jpt.data.AutoCompleteDataOfColumn;
+import de.elmar_baumann.jpt.controller.keywords.tree.SuggestKeywords;
+import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.helper.SaveEditedMetadata;
 import de.elmar_baumann.jpt.data.ImageFile;
@@ -618,7 +618,7 @@ public final class EditMetadataPanelsArray
                 EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(column);
                 panel.textFieldInput.addFocusListener(this);
                 if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                    panel.setSuggest(new SuggestHierarchicalKeywords());
+                    panel.setSuggest(new SuggestKeywords());
                 }
                 listenToList(panel);
                 panels.add(panel);

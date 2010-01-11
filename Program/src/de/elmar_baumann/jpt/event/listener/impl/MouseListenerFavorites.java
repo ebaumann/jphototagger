@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
@@ -64,10 +64,10 @@ public final class MouseListenerFavorites extends MouseListenerTree {
                             getRoot();
                     isDirectory = userObject instanceof File;
                     if (root.equals(parent) &&
-                            userObject instanceof FavoriteDirectory) {
+                            userObject instanceof Favorite) {
                         isFavorite = true;
                         popupMenu.setFavoriteDirectory(
-                                (FavoriteDirectory) userObject);
+                                (Favorite) userObject);
                     }
                 }
             }

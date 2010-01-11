@@ -20,8 +20,8 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.data.HierarchicalKeyword;
-import de.elmar_baumann.jpt.database.DatabaseHierarchicalKeywords;
+import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
@@ -158,12 +158,12 @@ final class UpdateTablesDropCategories {
             try {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(
                         new File(filename)), CharEncoding.LIGHTROOM_KEYWORDS));
-                DatabaseHierarchicalKeywords db = DatabaseHierarchicalKeywords.INSTANCE;
+                DatabaseKeywords db = DatabaseKeywords.INSTANCE;
                 String line = null;
                 while ((line = reader.readLine()) != null) {
                     String kw = line.trim();
                     if (!kw.isEmpty()) {
-                        db.insert(new HierarchicalKeyword(null, null, kw, true));
+                        db.insert(new Keyword(null, null, kw, true));
                     }
                 }
             } catch (Exception ex) {

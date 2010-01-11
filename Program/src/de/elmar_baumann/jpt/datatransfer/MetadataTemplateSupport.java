@@ -40,7 +40,7 @@ final class MetadataTemplateSupport {
         try {
             Object[]  selTemplates = (Object[]) transferSupport
                                          .getTransferable()
-                                         .getTransferData(Flavors.METADATA_EDIT_TEMPLATES);
+                                         .getTransferData(Flavor.METADATA_TEMPLATES);
             TextEntry textEntry = findParentTextEntry(transferSupport.getComponent());
 
             if (selTemplates != null && textEntry != null) {

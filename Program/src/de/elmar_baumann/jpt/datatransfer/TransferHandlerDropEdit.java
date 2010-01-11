@@ -18,8 +18,8 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
-import de.elmar_baumann.jpt.data.HierarchicalKeyword;
-import de.elmar_baumann.jpt.helper.HierarchicalKeywordsHelper;
+import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -33,7 +33,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Imports into an {@link JTextField} and {@link JTextArea} strings exported via
  * a {@link TransferHandlerDragListItems} or from a
- * {@link DefaultMutableTreeNode} with an {@link HierarchicalKeyword} as user
+ * {@link DefaultMutableTreeNode} with an {@link Keyword} as user
  * object when it's data flavor is {@link DataFlavor#stringFlavor}.
  *
  * When multiple items exported, only the first will be inserted.
@@ -51,9 +51,9 @@ public final class TransferHandlerDropEdit extends TransferHandler {
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
 
         return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor) ||
-                Flavors.hasHierarchicalKeywords     (transferSupport) ||
-                Flavors.hasKeywords                 (transferSupport) ||
-                Flavors.hasMetadataTemplate         (transferSupport);
+                Flavor.hasKeywordsFromTree(transferSupport) ||
+                Flavor.hasKeywordsFromList(transferSupport) ||
+                Flavor.hasMetadataTemplate(transferSupport);
     }
 
     @Override
@@ -66,15 +66,15 @@ public final class TransferHandlerDropEdit extends TransferHandler {
 
             string = Support.getString(transferable);
 
-        } else if (Flavors.hasKeywords(transferSupport)) {
+        } else if (Flavor.hasKeywordsFromList(transferSupport)) {
 
             string = getStrings(Support.getKeywords(transferable));
 
-        } else if (Flavors.hasHierarchicalKeywords(transferSupport)) {
+        } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
 
-            string = getStrings(Support.getHierarchicalKeywordsNodes(transferable));
+            string = getStrings(Support.getKeywordNodes(transferable));
 
-        } else if (Flavors.hasMetadataTemplate(transferSupport)) {
+        } else if (Flavor.hasMetadataTemplate(transferSupport)) {
             
             MetadataTemplateSupport.setTemplate(transferSupport);
             return true;
@@ -115,7 +115,7 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         List<String> keywords = new ArrayList<String>();
 
         for (DefaultMutableTreeNode node : nodes) {
-            keywords.addAll(HierarchicalKeywordsHelper.getKeywordStrings(node, true));
+            keywords.addAll(KeywordsHelper.getKeywordStrings(node, true));
         }
 
         if (keywords.size() == 0) return null;
