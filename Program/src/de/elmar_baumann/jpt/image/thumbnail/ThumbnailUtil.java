@@ -71,7 +71,7 @@ public final class ThumbnailUtil {
         if (!file.exists()) return null;
 
         ThumbnailCreator creator        = UserSettings.INSTANCE.getThumbnailCreator();
-        int              maxLength      = UserSettings.INSTANCE.getMaxThumbnailLength();
+        int              maxLength      = UserSettings.INSTANCE.getMaxThumbnailWidth();
         boolean          isRawImage     = FileType.isRawFile(file.getName());
         boolean          canCreateImage = !isRawImage || isRawImage && creator.equals(ThumbnailCreator.EXTERNAL_APP);
         Image            thumbnail      = null;

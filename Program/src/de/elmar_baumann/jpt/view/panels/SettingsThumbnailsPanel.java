@@ -24,8 +24,6 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator;
@@ -46,7 +44,6 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private static final long                                serialVersionUID              = -5283587664627790755L;
     private              UpdateAllThumbnails                 thumbnailsUpdater;
-    private final        ListenerProvider                    listenerProvider              = ListenerProvider.INSTANCE;
     private final        Map<JRadioButton, ThumbnailCreator> thumbnailCreatorOfRadioButton = new HashMap<JRadioButton, ThumbnailCreator>();
     private final        Map<ThumbnailCreator, JRadioButton> radioButtonOfThumbnailCreator = new HashMap<ThumbnailCreator, JRadioButton>();
 
@@ -68,9 +65,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void handleStateChangedSpinnerMaxThumbnailWidth() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH, this);
-        evt.setMaxThumbnailWidth((Integer) spinnerMaxThumbnailWidth.getValue());
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setMaxThumbnailWidth((Integer) spinnerMaxThumbnailWidth.getValue());
     }
 
     private void updateAllThumbnails() {
@@ -84,16 +79,12 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         }
     }
 
-    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
-        listenerProvider.notifyUserSettingsChangeListener(evt);
-    }
-
     @Override
     public void readProperties() {
         setSelectedRadioButtons();
         setExternalThumbnailAppEnabled();
         UserSettings settings = UserSettings.INSTANCE;
-        spinnerMaxThumbnailWidth.setValue(settings.getMaxThumbnailLength());
+        spinnerMaxThumbnailWidth.setValue(settings.getMaxThumbnailWidth());
         textFieldExternalThumbnailCreationCommand.setText(settings.getExternalThumbnailCreationCommand());
     }
 
@@ -122,18 +113,12 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void handleTextFieldExternalThumbnailCreationCommandKeyReleased() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND, this);
-
-        evt.setExternalThumbnailCreationCommand(textFieldExternalThumbnailCreationCommand.getText());
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setExternalThumbnailCreationCommand(textFieldExternalThumbnailCreationCommand.getText());
     }
 
     private void setThumbnailCreator(JRadioButton radioButton) {
-        UserSettings.INSTANCE.setThumbnailCreator(
-                thumbnailCreatorOfRadioButton.get(radioButton));
-        UserSettings.INSTANCE.writeToFile();
-        textFieldExternalThumbnailCreationCommand.setEnabled(
-                radioButtonCreateThumbnailsWithExternalApp.isSelected());
+        UserSettings.INSTANCE.setThumbnailCreator(thumbnailCreatorOfRadioButton.get(radioButton));
+        textFieldExternalThumbnailCreationCommand.setEnabled(radioButtonCreateThumbnailsWithExternalApp.isSelected());
     }
 
     /** This method is called from within the constructor to

@@ -26,10 +26,8 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
@@ -73,7 +71,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public final class ControllerFastSearch
         implements
         ActionListener,
-        DatabaseListener,
+        DatabaseImageFilesListener,
         UserSettingsChangeListener,
         RefreshListener {
 
@@ -119,7 +117,7 @@ public final class ControllerFastSearch
 
         comboboxFastSearch.addActionListener(this);
 
-        db.addDatabaseListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
     }
 
@@ -291,15 +289,5 @@ public final class ControllerFastSearch
         textFieldSearch.setEnabled(isSearchAllDefinedColumns()
                 ? UserSettings.INSTANCE.getFastSearchColumns().size() > 0
                 : true);
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

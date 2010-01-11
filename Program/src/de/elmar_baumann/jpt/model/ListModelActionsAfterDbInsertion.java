@@ -22,10 +22,8 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
 import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +35,13 @@ import javax.swing.DefaultListModel;
  * @version 2009-06-07
  */
 public final class ListModelActionsAfterDbInsertion extends DefaultListModel 
-        implements DatabaseListener {
+        implements DatabaseProgramListener {
 
     private static final long serialVersionUID = -6490813457178023686L;
 
     public ListModelActionsAfterDbInsertion() {
         addElements();
-        DatabasePrograms.INSTANCE.addDatabaseListener(this);
+        DatabasePrograms.INSTANCE.addDatabaseProgramListener(this);
     }
 
     public void add(Program action) {
@@ -139,15 +137,5 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             set(index, program);
             fireContentsChanged(this, index, index);
         }
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageEvent action) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

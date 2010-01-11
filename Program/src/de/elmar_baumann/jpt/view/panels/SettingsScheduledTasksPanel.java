@@ -21,8 +21,6 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.model.ListModelAutoscanDirectories;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
@@ -45,12 +43,11 @@ import javax.swing.SpinnerNumberModel;
 public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         implements Persistence {
 
-    private static final String                      KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY = "UserSettingsDialog.keyLastSelectedAutoscanDirectory";
-    private static final long                        serialVersionUID                     = -5964543997343669428L;
-    private final        DatabaseAutoscanDirectories db                                   = DatabaseAutoscanDirectories.INSTANCE;
-    private final        ListenerProvider            listenerProvider                     = ListenerProvider.INSTANCE;
-    private              ListModelAutoscanDirectories modelAutoscanDirectories            = new ListModelAutoscanDirectories();
-    private String       lastSelectedAutoscanDirectory                                    = "";
+    private static final String                       KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY = "UserSettingsDialog.keyLastSelectedAutoscanDirectory";
+    private static final long                         serialVersionUID                     = -5964543997343669428L;
+    private final        DatabaseAutoscanDirectories  db                                   = DatabaseAutoscanDirectories.INSTANCE;
+    private              ListModelAutoscanDirectories modelAutoscanDirectories             = new ListModelAutoscanDirectories();
+    private              String                       lastSelectedAutoscanDirectory        = "";
 
     public SettingsScheduledTasksPanel() {
         initComponents();
@@ -149,25 +146,13 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     }
 
     private void handleStateChangedSpinnerMinutesToStartScheduledTasks() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.MINUTES_TO_START_SCHEDULED_TASKS,
-                this);
-        evt.setMinutesToStartScheduledTasks(
+        UserSettings.INSTANCE.setMinutesToStartScheduledTasks(
                 (Integer) spinnerMinutesToStartScheduledTasks.getValue());
-        notifyChangeListener(evt);
     }
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(
-                UserSettingsChangeEvent.Type.IS_AUTSCAN_INCLUDE_DIRECTORIES,
-                this);
-        evt.setAutoscanIncludeSubdirectories(
+        UserSettings.INSTANCE.setAutoscanIncludeSubdirectories(
                 checkBoxIsAutoscanIncludeSubdirectories.isSelected());
-        notifyChangeListener(evt);
-    }
-
-    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
-        listenerProvider.notifyUserSettingsChangeListener(evt);
     }
 
     private void setEnabledButtonRemoveAutoscanDirectory() {

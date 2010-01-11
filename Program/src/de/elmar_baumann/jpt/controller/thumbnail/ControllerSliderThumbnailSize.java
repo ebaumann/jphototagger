@@ -57,7 +57,7 @@ public final class ControllerSliderThumbnailSize
     private static final int             MAX_MAGINFICATION_PERCENT = 100;
     private static final String          KEY_SLIDER_VALUE          = "de.elmar_baumann.jpt.controller.thumbnail.ControllerSliderThumbnailSize." + "SliderValue";
     private              int             currentValue              = 100;
-    private              int             maxThumbnailWidth         = UserSettings.INSTANCE.getMaxThumbnailLength();
+    private              int             maxThumbnailWidth         = UserSettings.INSTANCE.getMaxThumbnailWidth();
 
     public ControllerSliderThumbnailSize() {
         initSlider();
@@ -130,7 +130,7 @@ public final class ControllerSliderThumbnailSize
     @Override
     public void applySettings(UserSettingsChangeEvent evt) {
         if (evt.getType().equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
-            maxThumbnailWidth = evt.getMaxThumbnailWidth();
+            maxThumbnailWidth = UserSettings.INSTANCE.getMaxThumbnailWidth();
             setThumbnailWidth();
         }
     }

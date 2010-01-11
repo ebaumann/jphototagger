@@ -21,8 +21,6 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.metadata.ColumnUtil;
 import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.model.ListModelSelectedColumns;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
@@ -42,7 +40,6 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
     private static final long                     serialVersionUID = 8203085810742615278L;
     private final        CheckList                list             = new CheckList();
     private final        ListModelSelectedColumns model            = new ListModelSelectedColumns(FastSearchColumns.get());
-    private final        ListenerProvider         listenerProvider = ListenerProvider.INSTANCE;
 
     public SettingsFastSearchColumnsPanel() {
         initComponents();
@@ -69,27 +66,21 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        listenerProvider.notifyUserSettingsChangeListener(getUserSettingsChangeEvent());
+        setFastSearchColumnsToUserSettings();
     }
 
     private void handleActionPerformedCheckBoxDisplaySearchButton() {
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(UserSettingsChangeEvent.Type.DISPLAY_SEARCH_BUTTON, this);
-        evt.setDisplaySearchButton(checkBoxDisplaySearchButton.isSelected());
-        notifyChangeListener(evt);
+        UserSettings.INSTANCE.setDisplaySearchButton(checkBoxDisplaySearchButton.isSelected());
     }
 
-    private synchronized void notifyChangeListener(UserSettingsChangeEvent evt) {
-        listenerProvider.notifyUserSettingsChangeListener(evt);
-    }
-
-    private UserSettingsChangeEvent getUserSettingsChangeEvent() {
+    private void setFastSearchColumnsToUserSettings() {
         boolean selected = list.getSelectionCount() > 0;
-        UserSettingsChangeEvent evt = new UserSettingsChangeEvent(selected
-            ? UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS
-            : UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS, this);
-        evt.setFastSearchColumns(ColumnUtil.getSelectedColumns(list));
-        evt.setNoFastSearchColumns(!selected);
-        return evt;
+        if (selected) {
+            UserSettings.INSTANCE.setFastSearchColumns(ColumnUtil.getSelectedColumns(list));
+        } else {
+            UserSettings.INSTANCE.setNoFastSearchColumns();
+
+        }
     }
 
     /** This method is called from within the constructor to

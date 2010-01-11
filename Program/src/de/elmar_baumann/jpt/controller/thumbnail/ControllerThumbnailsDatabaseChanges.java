@@ -21,10 +21,8 @@ package de.elmar_baumann.jpt.controller.thumbnail;
 import de.elmar_baumann.jpt.cache.ThumbnailCache;
 import de.elmar_baumann.jpt.cache.XmpCache;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.io.File;
@@ -39,7 +37,7 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-15
  */
 public final class ControllerThumbnailsDatabaseChanges
-        implements DatabaseListener {
+        implements DatabaseImageFilesListener {
 
     private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
@@ -48,7 +46,7 @@ public final class ControllerThumbnailsDatabaseChanges
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
     }
 
     @Override
@@ -75,15 +73,5 @@ public final class ControllerThumbnailsDatabaseChanges
                 }
             }
         });
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

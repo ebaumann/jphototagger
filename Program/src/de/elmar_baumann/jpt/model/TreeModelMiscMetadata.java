@@ -32,10 +32,8 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.util.ArrayList;
@@ -53,7 +51,7 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public final class TreeModelMiscMetadata
         extends DefaultTreeModel
-        implements DatabaseListener {
+        implements DatabaseImageFilesListener {
 
     private static final DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(Bundle.getString("TreeModelMiscMetadata.Root.DisplayName"));
     private static final Object                 EXIF_USER_OBJECT    = Bundle.getString("TreeModelMiscMetadata.ExifNode.DisplayName");
@@ -90,7 +88,7 @@ public final class TreeModelMiscMetadata
     }
 
     private void listen() {
-        db.addDatabaseListener(this);
+        db.addDatabaseImageFilesListener(this);
     }
 
     @Override
@@ -273,15 +271,5 @@ public final class TreeModelMiscMetadata
         return foundNodes.size() > 0
                ? foundNodes.get(0)
                : null;
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

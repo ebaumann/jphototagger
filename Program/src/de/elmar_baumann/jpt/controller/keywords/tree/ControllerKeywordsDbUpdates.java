@@ -3,10 +3,8 @@ package de.elmar_baumann.jpt.controller.keywords.tree;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
 import java.util.List;
@@ -18,14 +16,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-17
  */
-public final class ControllerKeywordsDbUpdates implements DatabaseListener {
+public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesListener {
 
     public ControllerKeywordsDbUpdates() {
         listen();
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addDatabaseListener(this);
+        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
     }
 
     @Override
@@ -53,15 +51,5 @@ public final class ControllerKeywordsDbUpdates implements DatabaseListener {
         TreeModelKeywords model =
                 (TreeModelKeywords) GUI.INSTANCE.getAppPanel().getTreeEditKeywords().getModel();
         model.addKeyword((DefaultMutableTreeNode)model.getRoot(), keyword, true);
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

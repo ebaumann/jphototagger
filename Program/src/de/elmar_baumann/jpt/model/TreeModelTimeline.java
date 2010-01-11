@@ -24,10 +24,8 @@ import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.data.Timeline.Date;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -38,7 +36,7 @@ import javax.swing.tree.DefaultTreeModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12
  */
-public final class TreeModelTimeline extends DefaultTreeModel implements DatabaseListener {
+public final class TreeModelTimeline extends DefaultTreeModel implements DatabaseImageFilesListener {
 
     private static final long               serialVersionUID = 3932797263824188655L;
     private final        Timeline           timeline;
@@ -53,7 +51,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
     }
 
     private void listen() {
-        db.addDatabaseListener(this);
+        db.addDatabaseImageFilesListener(this);
     }
 
     @Override
@@ -146,15 +144,5 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
                 nodesWereInserted(node.getNode(), node.getChildIndices());
             }
         }
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

@@ -19,14 +19,19 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent.Type;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -36,8 +41,8 @@ import java.util.List;
  */
 public final class DatabaseImageCollections extends Database {
 
-    public static final DatabaseImageCollections INSTANCE =
-            new DatabaseImageCollections();
+    public static final DatabaseImageCollections INSTANCE = new DatabaseImageCollections();
+    private final Set<DatabaseImageCollectionListener> listeners = new HashSet<DatabaseImageCollectionListener>();
 
     private DatabaseImageCollections() {
     }
@@ -83,8 +88,7 @@ public final class DatabaseImageCollections extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            PreparedStatement stmt = connection.prepareStatement(
-                    "UPDATE collection_names SET name = ? WHERE name = ?");
+            PreparedStatement stmt = connection.prepareStatement("UPDATE collection_names SET name = ? WHERE name = ?");
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
             logFiner(stmt);
@@ -181,7 +185,7 @@ public final class DatabaseImageCollections extends Database {
             added = true;
             stmtName.close();
             stmtColl.close();
-            notifyDatabaseListener(Type.COLLECTION_INSERTED, collectionName, filenames);
+            notifyListeners(Type.COLLECTION_INSERTED, collectionName, filenames);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
@@ -212,7 +216,7 @@ public final class DatabaseImageCollections extends Database {
             stmt.executeUpdate();
             deleted = true;
             stmt.close();
-            notifyDatabaseListener(Type.COLLECTION_DELETED, collectionname, affectedFiles);
+            notifyListeners(Type.COLLECTION_DELETED, collectionname, affectedFiles);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageCollections.class, ex);
         } finally {
@@ -257,8 +261,7 @@ public final class DatabaseImageCollections extends Database {
             }
             connection.commit();
             stmt.close();
-            notifyDatabaseListener(
-                    Type.IMAGES_DELETED, collectionName, affectedFiles);
+            notifyListeners(Type.IMAGES_DELETED, collectionName, affectedFiles);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
@@ -313,8 +316,7 @@ public final class DatabaseImageCollections extends Database {
                 }
                 reorderSequenceNumber(connection, collectionName);
                 stmt.close();
-                notifyDatabaseListener(
-                        Type.IMAGES_INSERTED, collectionName, affectedFiles);
+                notifyListeners(Type.IMAGES_INSERTED, collectionName, affectedFiles);
             } else {
                 return insert(collectionName, filenames);
             }
@@ -493,5 +495,31 @@ public final class DatabaseImageCollections extends Database {
         }
         stmt.close();
         return id;
+    }
+
+    public void addDatabaseImageCollectionListener(DatabaseImageCollectionListener listener) {
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
+    }
+
+    public void removeDatabaseImageCollectionListener(DatabaseImageCollectionListener listener) {
+        synchronized (listeners) {
+            listeners.remove(listener);
+        }
+    }
+
+    private void notifyListeners(
+            DatabaseImageCollectionEvent.Type type,
+            String                            collectionName,
+            Collection<String>                filenames) {
+
+        DatabaseImageCollectionEvent evt = new DatabaseImageCollectionEvent(type, collectionName, filenames);
+
+        synchronized (listeners) {
+            for (DatabaseImageCollectionListener listener : listeners) {
+                listener.actionPerformed(evt);
+            }
+        }
     }
 }

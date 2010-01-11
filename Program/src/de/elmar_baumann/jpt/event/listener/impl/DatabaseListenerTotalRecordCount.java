@@ -18,11 +18,16 @@
  */
 package de.elmar_baumann.jpt.event.listener.impl;
 
+import de.elmar_baumann.jpt.database.DatabaseImageCollections;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -34,14 +39,24 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-17
  */
-public final class DatabaseListenerTotalRecordCount implements DatabaseListener {
+public final class DatabaseListenerTotalRecordCount
+        implements DatabaseImageFilesListener,
+                   DatabaseProgramListener,
+                   DatabaseImageCollectionListener
+        {
 
     private final DatabaseStatistics db = DatabaseStatistics.INSTANCE;
     private final List<JLabel> labels = new ArrayList<JLabel>();
     boolean listen = false;
 
     public DatabaseListenerTotalRecordCount() {
-        db.addDatabaseListener(this);
+        listen();
+    }
+
+    private void listen() {
+        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
+        DatabasePrograms.INSTANCE.addDatabaseProgramListener(this);
+        DatabaseImageCollections.INSTANCE.addDatabaseImageCollectionListener(this);
     }
 
     /**
@@ -82,6 +97,11 @@ public final class DatabaseListenerTotalRecordCount implements DatabaseListener 
         setCount();
     }
 
+    @Override
+    public void actionPerformed(DatabaseImageCollectionEvent event) {
+        setCount();
+    }
+
     private void setCount() {
         if (listen) {
             long count = db.getTotalRecordCount();
@@ -93,10 +113,5 @@ public final class DatabaseListenerTotalRecordCount implements DatabaseListener 
         for (JLabel label : labels) {
             label.setText(count.toString());
         }
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }

@@ -23,10 +23,8 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,14 +36,14 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-25
  */
-public final class ListModelKeywords extends DefaultListModel implements DatabaseListener {
+public final class ListModelKeywords extends DefaultListModel implements DatabaseImageFilesListener {
 
     private static final long               serialVersionUID = -9181622876402951455L;
     private final        DatabaseImageFiles db               = DatabaseImageFiles.INSTANCE;
 
     public ListModelKeywords() {
         addElements();
-        db.addDatabaseListener(this);
+        db.addDatabaseImageFilesListener(this);
     }
 
     private void addElements() {
@@ -136,15 +134,5 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
             keywords.addAll(xmp.getDcSubjects());
         }
         return keywords;
-    }
-
-    @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        // ignore
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
-        // ignore
     }
 }
