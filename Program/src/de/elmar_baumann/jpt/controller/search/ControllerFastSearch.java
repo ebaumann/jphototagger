@@ -28,7 +28,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
@@ -93,7 +93,7 @@ public final class ControllerFastSearch
     }
 
     private void listen() {
-        ListenerProvider.INSTANCE.addUserSettingsChangeListener(this);
+        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
 
         textFieldSearch.addKeyListener(new KeyAdapter() {
 

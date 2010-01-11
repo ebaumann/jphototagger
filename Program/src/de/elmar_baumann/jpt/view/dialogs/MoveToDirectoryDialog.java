@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemActionListener;
 import de.elmar_baumann.jpt.event.FileSystemError;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.helper.CopyFiles;
@@ -69,6 +69,7 @@ public final class MoveToDirectoryDialog extends Dialog
         setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
+        ListenerSupport.INSTANCE.addFileSystemActionListener(this);
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {
@@ -142,7 +143,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private synchronized void addListenerToMoveTask() {
         moveTask.addActionListener(this);
         moveTask.addProgressListener(this);
-        List<FileSystemActionListener> listeners = ListenerProvider.INSTANCE.
+        List<FileSystemActionListener> listeners = ListenerSupport.INSTANCE.
                 getFileSystemActionListener();
         for (FileSystemActionListener listener : listeners) {
             moveTask.addActionListener(listener);

@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.util.Lookup;
@@ -412,6 +413,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
         setStandardAppIcon();
         setItemsEnabled();
         setAccelerators();
+        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
+        DatabasePrograms.INSTANCE.addDatabaseProgramListener(this);
     }
 
     private void setItemsEnabled() {

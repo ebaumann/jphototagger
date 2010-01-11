@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatFileName;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatNumberSequence;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatConstantString;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatFilenamePostfix;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.RenameFileEvent;
 import de.elmar_baumann.jpt.event.listener.RenameFileListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
@@ -63,7 +63,7 @@ public final class RenameDialog extends Dialog {
     private final        FilenameFormatArray      filenameFormatArray = new FilenameFormatArray();
     private              List<File>               files               = new ArrayList<File>();
     private              List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
-    private              ListenerProvider         listenerProvider;
+    private              ListenerSupport         listenerProvider;
     private              int                      fileIndex           = 0;
     private              boolean                  lockClose           = false;
     private              boolean                  stop                = false;
@@ -75,7 +75,7 @@ public final class RenameDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        listenerProvider = ListenerProvider.INSTANCE;
+        listenerProvider = ListenerSupport.INSTANCE;
         renameFileListeners = listenerProvider.getRenameFileListeners();
         setIconImages(AppLookAndFeel.getAppIcons());
         setComboBoxModels();

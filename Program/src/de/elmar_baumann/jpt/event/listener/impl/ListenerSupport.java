@@ -32,7 +32,7 @@ import java.util.List;
  * them here. To increase speed:
  *
  * <ul>
- *     <li><strong>Declaring</strong> a field of a <code>ListenerProvider</code></li>
+ *     <li><strong>Declaring</strong> a field of a <code>ListenerSupport</code></li>
  *     <li>During <strong>construction</strong>
  *         they assign an instance of this class ({@link #INSTANCE}) to
  *         the declared field and retrieving their specific listeners whith the
@@ -46,7 +46,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-18
  */
-public final class ListenerProvider {
+public final class ListenerSupport {
 
     private final List<SearchListener> searchListeners =
             new LinkedList<SearchListener>();
@@ -58,7 +58,7 @@ public final class ListenerProvider {
             new LinkedList<MetadataEditPanelListener>();
     private final List<FileSystemActionListener> fileSystemActionListeners =
             new LinkedList<FileSystemActionListener>();
-    public static final ListenerProvider INSTANCE = new ListenerProvider();
+    public static final ListenerSupport INSTANCE = new ListenerSupport();
 
     public synchronized void addFileSystemActionListener(
             FileSystemActionListener listener) {
@@ -111,6 +111,6 @@ public final class ListenerProvider {
         }
     }
 
-    private ListenerProvider() {
+    private ListenerSupport() {
     }
 }

@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.FileSystemError;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemActionListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.io.ImageUtil;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import java.io.File;
@@ -50,6 +51,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
     boolean wait;
 
     public FilesystemDatabaseUpdater() {
+        ListenerSupport.INSTANCE.addFileSystemActionListener(this);
     }
 
     /**
@@ -60,6 +62,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
      */
     public FilesystemDatabaseUpdater(boolean wait) {
         this.wait = wait;
+        ListenerSupport.INSTANCE.addFileSystemActionListener(this);
     }
 
     @Override
@@ -70,10 +73,8 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
             insertFileIntoDatabase(target);
         } else if (action.equals(FileSystemEvent.DELETE)) {
             removeFileFromDatabase(src);
-        } else if (action.equals(FileSystemEvent.MOVE) ||
-                action.equals(FileSystemEvent.RENAME)) {
-            DatabaseImageFiles.INSTANCE.updateRename(
-                    src.getAbsolutePath(), target.getAbsolutePath());
+        } else if (action.equals(FileSystemEvent.MOVE) || action.equals(FileSystemEvent.RENAME)) {
+            DatabaseImageFiles.INSTANCE.updateRename(src.getAbsolutePath(), target.getAbsolutePath());
         }
     }
 

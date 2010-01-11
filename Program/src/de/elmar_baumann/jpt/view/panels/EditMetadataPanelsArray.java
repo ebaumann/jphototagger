@@ -40,7 +40,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.DatabaseImageEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
 import de.elmar_baumann.jpt.event.listener.MetadataEditPanelListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
@@ -92,12 +92,12 @@ public final class EditMetadataPanelsArray
     private       JComponent                      container;
     private       EditMetadataActionsPanel        editActionsPanel;
     private       Component                       lastFocussedEditControl;
-    private       ListenerProvider                listenerProvider;
+    private       ListenerSupport                listenerProvider;
     private       Component                       wrapFocusComponent;
 
     public EditMetadataPanelsArray(JComponent container) {
         this.container   = container;
-        listenerProvider = ListenerProvider.INSTANCE;
+        listenerProvider = ListenerSupport.INSTANCE;
         listeners        = listenerProvider.getMetadataEditPanelListeners();
         createEditPanels();
         setWrapFocusComponent();

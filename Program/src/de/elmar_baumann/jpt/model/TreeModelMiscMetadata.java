@@ -50,7 +50,7 @@ import javax.swing.tree.DefaultTreeModel;
  * @version 2009-06-12
  */
 public final class TreeModelMiscMetadata
-        extends DefaultTreeModel
+        extends    DefaultTreeModel
         implements DatabaseImageFilesListener {
 
     private static final DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(Bundle.getString("TreeModelMiscMetadata.Root.DisplayName"));

@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -89,7 +89,7 @@ public final class AutoCompleteDataOfColumn
     }
 
     private AutoCompleteDataOfColumn() {
-        ListenerProvider.INSTANCE.addUserSettingsChangeListener(this);
+        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
     }
 
     @Override

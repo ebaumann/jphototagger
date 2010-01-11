@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.model;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcEntryComparator;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcEntry;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcMetadata;
@@ -51,6 +52,7 @@ public final class TableModelIptc extends DefaultTableModel {
      * @param file  Datei
      */
     public void setFile(File file) {
+        if (!UserSettings.INSTANCE.isDisplayIptc()) return;
         this.file = file;
         removeAllElements();
         iptcEntries = IptcMetadata.getIptcEntries(file);

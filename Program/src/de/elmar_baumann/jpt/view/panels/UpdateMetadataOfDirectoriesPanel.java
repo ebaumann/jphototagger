@@ -19,10 +19,10 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent;
-import de.elmar_baumann.jpt.event.CheckForUpdateMetadataEvent.Type;
+import de.elmar_baumann.jpt.event.UpdateMetadataEvent;
+import de.elmar_baumann.jpt.event.UpdateMetadataEvent.Type;
 import de.elmar_baumann.jpt.event.ProgressEvent;
-import de.elmar_baumann.jpt.event.listener.CheckingForUpdateMetadataListener;
+import de.elmar_baumann.jpt.event.listener.UpdateMetadataListener;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.io.DirectoryInfo;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -48,7 +48,7 @@ import javax.swing.JPanel;
  */
 public final class UpdateMetadataOfDirectoriesPanel
         extends    JPanel
-        implements CheckingForUpdateMetadataListener,
+        implements UpdateMetadataListener,
                    ProgressListener {
 
     private static final String                       KEY_LAST_DIRECTORY   = "de.elmar_baumann.jpt.view.ScanDirectoriesDialog.lastSelectedDirectory";
@@ -188,7 +188,7 @@ public final class UpdateMetadataOfDirectoriesPanel
      * @param e event containing the current filename
      */
     @Override
-    public void actionPerformed(CheckForUpdateMetadataEvent e) {
+    public void actionPerformed(UpdateMetadataEvent e) {
         if (e.getType().equals(Type.CHECKING_FILE)) {
             String filename = e.getImageFilename();
             assert filename != null : "Filename is null!";

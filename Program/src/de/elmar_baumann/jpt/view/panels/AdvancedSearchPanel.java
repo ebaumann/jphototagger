@@ -37,7 +37,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpId;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIdFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -69,7 +69,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private              List<SearchListener>      searchListeners         = new ArrayList<SearchListener>();
     private              String                    searchName              = "";
     private              boolean                   isSavedSearch           = false;
-    private              ListenerProvider          listenerProvider;
+    private              ListenerSupport          listenerProvider;
 
     public AdvancedSearchPanel() {
         initComponents();
@@ -77,7 +77,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
-        listenerProvider = ListenerProvider.INSTANCE;
+        listenerProvider = ListenerSupport.INSTANCE;
         searchListeners  = listenerProvider.getSearchListeners();
 
         panelColumn1.setOperatorsEnabled(false);

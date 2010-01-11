@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerProvider;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
 import de.elmar_baumann.jpt.event.listener.MetadataEditPanelListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataTemplates;
@@ -67,7 +67,7 @@ public final class ControllerMetadataTemplates
         buttonMetadataTemplateDelete.addActionListener(this);
         buttonMetadataTemplateInsert.addActionListener(this);
         buttonMetadataTemplateRename.addActionListener(this);
-        ListenerProvider.INSTANCE.addMetadataEditPanelListener(this);
+        ListenerSupport.INSTANCE.addMetadataEditPanelListener(this);
     }
 
     private void setButtonsEnabled() {
