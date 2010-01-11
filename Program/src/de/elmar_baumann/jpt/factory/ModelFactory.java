@@ -34,7 +34,7 @@ import de.elmar_baumann.jpt.model.TableModelExif;
 import de.elmar_baumann.jpt.model.TableModelIptc;
 import de.elmar_baumann.jpt.model.TableModelXmp;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
-import de.elmar_baumann.jpt.model.TreeModelHierarchicalKeywords;
+import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.model.TreeModelMiscMetadata;
 import de.elmar_baumann.jpt.model.TreeModelTimeline;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -160,15 +160,15 @@ public final class ModelFactory {
     }
 
     private void setTreeModels(final AppPanel appPanel) {
-        setTreeModelHierarchicalKeywords();
+        setTreeModelKeywords();
         setTreeModelTimeline(appPanel);
         setTreeModelMiscMetadata(appPanel);
         setTreeModelFavorites(appPanel);
         setTreeModelDirectories(appPanel);
     }
 
-    private void setTreeModelHierarchicalKeywords() {
-        TreeModel model    = new TreeModelHierarchicalKeywords();
+    private void setTreeModelKeywords() {
+        TreeModel model    = new TreeModelKeywords();
         AppPanel  appPanel = GUI.INSTANCE.getAppPanel();
 
         appPanel.getTreeSelKeywords().setModel(model);
@@ -176,7 +176,7 @@ public final class ModelFactory {
         InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(model);
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().setModel(new ListModelMetadataTemplates());
 
-        appPanel.showMessage(Bundle.getString("ModelFactory.Finished.TreeModelHierarchicalKeywords"), AppPanel.MessageType.INFO, 1000);
+        appPanel.showMessage(Bundle.getString("ModelFactory.Finished.TreeModelKeywords"), AppPanel.MessageType.INFO, 1000);
     }
 
     private void setTreeModelMiscMetadata(final AppPanel appPanel) {

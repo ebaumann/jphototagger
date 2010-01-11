@@ -18,14 +18,14 @@
  */
 package de.elmar_baumann.jpt.factory;
 
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerToggleRealHierarchicalKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeywordFromEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword;
 import de.elmar_baumann.jpt.controller.misc.ControllerAboutApp;
 import de.elmar_baumann.jpt.controller.misc.ControllerHelp;
 import de.elmar_baumann.jpt.controller.misc.ControllerMaintainDatabase;
@@ -36,7 +36,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuHierarchicalKeywords;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 
 /**
  * Erzeugt Actionlistener und verknüpft sie mit Aktionsquellen.
@@ -65,31 +65,31 @@ public final class ActionListenerFactory {
             appFrame.getMenuItemScanDirectory()   .addActionListener(new ControllerShowUpdateMetadataDialog());
             appFrame.getMenuItemSettings()        .addActionListener(new ControllerShowUserSettingsDialog());
             appFrame.getMenuItemSearch()          .addActionListener(new ControllerShowAdvancedSearchDialog());
-            listenToPopupMenuHierarchicalKeywords();
+            listenToPopupMenuKeywordsTree();
         }
     }
 
     /**
      * Creates the controller and let's them listen to the
-     * {@link PopupMenuHierarchicalKeywords} because it's a singleton but more
+     * {@link PopupMenuKeywordsTree} because it's a singleton but more
      * more then one panel using it (2 panels: popup twice, 3 p. 3 times ...)
      */
-    private void listenToPopupMenuHierarchicalKeywords() {
+    private void listenToPopupMenuKeywordsTree() {
         KeywordsPanel                        hkwPanel        = InputHelperDialog.INSTANCE.getPanelKeywords();
-        ControllerRenameHierarchicalKeyword              cRename         = new ControllerRenameHierarchicalKeyword(hkwPanel);
-        ControllerRemoveHierarchicalKeyword              cRemove         = new ControllerRemoveHierarchicalKeyword(hkwPanel);
-        ControllerAddHierarchicalKeyword                 cAdd            = new ControllerAddHierarchicalKeyword(hkwPanel);
-        ControllerToggleRealHierarchicalKeyword          cToggleReal     = new ControllerToggleRealHierarchicalKeyword(hkwPanel);
-        ControllerAddHierarchicalKeywordsToEditPanel     cAddToEditPanel = new ControllerAddHierarchicalKeywordsToEditPanel(hkwPanel);
-        ControllerRemoveHierarchicalKeywordFromEditPanel cRemoveFromEPn  = new ControllerRemoveHierarchicalKeywordFromEditPanel(hkwPanel);
-        ControllerCopyCutPasteHierarchicalKeyword        cCopyCutPaste   = new ControllerCopyCutPasteHierarchicalKeyword(hkwPanel);
+        ControllerRenameKeyword              cRename         = new ControllerRenameKeyword(hkwPanel);
+        ControllerRemoveKeyword              cRemove         = new ControllerRemoveKeyword(hkwPanel);
+        ControllerAddKeyword                 cAdd            = new ControllerAddKeyword(hkwPanel);
+        ControllerToggleRealKeyword          cToggleReal     = new ControllerToggleRealKeyword(hkwPanel);
+        ControllerAddKeywordsToEditPanel     cAddToEditPanel = new ControllerAddKeywordsToEditPanel(hkwPanel);
+        ControllerRemoveKeywordFromEditPanel cRemoveFromEPn  = new ControllerRemoveKeywordFromEditPanel(hkwPanel);
+        ControllerCopyCutPasteKeyword        cCopyCutPaste   = new ControllerCopyCutPasteKeyword(hkwPanel);
 
-        new ControllerHierarchicalKeywordsDisplayImages();
+        new ControllerKeywordsDisplayImages();
 
         hkwPanel.addKeyListener(cCopyCutPaste);
         GUI.INSTANCE.getAppPanel().getTreeEditKeywords().addKeyListener(cCopyCutPaste);
 
-        PopupMenuHierarchicalKeywords popup = PopupMenuHierarchicalKeywords.INSTANCE;
+        PopupMenuKeywordsTree popup = PopupMenuKeywordsTree.INSTANCE;
 
         popup.getItemAdd()                .addActionListener(cAdd);
         popup.getItemRename()             .addActionListener(cRename);

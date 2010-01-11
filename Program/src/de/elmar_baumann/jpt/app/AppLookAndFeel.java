@@ -82,16 +82,16 @@ public final class AppLookAndFeel {
     public static final Color COLOR_BACKGROUND_TABLE_TEXT_DEFAULT = Color.WHITE;
 
     /**
-     * Background color of a hierarchical keyword if that keyword is a keyword
+     * Background color of a keyword in a tree if a selected image has that keyword
      * of a selected image
      */
-    public static final Color COLOR_BACKGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(100, 100, 100);
+    public static final Color COLOR_BACKGROUND_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(100, 100, 100);
 
     /**
-     * Foreground color of a hierarchical keyword if that keyword is a keyword
+     * Foreground color of a keyword in a tree if a selected image has that keyword
      * of a selected image
      */
-    public static final Color COLOR_FOREGROUND_HIERARCHICAL_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(255, 255, 255);
+    public static final Color COLOR_FOREGROUND_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(255, 255, 255);
 
     /**
      * Selection foreground color of highlighted tree nodes when a popup menu

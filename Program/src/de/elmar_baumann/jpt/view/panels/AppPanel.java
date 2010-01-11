@@ -21,13 +21,13 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeyword;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerAddHierarchicalKeywordsToEditPanel;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeywordFromEditPanel;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRemoveHierarchicalKeyword;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerRenameHierarchicalKeyword;
-import de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerToggleRealHierarchicalKeyword;
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerListKeywords;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeywordFromEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword;
+import de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsList;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -37,7 +37,7 @@ import de.elmar_baumann.jpt.view.renderer.ListCellRendererFastSearchColumns;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererSavedSearches;
-import de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords;
+import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererMiscMetadata;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererTimeline;
 import de.elmar_baumann.lib.component.ImageTextField;
@@ -166,8 +166,12 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return tabbedPaneXmp;
     }
 
-    public Component getTabMetadataHierarchicaKeywords() {
+    public Component getTabEditKeywords() {
         return panelEditKeywords;
+    }
+
+    public Component getTabSelectionKeywords() {
+        return panelSelKeywords;
     }
 
     public Component getTabMetadataEdit() {
@@ -196,14 +200,6 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
     public JPanel getTabSelectionSavedSearches() {
         return panelSavedSearches;
-    }
-
-    public JPanel getTabSelectionKeywords() {
-        return panelSelKeywords;
-    }
-
-    public JPanel getTabSelectionHierarchicalKeywords() {
-        return panelSelKeywordsTree;
     }
 
     public JTree getTreeTimeline() {
@@ -452,6 +448,16 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         displaySelKeywordsCard(name);
     }
 
+    public void displaySelKeewordsTree() {
+        tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
+        displaySelKeywordsCard("keywordsTree");
+    }
+
+    public void displaySelKeewordsList() {
+        tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
+        displaySelKeywordsCard("flatKeywords");
+    }
+
     @Override
     public void appWillExit() {
         writeProperties();
@@ -535,8 +541,8 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         TreeUtil.expandAll(treeSelKeywords, selected);
         toggleButtonExpandAllNodesSelKeywords.setText(
                 selected
-                ? Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                ? Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
     private void displaySelKeywordsCard(String name) {
@@ -723,8 +729,8 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         treeDirectories.setDragEnabled(true);
         treeDirectories.setName("treeDirectories"); // NOI18N
         scrollPaneDirectories.setViewportView(treeDirectories);
-        treeDirectories.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeDirectories());
-        treeFavorites.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeDirectories());
+        treeDirectories.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDirectoryTree());
+        treeFavorites.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDirectoryTree());
 
         javax.swing.GroupLayout panelDirectoriesLayout = new javax.swing.GroupLayout(panelDirectories);
         panelDirectories.setLayout(panelDirectoriesLayout);
@@ -772,7 +778,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         listImageCollections.setDragEnabled(true);
         listImageCollections.setName("listImageCollections"); // NOI18N
         scrollPaneImageCollections.setViewportView(listImageCollections);
-        listImageCollections.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerListImageCollections());
+        listImageCollections.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerImageCollectionsList());
 
         javax.swing.GroupLayout panelImageCollectionsLayout = new javax.swing.GroupLayout(panelImageCollections);
         panelImageCollections.setLayout(panelImageCollectionsLayout);
@@ -820,7 +826,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Laden...");
         treeNode1.add(treeNode2);
         treeSelKeywords.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        treeSelKeywords.setCellRenderer(new TreeCellRendererHierarchicalKeywords());
+        treeSelKeywords.setCellRenderer(new TreeCellRendererKeywords());
         treeSelKeywords.setShowsRootHandles(true);
         scrollPaneSelKeywordsTree.setViewportView(treeSelKeywords);
 
@@ -874,7 +880,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         listSelKeywords.setDragEnabled(true);
         listSelKeywords.setName("listSelKeywords"); // NOI18N
         scrollPaneSelKeywordsList.setViewportView(listSelKeywords);
-        listSelKeywords.setTransferHandler(new TransferHandlerListKeywords());
+        listSelKeywords.setTransferHandler(new TransferHandlerKeywordsList());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1210,14 +1216,14 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png")), panelTabEditMetadata); // NOI18N
         tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelEditKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")), panelEditKeywords); // NOI18N
-        new ControllerToggleRealHierarchicalKeyword(panelEditKeywords);
-        new ControllerRenameHierarchicalKeyword(panelEditKeywords);
-        new ControllerAddHierarchicalKeyword(panelEditKeywords);
-        new ControllerRemoveHierarchicalKeyword(panelEditKeywords);
-        new ControllerAddHierarchicalKeywordsToEditPanel(panelEditKeywords);
-        new ControllerRemoveHierarchicalKeywordFromEditPanel(panelEditKeywords);
-        new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerCopyCutPasteHierarchicalKeyword(panelEditKeywords);
-        new de.elmar_baumann.jpt.controller.hierarchicalkeywords.ControllerHierarchicalKeywordsDisplayImages();
+        new ControllerToggleRealKeyword(panelEditKeywords);
+        new ControllerRenameKeyword(panelEditKeywords);
+        new ControllerAddKeyword(panelEditKeywords);
+        new ControllerRemoveKeyword(panelEditKeywords);
+        new ControllerAddKeywordsToEditPanel(panelEditKeywords);
+        new ControllerRemoveKeywordFromEditPanel(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages();
 
         javax.swing.GroupLayout panelMetadataLayout = new javax.swing.GroupLayout(panelMetadata);
         panelMetadata.setLayout(panelMetadataLayout);

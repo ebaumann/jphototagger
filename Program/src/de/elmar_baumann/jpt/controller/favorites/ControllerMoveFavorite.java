@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -76,20 +76,20 @@ public final class ControllerMoveFavorite implements ActionListener {
             }
         }
 
-        private FavoriteDirectory getFavoriteDirectory() {
+        private Favorite getFavoriteDirectory() {
             TreePath selPath = tree.getSelectionPath();
             if (selPath != null) {
                 DefaultMutableTreeNode node =
                         (DefaultMutableTreeNode) selPath.getLastPathComponent();
                 Object userObject = node.getUserObject();
-                if (userObject instanceof FavoriteDirectory) {
-                    return (FavoriteDirectory) userObject;
+                if (userObject instanceof Favorite) {
+                    return (Favorite) userObject;
                 }
             }
             return null;
         }
 
-        private void moveUp(FavoriteDirectory dir) {
+        private void moveUp(Favorite dir) {
             if (dir != null) {
                 TreeModelFavorites model =
                         (TreeModelFavorites) tree.getModel();
@@ -97,7 +97,7 @@ public final class ControllerMoveFavorite implements ActionListener {
             }
         }
 
-        private void moveDown(FavoriteDirectory dir) {
+        private void moveDown(Favorite dir) {
             if (dir != null) {
                 TreeModelFavorites model =
                         (TreeModelFavorites) tree.getModel();

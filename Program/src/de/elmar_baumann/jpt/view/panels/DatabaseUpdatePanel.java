@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.helper.HelperThread;
-import de.elmar_baumann.jpt.helper.InsertHierarchicalKeywords;
+import de.elmar_baumann.jpt.helper.InsertKeywords;
 import de.elmar_baumann.jpt.helper.RefreshExifInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.RefreshXmpInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.SetExifToXmp;
@@ -148,7 +148,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         List<String> keywords = ListUtil.toStringList(GUI.INSTANCE.getAppPanel().getListSelKeywords().getModel());
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
-            new InsertHierarchicalKeywords(keywords).run(); // Run not as thread
+            new InsertKeywords(keywords).run(); // Run not as thread
             MessageDisplayer.information(this, "DatabaseUpdatePanel.Info.CopyKeywordsToTree");
             setEnabledAllButtons(true);
         }

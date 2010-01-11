@@ -35,37 +35,34 @@ public final class Support {
     /**
      * Returns the transferred keywords.
      *
-     * <em>The data flavor has to be {@link Flavors#KEYWORDS_FLAVOR}!</em>
+     * <em>The data flavor has to be {@link Flavor#KEYWORDS_LIST}!</em>
      *
      * @param  transferable transferable
      * @return              keywords or null on errors
      */
     public static Object[] getKeywords(Transferable transferable) {
         try {
-            return (Object[]) transferable.getTransferData(
-                    Flavors.KEYWORDS_FLAVOR);
+            return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
         } catch (Exception ex) {
-            AppLog.logSevere(Flavors.class, ex);
+            AppLog.logSevere(Flavor.class, ex);
         }
         return null;
     }
 
     /**
-     * Returns the transferred hierarchical keywords nodes.
+     * Returns the transferred keyword node.
      *
-     * <em>The data flavor has to be {@link Flavors#HIERARCHICAL_KEYWORDS_FLAVOR}!</em>
+     * <em>The data flavor has to be {@link Flavor#KEYWORDS_TREE}!</em>
      *
      * @param  transferable transferable
-     * @return              hierarchical keywords node or null on errors
+     * @return              keyword node or null on errors
      */
     @SuppressWarnings("unchecked")
-    public static List<DefaultMutableTreeNode> getHierarchicalKeywordsNodes(
-            Transferable transferable) {
+    public static List<DefaultMutableTreeNode> getKeywordNodes(Transferable transferable) {
         try {
-            return (List<DefaultMutableTreeNode>) transferable.getTransferData(
-                    Flavors.HIERARCHICAL_KEYWORDS_FLAVOR);
+            return (List<DefaultMutableTreeNode>) transferable.getTransferData(Flavor.KEYWORDS_TREE);
         } catch (Exception ex) {
-            AppLog.logSevere(Flavors.class, ex);
+            AppLog.logSevere(Flavor.class, ex);
         }
         return null;
     }
@@ -82,7 +79,7 @@ public final class Support {
         try {
             return (String) transferable.getTransferData(DataFlavor.stringFlavor);
         } catch (Exception ex) {
-            AppLog.logSevere(Flavors.class, ex);
+            AppLog.logSevere(Flavor.class, ex);
         }
         return null;
     }

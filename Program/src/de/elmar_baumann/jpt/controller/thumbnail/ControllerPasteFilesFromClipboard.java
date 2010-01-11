@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.thumbnail;
 
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeDirectories;
+import de.elmar_baumann.jpt.datatransfer.TransferHandlerDirectoryTree;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
@@ -116,7 +116,7 @@ public final class ControllerPasteFilesFromClipboard
             @Override
             public void run() {
                 List<File> files = ClipboardUtil.getFilesFromSystemClipboard("\n");
-                TransferHandlerTreeDirectories.handleDroppedFiles(
+                TransferHandlerDirectoryTree.handleDroppedFiles(
                         getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();
             }

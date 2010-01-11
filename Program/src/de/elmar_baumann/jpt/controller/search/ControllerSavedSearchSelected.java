@@ -19,8 +19,8 @@
 package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.data.SavedSearch;
-import de.elmar_baumann.jpt.database.DatabaseSearch;
-import de.elmar_baumann.jpt.database.metadata.ParamStatement;
+import de.elmar_baumann.jpt.database.DatabaseFind;
+import de.elmar_baumann.jpt.data.ParamStatement;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -91,7 +91,7 @@ public final class ControllerSavedSearchSelected
             if (selectedValue instanceof SavedSearch) {
                 SavedSearch savedSearch = (SavedSearch) selectedValue;
                 if (savedSearch.hasParamStatement()) {
-                    ParamStatement stmt = savedSearch.getParamStatement().createStatement();
+                    ParamStatement stmt = savedSearch.getParamStatement().createParamStatement();
                     if (stmt != null) {
                         searchParamStatement(stmt);
                     }
@@ -100,7 +100,7 @@ public final class ControllerSavedSearchSelected
         }
 
         private void searchParamStatement(ParamStatement stmt) {
-            List<String> filenames = DatabaseSearch.INSTANCE.findFilenames(stmt);
+            List<String> filenames = DatabaseFind.INSTANCE.findFilenames(stmt);
             setTitle(stmt.getName());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
         }

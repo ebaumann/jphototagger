@@ -19,11 +19,11 @@
 package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.data.AutoCompleteDataOfColumn;
+import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.DatabaseSearch;
+import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
@@ -78,7 +78,7 @@ public final class ControllerFastSearch
         RefreshListener {
 
     private static final String                  DELIMITER_SEARCH_WORDS = ";";
-    private final        DatabaseSearch          db                     = DatabaseSearch.INSTANCE;
+    private final        DatabaseFind          db                     = DatabaseFind.INSTANCE;
     private final        AppPanel                appPanel               = GUI.INSTANCE.getAppPanel();
     private final        JTextField              textFieldSearch        = appPanel.getTextFieldSearch();
     private final        JComboBox               comboboxFastSearch     = appPanel.getComboBoxFastSearch();

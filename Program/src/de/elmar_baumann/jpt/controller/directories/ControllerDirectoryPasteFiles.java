@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.directories;
 
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeDirectories;
+import de.elmar_baumann.jpt.datatransfer.TransferHandlerDirectoryTree;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.types.FileAction;
@@ -84,7 +84,7 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
         FileAction action = thumbnailsPanel.getFileAction();
         assert isValidFileAction(action) : action;
         if (isValidFileAction(action)) {
-            TransferHandlerTreeDirectories.handleDroppedFiles(
+            TransferHandlerDirectoryTree.handleDroppedFiles(
                     action.getTransferHandlerAction(), sourceFiles,
                     targetDirectory);
             thumbnailsPanel.setFileAction(FileAction.UNDEFINED);

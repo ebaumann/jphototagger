@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
@@ -105,9 +105,9 @@ public final class ControllerOpenFavoriteInFolders
                 Object userObject = node.getUserObject();
                 if (userObject instanceof File) {
                     return (File) userObject;
-                } else if (userObject instanceof FavoriteDirectory) {
-                    FavoriteDirectory favoriteDirectory =
-                            (FavoriteDirectory) userObject;
+                } else if (userObject instanceof Favorite) {
+                    Favorite favoriteDirectory =
+                            (Favorite) userObject;
                     return favoriteDirectory.getDirectory();
                 }
                 return null;

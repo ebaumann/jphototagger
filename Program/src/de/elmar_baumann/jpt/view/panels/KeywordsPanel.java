@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.datatransfer.Flavors;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
@@ -30,7 +29,7 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
- * A tree for hierarchical keywords.
+ * A tree for keywords.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-10
@@ -38,8 +37,8 @@ import javax.swing.tree.TreeSelectionModel;
 public class KeywordsPanel extends javax.swing.JPanel {
 
     private static final long   serialVersionUID = 5968799511284000903L;
-    private              String keyTree          = "HierarchicalKeywordsPanel.Tree.SelectedNode";
-    private              String keyCard          = "HierarchicalKeywordsPanel.Card";
+    private              String keyTree          = "KeywordsPanel.Tree.SelectedNode";
+    private              String keyCard          = "KeywordsPanel.Card";
 
     public KeywordsPanel() {
         initComponents();
@@ -128,8 +127,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
         TreeUtil.expandAll(tree, selected);
         buttonToggleExpandAllNodes.setText(
                 selected
-                ? Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : Bundle.getString("HierarchicalKeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                ? Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
     /** This method is called from within the constructor to
@@ -151,7 +150,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelList = new javax.swing.JPanel();
         scrollPaneList = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
-        list.setTransferHandler(new TransferHandlerDragListItems(Flavors.KEYWORDS_FLAVOR));
+        list.setTransferHandler(new TransferHandlerDragListItems(de.elmar_baumann.jpt.datatransfer.Flavor.KEYWORDS_LIST));
         buttonAsTree = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
@@ -160,11 +159,11 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setCellRenderer(new de.elmar_baumann.jpt.view.renderer.TreeCellRendererHierarchicalKeywords());
+        tree.setCellRenderer(new de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords());
         tree.setDragEnabled(true);
         tree.setShowsRootHandles(true);
         scrollPaneTree.setViewportView(tree);
-        tree.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerTreeHierarchicalKeywords());
+        tree.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsTree());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

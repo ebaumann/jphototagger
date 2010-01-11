@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.metadata;
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.data.MetadataTableModels;
+import de.elmar_baumann.jpt.database.metadata.selections.MetadataTableModels;
 import de.elmar_baumann.jpt.data.SelectedFile;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;

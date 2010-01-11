@@ -132,7 +132,7 @@ public final class SavedSearch {
      * {@link #toString()}.
      *
      * @return Name
-     * @see    de.elmar_baumann.jpt.database.metadata.ParamStatement#getName()
+     * @see    de.elmar_baumann.jpt.data.ParamStatement#getName()
      */
     public String getName() {
         String string = null;
@@ -148,7 +148,7 @@ public final class SavedSearch {
      * Setzt den Namen des parametrisierten Statements.
      *
      * @param name Name
-     * @see    de.elmar_baumann.jpt.database.metadata.ParamStatement#setName(java.lang.String)
+     * @see    de.elmar_baumann.jpt.data.ParamStatement#setName(java.lang.String)
      */
     public void setName(String name) {
         paramStatement.setName(name);

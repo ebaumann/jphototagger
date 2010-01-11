@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.data.FavoriteDirectory;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -65,8 +65,8 @@ public final class ControllerDeleteFavorite
             if (node instanceof DefaultMutableTreeNode) {
                 Object userObject =
                         ((DefaultMutableTreeNode) node).getUserObject();
-                if (userObject instanceof FavoriteDirectory) {
-                    deleteFavorite((FavoriteDirectory) userObject);
+                if (userObject instanceof Favorite) {
+                    deleteFavorite((Favorite) userObject);
                 }
             }
         }
@@ -77,8 +77,8 @@ public final class ControllerDeleteFavorite
         deleteFavorite(popupMenu.getFavoriteDirectory());
     }
 
-    private void deleteFavorite(final FavoriteDirectory favoriteDirectory) {
-        if (confirmDelete(favoriteDirectory.getFavoriteName())) {
+    private void deleteFavorite(final Favorite favoriteDirectory) {
+        if (confirmDelete(favoriteDirectory.getName())) {
             SwingUtilities.invokeLater(new Runnable() {
 
                 @Override
