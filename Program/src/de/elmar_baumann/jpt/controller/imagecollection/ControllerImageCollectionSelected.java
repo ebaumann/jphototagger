@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
@@ -47,7 +47,7 @@ public final class ControllerImageCollectionSelected implements
 
     private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels      = appPanel.getEditMetadataPanelsArray();
+    private final EditMetadataPanels editPanels      = appPanel.getEditMetadataPanelsArray();
     private final JList                   list            = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {

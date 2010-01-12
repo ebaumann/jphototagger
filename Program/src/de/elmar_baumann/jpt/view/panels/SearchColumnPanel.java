@@ -32,6 +32,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
+import de.elmar_baumann.jpt.event.listener.impl.SearchListenerSupport;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererTableColumns;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -40,10 +41,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -58,12 +57,12 @@ import javax.swing.JToggleButton;
  */
 public final class SearchColumnPanel extends javax.swing.JPanel {
 
-    private static final long serialVersionUID = -2063583386957538525L;
+    private static final long                         serialVersionUID      = -2063583386957538525L;
     private final        String                       SEL_LEFT_BRACKET      = "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
     private final        String                       NOT_SEL_LEFT_BRACKET  = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
     private final        String                       SEL_RIGHT_BRACKET     = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
     private final        String                       NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
-    private final        List<SearchListener>         searchListener        = new ArrayList<SearchListener>();
+    private final        SearchListenerSupport        listenerSupport       = new SearchListenerSupport();
     private final        ListCellRendererTableColumns columnRenderer        = new ListCellRendererTableColumns();
     private              boolean                      isOperatorsEnabled    = true;
     private              boolean                      listenToActions       = true;
@@ -83,13 +82,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setToggleButtonsTexts(toggleButtonBracketRight, false);
     }
 
-    /**
-     * Fügt einen Suchen-Beobachter hinzu.
-     *
-     * @param listener Beobachter
-     */
-    public synchronized void addSearchListener(SearchListener listener) {
-        searchListener.add(listener);
+    public void addSearchListener(SearchListener listener) {
+        listenerSupport.add(listener);
+    }
+
+    public void removeSearchListener(SearchListener listener) {
+        listenerSupport.remove(listener);
     }
 
     /**
@@ -155,7 +153,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void checkKey(KeyEvent evt) {
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            notifySearchListener(new SearchEvent(SearchEvent.Type.START));
+            listenerSupport.notifyListeners(new SearchEvent(SearchEvent.Type.START));
         }
     }
 
@@ -191,12 +189,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
                 ? SEL_RIGHT_BRACKET
                 : NOT_SEL_RIGHT_BRACKET
                 );
-    }
-
-    private synchronized void notifySearchListener(SearchEvent evt) {
-        for (SearchListener listener : searchListener) {
-            listener.actionPerformed(evt);
-        }
     }
 
     /**

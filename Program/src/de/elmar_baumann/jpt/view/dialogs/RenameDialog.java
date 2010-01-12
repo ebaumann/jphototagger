@@ -30,9 +30,9 @@ import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatFileName;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatNumberSequence;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatConstantString;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatFilenamePostfix;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
-import de.elmar_baumann.jpt.event.RenameFileEvent;
-import de.elmar_baumann.jpt.event.listener.RenameFileListener;
+import de.elmar_baumann.jpt.event.FileSystemEvent;
+import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
+import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.types.FileType;
@@ -44,7 +44,6 @@ import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -59,14 +58,13 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class RenameDialog extends Dialog {
 
-    private static final long                     serialVersionUID    = 2975958115627670989L;
-    private final        FilenameFormatArray      filenameFormatArray = new FilenameFormatArray();
-    private              List<File>               files               = new ArrayList<File>();
-    private              List<RenameFileListener> renameFileListeners = new LinkedList<RenameFileListener>();
-    private              ListenerSupport         listenerProvider;
-    private              int                      fileIndex           = 0;
-    private              boolean                  lockClose           = false;
-    private              boolean                  stop                = false;
+    private static final long                      serialVersionUID    = 2975958115627670989L;
+    private final        FilenameFormatArray       filenameFormatArray = new FilenameFormatArray();
+    private              List<File>                files               = new ArrayList<File>();
+    private final        FileSystemListenerSupport listenerSupport     = new FileSystemListenerSupport();
+    private              int                       fileIndex           = 0;
+    private              boolean                   lockClose           = false;
+    private              boolean                   stop                = false;
 
     public RenameDialog() {
         super((java.awt.Frame) null, true);
@@ -75,8 +73,6 @@ public final class RenameDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        listenerProvider = ListenerSupport.INSTANCE;
-        renameFileListeners = listenerProvider.getRenameFileListeners();
         setIconImages(AppLookAndFeel.getAppIcons());
         setComboBoxModels();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
@@ -97,6 +93,14 @@ public final class RenameDialog extends Dialog {
         model.addElement(new FilenameFormatDate("-"));
         model.addElement(new FilenameFormatEmptyString());
         return model;
+    }
+
+    public void addFileSystemListener(FileSystemListener listener) {
+        listenerSupport.add(listener);
+    }
+
+    public void removeFileSystemListener(FileSystemListener listener) {
+        listenerSupport.remove(listener);
     }
 
     /**
@@ -120,11 +124,11 @@ public final class RenameDialog extends Dialog {
         this.files = files;
     }
 
-    public synchronized void notifyRenameListeners(File oldFile, File newFile) {
-        RenameFileEvent action = new RenameFileEvent(oldFile, newFile);
-        for (RenameFileListener listener : renameFileListeners) {
-            listener.actionPerformed(action);
-        }
+    public synchronized void notifyFileSystemListeners(File oldFile, File newFile) {
+
+        FileSystemEvent event = new FileSystemEvent(FileSystemEvent.Type.RENAME, oldFile, newFile);
+
+        listenerSupport.notifyListeners(event);
     }
 
     private boolean renameFile(File oldFile, File newFile) {
@@ -181,7 +185,7 @@ public final class RenameDialog extends Dialog {
                     filenameFormatArray.format());
             if (checkNewFileNotExists(newFile) && renameFile(oldFile, newFile)) {
                 files.set(i, newFile);
-                notifyRenameListeners(oldFile, newFile);
+                notifyFileSystemListeners(oldFile, newFile);
                 countRenamed++;
             } else {
                 errorMessageNotRenamed(oldFile.getAbsolutePath());
@@ -203,7 +207,7 @@ public final class RenameDialog extends Dialog {
                 File newFile = getNewFileViaInput();
                 if (renameFile(oldFile, newFile)) {
                     files.set(fileIndex, newFile);
-                    notifyRenameListeners(oldFile, newFile);
+                    notifyFileSystemListeners(oldFile, newFile);
                     setCurrentFilenameToInputPanel();
                     countRenamed++;
                 } else {

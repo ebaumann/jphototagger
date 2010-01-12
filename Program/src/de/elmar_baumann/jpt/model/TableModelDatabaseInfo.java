@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.DatabaseInfoRecordCountColumns;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelDatabaseInfo extends DefaultTableModel implements DatabaseImageFilesListener {
 
-    private static final List<DatabaseImageEvent.Type>       COUNT_EVENTS            = new ArrayList<DatabaseImageEvent.Type>();
+    private static final List<DatabaseImageFilesEvent.Type>       COUNT_EVENTS            = new ArrayList<DatabaseImageFilesEvent.Type>();
     private static final long                                serialVersionUID        = 1974343527501774916L;
     private final        DatabaseStatistics                  db                      = DatabaseStatistics.INSTANCE;
     private final        LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
@@ -47,9 +47,9 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
     private              boolean                             listenToDatabase        = false;
 
     static {
-        COUNT_EVENTS.add(DatabaseImageEvent.Type.IMAGEFILE_DELETED);
-        COUNT_EVENTS.add(DatabaseImageEvent.Type.IMAGEFILE_INSERTED);
-        COUNT_EVENTS.add(DatabaseImageEvent.Type.IMAGEFILE_UPDATED);
+        COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED);
+        COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED);
+        COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED);
     }
 
     private void initBufferOfColumn() {
@@ -64,11 +64,11 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
         initBufferOfColumn();
         addColumnHeaders();
         addRows();
-        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
         if (listenToDatabase && isCountEvent(event.getType())) {
             update();
         }
@@ -87,7 +87,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
         listenToDatabase = listen;
     }
 
-    private boolean isCountEvent(DatabaseImageEvent.Type type) {
+    private boolean isCountEvent(DatabaseImageFilesEvent.Type type) {
         return COUNT_EVENTS.contains(type);
     }
 

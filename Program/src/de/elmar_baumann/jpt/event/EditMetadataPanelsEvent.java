@@ -18,16 +18,16 @@
  */
 package de.elmar_baumann.jpt.event;
 
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 
 /**
  * Ereignis bei
- * {@link de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray}.
+ * {@link de.elmar_baumann.jpt.view.panels.EditMetadataPanels}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-22
  */
-public final class MetadataEditPanelEvent {
+public final class EditMetadataPanelsEvent {
 
     public enum Type {
 
@@ -41,7 +41,7 @@ public final class MetadataEditPanelEvent {
         EDIT_DISABLED
     }
 
-    private final EditMetadataPanelsArray source;
+    private final EditMetadataPanels source;
     private final Type type;
 
     /**
@@ -50,7 +50,7 @@ public final class MetadataEditPanelEvent {
      * @param source  Ereignisquelle
      * @param type    Ereignistyp
      */
-    public MetadataEditPanelEvent(EditMetadataPanelsArray source, Type type) {
+    public EditMetadataPanelsEvent(EditMetadataPanels source, Type type) {
         this.source = source;
         this.type = type;
     }
@@ -60,7 +60,7 @@ public final class MetadataEditPanelEvent {
      *
      * @return Ereignisquelle
      */
-    public EditMetadataPanelsArray getSource() {
+    public EditMetadataPanels getSource() {
         return source;
     }
 

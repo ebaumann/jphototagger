@@ -461,11 +461,11 @@ public final class EditRepeatableTextEntryPanel
     }
 
     public void addTextEntryListener(TextEntryListener listener) {
-        textEntryListenerSupport.addTextEntryListener(listener);
+        textEntryListenerSupport.add(listener);
     }
 
     public void removeTextEntryListener(TextEntryListener listener) {
-        textEntryListenerSupport.removeTextEntryListener(listener);
+        textEntryListenerSupport.remove(listener);
     }
 
     private void notifyTextRemoved(Column column, String removedText) {

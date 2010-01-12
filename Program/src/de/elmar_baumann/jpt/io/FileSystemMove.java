@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
-import de.elmar_baumann.jpt.event.FileSystemError;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
@@ -144,15 +143,15 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
     private void checkMoved(boolean moved, File sourceFile, File targetFile) {
         if (moved) {
-            notifyActionListenersPerformed(FileSystemEvent.MOVE, sourceFile, targetFile);
+            notifyFileSystemListenersPerformed(FileSystemEvent.Type.MOVE, sourceFile, targetFile);
         } else {
             notifyError(FileSystemError.UNKNOWN, sourceFile, targetFile);
         }
     }
 
     private synchronized void notifyError(FileSystemError error, File sourceFile, File targetFile) {
-        notifyActionListenersFailed(
-                FileSystemEvent.MOVE,
+        notifyFileSystemListenersFailed(
+                FileSystemEvent.Type.MOVE,
                 error,
                 sourceFile,
                 targetFile);

@@ -22,7 +22,10 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.jpt.data.Program;
-import de.elmar_baumann.jpt.event.ProgramEvent;
+import de.elmar_baumann.jpt.database.DatabasePrograms;
+import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
+import de.elmar_baumann.jpt.event.DatabaseProgramsEvent.Type;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -34,7 +37,7 @@ import javax.swing.JProgressBar;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public final class ActionsDialog extends Dialog implements ProgramActionListener {
+public final class ActionsDialog extends Dialog implements DatabaseProgramsListener {
 
     public static final  ActionsDialog INSTANCE         = new ActionsDialog();
     private static final long          serialVersionUID = -2671488119703014515L;
@@ -51,7 +54,7 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
 
     private void postInitComponents() {
         setIconImages(AppLookAndFeel.getAppIcons());
-        panelActions.addActionListener(this);
+        DatabasePrograms.INSTANCE.addListener(this);
         registerKeyStrokes();
     }
 
@@ -76,14 +79,14 @@ public final class ActionsDialog extends Dialog implements ProgramActionListener
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {
-        panelActions.addActionListener(l);
+        panelActions.addListener(l);
     }
 
     @Override
-    public void actionPerformed(ProgramEvent evt) {
-        ProgramEvent.Type type = evt.getType();
-        if ((type.equals(ProgramEvent.Type.PROGRAM_CREATED) ||
-            type.equals(ProgramEvent.Type.PROGRAM_UPDATED)) && isVisible()) {
+    public void actionPerformed(DatabaseProgramsEvent evt) {
+        Type type = evt.getType();
+        if ((type.equals(Type.PROGRAM_INSERTED) ||
+            type.equals(Type.PROGRAM_UPDATED)) && isVisible()) {
             toFront();
         }
     }

@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
@@ -67,7 +67,7 @@ public class ControllerRemoveKeywordFromEditPanel
     }
 
     private void removeFromEditPanel(String keyword) {
-        EditMetadataPanelsArray editPanels =
+        EditMetadataPanels editPanels =
                 GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
         if (panel instanceof EditRepeatableTextEntryPanel) {

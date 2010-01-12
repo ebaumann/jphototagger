@@ -16,53 +16,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.event;
+package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.data.Program;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
 
 /**
- * Event relating to a program. A program is outside this program and will be
- * called from this program. It displays or modifies images etc.
+ * Beobachtet Änderungen der Benutzereinstellungen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008-11-06
+ * @version 2008-09-14
  */
-public final class ProgramEvent {
-
-    private final Type type;
-    private final Program program;
-
-    public enum Type {
-
-        PROGRAM_EXECUTED,
-    }
+public interface UserSettingsListener {
 
     /**
-     * Constructor.
+     * Wende die neuen Einstellungen des Benutzers an.
      *
-     * @param type    event type
-     * @param program program
+     * @param evt Ereignis
      */
-    public ProgramEvent(Type type, Program program) {
-        this.type = type;
-        this.program = program;
-    }
-
-    /**
-     * Returns the program.
-     *
-     * @return program
-     */
-    public Program getProgram() {
-        return program;
-    }
-
-    /**
-     * Returns the event type.
-     *
-     * @return event type
-     */
-    public Type getType() {
-        return type;
-    }
+    void applySettings(UserSettingsEvent evt);
 }

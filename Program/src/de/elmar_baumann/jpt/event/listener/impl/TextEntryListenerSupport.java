@@ -20,9 +20,6 @@ package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Support to add, remove and notify {@link TextEntryListener}s.
@@ -30,18 +27,7 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009/07/20
  */
-public final class TextEntryListenerSupport {
-
-    private final Set<TextEntryListener> listeners =
-            Collections.synchronizedSet(new HashSet<TextEntryListener>());
-
-    public void addTextEntryListener(TextEntryListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeTextEntryListener(TextEntryListener listener) {
-        listeners.remove(listener);
-    }
+public final class TextEntryListenerSupport extends ListenerSupport<TextEntryListener> {
 
     public void notifyTextRemoved(Column column, String removedText) {
         synchronized (listeners) {

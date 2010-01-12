@@ -23,11 +23,10 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Filename;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Compresses the database.
@@ -37,14 +36,13 @@ import java.util.List;
  */
 public final class CompressDatabase implements Runnable {
 
-    private final List<ProgressListener> listeners =
-            new ArrayList<ProgressListener>();
-    private boolean success = false;
-    private long sizeBefore;
-    private long sizeAfter;
+    private final ProgressListenerSupport listenerSupport = new ProgressListenerSupport();
+    private       boolean                 success         = false;
+    private       long                    sizeBefore;
+    private       long                    sizeAfter;
 
     public synchronized void addProgressListener(ProgressListener l) {
-        listeners.add(l);
+        listenerSupport.add(l);
     }
 
     /**
@@ -97,9 +95,8 @@ public final class CompressDatabase implements Runnable {
 
     private synchronized void notifyStarted() {
         ProgressEvent evt = new ProgressEvent(this, Bundle.getString("DatabaseCompress.Start"));
-        for (ProgressListener listener : listeners) {
-            listener.progressStarted(evt);
-        }
+
+        listenerSupport.notifyStarted(evt);
     }
 
     private void logCompressDatabase() {
@@ -109,9 +106,8 @@ public final class CompressDatabase implements Runnable {
 
     private synchronized void notifyEnded() {
         ProgressEvent evt = new ProgressEvent(this, 0, 1, 1, getEndMessage());
-        for (ProgressListener listener : listeners) {
-            listener.progressEnded(evt);
-        }
+
+        listenerSupport.notifyEnded(evt);
     }
 
     private Object getEndMessage() {

@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     public ListModelKeywords() {
         addElements();
-        db.addDatabaseImageFilesListener(this);
+        db.addListener(this);
     }
 
     private void addElements() {
@@ -96,7 +96,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
         if (event.isTextMetadataAffected()) {
             checkForNewKeywords(event.getImageFile());
             removeNotExistingKeywords(event.getOldImageFile());

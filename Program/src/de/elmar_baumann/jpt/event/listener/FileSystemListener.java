@@ -16,53 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.event;
+package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.data.Program;
+import de.elmar_baumann.jpt.event.FileSystemEvent;
 
 /**
- * Event relating to a program. A program is outside this program and will be
- * called from this program. It displays or modifies images etc.
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008-11-06
+ * @version 2008-10-20
  */
-public final class ProgramEvent {
+public interface FileSystemListener {
 
-    private final Type type;
-    private final Program program;
-
-    public enum Type {
-
-        PROGRAM_EXECUTED,
-    }
 
     /**
-     * Constructor.
+     * Called if an file system event occured
      *
-     * @param type    event type
-     * @param program program
+     * @param event event
      */
-    public ProgramEvent(Type type, Program program) {
-        this.type = type;
-        this.program = program;
-    }
+    public void actionPerformed(FileSystemEvent event);
 
-    /**
-     * Returns the program.
-     *
-     * @return program
-     */
-    public Program getProgram() {
-        return program;
-    }
-
-    /**
-     * Returns the event type.
-     *
-     * @return event type
-     */
-    public Type getType() {
-        return type;
-    }
 }

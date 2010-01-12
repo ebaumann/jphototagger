@@ -21,9 +21,7 @@ package de.elmar_baumann.jpt.controller.filesystem;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
-import de.elmar_baumann.jpt.event.listener.FileSystemActionListener;
-import de.elmar_baumann.jpt.event.FileSystemError;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -39,12 +37,10 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-13
  */
-public final class ControllerMoveFiles implements ActionListener,
-                                                  FileSystemActionListener {
+public final class ControllerMoveFiles implements ActionListener, FileSystemListener {
 
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel    thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db              = DatabaseImageFiles.INSTANCE;
 
     public ControllerMoveFiles() {
         listen();
@@ -52,7 +48,6 @@ public final class ControllerMoveFiles implements ActionListener,
 
     private void listen() {
         PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles().addActionListener(this);
-        ListenerSupport.INSTANCE.addFileSystemActionListener(this);
     }
 
     @Override
@@ -65,23 +60,23 @@ public final class ControllerMoveFiles implements ActionListener,
         if (files.size() > 0) {
             MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
             dialog.setSourceFiles(files);
+            dialog.addFileSystemListener(this);
             dialog.setVisible(true);
         } else {
-            AppLog.logWarning(ControllerMoveFiles.class,
-                    "ControllerMoveFiles.ErrorMessaga.NoImagesSelected");
+            AppLog.logWarning(ControllerMoveFiles.class, "ControllerMoveFiles.ErrorMessaga.NoImagesSelected");
         }
     }
 
     @Override
-    public void actionPerformed(FileSystemEvent action, File src, File target) {
+    public void actionPerformed(FileSystemEvent event) {
+
+        if (!event.getType().equals(FileSystemEvent.Type.MOVE) || event.isError()) return;
+
+        File src    = event.getSource();
+        File target = event.getTarget();
+
         if (!src.getName().toLowerCase().endsWith(".xmp")) {
-            db.updateRename(
-                    src.getAbsolutePath(), target.getAbsolutePath());
+            db.updateRename(src.getAbsolutePath(), target.getAbsolutePath());
         }
-    }
-
-    @Override
-    public void actionFailed(FileSystemEvent action, FileSystemError error,
-            File src, File target) {
     }
 }

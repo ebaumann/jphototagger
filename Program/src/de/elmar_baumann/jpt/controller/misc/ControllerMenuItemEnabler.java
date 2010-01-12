@@ -20,9 +20,9 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
+import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
@@ -41,7 +41,7 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-27
  */
-public final class ControllerMenuItemEnabler implements DatabaseProgramListener, ThumbnailsPanelListener {
+public final class ControllerMenuItemEnabler implements DatabaseProgramsListener, ThumbnailsPanelListener {
 
     private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresSelectedImages = new HashMap<JMenuItem, List<Content>>();
     private final List<JMenuItem>               itemsRequiresSelectedImages              = new ArrayList<JMenuItem>();
@@ -60,7 +60,7 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramListener,
 
     private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
-        DatabasePrograms.INSTANCE.addDatabaseProgramListener(this);
+        DatabasePrograms.INSTANCE.addListener(this);
     }
 
     private void init() {
@@ -129,7 +129,7 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramListener,
     }
 
     @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
+    public void actionPerformed(DatabaseProgramsEvent event) {
         hasPrograms = !DatabasePrograms.INSTANCE.isEmpty();
         setEnabled();
     }

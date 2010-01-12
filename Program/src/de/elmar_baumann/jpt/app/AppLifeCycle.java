@@ -21,15 +21,14 @@ package de.elmar_baumann.jpt.app;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.factory.MetaFactory;
 import de.elmar_baumann.jpt.helper.Cleanup;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.swing.JFrame;
 
@@ -41,11 +40,11 @@ import javax.swing.JFrame;
  */
 public final class AppLifeCycle {
 
-    public static AppLifeCycle          INSTANCE      = new AppLifeCycle();
-    private final Set<Object>           saveObjects   = Collections.synchronizedSet(new HashSet<Object>());
-    private final List<AppExitListener> exitListeners = new ArrayList<AppExitListener>();
-    private       AppFrame              appFrame;
-    private       boolean               started;
+    public static AppLifeCycle                     INSTANCE        = new AppLifeCycle();
+    private final Set<Object>                      saveObjects     = Collections.synchronizedSet(new HashSet<Object>());
+    private final ListenerSupport<AppExitListener> listenerSupport = new ListenerSupport<AppExitListener>();
+    private       AppFrame                         appFrame;
+    private       boolean                          started;
 
     /**
      * Has be to call <em>once</em> after the {@link AppFrame} has been created.
@@ -94,9 +93,7 @@ public final class AppLifeCycle {
      * @param listener listener
      */
     public void addAppExitListener(AppExitListener listener) {
-        synchronized (exitListeners) {
-            exitListeners.add(listener);
-        }
+        listenerSupport.add(listener);
     }
 
     /**
@@ -106,14 +103,13 @@ public final class AppLifeCycle {
      * @param listener listener
      */
     public void removeAppExitListener(AppExitListener listener) {
-        synchronized (exitListeners) {
-            exitListeners.remove(listener);
-        }
+        listenerSupport.remove(listener);
     }
 
     private void notifyExitListeners() {
-        synchronized (exitListeners) {
-            for (AppExitListener listener : exitListeners) {
+        Set<AppExitListener> listeners = listenerSupport.get();
+        synchronized (listenerSupport) {
+            for (AppExitListener listener : listeners) {
                 listener.appWillExit();
             }
         }

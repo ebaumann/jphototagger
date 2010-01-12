@@ -60,7 +60,7 @@ public final class ControllerLogfileDialog
     private void listen() {
         itemShowDlg.addActionListener(this);
         labelError.addMouseListener(this);
-        ErrorListeners.INSTANCE.addErrorListener(this);
+        ErrorListeners.INSTANCE.add(this);
     }
 
     @Override

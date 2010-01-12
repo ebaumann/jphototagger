@@ -100,7 +100,7 @@ public final class AppLog {
      */
     public static void logWarning(Class<?> c, String bundleKey, Object... params) {
         log(c, Level.WARNING, bundleKey, params);
-        ErrorListeners.INSTANCE.notifyErrorListener(new ErrorEvent(bundleKey, c));
+        ErrorListeners.INSTANCE.notifyListeners(new ErrorEvent(bundleKey, c));
     }
 
     /**
@@ -112,7 +112,7 @@ public final class AppLog {
      */
     public static void logSevere(Class<?> c, Exception ex) {
         Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
-        ErrorListeners.INSTANCE.notifyErrorListener(
+        ErrorListeners.INSTANCE.notifyListeners(
                 new ErrorEvent(ex.getMessage(), c));
     }
 

@@ -20,14 +20,14 @@ package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.ErrorListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Error-Listener, erspart Klassen die Implementation von
- * <code>addErrorListener()</code> und <code>removeErrorListener()</code>.
+ * <code>add()</code> und <code>removeErrorListener()</code>.
  * Diese rufen statt dessen bei dieser Instanz auf:
- * {@link #notifyErrorListener(de.elmar_baumann.jpt.event.ErrorEvent)}.
+ * {@link #notifyListeners(de.elmar_baumann.jpt.event.ErrorEvent)}.
  *
  * Klassen, die sich für Fehler interessieren, melden sich bei der Instanz
  * dieser Klasse an.
@@ -37,26 +37,26 @@ import java.util.List;
  */
 public final class ErrorListeners {
 
-    private final List<ErrorListener> errorListeners = new ArrayList<ErrorListener>();
-    public static final ErrorListeners INSTANCE = new ErrorListeners();
+    private final       Set<ErrorListener> listeners = new HashSet<ErrorListener>();
+    public static final ErrorListeners     INSTANCE  = new ErrorListeners();
 
-    /**
-     * Meldet einen Beobachter an.
-     *
-     * @param listener  Beobachter
-     */
-    public synchronized void addErrorListener(ErrorListener listener) {
-        errorListeners.add(listener);
+    public void add(ErrorListener listener) {
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
     }
 
-    /**
-     * Meldet allen angemeldeten Errorlistenern einen Fehler.
-     *
-     * @param evt  Fehlerereignis
-     */
-    public synchronized void notifyErrorListener(ErrorEvent evt) {
-        for (ErrorListener listener : errorListeners) {
-            listener.error(evt);
+    public void remove(ErrorListener listener) {
+        synchronized (listeners) {
+            listeners.remove(listener);
+        }
+    }
+
+    public void notifyListeners(ErrorEvent evt) {
+        synchronized (listeners) {
+            for (ErrorListener listener : listeners) {
+                listener.error(evt);
+            }
         }
     }
 

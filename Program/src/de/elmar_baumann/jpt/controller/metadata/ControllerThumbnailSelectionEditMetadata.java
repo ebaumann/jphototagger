@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JButton;
@@ -50,7 +50,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
     private final JLabel labelMetadataInfoEditable =
             appPanel.getLabelMetadataInfoEditable();
-    private final EditMetadataPanelsArray editPanels =
+    private final EditMetadataPanels editPanels =
             appPanel.getEditMetadataPanelsArray();
     private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();

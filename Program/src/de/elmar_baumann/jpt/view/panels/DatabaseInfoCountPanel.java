@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
-import de.elmar_baumann.jpt.event.listener.impl.DatabaseListenerTotalRecordCount;
+import de.elmar_baumann.jpt.event.listener.impl.DatabaseTotalRecordCountListener;
 import de.elmar_baumann.jpt.model.TableModelDatabaseInfo;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Filename;
@@ -35,7 +35,7 @@ import de.elmar_baumann.jpt.view.renderer.TableCellRendererDatabaseInfoColumns;
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
     private static final long                             serialVersionUID         = -8537559082830438692L;
-    private final        DatabaseListenerTotalRecordCount listenerTotalRecordCount = new DatabaseListenerTotalRecordCount();
+    private final        DatabaseTotalRecordCountListener listenerTotalRecordCount = new DatabaseTotalRecordCountListener();
     private              TableModelDatabaseInfo           modelDatabaseInfo;
     private volatile     boolean                          listenToDbChanges;
 

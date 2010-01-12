@@ -169,11 +169,11 @@ public final class EditTextEntryPanel
     }
 
     public void addTextEntryListener(TextEntryListener listener) {
-        textEntryListenerSupport.addTextEntryListener(listener);
+        textEntryListenerSupport.add(listener);
     }
 
     public void removeTextEntryListener(TextEntryListener listener) {
-        textEntryListenerSupport.removeTextEntryListener(listener);
+        textEntryListenerSupport.remove(listener);
     }
 
     private void notifyTextChanged(Column column, String oldText, String newText) {

@@ -23,11 +23,12 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
-import de.elmar_baumann.jpt.event.listener.FileSystemActionListener;
-import de.elmar_baumann.jpt.event.FileSystemError;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+import de.elmar_baumann.jpt.event.listener.FileSystemListener;
+import de.elmar_baumann.jpt.io.FileSystemError;
+import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.io.FileSystemMove;
@@ -41,6 +42,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -48,20 +50,20 @@ import javax.swing.filechooser.FileSystemView;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-20
  */
-public final class MoveToDirectoryDialog extends Dialog
-        implements ProgressListener, FileSystemActionListener {
+public final class MoveToDirectoryDialog extends Dialog implements ProgressListener, FileSystemListener {
 
-    private static final String                 KEY_TARGET_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
-    private static final long                   serialVersionUID     = 3213926343815394815L;
-    private final        List<File>             movedFiles           = new ArrayList<File>();
-    private final        List<ProgressListener> progressListeners    = new ArrayList<ProgressListener>();
-    private              FileSystemMove         moveTask;
-    private              boolean                runs                 = false;
-    private              boolean                stop                 = false;
-    private              boolean                errors               = false;
-    private              List<File>             sourceFiles;
-    private              File                   targetDirectory      = new File("");
-    private              boolean                moveIfVisible        = false;
+    private static final String                    KEY_TARGET_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
+    private static final long                      serialVersionUID     = 3213926343815394815L;
+    private final        List<File>                movedFiles           = new ArrayList<File>();
+    private final        ProgressListenerSupport   pListenerSupport     = new ProgressListenerSupport();
+    private              FileSystemMove            moveTask;
+    private              boolean                   runs                 = false;
+    private              boolean                   stop                 = false;
+    private              boolean                   errors               = false;
+    private              List<File>                sourceFiles;
+    private              File                      targetDirectory      = new File("");
+    private              boolean                   moveIfVisible        = false;
+    private final        FileSystemListenerSupport listenerSupport      = new FileSystemListenerSupport();
 
     public MoveToDirectoryDialog() {
         super((java.awt.Frame) null, false);
@@ -69,29 +71,10 @@ public final class MoveToDirectoryDialog extends Dialog
         setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
-        ListenerSupport.INSTANCE.addFileSystemActionListener(this);
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {
-        progressListeners.add(listener);
-    }
-
-    private synchronized void notifyProgressListenerStarted(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressStarted(evt);
-        }
-    }
-
-    private synchronized void notifyProgressListenerPerformed(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressPerformed(evt);
-        }
-    }
-
-    private synchronized void notifyProgressListenerEnded(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressEnded(evt);
-        }
+        pListenerSupport.add(listener);
     }
 
     private void checkClosing() {
@@ -111,9 +94,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private void addXmpFiles() {
         List<File> xmpFiles = new ArrayList<File>();
         for (File sourceFile : sourceFiles) {
-            String xmpFilename =
-                    XmpMetadata.getSidecarFilename(
-                    sourceFile.getAbsolutePath());
+            String xmpFilename = XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
             if (xmpFilename != null) {
                 xmpFiles.add(new File(xmpFilename));
             }
@@ -122,8 +103,8 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     private void reset() {
-        runs = false;
-        stop = false;
+        runs   = false;
+        stop   = false;
         errors = false;
         movedFiles.clear();
     }
@@ -140,13 +121,18 @@ public final class MoveToDirectoryDialog extends Dialog
         runs = true;
     }
 
+    public void addFileSystemListener(FileSystemListener listener) {
+        listenerSupport.add(listener);
+    }
+
     private synchronized void addListenerToMoveTask() {
-        moveTask.addActionListener(this);
+        moveTask.addFileSystemListener(this);
         moveTask.addProgressListener(this);
-        List<FileSystemActionListener> listeners = ListenerSupport.INSTANCE.
-                getFileSystemActionListener();
-        for (FileSystemActionListener listener : listeners) {
-            moveTask.addActionListener(listener);
+        Set<FileSystemListener> listeners = listenerSupport.get();
+        synchronized (listeners) {
+            for (FileSystemListener listener : listenerSupport.get()) {
+                moveTask.addFileSystemListener(listener);
+            }
         }
     }
 
@@ -155,8 +141,7 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory,
-                UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> files = dialog.getSelectedDirectories();
@@ -216,8 +201,10 @@ public final class MoveToDirectoryDialog extends Dialog
             readProperties();
             if (moveIfVisible) {
                 start();
+                listenerSupport.add(this);
             } else {
                 setTargetDirectory();
+                listenerSupport.remove(this);
             }
         } else {
             writeProperties();
@@ -261,18 +248,17 @@ public final class MoveToDirectoryDialog extends Dialog
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
         checkStopEvent(evt);
-        notifyProgressListenerStarted(evt);
+        pListenerSupport.notifyStarted(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
         progressBar.setValue(evt.getValue());
         @SuppressWarnings("unchecked")
-        String filename = ((Pair<File, File>) evt.getInfo()).getFirst().
-                getAbsolutePath();
+        String filename = ((Pair<File, File>) evt.getInfo()).getFirst().getAbsolutePath();
         labelCurrentFilename.setText(filename);
         checkStopEvent(evt);
-        notifyProgressListenerPerformed(evt);
+        pListenerSupport.notifyPerformed(evt);
     }
 
     @Override
@@ -284,7 +270,7 @@ public final class MoveToDirectoryDialog extends Dialog
         moveTask = null;
         GUI.INSTANCE.getAppPanel().getPanelThumbnails().remove(movedFiles);
         removeMovedFiles();
-        notifyProgressListenerEnded(evt);
+        pListenerSupport.notifyEnded(evt);
         checkErrors();
         setVisible(false);
     }
@@ -307,17 +293,21 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     @Override
-    public void actionPerformed(FileSystemEvent action, File src, File target) {
-        movedFiles.add(src);
-    }
+    public void actionPerformed(FileSystemEvent event) {
 
-    @Override
-    public void actionFailed(FileSystemEvent action, FileSystemError error,
-            File src, File target) {
-        AppLog.logWarning(MoveToDirectoryDialog.class,
-                "MoveToDirectoryDialog.Error.Logfile", src, target,
-                error.getLocalizedMessage());
-        errors = true;
+        if (!event.getType().equals(FileSystemEvent.Type.MOVE)) return;
+        
+        File src = event.getSource();
+
+        if (event.isError()) {
+            File            target = event.getTarget();
+            FileSystemError error  = event.getError();
+
+            AppLog.logWarning(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.Error.Logfile", src, target, error.getLocalizedMessage());
+            errors = true;
+        } else {
+            movedFiles.add(src);
+        }
     }
 
     /** This method is called from within the constructor to

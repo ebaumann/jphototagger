@@ -22,9 +22,9 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.text.MessageFormat;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -37,12 +37,12 @@ import java.util.Set;
 public final class DeleteOrphanedXmp
         implements Runnable, ProgressListener {
 
-    private final    Set<ProgressListener> progressListeners   = new HashSet<ProgressListener>();
-    private volatile boolean                notifyProgressEnded;
-    private volatile boolean                stop;
-    private volatile int                    countDeleted       = 0;
-    private          String                 startMessage;
-    private          String                 endMessage;
+    private final    ProgressListenerSupport listenerSupport   = new ProgressListenerSupport();
+    private volatile boolean                 notifyProgressEnded;
+    private volatile boolean                 stop;
+    private volatile int                     countDeleted       = 0;
+    private          String                  startMessage;
+    private          String                  endMessage;
 
     @Override
     public void run() {
@@ -68,26 +68,39 @@ public final class DeleteOrphanedXmp
      * @param listener Fortschrittsbeobachter
      */
     public synchronized void addProgressListener(ProgressListener listener) {
-        progressListeners.add(listener);
+        listenerSupport.add(listener);
     }
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+
         evt.setInfo(getStartMessage(evt));
-        for (ProgressListener listener : progressListeners) {
-            listener.progressStarted(evt);
-            if (evt.isStop()) {
-                stop = true; // stop = evt.isStop() can be wrong when more than 1 listener
+
+        // Getting listeners to catch stop request
+        Set<ProgressListener> listeners = listenerSupport.get();
+
+        synchronized (listeners) {
+            for (ProgressListener listener : listeners) {
+                listener.progressStarted(evt);
+                if (evt.isStop()) {
+                    stop = true; // stop = evt.isStop() can be wrong when more than 1 listener
+                }
             }
         }
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressPerformed(evt);
-            if (evt.isStop()) {
-                stop = true; // stop = evt.isStop() can be wrong when more than 1 listener
+
+        // Getting listeners to catch stop request
+        Set<ProgressListener> listeners = listenerSupport.get();
+
+        synchronized (listeners) {
+            for (ProgressListener listener : listeners) {
+                listener.progressPerformed(evt);
+                if (evt.isStop()) {
+                    stop = true; // stop = evt.isStop() can be wrong when more than 1 listener
+                }
             }
         }
     }
@@ -97,9 +110,7 @@ public final class DeleteOrphanedXmp
         countDeleted += (Integer) evt.getInfo();
         evt.setInfo(getEndMessage());
         if (stop || notifyProgressEnded) {
-            for (ProgressListener listener : progressListeners) {
-                listener.progressEnded(evt);
-            }
+                listenerSupport.notifyEnded(evt);
         }
     }
 

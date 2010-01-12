@@ -1,9 +1,7 @@
-package de.elmar_baumann.jpt.event;
+package de.elmar_baumann.jpt.event.listener.impl;
 
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Adds, removes and notifies {@link ProgressListener} instances.
@@ -11,17 +9,7 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-18
  */
-public final class ProgressListenerSupport {
-
-    private final Set<ProgressListener> listeners = Collections.synchronizedSet(new HashSet<ProgressListener>());
-
-    public void addProgressListener(ProgressListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeProgressListener(ProgressListener listener) {
-        listeners.remove(listener);
-    }
+public final class ProgressListenerSupport extends ListenerSupport<ProgressListener> {
 
     /**
      * Calls on every added progress listener

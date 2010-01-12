@@ -16,38 +16,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.event.listener;
+package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.FileSystemError;
-import de.elmar_baumann.jpt.event.FileSystemEvent;
-import java.io.File;
+import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
+import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
 
 /**
  *
- *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008-10-20
+ * @version 2008-10-18
  */
-public interface FileSystemActionListener {
+public final class EditMetadataPanelsListenerSupport extends ListenerSupport<EditMetadataPanelsListener> {
 
-
-    /**
-     * Called if an file system was performed.
-     *
-     * @param action  action
-     * @param src     source file
-     * @param target  target file
-     */
-    public void actionPerformed(FileSystemEvent action, File src, File target);
-
-    /**
-     * Called if an file system action failed.
-     *
-     * @param action  action
-     * @param error   error
-     * @param src     source file
-     * @param target  target file
-     */
-    public void actionFailed(FileSystemEvent action, FileSystemError error, File src, File target);
-
+    public void notifyListeners(EditMetadataPanelsEvent event) {
+        synchronized (listeners) {
+            for (EditMetadataPanelsListener listener : listeners) {
+                listener.actionPerformed(event);
+            }
+        }
+    }
 }

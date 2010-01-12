@@ -32,7 +32,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -88,23 +88,23 @@ public final class TreeModelMiscMetadata
     }
 
     private void listen() {
-        db.addDatabaseImageFilesListener(this);
+        db.addListener(this);
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
 
-        DatabaseImageEvent.Type eventType = event.getType();
+        DatabaseImageFilesEvent.Type eventType = event.getType();
 
-        if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)) {
+        if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED)) {
             checkImageInserted(event.getImageFile());
 
-        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED) &&
+        } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED) &&
                 event.getOldImageFile() != null) {
 
             checkImageDeleted(event.getOldImageFile());
 
-        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
+        } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
 
             ImageFile imageFile = event.getImageFile();
 
@@ -116,7 +116,7 @@ public final class TreeModelMiscMetadata
                     checkImageDeleted(event.getOldImageFile());
                 }
             }
-        } else if (eventType.equals(DatabaseImageEvent.Type.EXIF_UPDATED)) {
+        } else if (eventType.equals(DatabaseImageFilesEvent.Type.EXIF_UPDATED)) {
 
             if (event.getImageFile()    != null) checkImageInserted(event.getImageFile());
             if (event.getOldImageFile() != null) checkImageDeleted (event.getOldImageFile());

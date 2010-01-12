@@ -29,10 +29,9 @@ import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsList;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
-import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -79,7 +78,7 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class AppPanel extends javax.swing.JPanel implements AppExitListener, UserSettingsChangeListener {
+public final class AppPanel extends javax.swing.JPanel implements AppExitListener, UserSettingsListener {
 
     private static final String                   KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain";
     private static final String                   KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails";
@@ -91,7 +90,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     private final        List<JTable>             metadataTables                      = new ArrayList<JTable>();
     private final        List<JTree>              selectionTrees                      = new ArrayList<JTree>();
     private final        List<JList>              selectionLists                      = new ArrayList<JList>();
-    private              EditMetadataPanelsArray  editPanelsArray;
+    private              EditMetadataPanels  editPanelsArray;
     private              EditMetadataActionsPanel editActionsPanel;
 
     public AppPanel() {
@@ -102,7 +101,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
     private void postInitComponents() {
         displaySearchButton();
-        editPanelsArray = new EditMetadataPanelsArray(panelEditMetadata);
+        editPanelsArray = new EditMetadataPanels(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
         setBackgroundColorTablesScrollPanes();
         setTreesSingleSelection();
@@ -112,7 +111,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         displayInitKeywordsView();
         setTextFieldSearchImage();
         setEnabledDisplayIptc();
-        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
+        UserSettings.INSTANCE.addUserSettingsListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
@@ -134,7 +133,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         initSelectionListsCollection();
     }
 
-    public EditMetadataPanelsArray getEditMetadataPanelsArray() {
+    public EditMetadataPanels getEditMetadataPanelsArray() {
         return editPanelsArray;
     }
 
@@ -521,8 +520,8 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     }
 
     @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.DISPLAY_IPTC)) {
+    public void applySettings(UserSettingsEvent evt) {
+        if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_IPTC)) {
             setEnabledDisplayIptc();
         }
     }

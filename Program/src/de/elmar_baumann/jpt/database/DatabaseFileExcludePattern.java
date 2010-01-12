@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.database;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import java.sql.Connection;
@@ -40,8 +40,7 @@ import java.util.List;
  */
 public final class DatabaseFileExcludePattern extends Database {
 
-    public static final DatabaseFileExcludePattern INSTANCE =
-            new DatabaseFileExcludePattern();
+    public static final DatabaseFileExcludePattern INSTANCE = new DatabaseFileExcludePattern();
 
     private DatabaseFileExcludePattern() {
     }
@@ -209,7 +208,7 @@ public final class DatabaseFileExcludePattern extends Database {
                             PersistentThumbnails.getThumbnailFileOfImageFile(filename).delete();
                             ImageFile deletedImageFile = new ImageFile();
                             deletedImageFile.setFilename(filename);
-                            DatabaseImageFiles.INSTANCE.notifyListener(DatabaseImageEvent.Type.IMAGEFILE_DELETED, deletedImageFile);
+                            DatabaseImageFiles.INSTANCE.notifyListeners(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED, deletedImageFile);
                         }
 
                         stop = event.isStop();

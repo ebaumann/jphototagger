@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.metadata.selections.MetadataTableModels;
 import de.elmar_baumann.jpt.data.SelectedFile;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
@@ -91,7 +91,7 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
 
     private void listen() {
         appPanel.getPanelThumbnails().addThumbnailsPanelListener(this);
-        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
     private void initMetadatModels() {
@@ -175,7 +175,7 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
         if (isShowMetadata(event.getType())) {
             ImageFile imageFile = event.getImageFile();
             showUpdates(imageFile.getFile(),
@@ -183,10 +183,10 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
         }
     }
 
-    private boolean isShowMetadata(DatabaseImageEvent.Type eventType) {
-        return eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED) ||
-                eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED) ||
-                eventType.equals(DatabaseImageEvent.Type.XMP_UPDATED);
+    private boolean isShowMetadata(DatabaseImageFilesEvent.Type eventType) {
+        return eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED) ||
+                eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED) ||
+                eventType.equals(DatabaseImageFilesEvent.Type.XMP_UPDATED);
     }
 
     private Set<Metadata> getMetadataToShowAfterDbChange(ImageFile imageFile) {

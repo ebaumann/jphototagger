@@ -23,9 +23,8 @@ import de.elmar_baumann.jpt.cache.RenderedThumbnailCache;
 import de.elmar_baumann.jpt.cache.ThumbnailCache;
 import de.elmar_baumann.jpt.cache.XmpCache;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
-import de.elmar_baumann.jpt.event.RenameFileEvent;
-import de.elmar_baumann.jpt.event.listener.RenameFileListener;
+import de.elmar_baumann.jpt.event.FileSystemEvent;
+import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.RenameDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -49,13 +48,11 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-13
  */
 public final class ControllerRenameFiles
-        implements ActionListener, KeyListener, RenameFileListener {
+        implements ActionListener, KeyListener, FileSystemListener {
 
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenuItem menuItemRename =
-            PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel    thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final JMenuItem          menuItemRename  = PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles();
+    private final DatabaseImageFiles db              = DatabaseImageFiles.INSTANCE;
 
     public ControllerRenameFiles() {
         listen();
@@ -64,7 +61,6 @@ public final class ControllerRenameFiles
     private void listen() {
         thumbnailsPanel.addKeyListener(this);
         menuItemRename.addActionListener(this);
-        ListenerSupport.INSTANCE.addRenameFileListener(this);
     }
 
     @Override
@@ -87,28 +83,31 @@ public final class ControllerRenameFiles
             RenameDialog dialog = new RenameDialog();
             Collections.sort(files);
             dialog.setFiles(files);
-            dialog.setEnabledTemplates(
-                    thumbnailsPanel.getContent().isUniqueFileSystemDirectory());
+            dialog.addFileSystemListener(this);
+            dialog.setEnabledTemplates(thumbnailsPanel.getContent().isUniqueFileSystemDirectory());
             dialog.setVisible(true);
         }
     }
 
     @Override
-    public void actionPerformed(final RenameFileEvent action) {
-        final File oldFile = action.getOldFile();
-        final File newFile = action.getNewFile();
-        AppLog.logInfo(ControllerRenameFiles.class,
-                "ControllerRenameFiles.Info.Rename", oldFile, newFile);
-        db.updateRename(
-                oldFile.getAbsolutePath(), newFile.getAbsolutePath());
+    public void actionPerformed(FileSystemEvent event) {
+
+        if (!event.getType().equals(FileSystemEvent.Type.RENAME) || event.isError()) return;
+
+        final File src    = event.getSource();
+        final File target = event.getTarget();
+
+        AppLog.logInfo(ControllerRenameFiles.class, "ControllerRenameFiles.Info.Rename", src, target);
+
+        db.updateRename(src.getAbsolutePath(), target.getAbsolutePath());
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                ThumbnailCache.INSTANCE.updateFiles(oldFile, newFile);
-                XmpCache.INSTANCE.updateFiles(oldFile, newFile);
-                RenderedThumbnailCache.INSTANCE.updateFiles(oldFile, newFile);
-                thumbnailsPanel.rename(action.getOldFile(), action.getNewFile());
+                ThumbnailCache.INSTANCE.updateFiles(src, target);
+                XmpCache.INSTANCE.updateFiles(src, target);
+                RenderedThumbnailCache.INSTANCE.updateFiles(src, target);
+                thumbnailsPanel.rename(src, target);
             }
         });
     }

@@ -38,11 +38,11 @@ import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
-import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
-import de.elmar_baumann.jpt.event.listener.MetadataEditPanelListener;
+import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
+import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
+import de.elmar_baumann.jpt.event.listener.impl.EditMetadataPanelsListenerSupport;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -60,7 +60,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -77,28 +76,25 @@ import javax.swing.event.ListDataListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class EditMetadataPanelsArray
+public final class EditMetadataPanels
         implements FocusListener,
                    DatabaseImageFilesListener,
                    AppExitListener,
                    ListDataListener
 {
 
-    private final List<JPanel>                    panels               = new ArrayList<JPanel>();
-    private final List<Pair<String, Xmp>>         filenamesXmp         = new ArrayList<Pair<String, Xmp>>();
-    private       List<MetadataEditPanelListener> listeners            = new LinkedList<MetadataEditPanelListener>();
-    private       boolean                         editable             = true;
-    private       WatchDifferentValues            watchDifferentValues = new WatchDifferentValues();
-    private       JComponent                      container;
-    private       EditMetadataActionsPanel        editActionsPanel;
-    private       Component                       lastFocussedEditControl;
-    private       ListenerSupport                listenerProvider;
-    private       Component                       wrapFocusComponent;
+    private final List<JPanel>                      panels               = new ArrayList<JPanel>();
+    private final List<Pair<String, Xmp>>           filenamesXmp         = new ArrayList<Pair<String, Xmp>>();
+    private       boolean                           editable             = true;
+    private       WatchDifferentValues              watchDifferentValues = new WatchDifferentValues();
+    private       JComponent                        container;
+    private       EditMetadataActionsPanel          editActionsPanel;
+    private       Component                         lastFocussedEditControl;
+    private       Component                         wrapFocusComponent;
+    private final EditMetadataPanelsListenerSupport listenerSupport = new EditMetadataPanelsListenerSupport();
 
-    public EditMetadataPanelsArray(JComponent container) {
+    public EditMetadataPanels(JComponent container) {
         this.container   = container;
-        listenerProvider = ListenerSupport.INSTANCE;
-        listeners        = listenerProvider.getMetadataEditPanelListeners();
         createEditPanels();
         setWrapFocusComponent();
         addPanels();
@@ -142,12 +138,6 @@ public final class EditMetadataPanelsArray
         }
     }
 
-    private synchronized void notifyActionListener(MetadataEditPanelEvent evt) {
-        for (MetadataEditPanelListener l : listeners) {
-            l.actionPerformed(evt);
-        }
-    }
-
     /**
      * Setzt, ob die Daten bearbeitet werden können.
      *
@@ -158,10 +148,11 @@ public final class EditMetadataPanelsArray
         for (JPanel panel : panels) {
             ((TextEntry) panel).setEditable(editable);
         }
-        notifyActionListener(new MetadataEditPanelEvent(this,
-                editable
-                ? MetadataEditPanelEvent.Type.EDIT_ENABLED
-                : MetadataEditPanelEvent.Type.EDIT_DISABLED));
+        listenerSupport.notifyListeners(new EditMetadataPanelsEvent(
+                    this,
+                    editable
+                        ? EditMetadataPanelsEvent.Type.EDIT_ENABLED
+                        : EditMetadataPanelsEvent.Type.EDIT_DISABLED));
     }
 
     /**
@@ -576,7 +567,7 @@ public final class EditMetadataPanelsArray
     }
 
     private void listenToActionSources() {
-        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
@@ -701,7 +692,7 @@ public final class EditMetadataPanelsArray
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
         if (event.isTextMetadataAffected()) {
             ImageFile imageFile = event.getImageFile();
             setModifiedXmp(imageFile);
@@ -887,6 +878,14 @@ public final class EditMetadataPanelsArray
         if (UserSettings.INSTANCE.isSaveInputEarly() && isDirty()) {
             save();
         }
+    }
+
+    public void addEditMetadataPanelsListener(EditMetadataPanelsListener listener) {
+        listenerSupport.add(listener);
+    }
+
+    public void removeEditMetadataPanelsListener(EditMetadataPanelsListener listener) {
+        listenerSupport.remove(listener);
     }
 }
 

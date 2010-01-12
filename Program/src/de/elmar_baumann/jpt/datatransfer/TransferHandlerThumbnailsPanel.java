@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.types.ContentUtil;
 import de.elmar_baumann.jpt.view.ViewUtil;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
@@ -189,7 +189,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     public void importStrings(DataFlavor dataFlavor, Object[] strings) {
         if (strings == null || strings.length <= 0) return;
 
-        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         Column                  column     = dataFlavor.equals(Flavor.KEYWORDS_LIST)
                                                 ? ColumnXmpDcSubjectsSubject.INSTANCE
                                                 : null;

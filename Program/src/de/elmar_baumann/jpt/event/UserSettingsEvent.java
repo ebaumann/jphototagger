@@ -24,7 +24,7 @@ package de.elmar_baumann.jpt.event;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-14
  */
-public final class UserSettingsChangeEvent {
+public final class UserSettingsEvent {
 
     private Object source;
     private Type   type;
@@ -60,7 +60,7 @@ public final class UserSettingsChangeEvent {
         WEB_BROWSER,
     }
 
-    public UserSettingsChangeEvent(Type type, Object source) {
+    public UserSettingsEvent(Type type, Object source) {
         this.type = type;
         this.source = source;
     }
