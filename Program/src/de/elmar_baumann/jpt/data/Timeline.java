@@ -380,6 +380,7 @@ public final class Timeline {
         int year = getYear(yearNode);
         while (!inserted && index < childCount) {
             Object userObject = ((DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++)).getUserObject();
+            if (userObject == UNKNOWN_NODE) return;
             assert userObject instanceof Date;
             inserted = ((Date) userObject).year == year;
         }
