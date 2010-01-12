@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.data.MetadataTemplate;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
  */
-public final class MetadataTemplateEvent {
+public final class DatabaseMetadataTemplateEvent {
 
     public enum Type {
         ADDED,
@@ -40,14 +40,14 @@ public final class MetadataTemplateEvent {
     private final MetadataTemplate oldTemplate;
     private final Object           source;
 
-    public MetadataTemplateEvent(Type type, MetadataTemplate template, MetadataTemplate oldTemplate, Object source) {
+    public DatabaseMetadataTemplateEvent(Type type, MetadataTemplate template, MetadataTemplate oldTemplate, Object source) {
         this.type        = type;
         this.template    = template;
         this.oldTemplate = oldTemplate;
         this.source      = source;
     }
 
-    public MetadataTemplateEvent(Type type, MetadataTemplate template, Object source) {
+    public DatabaseMetadataTemplateEvent(Type type, MetadataTemplate template, Object source) {
         this.type        = type;
         this.template    = template;
         this.source      = source;

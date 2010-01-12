@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.MetadataTemplateEvent;
+import de.elmar_baumann.jpt.event.DatabaseMetadataTemplateEvent;
 
 /**
  *
@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.event.MetadataTemplateEvent;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
  */
-public interface MetadataTemplateEventListener {
+public interface DatabaseMetadataTemplateEventListener {
 
-    public void actionPerformed(MetadataTemplateEvent evt);
+    public void actionPerformed(DatabaseMetadataTemplateEvent evt);
 }

@@ -39,8 +39,8 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.MetadataTemplateEvent;
-import de.elmar_baumann.jpt.event.listener.MetadataTemplateEventListener;
+import de.elmar_baumann.jpt.event.DatabaseMetadataTemplateEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplateEventListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,7 +64,7 @@ public class DatabaseMetadataTemplates extends Database {
 
     private static final String                          DELIM_REPEATABLE_STRINGS = "\t";
     public static final  DatabaseMetadataTemplates   INSTANCE                 = new DatabaseMetadataTemplates();
-    private final Set<MetadataTemplateEventListener> listeners                = Collections.synchronizedSet(new HashSet<MetadataTemplateEventListener>());
+    private final Set<DatabaseMetadataTemplateEventListener> listeners                = Collections.synchronizedSet(new HashSet<DatabaseMetadataTemplateEventListener>());
 
     private DatabaseMetadataTemplates() {
     }
@@ -117,7 +117,7 @@ public class DatabaseMetadataTemplates extends Database {
             connection.commit();
             inserted = true;
             stmt.close();
-            notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.ADDED, template, this));
+            notifyListeners(new DatabaseMetadataTemplateEvent(DatabaseMetadataTemplateEvent.Type.ADDED, template, this));
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
@@ -392,7 +392,7 @@ public class DatabaseMetadataTemplates extends Database {
             connection.commit();
             updated = count > 0;
             stmt.close();
-            if (updated) notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.UPDATED, template, oldTemplate, this));
+            if (updated) notifyListeners(new DatabaseMetadataTemplateEvent(DatabaseMetadataTemplateEvent.Type.UPDATED, template, oldTemplate, this));
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
@@ -429,7 +429,7 @@ public class DatabaseMetadataTemplates extends Database {
             stmt.close();
             if (renamed) {
                 MetadataTemplate newTemplate = find(newName);
-                notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.UPDATED, newTemplate, oldTemplate, this));
+                notifyListeners(new DatabaseMetadataTemplateEvent(DatabaseMetadataTemplateEvent.Type.UPDATED, newTemplate, oldTemplate, this));
             }
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
@@ -461,7 +461,7 @@ public class DatabaseMetadataTemplates extends Database {
             connection.commit();
             deleted = count > 0;
             stmt.close();
-            if (deleted) notifyListeners(new MetadataTemplateEvent(MetadataTemplateEvent.Type.DELETED, template, this));
+            if (deleted) notifyListeners(new DatabaseMetadataTemplateEvent(DatabaseMetadataTemplateEvent.Type.DELETED, template, this));
         } catch (SQLException ex) {
             AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
@@ -495,17 +495,17 @@ public class DatabaseMetadataTemplates extends Database {
         return exists;
     }
 
-    public void addEventListener(MetadataTemplateEventListener listener) {
+    public void addEventListener(DatabaseMetadataTemplateEventListener listener) {
         listeners.add(listener);
     }
 
-    public void removeEventListener(MetadataTemplateEventListener listener) {
+    public void removeEventListener(DatabaseMetadataTemplateEventListener listener) {
         listeners.remove(listener);
     }
 
-    private void notifyListeners(MetadataTemplateEvent evt) {
+    private void notifyListeners(DatabaseMetadataTemplateEvent evt) {
         synchronized (listeners) {
-            for (MetadataTemplateEventListener listener : listeners) {
+            for (DatabaseMetadataTemplateEventListener listener : listeners) {
                 listener.actionPerformed(evt);
             }
         }
