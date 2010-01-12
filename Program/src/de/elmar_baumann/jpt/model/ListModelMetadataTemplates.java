@@ -20,8 +20,8 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
-import de.elmar_baumann.jpt.event.MetadataTemplateEvent;
-import de.elmar_baumann.jpt.event.listener.MetadataTemplateEventListener;
+import de.elmar_baumann.jpt.event.DatabaseMetadataTemplateEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplateEventListener;
 import javax.swing.DefaultListModel;
 
 /**
@@ -32,7 +32,7 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelMetadataTemplates
         extends    DefaultListModel
-        implements MetadataTemplateEventListener {
+        implements DatabaseMetadataTemplateEventListener {
 
     private static final long serialVersionUID = -1726658041913008196L;
 
@@ -48,7 +48,7 @@ public final class ListModelMetadataTemplates
     }
 
     @Override
-    public void actionPerformed(MetadataTemplateEvent evt) {
+    public void actionPerformed(DatabaseMetadataTemplateEvent evt) {
 
         if (evt.wasAdded()) {
 
