@@ -599,7 +599,7 @@ public final class EditMetadataPanels
         List<Column> columns = UserSettings.INSTANCE.getEditColumns();
 
         for (Column column : columns) {
-            EditHints editHints = EditColumns.getEditHints(column);
+            EditHints editHints  = EditColumns.getEditHints(column);
             boolean large        = editHints.getSizeEditField().equals(SizeEditField.LARGE);
             boolean isRepeatable = editHints.isRepeatable();
 
@@ -621,7 +621,7 @@ public final class EditMetadataPanels
                 } else {
                     EditTextEntryPanel panel = new EditTextEntryPanel(column);
                     panel.textAreaEdit.addFocusListener(this);
-                    panel.textAreaEdit.setRows(large ? 2 : 1);
+                    panel.textAreaEdit.setRows(large ? 4 : 1);
                     panels.add(panel);
                 }
             }
