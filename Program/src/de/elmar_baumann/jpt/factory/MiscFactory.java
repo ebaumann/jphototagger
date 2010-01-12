@@ -53,8 +53,8 @@ public final class MiscFactory {
             AppPanel            appPanel                 = GUI.INSTANCE.getAppPanel();
             PopupMenuThumbnails popupMenuPanelThumbnails = PopupMenuThumbnails.INSTANCE;
 
-            DatabaseImageFiles.INSTANCE.addListener(appPanel.getEditMetadataPanelsArray());
-            appPanel.getEditMetadataPanelsArray().setAutocomplete();
+            DatabaseImageFiles.INSTANCE.addListener(appPanel.getEditMetadataPanels());
+            appPanel.getEditMetadataPanels().setAutocomplete();
 
             popupMenuPanelThumbnails.setOtherPrograms();
             AppLifeCycle.INSTANCE.addAppExitListener(appPanel.getPanelThumbnails());

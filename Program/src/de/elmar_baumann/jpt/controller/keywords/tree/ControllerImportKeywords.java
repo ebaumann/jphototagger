@@ -103,7 +103,7 @@ public final class ControllerImportKeywords implements ActionListener {
                     for (Pair<String, Boolean> keyword : path) {
                         DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getFirst());
                         if (existingNode == null) {
-                            model.addKeyword(node, keyword.getFirst(), keyword.getSecond());
+                            model.insert(node, keyword.getFirst(), keyword.getSecond());
                             node = model.findChildByName(node, keyword.getFirst());
                         } else {
                             node = existingNode;

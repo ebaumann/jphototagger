@@ -86,7 +86,7 @@ public final class ControllerDeleteFavorite
                     TreeModelFavorites model =
                             (TreeModelFavorites) appPanel.getTreeFavorites().
                             getModel();
-                    model.deleteFavorite(favoriteDirectory);
+                    model.delete(favoriteDirectory);
                 }
             });
         }

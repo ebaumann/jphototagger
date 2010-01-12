@@ -137,7 +137,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
         Object[] keywords = TransferHandlerKeywordsList.getKeywords(transferSupport.getTransferable());
         if (keywords == null) return;
         for (Object keyword : keywords) {
-            treeModel.addKeyword(node, keyword.toString(), true);
+            treeModel.insert(node, keyword.toString(), true);
         }
     }
 

@@ -60,7 +60,7 @@ public final class KeywordsHelper {
      *             instance of {@link DefaultMutableTreeNode}!</em>
      */
     public static void addKeywordsToEditPanel(DefaultMutableTreeNode node) {
-        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         for (String keyword : getKeywordStrings(node, true)) {
             editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
         }
@@ -309,7 +309,7 @@ public final class KeywordsHelper {
                         && DatabaseImageFiles.INSTANCE.exists(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)) {
                     JTree                         treeKeywords = GUI.INSTANCE.getAppPanel().getTreeEditKeywords();
                     TreeModelKeywords model        = (TreeModelKeywords)treeKeywords.getModel();
-                    model.addKeyword((DefaultMutableTreeNode) model.getRoot(), keyword, true);
+                    model.insert((DefaultMutableTreeNode) model.getRoot(), keyword, true);
                 }
             }
         }

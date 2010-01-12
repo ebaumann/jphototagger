@@ -77,14 +77,14 @@ public class ControllerKeywordsDisplayImages
     private void showImages(Keyword keyword) {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        appPanel.displaySelKeewordsTree();
+        appPanel.displaySelKeywordsTree();
         KeywordsHelper.selectNode(appPanel.getTreeSelKeywords(), keyword);
     }
 
     private void showImages(String keyword) {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        appPanel.displaySelKeewordsList();
+        appPanel.displaySelKeywordsList();
         ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
     }
 }

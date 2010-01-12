@@ -68,7 +68,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         dlg.setVisible(true);
         Program action = dlg.getSelectedProgram();
         if (dlg.accepted() && !modelActionsAfterDbInsertion.contains(action)) {
-            modelActionsAfterDbInsertion.add(action);
+            modelActionsAfterDbInsertion.insert(action);
             setButtonsEnabled();
         }
     }
@@ -89,7 +89,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         Program action = (Program) modelActionsAfterDbInsertion.get(
                 listActionsAfterDatabaseInsertion.getSelectedIndex());
         if (confirmRemoveActionAfterDatabaseInsertion(action.getAlias())) {
-            modelActionsAfterDbInsertion.remove(action);
+            modelActionsAfterDbInsertion.delete(action);
             setButtonsEnabled();
         }
     }

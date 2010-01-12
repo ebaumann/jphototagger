@@ -70,7 +70,7 @@ public class ControllerAddKeywordsToEditPanel
     }
 
     private void addToEditPanel(List<String> keywordNames) {
-        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;

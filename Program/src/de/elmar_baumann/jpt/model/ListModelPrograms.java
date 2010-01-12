@@ -50,7 +50,7 @@ public final class ListModelPrograms extends DefaultListModel {
         }
     }
 
-    public void remove(Program program) {
+    public void delete(Program program) {
         if (contains(program) && DatabasePrograms.INSTANCE.delete(program)) {
             removeElement(program);
         } else {

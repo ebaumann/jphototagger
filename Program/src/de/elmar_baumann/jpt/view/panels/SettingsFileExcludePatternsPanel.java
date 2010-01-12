@@ -61,14 +61,14 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     private void deletePattern() {
         String pattern = (String) listPattern.getSelectedValue();
-        model.deletePattern(pattern);
+        model.delete(pattern);
         setEnabledButtons();
     }
 
     private void insertPattern() {
         String input = textFieldInputPattern.getText().trim();
         if (canInsertPattern(input)) {
-            model.insertPattern(input);
+            model.insert(input);
         }
         setEnabledButtons();
     }

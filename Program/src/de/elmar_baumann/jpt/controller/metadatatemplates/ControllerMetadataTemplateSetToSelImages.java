@@ -49,7 +49,7 @@ public final class ControllerMetadataTemplateSetToSelImages extends ControllerMe
     @Override
     protected void action(MetadataTemplate template) {
         if (!imagesSelected()) return;
-        GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray().setMetadataTemplate(template);
+        GUI.INSTANCE.getAppPanel().getEditMetadataPanels().setMetadataTemplate(template);
         focusList();
    }
 

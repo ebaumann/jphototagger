@@ -50,6 +50,6 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
     private void addKeyword(String keyword) {
         TreeModelKeywords model =
                 (TreeModelKeywords) GUI.INSTANCE.getAppPanel().getTreeEditKeywords().getModel();
-        model.addKeyword((DefaultMutableTreeNode)model.getRoot(), keyword, true);
+        model.insert((DefaultMutableTreeNode)model.getRoot(), keyword, true);
     }
 }

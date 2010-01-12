@@ -44,7 +44,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
         return new ArrayList<String>(patterns);
     }
 
-    public void insertPattern(String pattern) {
+    public void insert(String pattern) {
         String trimmedPattern = pattern.trim();
         if (db.exists(trimmedPattern)) {
             MessageDisplayer.error(
@@ -63,7 +63,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
         }
     }
 
-    public void deletePattern(String pattern) {
+    public void delete(String pattern) {
         String trimmedPattern = pattern.trim();
         if (db.delete(trimmedPattern)) {
             removeElement(trimmedPattern);

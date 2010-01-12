@@ -133,7 +133,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         initSelectionListsCollection();
     }
 
-    public EditMetadataPanels getEditMetadataPanelsArray() {
+    public EditMetadataPanels getEditMetadataPanels() {
         return editPanelsArray;
     }
 
@@ -454,12 +454,12 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         displaySelKeywordsCard(name);
     }
 
-    public void displaySelKeewordsTree() {
+    public void displaySelKeywordsTree() {
         tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
         displaySelKeywordsCard("keywordsTree");
     }
 
-    public void displaySelKeewordsList() {
+    public void displaySelKeywordsList() {
         tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
         displaySelKeywordsCard("flatKeywords");
     }
