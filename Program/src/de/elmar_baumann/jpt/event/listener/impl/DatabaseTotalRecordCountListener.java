@@ -20,14 +20,17 @@ package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
+import de.elmar_baumann.jpt.event.DatabaseMetadataTemplatesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionListener;
-import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
+import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionsListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplatesListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -39,24 +42,26 @@ import javax.swing.JLabel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-17
  */
-public final class DatabaseListenerTotalRecordCount
+public final class DatabaseTotalRecordCountListener
         implements DatabaseImageFilesListener,
-                   DatabaseProgramListener,
-                   DatabaseImageCollectionListener
+                   DatabaseProgramsListener,
+                   DatabaseImageCollectionsListener,
+                   DatabaseMetadataTemplatesListener
         {
 
-    private final DatabaseStatistics db = DatabaseStatistics.INSTANCE;
-    private final List<JLabel> labels = new ArrayList<JLabel>();
-    boolean listen = false;
+    private final DatabaseStatistics db     = DatabaseStatistics.INSTANCE;
+    private final List<JLabel>       labels = new ArrayList<JLabel>();
+    private       boolean            listen = false;
 
-    public DatabaseListenerTotalRecordCount() {
+    public DatabaseTotalRecordCountListener() {
         listen();
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
-        DatabasePrograms.INSTANCE.addDatabaseProgramListener(this);
-        DatabaseImageCollections.INSTANCE.addDatabaseImageCollectionListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
+        DatabasePrograms.INSTANCE.addListener(this);
+        DatabaseImageCollections.INSTANCE.addListener(this);
+        DatabaseMetadataTemplates.INSTANCE.addListener(this);
     }
 
     /**
@@ -88,17 +93,22 @@ public final class DatabaseListenerTotalRecordCount
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
         setCount();
     }
 
     @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
+    public void actionPerformed(DatabaseProgramsEvent event) {
         setCount();
     }
 
     @Override
-    public void actionPerformed(DatabaseImageCollectionEvent event) {
+    public void actionPerformed(DatabaseImageCollectionsEvent event) {
+        setCount();
+    }
+
+    @Override
+    public void actionPerformed(DatabaseMetadataTemplatesEvent evt) {
         setCount();
     }
 

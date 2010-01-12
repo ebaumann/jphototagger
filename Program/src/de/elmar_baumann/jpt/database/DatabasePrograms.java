@@ -20,15 +20,15 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.Program;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
+import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -43,8 +43,8 @@ import java.util.Set;
  */
 public final class DatabasePrograms extends Database {
 
-    public static final DatabasePrograms INSTANCE = new DatabasePrograms();
-    private final Set<DatabaseProgramListener> listeners = new HashSet<DatabaseProgramListener>();
+    public static final DatabasePrograms                          INSTANCE        = new DatabasePrograms();
+    private final       ListenerSupport<DatabaseProgramsListener> listenerSupport = new ListenerSupport<DatabaseProgramsListener>();
 
     private DatabasePrograms() {
     }
@@ -85,7 +85,7 @@ public final class DatabasePrograms extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
-            notifyListeners(DatabaseProgramEvent.Type.PROGRAM_INSERTED, program);
+            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_INSERTED, program);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -166,7 +166,7 @@ public final class DatabasePrograms extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
-            notifyListeners(DatabaseProgramEvent.Type.PROGRAM_UPDATED, program);
+            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_UPDATED, program);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -222,7 +222,7 @@ public final class DatabasePrograms extends Database {
             // Hack because of dirty design of this table (no cascade possible)
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
             stmt.close();
-            notifyListeners(DatabaseProgramEvent.Type.PROGRAM_DELETED, program);
+            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_DELETED, program);
         } catch (SQLException ex) {
             AppLog.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -380,27 +380,25 @@ public final class DatabasePrograms extends Database {
         return count > 0;
     }
 
-    public void addDatabaseProgramListener(DatabaseProgramListener listener) {
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
+    public void addListener(DatabaseProgramsListener listener) {
+        listenerSupport.add(listener);
     }
 
-    public void removeDatabaseProgramListener(DatabaseProgramListener listener) {
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
+    public void removeListener(DatabaseProgramsListener listener) {
+        listenerSupport.remove(listener);
     }
 
     private void notifyListeners(
-            DatabaseProgramEvent.Type type,
+            DatabaseProgramsEvent.Type type,
             Program                   program
             ) {
-        DatabaseProgramEvent event = new DatabaseProgramEvent(type);
+        DatabaseProgramsEvent         event     = new DatabaseProgramsEvent(type);
+        Set<DatabaseProgramsListener> listeners = listenerSupport.get();
 
         event.setProgram(program);
+
         synchronized(listeners) {
-            for (DatabaseProgramListener listener : listeners) {
+            for (DatabaseProgramsListener listener : listeners) {
                 listener.actionPerformed(event);
             }
         }

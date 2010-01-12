@@ -22,13 +22,12 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
-import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
-import de.elmar_baumann.jpt.event.listener.MetadataEditPanelListener;
+import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
+import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataTemplates;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -42,18 +41,18 @@ import javax.swing.SwingUtilities;
  * @version 2008-09-22
  */
 public final class ControllerMetadataTemplates
-    implements ActionListener, MetadataEditPanelListener {
+    implements ActionListener, EditMetadataPanelsListener {
 
     private final DatabaseMetadataTemplates      db                           = DatabaseMetadataTemplates.INSTANCE;
-    private final AppPanel                           appPanel                     = GUI.INSTANCE.getAppPanel();
-    private final EditMetadataPanelsArray            editPanels                   = appPanel.getEditMetadataPanelsArray();
-    private final JComboBox                          comboBoxMetadataTemplates    = appPanel.getComboBoxMetadataTemplates();
+    private final AppPanel                       appPanel                     = GUI.INSTANCE.getAppPanel();
+    private final EditMetadataPanels             editPanels                   = appPanel.getEditMetadataPanelsArray();
+    private final JComboBox                      comboBoxMetadataTemplates    = appPanel.getComboBoxMetadataTemplates();
     private final ComboBoxModelMetadataTemplates model                        = (ComboBoxModelMetadataTemplates) comboBoxMetadataTemplates.getModel();
-    private final JButton                            buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
-    private final JButton                            buttonMetadataTemplateUpdate = appPanel.getButtonMetadataTemplateUpdate();
-    private final JButton                            buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();
-    private final JButton                            buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
-    private final JButton                            buttonMetadataTemplateRename = appPanel.getButtonMetadataTemplateRename();
+    private final JButton                        buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
+    private final JButton                        buttonMetadataTemplateUpdate = appPanel.getButtonMetadataTemplateUpdate();
+    private final JButton                        buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();
+    private final JButton                        buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
+    private final JButton                        buttonMetadataTemplateRename = appPanel.getButtonMetadataTemplateRename();
 
     public ControllerMetadataTemplates() {
         listen();
@@ -67,7 +66,7 @@ public final class ControllerMetadataTemplates
         buttonMetadataTemplateDelete.addActionListener(this);
         buttonMetadataTemplateInsert.addActionListener(this);
         buttonMetadataTemplateRename.addActionListener(this);
-        ListenerSupport.INSTANCE.addMetadataEditPanelListener(this);
+        editPanels.addEditMetadataPanelsListener(this);
     }
 
     private void setButtonsEnabled() {
@@ -80,13 +79,13 @@ public final class ControllerMetadataTemplates
     }
 
     @Override
-    public void actionPerformed(MetadataEditPanelEvent event) {
-        MetadataEditPanelEvent.Type type = event.getType();
+    public void actionPerformed(EditMetadataPanelsEvent event) {
+        EditMetadataPanelsEvent.Type type = event.getType();
 
-        if (type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED) ||
-                type.equals(MetadataEditPanelEvent.Type.EDIT_DISABLED)) {
+        if (type.equals(EditMetadataPanelsEvent.Type.EDIT_ENABLED) ||
+                type.equals(EditMetadataPanelsEvent.Type.EDIT_DISABLED)) {
             buttonMetadataTemplateInsert.setEnabled(
-                    type.equals(MetadataEditPanelEvent.Type.EDIT_ENABLED));
+                    type.equals(EditMetadataPanelsEvent.Type.EDIT_ENABLED));
         }
     }
 

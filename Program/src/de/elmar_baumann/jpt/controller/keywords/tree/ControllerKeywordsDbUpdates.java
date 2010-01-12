@@ -3,7 +3,7 @@ package de.elmar_baumann.jpt.controller.keywords.tree;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -23,13 +23,13 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
-        if (event.getType().equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)
-                || event.getType().equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
+        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED)
+                || event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
             addNotExistingKeywords(event.getImageFile());
         }
     }

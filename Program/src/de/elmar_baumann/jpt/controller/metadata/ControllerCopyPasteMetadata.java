@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -35,9 +35,9 @@ import javax.swing.JMenuItem;
 /**
  * Listens to the menu items {@link PopupMenuThumbnails#getItemCopyMetadata()} and
  * {@link PopupMenuThumbnails#getItemPasteMetadata()} and on action performed copies
- * XMP metadata of the {@link EditMetadataPanelsArray} or paste it via
- * {@link EditMetadataPanelsArray#getXmp()} or
- * {@link EditMetadataPanelsArray#setXmp(de.elmar_baumann.jpt.data.Xmp)}.
+ * XMP metadata of the {@link EditMetadataPanels} or paste it via
+ * {@link EditMetadataPanels#getXmp()} or
+ * {@link EditMetadataPanels#setXmp(de.elmar_baumann.jpt.data.Xmp)}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-07
@@ -88,7 +88,7 @@ public final class ControllerCopyPasteMetadata
     private void paste() {
         assert xmp != null : "xmp is null!";
         if (xmp == null) return;
-        EditMetadataPanelsArray editPanel = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+        EditMetadataPanels editPanel = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         if (!checkSelected() || !checkCanEdit(editPanel)) return;
         editPanel.setXmp(xmp);
         menuItemPaste.setEnabled(false);
@@ -106,7 +106,7 @@ public final class ControllerCopyPasteMetadata
         return true;
     }
 
-    private boolean checkCanEdit(EditMetadataPanelsArray editPanel) {
+    private boolean checkCanEdit(EditMetadataPanels editPanel) {
         if (!editPanel.isEditable()) {
             MessageDisplayer.error(
                     null,

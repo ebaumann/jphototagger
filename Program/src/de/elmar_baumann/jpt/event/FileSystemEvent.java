@@ -18,28 +18,56 @@
  */
 package de.elmar_baumann.jpt.event;
 
+import de.elmar_baumann.jpt.io.FileSystemError;
+import java.io.File;
+
 /**
  * Event in a file system.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-20
  */
-public enum FileSystemEvent {
+public final class FileSystemEvent {
 
-    /**
-     * A file was copied
-     */
-    COPY,
-    /**
-     * A file was deleted
-     */
-    DELETE,
-    /**
-     * A file was moved
-     */
-    MOVE,
-    /**
-     * A file was renamed
-     */
-    RENAME,
+    public enum Type {
+        COPY,
+        DELETE,
+        MOVE,
+        RENAME
+    }
+
+    private final Type            type;
+    private final File            source;
+    private final File            target;
+    private       FileSystemError error;
+
+    public FileSystemEvent(Type type, File source, File target) {
+        this.type   = type;
+        this.source = source;
+        this.target = target;
+    }
+
+    public boolean isError() {
+        return error != null;
+    }
+
+    public FileSystemError getError() {
+        return error;
+    }
+
+    public void setError(FileSystemError error) {
+        this.error = error;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public File getSource() {
+        return source;
+    }
+
+    public File getTarget() {
+        return target;
+    }
 }

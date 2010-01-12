@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.controller.search;
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.data.SavedSearchParamStatement;
 import de.elmar_baumann.jpt.database.DatabaseFind;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -29,7 +28,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -53,14 +52,14 @@ public final class ControllerAdvancedSearch
     private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
     private final List<JTree>             selectionTrees  = appPanel.getSelectionTrees();
-    private final EditMetadataPanelsArray editPanels      = appPanel.getEditMetadataPanelsArray();
+    private final EditMetadataPanels editPanels      = appPanel.getEditMetadataPanelsArray();
 
     public ControllerAdvancedSearch() {
         listen();
     }
 
     private void listen() {
-        ListenerSupport.INSTANCE.addSearchListener(this);
+        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel().addSearchListener(this);
     }
 
     @Override

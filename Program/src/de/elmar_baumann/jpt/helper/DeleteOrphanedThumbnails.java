@@ -23,13 +23,12 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -44,14 +43,14 @@ import java.util.Set;
  */
 public final class DeleteOrphanedThumbnails implements Runnable {
 
-    private final    List<ProgressListener> listeners        = new ArrayList<ProgressListener>();
-    private          int                    countFilesInDir  = 0;
-    private          int                    countDeleted     = 0;
-    private          int                    currentFileIndex = 0;
+    private final    ProgressListenerSupport listenerSupport  = new ProgressListenerSupport();
+    private          int                     countFilesInDir  = 0;
+    private          int                     countDeleted     = 0;
+    private          int                     currentFileIndex = 0;
     private volatile boolean cancelled = false;
 
     public synchronized void addProgressListener(ProgressListener l) {
-        listeners.add(l);
+        listenerSupport.add(l);
     }
 
     /**
@@ -95,33 +94,25 @@ public final class DeleteOrphanedThumbnails implements Runnable {
     }
 
     private synchronized void notifyStarted() {
-        AppLog.logInfo(DeleteOrphanedThumbnails.class,
-                "DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
-        ProgressEvent evt = new ProgressEvent(
-                this, 0, countFilesInDir, 0, getStartMessage());
-        for (ProgressListener listener : listeners) {
-            listener.progressStarted(evt);
-        }
+        AppLog.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
+        ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, 0, getStartMessage());
+
+        listenerSupport.notifyStarted(evt);
     }
 
     private synchronized void notifyPerformed(File file) {
-        AppLog.logFinest(DeleteOrphanedThumbnails.class,
-                "DeleteOrphanedThumbnails.Info.Performed", file);
-        ProgressEvent evt = new ProgressEvent(
-                this, 0, countFilesInDir, currentFileIndex, getPerformedMessage(file));
-        for (ProgressListener listener : listeners) {
-            listener.progressPerformed(evt);
-        }
+        AppLog.logFinest(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Performed", file);
+        ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, currentFileIndex, getPerformedMessage(file));
+
+        listenerSupport.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent(
-                this, 0, countFilesInDir, currentFileIndex, getEndMessage());
-        for (ProgressListener listener : listeners) {
-            listener.progressEnded(evt);
-        }
-        AppLog.logInfo(DeleteOrphanedThumbnails.class,
-                "DeleteOrphanedThumbnails.Info.End", currentFileIndex);
+        ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, currentFileIndex, getEndMessage());
+
+        listenerSupport.notifyEnded(evt);
+
+        AppLog.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.End", currentFileIndex);
     }
 
     private String getStartMessage() {

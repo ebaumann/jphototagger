@@ -19,10 +19,8 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.FileSystemError;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
-import de.elmar_baumann.jpt.event.listener.FileSystemActionListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.io.ImageUtil;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import java.io.File;
@@ -33,26 +31,22 @@ import java.util.EnumSet;
  * Updates the database on file system events.
  *
  * <strong>Usage:</strong> Create an instance and register it as
- * {@link FileSystemActionListener} to a process copying/renaming/deleting
+ * {@link FileSystemListener} to a process copying/renaming/deleting
  * files. Example:
  *
  * {@code
  * CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
  * dialog.setSourceFiles(files);
- * dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater());
+ * dialog.addFileSystemListener(new FilesystemDatabaseUpdater());
  * dialog.setVisible(true);
  * }
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-11
  */
-public final class FilesystemDatabaseUpdater implements FileSystemActionListener {
+public final class FilesystemDatabaseUpdater implements FileSystemListener {
 
-    boolean wait;
-
-    public FilesystemDatabaseUpdater() {
-        ListenerSupport.INSTANCE.addFileSystemActionListener(this);
-    }
+    volatile boolean wait;
 
     /**
      * Creates a new instance.
@@ -62,31 +56,35 @@ public final class FilesystemDatabaseUpdater implements FileSystemActionListener
      */
     public FilesystemDatabaseUpdater(boolean wait) {
         this.wait = wait;
-        ListenerSupport.INSTANCE.addFileSystemActionListener(this);
     }
 
     @Override
-    public void actionPerformed(FileSystemEvent action, File src, File target) {
+    public void actionPerformed(FileSystemEvent event) {
+
+        if (event.isError()) return;
+
+        File                 src    = event.getSource();
+        File                 target = event.getTarget();
+        FileSystemEvent.Type type   = event.getType();
 
         if (!ImageUtil.isImageFile(src)) return;
-        if (action.equals(FileSystemEvent.COPY)) {
+
+        if (type.equals(FileSystemEvent.Type.COPY)) {
+
             insertFileIntoDatabase(target);
-        } else if (action.equals(FileSystemEvent.DELETE)) {
+
+        } else if (type.equals(FileSystemEvent.Type.DELETE)) {
+
             removeFileFromDatabase(src);
-        } else if (action.equals(FileSystemEvent.MOVE) || action.equals(FileSystemEvent.RENAME)) {
+
+        } else if (type.equals(FileSystemEvent.Type.MOVE) || type.equals(FileSystemEvent.Type.RENAME)) {
+
             DatabaseImageFiles.INSTANCE.updateRename(src.getAbsolutePath(), target.getAbsolutePath());
         }
     }
 
-    @Override
-    public void actionFailed(
-            FileSystemEvent action, FileSystemError error, File src, File target) {
-        // ignore
-    }
-
     private void insertFileIntoDatabase(File file) {
-        InsertImageFilesIntoDatabase inserter =
-                new InsertImageFilesIntoDatabase(
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                 Arrays.asList(file.getAbsolutePath()),
                 EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
         if (wait) {

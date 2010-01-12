@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -36,7 +36,7 @@ public final class ControllerEmptyMetadata implements ActionListener {
 
     private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private final EditMetadataPanelsArray editPanels =
+    private final EditMetadataPanels editPanels =
             appPanel.getEditMetadataPanelsArray();
 
     public ControllerEmptyMetadata() {

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 
 /**
  * Listens to events in the database.
@@ -27,11 +27,6 @@ import de.elmar_baumann.jpt.event.DatabaseImageEvent;
  */
 public interface DatabaseImageFilesListener {
 
-    /**
-     * An image event occured.
-     *
-     * @param event event
-     */
-    public void actionPerformed(DatabaseImageEvent event);
+    public void actionPerformed(DatabaseImageFilesEvent event);
 
 }

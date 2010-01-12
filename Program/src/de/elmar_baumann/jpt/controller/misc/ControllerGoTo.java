@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,7 +42,7 @@ public final class ControllerGoTo implements ActionListener {
 
     private final AppPanel                        appPanel         = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel                 thumbnailsPanel  = appPanel.getPanelThumbnails();
-    private final EditMetadataPanelsArray         editPanels       = appPanel.getEditMetadataPanelsArray();
+    private final EditMetadataPanels         editPanels       = appPanel.getEditMetadataPanelsArray();
     private final JTextField                      textFieldSearch  = appPanel.getTextFieldSearch();
     private final AppFrame                        appFrame         = GUI.INSTANCE.getAppFrame();
     private final Map<AppFrame.GoTo, Component>   componentOfGoTo  = new HashMap<AppFrame.GoTo, Component>();

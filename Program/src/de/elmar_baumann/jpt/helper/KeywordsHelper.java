@@ -28,7 +28,7 @@ import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public final class KeywordsHelper {
      *             instance of {@link DefaultMutableTreeNode}!</em>
      */
     public static void addKeywordsToEditPanel(DefaultMutableTreeNode node) {
-        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         for (String keyword : getKeywordStrings(node, true)) {
             editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
         }

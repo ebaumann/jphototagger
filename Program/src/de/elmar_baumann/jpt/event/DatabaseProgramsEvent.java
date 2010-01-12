@@ -18,45 +18,66 @@
  */
 package de.elmar_baumann.jpt.event;
 
-import java.io.File;
+import de.elmar_baumann.jpt.data.Program;
 
 /**
- * Event: A file was renamed.
+ * Event in a database related to an program.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008-10-13
+ * @version 2009-06-19
  */
-public final class RenameFileEvent {
-
-    private final File oldFile;
-    private final File newFile;
+public final class DatabaseProgramsEvent {
 
     /**
-     * Constructor.
-     *
-     * @param oldFile old file
-     * @param newFile new file
+     * Event type.
      */
-    public RenameFileEvent(File oldFile, File newFile) {
-        this.oldFile = oldFile;
-        this.newFile = newFile;
+    public enum Type {
+
+        PROGRAM_INSERTED,
+        PROGRAM_DELETED,
+        PROGRAM_UPDATED,
+    };
+
+    private Type type;
+    private Program program;
+
+    public DatabaseProgramsEvent(Type type) {
+        this.type = type;
     }
 
     /**
-     * Returns the new file.
+     * Returns the event type.
      *
-     * @return new file
+     * @return event type
      */
-    public File getNewFile() {
-        return newFile;
+    public Type getType() {
+        return type;
     }
 
     /**
-     * Returns the old file.
+     * Sets the event type.
      *
-     * @return old file
+     * @param type event type
      */
-    public File getOldFile() {
-        return oldFile;
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    /**
+     * Returns the related program.
+     *
+     * @return program
+     */
+    public Program getProgram() {
+        return program;
+    }
+
+    /**
+     * Sets the related program.
+     *
+     * @param program program
+     */
+    public void setProgram(Program program) {
+        this.program = program;
     }
 }

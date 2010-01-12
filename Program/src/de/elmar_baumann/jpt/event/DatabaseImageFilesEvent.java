@@ -28,7 +28,7 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-15
  */
-public final class DatabaseImageEvent {
+public final class DatabaseImageFilesEvent {
 
     /**
      * Event type.
@@ -76,7 +76,7 @@ public final class DatabaseImageEvent {
         TEXT_METADATA_EVENTS.add(Type.XMP_UPDATED);
     }
 
-    public DatabaseImageEvent(Type type) {
+    public DatabaseImageFilesEvent(Type type) {
         this.type = type;
     }
 

@@ -28,7 +28,7 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-04
  */
-public final class DatabaseImageCollectionEvent {
+public final class DatabaseImageCollectionsEvent {
 
     /**
      * Event type.
@@ -63,7 +63,7 @@ public final class DatabaseImageCollectionEvent {
      * @param collectionName name of the image collection
      * @param filenames      names of the affected files
      */
-    public DatabaseImageCollectionEvent(Type type,
+    public DatabaseImageCollectionsEvent(Type type,
             String collectionName,
             Collection<? extends String> filenames) {
         this.type = type;

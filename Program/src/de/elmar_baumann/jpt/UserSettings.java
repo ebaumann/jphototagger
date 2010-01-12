@@ -25,9 +25,10 @@ import de.elmar_baumann.jpt.app.update.UpdateUserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.ColumnUtil;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent.Type;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
+import de.elmar_baumann.jpt.event.UserSettingsEvent.Type;
+import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
+import de.elmar_baumann.jpt.event.listener.impl.UserSettingsListenerSupport;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.helper.CopyFiles.Options;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator;
@@ -60,42 +61,42 @@ import java.util.logging.XMLFormatter;
  */
 public final class UserSettings {
 
-    private static final int              DEFAULT_MAX_THUMBNAIL_WIDTH                                   = 150;
-    private static final int              DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS                      = 5;
-    private static final String           DELIMITER_COLUMNS                                             = "\t";
-    private static final String           DOMAIN_NAME                                                   = "de.elmar_baumann"; // NEVER CHANGE!
-    private static final String           KEY_ACCEPT_HIDDEN_DIRECTORIES                                 = "UserSettings.IsAcceptHiddenDirectories";
-    private static final String           KEY_AUTOCOPY_DIRECTORY                                        = "UserSettings.AutocopyDirectory";
-    private static final String           KEY_AUTO_DOWNLOAD_NEWER_VERSIONS                              = "UserSettings.AutoDownloadNewerVersions";
-    private static final String           KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES                          = "UserSettings.IsAutoscanIncludeSubdirectories";
-    private static final String           KEY_DATABASE_DIRECTORY                                        = "UserSettings.DatabaseDirectoryName";
-    private static final String           KEY_DEFAULT_IMAGE_OPEN_APP                                    = "UserSettings.DefaultImageOpenApp";
-    private static final String           KEY_DISPLAY_SEARCH_BUTTON                                     = "UserSettings.DisplaySearchButton";
-    private static final String           KEY_EDIT_COLUMNS                                              = "UserSettings.EditColumns";
-    private static final String           KEY_DISPLAY_IPTC                                              = "UserSettings.DisplayIptc";
-    private static final String           KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS           = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
-    private static final String           KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
-    private static final String           KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND                       = "UserSettings.ExternalThumbnailCreationCommand";
-    private static final String           KEY_FAST_SEARCH_COLUMNS                                       = "UserSettings.FastSearchColumns";
-    private static final String           KEY_IPTC_CHARSET                                              = "UserSettings.IptcCharset";
-    private static final String           KEY_LOGFILE_FORMATTER_CLASS                                   = "UserSettings.LogfileFormatterClass";
-    private static final String           KEY_LOG_LEVEL                                                 = "UserSettings.LogLevel";
-    private static final String           KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS                = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
-    private static final String           KEY_MAX_THUMBNAIL_WIDTH                                       = "UserSettings.MaxThumbnailWidth";
-    private static final String           KEY_MINUTES_TO_START_SCHEDULED_TASKS                          = "UserSettings.MinutesToStartScheduledTasks";
-    private static final String           KEY_OPTIONS_COPY_MOVE_FILES                                   = "UserSettings.CopyMoveFiles";
-    private static final String           KEY_PDF_VIEWER                                                = "UserSettings.PdfViewer";
-    private static final String           KEY_SAVE_INPUT_EARLY                                          = "UserSettings.SaveInputEarly";
-    private static final String           KEY_SCAN_FOR_EMBEDDED_XMP                                     = "UserSettings.ScanForEmbeddedXmp";
-    private static final String           KEY_THUMBNAIL_CREATOR                                         = "UserSettings.ThumbnailCreator";
-    private static final String           KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY                    = "UserSettings.TreeDirectoriesSelectLastDirectory";
-    private static final String           KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser";
-    private static final String           PROPERTIES_FILENAME                                           = "Settings.properties"; // NEVER CHANGE!
-    private final        Properties       properties                                                    = new Properties();
-    private final        PropertiesFile   propertiesToFile                                              = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
-    private final        Settings         settings                                                      = new Settings(properties);
-    public static final  UserSettings     INSTANCE                                                      = new UserSettings();
-    private final        ListenerSupport listenerProvider                                              = ListenerSupport.INSTANCE;
+    private static final int                         DEFAULT_MAX_THUMBNAIL_WIDTH                                   = 150;
+    private static final int                         DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS                      = 5;
+    private static final String                      DELIMITER_COLUMNS                                             = "\t";
+    private static final String                      DOMAIN_NAME                                                   = "de.elmar_baumann"; // NEVER CHANGE!
+    private static final String                      KEY_ACCEPT_HIDDEN_DIRECTORIES                                 = "UserSettings.IsAcceptHiddenDirectories";
+    private static final String                      KEY_AUTOCOPY_DIRECTORY                                        = "UserSettings.AutocopyDirectory";
+    private static final String                      KEY_AUTO_DOWNLOAD_NEWER_VERSIONS                              = "UserSettings.AutoDownloadNewerVersions";
+    private static final String                      KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES                          = "UserSettings.IsAutoscanIncludeSubdirectories";
+    private static final String                      KEY_DATABASE_DIRECTORY                                        = "UserSettings.DatabaseDirectoryName";
+    private static final String                      KEY_DEFAULT_IMAGE_OPEN_APP                                    = "UserSettings.DefaultImageOpenApp";
+    private static final String                      KEY_DISPLAY_SEARCH_BUTTON                                     = "UserSettings.DisplaySearchButton";
+    private static final String                      KEY_EDIT_COLUMNS                                              = "UserSettings.EditColumns";
+    private static final String                      KEY_DISPLAY_IPTC                                              = "UserSettings.DisplayIptc";
+    private static final String                      KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS           = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
+    private static final String                      KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
+    private static final String                      KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND                       = "UserSettings.ExternalThumbnailCreationCommand";
+    private static final String                      KEY_FAST_SEARCH_COLUMNS                                       = "UserSettings.FastSearchColumns";
+    private static final String                      KEY_IPTC_CHARSET                                              = "UserSettings.IptcCharset";
+    private static final String                      KEY_LOGFILE_FORMATTER_CLASS                                   = "UserSettings.LogfileFormatterClass";
+    private static final String                      KEY_LOG_LEVEL                                                 = "UserSettings.LogLevel";
+    private static final String                      KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS                = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
+    private static final String                      KEY_MAX_THUMBNAIL_WIDTH                                       = "UserSettings.MaxThumbnailWidth";
+    private static final String                      KEY_MINUTES_TO_START_SCHEDULED_TASKS                          = "UserSettings.MinutesToStartScheduledTasks";
+    private static final String                      KEY_OPTIONS_COPY_MOVE_FILES                                   = "UserSettings.CopyMoveFiles";
+    private static final String                      KEY_PDF_VIEWER                                                = "UserSettings.PdfViewer";
+    private static final String                      KEY_SAVE_INPUT_EARLY                                          = "UserSettings.SaveInputEarly";
+    private static final String                      KEY_SCAN_FOR_EMBEDDED_XMP                                     = "UserSettings.ScanForEmbeddedXmp";
+    private static final String                      KEY_THUMBNAIL_CREATOR                                         = "UserSettings.ThumbnailCreator";
+    private static final String                      KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY                    = "UserSettings.TreeDirectoriesSelectLastDirectory";
+    private static final String                      KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser";
+    private static final String                      PROPERTIES_FILENAME                                           = "Settings.properties"; // NEVER CHANGE!
+    private final        Properties                  properties                                                    = new Properties();
+    private final        PropertiesFile              propertiesToFile                                              = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
+    private final        Settings                    settings                                                      = new Settings(properties);
+    public static final  UserSettings                INSTANCE                                                      = new UserSettings();
+    private final        UserSettingsListenerSupport listenerSupport                                              = new UserSettingsListenerSupport();
 
     private UserSettings() {
         propertiesToFile.readFromFile();
@@ -140,7 +141,7 @@ public final class UserSettings {
     public void setDatabaseDirectoryName(String directoryName) {
         settings.setString(directoryName, KEY_DATABASE_DIRECTORY);
         writeToFile();
-        notifyListener(Type.DATABASE_DIRECTORY);
+        notifyListeners(Type.DATABASE_DIRECTORY);
     }
 
     /**
@@ -245,7 +246,7 @@ public final class UserSettings {
     public void setThumbnailCreator(ThumbnailCreator creator) {
         properties.put(KEY_THUMBNAIL_CREATOR, creator.name());
         writeToFile();
-        notifyListener(Type.THUMBNAIL_CREATOR);
+        notifyListeners(Type.THUMBNAIL_CREATOR);
     }
 
     public ThumbnailCreator getThumbnailCreator() {
@@ -257,7 +258,7 @@ public final class UserSettings {
     public void setExternalThumbnailCreationCommand(String command) {
         settings.setString(command, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
         writeToFile();
-        notifyListener(Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND);
+        notifyListeners(Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
 
     /**
@@ -273,7 +274,7 @@ public final class UserSettings {
     public void setWebBrowser(String webBrowser) {
         settings.setString(webBrowser, KEY_WEB_BROWSER);
         writeToFile();
-        notifyListener(Type.WEB_BROWSER);
+        notifyListeners(Type.WEB_BROWSER);
     }
 
     /**
@@ -288,7 +289,7 @@ public final class UserSettings {
     public void setPdfViewer(String pdfViewer) {
         settings.setString(pdfViewer, KEY_PDF_VIEWER);
         writeToFile();
-        notifyListener(Type.PDF_VIEWER);
+        notifyListeners(Type.PDF_VIEWER);
     }
 
     /**
@@ -303,7 +304,7 @@ public final class UserSettings {
     public void setLogLevel(Level logLevel) {
         settings.setString(logLevel.toString(), KEY_LOG_LEVEL);
         writeToFile();
-        notifyListener(Type.LOG_LEVEL);
+        notifyListeners(Type.LOG_LEVEL);
     }
 
     /**
@@ -333,13 +334,13 @@ public final class UserSettings {
     public void setNoFastSearchColumns() {
         properties.remove(KEY_FAST_SEARCH_COLUMNS);
         writeToFile();
-        notifyListener(UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS);
+        notifyListeners(UserSettingsEvent.Type.NO_FAST_SEARCH_COLUMNS);
     }
 
     public void setFastSearchColumns(List<Column> columns) {
         settings.setString(getColumnKeys(columns), KEY_FAST_SEARCH_COLUMNS);
         writeToFile();
-        notifyListener(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS);
+        notifyListeners(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS);
     }
 
     private String getColumnKeys(List<Column> columns) {
@@ -369,7 +370,7 @@ public final class UserSettings {
     public void setEditColumns(List<Column> columns) {
         settings.setString(getColumnKeys(columns), KEY_EDIT_COLUMNS);
         writeToFile();
-        notifyListener(Type.EDIT_COLUMNS);
+        notifyListeners(Type.EDIT_COLUMNS);
     }
 
     /**
@@ -390,7 +391,7 @@ public final class UserSettings {
     public void setDefaultImageOpenApp(File app) {
         settings.setString(app.getAbsolutePath(), KEY_DEFAULT_IMAGE_OPEN_APP);
         writeToFile();
-        notifyListener(Type.DEFAULT_IMAGE_OPEN_APP);
+        notifyListeners(Type.DEFAULT_IMAGE_OPEN_APP);
     }
 
     /**
@@ -428,7 +429,7 @@ public final class UserSettings {
     public void setDisplaySearchButton(boolean display) {
         settings.setBoolean(display, KEY_DISPLAY_SEARCH_BUTTON);
         writeToFile();
-        notifyListener(Type.DISPLAY_SEARCH_BUTTON);
+        notifyListeners(Type.DISPLAY_SEARCH_BUTTON);
     }
 
     /**
@@ -446,7 +447,7 @@ public final class UserSettings {
     public void setScanForEmbeddedXmp(boolean scan) {
         settings.setBoolean(scan, KEY_SCAN_FOR_EMBEDDED_XMP);
         writeToFile();
-        notifyListener(Type.SCAN_FOR_EMBEDDED_XMP);
+        notifyListeners(Type.SCAN_FOR_EMBEDDED_XMP);
     }
 
     /**
@@ -465,7 +466,7 @@ public final class UserSettings {
     public void setCopyMoveFilesOptions(Options options) {
         settings.setInt(options.getInt(), KEY_OPTIONS_COPY_MOVE_FILES);
         writeToFile();
-        notifyListener(Type.OPTIONS_COPY_MOVE_FILES);
+        notifyListeners(Type.OPTIONS_COPY_MOVE_FILES);
     }
 
     /**
@@ -483,7 +484,7 @@ public final class UserSettings {
         settings.setBoolean(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
         settings.setBoolean(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         writeToFile();
-        notifyListener(Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
+        notifyListeners(Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
     }
 
     /**
@@ -505,7 +506,7 @@ public final class UserSettings {
         settings.setBoolean(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
         settings.setBoolean(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         writeToFile();
-        notifyListener(Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        notifyListeners(Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
     }
 
     /**
@@ -525,7 +526,7 @@ public final class UserSettings {
     public void setIptcCharset(String charset) {
         settings.setString(charset, KEY_IPTC_CHARSET);
         writeToFile();
-        notifyListener(Type.IPTC_CHARSET);
+        notifyListeners(Type.IPTC_CHARSET);
     }
 
     /**
@@ -543,7 +544,7 @@ public final class UserSettings {
     public void setAutoscanIncludeSubdirectories(boolean include) {
         settings.setBoolean(include, KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES);
         writeToFile();
-        notifyListener(Type.AUTO_SCAN_INCLUDE_DIRECTORIES);
+        notifyListeners(Type.AUTO_SCAN_INCLUDE_DIRECTORIES);
     }
 
     /**
@@ -561,7 +562,7 @@ public final class UserSettings {
     public void setTreeDirectoriesSelectLastDirectory(boolean select) {
         settings.setBoolean(select, KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
         writeToFile();
-        notifyListener(Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
+        notifyListeners(Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
     }
 
     /**
@@ -598,13 +599,13 @@ public final class UserSettings {
     public void setSaveInputEarly(boolean early) {
         settings.setBoolean(early, KEY_SAVE_INPUT_EARLY);
         writeToFile();
-        notifyListener(Type.SAVE_INPUT_EARLY);
+        notifyListeners(Type.SAVE_INPUT_EARLY);
     }
 
     public void setLogfileFormatterClass(Class<?> logfileFormatterClass) {
         setToPropertiesLogfileFormatterClass(logfileFormatterClass);
         writeToFile();
-        notifyListener(Type.LOGFILE_FORMATTER_CLASS);
+        notifyListeners(Type.LOGFILE_FORMATTER_CLASS);
     }
 
     private void setToPropertiesLogfileFormatterClass(Class<?> formatterClass) {
@@ -636,7 +637,7 @@ public final class UserSettings {
     public void setMinutesToStartScheduledTasks(int minutes) {
         settings.setString(Integer.toString(minutes), KEY_MINUTES_TO_START_SCHEDULED_TASKS);
         writeToFile();
-        notifyListener(Type.MINUTES_TO_START_SCHEDULED_TASKS);
+        notifyListeners(Type.MINUTES_TO_START_SCHEDULED_TASKS);
     }
 
     /**
@@ -656,13 +657,13 @@ public final class UserSettings {
     public void setMaxThumbnailWidth(int width) {
         settings.setString(Integer.toString(width), KEY_MAX_THUMBNAIL_WIDTH);
         writeToFile();
-        notifyListener(Type.MAX_THUMBNAIL_WIDTH);
+        notifyListeners(Type.MAX_THUMBNAIL_WIDTH);
     }
 
     public void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
         settings.setInt(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
         writeToFile();
-        notifyListener(Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
+        notifyListeners(Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
     }
 
     /**
@@ -679,7 +680,7 @@ public final class UserSettings {
     public void setAcceptHiddenDirectories(boolean accept) {
         settings.setBoolean(accept, KEY_ACCEPT_HIDDEN_DIRECTORIES);
         writeToFile();
-        notifyListener(Type.ACCEPT_HIDDEN_DIRECTORIES);
+        notifyListeners(Type.ACCEPT_HIDDEN_DIRECTORIES);
     }
 
     /**
@@ -697,7 +698,7 @@ public final class UserSettings {
     public void setAutoCopyDirectory(File directory) {
         settings.setString(directory.getAbsolutePath(), KEY_AUTOCOPY_DIRECTORY);
         writeToFile();
-        notifyListener(Type.AUTOCOPY_DIRECTORY);
+        notifyListeners(Type.AUTOCOPY_DIRECTORY);
     }
 
     /**
@@ -723,7 +724,7 @@ public final class UserSettings {
     public void setAutoDownloadNewerVersions(boolean auto) {
         settings.setBoolean(auto, KEY_AUTO_DOWNLOAD_NEWER_VERSIONS);
         writeToFile();
-        notifyListener(Type.AUTO_DOWNLOAD_NEWER_VERSIONS);
+        notifyListeners(Type.AUTO_DOWNLOAD_NEWER_VERSIONS);
     }
 
     /**
@@ -740,7 +741,7 @@ public final class UserSettings {
     public void setDisplayIptc(boolean display) {
         settings.setBoolean(display, KEY_DISPLAY_IPTC);
         writeToFile();
-        notifyListener(Type.DISPLAY_IPTC);
+        notifyListeners(Type.DISPLAY_IPTC);
     }
 
     /**
@@ -754,8 +755,15 @@ public final class UserSettings {
                 : true;
     }
 
-    private void notifyListener(UserSettingsChangeEvent.Type type) {
-        listenerProvider.notifyUserSettingsChangeListener(
-                new UserSettingsChangeEvent(type, this));
+    public void addUserSettingsListener(UserSettingsListener listener) {
+        listenerSupport.add(listener);
+    }
+
+    public void removeUserSettingsListener(UserSettingsListener listener) {
+        listenerSupport.remove(listener);
+    }
+
+    private void notifyListeners(UserSettingsEvent.Type type) {
+        listenerSupport.notifyUserListeners(new UserSettingsEvent(type, this));
     }
 }

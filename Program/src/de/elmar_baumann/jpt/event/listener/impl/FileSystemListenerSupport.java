@@ -16,22 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.event.listener;
+package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.MetadataEditPanelEvent;
+import de.elmar_baumann.jpt.event.FileSystemEvent;
+import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 
 /**
- * Beobachtet ein
- * {@link de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray}.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2008-10-18
  */
-public interface MetadataEditPanelListener {
+public final class FileSystemListenerSupport extends ListenerSupport<FileSystemListener> {
 
-    /**
-     * Ein Ereignis fand statt.
-     *
-     * @param event  Ereignis
-     */
-    public void actionPerformed(MetadataEditPanelEvent event);
+    public void notifyListeners(FileSystemEvent event) {
+
+        synchronized (listeners) {
+            for (FileSystemListener listener : listeners) {
+                listener.actionPerformed(event);
+            }
+        }
+    }
 }

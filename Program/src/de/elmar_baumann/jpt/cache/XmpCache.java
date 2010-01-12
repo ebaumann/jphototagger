@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
@@ -43,13 +43,13 @@ public class XmpCache extends Cache<XmpCacheIndirection>
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private XmpCache() {
-        db.addDatabaseImageFilesListener(this);
+        db.addListener(this);
         new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start();
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
-        if (DatabaseImageEvent.Type.XMP_UPDATED == event.getType()) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
+        if (DatabaseImageFilesEvent.Type.XMP_UPDATED == event.getType()) {
             File file = event.getImageFile().getFile();
             fileCache.remove(file);
             notifyUpdate(file);

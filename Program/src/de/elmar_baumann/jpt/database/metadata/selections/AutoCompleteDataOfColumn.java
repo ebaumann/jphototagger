@@ -20,9 +20,8 @@ package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
-import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
+import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,7 +35,7 @@ import java.util.Map;
  * @version 2009-09-01
  */
 public final class AutoCompleteDataOfColumn
-        implements UserSettingsChangeListener {
+        implements UserSettingsListener {
 
     public static final  AutoCompleteDataOfColumn      INSTANCE       = new AutoCompleteDataOfColumn();
     private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN = Collections.synchronizedMap(new HashMap<Column, AutoCompleteData>());
@@ -89,13 +88,13 @@ public final class AutoCompleteDataOfColumn
     }
 
     private AutoCompleteDataOfColumn() {
-        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
+        UserSettings.INSTANCE.addUserSettingsListener(this);
     }
 
     @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
+    public void applySettings(UserSettingsEvent evt) {
         if (evt.getType().equals(
-                UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS)) {
+                UserSettingsEvent.Type.FAST_SEARCH_COLUMNS)) {
             synchronized (this) {
                 fastSearchData = new AutoCompleteData(
                         UserSettings.INSTANCE.getFastSearchColumns());

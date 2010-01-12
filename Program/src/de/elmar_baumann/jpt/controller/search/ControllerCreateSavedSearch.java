@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.controller.search;
 
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -50,9 +49,8 @@ public final class ControllerCreateSavedSearch
     }
 
     private void listen() {
-        PopupMenuSavedSearches.INSTANCE.getItemCreate().addActionListener(
-                this);
-        ListenerSupport.INSTANCE.addSearchListener(this);
+        PopupMenuSavedSearches.INSTANCE.getItemCreate().addActionListener(this);
+        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel().addSearchListener(this);
         GUI.INSTANCE.getAppPanel().getListSavedSearches().addKeyListener(this);
     }
 

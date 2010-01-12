@@ -24,13 +24,13 @@ import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.event.ProgramEvent;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.dialogs.ProgramPropertiesDialog;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 import javax.swing.JProgressBar;
 
 /**
@@ -39,10 +39,10 @@ import javax.swing.JProgressBar;
  */
 public final class ActionsPanel extends javax.swing.JPanel {
 
-    private static final long                        serialVersionUID = 8875330844851092391L;
-    private final        ListModelPrograms           model            = new ListModelPrograms(Type.ACTION);
-    private final        List<ProgramActionListener> actionListeners  = new ArrayList<ProgramActionListener>();
-    private              Object                      progressBarOwner;
+    private static final long                                   serialVersionUID = 8875330844851092391L;
+    private final        ListModelPrograms                      model            = new ListModelPrograms(Type.ACTION);
+    private final        ListenerSupport<ProgramActionListener> listenerSupport  = new ListenerSupport<ProgramActionListener>();
+    private              Object                                 progressBarOwner;
 
     public ActionsPanel() {
         initComponents();
@@ -90,8 +90,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         if (dialog.accepted()) {
             Program program = dialog.getProgram();
             model.add(program);
-            notify(new ProgramEvent(
-                    ProgramEvent.Type.PROGRAM_CREATED, program));
         }
         setButtonsEnabled();
     }
@@ -104,8 +102,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
             dialog.setVisible(true);
             if (dialog.accepted()) {
                 model.update(program);
-                notify(new ProgramEvent(
-                        ProgramEvent.Type.PROGRAM_UPDATED, program));
             }
         }
         setButtonsEnabled();
@@ -141,13 +137,16 @@ public final class ActionsPanel extends javax.swing.JPanel {
         return MessageDisplayer.confirmYesNo(this, propertiesKey, programName);
     }
 
-    public synchronized void addActionListener(ProgramActionListener l) {
-        actionListeners.add(l);
+    public synchronized void addListener(ProgramActionListener l) {
+        listenerSupport.add(l);
     }
 
     private synchronized void notify(ProgramEvent evt) {
-        for (ProgramActionListener l : actionListeners) {
-            l.actionPerformed(evt);
+        Set<ProgramActionListener> listeners = listenerSupport.get();
+        synchronized (listeners) {
+            for (ProgramActionListener l : listeners) {
+                l.actionPerformed(evt);
+            }
         }
     }
 

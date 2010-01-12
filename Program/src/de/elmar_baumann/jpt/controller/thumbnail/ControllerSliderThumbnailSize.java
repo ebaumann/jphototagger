@@ -19,10 +19,9 @@
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
-import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
+import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -46,7 +45,7 @@ public final class ControllerSliderThumbnailSize
         implements AWTEventListener,
                    ChangeListener,
                    ThumbnailsPanelListener,
-                   UserSettingsChangeListener {
+                   UserSettingsListener {
 
     private final        AppPanel        appPanel                  = GUI.INSTANCE.getAppPanel();
     private final        ThumbnailsPanel thumbnailsPanel           = appPanel.getPanelThumbnails();
@@ -67,7 +66,7 @@ public final class ControllerSliderThumbnailSize
     private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
-        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
+        UserSettings.INSTANCE.addUserSettingsListener(this);
         Toolkit.getDefaultToolkit().addAWTEventListener(this, AWTEvent.KEY_EVENT_MASK);
     }
 
@@ -128,8 +127,8 @@ public final class ControllerSliderThumbnailSize
     }
 
     @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.MAX_THUMBNAIL_WIDTH)) {
+    public void applySettings(UserSettingsEvent evt) {
+        if (evt.getType().equals(UserSettingsEvent.Type.MAX_THUMBNAIL_WIDTH)) {
             maxThumbnailWidth = UserSettings.INSTANCE.getMaxThumbnailWidth();
             setThumbnailWidth();
         }

@@ -100,16 +100,13 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     private void copy(File srcDir) {
         List<File> directories = new ArrayList<File>();
         directories.add(srcDir);
-        directories.addAll(FileUtil.getSubdirectoriesRecursive(srcDir,
-                new HashSet<Option>()));
-        List<File> files = ImageFilteredDirectory.getImageFilesOfDirectories(
-                directories);
+        directories.addAll(FileUtil.getSubdirectoriesRecursive(srcDir, new HashSet<Option>()));
+        List<File> files = ImageFilteredDirectory.getImageFilesOfDirectories(directories);
         if (files.size() > 0) {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
             dialog.setSourceFiles(files);
             new CopyTask(dialog).start();
-            dialog.addFileSystemActionListener(
-                    new FilesystemDatabaseUpdater(true));
+            dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
             dialog.setVisible(true);
         } else {
             informationMessageNoFilesFound();

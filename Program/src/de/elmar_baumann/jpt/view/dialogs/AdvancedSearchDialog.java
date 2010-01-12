@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.view.panels.AdvancedSearchPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
 
 /**
@@ -86,6 +87,10 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     @Override
     protected void escape() {
         beforeWindowClosing();
+    }
+
+    public AdvancedSearchPanel getAdvancedSearchPanel() {
+        return panel;
     }
 
     @Override

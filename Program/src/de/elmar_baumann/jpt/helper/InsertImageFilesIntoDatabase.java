@@ -31,9 +31,10 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.UpdateMetadataEvent;
 import de.elmar_baumann.jpt.event.UpdateMetadataEvent.Type;
 import de.elmar_baumann.jpt.event.ProgressEvent;
-import de.elmar_baumann.jpt.event.ProgressListenerSupport;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.event.listener.UpdateMetadataListener;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcMetadata;
@@ -45,7 +46,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -57,14 +57,14 @@ import java.util.Set;
  */
 public final class InsertImageFilesIntoDatabase extends Thread {
 
-    private final DatabaseImageFiles                     db                      = DatabaseImageFiles.INSTANCE;
-    private final ProgressListenerSupport                progressListenerSupport = new ProgressListenerSupport();
-    private final Set<UpdateMetadataListener> updateMetadataListeners = Collections.synchronizedSet(new HashSet<UpdateMetadataListener>());
-    private       ProgressEvent                          progressEvent           = new ProgressEvent(this, null);
-    private final List<String>                           filenames;
-    private final EnumSet<Insert>                        what;
-    private       String                                 currentFilename;
-    private       boolean                                cancelled;
+    private final DatabaseImageFiles                      db                      = DatabaseImageFiles.INSTANCE;
+    private final ProgressListenerSupport                 progressListenerSupport = new ProgressListenerSupport();
+    private final ListenerSupport<UpdateMetadataListener> updateListenerSupport   = new ListenerSupport<UpdateMetadataListener>();
+    private       ProgressEvent                           progressEvent           = new ProgressEvent(this, null);
+    private final List<String>                            filenames;
+    private final EnumSet<Insert>                         what;
+    private       String                                  currentFilename;
+    private       boolean                                 cancelled;
 
     /**
      * Metadata to insert.
@@ -122,7 +122,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * @param listener listener
      */
     public void addUpdateMetadataListener(UpdateMetadataListener listener) {
-        updateMetadataListeners.add(listener);
+        updateListenerSupport.add(listener);
     }
 
     /**
@@ -132,24 +132,26 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * @see   #addUpdateMetadataListener(UpdateMetadataListener)
      */
     public void removeUpdateMetadataListener(UpdateMetadataListener listener) {
-        updateMetadataListeners.remove(listener);
+        updateListenerSupport.remove(listener);
     }
 
     private void notifyUpdateMetadataListener(Type type, String filename) {
-        UpdateMetadataEvent event = new UpdateMetadataEvent(type, filename);
-        synchronized (updateMetadataListeners) {
-            for (UpdateMetadataListener listener : updateMetadataListeners) {
+        UpdateMetadataEvent         event     = new UpdateMetadataEvent(type, filename);
+        Set<UpdateMetadataListener> listeners = updateListenerSupport.get();
+
+        synchronized (listeners) {
+            for (UpdateMetadataListener listener : listeners) {
                 listener.actionPerformed(event);
             }
         }
     }
 
     public void addProgressListener(ProgressListener listener) {
-        progressListenerSupport.addProgressListener(listener);
+        progressListenerSupport.add(listener);
     }
 
     public void removeProgressListener(ProgressListener listener) {
-        progressListenerSupport.removeProgressListener(listener);
+        progressListenerSupport.remove(listener);
     }
 
     /**

@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
@@ -70,7 +70,7 @@ public class ControllerAddKeywordsToEditPanel
     }
 
     private void addToEditPanel(List<String> keywordNames) {
-        EditMetadataPanelsArray editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;

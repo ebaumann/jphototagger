@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
     private final DatabaseImageFiles      db              = DatabaseImageFiles.INSTANCE;
     private final ThumbnailsPanel         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanelsArray editPanels      = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+    private final EditMetadataPanels editPanels      = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
     private final List<List<String>>      keywordLists;
 
     /**

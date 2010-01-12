@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.thumbnail;
 import de.elmar_baumann.jpt.cache.ThumbnailCache;
 import de.elmar_baumann.jpt.cache.XmpCache;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -46,27 +46,27 @@ public final class ControllerThumbnailsDatabaseChanges
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
     @Override
-    public void actionPerformed(final DatabaseImageEvent event) {
+    public void actionPerformed(final DatabaseImageFilesEvent event) {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                DatabaseImageEvent.Type eventType = event.getType();
+                DatabaseImageFilesEvent.Type eventType = event.getType();
                 File file = event.getImageFile().getFile();
-                if (eventType.equals(DatabaseImageEvent.Type.THUMBNAIL_UPDATED)) {
+                if (eventType.equals(DatabaseImageFilesEvent.Type.THUMBNAIL_UPDATED)) {
                     ThumbnailCache.INSTANCE.remove(file);
                     ThumbnailCache.INSTANCE.notifyUpdate(file);
-                } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
+                } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
                     // fixme: strange event for Xmp updates ... needs some cleanup
                     XmpCache.INSTANCE.remove(file);
                     XmpCache.INSTANCE.notifyUpdate(file);
                     ThumbnailCache.INSTANCE.remove(file);
                     ThumbnailCache.INSTANCE.notifyUpdate(file);
-                } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
+                } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
                     List<File> deleted = Collections.singletonList(event.getImageFile().getFile());
                     thumbnailsPanel.remove(deleted);
                     // fixme: iterate over images and do same as above

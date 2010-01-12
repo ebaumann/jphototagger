@@ -23,8 +23,10 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
-import de.elmar_baumann.jpt.event.listener.FileSystemActionListener;
+import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.helper.CopyFiles;
@@ -38,10 +40,7 @@ import de.elmar_baumann.lib.util.Settings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -53,16 +52,16 @@ public final class CopyToDirectoryDialog
         extends Dialog
         implements ProgressListener {
 
-    private static final String                        KEY_LAST_DIRECTORY        = "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory";
-    private static final String                        KEY_COPY_XMP              = "CopyToDirectoryDialog.CopyXmp";
-    private static final long                          serialVersionUID          = 2401347394410721552L;
-    private final        Set<ProgressListener>         progressListeners         = Collections.synchronizedSet(new HashSet<ProgressListener>());
-    private final        Set<FileSystemActionListener> fileSystemActionListeners = Collections.synchronizedSet(new HashSet<FileSystemActionListener>());
-    private              CopyFiles                     copyTask;
-    private              boolean                       copy;
-    private              boolean                       writeProperties           = true;
-    private              Collection<File>              sourceFiles;
-    private              File                          targetDirectory           = new File("");
+    private static final String                    KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory";
+    private static final String                    KEY_COPY_XMP       = "CopyToDirectoryDialog.CopyXmp";
+    private static final long                      serialVersionUID   = 2401347394410721552L;
+    private final        ProgressListenerSupport   pListenerSupport   = new ProgressListenerSupport();
+    private final        FileSystemListenerSupport fsListenerSupport  = new FileSystemListenerSupport();
+    private              CopyFiles                 copyTask;
+    private              boolean                   copy;
+    private              boolean                   writeProperties    = true;
+    private              Collection<File>          sourceFiles;
+    private              File                      targetDirectory    = new File("");
 
     public CopyToDirectoryDialog() {
         super((java.awt.Frame) null, false);
@@ -73,51 +72,26 @@ public final class CopyToDirectoryDialog
     }
 
     public void addProgressListener(ProgressListener listener) {
-        progressListeners.add(listener);
+        pListenerSupport.add(listener);
     }
 
     public void removeProgressListener(ProgressListener listener) {
-        progressListeners.remove(listener);
+        pListenerSupport.remove(listener);
     }
 
-    public void addFileSystemActionListener(FileSystemActionListener listener) {
-        fileSystemActionListeners.add(listener);
+    public void addFileSystemActionListener(FileSystemListener listener) {
+        fsListenerSupport.add(listener);
     }
 
-    public void removeFileSystemActionListener(FileSystemActionListener listener) {
-        fileSystemActionListeners.remove(listener);
+    public void removeFileSystemActionListener(FileSystemListener listener) {
+        fsListenerSupport.remove(listener);
     }
 
     public void notifyFileSystemActionListenersCopied(File src, File target) {
-        synchronized (fileSystemActionListeners) {
-            for (FileSystemActionListener listener : fileSystemActionListeners) {
-                listener.actionPerformed(FileSystemEvent.COPY, src, target);
-            }
-        }
-    }
 
-    private void notifyProgressListenerStarted(ProgressEvent evt) {
-        synchronized (progressListeners) {
-            for (ProgressListener listener : progressListeners) {
-                listener.progressStarted(evt);
-            }
-        }
-    }
+        FileSystemEvent event = new FileSystemEvent(FileSystemEvent.Type.COPY, src, target);
 
-    private void notifyProgressListenerPerformed(ProgressEvent evt) {
-        synchronized (progressListeners) {
-            for (ProgressListener listener : progressListeners) {
-                listener.progressPerformed(evt);
-            }
-        }
-    }
-
-    private void notifyProgressListenerEnded(ProgressEvent evt) {
-        synchronized (progressListeners) {
-            for (ProgressListener listener : progressListeners) {
-                listener.progressEnded(evt);
-            }
-        }
+       fsListenerSupport.notifyListeners(event);
     }
 
     private void checkClosing() {
@@ -340,7 +314,7 @@ public final class CopyToDirectoryDialog
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
-        notifyProgressListenerStarted(evt);
+        pListenerSupport.notifyStarted(evt);
     }
 
     @SuppressWarnings("unchecked")
@@ -353,7 +327,7 @@ public final class CopyToDirectoryDialog
         labelCurrentFilename.setText(files.getFirst().getAbsolutePath());
 
         notifyFileSystemActionListenersCopied(files.getFirst(), files.getSecond());
-        notifyProgressListenerPerformed(evt);
+        pListenerSupport.notifyPerformed(evt);
     }
 
     @SuppressWarnings("unchecked")
@@ -367,7 +341,7 @@ public final class CopyToDirectoryDialog
         buttonStop.setEnabled(false);
         buttonStart.setEnabled(true);
         copy = false;
-        notifyProgressListenerEnded(evt);
+        pListenerSupport.notifyEnded(evt);
         setVisible(false);
     }
 

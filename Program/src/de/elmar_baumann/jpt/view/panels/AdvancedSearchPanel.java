@@ -37,9 +37,9 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpId;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIdFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
+import de.elmar_baumann.jpt.event.listener.impl.SearchListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
@@ -66,10 +66,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private static final long                      serialVersionUID        = -4036432653670374380L;
     private final        List<SearchColumnPanel>   searchColumnPanels      = new LinkedList<SearchColumnPanel>();
     private final        Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
-    private              List<SearchListener>      searchListeners         = new ArrayList<SearchListener>();
     private              String                    searchName              = "";
     private              boolean                   isSavedSearch           = false;
-    private              ListenerSupport          listenerProvider;
+    private final        SearchListenerSupport     listenerSupport         = new SearchListenerSupport();
 
     public AdvancedSearchPanel() {
         initComponents();
@@ -77,9 +76,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
-        listenerProvider = ListenerSupport.INSTANCE;
-        searchListeners  = listenerProvider.getSearchListeners();
-
         panelColumn1.setOperatorsEnabled(false);
         initSearchColumnPanelArray();
         listenToSearchPanels();
@@ -188,15 +184,21 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return paramStmt;
     }
 
+    public void addSearchListener(SearchListener listener) {
+            listenerSupport.add(listener);
+    }
+
+    public void removeSearchListener(SearchListener listener) {
+            listenerSupport.remove(listener);
+    }
+
     private synchronized void notifySearch() {
         SearchEvent event       = new SearchEvent(SearchEvent.Type.START);
         SavedSearch savedSearch = new SavedSearch();
 
         savedSearch.setParamStatement(getSavedSearchParamStmt());
         event.setData(savedSearch);
-        for (SearchListener listener : searchListeners) {
-            listener.actionPerformed(event);
-        }
+        listenerSupport.notifyListeners(event);
     }
 
     private synchronized void notifySave(SavedSearch savedSearch) {
@@ -204,19 +206,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         event.setData(savedSearch);
         event.setForceOverwrite(isSavedSearch);
-
-        for (SearchListener listener : searchListeners) {
-            listener.actionPerformed(event);
-        }
+        listenerSupport.notifyListeners(event);
     }
 
     private synchronized void notifyNameChanged() {
         SearchEvent event = new SearchEvent(SearchEvent.Type.NAME_CHANGED);
 
         event.setSearchName(searchName);
-        for (SearchListener listener : searchListeners) {
-            listener.actionPerformed(event);
-        }
+        listenerSupport.notifyListeners(event);
     }
 
     /**

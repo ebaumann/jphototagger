@@ -26,19 +26,18 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
-import de.elmar_baumann.jpt.event.listener.UserSettingsChangeListener;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
+import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -72,19 +71,19 @@ public final class ControllerFastSearch
         implements
         ActionListener,
         DatabaseImageFilesListener,
-        UserSettingsChangeListener,
+        UserSettingsListener,
         RefreshListener {
 
-    private static final String                  DELIMITER_SEARCH_WORDS = ";";
-    private final        DatabaseFind          db                     = DatabaseFind.INSTANCE;
-    private final        AppPanel                appPanel               = GUI.INSTANCE.getAppPanel();
-    private final        JTextField              textFieldSearch        = appPanel.getTextFieldSearch();
-    private final        JComboBox               comboboxFastSearch     = appPanel.getComboBoxFastSearch();
-    private final        ThumbnailsPanel         thumbnailsPanel        = appPanel.getPanelThumbnails();
-    private final        List<Column>            fastSearchColumns      = UserSettings.INSTANCE.getFastSearchColumns();
-    private final        List<JTree>             selectionTrees         = appPanel.getSelectionTrees();
-    private final        List<JList>             selectionLists         = appPanel.getSelectionLists();
-    private final        EditMetadataPanelsArray editPanels             = appPanel.getEditMetadataPanelsArray();
+    private static final String             DELIMITER_SEARCH_WORDS = ";";
+    private final        DatabaseFind       db                     = DatabaseFind.INSTANCE;
+    private final        AppPanel           appPanel               = GUI.INSTANCE.getAppPanel();
+    private final        JTextField         textFieldSearch        = appPanel.getTextFieldSearch();
+    private final        JComboBox          comboboxFastSearch     = appPanel.getComboBoxFastSearch();
+    private final        ThumbnailsPanel    thumbnailsPanel        = appPanel.getPanelThumbnails();
+    private final        List<Column>       fastSearchColumns      = UserSettings.INSTANCE.getFastSearchColumns();
+    private final        List<JTree>        selectionTrees         = appPanel.getSelectionTrees();
+    private final        List<JList>        selectionLists         = appPanel.getSelectionLists();
+    private final        EditMetadataPanels editPanels             = appPanel.getEditMetadataPanelsArray();
 
     public ControllerFastSearch() {
         setEnabledSearchTextField();
@@ -93,7 +92,7 @@ public final class ControllerFastSearch
     }
 
     private void listen() {
-        ListenerSupport.INSTANCE.addUserSettingsChangeListener(this);
+        UserSettings.INSTANCE.addUserSettingsListener(this);
 
         textFieldSearch.addKeyListener(new KeyAdapter() {
 
@@ -117,7 +116,7 @@ public final class ControllerFastSearch
 
         comboboxFastSearch.addActionListener(this);
 
-        DatabaseImageFiles.INSTANCE.addDatabaseImageFilesListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
     }
 
@@ -132,17 +131,17 @@ public final class ControllerFastSearch
     }
 
     @Override
-    public void applySettings(UserSettingsChangeEvent evt) {
-        if (evt.getType().equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS) ||
-                evt.getType().equals(UserSettingsChangeEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
+    public void applySettings(UserSettingsEvent evt) {
+        if (evt.getType().equals(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS) ||
+                evt.getType().equals(UserSettingsEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
             if (isSearchAllDefinedColumns()) {
-                textFieldSearch.setEnabled(evt.getType().equals(UserSettingsChangeEvent.Type.FAST_SEARCH_COLUMNS));
+                textFieldSearch.setEnabled(evt.getType().equals(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS));
             }
         }
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
         if (event.isTextMetadataAffected()) {
             ImageFile imageFile = event.getImageFile();
             if (imageFile != null && imageFile.getXmp() != null) {

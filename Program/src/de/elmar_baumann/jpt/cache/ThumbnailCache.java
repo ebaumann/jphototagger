@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
@@ -43,13 +43,13 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private ThumbnailCache() {
-        db.addDatabaseImageFilesListener(this);
+        db.addListener(this);
         new Thread(new ThumbnailFetcher(workQueue, this),
                 "ThumbnailFetcher").start();
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
         switch (event.getType()) {
             case THUMBNAIL_UPDATED:   // fall through
             case IMAGEFILE_DELETED:   // fall through

@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
@@ -36,12 +37,11 @@ import java.util.List;
  */
 public final class CopyFiles implements Runnable {
 
-    private final List<ProgressListener> progressListeners =
-            new ArrayList<ProgressListener>();
-    private final List<File> errorFiles = new ArrayList<File>();
-    private final List<Pair<File, File>> sourceTargetFiles;
-    private final Options options;
-    private boolean stop = false;
+    private final ProgressListenerSupport listenerSupport   = new ProgressListenerSupport();
+    private final List<File>              errorFiles        = new ArrayList<File>();
+    private final List<Pair<File, File>>  sourceTargetFiles;
+    private final Options                 options;
+    private       boolean                 stop              = false;
 
     /**
      * Copy options.
@@ -112,7 +112,7 @@ public final class CopyFiles implements Runnable {
      * @param listener  Beobachter
      */
     public synchronized void addProgressListener(ProgressListener listener) {
-        progressListeners.add(listener);
+        listenerSupport.add(listener);
     }
 
     @Override
@@ -153,29 +153,21 @@ public final class CopyFiles implements Runnable {
     }
 
     private synchronized void notifyStart() {
-        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(),
-                0, null);
-        for (ProgressListener listener : progressListeners) {
-            listener.progressStarted(evt);
-        }
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), 0, null);
+
+        listenerSupport.notifyStarted(evt);
     }
 
-    private synchronized void notifyPerformed(int value,
-            Pair<File, File> filePair) {
-        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(),
-                value,
-                filePair);
-        for (ProgressListener listener : progressListeners) {
-            listener.progressPerformed(evt);
-        }
+    private synchronized void notifyPerformed(int value, Pair<File, File> filePair) {
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), value, filePair);
+
+        listenerSupport.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(),
-                sourceTargetFiles.size(), errorFiles);
-        for (ProgressListener listener : progressListeners) {
-            listener.progressEnded(evt);
-        }
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), sourceTargetFiles.size(), errorFiles);
+
+        listenerSupport.notifyEnded(evt);
     }
 
     private boolean checkOverwrite(Pair<File, File> filePair) {

@@ -19,13 +19,12 @@
 package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.event.FileSystemEvent;
-import de.elmar_baumann.jpt.event.listener.FileSystemActionListener;
-import de.elmar_baumann.jpt.event.FileSystemError;
+import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Base class for file system actions. Provides registering and notifying listeners.
@@ -35,50 +34,43 @@ import java.util.List;
  */
 public class FileSystem {
 
-    private final List<FileSystemActionListener> actionListeners = new ArrayList<FileSystemActionListener>();
-    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final FileSystemListenerSupport fsListenerSupport = new FileSystemListenerSupport();
+    private final ProgressListenerSupport   pListenerSupport  = new ProgressListenerSupport();
 
     protected FileSystem() {}
 
-    public synchronized void addProgressListener(ProgressListener listener) {
-        progressListeners.add(listener);
+    public void addProgressListener(ProgressListener listener) {
+        pListenerSupport.add(listener);
     }
 
-    protected synchronized void notifyProgressListenerStarted(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressStarted(evt);
-        }
+    protected void notifyProgressListenerStarted(ProgressEvent evt) {
+        pListenerSupport.notifyStarted(evt);
     }
 
-    protected synchronized void notifyProgressListenerPerformed(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressPerformed(evt);
-        }
+    protected void notifyProgressListenerPerformed(ProgressEvent evt) {
+        pListenerSupport.notifyPerformed(evt);
     }
 
-    protected synchronized void notifyProgressListenerEnded(ProgressEvent evt) {
-        for (ProgressListener listener : progressListeners) {
-            listener.progressEnded(evt);
-        }
+    protected void notifyProgressListenerEnded(ProgressEvent evt) {
+        pListenerSupport.notifyEnded(evt);
     }
 
-    public synchronized void addActionListener(FileSystemActionListener listener) {
-        actionListeners.add(listener);
+    public void addFileSystemListener(FileSystemListener listener) {
+        fsListenerSupport.add(listener);
     }
 
-    protected synchronized void notifyActionListenersPerformed(
-        FileSystemEvent action, File src, File target) {
+    protected void notifyFileSystemListenersPerformed(FileSystemEvent.Type type, File src, File target) {
 
-        for (FileSystemActionListener listener : actionListeners) {
-            listener.actionPerformed(action, src, target);
-        }
+        fsListenerSupport.notifyListeners(new FileSystemEvent(type, src, target));
+
     }
 
-    protected synchronized void notifyActionListenersFailed(
-        FileSystemEvent action, FileSystemError error, File src, File target) {
+    protected void notifyFileSystemListenersFailed(FileSystemEvent.Type type, FileSystemError error, File src, File target) {
 
-        for (FileSystemActionListener listener : actionListeners) {
-            listener.actionFailed(action, error, src, target);
-        }
+        FileSystemEvent event = new FileSystemEvent(type, src, target);
+
+        event.setError(error);
+
+        fsListenerSupport.notifyListeners(event);
     }
 }

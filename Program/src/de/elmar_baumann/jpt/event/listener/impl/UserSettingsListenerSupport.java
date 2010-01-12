@@ -16,22 +16,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.event.listener;
+package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.UserSettingsChangeEvent;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
+import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 
 /**
- * Beobachtet Änderungen der Benutzereinstellungen.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008-09-14
+ * @version 2008-10-18
  */
-public interface UserSettingsChangeListener {
+public final class UserSettingsListenerSupport extends ListenerSupport<UserSettingsListener> {
 
-    /**
-     * Wende die neuen Einstellungen des Benutzers an.
-     *
-     * @param evt Ereignis
-     */
-    void applySettings(UserSettingsChangeEvent evt);
+    public void notifyUserListeners(UserSettingsEvent evt) {
+        synchronized (listeners) {
+            for (UserSettingsListener l : listeners) {
+                l.applySettings(evt);
+            }
+        }
+    }
 }

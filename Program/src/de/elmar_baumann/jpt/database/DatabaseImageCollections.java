@@ -19,9 +19,10 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent;
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionEvent.Type;
-import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionListener;
+import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent.Type;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionsListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,8 +41,8 @@ import java.util.Set;
  */
 public final class DatabaseImageCollections extends Database {
 
-    public static final DatabaseImageCollections INSTANCE = new DatabaseImageCollections();
-    private final Set<DatabaseImageCollectionListener> listeners = new HashSet<DatabaseImageCollectionListener>();
+    public static final DatabaseImageCollections                          INSTANCE        = new DatabaseImageCollections();
+    private final       ListenerSupport<DatabaseImageCollectionsListener> listenerSupport = new ListenerSupport<DatabaseImageCollectionsListener>();
 
     private DatabaseImageCollections() {
     }
@@ -497,27 +497,24 @@ public final class DatabaseImageCollections extends Database {
         return id;
     }
 
-    public void addDatabaseImageCollectionListener(DatabaseImageCollectionListener listener) {
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
+    public void addListener(DatabaseImageCollectionsListener listener) {
+        listenerSupport.add(listener);
     }
 
-    public void removeDatabaseImageCollectionListener(DatabaseImageCollectionListener listener) {
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
+    public void removeListener(DatabaseImageCollectionsListener listener) {
+        listenerSupport.remove(listener);
     }
 
     private void notifyListeners(
-            DatabaseImageCollectionEvent.Type type,
+            DatabaseImageCollectionsEvent.Type type,
             String                            collectionName,
             Collection<String>                filenames) {
 
-        DatabaseImageCollectionEvent evt = new DatabaseImageCollectionEvent(type, collectionName, filenames);
+        DatabaseImageCollectionsEvent         evt       = new DatabaseImageCollectionsEvent(type, collectionName, filenames);
+        Set<DatabaseImageCollectionsListener> listeners = listenerSupport.get();
 
         synchronized (listeners) {
-            for (DatabaseImageCollectionListener listener : listeners) {
+            for (DatabaseImageCollectionsListener listener : listeners) {
                 listener.actionPerformed(evt);
             }
         }

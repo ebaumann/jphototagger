@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.data.Timeline.Date;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageEvent;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -51,17 +51,17 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
     }
 
     private void listen() {
-        db.addDatabaseImageFilesListener(this);
+        db.addListener(this);
     }
 
     @Override
-    public void actionPerformed(DatabaseImageEvent event) {
-        DatabaseImageEvent.Type eventType = event.getType();
-        if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_DELETED)) {
+    public void actionPerformed(DatabaseImageFilesEvent event) {
+        DatabaseImageFilesEvent.Type eventType = event.getType();
+        if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
             checkDeleted(event.getImageFile());
-        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_INSERTED)) {
+        } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED)) {
             checkInserted(event.getImageFile());
-        } else if (eventType.equals(DatabaseImageEvent.Type.IMAGEFILE_UPDATED)) {
+        } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
             ImageFile imageFile = event.getImageFile();
             if (imageFile != null && (imageFile.isInsertExifIntoDb() || imageFile.isInsertXmpIntoDb())) {
                 checkDeleted(event.getOldImageFile());

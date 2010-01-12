@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.controller.rating;
 
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanelsArray;
+import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
@@ -33,7 +33,7 @@ import javax.swing.JMenuItem;
 /**
  * Listens to key events in {@link ThumbnailsPanel} and if a key
  * between the range 0..5 was pressed set's the rating to the
- * {@link EditMetadataPanelsArray}.
+ * {@link EditMetadataPanels}.
  * <p>
  * Also listens to the rating items in the {@link PopupMenuThumbnails} and
  * rates an action performed.
@@ -84,7 +84,7 @@ public final class ControllerSetRating
     }
 
     public void setRating(Long rating) {
-        EditMetadataPanelsArray editPanel =
+        EditMetadataPanels editPanel =
                 GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
         if (editPanel.isEditable()) {
             editPanel.setRating(rating);

@@ -22,8 +22,8 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
-import de.elmar_baumann.jpt.event.DatabaseProgramEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseProgramListener;
+import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +35,13 @@ import javax.swing.DefaultListModel;
  * @version 2009-06-07
  */
 public final class ListModelActionsAfterDbInsertion extends DefaultListModel 
-        implements DatabaseProgramListener {
+        implements DatabaseProgramsListener {
 
     private static final long serialVersionUID = -6490813457178023686L;
 
     public ListModelActionsAfterDbInsertion() {
         addElements();
-        DatabasePrograms.INSTANCE.addDatabaseProgramListener(this);
+        DatabasePrograms.INSTANCE.addListener(this);
     }
 
     public void add(Program action) {
@@ -122,17 +122,17 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     @Override
-    public void actionPerformed(DatabaseProgramEvent event) {
-        DatabaseProgramEvent.Type eventType = event.getType();
+    public void actionPerformed(DatabaseProgramsEvent event) {
+        DatabaseProgramsEvent.Type eventType = event.getType();
         Program program = event.getProgram();
         int index = indexOf(program);
         boolean contains = index >= 0;
-        if (eventType.equals(DatabaseProgramEvent.Type.PROGRAM_DELETED) &&
+        if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED) &&
                 contains) {
             removeElementAt(index);
             fireIntervalRemoved(this, index, index);
         } else if (eventType.equals(
-                DatabaseProgramEvent.Type.PROGRAM_UPDATED) &&
+                DatabaseProgramsEvent.Type.PROGRAM_UPDATED) &&
                 contains) {
             set(index, program);
             fireContentsChanged(this, index, index);

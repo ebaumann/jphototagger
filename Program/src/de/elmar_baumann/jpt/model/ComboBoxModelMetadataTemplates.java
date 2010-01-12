@@ -21,8 +21,8 @@ package de.elmar_baumann.jpt.model;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
-import de.elmar_baumann.jpt.event.DatabaseMetadataTemplateEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplateEventListener;
+import de.elmar_baumann.jpt.event.DatabaseMetadataTemplatesEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplatesListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -38,14 +38,14 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class ComboBoxModelMetadataTemplates
         extends    DefaultComboBoxModel
-        implements DatabaseMetadataTemplateEventListener
+        implements DatabaseMetadataTemplatesListener
 {
     private static final long                      serialVersionUID = 7895253533969078904L;
     private final        DatabaseMetadataTemplates db               = DatabaseMetadataTemplates.INSTANCE;
 
     public ComboBoxModelMetadataTemplates() {
         addElements();
-        db.addEventListener(this);
+        db.addListener(this);
     }
 
     /**
@@ -130,7 +130,7 @@ public final class ComboBoxModelMetadataTemplates
     }
 
     @Override
-    public void actionPerformed(DatabaseMetadataTemplateEvent evt) {
+    public void actionPerformed(DatabaseMetadataTemplatesEvent evt) {
 
         if (evt.wasAdded()) {
 
