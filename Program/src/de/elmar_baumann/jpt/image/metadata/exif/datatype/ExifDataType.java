@@ -134,6 +134,14 @@ public enum ExifDataType {
         return bitCount;
     }
 
+    public static ExifDataType fromType(int type) {
+        for (ExifDataType dataType : values()) {
+            if (dataType.value == type) return dataType;
+        }
+        assert false: type;
+        return null;
+    }
+
     /**
      * Returns the string representation of the Value.
      *
