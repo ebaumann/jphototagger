@@ -622,9 +622,12 @@ public final class Xmp implements TextEntryListener {
      * @param xmpColumn  XMP column
      * @param value      value
      */
-    public void setValue(Column xmpColumn, String value) {
+    public void setValue(Column xmpColumn, Object value) {
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
-            addToStringList(xmpColumn, value);
+            if (value != null) {
+                assert value instanceof String; // Other not recoginzed
+                addToStringList(xmpColumn, value.toString());
+            }
         } else {
             valueOfColumn.put(xmpColumn, value);
         }

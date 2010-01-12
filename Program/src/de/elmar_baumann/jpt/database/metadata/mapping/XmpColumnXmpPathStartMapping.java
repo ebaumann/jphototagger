@@ -20,6 +20,25 @@ package de.elmar_baumann.jpt.database.metadata.mapping;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.lib.generics.Pair;
 import java.util.HashMap;
 import java.util.List;
@@ -36,19 +55,28 @@ import java.util.Map;
  */
 public final class XmpColumnXmpPathStartMapping {
 
-    private static final Map<Column, String> XMP_PATH_START_OF_COLUMN =
-            new HashMap<Column, String>();
+    private static final Map<Column, String> XMP_PATH_START_OF_COLUMN = new HashMap<Column, String>();
 
     static {
-        List<Pair<IPTCEntryMeta, Column>> pairs = IptcXmpMapping.getAllPairs();
-        for (Pair<IPTCEntryMeta, Column> pair : pairs) {
-            IPTCEntryMeta iptcEntryMeta = pair.getFirst();
-            Column xmpColumn = pair.getSecond();
-            String xmpPathStart =
-                    IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(
-                    iptcEntryMeta);
-            XMP_PATH_START_OF_COLUMN.put(xmpColumn, xmpPathStart);
-        }
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE                     , "dc:creator");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE                 , "dc:description");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE                      , "dc:rights");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE             , "dc:subject");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE                       , "dc:title");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE       , "Iptc4xmpCore:CountryCode");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE       , "Iptc4xmpCore:DateCreated");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE          , "Iptc4xmpCore:Location");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE      , "photoshop:AuthorsPosition");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE        , "photoshop:CaptionWriter");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopCity.INSTANCE                 , "photoshop:City");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopCountry.INSTANCE              , "photoshop:Country");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopCredit.INSTANCE               , "photoshop:Credit");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE             , "photoshop:Headline");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopInstructions.INSTANCE         , "photoshop:Instructions");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE               , "photoshop:Source");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopState.INSTANCE                , "photoshop:State");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, "photoshop:TransmissionReference");
+        XMP_PATH_START_OF_COLUMN.put(ColumnXmpRating.INSTANCE                        , "xap:Rating");
     }
 
     /**
@@ -59,6 +87,22 @@ public final class XmpColumnXmpPathStartMapping {
      */
     public static String getXmpPathStartOfColumn(Column column) {
         return XMP_PATH_START_OF_COLUMN.get(column);
+    }
+
+    /**
+     * Finds a column of a string with a specific path start.
+     *
+     * @param stringWithPathStart string with a path start, can contain more
+     *                            characters after path start
+     * @return                    column or null if not found
+     */
+    public static Column findColumn(String stringWithPathStart) {
+        for (Column column : XMP_PATH_START_OF_COLUMN.keySet()) {
+            if (stringWithPathStart.startsWith(XMP_PATH_START_OF_COLUMN.get(column))) {
+                return column;
+            }
+        }
+        return null;
     }
 
     private XmpColumnXmpPathStartMapping() {

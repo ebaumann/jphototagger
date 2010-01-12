@@ -18,7 +18,9 @@
  */
 package de.elmar_baumann.jpt.database.metadata;
 
+import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
+import java.text.DateFormat;
 import javax.swing.InputVerifier;
 
 /**
@@ -29,19 +31,19 @@ import javax.swing.InputVerifier;
  */
 public class Column {
 
-    private Table table;
-    private String name;
-    private String description;
-    private String longerDescription;
-    private final DataType dataType;
-    private Column references = null;
-    private final boolean isIgnoreCase = true;
-    private final boolean isIndexed = true;
-    private boolean isUnique = false;
-    private boolean isPrimaryKey = false;
-    private boolean canBeNull = true;
-    private int length = 0;
-    private ReferenceDirection referenceDirection = ReferenceDirection.BACKWARDS;
+    private       Table              table;
+    private final String             name;
+    private       String             description;
+    private       String             longerDescription;
+    private final DataType           dataType;
+    private       Column             references = null;
+    private final boolean            isIgnoreCase = true;
+    private final boolean            isIndexed = true;
+    private       boolean            isUnique = false;
+    private       boolean            isPrimaryKey = false;
+    private       boolean            canBeNull = true;
+    private       int                length = 0;
+    private       ReferenceDirection referenceDirection = ReferenceDirection.BACKWARDS;
 
     /**
      * Typ der Spaltendaten.
@@ -62,6 +64,29 @@ public class Column {
         SMALLINT,
         /** Zeichenkette variabler Länge, Java-Typ: java.lang.STRING */
         STRING
+        ;
+
+        public Object fromString(String string) {
+            switch (this) {
+                case BINARY  : return string.getBytes();
+                case DATE    : return s2date(string);
+                case INTEGER : return Integer.parseInt(string);
+                case BIGINT  : return Long.parseLong(string);
+                case REAL    : return Double.parseDouble(string);
+                case SMALLINT: return Short.parseShort(string);
+                case STRING  : return string;
+                default      : return string;
+            }
+        }
+
+        private Object s2date(String s) {
+             try {
+                 return new java.sql.Date(DateFormat.getInstance().parse(s).getTime());
+             } catch(Exception ex) {
+                 AppLog.logSevere(Column.class, ex);
+             }
+             return s;
+        }
     };
 
     /**
@@ -84,14 +109,14 @@ public class Column {
     /**
      * Erzeugt eine Instanz.
      *
-     * @param table Tabelle, in der die Spalte ist
-     * @param name  Spaltenname
-     * @param type  Spaltentyp
+     * @param table    Tabelle, in der die Spalte ist
+     * @param name     Spaltenname
+     * @param dataType Spaltentyp
      */
-    protected Column(Table table, String name, DataType type) {
-        this.table = table;
-        this.name = name;
-        this.dataType = type;
+    protected Column(Table table, String name, DataType dataType) {
+        this.table    = table;
+        this.name     = name;
+        this.dataType = dataType;
     }
 
     @Override
