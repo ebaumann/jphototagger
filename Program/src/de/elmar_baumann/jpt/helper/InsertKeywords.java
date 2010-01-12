@@ -73,7 +73,7 @@ public final class InsertKeywords extends Thread {
 
         for (String keyword : keywords) {
             if (!db.existsRootKeyword(keyword)) {
-                modelHk.addKeyword(rootHk, keyword, true);
+                modelHk.insert(rootHk, keyword, true);
                 inserted = true;
             }
         }

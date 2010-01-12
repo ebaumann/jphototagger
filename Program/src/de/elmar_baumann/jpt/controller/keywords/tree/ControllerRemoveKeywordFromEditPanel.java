@@ -68,7 +68,7 @@ public class ControllerRemoveKeywordFromEditPanel
 
     private void removeFromEditPanel(String keyword) {
         EditMetadataPanels editPanels =
-                GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+                GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;

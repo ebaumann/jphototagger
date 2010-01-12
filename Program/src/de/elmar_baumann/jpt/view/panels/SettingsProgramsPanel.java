@@ -103,7 +103,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
     private void removeOtherProgram() {
         int index = listOtherPrograms.getSelectedIndex();
         if (index >= 0 && askRemove(model.getElementAt(index).toString())) {
-            model.remove((Program) model.get(index));
+            model.delete((Program) model.get(index));
             setEnabled();
         }
     }

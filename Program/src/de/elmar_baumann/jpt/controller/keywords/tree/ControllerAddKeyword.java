@@ -85,7 +85,7 @@ public class ControllerAddKeyword
         if (name != null && !name.trim().isEmpty()) {
             TreeModel tm = tree.getModel();
             if (tm instanceof TreeModelKeywords) {
-                ((TreeModelKeywords) tm).addKeyword(parentNode, name, true);
+                ((TreeModelKeywords) tm).insert(parentNode, name, true);
                 KeywordsTreePathExpander.expand(parentNode);
             } else {
                 AppLog.logWarning(ControllerAddKeyword.class, "ControllerAddKeyword.Error.Model");

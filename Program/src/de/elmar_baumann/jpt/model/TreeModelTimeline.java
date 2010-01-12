@@ -92,7 +92,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
             Timeline.Date date = new Timeline.Date(exifDate);
 
             if (!db.existsExifDate(exifDate)) {
-                removeDate(date);
+                delete(date);
             }
         }
 
@@ -101,7 +101,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
             date.setXmpDateCreated(xmpDate);
             if (date.isValid() && !db.existsXMPDateCreated(xmpDate)) {
-                removeDate(date);
+                delete(date);
             }
         }
     }
@@ -114,7 +114,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
             java.sql.Date day = exif.getDateTimeOriginal();
             if (day != null) {
                 Timeline.Date date = new Timeline.Date(day);
-                setDate(date);
+                insert(date);
             }
         }
 
@@ -124,17 +124,17 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
             date.setXmpDateCreated(xmpDate);
             if (date.isValid()) {
-                setDate(date);
+                insert(date);
             }
         }
     }
 
-    public void removeDate(Date date) {
+    public void delete(Date date) {
         TreeModelUpdateInfo.NodeAndChild info = timeline.removeDay(date);
         nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(), info.getUpdatedChild());
     }
 
-    public void setDate(Date date) {
+    public void insert(Date date) {
         if (!timeline.existsDate(date)) {
 
             TreeModelUpdateInfo.NodesAndChildIndices info = timeline.add(date);

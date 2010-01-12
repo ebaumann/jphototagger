@@ -44,7 +44,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         DatabasePrograms.INSTANCE.addListener(this);
     }
 
-    public void add(Program action) {
+    public void insert(Program action) {
         assert action.isAction() : "Program is not an action!";
         if (!contains(action) &&
                 DatabaseActionsAfterDbInsertion.INSTANCE.insert(action, getSize())) {
@@ -101,7 +101,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         }
     }
 
-    public void remove(Program action) {
+    public void delete(Program action) {
         if (contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.delete(
                 action)) {
             removeElement(action);

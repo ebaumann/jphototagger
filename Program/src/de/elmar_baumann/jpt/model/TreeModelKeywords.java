@@ -83,7 +83,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      * @param keyword    keyword to add
      * @param real       true if the keyword is a real keyword
      */
-    public synchronized void addKeyword(
+    public synchronized void insert(
             DefaultMutableTreeNode parentNode,
             String                 keyword,
             boolean                real
@@ -188,7 +188,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         return false;
     }
 
-    public synchronized void removeKeyword(DefaultMutableTreeNode keywordNode) {
+    public synchronized void delete(DefaultMutableTreeNode keywordNode) {
 
         List<Keyword> delKeywords = new ArrayList<Keyword>();
         Object                    o           = keywordNode.getUserObject();

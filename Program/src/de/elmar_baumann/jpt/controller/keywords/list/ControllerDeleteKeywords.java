@@ -100,7 +100,7 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
 
                 ((TreeModelKeywords) GUI.INSTANCE.getAppPanel().
                         getTreeEditKeywords().getModel()).removeRootItemWithoutChildren(keyword);
-                getModel().removeKeyword(keyword);
+                getModel().delete(keyword);
             }
         }
     }

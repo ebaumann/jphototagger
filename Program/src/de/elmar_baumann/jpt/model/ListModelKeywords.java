@@ -60,7 +60,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
      * @param  keyword keywords
      * @return         true if this model contains that keyword
      */
-    public synchronized boolean existsKeyword(String keyword) {
+    public synchronized boolean exists(String keyword) {
         return contains(keyword);
     }
 
@@ -72,7 +72,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
      * @param  newName new keyword name
      * @return         true if renamed
      */
-    public synchronized boolean renameKeyword(String oldName, String newName) {
+    public synchronized boolean rename(String oldName, String newName) {
         assert !oldName.equals(newName);
         int index = indexOf(oldName);
         if (index < 0) return false;
@@ -88,7 +88,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
      * @param  keyword keyword
      * @return         true if removed
      */
-    public synchronized boolean removeKeyword(String keyword) {
+    public synchronized boolean delete(String keyword) {
         int index = indexOf(keyword);
         if (index < 0) return false;
         remove(index);

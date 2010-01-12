@@ -81,14 +81,14 @@ public final class ControllerCopyPasteMetadata
     }
 
     private void copy() {
-        this.xmp = new Xmp(GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray().getXmp());
+        this.xmp = new Xmp(GUI.INSTANCE.getAppPanel().getEditMetadataPanels().getXmp());
         menuItemPaste.setEnabled(true);
     }
 
     private void paste() {
         assert xmp != null : "xmp is null!";
         if (xmp == null) return;
-        EditMetadataPanels editPanel = GUI.INSTANCE.getAppPanel().getEditMetadataPanelsArray();
+        EditMetadataPanels editPanel = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         if (!checkSelected() || !checkCanEdit(editPanel)) return;
         editPanel.setXmp(xmp);
         menuItemPaste.setEnabled(false);

@@ -95,7 +95,7 @@ public final class ControllerUpdateFavorite
                     TreeModelFavorites model =
                             (TreeModelFavorites) appPanel.getTreeFavorites().
                             getModel();
-                    model.replaceFavorite(favorite, new Favorite(
+                    model.update(favorite, new Favorite(
                             favoriteName,
                             directoryName,
                             favorite.getIndex()));

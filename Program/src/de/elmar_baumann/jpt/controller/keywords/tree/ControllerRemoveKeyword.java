@@ -71,7 +71,7 @@ public class ControllerRemoveKeyword
         if (tm instanceof TreeModelKeywords) {
             if (MessageDisplayer.confirmYesNo(null, "ControllerRemoveKeyword.Confirm.Remove", keyword)) {
                 KeywordsHelper.deleteInFiles(keyword);
-                ((TreeModelKeywords) tm).removeKeyword(node);
+                ((TreeModelKeywords) tm).delete(node);
             }
         } else {
             AppLog.logWarning(ControllerRemoveKeyword.class, "ControllerRemoveKeyword.Error.Model");

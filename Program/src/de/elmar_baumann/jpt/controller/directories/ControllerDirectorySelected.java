@@ -49,7 +49,7 @@ public final class ControllerDirectorySelected
 
     private final AppPanel                appPanel               = GUI.INSTANCE.getAppPanel();
     private final JTree                   treeDirectories        = appPanel.getTreeDirectories();
-    private final EditMetadataPanels editPanels             = appPanel.getEditMetadataPanelsArray();
+    private final EditMetadataPanels editPanels             = appPanel.getEditMetadataPanels();
     private final ThumbnailsPanel         thumbnailsPanel        = appPanel.getPanelThumbnails();
     private final ImageFilteredDirectory  imageFilteredDirectory = new ImageFilteredDirectory();
 

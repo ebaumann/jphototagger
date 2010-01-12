@@ -121,7 +121,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         if (list.getSelectedIndex() >= 0) {
             Program program = getSelectedProgram();
             if (confirmDelete(program)) {
-                model.remove(program);
+                model.delete(program);
             }
             setButtonsEnabled();
         }

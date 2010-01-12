@@ -104,7 +104,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
                         oldName,
                         newName).run(); // No separate thread!
 
-                getModel().renameKeyword(oldName, newName);
+                getModel().rename(oldName, newName);
                 ((TreeModelKeywords) GUI.INSTANCE.getAppPanel().
                         getTreeEditKeywords().getModel()).setAllRenamed(oldName, newName);
             }
@@ -127,7 +127,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
                     if (equals) {
                         finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeyword.Confirm.NewName");
                     } else {
-                        boolean exists = model.existsKeyword(newName);
+                        boolean exists = model.exists(newName);
                         if (exists) {
                             finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeyword.Confirm.NewNameExists");
                         } else {

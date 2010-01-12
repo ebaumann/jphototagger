@@ -74,7 +74,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
-    public void insertFavorite(Favorite favoriteDirectory) {
+    public void insert(Favorite favoriteDirectory) {
         synchronized (monitor) {
             favoriteDirectory.setIndex(getNextNewFavoriteIndex());
             if (!existsFavoriteDirectory(favoriteDirectory) &&
@@ -87,7 +87,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         }
     }
 
-    public void deleteFavorite(Favorite favoriteDirctory) {
+    public void delete(Favorite favoriteDirctory) {
         synchronized (monitor) {
             DefaultMutableTreeNode favNode = getNode(favoriteDirctory);
             if (favNode != null &&
@@ -111,7 +111,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         }
     }
 
-    public void replaceFavorite(Favorite oldFavorite,
+    public void update(Favorite oldFavorite,
             Favorite newFavorite) {
         synchronized (monitor) {
             DefaultMutableTreeNode oldNode = getNode(oldFavorite);

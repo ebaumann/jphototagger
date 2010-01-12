@@ -100,7 +100,7 @@ public final class ControllerInsertFavorite
                     TreeModelFavorites model =
                             (TreeModelFavorites) appPanel.getTreeFavorites().
                             getModel();
-                    model.insertFavorite(new Favorite(
+                    model.insert(new Favorite(
                             dialog.getFavoriteName(), dialog.getDirectoryName(),
                             -1));
                 }

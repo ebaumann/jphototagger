@@ -51,7 +51,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
     private final JLabel labelMetadataInfoEditable =
             appPanel.getLabelMetadataInfoEditable();
     private final EditMetadataPanels editPanels =
-            appPanel.getEditMetadataPanelsArray();
+            appPanel.getEditMetadataPanels();
     private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
 
@@ -84,7 +84,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
                     editPanels.setFilenames(FileUtil.getAsFilenames(thumbnailsPanel.
                             getSelectedFiles()));
                 } else {
-                    appPanel.getEditMetadataPanelsArray().emptyPanels(false);
+                    appPanel.getEditMetadataPanels().emptyPanels(false);
                     setEnabled(false);
                 }
                 setInfoLabel(canEdit);
