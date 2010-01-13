@@ -1,10 +1,8 @@
 package de.elmar_baumann.jpt.image.metadata.exif.formatter.canon;
 
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
+import de.elmar_baumann.jpt.types.FileType;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.ByteOrder;
@@ -18,6 +16,9 @@ import java.nio.ByteOrder;
 public final class CanonMakerNote {
 
     static byte[] getRawValueOfTag(File file, int tag, CanonIfd ifd) {
+
+        if (FileType.isJpegFile(file.getName())) return null; // TODO: Handle JPEG files (EXIF offsets are relative to the start of the TIFF header at the beginning of the EXIF segment)
+
         CanonIfd.Entry entry = ifd.getEntryOfTag(tag);
         if (entry == null) return null;
 
