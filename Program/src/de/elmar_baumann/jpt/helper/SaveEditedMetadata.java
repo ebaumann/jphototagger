@@ -52,8 +52,6 @@ public final class SaveEditedMetadata extends Thread {
         if (fileCount >= 1) {
             SaveEditedMetadata updater = new SaveEditedMetadata(filenamesXmp);
             UserTasks.INSTANCE.add(updater);
-        } else {
-            AppLog.logWarning(SaveEditedMetadata.class, "SaveEditedMetadata.Error.NoImageFilesSelected");
         }
     }
 
