@@ -35,7 +35,6 @@ public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
     private static final Map<Integer, Integer>    ORDER_OF_TAG_ID_VALUE  = new HashMap<Integer, Integer>();
     private static final List<Integer>            EXIF_IFD_TAG_ID_VALUES = new ArrayList<Integer>(30);
     private static final List<Integer>            GPS_IFD_TAG_ID_VALUES  = new ArrayList<Integer>(30);
-    private static final int MAX_ORDERERD_ID;
     public static final  ExifTagDisplayComparator INSTANCE               = new ExifTagDisplayComparator();
 
     static {
@@ -96,8 +95,6 @@ public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
         for (int index = 0; index < size; index++) {
             ORDER_OF_TAG_ID_VALUE.put(GPS_IFD_TAG_ID_VALUES.get(index), order++);
         }
-
-        MAX_ORDERERD_ID = order;
     }
 
     @Override

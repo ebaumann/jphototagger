@@ -74,8 +74,9 @@ public final class ExifTag {
          * Maker note that shall be displayed. Alle maker notes equals to or
          * grater than this value will be displayed.
          */
-        DISPLAYABLE_MAKER_NOTE    (3750000),
         MAKER_NOTE_LENS           (3750010),
+        MAKER_NOTE_CANON_START    (3751000),
+        MAKER_NOTE_NIKON_START    (3752000),
         METERING_MODE             (37383),
         FLASH                     (37385),
         FOCAL_LENGTH              (37386),
