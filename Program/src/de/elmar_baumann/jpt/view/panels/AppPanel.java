@@ -22,13 +22,6 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeywordFromEditPanel;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword;
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsList;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
@@ -40,10 +33,9 @@ import de.elmar_baumann.jpt.view.renderer.ListCellRendererFastSearchColumns;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererSavedSearches;
-import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererMiscMetadata;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererTimeline;
-import de.elmar_baumann.lib.component.ImageTextField;
+import de.elmar_baumann.lib.component.ImageTextArea;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
@@ -67,7 +59,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.JViewport;
 import javax.swing.tree.TreeSelectionModel;
@@ -116,7 +108,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     }
 
     private void setTextFieldSearchImage() {
-        ((ImageTextField) textFieldSearch).setImage(
+        ((ImageTextArea) textFieldSearch).setImage(
                 AppLookAndFeel.localizedImage(
                     "/de/elmar_baumann/jpt/resource/images/textfield_search.png"));
     }
@@ -324,7 +316,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return labelMetadataFilename;
     }
 
-    public JTextField getTextFieldSearch() {
+    public JTextArea getTextFieldSearch() {
         return textFieldSearch;
     }
 
@@ -616,8 +608,8 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         panelSelection = new javax.swing.JPanel();
         panelSearch = new javax.swing.JPanel();
         comboBoxFastSearch = new javax.swing.JComboBox();
-        textFieldSearch = new ImageTextField();
         buttonSearch = new javax.swing.JButton();
+        textFieldSearch = new ImageTextArea();
         tabbedPaneSelection = new javax.swing.JTabbedPane();
         panelDirectories = new javax.swing.JPanel();
         scrollPaneDirectories = new javax.swing.JScrollPane();
@@ -717,7 +709,21 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.weightx = 1.0;
         panelSearch.add(comboBoxFastSearch, gridBagConstraints);
 
-        textFieldSearch.setToolTipText(Bundle.getString("AppPanel.textFieldSearch.toolTipText")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        buttonSearch.setText(bundle.getString("AppPanel.buttonSearch.text")); // NOI18N
+        buttonSearch.setMargin(new java.awt.Insets(0, 2, 0, 2));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        panelSearch.add(buttonSearch, gridBagConstraints);
+
+        textFieldSearch.setColumns(20);
+        textFieldSearch.setRows(1);
+        textFieldSearch.setWrapStyleWord(true);
+        textFieldSearch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -726,17 +732,6 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelSearch.add(textFieldSearch, gridBagConstraints);
-
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        buttonSearch.setText(bundle.getString("AppPanel.buttonSearch.text")); // NOI18N
-        buttonSearch.setMargin(new java.awt.Insets(0, 2, 0, 2));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
-        panelSearch.add(buttonSearch, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -850,7 +845,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Laden...");
         treeNode1.add(treeNode2);
         treeSelKeywords.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        treeSelKeywords.setCellRenderer(new TreeCellRendererKeywords());
+        treeSelKeywords.setCellRenderer(new de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords());
         treeSelKeywords.setShowsRootHandles(true);
         scrollPaneSelKeywordsTree.setViewportView(treeSelKeywords);
 
@@ -904,7 +899,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         listSelKeywords.setDragEnabled(true);
         listSelKeywords.setName("listSelKeywords"); // NOI18N
         scrollPaneSelKeywordsList.setViewportView(listSelKeywords);
-        listSelKeywords.setTransferHandler(new TransferHandlerKeywordsList());
+        listSelKeywords.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsList());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1240,12 +1235,12 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         tabbedPaneMetadata.addTab(Bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png")), panelTabEditMetadata); // NOI18N
         tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelEditKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png")), panelEditKeywords); // NOI18N
-        new ControllerToggleRealKeyword(panelEditKeywords);
-        new ControllerRenameKeyword(panelEditKeywords);
-        new ControllerAddKeyword(panelEditKeywords);
-        new ControllerRemoveKeyword(panelEditKeywords);
-        new ControllerAddKeywordsToEditPanel(panelEditKeywords);
-        new ControllerRemoveKeywordFromEditPanel(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeywordFromEditPanel(panelEditKeywords);
         new de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword(panelEditKeywords);
         new de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages();
 
@@ -1432,7 +1427,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     private javax.swing.JTable tableXmpPhotoshop;
     private javax.swing.JTable tableXmpTiff;
     private javax.swing.JTable tableXmpXap;
-    private javax.swing.JTextField textFieldSearch;
+    private javax.swing.JTextArea textFieldSearch;
     private javax.swing.JToggleButton toggleButtonExpandAllNodesSelKeywords;
     private javax.swing.JTree treeDirectories;
     private javax.swing.JTree treeFavorites;

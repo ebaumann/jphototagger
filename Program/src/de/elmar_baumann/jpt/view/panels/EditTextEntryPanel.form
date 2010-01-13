@@ -49,9 +49,9 @@
             <Property name="columns" type="int" value="1"/>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="1"/>
+            <Property name="wrapStyleWord" type="boolean" value="true"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="textAreaEdit = new de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea();"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
             <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="textAreaEdit.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());"/>
           </AuxValues>

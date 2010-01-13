@@ -20,12 +20,12 @@ package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.database.DatabaseContent;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 /**
  * Contains autocomplete data (words, terms).
@@ -35,9 +35,9 @@ import java.util.Set;
  */
 public final class AutoCompleteData {
 
-    private final DatabaseContent db      = DatabaseContent.INSTANCE;
+    private final DatabaseContent db     = DatabaseContent.INSTANCE;
     private final Set<Column>     columns;
-    private final List<String>    content = Collections.synchronizedList(new LinkedList<String>());
+    private final List<String>    words  = new ArrayList<String>();
 
     /**
      * Creates a new instance of this class.
@@ -48,20 +48,26 @@ public final class AutoCompleteData {
      */
     AutoCompleteData(Collection<? extends Column> columns) {
         this.columns = new LinkedHashSet<Column>(columns);
-        content.addAll(db.getDistinctValuesOf(this.columns));
+        words.addAll(wordsOf(db.getDistinctValuesOf(this.columns)));
     }
 
-    /**
-     * Adds a string to the autocomplete data if it does not already exist.
-     *
-     * @param string new string
-     */
-    void addString(String string) {
-        synchronized (content) {
-            if (!content.contains(string)) {
-                content.add(string);
-            }
+
+    private List<String> wordsOf(Collection<String> strings) {
+        List<String> wordsOf = new ArrayList<String>(strings.size());
+        for (String string : strings) {
+            wordsOf.addAll(wordsOf(string));
         }
+        return wordsOf;
+    }
+
+    private List<String> wordsOf(String s) {
+        List<String>    wordsOf = new ArrayList<String>();
+        StringTokenizer st      = new StringTokenizer(s, " \t");
+
+        while (st.hasMoreTokens()) {
+            wordsOf.add(st.nextToken().trim());
+        }
+        return wordsOf;
     }
 
     /**
@@ -70,7 +76,7 @@ public final class AutoCompleteData {
      *
      * @return autocomplete data
      */
-    public List<String> getData() {
-        return content;
+    public List<String> get() {
+        return words;
     }
 }

@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.keywords.tree.SuggestKeywords;
-import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.helper.SaveEditedMetadata;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
@@ -46,7 +45,6 @@ import de.elmar_baumann.jpt.event.listener.impl.EditMetadataPanelsListenerSuppor
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -66,6 +64,7 @@ import java.util.Stack;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
@@ -665,7 +664,7 @@ public final class EditMetadataPanels
     }
 
     private boolean isEditControl(Component c) {
-        return c instanceof TabOrEnterLeavingTextArea ||
+        return c instanceof JTextArea ||
                c instanceof JTextField ||
                c instanceof RatingSelectionPanel
                ;
@@ -696,9 +695,6 @@ public final class EditMetadataPanels
         if (event.isTextMetadataAffected()) {
             ImageFile imageFile = event.getImageFile();
             setModifiedXmp(imageFile);
-            if (imageFile != null && imageFile.getXmp() != null) {
-                addAutoCompleteData(imageFile.getXmp());
-            }
         }
     }
 
@@ -722,21 +718,6 @@ public final class EditMetadataPanels
                 filenamesXmp.set(0, new Pair<String, Xmp>(filename, xmp));
                 setXmpToEditPanels();
                 return;
-            }
-        }
-    }
-
-    private void addAutoCompleteData(Xmp xmp) {
-        for (JPanel panel : panels) {
-            if (panel instanceof EditTextEntryPanel) {
-                EditTextEntryPanel p = (EditTextEntryPanel) panel;
-                AutoCompleteDataOfColumn.INSTANCE.addData(
-                        p.getColumn(), xmp.getValue(p.getColumn()));
-            } else if (panel instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel p =
-                        (EditRepeatableTextEntryPanel) panel;
-                AutoCompleteDataOfColumn.INSTANCE.addData(
-                        p.getColumn(), xmp.getValue(p.getColumn()));
             }
         }
     }
