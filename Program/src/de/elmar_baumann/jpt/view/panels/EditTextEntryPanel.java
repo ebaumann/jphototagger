@@ -23,11 +23,10 @@ import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.TextEntryContent;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
+import de.elmar_baumann.lib.componentutil.Autocomplete;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseListener;
@@ -36,7 +35,6 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.
@@ -55,6 +53,7 @@ public final class EditTextEntryPanel
     private              boolean                  dirty                    = false;
     private              boolean                  editable;
     private              TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private final        Autocomplete             autocomplete             = new Autocomplete();
 
     public EditTextEntryPanel() {
         column = ColumnXmpDcTitle.INSTANCE;
@@ -116,10 +115,9 @@ public final class EditTextEntryPanel
 
     @Override
     public void setAutocomplete() {
-        AutoCompleteDecorator.decorate(
+        autocomplete.decorate(
                 textAreaEdit,
-                AutoCompleteDataOfColumn.INSTANCE.get(column).getData(),
-                false);
+                AutoCompleteDataOfColumn.INSTANCE.get(column).get());
     }
 
     @Override
@@ -213,11 +211,11 @@ public final class EditTextEntryPanel
 
         labelPrompt = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
-        textAreaEdit = textAreaEdit = new TabOrEnterLeavingTextArea();
+        textAreaEdit = new javax.swing.JTextArea();
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text"));
+        labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -229,8 +227,9 @@ public final class EditTextEntryPanel
         textAreaEdit.setColumns(1);
         textAreaEdit.setLineWrap(true);
         textAreaEdit.setRows(1);
+        textAreaEdit.setWrapStyleWord(true);
         scrollPane.setViewportView(textAreaEdit);
-        textAreaEdit.setTransferHandler(new TransferHandlerDropEdit());
+        textAreaEdit.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

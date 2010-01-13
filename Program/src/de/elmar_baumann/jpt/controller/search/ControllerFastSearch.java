@@ -20,14 +20,10 @@ package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
-import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
@@ -39,6 +35,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.componentutil.Autocomplete;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -55,11 +52,9 @@ import java.util.StringTokenizer;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
-import javax.swing.text.PlainDocument;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
@@ -70,20 +65,19 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public final class ControllerFastSearch
         implements
         ActionListener,
-        DatabaseImageFilesListener,
         UserSettingsListener,
         RefreshListener {
 
     private static final String             DELIMITER_SEARCH_WORDS = ";";
     private final        DatabaseFind       db                     = DatabaseFind.INSTANCE;
     private final        AppPanel           appPanel               = GUI.INSTANCE.getAppPanel();
-    private final        JTextField         textFieldSearch        = appPanel.getTextFieldSearch();
+    private final        JTextArea          textFieldSearch        = appPanel.getTextFieldSearch();
     private final        JComboBox          comboboxFastSearch     = appPanel.getComboBoxFastSearch();
     private final        ThumbnailsPanel    thumbnailsPanel        = appPanel.getPanelThumbnails();
-    private final        List<Column>       fastSearchColumns      = UserSettings.INSTANCE.getFastSearchColumns();
     private final        List<JTree>        selectionTrees         = appPanel.getSelectionTrees();
     private final        List<JList>        selectionLists         = appPanel.getSelectionLists();
     private final        EditMetadataPanels editPanels             = appPanel.getEditMetadataPanels();
+    private final        Autocomplete       autocomplete           = new Autocomplete();
 
     public ControllerFastSearch() {
         setEnabledSearchTextField();
@@ -113,10 +107,7 @@ public final class ControllerFastSearch
         });
 
         appPanel.getButtonSearch().addActionListener(this);
-
         comboboxFastSearch.addActionListener(this);
-
-        DatabaseImageFiles.INSTANCE.addListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
     }
 
@@ -140,35 +131,16 @@ public final class ControllerFastSearch
         }
     }
 
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (event.isTextMetadataAffected()) {
-            ImageFile imageFile = event.getImageFile();
-            if (imageFile != null && imageFile.getXmp() != null) {
-                addAutoCompleteData(imageFile.getXmp());
-            }
-        }
-    }
-
-    private void addAutoCompleteData(Xmp xmp) {
-        for (Column column : fastSearchColumns) {
-            AutoCompleteDataOfColumn.INSTANCE.addData(
-                    column, xmp.getValue(column));
-        }
-    }
-
     private void decorateTextFieldSearch() {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                textFieldSearch.setDocument(new PlainDocument()); // else the document seems to "collect" previous auto complete data
-                AutoCompleteDecorator.decorate(
+                autocomplete.decorate(
                         textFieldSearch,
                         isSearchAllDefinedColumns()
-                        ? AutoCompleteDataOfColumn.INSTANCE.getFastSearchData().getData()
-                        : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).getData(),
-                        false);
+                        ? AutoCompleteDataOfColumn.INSTANCE.getFastSearchData().get()
+                        : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).get());
             }
         });
     }

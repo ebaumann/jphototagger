@@ -21,6 +21,10 @@
         <url>fast_search.html</url>
         <title>Die Schnellsuche</title>
     </page>
+    <page>
+        <url>autocomplete.html</url>
+        <title>Auto-Vervollständigen</title>
+    </page>
     <node>
         <title>Schnell arbeiten (Zeit sparen)</title>
         <page>

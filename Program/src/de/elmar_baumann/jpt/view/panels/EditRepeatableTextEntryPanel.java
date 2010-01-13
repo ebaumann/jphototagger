@@ -29,9 +29,11 @@ import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Suggest;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywordsEdit;
+import de.elmar_baumann.lib.componentutil.Autocomplete;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,7 +52,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,
@@ -77,6 +78,8 @@ public final class EditRepeatableTextEntryPanel
     private              Suggest                  suggest;
     private              boolean                  ignoreIntervalAdded;
     private              TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private final        Autocomplete             autocomplete             = new Autocomplete();
+    private              Color                    editBackground;
 
     public EditRepeatableTextEntryPanel() {
         initComponents();
@@ -90,6 +93,7 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private void postInitComponents() {
+        editBackground = textFieldInput.getBackground();
         textFieldInput.setInputVerifier(column.getInputVerifier());
         textFieldInput.getDocument().addDocumentListener(this);
         model.addListDataListener(this);
@@ -106,10 +110,9 @@ public final class EditRepeatableTextEntryPanel
 
     @Override
     public void setAutocomplete() {
-        AutoCompleteDecorator.decorate(
+        autocomplete.decorate(
                 textFieldInput,
-                AutoCompleteDataOfColumn.INSTANCE.get(column).getData(),
-                false);
+                AutoCompleteDataOfColumn.INSTANCE.get(column).get());
     }
 
     /**
@@ -273,9 +276,9 @@ public final class EditRepeatableTextEntryPanel
         buttonAddInput.setEnabled(editable);
         buttonRemoveSelection.setEnabled(editable);
         buttonSuggestion.setEnabled(editable && suggest != null);
-        list.setBackground(editable
-                           ? textFieldInput.getBackground()
-                           : getBackground());
+        Color background = editable ? editBackground : getBackground();
+        list.setBackground(background);
+        textFieldInput.setBackground(background);
     }
 
     @Override
@@ -545,7 +548,7 @@ public final class EditRepeatableTextEntryPanel
         labelPrompt = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
-        textFieldInput = new javax.swing.JTextField();
+        textFieldInput = new javax.swing.JTextArea();
         panelButtons = new javax.swing.JPanel();
         buttonRemoveSelection = new javax.swing.JButton();
         buttonAddInput = new javax.swing.JButton();
@@ -612,21 +615,14 @@ public final class EditRepeatableTextEntryPanel
         gridBagConstraints.weighty = 1.0;
         add(scrollPane, gridBagConstraints);
 
-        textFieldInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.textFieldInput.toolTipText")); // NOI18N
-        textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                textFieldInputKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textFieldInputKeyReleased(evt);
-            }
-        });
+        textFieldInput.setColumns(20);
+        textFieldInput.setRows(1);
+        textFieldInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(textFieldInput, gridBagConstraints);
-        textFieldInput.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
 
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
@@ -676,10 +672,6 @@ public final class EditRepeatableTextEntryPanel
         add(panelButtons, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-private void textFieldInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyReleased
-    handleTextFieldKeyReleased(evt);
-}//GEN-LAST:event_textFieldInputKeyReleased
-
 private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddInputActionPerformed
     handleButtonAddInputActionPerformed();
 }//GEN-LAST:event_buttonAddInputActionPerformed
@@ -695,10 +687,6 @@ private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-F
 private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
     handleListKeyPressed(evt);
 }//GEN-LAST:event_listKeyPressed
-
-private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
-    suggestText(evt);
-}//GEN-LAST:event_textFieldInputKeyPressed
 
 private void buttonSuggestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSuggestionActionPerformed
     suggestText();
@@ -722,6 +710,6 @@ private void menuItemRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JPanel panelButtons;
     private javax.swing.JPopupMenu popupMenuList;
     private javax.swing.JScrollPane scrollPane;
-    public javax.swing.JTextField textFieldInput;
+    public javax.swing.JTextArea textFieldInput;
     // End of variables declaration//GEN-END:variables
 }

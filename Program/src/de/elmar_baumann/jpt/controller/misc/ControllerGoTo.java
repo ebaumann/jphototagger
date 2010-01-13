@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 /**
  * Controls the action: Go to ...
@@ -42,8 +42,8 @@ public final class ControllerGoTo implements ActionListener {
 
     private final AppPanel                        appPanel         = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel                 thumbnailsPanel  = appPanel.getPanelThumbnails();
-    private final EditMetadataPanels         editPanels       = appPanel.getEditMetadataPanels();
-    private final JTextField                      textFieldSearch  = appPanel.getTextFieldSearch();
+    private final EditMetadataPanels              editPanels       = appPanel.getEditMetadataPanels();
+    private final JTextArea                       textFieldSearch  = appPanel.getTextFieldSearch();
     private final AppFrame                        appFrame         = GUI.INSTANCE.getAppFrame();
     private final Map<AppFrame.GoTo, Component>   componentOfGoTo  = new HashMap<AppFrame.GoTo, Component>();
     private final Map<AppFrame.GoTo, JTabbedPane> tabbedPaneOfGoTo = new HashMap<AppFrame.GoTo, JTabbedPane>();
