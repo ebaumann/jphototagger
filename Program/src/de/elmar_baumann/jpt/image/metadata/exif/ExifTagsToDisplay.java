@@ -52,7 +52,6 @@ public final class ExifTagsToDisplay {
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.IMAGE_UNIQUE_ID.value());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.ISO_SPEED_RATINGS.value());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.MAKE.value());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.DISPLAYABLE_MAKER_NOTE.value());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.METERING_MODE.value());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.MODEL.value());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.SATURATION.value());

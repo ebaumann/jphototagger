@@ -7,7 +7,7 @@ import java.util.Set;
  *
  *
  * @param <T> listener type
- * @author  Elmar Baumann <ebaumann@feitsch.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-12
  */
 public class ListenerSupport<T> {

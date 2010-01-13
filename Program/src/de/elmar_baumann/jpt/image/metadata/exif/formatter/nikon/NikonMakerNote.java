@@ -16,9 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.image.metadata.exif;
+package de.elmar_baumann.jpt.image.metadata.exif.formatter.nikon;
 
 import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifLong;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
@@ -39,7 +41,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 /**
- * EXIF maker note that shall be displayed.
+ * Nikon EXIF maker type 3.
  * <p>
  * Gathers information from a property file, which format is described in the
  * text file
@@ -52,7 +54,7 @@ import java.util.StringTokenizer;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-30
  */
-final class DisplayableExifMakerNote {
+public final class NikonMakerNote {
 
     private final String                       description;
     private final String                       exifTagMatchPattern;
@@ -67,7 +69,7 @@ final class DisplayableExifMakerNote {
      *
      * @param bundle                    resource bundle of a properties file
      *                                  described in
-     *                                  <code>de/elmar_baumann/jpt/resource/properties/ExifMakerNote-Property-File-Format.txt</code>
+     *                                  <code>de/elmar_baumann/jpt/resource/properties/NikonExifMakerNote-Property-File-Format.txt</code>
      * @throws MissingResourceException if the bundle does not contain the keys
      *                                  <code>"ByteOffsetToTiffHeader"</code>
      *                                  and <code>"Description"</code>
@@ -78,7 +80,7 @@ final class DisplayableExifMakerNote {
      *                                  <code>"ByteOffsetToTiffHeader"</code> can't
      *                                  be formatted into an integer value
      */
-    public DisplayableExifMakerNote(ResourceBundle bundle) throws MissingResourceException {
+    NikonMakerNote(ResourceBundle bundle) throws MissingResourceException {
 
         this.bundle                  = bundle;
         this.description             = bundle.getString("Description");
@@ -159,7 +161,7 @@ final class DisplayableExifMakerNote {
         return byteOffsetToTiffHeader;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
@@ -170,7 +172,7 @@ final class DisplayableExifMakerNote {
      *
      * @return Equal tag IDs
      */
-    public List<Pair<Integer, Integer>> getTagIdsEqualInExifIfd() {
+    List<Pair<Integer, Integer>> getTagIdsEqualInExifIfd() {
         return new ArrayList<Pair<Integer, Integer>>(equalTagIdsInExifIfd);
     }
 
@@ -255,7 +257,7 @@ final class DisplayableExifMakerNote {
             try {
                 makerNoteTagInfos.add(new MakerNoteTagInfo(indexOfTag(key), bundle.getString(key)));
             } catch (ClassNotFoundException ex) {
-                AppLog.logSevere(DisplayableExifMakerNote.class, ex);
+                AppLog.logSevere(NikonMakerNote.class, ex);
             }
         }
     }

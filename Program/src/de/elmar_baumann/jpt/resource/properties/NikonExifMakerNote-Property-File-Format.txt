@@ -1,24 +1,24 @@
-Format of a ExifMakerNote property file
----------------------------------------
+Format of a NikonExifMakerNote property file
+--------------------------------------------
 
 Only usable if the maker note EXIF raw data contains a standard TIFF header
 which references a TIFF image file directory (IFD) beginning at a specific
 offset. The maker note has the  tag ID 37500.
 
-Every property file *must* have the name "ExifMakerNote_[0-9]+\.properties",
-e.g. "ExifMakerNote_0.properties" and:
+Every property file *must* have the name "NikonExifMakerNote_[0-9]+\.properties",
+e.g. "NikonExifMakerNote_0.properties" and:
 
-* Leading zeros are *not* allowed, so "ExifMakerNote_01.properties" is a
+* Leading zeros are *not* allowed, so "NikonExifMakerNote_01.properties" is a
   INVALID name
 * The next valid file name must have exactly 1 number more. The first three
   property file names have to be:
-  * "ExifMakerNote_0.properties"
-  * "ExifMakerNote_1.properties"
-  * "ExifMakerNote_2.properties"
+  * "NikonExifMakerNote_0.properties"
+  * "NikonExifMakerNote_1.properties"
+  * "NikonExifMakerNote_2.properties"
   JPhotoTagger stops reading property files at the last number in this sequence.
   If the fourth file name in the example obove has the name
-  "ExifMakerNote_4.properties", it won't be read because
-  "ExifMakerNote_3.properties" does not exist.
+  "NikonExifMakerNote_4.properties", it won't be read because
+  "NikonExifMakerNote_3.properties" does not exist.
 
 Alle required property keys and their values are described in this file.
 
@@ -83,6 +83,6 @@ where the numer correspondends to the "Tag[0-9]+": "Tag1" has a second key
 "Tag1DisplayName".
 
 To localize the values create a file with the same base name plus the language
-code of the locale, e.g. "ExifMakerNote_0.properties" ->
-"ExifMakerNote_0_en.properties". The latter file contains only the localized key
-value pairs "Tag[0-9]+DisplayName".
+code of the locale, e.g. "NikonExifMakerNote_0.properties" ->
+"NikonExifMakerNote_0_en.properties". The latter file contains only the
+localized key value pairs "Tag[0-9]+DisplayName".

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.image.metadata.exif.formatter;
+package de.elmar_baumann.jpt.image.metadata.exif.formatter.canon;
 
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDataType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
@@ -83,7 +83,7 @@ public final class CanonIfd {
         this.rawValue   = copy(rawValue);
         this.byteOrder  = byteOrder;
         this.entryCount = entryCountFromRaw();
-        this.entries    = new Entry[entryCount];
+        this.entries    = entryCount > 0 ? new Entry[entryCount] : null;
         setEntries();
     }
 
@@ -94,13 +94,20 @@ public final class CanonIfd {
     }
 
     private int entryCountFromRaw() {
+        if (rawValue.length < 2) return 0;
+
         byte[] raw = new byte[2];
         System.arraycopy(rawValue, 0, raw, 0, 2);
+
         return ExifDatatypeUtil.shortFromRawValue(raw, byteOrder);
     }
 
     private void setEntries() {
-        assert rawValue.length >= 2 + entryCount * 12;
+        if (entryCount <= 0) return;
+        int requiredByteCount = 2 + entryCount * 12;
+        assert rawValue.length >= requiredByteCount;
+        if (rawValue.length < requiredByteCount) return;
+
         int entryIndex = 0;
         for (int i = 0; i < entryCount; i++) {
             byte[] r = new byte[12];
@@ -113,6 +120,7 @@ public final class CanonIfd {
 
     private Entry createEntry(byte[] raw) {
         assert raw.length == 12;
+        if (raw.length < 12) return null;
 
         byte[] tagBytes         = new byte[2];
         byte[] fieldTypeBytes   = new byte[2];
@@ -135,11 +143,19 @@ public final class CanonIfd {
         return new Entry(tag, fieldType, valueNumber, offsetBytes, raw);
     }
 
+    public ByteOrder getByteOrder() {
+        return byteOrder;
+    }
+
     public int getEntryCount() {
         return entryCount;
     }
 
-    public byte[] getRawValueOfTag(int tag) {
+    public Entry getEntryOfTag(int tag) {
+        return entryOfTag.get(tag);
+    }
+
+    public byte[] getTagAsRawValue(int tag) {
         Entry entry = entryOfTag.get(tag);
 
         if (entry == null) return null;
