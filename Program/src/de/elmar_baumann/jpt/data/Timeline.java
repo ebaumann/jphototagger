@@ -41,127 +41,6 @@ import javax.swing.tree.TreeModel;
  */
 public final class Timeline {
 
-    public static class Date {
-        public int year;
-        public int month;
-        public int day;
-
-        public Date(int year, int month, int date) {
-            this.year  = year;
-            this.month = month;
-            this.day   = date;
-        }
-
-        public Date(Calendar cal) {
-            set(cal);
-        }
-
-        public Date(java.sql.Date date) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            set(cal);
-        }
-
-        public void reset() {
-            year  = -1;
-            month = -1;
-            day   = -1;
-        }
-
-        public void set(Calendar cal) {
-            year  = cal.get(Calendar.YEAR);
-            month = cal.get(Calendar.MONTH) + 1;
-            day   = cal.get(Calendar.DAY_OF_MONTH);
-        }
-
-        public boolean setXmpDateCreated(String date) {
-            int length = date.length();
-            try {
-                if (length >= 4) {
-                    year = Integer.parseInt(date.substring(0, 4));
-                }
-                if (length >= 7) {
-                    month = Integer.parseInt(date.substring(5, 7));
-                }
-                if (length == 10) {
-                    day = Integer.parseInt(date.substring(8));
-                }
-                return true;
-            } catch (Exception ex) {
-                AppLog.logSevere(Date.class, ex);
-                reset();
-            }
-            return false;
-        }
-
-        public boolean isValid() {
-            return year > 0;
-        }
-
-        public boolean hasDay() {
-            return day > 0;
-        }
-
-        public boolean hasMonth() {
-            return month > 0;
-        }
-
-        public boolean hasYear() {
-            return year > 0;
-        }
-
-        public boolean isComplete() {
-            return day > 0 && month > 0 && year > 0;
-        }
-
-        public String getMonthDisplayName() {
-            try {
-                if (!hasMonth()) return Bundle.getString("Timeline.DisplayName.NoMonth");
-
-                DateFormat     df     = new SimpleDateFormat("M");
-                java.util.Date date   = df.parse(Integer.toString(month));
-                DateFormat     dfLong = new SimpleDateFormat("MMMM");
-
-                return dfLong.format(date);
-            } catch (Exception ex) {
-                AppLog.logSevere(Date.class, ex);
-            }
-            return Bundle.getString("Timeline.DisplayName.NoMonth");
-        }
-
-        @Override
-        public String toString() {
-            return isValid()
-                    ? Integer.toString(year)
-                    : hasMonth()
-                    ? "-" + Integer.toString(month)
-                    : hasDay()
-                    ? "-" + Integer.toString(day)
-                    : "Invalid date"
-                    ;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) return false;
-            if (getClass() != obj.getClass()) return false;
-            final Date other = (Date) obj;
-            if (this.year  != other.year ) return false;
-            if (this.month != other.month) return false;
-            if (this.day   != other.day  ) return false;
-            return true;
-        }
-
-        @Override
-        public int hashCode() {
-            int hash = 3;
-            hash = 31 * hash + this.year;
-            hash = 31 * hash + this.month;
-            hash = 31 * hash + this.day;
-            return hash;
-        }
-    }
-
     private final        DefaultMutableTreeNode ROOT_NODE    = new TreeNodeSortedChildren(Bundle.getString("Timeline.RootNode.DisplayName"));
     private static final DefaultMutableTreeNode UNKNOWN_NODE = new TreeNodeSortedChildren(Bundle.getString("Timeline.UnknownNode.DisplayName"));
     private              boolean                unknownNode;
@@ -379,10 +258,12 @@ public final class Timeline {
 
         int year = getYear(yearNode);
         while (!inserted && index < childCount) {
-            Object userObject = ((DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++)).getUserObject();
-            if (userObject == UNKNOWN_NODE) return;
-            assert userObject instanceof Date;
-            inserted = ((Date) userObject).year == year;
+            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++);
+            if (childNode != UNKNOWN_NODE) {
+                Object userObject = childNode.getUserObject();
+                assert userObject instanceof Date;
+                inserted = ((Date) userObject).year == year;
+            }
         }
         if (!inserted) {
             ROOT_NODE.add(yearNode);
@@ -486,5 +367,126 @@ public final class Timeline {
             return ((Date) userObject).day;
         }
         return -1;
+    }
+
+    public static class Date {
+        public int year;
+        public int month;
+        public int day;
+
+        public Date(int year, int month, int date) {
+            this.year  = year;
+            this.month = month;
+            this.day   = date;
+        }
+
+        public Date(Calendar cal) {
+            set(cal);
+        }
+
+        public Date(java.sql.Date date) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            set(cal);
+        }
+
+        public void reset() {
+            year  = -1;
+            month = -1;
+            day   = -1;
+        }
+
+        public void set(Calendar cal) {
+            year  = cal.get(Calendar.YEAR);
+            month = cal.get(Calendar.MONTH) + 1;
+            day   = cal.get(Calendar.DAY_OF_MONTH);
+        }
+
+        public boolean setXmpDateCreated(String date) {
+            int length = date.length();
+            try {
+                if (length >= 4) {
+                    year = Integer.parseInt(date.substring(0, 4));
+                }
+                if (length >= 7) {
+                    month = Integer.parseInt(date.substring(5, 7));
+                }
+                if (length == 10) {
+                    day = Integer.parseInt(date.substring(8));
+                }
+                return true;
+            } catch (Exception ex) {
+                AppLog.logSevere(Date.class, ex);
+                reset();
+            }
+            return false;
+        }
+
+        public boolean isValid() {
+            return year > 0;
+        }
+
+        public boolean hasDay() {
+            return day > 0;
+        }
+
+        public boolean hasMonth() {
+            return month > 0;
+        }
+
+        public boolean hasYear() {
+            return year > 0;
+        }
+
+        public boolean isComplete() {
+            return day > 0 && month > 0 && year > 0;
+        }
+
+        public String getMonthDisplayName() {
+            try {
+                if (!hasMonth()) return Bundle.getString("Timeline.DisplayName.NoMonth");
+
+                DateFormat     df     = new SimpleDateFormat("M");
+                java.util.Date date   = df.parse(Integer.toString(month));
+                DateFormat     dfLong = new SimpleDateFormat("MMMM");
+
+                return dfLong.format(date);
+            } catch (Exception ex) {
+                AppLog.logSevere(Date.class, ex);
+            }
+            return Bundle.getString("Timeline.DisplayName.NoMonth");
+        }
+
+        @Override
+        public String toString() {
+            return isValid()
+                    ? Integer.toString(year)
+                    : hasMonth()
+                    ? "-" + Integer.toString(month)
+                    : hasDay()
+                    ? "-" + Integer.toString(day)
+                    : "Invalid date"
+                    ;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) return false;
+            if (getClass() != obj.getClass()) return false;
+            final Date other = (Date) obj;
+            if (this.year  != other.year ) return false;
+            if (this.month != other.month) return false;
+            if (this.day   != other.day  ) return false;
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 31 * hash + this.year;
+            hash = 31 * hash + this.month;
+            hash = 31 * hash + this.day;
+            return hash;
+        }
     }
 }
