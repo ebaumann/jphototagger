@@ -747,12 +747,12 @@ public final class UserSettings {
     /**
      * Sets whether to display IPTC.
      *
-     * @return true if display IPTC. Default: true.
+     * @return true if display IPTC. Default: false.
      */
     public boolean isDisplayIptc() {
         return properties.containsKey(KEY_DISPLAY_IPTC)
                 ? settings.getBoolean(KEY_DISPLAY_IPTC)
-                : true;
+                : false;
     }
 
     public void addUserSettingsListener(UserSettingsListener listener) {
