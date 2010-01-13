@@ -1,10 +1,9 @@
 package de.elmar_baumann.lib.componentutil;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.LinkedList;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -30,25 +29,49 @@ import javax.swing.text.BadLocationException;
  */
 public final class Autocomplete implements DocumentListener  {
 
-    private              JTextArea    textArea;
-    private static final String       COMMIT_ACTION         = "commit";
-    private static final String       FOCUS_FORWARD_ACTION  = "focus_forward";
-    private static final String       FOCUS_BACKWARD_ACTION = "focus_backward";
-    private static final int          MIN_CHARS             = 2;
-    private final        List<String> words                 = new ArrayList<String>();
-    private              Mode         mode                  = Mode.INSERT;
+    private              JTextArea          textArea;
+    private static final String             COMMIT_ACTION         = "commit";
+    private static final String             FOCUS_FORWARD_ACTION  = "focus_forward";
+    private static final String             FOCUS_BACKWARD_ACTION = "focus_backward";
+    private static final int                MIN_CHARS             = 2;
+    private final        LinkedList<String> words                 = new LinkedList<String>();
+    private              Mode               mode                  = Mode.INSERT;
 
     private static enum Mode { INSERT, COMPLETION };
 
-    public synchronized void decorate(JTextArea textArea, Collection<String> words) {
-        this.textArea = textArea;
-        this.words.addAll(words);
+    public void decorate(JTextArea textArea, Collection<String> words) {
+        if (textArea != this.textArea) {
+            this.textArea = textArea;
+            textArea.getDocument().addDocumentListener(this);
+            registerKeyStrokes();
+        }
+        synchronized (this.words) {
+            this.words.clear();
+            this.words.addAll(words);
+        }
         init();
     }
 
+    /**
+     * Adds a new word for auto completion.
+     *
+     * @param word word
+     */
+    public void add(String word) {
+        String newWord = word.trim().toLowerCase();
+        synchronized (words) {
+            int size = words.size();
+            for (int i = 0; i < size; i++) {
+                if (words.get(i).equals(newWord)) return;
+                if (words.get(i).compareTo(newWord) > 0) {
+                    words.add(i == 0 ? i : i - 1, newWord);
+                    return;
+                }
+            }
+        }
+    }
+
     private void init() {
-        textArea.getDocument().addDocumentListener(this);
-        registerKeyStrokes();
         wordsToLowerCase();
     }
     
@@ -67,11 +90,13 @@ public final class Autocomplete implements DocumentListener  {
     }
 
     private void wordsToLowerCase() {
-        int count = words.size();
-        for (int i = 0; i < count; i++) {
-            words.set(i, words.get(i).toLowerCase()); // Input converted to lowercase
+        synchronized (this.words) {
+            int count = words.size();
+            for (int i = 0; i < count; i++) {
+                words.set(i, words.get(i).toLowerCase()); // Input converted to lowercase
+            }
+            Collections.sort(words); // Binary search requires natural sort order
         }
-        Collections.sort(words); // Binary search requires natural sort order
     }
 
     @Override
@@ -109,20 +134,22 @@ public final class Autocomplete implements DocumentListener  {
         }
 
         String prefix = content.substring(w + 1).toLowerCase();
-        int n = Collections.binarySearch(words, prefix);
-        if (n < 0 && -n <= words.size()) {
-            String match = words.get(-n - 1);
-            if (match.startsWith(prefix)) {
-                // A completion is found
-                String completion = match.substring(pos - w);
-                // We cannot modify Document from within notification,
-                // so we submit a task that does the change later
-                SwingUtilities.invokeLater(
-                        new CompletionTask(completion, pos + 1));
+        synchronized (words) {
+            int n = Collections.binarySearch(words, prefix);
+            if (n < 0 && -n <= words.size()) {
+                String match = words.get(-n - 1);
+                if (match.startsWith(prefix)) {
+                    // A completion is found
+                    String completion = match.substring(pos - w);
+                    // We cannot modify Document from within notification,
+                    // so we submit a task that does the change later
+                    SwingUtilities.invokeLater(
+                            new CompletionTask(completion, pos + 1));
+                }
+            } else {
+                // Nothing found
+                mode = Mode.INSERT;
             }
-        } else {
-            // Nothing found
-            mode = Mode.INSERT;
         }
     }
 
