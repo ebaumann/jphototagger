@@ -52,6 +52,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.plaf.basic.BasicBorders;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,
@@ -96,6 +97,7 @@ public final class EditRepeatableTextEntryPanel
         editBackground = textFieldInput.getBackground();
         textFieldInput.setInputVerifier(column.getInputVerifier());
         textFieldInput.getDocument().addDocumentListener(this);
+        autocomplete.setTransferFocusForward(false);
         model.addListDataListener(this);
         setPropmt();
     }
@@ -288,6 +290,7 @@ public final class EditRepeatableTextEntryPanel
 
     private void handleButtonAddInputActionPerformed() {
         addInputToList();
+        textFieldInput.requestFocusInWindow();
     }
 
     /**
@@ -295,6 +298,7 @@ public final class EditRepeatableTextEntryPanel
      */
     private void handleButtonRemoveInputActionPerformed() {
         removeSelectedElements();
+        textFieldInput.requestFocusInWindow();
     }
 
     private void handleListKeyPressed(KeyEvent evt) {
@@ -344,6 +348,7 @@ public final class EditRepeatableTextEntryPanel
         // Don't notify TextEntryListener listeners because the model doesn't
         // change
         dirty = true;
+        buttonAddInput.setEnabled(true);
     }
 
     /**
@@ -356,6 +361,7 @@ public final class EditRepeatableTextEntryPanel
         // Don't notify TextEntryListener listeners because the model doesn't
         // change
         dirty = true;
+        buttonAddInput.setEnabled(!textFieldInput.getText().isEmpty());
     }
 
     /**
@@ -420,9 +426,7 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private void renameListItem(int index) {
-        assert model.getElementAt(index) != null :
-                "Invalid model index: " + index +
-                ". Valid: 0.." + (model.size() - 1);
+        assert model.getElementAt(index) != null : "Invalid model index: " + index + ". Valid: 0.." + (model.size() - 1);
         boolean ready = false;
         String oldName = model.getElementAt(index).toString();
         String newName = null;
@@ -497,12 +501,12 @@ public final class EditRepeatableTextEntryPanel
 
     @Override
     public void intervalRemoved(ListDataEvent e) {
-        // ignore
+        dirty = true;
     }
 
     @Override
     public void contentsChanged(ListDataEvent e) {
-        // ignore
+        buttonRemoveSelection.setEnabled(list.getModel().getSize() > 0);
     }
 
     @Override
@@ -617,7 +621,15 @@ public final class EditRepeatableTextEntryPanel
 
         textFieldInput.setColumns(20);
         textFieldInput.setRows(1);
-        textFieldInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        textFieldInput.setBorder(BasicBorders.getTextFieldBorder());
+        textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldInputKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldInputKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -628,7 +640,6 @@ public final class EditRepeatableTextEntryPanel
 
         buttonRemoveSelection.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
         buttonRemoveSelection.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
-        buttonRemoveSelection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         buttonRemoveSelection.setContentAreaFilled(false);
         buttonRemoveSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
@@ -640,7 +651,6 @@ public final class EditRepeatableTextEntryPanel
 
         buttonAddInput.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
         buttonAddInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
-        buttonAddInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         buttonAddInput.setContentAreaFilled(false);
         buttonAddInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
@@ -652,7 +662,6 @@ public final class EditRepeatableTextEntryPanel
 
         buttonSuggestion.setMnemonic('k');
         buttonSuggestion.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
-        buttonSuggestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
         buttonSuggestion.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -699,6 +708,15 @@ private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {//GE
 private void menuItemRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRemoveActionPerformed
     removeSelectedElements();
 }//GEN-LAST:event_menuItemRemoveActionPerformed
+
+private void textFieldInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyReleased
+    handleTextFieldKeyReleased(evt);
+}//GEN-LAST:event_textFieldInputKeyReleased
+
+private void textFieldInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyTyped
+    suggestText(evt);
+}//GEN-LAST:event_textFieldInputKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddInput;
     private javax.swing.JButton buttonRemoveSelection;

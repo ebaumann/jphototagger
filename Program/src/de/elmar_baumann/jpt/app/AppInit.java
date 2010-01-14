@@ -34,10 +34,10 @@ import de.elmar_baumann.lib.dialog.SystemOutputDialog;
  */
 public final class AppInit {
 
-    private static AppInit INSTANCE;
-    private static final String NO_OUTPUT_CAPTURE = "-nocapture";
-    private String[] args;
-    private static boolean captureOutput = true;
+    private static       AppInit  INSTANCE;
+    private static final String   CMD_LINE_OPTION_NO_OUTPUT_CAPTURE = "-nocapture";
+    private              String[] args;
+    private static       boolean  captureOutput                     = true;
 
     public static synchronized void init(String[] args) {
         if (INSTANCE == null) {
@@ -72,7 +72,7 @@ public final class AppInit {
     private void setCaptureOutput() {
         if (args == null) return;
         for (String arg : args) {
-            if (arg.equals(NO_OUTPUT_CAPTURE)) {
+            if (arg.equals(CMD_LINE_OPTION_NO_OUTPUT_CAPTURE)) {
                 captureOutput = false;
                 return;
             }

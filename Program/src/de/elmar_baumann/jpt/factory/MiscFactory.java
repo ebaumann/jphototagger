@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.factory;
 
-import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -58,7 +57,6 @@ public final class MiscFactory {
             appPanel.getEditMetadataPanels().setAutocomplete();
 
             popupMenuPanelThumbnails.setOtherPrograms();
-            AppLifeCycle.INSTANCE.addAppExitListener(appPanel.getPanelThumbnails());
             ScheduledTasks.INSTANCE.run();
             setPopupMenuHighlighter();
             setSizeAndLocationController();

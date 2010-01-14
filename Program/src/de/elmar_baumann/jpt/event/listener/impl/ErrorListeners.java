@@ -35,22 +35,9 @@ import java.util.Set;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-14
  */
-public final class ErrorListeners {
+public final class ErrorListeners extends ListenerSupport<ErrorListener> {
 
-    private final       Set<ErrorListener> listeners = new HashSet<ErrorListener>();
-    public static final ErrorListeners     INSTANCE  = new ErrorListeners();
-
-    public void add(ErrorListener listener) {
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
-    }
-
-    public void remove(ErrorListener listener) {
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
-    }
+    public static final ErrorListeners INSTANCE = new ErrorListeners();
 
     public void notifyListeners(ErrorEvent evt) {
         synchronized (listeners) {

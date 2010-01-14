@@ -19,6 +19,8 @@
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
+import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.io.IOException;
@@ -40,14 +42,15 @@ import java.util.logging.StreamHandler;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-11
  */
-public final class AppLoggingSystem {
+public final class AppLoggingSystem implements UserSettingsListener {
 
-    private static final int MAX_LOGFILE_SIZE_IN_BYTES = 1000000;
-    private static final int MAX_LOGFILE_COUNT = 5;
-    private static final boolean APPEND_OUTPUT_TO_LOGFILE = false;
-    private static final int MEMORY_HANDLER_LOG_RECORDS_COUNT = 1000;
-    private static final List<Handler> HANDLERS = new ArrayList<Handler>();
-    private static boolean init;
+    private static final int           MAX_LOGFILE_SIZE_IN_BYTES        = 1000000;
+    private static final int           MAX_LOGFILE_COUNT                = 5;
+    private static final boolean       APPEND_OUTPUT_TO_LOGFILE         = false;
+    private static final int           MEMORY_HANDLER_LOG_RECORDS_COUNT = 1000;
+    private static final List<Handler> HANDLERS                         = new ArrayList<Handler>();
+    private static       boolean       init;
+    private static       Logger        appLogger;
 
     /**
      * Initializes the application's logging system.
@@ -64,16 +67,16 @@ public final class AppLoggingSystem {
     }
 
     private static void ensureLogDirectoryExists() {
-        FileUtil.ensureDirectoryExists(new File(
-                UserSettings.INSTANCE.getSettingsDirectoryName()));
+        FileUtil.ensureDirectoryExists(
+                new File(UserSettings.INSTANCE.getSettingsDirectoryName()));
     }
 
     private static void createLogger(Level userLevel) {
         try {
-            Logger logger = Logger.getLogger("de.elmar_baumann");
-            addHandlers(logger);
-            logger.setLevel(userLevel);
-            LogManager.getLogManager().addLogger(logger);
+            appLogger = Logger.getLogger("de.elmar_baumann");
+            addHandlers(appLogger);
+            appLogger.setLevel(userLevel);
+            LogManager.getLogManager().addLogger(appLogger);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -108,14 +111,12 @@ public final class AppLoggingSystem {
                 MAX_LOGFILE_COUNT,
                 APPEND_OUTPUT_TO_LOGFILE);
         fileHandler.setLevel(Level.WARNING); // Ignoring user's settings
-        fileHandler.setFormatter((Formatter) UserSettings.INSTANCE.
-                getLogfileFormatterClass().newInstance());
+        fileHandler.setFormatter((Formatter) UserSettings.INSTANCE.getLogfileFormatterClass().newInstance());
         HANDLERS.add(fileHandler);
     }
 
     private static void createSystemOutHandler(Level userLevel) {
-        Handler systemOutHandler =
-                new StreamHandler(System.out, new SimpleFormatter());
+        Handler systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
         systemOutHandler.setLevel(userLevel);
         HANDLERS.add(systemOutHandler);
     }
@@ -138,13 +139,24 @@ public final class AppLoggingSystem {
 
     private static String getLogfilePrefix() {
         return UserSettings.INSTANCE.getSettingsDirectoryName() +
-                File.separator + "imagemetadataviewerlog";
+                    File.separator +
+                    "imagemetadataviewerlog";
     }
 
     private static String getLogfileSuffix() {
         return "xml";
     }
 
+    private static final AppLoggingSystem INSTANCE = new AppLoggingSystem(); // Only for applying user settings!
+
     private AppLoggingSystem() {
+        UserSettings.INSTANCE.addUserSettingsListener(this);
+    }
+
+    @Override
+    public void applySettings(UserSettingsEvent evt) {
+        if (appLogger != null && evt.getType().equals(UserSettingsEvent.Type.LOG_LEVEL)) {
+            appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
+        }
     }
 }
