@@ -18,17 +18,15 @@
  */
 package de.elmar_baumann.lib.dialog;
 
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
 import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
-import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelHelpContents;
-import de.elmar_baumann.lib.util.SettingsHints;
 import de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Resources;
-import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.help.HelpNode;
 import de.elmar_baumann.lib.util.help.HelpPage;
+import java.awt.Frame;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
@@ -38,10 +36,8 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.HyperlinkEvent;
@@ -65,7 +61,6 @@ public final class HelpBrowser
                    MouseListener,
                    TreeSelectionListener {
 
-    private static final String                    KEY_SPLIT_PANE               = HelpBrowser.class.getName() + ".SplitPane";
     private static final String                    DISPLAY_NAME_ACTION_PREVIOUS = Bundle.getString("HelpBrowser.Action.Previous");
     private static final String                    DISPLAY_NAME_ACTION_NEXT     = Bundle.getString("HelpBrowser.Action.Next");
     private static final long                      serialVersionUID             = 6909713450716449838L;
@@ -79,27 +74,20 @@ public final class HelpBrowser
     private              String                    baseUrl;
     private              String                    contentsUrl;
     private              boolean                   settingPath;
-    public static final  HelpBrowser               INSTANCE                     = new HelpBrowser();
+    public static final  HelpBrowser               INSTANCE                     = new HelpBrowser(ComponentUtil.getFrameWithIcon());
 
-    private HelpBrowser() {
+    private HelpBrowser(Frame parent) {
+        super(parent);
         initComponents();
         postInitComponents();
         registerKeyStrokes();
     }
 
     private void postInitComponents() {
-        setIcons();
         initPopupMenu();
         editorPanePage.addHyperlinkListener(this);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.addTreeSelectionListener(this);
-    }
-
-    private void setIcons() {
-        if (Resources.INSTANCE.hasFrameIconImages()) {
-            setIconImages(IconUtil.getIconImages(
-                    Resources.INSTANCE.getFramesIconImagesPaths()));
-        }
     }
 
     /**
@@ -272,10 +260,7 @@ public final class HelpBrowser
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readProperties();
             selectStartUrl();
-        } else {
-            writeProperties();
         }
         super.setVisible(visible);
     }
@@ -363,32 +348,6 @@ public final class HelpBrowser
     public void mouseExited(MouseEvent e) {
     }
 
-    private void readProperties() {
-        Properties properties = de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.getSizeAndLocation(this);
-            settings.getComponent(this, getHints());
-            settings.getSplitPane(splitPane, KEY_SPLIT_PANE);
-        }
-    }
-
-    private void writeProperties() {
-        Properties properties = de.elmar_baumann.lib.resource.Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.setSizeAndLocation(this);
-            settings.setComponent(this, getHints());
-            settings.setSplitPane(splitPane, KEY_SPLIT_PANE);
-        }
-    }
-
-    private SettingsHints getHints() {
-        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
-        hints.addExclude(getClass().getName() + ".tree");
-        return hints;
-    }
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -409,16 +368,14 @@ public final class HelpBrowser
         buttonNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle");
-        setTitle(bundle.getString("HelpBrowser.title"));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
+        setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
 
-        tree.setCellRenderer(new TreeCellRendererHelpContents());
+        splitPane.setDividerLocation(250);
+        splitPane.setDividerSize(2);
+
         tree.setModel(null);
+        tree.setCellRenderer(new TreeCellRendererHelpContents());
         scrollPaneTree.setViewportView(tree);
 
         javax.swing.GroupLayout panelTreeLayout = new javax.swing.GroupLayout(panelTree);
@@ -441,7 +398,7 @@ public final class HelpBrowser
         panelPage.setLayout(panelPageLayout);
         panelPageLayout.setHorizontalGroup(
             panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
         );
         panelPageLayout.setVerticalGroup(
             panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,8 +408,8 @@ public final class HelpBrowser
         splitPane.setRightComponent(panelPage);
 
         buttonPrevious.setMnemonic('z');
-        buttonPrevious.setText(bundle.getString("HelpBrowser.buttonPrevious.text"));
-        buttonPrevious.setToolTipText(bundle.getString("HelpBrowser.buttonPrevious.toolTipText"));
+        buttonPrevious.setText(bundle.getString("HelpBrowser.buttonPrevious.text")); // NOI18N
+        buttonPrevious.setToolTipText(bundle.getString("HelpBrowser.buttonPrevious.toolTipText")); // NOI18N
         buttonPrevious.setEnabled(false);
         buttonPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,8 +418,8 @@ public final class HelpBrowser
         });
 
         buttonNext.setMnemonic('v');
-        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text"));
-        buttonNext.setToolTipText(bundle.getString("HelpBrowser.buttonNext.toolTipText"));
+        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text")); // NOI18N
+        buttonNext.setToolTipText(bundle.getString("HelpBrowser.buttonNext.toolTipText")); // NOI18N
         buttonNext.setEnabled(false);
         buttonNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -506,10 +463,6 @@ private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void buttonPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviousActionPerformed
     goPrevious();
 }//GEN-LAST:event_buttonPreviousActionPerformed
-
-private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    writeProperties();
-}//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

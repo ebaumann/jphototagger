@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.io.FileSystemError;
@@ -141,7 +142,11 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(
+                                        GUI.INSTANCE.getAppFrame(),
+                                        targetDirectory,
+                                        UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> files = dialog.getSelectedDirectories();

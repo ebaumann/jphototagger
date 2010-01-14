@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
@@ -32,6 +33,8 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
 import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
+import de.elmar_baumann.lib.dialog.HelpBrowser;
+import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories;
 import javax.swing.tree.TreeCellRenderer;
 
@@ -58,6 +61,7 @@ public final class MiscFactory {
             AppLifeCycle.INSTANCE.addAppExitListener(appPanel.getPanelThumbnails());
             ScheduledTasks.INSTANCE.run();
             setPopupMenuHighlighter();
+            setSizeAndLocationController();
         }
     }
 
@@ -81,5 +85,12 @@ public final class MiscFactory {
                     AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE,
                     AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
         }
+    }
+
+    private void setSizeAndLocationController() {
+        SizeAndLocationController ctrl = new SizeAndLocationController();
+
+        SystemOutputDialog.INSTANCE.addWindowListener(ctrl);
+        HelpBrowser.INSTANCE.addWindowListener(ctrl);
     }
 }

@@ -19,11 +19,8 @@
 package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.component.SystemOutputPanel;
-import de.elmar_baumann.lib.image.util.IconUtil;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Resources;
-import de.elmar_baumann.lib.util.Settings;
-import java.util.Properties;
 
 /**
  * Contains a {@link de.elmar_baumann.lib.component.SystemOutputPanel}.
@@ -35,25 +32,13 @@ import java.util.Properties;
  */
 public class SystemOutputDialog extends Dialog {
 
-    public static final  SystemOutputDialog INSTANCE         = new SystemOutputDialog();
+    public static final  SystemOutputDialog INSTANCE         = new SystemOutputDialog(ComponentUtil.getFrameWithIcon());
     private static final long               serialVersionUID = 8736291024565598572L;
 
-    public SystemOutputDialog() {
-        super((java.awt.Frame)null, false);
+    public SystemOutputDialog(java.awt.Frame parent) {
+        super(parent, false);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        setIcons();
         registerKeyStrokes();
-    }
-
-    private void setIcons() {
-        if (Resources.INSTANCE.hasFrameIconImages()) {
-            setIconImages(IconUtil.getIconImages(
-                Resources.INSTANCE.getFramesIconImagesPaths()));
-        }
     }
 
     /**
@@ -61,32 +46,6 @@ public class SystemOutputDialog extends Dialog {
      */
     public void captureOutput() {
         panelSystemOutput.caputure();
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        if (visible) {
-            readProperties();
-        } else {
-            writeProperties();
-        }
-        super.setVisible(visible);
-    }
-
-    private void readProperties() {
-        Properties properties = Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.getSizeAndLocation(this);
-        }
-    }
-
-    private void writeProperties() {
-        Properties properties = Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.setSizeAndLocation(this);
-        }
     }
 
     /** This method is called from within the constructor to
@@ -139,7 +98,7 @@ public class SystemOutputDialog extends Dialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                SystemOutputDialog dialog = new SystemOutputDialog();
+                SystemOutputDialog dialog = new SystemOutputDialog(null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

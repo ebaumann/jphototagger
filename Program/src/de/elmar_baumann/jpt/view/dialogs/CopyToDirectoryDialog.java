@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
@@ -31,6 +32,7 @@ import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.helper.CopyFiles.Options;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -165,8 +167,12 @@ public final class CopyToDirectoryDialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, targetDirectory, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(
+                                            GUI.INSTANCE.getAppFrame(),
+                                            targetDirectory,
+                                            UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
 
+        dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
         if (dialog.accepted()) {
 

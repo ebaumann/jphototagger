@@ -20,7 +20,9 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppFileFilter;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.FileEditor;
 import de.elmar_baumann.jpt.view.dialogs.ShowFilesDialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -133,8 +135,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private Set<Option> getDirChooserOptions() {
-        Set<Option> options = UserSettings.INSTANCE.
-                getDefaultDirectoryChooserOptions();
+        Set<Option> options = UserSettings.INSTANCE.getDefaultDirectoryChooserOptions();
         options.add(DirectoryChooser.Option.MULTI_SELECTION);
         return options;
     }
@@ -369,8 +370,11 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void selectDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null,
-                prevSelectedDirectory, getDirChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(
+                                        GUI.INSTANCE.getAppFrame(),
+                                        prevSelectedDirectory,
+                                        getDirChooserOptions());
+        dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
         if (dialog.accepted()) {
             selectedDirectories = dialog.getSelectedDirectories();

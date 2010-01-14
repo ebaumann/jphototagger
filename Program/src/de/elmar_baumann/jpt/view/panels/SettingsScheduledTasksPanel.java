@@ -20,9 +20,11 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.jpt.model.ListModelAutoscanDirectories;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
@@ -87,8 +89,11 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     }
 
     private void addAutoscanDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(null, new File(
-                lastSelectedAutoscanDirectory), getDirectoryChooserFilter());
+        DirectoryChooser dialog = new DirectoryChooser(
+                                        GUI.INSTANCE.getAppFrame(),
+                                        new File(lastSelectedAutoscanDirectory),
+                                        getDirectoryChooserFilter());
+        dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> directories = dialog.getSelectedDirectories();
