@@ -62,6 +62,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -475,7 +476,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     public SettingsHints getPersistentSettingsHints() {
         SettingsHints hints     = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         String        className = getClass().getName();
-        hints.addExclude(className + ".textFieldSearch");
+        hints.addExclude(className + ".textAreaSearch");
         hints.addExclude(className + ".panelEditMetadata");
         hints.addExclude(className + ".treeDirectories");
         hints.addExclude(className + ".treeFavorites");
@@ -568,6 +569,33 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     public void settingsRead() {
         ComponentUtil.forceRepaint(comboBoxFastSearch);
         textAreaSearch.requestFocusInWindow();
+        reReadSomeProperties();
+    }
+
+    // Some models maybe not ready
+    private void reReadSomeProperties() {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3 * 1000);
+                } catch (InterruptedException ex) {
+                    AppLog.logSevere(getClass(), ex);
+                }
+
+                String   keyPrefix = AppPanel.class.getName() + ".";
+                Settings settings  = UserSettings.INSTANCE.getSettings();
+
+                // Commented trees: toString() != display name
+                settings.getTree(treeTimeline, keyPrefix + "listNoMetadata");
+                settings.getTree(treeTimeline, keyPrefix + "listSavedSearches");
+                settings.getTree(treeTimeline, keyPrefix + "listSelKeywords");
+                //settings.getTree(treeTimeline, keyPrefix + "treeMiscMetadata");
+                settings.getTree(treeTimeline, keyPrefix + "treeSelKeywords");
+                //settings.getTree(treeTimeline, keyPrefix + "treeTimeline");
+            }
+        });
     }
 
     private class HideInfoMessage implements Runnable {
