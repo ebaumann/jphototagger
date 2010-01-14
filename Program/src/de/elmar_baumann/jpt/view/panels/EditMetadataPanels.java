@@ -62,12 +62,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import javax.swing.JComponent;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
@@ -78,8 +75,7 @@ import javax.swing.event.ListDataListener;
 public final class EditMetadataPanels
         implements FocusListener,
                    DatabaseImageFilesListener,
-                   AppExitListener,
-                   ListDataListener
+                   AppExitListener
 {
 
     private final List<JPanel>                      panels               = new ArrayList<JPanel>();
@@ -604,11 +600,10 @@ public final class EditMetadataPanels
 
             if (isRepeatable) {
                 EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(column);
-                panel.textFieldInput.addFocusListener(this);
+                panel.textAreaInput.addFocusListener(this);
                 if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
                     panel.setSuggest(new SuggestKeywords());
                 }
-                listenToList(panel);
                 panels.add(panel);
             } else {
                 if (column.equals(ColumnXmpRating.INSTANCE)) {
@@ -666,6 +661,7 @@ public final class EditMetadataPanels
     }
 
     private boolean isEditComponent(Component c) {
+        if (c == null) return false;
         return c instanceof JTextArea ||
                c.getParent() instanceof RatingSelectionPanel;
     }
@@ -742,29 +738,6 @@ public final class EditMetadataPanels
             }
         }
         wrapFocusComponent = lastInputComponent;
-    }
-
-    private void listenToList(EditRepeatableTextEntryPanel panel) {
-        for (Component c : panel.getInputComponents()) {
-            if (c instanceof JList) {
-                ((JList) c).getModel().addListDataListener(this);
-            }
-        }
-    }
-
-    @Override
-    public void intervalAdded(ListDataEvent e) {
-        //checkSaveOnChanges();
-    }
-
-    @Override
-    public void intervalRemoved(ListDataEvent e) {
-        //checkSaveOnChanges();
-    }
-
-    @Override
-    public void contentsChanged(ListDataEvent e) {
-        checkSaveOnChanges();
     }
 
     private class WatchDifferentValues extends MouseAdapter {
@@ -876,4 +849,3 @@ public final class EditMetadataPanels
         listenerSupport.remove(listener);
     }
 }
-

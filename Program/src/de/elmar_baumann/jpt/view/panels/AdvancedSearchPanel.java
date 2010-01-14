@@ -86,7 +86,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private void setDefaultInputOfComponent() {
         defaultInputOfComponent.put(panelSimpleSql, searchColumnPanels.get(0).getTextFieldValue());
-        defaultInputOfComponent.put(panelKeywords , panelKeywordsInput.textFieldInput);
+        defaultInputOfComponent.put(panelKeywords , panelKeywordsInput.textAreaInput);
         defaultInputOfComponent.put(panelCustomSql, textAreaCustomSqlQuery);
     }
 

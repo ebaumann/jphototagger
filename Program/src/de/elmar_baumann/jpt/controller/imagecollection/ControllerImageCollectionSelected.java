@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.imagecollection;
 
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -45,10 +46,10 @@ import javax.swing.event.ListSelectionListener;
 public final class ControllerImageCollectionSelected implements
         ListSelectionListener, RefreshListener {
 
-    private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final AppPanel           appPanel        = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel    thumbnailsPanel = appPanel.getPanelThumbnails();
     private final EditMetadataPanels editPanels      = appPanel.getEditMetadataPanels();
-    private final JList                   list            = appPanel.getListImageCollections();
+    private final JList              list            = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
         listen();
@@ -62,25 +63,25 @@ public final class ControllerImageCollectionSelected implements
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (list.getSelectedIndex() >= 0) {
-            showImageCollection();
+            showImageCollection(null);
         }
     }
 
     @Override
-    public void refresh() {
+    public void refresh(RefreshEvent evt) {
         if (list.getSelectedIndex() >= 0) {
-            showImageCollection();
+            showImageCollection(evt.getSettings());
         }
     }
 
-    private void showImageCollection() {
+    private void showImageCollection(final ThumbnailsPanel.Settings settings) {
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 Object selectedValue = list.getSelectedValue();
                 if (selectedValue != null) {
-                    showImageCollection(selectedValue.toString());
+                    showImageCollection(selectedValue.toString(), settings);
                 } else {
                     AppLog.logWarning(ControllerImageCollectionSelected.class,
                             "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
@@ -92,7 +93,7 @@ public final class ControllerImageCollectionSelected implements
         thread.start();
     }
 
-    private void showImageCollection(final String collectionName) {
+    private void showImageCollection(final String collectionName, final ThumbnailsPanel.Settings settings) {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
@@ -101,6 +102,7 @@ public final class ControllerImageCollectionSelected implements
                         .getFilenamesOf(collectionName);
                 setTitle();
                 thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.IMAGE_COLLECTION);
+                thumbnailsPanel.apply(settings);
             }
 
             private void setTitle() {

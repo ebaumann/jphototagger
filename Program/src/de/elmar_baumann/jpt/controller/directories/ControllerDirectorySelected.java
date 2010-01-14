@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.directories;
 
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -47,11 +48,11 @@ public final class ControllerDirectorySelected
         implements TreeSelectionListener,
                    RefreshListener {
 
-    private final AppPanel                appPanel               = GUI.INSTANCE.getAppPanel();
-    private final JTree                   treeDirectories        = appPanel.getTreeDirectories();
-    private final EditMetadataPanels editPanels             = appPanel.getEditMetadataPanels();
-    private final ThumbnailsPanel         thumbnailsPanel        = appPanel.getPanelThumbnails();
-    private final ImageFilteredDirectory  imageFilteredDirectory = new ImageFilteredDirectory();
+    private final AppPanel               appPanel               = GUI.INSTANCE.getAppPanel();
+    private final JTree                  treeDirectories        = appPanel.getTreeDirectories();
+    private final EditMetadataPanels     editPanels             = appPanel.getEditMetadataPanels();
+    private final ThumbnailsPanel        thumbnailsPanel        = appPanel.getPanelThumbnails();
+    private final ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
 
     public ControllerDirectorySelected() {
         listen();
@@ -65,20 +66,26 @@ public final class ControllerDirectorySelected
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath() && !PopupMenuDirectories.INSTANCE.isTreeSelected()) {
-            setFilesToThumbnailsPanel();
+            setFilesToThumbnailsPanel(null);
         }
     }
 
     @Override
-    public void refresh() {
-        setFilesToThumbnailsPanel();
+    public void refresh(RefreshEvent evt) {
+        setFilesToThumbnailsPanel(evt.getSettings());
     }
 
-    private void setFilesToThumbnailsPanel() {
-        SwingUtilities.invokeLater(new ShowThumbnails());
+    private void setFilesToThumbnailsPanel(ThumbnailsPanel.Settings settings) {
+        SwingUtilities.invokeLater(new ShowThumbnails(settings));
     }
 
     private class ShowThumbnails implements Runnable {
+
+        private final ThumbnailsPanel.Settings panelSettings;
+
+        public ShowThumbnails(ThumbnailsPanel.Settings settings) {
+            panelSettings = settings;
+        }
 
         @Override
         public void run() {
@@ -88,6 +95,7 @@ public final class ControllerDirectorySelected
                 List<File> files = ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory);
                 setTitle(selectedDirectory);
                 thumbnailsPanel.setFiles(files, Content.DIRECTORY);
+                thumbnailsPanel.apply(panelSettings);
                 setMetadataEditable();
             }
         }

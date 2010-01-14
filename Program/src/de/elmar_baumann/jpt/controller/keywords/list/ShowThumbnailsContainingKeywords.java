@@ -37,18 +37,21 @@ import java.util.Set;
  */
 public final class ShowThumbnailsContainingKeywords implements Runnable {
 
-    private final DatabaseImageFiles      db              = DatabaseImageFiles.INSTANCE;
-    private final ThumbnailsPanel         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanels editPanels      = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-    private final List<String>            keywords;
+    private final DatabaseImageFiles       db              = DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel          thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final EditMetadataPanels       editPanels      = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+    private final ThumbnailsPanel.Settings tnPanelSettings;
+    private final List<String>             keywords;
 
     /**
      * Creates a new instance of this class.
      *
      * @param keywords one of that keywords a image must have to be displayed
+     * @param settings
      */
-    public ShowThumbnailsContainingKeywords(List<String> keywords) {
-        this.keywords = new ArrayList<String>(keywords);
+    public ShowThumbnailsContainingKeywords(List<String> keywords, ThumbnailsPanel.Settings settings) {
+        this.keywords   = new ArrayList<String>(keywords);
+        tnPanelSettings = settings;
     }
 
     @Override
@@ -61,6 +64,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
         Set<String> filenames = getFilenamesOfSelectedKeywords();
         if (filenames != null) {
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.KEYWORD);
+            thumbnailsPanel.apply(tnPanelSettings);
         }
     }
 

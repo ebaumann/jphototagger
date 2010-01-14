@@ -77,7 +77,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         addTextEntries();
         setAutocomplete();
         addAsFocusListener();
-        firstInputComponent = panelDcSubjects.textFieldInput;
+        firstInputComponent = panelDcSubjects.textAreaInput;
         lastInputComponent  = panelRating.getInputComponents().get(panelRating.getInputComponents().size() - 1);
         firstInputComponent.requestFocusInWindow();
     }

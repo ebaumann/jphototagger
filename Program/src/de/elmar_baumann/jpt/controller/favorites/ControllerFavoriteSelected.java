@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -27,6 +28,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel.Settings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +47,11 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-24
  */
-public final class ControllerFavoriteSelected implements
-        TreeSelectionListener, RefreshListener {
+public final class ControllerFavoriteSelected implements TreeSelectionListener, RefreshListener {
 
-    private final AppPanel                appPanel                = GUI.INSTANCE.getAppPanel();
-    private final JTree                   treeFavoriteDirectories = appPanel.getTreeFavorites();
-    private final ThumbnailsPanel         thumbnailsPanel         = appPanel.getPanelThumbnails();
+    private final AppPanel           appPanel                = GUI.INSTANCE.getAppPanel();
+    private final JTree              treeFavoriteDirectories = appPanel.getTreeFavorites();
+    private final ThumbnailsPanel    thumbnailsPanel         = appPanel.getPanelThumbnails();
     private final EditMetadataPanels editPanels              = appPanel.getEditMetadataPanels();
 
     public ControllerFavoriteSelected() {
@@ -65,27 +66,34 @@ public final class ControllerFavoriteSelected implements
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
-            update();
+            update(null);
         }
     }
 
     @Override
-    public void refresh() {
+    public void refresh(RefreshEvent evt) {
         if (treeFavoriteDirectories.getSelectionCount() > 0) {
-            update();
+            update(evt.getSettings());
         }
     }
 
-    private void update() {
-        SwingUtilities.invokeLater(new SetFiles());
+    private void update(ThumbnailsPanel.Settings settings) {
+        SwingUtilities.invokeLater(new SetFiles(settings));
     }
 
     private class SetFiles implements Runnable {
+
+        private final ThumbnailsPanel.Settings tnPanelSettings;
+
+        public SetFiles(Settings settings) {
+            this.tnPanelSettings = settings;
+        }
 
         @Override
         public void run() {
             List<File> files = getFilesOfCurrentDirectory();
             thumbnailsPanel.setFiles(files, Content.FAVORITE);
+            thumbnailsPanel.apply(tnPanelSettings);
             setMetadataEditable();
         }
 
