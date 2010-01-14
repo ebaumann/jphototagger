@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.controller.timeline;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -64,20 +65,20 @@ public final class ControllerTimelineItemSelected
     }
 
     @Override
-    public void refresh() {
+    public void refresh(RefreshEvent evt) {
         if (treeTimeline.getSelectionCount() == 1) {
-            setFilesOfTreePathToThumbnailsPanel(treeTimeline.getSelectionPath());
+            setFilesOfTreePathToThumbnailsPanel(treeTimeline.getSelectionPath(), evt.getSettings());
         }
     }
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
-            setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath());
+            setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath(), null);
         }
     }
 
-    private void setFilesOfTreePathToThumbnailsPanel(final TreePath path) {
+    private void setFilesOfTreePathToThumbnailsPanel(final TreePath path, final ThumbnailsPanel.Settings settings) {
         if (path != null) {
             Thread thread = new Thread(new Runnable() {
 
@@ -89,6 +90,7 @@ public final class ControllerTimelineItemSelected
                         @Override
                         public void run() {
                             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
+                            thumbnailsPanel.apply(settings);
                         }
                     });
                 }

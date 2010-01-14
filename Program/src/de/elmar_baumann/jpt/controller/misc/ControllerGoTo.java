@@ -43,7 +43,7 @@ public final class ControllerGoTo implements ActionListener {
     private final AppPanel                        appPanel         = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel                 thumbnailsPanel  = appPanel.getPanelThumbnails();
     private final EditMetadataPanels              editPanels       = appPanel.getEditMetadataPanels();
-    private final JTextArea                       textFieldSearch  = appPanel.getTextFieldSearch();
+    private final JTextArea                       textFieldSearch  = appPanel.getTextAreaSearch();
     private final AppFrame                        appFrame         = GUI.INSTANCE.getAppFrame();
     private final Map<AppFrame.GoTo, Component>   componentOfGoTo  = new HashMap<AppFrame.GoTo, Component>();
     private final Map<AppFrame.GoTo, JTabbedPane> tabbedPaneOfGoTo = new HashMap<AppFrame.GoTo, JTabbedPane>();

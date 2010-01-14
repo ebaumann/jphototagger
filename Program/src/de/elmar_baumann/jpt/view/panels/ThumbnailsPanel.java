@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.data.ThumbnailFlag;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerThumbnailsPanel;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
@@ -76,8 +77,13 @@ import javax.swing.TransferHandler;
  * @version 2008-10-05
  */
 public class ThumbnailsPanel extends JPanel
-        implements ComponentListener, MouseListener, MouseMotionListener,
-        KeyListener, ThumbnailUpdateListener, AppExitListener {
+        implements ComponentListener,
+                   MouseListener,
+                   MouseMotionListener,
+                   KeyListener,
+                   ThumbnailUpdateListener,
+                   AppExitListener
+    {
 
     private static final long serialVersionUID = 1034671645083632578L;
 
@@ -91,21 +97,14 @@ public class ThumbnailsPanel extends JPanel
     private static final int MARGIN_THUMBNAIL = 3;
 
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
-
-    private static String getSidecarFilename(File file) {
-        String sidecarfile = XmpMetadata.getSidecarFilename(file.getAbsolutePath());
-        return sidecarfile == null ? "" : sidecarfile;
-    }
     /**
      * Contains the flags of thumbnails at specific indices
      */
-    private final Map<Integer, ThumbnailFlag> flagOfThumbnail =
-            new HashMap<Integer, ThumbnailFlag>();
+    private final Map<Integer, ThumbnailFlag> flagOfThumbnail = new HashMap<Integer, ThumbnailFlag>();
     /**
      * Listens to thumbnail events
      */
-    private final List<ThumbnailsPanelListener> panelListeners =
-            new ArrayList<ThumbnailsPanelListener>();
+    private final List<ThumbnailsPanelListener> panelListeners = new ArrayList<ThumbnailsPanelListener>();
     /**
      * Contains the indices of the selected thumbnails
      */
@@ -129,19 +128,16 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Has the mouse clicked into a thumbnail?
      */
-    private int clickInSelection = -1;
-    private boolean keywordsOverlay;
-    public RenderedThumbnailCache renderedThumbnailCache =
-            RenderedThumbnailCache.INSTANCE;
-    ThumbnailPanelRenderer renderer = new ThumbnailPanelRenderer(this);
-
-    private Content content = Content.UNDEFINED;
-    private ControllerDoubleklickThumbnail controllerDoubleklick;
-    private FileAction fileAction = FileAction.UNDEFINED;
-    private Comparator<File> fileSortComparator = FileSort.NAMES_ASCENDING.getComparator();
-    private final List<File> files = Collections.synchronizedList(new ArrayList<File>());
-    private volatile boolean hadFiles;
-    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
+    private       int                                 clickInSelection          = -1;
+    private       boolean                             keywordsOverlay;
+    public        RenderedThumbnailCache              renderedThumbnailCache    = RenderedThumbnailCache.INSTANCE;
+    private       ThumbnailPanelRenderer              renderer                  = new ThumbnailPanelRenderer(this);
+    private       Content                             content                   = Content.UNDEFINED;
+    private       ControllerDoubleklickThumbnail      controllerDoubleklick;
+    private       FileAction                          fileAction                = FileAction.UNDEFINED;
+    private       Comparator<File>                    fileSortComparator        = FileSort.NAMES_ASCENDING.getComparator();
+    private final List<File>                          files                     = Collections.synchronizedList(new ArrayList<File>());
+    private final PopupMenuThumbnails                 popupMenu                 = PopupMenuThumbnails.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
 
     public ThumbnailsPanel() {
@@ -913,12 +909,12 @@ public class ThumbnailsPanel extends JPanel
         repaint();
     }
 
-    private void notifyRefreshListeners() {
+    private void notifyRefreshListeners(RefreshEvent evt) {
         synchronized (refreshListenersOfContent) {
             AppLog.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
 
             for (RefreshListener listener : refreshListenersOfContent.get(content)) {
-                listener.refresh();
+                listener.refresh(evt);
             }
         }
     }
@@ -936,14 +932,67 @@ public class ThumbnailsPanel extends JPanel
      */
     public synchronized void refresh() {
         JViewport vp = getViewport();
-        Point viewportPosition = null;
+        Point viewportPosition = new Point(0, 0);
         if (vp != null) {
             viewportPosition = vp.getViewPosition();
         }
-        notifyRefreshListeners();
-        // does set the images
+        RefreshEvent evt = new RefreshEvent(this, viewportPosition);
+
+        evt.setSelThumbnails(new ArrayList<Integer>(selectedThumbnails));
+        notifyRefreshListeners(evt);
+
+        // viewport position has to be set by the refresh listeners because they
+        // usually set new files in a *thread* so that setting the viewport has
+        // no effect
+    }
+
+    public static class Settings {
+        private final Point         viewPosition;
+        private final List<Integer> selThumbnails;
+
+        public Settings(Point viewPosition, List<Integer> selThumbnails) {
+            this.viewPosition  = viewPosition;
+            this.selThumbnails = selThumbnails;
+        }
+
+        public List<Integer> getSelThumbnails() {
+            return selThumbnails;
+        }
+
+        public Point getViewPosition() {
+            return viewPosition;
+        }
+
+        public boolean hasSelThumbnails() {
+            return selThumbnails != null;
+        }
+
+        public boolean hasViewPosition() {
+            return viewPosition != null;
+        }
+    }
+
+    /**
+     * Applies settings to this panel.
+     *
+     * @param settings can be null (won't be applied in that case)
+     */
+    public void apply(Settings settings) {
+        if (settings == null) return;
+
+        if (settings.hasViewPosition()) {
+            setViewPosition(settings.getViewPosition());
+        }
+        if (settings.hasSelThumbnails()) {
+            setSelected(settings.getSelThumbnails());
+        }
+    }
+
+    private void setViewPosition(Point pos) {
+        JViewport vp = getViewport();
+
         if (vp != null) {
-            vp.setViewPosition(viewportPosition);
+            vp.setViewPosition(pos);
         }
     }
 
@@ -1021,10 +1070,7 @@ public class ThumbnailsPanel extends JPanel
             this.content = content;
         }
         setNewThumbnails();
-        if (hadFiles) {
-            scrollToTop();
-        }
-        hadFiles = true;
+        scrollToTop();
         setMissingFilesFlags();
     }
 
@@ -1395,5 +1441,10 @@ public class ThumbnailsPanel extends JPanel
     protected void showToolTip(MouseEvent evt) {
         int index = getIndexAtPoint(evt.getX(), evt.getY());
         setToolTipText(createTooltipText(index));
+    }
+
+    private static String getSidecarFilename(File file) {
+        String sidecarfile = XmpMetadata.getSidecarFilename(file.getAbsolutePath());
+        return sidecarfile == null ? "" : sidecarfile;
     }
 }

@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.miscmetadata;
 
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -60,24 +61,26 @@ public final class ControllerMiscMetadataItemSelected implements
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
             SwingUtilities.invokeLater(
-                    new ShowThumbnails(e.getNewLeadSelectionPath()));
+                    new ShowThumbnails(e.getNewLeadSelectionPath(), null));
         }
     }
 
     @Override
-    public void refresh() {
+    public void refresh(RefreshEvent evt) {
         if (tree.getSelectionCount() == 1) {
             SwingUtilities.invokeLater(
-                    new ShowThumbnails(tree.getSelectionPath()));
+                    new ShowThumbnails(tree.getSelectionPath(), evt.getSettings()));
         }
     }
 
     private class ShowThumbnails implements Runnable {
 
         private final TreePath treePath;
+        private final ThumbnailsPanel.Settings tnPanelSettings;
 
-        public ShowThumbnails(TreePath treePath) {
-            this.treePath = treePath;
+        public ShowThumbnails(TreePath treePath, ThumbnailsPanel.Settings settings) {
+            this.treePath   = treePath;
+            tnPanelSettings = settings;
         }
 
         @Override
@@ -103,7 +106,8 @@ public final class ControllerMiscMetadataItemSelected implements
                             column,
                             userObject.toString()),
                             Content.MISC_METADATA);
-                } else {
+                thumbnailsPanel.apply(tnPanelSettings);
+            } else {
                     setTitle();
                 }
             } else if (userObject instanceof Column) {
@@ -112,11 +116,14 @@ public final class ControllerMiscMetadataItemSelected implements
                 thumbnailsPanel.setFiles(
                         DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column),
                         Content.MISC_METADATA);
-            } else {
+                thumbnailsPanel.apply(tnPanelSettings);
+        } else {
                 thumbnailsPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);
+                thumbnailsPanel.apply(tnPanelSettings);
                 setTitle();
             }
         }
+        // 1 path where thumbnailsPanel.apply(tnPanelSettings) is not to call
 
         private void setTitle() {
             GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata"));

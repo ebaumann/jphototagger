@@ -18,6 +18,8 @@
  */
 package de.elmar_baumann.jpt.event.listener;
 
+import de.elmar_baumann.jpt.event.RefreshEvent;
+
 /**
  * Listens to the action: Refresh the contents.
  *
@@ -28,6 +30,8 @@ public interface RefreshListener {
 
     /**
      * Refreshes the content.
+     *
+     * @param evt event
      */
-    public void refresh();
+    public void refresh(RefreshEvent evt);
 }

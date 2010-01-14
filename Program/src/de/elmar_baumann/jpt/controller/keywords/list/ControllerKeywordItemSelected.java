@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -44,16 +45,12 @@ import javax.swing.event.ListSelectionListener;
 public final class ControllerKeywordItemSelected implements
         ActionListener, ListSelectionListener, RefreshListener {
 
-    private static final String KEY_RADIO_BUTTON =
-            "ControllerKeywordItemSelected.RadioButton";
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList listKeywords = appPanel.getListSelKeywords();
-    private final JRadioButton radioButtonAllKeywords =
-            appPanel.getRadioButtonSelKeywordsMultipleSelAll();
-    private final JRadioButton radioButtonOneKeyword =
-            appPanel.getRadioButtonSelKeywordsMultipleSelOne();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
+    private static final String          KEY_RADIO_BUTTON       = "ControllerKeywordItemSelected.RadioButton";
+    private final        AppPanel        appPanel               = GUI.INSTANCE.getAppPanel();
+    private final        JList           listKeywords           = appPanel.getListSelKeywords();
+    private final        JRadioButton    radioButtonAllKeywords = appPanel.getRadioButtonSelKeywordsMultipleSelAll();
+    private final        JRadioButton    radioButtonOneKeyword  = appPanel.getRadioButtonSelKeywordsMultipleSelOne();
+    private final        ThumbnailsPanel thumbnailsPanel        = appPanel.getPanelThumbnails();
 
     public ControllerKeywordItemSelected() {
         readPersistent();
@@ -71,30 +68,34 @@ public final class ControllerKeywordItemSelected implements
     public void actionPerformed(ActionEvent e) {
         if (listKeywords.getSelectedIndex() >= 0) {
             writePersistent();
-            update();
+            update(null);
         }
     }
 
     @Override
-    public void refresh() {
+    public void refresh(RefreshEvent evt) {
         if (listKeywords.getSelectedIndex() >= 0) {
-            update();
+            update(evt);
         }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting() && listKeywords.getSelectedIndex() >= 0) {
-            update();
+            update(null);
         }
     }
 
-    private void update() {
+    private void update(RefreshEvent evt) {
         List<String> selKeywords = getSelectedKeywords();
         SwingUtilities.invokeLater(
                 isAllKeywords()
-                ? new ShowThumbnailsContainingAllKeywords(selKeywords)
-                : new ShowThumbnailsContainingKeywords(selKeywords));
+                ? new ShowThumbnailsContainingAllKeywords(
+                              selKeywords,
+                              evt == null ? null : evt.getSettings())
+                : new ShowThumbnailsContainingKeywords(
+                              selKeywords,
+                              evt == null ? null : evt.getSettings()));
     }
 
     private List<String> getSelectedKeywords() {
@@ -118,8 +119,7 @@ public final class ControllerKeywordItemSelected implements
         Properties properties = UserSettings.INSTANCE.getProperties();
         boolean radioButtonAll = true;
         if (properties.containsKey(KEY_RADIO_BUTTON)) {
-            radioButtonAll = UserSettings.INSTANCE.getSettings().getInt(
-                    KEY_RADIO_BUTTON) == 0;
+            radioButtonAll = UserSettings.INSTANCE.getSettings().getInt(KEY_RADIO_BUTTON) == 0;
         }
         radioButtonAllKeywords.setSelected(radioButtonAll);
         radioButtonOneKeyword.setSelected(!radioButtonAll);

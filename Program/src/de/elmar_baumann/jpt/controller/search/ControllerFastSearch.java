@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
@@ -71,7 +72,7 @@ public final class ControllerFastSearch
     private static final String             DELIMITER_SEARCH_WORDS = ";";
     private final        DatabaseFind       db                     = DatabaseFind.INSTANCE;
     private final        AppPanel           appPanel               = GUI.INSTANCE.getAppPanel();
-    private final        JTextArea          textFieldSearch        = appPanel.getTextFieldSearch();
+    private final        JTextArea          textFieldSearch        = appPanel.getTextAreaSearch();
     private final        JComboBox          comboboxFastSearch     = appPanel.getComboBoxFastSearch();
     private final        ThumbnailsPanel    thumbnailsPanel        = appPanel.getPanelThumbnails();
     private final        List<JTree>        selectionTrees         = appPanel.getSelectionTrees();
@@ -81,6 +82,7 @@ public final class ControllerFastSearch
 
     public ControllerFastSearch() {
         setEnabledSearchTextField();
+        autocomplete.setTransferFocusForward(false);
         decorateTextFieldSearch();
         listen();
     }
@@ -238,7 +240,7 @@ public final class ControllerFastSearch
     }
 
     @Override
-    public void refresh() {
+    public void refresh(RefreshEvent evt) {
         if (textFieldSearch.isEnabled()) {
             search(textFieldSearch.getText());
         }
