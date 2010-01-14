@@ -36,6 +36,7 @@ public final class Autocomplete implements DocumentListener  {
     private static final int                MIN_CHARS             = 2;
     private final        LinkedList<String> words                 = new LinkedList<String>();
     private              Mode               mode                  = Mode.INSERT;
+    private volatile     boolean            transferFocusForwardOnEnter  = true;
 
     private static enum Mode { INSERT, COMPLETION };
 
@@ -69,6 +70,15 @@ public final class Autocomplete implements DocumentListener  {
                 }
             }
         }
+    }
+
+    /**
+     * Sets wether to transfer focus forward on Enter.
+     *
+     * @param transfer transferring focus forward on Enter key. Default: true.
+     */
+    public void setTransferFocusForward(boolean transfer) {
+        this.transferFocusForwardOnEnter = transfer;
     }
 
     private void init() {
@@ -184,7 +194,9 @@ public final class Autocomplete implements DocumentListener  {
                 mode = Mode.INSERT;
             } else {
                 //textArea.replaceSelection("\n");
-                textArea.transferFocus();
+                if (transferFocusForwardOnEnter) {
+                    textArea.transferFocus();
+                }
             }
         }
     }
