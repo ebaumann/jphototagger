@@ -21,9 +21,9 @@ package de.elmar_baumann.jpt.tasks;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLog;
-import de.elmar_baumann.jpt.event.UpdateMetadataEvent;
-import de.elmar_baumann.jpt.event.UpdateMetadataEvent.Type;
-import de.elmar_baumann.jpt.event.listener.UpdateMetadataListener;
+import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent;
+import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent.Type;
+import de.elmar_baumann.jpt.event.listener.UpdateMetadataCheckListener;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
@@ -47,7 +47,7 @@ import javax.swing.JButton;
  * @version 2008-10-05
  */
 public final class ScheduledTasks implements ActionListener,
-        UpdateMetadataListener {
+        UpdateMetadataCheckListener {
 
     public static final  ScheduledTasks           INSTANCE                     = new ScheduledTasks();
     private final        SerialExecutor           executor                     = new SerialExecutor(Executors.newCachedThreadPool());
@@ -124,12 +124,12 @@ public final class ScheduledTasks implements ActionListener,
             executor.execute(updater);
         }
         if (updaters.size() > 0) {
-            updaters.get(updaters.size() - 1).addUpdateMetadataListener(this);
+            updaters.get(updaters.size() - 1).addUpdateMetadataCheckListener(this);
         }
     }
 
     @Override
-    public void actionPerformed(UpdateMetadataEvent evt) {
+    public void actionPerformed(UpdateMetadataCheckEvent evt) {
         if (evt.getType().equals(Type.CHECK_FINISHED)) {
             setButtonState(ButtonState.START);
             isRunning = false;
