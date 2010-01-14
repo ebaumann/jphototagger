@@ -4,6 +4,7 @@ import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.types.FileType;
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteOrder;
 
@@ -17,30 +18,62 @@ public final class CanonMakerNote {
 
     static byte[] getRawValueOfTag(File file, int tag, CanonIfd ifd) {
 
-        if (FileType.isJpegFile(file.getName())) return null; // TODO: Handle JPEG files (EXIF offsets are relative to the start of the TIFF header at the beginning of the EXIF segment)
-
         CanonIfd.Entry entry = ifd.getEntryOfTag(tag);
         if (entry == null) return null;
 
+        if (FileType.isJpegFile(file.getName())) {
+            return rawValueFromJpeg(file, entry);
+        } else {
+            return rawValueFromTiff(file, entry);
+        }
+    }
+
+    private static byte[] rawValueFromJpeg(File file, CanonIfd.Entry entry) {
+        // TODO: Handle JPEG files (EXIF offsets are relative to the start
+        // of the TIFF header at the beginning of the EXIF segment)
+        return null;
+    }
+
+    private static byte[] rawValueFromTiff(File file, CanonIfd.Entry entry) {
         int  valueOffset    = entry.getValueOffset();
         int  valueByteCount = entry.dataType().bitCount() / 8 * entry.getValueNumber();
-        int  minFileLength  = valueOffset + valueByteCount + 1;
-        long fileLength     = file.length();
+
+        return rawValue(file, valueOffset, valueByteCount);
+    }
+    
+    private static byte[] rawValue(File file, int valueOffset, int valueByteCount) {
+        int  minFileLength = valueOffset + valueByteCount + 1;
+        long fileLength    = file.length();
 
         assert fileLength >= minFileLength;
         if (fileLength < minFileLength) return null;
+
+        RandomAccessFile raf = null;
         try {
-            byte[]           rawValue = new byte[valueByteCount];
-            RandomAccessFile raf      = new RandomAccessFile(file, "r");
+            byte[] rawValue = new byte[valueByteCount];
+                   raf      = new RandomAccessFile(file, "r");
 
             raf.seek(valueOffset);
             raf.read(rawValue, 0, valueByteCount);
             raf.close();
+
             return rawValue;
         } catch (Exception ex) {
             AppLog.logSevere(CanonMakerNote.class, ex);
+        } finally {
+            close(raf);
         }
         return null;
+    }
+
+    private static void close(RandomAccessFile raf) {
+        if (raf != null) {
+            try {
+                raf.close();
+            } catch (IOException ex) {
+                AppLog.logSevere(CanonMakerNote.class, ex);
+            }
+        }
     }
 
     static short[] getTag1Values(File file, CanonIfd ifd) {
