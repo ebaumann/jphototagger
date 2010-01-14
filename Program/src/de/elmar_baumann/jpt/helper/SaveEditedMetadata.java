@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLifeCycle;
-import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
