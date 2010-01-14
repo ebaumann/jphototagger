@@ -24,7 +24,7 @@ package de.elmar_baumann.jpt.event;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-06
  */
-public final class UpdateMetadataEvent {
+public final class UpdateMetadataCheckEvent {
 
     /**
      * Check type
@@ -47,7 +47,7 @@ public final class UpdateMetadataEvent {
     private final Type type;
     private final String imageFilename;
 
-    public UpdateMetadataEvent(Type type, String imageFilename) {
+    public UpdateMetadataCheckEvent(Type type, String imageFilename) {
         this.type = type;
         this.imageFilename = imageFilename;
     }
