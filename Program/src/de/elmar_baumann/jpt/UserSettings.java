@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.update.UpdateUserSettings;
@@ -35,7 +34,6 @@ import de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator;
 import de.elmar_baumann.jpt.types.Filename;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
-import de.elmar_baumann.lib.resource.Resources;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import de.elmar_baumann.lib.util.PropertiesFile;
 import de.elmar_baumann.lib.util.Settings;
@@ -93,22 +91,23 @@ public final class UserSettings {
     private static final String                      KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser";
     private static final String                      PROPERTIES_FILENAME                                           = "Settings.properties"; // NEVER CHANGE!
     private final        Properties                  properties                                                    = new Properties();
-    private final        PropertiesFile              propertiesToFile                                              = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
+    private final        PropertiesFile              propertiesFile                                                = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
     private final        Settings                    settings                                                      = new Settings(properties);
     public static final  UserSettings                INSTANCE                                                      = new UserSettings();
-    private final        UserSettingsListenerSupport listenerSupport                                              = new UserSettingsListenerSupport();
+    private final        UserSettingsListenerSupport listenerSupport                                               = new UserSettingsListenerSupport();
 
     private UserSettings() {
-        propertiesToFile.readFromFile();
+        propertiesFile.readFromFile();
         UpdateUserSettings.update(properties);
         settings.removeEmptyKeys();
         writeToFile();
-        Resources.INSTANCE.setProperties(properties);
-        Resources.INSTANCE.setFramesIconImagesPath(AppLookAndFeel.getAppIconPaths());
     }
 
     /**
      * Returns the properties with the user settings.
+     * <p>
+     * If You are modifying the properties not through a setter of this class,
+     * You have to call {@link #writeToFile()} to make the changes persistent.
      *
      * @return properties
      */
@@ -117,11 +116,13 @@ public final class UserSettings {
     }
 
     /**
-     * Returns a settings object instanciated with the properties file of
+     * Returns the settings object instanciated with the properties file of
      * this class.
      * <p>
-     * The settings are offering easy reading and writing different types of
-     * objects.
+     * If You are modifying the properties through the settings (calling a
+     * setter of the class <code>Settings</code>) rather than through a setter
+     * of this class, You have to call {@link #writeToFile()} to make the
+     * changes persistent.
      *
      * @return settings
      */
@@ -130,12 +131,25 @@ public final class UserSettings {
     }
 
     /**
+     * Writes the properties to a file.
+     * <p>
+     * The setters of this class always calling this method after updating the
+     * properties. If You change the properties outside
+     * ({@link #getProperties()}, {@link #getSettings()}, You have to call
+     * <code>writeToFile()</code> to make changes persistent.
+     *
+     */
+    public void writeToFile() {
+        propertiesFile.writeToFile();
+    }
+
+    /**
      * Returns directory name of the propertie's file .
      *
      * @return directory name
      */
     public String getSettingsDirectoryName() {
-        return propertiesToFile.getDirectoryName();
+        return propertiesFile.getDirectoryName();
     }
 
     public void setDatabaseDirectoryName(String directoryName) {
@@ -195,15 +209,6 @@ public final class UserSettings {
      */
     public String getThumbnailsDirectoryName() {
         return getDatabaseDirectoryName() + File.separator + "thumbnails";
-    }
-
-    /**
-     * Writes the properties to a file.
-     *<p>
-     * <em>If not called, settings are lost after exiting the program!</em>
-     */
-    public void writeToFile() {
-        propertiesToFile.writeToFile();
     }
 
     /**
@@ -331,16 +336,19 @@ public final class UserSettings {
                : level;
     }
 
-    public void setNoFastSearchColumns() {
-        properties.remove(KEY_FAST_SEARCH_COLUMNS);
-        writeToFile();
-        notifyListeners(UserSettingsEvent.Type.NO_FAST_SEARCH_COLUMNS);
-    }
-
     public void setFastSearchColumns(List<Column> columns) {
-        settings.setString(getColumnKeys(columns), KEY_FAST_SEARCH_COLUMNS);
+        boolean hasColumns = columns.size() > 0;
+
+        if (hasColumns) {
+            settings.setString(getColumnKeys(columns), KEY_FAST_SEARCH_COLUMNS);
+        } else {
+            properties.remove(KEY_FAST_SEARCH_COLUMNS);
+        }
+
         writeToFile();
-        notifyListeners(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS);
+        notifyListeners(hasColumns
+                            ? UserSettingsEvent.Type.FAST_SEARCH_COLUMNS
+                            : UserSettingsEvent.Type.NO_FAST_SEARCH_COLUMNS);
     }
 
     private String getColumnKeys(List<Column> columns) {

@@ -87,9 +87,10 @@ public final class ControllerLogfileDialog
 
     private void showLogfileDialog() {
         LogfileDialog dialog = new LogfileDialog(
-                null,
-                AppLoggingSystem.getCurrentLogfileName(),
-                UserSettings.INSTANCE.getLogfileFormatterClass());
+                                    GUI.INSTANCE.getAppFrame(),
+                                    AppLoggingSystem.getCurrentLogfileName(),
+                                    UserSettings.INSTANCE.getLogfileFormatterClass());
+        dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
     }
 

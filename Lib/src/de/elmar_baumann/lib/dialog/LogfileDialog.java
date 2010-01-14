@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.lib.dialog;
 
-import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.logging.LogfileParser;
 import de.elmar_baumann.lib.util.logging.LogfileRecord;
@@ -27,8 +26,6 @@ import de.elmar_baumann.lib.util.logging.LogfileRecordFrame;
 import de.elmar_baumann.lib.model.TableModelLogfiles;
 import de.elmar_baumann.lib.renderer.TableCellRendererLogfileDialog;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Resources;
-import de.elmar_baumann.lib.util.Settings;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -39,7 +36,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -68,7 +64,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
 
     private static final long                   MAX_BYTES                 = 10 * 1024 * 1024;
     private static final long                   serialVersionUID          = 1L;
-    private final        Map<JCheckBox, Level> levelOfCheckBox            = new HashMap<JCheckBox, Level>();
+    private final        Map<JCheckBox, Level>  levelOfCheckBox           = new HashMap<JCheckBox, Level>();
     private final        Map<Class<?>, Integer> paneIndexOfFormatterClass = new HashMap<Class<?>, Integer>();
     private final        List<Level>            visibleLevels             = new ArrayList<Level>();
     private              String                 filterString;
@@ -106,18 +102,10 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
     }
 
     private void postInitComponents() {
-        setIcons();
         initTextPaneDetails();
         initTableLogfileRecords();
         initLevelOfCheckbox();
         listenToCheckboxes();
-    }
-
-    private void setIcons() {
-        if (Resources.INSTANCE.hasFrameIconImages()) {
-            setIconImages(IconUtil.getIconImages(
-                    Resources.INSTANCE.getFramesIconImagesPaths()));
-        }
     }
 
     private void initTextPaneDetails() {
@@ -351,27 +339,9 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
                 errorMessageNotSupportedFormat();
                 readSimple();
             }
-            readProperties();
             super.setVisible(true);
         } else {
-            writeProperties();
             super.setVisible(false);
-        }
-    }
-
-    private void readProperties() {
-        Properties properties = Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.getSizeAndLocation(this);
-        }
-    }
-
-    private void writeProperties() {
-        Properties properties = Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.setSizeAndLocation(this);
         }
     }
 

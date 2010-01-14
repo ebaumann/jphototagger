@@ -21,8 +21,10 @@ package de.elmar_baumann.jpt.view.dialogs;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.database.DatabaseFavorites;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -60,9 +62,11 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog = new DirectoryChooser(null, new File(
-                lastDirectory), UserSettings.INSTANCE.
-                getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(
+                                        GUI.INSTANCE.getAppFrame(),
+                                        new File(lastDirectory),
+                                        UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
         if (dialog.accepted()) {
             List<File> files = dialog.getSelectedDirectories();

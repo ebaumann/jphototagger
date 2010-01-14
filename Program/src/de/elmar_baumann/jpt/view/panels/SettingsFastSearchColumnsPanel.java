@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.ColumnUtil;
 import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
 import de.elmar_baumann.jpt.model.ListModelSelectedColumns;
@@ -27,6 +28,7 @@ import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.component.CheckList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
@@ -75,12 +77,8 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
 
     private void setFastSearchColumnsToUserSettings() {
         boolean selected = list.getSelectionCount() > 0;
-        if (selected) {
-            UserSettings.INSTANCE.setFastSearchColumns(ColumnUtil.getSelectedColumns(list));
-        } else {
-            UserSettings.INSTANCE.setNoFastSearchColumns();
 
-        }
+        UserSettings.INSTANCE.setFastSearchColumns(selected ? ColumnUtil.getSelectedColumns(list) : new ArrayList<Column>());
     }
 
     /** This method is called from within the constructor to

@@ -18,15 +18,11 @@
  */
 package de.elmar_baumann.lib.dialog;
 
-import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Resources;
-import de.elmar_baumann.lib.util.Settings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Nichtmodaler Dialog mit Fortschrittsbalken.
@@ -48,14 +44,6 @@ public final class ProgressDialog extends javax.swing.JDialog {
     public ProgressDialog(java.awt.Frame parent) {
         super(parent, false);
         initComponents();
-        setIcons();
-    }
-
-    private void setIcons() {
-        if (Resources.INSTANCE.hasFrameIconImages()) {
-            setIconImages(IconUtil.getIconImages(
-                    Resources.INSTANCE.getFramesIconImagesPaths()));
-        }
     }
 
     /**
@@ -168,32 +156,6 @@ public final class ProgressDialog extends javax.swing.JDialog {
                 listener.actionPerformed(new ActionEvent(this, 0, "Stop"));
             }
             setVisible(false);
-        }
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        if (visible) {
-            readProperties();
-        } else {
-            writeProperties();
-        }
-        super.setVisible(visible);
-    }
-
-    private void readProperties() {
-        Properties properties = Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.getSizeAndLocation(this);
-        }
-    }
-
-    private void writeProperties() {
-        Properties properties = Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.setSizeAndLocation(this);
         }
     }
 

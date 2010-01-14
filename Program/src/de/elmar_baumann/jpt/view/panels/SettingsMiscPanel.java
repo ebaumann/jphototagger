@@ -19,9 +19,11 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.model.ComboBoxModelLogfileFormatter;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererLogfileFormatter;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -89,9 +91,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     private File chooseDirectory(File startDirectory) {
         File dir = null;
-        DirectoryChooser dialog = new DirectoryChooser(null, startDirectory,
-                UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dialog = new DirectoryChooser(
+                                    GUI.INSTANCE.getAppFrame(),
+                                    startDirectory,
+                                    UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
 
+        dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
 
         if (dialog.accepted()) {

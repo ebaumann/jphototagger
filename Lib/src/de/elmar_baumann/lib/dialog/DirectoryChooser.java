@@ -18,19 +18,15 @@
  */
 package de.elmar_baumann.lib.dialog;
 
-import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.resource.Bundle;
-import de.elmar_baumann.lib.resource.Resources;
-import de.elmar_baumann.lib.util.Settings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -71,28 +67,18 @@ public final class DirectoryChooser extends Dialog {
      * @param startDirectory  start directory, will be selected or {@code new File("")}
      * @param options         options
      */
-    public DirectoryChooser(java.awt.Frame parent, File startDirectory,
-            Set<Option> options) {
+    public DirectoryChooser(java.awt.Frame parent, File startDirectory, Set<Option> options) {
         super(parent, true);
         this.startDirectory = startDirectory;
         this.directoryFilter = options;
         initComponents();
-        model = new TreeModelAllSystemDirectories(
-                treeDirectories, getTreeModelFilter());
+        model = new TreeModelAllSystemDirectories(treeDirectories, getTreeModelFilter());
         treeDirectories.setModel(model);
         postInitComponents();
     }
 
     private void postInitComponents() {
-        setIcons();
         registerKeyStrokes();
-    }
-
-    private void setIcons() {
-        if (Resources.INSTANCE.hasFrameIconImages()) {
-            setIconImages(IconUtil.getIconImages(
-                    Resources.INSTANCE.getFramesIconImagesPaths()));
-        }
     }
 
     private void setSelectionMode() {
@@ -121,29 +107,11 @@ public final class DirectoryChooser extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readProperties();
             setSelectionMode();
             selectStartDirectory();
-        } else {
-            writeProperties();
         }
+
         super.setVisible(visible);
-    }
-
-    private void readProperties() {
-        Properties properties = Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.getSizeAndLocation(this);
-        }
-    }
-
-    private void writeProperties() {
-        Properties properties = Resources.INSTANCE.getProperties();
-        if (properties != null) {
-            Settings settings = new Settings(properties);
-            settings.setSizeAndLocation(this);
-        }
     }
 
     /**
@@ -197,7 +165,6 @@ public final class DirectoryChooser extends Dialog {
 
     private void cancel() {
         accepted = false;
-        writeProperties();
         dispose();
     }
 
@@ -209,7 +176,6 @@ public final class DirectoryChooser extends Dialog {
             Object userObject = selNode.getUserObject();
             if (userObject instanceof File) {
                 accepted = true;
-                writeProperties();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this,
