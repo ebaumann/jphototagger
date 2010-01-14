@@ -27,7 +27,6 @@ import de.elmar_baumann.jpt.helper.Cleanup;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JFrame;
@@ -41,7 +40,7 @@ import javax.swing.JFrame;
 public final class AppLifeCycle {
 
     public static AppLifeCycle                     INSTANCE        = new AppLifeCycle();
-    private final Set<Object>                      saveObjects     = Collections.synchronizedSet(new HashSet<Object>());
+    private final Set<Object>                      saveObjects     = new HashSet<Object>();
     private final ListenerSupport<AppExitListener> listenerSupport = new ListenerSupport<AppExitListener>();
     private       AppFrame                         appFrame;
     private       boolean                          started;
@@ -59,14 +58,13 @@ public final class AppLifeCycle {
             Thread thread = new Thread(MetaFactory.INSTANCE);
             thread.setName("Initializing meta factory @ " + getClass().getSimpleName());
             thread.start();
-            addAppExitListener(appFrame.getAppPanel());
             listenForQuit();
         }
     }
 
     /**
-     * Sets whether an object saving data. As long as data is to save, the app
-     * does not exit.
+     * Adds an object which is currently or will soon saving data. As long as
+     * data is to save, the app does not exit.
      *
      * <em>Do not forget removing a save object via
      * {@link #removeSaveObject(java.lang.Object)}, otherwise the app terminates
@@ -75,7 +73,9 @@ public final class AppLifeCycle {
      * @param saveObject object that saves data.
      */
     public void addSaveObject(Object saveObject) {
-        saveObjects.add(saveObject);
+        synchronized(saveObject) { // Deadlocks under specific circumstances - unknown reason - with saveObject*s* as lock
+            saveObjects.add(saveObject);
+        }
     }
 
     /**
@@ -84,7 +84,9 @@ public final class AppLifeCycle {
      * @param saveObject save object to remove
      */
     public void removeSaveObject(Object saveObject) {
-        saveObjects.remove(saveObject);
+        synchronized(saveObject) { // Deadlocks under specific circumstances - unknown reason - with saveObject*s* as lock
+            saveObjects.remove(saveObject);
+        }
     }
 
     /**
@@ -107,15 +109,15 @@ public final class AppLifeCycle {
     }
 
     private void notifyExitListeners() {
-        Set<AppExitListener> listeners = listenerSupport.get();
         synchronized (listenerSupport) {
-            for (AppExitListener listener : listeners) {
+            for (AppExitListener listener : listenerSupport.get()) {
                 listener.appWillExit();
             }
         }
     }
 
     private void listenForQuit() {
+
         appFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         appFrame.addWindowListener(new WindowAdapter() {
 
@@ -139,7 +141,7 @@ public final class AppLifeCycle {
     }
 
     /**
-     * Disposes the {@link AppFrame} and exits the VM.
+     * Exits the VM.
      */
     public void quit() {
         notifyExitListeners();
@@ -153,24 +155,27 @@ public final class AppLifeCycle {
     }
 
     private void checkDataToSave() {
-        long elapsedMilliseconds = 0;
-        long timeoutMilliSeconds = 120 * 1000;
+        long elapsedMilliseconds       = 0;
+        long timeoutMilliSeconds       = 120 * 1000;
         long checkIntervalMilliSeconds = 2000;
-        if (saveObjects.size() > 0) {
-            AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", saveObjects);
-            while (saveObjects.size() > 0 &&
-                    elapsedMilliseconds < timeoutMilliSeconds) {
-                try {
-                    elapsedMilliseconds += checkIntervalMilliSeconds;
-                    Thread.sleep(checkIntervalMilliSeconds);
-                } catch (InterruptedException ex) {
-                    AppLog.logSevere(getClass(), ex);
-                }
-                if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    MessageDisplayer.error(
-                            null,
-                            "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
-                            timeoutMilliSeconds);
+
+        synchronized (saveObjects) {
+            if (saveObjects.size() > 0) {
+                AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", saveObjects);
+                while (saveObjects.size() > 0 &&
+                        elapsedMilliseconds < timeoutMilliSeconds) {
+                    try {
+                        elapsedMilliseconds += checkIntervalMilliSeconds;
+                        Thread.sleep(checkIntervalMilliSeconds);
+                    } catch (InterruptedException ex) {
+                        AppLog.logSevere(getClass(), ex);
+                    }
+                    if (elapsedMilliseconds >= timeoutMilliSeconds) {
+                        MessageDisplayer.error(
+                                null,
+                                "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
+                                timeoutMilliSeconds);
+                    }
                 }
             }
         }

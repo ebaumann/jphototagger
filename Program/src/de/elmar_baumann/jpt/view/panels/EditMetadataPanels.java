@@ -657,10 +657,17 @@ public final class EditMetadataPanels
 
     @Override
     public void focusLost(FocusEvent e) {
-        checkSaveOnChanges();
-        if (e.getSource() == wrapFocusComponent) {
-            setFocusToFirstEditField();
+        if (isEditComponent(e.getOppositeComponent())) {
+            checkSaveOnChanges();
+            if (e.getSource() == wrapFocusComponent) {
+                setFocusToFirstEditField();
+            }
         }
+    }
+
+    private boolean isEditComponent(Component c) {
+        return c instanceof JTextArea ||
+               c.getParent() instanceof RatingSelectionPanel;
     }
 
     private boolean isEditControl(Component c) {
@@ -747,12 +754,12 @@ public final class EditMetadataPanels
 
     @Override
     public void intervalAdded(ListDataEvent e) {
-        checkSaveOnChanges();
+        //checkSaveOnChanges();
     }
 
     @Override
     public void intervalRemoved(ListDataEvent e) {
-        checkSaveOnChanges();
+        //checkSaveOnChanges();
     }
 
     @Override

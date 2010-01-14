@@ -55,13 +55,13 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labelInfoWebBrowser" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                              <Component id="labelWebBrowser" pref="424" max="32767" attributes="0"/>
+                              <Component id="labelWebBrowser" pref="447" max="32767" attributes="0"/>
                           </Group>
                           <Component id="buttonChooseWebBrowser" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labelInfoPdfViewer" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="1"/>
-                              <Component id="labelPdfViewer" pref="424" max="32767" attributes="0"/>
+                              <Component id="labelPdfViewer" pref="448" max="32767" attributes="0"/>
                           </Group>
                           <Component id="buttonChoosePdfViewer" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -177,13 +177,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelDatabaseDirectory" pref="528" max="32767" attributes="0"/>
+                          <Component id="labelDatabaseDirectory" pref="532" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="buttonSetStandardDatabaseDirectoryName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonChooseDatabaseDirectory" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="labelInfoDatabaseDirectory" alignment="1" pref="528" max="32767" attributes="0"/>
+                          <Component id="labelInfoDatabaseDirectory" alignment="1" pref="532" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -201,7 +201,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoDatabaseDirectory" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="120" max="32767" attributes="0"/>
+                      <EmptySpace pref="144" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -277,11 +277,11 @@
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="comboBoxLogfileFormatterClass" alignment="0" pref="262" max="32767" attributes="0"/>
-                                  <Component id="comboBoxLogLevel" alignment="0" pref="262" max="32767" attributes="0"/>
+                                  <Component id="comboBoxLogfileFormatterClass" alignment="0" pref="340" max="32767" attributes="0"/>
+                                  <Component id="comboBoxLogLevel" alignment="0" pref="340" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="labelInfoLogfile" alignment="0" pref="528" max="32767" attributes="0"/>
+                          <Component id="labelInfoLogfile" alignment="0" pref="532" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -302,7 +302,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoLogfile" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="120" max="32767" attributes="0"/>
+                      <EmptySpace pref="146" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -374,7 +374,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelAutocopyDirectory" pref="528" max="32767" attributes="0"/>
+                          <Component id="labelAutocopyDirectory" pref="532" max="32767" attributes="0"/>
                           <Component id="buttonChooseAutocopyDirectory" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -388,7 +388,7 @@
                       <Component id="labelAutocopyDirectory" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonChooseAutocopyDirectory" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="141" max="32767" attributes="0"/>
+                      <EmptySpace pref="164" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -438,7 +438,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="checkBoxAutoDownloadCheck" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" pref="528" max="32767" attributes="0"/>
+                          <Component id="checkBoxTreeDirectoriesSelectLastDirectory" alignment="0" pref="532" max="32767" attributes="0"/>
                           <Component id="panelCopyMoveFiles" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -456,7 +456,7 @@
                       <Component id="checkBoxAutoDownloadCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panelCopyMoveFiles" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <EmptySpace pref="47" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -507,7 +507,7 @@
                               <Component id="radioButtonCopyMoveFileConfirmOverwrite" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="radioButtonCopyMoveFileRenameIfExists" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                          <EmptySpace pref="137" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

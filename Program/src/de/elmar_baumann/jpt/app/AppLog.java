@@ -112,8 +112,7 @@ public final class AppLog {
      */
     public static void logSevere(Class<?> c, Exception ex) {
         Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
-        ErrorListeners.INSTANCE.notifyListeners(
-                new ErrorEvent(ex.getMessage(), c));
+        ErrorListeners.INSTANCE.notifyListeners(new ErrorEvent(ex.getMessage(), c));
     }
 
     private static void log(Class<?> c, Level level, String bundleKey, Object... params) {
