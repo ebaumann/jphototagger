@@ -19,16 +19,10 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLifeCycle;
-import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.event.UserSettingsEvent;
-import de.elmar_baumann.jpt.event.listener.AppExitListener;
-import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererFastSearchColumns;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
@@ -36,17 +30,11 @@ import de.elmar_baumann.jpt.view.renderer.ListCellRendererSavedSearches;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererMiscMetadata;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererTimeline;
 import de.elmar_baumann.lib.component.ImageTextArea;
-import de.elmar_baumann.lib.componentutil.ComponentUtil;
-import de.elmar_baumann.lib.componentutil.TreeUtil;
-import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
-import de.elmar_baumann.lib.util.Settings;
-import de.elmar_baumann.lib.util.SettingsHints;
+import de.elmar_baumann.lib.componentutil.MessageLabel;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -57,12 +45,13 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -71,14 +60,14 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class AppPanel extends javax.swing.JPanel implements AppExitListener, UserSettingsListener {
+public final class AppPanel extends javax.swing.JPanel {
 
     private static final String                   KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain";
     private static final String                   KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails";
-    private static final String                   KEY_KEYWORDS_VIEW                   = "AppPanel.KeywordsView";
     private static final int                      DEFAULT_DIVIDER_LOCATION_MAIN       = 100;
     private static final int                      DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
     private static final long                     serialVersionUID                    = -7555272441595172631L;
+    private final        MessageLabel             messageLabel;
     private final        List<JTable>             xmpTables                           = new ArrayList<JTable>();
     private final        List<JTable>             metadataTables                      = new ArrayList<JTable>();
     private final        List<JTree>              selectionTrees                      = new ArrayList<JTree>();
@@ -89,6 +78,7 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
     public AppPanel() {
         GUI.INSTANCE.setAppPanel(this);
         initComponents();
+        messageLabel = new MessageLabel(labelInfo);
         postInitComponents();
     }
 
@@ -96,22 +86,10 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         displaySearchButton();
         editMetadtaPanels = new EditMetadataPanels(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
-        setBackgroundColorTablesScrollPanes();
+        setBackgroundColorToTablesViewports();
         setTreesSingleSelection();
         initCollections();
-        tableExif.addMouseListener(new TableButtonMouseListener(tableExif));
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
-        displayInitKeywordsView();
-        setTextFieldSearchImage();
-        setEnabledDisplayIptc();
-        UserSettings.INSTANCE.addUserSettingsListener(this);
-        AppLifeCycle.INSTANCE.addAppExitListener(this);
-    }
-
-    private void setTextFieldSearchImage() {
-        ((ImageTextArea) textAreaSearch).setImage(
-                AppLookAndFeel.localizedImage(
-                    "/de/elmar_baumann/jpt/resource/images/textfield_search.png"));
     }
 
     private void displaySearchButton() {
@@ -124,6 +102,117 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         initTablesCollection();
         initSelectionTreesCollection();
         initSelectionListsCollection();
+    }
+
+    private void initTablesCollection() {
+        initXmpTablesCollection();
+        initMetadataTablesCollection();
+    }
+
+    private void initMetadataTablesCollection() {
+        metadataTables.addAll(xmpTables);
+        metadataTables.add(tableExif);
+        metadataTables.add(tableIptc);
+    }
+
+    private void initXmpTablesCollection() {
+        xmpTables.add(tableXmpCameraRawSettings);
+        xmpTables.add(tableXmpDc);
+        xmpTables.add(tableXmpExif);
+        xmpTables.add(tableXmpIptc);
+        xmpTables.add(tableXmpLightroom);
+        xmpTables.add(tableXmpPhotoshop);
+        xmpTables.add(tableXmpTiff);
+        xmpTables.add(tableXmpXap);
+    }
+
+    private void initSelectionTreesCollection() {
+        selectionTrees.add(treeDirectories);
+        selectionTrees.add(treeFavorites);
+        selectionTrees.add(treeMiscMetadata);
+        selectionTrees.add(treeTimeline);
+        selectionTrees.add(treeSelKeywords);
+    }
+
+    private void initSelectionListsCollection() {
+        selectionLists.add(listImageCollections);
+        selectionLists.add(listSelKeywords);
+        selectionLists.add(listSavedSearches);
+        selectionLists.add(listNoMetadata);
+    }
+
+    private void setBackgroundColorToTablesViewports() {
+        for (JTable table : metadataTables) {
+            Container container = table.getParent();
+            if (container instanceof JViewport) {
+                JViewport viewport = (JViewport) container;
+                viewport.setBackground(table.getBackground());
+            }
+        }
+    }
+
+    private int getDividerLocationMain() {
+        int location = UserSettings.INSTANCE.getSettings().getInt(KEY_DIVIDER_LOCATION_MAIN);
+        return location >= 0
+                ? location
+                : DEFAULT_DIVIDER_LOCATION_MAIN;
+    }
+
+    private void setTreesSingleSelection() {
+        setSingleSelection(treeDirectories);
+        setSingleSelection(treeFavorites);
+        setSingleSelection(treeMiscMetadata);
+        setSingleSelection(treeTimeline);
+        setSingleSelection(treeSelKeywords);
+    }
+
+    private void setSingleSelection(JTree tree) {
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+    }
+
+    public enum SelectAlso {
+        NOTHING_ELSE,
+        SEL_KEYWORDS_TAB
+    }
+
+    public void displaySelKeywordsTree(SelectAlso select) {
+        if (select.equals(SelectAlso.SEL_KEYWORDS_TAB)) {
+            tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
+        }
+        displaySelKeywordsCard("keywordsTree");
+    }
+
+    public void displaySelKeywordsList(SelectAlso select) {
+        if (select.equals(SelectAlso.SEL_KEYWORDS_TAB)) {
+            tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
+        }
+        displaySelKeywordsCard("flatKeywords");
+    }
+
+    private void displaySelKeywordsCard(String name) {
+        CardLayout cl = (CardLayout)(panelSelKeywords.getLayout());
+        cl.show(panelSelKeywords, name);
+    }
+
+    private int getDividerLocationThumbnails() {
+        int location = UserSettings.INSTANCE.getSettings().getInt(KEY_DIVIDER_LOCATION_THUMBNAILS);
+        return location >= 0
+                ? location
+                : DEFAULT_DIVIDER_LOCATION_THUMBNAILS;
+    }
+
+    public void setEnabledIptcTab(boolean enabled) {
+        int index = tabbedPaneMetadata.indexOfComponent(panelIptc);
+
+        tabbedPaneMetadata.setEnabledAt(index, enabled);
+        tabbedPaneMetadata.setToolTipTextAt(index, enabled
+                ? ""
+                : Bundle.getString("TabMetadataIptc.TooltipText.Disabled")
+                );
+    }
+
+    public void showMessage(String message, MessageLabel.MessageType type, final long milliseconds) {
+        messageLabel.showMessage(message, type, milliseconds);
     }
 
     public EditMetadataPanels getEditMetadataPanels() {
@@ -171,6 +260,14 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
     public Component getTabSelectionKeywords() {
         return panelSelKeywords;
+    }
+
+    public Component getCardSelKeywordsList() {
+        return panelSelKeywordsList;
+    }
+
+    public Component getCardSelKeywordsTree() {
+        return panelSelKeywordsTree;
     }
 
     public Component getTabMetadataEdit() {
@@ -301,6 +398,10 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return buttonSearch;
     }
 
+    public JToggleButton getToggleButtonSelKeywords() {
+        return toggleButtonExpandAllNodesSelKeywords;
+    }
+
     public JComboBox getComboBoxMetadataTemplates() {
         return editActionsPanel.comboBoxMetadataTemplates;
     }
@@ -385,236 +486,12 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         return labelError;
     }
 
-    private void initTablesCollection() {
-        initXmpTablesCollection();
-        initMetadataTablesCollection();
+    public JSplitPane getSplitPaneMain() {
+        return splitPaneMain;
     }
 
-    private void initMetadataTablesCollection() {
-        metadataTables.addAll(xmpTables);
-        metadataTables.add(tableExif);
-        metadataTables.add(tableIptc);
-    }
-
-    private void initXmpTablesCollection() {
-        xmpTables.add(tableXmpCameraRawSettings);
-        xmpTables.add(tableXmpDc);
-        xmpTables.add(tableXmpExif);
-        xmpTables.add(tableXmpIptc);
-        xmpTables.add(tableXmpLightroom);
-        xmpTables.add(tableXmpPhotoshop);
-        xmpTables.add(tableXmpTiff);
-        xmpTables.add(tableXmpXap);
-    }
-
-    private void initSelectionTreesCollection() {
-        selectionTrees.add(treeDirectories);
-        selectionTrees.add(treeFavorites);
-        selectionTrees.add(treeMiscMetadata);
-        selectionTrees.add(treeTimeline);
-        selectionTrees.add(treeSelKeywords);
-    }
-
-    private void initSelectionListsCollection() {
-        selectionLists.add(listImageCollections);
-        selectionLists.add(listSelKeywords);
-        selectionLists.add(listSavedSearches);
-        selectionLists.add(listNoMetadata);
-    }
-
-    private void setBackgroundColorTablesScrollPanes() {
-        for (JTable table : metadataTables) {
-            Container container = table.getParent();
-            if (container instanceof JViewport) {
-                JViewport viewport = (JViewport) container;
-                viewport.setBackground(table.getBackground());
-            }
-        }
-    }
-
-    private void displayInitKeywordsView() {
-        panelEditKeywords.setKeyCard("AppPanel.Keywords.Card");
-        panelEditKeywords.setKeyTree("AppPanel.Keywords.Tree");
-        panelEditKeywords.readProperties();
-
-        String name = "keywordsTree";
-        if (UserSettings.INSTANCE.getProperties().containsKey(KEY_KEYWORDS_VIEW)) {
-            String s = UserSettings.INSTANCE.getSettings().getString(KEY_KEYWORDS_VIEW);
-            if (s.equals("flatKeywords") || s.equals("keywordsTree")) {
-                name = s;
-            }
-        }
-        displaySelKeywordsCard(name);
-    }
-
-    public void displaySelKeywordsTree() {
-        tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
-        displaySelKeywordsCard("keywordsTree");
-    }
-
-    public void displaySelKeywordsList() {
-        tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
-        displaySelKeywordsCard("flatKeywords");
-    }
-
-    @Override
-    public void appWillExit() {
-        writeProperties();
-    }
-
-    private void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
-
-        settings.setComponent(this, getPersistentSettingsHints());
-        settings.setInt(splitPaneMain.getDividerLocation(), KEY_DIVIDER_LOCATION_MAIN);
-        settings.setInt(splitPaneThumbnailsMetadata.getDividerLocation(), KEY_DIVIDER_LOCATION_THUMBNAILS);
-        ViewUtil.writeTreeDirectoriesToProperties();
-        panelEditKeywords.writeProperties();
-        UserSettings.INSTANCE.writeToFile();
-    }
-
-    public SettingsHints getPersistentSettingsHints() {
-        SettingsHints hints     = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
-        String        className = getClass().getName();
-        hints.addExclude(className + ".textAreaSearch");
-        hints.addExclude(className + ".panelEditMetadata");
-        hints.addExclude(className + ".treeDirectories");
-        hints.addExclude(className + ".treeFavorites");
-        return hints;
-    }
-
-    private int getDividerLocationThumbnails() {
-        int location = UserSettings.INSTANCE.getSettings().getInt(KEY_DIVIDER_LOCATION_THUMBNAILS);
-        return location >= 0
-                ? location
-                : DEFAULT_DIVIDER_LOCATION_THUMBNAILS;
-    }
-
-    private int getDividerLocationMain() {
-        int location = UserSettings.INSTANCE.getSettings().getInt(KEY_DIVIDER_LOCATION_MAIN);
-        return location >= 0
-                ? location
-                : DEFAULT_DIVIDER_LOCATION_MAIN;
-    }
-
-    private void setTreesSingleSelection() {
-        setSingleSelection(treeDirectories);
-        setSingleSelection(treeFavorites);
-        setSingleSelection(treeMiscMetadata);
-        setSingleSelection(treeTimeline);
-        setSingleSelection(treeSelKeywords);
-    }
-
-    private void setSingleSelection(JTree tree) {
-        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-    }
-
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_IPTC)) {
-            setEnabledDisplayIptc();
-        }
-    }
-
-    private void setEnabledDisplayIptc() {
-        boolean display = UserSettings.INSTANCE.isDisplayIptc();
-        int     index   = tabbedPaneMetadata.indexOfComponent(panelIptc);
-
-        tabbedPaneMetadata.setEnabledAt(index, display);
-        tabbedPaneMetadata.setToolTipTextAt(index, display
-                ? ""
-                : Bundle.getString("TabMetadataIptc.TooltipText.Disabled")
-                );
-    }
-
-    public enum MessageType {
-        INFO,
-        ERROR
-        ;
-
-        public boolean isError() {
-            return this.equals(ERROR);
-        }
-
-        public boolean isInfo() {
-            return this.equals(INFO);
-        }
-    }
-
-    public void showMessage(String message, MessageType type, final long milliseconds) {
-        labelInfo.setForeground(type.isError() ? Color.RED : Color.BLACK);
-        labelInfo.setText(message);
-        Thread thread = new Thread(new HideInfoMessage(milliseconds));
-        thread.setName("Hiding message popup @ " + getClass().getSimpleName());
-        thread.setPriority(Thread.MIN_PRIORITY);
-        thread.start();
-    }
-
-    private void handleToggleButtonSelKeywords() {
-        boolean selected = toggleButtonExpandAllNodesSelKeywords.isSelected();
-        TreeUtil.expandAll(treeSelKeywords, selected);
-        toggleButtonExpandAllNodesSelKeywords.setText(
-                selected
-                ? Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
-    }
-
-    private void displaySelKeywordsCard(String name) {
-        CardLayout cl = (CardLayout)(panelSelKeywords.getLayout());
-        cl.show(panelSelKeywords, name);
-        UserSettings.INSTANCE.getSettings().setString(name, KEY_KEYWORDS_VIEW);
-        UserSettings.INSTANCE.writeToFile();
-    }
-
-    public void settingsRead() {
-        ComponentUtil.forceRepaint(comboBoxFastSearch);
-        textAreaSearch.requestFocusInWindow();
-        reReadSomeProperties();
-    }
-
-    // Some models maybe not ready
-    private void reReadSomeProperties() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3 * 1000);
-                } catch (InterruptedException ex) {
-                    AppLog.logSevere(getClass(), ex);
-                }
-
-                String   keyPrefix = AppPanel.class.getName() + ".";
-                Settings settings  = UserSettings.INSTANCE.getSettings();
-
-                // Commented trees: toString() != display name
-                settings.getTree(treeTimeline, keyPrefix + "listNoMetadata");
-                settings.getTree(treeTimeline, keyPrefix + "listSavedSearches");
-                settings.getTree(treeTimeline, keyPrefix + "listSelKeywords");
-                //settings.getTree(treeTimeline, keyPrefix + "treeMiscMetadata");
-                settings.getTree(treeTimeline, keyPrefix + "treeSelKeywords");
-                //settings.getTree(treeTimeline, keyPrefix + "treeTimeline");
-            }
-        });
-    }
-
-    private class HideInfoMessage implements Runnable {
-
-        private final long milliseconds;
-
-        public HideInfoMessage(long milliseconds) {
-            this.milliseconds = milliseconds;
-        }
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(milliseconds);
-            } catch (InterruptedException ex) {
-                AppLog.logSevere(ViewUtil.class, ex);
-            }
-            labelInfo.setText("");
-        }
+    public JSplitPane getSplitPaneThumbnailsMetadata() {
+        return splitPaneThumbnailsMetadata;
     }
 
     @SuppressWarnings("serial")
@@ -636,6 +513,9 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         buttonSearch = new javax.swing.JButton();
         scrollPaneTextAreaSearch = new javax.swing.JScrollPane();
         textAreaSearch = new ImageTextArea();
+        ((ImageTextArea) textAreaSearch).setImage(
+            AppLookAndFeel.localizedImage(
+                "/de/elmar_baumann/jpt/resource/images/textfield_search.png"));
         tabbedPaneSelection = new javax.swing.JTabbedPane();
         panelDirectories = new javax.swing.JPanel();
         scrollPaneDirectories = new javax.swing.JScrollPane();
@@ -889,11 +769,6 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
 
         toggleButtonExpandAllNodesSelKeywords.setText(bundle.getString("AppPanel.toggleButtonExpandAllNodesSelKeywords.text")); // NOI18N
         toggleButtonExpandAllNodesSelKeywords.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        toggleButtonExpandAllNodesSelKeywords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleButtonExpandAllNodesSelKeywordsActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -1363,10 +1238,6 @@ public final class AppPanel extends javax.swing.JPanel implements AppExitListene
         gridBagConstraints.insets = new java.awt.Insets(2, 5, 3, 5);
         add(panelStatusbar, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void toggleButtonExpandAllNodesSelKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonExpandAllNodesSelKeywordsActionPerformed
-        handleToggleButtonSelKeywords();
-    }//GEN-LAST:event_toggleButtonExpandAllNodesSelKeywordsActionPerformed
 
     private void buttonDisplaySelKeywordsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsListActionPerformed
         displaySelKeywordsCard("flatKeywords");

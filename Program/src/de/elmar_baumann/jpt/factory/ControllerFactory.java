@@ -61,6 +61,7 @@ import de.elmar_baumann.jpt.controller.keywords.tree.ControllerShowKeywordsDialo
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerPickReject;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDeleteKeywords;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerRenameKeywords;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleButtonSelKeywords;
 import de.elmar_baumann.jpt.controller.metadata.ControllerCopyPasteMetadata;
 import de.elmar_baumann.jpt.controller.metadata.ControllerExifToXmp;
 import de.elmar_baumann.jpt.controller.metadata.ControllerExtractEmbeddedXmp;
@@ -99,7 +100,7 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerThumbnailsPanelPersis
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerToggleKeywordOverlay;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.lib.componentutil.MessageLabel;
 
 /**
  * Erzeugt alle Controller.
@@ -115,7 +116,7 @@ public final class ControllerFactory {
     synchronized void init() {
         Util.checkInit(ControllerFactory.class, init);
         if (!init) {
-            GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Start"), AppPanel.MessageType.INFO, 1000);
+            GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Start"), MessageLabel.MessageType.INFO, 1000);
             new ControllerThumbnailsPanelPersistence();
             new ControllerItemsMutualExcludeSelection();
             new ControllerKeywordItemSelected();
@@ -195,8 +196,9 @@ public final class ControllerFactory {
             new ControllerMetadataTemplateEdit();
             new ControllerMetadataTemplateDelete();
             new ControllerMetadataTemplateRename();
+            new ControllerToggleButtonSelKeywords();
             init = true;
-            GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Finished"), AppPanel.MessageType.INFO, 1000);
+            GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
         }
     }
 }
