@@ -40,6 +40,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
 import java.io.File;
@@ -57,14 +58,15 @@ import java.util.Set;
  */
 public final class InsertImageFilesIntoDatabase extends Thread {
 
-    private final DatabaseImageFiles                      db                      = DatabaseImageFiles.INSTANCE;
-    private final ProgressListenerSupport                 progressListenerSupport = new ProgressListenerSupport();
-    private final ListenerSupport<UpdateMetadataCheckListener> updateListenerSupport   = new ListenerSupport<UpdateMetadataCheckListener>();
-    private       ProgressEvent                           progressEvent           = new ProgressEvent(this, null);
-    private final List<String>                            filenames;
-    private final EnumSet<Insert>                         what;
-    private       String                                  currentFilename;
-    private       boolean                                 cancelled;
+    private final        DatabaseImageFiles                      db                         = DatabaseImageFiles.INSTANCE;
+    private final        ProgressListenerSupport                 progressListenerSupport    = new ProgressListenerSupport();
+    private final        ListenerSupport<UpdateMetadataCheckListener> updateListenerSupport = new ListenerSupport<UpdateMetadataCheckListener>();
+    private              ProgressEvent                           progressEvent              = new ProgressEvent(this, null);
+    private static final Image                                   ERROR_THUMBNAIL            = IconUtil.getIconImage(Bundle.getString("ErrorThumbnailPath"));
+    private final        List<String>                            filenames;
+    private final        EnumSet<Insert>                         what;
+    private              String                                  currentFilename;
+    private              boolean                                 cancelled;
 
     /**
      * Metadata to insert.
@@ -274,6 +276,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         imageFile.setThumbnail(thumbnail);
         if (thumbnail == null) {
             errorMessageNullThumbnail(file.getAbsolutePath());
+            imageFile.setThumbnail(ERROR_THUMBNAIL);
         }
     }
 
