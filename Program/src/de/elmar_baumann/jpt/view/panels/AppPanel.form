@@ -1274,7 +1274,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelThumbnailInfo" min="-2" pref="200" max="-2" attributes="1"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="labelInfo" pref="259" max="32767" attributes="0"/>
+                  <Component id="labelStatusbarText" pref="259" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="sliderThumbnailSize" min="-2" pref="135" max="-2" attributes="1"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -1289,7 +1289,7 @@
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="labelThumbnailInfo" linkSize="7" alignment="2" min="-2" pref="14" max="-2" attributes="1"/>
                   <Component id="progressBar" alignment="2" min="-2" max="-2" attributes="1"/>
-                  <Component id="labelInfo" linkSize="7" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelStatusbarText" linkSize="7" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="labelError" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="sliderThumbnailSize" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -1302,7 +1302,7 @@
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelInfo">
+        <Component class="javax.swing.JLabel" name="labelStatusbarText">
         </Component>
         <Component class="javax.swing.JSlider" name="sliderThumbnailSize">
           <Properties>

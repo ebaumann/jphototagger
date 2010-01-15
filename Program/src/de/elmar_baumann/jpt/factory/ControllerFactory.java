@@ -116,7 +116,7 @@ public final class ControllerFactory {
     synchronized void init() {
         Util.checkInit(ControllerFactory.class, init);
         if (!init) {
-            GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Start"), MessageLabel.MessageType.INFO, 1000);
+            GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("ControllerFactory.Init.Start"), MessageLabel.MessageType.INFO, 1000);
             new ControllerThumbnailsPanelPersistence();
             new ControllerItemsMutualExcludeSelection();
             new ControllerKeywordItemSelected();
@@ -198,7 +198,7 @@ public final class ControllerFactory {
             new ControllerMetadataTemplateRename();
             new ControllerToggleButtonSelKeywords();
             init = true;
-            GUI.INSTANCE.getAppPanel().showMessage(Bundle.getString("ControllerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+            GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("ControllerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
         }
     }
 }

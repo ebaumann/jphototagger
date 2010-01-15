@@ -74,7 +74,7 @@ public final class ControllerLogfileDialog
 
     @Override
     public void error(ErrorEvent evt) {
-        GUI.INSTANCE.getAppPanel().showMessage(STATUSBAR_ERROR_TEXT, MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT, MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         itemShowDlg.setEnabled(true);
         labelError.setIcon(AppLookAndFeel.getIcon("icon_error12.png"));
         labelError.setToolTipText(LABEL_ERROR_TOOLTIP_TEXT);
