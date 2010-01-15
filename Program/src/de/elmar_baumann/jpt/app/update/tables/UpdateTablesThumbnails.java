@@ -54,6 +54,7 @@ final class UpdateTablesThumbnails extends Database {
     private static final String               KEY_UPATED_THUMBNAILS_NAMES_HASH_1 = "Updated_Thumbnails_Names_Hash_1"; // Never change this!
     private final        UpdateTablesMessages messages                           = UpdateTablesMessages.INSTANCE;
     private static final int                  FETCH_MAX_ROWS                     = 1000;
+    private              int                  count;
 
     void update(Connection connection) throws SQLException {
         writeThumbnailsFromTableIntoFilesystem(connection);
@@ -61,10 +62,9 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     public void writeThumbnailsFromTableIntoFilesystem(Connection connection) throws SQLException {
-        int count   = getCount(connection);
+        count = getCount(connection);
         int current = 1;
 
-        setProgressDialogRange(count);
         for (int offset = 0; offset < count; offset += FETCH_MAX_ROWS) {
             current = updateRows(connection, current, count);
         }
@@ -73,7 +73,7 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private int updateRows(Connection connection, int current, int count) throws SQLException {
+    private int updateRows(Connection connection, int current, int cnt) throws SQLException {
 
         String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " +
                 "id, thumbnail FROM files WHERE thumbnail IS NOT NULL";
@@ -83,10 +83,9 @@ final class UpdateTablesThumbnails extends Database {
             long id = rs.getInt(1);
             InputStream inputStream = rs.getBinaryStream(2);
             setThumbnailNull(connection, id);
-            setMessageCurrentFile(id, current, count,
-                    "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table");
+            setMessageCurrentFile(id, current, "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table");
             writeThumbnail(inputStream, id);
-            messages.setValue(current++);
+            messages.setValue(current++ / cnt * 100);
         }
         clean(stmt, rs);
         return current;
@@ -160,7 +159,7 @@ final class UpdateTablesThumbnails extends Database {
                     KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) return;
             File[] thumbnailFiles = getThumbnailFiles();
             int filecount = thumbnailFiles.length;
-            setProgressDialogRange(filecount);
+            count = filecount;
             String sql = "SELECT filename FROM files WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
             int fileIndex = 0;
@@ -178,8 +177,7 @@ final class UpdateTablesThumbnails extends Database {
                     } else {
                         file.delete(); // orphaned thumbnail
                     }
-                    setMessageCurrentFile(id, ++fileIndex, filecount,
-                            "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Hash");
+                    setMessageCurrentFile(id, ++fileIndex, "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Hash");
                 } catch (NumberFormatException ex) {
                     AppLog.logSevere(UpdateTablesThumbnails.class, ex);
                 }
@@ -221,33 +219,24 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private int getCount(Connection connection) throws SQLException {
-        int count = 0;
+        int cnt = 0;
         Statement stmt = connection.createStatement();
         String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next()) {
-            count = rs.getInt(1);
+            cnt = rs.getInt(1);
         }
         stmt.close();
-        return count;
+        return cnt;
     }
 
     private void compress() {
         messages.message(Bundle.getString("UpdateTablesThumbnails.Info.CompressDatabase"));
-        messages.setIndeterminate(true);
         DatabaseMaintainance.INSTANCE.compressDatabase();
-        messages.setIndeterminate(false);
     }
 
-    private void setProgressDialogRange(long count) {
-        messages.setIndeterminate(false);
-        messages.setMinimum(0);
-        messages.setMaximum((int) count);
-        messages.setValue(0);
-    }
-
-    private void setMessageCurrentFile(long id, long current, long count, String message) {
+    private void setMessageCurrentFile(long id, long current, String message) {
         messages.message(Bundle.getString(message, id, current, count));
-        messages.setValue((int) current);
+        messages.setValue((int) (current / count * 100));
     }
 }

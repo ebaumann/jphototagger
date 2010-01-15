@@ -36,6 +36,7 @@ import java.sql.Statement;
 final class UpdateTablesXmpLastModified {
 
     private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
+    private       int                  count;
 
     void update(Connection connection) throws SQLException {
         removeColumnXmpLastModifiedFromTableXmp(connection);
@@ -65,32 +66,28 @@ final class UpdateTablesXmpLastModified {
 
     // too slow and no feedback: "UPDATE files SET xmp_lastmodified = lastmodified"
     private void copyLastModifiedToXmp(Connection connection) throws SQLException {
-        setProgressDialog();
+        setProgress();
         Statement stmtQueryXmp = connection.createStatement();
         PreparedStatement stmtUpdate = connection.prepareStatement(
             "UPDATE files SET xmp_lastmodified = ? WHERE id = ?");
         long lastModified = -1;
         long idFiles = -1;
-        int count = 0;
-        ResultSet rsQuery = stmtQueryXmp.executeQuery(
-            "SELECT id, lastmodified FROM files");
+        int value = 0;
+        ResultSet rsQuery = stmtQueryXmp.executeQuery("SELECT id, lastmodified FROM files");
         while (rsQuery.next()) {
             idFiles = rsQuery.getLong(1);
             lastModified = rsQuery.getLong(2);
             stmtUpdate.setLong(1, lastModified);
             stmtUpdate.setLong(2, idFiles);
             stmtUpdate.execute();
-            messages.setValue(++count);
+            messages.setValue(++value / count * 100);
         }
         stmtQueryXmp.close();
         stmtUpdate.close();
     }
 
-    private void setProgressDialog() {
+    private void setProgress() {
         messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.SetLastModified"));
-        messages.setIndeterminate(false);
-        messages.setMinimum(0);
-        messages.setMaximum(DatabaseStatistics.INSTANCE.getXmpCount());
-        messages.setValue(0);
+        count = DatabaseStatistics.INSTANCE.getXmpCount();
     }
 }

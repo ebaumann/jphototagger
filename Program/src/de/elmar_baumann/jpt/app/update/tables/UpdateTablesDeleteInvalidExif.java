@@ -49,10 +49,8 @@ final class UpdateTablesDeleteInvalidExif {
 
     void update(Connection connection) throws SQLException {
         if (DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_REMOVED_INVALID_EXIF)) return;
-        messages.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesDeleteInvalidExif.Info.update"));
         setNull(connection);
-        messages.setIndeterminate(false);
         messages.clearMessage();
         DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_REMOVED_INVALID_EXIF, true);
     }
