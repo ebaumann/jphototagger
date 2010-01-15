@@ -66,12 +66,10 @@ final class UpdateTablesRenameColumns {
     }
 
     private void renameColumns(Connection connection) throws SQLException {
-        messages.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTableRenameColumns.Info.update"));
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
-        messages.setIndeterminate(false);
     }
 
     private void renameColumn(Connection connection,

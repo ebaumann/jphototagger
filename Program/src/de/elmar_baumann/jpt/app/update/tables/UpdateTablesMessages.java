@@ -18,9 +18,7 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
-import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.componentutil.ComponentUtil;
-import de.elmar_baumann.lib.dialog.ProgressDialog;
+import de.elmar_baumann.jpt.app.SplashScreen;
 
 /**
  *
@@ -30,52 +28,20 @@ import de.elmar_baumann.lib.dialog.ProgressDialog;
  */
 class UpdateTablesMessages {
 
-    private      ProgressDialog       dialog;
     static final UpdateTablesMessages INSTANCE = new UpdateTablesMessages();
 
-    void message(String text) {
-        dialog.setInfoText(text);
-        if (dialog.isVisible()) {
-            dialog.toFront();
-        } else {
-            dialog.setVisible(true);
-        }
-        ComponentUtil.centerScreen(dialog);
+    void message(String message) {
+        SplashScreen.INSTANCE.setMessage(message);
     }
 
     void clearMessage() {
         message("");
     }
 
-    void setVisible(boolean visible) {
-        dialog.setVisible(visible);
-    }
-
-    void setIndeterminate(boolean i) {
-        dialog.setIndeterminate(i);
-    }
-
-    void setMinimum(int minimum) {
-        dialog.setMinimum(minimum);
-    }
-
-    void setMaximum(int maximum) {
-        dialog.setMaximum(maximum);
-    }
-
     void setValue(int value) {
-        dialog.setValue(value);
-    }
-
-    private void initDialog() {
-        dialog = new ProgressDialog(null);
-        dialog.setEnabledClose(false);
-        dialog.setEnabledStop(false);
-        dialog.setTitle(Bundle.getString("UpdateTablesMessages.Title"));
-        dialog.setIndeterminate(true);
+        SplashScreen.INSTANCE.setProgress(value);
     }
 
     private UpdateTablesMessages() {
-        initDialog();
     }
 }

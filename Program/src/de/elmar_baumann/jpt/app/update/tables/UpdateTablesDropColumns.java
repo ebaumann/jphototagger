@@ -66,12 +66,10 @@ final class UpdateTablesDropColumns {
     }
 
     private void dropColumns(Connection connection) throws SQLException {
-        messages.setIndeterminate(true);
         messages.message(Bundle.getString("UpdateTablesDropColumns.Info.update"));
         for (ColumnInfo info : dropColumns) {
             dropColumn(connection,info.getTableName(), info.getColumnName());
         }
-        messages.setIndeterminate(false);
     }
 
     private void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {

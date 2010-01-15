@@ -146,12 +146,10 @@ final class UpdateTablesInsertColumns {
     }
 
     private void addColumns(Connection connection) throws SQLException {
-        messages.setIndeterminate(true);
-        messages.message(Bundle.getString("UpdateTablesAddColumns.Info.update"));
+        messages.message(Bundle.getString("UpdateTablesInsertColumns.Info.update"));
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
-        messages.setIndeterminate(false);
     }
 
     private void addColumn(Connection connection, ColumnInfo info) throws SQLException {
@@ -167,7 +165,7 @@ final class UpdateTablesInsertColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesAddColumns.Info.AddColumns", tableName, columnName));
+        messages.message(Bundle.getString("UpdateTablesInsertColumns.Info", tableName, columnName));
     }
 
     private void fixBugs(Connection connection) throws SQLException {
@@ -190,8 +188,7 @@ final class UpdateTablesInsertColumns {
             boolean                     indexOk = info.ORDINAL_POSITION == 21;
             boolean                     isOk    = typeOk && indexOk;
             if (!isOk) {
-                messages.message(Bundle.getString("UpdateTablesAddColumns.Info.DropColumnMetaDataTemplates",
-                        tableName, columnName, typeOk, indexOk));
+                messages.message(Bundle.getString("UpdateTablesInsertColumns.Info.DropColumnMetaDataTemplates", tableName, columnName));
                 dropColumn(connection, tableName, columnName);
             }
         }

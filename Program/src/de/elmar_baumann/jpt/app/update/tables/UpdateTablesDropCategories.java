@@ -58,13 +58,11 @@ final class UpdateTablesDropCategories {
             return;
 
         messages.message(Bundle.getString("UpdateTablesDropCategories.Info"));
-        messages.setIndeterminate(true);
 
         if (!categoriesAlreadyDropped(connection) && saveCategoriesToFile(connection)) {
             updateDatabase(connection);
             fixSavedSearches(connection);
         }
-        messages.setIndeterminate(false);
     }
 
     private boolean categoriesAlreadyDropped(Connection connection) throws SQLException {

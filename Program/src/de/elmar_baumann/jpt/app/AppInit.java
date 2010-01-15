@@ -55,10 +55,12 @@ public final class AppInit {
         captureOutput();
         checkJavaVersion();
         lock();
+        SplashScreen.INSTANCE.init();
         AppDatabase.init();
         AppLoggingSystem.init();
         AbstractImageReader.install(ImageProperties.class);
         informationMessageInitGui();
+        SplashScreen.INSTANCE.close();
         showMainWindow();
     }
 
@@ -90,7 +92,7 @@ public final class AppInit {
     }
 
     private static void informationMessageInitGui() {
-        SplashScreen.setMessageToSplashScreen(
+        SplashScreen.INSTANCE.setMessage(
                 Bundle.getString("AppInit.Info.SplashScreen.InitGui"));
     }
 
