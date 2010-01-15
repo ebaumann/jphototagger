@@ -56,9 +56,12 @@ public final class AppInit {
         checkJavaVersion();
         lock();
         SplashScreen.INSTANCE.init();
+        SplashScreen.INSTANCE.setProgress(50);
         AppDatabase.init();
         AppLoggingSystem.init();
+        SplashScreen.INSTANCE.setProgress(75);
         AbstractImageReader.install(ImageProperties.class);
+        SplashScreen.INSTANCE.setProgress(100);
         informationMessageInitGui();
         SplashScreen.INSTANCE.close();
         showMainWindow();

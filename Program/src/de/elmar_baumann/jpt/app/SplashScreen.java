@@ -56,6 +56,7 @@ public final class SplashScreen {
 
     public synchronized void init() {
         if (init) return;
+        init = true;
         if (splash == null) return;
 
         splashBounds   = splash.getBounds();
@@ -65,8 +66,6 @@ public final class SplashScreen {
 
         graphics.setColor(Color.LIGHT_GRAY);
         graphics.drawRect(0, 0, splashBounds.width - 1, splashBounds.height - 1);
-
-        init = true;
     }
 
     public void close() {
