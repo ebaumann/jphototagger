@@ -23,6 +23,8 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
 import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Enumeration;
@@ -245,7 +247,7 @@ public final class Timeline {
         if (indexYearNode >= 0) {
             yearNode = (DefaultMutableTreeNode) ROOT_NODE.getChildAt(indexYearNode);
         } else {
-            yearNode = new TreeNodeSortedChildren(date);
+            yearNode = new TreeNodeSortedChildren(new Date(date.year, 0, 0));
             insertYearNode(yearNode, info);
         }
         return yearNode;
@@ -294,7 +296,7 @@ public final class Timeline {
             inserted = monthValue == date.month;
         }
         if (!inserted) {
-            monthNode = new TreeNodeSortedChildren(date);
+            monthNode = new TreeNodeSortedChildren(new Date(date.year, date.month, 0));
             yearNode.add(monthNode);
             info.addNode(yearNode, yearNode.getIndex(monthNode));
         }
@@ -369,7 +371,15 @@ public final class Timeline {
         return -1;
     }
 
-    public static class Date {
+    /**
+     * Date where year, month and day can be arbitrary, especially for dates
+     * where only parts are known.
+     *
+     * Convention: Set the unknown parts to zero.
+     * 
+     * @author Elmar Baumann <eb@elmar-baumann.de>
+     */
+    public static class Date implements Comparable<Date> {
         public int year;
         public int month;
         public int day;
@@ -422,26 +432,56 @@ public final class Timeline {
             return false;
         }
 
+        /**
+         * Valid is every date with a year greater than zero.
+         *
+         * @return true if valid
+         */
         public boolean isValid() {
             return year > 0;
         }
 
+        /**
+         * Returns whether the day is greater than zero.
+         *
+         * @return true if the day is greater than zero
+         */
         public boolean hasDay() {
             return day > 0;
         }
 
+        /**
+         * Returns whether the month is greater than zero.
+         *
+         * @return true if the month is greater than zero
+         */
         public boolean hasMonth() {
             return month > 0;
         }
 
+        /**
+         * Returns whether the year is greater than zero.
+         *
+         * @return true if the year is greater than zero
+         */
         public boolean hasYear() {
             return year > 0;
         }
 
+        /**
+         * Returns whether the year, month and day is greater than zero.
+         *
+         * @return true if year, month and day are greater than zero
+         */
         public boolean isComplete() {
             return day > 0 && month > 0 && year > 0;
         }
 
+        /**
+         * Returns a localized month name, e.g. "January".
+         *
+         * @return month name
+         */
         public String getMonthDisplayName() {
             try {
                 if (!hasMonth()) return Bundle.getString("Timeline.DisplayName.NoMonth");
@@ -459,14 +499,10 @@ public final class Timeline {
 
         @Override
         public String toString() {
-            return isValid()
-                    ? Integer.toString(year)
-                    : hasMonth()
-                    ? "-" + Integer.toString(month)
-                    : hasDay()
-                    ? "-" + Integer.toString(day)
-                    : "Invalid date"
-                    ;
+            DecimalFormat dfY  = new DecimalFormat("0000");
+            DecimalFormat dfMD = new DecimalFormat("00");
+            return MessageFormat.format(
+                   "{0}-{1}-{2}", dfY.format(year), dfMD.format(month), dfMD.format(day));
         }
 
         @Override
@@ -487,6 +523,16 @@ public final class Timeline {
             hash = 31 * hash + this.month;
             hash = 31 * hash + this.day;
             return hash;
+        }
+
+        @Override
+        public int compareTo(Date o) {
+            if (year == o.year && month == o.month && day == o.day) return 0;
+            boolean greater =
+                     year > o.year ||
+                     year == o.year && month > o.month ||
+                     year == o.year && month == o.month && day > o.day;
+            return greater ? 1 : -1;
         }
     }
 }

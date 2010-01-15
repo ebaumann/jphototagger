@@ -33,6 +33,7 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
 import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
+import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
 
 /**
  * Erzeugt und verbindet MouseListener.
@@ -52,6 +53,8 @@ public final class MouseListenerFactory {
             AppPanel                  appPanel             = GUI.INSTANCE.getAppPanel();
             MouseListenerTreeExpand   listenerTreeExpand   = new MouseListenerTreeExpand();
             MouseListenerKeywordsTree listenerKeywordsTree = new MouseListenerKeywordsTree();
+
+            appPanel.getTableExif().addMouseListener(new TableButtonMouseListener(appPanel.getTableExif()));
 
             appPanel.getTreeDirectories()                                   .addMouseListener(new MouseListenerDirectories());
             appPanel.getListSavedSearches()                                 .addMouseListener(new MouseListenerSavedSearches());

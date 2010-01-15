@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.event.listener.ErrorListener;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import java.awt.event.ActionEvent;
@@ -74,7 +74,7 @@ public final class ControllerLogfileDialog
 
     @Override
     public void error(ErrorEvent evt) {
-        GUI.INSTANCE.getAppPanel().showMessage(STATUSBAR_ERROR_TEXT, AppPanel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
+        GUI.INSTANCE.getAppPanel().showMessage(STATUSBAR_ERROR_TEXT, MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         itemShowDlg.setEnabled(true);
         labelError.setIcon(AppLookAndFeel.getIcon("icon_error12.png"));
         labelError.setToolTipText(LABEL_ERROR_TOOLTIP_TEXT);

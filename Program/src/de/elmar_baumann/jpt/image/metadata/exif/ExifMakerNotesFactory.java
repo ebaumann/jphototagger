@@ -35,7 +35,7 @@ public final class ExifMakerNotesFactory {
 
     static {
         makerNotesOfMake.put("nikon", new NikonMakerNotes());
-        //makerNotesOfMake.put("canon", new CanonMakerNotes());
+        makerNotesOfMake.put("canon", new CanonMakerNotes());
     }
 
     static void add(File file, ExifTags exifTags) {

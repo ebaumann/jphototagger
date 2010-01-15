@@ -18,11 +18,8 @@
  */
 package de.elmar_baumann.jpt.factory;
 
-import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.AppWindowPersistence;
 import de.elmar_baumann.jpt.app.update.UpdateDownload;
-import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.frames.AppFrame;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent
@@ -34,7 +31,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 public final class MetaFactory implements Runnable {
 
     public static final MetaFactory INSTANCE = new MetaFactory();
-    private boolean init = false;
+    private             boolean     init     = false;
 
     @Override
     public void run() {
@@ -44,28 +41,18 @@ public final class MetaFactory implements Runnable {
     private synchronized void init() {
         Util.checkInit(MetaFactory.class, init);
         init = true;
-        readAppFrameFromProperties();
-        ControllerFactory.INSTANCE.init();
-        MiscFactory.INSTANCE.init();
-        ModelFactory.INSTANCE.init();
+        AppWindowPersistence appPersistence = new AppWindowPersistence();
+
+        appPersistence.readAppFrameFromProperties();
+
+        ControllerFactory    .INSTANCE.init();
+        MiscFactory          .INSTANCE.init();
+        ModelFactory         .INSTANCE.init();
         ActionListenerFactory.INSTANCE.init();
-        MouseListenerFactory.INSTANCE.init();
-        RendererFactory.INSTANCE.init();
-        readAppPanelFromProperties();
+        MouseListenerFactory .INSTANCE.init();
+        RendererFactory      .INSTANCE.init();
+
+        appPersistence.readAppPanelFromProperties();
         UpdateDownload.checkForNewerVersion(60 * 1000);
-    }
-
-    private void readAppFrameFromProperties() {
-        AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(appFrame);
-        appFrame.pack();
-    }
-
-    private void readAppPanelFromProperties() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-        UserSettings.INSTANCE.getSettings().getComponent(
-                appPanel,
-                appPanel.getPersistentSettingsHints());
-        appPanel.settingsRead();
     }
 }
