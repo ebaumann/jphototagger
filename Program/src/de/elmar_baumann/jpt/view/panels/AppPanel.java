@@ -78,7 +78,7 @@ public final class AppPanel extends javax.swing.JPanel {
     public AppPanel() {
         GUI.INSTANCE.setAppPanel(this);
         initComponents();
-        messageLabel = new MessageLabel(labelInfo);
+        messageLabel = new MessageLabel(labelStatusbarText);
         postInitComponents();
     }
 
@@ -211,8 +211,20 @@ public final class AppPanel extends javax.swing.JPanel {
                 );
     }
 
-    public void showMessage(String message, MessageLabel.MessageType type, final long milliseconds) {
-        messageLabel.showMessage(message, type, milliseconds);
+    /**
+     * Sets text to display in the status bar.
+     *
+     * @param text         text to display or empty string to remove text
+     * @param type         changes the text color (red on errors)
+     * @param milliseconds if greater than zero the message will be deleted
+     *                     automatically after that time
+     */
+    public void setStatusbarText(String text, MessageLabel.MessageType type, final long milliseconds) {
+        if (milliseconds > 0) {
+            messageLabel.showMessage(text, type, milliseconds);
+        } else {
+            labelStatusbarText.setText(text);
+        }
     }
 
     public EditMetadataPanels getEditMetadataPanels() {
@@ -592,7 +604,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelEditKeywords = new de.elmar_baumann.jpt.view.panels.KeywordsPanel();
         panelStatusbar = new javax.swing.JPanel();
         labelThumbnailInfo = new javax.swing.JLabel();
-        labelInfo = new javax.swing.JLabel();
+        labelStatusbarText = new javax.swing.JLabel();
         sliderThumbnailSize = new javax.swing.JSlider();
         labelError = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
@@ -1211,7 +1223,7 @@ public final class AppPanel extends javax.swing.JPanel {
             .addGroup(panelStatusbarLayout.createSequentialGroup()
                 .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
@@ -1224,12 +1236,12 @@ public final class AppPanel extends javax.swing.JPanel {
             .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(labelInfo)
+                .addComponent(labelStatusbarText)
                 .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelInfo, labelThumbnailInfo});
+        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelStatusbarText, labelThumbnailInfo});
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1256,8 +1268,8 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSearch;
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JLabel labelError;
-    private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelMetadataFilename;
+    private javax.swing.JLabel labelStatusbarText;
     private javax.swing.JLabel labelThumbnailInfo;
     private javax.swing.JList listImageCollections;
     private javax.swing.JList listNoMetadata;
