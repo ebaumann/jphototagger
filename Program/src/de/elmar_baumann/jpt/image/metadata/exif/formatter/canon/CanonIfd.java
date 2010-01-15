@@ -66,6 +66,10 @@ public final class CanonIfd {
             return r;
         }
 
+        public int getValueByteCount() {
+            return dataType().bitCount() / 8 * valueNumber;
+        }
+
         public int getTag() {
             return tag;
         }
