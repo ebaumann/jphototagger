@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppFileFilter;
+import de.elmar_baumann.jpt.app.AppFileFilters;
 import de.elmar_baumann.jpt.database.DatabaseFileExcludePattern;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -76,7 +76,7 @@ public final class ImageFilteredDirectory {
      */
     public static List<File> getImageFilesOfDirectory(File directory) {
         File[] filteredFiles = directory.listFiles(
-                AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS);
+                AppFileFilters.ACCEPTED_IMAGE_FILE_FORMATS);
         List<String> excludePatterns = DatabaseFileExcludePattern.INSTANCE.
                 getAll();
         List<File> files = new ArrayList<File>();
@@ -127,7 +127,7 @@ public final class ImageFilteredDirectory {
 
     private void addFilesOfCurrentDirectory() {
         File[] filesOfDirectory = directory.listFiles(
-                AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS);
+                AppFileFilters.ACCEPTED_IMAGE_FILE_FORMATS);
         List<String> excludePatterns = DatabaseFileExcludePattern.INSTANCE.
                 getAll();
         if (filesOfDirectory != null) {

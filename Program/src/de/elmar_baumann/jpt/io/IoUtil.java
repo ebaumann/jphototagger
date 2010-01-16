@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.io;
 
-import de.elmar_baumann.jpt.app.AppFileFilter;
+import de.elmar_baumann.jpt.app.AppFileFilters;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.lib.io.FileLock;
@@ -79,7 +79,7 @@ public final class IoUtil {
      */
     public static List<File> filterImageFiles(Collection<File> arbitraryFiles) {
         List<File> imageFiles = new ArrayList<File>();
-        RegexFileFilter filter = AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS;
+        RegexFileFilter filter = AppFileFilters.ACCEPTED_IMAGE_FILE_FORMATS;
         for (File file : arbitraryFiles) {
             if (filter.accept(file)) {
                 imageFiles.add(file);
