@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLog;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.keywords.tree.SuggestKeywords;
-import de.elmar_baumann.jpt.helper.SaveEditedMetadata;
+import de.elmar_baumann.jpt.helper.SaveXmp;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.data.TextEntry;
@@ -116,7 +116,7 @@ public final class EditMetadataPanels
 
     private void save() {
         addInputToRepeatableTextEntries();
-        SaveEditedMetadata.saveMetadata(filenamesXmp);
+        SaveXmp.save(filenamesXmp);
         setDirty(false);
     }
 
