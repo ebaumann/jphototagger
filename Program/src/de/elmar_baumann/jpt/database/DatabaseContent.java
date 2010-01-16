@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -69,7 +69,7 @@ public final class DatabaseContent extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseContent.class, ex);
+            AppLogger.logSevere(DatabaseContent.class, ex);
             content.clear();
         } finally {
             free(connection);

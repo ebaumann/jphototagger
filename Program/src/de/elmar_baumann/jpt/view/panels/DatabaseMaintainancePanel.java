@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
@@ -165,7 +165,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
                 methodCancel = currentRunnable.getClass().getMethod(METHOD_NAME_CANCEL);
                 methodCancel.invoke(currentRunnable);
             } catch (Exception ex) {
-                AppLog.logSevere(getClass(), ex);
+                AppLogger.logSevere(getClass(), ex);
             }
         }
         if (methodCancel == null && currentRunnable instanceof Thread) {

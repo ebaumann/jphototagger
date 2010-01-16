@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.resource;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -40,7 +40,7 @@ public final class Translation {
             bundle = ResourceBundle.getBundle(PATH_PREFIX + propertiesFileBasename);
 
         } catch (MissingResourceException ex) {
-            AppLog.logSevere(Translation.class, ex);
+            AppLogger.logSevere(Translation.class, ex);
         }
     }
 
@@ -59,7 +59,7 @@ public final class Translation {
 
         } catch (MissingResourceException ex) {
 
-            AppLog.logSevere(Translation.class, ex);
+            AppLogger.logSevere(Translation.class, ex);
 
         } catch (NullPointerException ex) {
 
@@ -67,7 +67,7 @@ public final class Translation {
 
         } catch (Exception ex) {
 
-            AppLog.logSevere(Translation.class, ex);
+            AppLogger.logSevere(Translation.class, ex);
         }
         return string;
     }
@@ -96,7 +96,7 @@ public final class Translation {
 
         } catch (Exception ex) {
 
-            AppLog.logSevere(Translation.class, ex);
+            AppLogger.logSevere(Translation.class, ex);
 
         }
         return alternate;

@@ -25,7 +25,7 @@ import com.imagero.reader.tiff.EXIF;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.types.FileType;
@@ -59,7 +59,7 @@ public final class ExifMetadata {
 
         } catch (Exception ex) {
 
-            AppLog.logSevere(ExifMetadata.class, ex);
+            AppLogger.logSevere(ExifMetadata.class, ex);
         }
 
         ExifMakerNotesFactory.add(imageFile, exifTags);
@@ -73,14 +73,14 @@ public final class ExifMetadata {
 
         if (FileType.isJpegFile(imageFile.getName())) {
 
-            AppLog.logInfo(ExifMetadata.class, "ExifMetadata.AddIFDEntries.JPEG.Info", imageFile);
+            AppLogger.logInfo(ExifMetadata.class, "ExifMetadata.AddIFDEntries.JPEG.Info", imageFile);
 
             imageReader = new JpegReader(imageFile);
             addAllExifTags((JpegReader) imageReader, exifTags);
 
         } else {
 
-            AppLog.logInfo(ExifMetadata.class, "ExifMetadata.AddIFDEntries.TIFF.Info", imageFile);
+            AppLogger.logInfo(ExifMetadata.class, "ExifMetadata.AddIFDEntries.TIFF.Info", imageFile);
 
             imageReader = new TiffReader(imageFile);
 

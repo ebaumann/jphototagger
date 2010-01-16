@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -111,7 +111,7 @@ public final class ControllerThumbnailsPanelPersistence
                 thumbnailsPanel.setFileSortComparator(
                         (Comparator<File>) Class.forName(name).newInstance());
         } catch (Exception ex) {
-            AppLog.logSevere(ControllerThumbnailsPanelPersistence.class, ex);
+            AppLogger.logSevere(ControllerThumbnailsPanelPersistence.class, ex);
         }
     }
 
@@ -123,7 +123,7 @@ public final class ControllerThumbnailsPanelPersistence
                 try {
                     Thread.sleep(3 * 1000);
                 } catch (InterruptedException ex) {
-                    AppLog.logSevere(getClass(), ex);
+                    AppLogger.logSevere(getClass(), ex);
                 }
                 UserSettings.INSTANCE.getSettings().getScrollPane(
                         GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),

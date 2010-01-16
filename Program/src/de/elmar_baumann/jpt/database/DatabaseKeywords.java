@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Keyword;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,7 +70,7 @@ public final class DatabaseKeywords extends Database {
             }
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
             keywords.clear();
         } finally {
             free(connection);
@@ -112,7 +112,7 @@ public final class DatabaseKeywords extends Database {
             updated = stmt.executeUpdate() == 1;
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }
@@ -161,7 +161,7 @@ public final class DatabaseKeywords extends Database {
             }
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -194,7 +194,7 @@ public final class DatabaseKeywords extends Database {
             deleted = true;
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -239,7 +239,7 @@ public final class DatabaseKeywords extends Database {
                 idParent = parent.getIdParent();
             }
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }
@@ -274,7 +274,7 @@ public final class DatabaseKeywords extends Database {
             }
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }
@@ -306,7 +306,7 @@ public final class DatabaseKeywords extends Database {
             }
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }
@@ -367,7 +367,7 @@ public final class DatabaseKeywords extends Database {
             }
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }
@@ -396,7 +396,7 @@ public final class DatabaseKeywords extends Database {
             }
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }
@@ -419,7 +419,7 @@ public final class DatabaseKeywords extends Database {
             }
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }
@@ -447,7 +447,7 @@ public final class DatabaseKeywords extends Database {
             count = stmt.executeUpdate();
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }
@@ -500,7 +500,7 @@ public final class DatabaseKeywords extends Database {
             }
             stmt.close();
         } catch (Exception ex) {
-            AppLog.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             free(connection);
         }

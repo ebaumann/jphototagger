@@ -27,7 +27,7 @@ import com.adobe.xmp.options.PropertyOptions;
 import com.adobe.xmp.options.SerializeOptions;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.mapping.IptcEntryXmpPathStartMapping;
@@ -145,7 +145,7 @@ public final class XmpMetadata {
             }
         } catch (Exception ex) {
             propertyInfos = null;
-            AppLog.logSevere(XmpMetadata.class, ex);
+            AppLogger.logSevere(XmpMetadata.class, ex);
         }
         return propertyInfos;
     }
@@ -166,7 +166,7 @@ public final class XmpMetadata {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(XmpMetadata.class, ex);
+            AppLogger.logSevere(XmpMetadata.class, ex);
         }
     }
 
@@ -226,7 +226,7 @@ public final class XmpMetadata {
 
         if (imageFilename == null || !FileUtil.existsFile(new File(imageFilename))) return null;
 
-        AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp", imageFilename);
+        AppLogger.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp", imageFilename);
 
         return XmpFileReader.readFile(imageFilename);
     }
@@ -235,7 +235,7 @@ public final class XmpMetadata {
 
         if (sidecarFile == null || !sidecarFile.exists()) return null;
 
-        AppLog.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadSidecarFile", sidecarFile);
+        AppLogger.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadSidecarFile", sidecarFile);
 
         return FileUtil.getFileContentAsString(sidecarFile, "UTF-8");
     }
@@ -323,7 +323,7 @@ public final class XmpMetadata {
             return writeSidecarFile(sidecarFilename, xmpMeta);
 
         } catch (Exception ex) {
-            AppLog.logSevere(XmpMetadata.class, ex);
+            AppLogger.logSevere(XmpMetadata.class, ex);
             return false;
         }
     }
@@ -407,7 +407,7 @@ public final class XmpMetadata {
                 Long value = (Long) metadataValue;
                 xmpMeta.setProperty(namespaceUri, propertyName, Long.toString(value));
             } else {
-                AppLog.logWarning(XmpMetadata.class, "XmpMetadata.Error.WriteSetMetadata", metadataValue.getClass());
+                AppLogger.logWarning(XmpMetadata.class, "XmpMetadata.Error.WriteSetMetadata", metadataValue.getClass());
             }
         }
     }
@@ -461,7 +461,7 @@ public final class XmpMetadata {
             XMPMetaFactory.serialize(meta, out, new SerializeOptions().setPadding(10).setOmitPacketWrapper(true));
             return true;
         } catch (Exception ex) {
-            AppLog.logSevere(XmpMetadata.class, ex);
+            AppLogger.logSevere(XmpMetadata.class, ex);
             return false;
         } finally {
             FileLock.INSTANCE.unlock(sidecarFile, XmpMetadata.class);
@@ -469,7 +469,7 @@ public final class XmpMetadata {
                 try {
                     out.close();
                 } catch (Exception ex) {
-                    AppLog.logSevere(XmpMetadata.class, ex);
+                    AppLogger.logSevere(XmpMetadata.class, ex);
                 }
             }
         }
@@ -552,7 +552,7 @@ public final class XmpMetadata {
                     try {
                         xmp.setValue(column, column.getDataType().fromString(value.toString()));
                     } catch (Exception ex) {
-                        AppLog.logSevere(XmpMetadata.class, ex);
+                        AppLogger.logSevere(XmpMetadata.class, ex);
                     }
                 }
             }

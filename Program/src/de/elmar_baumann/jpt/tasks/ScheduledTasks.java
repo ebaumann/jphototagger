@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.tasks;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent;
 import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent.Type;
 import de.elmar_baumann.jpt.event.listener.UpdateMetadataCheckListener;
@@ -84,7 +84,7 @@ public final class ScheduledTasks implements ActionListener,
                     setStart();
                     startUpdate();
                 } catch (Exception ex) {
-                    AppLog.logSevere(getClass(), ex);
+                    AppLogger.logSevere(getClass(), ex);
                 }
             }
         });

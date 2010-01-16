@@ -150,8 +150,8 @@ public final class MessageDisplayer {
          * @return               action or <code>defaultAction</code> if no
          *                       action has that option type
          */
-        public static ConfirmAction actionOfOptionType(
-                int type, ConfirmAction defaultAction) {
+        public static ConfirmAction actionOfOptionType(int type, ConfirmAction defaultAction) {
+
             for (ConfirmAction action : values()) {
                 if (action.getOptionType() == type) {
                     return action;
@@ -182,6 +182,7 @@ public final class MessageDisplayer {
                         Bundle.getString(propertyKey, params),
                         getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
                         JOptionPane.YES_NO_CANCEL_OPTION);
+
         return exit == JOptionPane.YES_OPTION
                    ? ConfirmAction.YES
                    : exit == JOptionPane.NO_OPTION
@@ -214,8 +215,7 @@ public final class MessageDisplayer {
                     == JOptionPane.YES_OPTION;
     }
 
-    private static void message(
-            Component component, String propertyKey, int type, Object... params) {
+    private static void message(Component component, String propertyKey, int type, Object... params) {
 
         JOptionPane.showMessageDialog(
                 component == null ? GUI.INSTANCE.getAppFrame() : component,
@@ -231,8 +231,8 @@ public final class MessageDisplayer {
         String titlePropertyKey = propertyKey + ".Title";
 
         return Bundle.containsKey(titlePropertyKey)
-                ? Bundle.getString(titlePropertyKey)
-                : defaultTitleOfMessageType.get(messageType);
+                                    ? Bundle.getString(titlePropertyKey)
+                                    : defaultTitleOfMessageType.get(messageType);
     }
 
     private MessageDisplayer() {

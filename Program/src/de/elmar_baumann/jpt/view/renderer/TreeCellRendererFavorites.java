@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.data.Timeline;
 import java.awt.Component;
@@ -75,7 +75,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        AppLog.logSevere(TreeCellRendererFavorites.class, ex);
+                        AppLogger.logSevere(TreeCellRendererFavorites.class, ex);
                     }
                 }
             }

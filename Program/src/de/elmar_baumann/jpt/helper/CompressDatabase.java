@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
@@ -100,7 +100,7 @@ public final class CompressDatabase implements Runnable {
     }
 
     private void logCompressDatabase() {
-        AppLog.logInfo(CompressDatabase.class,
+        AppLogger.logInfo(CompressDatabase.class,
                 "DatabaseCompress.Info.StartCompress");
     }
 

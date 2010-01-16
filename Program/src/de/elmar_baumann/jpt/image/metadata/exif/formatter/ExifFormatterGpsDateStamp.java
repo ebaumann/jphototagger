@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTagValueFormatter;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
@@ -55,7 +55,7 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
 
             return DateFormat.getDateInstance(DateFormat.FULL).format(date);
         } catch (Exception ex) {
-            AppLog.logSevere(ExifTagValueFormatter.class, ex);
+            AppLogger.logSevere(ExifTagValueFormatter.class, ex);
         }
         return rawString;
     }

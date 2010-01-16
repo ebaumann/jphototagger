@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.formatter.nikon;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifLong;
@@ -257,7 +257,7 @@ public final class NikonMakerNote {
             try {
                 makerNoteTagInfos.add(new MakerNoteTagInfo(indexOfTag(key), bundle.getString(key)));
             } catch (ClassNotFoundException ex) {
-                AppLog.logSevere(NikonMakerNote.class, ex);
+                AppLogger.logSevere(NikonMakerNote.class, ex);
             }
         }
     }

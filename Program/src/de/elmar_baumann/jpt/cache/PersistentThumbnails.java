@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.lib.image.util.ImageUtil;
 import de.elmar_baumann.lib.io.FileLock;
@@ -62,7 +62,7 @@ public final class PersistentThumbnails {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(PersistentThumbnails.class, ex);
+            AppLogger.logSevere(PersistentThumbnails.class, ex);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, PersistentThumbnails.class);
             closeStream(fos);
@@ -70,7 +70,7 @@ public final class PersistentThumbnails {
     }
 
     private static void logWriteThumbnail(File tnFile) {
-        AppLog.logInfo(PersistentThumbnails.class,
+        AppLogger.logInfo(PersistentThumbnails.class,
                 "ThumbnailUtil.Info.WriteThumbnail",
                 tnFile);
     }
@@ -97,7 +97,7 @@ public final class PersistentThumbnails {
                 thumbnail = icon.getImage();
             }
         } catch (Exception ex) {
-            AppLog.logSevere(PersistentThumbnails.class, ex);
+            AppLogger.logSevere(PersistentThumbnails.class, ex);
         } finally {
             closeStream(fis);
         }
@@ -194,7 +194,7 @@ public final class PersistentThumbnails {
             try {
                 fis.close();
             } catch (IOException ex) {
-                AppLog.logSevere(PersistentThumbnails.class, ex);
+                AppLogger.logSevere(PersistentThumbnails.class, ex);
             }
         }
     }
@@ -204,7 +204,7 @@ public final class PersistentThumbnails {
             try {
                 fos.close();
             } catch (IOException ex) {
-                AppLog.logSevere(PersistentThumbnails.class, ex);
+                AppLogger.logSevere(PersistentThumbnails.class, ex);
             }
         }
     }

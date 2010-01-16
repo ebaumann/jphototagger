@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.filesystem;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.helper.FilesystemDatabaseUpdater;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog;
@@ -64,7 +64,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
             dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
             dialog.setVisible(true);
         } else {
-            AppLog.logWarning(ControllerCopyFilesToDirectory.class,
+            AppLogger.logWarning(ControllerCopyFilesToDirectory.class,
                     "ControllerCopyFilesToDirectory.Error.NoImagesSelected");
         }
     }

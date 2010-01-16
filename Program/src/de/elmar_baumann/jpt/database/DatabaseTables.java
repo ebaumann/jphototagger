@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.update.tables.UpdateTables;
 import de.elmar_baumann.jpt.app.AppLock;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.dialog.LongMessageDialog;
 import java.sql.Connection;
@@ -93,7 +93,7 @@ public final class DatabaseTables extends Database {
             UpdateTables.INSTANCE.update(connection);
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseTables.class, ex);
+            AppLogger.logSevere(DatabaseTables.class, ex);
             errorMessageSqlException(ex);
             AppLock.unlock();
             System.exit(0);

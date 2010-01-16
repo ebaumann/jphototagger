@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Exif;
 import java.io.File;
 import java.sql.Date;
@@ -76,7 +76,7 @@ final class ExifFactory {
             return exif;
 
         } catch (Exception ex) {
-            AppLog.logSevere(ExifMetadata.class, ex);
+            AppLogger.logSevere(ExifMetadata.class, ex);
         }
         return null;
     }
@@ -96,10 +96,10 @@ final class ExifFactory {
                 try {
                     exif.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
                 } catch (Exception ex) {
-                    AppLog.logSevere(ExifMetadata.class, ex);
+                    AppLogger.logSevere(ExifMetadata.class, ex);
                 }
             } catch (NumberFormatException ex) {
-                AppLog.logSevere(ExifMetadata.class, ex);
+                AppLogger.logSevere(ExifMetadata.class, ex);
             }
         }
     }
@@ -130,7 +130,7 @@ final class ExifFactory {
                 exif.setFocalLength(focalLength);
             }
         } catch (Exception ex) {
-            AppLog.logSevere(ExifMetadata.class, ex);
+            AppLogger.logSevere(ExifMetadata.class, ex);
         }
     }
 
@@ -138,7 +138,7 @@ final class ExifFactory {
         try {
             exif.setIsoSpeedRatings(new Short(exifTag.stringValue().trim()).shortValue());
         } catch (Exception ex) {
-            AppLog.logSevere(ExifMetadata.class, ex);
+            AppLogger.logSevere(ExifMetadata.class, ex);
         }
     }
 

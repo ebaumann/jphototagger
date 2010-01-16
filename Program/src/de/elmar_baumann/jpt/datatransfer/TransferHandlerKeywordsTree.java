@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.keywords.tree.KeywordTreeNodesClipboard;
 import de.elmar_baumann.jpt.controller.keywords.tree.KeywordsTreePathExpander;
@@ -162,7 +162,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(TransferHandlerKeywordsTree.class, ex);
+            AppLogger.logSevere(TransferHandlerKeywordsTree.class, ex);
         }
     }
 

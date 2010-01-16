@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database.metadata;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.model.ListModelSelectedColumns;
 import de.elmar_baumann.lib.component.CheckList;
 import java.lang.reflect.Field;
@@ -54,7 +54,7 @@ public final class ColumnUtil {
                     }
                 }
             } catch (Exception ex) {
-                AppLog.logSevere(ColumnUtil.class, ex);
+                AppLogger.logSevere(ColumnUtil.class, ex);
             }
         }
         return columns;

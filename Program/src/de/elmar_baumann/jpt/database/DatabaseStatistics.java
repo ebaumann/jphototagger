@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,7 +63,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseStatistics.class, ex);
+            AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
         }
@@ -96,7 +96,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseStatistics.class, ex);
+            AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
         }
@@ -122,7 +122,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseStatistics.class, ex);
+            AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
         }
@@ -150,7 +150,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseStatistics.class, ex);
+            AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
         }
@@ -180,7 +180,7 @@ public final class DatabaseStatistics extends Database {
             }
         } catch (SQLException ex) {
             count = -1;
-            AppLog.logSevere(DatabaseStatistics.class, ex);
+            AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
         }
@@ -217,7 +217,7 @@ public final class DatabaseStatistics extends Database {
                 stmt.close();
             }
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseStatistics.class, ex);
+            AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
         }
@@ -250,7 +250,7 @@ public final class DatabaseStatistics extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseStatistics.class, ex);
+            AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
         }

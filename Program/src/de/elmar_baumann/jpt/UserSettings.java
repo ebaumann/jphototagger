@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt;
 
 import de.elmar_baumann.jpt.app.AppInfo;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.update.UpdateUserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.ColumnUtil;
@@ -325,7 +325,7 @@ public final class UserSettings {
             try {
                 level = Level.parse(levelString);
             } catch (Exception ex) {
-                AppLog.logSevere(UserSettings.class, ex);
+                AppLogger.logSevere(UserSettings.class, ex);
             }
         }
         if (level == null) {
@@ -635,9 +635,8 @@ public final class UserSettings {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
-            AppLog.logSevere(UserSettings.class, ex);
-            settings.setString(XMLFormatter.class.getName(),
-                    KEY_LOGFILE_FORMATTER_CLASS);
+            AppLogger.logSevere(UserSettings.class, ex);
+            settings.setString(XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
         }
         return XMLFormatter.class;
     }

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
@@ -74,7 +74,7 @@ public class ControllerRemoveKeyword
                 ((TreeModelKeywords) tm).delete(node);
             }
         } else {
-            AppLog.logWarning(ControllerRemoveKeyword.class, "ControllerRemoveKeyword.Error.Model");
+            AppLogger.logWarning(ControllerRemoveKeyword.class, "ControllerRemoveKeyword.Error.Model");
         }
     }
 }

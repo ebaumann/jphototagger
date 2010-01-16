@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
@@ -80,7 +80,7 @@ public class ControllerRenameKeyword
                 ((TreeModelKeywords) tm).changed(node, keyword);
             }
         } else {
-            AppLog.logWarning(ControllerRenameKeyword.class, "ControllerRenameKeyword.Error.Model");
+            AppLogger.logWarning(ControllerRenameKeyword.class, "ControllerRenameKeyword.Error.Model");
         }
     }
 

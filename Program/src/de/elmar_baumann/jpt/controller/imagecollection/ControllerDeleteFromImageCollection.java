@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.imagecollection;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
@@ -98,7 +98,7 @@ public final class ControllerDeleteFromImageCollection
                         thumbnailsPanel.remove(selectedFiles);
                     }
                 } else {
-                    AppLog.logWarning(ControllerDeleteFromImageCollection.class,
+                    AppLogger.logWarning(ControllerDeleteFromImageCollection.class,
                             "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull");
                 }
             }

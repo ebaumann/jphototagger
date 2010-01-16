@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsUtil;
@@ -86,7 +86,7 @@ public final class TableModelExif extends DefaultTableModel {
         try {
             setExifTags();
         } catch (Exception ex) {
-            AppLog.logSevere(TableModelExif.class, ex);
+            AppLogger.logSevere(TableModelExif.class, ex);
         }
     }
 
@@ -216,7 +216,7 @@ public final class TableModelExif extends DefaultTableModel {
         }
 
         private void logExternalAppCommand(String cmd) {
-            AppLog.logFinest(GpsButtonListener.class, "TableModelExif.ExternalAppCommand", cmd);
+            AppLogger.logFinest(GpsButtonListener.class, "TableModelExif.ExternalAppCommand", cmd);
         }
     }
 }

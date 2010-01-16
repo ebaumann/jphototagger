@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.exporter;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
@@ -116,7 +116,7 @@ public final class KeywordExporterJpt
             initTransformer(trans);
             trans.transform(ds, sr);
         } catch (Exception ex) {
-            AppLog.logSevere(getClass(), ex);
+            AppLogger.logSevere(getClass(), ex);
             MessageDisplayer.error(null, "KeywordExporterJpt.Error");
         }
     }

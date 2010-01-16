@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.imagecollection;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -96,7 +96,7 @@ public final class ControllerDeleteImageCollection
                 });
             }
         } else {
-            AppLog.logWarning(ControllerDeleteImageCollection.class,
+            AppLogger.logWarning(ControllerDeleteImageCollection.class,
                     "ControllerDeleteImageCollection.Error.CollectionNameIsNull");
         }
     }

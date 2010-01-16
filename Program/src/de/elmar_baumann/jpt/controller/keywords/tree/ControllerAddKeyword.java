@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
@@ -88,7 +88,7 @@ public class ControllerAddKeyword
                 ((TreeModelKeywords) tm).insert(parentNode, name, true);
                 KeywordsTreePathExpander.expand(parentNode);
             } else {
-                AppLog.logWarning(ControllerAddKeyword.class, "ControllerAddKeyword.Error.Model");
+                AppLogger.logWarning(ControllerAddKeyword.class, "ControllerAddKeyword.Error.Model");
             }
         }
     }

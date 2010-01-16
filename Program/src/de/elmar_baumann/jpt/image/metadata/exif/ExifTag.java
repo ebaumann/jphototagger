@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif;
 
 import com.imagero.reader.tiff.IFDEntry;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDataType;
 import java.nio.ByteOrder;
@@ -254,7 +254,7 @@ public final class ExifTag {
         try {
             return Arrays.copyOf(entry.getRawValue(), entry.getRawValue().length);
         } catch (Exception ex) {
-            AppLog.logSevere(ExifMetadata.class, ex);
+            AppLogger.logSevere(ExifMetadata.class, ex);
         }
         return null;
     }

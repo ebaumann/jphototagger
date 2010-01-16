@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import java.sql.Connection;
@@ -51,7 +51,7 @@ public class Database {
             try {
                 ConnectionPool.getInstance().free(connection);
             } catch (SQLException ex) {
-                AppLog.logSevere(Database.class, ex);
+                AppLogger.logSevere(Database.class, ex);
             }
         }
     }
@@ -66,7 +66,7 @@ public class Database {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            AppLog.logSevere(Database.class, ex);
+            AppLogger.logSevere(Database.class, ex);
         }
     }
 
@@ -102,19 +102,19 @@ public class Database {
     }
 
     protected void logFiner(String sql) {
-        AppLog.logFiner(getClass(), AppLog.USE_STRING, sql);
+        AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
     }
 
     protected void logFiner(PreparedStatement stmt) {
-        AppLog.logFiner(getClass(), AppLog.USE_STRING, stmt.toString());
+        AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt.toString());
     }
 
     protected void logFinest(String sql) {
-        AppLog.logFinest(getClass(), AppLog.USE_STRING, sql);
+        AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
     }
 
     protected void logFinest(PreparedStatement stmt) {
-        AppLog.logFinest(getClass(), AppLog.USE_STRING, stmt.toString());
+        AppLogger.logFinest(getClass(), AppLogger.USE_STRING, stmt.toString());
     }
 
     protected Database() {

@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
@@ -308,7 +308,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             File            target = event.getTarget();
             FileSystemError error  = event.getError();
 
-            AppLog.logWarning(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.Error.Logfile", src, target, error.getLocalizedMessage());
+            AppLogger.logWarning(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.Error.Logfile", src, target, error.getLocalizedMessage());
             errors = true;
         } else {
             movedFiles.add(src);

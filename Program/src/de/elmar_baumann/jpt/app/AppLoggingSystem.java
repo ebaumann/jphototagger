@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Formatter;
@@ -45,7 +44,7 @@ import java.util.logging.StreamHandler;
 public final class AppLoggingSystem implements UserSettingsListener {
 
     private static final int           MAX_LOGFILE_SIZE_IN_BYTES        = 1000000;
-    private static final int           MAX_LOGFILE_COUNT                = 5;
+    private static final int           LOGFILE_ROTATE_COUNT             = 5;
     private static final boolean       APPEND_OUTPUT_TO_LOGFILE         = false;
     private static final int           MEMORY_HANDLER_LOG_RECORDS_COUNT = 1000;
     private static final List<Handler> HANDLERS                         = new ArrayList<Handler>();
@@ -59,72 +58,103 @@ public final class AppLoggingSystem implements UserSettingsListener {
         assert !init;
         if (!init) {
             init = true;
-            Level userLevel = UserSettings.INSTANCE.getLogLevel();
             ensureLogDirectoryExists();
-            createHandlers(userLevel);
-            createLogger(userLevel);
+            createHandlers();
+            createLogger();
         }
     }
 
     private static void ensureLogDirectoryExists() {
-        FileUtil.ensureDirectoryExists(
-                new File(UserSettings.INSTANCE.getSettingsDirectoryName()));
+
+        FileUtil.ensureDirectoryExists(UserSettings.INSTANCE.getSettingsDirectoryName());
     }
 
-    private static void createLogger(Level userLevel) {
+    private static void createHandlers() {
+        try {
+            addFileHandler();
+            addSystemOutHandler();
+
+            // Has to be called after all other handlers were added!
+            addMemoryHandlersForAllExistingHandlers();
+
+        } catch (Exception ex) {
+            AppLogger.logSevere(AppLoggingSystem.class, ex);
+        }
+    }
+
+    // Publishes only warning and severe events (on severe events the last
+    // 1000 logfile records through it's memory handler)
+    private static void addFileHandler() throws Exception {
+
+        Handler fileHandler = new FileHandler(logfileNamePattern(),
+                                              MAX_LOGFILE_SIZE_IN_BYTES,
+                                              LOGFILE_ROTATE_COUNT,
+                                              APPEND_OUTPUT_TO_LOGFILE);
+
+         // Ignoring user settings obove (INFO, FINE, ...) and keeping size small
+        fileHandler.setLevel(Level.WARNING);
+
+        try {
+            Class<?> formatterClass = UserSettings.INSTANCE.getLogfileFormatterClass();
+
+            fileHandler.setFormatter((Formatter) formatterClass.newInstance());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        synchronized (HANDLERS) {
+            HANDLERS.add(fileHandler);
+        }
+    }
+
+    private static String logfileNamePattern() {
+
+        return getLogfilePrefix() + "%g." + getLogfileSuffix();
+    }
+
+    private static void addSystemOutHandler() {
+
+        Handler systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
+
+         // Log level shall be restricted only through the logger owning this handler
+        systemOutHandler.setLevel(Level.FINEST);
+
+        synchronized (HANDLERS) {
+            HANDLERS.add(systemOutHandler);
+        }
+    }
+
+    // Ensures publishing the last 1000 log records of all levels through all
+    // other handlers on SEVERE events. These records may help finding the cause.
+    private static void addMemoryHandlersForAllExistingHandlers() {
+
+        synchronized (HANDLERS) {
+             // New array list is neccessary because HANDLERS will be modified
+             // while adding memory handlers (would lead to iterator troubles)
+            for (Handler handler : new ArrayList<Handler>(HANDLERS)) {
+                HANDLERS.add(
+                        new MemoryHandler(handler, MEMORY_HANDLER_LOG_RECORDS_COUNT, Level.SEVERE));
+            }
+        }
+    }
+
+    private static void createLogger() {
         try {
             appLogger = Logger.getLogger("de.elmar_baumann");
-            addHandlers(appLogger);
-            appLogger.setLevel(userLevel);
+            addHandlersTo(appLogger);
+            appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
             LogManager.getLogManager().addLogger(appLogger);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private static void addHandlers(Logger logger) {
-        for (Handler handler : HANDLERS) {
-            logger.addHandler(handler);
-        }
-    }
+    private static void addHandlersTo(Logger logger) {
 
-    private static void createHandlers(Level userLevel) {
-        try {
-            createFileHandler();
-            createSystemOutHandler(userLevel);
-
-            // Has to be called after all other handlers were added!
-            createMemoryHandlers();
-        } catch (Exception ex) {
-            AppLog.logSevere(AppLoggingSystem.class, ex);
-        }
-    }
-
-    private static void createFileHandler()
-            throws
-            IOException,
-            InstantiationException,
-            IllegalAccessException {
-        Handler fileHandler = new FileHandler(
-                getLogfilePrefix() + "%g." + getLogfileSuffix(),
-                MAX_LOGFILE_SIZE_IN_BYTES,
-                MAX_LOGFILE_COUNT,
-                APPEND_OUTPUT_TO_LOGFILE);
-        fileHandler.setLevel(Level.WARNING); // Ignoring user's settings
-        fileHandler.setFormatter((Formatter) UserSettings.INSTANCE.getLogfileFormatterClass().newInstance());
-        HANDLERS.add(fileHandler);
-    }
-
-    private static void createSystemOutHandler(Level userLevel) {
-        Handler systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
-        systemOutHandler.setLevel(userLevel);
-        HANDLERS.add(systemOutHandler);
-    }
-
-    private static void createMemoryHandlers() {
-        for (Handler handler : new ArrayList<Handler>(HANDLERS)) {
-            HANDLERS.add(new MemoryHandler(
-                    handler, MEMORY_HANDLER_LOG_RECORDS_COUNT, Level.SEVERE));
+        synchronized (HANDLERS) {
+            for (Handler handler : HANDLERS) {
+                logger.addHandler(handler);
+            }
         }
     }
 
@@ -134,10 +164,12 @@ public final class AppLoggingSystem implements UserSettingsListener {
      * @return log file name
      */
     public static String getCurrentLogfileName() {
+
         return getLogfilePrefix() + "0." + getLogfileSuffix();
     }
 
     private static String getLogfilePrefix() {
+
         return UserSettings.INSTANCE.getSettingsDirectoryName() +
                     File.separator +
                     "imagemetadataviewerlog";
@@ -147,14 +179,17 @@ public final class AppLoggingSystem implements UserSettingsListener {
         return "xml";
     }
 
-    private static final AppLoggingSystem INSTANCE = new AppLoggingSystem(); // Only for applying user settings!
+    // INSTANCE exists only for applying user settings!
+    private static final AppLoggingSystem INSTANCE = new AppLoggingSystem();
 
     private AppLoggingSystem() {
+
         UserSettings.INSTANCE.addUserSettingsListener(this);
     }
 
     @Override
     public void applySettings(UserSettingsEvent evt) {
+
         if (appLogger != null && evt.getType().equals(UserSettingsEvent.Type.LOG_LEVEL)) {
             appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
         }

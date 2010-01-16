@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database.metadata;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
 import java.text.DateFormat;
 import javax.swing.InputVerifier;
@@ -83,7 +83,7 @@ public class Column {
              try {
                  return new java.sql.Date(DateFormat.getInstance().parse(s).getTime());
              } catch(Exception ex) {
-                 AppLog.logSevere(Column.class, ex);
+                 AppLogger.logSevere(Column.class, ex);
              }
              return s;
         }

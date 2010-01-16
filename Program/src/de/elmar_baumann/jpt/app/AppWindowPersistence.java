@@ -62,13 +62,14 @@ public final class AppWindowPersistence
     private final        Map<Component, String> NAME_OF_CARD                    = new HashMap<Component, String>(2);
     private final        Map<String, Component> CARD_OF_NAME                    = new HashMap<String, Component>(2);
 
+    // Not a singleton: init() gets cards of AppPanel that is not static
     public AppWindowPersistence() {
         init();
         listen();
     }
 
     private void init() {
-        // Strings has to be equals to that in AppPanel!
+        // Strings has to be equal to the card names in AppPanel (errors on renamings)!
         NAME_OF_CARD.put(cardSelKeywordsList, "flatKeywords");
         NAME_OF_CARD.put(cardSelKeywordsTree, "keywordsTree");
 
@@ -85,11 +86,13 @@ public final class AppWindowPersistence
 
     @Override
     public void componentShown(ComponentEvent e) {
-        Component c = e.getComponent();
+        Component c                 = e.getComponent();
+        boolean   isSelKeywordsCard = isSelKeywordsCard(c);
+        boolean   knownCardName     = NAME_OF_CARD.containsKey(c);
 
-        assert NAME_OF_CARD.containsKey(c) : c;
+        assert isSelKeywordsCard && knownCardName : c;
 
-        if (isSelKeywordsCard(c) && NAME_OF_CARD.containsKey(c)) {
+        if (isSelKeywordsCard && knownCardName) {
             UserSettings.INSTANCE.getSettings().setString(NAME_OF_CARD.get(c), KEY_KEYWORDS_VIEW);
             UserSettings.INSTANCE.writeToFile();
         }
@@ -101,6 +104,7 @@ public final class AppWindowPersistence
 
     public void readAppFrameFromProperties() {
         AppFrame appFrame = GUI.INSTANCE.getAppFrame();
+
         UserSettings.INSTANCE.getSettings().getSizeAndLocation(appFrame);
         appFrame.pack();
     }
@@ -110,12 +114,13 @@ public final class AppWindowPersistence
 
         UserSettings.INSTANCE.getSettings().getComponent(appPanel, getPersistentSettingsHints());
 
-        setDisplayIptc();
-        setInitKeywordsView();
+        appPanel.setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
+        setInitKeywordsView(appPanel);
         ComponentUtil.forceRepaint(appPanel.getComboBoxFastSearch());
         appPanel.getTextAreaSearch().requestFocusInWindow();
 
-        // Some models maybe not ready
+        // Some models maybe not ready at this time, so that settings can't be
+        // applied: Waiting a few seconds and applying them again
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
@@ -123,7 +128,7 @@ public final class AppWindowPersistence
                 try {
                     Thread.sleep(3 * 1000);
                 } catch (InterruptedException ex) {
-                    AppLog.logSevere(MetaFactory.class, ex);
+                    AppLogger.logSevere(MetaFactory.class, ex);
                 }
 
                 String   keyPrefix = AppPanel.class.getName() + ".";
@@ -140,19 +145,14 @@ public final class AppWindowPersistence
         });
     }
 
-    private void setDisplayIptc() {
-        boolean displayIptc = UserSettings.INSTANCE.isDisplayIptc();
-        GUI.INSTANCE.getAppPanel().setEnabledIptcTab(displayIptc);
-    }
-
-    private void setInitKeywordsView() {
-        AppPanel      appPanel          = GUI.INSTANCE.getAppPanel();
+    private void setInitKeywordsView(AppPanel appPanel) {
         KeywordsPanel panelEditKeywords = appPanel.getPanelEditKeywords();
 
         panelEditKeywords.setKeyCard("AppPanel.Keywords.Card");
         panelEditKeywords.setKeyTree("AppPanel.Keywords.Tree");
         panelEditKeywords.readProperties();
 
+        // Strings has to be equal to the card names in AppPanel (errors on renamings)!
         String name = "keywordsTree";
         if (UserSettings.INSTANCE.getProperties().containsKey(KEY_KEYWORDS_VIEW)) {
             String s = UserSettings.INSTANCE.getSettings().getString(KEY_KEYWORDS_VIEW);
@@ -190,17 +190,20 @@ public final class AppWindowPersistence
     @Override
     public void applySettings(UserSettingsEvent evt) {
         if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_IPTC)) {
-            setDisplayIptc();
+            GUI.INSTANCE.getAppPanel().setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
         }
     }
 
-    public SettingsHints getPersistentSettingsHints() {
+    private SettingsHints getPersistentSettingsHints() {
         SettingsHints hints     = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         String        className = AppPanel.class.getName();
+
+        // Strings has to be equals to the field names in AppPanel (errors on renamings)!
         hints.addExclude(className + ".textAreaSearch");
         hints.addExclude(className + ".panelEditMetadata");
         hints.addExclude(className + ".treeDirectories");
         hints.addExclude(className + ".treeFavorites");
+
         return hints;
     }
 

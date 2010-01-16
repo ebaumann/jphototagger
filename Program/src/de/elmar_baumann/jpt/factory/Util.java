@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.factory;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 
 /**
  * Factorie's utils.
@@ -37,7 +37,7 @@ final class Util {
      */
     static void checkInit(Class<?> c, boolean init) {
         if (init) {
-            AppLog.logWarning(Util.class,
+            AppLogger.logWarning(Util.class,
                     "Util.Error.InitCalledMoreThanOneTimes",
                     c.getName());
         }

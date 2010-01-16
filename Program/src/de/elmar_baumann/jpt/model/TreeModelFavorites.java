@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.database.DatabaseFavorites;
@@ -191,7 +191,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             if (FileUtil.existsDirectory(directory.getDirectory())) {
                 addDirectory(directory);
             } else {
-                AppLog.logWarning(TreeModelFavorites.class,
+                AppLogger.logWarning(TreeModelFavorites.class,
                         "TreeModelFavorites.Error.DbDirectoryDoesNotExist",
                         directory.getDirectoryName());
                 db.delete(directory.getName());

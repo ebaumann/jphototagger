@@ -1,6 +1,6 @@
 package de.elmar_baumann.jpt.image.metadata.exif.formatter.canon;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.types.FileType;
 import de.elmar_baumann.lib.lang.Util;
@@ -76,7 +76,7 @@ public final class CanonMakerNote {
             return rawValue(file, valueOffset, valueByteCount);
 
         } catch (Exception ex) {
-            AppLog.logSevere(CanonMakerNote.class, ex);
+            AppLogger.logSevere(CanonMakerNote.class, ex);
         } finally {
             close(raf);
         }
@@ -176,7 +176,7 @@ public final class CanonMakerNote {
 
             return rawValue;
         } catch (Exception ex) {
-            AppLog.logSevere(CanonMakerNote.class, ex);
+            AppLogger.logSevere(CanonMakerNote.class, ex);
         } finally {
             close(raf);
         }
@@ -188,7 +188,7 @@ public final class CanonMakerNote {
             try {
                 raf.close();
             } catch (IOException ex) {
-                AppLog.logSevere(CanonMakerNote.class, ex);
+                AppLogger.logSevere(CanonMakerNote.class, ex);
             }
         }
     }

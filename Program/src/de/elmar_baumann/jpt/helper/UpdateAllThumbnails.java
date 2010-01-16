@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
@@ -117,7 +117,7 @@ public final class UpdateAllThumbnails
     }
 
     private void logUpdateAllThumbnails() {
-        AppLog.logInfo(UpdateAllThumbnails.class,
+        AppLogger.logInfo(UpdateAllThumbnails.class,
                 "UpdateAllThumbnails.Info.StartUpdate");
     }
 

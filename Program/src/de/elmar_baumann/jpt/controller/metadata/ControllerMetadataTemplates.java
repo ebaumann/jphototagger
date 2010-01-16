@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.metadata;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
@@ -133,7 +133,7 @@ public final class ControllerMetadataTemplates
                         model.delete(template);
                     }
                 } else {
-                    AppLog.logWarning(ControllerMetadataTemplates.class,
+                    AppLogger.logWarning(ControllerMetadataTemplates.class,
                             "ControllerMetadataTemplates.Error.WrongObject", o);
                 }
             }
@@ -166,7 +166,7 @@ public final class ControllerMetadataTemplates
                     newTemplate.setName(oldTemplate.getName());
                     model.update(newTemplate);
                 } else {
-                    AppLog.logWarning(ControllerMetadataTemplates.class,
+                    AppLogger.logWarning(ControllerMetadataTemplates.class,
                             "ControllerMetadataTemplates.Error.WrongObject", o);
                 }
             }
@@ -183,7 +183,7 @@ public final class ControllerMetadataTemplates
                     MetadataTemplate template = (MetadataTemplate) o;
                     editPanels.setMetadataTemplate(template);
                 } else {
-                    AppLog.logWarning(ControllerMetadataTemplates.class,
+                    AppLogger.logWarning(ControllerMetadataTemplates.class,
                             "ControllerMetadataTemplates.Error.InsertTemplateIsNull");
                 }
             }

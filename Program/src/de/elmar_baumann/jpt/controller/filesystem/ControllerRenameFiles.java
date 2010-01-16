@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.filesystem;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.cache.RenderedThumbnailCache;
 import de.elmar_baumann.jpt.cache.ThumbnailCache;
 import de.elmar_baumann.jpt.cache.XmpCache;
@@ -97,7 +97,7 @@ public final class ControllerRenameFiles
         final File src    = event.getSource();
         final File target = event.getTarget();
 
-        AppLog.logInfo(ControllerRenameFiles.class, "ControllerRenameFiles.Info.Rename", src, target);
+        AppLogger.logInfo(ControllerRenameFiles.class, "ControllerRenameFiles.Info.Rename", src, target);
 
         db.updateRename(src.getAbsolutePath(), target.getAbsolutePath());
         SwingUtilities.invokeLater(new Runnable() {

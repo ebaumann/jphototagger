@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
@@ -102,7 +102,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
 
                 button.setText(BUTTON_TEXT_STOP);
             } catch (Exception ex) {
-                AppLog.logSevere(DatabaseUpdatePanel.class, ex);
+                AppLogger.logSevere(DatabaseUpdatePanel.class, ex);
             }
 
         } else {

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTagValueFormatter;
@@ -61,7 +61,7 @@ public final class ExifFormatterDateTime extends ExifFormatter {
 
                 return df.format(cal.getTime());
             } catch (Exception ex) {
-                AppLog.logSevere(ExifTagValueFormatter.class, ex);
+                AppLogger.logSevere(ExifTagValueFormatter.class, ex);
             }
         }
         return value;

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
@@ -123,7 +123,7 @@ public final class DeleteOrphanedXmp
     }
 
     private void logDeleteRecords() {
-        AppLog.logInfo(DeleteOrphanedXmp.class,
+        AppLogger.logInfo(DeleteOrphanedXmp.class,
             "RecordsWithNotExistingFilesDeleter.Info.StartRemove");
     }
 

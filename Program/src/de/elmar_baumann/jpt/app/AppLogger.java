@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  * Example:
  *
  * {@code
- * AppLog.logFiner(MyClass.class, AppLog.USE_STRING, "For developers only");
+ * AppLogger.logFiner(MyClass.class, AppLogger.USE_STRING, "For developers only");
  * }
  *
  * This key contains only one parameter which will be substitued through the
@@ -42,7 +42,7 @@ import java.util.logging.Logger;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-11
  */
-public final class AppLog {
+public final class AppLogger {
 
     public static final String USE_STRING = "AppLog.UseString";
 
@@ -72,6 +72,20 @@ public final class AppLog {
      */
     public static void logFiner(Class<?> c, String bundleKey, Object... params) {
         log(c, Level.FINER, bundleKey, params);
+    }
+
+    /**
+     * Logs a message with the class' logger and the log level
+     * {@link java.util.logging.Level#FINE}.
+     *
+     * @param c         logger's class
+     * @param bundleKey key for the message string in the bundle, optional with
+     *                  placeholders for <code>params</code> formatted as
+     *                  described in {@link MessageFormat}
+     * @param params    optional params for the message string
+     */
+    public static void logFine(Class<?> c, String bundleKey, Object... params) {
+        log(c, Level.FINE, bundleKey, params);
     }
 
     /**
@@ -116,10 +130,9 @@ public final class AppLog {
     }
 
     private static void log(Class<?> c, Level level, String bundleKey, Object... params) {
-        Logger.getLogger(c.getName()).log(
-                level, Bundle.getString(bundleKey, params));
+        Logger.getLogger(c.getName()).log(level, Bundle.getString(bundleKey, params));
     }
 
-    private AppLog() {
+    private AppLogger() {
     }
 }

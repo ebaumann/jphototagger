@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.io;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
@@ -60,7 +60,7 @@ public final class FileSystemDirectories {
                                 directory.getName());
                     }
                 } catch (Exception ex) {
-                    AppLog.logSevere(FileSystemDirectories.class, ex);
+                    AppLogger.logSevere(FileSystemDirectories.class, ex);
                 }
             }
         }
@@ -93,7 +93,7 @@ public final class FileSystemDirectories {
                             return newDirectory;
                         }
                     } catch (Exception ex) {
-                        AppLog.logSevere(FileSystemDirectories.class, ex);
+                        AppLogger.logSevere(FileSystemDirectories.class, ex);
                     }
                 }
             }
@@ -102,14 +102,14 @@ public final class FileSystemDirectories {
     }
 
     private static void logDelete(File directory, int countDeletedInDatabase) {
-        AppLog.logInfo(FileSystemDirectories.class,
+        AppLogger.logInfo(FileSystemDirectories.class,
                 "FileSystemDirectories.Info.Delete",
                 directory, countDeletedInDatabase);
     }
 
     private static void logInfoRenamed(File directory, File newDirectory,
             int countRenamedInDatabase) {
-        AppLog.logInfo(FileSystemDirectories.class,
+        AppLogger.logInfo(FileSystemDirectories.class,
                 "FileSystemDirectories.Info.Rename",
                 directory, newDirectory, countRenamedInDatabase);
     }

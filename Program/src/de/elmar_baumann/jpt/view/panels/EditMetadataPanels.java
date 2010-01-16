@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.keywords.tree.SuggestKeywords;
 import de.elmar_baumann.jpt.helper.SaveXmp;
@@ -283,7 +283,7 @@ public final class EditMetadataPanels
                         xmp.setRating(Long.getLong(s));
                     }
                 } catch (Exception ex) {
-                    AppLog.logSevere(getClass(), ex);
+                    AppLogger.logSevere(getClass(), ex);
                 }
             } else {
                 assert false : "Unknown panel type: " + panel;

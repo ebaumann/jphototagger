@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.filesystem;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
@@ -63,7 +63,7 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemList
             dialog.addFileSystemListener(this);
             dialog.setVisible(true);
         } else {
-            AppLog.logWarning(ControllerMoveFiles.class, "ControllerMoveFiles.ErrorMessaga.NoImagesSelected");
+            AppLogger.logWarning(ControllerMoveFiles.class, "ControllerMoveFiles.ErrorMessaga.NoImagesSelected");
         }
     }
 

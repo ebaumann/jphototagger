@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.cache.RenderedThumbnailCache;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerDoubleklickThumbnail;
 import de.elmar_baumann.jpt.data.ThumbnailFlag;
@@ -911,7 +911,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void notifyRefreshListeners(RefreshEvent evt) {
         synchronized (refreshListenersOfContent) {
-            AppLog.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
+            AppLogger.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
 
             for (RefreshListener listener : refreshListenersOfContent.get(content)) {
                 listener.refresh(evt);

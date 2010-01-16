@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
@@ -89,19 +89,19 @@ public final class DeleteOrphanedThumbnails implements Runnable {
     }
 
     private synchronized void logDelete(File file) {
-        AppLog.logInfo(DeleteOrphanedThumbnails.class,
+        AppLogger.logInfo(DeleteOrphanedThumbnails.class,
                 "DeleteOrphanedThumbnails.Info.DeleteFile", file);
     }
 
     private synchronized void notifyStarted() {
-        AppLog.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
+        AppLogger.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
         ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, 0, getStartMessage());
 
         listenerSupport.notifyStarted(evt);
     }
 
     private synchronized void notifyPerformed(File file) {
-        AppLog.logFinest(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Performed", file);
+        AppLogger.logFinest(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Performed", file);
         ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, currentFileIndex, getPerformedMessage(file));
 
         listenerSupport.notifyPerformed(evt);
@@ -112,7 +112,7 @@ public final class DeleteOrphanedThumbnails implements Runnable {
 
         listenerSupport.notifyEnded(evt);
 
-        AppLog.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.End", currentFileIndex);
+        AppLogger.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.End", currentFileIndex);
     }
 
     private String getStartMessage() {

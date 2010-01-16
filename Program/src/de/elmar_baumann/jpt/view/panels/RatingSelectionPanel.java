@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
@@ -133,7 +133,7 @@ public class RatingSelectionPanel
                 val = Integer.valueOf(text).intValue();
             }
         } catch (NumberFormatException e) {
-            AppLog.logSevere(getClass(), e);
+            AppLogger.logSevere(getClass(), e);
         }
         value = val;
         for (int i = 0; i < buttons.length; i++) {

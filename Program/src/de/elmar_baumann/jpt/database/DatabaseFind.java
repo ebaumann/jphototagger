@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Util;
 import de.elmar_baumann.jpt.database.metadata.Join;
@@ -71,7 +71,7 @@ public final class DatabaseFind extends Database {
             resultSet.close();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFind.class, ex);
+            AppLogger.logSevere(DatabaseFind.class, ex);
             filenames.clear();
         } finally {
             free(connection);
@@ -123,7 +123,7 @@ public final class DatabaseFind extends Database {
                 resultSet.close();
                 stmt.close();
             } catch (SQLException ex) {
-                AppLog.logSevere(DatabaseFind.class, ex);
+                AppLogger.logSevere(DatabaseFind.class, ex);
                 filenames.clear();
             } finally {
                 free(connection);

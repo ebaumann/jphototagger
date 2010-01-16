@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
@@ -62,7 +62,7 @@ public class ControllerToggleRealKeyword
                 keyword.setReal(!keyword.isReal());
                 ((TreeModelKeywords) tm).changed(node, keyword);
             } else {
-                AppLog.logWarning(ControllerToggleRealKeyword.class, "ControllerToggleRealKeyword.Error.Model");
+                AppLogger.logWarning(ControllerToggleRealKeyword.class, "ControllerToggleRealKeyword.Error.Model");
             }
         } else {
             MessageDisplayer.error(null, "ControllerToggleRealKeyword.Error.Node", node);
