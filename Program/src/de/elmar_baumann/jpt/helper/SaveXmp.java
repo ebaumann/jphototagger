@@ -33,38 +33,40 @@ import java.util.EnumSet;
 import javax.swing.JProgressBar;
 
 /**
- * Saves edited metadata.
+ * Writes {@link Xmp} objects to XMP files and inserts or updates them into the
+ * database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class SaveEditedMetadata extends Thread {
+public final class SaveXmp extends Thread {
 
-    private static final String                        PROGRESSBAR_STRING = Bundle.getString("SaveEditedMetadata.ProgressBar.String");
+    private static final String                        PROGRESSBAR_STRING = Bundle.getString("SaveXmp.ProgressBar.String");
     private final        Collection<Pair<String, Xmp>> filenamesXmp;
     private              JProgressBar                  progressBar;
 
-    public synchronized static void saveMetadata(Collection<Pair<String, Xmp>> filenamesXmp) {
+    public synchronized static void save(Collection<Pair<String, Xmp>> filenamesXmp) {
 
         final int fileCount = filenamesXmp.size();
 
         if (fileCount >= 1) {
-            SaveEditedMetadata updater = new SaveEditedMetadata(filenamesXmp);
-            UserTasks.INSTANCE.add(updater);
+            UserTasks.INSTANCE.add(new SaveXmp(filenamesXmp));
         }
     }
 
-    private SaveEditedMetadata(Collection<Pair<String, Xmp>> filenamesXmp) {
+    private SaveXmp(Collection<Pair<String, Xmp>> filenamesXmp) {
 
         AppLifeCycle.INSTANCE.addSaveObject(this);
+
         this.filenamesXmp = new ArrayList<Pair<String, Xmp>>(filenamesXmp);
-        setName("Saving edited metadata @ " + getClass().getSimpleName());
+
+        setName("Saving XMP @ " + getClass().getSimpleName());
     }
 
     @Override
     public void run() {
-        // Ignore isInterrupted() because saving user input has high priority
         int fileIndex = 0;
+        // Ignore isInterrupted() because saving user input has high priority
         for (Pair<String, Xmp> pair : filenamesXmp) {
             String filename        = pair.getFirst();
             Xmp    xmp             = pair.getSecond();
@@ -81,9 +83,10 @@ public final class SaveEditedMetadata extends Thread {
 
     private void updateDatabase(String filename) {
         InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
-                Arrays.asList(filename),
-                EnumSet.of(Insert.XMP));
-        updater.run();
+                                                        Arrays.asList(filename),
+                                                        EnumSet.of(Insert.XMP));
+
+        updater.run(); // Starting not a separate thread
     }
 
     private void getProgressBar() {

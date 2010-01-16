@@ -259,7 +259,7 @@ public final class KeywordsHelper {
                     xmps.add(new Pair<String, Xmp>(filename, xmp));
                 }
             }
-            SaveEditedMetadata.saveMetadata(xmps);
+            SaveXmp.save(xmps);
             new CheckExists(Arrays.asList(oldName)).run(); // No separate thread
         }
     }
@@ -289,7 +289,7 @@ public final class KeywordsHelper {
                     xmps.add(new Pair<String, Xmp>(filename, xmp));
                 }
             }
-            SaveEditedMetadata.saveMetadata(xmps);
+            SaveXmp.save(xmps);
             new CheckExists(toReplace).run(); // No separate thread
         }
     }
