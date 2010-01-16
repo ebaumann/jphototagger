@@ -50,16 +50,14 @@ public final class FileUtil {
     /**
      * Returns the content of a file as string.
      *
-     * @param file file
-     * @param encoding
-     * @return     content or null when errors occur
+     * @param file     file
+     * @param encoding encoding of the file
+     * @return         content or null when errors occur
      */
     public static String getFileContentAsString(File file, String encoding) {
 
-        if (file == null)
-            throw new NullPointerException("file == null");
-        if (encoding == null)
-            throw new NullPointerException("encoding == null");
+        if (file == null    ) throw new NullPointerException("file == null");
+        if (encoding == null) throw new NullPointerException("encoding == null");
 
         byte[] bytes = getFileContentAsBytes(file);
         if (bytes != null) {
@@ -75,6 +73,20 @@ public final class FileUtil {
     }
 
     /**
+     * Calls {@link #getFileContentAsString(java.io.File, java.lang.String)}.
+     *
+     * @param  filename name of the file
+     * @param  encoding encoding
+     * @return          content or null when errors occur
+     */
+    public static String getFileContentAsString(String filename, String encoding) {
+
+        if (filename == null) throw new NullPointerException("filename == null");
+
+        return getFileContentAsString(new File(filename), encoding);
+    }
+
+    /**
      * Returns the content of a file als bytes.
      *
      * @param file file
@@ -82,31 +94,44 @@ public final class FileUtil {
      */
     public static byte[] getFileContentAsBytes(File file) {
 
-        if (file == null)
-            throw new NullPointerException("file == null");
+        if (file == null) throw new NullPointerException("file == null");
 
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(file);
-            int byteCount = fileInputStream.available();
-            byte[] bytes = new byte[byteCount];
+
+            int    byteCount = fileInputStream.available();
+            byte[] bytes     = new byte[byteCount];
+
             fileInputStream.read(bytes);
             fileInputStream.close();
+
             return bytes;
         } catch (IOException ex) {
-            Logger.getLogger(
-                    FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (fileInputStream != null) {
                     fileInputStream.close();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(
-                        FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
+    }
+
+    /**
+     * Calls {@link #getFileContentAsBytes(java.io.File)}.
+     *
+     * @param  filename name of the file
+     * @return          content or null when errors occur
+     */
+    public static byte[] getFileContentAsBytes(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null");
+
+        return getFileContentAsBytes(new File(filename));
     }
 
     /**
@@ -118,8 +143,7 @@ public final class FileUtil {
      */
     public static boolean ensureFileExists(File file) {
 
-        if (file == null)
-            throw new NullPointerException("file == null");
+        if (file == null) throw new NullPointerException("file == null");
 
         boolean exists = file.exists();
         if (!exists) {
@@ -138,6 +162,19 @@ public final class FileUtil {
     }
 
     /**
+     * Calls {@link #ensureFileExists(java.io.File)}.
+     *
+     * @param filename filename
+     * @return         true if the file exists
+     */
+    public static boolean ensureFileExists(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null");
+
+        return ensureFileExists(new File(filename));
+    }
+
+    /**
      * Returns wheter a file exists and it's <em>not</em> a directory.
      *
      * @param file file
@@ -151,12 +188,14 @@ public final class FileUtil {
     }
 
     /**
-     * Returns wheter a file exists and it's <em>not</em> a directory.
+     * Calls {@link #existsFile(java.io.File)}.
      *
      * @param filename file name
      * @return         true if the file exists and it is not a directory
      */
     public static boolean existsFile(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null");
 
         return existsFile(new File(filename));
     }
@@ -167,28 +206,36 @@ public final class FileUtil {
      * not exist.
      *
      * @param directory directory
-     * @return          true if successful
+     * @return          true if the directory exists
      */
     public static boolean ensureDirectoryExists(File directory) {
 
-        if (directory == null)
-            throw new NullPointerException("directory == null");
+        if (directory == null) throw new NullPointerException("directory == null");
 
         boolean exists = existsDirectory(directory);
         if (!exists) {
             if (!directory.exists()) {
                 exists = directory.mkdirs();
                 if (!exists) {
-                    Logger.getLogger(FileUtil.class.getName()).log(
-                            Level.SEVERE,
-                            null,
-                            Bundle.getString("FileUtil.Error.CreateDirectoryFailed"));
+                    Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, Bundle.getString("FileUtil.Error.CreateDirectoryFailed"));
                 }
             }
         }
         return exists;
     }
 
+    /**
+     * Calls {@link #ensureDirectoryExists(java.io.File)}.
+     *
+     * @param directoryname name of the directory
+     * @return              true if the directory exists
+     */
+    public static boolean ensureDirectoryExists(String directoryname) {
+
+        if (directoryname == null) throw new NullPointerException("directoryname == null"); // NOI18N
+
+        return ensureDirectoryExists(new File(directoryname));
+    }
     /**
      * Returns whether a directory exists and it's a directory.
      *
@@ -198,12 +245,24 @@ public final class FileUtil {
      */
     public static boolean existsDirectory(File directory) {
 
-        if (directory == null)
-            throw new NullPointerException("directory == null");
+        if (directory == null) throw new NullPointerException("directory == null");
 
         return directory.exists() && directory.isDirectory();
     }
 
+    /**
+     * Calls {@link #existsDirectory(java.io.File)}.
+     *
+     * @param directoryname name of the directory
+     * @return              true if the directory exists and the file type is
+     *                      a directory
+     */
+    public static boolean existsDirectory(String directoryname) {
+
+        if (directoryname == null) throw new NullPointerException("directoryname == null"); // NOI18N
+
+        return existsDirectory(new File(directoryname));
+    }
     /**
      * Copies a file (fast).
      *
@@ -213,14 +272,11 @@ public final class FileUtil {
      */
     public static void copyFile(File source, File target) throws IOException {
 
-        if (source == null)
-            throw new NullPointerException("source == null");
-        if (target == null)
-            throw new NullPointerException("target == null");
+        if (source == null) throw new NullPointerException("source == null");
+        if (target == null) throw new NullPointerException("target == null");
 
-        if (source.equals(target)) {
-            return;
-        }
+        if (source.equals(target)) return;
+
         FileChannel inChannel = new FileInputStream(source).getChannel();
         FileChannel outChannel = new FileOutputStream(target).getChannel();
         try {
@@ -241,6 +297,21 @@ public final class FileUtil {
     }
 
     /**
+     * Calls {@link #copyFile(java.io.File, java.io.File)}.
+     *
+     * @param  sourceFilename name of the source file
+     * @param  targetFilename name of the target file
+     * @throws IOException    on errors
+     */
+    public static void copyFile(String sourceFilename, String targetFilename) throws IOException {
+
+        if (sourceFilename == null) throw new NullPointerException("sourceFilename == null"); // NOI18N
+        if (targetFilename == null) throw new NullPointerException("targetFilename == null"); // NOI18N
+
+        copyFile(new File(sourceFilename), new File(targetFilename));
+    }
+
+    /**
      * Liefert den Pfad einer Datei nach oben bis zur Wurzel.
      *
      * @param  file Datei
@@ -248,8 +319,7 @@ public final class FileUtil {
      */
     public static Stack<File> getPathFromRoot(File file) {
 
-        if (file == null)
-            throw new NullPointerException("file == null");
+        if (file == null) throw new NullPointerException("file == null");
 
         if (file.getParent() == null) return new Stack<File>();
 
@@ -262,6 +332,19 @@ public final class FileUtil {
     }
 
     /**
+     * Calls {@link #getPathFromRoot(java.io.File)}.
+     *
+     * @param  filename name of the file
+     * @return          path where the top of the stack is the root directory
+     */
+    public static Stack<File> getPathFromRoot(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
+
+        return getPathFromRoot(new File(filename));
+    }
+
+    /**
      * Liefert alle Unterverzeichnisse eines Verzeichnisses einschließlich
      * derer Unterverzeichnisse bis zur untersten Ebene.
      *
@@ -270,13 +353,11 @@ public final class FileUtil {
      * @return Unterverzeichnisse
      */
     public static List<File> getSubdirectoriesRecursive(
-            File directory,
-            Set<DirectoryFilter.Option> options) {
-
-        if (directory == null)
-            throw new NullPointerException("directory == null");
-        if (options == null)
-            throw new NullPointerException("options == null");
+            File                        directory,
+            Set<DirectoryFilter.Option> options
+            ) {
+        if (directory == null) throw new NullPointerException("directory == null");
+        if (options == null  ) throw new NullPointerException("options == null");
 
         List<File> directories = new ArrayList<File>();
         if (directory.isDirectory()) {
@@ -286,13 +367,21 @@ public final class FileUtil {
                 List<File> subdirectoriesList = Arrays.asList(subdirectories);
                 for (File dir : subdirectoriesList) {
                     directories.add(dir);
-                    List<File> subdirectoriesSubDirs =
-                            getSubdirectoriesRecursive(dir, options);
+                    List<File> subdirectoriesSubDirs = getSubdirectoriesRecursive(dir, options);
                     directories.addAll(subdirectoriesSubDirs);
                 }
             }
         }
         return directories;
+    }
+
+    public static List<File> getSubdirectoriesRecursive(
+            String                      directoryname,
+            Set<DirectoryFilter.Option> options
+            ) {
+        if (directoryname == null) throw new NullPointerException("directoryname == null"); // NOI18N
+
+        return getSubdirectoriesRecursive(new File(directoryname), options);
     }
 
     /**
@@ -301,12 +390,12 @@ public final class FileUtil {
      * @param files Dateien
      * @return      Pfadnamen
      */
-    public static List<String> getAbsolutePathnames(Collection<File> files) {
+    public static List<String> getAbsolutePathnames(Collection<? extends File> files) {
 
-        if (files == null)
-            throw new NullPointerException("files == null");
+        if (files == null) throw new NullPointerException("files == null");
 
         List<String> pathnames = new ArrayList<String>(files.size());
+
         for (File file : files) {
             pathnames.add(file.getAbsolutePath());
         }
@@ -321,10 +410,10 @@ public final class FileUtil {
      */
     public static List<File> getAsFiles(Collection<? extends String> filenames) {
 
-        if (filenames == null)
-            throw new NullPointerException("filenames == null");
+        if (filenames == null) throw new NullPointerException("filenames == null");
 
         List<File> files = new ArrayList<File>(filenames.size());
+
         for (String filename : filenames) {
             files.add(new File(filename));
         }
@@ -339,8 +428,7 @@ public final class FileUtil {
      */
     public static List<String> getAsFilenames(Collection<? extends File> files) {
 
-        if (files == null)
-            throw new NullPointerException("files == null");
+        if (files == null) throw new NullPointerException("files == null");
 
         List<String> filenames = new ArrayList<String>(files.size());
         for (File file : files) {
@@ -375,17 +463,17 @@ public final class FileUtil {
      * @param  files collection
      * @return array
      */
-    public static File[] fileCollectionToFileArray(
-            Collection<? extends File> files) {
+    public static File[] fileCollectionToFileArray(Collection<? extends File> files) {
 
-        if (files == null)
-            throw new NullPointerException("files == null");
+        if (files == null) throw new NullPointerException("files == null");
 
         File[] fileArray = new File[files.size()];
-        int index = 0;
+        int    index     = 0;
+
         for (File file : files) {
             fileArray[index++] = file;
         }
+
         return fileArray;
     }
 
@@ -397,10 +485,10 @@ public final class FileUtil {
      */
     public static List<File> filterDirectories(Collection<? extends File> files) {
 
-        if (files == null)
-            throw new NullPointerException("files == null");
+        if (files == null) throw new NullPointerException("files == null");
 
         List<File> directories = new ArrayList<File>();
+
         for (File file : files) {
             if (file.exists() && file.isDirectory()) {
                 directories.add(file);
@@ -417,8 +505,7 @@ public final class FileUtil {
      */
     public static boolean deleteDirectoryRecursive(File directory) {
 
-        if (directory == null)
-            throw new NullPointerException("directory == null");
+        if (directory == null) throw new NullPointerException("directory == null");
 
         if (directory.exists()) {
             File[] files = directory.listFiles();
@@ -434,6 +521,20 @@ public final class FileUtil {
     }
 
     /**
+     * Calls {@link #deleteDirectoryRecursive(java.io.File)}.
+     *
+     * @param  directoryname name of the directory
+     * @return               true if successfully deleted
+     */
+    public static boolean deleteDirectoryRecursive(String directoryname) {
+
+        if (directoryname == null) throw new NullPointerException("directoryname == null"); // NOI18N
+
+        return deleteDirectoryRecursive(new File(directoryname));
+    }
+
+
+    /**
      * Returns a not existing file.
      *
      * @param  file suggested file
@@ -441,8 +542,12 @@ public final class FileUtil {
      *              suffix
      */
     public static File getNotExistingFile(File file) {
+
+        if (file == null) throw new NullPointerException("file == null"); // NOI18N
+
         File newFile = file;
-        int index = 0;
+        int  index   = 0;
+
         while (newFile.exists()) {
             String path = file.getAbsolutePath();
             int suffixPos = path.lastIndexOf(".");
@@ -459,6 +564,20 @@ public final class FileUtil {
     }
 
     /**
+     * Calls {@link #getNotExistingFile(java.io.File)}.
+     *
+     * @param  filename name of the file
+     * @return          file in the same path with a unique number prepending
+     *                  the suffix
+     */
+    public static File getNotExistingFile(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
+
+        return getNotExistingFile(new File(filename));
+    }
+
+    /**
      * Returns the root of a file.
      * <p>
      * The Windows file name <code>"C:\Programs\MyProg\Readme.txt"</code>
@@ -470,17 +589,34 @@ public final class FileUtil {
      *              parents
      */
     public static File getRoot(File file) {
+
+        if (file == null) throw new NullPointerException("file == null"); // NOI18N
+
         File root   = file.getParentFile();
         File parent = root;
+
         while (parent != null) {
             if (parent != null) {
                 root = parent;
                 parent = parent.getParentFile();
             }
         }
-        return root == null
-                ? file
-                : root;
+
+        return root == null ? file : root;
+    }
+
+    /**
+     * Calls {@link #getRoot(java.io.File)}.
+     *
+     * @param  filename name of the file
+     * @return          root file of the file or the file itself if it has no
+     *                  parents
+     */
+    public static File getRoot(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
+
+        return getRoot(new File(filename));
     }
 
     /**
@@ -492,7 +628,10 @@ public final class FileUtil {
      * @return          name of the file's root
      */
     public static String getRootName(String filename) {
-        return getRoot(new File(filename)).getAbsolutePath();
+
+        if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
+
+        return getRoot(filename).getAbsolutePath();
     }
 
     /**
@@ -504,13 +643,33 @@ public final class FileUtil {
      * @return      directory path
      */
     public static String getDirPath(File file) {
+
+        if (file == null) throw new NullPointerException("file == null"); // NOI18N
+
         String parent = file.getParent();
+
         if (parent == null) return "";
+
         String root = getRootName(file.getAbsolutePath());
+
         if (parent.startsWith(root) && parent.length() > root.length()) {
             return parent.substring(root.length());
         }
+
         return "";
+    }
+
+    /**
+     * Calls {@link #getDirPath(java.io.File)}.
+     *
+     * @param  filename name of the file
+     * @return          directory path
+     */
+    public static String getDirPath(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
+
+        return getDirPath(new File(filename));
     }
 
     /**
@@ -524,15 +683,34 @@ public final class FileUtil {
      *                  filename
      */
     public static String getSuffix(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
+
         if (hasSuffix(filename)) {
             return filename.substring(filename.lastIndexOf(".") + 1);
         }
         return "";
     }
 
+    /**
+     * Calls {@link #getSuffix(java.lang.String)}.
+     *
+     * @param  file file
+     * @return      suffix or empty string if the filename has no dot or the dot
+     *              is the first or last character within the filename
+     */
+    public static String getSuffix(File file) {
+
+        if (file == null) throw new NullPointerException("file == null"); // NOI18N
+
+        return getSuffix(file.getName());
+    }
+
     private static boolean hasSuffix(String filename) {
+
         int index = filename.lastIndexOf(".");
         int len   = filename.length();
+
         return index > 0 && index < len - 1;
     }
 
@@ -544,25 +722,48 @@ public final class FileUtil {
      * equal to the filename.
      *
      * @param  filename filename without path, e.g. <code>"info.txt"</code>
-     * @return          prefix or filename if the last
+     * @return          prefix
      */
     public static String getPrefix(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
+
         int index = filename.lastIndexOf(".");
         int len   = filename.length();
+
         if (index == 0 || index == len - 1) {
             return filename;
         }
+
         return filename.substring(0, filename.lastIndexOf("."));
+    }
+
+    /**
+     * Calls {@link #getPrefix(java.lang.String)}.
+     *
+     * @param  file file
+     * @return      prefix
+     */
+    public static String getPrefix(File file) {
+
+        if (file == null) throw new NullPointerException("file == null"); // NOI18N
+
+        return getPrefix(file.getName());
     }
 
     /**
      * Returns the file's last modification timestamp in milliseconds since
      * 1970.
      *
+     * Calls {@code File#lastModified()}.
+     *
      * @param  filename filename
      * @return          timestamp or 0L if the file does not exist or on errors
      */
     public static long getLastModified(String filename) {
+
+        if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
+
         return new File(filename).lastModified();
     }
 
