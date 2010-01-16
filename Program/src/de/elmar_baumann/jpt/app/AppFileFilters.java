@@ -31,7 +31,7 @@ public final class AppFileFilters {
     /**
      * Filter of all computable image file formats
      */
-    public static final RegexFileFilter ACCEPTED_IMAGE_FILE_FORMATS =
+    public static final RegexFileFilter ACCEPTED_IMAGE_FILENAME_FILTER =
             new RegexFileFilter(
             ".*\\.[cC][rR][wW];" +
             ".*\\.[cC][rR]2;" +
