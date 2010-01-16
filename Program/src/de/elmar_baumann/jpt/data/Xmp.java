@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.mapping.IptcXmpMapping;
@@ -573,7 +573,7 @@ public final class Xmp implements TextEntryListener {
                         }
                     }
                 } else {
-                    AppLog.logWarning(
+                    AppLogger.logWarning(
                             Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);
                 }
             }

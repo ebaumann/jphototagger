@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
@@ -67,7 +67,7 @@ public final class DatabaseFileExcludePattern extends Database {
             stmt.close();
             inserted = count > 0;
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }
@@ -95,7 +95,7 @@ public final class DatabaseFileExcludePattern extends Database {
             stmt.close();
             deleted = count > 0;
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }
@@ -123,7 +123,7 @@ public final class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }
@@ -153,7 +153,7 @@ public final class DatabaseFileExcludePattern extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }
@@ -223,10 +223,10 @@ public final class DatabaseFileExcludePattern extends Database {
             stmtUpdate.close();
             notifyProgressListenerEnd(listener, event);
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } catch (Exception ex) {
             // regular expression exceptions are possible
-            AppLog.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
         }

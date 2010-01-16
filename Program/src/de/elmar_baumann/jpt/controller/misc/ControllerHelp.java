@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.Main;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppInfo;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -133,7 +133,7 @@ public final class ControllerHelp
 
     private String logAndGetPdfManualOpenCommand(File manual) {
         String command = IoUtil.quoteForCommandLine(UserSettings.INSTANCE.getPdfViewer(), manual);
-        AppLog.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command);
+        AppLogger.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command);
         return command;
     }
 
@@ -181,7 +181,7 @@ public final class ControllerHelp
                 if (fileDefault.exists()) return fileDefault;
             }
         } catch (Exception ex) {
-            AppLog.logSevere(AppInfo.class, ex);
+            AppLogger.logSevere(AppInfo.class, ex);
         }
         MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile", manualPath);
         return null;
@@ -195,19 +195,19 @@ public final class ControllerHelp
     }
 
     private static void logJarDir(File jarPath) {
-        AppLog.logFinest(ControllerHelp.class,
+        AppLogger.logFinest(ControllerHelp.class,
                 "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile());
     }
 
     private static void logJarFile(File jarPath) {
-        AppLog.logFinest(ControllerHelp.class,
+        AppLogger.logFinest(ControllerHelp.class,
                 "ControllerHelp.ManualPath.JarPath", jarPath);
     }
 
     private static void logIfNotExists(File file) {
         if (file == null) return;
         if (!file.exists()) {
-            AppLog.logFinest(ControllerHelp.class,
+            AppLogger.logFinest(ControllerHelp.class,
                     "ControllerHelp.Info.FileNotExists", file);
         }
     }

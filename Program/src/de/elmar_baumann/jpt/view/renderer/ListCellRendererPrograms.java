@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Program;
 import java.awt.Component;
 import java.io.File;
@@ -53,7 +53,7 @@ public final class ListCellRendererPrograms extends DefaultListCellRenderer {
                     try {
                         setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                     } catch (Exception ex) {
-                        AppLog.logSevere(ListCellRendererPrograms.class, ex);
+                        AppLogger.logSevere(ListCellRendererPrograms.class, ex);
                     }
                 }
             }

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Iptc;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.event.ProgressEvent;
@@ -94,7 +94,7 @@ public final class ConvertIptcToXmp implements Runnable {
     }
 
     private void logWriteXmpFile(String imageFilename) {
-        AppLog.logInfo(ConvertIptcToXmp.class,
+        AppLogger.logInfo(ConvertIptcToXmp.class,
                 "IptcToXmp.Info.StartWriteXmpFile", imageFilename);
     }
 

@@ -26,7 +26,7 @@ import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.tiff.TiffReader;
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.exif.ExifThumbnailUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
@@ -117,7 +117,7 @@ public final class ThumbnailUtil {
     }
 
     public static Image getThumbnailFromJavaImageIo(File file, int maxLength) {
-        AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.CreateImage.Information.JavaIo", file, maxLength);
+        AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.CreateImage.Information.JavaIo", file, maxLength);
 
         BufferedImage image       = loadImage(file);
         BufferedImage scaledImage = null;
@@ -143,7 +143,7 @@ public final class ThumbnailUtil {
         Image       thumbnail = null;
         ImageReader reader    = null;
         try {
-            AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file);
+            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file);
             reader = ReaderFactory.createReader(file);
             if (reader instanceof JpegReader) {
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
@@ -156,7 +156,7 @@ public final class ThumbnailUtil {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(ThumbnailUtil.class, ex);
+            AppLogger.logSevere(ThumbnailUtil.class, ex);
             return new Pair<Image, ImageReader>(null, null);
         }
         return new Pair<Image, ImageReader>(thumbnail, reader);
@@ -164,7 +164,7 @@ public final class ThumbnailUtil {
 
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
-            AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
+            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
 
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions  procOptions = new ImageProcOptions();
@@ -177,13 +177,13 @@ public final class ThumbnailUtil {
             closeReader(procOptions.getImageReader());
             return image;
         } catch (Exception ex) {
-            AppLog.logSevere(ThumbnailUtil.class, ex);
+            AppLogger.logSevere(ThumbnailUtil.class, ex);
         }
         return null;
     }
 
     private static void logExternalAppCommand(String cmd) {
-        AppLog.logFinest(ThumbnailUtil.class, "ThumbnailUtil.Info.ExternalAppCreationCommand", cmd);
+        AppLogger.logFinest(ThumbnailUtil.class, "ThumbnailUtil.Info.ExternalAppCreationCommand", cmd);
     }
 
     private static Image getEmbeddedThumbnailRotated(File file) {
@@ -206,7 +206,7 @@ public final class ThumbnailUtil {
 
             if (rotateAngle != 0) {
 
-                AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetRotatedThumbnail.Information", file);
+                AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetRotatedThumbnail.Information", file);
                 rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
             }
         }
@@ -225,7 +225,7 @@ public final class ThumbnailUtil {
     public static Image getThumbnailFromExternalApplication(File file, String command, int maxLength) {
 
         if (!file.exists()) return null;
-        AppLog.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", file, maxLength);
+        AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", file, maxLength);
 
         String cmd   = command.replace("%s", file.getAbsolutePath()).replace("%i", new Integer(maxLength).toString());
         Image  image = null;
@@ -320,7 +320,7 @@ public final class ThumbnailUtil {
             scaledImage = scaleImage(scaledWidth, scaledHeight, image);
 
         } catch (Exception ex) {
-            AppLog.logSevere(ThumbnailUtil.class, ex);
+            AppLogger.logSevere(ThumbnailUtil.class, ex);
         }
         return scaledImage;
     }
@@ -368,10 +368,10 @@ public final class ThumbnailUtil {
             try {
                 mediaTracker.waitForID(0);
             } catch (InterruptedException ex) {
-                AppLog.logSevere(ThumbnailUtil.class, ex);
+                AppLogger.logSevere(ThumbnailUtil.class, ex);
             }
         } catch (IOException ex) {
-            AppLog.logSevere(ThumbnailUtil.class, ex);
+            AppLogger.logSevere(ThumbnailUtil.class, ex);
         }
         return image;
     }
@@ -388,7 +388,7 @@ public final class ThumbnailUtil {
                 ? ""
                 : new String(stderr).trim());
         if (!errorMsg.isEmpty()) {
-            AppLog.logWarning(ThumbnailUtil.class, "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg);
+            AppLogger.logWarning(ThumbnailUtil.class, "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg);
         }
     }
 

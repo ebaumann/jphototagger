@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
@@ -157,7 +157,7 @@ public final class ModifyImageCollections {
     }
 
     private static void logAddImageCollection(String name) {
-        AppLog.logInfo(ModifyImageCollections.class,
+        AppLogger.logInfo(ModifyImageCollections.class,
                 "ImageCollectionToDatabase.Info.StartInsert", name);
     }
 

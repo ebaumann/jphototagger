@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
@@ -70,7 +70,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
             files = getImageFiles((List<File>) transferable.getTransferData(
                     DataFlavor.javaFileListFlavor));
         } catch (Exception ex) {
-            AppLog.logSevere(TransferHandlerImageCollectionsList.class, ex);
+            AppLogger.logSevere(TransferHandlerImageCollectionsList.class, ex);
             return false;
         }
         int listIndex =

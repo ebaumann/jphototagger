@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.tasks.AutomaticTask;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
 import de.elmar_baumann.jpt.tasks.UserTasks;
@@ -57,7 +57,7 @@ public final class Cleanup {
             // Let the tasks a little bit time to complete until they can interrupt
             Thread.sleep(MILLISECONDS_SLEEP);
         } catch (InterruptedException ex) {
-            AppLog.logSevere(Cleanup.class, ex);
+            AppLogger.logSevere(Cleanup.class, ex);
         }
     }
 

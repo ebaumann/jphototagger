@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatDate;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatEmptyString;
@@ -149,13 +149,13 @@ public final class RenameDialog extends Dialog {
             File oldXmpFile = new File(oldXmpFilename);
             if (newXmpFile.exists()) {
                 if (!newXmpFile.delete()) {
-                    AppLog.logWarning(RenameDialog.class,
+                    AppLogger.logWarning(RenameDialog.class,
                             "RenameDialog.Error.XmpFileCouldNotBeDeleted",
                             newXmpFilename);
                 }
             }
             if (!oldXmpFile.renameTo(newXmpFile)) {
-                AppLog.logWarning(RenameDialog.class,
+                AppLogger.logWarning(RenameDialog.class,
                         "RenameDialog.Error.XmpFileCouldNotBeRenamed",
                         oldXmpFilename, newXmpFilename);
             }

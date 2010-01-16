@@ -29,6 +29,13 @@ import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 /**
  * Initializes the application.
  *
+ * Exits on errors. In that case the exit values are:
+ *
+ * <ul>
+ * <li>1: The application couldn't be locked (create the lock file)</li>
+ * <li>2: The Java version is too low</li>
+ * </ul>
+ *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-11
  */
@@ -36,7 +43,7 @@ public final class AppInit {
 
     private static       AppInit  INSTANCE;
     private static final String   CMD_LINE_OPTION_NO_OUTPUT_CAPTURE = "-nocapture";
-    private              String[] args;
+    private final        String[] cmdLineArgs;
     private static       boolean  captureOutput                     = true;
 
     public static synchronized void init(String[] args) {
@@ -45,8 +52,8 @@ public final class AppInit {
         }
     }
 
-    private AppInit(String[] args) {
-        this.args = args;
+    private AppInit(String[] cmdLineArgs) {
+        this.cmdLineArgs = cmdLineArgs;
         initApp();
     }
 
@@ -61,10 +68,10 @@ public final class AppInit {
         AppLoggingSystem.init();
         SplashScreen.INSTANCE.setProgress(75);
         AbstractImageReader.install(ImageProperties.class);
+        SplashScreen.INSTANCE.setMessage(Bundle.getString("AppInit.Info.SplashScreen.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
-        informationMessageInitGui();
-        SplashScreen.INSTANCE.close();
         showMainWindow();
+        SplashScreen.INSTANCE.close();
     }
 
     private void captureOutput() {
@@ -75,8 +82,8 @@ public final class AppInit {
     }
 
     private void setCaptureOutput() {
-        if (args == null) return;
-        for (String arg : args) {
+        if (cmdLineArgs == null) return;
+        for (String arg : cmdLineArgs) {
             if (arg.equals(CMD_LINE_OPTION_NO_OUTPUT_CAPTURE)) {
                 captureOutput = false;
                 return;
@@ -89,14 +96,9 @@ public final class AppInit {
     }
 
     private static void lock() {
-        if (!AppLock.lock() && !AppLock.forceUnlock()) {
+        if (!AppLock.lock() && !AppLock.forceLock()) {
             System.exit(1);
         }
-    }
-
-    private static void informationMessageInitGui() {
-        SplashScreen.INSTANCE.setMessage(
-                Bundle.getString("AppInit.Info.SplashScreen.InitGui"));
     }
 
     private static void showMainWindow() {
@@ -111,8 +113,8 @@ public final class AppInit {
 
     private static void checkJavaVersion() {
         Version javaVersion = SystemUtil.getJavaVersion();
-        if (javaVersion != null &&
-                javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0) {
+
+        if (javaVersion != null && javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0) {
             errorMessageJavaVersion(javaVersion);
             System.exit(2);
         }

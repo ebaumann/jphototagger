@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.timeline;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.RefreshEvent;
@@ -141,7 +141,7 @@ public final class ControllerTimelineItemSelected
             try {
                 d = df.parse(Integer.toString(date.year) + "-" + Integer.toString(date.month) + "-" + Integer.toString(date.day));
             } catch (Exception ex) {
-                AppLog.logSevere(getClass(), ex);
+                AppLogger.logSevere(getClass(), ex);
             }
         }
         NumberFormat yf    = new DecimalFormat("####");

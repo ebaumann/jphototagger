@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.types.FileEditor;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.io.IoUtil;
@@ -81,13 +81,13 @@ public final class ExtractEmbeddedXmp extends FileEditor {
                 fos.flush();
                 updateDatabase(file.getAbsolutePath());
             } catch (Exception ex) {
-                AppLog.logSevere(ExtractEmbeddedXmp.class, ex);
+                AppLogger.logSevere(ExtractEmbeddedXmp.class, ex);
             } finally {
                 if (fos != null) {
                     try {
                         fos.close();
                     } catch (IOException ex) {
-                        AppLog.logSevere(ExtractEmbeddedXmp.class, ex);
+                        AppLogger.logSevere(ExtractEmbeddedXmp.class, ex);
                     }
                 }
             }

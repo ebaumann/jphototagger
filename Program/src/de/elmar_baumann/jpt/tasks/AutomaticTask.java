@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.tasks;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import java.lang.reflect.Method;
 
 /**
@@ -71,7 +71,7 @@ public final class AutomaticTask {
                 methodCancel = r.getClass().getMethod(ALT_METHOD_NAME_INTERRUPT);
                 methodCancel.invoke(r);
             } catch (Exception ex) {
-                AppLog.logSevere(AutomaticTask.class, ex);
+                AppLogger.logSevere(AutomaticTask.class, ex);
             }
         }
         if (methodCancel == null && r instanceof Thread) {

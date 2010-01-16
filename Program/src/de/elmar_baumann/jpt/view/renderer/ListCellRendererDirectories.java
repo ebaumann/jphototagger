@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.renderer;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.io.DirectoryInfo;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.awt.Component;
@@ -51,7 +51,7 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
                 try {
                     label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(dir));
                 } catch (Exception ex) {
-                    AppLog.logSevere(ListCellRendererDirectories.class, ex);
+                    AppLogger.logSevere(ListCellRendererDirectories.class, ex);
                 }
             }
         }

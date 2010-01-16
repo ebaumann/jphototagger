@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.resource;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
@@ -50,7 +50,7 @@ public final class Bundle {
         } catch (NullPointerException ex) {
             throw ex;
         } catch (Exception ex) {
-            AppLog.logSevere(Bundle.class, ex);
+            AppLogger.logSevere(Bundle.class, ex);
         }
         return "?" + key + "?";
     }

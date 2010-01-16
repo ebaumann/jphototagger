@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,12 +42,12 @@ public final class DatabaseMaintainance extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            AppLog.logInfo(DatabaseMaintainance.class,
+            AppLogger.logInfo(DatabaseMaintainance.class,
                     "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(Database.class, ex);
+            AppLogger.logSevere(Database.class, ex);
             MessageDisplayer.error(null, "DatabaseMaintainance.Error.Shutdown");
         }
     }
@@ -68,7 +68,7 @@ public final class DatabaseMaintainance extends Database {
             success = true;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMaintainance.class, ex);
+            AppLogger.logSevere(DatabaseMaintainance.class, ex);
         } finally {
             free(connection);
         }

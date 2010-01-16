@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.imagecollection;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
@@ -83,7 +83,7 @@ public final class ControllerImageCollectionSelected implements
                 if (selectedValue != null) {
                     showImageCollection(selectedValue.toString(), settings);
                 } else {
-                    AppLog.logWarning(ControllerImageCollectionSelected.class,
+                    AppLogger.logWarning(ControllerImageCollectionSelected.class,
                             "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
                 }
                 setMetadataEditable();

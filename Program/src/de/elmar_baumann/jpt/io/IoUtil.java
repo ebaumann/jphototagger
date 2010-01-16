@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.app.AppFileFilters;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.lib.io.FileLock;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -62,10 +62,10 @@ public final class IoUtil {
             String openCommand = appPath + getDefaultCommandLineSeparator() +
                     arguments;
             try {
-                AppLog.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand);
+                AppLogger.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand);
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (IOException ex) {
-                AppLog.logSevere(IoUtil.class, ex);
+                AppLogger.logSevere(IoUtil.class, ex);
                 MessageDisplayer.error(null, "IoUtil.Error.OpenFile");
             }
         }
@@ -200,7 +200,7 @@ public final class IoUtil {
      * the lock) and logs a warning if the file couldn't be locked.
      * <p>
      * If a file couldn't be locked,
-     * {@link AppLog#logWarning(java.lang.Class, java.lang.String, Object[])} will be
+     * {@link AppLogger#logWarning(java.lang.Class, java.lang.String, Object[])} will be
      * called.
      * <p>
      * Uses {@link FileLock#lock(java.io.File, java.lang.Object)}. <em>The
@@ -213,7 +213,7 @@ public final class IoUtil {
      */
     public static boolean lockLogWarning(File file, Object owner) {
         if (!FileLock.INSTANCE.lock(file, owner)) {
-            AppLog.logWarning(owner.getClass(),
+            AppLogger.logWarning(owner.getClass(),
                     "IoUtil.Error.lock", file, owner,
                     FileLock.INSTANCE.getOwner(file));
             return false;

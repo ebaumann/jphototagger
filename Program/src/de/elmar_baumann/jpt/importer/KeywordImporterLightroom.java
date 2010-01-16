@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -70,7 +70,7 @@ final class KeywordImporterLightroom
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(getClass(), ex);
+            AppLogger.logSevere(getClass(), ex);
         }
         List<Node> leafs = new ArrayList<Node>();
         addLeafs(root, leafs);

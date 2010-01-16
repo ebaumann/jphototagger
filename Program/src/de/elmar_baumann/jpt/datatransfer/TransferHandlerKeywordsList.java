@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import java.awt.datatransfer.Transferable;
@@ -53,7 +53,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
         try {
             return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
         } catch (Exception e) {
-            AppLog.logSevere(TransferHandlerKeywordsList.class, e);
+            AppLogger.logSevere(TransferHandlerKeywordsList.class, e);
         }
         return null;
     }

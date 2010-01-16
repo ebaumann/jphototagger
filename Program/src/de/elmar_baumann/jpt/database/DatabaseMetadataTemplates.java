@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
@@ -118,7 +118,7 @@ public class DatabaseMetadataTemplates extends Database {
             stmt.close();
             notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.ADDED, template, this));
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
+            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -238,7 +238,7 @@ public class DatabaseMetadataTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
+            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);
         }
@@ -270,7 +270,7 @@ public class DatabaseMetadataTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
+            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);
         }
@@ -393,7 +393,7 @@ public class DatabaseMetadataTemplates extends Database {
             stmt.close();
             if (updated) notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.UPDATED, template, oldTemplate, this));
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
+            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -431,7 +431,7 @@ public class DatabaseMetadataTemplates extends Database {
                 notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.UPDATED, newTemplate, oldTemplate, this));
             }
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
+            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -462,7 +462,7 @@ public class DatabaseMetadataTemplates extends Database {
             stmt.close();
             if (deleted) notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.DELETED, template, this));
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
+            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -487,7 +487,7 @@ public class DatabaseMetadataTemplates extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseMetadataTemplates.class, ex);
+            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);
         }

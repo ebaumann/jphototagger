@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -60,7 +60,7 @@ final class MetadataTemplateSupport {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(TransferHandlerDropEdit.class, ex);
+            AppLogger.logSevere(TransferHandlerDropEdit.class, ex);
         }
     }
 

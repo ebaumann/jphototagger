@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,7 +66,7 @@ public final class DatabaseApplicationProperties extends Database {
             stmt.close();
             return count > 0;
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseApplicationProperties.class, ex);
+            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             free(connection);
         }
@@ -90,7 +90,7 @@ public final class DatabaseApplicationProperties extends Database {
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseApplicationProperties.class, ex);
+            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             free(connection);
         }
@@ -122,7 +122,7 @@ public final class DatabaseApplicationProperties extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseApplicationProperties.class, ex);
+            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             free(connection);
         }
@@ -153,7 +153,7 @@ public final class DatabaseApplicationProperties extends Database {
             stmt.close();
             assert count > 0 : "Not updated: " + key;
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseApplicationProperties.class, ex);
+            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             free(connection);
         }

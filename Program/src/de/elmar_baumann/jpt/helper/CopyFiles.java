@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
@@ -129,7 +129,7 @@ public final class CopyFiles implements Runnable {
                             getAbsolutePath());
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
-                    AppLog.logSevere(CopyFiles.class, ex);
+                    AppLogger.logSevere(CopyFiles.class, ex);
                     errorFiles.add(filePair.getFirst());
                 }
             }
@@ -148,7 +148,7 @@ public final class CopyFiles implements Runnable {
     }
 
     private void logCopyFile(String sourceFilename, String targetFilename) {
-        AppLog.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy",
+        AppLogger.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy",
                 sourceFilename, targetFilename);
     }
 

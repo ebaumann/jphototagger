@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Program;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -71,7 +71,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
+            AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -100,7 +100,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
+            AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -130,7 +130,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 Program program =
                         DatabasePrograms.INSTANCE.find(idProgram);
                 if (program == null) {
-                    AppLog.logWarning(DatabaseActionsAfterDbInsertion.class,
+                    AppLogger.logWarning(DatabaseActionsAfterDbInsertion.class,
                             "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist",
                             idProgram);
                 } else {
@@ -139,7 +139,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
+            AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
         } finally {
             free(connection);
         }
@@ -169,7 +169,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
+            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
         }
@@ -208,7 +208,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             allReordered = countAffected == actions.size();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
+            AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
             free(connection);

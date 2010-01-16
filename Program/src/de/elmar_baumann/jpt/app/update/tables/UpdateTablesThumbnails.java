@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
@@ -96,7 +96,7 @@ final class UpdateTablesThumbnails extends Database {
         PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE files SET thumbnail = NULL WHERE id = ?");
         stmt.setLong(1, id);
-        AppLog.logFiner(UpdateTablesThumbnails.class, stmt.toString());
+        AppLogger.logFiner(UpdateTablesThumbnails.class, stmt.toString());
         stmt.executeUpdate();
         stmt.close();
     }
@@ -111,7 +111,7 @@ final class UpdateTablesThumbnails extends Database {
                 Image thumbnail = icon.getImage();
                 writeThumbnail(thumbnail, id);
             } catch (IOException ex) {
-                AppLog.logSevere(UpdateTablesThumbnails.class, ex);
+                AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
             }
         }
     }
@@ -133,7 +133,7 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
         } catch (Exception ex) {
-            AppLog.logSevere(UpdateTablesThumbnails.class, ex);
+            AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, UpdateTablesThumbnails.class);
             closeStream(fos);
@@ -145,7 +145,7 @@ final class UpdateTablesThumbnails extends Database {
             try {
                 fis.close();
             } catch (Exception ex) {
-                AppLog.logSevere(UpdateTablesThumbnails.class, ex);
+                AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
             }
         }
     }
@@ -167,8 +167,8 @@ final class UpdateTablesThumbnails extends Database {
                 try {
                     long id = Long.parseLong(file.getName());
                     stmt.setLong(1, id);
-                    AppLog.logFinest(UpdateTablesThumbnails.class,
-                            AppLog.USE_STRING, sql);
+                    AppLogger.logFinest(UpdateTablesThumbnails.class,
+                            AppLogger.USE_STRING, sql);
                     ResultSet rs = stmt.executeQuery();
                     if (rs.next()) {
                         String filename = rs.getString(1);
@@ -179,13 +179,13 @@ final class UpdateTablesThumbnails extends Database {
                     }
                     setMessageCurrentFile(id, ++fileIndex, "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Hash");
                 } catch (NumberFormatException ex) {
-                    AppLog.logSevere(UpdateTablesThumbnails.class, ex);
+                    AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
                 }
             }
             stmt.close();
             DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (SQLException ex) {
-            AppLog.logSevere(UpdateTablesThumbnails.class, ex);
+            AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
         }
     }
 

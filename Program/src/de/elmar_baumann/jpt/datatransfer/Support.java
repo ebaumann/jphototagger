@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.List;
@@ -44,7 +44,7 @@ public final class Support {
         try {
             return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
         } catch (Exception ex) {
-            AppLog.logSevere(Flavor.class, ex);
+            AppLogger.logSevere(Flavor.class, ex);
         }
         return null;
     }
@@ -62,7 +62,7 @@ public final class Support {
         try {
             return (List<DefaultMutableTreeNode>) transferable.getTransferData(Flavor.KEYWORDS_TREE);
         } catch (Exception ex) {
-            AppLog.logSevere(Flavor.class, ex);
+            AppLogger.logSevere(Flavor.class, ex);
         }
         return null;
     }
@@ -79,7 +79,7 @@ public final class Support {
         try {
             return (String) transferable.getTransferData(DataFlavor.stringFlavor);
         } catch (Exception ex) {
-            AppLog.logSevere(Flavor.class, ex);
+            AppLogger.logSevere(Flavor.class, ex);
         }
         return null;
     }

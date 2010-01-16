@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
@@ -76,7 +76,7 @@ public final class DeleteImageFiles {
     private static void errorMessageDelete(File file,
             EnumSet<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
-            AppLog.logWarning(ControllerDeleteFiles.class,
+            AppLogger.logWarning(ControllerDeleteFiles.class,
                     "FileSystemDeleteImageFiles.Error.Delete",
                     file.getAbsolutePath());
         }

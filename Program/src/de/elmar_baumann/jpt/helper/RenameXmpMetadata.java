@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -78,7 +78,7 @@ public final class RenameXmpMetadata extends Thread {
     }
 
     private void logRename(String columnName, String oldValue, String newValue) {
-        AppLog.logInfo(RenameXmpMetadata.class,
+        AppLogger.logInfo(RenameXmpMetadata.class,
                 "RenameXmpMetadata.Info.StartRename",
                 columnName, oldValue, newValue);
     }

@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.exporter;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
@@ -72,12 +72,12 @@ final class KeywordExporterLightroom
             new FileOutputStream(file.getAbsolutePath()), CharEncoding.LIGHTROOM_KEYWORDS));
                 addChildrenToRoot((DefaultMutableTreeNode) tm.getRoot(), writer);
             } catch (Exception ex) {
-                AppLog.logSevere(getClass(), ex);
+                AppLogger.logSevere(getClass(), ex);
             } finally {
                 try {
                     writer.close();
                 } catch (Exception ex) {
-                    AppLog.logSevere(getClass(), ex);
+                    AppLogger.logSevere(getClass(), ex);
                 }
             }
         }

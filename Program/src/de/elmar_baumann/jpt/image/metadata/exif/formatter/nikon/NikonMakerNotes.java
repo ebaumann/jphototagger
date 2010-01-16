@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.image.metadata.exif.formatter.nikon;
 
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMakerNotes;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
@@ -113,7 +113,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
             mergeMakerNoteTags(exifTags, nikonMakerNote.getTagIdsEqualInExifIfd());
 
         } catch (Exception ex) {
-            AppLog.logSevere(ExifMetadata.class, ex);
+            AppLogger.logSevere(ExifMetadata.class, ex);
         }
     }
 

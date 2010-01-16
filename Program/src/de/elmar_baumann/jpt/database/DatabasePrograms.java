@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
@@ -87,7 +87,7 @@ public final class DatabasePrograms extends Database {
             stmt.close();
             notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_INSERTED, program);
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabasePrograms.class, ex);
+            AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -168,7 +168,7 @@ public final class DatabasePrograms extends Database {
             stmt.close();
             notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_UPDATED, program);
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabasePrograms.class, ex);
+            AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -224,7 +224,7 @@ public final class DatabasePrograms extends Database {
             stmt.close();
             notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_DELETED, program);
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabasePrograms.class, ex);
+            AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -261,7 +261,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabasePrograms.class, ex);
+            AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);
         }
@@ -347,7 +347,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabasePrograms.class, ex);
+            AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);
         }
@@ -373,7 +373,7 @@ public final class DatabasePrograms extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabasePrograms.class, ex);
+            AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);
         }

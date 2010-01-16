@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
@@ -66,7 +66,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (stop) {
-            AppLog.logWarning(ControllerAutocopyDirectory.class,
+            AppLogger.logWarning(ControllerAutocopyDirectory.class,
                     "ControllerAutocopyDirectory.Error.Stopped");
         } else {
             copy();

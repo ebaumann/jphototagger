@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.thumbnail;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
@@ -65,7 +65,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
     }
 
     private synchronized void updateMetadata() {
-        AppLog.logInfo(getClass(), "ControllerCreateMetadataOfCurrentThumbnails.Info.Update");
+        AppLogger.logInfo(getClass(), "ControllerCreateMetadataOfCurrentThumbnails.Info.Update");
 
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(thumbnailsPanel.getFiles()),

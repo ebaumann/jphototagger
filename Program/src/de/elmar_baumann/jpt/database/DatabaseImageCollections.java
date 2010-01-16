@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent.Type;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionsListener;
@@ -66,7 +66,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
             names.clear();
         } finally {
             free(connection);
@@ -98,7 +98,7 @@ public final class DatabaseImageCollections extends Database {
             info.add(newName);
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
@@ -131,7 +131,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
             filenames.clear();
         } finally {
             free(connection);
@@ -187,7 +187,7 @@ public final class DatabaseImageCollections extends Database {
             stmtColl.close();
             notifyListeners(Type.COLLECTION_INSERTED, collectionName, filenames);
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -218,7 +218,7 @@ public final class DatabaseImageCollections extends Database {
             stmt.close();
             notifyListeners(Type.COLLECTION_DELETED, collectionname, affectedFiles);
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
@@ -263,7 +263,7 @@ public final class DatabaseImageCollections extends Database {
             stmt.close();
             notifyListeners(Type.IMAGES_DELETED, collectionName, affectedFiles);
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -323,7 +323,7 @@ public final class DatabaseImageCollections extends Database {
             connection.commit();
             added = true;
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -400,7 +400,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
@@ -426,7 +426,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }
@@ -452,7 +452,7 @@ public final class DatabaseImageCollections extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseImageCollections.class, ex);
+            AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
         }

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.datatransfer;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -253,7 +253,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
                     .setMetadataTemplate((MetadataTemplate)selTemplates[0]);
 
         } catch (Exception ex) {
-            AppLog.logSevere(TransferHandlerThumbnailsPanel.class, ex);
+            AppLogger.logSevere(TransferHandlerThumbnailsPanel.class, ex);
         }
     }
 }

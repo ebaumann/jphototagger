@@ -23,7 +23,7 @@ import com.imagero.reader.iptc.IPTCConstants;
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Iptc;
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public final class IptcMetadata {
         List<IptcEntry> metadata = new ArrayList<IptcEntry>();
         if (imageFile != null && imageFile.exists()) {
             try {
-                AppLog.logInfo(IptcMetadata.class,
+                AppLogger.logInfo(IptcMetadata.class,
                         "IptcMetadata.Info.GetMetadata", imageFile);
                 IPTCEntryCollection collection =
                         MetadataUtils.getIPTC(imageFile);
@@ -57,7 +57,7 @@ public final class IptcMetadata {
                             IPTCConstants.RECORD_APPLICATION), metadata);
                 }
             } catch (Exception ex) {
-                AppLog.logSevere(IptcMetadata.class, ex);
+                AppLogger.logSevere(IptcMetadata.class, ex);
             }
         }
         return metadata;

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Favorite;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -75,7 +75,7 @@ public final class DatabaseFavorites extends Database {
             inserted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFavorites.class, ex);
+            AppLogger.logSevere(DatabaseFavorites.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -104,7 +104,7 @@ public final class DatabaseFavorites extends Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFavorites.class, ex);
+            AppLogger.logSevere(DatabaseFavorites.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -143,7 +143,7 @@ public final class DatabaseFavorites extends Database {
             updated = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFavorites.class, ex);
+            AppLogger.logSevere(DatabaseFavorites.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -177,7 +177,7 @@ public final class DatabaseFavorites extends Database {
             stmt.close();
         } catch (SQLException ex) {
             directories.clear();
-            AppLog.logSevere(DatabaseFavorites.class, ex);
+            AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             free(connection);
         }
@@ -208,7 +208,7 @@ public final class DatabaseFavorites extends Database {
             stmt.close();
             exists = count > 0;
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseFavorites.class, ex);
+            AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             free(connection);
         }

@@ -43,7 +43,7 @@ public final class AppLock {
      * @return  true if locked
      */
     public static synchronized boolean isLocked() {
-        return FileUtil.existsFile(new File(LOCKFILE_NAME));
+        return FileUtil.existsFile(LOCKFILE_NAME);
     }
 
     /**
@@ -53,7 +53,7 @@ public final class AppLock {
      */
     public static synchronized boolean lock() {
         if (!isLocked()) {
-            return FileUtil.ensureFileExists(new File(LOCKFILE_NAME));
+            return FileUtil.ensureFileExists(LOCKFILE_NAME);
         }
         return false;
     }
@@ -71,14 +71,14 @@ public final class AppLock {
     }
 
     /**
-     * Displays an error message that the lock file couldn't be created and offers
-     * the option to unlock - delete - it.
+     * Displays an error message that the lock file couldn't be created and
+     * offers the option to unlock - delete - it.
      *
      * @return  true if unlocked
      */
-    public static synchronized boolean forceUnlock() {
+    public static synchronized boolean forceLock() {
         if (confirmForceUnlock()) {
-            return deleteLockFile();
+            return deleteLockFile() && lock();
         }
         return false;
     }

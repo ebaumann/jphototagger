@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.io.IoUtil;
@@ -111,7 +111,7 @@ public final class StartPrograms {
         }
 
         private void logCommand(String command) {
-            AppLog.logInfo(StartPrograms.class,
+            AppLogger.logInfo(StartPrograms.class,
                     "ProgramStarter.Info.ExecuteCommand", command);
         }
 

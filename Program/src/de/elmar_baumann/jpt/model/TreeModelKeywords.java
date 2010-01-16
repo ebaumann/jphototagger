@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.model;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
@@ -274,7 +274,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
                 return true;
             }
         }
-        AppLog.logWarning(TreeModelKeywords.class, "TreeModelKeywords.Error.SetIdParent", parentNode);
+        AppLogger.logWarning(TreeModelKeywords.class, "TreeModelKeywords.Error.SetIdParent", parentNode);
         return false;
     }
 

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.cache;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
@@ -81,13 +81,13 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                     file = wq.fetch().file;
                     Image image = null;
                     if (file == null) {
-                        AppLog.logWarning(ThumbnailFetcher.class,
+                        AppLogger.logWarning(ThumbnailFetcher.class,
                                 "ThumbnailFetcher.Info.FileIsNull", file);
                     } else {
                         String tnFilename = PersistentThumbnails.getMd5File(
                                 file.getAbsolutePath());
                         if (tnFilename == null) {
-                            AppLog.logWarning(ThumbnailFetcher.class,
+                            AppLogger.logWarning(ThumbnailFetcher.class,
                                     "ThumbnailFetcher.Info.NoTnFilename", file);
                         } else {
                             image =

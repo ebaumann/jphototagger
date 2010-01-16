@@ -73,7 +73,7 @@ public final class AppLifeCycle {
      * @param saveObject object that saves data.
      */
     public void addSaveObject(Object saveObject) {
-        synchronized(saveObject) { // Deadlocks under specific circumstances - unknown reason - with saveObject*s* as lock
+        synchronized(saveObjects) {
             saveObjects.add(saveObject);
         }
     }
@@ -84,7 +84,7 @@ public final class AppLifeCycle {
      * @param saveObject save object to remove
      */
     public void removeSaveObject(Object saveObject) {
-        synchronized(saveObject) { // Deadlocks under specific circumstances - unknown reason - with saveObject*s* as lock
+        synchronized(saveObjects) {
             saveObjects.remove(saveObject);
         }
     }
@@ -155,31 +155,35 @@ public final class AppLifeCycle {
     }
 
     private void checkDataToSave() {
-        long elapsedMilliseconds       = 0;
-        long timeoutMilliSeconds       = 120 * 1000;
-        long checkIntervalMilliSeconds = 2000;
+        long    elapsedMilliseconds       = 0;
+        long    timeoutMilliSeconds       = 120 * 1000;
+        long    checkIntervalMilliSeconds =   2 * 1000;
 
-        synchronized (saveObjects) {
-            if (saveObjects.size() > 0) {
-                AppLog.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", saveObjects);
-                while (saveObjects.size() > 0 &&
-                        elapsedMilliseconds < timeoutMilliSeconds) {
-                    try {
-                        elapsedMilliseconds += checkIntervalMilliSeconds;
-                        Thread.sleep(checkIntervalMilliSeconds);
-                    } catch (InterruptedException ex) {
-                        AppLog.logSevere(getClass(), ex);
-                    }
-                    if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                        MessageDisplayer.error(
-                                null,
-                                "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
-                                timeoutMilliSeconds);
-                    }
+        if (hasSaveObjects()) {
+            AppLogger.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", saveObjects);
+            while (hasSaveObjects() && elapsedMilliseconds < timeoutMilliSeconds) {
+                try {
+                    elapsedMilliseconds += checkIntervalMilliSeconds;
+                    Thread.sleep(checkIntervalMilliSeconds);
+                } catch (InterruptedException ex) {
+                    AppLogger.logSevere(getClass(), ex);
+                }
+                if (elapsedMilliseconds >= timeoutMilliSeconds) {
+                    MessageDisplayer.error(
+                            null,
+                            "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
+                            timeoutMilliSeconds / 1000);
                 }
             }
         }
     }
+    
+    private boolean hasSaveObjects() {
+        synchronized (saveObjects) {
+            return saveObjects.size() > 0;
+        }
+    }
+
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(appFrame);

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.data;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
 import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
@@ -426,7 +426,7 @@ public final class Timeline {
                 }
                 return true;
             } catch (Exception ex) {
-                AppLog.logSevere(Date.class, ex);
+                AppLogger.logSevere(Date.class, ex);
                 reset();
             }
             return false;
@@ -492,7 +492,7 @@ public final class Timeline {
 
                 return dfLong.format(date);
             } catch (Exception ex) {
-                AppLog.logSevere(Date.class, ex);
+                AppLogger.logSevere(Date.class, ex);
             }
             return Bundle.getString("Timeline.DisplayName.NoMonth");
         }

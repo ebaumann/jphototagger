@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,7 +63,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 inserted = count > 0;
                 stmt.close();
             } catch (SQLException ex) {
-                AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
+                AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             } finally {
                 free(connection);
             }
@@ -96,7 +96,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             connection.commit();
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
+            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             rollback(connection);
         } finally {
             free(connection);
@@ -125,7 +125,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             deleted = count > 0;
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
+            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
         }
@@ -155,7 +155,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
+            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
         }
@@ -182,7 +182,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             stmt.close();
         } catch (SQLException ex) {
-            AppLog.logSevere(DatabaseAutoscanDirectories.class, ex);
+            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             directories.clear();
         } finally {
             free(connection);

@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.app.update;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppInfo;
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
@@ -68,7 +68,7 @@ public final class UpdateDownload extends Thread {
             }
             new UpdateDownload().start();
         } catch (InterruptedException ex) {
-            AppLog.logSevere(UpdateDownload.class, ex);
+            AppLogger.logSevere(UpdateDownload.class, ex);
         }
 
     }
@@ -84,7 +84,7 @@ public final class UpdateDownload extends Thread {
                 download();
             }
         } catch (Exception ex) {
-            AppLog.logInfo(UpdateDownload.class, "UpdateDownload.Error.Compare", ex.getLocalizedMessage());
+            AppLogger.logInfo(UpdateDownload.class, "UpdateDownload.Error.Compare", ex.getLocalizedMessage());
         } finally {
             stopProgressBar();
         }
@@ -108,7 +108,7 @@ public final class UpdateDownload extends Thread {
 
             MessageDisplayer.information(null, "UpdateDownload.Info.Success", downloadFilename);
         } catch (Exception ex) {
-            AppLog.logSevere(UpdateDownload.class, ex);
+            AppLogger.logSevere(UpdateDownload.class, ex);
         }
     }
 

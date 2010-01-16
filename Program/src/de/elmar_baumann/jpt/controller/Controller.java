@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -125,7 +125,7 @@ public abstract class Controller implements ActionListener, KeyListener {
                 Method m = object.getClass().getMethod("addActionListener", ActionListener.class);
                 m.invoke(object, this);
             } catch (Exception ex) {
-                AppLog.logSevere(Controller.class, ex);
+                AppLogger.logSevere(Controller.class, ex);
             }
         }
     }
@@ -141,7 +141,7 @@ public abstract class Controller implements ActionListener, KeyListener {
                 Method m = object.getClass().getMethod("addKeyListener", KeyListener.class);
                 m.invoke(object, this);
             } catch (Exception ex) {
-                AppLog.logSevere(Controller.class, ex);
+                AppLogger.logSevere(Controller.class, ex);
             }
         }
     }

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.importer;
 
-import de.elmar_baumann.jpt.app.AppLog;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.exporter.KeywordExporterJpt;
 import de.elmar_baumann.lib.generics.Pair;
@@ -68,7 +68,7 @@ public final class KeywordImporterJpt
                 return getPaths(nl.item(0));
             }
         } catch (Exception ex) {
-            AppLog.logSevere(getClass(), ex);
+            AppLogger.logSevere(getClass(), ex);
             MessageDisplayer.error(null, "KeywordImporterJpt.Error");
         }
         return null;
