@@ -145,10 +145,20 @@ public final class FileUtil {
      */
     public static boolean existsFile(File file) {
 
-        if (file == null)
-            throw new NullPointerException("file == null");
+        if (file == null) throw new NullPointerException("file == null");
 
         return file.exists() && !file.isDirectory();
+    }
+
+    /**
+     * Returns wheter a file exists and it's <em>not</em> a directory.
+     *
+     * @param filename file name
+     * @return         true if the file exists and it is not a directory
+     */
+    public static boolean existsFile(String filename) {
+
+        return existsFile(new File(filename));
     }
 
     /**
