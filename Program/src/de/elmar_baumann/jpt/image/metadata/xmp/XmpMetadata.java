@@ -212,12 +212,12 @@ public final class XmpMetadata {
         if (imageFilename == null) return null;
 
         int indexExtension = imageFilename.lastIndexOf(".");
+
         if (indexExtension > 0) {
+
             String sidecarFilename = imageFilename.substring(0, indexExtension + 1) + "xmp";
-            File sidecarFile = new File(sidecarFilename);
-            if (sidecarFile.exists()) {
-                return sidecarFile.getAbsolutePath();
-            }
+
+            if (FileUtil.existsFile(sidecarFilename)) return sidecarFilename;
         }
         return null;
     }
