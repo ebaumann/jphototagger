@@ -118,6 +118,16 @@ public final class PersistentThumbnails {
     }
 
     /**
+     * Returns whether an image file has a thumbnail file.
+     *
+     * @param  imageFilename name of the image file
+     * @return               true if the image file has a thumbnail
+     */
+    public static boolean existsThumbnailForImagefile(String imageFilename) {
+        return getThumbnailFileOfImageFile(imageFilename).exists();
+    }
+
+    /**
      * Compute final name of thumbnail on disk.
      *
      * @param  hash hash
