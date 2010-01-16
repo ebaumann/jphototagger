@@ -76,7 +76,7 @@ public final class ImageFilteredDirectory {
      */
     public static List<File> getImageFilesOfDirectory(File directory) {
         File[] filteredFiles = directory.listFiles(
-                AppFileFilters.ACCEPTED_IMAGE_FILE_FORMATS);
+                AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER);
         List<String> excludePatterns = DatabaseFileExcludePattern.INSTANCE.
                 getAll();
         List<File> files = new ArrayList<File>();
@@ -127,7 +127,7 @@ public final class ImageFilteredDirectory {
 
     private void addFilesOfCurrentDirectory() {
         File[] filesOfDirectory = directory.listFiles(
-                AppFileFilters.ACCEPTED_IMAGE_FILE_FORMATS);
+                AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER);
         List<String> excludePatterns = DatabaseFileExcludePattern.INSTANCE.
                 getAll();
         if (filesOfDirectory != null) {
