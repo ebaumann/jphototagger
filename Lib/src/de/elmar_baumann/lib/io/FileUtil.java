@@ -545,6 +545,17 @@ public final class FileUtil {
         return filename.substring(0, filename.lastIndexOf("."));
     }
 
+    /**
+     * Returns the file's last modification timestamp in milliseconds since
+     * 1970.
+     *
+     * @param  filename filename
+     * @return          timestamp or 0L if the file does not exist or on errors
+     */
+    public static long getLastModified(String filename) {
+        return new File(filename).lastModified();
+    }
+
     private FileUtil() {
     }
 }
