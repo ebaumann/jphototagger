@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppFileFilter;
+import de.elmar_baumann.jpt.app.AppFileFilters;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -56,7 +56,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private              List<File>      selectedDirectories   = new ArrayList<File>();
     private              File            prevSelectedDirectory = new File("");
     private              FileEditor      fileEditor            = new FileEditor();
-    private              FileFilter      fileChooserFileFilter = AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS.forFileChooser(Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
+    private              FileFilter      fileChooserFileFilter = AppFileFilters.ACCEPTED_IMAGE_FILE_FORMATS.forFileChooser(Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
     private              RegexFileFilter dirChooserFileFilter  = new RegexFileFilter(".*", ";");
     private              String          title                 = "";
     private volatile     boolean         selectDirs;

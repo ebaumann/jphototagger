@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppFileFilter;
+import de.elmar_baumann.jpt.app.AppFileFilters;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
@@ -48,7 +48,7 @@ public final class ImageUtil {
      * @return      true if the file is an image file
      */
     public static boolean isImageFile(File file) {
-        return AppFileFilter.ACCEPTED_IMAGE_FILE_FORMATS.accept(file);
+        return AppFileFilters.ACCEPTED_IMAGE_FILE_FORMATS.accept(file);
     }
 
     /**

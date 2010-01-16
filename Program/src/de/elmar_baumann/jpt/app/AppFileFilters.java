@@ -26,7 +26,7 @@ import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class AppFileFilter {
+public final class AppFileFilters {
 
     /**
      * Filter of all computable image file formats
@@ -46,6 +46,6 @@ public final class AppFileFilter {
             ".*\\.[tT][iI][fF][fF];",
             ";");
 
-    private AppFileFilter() {
+    private AppFileFilters() {
     }
 }
