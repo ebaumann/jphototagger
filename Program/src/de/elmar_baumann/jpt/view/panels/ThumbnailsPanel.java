@@ -328,8 +328,24 @@ public class ThumbnailsPanel extends JPanel
      * Setzt neue Thumbnails.
      */
     protected void setNewThumbnails() {
+        rerender(getNotRenderedIndices());
         forceRepaint();
         notifyThumbnailsChanged();
+    }
+
+    private Set<Integer> getNotRenderedIndices() {
+        Set<Integer> indices = new HashSet<Integer>();
+        int          index   = 0;
+
+        for (File file : files) {
+
+            if (!renderedThumbnailCache.contains(file)) {
+                indices.add(index);
+            }
+            index++;
+        }
+
+        return indices;
     }
 
     /**
@@ -1063,6 +1079,7 @@ public class ThumbnailsPanel extends JPanel
         empty();
         synchronized (this) {
             this.files.clear();
+            selectedThumbnails.clear();
             if (!content.equals(Content.IMAGE_COLLECTION)) {
                 Collections.sort(files, fileSortComparator);
             }
