@@ -45,7 +45,7 @@ import javax.swing.tree.TreeCellRenderer;
 public final class MiscFactory {
 
     static final MiscFactory INSTANCE = new MiscFactory();
-    private boolean init = false;
+    private      boolean     init     = false;
 
     synchronized void init() {
         Util.checkInit(MiscFactory.class, init);
@@ -86,6 +86,7 @@ public final class MiscFactory {
     }
 
     private void setSizeAndLocationController() {
+
         SizeAndLocationController ctrl = new SizeAndLocationController();
 
         SystemOutputDialog.INSTANCE.addWindowListener(ctrl);

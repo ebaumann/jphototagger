@@ -47,7 +47,7 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 public final class ActionListenerFactory {
 
     static final ActionListenerFactory INSTANCE = new ActionListenerFactory();
-    private boolean init = false;
+    private      boolean               init;
 
     synchronized void init() {
         Util.checkInit(ActionListenerFactory.class, init);
@@ -55,16 +55,27 @@ public final class ActionListenerFactory {
             init = true;
             AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
-            appFrame.getMenuItemAbout().addActionListener(new ControllerAboutApp());
+            ControllerAboutApp                 ctrlAbout           = new ControllerAboutApp();
+            ControllerHelp                     ctrlHelp            = new ControllerHelp();
+            ControllerMaintainDatabase         ctrlMaintainDb      = new ControllerMaintainDatabase();
+            ControllerShowUpdateMetadataDialog ctrlShowUpdateMd    = new ControllerShowUpdateMetadataDialog();
+            ControllerShowUserSettingsDialog   ctrlShowUserSettDlg = new ControllerShowUserSettingsDialog();
+            ControllerShowAdvancedSearchDialog ctrlAdvSearch       = new ControllerShowAdvancedSearchDialog();
 
-            ControllerHelp ctrlHelp = new ControllerHelp();
+            ControllerFactory.INSTANCE.add(ctrlAbout);
+            ControllerFactory.INSTANCE.add(ctrlHelp);
+            ControllerFactory.INSTANCE.add(ctrlMaintainDb);
+            ControllerFactory.INSTANCE.add(ctrlShowUpdateMd);
+            ControllerFactory.INSTANCE.add(ctrlShowUserSettDlg);
+            ControllerFactory.INSTANCE.add(ctrlAdvSearch);
 
+            appFrame.getMenuItemAbout()           .addActionListener(ctrlAbout);
             appFrame.getMenuItemHelp()            .addActionListener(ctrlHelp);
             appFrame.getMenuItemAcceleratorKeys() .addActionListener(ctrlHelp);
-            appFrame.getMenuItemMaintainDatabase().addActionListener(new ControllerMaintainDatabase());
-            appFrame.getMenuItemScanDirectory()   .addActionListener(new ControllerShowUpdateMetadataDialog());
-            appFrame.getMenuItemSettings()        .addActionListener(new ControllerShowUserSettingsDialog());
-            appFrame.getMenuItemSearch()          .addActionListener(new ControllerShowAdvancedSearchDialog());
+            appFrame.getMenuItemMaintainDatabase().addActionListener(ctrlMaintainDb);
+            appFrame.getMenuItemScanDirectory()   .addActionListener(ctrlShowUpdateMd);
+            appFrame.getMenuItemSettings()        .addActionListener(ctrlShowUserSettDlg);
+            appFrame.getMenuItemSearch()          .addActionListener(ctrlAdvSearch);
             listenToPopupMenuKeywordsTree();
         }
     }
@@ -83,8 +94,16 @@ public final class ActionListenerFactory {
         ControllerAddKeywordsToEditPanel     cAddToEditPanel = new ControllerAddKeywordsToEditPanel(hkwPanel);
         ControllerRemoveKeywordFromEditPanel cRemoveFromEPn  = new ControllerRemoveKeywordFromEditPanel(hkwPanel);
         ControllerCopyCutPasteKeyword        cCopyCutPaste   = new ControllerCopyCutPasteKeyword(hkwPanel);
+        ControllerKeywordsDisplayImages      cKwDisplayImg   = new ControllerKeywordsDisplayImages();
 
-        new ControllerKeywordsDisplayImages();
+        ControllerFactory.INSTANCE.add(cRename);
+        ControllerFactory.INSTANCE.add(cRemove);
+        ControllerFactory.INSTANCE.add(cAdd);
+        ControllerFactory.INSTANCE.add(cToggleReal);
+        ControllerFactory.INSTANCE.add(cAddToEditPanel);
+        ControllerFactory.INSTANCE.add(cRemoveFromEPn);
+        ControllerFactory.INSTANCE.add(cCopyCutPaste);
+        ControllerFactory.INSTANCE.add(cKwDisplayImg);
 
         hkwPanel.addKeyListener(cCopyCutPaste);
         GUI.INSTANCE.getAppPanel().getTreeEditKeywords().addKeyListener(cCopyCutPaste);
