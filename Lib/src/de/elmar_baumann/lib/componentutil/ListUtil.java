@@ -21,6 +21,7 @@ package de.elmar_baumann.lib.componentutil;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -307,6 +308,29 @@ public final class ListUtil {
         }
 
         return existingIndices;
+    }
+
+    /**
+     * Returns all indices of specific list items where the <code>toString()</code>
+     * of the items will be compared with strings.
+     *
+     * @param model     model
+     * @param toStrings values of the <code>toString()</code> method of the
+     *                  model's objects
+     * @return          all indices or empty list
+     */
+    public static List<Integer> getIndicesOfItems(ListModel model, Collection<? extends String> toStrings) {
+
+        List<Integer> indices = new ArrayList<Integer>(toStrings.size());
+        int           size     = model.getSize();
+
+        for (int i = 0; i < size; i++) {
+            Object element = model.getElementAt(i);
+            if (element != null && toStrings.contains(element.toString())) {
+                indices.add(i);
+            }
+        }
+        return indices;
     }
 
     private ListUtil() {
