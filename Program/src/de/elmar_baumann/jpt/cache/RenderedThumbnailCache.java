@@ -192,6 +192,10 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
         ci.usageTime = currentAge++;
     }
 
+    public boolean contains(File file) {
+        return fileCache.containsKey(file);
+    }
+
     /* Returns a correctly scaled prerendered thumbnail now, or null.
      *
      * If null is return now, every observer will get an update once the
