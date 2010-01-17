@@ -100,8 +100,8 @@ public class InputDialog extends Dialog {
 
     private void readProperties() {
         if (settings != null && propertyKey != null) {
-            settings.getSize    (this, propertyKey);
-            settings.getLocation(this, propertyKey);
+            settings.applySize    (this, propertyKey);
+            settings.applyLocation(this, propertyKey);
         }
 
         if (getLocation().x <= 0) {
