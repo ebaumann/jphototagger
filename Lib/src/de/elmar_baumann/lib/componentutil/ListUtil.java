@@ -284,6 +284,31 @@ public final class ListUtil {
         return selIndex;
     }
 
+    /**
+     * Returns from an array of indices the valid indices of a {@code JList}.
+     *
+     * @param  indices indices
+     * @param  list    list
+     * @return         valid indices
+     */
+    public static List<Integer> getExistingIndicesOf(int[] indices, JList list) {
+
+        if (indices == null) throw new NullPointerException("indices == null"); // NOI18N
+        if (list    == null) throw new NullPointerException("list == null"); // NOI18N
+
+        List<Integer> existingIndices = new ArrayList<Integer>(indices.length);
+
+        int elementCount = list.getModel().getSize();
+
+        for (int index : indices) {
+            if (index > 0 && index < elementCount) {
+                existingIndices.add(index);
+            }
+        }
+
+        return existingIndices;
+    }
+
     private ListUtil() {
     }
 }
