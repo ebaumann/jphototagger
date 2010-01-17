@@ -160,8 +160,8 @@ public final class UpdateMetadataOfDirectoriesPanel
 
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.getCheckBox(checkBoxForce, KEY_FORCE);
-        settings.getCheckBox(checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
+        settings.applySettings(checkBoxForce, KEY_FORCE);
+        settings.applySettings(checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
         readLastDirectoryFromProperties();
     }
 
@@ -177,10 +177,10 @@ public final class UpdateMetadataOfDirectoriesPanel
 
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.setCheckBox(checkBoxForce, KEY_FORCE);
-        settings.setCheckBox(checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
+        settings.set(checkBoxForce, KEY_FORCE);
+        settings.set(checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
         settings.setSizeAndLocation(this);
-        settings.setString(lastDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
+        settings.set(lastDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 

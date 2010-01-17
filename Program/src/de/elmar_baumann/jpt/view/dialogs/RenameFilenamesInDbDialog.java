@@ -43,7 +43,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
         setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         registerKeyStrokes();
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void checkClosing() {

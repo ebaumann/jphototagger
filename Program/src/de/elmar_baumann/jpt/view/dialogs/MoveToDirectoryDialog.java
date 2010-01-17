@@ -229,13 +229,12 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setString(targetDirectory.
-                getAbsolutePath(), KEY_TARGET_DIRECTORY);
+        UserSettings.INSTANCE.getSettings().set(targetDirectory.getAbsolutePath(), KEY_TARGET_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 

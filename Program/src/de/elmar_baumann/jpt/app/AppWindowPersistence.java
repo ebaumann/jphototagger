@@ -93,7 +93,7 @@ public final class AppWindowPersistence
         assert isSelKeywordsCard && knownCardName : c;
 
         if (isSelKeywordsCard && knownCardName) {
-            UserSettings.INSTANCE.getSettings().setString(NAME_OF_CARD.get(c), KEY_KEYWORDS_VIEW);
+            UserSettings.INSTANCE.getSettings().set(NAME_OF_CARD.get(c), KEY_KEYWORDS_VIEW);
             UserSettings.INSTANCE.writeToFile();
         }
     }
@@ -105,14 +105,14 @@ public final class AppWindowPersistence
     public void readAppFrameFromProperties() {
         AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(appFrame);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(appFrame);
         appFrame.pack();
     }
 
     public void readAppPanelFromProperties() {
         final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        UserSettings.INSTANCE.getSettings().getComponent(appPanel, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().applySettings(appPanel, getPersistentSettingsHints());
 
         appPanel.setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
         setInitKeywordsView(appPanel);
@@ -134,13 +134,13 @@ public final class AppWindowPersistence
                 String   keyPrefix = AppPanel.class.getName() + ".";
                 Settings settings  = UserSettings.INSTANCE.getSettings();
 
-                settings.getSelectedIndex(appPanel.getListNoMetadata()   , keyPrefix + "listNoMetadata");
-                settings.getSelectedIndex(appPanel.getListSavedSearches(), keyPrefix + "listSavedSearches");
-                settings.getSelectedIndex(appPanel.getListSelKeywords()  , keyPrefix + "listSelKeywords");
-                settings.getTree         (appPanel.getTreeSelKeywords()  , keyPrefix + "treeSelKeywords");
-                settings.getTree         (appPanel.getTreeMiscMetadata() , keyPrefix + "treeMiscMetadata");
-                settings.getTree         (appPanel.getTreeSelKeywords()  , keyPrefix + "treeSelKeywords");
-                settings.getTree         (appPanel.getTreeTimeline()     , keyPrefix + "treeTimeline");
+                settings.applySelectedIndices(appPanel.getListNoMetadata()   , keyPrefix + "listNoMetadata");
+                settings.applySelectedIndices(appPanel.getListSavedSearches(), keyPrefix + "listSavedSearches");
+                settings.applySelectedIndices(appPanel.getListSelKeywords()  , keyPrefix + "listSelKeywords");
+                settings.applySettings       (appPanel.getTreeSelKeywords()  , keyPrefix + "treeSelKeywords");
+                settings.applySettings       (appPanel.getTreeMiscMetadata() , keyPrefix + "treeMiscMetadata");
+                settings.applySettings       (appPanel.getTreeSelKeywords()  , keyPrefix + "treeSelKeywords");
+                settings.applySettings       (appPanel.getTreeTimeline()     , keyPrefix + "treeTimeline");
             }
         });
     }
@@ -179,9 +179,9 @@ public final class AppWindowPersistence
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.setComponent(appPanel, getPersistentSettingsHints());
-        settings.setInt      (appPanel.getSplitPaneMain().getDividerLocation(), KEY_DIVIDER_LOCATION_MAIN);
-        settings.setInt      (appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation(), KEY_DIVIDER_LOCATION_THUMBNAILS);
+        settings.set(appPanel, getPersistentSettingsHints());
+        settings.set(appPanel.getSplitPaneMain().getDividerLocation(), KEY_DIVIDER_LOCATION_MAIN);
+        settings.set(appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation(), KEY_DIVIDER_LOCATION_THUMBNAILS);
         ViewUtil.writeTreeDirectoriesToProperties();
         appPanel.getPanelEditKeywords().writeProperties();
         UserSettings.INSTANCE.writeToFile();

@@ -48,7 +48,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     private void postInitComponents() {
-        UserSettings.INSTANCE.getSettings().getComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().applySettings(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
         setButtonReplaceEnabled();
     }
 
@@ -121,7 +121,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setComponent(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().set(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
         UserSettings.INSTANCE.writeToFile();
     }
 

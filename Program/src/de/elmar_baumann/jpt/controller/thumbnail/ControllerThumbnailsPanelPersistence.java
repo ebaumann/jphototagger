@@ -66,8 +66,7 @@ public final class ControllerThumbnailsPanelPersistence
     @Override
     public void thumbnailsChanged() {
         checkFirstChange();
-        UserSettings.INSTANCE.getSettings().setString(
-                thumbnailsPanel.getFileSortComparator().getClass().getName(), KEY_SORT);
+        UserSettings.INSTANCE.getSettings().set(thumbnailsPanel.getFileSortComparator().getClass().getName(), KEY_SORT);
     }
 
     private void checkFirstChange() {
@@ -79,7 +78,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writeSelectionToProperties() {
-        UserSettings.INSTANCE.getSettings().setStringArray(
+        UserSettings.INSTANCE.getSettings().setStringCollection(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
                 KEY_SELECTED_FILES);
         UserSettings.INSTANCE.writeToFile();
@@ -98,8 +97,7 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void readProperties() {
         persistentSelectedFiles = FileUtil.getAsFiles(
-                UserSettings.INSTANCE.getSettings().getStringArray(
-                KEY_SELECTED_FILES));
+                UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
         readSortFromProperties();
     }
 
@@ -125,7 +123,7 @@ public final class ControllerThumbnailsPanelPersistence
                 } catch (InterruptedException ex) {
                     AppLogger.logSevere(getClass(), ex);
                 }
-                UserSettings.INSTANCE.getSettings().getScrollPane(
+                UserSettings.INSTANCE.getSettings().applySettings(
                         GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
                         KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
             }
@@ -138,7 +136,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writeViewportViewPositionToProperties() {
-        UserSettings.INSTANCE.getSettings().setScrollPane(
+        UserSettings.INSTANCE.getSettings().applySettings(
                 GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
                 KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
         UserSettings.INSTANCE.writeToFile();

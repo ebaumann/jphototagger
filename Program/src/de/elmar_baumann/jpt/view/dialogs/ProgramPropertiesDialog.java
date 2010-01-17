@@ -164,7 +164,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void writeProperties() {

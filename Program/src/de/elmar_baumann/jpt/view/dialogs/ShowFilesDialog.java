@@ -52,7 +52,7 @@ public class ShowFilesDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+            UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
 
         } else {
             UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);

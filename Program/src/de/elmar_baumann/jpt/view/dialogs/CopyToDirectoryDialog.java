@@ -284,8 +284,8 @@ public final class CopyToDirectoryDialog
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.getSizeAndLocation(this);
-        settings.getCheckBox(checkBoxCopyXmp, KEY_COPY_XMP);
+        settings.applySizeAndLocation(this);
+        settings.applySettings(checkBoxCopyXmp, KEY_COPY_XMP);
 
         File directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY));
 
@@ -298,8 +298,8 @@ public final class CopyToDirectoryDialog
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.setSizeAndLocation(this);
-        settings.setString(targetDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
-        settings.setCheckBox(checkBoxCopyXmp, KEY_COPY_XMP);
+        settings.set(targetDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
+        settings.set(checkBoxCopyXmp, KEY_COPY_XMP);
 
         UserSettings.INSTANCE.writeToFile();
     }

@@ -84,7 +84,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setString(lastSelectedAutoscanDirectory, KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
+        UserSettings.INSTANCE.getSettings().set(lastSelectedAutoscanDirectory, KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 

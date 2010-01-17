@@ -134,8 +134,8 @@ public class KeywordImportDialog extends Dialog {
 
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.getSizeAndLocation(this);
-        settings.getSelectedIndex(comboBoxImporter, KEY_SEL_IMPORTER_INDEX);
+        settings.applySizeAndLocation(this);
+        settings.applySelectedIndex(comboBoxImporter, KEY_SEL_IMPORTER_INDEX);
         File prevImpFile = new File(settings.getString(KEY_PREV_IMPORT_FILE));
         if (prevImpFile.isFile()) {
             file = prevImpFile;
@@ -149,7 +149,7 @@ public class KeywordImportDialog extends Dialog {
         settings.setSizeAndLocation(this);
         settings.setSelectedIndex(comboBoxImporter, KEY_SEL_IMPORTER_INDEX);
         if (file != null && file.isFile()) {
-            settings.setString(file.getAbsolutePath(), KEY_PREV_IMPORT_FILE);
+            settings.set(file.getAbsolutePath(), KEY_PREV_IMPORT_FILE);
         }
     }
 

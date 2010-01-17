@@ -415,17 +415,13 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void readProperties() {
-        prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().
-                getString(KEY_DIRECTORY_NAME));
-        UserSettings.INSTANCE.getSettings().getComponent(this,
-                new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
+        UserSettings.INSTANCE.getSettings().applySettings(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
     }
 
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setString(prevSelectedDirectory.
-                getAbsolutePath(), KEY_DIRECTORY_NAME);
-        UserSettings.INSTANCE.getSettings().setComponent(this,
-                new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().set(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
+        UserSettings.INSTANCE.getSettings().set(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
         UserSettings.INSTANCE.writeToFile();
     }
 

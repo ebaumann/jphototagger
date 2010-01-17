@@ -128,8 +128,8 @@ public class KeywordExportDialog extends Dialog {
 
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.getSizeAndLocation(this);
-        settings.getSelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
+        settings.applySizeAndLocation(this);
+        settings.applySelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
         File prevExpFile = new File(settings.getString(KEY_PREV_EXPORT_FILE));
         if (prevExpFile.getParentFile() != null &&
                 prevExpFile.getParentFile().isDirectory()) {
@@ -144,7 +144,7 @@ public class KeywordExportDialog extends Dialog {
         settings.setSizeAndLocation(this);
         settings.setSelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
         if (file != null && file.isFile()) {
-            settings.setString(file.getAbsolutePath(), KEY_PREV_EXPORT_FILE);
+            settings.set(file.getAbsolutePath(), KEY_PREV_EXPORT_FILE);
         }
     }
 

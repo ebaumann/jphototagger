@@ -42,14 +42,14 @@ final class UpdateTablesPrograms extends Database {
     }
 
     void update(Connection connection) throws SQLException {
-        List<File> files = FileUtil.getAsFiles(
-                UserSettings.INSTANCE.getSettings().getStringArray(KEY_OTHER_IMAGE_OPEN_APPS));
+        List<File> files = FileUtil.getAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_OTHER_IMAGE_OPEN_APPS));
+
         if (files.size() > 0) {
             DatabasePrograms db = DatabasePrograms.INSTANCE;
             for (File file : files) {
                 db.insert(new Program(file, file.getName()));
             }
-            UserSettings.INSTANCE.getSettings().removeStringArray(KEY_OTHER_IMAGE_OPEN_APPS);
+            UserSettings.INSTANCE.getSettings().removeStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
             UserSettings.INSTANCE.writeToFile();
         }
     }

@@ -89,8 +89,7 @@ public final class ControllerHelp
         URL url = action.getUrl();
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
-            UserSettings.INSTANCE.getSettings().setString(
-                    currentUrl, KEY_CURRENT_URL);
+            UserSettings.INSTANCE.getSettings().set(currentUrl, KEY_CURRENT_URL);
             UserSettings.INSTANCE.writeToFile();
         }
     }

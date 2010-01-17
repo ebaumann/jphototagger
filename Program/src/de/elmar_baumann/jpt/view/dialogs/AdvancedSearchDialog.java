@@ -70,7 +70,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
         panel.readProperties();
     }
 

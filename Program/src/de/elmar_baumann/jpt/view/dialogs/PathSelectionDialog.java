@@ -76,7 +76,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void writeProperties() {

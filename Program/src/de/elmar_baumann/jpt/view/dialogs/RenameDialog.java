@@ -383,9 +383,8 @@ public final class RenameDialog extends Dialog {
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getComponent(this,
-                getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySettings(this, getPersistentSettingsHints());
         if (!tabbedPane.isEnabledAt(1)) {
             tabbedPane.setSelectedComponent(panelInputName);
         }
@@ -393,8 +392,7 @@ public final class RenameDialog extends Dialog {
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setComponent(this,
-                getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().set(this, getPersistentSettingsHints());
         UserSettings.INSTANCE.writeToFile();
     }
 

@@ -133,15 +133,15 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getTabbedPane(tabbedPane, KEY_INDEX_TABBED_PANE, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane, KEY_INDEX_TABBED_PANE, getPersistentSettingsHints());
         for (Persistence panel : persistentPanels) {
             panel.readProperties();
         }
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setTabbedPane(tabbedPane, KEY_INDEX_TABBED_PANE, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_INDEX_TABBED_PANE, getPersistentSettingsHints());
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         for (Persistence panel : persistentPanels) {
             panel.writeProperties();

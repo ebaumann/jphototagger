@@ -126,7 +126,7 @@ public final class ControllerKeywordItemSelected implements
     }
 
     private void writePersistent() {
-        UserSettings.INSTANCE.getSettings().setInt(isAllKeywords() ? 0 : 1, KEY_RADIO_BUTTON);
+        UserSettings.INSTANCE.getSettings().set(isAllKeywords() ? 0 : 1, KEY_RADIO_BUTTON);
         UserSettings.INSTANCE.writeToFile();
     }
 }
