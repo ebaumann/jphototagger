@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 
 /**
- * Panel to (de-) select columns to show in the {@link EditMetadataPanelsArray}.
+ * Panel to (de-) select columns to show in the {@link EditMetadataPanels}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-01
