@@ -212,8 +212,20 @@ public final class ControllerFactory {
      * @return                 controller instances or null if no controller of
      *                         that class was instanciated
      */
-    public <T> List<T> getController(Class<T> controllerClass) {
-        return support.get(controllerClass);
+    public <T> List<T> getControllers(Class<T> controllerClass) {
+        return support.getAll(controllerClass);
+    }
+
+    /**
+     * Returns the first added instance of a specific controller.
+     *
+     * @param  <T>             type of controller class
+     * @param  controllerClass controller class (key)
+     * @return                 controller instance or null if no controller of
+     *                         that class was instanciated
+     */
+    public <T> T getController(Class<T> controllerClass) {
+        return support.getFirst(controllerClass);
     }
 
     void add(Object controller) {

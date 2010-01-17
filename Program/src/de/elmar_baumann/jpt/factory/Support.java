@@ -34,8 +34,14 @@ final class Support {
     private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS = new HashMap<Class<?>, List<Object>>();
 
     @SuppressWarnings("unchecked")
-    <T> List<T>  get(Class<T> clazz) {
+    <T> List<T>  getAll(Class<T> clazz) {
         return (List<T>) OBJECT_INSTANCES_OF_CLASS.get(clazz);
+    }
+
+    @SuppressWarnings("unchecked")
+    <T> T getFirst(Class<T> clazz) {
+        List<T> instances = (List<T>) OBJECT_INSTANCES_OF_CLASS.get(clazz);
+        return instances == null ? null : instances.get(0);
     }
 
     void add(Object instance) {
