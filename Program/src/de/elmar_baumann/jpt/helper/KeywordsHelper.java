@@ -31,6 +31,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
 import de.elmar_baumann.lib.generics.Pair;
+import de.elmar_baumann.lib.util.ArrayUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,6 +39,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
@@ -347,6 +349,19 @@ public final class KeywordsHelper {
         trees.add(InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
 
         return trees;
+    }
+
+    public static void selectInSelKeywordsList(List<Integer> indices) {
+
+        JList selKeywordsList = GUI.INSTANCE.getAppPanel().getListSelKeywords();
+
+        selKeywordsList.clearSelection();
+        GUI.INSTANCE.getAppPanel().displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
+
+        if (!indices.isEmpty()) {
+            selKeywordsList.setSelectedIndices(ArrayUtil.toIntArray(indices));
+            selKeywordsList.ensureIndexIsVisible(indices.get(0));
+        }
     }
 
     private KeywordsHelper() {

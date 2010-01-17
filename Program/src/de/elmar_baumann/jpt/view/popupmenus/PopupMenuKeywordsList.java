@@ -24,22 +24,25 @@ import java.awt.event.KeyEvent;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
 /**
- * Popup menu for a (flat) keywords list.
+ * Popup menu for a keywords list, such as
+ * {@link de.elmar_baumann.jpt.view.panels.KeywordsPanel#getList()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-07
  */
 public final class PopupMenuKeywordsList extends JPopupMenu {
 
-    private static final long              serialVersionUID = -552638878495121120L;
-    private final        JMenuItem         itemRename       = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Rename"), AppLookAndFeel.getIcon("icon_rename.png"));
-    private final        JMenuItem         itemDelete       = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Delete"), AppLookAndFeel.getIcon("icon_delete.png"));
-    private              int               selIndex;
-    private              JList             list;
-    public static final  PopupMenuKeywordsList INSTANCE         = new PopupMenuKeywordsList();
+    private static final long                  serialVersionUID  = -552638878495121120L;
+    private final        JMenuItem             itemRename        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Rename")       , AppLookAndFeel.getIcon("icon_rename.png"));
+    private final        JMenuItem             itemDelete        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Delete")       , AppLookAndFeel.getIcon("icon_delete.png"));
+    private final        JMenuItem             itemDisplayImages = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"), AppLookAndFeel.getIcon("icon_thumbnails.png"));
+    private              int                   selIndex;
+    private              JList                 list;
+    public static final  PopupMenuKeywordsList INSTANCE          = new PopupMenuKeywordsList();
 
     private PopupMenuKeywordsList() {
         addItems();
@@ -70,9 +73,15 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
         return itemRename;
     }
 
+    public JMenuItem getItemDisplayImages() {
+        return itemDisplayImages;
+    }
+
     private void addItems() {
         add(itemRename);
         add(itemDelete);
+        add(new JSeparator());
+        add(itemDisplayImages);
     }
 
     private void setAccelerators() {
