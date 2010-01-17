@@ -334,6 +334,18 @@ public final class ModelFactory {
      *                    instanciated
      */
     public <T> List<T> getModels(Class<T> modelClass) {
-        return support.get(modelClass);
+        return support.getAll(modelClass);
+    }
+
+    /**
+     * Returns the first added instance of a specific model.
+     *
+     * @param  <T>        type of model class
+     * @param  modelClass model class (key)
+     * @return            model instance or null if no model of that class was
+     *                    instanciated
+     */
+    public <T> T getModel(Class<T> modelClass) {
+        return support.getFirst(modelClass);
     }
 }
