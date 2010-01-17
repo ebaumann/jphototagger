@@ -53,17 +53,13 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getComponent(this,
-                new SettingsHints(EnumSet.of(
-                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySettings(this, new SettingsHints(EnumSet.of( SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setComponent(this,
-                new SettingsHints(EnumSet.of(
-                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().set(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
         UserSettings.INSTANCE.writeToFile();
     }
 

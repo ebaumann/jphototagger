@@ -99,7 +99,7 @@ public final class UserSettings {
     private UserSettings() {
         propertiesFile.readFromFile();
         UpdateUserSettings.update(properties);
-        settings.removeEmptyKeys();
+        settings.removeKeysWithEmptyValues();
         writeToFile();
     }
 
@@ -153,7 +153,7 @@ public final class UserSettings {
     }
 
     public void setDatabaseDirectoryName(String directoryName) {
-        settings.setString(directoryName, KEY_DATABASE_DIRECTORY);
+        settings.set(directoryName, KEY_DATABASE_DIRECTORY);
         writeToFile();
         notifyListeners(Type.DATABASE_DIRECTORY);
     }
@@ -261,7 +261,7 @@ public final class UserSettings {
     }
 
     public void setExternalThumbnailCreationCommand(String command) {
-        settings.setString(command, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
+        settings.set(command, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
         writeToFile();
         notifyListeners(Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
@@ -277,7 +277,7 @@ public final class UserSettings {
     }
 
     public void setWebBrowser(String webBrowser) {
-        settings.setString(webBrowser, KEY_WEB_BROWSER);
+        settings.set(webBrowser, KEY_WEB_BROWSER);
         writeToFile();
         notifyListeners(Type.WEB_BROWSER);
     }
@@ -292,7 +292,7 @@ public final class UserSettings {
     }
 
     public void setPdfViewer(String pdfViewer) {
-        settings.setString(pdfViewer, KEY_PDF_VIEWER);
+        settings.set(pdfViewer, KEY_PDF_VIEWER);
         writeToFile();
         notifyListeners(Type.PDF_VIEWER);
     }
@@ -307,7 +307,7 @@ public final class UserSettings {
     }
 
     public void setLogLevel(Level logLevel) {
-        settings.setString(logLevel.toString(), KEY_LOG_LEVEL);
+        settings.set(logLevel.toString(), KEY_LOG_LEVEL);
         writeToFile();
         notifyListeners(Type.LOG_LEVEL);
     }
@@ -329,7 +329,7 @@ public final class UserSettings {
             }
         }
         if (level == null) {
-            settings.setString(Level.INFO.getLocalizedName(), KEY_LOG_LEVEL);
+            settings.set(Level.INFO.getLocalizedName(), KEY_LOG_LEVEL);
         }
         return level == null
                ? Level.INFO
@@ -340,7 +340,7 @@ public final class UserSettings {
         boolean hasColumns = columns.size() > 0;
 
         if (hasColumns) {
-            settings.setString(getColumnKeys(columns), KEY_FAST_SEARCH_COLUMNS);
+            settings.set(getColumnKeys(columns), KEY_FAST_SEARCH_COLUMNS);
         } else {
             properties.remove(KEY_FAST_SEARCH_COLUMNS);
         }
@@ -376,7 +376,7 @@ public final class UserSettings {
     }
 
     public void setEditColumns(List<Column> columns) {
-        settings.setString(getColumnKeys(columns), KEY_EDIT_COLUMNS);
+        settings.set(getColumnKeys(columns), KEY_EDIT_COLUMNS);
         writeToFile();
         notifyListeners(Type.EDIT_COLUMNS);
     }
@@ -397,7 +397,7 @@ public final class UserSettings {
     }
 
     public void setDefaultImageOpenApp(File app) {
-        settings.setString(app.getAbsolutePath(), KEY_DEFAULT_IMAGE_OPEN_APP);
+        settings.set(app.getAbsolutePath(), KEY_DEFAULT_IMAGE_OPEN_APP);
         writeToFile();
         notifyListeners(Type.DEFAULT_IMAGE_OPEN_APP);
     }
@@ -435,7 +435,7 @@ public final class UserSettings {
     }
 
     public void setDisplaySearchButton(boolean display) {
-        settings.setBoolean(display, KEY_DISPLAY_SEARCH_BUTTON);
+        settings.set(display, KEY_DISPLAY_SEARCH_BUTTON);
         writeToFile();
         notifyListeners(Type.DISPLAY_SEARCH_BUTTON);
     }
@@ -453,7 +453,7 @@ public final class UserSettings {
     }
 
     public void setScanForEmbeddedXmp(boolean scan) {
-        settings.setBoolean(scan, KEY_SCAN_FOR_EMBEDDED_XMP);
+        settings.set(scan, KEY_SCAN_FOR_EMBEDDED_XMP);
         writeToFile();
         notifyListeners(Type.SCAN_FOR_EMBEDDED_XMP);
     }
@@ -472,7 +472,7 @@ public final class UserSettings {
     }
 
     public void setCopyMoveFilesOptions(Options options) {
-        settings.setInt(options.getInt(), KEY_OPTIONS_COPY_MOVE_FILES);
+        settings.set(options.getInt(), KEY_OPTIONS_COPY_MOVE_FILES);
         writeToFile();
         notifyListeners(Type.OPTIONS_COPY_MOVE_FILES);
     }
@@ -489,8 +489,8 @@ public final class UserSettings {
     }
 
     public void setExecuteActionsAfterImageChangeInDbAlways(boolean set) {
-        settings.setBoolean(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
-        settings.setBoolean(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        settings.set(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
+        settings.set(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         writeToFile();
         notifyListeners(Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
     }
@@ -511,8 +511,8 @@ public final class UserSettings {
     }
 
     public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean set) {
-        settings.setBoolean(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
-        settings.setBoolean(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        settings.set(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
+        settings.set(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         writeToFile();
         notifyListeners(Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
     }
@@ -532,7 +532,7 @@ public final class UserSettings {
     }
 
     public void setIptcCharset(String charset) {
-        settings.setString(charset, KEY_IPTC_CHARSET);
+        settings.set(charset, KEY_IPTC_CHARSET);
         writeToFile();
         notifyListeners(Type.IPTC_CHARSET);
     }
@@ -550,7 +550,7 @@ public final class UserSettings {
     }
 
     public void setAutoscanIncludeSubdirectories(boolean include) {
-        settings.setBoolean(include, KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES);
+        settings.set(include, KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES);
         writeToFile();
         notifyListeners(Type.AUTO_SCAN_INCLUDE_DIRECTORIES);
     }
@@ -568,7 +568,7 @@ public final class UserSettings {
     }
 
     public void setTreeDirectoriesSelectLastDirectory(boolean select) {
-        settings.setBoolean(select, KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
+        settings.set(select, KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
         writeToFile();
         notifyListeners(Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
     }
@@ -605,7 +605,7 @@ public final class UserSettings {
      * @param early true if input shall be saved early. Default: true.
      */
     public void setSaveInputEarly(boolean early) {
-        settings.setBoolean(early, KEY_SAVE_INPUT_EARLY);
+        settings.set(early, KEY_SAVE_INPUT_EARLY);
         writeToFile();
         notifyListeners(Type.SAVE_INPUT_EARLY);
     }
@@ -619,7 +619,7 @@ public final class UserSettings {
     private void setToPropertiesLogfileFormatterClass(Class<?> formatterClass) {
         String classString = formatterClass.toString();
         int    index       = classString.lastIndexOf(" ");
-        settings.setString(index >= 0 && index + 1 < classString.length()
+        settings.set(index >= 0 && index + 1 < classString.length()
                            ? classString.substring(index + 1)
                            : XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
     }
@@ -636,13 +636,13 @@ public final class UserSettings {
             return Class.forName(className);
         } catch (ClassNotFoundException ex) {
             AppLogger.logSevere(UserSettings.class, ex);
-            settings.setString(XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
+            settings.set(XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
         }
         return XMLFormatter.class;
     }
 
     public void setMinutesToStartScheduledTasks(int minutes) {
-        settings.setString(Integer.toString(minutes), KEY_MINUTES_TO_START_SCHEDULED_TASKS);
+        settings.set(Integer.toString(minutes), KEY_MINUTES_TO_START_SCHEDULED_TASKS);
         writeToFile();
         notifyListeners(Type.MINUTES_TO_START_SCHEDULED_TASKS);
     }
@@ -662,13 +662,13 @@ public final class UserSettings {
     }
 
     public void setMaxThumbnailWidth(int width) {
-        settings.setString(Integer.toString(width), KEY_MAX_THUMBNAIL_WIDTH);
+        settings.set(Integer.toString(width), KEY_MAX_THUMBNAIL_WIDTH);
         writeToFile();
         notifyListeners(Type.MAX_THUMBNAIL_WIDTH);
     }
 
     public void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
-        settings.setInt(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
+        settings.set(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
         writeToFile();
         notifyListeners(Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
     }
@@ -685,7 +685,7 @@ public final class UserSettings {
     }
 
     public void setAcceptHiddenDirectories(boolean accept) {
-        settings.setBoolean(accept, KEY_ACCEPT_HIDDEN_DIRECTORIES);
+        settings.set(accept, KEY_ACCEPT_HIDDEN_DIRECTORIES);
         writeToFile();
         notifyListeners(Type.ACCEPT_HIDDEN_DIRECTORIES);
     }
@@ -703,7 +703,7 @@ public final class UserSettings {
     }
 
     public void setAutoCopyDirectory(File directory) {
-        settings.setString(directory.getAbsolutePath(), KEY_AUTOCOPY_DIRECTORY);
+        settings.set(directory.getAbsolutePath(), KEY_AUTOCOPY_DIRECTORY);
         writeToFile();
         notifyListeners(Type.AUTOCOPY_DIRECTORY);
     }
@@ -729,7 +729,7 @@ public final class UserSettings {
      *             Default: true.
      */
     public void setAutoDownloadNewerVersions(boolean auto) {
-        settings.setBoolean(auto, KEY_AUTO_DOWNLOAD_NEWER_VERSIONS);
+        settings.set(auto, KEY_AUTO_DOWNLOAD_NEWER_VERSIONS);
         writeToFile();
         notifyListeners(Type.AUTO_DOWNLOAD_NEWER_VERSIONS);
     }
@@ -746,7 +746,7 @@ public final class UserSettings {
     }
 
     public void setDisplayIptc(boolean display) {
-        settings.setBoolean(display, KEY_DISPLAY_IPTC);
+        settings.set(display, KEY_DISPLAY_IPTC);
         writeToFile();
         notifyListeners(Type.DISPLAY_IPTC);
     }

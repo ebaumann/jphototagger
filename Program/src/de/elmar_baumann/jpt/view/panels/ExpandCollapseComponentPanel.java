@@ -113,9 +113,8 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
 
     private void writeExpandedState() {
         if (!keyPersistence.isEmpty()) {
-            UserSettings.INSTANCE.getSettings().setBoolean(
-                    expanded, keyPersistence);
-        UserSettings.INSTANCE.writeToFile();
+            UserSettings.INSTANCE.getSettings().set(expanded, keyPersistence);
+            UserSettings.INSTANCE.writeToFile();
         }
     }
 
@@ -125,8 +124,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
     public void readExpandedState() {
         if (!keyPersistence.isEmpty()) {
             if (UserSettings.INSTANCE.getProperties().containsKey(keyPersistence)) {
-                expanded = UserSettings.INSTANCE.getSettings().getBoolean(
-                        keyPersistence);
+                expanded = UserSettings.INSTANCE.getSettings().getBoolean(keyPersistence);
                 setExpanded();
             }
         }

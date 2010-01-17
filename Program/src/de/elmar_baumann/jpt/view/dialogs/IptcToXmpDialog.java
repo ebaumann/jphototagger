@@ -120,22 +120,16 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().getComponent(this,
-                new SettingsHints(EnumSet.of(
-                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
-        directory = new File(UserSettings.INSTANCE.getSettings().getString(
-                KEY_DIRECTORY_NAME));
+        UserSettings.INSTANCE.getSettings().applySettings(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
         setIconToDirectoryLabel();
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setComponent(this,
-                new SettingsHints(EnumSet.of(
-                SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
-        UserSettings.INSTANCE.getSettings().setString(
-                directory.getAbsolutePath(), KEY_DIRECTORY_NAME);
+        UserSettings.INSTANCE.getSettings().set(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().set(directory.getAbsolutePath(), KEY_DIRECTORY_NAME);
         UserSettings.INSTANCE.writeToFile();
     }
 

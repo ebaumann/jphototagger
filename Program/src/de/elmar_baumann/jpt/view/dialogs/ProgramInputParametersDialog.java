@@ -77,14 +77,14 @@ public final class ProgramInputParametersDialog extends Dialog {
 
     private void readProperties() {
         SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().getComponent(this, hints);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySettings(this, hints);
     }
 
     private void writeProperties() {
         SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().setComponent(this, hints);
+        UserSettings.INSTANCE.getSettings().set(this, hints);
         UserSettings.INSTANCE.writeToFile();
     }
 

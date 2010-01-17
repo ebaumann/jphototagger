@@ -93,7 +93,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void readSettings() {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void writeSettings() {

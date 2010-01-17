@@ -93,9 +93,7 @@ public class ViewUtil {
 
     private static void writeTreeToProperties(JTree tree, String key) {
         if (tree.getSelectionCount() > 0) {
-            UserSettings.INSTANCE.getSettings().setString(
-                    tree.getSelectionPath().getLastPathComponent().toString(),
-                    key);
+            UserSettings.INSTANCE.getSettings().set(tree.getSelectionPath().getLastPathComponent().toString(), key);
         } else {
             UserSettings.INSTANCE.getProperties().remove(key);
         }

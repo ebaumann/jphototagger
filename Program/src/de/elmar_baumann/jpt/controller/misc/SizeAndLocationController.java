@@ -19,7 +19,7 @@ public final class SizeAndLocationController extends WindowAdapter {
 
     @Override
     public void windowOpened(WindowEvent e) {
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(e.getComponent());
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(e.getComponent());
     }
 
     @Override

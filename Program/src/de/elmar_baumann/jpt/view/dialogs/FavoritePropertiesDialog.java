@@ -184,9 +184,8 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void readProperties() {
-        lastDirectory = UserSettings.INSTANCE.getSettings().getString(
-                KEY_LAST_DIRECTORY);
-        UserSettings.INSTANCE.getSettings().getSizeAndLocation(this);
+        lastDirectory = UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void setOkEnabled() {
@@ -194,8 +193,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setString(
-                lastDirectory, KEY_LAST_DIRECTORY);
+        UserSettings.INSTANCE.getSettings().set(lastDirectory, KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
     }

@@ -106,7 +106,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setInt(tabbedPane.getSelectedIndex(), KEY_SELECTED_TAB_INDEX);
+        UserSettings.INSTANCE.getSettings().set(tabbedPane.getSelectedIndex(), KEY_SELECTED_TAB_INDEX);
         UserSettings.INSTANCE.writeToFile();
     }
 

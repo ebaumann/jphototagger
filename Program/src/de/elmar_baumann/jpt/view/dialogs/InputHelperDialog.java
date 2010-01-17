@@ -66,13 +66,13 @@ public class InputHelperDialog extends Dialog {
         if (selIndexTabbedPane >= 0 && selIndexTabbedPane < tabbedPane.getTabCount()) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
         }
-        settings.getSizeAndLocation(this);
+        settings.applySizeAndLocation(this);
     }
 
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.setSizeAndLocation(this);
-        settings.setInt(tabbedPane.getSelectedIndex(), KEY_SEL_INDEX_TABBED_PANE);
+        settings.set(tabbedPane.getSelectedIndex(), KEY_SEL_INDEX_TABBED_PANE);
         panelKeywords.writeProperties();
         UserSettings.INSTANCE.writeToFile();
     }
