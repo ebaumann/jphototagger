@@ -60,6 +60,7 @@ import de.elmar_baumann.jpt.controller.keywords.tree.ControllerImportKeywords;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerShowKeywordsDialog;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerPickReject;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDeleteKeywords;
+import de.elmar_baumann.jpt.controller.keywords.list.ControllerDisplayKeyword;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerRenameKeywords;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleButtonSelKeywords;
 import de.elmar_baumann.jpt.controller.metadata.ControllerCopyPasteMetadata;
@@ -199,6 +200,7 @@ public final class ControllerFactory {
             support.add(new ControllerMetadataTemplateDelete());
             support.add(new ControllerMetadataTemplateRename());
             support.add(new ControllerToggleButtonSelKeywords());
+            support.add(new ControllerDisplayKeyword());
             init = true;
             GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("ControllerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
         }
