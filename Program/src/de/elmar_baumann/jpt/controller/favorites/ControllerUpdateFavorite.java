@@ -49,8 +49,8 @@ public final class ControllerUpdateFavorite
         implements ActionListener, KeyListener {
 
     private final PopupMenuFavorites popupMenu = PopupMenuFavorites.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree tree = appPanel.getTreeFavorites();
+    private final AppPanel           appPanel  = GUI.INSTANCE.getAppPanel();
+    private final JTree              tree      = appPanel.getTreeFavorites();
 
     public ControllerUpdateFavorite() {
         listen();
@@ -66,8 +66,7 @@ public final class ControllerUpdateFavorite
         if (KeyEventUtil.isControl(e, KeyEvent.VK_E) && !tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
-                Object userObject =
-                        ((DefaultMutableTreeNode) node).getUserObject();
+                Object userObject = ((DefaultMutableTreeNode) node).getUserObject();
                 if (userObject instanceof Favorite) {
                     updateFavorite((Favorite) userObject);
                 }
@@ -81,8 +80,8 @@ public final class ControllerUpdateFavorite
     }
 
     private void updateFavorite(final Favorite favorite) {
-        FavoritePropertiesDialog dialog =
-                new FavoritePropertiesDialog();
+        FavoritePropertiesDialog dialog = new FavoritePropertiesDialog();
+
         dialog.setFavoriteName(favorite.getName());
         dialog.setDirectoryName(favorite.getDirectoryName());
         dialog.setVisible(true);
