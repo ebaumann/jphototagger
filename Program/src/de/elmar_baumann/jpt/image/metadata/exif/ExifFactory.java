@@ -98,7 +98,7 @@ final class ExifFactory {
                 } catch (Exception ex) {
                     AppLogger.logSevere(ExifMetadata.class, ex);
                 }
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(ExifMetadata.class, ex);
             }
         }

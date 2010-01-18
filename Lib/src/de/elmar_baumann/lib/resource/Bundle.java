@@ -48,14 +48,11 @@ public final class Bundle {
      * @param  params  parameters to format via {@link java.text.MessageFormat}
      * @return     value or key between two question marks if the value could
      *             not be retrieved
-     * @throws NullPointerException if the key is null
      */
     public static String getString(String key, Object... params) {
         try {
             MessageFormat msg = new MessageFormat(BUNDLE.getString(key));
             return msg.format(params);
-        } catch (NullPointerException ex) {
-            throw ex;
         } catch (Exception ex) {
             Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
         }

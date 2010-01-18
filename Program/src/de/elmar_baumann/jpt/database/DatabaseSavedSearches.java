@@ -80,7 +80,7 @@ public final class DatabaseSavedSearches extends Database {
                 connection.commit();
                 inserted = true;
                 stmt.close();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseSavedSearches.class, ex);
                 rollback(connection);
             } finally {
@@ -186,7 +186,7 @@ public final class DatabaseSavedSearches extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
             free(connection);
@@ -207,7 +207,7 @@ public final class DatabaseSavedSearches extends Database {
             connection = getConnection();
             long id = findId(connection, name);
             return id > 0;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
             free(connection);
@@ -246,7 +246,7 @@ public final class DatabaseSavedSearches extends Database {
             connection.commit();
             deleted = count > 0;
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
             rollback(connection);
         } finally {
@@ -281,7 +281,7 @@ public final class DatabaseSavedSearches extends Database {
                 info.add(newName);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
             free(connection);
@@ -337,7 +337,7 @@ public final class DatabaseSavedSearches extends Database {
                 setSavedSearchPanels(connection, savedSearch);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             savedSearch = null;
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
@@ -378,7 +378,7 @@ public final class DatabaseSavedSearches extends Database {
                 allData.add(savedSearch);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
             allData.clear();
         } finally {

@@ -47,8 +47,6 @@ public final class Bundle {
         try {
             MessageFormat msg = new MessageFormat(BUNDLE.getString(key));
             return msg.format(params);
-        } catch (NullPointerException ex) {
-            throw ex;
         } catch (Exception ex) {
             AppLogger.logSevere(Bundle.class, ex);
         }

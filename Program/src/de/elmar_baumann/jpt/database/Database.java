@@ -50,7 +50,7 @@ public class Database {
         if (connection != null) {
             try {
                 ConnectionPool.getInstance().free(connection);
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(Database.class, ex);
             }
         }
@@ -65,7 +65,7 @@ public class Database {
     protected void rollback(Connection connection) {
         try {
             connection.rollback();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(Database.class, ex);
         }
     }

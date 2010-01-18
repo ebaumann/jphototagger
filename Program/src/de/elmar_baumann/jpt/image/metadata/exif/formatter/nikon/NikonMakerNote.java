@@ -256,7 +256,7 @@ public final class NikonMakerNote {
         for (String key : keys) {
             try {
                 makerNoteTagInfos.add(new MakerNoteTagInfo(indexOfTag(key), bundle.getString(key)));
-            } catch (ClassNotFoundException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(NikonMakerNote.class, ex);
             }
         }

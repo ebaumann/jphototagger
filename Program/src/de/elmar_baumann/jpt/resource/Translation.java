@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.resource;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
@@ -39,7 +38,7 @@ public final class Translation {
 
             bundle = ResourceBundle.getBundle(PATH_PREFIX + propertiesFileBasename);
 
-        } catch (MissingResourceException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(Translation.class, ex);
         }
     }
@@ -51,19 +50,10 @@ public final class Translation {
      * @return       Übersetzter String (Value eines Propertys) oder zu
      *               übersetzender String, falls keine Übersetzung möglich ist
      *               (Key nicht vorhanden in Properties-Datei)
-     * @throws NullPointerException wenn der Schlüssel null ist
      */
     public String translate(String string) {
         try {
             return bundle.getString(string);
-
-        } catch (MissingResourceException ex) {
-
-            AppLogger.logSevere(Translation.class, ex);
-
-        } catch (NullPointerException ex) {
-
-            throw ex;
 
         } catch (Exception ex) {
 
@@ -85,14 +75,6 @@ public final class Translation {
     public String translate(String string, String alternate) {
         try {
             return bundle.getString(string);
-
-        } catch (MissingResourceException ex) {
-
-            // ignore, using alternate
-
-        } catch (NullPointerException ex) {
-
-            throw ex;
 
         } catch (Exception ex) {
 

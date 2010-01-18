@@ -22,7 +22,6 @@ import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 /**
@@ -114,9 +113,8 @@ public final class IptcEntry {
 
     private String getEncodedData() {
         try {
-            return new String(data, UserSettings.INSTANCE.
-                getIptcCharset()).trim();
-        } catch (UnsupportedEncodingException ex) {
+            return new String(data, UserSettings.INSTANCE.getIptcCharset()).trim();
+        } catch (Exception ex) {
             AppLogger.logSevere(IptcEntry.class, ex);
         }
         return "";

@@ -27,7 +27,6 @@ import de.elmar_baumann.jpt.data.ParamStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +69,7 @@ public final class DatabaseFind extends Database {
             }
             resultSet.close();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFind.class, ex);
             filenames.clear();
         } finally {
@@ -122,7 +121,7 @@ public final class DatabaseFind extends Database {
                 }
                 resultSet.close();
                 stmt.close();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseFind.class, ex);
                 filenames.clear();
             } finally {

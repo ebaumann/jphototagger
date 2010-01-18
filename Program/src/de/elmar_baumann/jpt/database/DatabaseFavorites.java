@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.data.Favorite;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +73,7 @@ public final class DatabaseFavorites extends Database {
             connection.commit();
             inserted = count > 0;
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
             rollback(connection);
         } finally {
@@ -103,7 +102,7 @@ public final class DatabaseFavorites extends Database {
             connection.commit();
             deleted = count > 0;
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
             rollback(connection);
         } finally {
@@ -142,7 +141,7 @@ public final class DatabaseFavorites extends Database {
             connection.commit();
             updated = count > 0;
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
             rollback(connection);
         } finally {
@@ -175,7 +174,7 @@ public final class DatabaseFavorites extends Database {
                         rs.getString(1), rs.getString(2), rs.getInt(3)));
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             directories.clear();
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
@@ -207,7 +206,7 @@ public final class DatabaseFavorites extends Database {
             }
             stmt.close();
             exists = count > 0;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             free(connection);

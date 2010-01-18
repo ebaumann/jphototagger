@@ -75,7 +75,7 @@ public class XmpCache extends Cache<XmpCacheIndirection>
                 if (files.size() < 1) {
                     try {
                         file = wq.fetch().file;
-                    } catch (InterruptedException ex) {
+                    } catch (Exception ex) {
                         continue;
                     }
                 } else {
@@ -95,7 +95,7 @@ public class XmpCache extends Cache<XmpCacheIndirection>
                         try {
                             // wait a bit to allow ThumbnailCache to get some disk bandwidth
                             Thread.sleep(10);
-                        } catch (InterruptedException ex) {}
+                        } catch (Exception ex) {}
                     }
                     List<Pair<String, Xmp>> res = db.getXmpOf(files);
                     // send updates to request results

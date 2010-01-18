@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.data.Program;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,7 +69,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
@@ -99,7 +98,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
@@ -138,7 +137,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 }
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
         } finally {
             free(connection);
@@ -168,7 +167,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
@@ -207,7 +206,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection.commit();
             allReordered = countAffected == actions.size();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {

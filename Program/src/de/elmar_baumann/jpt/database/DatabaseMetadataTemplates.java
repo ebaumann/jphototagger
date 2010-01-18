@@ -117,7 +117,7 @@ public class DatabaseMetadataTemplates extends Database {
             inserted = true;
             stmt.close();
             notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.ADDED, template, this));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
@@ -237,7 +237,7 @@ public class DatabaseMetadataTemplates extends Database {
                 setValues(template, rs);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);
@@ -269,7 +269,7 @@ public class DatabaseMetadataTemplates extends Database {
                 templates.add(template);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);
@@ -392,7 +392,7 @@ public class DatabaseMetadataTemplates extends Database {
             updated = count > 0;
             stmt.close();
             if (updated) notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.UPDATED, template, oldTemplate, this));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
@@ -430,7 +430,7 @@ public class DatabaseMetadataTemplates extends Database {
                 MetadataTemplate newTemplate = find(newName);
                 notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.UPDATED, newTemplate, oldTemplate, this));
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
@@ -461,7 +461,7 @@ public class DatabaseMetadataTemplates extends Database {
             deleted = count > 0;
             stmt.close();
             if (deleted) notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.DELETED, template, this));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
@@ -486,7 +486,7 @@ public class DatabaseMetadataTemplates extends Database {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
             free(connection);

@@ -158,7 +158,7 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
                                 false);
                     }
                     cache.update(im, rtci.file, rtci.length, true);
-                } catch (InterruptedException e) {}
+                } catch (Exception e) {}
             }
         }
     }

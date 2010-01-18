@@ -186,7 +186,7 @@ public final class ConnectionPool implements Runnable {
             // an existing connection to be freed up.
             try {
                 wait();
-            } catch (InterruptedException ie) {
+            } catch (Exception ie) {
             }
             // Someone freed up a connection, so try again.
             return (getConnection());
@@ -304,7 +304,7 @@ public final class ConnectionPool implements Runnable {
                     connection.close();
                 }
             }
-        } catch (SQLException sqle) {
+        } catch (Exception sqle) {
             // Ignore errors; garbage collect anyhow
         }
     }

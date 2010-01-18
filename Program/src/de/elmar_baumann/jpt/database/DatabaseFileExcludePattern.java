@@ -27,7 +27,6 @@ import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,7 +65,7 @@ public final class DatabaseFileExcludePattern extends Database {
             connection.commit();
             stmt.close();
             inserted = count > 0;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
@@ -94,7 +93,7 @@ public final class DatabaseFileExcludePattern extends Database {
             connection.commit();
             stmt.close();
             deleted = count > 0;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
@@ -122,7 +121,7 @@ public final class DatabaseFileExcludePattern extends Database {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
@@ -152,7 +151,7 @@ public final class DatabaseFileExcludePattern extends Database {
                 patterns.add(rs.getString(1));
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);
@@ -222,10 +221,7 @@ public final class DatabaseFileExcludePattern extends Database {
             stmtQuery.close();
             stmtUpdate.close();
             notifyProgressListenerEnd(listener, event);
-        } catch (SQLException ex) {
-            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } catch (Exception ex) {
-            // regular expression exceptions are possible
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
             free(connection);

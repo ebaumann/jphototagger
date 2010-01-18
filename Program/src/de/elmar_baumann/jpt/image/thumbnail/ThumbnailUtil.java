@@ -44,7 +44,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -365,12 +364,8 @@ public final class ThumbnailUtil {
             image = ImageIO.read(file);
             MediaTracker mediaTracker = new MediaTracker(new Container());
             mediaTracker.addImage(image, 0);
-            try {
-                mediaTracker.waitForID(0);
-            } catch (InterruptedException ex) {
-                AppLogger.logSevere(ThumbnailUtil.class, ex);
-            }
-        } catch (IOException ex) {
+            mediaTracker.waitForID(0);
+        } catch (Exception ex) {
             AppLogger.logSevere(ThumbnailUtil.class, ex);
         }
         return image;

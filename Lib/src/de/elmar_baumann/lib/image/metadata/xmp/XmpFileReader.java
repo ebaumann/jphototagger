@@ -215,9 +215,8 @@ public final class XmpFileReader {
         if (bufferedReader != null) {
             try {
                 bufferedReader.close();
-            } catch (IOException ex) {
-                Logger.getLogger(XmpFileReader.class.getName()).
-                        log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

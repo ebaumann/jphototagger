@@ -136,7 +136,7 @@ public final class ImageTransform {
         PixelGrabber pg = new PixelGrabber(image, 0, 0, 1, 1, false);
         try {
             pg.grabPixels();
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, ex);
         }
 

@@ -187,7 +187,7 @@ public final class DateChooserDialog extends JComponent {
                     gc.set(Calendar.DAY_OF_MONTH, num);
                     selectedDay = num;
                     drawCalendar();
-                } catch (NumberFormatException nfe) {
+                } catch (Exception nfe) {
                 }
             }
         };

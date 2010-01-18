@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.database.metadata;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import javax.swing.text.DefaultFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -54,7 +53,7 @@ public final class FormatterFactory {
             integerFormatterFactory = new DefaultFormatterFactory(integerFormatter);
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(FormatterFactory.class, ex);
         }
     }

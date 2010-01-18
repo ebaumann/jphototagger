@@ -127,7 +127,7 @@ public final class AppWindowPersistence
             public void run() {
                 try {
                     Thread.sleep(3 * 1000);
-                } catch (InterruptedException ex) {
+                } catch (Exception ex) {
                     AppLogger.logSevere(MetaFactory.class, ex);
                 }
 

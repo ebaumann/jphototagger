@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -68,7 +67,7 @@ public final class DatabaseContent extends Database {
                 content.add(resultSet.getString(1));
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseContent.class, ex);
             content.clear();
         } finally {
