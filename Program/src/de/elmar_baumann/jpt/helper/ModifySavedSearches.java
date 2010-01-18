@@ -22,8 +22,8 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.comparator.ComparatorSavedSearch;
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.database.DatabaseSavedSearches;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelSavedSearches;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import javax.swing.SwingUtilities;
 
@@ -148,8 +148,7 @@ public final class ModifySavedSearches {
     }
 
     private static ListModelSavedSearches getModel() {
-        return (ListModelSavedSearches) GUI.INSTANCE.getAppPanel().
-                getListSavedSearches().getModel();
+        return ModelFactory.INSTANCE.getModel(ListModelSavedSearches.class);
     }
 
     private static String getInput(String oldName) {

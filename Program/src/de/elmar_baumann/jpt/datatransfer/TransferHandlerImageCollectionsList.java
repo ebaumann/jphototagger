@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
@@ -47,12 +48,10 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(
-                Flavor.THUMBNAILS_PANEL) &&
-                transferSupport.isDataFlavorSupported(
-                DataFlavor.javaFileListFlavor) &&
-                ((JList.DropLocation) transferSupport.getDropLocation()).
-                getIndex() >= 0;
+        return transferSupport.isDataFlavorSupported(Flavor.THUMBNAILS_PANEL) &&
+               transferSupport.isDataFlavorSupported(DataFlavor.javaFileListFlavor) &&
+               ((JList.DropLocation) transferSupport.getDropLocation()).
+               getIndex() >= 0;
     }
 
     @Override
@@ -67,15 +66,12 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
         List<File> files = null;
         try {
             Transferable transferable = transferSupport.getTransferable();
-            files = getImageFiles((List<File>) transferable.getTransferData(
-                    DataFlavor.javaFileListFlavor));
+            files = getImageFiles((List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor));
         } catch (Exception ex) {
             AppLogger.logSevere(TransferHandlerImageCollectionsList.class, ex);
             return false;
         }
-        int listIndex =
-                ((JList.DropLocation) transferSupport.getDropLocation()).
-                getIndex();
+        int listIndex = ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();
         handleDroppedThumbnails(listIndex, FileUtil.getAsFilenames(files));
         return true;
     }
@@ -89,21 +85,17 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
     }
 
     private void addToImageCollection(int itemIndex, List<String> filenames) {
-        boolean added =
-                ModifyImageCollections.addImagesToCollection(
-                getImageCollectionName(itemIndex), filenames);
+        boolean added = ModifyImageCollections.addImagesToCollection(getImageCollectionName(itemIndex), filenames);
         if (added) {
             refreshThumbnailsPanel();
         }
     }
 
     private void createImageCollection(final List<String> filenames) {
-        String newCollectionName =
-                ModifyImageCollections.insertImageCollection(filenames);
+        String newCollectionName = ModifyImageCollections.insertImageCollection(filenames);
         if (newCollectionName != null) {
-            ((ListModelImageCollections) GUI.INSTANCE.getAppPanel().
-                    getListImageCollections().getModel()).addElement(
-                    newCollectionName);
+            ModelFactory.INSTANCE.getModel(ListModelImageCollections.class).
+                    addElement(newCollectionName);
         }
     }
 

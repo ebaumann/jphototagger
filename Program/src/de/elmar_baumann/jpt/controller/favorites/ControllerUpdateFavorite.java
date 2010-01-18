@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.FavoritePropertiesDialog;
@@ -92,13 +93,10 @@ public final class ControllerUpdateFavorite
 
                 @Override
                 public void run() {
-                    TreeModelFavorites model =
-                            (TreeModelFavorites) appPanel.getTreeFavorites().
-                            getModel();
-                    model.update(favorite, new Favorite(
-                            favoriteName,
-                            directoryName,
-                            favorite.getIndex()));
+                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
+                    model.update(favorite, new Favorite(favoriteName,
+                                                        directoryName,
+                                                        favorite.getIndex()));
                 }
             });
         }

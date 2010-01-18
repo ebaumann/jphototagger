@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -123,12 +124,12 @@ public final class KeywordsHelper {
      *                nodes of the type {@link DefaultMutableTreeNode}
      * @param keyword keyword to select
      */
+    @SuppressWarnings("unchecked")
     public static void selectNode(JTree tree, Keyword keyword) {
-        TreeModelKeywords model =
-                (TreeModelKeywords) tree.getModel();
-        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        TreeModelKeywords      model   = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        DefaultMutableTreeNode root    = (DefaultMutableTreeNode) model.getRoot();
         DefaultMutableTreeNode selNode = null;
-        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> e = root.breadthFirstEnumeration(); selNode == null && e.hasMoreElements();) {
+        for (Enumeration<DefaultMutableTreeNode> e = root.breadthFirstEnumeration(); selNode == null && e.hasMoreElements();) {
             DefaultMutableTreeNode node       = e.nextElement();
             Object                 userObject = node.getUserObject();
             if (userObject instanceof Keyword) {
@@ -307,10 +308,10 @@ public final class KeywordsHelper {
         @Override
         public void run() {
             for (String keyword : keywords) {
-                if (!DatabaseKeywords.INSTANCE.exists(keyword)
-                        && DatabaseImageFiles.INSTANCE.exists(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)) {
-                    JTree                         treeKeywords = GUI.INSTANCE.getAppPanel().getTreeEditKeywords();
-                    TreeModelKeywords model        = (TreeModelKeywords)treeKeywords.getModel();
+                if (!DatabaseKeywords.INSTANCE.exists(keyword) &&
+                    DatabaseImageFiles.INSTANCE.exists(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)
+                    ) {
+                    TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
                     model.insert((DefaultMutableTreeNode) model.getRoot(), keyword, true);
                 }
             }

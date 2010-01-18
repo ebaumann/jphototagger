@@ -18,10 +18,12 @@
  */
 package de.elmar_baumann.jpt.controller.directories;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.FileSystemDirectories;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
+import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -78,7 +80,7 @@ public final class ControllerDeleteDirectory
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
                 TreeFileSystemDirectories.removeFromTreeModel(
-                        GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel(),
+                        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class),
                         node);
             }
         }

@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
@@ -29,7 +30,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
@@ -75,12 +75,8 @@ public final class ControllerFavoritesAddFilesystemFolder
     }
 
     private void createDirectory(TreePath path) {
-        TreeModel model =
-                GUI.INSTANCE.getAppPanel().getTreeFavorites().getModel();
-        if (model instanceof TreeModelFavorites) {
-            ((TreeModelFavorites) model).createNewDirectory(
-                    TreeFileSystemDirectories.getNodeOfLastPathComponent(path));
-        }
+        TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
+        model.createNewDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(path));
     }
 
     @Override

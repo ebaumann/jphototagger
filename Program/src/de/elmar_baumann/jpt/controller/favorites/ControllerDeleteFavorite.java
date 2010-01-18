@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Favorite;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -83,9 +84,7 @@ public final class ControllerDeleteFavorite
 
                 @Override
                 public void run() {
-                    TreeModelFavorites model =
-                            (TreeModelFavorites) appPanel.getTreeFavorites().
-                            getModel();
+                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
                     model.delete(favoriteDirectory);
                 }
             });

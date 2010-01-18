@@ -19,13 +19,13 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
@@ -49,18 +49,12 @@ public final class InsertKeywords extends Thread {
     }
 
     private void copy() {
-        TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeEditKeywords().
-                getModel();
-        assert tm instanceof TreeModelKeywords :
-                "Invalid model: " + tm;
-        if (tm instanceof TreeModelKeywords) {
-            TreeModelKeywords model =
-                    (TreeModelKeywords) tm;
-            Object root = model.getRoot();
-            assert root instanceof DefaultMutableTreeNode;
-            if (root instanceof DefaultMutableTreeNode) {
-                insertKeywords((DefaultMutableTreeNode) root, model);
-            }
+        TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        Object            root  = model.getRoot();
+
+        assert root instanceof DefaultMutableTreeNode;
+        if (root instanceof DefaultMutableTreeNode) {
+            insertKeywords((DefaultMutableTreeNode) root, model);
         }
     }
 

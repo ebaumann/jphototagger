@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.imagecollection;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -30,7 +31,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JList;
-import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -87,11 +87,8 @@ public final class ControllerDeleteImageCollection
 
                     @Override
                     public void run() {
-                        ListModel model = list.getModel();
-                        if (model instanceof ListModelImageCollections) {
-                            ((ListModelImageCollections) model).removeElement(
-                                    collectionName);
-                        }
+                        ModelFactory.INSTANCE.getModel(ListModelImageCollections.class)
+                                .removeElement(collectionName);
                     }
                 });
             }

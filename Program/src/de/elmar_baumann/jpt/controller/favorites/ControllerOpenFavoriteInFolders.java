@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
@@ -34,7 +35,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
@@ -116,11 +116,7 @@ public final class ControllerOpenFavoriteInFolders
             private void expandTreeToDir(File dir) {
                 treeFavoriteDirectories.clearSelection();
                 tabbedPaneSelection.setSelectedComponent(tabTreeDirectories);
-                TreeModel m = treeDirectories.getModel();
-                if (m instanceof TreeModelAllSystemDirectories) {
-                    ((TreeModelAllSystemDirectories) m).expandToFile(dir,
-                            true);
-                }
+                ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).expandToFile(dir, true);
             }
         });
     }

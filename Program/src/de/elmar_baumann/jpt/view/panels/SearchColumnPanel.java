@@ -262,9 +262,9 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public boolean hasSql() {
         return comboBoxOperators.getModel().getSelectedItem() != null &&
-                comboBoxColumns.getModel().getSelectedItem() != null &&
-                comboBoxComparators.getModel().getSelectedItem() != null &&
-                !textFieldValue.getText().trim().isEmpty();
+               comboBoxColumns.getModel().getSelectedItem() != null &&
+               comboBoxComparators.getModel().getSelectedItem() != null &&
+               !textFieldValue.getText().trim().isEmpty();
     }
 
     /**

@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.keywords.tree.KeywordTreeNodesClipboard;
 import de.elmar_baumann.jpt.controller.keywords.tree.KeywordsTreePathExpander;
 import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
@@ -82,14 +83,13 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
 
         DefaultMutableTreeNode dropNode = getDropNode(transferSupport);
         if (dropNode != null) {
-            JTree tree = (JTree) transferSupport.getComponent();
-            TreeModelKeywords tm = (TreeModelKeywords) tree.getModel();
+            TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
             if (Flavor.hasKeywordsFromList(transferSupport)) {
                 if (!checkImportSelection(transferSupport)) return false;
-                addKeywords(tm, dropNode, transferSupport);
+                addKeywords(model, dropNode, transferSupport);
             } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
                 if (!checkImportSelection(transferSupport)) return false;
-                moveKeywords(transferSupport, tm, dropNode);
+                moveKeywords(transferSupport, model, dropNode);
                 KeywordTreeNodesClipboard.INSTANCE.empty();
             }
             KeywordsTreePathExpander.expand(dropNode);

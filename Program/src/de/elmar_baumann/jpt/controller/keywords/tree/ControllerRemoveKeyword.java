@@ -18,9 +18,9 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
@@ -29,7 +29,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemRemove()}
@@ -67,14 +66,9 @@ public class ControllerRemoveKeyword
 
     private void delete(
             DefaultMutableTreeNode node, Keyword keyword) {
-        TreeModel tm = getHKPanel().getTree().getModel();
-        if (tm instanceof TreeModelKeywords) {
             if (MessageDisplayer.confirmYesNo(null, "ControllerRemoveKeyword.Confirm.Remove", keyword)) {
                 KeywordsHelper.deleteInFiles(keyword);
-                ((TreeModelKeywords) tm).delete(node);
+                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(node);
             }
-        } else {
-            AppLogger.logWarning(ControllerRemoveKeyword.class, "ControllerRemoveKeyword.Error.Model");
-        }
     }
 }

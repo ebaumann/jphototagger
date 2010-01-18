@@ -18,9 +18,9 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
@@ -29,7 +29,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemToggleReal()}
@@ -56,14 +55,11 @@ public class ControllerToggleRealKeyword
     protected void localAction(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
         if (userObject instanceof Keyword) {
-            Keyword keyword = (Keyword) userObject;
-            TreeModel tm = getHKPanel().getTree().getModel();
-            if (tm instanceof TreeModelKeywords) {
-                keyword.setReal(!keyword.isReal());
-                ((TreeModelKeywords) tm).changed(node, keyword);
-            } else {
-                AppLogger.logWarning(ControllerToggleRealKeyword.class, "ControllerToggleRealKeyword.Error.Model");
-            }
+            Keyword           keyword = (Keyword) userObject;
+            TreeModelKeywords model   = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+
+            keyword.setReal(!keyword.isReal());
+            model.changed(node, keyword);
         } else {
             MessageDisplayer.error(null, "ControllerToggleRealKeyword.Error.Node", node);
         }

@@ -18,8 +18,9 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.list;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
-import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.model.ListModelKeywords;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.ActionEvent;
@@ -52,7 +53,7 @@ public final class ControllerDisplayKeyword extends ControllerKeywords {
     @Override
     protected void action(List<String> keywords) {
 
-        ListModel     model   = GUI.INSTANCE.getAppPanel().getListSelKeywords().getModel();
+        ListModel     model   = ModelFactory.INSTANCE.getModel(ListModelKeywords.class);
         List<Integer> indices = ListUtil.getIndicesOfItems(model, keywords);
 
         if (!indices.isEmpty()) {

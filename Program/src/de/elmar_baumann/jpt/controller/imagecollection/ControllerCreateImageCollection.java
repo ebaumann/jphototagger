@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.imagecollection;
 
 import de.elmar_baumann.jpt.comparator.ComparatorStringAscending;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -34,7 +35,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JList;
-import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -50,14 +50,11 @@ import javax.swing.SwingUtilities;
 public final class ControllerCreateImageCollection
         implements ActionListener, KeyListener {
 
-    private final PopupMenuThumbnails popupMenuThumbnails =
-            PopupMenuThumbnails.INSTANCE;
-    private final PopupMenuImageCollections popupMenuImageCollections =
-            PopupMenuImageCollections.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList listImageCollections = appPanel.getListImageCollections();
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuThumbnails       popupMenuThumbnails       = PopupMenuThumbnails.INSTANCE;
+    private final PopupMenuImageCollections popupMenuImageCollections = PopupMenuImageCollections.INSTANCE;
+    private final AppPanel                  appPanel                  = GUI.INSTANCE.getAppPanel();
+    private final JList                     listImageCollections      = appPanel.getListImageCollections();
+    private final ThumbnailsPanel           thumbnailsPanel           = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerCreateImageCollection() {
         listen();
@@ -82,23 +79,19 @@ public final class ControllerCreateImageCollection
     }
 
     private void createImageCollectionOfSelectedFiles() {
-        final String collectionName =
-                ModifyImageCollections.insertImageCollection(
+        final String collectionName = ModifyImageCollections.insertImageCollection(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         if (collectionName != null) {
             SwingUtilities.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
-                    ListModel model = listImageCollections.getModel();
-                    if (model instanceof ListModelImageCollections) {
-                        ListUtil.insertSorted((ListModelImageCollections) model,
-                                collectionName,
-                                ComparatorStringAscending.INSTANCE,
-                                ListModelImageCollections.
-                                getSpecialCollectionCount(),
-                                model.getSize() - 1);
-                    }
+                    ListModelImageCollections model = ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
+                    ListUtil.insertSorted(model,
+                                          collectionName,
+                                          ComparatorStringAscending.INSTANCE,
+                                          ListModelImageCollections.getSpecialCollectionCount(),
+                                          model.getSize() - 1);
                 }
             });
         }

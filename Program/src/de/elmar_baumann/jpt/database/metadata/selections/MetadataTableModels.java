@@ -31,16 +31,16 @@ import java.util.Set;
  */
 public final class MetadataTableModels {
 
-    private TableModelIptc iptcTableModel;
-    private TableModelExif exifTableModel;
-    private TableModelXmp xmpTableModelDc;
-    private TableModelXmp xmpTableModelExif;
-    private TableModelXmp xmpTableModelIptc;
-    private TableModelXmp xmpTableModelLightroom;
-    private TableModelXmp xmpTableModelPhotoshop;
-    private TableModelXmp xmpTableModelTiff;
-    private TableModelXmp xmpTableModelCameraRawSettings;
-    private TableModelXmp xmpTableModelXap;
+    private TableModelIptc     iptcTableModel;
+    private TableModelExif     exifTableModel;
+    private TableModelXmp      xmpTableModelDc;
+    private TableModelXmp      xmpTableModelExif;
+    private TableModelXmp      xmpTableModelIptc;
+    private TableModelXmp      xmpTableModelLightroom;
+    private TableModelXmp      xmpTableModelPhotoshop;
+    private TableModelXmp      xmpTableModelTiff;
+    private TableModelXmp      xmpTableModelCameraRawSettings;
+    private TableModelXmp      xmpTableModelXap;
     private Set<TableModelXmp> xmpTableModels;
 
     /**

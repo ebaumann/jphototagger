@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.directories;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -29,7 +30,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 
 /**
  * Listens to {@link PopupMenuDirectories#getItemCreateDirectory()} and
@@ -73,11 +73,7 @@ public final class ControllerCreateDirectory
     }
 
     private void createDirectory(DefaultMutableTreeNode node) {
-        TreeModel model =
-                GUI.INSTANCE.getAppPanel().getTreeDirectories().getModel();
-        if (model instanceof TreeModelAllSystemDirectories) {
-            ((TreeModelAllSystemDirectories) model).createNewDirectory(node);
-        }
+        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).createNewDirectory(node);
     }
 
     @Override

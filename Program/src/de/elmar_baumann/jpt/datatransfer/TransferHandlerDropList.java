@@ -61,15 +61,10 @@ public final class TransferHandlerDropList extends TransferHandler {
         Transferable     transferable = transferSupport.getTransferable();
 
         if (Flavor.hasKeywordsFromList(transferSupport)) {
-
             return importKeywords(transferable, listModel);
-
         } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
-
             return importKeywords(listModel, transferSupport.getTransferable());
-
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
-
             MetadataTemplateSupport.setTemplate(transferSupport);
             return true;
         }

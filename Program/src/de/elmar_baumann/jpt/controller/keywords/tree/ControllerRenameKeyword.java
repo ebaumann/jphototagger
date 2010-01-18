@@ -18,10 +18,10 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
@@ -31,7 +31,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemRename()}
@@ -70,17 +69,13 @@ public class ControllerRenameKeyword
     }
 
     private void renameKeyword(DefaultMutableTreeNode node, Keyword keyword) {
-        TreeModel tm = getHKPanel().getTree().getModel();
-        if (tm instanceof TreeModelKeywords) {
-            String newName = getName(keyword, db, getHKPanel().getTree());
-            if (newName != null && !newName.trim().isEmpty()) {
-                String oldName = keyword.getName();
-                keyword.setName(newName);
-                KeywordsHelper.renameInFiles(oldName, keyword);
-                ((TreeModelKeywords) tm).changed(node, keyword);
-            }
-        } else {
-            AppLogger.logWarning(ControllerRenameKeyword.class, "ControllerRenameKeyword.Error.Model");
+        String newName = getName(keyword, db, getHKPanel().getTree());
+        if (newName != null && !newName.trim().isEmpty()) {
+            TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+            String oldName = keyword.getName();
+            keyword.setName(newName);
+            KeywordsHelper.renameInFiles(oldName, keyword);
+            model.changed(node, keyword);
         }
     }
 

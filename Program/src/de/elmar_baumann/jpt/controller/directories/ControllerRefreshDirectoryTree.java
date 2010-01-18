@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.directories;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
@@ -65,10 +66,7 @@ public final class ControllerRefreshDirectoryTree
     }
 
     private void refresh() {
-        TreeModelAllSystemDirectories model =
-                (TreeModelAllSystemDirectories) GUI.INSTANCE.getAppPanel().
-                getTreeDirectories().getModel();
-        model.update();
+        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).update();
     }
 
     @Override
