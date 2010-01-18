@@ -74,9 +74,7 @@ final class UpdateTablesIndexes {
         }
     }
 
-    private void replaceIndex(
-            Connection connection, String indexName, IndexInfo[] indexInfos)
-            throws SQLException {
+    private void replaceIndex(Connection connection, String indexName, IndexInfo[] indexInfos) throws SQLException {
         Statement stmt = connection.createStatement();
         String sql = "DROP INDEX " + indexName + " IF EXISTS";
         stmt.executeUpdate(sql);
@@ -86,15 +84,11 @@ final class UpdateTablesIndexes {
         stmt.close();
     }
 
-    private boolean existsIndex(
-            Connection connection, String indexName, String tableName)
-            throws SQLException {
+    private boolean existsIndex(Connection connection, String indexName, String tableName) throws SQLException {
 
         boolean exists = false;
         DatabaseMetaData meta = connection.getMetaData();
-        ResultSet rs = meta.getIndexInfo(
-                connection.getCatalog(), null, tableName.toUpperCase(), false,
-                true);
+        ResultSet rs = meta.getIndexInfo(connection.getCatalog(), null, tableName.toUpperCase(), false, true);
         while (!exists && rs.next()) {
             String name = rs.getString("INDEX_NAME");
             if (name != null) {

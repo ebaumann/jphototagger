@@ -38,7 +38,7 @@ public final class UpdateTables extends Database {
     public void update(Connection connection) throws SQLException {
         new UpdateTablesDropColumns()      .update(connection);
         new UpdateTablesRenameColumns()    .update(connection);
-        new UpdateTablesInsertColumns()       .update(connection);
+        new UpdateTablesInsertColumns()    .update(connection);
         new UpdateTablesIndexes()          .update(connection);
         new UpdateTablesPrimaryKeys()      .update(connection);
         new UpdateTablesXmpLastModified()  .update(connection);

@@ -74,8 +74,7 @@ final class UpdateTablesRenameColumns {
 
     private void renameColumn(Connection connection,
             Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
-        setMessage(info.getFirst().getTableName(),
-                info.getFirst().getColumnName());
+        setMessage(info.getFirst().getTableName(), info.getFirst().getColumnName());
         Statement stmt = connection.createStatement();
         stmt.execute("ALTER TABLE " +
                 info.getFirst().getTableName() +
