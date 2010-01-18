@@ -30,7 +30,8 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * IPTC-Daten eines Bilds.
+ * All elements are {@link IptcEntry}s of <em>one</em> image file retrieved
+ * through {@link IptcMetadata#getIptcEntries(java.io.File)}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

@@ -23,10 +23,12 @@ import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- * Contains the columns for the fast search.
+ * Elements are the columns for the fast search - instances of
+ * {@link de.elmar_baumann.jpt.database.metadata.Column} - and a string.
  *
- * The elements are the columns where a fast search should look for or
- * {@link #ALL_DEFINED_COLUMNS}.
+ * The elements retrieved through {@link FastSearchColumns#get()}. The string is
+ * {@link #ALL_DEFINED_COLUMNS} and means, the fast search shall search
+ * in all columns, else only in the selected column.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-31

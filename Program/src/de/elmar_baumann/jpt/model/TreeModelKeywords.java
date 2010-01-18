@@ -35,7 +35,12 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 
 /**
- * Model of data in {@link DatabaseKeywords}.
+ * Elements are {@link DefaultMutableTreeNode}s with the user objects listed below.
+ *
+ * <ul>
+ * <li>The root user object is a {@link String}</li>
+ * <li>All other user objects are {@link Keyword}s</li>
+ * </ul>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-11
@@ -161,8 +166,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         return true;
     }
 
-    private boolean ensureTargetIsNotBelowSource(
-            DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
+    private boolean ensureTargetIsNotBelowSource(DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
 
         boolean isBelow = TreeUtil.isAbove(source, target);
         if  (isBelow) {
@@ -191,7 +195,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     public synchronized void delete(DefaultMutableTreeNode keywordNode) {
 
         List<Keyword> delKeywords = new ArrayList<Keyword>();
-        Object                    o           = keywordNode.getUserObject();
+        Object        o           = keywordNode.getUserObject();
 
         assert o instanceof Keyword : o;
 
@@ -305,11 +309,11 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      * @param oldName old name
      * @param newName new name
      */
+    @SuppressWarnings("unchecked")
     public synchronized void setAllRenamed(String oldName, String newName) {
         assert !newName.equalsIgnoreCase(oldName) : oldName;
         if (db.updateRenameAll(oldName, newName) > 0) {
-            for (@SuppressWarnings("unchecked")
-Enumeration<DefaultMutableTreeNode> e = ROOT.depthFirstEnumeration(); e.hasMoreElements(); ) {
+            for (Enumeration<DefaultMutableTreeNode> e = ROOT.depthFirstEnumeration(); e.hasMoreElements(); ) {
                 DefaultMutableTreeNode node       = e.nextElement();
                 Object                 userObject = node.getUserObject();
 

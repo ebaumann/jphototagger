@@ -26,8 +26,12 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
- * Model for {@link de.elmar_baumann.jpt.data.Program} where
- * {@link de.elmar_baumann.jpt.data.Program#isAction()} is false.
+ * Contains {@link Program}s retrieved through
+ * {@link DatabasePrograms#getAll(de.elmar_baumann.jpt.database.DatabasePrograms.Type)}.
+ *
+ * All programs in this model are actions, where
+ * {@link de.elmar_baumann.jpt.data.Program#isAction()} is true, <em>or</em>
+ * programs, where that method returns <code>false</code>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-16

@@ -23,8 +23,7 @@ import de.elmar_baumann.jpt.database.metadata.selections.NoMetadataColumns;
 import javax.swing.DefaultListModel;
 
 /**
- * Contains the columns where no metadata can be stored in the database
- * (can be null).
+ * Elements are {@link Column}s retrieved through {@link NoMetadataColumns#get()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-06

@@ -31,7 +31,8 @@ import java.util.Set;
 import javax.swing.DefaultListModel;
 
 /**
- * Contains all Keywords.
+ * Elements are keyword {@link String}s retrieved through
+ * {@link DatabaseImageFiles#getAllDcSubjects()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-25
@@ -123,13 +124,12 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
     }
 
     boolean databaseHasKeyword(String keyword) {
-        return DatabaseStatistics.INSTANCE.existsValueIn(
-                ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+        return DatabaseStatistics.INSTANCE.existsValueIn(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
     }
 
     private List<String> getKeywords(ImageFile imageFile) {
         List<String> keywords = new ArrayList<String>();
-        Xmp xmp = imageFile.getXmp();
+        Xmp          xmp      = imageFile.getXmp();
         if (xmp != null && xmp.getDcSubjects() != null) {
             keywords.addAll(xmp.getDcSubjects());
         }

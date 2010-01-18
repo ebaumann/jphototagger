@@ -26,7 +26,8 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
- *
+ * Elements are {@link SavedSearch}es retrieved through
+ * {@link DatabaseSavedSearches#getAll()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-17
@@ -40,8 +41,7 @@ public final class ListModelSavedSearches extends DefaultListModel {
     }
 
     private void addElements() {
-        List<SavedSearch> savedSearches =
-                DatabaseSavedSearches.INSTANCE.getAll();
+        List<SavedSearch> savedSearches = DatabaseSavedSearches.INSTANCE.getAll();
         for (SavedSearch savedSearch : savedSearches) {
             addElement(savedSearch);
         }

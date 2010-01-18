@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import java.awt.Color;
 import java.awt.Component;
@@ -45,9 +44,9 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
     private              int               popupHighLightRow            = -1;
 
     {
-        ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT, AppLookAndFeel.getIcon("icon_card.png"));
-        ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED     , AppLookAndFeel.getIcon("icon_picked.png"));
-        ICON_OF_VALUE.put(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED   , AppLookAndFeel.getIcon("icon_rejected.png"));
+        ICON_OF_VALUE.put(ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT, AppLookAndFeel.getIcon("icon_card.png"));
+        ICON_OF_VALUE.put(ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED     , AppLookAndFeel.getIcon("icon_picked.png"));
+        ICON_OF_VALUE.put(ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED   , AppLookAndFeel.getIcon("icon_rejected.png"));
     }
 
     @Override

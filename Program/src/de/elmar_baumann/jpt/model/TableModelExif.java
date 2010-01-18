@@ -44,7 +44,14 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * EXIF-Daten eines Bilds.
+ * Elements are {@link ExifTag}s ore {@link String}s in case of GPS information
+ * retrieved through {@link ExifMetadata#getExifTags(java.io.File)}.
+ *
+ * This model displays EXIF information of <em>one</em> image file.
+ *
+ * The first row is a "prompt", the second contains the data. Both are
+ * containing the same objects (both either <code>ExifTag</code> instances or
+ * <code>String</code> instances).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

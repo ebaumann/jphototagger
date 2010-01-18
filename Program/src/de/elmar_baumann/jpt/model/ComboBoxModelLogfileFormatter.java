@@ -23,7 +23,11 @@ import java.util.logging.XMLFormatter;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- * Logdateien-Formatierer.
+ * Elements are the <strong>{@link Class} objects</strong> of specialized
+ * {@link java.util.logging.Formatter}s.
+ *
+ * These formatters can be used for formatting {@link java.util.logging.Logger}
+ * output.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-17

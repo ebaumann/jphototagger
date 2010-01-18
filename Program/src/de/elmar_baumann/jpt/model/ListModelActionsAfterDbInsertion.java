@@ -30,11 +30,18 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
+ * Elements are {@link Program}s retrieved through
+ * {@link DatabaseActionsAfterDbInsertion#getAll()}.
+ *
+ * The programs are actions, {@link Program#isAction()} is true for every
+ * element in this model. All actions shall be executed after inserting metadata
+ * into the database.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-07
  */
-public final class ListModelActionsAfterDbInsertion extends DefaultListModel 
+public final class ListModelActionsAfterDbInsertion
+        extends    DefaultListModel
         implements DatabaseProgramsListener {
 
     private static final long serialVersionUID = -6490813457178023686L;
@@ -45,15 +52,11 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     public void insert(Program action) {
-        assert action.isAction() : "Program is not an action!";
-        if (!contains(action) &&
-                DatabaseActionsAfterDbInsertion.INSTANCE.insert(action, getSize())) {
+        assert action.isAction() : action;
+        if (!contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.insert(action, getSize())) {
             addElement(action);
         } else {
-            MessageDisplayer.error(
-                    null,
-                    "ListModelActionsAfterDbInsertion.Error.Add",
-                    action.getAlias());
+            errorMessageInsert(action);
         }
     }
 
@@ -87,37 +90,27 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     private void swapElements(int indexFirstElement, int indexSecondElement) {
-        if (ListUtil.swapModelElements(this, indexFirstElement,
-                indexSecondElement)) {
+        if (ListUtil.swapModelElements(this, indexFirstElement, indexSecondElement)) {
             fireContentsChanged(this, indexFirstElement, indexFirstElement);
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
-            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(getActions(),
-                    0)) {
-                MessageDisplayer.error(
-                        null,
-                        "ListModelActionsAfterDbInsertion.Error.Swap",
-                        ((Program) get(indexFirstElement)).getAlias());
+            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(getActions(), 0)) {
+                errorMessageSwap(indexFirstElement);
             }
         }
     }
 
     public void delete(Program action) {
-        if (contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.delete(
-                action)) {
+        if (contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.delete(action)) {
             removeElement(action);
         } else {
-            MessageDisplayer.error(
-                    null,
-                    "ListModelActionsAfterDbInsertion.Error.Remove",
-                    action.getAlias());
+            errorMessageDelete(action);
         }
     }
 
     private void addElements() {
-        List<Program> programs =
-                DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
-        for (Program program : programs) {
-            addElement(program);
+        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        for (Program action : actions) {
+            addElement(action);
         }
     }
 
@@ -127,15 +120,33 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         Program program = event.getProgram();
         int index = indexOf(program);
         boolean contains = index >= 0;
-        if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED) &&
-                contains) {
+        if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED) && contains) {
             removeElementAt(index);
             fireIntervalRemoved(this, index, index);
-        } else if (eventType.equals(
-                DatabaseProgramsEvent.Type.PROGRAM_UPDATED) &&
-                contains) {
+        } else if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_UPDATED) && contains) {
             set(index, program);
             fireContentsChanged(this, index, index);
         }
+    }
+
+    private void errorMessageDelete(Program action) {
+        MessageDisplayer.error(
+                null,
+                "ListModelActionsAfterDbInsertion.Error.Remove",
+                action);
+    }
+
+    private void errorMessageSwap(int indexFirstElement) {
+        MessageDisplayer.error(
+                null,
+                "ListModelActionsAfterDbInsertion.Error.Swap",
+                (Program) get(indexFirstElement));
+    }
+
+    private void errorMessageInsert(Program action) {
+        MessageDisplayer.error(
+                null,
+                "ListModelActionsAfterDbInsertion.Error.Add",
+                action);
     }
 }

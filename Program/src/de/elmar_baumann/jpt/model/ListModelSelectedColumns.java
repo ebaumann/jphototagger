@@ -20,13 +20,19 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 
 /**
- * Model mit Spaltenauswahlen. Gültiges Model für
- * {@link de.elmar_baumann.lib.component.CheckList}.
+ * Elements are {@link JCheckBox}es with the text of
+ * {@link de.elmar_baumann.jpt.database.metadata.Column#getDescription()}.
+ *
+ * This model is a for usage in a
+ * {@link de.elmar_baumann.lib.component.CheckList}. All check boxes mapped
+ * to the colums, where the column can be retrieved via the check box index
+ * ({@link #getColumnAtIndex(int)}).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -35,26 +41,31 @@ import javax.swing.JCheckBox;
 public final class ListModelSelectedColumns extends DefaultListModel {
 
     private static final long          serialVersionUID = 2895854023882249479L;
-    private               List<Column> allColumns;
+    private               List<Column> columns;
 
-    public ListModelSelectedColumns(List<Column> allColumns) {
-        this.allColumns = new ArrayList<Column>(allColumns);
+    /**
+     * Constructor for selected columns.
+     *
+     * @param columns columns
+     */
+    public ListModelSelectedColumns(Collection<Column> columns) {
+        this.columns = new ArrayList<Column>(columns);
         addElements();
     }
 
     private void addElements() {
-        for (Column searchColumn : allColumns) {
-            addElement(new JCheckBox(searchColumn.getDescription()));
+        for (Column column : columns) {
+            addElement(new JCheckBox(column.getDescription()));
         }
     }
 
     /**
-     * Liefert eine Tabellenspalte mit bestimmtem Index.
+     * Returns a column at an check box index.
      *
-     * @param index Index
-     * @return      Spalte
+     * @param index index
+     * @return      column or null on invalid indexes
      */
     public Column getColumnAtIndex(int index) {
-        return allColumns.get(index);
+        return columns.get(index);
     }
 }
