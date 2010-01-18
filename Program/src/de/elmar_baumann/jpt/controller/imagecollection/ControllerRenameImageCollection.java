@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.imagecollection;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -31,7 +32,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JList;
 import javax.swing.JTree;
-import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -48,10 +48,9 @@ import javax.swing.SwingUtilities;
 public final class ControllerRenameImageCollection
         implements ActionListener, KeyListener {
 
-    private final PopupMenuImageCollections popupMenu =
-            PopupMenuImageCollections.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList list = appPanel.getListImageCollections();
+    private final PopupMenuImageCollections popupMenu = PopupMenuImageCollections.INSTANCE;
+    private final AppPanel                  appPanel  = GUI.INSTANCE.getAppPanel();
+    private final JList                     list      = appPanel.getListImageCollections();
 
     public ControllerRenameImageCollection() {
         listen();
@@ -74,8 +73,7 @@ public final class ControllerRenameImageCollection
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        renameImageCollection(ListUtil.getItemString(
-                list, popupMenu.getItemIndex()));
+        renameImageCollection(ListUtil.getItemString(list, popupMenu.getItemIndex()));
     }
 
     private boolean isRename(KeyEvent e) {
@@ -84,21 +82,16 @@ public final class ControllerRenameImageCollection
 
     private void renameImageCollection(final String oldName) {
         if (oldName != null) {
-            if (!ListModelImageCollections.checkIsNotSpecialCollection(oldName,
-                    "ListModelImageCollections.Error.RenameSpecialCollection"))
+            if (!ListModelImageCollections.checkIsNotSpecialCollection(oldName, "ListModelImageCollections.Error.RenameSpecialCollection"))
                 return;
-            final String newName =
-                    ModifyImageCollections.renameImageCollection(oldName);
+            final String newName = ModifyImageCollections.renameImageCollection(oldName);
             if (newName != null) {
                 SwingUtilities.invokeLater(new Runnable() {
 
                     @Override
                     public void run() {
-                        ListModel model = list.getModel();
-                        if (model instanceof ListModelImageCollections) {
-                            ((ListModelImageCollections) model).rename(
-                                    oldName, newName);
-                        }
+                        ListModelImageCollections model = ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
+                        model.rename(oldName, newName);
                     }
                 });
             }

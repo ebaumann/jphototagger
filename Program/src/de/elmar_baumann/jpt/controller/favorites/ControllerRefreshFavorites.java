@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
@@ -66,10 +67,7 @@ public final class ControllerRefreshFavorites
     }
 
     private void refresh() {
-        TreeModelFavorites model =
-                (TreeModelFavorites) GUI.INSTANCE.getAppPanel().
-                getTreeFavorites().getModel();
-        model.update();
+        ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).update();
     }
 
     @Override

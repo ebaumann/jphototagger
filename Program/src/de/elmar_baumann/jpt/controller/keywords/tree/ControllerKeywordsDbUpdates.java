@@ -5,8 +5,8 @@ import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.GUI;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -28,8 +28,7 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
 
     @Override
     public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED)
-                || event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
+        if (event.isTextMetadataAffected()) {
             addNotExistingKeywords(event.getImageFile());
         }
     }
@@ -48,8 +47,8 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
     }
 
     private void addKeyword(String keyword) {
-        TreeModelKeywords model =
-                (TreeModelKeywords) GUI.INSTANCE.getAppPanel().getTreeEditKeywords().getModel();
+        TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+
         model.insert((DefaultMutableTreeNode)model.getRoot(), keyword, true);
     }
 }

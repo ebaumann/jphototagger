@@ -48,39 +48,33 @@ public final class MouseListenerFavorites extends MouseListenerTree {
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         if (MouseEventUtil.isPopupTrigger(e)) {
-            TreePath path = TreeUtil.getTreePath(e);
-            boolean isFavorite = false;
+            TreePath path       = TreeUtil.getTreePath(e);
+            boolean isFavorite  = false;
             boolean isDirectory = false;
             popupMenu.setTreePath(path);
             if (path != null) {
                 Object usrObj = path.getLastPathComponent();
                 if (usrObj instanceof DefaultMutableTreeNode) {
-                    DefaultMutableTreeNode node =
-                            (DefaultMutableTreeNode) usrObj;
-                    Object userObject = node.getUserObject();
-                    DefaultMutableTreeNode parent =
-                            (DefaultMutableTreeNode) node.getParent();
-                    TreeNode root = (TreeNode) ((JTree) e.getSource()).getModel().
-                            getRoot();
+                    DefaultMutableTreeNode node       = (DefaultMutableTreeNode) usrObj;
+                    Object                 userObject = node.getUserObject();
+                    DefaultMutableTreeNode parent     = (DefaultMutableTreeNode) node.getParent();
+                    TreeNode               root       = (TreeNode) ((JTree) e.getSource()).getModel().getRoot();
                     isDirectory = userObject instanceof File;
-                    if (root.equals(parent) &&
-                            userObject instanceof Favorite) {
+                    if (root.equals(parent) && userObject instanceof Favorite) {
                         isFavorite = true;
-                        popupMenu.setFavoriteDirectory(
-                                (Favorite) userObject);
+                        popupMenu.setFavoriteDirectory((Favorite) userObject);
                     }
                 }
             }
-            popupMenu.getItemDeleteFavorite().setEnabled(isFavorite);
-            popupMenu.getItemUpdateFavorite().setEnabled(isFavorite);
-            popupMenu.getItemMoveUp().setEnabled(isFavorite);
-            popupMenu.getItemMoveDown().setEnabled(isFavorite);
-            popupMenu.getItemOpenInFolders().setEnabled(
-                    isFavorite || isDirectory);
-            popupMenu.getItemAddFilesystemFolder().setEnabled(
-                    isFavorite || isDirectory);
+            popupMenu.getItemDeleteFavorite()        .setEnabled(isFavorite);
+            popupMenu.getItemUpdateFavorite()        .setEnabled(isFavorite);
+            popupMenu.getItemMoveUp()                .setEnabled(isFavorite);
+            popupMenu.getItemMoveDown()              .setEnabled(isFavorite);
+            popupMenu.getItemOpenInFolders()         .setEnabled(isFavorite || isDirectory);
+            popupMenu.getItemAddFilesystemFolder()   .setEnabled(isFavorite || isDirectory);
             popupMenu.getItemRenameFilesystemFolder().setEnabled(isDirectory);
             popupMenu.getItemDeleteFilesystemFolder().setEnabled(isDirectory);
+
             popupMenu.show((JTree) e.getSource(), e.getX(), e.getY());
         }
     }

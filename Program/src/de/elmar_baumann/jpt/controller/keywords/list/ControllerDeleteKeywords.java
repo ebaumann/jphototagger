@@ -21,9 +21,9 @@ package de.elmar_baumann.jpt.controller.keywords.list;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.helper.RenameXmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -98,8 +98,7 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
                         keyword,
                         "").run(); // No separate thread!
 
-                ((TreeModelKeywords) GUI.INSTANCE.getAppPanel().
-                        getTreeEditKeywords().getModel()).removeRootItemWithoutChildren(keyword);
+                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).removeRootItemWithoutChildren(keyword);
                 getModel().delete(keyword);
             }
         }

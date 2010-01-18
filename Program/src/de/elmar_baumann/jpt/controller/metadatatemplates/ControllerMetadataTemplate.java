@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.metadatatemplates;
 
 import de.elmar_baumann.jpt.controller.Controller;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelMetadataTemplates;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
@@ -63,13 +64,12 @@ public abstract class ControllerMetadataTemplate extends Controller {
 
     private MetadataTemplate getTemplateOfPopupMenu() {
         int                        index = PopupMenuMetadataTemplates.INSTANCE.getSelIndex();
-        ListModelMetadataTemplates model = (ListModelMetadataTemplates) PopupMenuMetadataTemplates.INSTANCE.getList().getModel();
+        ListModelMetadataTemplates model = ModelFactory.INSTANCE.getModel(ListModelMetadataTemplates.class);
 
         return (MetadataTemplate) model.get(index);
     }
 
     private MetadataTemplate getTemplateOfList() {
-        return (MetadataTemplate) InputHelperDialog.INSTANCE
-                .getPanelMetaDataTemplates().getList().getSelectedValue();
+        return (MetadataTemplate) InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().getSelectedValue();
     }
 }

@@ -50,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextArea;
@@ -231,12 +230,7 @@ public final class ControllerFastSearch
     private Column getSearchColumn() {
         assert !isSearchAllDefinedColumns() : "More than one search column!";
         if (isSearchAllDefinedColumns()) return null;
-        ComboBoxModel model = comboboxFastSearch.getModel();
-        assert model instanceof ComboBoxModelFastSearch : "Unknown model: " + model;
-        if (model instanceof ComboBoxModelFastSearch) {
-            return (Column) comboboxFastSearch.getSelectedItem();
-        }
-        return null;
+        return (Column) comboboxFastSearch.getSelectedItem();
     }
 
     @Override

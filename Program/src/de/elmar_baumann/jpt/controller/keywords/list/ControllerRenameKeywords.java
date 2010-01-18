@@ -23,11 +23,11 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.helper.RenameXmpMetadata;
 import de.elmar_baumann.jpt.model.ListModelKeywords;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import de.elmar_baumann.lib.dialog.InputDialog;
 import java.awt.event.ActionEvent;
@@ -105,8 +105,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
                         newName).run(); // No separate thread!
 
                 getModel().rename(oldName, newName);
-                ((TreeModelKeywords) GUI.INSTANCE.getAppPanel().
-                        getTreeEditKeywords().getModel()).setAllRenamed(oldName, newName);
+                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).setAllRenamed(oldName, newName);
             }
         }
 

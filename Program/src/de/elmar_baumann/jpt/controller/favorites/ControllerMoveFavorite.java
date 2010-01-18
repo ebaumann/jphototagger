@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -91,17 +92,13 @@ public final class ControllerMoveFavorite implements ActionListener {
 
         private void moveUp(Favorite dir) {
             if (dir != null) {
-                TreeModelFavorites model =
-                        (TreeModelFavorites) tree.getModel();
-                model.moveUpFavorite(dir);
+                ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).moveUpFavorite(dir);
             }
         }
 
         private void moveDown(Favorite dir) {
             if (dir != null) {
-                TreeModelFavorites model =
-                        (TreeModelFavorites) tree.getModel();
-                model.moveDownFavorite(dir);
+                ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).moveDownFavorite(dir);
             }
         }
     }

@@ -21,11 +21,11 @@ package de.elmar_baumann.jpt.exporter;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.resource.GUI;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -59,7 +59,7 @@ final class KeywordExporterLightroom
 
     @Override
     public void export(File file) {
-        TreeModel tm = GUI.INSTANCE.getAppPanel().getTreeEditKeywords().getModel();
+        TreeModel tm = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         assert tm instanceof TreeModelKeywords : tm;
         if (tm instanceof TreeModelKeywords) {
             Writer writer = null;

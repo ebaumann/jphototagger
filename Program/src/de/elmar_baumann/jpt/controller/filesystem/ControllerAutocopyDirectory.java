@@ -41,7 +41,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import javax.swing.ListModel;
 
 /**
  *
@@ -175,12 +174,8 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
         private void addFilesToCollection() {
             if (copiedFiles.isEmpty()) return;
-            ListModel listModel = GUI.INSTANCE.getAppPanel().
-                    getListImageCollections().getModel();
-            if (listModel instanceof ListModelImageCollections) {
-                if (insertPrevCollectionIntoDb()) {
-                    selectPrevImportCollection();
-                }
+            if (insertPrevCollectionIntoDb()) {
+                selectPrevImportCollection();
             }
         }
 

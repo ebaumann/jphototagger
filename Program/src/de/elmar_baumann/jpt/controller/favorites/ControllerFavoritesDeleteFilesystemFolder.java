@@ -18,7 +18,9 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.FileSystemDirectories;
+import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
@@ -78,8 +80,7 @@ public final class ControllerFavoritesDeleteFilesystemFolder
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
                 TreeFileSystemDirectories.removeFromTreeModel(
-                        GUI.INSTANCE.getAppPanel().getTreeFavorites().
-                        getModel(), node);
+                        ModelFactory.INSTANCE.getModel(TreeModelFavorites.class), node);
             }
         }
     }

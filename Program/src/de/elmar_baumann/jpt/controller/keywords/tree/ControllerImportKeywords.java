@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.importer.KeywordImporter;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -78,7 +79,7 @@ public final class ControllerImportKeywords implements ActionListener {
     private static class ImportTask extends Thread {
 
         private final Collection<List<Pair<String, Boolean>>> paths;
-        private final TreeModel                               treeModel  = GUI.INSTANCE.getAppPanel().getTreeEditKeywords().getModel();
+        private final TreeModel                               treeModel  = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         private       JProgressBar                            progressBar;
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {

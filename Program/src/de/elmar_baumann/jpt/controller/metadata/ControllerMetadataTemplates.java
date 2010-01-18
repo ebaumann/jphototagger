@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
 import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataTemplates;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -47,7 +48,7 @@ public final class ControllerMetadataTemplates
     private final AppPanel                       appPanel                     = GUI.INSTANCE.getAppPanel();
     private final EditMetadataPanels             editPanels                   = appPanel.getEditMetadataPanels();
     private final JComboBox                      comboBoxMetadataTemplates    = appPanel.getComboBoxMetadataTemplates();
-    private final ComboBoxModelMetadataTemplates model                        = (ComboBoxModelMetadataTemplates) comboBoxMetadataTemplates.getModel();
+    private final ComboBoxModelMetadataTemplates model                        = ModelFactory.INSTANCE.getModel(ComboBoxModelMetadataTemplates.class);
     private final JButton                        buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
     private final JButton                        buttonMetadataTemplateUpdate = appPanel.getButtonMetadataTemplateUpdate();
     private final JButton                        buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();

@@ -63,14 +63,14 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerShowMetadata implements DatabaseImageFilesListener,
-                                                     ThumbnailsPanelListener {
+public final class ControllerShowMetadata
+        implements DatabaseImageFilesListener,
+                   ThumbnailsPanelListener
+    {
 
-    private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel =
-            new HashMap<TableModelXmp, String[]>();
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final MetadataTableModels metadataTableModels =
-            new MetadataTableModels();
+    private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
+    private final AppPanel                     appPanel                  = GUI.INSTANCE.getAppPanel();
+    private final MetadataTableModels          metadataTableModels       = new MetadataTableModels();
 
     private enum Metadata {
 
@@ -95,33 +95,20 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
     }
 
     private void initMetadatModels() {
-        metadataTableModels.setIptcTableModel(
-                (TableModelIptc) appPanel.getTableIptc().getModel());
-        metadataTableModels.setExifTableModel(
-                (TableModelExif) appPanel.getTableExif().getModel());
-        metadataTableModels.setXmpTableModelDc((TableModelXmp) appPanel.
-                getTableXmpDc().
-                getModel());
-        metadataTableModels.setXmpTableModelExif((TableModelXmp) appPanel.
-                getTableXmpExif().
-                getModel());
-        metadataTableModels.setXmpTableModelIptc((TableModelXmp) appPanel.
-                getTableXmpIptc().
-                getModel());
-        metadataTableModels.setXmpTableModelLightroom((TableModelXmp) appPanel.
-                getTableXmpLightroom().getModel());
-        metadataTableModels.setXmpTableModelPhotoshop((TableModelXmp) appPanel.
-                getTableXmpPhotoshop().getModel());
-        metadataTableModels.setXmpTableModelTiff((TableModelXmp) appPanel.
-                getTableXmpTiff().
-                getModel());
-        metadataTableModels.setXmpTableModelCameraRawSettings((TableModelXmp) appPanel.
-                getTableXmpCameraRawSettings().getModel());
-        metadataTableModels.setXmpTableModelXap((TableModelXmp) appPanel.
-                getTableXmpXap().
-                getModel());
-        List<JTable> xmpTables = appPanel.getXmpTables();
+        metadataTableModels.setIptcTableModel                ((TableModelIptc) appPanel.getTableIptc()                .getModel());
+        metadataTableModels.setExifTableModel                ((TableModelExif) appPanel.getTableExif()                .getModel());
+        metadataTableModels.setXmpTableModelDc               ((TableModelXmp)  appPanel.getTableXmpDc()               .getModel());
+        metadataTableModels.setXmpTableModelExif             ((TableModelXmp)  appPanel.getTableXmpExif()             .getModel());
+        metadataTableModels.setXmpTableModelIptc             ((TableModelXmp)  appPanel.getTableXmpIptc()             .getModel());
+        metadataTableModels.setXmpTableModelLightroom        ((TableModelXmp)  appPanel.getTableXmpLightroom()        .getModel());
+        metadataTableModels.setXmpTableModelPhotoshop        ((TableModelXmp)  appPanel.getTableXmpPhotoshop()        .getModel());
+        metadataTableModels.setXmpTableModelTiff             ((TableModelXmp)  appPanel.getTableXmpTiff()             .getModel());
+        metadataTableModels.setXmpTableModelCameraRawSettings((TableModelXmp)  appPanel.getTableXmpCameraRawSettings().getModel());
+        metadataTableModels.setXmpTableModelXap              ((TableModelXmp)  appPanel.getTableXmpXap()              .getModel());
+
+        List<JTable>       xmpTables      = appPanel.getXmpTables();
         Set<TableModelXmp> xmpTableModels = new HashSet<TableModelXmp>();
+
         for (JTable xmpTable : xmpTables) {
             xmpTableModels.add((TableModelXmp) xmpTable.getModel());
         }
@@ -161,8 +148,7 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
         final ThumbnailsPanel panel = appPanel.getPanelThumbnails();
         if (panel.getSelectionCount() == 1) {
             SwingUtilities.invokeLater(
-                    new ShowMetadata(
-                    panel.getSelectedFiles().get(0), Metadata.getAll()));
+                    new ShowMetadata(panel.getSelectedFiles().get(0), Metadata.getAll()));
         } else {
             appPanel.getButtonIptcToXmp().setEnabled(false);
             appPanel.getButtonExifToXmp().setEnabled(false);
@@ -178,15 +164,14 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
     public void actionPerformed(DatabaseImageFilesEvent event) {
         if (isShowMetadata(event.getType())) {
             ImageFile imageFile = event.getImageFile();
-            showUpdates(imageFile.getFile(),
-                    getMetadataToShowAfterDbChange(imageFile));
+            showUpdates(imageFile.getFile(), getMetadataToShowAfterDbChange(imageFile));
         }
     }
 
     private boolean isShowMetadata(DatabaseImageFilesEvent.Type eventType) {
         return eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED) ||
-                eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED) ||
-                eventType.equals(DatabaseImageFilesEvent.Type.XMP_UPDATED);
+               eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED) ||
+               eventType.equals(DatabaseImageFilesEvent.Type.XMP_UPDATED);
     }
 
     private Set<Metadata> getMetadataToShowAfterDbChange(ImageFile imageFile) {
@@ -202,8 +187,7 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
 
     private void showUpdates(File file, Set<Metadata> metadata) {
         if (appPanel.getPanelThumbnails().getSelectionCount() == 1) {
-            File selectedFile =
-                    appPanel.getPanelThumbnails().getSelectedFiles().get(0);
+            File selectedFile = appPanel.getPanelThumbnails().getSelectedFiles().get(0);
             if (file.equals(selectedFile)) {
                 SwingUtilities.invokeLater(new ShowMetadata(file, metadata));
             }
@@ -224,11 +208,11 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
 
     private class ShowMetadata implements Runnable {
 
-        private final File file;
+        private final File          file;
         private final Set<Metadata> metadata;
 
         public ShowMetadata(File file, Set<Metadata> metadata) {
-            this.file = file;
+            this.file     = file;
             this.metadata = metadata;
         }
 
@@ -274,7 +258,7 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
 
         private void setXmpModels(String filename) {
             List<XMPPropertyInfo> allInfos = null;
-            File selFile = new File(filename);
+            File                   selFile = new File(filename);
             synchronized (SelectedFile.INSTANCE) {
                 if (SelectedFile.INSTANCE.getFile().equals(selFile)) {
                     allInfos = SelectedFile.INSTANCE.getPropertyInfos();
@@ -297,13 +281,15 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
             }
         }
 
-        private void setPropertyInfosToXmpTableModel(String filename,
-                TableModelXmp model,
-                List<XMPPropertyInfo> allInfos, String[] namespaces) {
+        private void setPropertyInfosToXmpTableModel(
+                String                filename,
+                TableModelXmp         model,
+                List<XMPPropertyInfo> allInfos, 
+                String[]              namespaces
+                ) {
             List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
             for (int index = 0; index < namespaces.length; index++) {
-                infos.addAll(XmpMetadata.filterPropertyInfosOfNamespace(
-                        allInfos, namespaces[index]));
+                infos.addAll(XmpMetadata.filterPropertyInfosOfNamespace(allInfos, namespaces[index]));
             }
             model.setPropertyInfosOfFile(filename, infos);
         }

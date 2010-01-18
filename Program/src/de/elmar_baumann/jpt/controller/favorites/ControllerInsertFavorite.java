@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.FavoritePropertiesDialog;
@@ -97,12 +98,9 @@ public final class ControllerInsertFavorite
                 }
                 dialog.setVisible(true);
                 if (dialog.accepted()) {
-                    TreeModelFavorites model =
-                            (TreeModelFavorites) appPanel.getTreeFavorites().
-                            getModel();
+                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
                     model.insert(new Favorite(
-                            dialog.getFavoriteName(), dialog.getDirectoryName(),
-                            -1));
+                            dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
                 }
             }
         });

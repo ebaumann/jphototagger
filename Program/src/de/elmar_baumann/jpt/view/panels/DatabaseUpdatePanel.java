@@ -22,12 +22,14 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.helper.HelperThread;
 import de.elmar_baumann.jpt.helper.InsertKeywords;
 import de.elmar_baumann.jpt.helper.RefreshExifInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.RefreshXmpInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.SetExifToXmp;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
+import de.elmar_baumann.jpt.model.ListModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.RenameFilenamesInDbDialog;
@@ -145,7 +147,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     }
 
     private void copyKeywordsToKeywordsTree() {
-        List<String> keywords = ListUtil.toStringList(GUI.INSTANCE.getAppPanel().getListSelKeywords().getModel());
+        List<String> keywords = ListUtil.toStringList(ModelFactory.INSTANCE.getModel(ListModelKeywords.class));
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
             new InsertKeywords(keywords).run(); // Run not as thread

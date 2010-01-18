@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.keywords.tree.KeywordTreeNodesClipboard.Action;
 import de.elmar_baumann.jpt.datatransfer.Flavor;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsTree;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
@@ -119,13 +120,12 @@ public class ControllerCopyCutPasteKeyword
 
     private void move(DefaultMutableTreeNode node) {
         Transferable trans = new TransferableObject(
-                new ArrayList<DefaultMutableTreeNode>(
-                    KeywordTreeNodesClipboard.INSTANCE.getContent()),
+                new ArrayList<DefaultMutableTreeNode>(KeywordTreeNodesClipboard.INSTANCE.getContent()),
                 Flavor.KEYWORDS_TREE);
 
         TransferHandlerKeywordsTree.moveKeywords(
                 new TransferSupport(panel, trans),
-                (TreeModelKeywords) panel.getTree().getModel(),
+                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class),
                 node);
 
         KeywordTreeNodesClipboard.INSTANCE.empty();
@@ -138,12 +138,11 @@ public class ControllerCopyCutPasteKeyword
 
         if (!ensureCopyToAll(selPaths.length)) return;
 
-        TreeModelKeywords model = (TreeModelKeywords) panel.getTree().getModel();
+        TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
         for (DefaultMutableTreeNode node : KeywordTreeNodesClipboard.INSTANCE.getContent()) {
             for (TreePath selPath : selPaths) {
-                model.copySubtree(node,
-                        (DefaultMutableTreeNode) selPath.getLastPathComponent());
+                model.copySubtree(node, (DefaultMutableTreeNode) selPath.getLastPathComponent());
             }
         }
 

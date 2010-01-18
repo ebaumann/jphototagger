@@ -18,9 +18,9 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
@@ -31,7 +31,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemAdd()}
@@ -67,29 +66,22 @@ public class ControllerAddKeyword
     }
 
     private boolean isRootNode(Object node) {
-        return getHKPanel().getTree().getModel().getRoot().equals(node);
+        return ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).getRoot().equals(node);
     }
 
-    private void add(
-            DefaultMutableTreeNode parentNode, Keyword parentKeyword) {
+    private void add(DefaultMutableTreeNode parentNode, Keyword parentKeyword) {
         Keyword newKeyword = new Keyword(
-                     null,
-                     parentKeyword == null
-                         ? null
-                         : parentKeyword.getId(),
-                      Bundle.getString("ControllerAddKeyword.DefaultName"),
-                      true);
-        JTree tree = getHKPanel().getTree();
-        String name = ControllerRenameKeyword.getName(
-                newKeyword, DatabaseKeywords.INSTANCE, tree);
+                                         null,
+                                         parentKeyword == null
+                                             ? null
+                                             : parentKeyword.getId(),
+                                          Bundle.getString("ControllerAddKeyword.DefaultName"),
+                                          true);
+        JTree  tree = getHKPanel().getTree();
+        String name = ControllerRenameKeyword.getName(newKeyword, DatabaseKeywords.INSTANCE, tree);
         if (name != null && !name.trim().isEmpty()) {
-            TreeModel tm = tree.getModel();
-            if (tm instanceof TreeModelKeywords) {
-                ((TreeModelKeywords) tm).insert(parentNode, name, true);
-                KeywordsTreePathExpander.expand(parentNode);
-            } else {
-                AppLogger.logWarning(ControllerAddKeyword.class, "ControllerAddKeyword.Error.Model");
-            }
+            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).insert(parentNode, name, true);
+            KeywordsTreePathExpander.expand(parentNode);
         }
     }
 }

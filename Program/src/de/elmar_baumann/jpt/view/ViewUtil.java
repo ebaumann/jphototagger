@@ -20,13 +20,13 @@ package de.elmar_baumann.jpt.view;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.Favorite;
+import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
@@ -107,11 +107,8 @@ public class ViewUtil {
 
         File directory = new File(filename);
         if (!filename.isEmpty() && FileUtil.existsDirectory(directory)) {
-            TreeModel model = treeDirectories.getModel();
-            if (model instanceof TreeModelAllSystemDirectories) {
-                ((TreeModelAllSystemDirectories) model).expandToFile(
-                        directory, true);
-            }
+            TreeModelAllSystemDirectories model = ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class);
+            model.expandToFile(directory, true);
         }
     }
     private ViewUtil() {
