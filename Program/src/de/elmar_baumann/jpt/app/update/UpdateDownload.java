@@ -67,10 +67,9 @@ public final class UpdateDownload extends Thread {
                 Thread.sleep(millisecondsToWait);
             }
             new UpdateDownload().start();
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(UpdateDownload.class, ex);
         }
-
     }
 
     @Override

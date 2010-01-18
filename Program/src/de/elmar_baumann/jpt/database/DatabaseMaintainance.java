@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.database;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -46,7 +45,7 @@ public final class DatabaseMaintainance extends Database {
                     "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(Database.class, ex);
             MessageDisplayer.error(null, "DatabaseMaintainance.Error.Shutdown");
         }
@@ -67,7 +66,7 @@ public final class DatabaseMaintainance extends Database {
             stmt.executeUpdate("CHECKPOINT DEFRAG");
             success = true;
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMaintainance.class, ex);
         } finally {
             free(connection);

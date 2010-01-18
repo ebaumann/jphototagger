@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,9 +62,8 @@ public final class FileUtil {
         if (bytes != null) {
             try {
                 return new String(bytes, encoding);
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(
-                        FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
             }
         }
@@ -107,14 +105,14 @@ public final class FileUtil {
             fileInputStream.close();
 
             return bytes;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (fileInputStream != null) {
                     fileInputStream.close();
                 }
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -152,9 +150,8 @@ public final class FileUtil {
                 try {
                     file.createNewFile();
                     exists = true;
-                } catch (IOException ex) {
-                    Logger.getLogger(
-                            FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

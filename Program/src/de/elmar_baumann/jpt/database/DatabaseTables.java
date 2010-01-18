@@ -92,9 +92,11 @@ public final class DatabaseTables extends Database {
             createHierarchicalSubjectsTable(connection, stmt);
             UpdateTables.INSTANCE.update(connection);
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseTables.class, ex);
-            errorMessageSqlException(ex);
+            if (ex instanceof SQLException) {
+                errorMessageSqlException((SQLException) ex);
+            }
             AppLock.unlock();
             System.exit(0);
         } finally {

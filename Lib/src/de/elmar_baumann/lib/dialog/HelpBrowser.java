@@ -33,7 +33,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -252,7 +251,7 @@ public final class HelpBrowser
     private void setUrl(URL url) {
         try {
             editorPanePage.setPage(url);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

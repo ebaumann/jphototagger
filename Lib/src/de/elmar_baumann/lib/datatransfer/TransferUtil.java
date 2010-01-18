@@ -54,7 +54,7 @@ public final class TransferUtil {
     static {
         try {
             URI_LIST_FLAVOR = new DataFlavor(MIME_TYPE_URI_LIST);
-        } catch (ClassNotFoundException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

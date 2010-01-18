@@ -132,7 +132,7 @@ public class RatingSelectionPanel
             if (text != null && !text.trim().isEmpty()) {
                 val = Integer.valueOf(text).intValue();
             }
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             AppLogger.logSevere(getClass(), e);
         }
         value = val;

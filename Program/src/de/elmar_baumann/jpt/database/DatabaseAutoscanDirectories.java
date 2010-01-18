@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
                 stmt.close();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             } finally {
                 free(connection);
@@ -95,7 +94,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
             connection.commit();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             rollback(connection);
         } finally {
@@ -124,7 +123,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             int count = stmt.executeUpdate();
             deleted = count > 0;
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
@@ -154,7 +153,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             free(connection);
@@ -181,7 +180,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 directories.add(rs.getString(1));
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             directories.clear();
         } finally {

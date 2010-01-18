@@ -65,7 +65,7 @@ public final class DatabaseImageCollections extends Database {
                 names.add(rs.getString(1));
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
             names.clear();
         } finally {
@@ -97,7 +97,7 @@ public final class DatabaseImageCollections extends Database {
             info.add(oldName);
             info.add(newName);
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
@@ -130,7 +130,7 @@ public final class DatabaseImageCollections extends Database {
                 filenames.add(rs.getString(1));
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
             filenames.clear();
         } finally {
@@ -186,7 +186,7 @@ public final class DatabaseImageCollections extends Database {
             stmtName.close();
             stmtColl.close();
             notifyListeners(Type.COLLECTION_INSERTED, collectionName, filenames);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
@@ -217,7 +217,7 @@ public final class DatabaseImageCollections extends Database {
             deleted = true;
             stmt.close();
             notifyListeners(Type.COLLECTION_DELETED, collectionname, affectedFiles);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
@@ -262,7 +262,7 @@ public final class DatabaseImageCollections extends Database {
             connection.commit();
             stmt.close();
             notifyListeners(Type.IMAGES_DELETED, collectionName, affectedFiles);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
@@ -322,7 +322,7 @@ public final class DatabaseImageCollections extends Database {
             }
             connection.commit();
             added = true;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
             rollback(connection);
         } finally {
@@ -399,7 +399,7 @@ public final class DatabaseImageCollections extends Database {
                 exists = rs.getInt(1) > 0;
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
@@ -425,7 +425,7 @@ public final class DatabaseImageCollections extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);
@@ -451,7 +451,7 @@ public final class DatabaseImageCollections extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
             free(connection);

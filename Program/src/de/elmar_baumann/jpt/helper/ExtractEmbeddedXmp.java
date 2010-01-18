@@ -86,7 +86,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
                 if (fos != null) {
                     try {
                         fos.close();
-                    } catch (IOException ex) {
+                    } catch (Exception ex) {
                         AppLogger.logSevere(ExtractEmbeddedXmp.class, ex);
                     }
                 }

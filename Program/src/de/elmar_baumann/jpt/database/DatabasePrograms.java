@@ -86,7 +86,7 @@ public final class DatabasePrograms extends Database {
             connection.commit();
             stmt.close();
             notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_INSERTED, program);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
@@ -167,7 +167,7 @@ public final class DatabasePrograms extends Database {
             connection.commit();
             stmt.close();
             notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_UPDATED, program);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
@@ -223,7 +223,7 @@ public final class DatabasePrograms extends Database {
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
             stmt.close();
             notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_DELETED, program);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
         } finally {
@@ -260,7 +260,7 @@ public final class DatabasePrograms extends Database {
                 programs.add(getSelectedProgram(rs));
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);
@@ -346,7 +346,7 @@ public final class DatabasePrograms extends Database {
                 program = getSelectedProgram(rs);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);
@@ -372,7 +372,7 @@ public final class DatabasePrograms extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             free(connection);

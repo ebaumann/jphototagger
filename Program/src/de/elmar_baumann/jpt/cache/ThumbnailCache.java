@@ -98,7 +98,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                         image = cache.noPreviewThumbnail;
                     }
                     cache.update(image, file);
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                 }
             }
         }

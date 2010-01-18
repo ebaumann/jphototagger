@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
@@ -95,7 +94,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
@@ -121,7 +120,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
@@ -149,7 +148,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
@@ -178,7 +177,7 @@ public final class DatabaseStatistics extends Database {
                 }
                 stmt.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             count = -1;
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
@@ -216,7 +215,7 @@ public final class DatabaseStatistics extends Database {
                 }
                 stmt.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);
@@ -249,7 +248,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             free(connection);

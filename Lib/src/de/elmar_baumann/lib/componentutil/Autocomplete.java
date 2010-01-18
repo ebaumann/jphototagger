@@ -12,7 +12,6 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
 
 // Base code: http://java.sun.com/docs/books/tutorial/uiswing/examples/components/TextAreaDemoProject/src/components/TextAreaDemo.java
 //            http://java.sun.com/docs/books/tutorial/uiswing/components/textarea.html
@@ -127,7 +126,7 @@ public final class Autocomplete implements DocumentListener  {
         String content = null;
         try {
             content = textArea.getText(0, pos + 1);
-        } catch (BadLocationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -165,7 +165,7 @@ public final class AppLifeCycle {
                 try {
                     elapsedMilliseconds += checkIntervalMilliSeconds;
                     Thread.sleep(checkIntervalMilliSeconds);
-                } catch (InterruptedException ex) {
+                } catch (Exception ex) {
                     AppLogger.logSevere(getClass(), ex);
                 }
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {

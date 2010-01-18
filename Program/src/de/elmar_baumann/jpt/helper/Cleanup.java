@@ -56,7 +56,7 @@ public final class Cleanup {
         try {
             // Let the tasks a little bit time to complete until they can interrupt
             Thread.sleep(MILLISECONDS_SLEEP);
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(Cleanup.class, ex);
         }
     }

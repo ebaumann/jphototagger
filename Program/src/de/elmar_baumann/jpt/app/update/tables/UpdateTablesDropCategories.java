@@ -30,12 +30,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -100,11 +97,8 @@ final class UpdateTablesDropCategories {
                 writer.append(rs.getString(1));
             }
             stmt.close();
-        } catch (UnsupportedEncodingException ex) {
+        } catch (Exception ex) {
             return errorSave(ex);
-        } catch (FileNotFoundException ex) {
-            return errorSave(ex);
-        } catch (IOException ex) {
         } finally {
             if (writer != null) {
                 try {

@@ -30,7 +30,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -92,12 +91,6 @@ public final class LogfileParser implements EntityResolver {
                     records.add(record);
                 }
             }
-        } catch (SAXException ex) {
-            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -216,14 +209,14 @@ public final class LogfileParser implements EntityResolver {
             }
             return new ByteArrayInputStream(content.getBytes(System.getProperty(
                 "file.encoding")));
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (bufferedReader != null) {
                     bufferedReader.close();
                 }
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

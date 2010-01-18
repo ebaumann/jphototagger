@@ -6,7 +6,6 @@ import de.elmar_baumann.jpt.types.FileType;
 import de.elmar_baumann.lib.lang.Util;
 import de.elmar_baumann.lib.thirdparty.KMPMatch;
 import java.io.File;
-import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteOrder;
 
@@ -187,7 +186,7 @@ public final class CanonMakerNote {
         if (raf != null) {
             try {
                 raf.close();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(CanonMakerNote.class, ex);
             }
         }

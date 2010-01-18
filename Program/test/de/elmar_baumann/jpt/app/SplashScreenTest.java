@@ -75,7 +75,7 @@ public class SplashScreenTest {
     private void sleep(long millis) {
         try {
             Thread.sleep(millis);
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }

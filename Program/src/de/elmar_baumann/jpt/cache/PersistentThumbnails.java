@@ -29,9 +29,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -152,7 +150,7 @@ public final class PersistentThumbnails {
     public static String getMd5File(File file) {
         try {
             return getMd5File("file://" + file.getCanonicalPath());
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PersistentThumbnails.class.getName()).log(
                     Level.SEVERE,
                     null, ex);
@@ -166,7 +164,7 @@ public final class PersistentThumbnails {
         MessageDigest md5;
         try {
             md5 = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PersistentThumbnails.class.getName()).log(
                     Level.SEVERE,
                     null, ex);
@@ -193,7 +191,7 @@ public final class PersistentThumbnails {
         if (fis != null) {
             try {
                 fis.close();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(PersistentThumbnails.class, ex);
             }
         }
@@ -203,7 +201,7 @@ public final class PersistentThumbnails {
         if (fos != null) {
             try {
                 fos.close();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(PersistentThumbnails.class, ex);
             }
         }

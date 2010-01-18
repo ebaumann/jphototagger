@@ -26,7 +26,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.runtime.External;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -64,7 +63,7 @@ public final class IoUtil {
             try {
                 AppLogger.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand);
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(IoUtil.class, ex);
                 MessageDisplayer.error(null, "IoUtil.Error.OpenFile");
             }

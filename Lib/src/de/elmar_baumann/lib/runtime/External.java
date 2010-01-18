@@ -175,9 +175,8 @@ public final class External {
         public void run() {
             try {
                 Thread.sleep(millisecondsWait);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(
-                        getClass().getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             }
             if (!processFinished) {
                 process.destroy();

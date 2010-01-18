@@ -74,7 +74,7 @@ public final class MessageLabel {
         public void run() {
             try {
                 Thread.sleep(milliseconds);
-            } catch (InterruptedException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             }
             label.setText("");

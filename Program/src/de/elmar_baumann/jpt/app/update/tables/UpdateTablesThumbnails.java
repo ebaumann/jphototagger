@@ -34,7 +34,6 @@ import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -91,8 +90,7 @@ final class UpdateTablesThumbnails extends Database {
         return current;
     }
 
-    private void setThumbnailNull(Connection connection, long id)
-            throws SQLException {
+    private void setThumbnailNull(Connection connection, long id) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
                 "UPDATE files SET thumbnail = NULL WHERE id = ?");
         stmt.setLong(1, id);
@@ -110,7 +108,7 @@ final class UpdateTablesThumbnails extends Database {
                 ImageIcon icon = new ImageIcon(bytes);
                 Image thumbnail = icon.getImage();
                 writeThumbnail(thumbnail, id);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
             }
         }
@@ -167,8 +165,7 @@ final class UpdateTablesThumbnails extends Database {
                 try {
                     long id = Long.parseLong(file.getName());
                     stmt.setLong(1, id);
-                    AppLogger.logFinest(UpdateTablesThumbnails.class,
-                            AppLogger.USE_STRING, sql);
+                    AppLogger.logFinest(UpdateTablesThumbnails.class, AppLogger.USE_STRING, sql);
                     ResultSet rs = stmt.executeQuery();
                     if (rs.next()) {
                         String filename = rs.getString(1);
@@ -178,13 +175,13 @@ final class UpdateTablesThumbnails extends Database {
                         file.delete(); // orphaned thumbnail
                     }
                     setMessageCurrentFile(id, ++fileIndex, "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Hash");
-                } catch (NumberFormatException ex) {
+                } catch (Exception ex) {
                     AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
                 }
             }
             stmt.close();
             DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
         }
     }

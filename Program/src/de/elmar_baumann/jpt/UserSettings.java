@@ -634,7 +634,7 @@ public final class UserSettings {
         String className = settings.getString(KEY_LOGFILE_FORMATTER_CLASS);
         try {
             return Class.forName(className);
-        } catch (ClassNotFoundException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(UserSettings.class, ex);
             settings.set(XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
         }

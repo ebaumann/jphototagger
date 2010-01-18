@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Database for the application's usage.
@@ -65,7 +64,7 @@ public final class DatabaseApplicationProperties extends Database {
             }
             stmt.close();
             return count > 0;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             free(connection);
@@ -89,7 +88,7 @@ public final class DatabaseApplicationProperties extends Database {
             logFinest(stmt);
             stmt.executeUpdate();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             free(connection);
@@ -121,7 +120,7 @@ public final class DatabaseApplicationProperties extends Database {
                 }
             }
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             free(connection);
@@ -152,7 +151,7 @@ public final class DatabaseApplicationProperties extends Database {
             int count = stmt.executeUpdate();
             stmt.close();
             assert count > 0 : "Not updated: " + key;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             free(connection);
