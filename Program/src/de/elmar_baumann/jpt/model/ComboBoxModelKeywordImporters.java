@@ -23,7 +23,8 @@ import de.elmar_baumann.jpt.importer.KeywordImporters;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- * Contains all implemented {@link KeywordImporter}s.
+ * Contains all implemented {@link KeywordImporter}s retrieved through
+ * {@link KeywordImporters#getAll()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01

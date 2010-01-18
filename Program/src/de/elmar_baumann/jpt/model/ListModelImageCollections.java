@@ -18,17 +18,18 @@
  */
 package de.elmar_baumann.jpt.model;
 
-import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.comparator.ComparatorStringAscending;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
- * Enthält die Namen aller Bildsammlungen.
+ * Elements are {@link String}s with all names of image collections retrieved
+ * through {@link DatabaseImageCollections#getAll()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -38,11 +39,27 @@ public final class ListModelImageCollections extends DefaultListModel {
     private static final List<String> SPECIAL_COLLECTIONS = new ArrayList<String>();
     private static final long         serialVersionUID    = -929229489709109467L;
 
+    /**
+     * Name of the image collection which contains the previous imported
+     * image files
+     */
+    public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT = Bundle.getString("DisplayName.ItemImageCollections.LastImport");
+
+    /**
+     * Name of the image collection which contains picked images
+     */
+    public static final String NAME_IMAGE_COLLECTION_PICKED      = Bundle.getString("DisplayName.ItemImageCollections.Picked");
+
+    /**
+     * Name of the image collection which contains rejected images
+     */
+    public static final String NAME_IMAGE_COLLECTION_REJECTED    = Bundle.getString("DisplayName.ItemImageCollections.Rejected");
+
     static {
         // Order of appearance
-        SPECIAL_COLLECTIONS.add(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT);
-        SPECIAL_COLLECTIONS.add(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED);
-        SPECIAL_COLLECTIONS.add(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED);
+        SPECIAL_COLLECTIONS.add(NAME_IMAGE_COLLECTION_PREV_IMPORT);
+        SPECIAL_COLLECTIONS.add(NAME_IMAGE_COLLECTION_PICKED);
+        SPECIAL_COLLECTIONS.add(NAME_IMAGE_COLLECTION_REJECTED);
     }
 
     public ListModelImageCollections() {
@@ -56,8 +73,7 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     public void rename(String oldName, String newName) {
-        if (!checkIsNotSpecialCollection(newName,
-                "ListModelImageCollections.Error.RenameSpecialCollection"))
+        if (!checkIsNotSpecialCollection(newName, "ListModelImageCollections.Error.RenameSpecialCollection"))
             return;
         int index = indexOf(oldName);
         if (index >= 0) {

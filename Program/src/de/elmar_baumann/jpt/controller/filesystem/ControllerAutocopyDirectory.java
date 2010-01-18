@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.event.ProgressEvent;
@@ -187,7 +186,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
         private boolean insertPrevCollectionIntoDb() {
             return DatabaseImageCollections.INSTANCE.insert(
-                    AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT,
+                    ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT,
                     FileUtil.getAsFilenames(copiedFiles));
         }
 
@@ -197,7 +196,7 @@ public final class ControllerAutocopyDirectory implements ActionListener {
                     appPanel.getTabSelectionImageCollections());
             GUI.INSTANCE.getAppPanel().getListImageCollections().
                     setSelectedValue(
-                    AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT,
+                    ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT,
                     true);
         }
     }

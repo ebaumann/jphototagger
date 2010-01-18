@@ -25,7 +25,8 @@ import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplatesListener;
 import javax.swing.DefaultListModel;
 
 /**
- *
+ * Elements are {@link MetadataTemplate}s retrieved through
+ * {@link DatabaseMetadataTemplates#getAll()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-05
@@ -37,11 +38,11 @@ public final class ListModelMetadataTemplates
     private static final long serialVersionUID = -1726658041913008196L;
 
     public ListModelMetadataTemplates() {
-        addItems();
+        addElements();
         DatabaseMetadataTemplates.INSTANCE.addListener(this);
     }
 
-    private void addItems() {
+    private void addElements() {
         for (MetadataTemplate t : DatabaseMetadataTemplates.INSTANCE.getAll()) {
             addElement(t);
         }
@@ -49,20 +50,13 @@ public final class ListModelMetadataTemplates
 
     @Override
     public void actionPerformed(DatabaseMetadataTemplatesEvent evt) {
-
         if (evt.wasAdded()) {
-
             addElement(evt.getTemplate());
-
         } else if (evt.wasDeleted()) {
-
             removeElement(evt.getTemplate());
-
         } else if (evt.wasUpdated()) {
-
             int index = indexOf(evt.getOldTemplate());
             if (index >= 0) {
-
                 remove(index);
                 add(index, evt.getTemplate());
             }

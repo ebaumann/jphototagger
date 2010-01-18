@@ -18,8 +18,8 @@
  */
 package de.elmar_baumann.jpt.controller.imagecollection;
 
-import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
+import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
@@ -95,14 +95,14 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
             GUI.INSTANCE.getAppPanel().setStatusbarText(getPopupMessage(pick), MessageLabel.MessageType.INFO, 1000);
             addToCollection(
                     pick
-                    ? AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED
-                    : AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED,
+                    ? ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED
+                    : ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED,
                     selFiles);
             if (pick && isRejectCollection() || !pick && isPickCollection()) {
                 deleteFromCollection(
                         pick
-                        ? AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED
-                        : AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED,
+                        ? ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED
+                        : ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED,
                         selFiles);
                 panelThumbnails.remove(selFiles);
             }
@@ -116,12 +116,12 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private boolean isPickCollection() {
-        return isCollection(AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PICKED);
+        return isCollection(ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED);
     }
 
     private boolean isRejectCollection() {
         return isCollection(
-                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_REJECTED);
+                ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED);
     }
 
     private boolean isCollection(String collection) {

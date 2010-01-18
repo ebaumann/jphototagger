@@ -31,7 +31,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
- * A {@link de.elmar_baumann.jpt.data.Timeline}.
+/**
+ * The model contains a {@link Timeline} retrieved through
+ * {@link DatabaseImageFiles#getTimeline()}.
+ *
+ * Elements are {@link DefaultMutableTreeNode}s with the user objects listed below.
+ *
+ * <ul>
+ * <li>The root user object is a {@link String}</li>
+ * <li>All other user objects are {@link Date} objects</li>
+ * </ul>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12

@@ -25,7 +25,11 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
+ * Element are {@link String}s retrieved through
+ * {@link DatabaseFileExcludePattern#getAll()}.
  *
+ * Filenames matching these patterns (strings) shall not be handled by
+ * <strong>JPhotoTagger</strong>.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-09
@@ -47,19 +51,13 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     public void insert(String pattern) {
         String trimmedPattern = pattern.trim();
         if (db.exists(trimmedPattern)) {
-            MessageDisplayer.error(
-                    null,
-                    "ListModelFileExcludePatterns.Error.InsertPattern.Exists",
-                    trimmedPattern);
+            errorMessageExists(trimmedPattern);
         }
         if (db.insert(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
-            MessageDisplayer.error(
-                    null,
-                    "ListModelFileExcludePatterns.Error.InsertPattern.Add",
-                    trimmedPattern);
+            errorMessageInsert(trimmedPattern);
         }
     }
 
@@ -69,10 +67,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
-            MessageDisplayer.error(
-                    null,
-                    "ListModelFileExcludePatterns.Error.Delete",
-                    trimmedPattern);
+            errorMessageDelete(trimmedPattern);
         }
     }
 
@@ -81,5 +76,26 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
         for (String pattern : patterns) {
             addElement(pattern);
         }
+    }
+
+    private void errorMessageDelete(String trimmedPattern) {
+        MessageDisplayer.error(
+                null,
+                "ListModelFileExcludePatterns.Error.Delete",
+                trimmedPattern);
+    }
+
+    private void errorMessageInsert(String trimmedPattern) {
+        MessageDisplayer.error(
+                null,
+                "ListModelFileExcludePatterns.Error.InsertPattern.Add",
+                trimmedPattern);
+    }
+
+    private void errorMessageExists(String trimmedPattern) {
+        MessageDisplayer.error(
+                null,
+                "ListModelFileExcludePatterns.Error.InsertPattern.Exists",
+                trimmedPattern);
     }
 }

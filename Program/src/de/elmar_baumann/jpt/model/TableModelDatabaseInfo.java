@@ -32,19 +32,24 @@ import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Enthält Informationen über die Datenbank.
+ * Elements are {@link Column}s retrieved through
+ * {@link DatabaseInfoRecordCountColumns#get()}.
+ *
+ * This model contains information about the database content, currently the
+ * count of table rows. If the database content changes, this model updates
+ * itself if set through {@link #setListenToDatabase(boolean)}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
 public final class TableModelDatabaseInfo extends DefaultTableModel implements DatabaseImageFilesListener {
 
-    private static final List<DatabaseImageFilesEvent.Type>       COUNT_EVENTS            = new ArrayList<DatabaseImageFilesEvent.Type>();
+    private static final List<DatabaseImageFilesEvent.Type>  COUNT_EVENTS            = new ArrayList<DatabaseImageFilesEvent.Type>();
     private static final long                                serialVersionUID        = 1974343527501774916L;
     private final        DatabaseStatistics                  db                      = DatabaseStatistics.INSTANCE;
     private final        LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
     private final        LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn     = new LinkedHashMap<Column, StringBuffer>();
-    private              boolean                             listenToDatabase        = false;
+    private              boolean                             listenToDatabase;
 
     static {
         COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED);
@@ -100,15 +105,13 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
     private void addRows() {
         Set<Column> columns = bufferDifferentOfColumn.keySet();
         for (Column column : columns) {
-            addRow(getRow(
-                    column,
-                    bufferDifferentOfColumn.get(column),
-                    bufferTotalOfColumn.get(column)));
+            addRow(getRow(column,
+                          bufferDifferentOfColumn.get(column),
+                          bufferTotalOfColumn.get(column)));
         }
     }
 
-    private Object[] getRow(Column rowHeader,
-            StringBuffer bufferDifferent, StringBuffer bufferTotal) {
+    private Object[] getRow(Column rowHeader, StringBuffer bufferDifferent, StringBuffer bufferTotal) {
 
         return new Object[]{rowHeader, bufferDifferent, bufferTotal};
     }
@@ -129,10 +132,8 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
         public void run() {
             Set<Column> columns = bufferDifferentOfColumn.keySet();
             for (Column column : columns) {
-                setCountToBuffer(bufferDifferentOfColumn.get(column), db.
-                        getDistinctCountOf(column));
-                setCountToBuffer(bufferTotalOfColumn.get(column), db.
-                        getTotalRecordCountIn(column));
+                setCountToBuffer(bufferDifferentOfColumn.get(column), db.getDistinctCountOf(column));
+                setCountToBuffer(bufferTotalOfColumn.get(column)    , db.getTotalRecordCountIn(column));
             }
             fireTableDataChanged();
         }

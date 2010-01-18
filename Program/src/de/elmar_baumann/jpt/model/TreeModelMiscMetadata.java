@@ -44,7 +44,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
- * Misc metadata information.
+ * This model contains distinct values of specific EXIF and XMP database columns.
+ *
+ * Elements are {@link DefaultMutableTreeNode}s with the user objects listed below.
+ *
+ * <ul>
+ * <li>The root user object is a {@link String}</li>
+ * <li>User objects direct below the root are {@link Column}s</li>
+ * <li>User objects below the columns having the data type of the column
+ *    ({@link Column#getDataType()}</li>
+ * </ul>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-12
@@ -100,8 +109,8 @@ public final class TreeModelMiscMetadata
             checkImageInserted(event.getImageFile());
 
         } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED) &&
-                event.getOldImageFile() != null) {
-
+                   event.getOldImageFile() != null
+                   ) {
             checkImageDeleted(event.getOldImageFile());
 
         } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
@@ -141,8 +150,7 @@ public final class TreeModelMiscMetadata
         ROOT.add(node);
     }
 
-    private void addChildren(DefaultMutableTreeNode parentNode,
-            Set<String> data, Column.DataType dataType) {
+    private void addChildren(DefaultMutableTreeNode parentNode, Set<String> data, Column.DataType dataType) {
 
         for (String string : data) {
             DefaultMutableTreeNode node = new DefaultMutableTreeNode();
@@ -254,8 +262,7 @@ public final class TreeModelMiscMetadata
     private void checkInserted(Column column, Object userObject) {
         DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
         if (node != null) {
-            DefaultMutableTreeNode child = findNodeWithUserObject(node,
-                    userObject);
+            DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
             if (child == null) {
                 DefaultMutableTreeNode newChild = new DefaultMutableTreeNode(userObject);
                 node.add(newChild);
@@ -264,8 +271,7 @@ public final class TreeModelMiscMetadata
         }
     }
 
-    private DefaultMutableTreeNode findNodeWithUserObject(
-            DefaultMutableTreeNode rootNode, Object userObject) {
+    private DefaultMutableTreeNode findNodeWithUserObject(DefaultMutableTreeNode rootNode, Object userObject) {
         List<DefaultMutableTreeNode> foundNodes = new ArrayList<DefaultMutableTreeNode>(1);
         TreeUtil.addNodesUserWithObject(foundNodes, rootNode, userObject, 1);
         return foundNodes.size() > 0

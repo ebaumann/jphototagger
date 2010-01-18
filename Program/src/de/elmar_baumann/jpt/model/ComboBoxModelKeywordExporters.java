@@ -23,7 +23,8 @@ import de.elmar_baumann.jpt.exporter.KeywordExporters;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- * Contains all implemented {@link KeywordExporter}s.
+ * Elements are all implemented {@link KeywordExporter}s retrieved through
+ * {@link KeywordExporters#getAll()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
@@ -37,8 +38,7 @@ public final class ComboBoxModelKeywordExporters extends DefaultComboBoxModel {
     }
 
     private void addElements() {
-        for (KeywordExporter importer :
-                KeywordExporters.getAll()) {
+        for (KeywordExporter importer : KeywordExporters.getAll()) {
             addElement(importer);
         }
     }

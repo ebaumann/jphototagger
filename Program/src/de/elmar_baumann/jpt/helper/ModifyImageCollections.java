@@ -19,9 +19,9 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.AppTexts;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
+import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import java.util.List;
 
 /**
@@ -143,8 +143,7 @@ public final class ModifyImageCollections {
      * @return true if allowed
      */
     public static boolean isValidName(String name) {
-        return !name.trim().equalsIgnoreCase(
-                AppTexts.DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT);
+        return !name.trim().equalsIgnoreCase(ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT);
     }
 
     private static boolean checkIsValidName(String name) {

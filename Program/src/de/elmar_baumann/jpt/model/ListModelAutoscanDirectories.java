@@ -24,8 +24,10 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
- * Model mit Verzeichnissen, die automatisch nach Metadataten gescannt werden
- * sollen.
+ * Elements are directory {@link File}s retrieved through
+ * {@link DatabaseAutoscanDirectories#getAll()}.
+ *
+ * These directorys shall be scanned automatically for updates.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05

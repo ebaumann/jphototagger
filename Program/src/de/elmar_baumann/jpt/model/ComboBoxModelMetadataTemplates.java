@@ -28,10 +28,8 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- * Model mit
- * {@link de.elmar_baumann.jpt.data.MetadataTemplate}-Objekten.
- * Führt alle Änderungen zuerst in der Datenbank aus und bei Erfolg im Model
- * selbst.
+ * Elements are instances of {@link MetadataTemplate}s retrieved through
+ * {@link DatabaseMetadataTemplates#getAll()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
@@ -67,9 +65,8 @@ public final class ComboBoxModelMetadataTemplates
      * @param template  Template
      */
     public void insert(MetadataTemplate template) {
-        if (getIndexOf(template) >= 0) {
-            return;
-        }
+        if (getIndexOf(template) >= 0) return;
+        
         if (db.insertOrUpdate(template)) {
             addElement(template);
             setSelectedItem(template);
@@ -90,8 +87,7 @@ public final class ComboBoxModelMetadataTemplates
             insertElementAt(template, index);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(),
-                    Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
+            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
         }
 
     }
@@ -110,8 +106,7 @@ public final class ComboBoxModelMetadataTemplates
             insertElementAt(template, index);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(),
-                    Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamRename"));
+            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamRename"));
         }
     }
 
@@ -133,18 +128,12 @@ public final class ComboBoxModelMetadataTemplates
     public void actionPerformed(DatabaseMetadataTemplatesEvent evt) {
 
         if (evt.wasAdded()) {
-
             addElement(evt.getTemplate());
-
         } else if (evt.wasDeleted()) {
-
             removeElement(evt.getTemplate());
-
         } else if (evt.wasUpdated()) {
-
             int index = getIndexOf(evt.getOldTemplate());
             if (index >= 0) {
-
                 removeElementAt(index);
                 insertElementAt(evt.getTemplate(), index);
                 if (index == 0) setSelectedItem(evt.getTemplate());

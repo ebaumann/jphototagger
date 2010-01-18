@@ -25,11 +25,11 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Ansammlung von XMPPropertyInfo-Objekten.
+ * Alle elements are {@code XMPPropertyInfo} instances retrieved through
+ * {@link #setPropertyInfosOfFile(java.lang.String, java.util.List)}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
- * @see     com.adobe.xmp.properties.XMPPropertyInfo
  */
 public final class TableModelXmp extends DefaultTableModel {
 
@@ -49,12 +49,11 @@ public final class TableModelXmp extends DefaultTableModel {
      *                       Inforation unwichtig ist
      * @param propertyInfos  Property-Infos
      */
-    public void setPropertyInfosOfFile(String filename,
-            List<XMPPropertyInfo> propertyInfos) {
+    public void setPropertyInfosOfFile(String filename, List<XMPPropertyInfo> propertyInfos) {
         this.filename = filename;
         this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
         removeAllRows();
-        setXmpData();
+        addRows();
     }
 
     /**
@@ -81,7 +80,7 @@ public final class TableModelXmp extends DefaultTableModel {
         return false;
     }
 
-    private void setXmpData() {
+    private void addRows() {
         if (propertyInfos != null) {
             for (XMPPropertyInfo xmpPropertyInfo : propertyInfos) {
                 addRow(xmpPropertyInfo);
