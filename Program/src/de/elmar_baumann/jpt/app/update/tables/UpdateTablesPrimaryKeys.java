@@ -47,8 +47,7 @@ final class UpdateTablesPrimaryKeys {
     private void dropPrimaryKeys(Connection connection) throws SQLException {
         DatabaseMetaData meta = connection.getMetaData();
         for (String table : TABLES_PRIMARY_KEYS_TO_DROP) {
-            ResultSet rs = meta.getPrimaryKeys(
-                    connection.getCatalog(), null, table.toUpperCase());
+            ResultSet rs = meta.getPrimaryKeys(connection.getCatalog(), null, table.toUpperCase());
             Statement stmt = connection.createStatement();
             boolean hasPk = false;
             while (!hasPk && rs.next()) {
