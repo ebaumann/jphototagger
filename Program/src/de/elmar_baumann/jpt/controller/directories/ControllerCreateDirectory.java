@@ -19,15 +19,11 @@
 package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
-import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -41,48 +37,24 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-19
  */
-public final class ControllerCreateDirectory
-        implements ActionListener, KeyListener {
-
-    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
+public final class ControllerCreateDirectory extends ControllerDirectory {
 
     public ControllerCreateDirectory() {
-        listen();
-    }
-
-    private void listen() {
-        popup.getItemCreateDirectory().addActionListener(this);
-        tree.addKeyListener(this);
+        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemCreateDirectory());
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_N) && !tree.isSelectionEmpty()) {
-            Object node = tree.getSelectionPath().getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                createDirectory((DefaultMutableTreeNode) node);
-            }
-        }
+    protected boolean myKey(KeyEvent evt) {
+        return KeyEventUtil.isControl(evt, KeyEvent.VK_N);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        createDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                popup.getTreePath()));
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemCreateDirectory();
     }
 
-    private void createDirectory(DefaultMutableTreeNode node) {
+    @Override
+    protected void action(DefaultMutableTreeNode node) {
         ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).createNewDirectory(node);
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
     }
 }

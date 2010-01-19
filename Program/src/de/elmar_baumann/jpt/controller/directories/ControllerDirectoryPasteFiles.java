@@ -42,9 +42,8 @@ import javax.swing.JTree;
  */
 public final class ControllerDirectoryPasteFiles implements KeyListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerDirectoryPasteFiles() {
         listen();
@@ -66,15 +65,17 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private void copyOrMovePastedFiles(JTree targetTree) {
-        if (isValidContent(thumbnailsPanel.getContent()) &&
-                isValidFileAction(thumbnailsPanel.getFileAction())) {
+        if (isValidContent   (thumbnailsPanel.getContent()) &&
+            isValidFileAction(thumbnailsPanel.getFileAction())
+            ) {
             insertFilesIntoSelectedDirectory(targetTree);
         }
     }
 
     private void insertFilesIntoSelectedDirectory(JTree targetTree) {
-        List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard("\n");
-        File targetDirectory = ViewUtil.getSelectedFile(targetTree);
+        List<File> sourceFiles     = ClipboardUtil.getFilesFromSystemClipboard("\n");
+        File       targetDirectory = ViewUtil.getSelectedFile(targetTree);
+
         if (sourceFiles.size() > 0 && targetDirectory != null) {
             copyOrMoveFiles(sourceFiles, targetDirectory);
         }
@@ -83,6 +84,7 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
         FileAction action = thumbnailsPanel.getFileAction();
         assert isValidFileAction(action) : action;
+
         if (isValidFileAction(action)) {
             TransferHandlerDirectoryTree.handleDroppedFiles(
                     action.getTransferHandlerAction(), sourceFiles,

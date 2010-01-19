@@ -19,14 +19,12 @@
 package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Listens to {@link PopupMenuDirectories#getItemRefresh()} and
@@ -38,44 +36,24 @@ import javax.swing.JTree;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-30
  */
-public final class ControllerRefreshDirectoryTree
-        implements ActionListener, KeyListener {
-
-    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
+public final class ControllerRefreshDirectoryTree extends ControllerDirectory {
 
     public ControllerRefreshDirectoryTree() {
-        listen();
-    }
-
-    private void listen() {
-        popup.getItemRefresh().addActionListener(this);
-        tree.addKeyListener(this);
+        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemRefresh());
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_F5) {
-            refresh();
-        }
+    protected boolean myKey(KeyEvent evt) {
+        return evt.getKeyCode() == KeyEvent.VK_F5;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        refresh();
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemRefresh();
     }
 
-    private void refresh() {
+    @Override
+    protected void action(DefaultMutableTreeNode node) {
         ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).update();
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
     }
 }
