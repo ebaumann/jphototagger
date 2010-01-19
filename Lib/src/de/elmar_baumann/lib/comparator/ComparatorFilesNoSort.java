@@ -18,34 +18,29 @@
  */
 package de.elmar_baumann.lib.comparator;
 
+import de.elmar_baumann.lib.util.ClassNameEquality;
 import java.io.File;
 import java.util.Comparator;
 
 /**
- * Sorting of files.
+ * Does not change the sort order.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2010-01-19
  */
-public enum FileSort {
+public final class ComparatorFilesNoSort
+        extends    ClassNameEquality
+        implements Comparator<File> {
 
-    PATHS_ASCENDING          (new ComparatorFilesPathsAscCi()),
-    PATHS_DESCENDING         (new ComparatorFilesPathsDescCi()),
-    NAMES_ASCENDING          (new ComparatorFilesNamesAscCi()),
-    NAMES_DESCENDING         (new ComparatorFilesNamesDescCi()),
-    TYPES_ASCENDING          (new ComparatorFilesSuffixesAscCi()),
-    TYPES_DESCENDING         (new ComparatorFilesSuffixesDescCi()),
-    LAST_MODIFIED_ASCENDING  (new ComparatorFilesLastModifiedAsc()),
-    LAST_MODIFIED_DESCENDING (new ComparatorFilesLastModifiedDesc()),
-    NO_SORT                  (new ComparatorFilesNoSort()),
-    ;
-
-    private final Comparator<File> comparator;
-
-    private FileSort(Comparator<File> comparator) {
-        this.comparator = comparator;
-    }
-
-    public Comparator<File> getComparator() {
-        return comparator;
+    /**
+     * Returns always zero.
+     *
+     * @param  leftFile  1. file to compare
+     * @param  rightFile 2. file to compare
+     * @return           zero
+     */
+    @Override
+    public int compare(File leftFile, File rightFile) {
+        return 0;
     }
 }
