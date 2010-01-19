@@ -80,18 +80,12 @@ public enum Content {
      * Contents where images of displayed thumbnails can be deleted from the
      * file system
      */
-    private static final Set<Content> CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED =
-            new HashSet<Content>();
+    private static final Set<Content> CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED = new HashSet<Content>();
     /**
      * Contents where images located elsewhere in the file system can be
      * inserted
      */
-    private static final Set<Content> CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED =
-            new HashSet<Content>();
-    /**
-     * Contents which is sortable
-     */
-    private static final Set<Content> SORTABLE_CONTENT = new HashSet<Content>();
+    private static final Set<Content> CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED = new HashSet<Content>();
 
     static {
         // Deletion from the file system is always allowed if the content is not
@@ -106,16 +100,6 @@ public enum Content {
         // are in the same directory.
         CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED.add(DIRECTORY);
         CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED.add(FAVORITE);
-
-        // Currently only image collections are not sortable
-        SORTABLE_CONTENT.add(DIRECTORY);
-        SORTABLE_CONTENT.add(FAST_SEARCH);
-        SORTABLE_CONTENT.add(FAVORITE);
-        SORTABLE_CONTENT.add(KEYWORD);
-        SORTABLE_CONTENT.add(MISC_METADATA);
-        SORTABLE_CONTENT.add(MISSING_METADATA);
-        SORTABLE_CONTENT.add(SAVED_SEARCH);
-        SORTABLE_CONTENT.add(TIMELINE);
     }
 
     /**
@@ -145,14 +129,5 @@ public enum Content {
      */
     public boolean isUniqueFileSystemDirectory() {
         return this.equals(DIRECTORY) || this.equals(FAVORITE);
-    }
-
-    /**
-     * Returns whether the content is sortable.
-     *
-     * @return true if the content is sortable
-     */
-    public boolean isSortable() {
-        return SORTABLE_CONTENT.contains(this);
     }
 }

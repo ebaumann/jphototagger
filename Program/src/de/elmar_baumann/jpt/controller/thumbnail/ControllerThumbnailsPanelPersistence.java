@@ -25,6 +25,8 @@ import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.comparator.ComparatorFilesNoSort;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -41,12 +43,12 @@ import javax.swing.SwingUtilities;
 public final class ControllerThumbnailsPanelPersistence
         implements ThumbnailsPanelListener, AppExitListener {
 
-    private static final String   KEY_SELECTED_FILES                         = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
-    private static final String   KEY_SORT                                   = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort";
-    private static final String   KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition";
-    private boolean               propertiesRead                             = false;
-    private final ThumbnailsPanel thumbnailsPanel                            = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private List<File>            persistentSelectedFiles                    = new ArrayList<File>();
+    private static final String          KEY_SELECTED_FILES                         = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
+    private static final String          KEY_SORT                                   = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort";
+    private static final String          KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition";
+    private              boolean         propertiesRead                             = false;
+    private final        ThumbnailsPanel thumbnailsPanel                            = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private              List<File>      persistentSelectedFiles                    = new ArrayList<File>();
 
     public ControllerThumbnailsPanelPersistence() {
         listen();
@@ -66,7 +68,6 @@ public final class ControllerThumbnailsPanelPersistence
     @Override
     public void thumbnailsChanged() {
         checkFirstChange();
-        UserSettings.INSTANCE.getSettings().set(thumbnailsPanel.getFileSortComparator().getClass().getName(), KEY_SORT);
     }
 
     private void checkFirstChange() {
@@ -103,14 +104,33 @@ public final class ControllerThumbnailsPanelPersistence
 
     @SuppressWarnings("unchecked")
     private void readSortFromProperties() {
-        if (!UserSettings.INSTANCE.getProperties().containsKey(KEY_SORT)) return;
-        String name = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
-        try {
-                thumbnailsPanel.setFileSortComparator(
-                        (Comparator<File>) Class.forName(name).newInstance());
-        } catch (Exception ex) {
-            AppLogger.logSevere(ControllerThumbnailsPanelPersistence.class, ex);
+        thumbnailsPanel.setFileSortComparator(getFileSortComparator());
+    }
+
+    public void setFileSortComparator(Comparator<File> cmp) {
+        Class<?> sortClass = cmp.getClass();
+        if (!sortClass.equals(ComparatorFilesNoSort.class)) {
+            UserSettings.INSTANCE.getSettings().set(sortClass.getName(), KEY_SORT);
         }
+    }
+
+    /**
+     * Returns the file sort comparator from the user settings.
+     *
+     * @return sort comparator or if not defined the comparator of
+     *         {@link FileSort#NAMES_ASCENDING}
+     */
+    @SuppressWarnings("unchecked")
+    public Comparator<File> getFileSortComparator() {
+        if (UserSettings.INSTANCE.getProperties().containsKey(KEY_SORT)) {
+            try {
+                String className = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
+                return (Comparator<File>) Class.forName(className).newInstance();
+            } catch (Exception ex) {
+                AppLogger.logSevere(getClass(), ex);
+            }
+        }
+        return FileSort.NAMES_ASCENDING.getComparator();
     }
 
     private void readViewportViewPositionFromProperties() {

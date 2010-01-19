@@ -29,6 +29,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JList;
@@ -103,6 +104,7 @@ public final class ControllerSavedSearchSelected
         private void searchParamStatement(ParamStatement stmt) {
             List<String> filenames = DatabaseFind.INSTANCE.findFilenames(stmt);
             setTitle(stmt.getName());
+            thumbnailsPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
         }
 

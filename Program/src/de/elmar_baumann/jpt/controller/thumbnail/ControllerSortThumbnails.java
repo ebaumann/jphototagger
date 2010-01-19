@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.thumbnail;
 
+import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -45,10 +46,6 @@ public final class ControllerSortThumbnails implements ActionListener {
     }
 
     private void listen() {
-        listenToActionSources();
-    }
-
-    private void listenToActionSources() {
         for (JRadioButtonMenuItem item : appFrame.getSortMenuItems()) {
             item.addActionListener(this);
         }
@@ -59,24 +56,26 @@ public final class ControllerSortThumbnails implements ActionListener {
         sortThumbnails(e);
     }
 
+    public void setLastSort() {
+        Comparator<File> cmp = ControllerFactory.INSTANCE.getController(ControllerThumbnailsPanelPersistence.class).getFileSortComparator();
+        thumbnailsPanel.setFileSortComparator(cmp);
+        appFrame.getMenuItemOfSortCmp(cmp).setSelected(true);
+    }
+
     private void sortThumbnails(final ActionEvent e) {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                JRadioButtonMenuItem item = (JRadioButtonMenuItem) e.getSource();
-                Comparator<File> sortCmp = appFrame.getSortCmpOfMenuItem(item);
-                setSelectedMenuItems(sortCmp);
+                JRadioButtonMenuItem item    = (JRadioButtonMenuItem) e.getSource();
+                Comparator<File>     sortCmp = appFrame.getSortCmpOfMenuItem(item);
+
+                ControllerFactory.INSTANCE.getController(ControllerThumbnailsPanelPersistence.class)
+                        .setFileSortComparator(sortCmp);
+                item.setSelected(true);
                 thumbnailsPanel.setFileSortComparator(sortCmp);
                 thumbnailsPanel.sort();
             }
         });
-    }
-
-    private void setSelectedMenuItems(Comparator<File> sortCmp) {
-        for (JRadioButtonMenuItem item : appFrame.getSortMenuItems()) {
-            Comparator<File> itemCmp = appFrame.getSortCmpOfMenuItem(item);
-            item.setSelected(itemCmp.equals(sortCmp));
-        }
     }
 }

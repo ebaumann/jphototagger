@@ -30,6 +30,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -49,9 +50,9 @@ public final class ControllerAdvancedSearch
         implements ActionListener,
                    SearchListener {
 
-    private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final List<JTree>             selectionTrees  = appPanel.getSelectionTrees();
+    private final AppPanel           appPanel        = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel    thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final List<JTree>        selectionTrees  = appPanel.getSelectionTrees();
     private final EditMetadataPanels editPanels      = appPanel.getEditMetadataPanels();
 
     public ControllerAdvancedSearch() {
@@ -98,6 +99,7 @@ public final class ControllerAdvancedSearch
                                 DatabaseFind.INSTANCE.findFilenames(paramStmt.createParamStatement());
 
                         setTitle(paramStmt.getName());
+                        thumbnailsPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
                     }
                 }
