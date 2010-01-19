@@ -163,7 +163,7 @@ public class ThumbnailsPanel extends JPanel
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
-    private void empty() {
+    private void clearSelectionAndFlags() {
         clearSelection();
         flagOfThumbnail.clear();
     }
@@ -204,15 +204,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public void clearSelection() {
-        if (selectedThumbnails.size() > 0) {
-            List<Integer> rerenderTargets =
-                    new ArrayList<Integer>(selectedThumbnails);
-            synchronized (this) {
-                selectedThumbnails.clear();
-            }
-            rerender(rerenderTargets);
-            notifySelectionChanged();
-        }
+         clearSelection(new ArrayList<Integer>(selectedThumbnails));
     }
 
     /* Also clears the selection, but takes the new indices of the selection
@@ -294,23 +286,12 @@ public class ThumbnailsPanel extends JPanel
         return renderer.getThumbnailWidth();
     }
 
-    /**
-     * Liefert die Indexe aller selektierten Thumbnails.
-     *
-     * @return Indexe
-     */
     public synchronized List<Integer> getSelectedIndices() {
         return new ArrayList<Integer>(selectedThumbnails);
     }
 
-    /**
-     * Setzt die Indexe selektierter Thumbnails.
-     *
-     * @param indices Indexe
-     */
     public void setSelected(List<Integer> indices) {
-        Set<Integer> rerenderTargets =
-                new HashSet<Integer>(selectedThumbnails);
+        Set<Integer> rerenderTargets = new HashSet<Integer>(selectedThumbnails);
         rerenderTargets.addAll(indices);
         synchronized (this) {
             selectedThumbnails.clear();
@@ -322,15 +303,6 @@ public class ThumbnailsPanel extends JPanel
         rerender(rerenderTargets);
         notifySelectionChanged();
         repaint();
-    }
-
-    /**
-     * Setzt neue Thumbnails.
-     */
-    protected void setNewThumbnails() {
-        rerender(getNotRenderedIndices());
-        forceRepaint();
-        notifyThumbnailsChanged();
     }
 
     private Set<Integer> getNotRenderedIndices() {
@@ -348,16 +320,16 @@ public class ThumbnailsPanel extends JPanel
         return indices;
     }
 
-    /**
-     * Setzt ein Thumbnail an einem bestimmten Index (neu). Der Cache wird mit
-     * diesem Thumbnail aktualisiert.
-     *
-     * @param index Index
-     */
     protected synchronized void repaint(int index) {
         repaint(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
                 renderer.getThumbnailAreaWidth(),
                 renderer.getThumbnailAreaHeight());
+    }
+
+    protected synchronized void repaint(Collection<Integer> indices) {
+        for (int index : indices) {
+            repaint(index);
+        }
     }
 
     @Override
@@ -370,42 +342,17 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    /**
-     * Zum Überschreiben für abgeleitete Klassen. Diese Klasse unternimmt
-     * nichts.
-     *
-     * @param e              Auslösendes Mausereignis
-     * @param thumbnailIndex Index des Thumbnails, bei dem geklickt wurde
-     */
     public void showPopupMenu(MouseEvent e, int thumbnailIndex) {
     }
 
-    /**
-     * Fügt einem Thumbnail ein Flag hinzu.
-     *
-     * @param index Index des Thumbnails
-     * @param flag  Flag
-     */
     public synchronized void addFlag(int index, ThumbnailFlag flag) {
         flagOfThumbnail.put(index, flag);
     }
 
-    /**
-     * Liefert, ob ein Thumbnail ein Flag hat.
-     *
-     * @param index Thumbnailindex
-     * @return      true, wenn das Thumbnail ein Flag hat
-     */
     public synchronized boolean isFlagged(int index) {
         return flagOfThumbnail.containsKey(index);
     }
 
-    /**
-     * Liefert das Flag eines Thumbnails.
-     *
-     * @param index Thumbnailindex
-     * @return      Flag oder null, wenn das Thumbnail kein Flag hat
-     */
     public synchronized ThumbnailFlag getFlag(int index) {
         return flagOfThumbnail.get(index);
     }
@@ -471,12 +418,6 @@ public class ThumbnailsPanel extends JPanel
                 (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL) + 0.5);
     }
 
-    /**
-     * Liefert, ob ein Thumbnail mit bestimmtem Index selektiert ist.
-     *
-     * @param index Thumbnailindex
-     * @return      true, wenn das Thumbnail selektiert ist
-     */
     public synchronized boolean isSelected(int index) {
         return selectedThumbnails.contains(index);
     }
@@ -485,11 +426,6 @@ public class ThumbnailsPanel extends JPanel
         return selectedThumbnails.contains(getIndexOf(file));
     }
 
-    /**
-     * Liefert die Anzahl der selektierten Thumbnails.
-     *
-     * @return Anzahl
-     */
     public synchronized int getSelectionCount() {
         return selectedThumbnails.size();
     }
@@ -820,11 +756,6 @@ public class ThumbnailsPanel extends JPanel
      *
      * @return thumbnail count
      */
-    /**
-     * Returns the number of Thumbnails.
-     *
-     * @return thumbnail count
-     */
     public synchronized int getFileCount() {
         return files.size();
     }
@@ -865,20 +796,10 @@ public class ThumbnailsPanel extends JPanel
         return indices;
     }
 
-    /**
-     * Returns the filenames of selected thumbnails.
-     *
-     * @return filenames
-     */
     public synchronized List<File> getSelectedFiles() {
         return getFiles(getSelectedIndices());
     }
 
-    /**
-     * Returns the sort comparator.
-     *
-     * @return sort type
-     */
     public synchronized Comparator<File> getFileSortComparator() {
         return fileSortComparator;
     }
@@ -1076,32 +997,26 @@ public class ThumbnailsPanel extends JPanel
      * @param content  content description of the files
      */
     public void setFiles(List<File> files, Content content) {
-        empty();
         synchronized (this) {
+            clearSelectionAndFlags();
+            Collections.sort(files, fileSortComparator);
             this.files.clear();
-            selectedThumbnails.clear();
-            if (!content.equals(Content.IMAGE_COLLECTION)) {
-                Collections.sort(files, fileSortComparator);
-            }
             this.files.addAll(files);
             this.content = content;
+            scrollToTop();
+            rerender(getNotRenderedIndices());
+            setMissingFilesFlags();
+            forceRepaint();
+            notifyThumbnailsChanged();
         }
-        setNewThumbnails();
-        scrollToTop();
-        setMissingFilesFlags();
     }
 
     private void setMissingFilesFlags() {
         int count = files.size();
-        boolean missing = false;
         for (int i = 0; i < count; i++) {
             if (!files.get(i).exists()) {
                 addFlag(i, ThumbnailFlag.ERROR_FILE_NOT_FOUND);
-                missing = true;
             }
-        }
-        if (missing) {
-            repaint();
         }
     }
 
