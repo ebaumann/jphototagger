@@ -20,14 +20,11 @@ package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.FileSystemDirectories;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -42,45 +39,25 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-19
  */
-public final class ControllerRenameDirectory
-        implements ActionListener, KeyListener {
-
-    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeDirectories();
+public final class ControllerRenameDirectory extends ControllerDirectory {
 
     public ControllerRenameDirectory() {
-        listen();
-    }
-
-    private void listen() {
-        popup.getItemRenameDirectory().addActionListener(this);
-        tree.addKeyListener(this);
+        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemRenameDirectory());
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (isRename(e) && !tree.isSelectionEmpty()) {
-            Object node = tree.getSelectionPath().getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                renameDirectory((DefaultMutableTreeNode) node);
-            }
-        }
+    protected boolean myKey(KeyEvent evt) {
+        return evt.getKeyCode() == KeyEvent.VK_F2;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        renameDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                popup.getTreePath()));
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemRenameDirectory();
     }
 
-    private boolean isRename(KeyEvent e) {
-        return e.getKeyCode() == KeyEvent.VK_F2;
-    }
-
-    private void renameDirectory(DefaultMutableTreeNode node) {
-        File dir = node == null
-                   ? null
-                   : TreeFileSystemDirectories.getFile(node);
+    @Override
+    protected void action(DefaultMutableTreeNode node) {
+        File dir = getDirOfNode(node);
         if (dir != null) {
             File newDir = FileSystemDirectories.rename(dir);
             if (newDir != null) {
@@ -89,15 +66,5 @@ public final class ControllerRenameDirectory
                         ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class), node);
             }
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // ignore
     }
 }
