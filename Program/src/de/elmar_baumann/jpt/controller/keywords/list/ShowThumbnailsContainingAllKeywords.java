@@ -18,7 +18,9 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.list;
 
+import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
@@ -64,6 +66,7 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
     private void setFilesToThumbnailsPanel() {
         Set<String> filenames = getFilenamesOfKeywords();
         if (filenames != null) {
+            ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.KEYWORD);
             thumbnailsPanel.apply(tnPanelSettings);
         }

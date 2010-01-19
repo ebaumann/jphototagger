@@ -18,8 +18,10 @@
  */
 package de.elmar_baumann.jpt.controller.directories;
 
+import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -94,6 +96,7 @@ public final class ControllerDirectorySelected
                 imageFilteredDirectory.setDirectory(selectedDirectory);
                 List<File> files = ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory);
                 setTitle(selectedDirectory);
+                ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
                 thumbnailsPanel.setFiles(files, Content.DIRECTORY);
                 thumbnailsPanel.apply(panelSettings);
                 setMetadataEditable();

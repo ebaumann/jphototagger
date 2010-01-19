@@ -18,10 +18,12 @@
  */
 package de.elmar_baumann.jpt.controller.miscmetadata;
 
+import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -102,22 +104,25 @@ public final class ControllerMiscMetadataItemSelected implements
                 if (parentUserObject instanceof Column) {
                     Column column = (Column) parentUserObject;
                     setTitle(column, userObject);
+                    ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
                     thumbnailsPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesJoinTable(
                             column,
                             userObject.toString()),
                             Content.MISC_METADATA);
-                thumbnailsPanel.apply(tnPanelSettings);
-            } else {
-                    setTitle();
+                    thumbnailsPanel.apply(tnPanelSettings);
+                } else {
+                        setTitle();
                 }
             } else if (userObject instanceof Column) {
                 Column column = (Column) userObject;
                 setTitle(column);
+                ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
                 thumbnailsPanel.setFiles(
                         DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column),
                         Content.MISC_METADATA);
                 thumbnailsPanel.apply(tnPanelSettings);
-        } else {
+            } else {
+                ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
                 thumbnailsPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);
                 thumbnailsPanel.apply(tnPanelSettings);
                 setTitle();

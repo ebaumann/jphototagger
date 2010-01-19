@@ -36,6 +36,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -179,6 +180,8 @@ public final class ControllerFastSearch
                     List<String> filenames = searchFilenames(userInput);
                     if (filenames != null) {
                         setTitle(userInput);
+                        GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
+                        thumbnailsPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
                     }
                 }

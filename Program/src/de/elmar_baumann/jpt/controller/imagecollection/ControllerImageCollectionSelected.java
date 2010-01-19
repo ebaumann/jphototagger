@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JList;
@@ -101,13 +102,13 @@ public final class ControllerImageCollectionSelected implements
                 List<String> filenames = DatabaseImageCollections.INSTANCE
                         .getFilenamesOf(collectionName);
                 setTitle();
+                thumbnailsPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
                 thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.IMAGE_COLLECTION);
                 thumbnailsPanel.apply(settings);
             }
 
             private void setTitle() {
-                GUI.INSTANCE.getAppFrame().setTitle(
-                        Bundle.getString("AppFrame.Title.Collection", collectionName));
+                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Collection", collectionName));
             }
         });
     }

@@ -18,12 +18,15 @@
  */
 package de.elmar_baumann.jpt.controller.nometadata;
 
+import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JList;
@@ -65,7 +68,9 @@ public final class ControllerNoMetadataItemSelected
         if (selValue instanceof Column) {
             List<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadataIn((Column) selValue);
             setTitle((Column) selValue);
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFiles(FileUtil.getAsFiles(filenames), Content.MISSING_METADATA);
+            ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+            ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.MISSING_METADATA);
         }
     }
 

@@ -50,7 +50,6 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
     private final ThumbnailsPanel               thumbnailsPanel                          = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem                     itemOpenFilesWithStandardApp             = popupThumbnails.getItemOpenFilesWithStandardApp();
     private final JMenu                         menuOtherOpenImageApps                   = popupThumbnails.getMenuOtherOpenImageApps();
-    private final JMenu                         menuSort                                 = appFrame.getMenuSort();
     private       boolean                       hasPrograms                              = !DatabasePrograms.INSTANCE.isEmpty();
 
     public ControllerMenuItemEnabler() {
@@ -108,12 +107,9 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
                     contentsOfMenuItemRequiresSelectedImages.get(item).contains(content));
         }
 
-        menuSort.setEnabled(thumbnailsPanel.getContent().isSortable());
-
         UserSettings settings = UserSettings.INSTANCE;
 
-        itemOpenFilesWithStandardApp.setEnabled(
-                isSelection && settings.hasDefaultImageOpenApp());
+        itemOpenFilesWithStandardApp.setEnabled(isSelection && settings.hasDefaultImageOpenApp());
 
         menuOtherOpenImageApps.setEnabled(isSelection && hasPrograms);
     }
