@@ -54,8 +54,6 @@ public final class ImageUtil {
     /**
      * Returns from a collection of files the image files.
      *
-     * FIXME better class
-     *
      * @param  files files
      * @return       image files of that files
      */

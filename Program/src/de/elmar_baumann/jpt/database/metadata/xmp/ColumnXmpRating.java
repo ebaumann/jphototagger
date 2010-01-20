@@ -50,8 +50,6 @@ public final class ColumnXmpRating extends Column {
      * Returns the minimum rating value. Lower values are treated as not
      * rated and should be set to null.
      *
-     * TODO: generalize for Column
-     *
      * @return minimum rating value.
      */
     public static int getMinValue() {
@@ -61,8 +59,6 @@ public final class ColumnXmpRating extends Column {
     /**
      * Returns the minimum rating value. Higher values shoul be set to this
      * value.
-     *
-     * TODO: generalize for Column
      *
      * @return minimum rating value.
      */

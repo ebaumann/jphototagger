@@ -86,7 +86,7 @@ public final class ExifMetadata {
 
             int count = ((TiffReader) imageReader).getIFDCount();
 
-            // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD?
+            // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD (using not IfdType.EXIF)?
             for (int i = 0; i < count; i++) {
                 addTagsOfIfd(((TiffReader) imageReader).getIFD(i), IfdType.EXIF, exifTags);
             }
