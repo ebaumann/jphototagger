@@ -96,24 +96,6 @@ public abstract class Controller implements ActionListener, KeyListener {
     protected Controller() {
     }
 
-    protected enum Type {
-        ACTION,
-        KEY_EVENT,
-    }
-
-    protected Controller(Type type, Object[] sources) {
-        switch (type) {
-            case ACTION   : listenToActionsOf(sources)  ; break;
-            case KEY_EVENT: listenToKeyEventsOf(sources); break;
-            default       : assert false;
-        }
-    }
-
-    protected Controller(Object[] actionSources, Object[] keyEventSources) {
-        listenToActionsOf  (actionSources);
-        listenToKeyEventsOf(keyEventSources);
-    }
-
     /**
      * Adds all objects with action events to listen to.
      *

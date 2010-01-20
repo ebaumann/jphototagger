@@ -16,58 +16,60 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.controller.directories;
+package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.controller.Controller;
+import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
-import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * Base class for directory controllers.
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2010-01-19
+ * @version 2010-01-20
  */
-abstract class ControllerDirectory extends Controller {
+public abstract class ControllerFavorite extends Controller {
 
-    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    private final JTree                tree  = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-
+    protected abstract void action(Favorite favorite);
     protected abstract void action(DefaultMutableTreeNode node);
 
-    public ControllerDirectory() {
-        listenToKeyEventsOf(tree);
-    }
-
-    @Override
-    protected void action(ActionEvent evt) {
-        DefaultMutableTreeNode node = 
-                TreeFileSystemDirectories.getNodeOfLastPathComponent(popup.getTreePath());
-        if (node != null) {
-            action(node);
-        }
+    ControllerFavorite() {
+        listenToKeyEventsOf(GUI.INSTANCE.getAppPanel().getTreeFavorites());
     }
 
     @Override
     protected void action(KeyEvent evt) {
-        if (!tree.isSelectionEmpty()) {
-            Object node = tree.getSelectionPath().getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                action((DefaultMutableTreeNode) node);
-            }
+        if (GUI.INSTANCE.getAppPanel().getTreeFavorites().isSelectionEmpty()) return;
+
+        DefaultMutableTreeNode node = getSelectedNodeFromTree();
+        Object                 o    = node.getUserObject();
+
+        if (o instanceof Favorite) {
+            action((Favorite) o);
+        }
+
+        action(node);
+    }
+
+    @Override
+    protected void action(ActionEvent evt) {
+        Favorite favorite = PopupMenuFavorites.INSTANCE.getFavorite();
+        if (favorite != null) {
+            action(favorite);
         }
     }
 
-    protected File getDirOfNode(DefaultMutableTreeNode node) {
-        File dir = TreeFileSystemDirectories.getFile(node);
-        if (dir != null && dir.isDirectory()) {
-            return dir;
+    protected DefaultMutableTreeNode getSelectedNodeFromTree() {
+        JTree  tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
+        Object node = tree.getSelectionPath().getLastPathComponent();
+
+        if (node instanceof DefaultMutableTreeNode) {
+            return (DefaultMutableTreeNode) node;
         }
         return null;
     }

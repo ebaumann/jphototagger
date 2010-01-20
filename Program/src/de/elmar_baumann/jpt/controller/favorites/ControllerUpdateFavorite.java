@@ -19,19 +19,12 @@
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
-import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.model.TreeModelFavorites;
-import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.FavoritePropertiesDialog;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.helper.FavoritesHelper;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -45,69 +38,29 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-23
  */
-public final class ControllerUpdateFavorite
-        implements ActionListener, KeyListener {
-
-    private final PopupMenuFavorites popupMenu = PopupMenuFavorites.INSTANCE;
-    private final AppPanel           appPanel  = GUI.INSTANCE.getAppPanel();
-    private final JTree              tree      = appPanel.getTreeFavorites();
+public final class ControllerUpdateFavorite extends ControllerFavorite {
 
     public ControllerUpdateFavorite() {
-        listen();
-    }
-
-    private void listen() {
-        popupMenu.getItemUpdateFavorite().addActionListener(this);
-        tree.addKeyListener(this);
+        listenToActionsOf(PopupMenuFavorites.INSTANCE.getItemUpdateFavorite());
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_E) && !tree.isSelectionEmpty()) {
-            Object node = tree.getSelectionPath().getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                Object userObject = ((DefaultMutableTreeNode) node).getUserObject();
-                if (userObject instanceof Favorite) {
-                    updateFavorite((Favorite) userObject);
-                }
-            }
-        }
+    protected boolean myKey(KeyEvent evt) {
+        return KeyEventUtil.isControl(evt, KeyEvent.VK_E);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        updateFavorite(popupMenu.getFavoriteDirectory());
-    }
-
-    private void updateFavorite(final Favorite favorite) {
-        FavoritePropertiesDialog dialog = new FavoritePropertiesDialog();
-
-        dialog.setFavoriteName(favorite.getName());
-        dialog.setDirectoryName(favorite.getDirectoryName());
-        dialog.setVisible(true);
-        if (dialog.accepted()) {
-            final String favoriteName = dialog.getFavoriteName();
-            final String directoryName = dialog.getDirectoryName();
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
-                    model.update(favorite, new Favorite(favoriteName,
-                                                        directoryName,
-                                                        favorite.getIndex()));
-                }
-            });
-        }
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == PopupMenuFavorites.INSTANCE.getItemUpdateFavorite();
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
+    protected void action(Favorite favorite) {
+        FavoritesHelper.updateFavorite(favorite);
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    protected void action(DefaultMutableTreeNode node) {
         // ignore
     }
 }

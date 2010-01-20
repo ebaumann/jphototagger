@@ -45,10 +45,11 @@ public final class ControllerActionsShowDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ActionsDialog dialog = ActionsDialog.INSTANCE;
-        if (dialog.isVisible()) {
-            dialog.toFront();
-        } else {
+
+        if (!dialog.isVisible()) {
             dialog.setVisible(true);
         }
+
+        dialog.toFront();
     }
 }
