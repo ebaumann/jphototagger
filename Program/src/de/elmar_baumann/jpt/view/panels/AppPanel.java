@@ -1154,9 +1154,9 @@ public final class AppPanel extends javax.swing.JPanel {
         new de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword(panelEditKeywords);
         new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword(panelEditKeywords);
         new de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword(panelEditKeywords);
-        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywords(panelEditKeywords);
         new de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel(panelEditKeywords);
-        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeywordFromEditPanel(panelEditKeywords);
+        new de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywordFromEditPanel(panelEditKeywords);
         new de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword(panelEditKeywords);
         new de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages();
 

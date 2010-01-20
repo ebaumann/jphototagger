@@ -80,14 +80,14 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
             int count = keywords.size();
             if (count > 1) {
                 return MessageDisplayer.confirmYesNo(null,
-                         "ControllerDeleteKeyword.Confirm.MultipleKeywords", count);
+                         "ControllerDeleteKeywords.List.Confirm.MultipleKeywords", count);
             }
             return true;
         }
 
         private void delete(String keyword) {
 
-            if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeyword.Confirm.Delete", keyword)) {
+            if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
                 Set<String> files = DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(keyword);
 
                 if (files.size() <= 0) return;

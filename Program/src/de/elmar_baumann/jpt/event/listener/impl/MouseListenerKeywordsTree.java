@@ -51,18 +51,34 @@ public final class MouseListenerKeywordsTree extends MouseListenerTree {
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         if (MouseEventUtil.isPopupTrigger(e)) {
-            TreePath path = TreeUtil.getTreePath(e);
+            TreePath mouseCursorPath = TreeUtil.getTreePath(e);
             boolean isHkNode =
-                    path != null &&
+                    mouseCursorPath != null &&
                     !TreeUtil.isRootItemPosition(e) &&
-                    path.getLastPathComponent() instanceof DefaultMutableTreeNode;
+                    mouseCursorPath.getLastPathComponent() instanceof DefaultMutableTreeNode;
 
-            popupMenu.setTree((JTree)e.getSource());
-            popupMenu.setTreePath(path);
+            JTree tree = (JTree)e.getSource();
+            popupMenu.setTree(tree);
+            setTreePathsToPopupMenu(tree, mouseCursorPath);
             setMenuItemsEnabled(isHkNode);
-            popupMenu.getItemAdd().setEnabled(path != null);
-            popupMenu.show((JTree) e.getSource(), e.getX(), e.getY());
+            popupMenu.getItemAdd().setEnabled(mouseCursorPath != null);
+            popupMenu.show(tree, e.getX(), e.getY());
         }
+    }
+
+    private void setTreePathsToPopupMenu(JTree tree, TreePath mouseCursorPath) {
+
+        popupMenu.setTreePath(mouseCursorPath);
+        if (mouseCursorPath == null) {
+            popupMenu.setTreePaths(null);
+            return;
+        }
+        
+        TreePath[] selPaths = tree.getSelectionPaths();
+        popupMenu.setTreePaths(selPaths == null
+                ? new TreePath[] { mouseCursorPath }
+                : selPaths
+                );
     }
 
     private void setMenuItemsEnabled(boolean hkNode) {

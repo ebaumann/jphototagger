@@ -49,11 +49,12 @@ import javax.swing.tree.TreeNode;
  * @version 2009-07-15
  */
 public class ControllerAddKeywordsToEditPanel
-        extends ControllerKeywords
-        implements ActionListener, KeyListener {
+        extends    ControllerKeywords
+        implements ActionListener, 
+                   KeyListener
+    {
 
-    public ControllerAddKeywordsToEditPanel(
-            KeywordsPanel panel) {
+    public ControllerAddKeywordsToEditPanel(KeywordsPanel panel) {
         super(panel);
     }
 
@@ -63,17 +64,26 @@ public class ControllerAddKeywordsToEditPanel
     }
 
     @Override
-    protected void localAction(DefaultMutableTreeNode node) {
-        List<String> keywordNames = new ArrayList<String>();
+    protected boolean canHandleMultipleNodes() {
+        return false;
+    }
+
+    @Override
+    protected void localAction(List<DefaultMutableTreeNode> nodes) {
+        DefaultMutableTreeNode node         = nodes.get(0);
+        List<String>           keywordNames = new ArrayList<String>();
+
         addParentKeywords(node, keywordNames);
         addToEditPanel(keywordNames);
     }
 
     private void addToEditPanel(List<String> keywordNames) {
         EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-        JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        JPanel             panel      = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
+
             if (editPanel.isEditable()) {
                 for (String keywordName : keywordNames) {
                     editPanel.addText(keywordName);
@@ -91,6 +101,7 @@ public class ControllerAddKeywordsToEditPanel
     private void addParentKeywords(DefaultMutableTreeNode node, List<String> keywords) {
 
         Object userObject = node.getUserObject();
+
         if (userObject instanceof Keyword) {
             Keyword keyword = (Keyword) userObject;
             if (keyword.isReal()) {
