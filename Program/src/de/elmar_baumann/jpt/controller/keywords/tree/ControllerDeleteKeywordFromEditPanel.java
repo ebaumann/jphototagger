@@ -30,6 +30,7 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -44,13 +45,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Martin Pohlack  <martinp@gmx.de>
  * @version 2009-07-26
  */
-public class ControllerRemoveKeywordFromEditPanel
-        extends ControllerKeywords
-        implements ActionListener, KeyListener {
+public class ControllerDeleteKeywordFromEditPanel
+        extends    ControllerKeywords
+        implements ActionListener,
+                   KeyListener
+    {
 
-    public ControllerRemoveKeywordFromEditPanel(
-            KeywordsPanel _panel) {
-        super(_panel);
+    public ControllerDeleteKeywordFromEditPanel(KeywordsPanel panel) {
+        super(panel);
     }
 
     @Override
@@ -59,35 +61,45 @@ public class ControllerRemoveKeywordFromEditPanel
     }
 
     @Override
-    protected void localAction(DefaultMutableTreeNode node) {
-        String keyword = getKeyword(node);
+    protected boolean canHandleMultipleNodes() {
+        return false;
+    }
+
+    @Override
+    protected void localAction(List<DefaultMutableTreeNode> nodes) {
+        DefaultMutableTreeNode node    = nodes.get(0);
+        String                 keyword = getKeyword(node);
+
         if (keyword != null) {
             removeFromEditPanel(keyword);
         }
     }
 
     private void removeFromEditPanel(String keyword) {
-        EditMetadataPanels editPanels =
-                GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-        JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        JPanel             panel      = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
+
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
                 editPanels.checkSaveOnChanges();
                 KeywordsHelper.removeHighlightKeyword(keyword);
             } else {
-                MessageDisplayer.error(null, "ControllerRemoveKeywordFromEditPanel.Error.EditDisabled");
+                MessageDisplayer.error(null, "ControllerDeleteKeywordFromEditPanel.Error.EditDisabled");
             }
         } else {
-            MessageDisplayer.error(null, "ControllerRemoveKeywordFromEditPanel.Error.NoEditPanel");
+            MessageDisplayer.error(null, "ControllerDeleteKeywordFromEditPanel.Error.NoEditPanel");
         }
     }
 
     private String getKeyword(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
+
         if (userObject instanceof Keyword) {
             Keyword keyword = (Keyword) userObject;
+
             if (keyword.isReal()) {
                 return keyword.getName();
             }

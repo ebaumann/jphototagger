@@ -53,7 +53,8 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
     private final        JMenuItem                     itemExpandAllSubitems   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
     private final        JMenuItem                     itemCollapseAllSubitems = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
     private              JTree                         tree;
-    private              TreePath                      path;
+    private              TreePath                      treePath;
+    private              TreePath[]                    treePaths;
     public static final  PopupMenuKeywordsTree INSTANCE                = new PopupMenuKeywordsTree();
 
     public JMenuItem getItemAdd() {
@@ -113,11 +114,19 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
     }
 
     public void setTreePath(TreePath path) {
-        this.path = path;
+        this.treePath = path;
     }
 
     public TreePath getTreePath() {
-        return path;
+        return treePath;
+    }
+
+    public void setTreePaths(TreePath[] treePaths) {
+        this.treePaths = treePaths;
+    }
+
+    public TreePath[] getTreePaths() {
+        return treePaths;
     }
 
     public JTree getTree() {

@@ -22,8 +22,8 @@ import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeyword;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRemoveKeywordFromEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywords;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywordFromEditPanel;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword;
 import de.elmar_baumann.jpt.controller.misc.ControllerAboutApp;
@@ -88,11 +88,11 @@ public final class ActionListenerFactory {
     private void listenToPopupMenuKeywordsTree() {
         KeywordsPanel                        hkwPanel        = InputHelperDialog.INSTANCE.getPanelKeywords();
         ControllerRenameKeyword              cRename         = new ControllerRenameKeyword(hkwPanel);
-        ControllerRemoveKeyword              cRemove         = new ControllerRemoveKeyword(hkwPanel);
+        ControllerDeleteKeywords              cRemove         = new ControllerDeleteKeywords(hkwPanel);
         ControllerAddKeyword                 cAdd            = new ControllerAddKeyword(hkwPanel);
         ControllerToggleRealKeyword          cToggleReal     = new ControllerToggleRealKeyword(hkwPanel);
         ControllerAddKeywordsToEditPanel     cAddToEditPanel = new ControllerAddKeywordsToEditPanel(hkwPanel);
-        ControllerRemoveKeywordFromEditPanel cRemoveFromEPn  = new ControllerRemoveKeywordFromEditPanel(hkwPanel);
+        ControllerDeleteKeywordFromEditPanel cRemoveFromEPn  = new ControllerDeleteKeywordFromEditPanel(hkwPanel);
         ControllerCopyCutPasteKeyword        cCopyCutPaste   = new ControllerCopyCutPasteKeyword(hkwPanel);
         ControllerKeywordsDisplayImages      cKwDisplayImg   = new ControllerKeywordsDisplayImages();
 

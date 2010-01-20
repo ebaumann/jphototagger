@@ -29,6 +29,7 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -45,8 +46,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class ControllerRenameKeyword
         extends    ControllerKeywords
         implements ActionListener,
-                   KeyListener {
-
+                   KeyListener
+    {
     private final DatabaseKeywords db = DatabaseKeywords.INSTANCE;
 
     public ControllerRenameKeyword(KeywordsPanel _panel) {
@@ -59,8 +60,15 @@ public class ControllerRenameKeyword
     }
 
     @Override
-    protected void localAction(DefaultMutableTreeNode node) {
-        Object userObject = node.getUserObject();
+    protected boolean canHandleMultipleNodes() {
+        return false;
+    }
+
+    @Override
+    protected void localAction(List<DefaultMutableTreeNode> nodes) {
+        DefaultMutableTreeNode node       = nodes.get(0);
+        Object                 userObject = node.getUserObject();
+
         if (userObject instanceof Keyword) {
             renameKeyword(node, (Keyword) userObject);
         } else {
@@ -71,28 +79,26 @@ public class ControllerRenameKeyword
     private void renameKeyword(DefaultMutableTreeNode node, Keyword keyword) {
         String newName = getName(keyword, db, getHKPanel().getTree());
         if (newName != null && !newName.trim().isEmpty()) {
-            TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-            String oldName = keyword.getName();
+            TreeModelKeywords model   = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+            String            oldName = keyword.getName();
+
             keyword.setName(newName);
             KeywordsHelper.renameInFiles(oldName, keyword);
             model.changed(node, keyword);
         }
     }
 
-    static String getName(
-            Keyword keyword,
-            DatabaseKeywords database,
-            JTree tree) {
-
-        String newName = null;
-        String oldName = keyword.getName();
+    static String getName(Keyword keyword, DatabaseKeywords database, JTree tree) {
+        String  newName   = null;
+        String  oldName   = keyword.getName();
         boolean confirmed = true;
+
         while (newName == null && confirmed) {
-            newName = MessageDisplayer.input("ControllerRenameKeyword.Input.Name", oldName, ControllerRenameKeyword.class.getName(), oldName);
+            newName   = MessageDisplayer.input("ControllerRenameKeyword.Input.Name", oldName, ControllerRenameKeyword.class.getName(), oldName);
             confirmed = newName != null;
+
             if (newName != null && !newName.trim().isEmpty()) {
-                Keyword s = new Keyword(keyword.getId(),
-                        keyword.getIdParent(), newName.trim(), keyword.isReal());
+                Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(), newName.trim(), keyword.isReal());
                 if (database.hasParentChildWithEqualName(s)) {
                     newName = null;
                     confirmed = MessageDisplayer.confirmYesNo(null, "ControllerRenameKeyword.Confirm.Exists", s);

@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -40,13 +41,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-12
  */
-public class ControllerRemoveKeyword
+public class ControllerDeleteKeywords
         extends    ControllerKeywords
         implements ActionListener,
-                   KeyListener {
+                   KeyListener
+    {
 
-    public ControllerRemoveKeyword(KeywordsPanel _panel) {
-        super(_panel);
+    public ControllerDeleteKeywords(KeywordsPanel panel) {
+        super(panel);
     }
 
     @Override
@@ -55,20 +57,40 @@ public class ControllerRemoveKeyword
     }
 
     @Override
-    protected void localAction(DefaultMutableTreeNode node) {
-        Object userObject = node.getUserObject();
-        if (userObject instanceof Keyword) {
-            delete(node, (Keyword) userObject);
-        } else {
-            MessageDisplayer.error(null, "ControllerRemoveKeyword.Error.Node", node);
+    protected boolean canHandleMultipleNodes() {
+        return true;
+    }
+
+    @Override
+    protected void localAction(List<DefaultMutableTreeNode> nodes) {
+
+        if (!ensureNoChild(nodes) || !confirmDeleteMultiple(nodes)) return;
+
+        for (DefaultMutableTreeNode node : nodes) {
+            Object userObject = node.getUserObject();
+            if (userObject instanceof Keyword) {
+                delete(node, (Keyword) userObject);
+            } else {
+                MessageDisplayer.error(null, "ControllerDeleteKeywords.Tree.Error.Node", node);
+            }
         }
     }
 
-    private void delete(
-            DefaultMutableTreeNode node, Keyword keyword) {
-            if (MessageDisplayer.confirmYesNo(null, "ControllerRemoveKeyword.Confirm.Remove", keyword)) {
-                KeywordsHelper.deleteInFiles(keyword);
-                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(node);
-            }
+    private void delete(DefaultMutableTreeNode node, Keyword keyword) {
+        if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword)) {
+            KeywordsHelper.deleteInFiles(keyword);
+            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(node);
+        }
+    }
+
+    private boolean confirmDeleteMultiple(List<DefaultMutableTreeNode> nodes) {
+        int size = nodes.size();
+        if (size <= 1) return true;
+
+        return MessageDisplayer.confirmYesNo(
+                null,
+                "ControllerDeleteKeywords.Tree.Confirm.MultipleKeywords",
+                size
+                );
     }
 }

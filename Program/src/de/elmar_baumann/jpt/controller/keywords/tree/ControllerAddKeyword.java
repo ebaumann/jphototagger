@@ -29,6 +29,7 @@ import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -43,11 +44,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2009-07-12
  */
 public class ControllerAddKeyword
-        extends ControllerKeywords
-        implements ActionListener, KeyListener {
+        extends    ControllerKeywords
+        implements ActionListener, 
+                   KeyListener
+    {
 
-    public ControllerAddKeyword(KeywordsPanel _panel) {
-        super(_panel);
+    public ControllerAddKeyword(KeywordsPanel panel) {
+        super(panel);
     }
 
     @Override
@@ -56,8 +59,15 @@ public class ControllerAddKeyword
     }
 
     @Override
-    protected void localAction(DefaultMutableTreeNode node) {
-        Object userObject = node.getUserObject();
+    protected boolean canHandleMultipleNodes() {
+        return false;
+    }
+
+    @Override
+    protected void localAction(List<DefaultMutableTreeNode> nodes) {
+        DefaultMutableTreeNode node       = nodes.get(0);
+        Object                 userObject = node.getUserObject();
+
         if (userObject instanceof Keyword) {
             add(node, (Keyword) userObject);
         } else if (isRootNode(node)) {
@@ -79,6 +89,7 @@ public class ControllerAddKeyword
                                           true);
         JTree  tree = getHKPanel().getTree();
         String name = ControllerRenameKeyword.getName(newKeyword, DatabaseKeywords.INSTANCE, tree);
+
         if (name != null && !name.trim().isEmpty()) {
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).insert(parentNode, name, true);
             KeywordsTreePathExpander.expand(parentNode);
