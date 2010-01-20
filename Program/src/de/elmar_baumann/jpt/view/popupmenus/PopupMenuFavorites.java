@@ -110,7 +110,7 @@ public final class PopupMenuFavorites extends JPopupMenu {
         this.treePath = treePath;
     }
 
-    public Favorite getFavoriteDirectory() {
+    public Favorite getFavorite() {
         return favoriteDirectory;
     }
 

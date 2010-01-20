@@ -18,19 +18,12 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Favorite;
-import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.model.TreeModelFavorites;
-import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.helper.FavoritesHelper;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -43,68 +36,29 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-23
  */
-public final class ControllerDeleteFavorite
-        implements ActionListener, KeyListener {
-
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree tree = appPanel.getTreeFavorites();
-    private final PopupMenuFavorites popupMenu = PopupMenuFavorites.INSTANCE;
+public final class ControllerDeleteFavorite extends ControllerFavorite {
 
     public ControllerDeleteFavorite() {
-        listen();
-    }
-
-    private void listen() {
-        popupMenu.getItemDeleteFavorite().addActionListener(this);
-        tree.addKeyListener(this);
+        listenToActionsOf(PopupMenuFavorites.INSTANCE.getItemDeleteFavorite());
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DELETE && !tree.isSelectionEmpty()) {
-            Object node = tree.getSelectionPath().getLastPathComponent();
-            if (node instanceof DefaultMutableTreeNode) {
-                Object userObject =
-                        ((DefaultMutableTreeNode) node).getUserObject();
-                if (userObject instanceof Favorite) {
-                    deleteFavorite((Favorite) userObject);
-                }
-            }
-        }
+    protected boolean myKey(KeyEvent evt) {
+        return evt.getKeyCode() == KeyEvent.VK_DELETE;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        deleteFavorite(popupMenu.getFavoriteDirectory());
-    }
-
-    private void deleteFavorite(final Favorite favoriteDirectory) {
-        if (confirmDelete(favoriteDirectory.getName())) {
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
-                    model.delete(favoriteDirectory);
-                }
-            });
-        }
-    }
-
-    private boolean confirmDelete(String favoriteName) {
-        return MessageDisplayer.confirmYesNo(
-                null,
-                "ControllerDeleteFavorite.Confirm.Delete",
-                favoriteName);
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == PopupMenuFavorites.INSTANCE.getItemDeleteFavorite();
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // ignore
+    protected void action(Favorite favorite) {
+        FavoritesHelper.deleteFavorite(favorite);
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    protected void action(DefaultMutableTreeNode node) {
         // ignore
     }
 }

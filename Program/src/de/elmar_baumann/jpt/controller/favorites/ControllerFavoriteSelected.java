@@ -18,28 +18,16 @@
  */
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
-import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
-import de.elmar_baumann.jpt.factory.ControllerFactory;
-import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.helper.FavoritesHelper;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
-import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel.Settings;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 /**
  * Listens for selections of items in the favorite directories tree view. A tree
@@ -54,7 +42,6 @@ public final class ControllerFavoriteSelected implements TreeSelectionListener, 
     private final AppPanel           appPanel                = GUI.INSTANCE.getAppPanel();
     private final JTree              treeFavoriteDirectories = appPanel.getTreeFavorites();
     private final ThumbnailsPanel    thumbnailsPanel         = appPanel.getPanelThumbnails();
-    private final EditMetadataPanels editPanels              = appPanel.getEditMetadataPanels();
 
     public ControllerFavoriteSelected() {
         listen();
@@ -68,67 +55,16 @@ public final class ControllerFavoriteSelected implements TreeSelectionListener, 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
-            update(null);
+            FavoritesHelper.setFilesToThumbnailPanel(
+                    FavoritesHelper.getFilesOfCurrentDirectory(), null);
         }
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
         if (treeFavoriteDirectories.getSelectionCount() > 0) {
-            update(evt.getSettings());
-        }
-    }
-
-    private void update(ThumbnailsPanel.Settings settings) {
-        SwingUtilities.invokeLater(new SetFiles(settings));
-    }
-
-    private class SetFiles implements Runnable {
-
-        private final ThumbnailsPanel.Settings tnPanelSettings;
-
-        public SetFiles(Settings settings) {
-            this.tnPanelSettings = settings;
-        }
-
-        @Override
-        public void run() {
-            List<File> files = getFilesOfCurrentDirectory();
-            ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
-            thumbnailsPanel.setFiles(files, Content.FAVORITE);
-            thumbnailsPanel.apply(tnPanelSettings);
-            setMetadataEditable();
-        }
-
-        private List<File> getFilesOfCurrentDirectory() {
-            TreePath path = treeFavoriteDirectories.getSelectionPath();
-            if (path != null) {
-                File dir = null;
-                DefaultMutableTreeNode node       = (DefaultMutableTreeNode) path.getLastPathComponent();
-                Object                 userObject = node.getUserObject();
-                if (userObject instanceof Favorite) {
-                    Favorite favoriteDirectory = (Favorite) userObject;
-                    dir = favoriteDirectory.getDirectory();
-                } else if (userObject instanceof File) {
-                    dir = (File) userObject;
-                }
-                if (dir != null) {
-                    setTitle(dir);
-                    return ImageFilteredDirectory.getImageFilesOfDirectory(dir);
-                }
-            }
-            return new ArrayList<File>();
-        }
-
-        private void setTitle(File dir) {
-            GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("AppFrame.Title.FavoriteDirectory", dir.getName()));
-        }
-
-        private void setMetadataEditable() {
-            if (thumbnailsPanel.getSelectionCount() <= 0) {
-                editPanels.setEditable(false);
-            }
+            FavoritesHelper.setFilesToThumbnailPanel(
+                    FavoritesHelper.getFilesOfCurrentDirectory(), evt.getSettings());
         }
     }
 }
