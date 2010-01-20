@@ -197,6 +197,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         SavedSearch savedSearch = new SavedSearch();
 
         savedSearch.setParamStatement(getSavedSearchParamStmt());
+        savedSearch.setType(isCustomSql() ? SavedSearch.Type.CUSTOM_SQL : SavedSearch.Type.PANELS);
         event.setData(savedSearch);
         listenerSupport.notifyListeners(event);
     }
@@ -434,8 +435,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         SavedSearch               savedSearch          = new SavedSearch();
         SavedSearchParamStatement savedSearchParamStmt = getSavedSearchParamStmt();
 
-        savedSearchParamStmt.setName(name);
+        savedSearch.setType(isCustomSql()
+                ? SavedSearch.Type.CUSTOM_SQL
+                : SavedSearch.Type.PANELS);
         savedSearch.setParamStatement(savedSearchParamStmt);
+        savedSearch.setName(name); // after setParamStatement()!
         savedSearch.setPanels(getSavedSearchPanels());
 
         return savedSearch;

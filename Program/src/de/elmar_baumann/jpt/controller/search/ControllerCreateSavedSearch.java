@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
+import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.ModifySavedSearches;
 import de.elmar_baumann.jpt.view.dialogs.AdvancedSearchDialog;
@@ -57,7 +58,7 @@ public final class ControllerCreateSavedSearch
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_N) {
-            showAdvancedSearchDialog();
+            ControllerFactory.INSTANCE.getController(ControllerShowAdvancedSearchDialog.class).showDialog();
         }
     }
 
@@ -71,16 +72,7 @@ public final class ControllerCreateSavedSearch
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        showAdvancedSearchDialog();
-    }
-
-    private void showAdvancedSearchDialog() {
-        AdvancedSearchDialog dialog = AdvancedSearchDialog.INSTANCE;
-        if (dialog.isVisible()) {
-            dialog.toFront();
-        } else {
-            dialog.setVisible(true);
-        }
+        ControllerFactory.INSTANCE.getController(ControllerShowAdvancedSearchDialog.class).showDialog();
     }
 
     @Override

@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.data.SavedSearch;
+import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
@@ -72,13 +73,9 @@ public final class ControllerEditSavedSearch
     }
 
     private void showAdvancedSearchDialog(SavedSearch savedSearch) {
-        AdvancedSearchDialog dialog = AdvancedSearchDialog.INSTANCE;
-        dialog.setSavedSearch(savedSearch);
-        if (dialog.isVisible()) {
-            dialog.toFront();
-        } else {
-            dialog.setVisible(true);
-        }
+        AdvancedSearchDialog.INSTANCE.setSavedSearch(savedSearch);
+
+        ControllerFactory.INSTANCE.getController(ControllerShowAdvancedSearchDialog.class).showDialog();
     }
 
     @Override

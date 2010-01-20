@@ -29,21 +29,27 @@ import java.util.List;
  */
 public final class SavedSearchParamStatement {
 
-    private String name;
-    private String sql;
+    private String       name;
+    private String       sql;
     private List<String> values;
-    private boolean query;
+    private boolean      query;
 
     public SavedSearchParamStatement() {
     }
 
     public SavedSearchParamStatement(SavedSearchParamStatement other) {
-        this.name = other.name;
-        this.sql = other.sql;
+        set(other);
+    }
+
+    public void set(SavedSearchParamStatement other) {
+        if (other == this) return;
+
+        this.name   = other.name;
+        this.sql    = other.sql;
         this.values = other.values == null
-                      ? null
-                      : new ArrayList<String>(other.values);
-        this.query = other.query;
+                          ? null
+                          : new ArrayList<String>(other.values);
+        this.query  = other.query;
     }
 
     /**

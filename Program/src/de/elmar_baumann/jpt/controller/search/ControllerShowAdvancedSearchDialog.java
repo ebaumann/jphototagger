@@ -35,12 +35,13 @@ public final class ControllerShowAdvancedSearchDialog implements ActionListener 
         showDialog();
     }
 
-    private void showDialog() {
+    void showDialog() {
         AdvancedSearchDialog dialog = AdvancedSearchDialog.INSTANCE;
-        if (dialog.isVisible()) {
-            dialog.toFront();
-        } else {
+
+        if (!dialog.isVisible()) {
             dialog.setVisible(true);
         }
+
+        dialog.toFront();
     }
 }
