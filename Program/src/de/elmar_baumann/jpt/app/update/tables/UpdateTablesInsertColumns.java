@@ -53,7 +53,8 @@ final class UpdateTablesInsertColumns {
                     "action",
                     "idx_programs_action",
                     false)));
-        columns.add(new ColumnInfo("programs",
+        columns.add(new ColumnInfo(
+                "programs",
                 "input_before_execute",
                 "BOOLEAN",
                 null));
@@ -97,8 +98,22 @@ final class UpdateTablesInsertColumns {
                 "BIGINT",
                 null));
         columns.add(new ColumnInfo(
+                "xmp",
+                "iptc4xmpcore_datecreated",
+                "VARCHAR_IGNORECASE(32)",
+                new IndexOfColumn(
+                    "xmp",
+                    "iptc4xmpcore_datecreated",
+                    "idx_iptc4xmpcore_datecreated",
+                    false)));
+        columns.add(new ColumnInfo(
                 "metadata_edit_templates",
                 "rating",
+                "BINARY",
+                null));
+        columns.add(new ColumnInfo(
+                "metadata_edit_templates",
+                "iptc4xmpcore_datecreated",
                 "BINARY",
                 null));
         columns.add(new ColumnInfo(
@@ -111,18 +126,9 @@ final class UpdateTablesInsertColumns {
                     "idx_exif_lens",
                     false)));
         columns.add(new ColumnInfo(
-                "xmp",
-                "iptc4xmpcore_datecreated",
-                "VARCHAR_IGNORECASE(32)",
-                new IndexOfColumn(
-                    "xmp",
-                    "iptc4xmpcore_datecreated",
-                    "idx_iptc4xmpcore_datecreated",
-                    false)));
-        columns.add(new ColumnInfo(
-                "metadata_edit_templates",
-                "iptc4xmpcore_datecreated",
-                "BINARY",
+                "saved_searches",
+                "search_type",
+                "SMALLINT",
                 null));
     }
 

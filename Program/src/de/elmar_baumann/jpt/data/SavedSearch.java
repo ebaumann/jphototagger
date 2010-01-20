@@ -29,8 +29,53 @@ import java.util.List;
  */
 public final class SavedSearch {
 
+    public enum Type {
+        /**
+         * Saved search was generated through dialog, search column panels
+         */
+        PANELS      ((short)0),
+
+        /**
+         * Saved search is a custom SQL Query
+         */
+        CUSTOM_SQL  ((short)1),
+        ;
+        private final short value;
+
+        private Type(short value) {
+            this.value = value;
+        }
+
+        public short getValue() {
+            return value;
+        }
+
+        public static Type fromValue(short value) {
+            for (Type t : values()) {
+                if (t.getValue() == value) return t;
+            }
+            return null;
+        }
+    }
+
     private SavedSearchParamStatement paramStatement;
-    private List<SavedSearchPanel> panels;
+    private List<SavedSearchPanel>    panels;
+    private Type                      type;
+
+    public SavedSearch() {
+    }
+
+    public SavedSearch(SavedSearch other) {
+        set(other);
+    }
+
+    public void set(SavedSearch other) {
+        if (other == this) return;
+
+        paramStatement.set(other.paramStatement);
+        panels = other.getDeepCopyPanels();
+        type   = other.type;
+    }
 
     /**
      * Liefert die Paneldaten.
@@ -97,13 +142,25 @@ public final class SavedSearch {
         return paramStatement != null;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     /**
      * Liefert, ob Paneldaten existieren.
      *
      * @return true, wenn Paneldaten existieren
      */
     public boolean hasPanels() {
-        return panels != null;
+        return panels != null && !panels.isEmpty();
+    }
+
+    public boolean isCustomSql() {
+        return type != null && type.equals(Type.CUSTOM_SQL);
     }
 
     @Override
@@ -151,6 +208,7 @@ public final class SavedSearch {
      * @see    de.elmar_baumann.jpt.data.ParamStatement#setName(java.lang.String)
      */
     public void setName(String name) {
+        if (paramStatement == null) return;
         paramStatement.setName(name);
     }
 
@@ -160,18 +218,25 @@ public final class SavedSearch {
     }
 
     private List<SavedSearchPanel> getDeepCopyPanels() {
-        assert panels != null : "panels field is null!";
-        List<SavedSearchPanel> copy =
-                new ArrayList<SavedSearchPanel>(panels.size());
+        if (panels == null) return null;
+
+        List<SavedSearchPanel> copy = new ArrayList<SavedSearchPanel>(panels.size());
+
         for (SavedSearchPanel panel : panels) {
             copy.add(new SavedSearchPanel(panel));
         }
+
         return copy;
     }
 
     private void setDeepCopyPanels(List<SavedSearchPanel> p) {
-        assert p != null : "panels parameter is null!";
+        if (p == null) {
+            panels = null;
+            return;
+        }
+
         panels = new ArrayList<SavedSearchPanel>(p.size());
+
         for (SavedSearchPanel panel : p) {
             panels.add(new SavedSearchPanel(panel));
         }

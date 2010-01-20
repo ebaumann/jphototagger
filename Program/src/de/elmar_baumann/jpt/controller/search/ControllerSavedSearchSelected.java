@@ -23,13 +23,13 @@ import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.data.ParamStatement;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.helper.SearchHelper;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.util.List;
 import javax.swing.JList;
@@ -44,11 +44,12 @@ import javax.swing.event.ListSelectionListener;
  * @version 2008-10-05
  */
 public final class ControllerSavedSearchSelected
-        implements ListSelectionListener, RefreshListener {
-
-    private final AppPanel                appPanel        = GUI.INSTANCE.getAppPanel();
-    private final JList                   list            = appPanel.getListSavedSearches();
-    private final ThumbnailsPanel         thumbnailsPanel = appPanel.getPanelThumbnails();
+        implements ListSelectionListener,
+                   RefreshListener
+    {
+    private final AppPanel           appPanel        = GUI.INSTANCE.getAppPanel();
+    private final JList              list            = appPanel.getListSavedSearches();
+    private final ThumbnailsPanel    thumbnailsPanel = appPanel.getPanelThumbnails();
     private final EditMetadataPanels editPanels      = appPanel.getEditMetadataPanels();
 
     public ControllerSavedSearchSelected() {
@@ -95,6 +96,7 @@ public final class ControllerSavedSearchSelected
                 if (savedSearch.hasParamStatement()) {
                     ParamStatement stmt = savedSearch.getParamStatement().createParamStatement();
                     if (stmt != null) {
+                        SearchHelper.setSort(savedSearch);
                         searchParamStatement(stmt);
                     }
                 }
@@ -104,7 +106,6 @@ public final class ControllerSavedSearchSelected
         private void searchParamStatement(ParamStatement stmt) {
             List<String> filenames = DatabaseFind.INSTANCE.findFilenames(stmt);
             setTitle(stmt.getName());
-            thumbnailsPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
             thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
         }
 

@@ -23,6 +23,8 @@ import de.elmar_baumann.jpt.data.SavedSearchParamStatement;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
+import de.elmar_baumann.jpt.factory.ControllerFactory;
+import de.elmar_baumann.jpt.helper.SearchHelper;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.AdvancedSearchDialog;
@@ -30,7 +32,6 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
@@ -65,7 +66,7 @@ public final class ControllerAdvancedSearch
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        showAdvancedSearchDialog();
+        ControllerFactory.INSTANCE.getController(ControllerShowAdvancedSearchDialog.class).showDialog();
     }
 
     @Override
@@ -73,15 +74,6 @@ public final class ControllerAdvancedSearch
         if (e.getType().equals(SearchEvent.Type.START)) {
             applySavedSearch(e);
             setMetadataEditable();
-        }
-    }
-
-    private void showAdvancedSearchDialog() {
-        AdvancedSearchDialog dlgAdvancedSearch = AdvancedSearchDialog.INSTANCE;
-        if (dlgAdvancedSearch.isVisible()) {
-            dlgAdvancedSearch.toFront();
-        } else {
-            dlgAdvancedSearch.setVisible(true);
         }
     }
 
@@ -99,7 +91,7 @@ public final class ControllerAdvancedSearch
                                 DatabaseFind.INSTANCE.findFilenames(paramStmt.createParamStatement());
 
                         setTitle(paramStmt.getName());
-                        thumbnailsPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
+                        SearchHelper.setSort(savedSearch);
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
                     }
                 }
