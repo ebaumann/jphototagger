@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataTemplates;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.dialogs.EditMetaDataTemplateDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import java.awt.event.ActionEvent;
@@ -54,6 +55,7 @@ public final class ControllerMetadataTemplates
     private final JButton                        buttonMetadataTemplateDelete = appPanel.getButtonMetadataTemplateDelete();
     private final JButton                        buttonMetadataTemplateInsert = appPanel.getButtonMetadataTemplateInsert();
     private final JButton                        buttonMetadataTemplateRename = appPanel.getButtonMetadataTemplateRename();
+    private final JButton                        buttonMetadataTemplateEdit   = appPanel.getButtonMetadataTemplateEdit();
 
     public ControllerMetadataTemplates() {
         listen();
@@ -67,15 +69,16 @@ public final class ControllerMetadataTemplates
         buttonMetadataTemplateDelete.addActionListener(this);
         buttonMetadataTemplateInsert.addActionListener(this);
         buttonMetadataTemplateRename.addActionListener(this);
+        buttonMetadataTemplateEdit.addActionListener(this);
         editPanels.addEditMetadataPanelsListener(this);
     }
 
     private void setButtonsEnabled() {
-        boolean itemSelected = comboBoxMetadataTemplates.getSelectedItem() !=
-                null;
+        boolean itemSelected = comboBoxMetadataTemplates.getSelectedItem() != null;
         buttonMetadataTemplateUpdate.setEnabled(itemSelected);
         buttonMetadataTemplateDelete.setEnabled(itemSelected);
         buttonMetadataTemplateRename.setEnabled(itemSelected);
+        buttonMetadataTemplateEdit  .setEnabled(itemSelected);
         buttonMetadataTemplateInsert.setEnabled(itemSelected && editPanels.isEditable());
     }
 
@@ -103,6 +106,8 @@ public final class ControllerMetadataTemplates
             setCurrentTemplateToPanel();
         } else if (source == buttonMetadataTemplateRename) {
             renameTemplate();
+        } else if (source == buttonMetadataTemplateEdit) {
+            editTemplate();
         }
         setButtonsEnabled();
     }
@@ -136,6 +141,21 @@ public final class ControllerMetadataTemplates
                 } else {
                     AppLogger.logWarning(ControllerMetadataTemplates.class,
                             "ControllerMetadataTemplates.Error.WrongObject", o);
+                }
+            }
+        });
+    }
+
+    private void editTemplate() {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                Object o = model.getSelectedItem();
+                if (o instanceof MetadataTemplate) {
+                    EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
+                    dlg.setTemplate((MetadataTemplate) o);
+                    dlg.setVisible(true);
                 }
             }
         });
