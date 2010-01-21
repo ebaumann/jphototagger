@@ -50,7 +50,7 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
     private final ThumbnailsPanel               thumbnailsPanel                          = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem                     itemOpenFilesWithStandardApp             = popupThumbnails.getItemOpenFilesWithStandardApp();
     private final JMenu                         menuOtherOpenImageApps                   = popupThumbnails.getMenuOtherOpenImageApps();
-    private       boolean                       hasPrograms                              = !DatabasePrograms.INSTANCE.isEmpty();
+    private       boolean                       hasProgram                               = DatabasePrograms.INSTANCE.hasProgram();
 
     public ControllerMenuItemEnabler() {
         init();
@@ -87,10 +87,16 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
         itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemDeleteFiles());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemRenameFiles());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemIptcToXmp());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemExifToXmp());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemPick());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemReject());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuRating());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuPlugins());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuFsOps());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuImageCollection());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuRotateThumbnail());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuSelection());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuMetadata());
     }
 
     private void setEnabled() {
@@ -111,7 +117,7 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
 
         itemOpenFilesWithStandardApp.setEnabled(isSelection && settings.hasDefaultImageOpenApp());
 
-        menuOtherOpenImageApps.setEnabled(isSelection && hasPrograms);
+        menuOtherOpenImageApps.setEnabled(isSelection && hasProgram);
     }
 
     @Override
@@ -126,7 +132,7 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
 
     @Override
     public void actionPerformed(DatabaseProgramsEvent event) {
-        hasPrograms = !DatabasePrograms.INSTANCE.isEmpty();
+        hasProgram = DatabasePrograms.INSTANCE.hasProgram();
         setEnabled();
     }
 }

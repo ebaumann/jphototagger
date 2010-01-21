@@ -22,10 +22,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="checkBoxSaveInputEarly" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxDisplayIptc" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxScanForEmbeddedXmp" alignment="0" pref="449" max="32767" attributes="2"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="labelMaximumSecondsToTerminateExternalPrograms" pref="347" max="32767" attributes="2"/>
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="checkBoxScanForEmbeddedXmp" alignment="0" min="-2" max="-2" attributes="3"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="labelMaximumSecondsToTerminateExternalPrograms" min="-2" max="-2" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="spinnerMaximumSecondsToTerminateExternalPrograms" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -38,7 +38,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelMaximumSecondsToTerminateExternalPrograms" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                  <Component id="labelMaximumSecondsToTerminateExternalPrograms" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="spinnerMaximumSecondsToTerminateExternalPrograms" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -47,7 +47,7 @@
               <Component id="checkBoxDisplayIptc" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxSaveInputEarly" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="8" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

@@ -23,7 +23,7 @@
                   <Component id="panelTasksAutoscan" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="panelStartDelay" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="124" max="32767" attributes="0"/>
                       <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -61,18 +61,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelAutoscanDirectoriesInfo" alignment="0" pref="537" max="32767" attributes="0"/>
-                      <Component id="checkBoxIsAutoscanIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelAutoscanDirectoriesPrompt" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneListAutoscanDirectories" alignment="1" pref="537" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="checkBoxIsAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="44" max="32767" attributes="0"/>
                           <Component id="buttonRemoveAutoscanDirectories" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonAddAutoscanDirectories" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="scrollPaneListAutoscanDirectories" alignment="1" pref="537" max="32767" attributes="0"/>
+                      <Component id="labelAutoscanDirectoriesInfo" alignment="0" pref="537" max="32767" attributes="0"/>
+                      <Component id="labelAutoscanDirectoriesPrompt" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -81,19 +82,18 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="labelAutoscanDirectoriesInfo" min="-2" pref="58" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="labelAutoscanDirectoriesPrompt" min="-2" pref="15" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneListAutoscanDirectories" pref="66" max="32767" attributes="0"/>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxIsAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelAutoscanDirectoriesInfo" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="labelAutoscanDirectoriesPrompt" min="-2" pref="15" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="scrollPaneListAutoscanDirectories" pref="88" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="checkBoxIsAutoscanIncludeSubdirectories" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonAddAutoscanDirectories" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonRemoveAutoscanDirectories" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

@@ -324,16 +324,18 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             .addGroup(panelExternalApplicationsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelExternalApplicationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExternalApplicationsLayout.createSequentialGroup()
+                    .addGroup(panelExternalApplicationsLayout.createSequentialGroup()
                         .addComponent(labelInfoWebBrowser)
                         .addGap(16, 16, 16)
-                        .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE))
-                    .addComponent(buttonChooseWebBrowser, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExternalApplicationsLayout.createSequentialGroup()
+                        .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonChooseWebBrowser))
+                    .addGroup(panelExternalApplicationsLayout.createSequentialGroup()
                         .addComponent(labelInfoPdfViewer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelPdfViewer, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
-                    .addComponent(buttonChoosePdfViewer, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(labelPdfViewer, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonChoosePdfViewer)))
                 .addContainerGap())
         );
         panelExternalApplicationsLayout.setVerticalGroup(
@@ -341,21 +343,18 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             .addGroup(panelExternalApplicationsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelExternalApplicationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelWebBrowser, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelInfoWebBrowser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonChooseWebBrowser)
-                .addGap(12, 12, 12)
+                    .addComponent(labelInfoWebBrowser)
+                    .addComponent(buttonChooseWebBrowser)
+                    .addComponent(labelWebBrowser, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelExternalApplicationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelExternalApplicationsLayout.createSequentialGroup()
+                    .addGroup(panelExternalApplicationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(labelPdfViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChoosePdfViewer))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExternalApplicationsLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelInfoPdfViewer)
-                        .addGap(35, 35, 35)))
-                .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExternalApplicationsLayout.createSequentialGroup()
+                            .addComponent(labelInfoPdfViewer)
+                            .addGap(9, 9, 9)))
+                    .addComponent(buttonChoosePdfViewer))
+                .addGap(159, 159, 159))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle"), panelExternalApplications); // NOI18N
@@ -389,12 +388,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatabaseDirectoryLayout.createSequentialGroup()
+                        .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                         .addComponent(buttonSetStandardDatabaseDirectoryName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChooseDatabaseDirectory))
-                    .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE))
+                        .addComponent(buttonChooseDatabaseDirectory)))
                 .addContainerGap())
         );
         panelDatabaseDirectoryLayout.setVerticalGroup(
@@ -405,10 +405,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonChooseDatabaseDirectory)
-                    .addComponent(buttonSetStandardDatabaseDirectoryName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                    .addComponent(buttonSetStandardDatabaseDirectoryName)
+                    .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.TabConstraints.tabTitle"), panelDatabaseDirectory); // NOI18N
@@ -448,9 +447,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                             .addComponent(labelLogLevel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxLogfileFormatterClass, 0, 340, Short.MAX_VALUE)
-                            .addComponent(comboBoxLogLevel, 0, 340, Short.MAX_VALUE)))
-                    .addComponent(labelInfoLogfile, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE))
+                            .addComponent(comboBoxLogfileFormatterClass, 0, 419, Short.MAX_VALUE)
+                            .addComponent(comboBoxLogLevel, 0, 419, Short.MAX_VALUE)))
+                    .addComponent(labelInfoLogfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panelLogfileLayout.setVerticalGroup(
@@ -488,19 +487,19 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
-                    .addComponent(buttonChooseAutocopyDirectory, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonChooseAutocopyDirectory)
                 .addContainerGap())
         );
         panelAutoCopyDirectoryLayout.setVerticalGroup(
             panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonChooseAutocopyDirectory)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGroup(panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonChooseAutocopyDirectory))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelAutoCopyDirectory.TabConstraints.tabTitle"), panelAutoCopyDirectory); // NOI18N
@@ -550,7 +549,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addGroup(panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(radioButtonCopyMoveFileConfirmOverwrite)
                     .addComponent(radioButtonCopyMoveFileRenameIfExists))
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
         panelCopyMoveFilesLayout.setVerticalGroup(
             panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -577,7 +576,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxAutoDownloadCheck)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -587,12 +586,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap()
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxAutoDownloadCheck)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
@@ -601,7 +600,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

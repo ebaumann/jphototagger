@@ -63,7 +63,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     public static final  PopupMenuThumbnails     INSTANCE                             = new PopupMenuThumbnails();
     private static final long                    serialVersionUID                     = 1415777088897583494L;
     private final        JMenu                   menuRefresh                          = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuRefresh"));
-    private final        JMenu                   menuMisc                             = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuMisc"));
+    private final        JMenu                   menuMetadata                         = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuMetadata"));
     private final        JMenu                   menuPrograms                         = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuOtherOpenImageApps"));
     private final        JMenu                   menuImageCollection                  = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuImageCollection"));
     private final        JMenu                   menuRotateThumbnail                  = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuRotateThumbnail"));
@@ -151,22 +151,24 @@ public final class PopupMenuThumbnails extends JPopupMenu
         menuImageCollection.add(itemDeleteFromImageCollection);
         add(menuImageCollection);
 
+        menuMetadata.add(itemCopyMetadata);
+        menuMetadata.add(itemPasteMetadata);
+        menuMetadata.add(new JSeparator());
+        menuMetadata.add(itemIptcToXmp);
+        menuMetadata.add(itemExifToXmp);
+        add(menuMetadata);
+        itemPasteMetadata.setEnabled(false);
+
         menuFsOps.add(itemCopyToClipboard);
         menuFsOps.add(itemCutToClipboard);
         menuFsOps.add(itemPasteFromClipboard);
-        menuFsOps.add(itemCopyMetadata);
-        menuFsOps.add(itemPasteMetadata);
         menuFsOps.add(new JSeparator());
         menuFsOps.add(itemFileSystemCopyToDirectory);
+        menuFsOps.add(new JSeparator());
         menuFsOps.add(itemFileSystemRenameFiles);
         menuFsOps.add(itemFileSystemMoveFiles);
         menuFsOps.add(itemFileSystemDeleteFiles);
         add(menuFsOps);
-
-        add(new JSeparator());
-        menuMisc.add(itemIptcToXmp);
-        menuMisc.add(itemExifToXmp);
-        add(menuMisc);
     }
 
     private void addPluginItems() {
@@ -300,14 +302,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return itemUpdateThumbnail;
     }
 
-    public JMenu getMenuOtherOpenImageApps() {
-        return menuPrograms;
-    }
-
-    public JMenu getMenuPlugins() {
-        return menuPlugins;
-    }
-
     public JMenuItem getItemRefresh() {
         return itemRefresh;
     }
@@ -373,6 +367,42 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     public JMenu getMenuRating() {
         return menuRating;
+    }
+
+    public JMenu getMenuPlugins() {
+        return menuPlugins;
+    }
+
+    public JMenu getMenuOtherOpenImageApps() {
+        return menuPrograms;
+    }
+
+    public JMenu getMenuFsOps() {
+        return menuFsOps;
+    }
+
+    public JMenu getMenuImageCollection() {
+        return menuImageCollection;
+    }
+
+    public JMenu getMenuMetadata() {
+        return menuMetadata;
+    }
+
+    public JMenu getMenuPrograms() {
+        return menuPrograms;
+    }
+
+    public JMenu getMenuRefresh() {
+        return menuRefresh;
+    }
+
+    public JMenu getMenuRotateThumbnail() {
+        return menuRotateThumbnail;
+    }
+
+    public JMenu getMenuSelection() {
+        return menuSelection;
     }
 
     public Long getRatingOfItem(JMenuItem item) {

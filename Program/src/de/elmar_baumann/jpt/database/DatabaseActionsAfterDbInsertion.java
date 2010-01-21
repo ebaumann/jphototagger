@@ -44,7 +44,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
 
     /**
      * Inserts a new action. Prevoius You should call
-     * {@link DatabasePrograms#isEmpty()}.
+     * {@link DatabasePrograms#hasProgram()}.
      *
      * @param action  action
      * @param order   order of the action
