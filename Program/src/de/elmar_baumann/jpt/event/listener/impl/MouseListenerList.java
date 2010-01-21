@@ -32,7 +32,8 @@ import javax.swing.JList;
  */
 public abstract class MouseListenerList extends MouseAdapter {
 
-    private int index;
+    private int     index;
+    private boolean popupAlways;
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -40,10 +41,14 @@ public abstract class MouseListenerList extends MouseAdapter {
         if (MouseEventUtil.isPopupTrigger(e)) {
             JList list = (JList) e.getSource();
             index = list.locationToIndex(new Point(e.getX(), e.getY()));
-            if (index >= 0) {
+            if (popupAlways || index >= 0) {
                 showPopup(list, e.getX(), e.getY());
             }
         }
+    }
+
+    public void setPopupAlways(boolean popupAlways) {
+        this.popupAlways = popupAlways;
     }
 
     public int getIndex() {

@@ -31,6 +31,10 @@ import javax.swing.ListSelectionModel;
  */
 public final class MouseListenerMetadataTemplates extends MouseListenerList {
 
+    public MouseListenerMetadataTemplates() {
+        setPopupAlways(true);
+    }
+
     @Override
     protected void showPopup(JList list, int x, int y) {
 
@@ -43,8 +47,14 @@ public final class MouseListenerMetadataTemplates extends MouseListenerList {
     }
 
     private void enableItems() {
+        boolean clickOnItem = getIndex() > 0;
+
+        PopupMenuMetadataTemplates.INSTANCE.getItemDelete().setEnabled(clickOnItem);
+        PopupMenuMetadataTemplates.INSTANCE.getItemEdit()  .setEnabled(clickOnItem);
+        PopupMenuMetadataTemplates.INSTANCE.getItemRename().setEnabled(clickOnItem);
+
         PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages().setEnabled(
-                GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() > 0);
-    }
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount() > 0);
+}
 
 }

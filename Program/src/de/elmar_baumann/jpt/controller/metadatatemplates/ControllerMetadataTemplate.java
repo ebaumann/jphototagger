@@ -63,7 +63,10 @@ public abstract class ControllerMetadataTemplate extends Controller {
     }
 
     private MetadataTemplate getTemplateOfPopupMenu() {
-        int                        index = PopupMenuMetadataTemplates.INSTANCE.getSelIndex();
+        int index = PopupMenuMetadataTemplates.INSTANCE.getSelIndex();
+
+        if (index < 0) return null;
+
         ListModelMetadataTemplates model = ModelFactory.INSTANCE.getModel(ListModelMetadataTemplates.class);
 
         return (MetadataTemplate) model.get(index);
