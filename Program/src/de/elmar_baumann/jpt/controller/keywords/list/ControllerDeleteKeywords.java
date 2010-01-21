@@ -72,7 +72,7 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
             if (!confirmMultipleDeletes()) return;
 
             for (String keyword : keywords) {
-                delete(keyword);
+                delete(keyword, keywords.size() == 1);
             }
         }
 
@@ -85,9 +85,11 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
             return true;
         }
 
-        private void delete(String keyword) {
+        private void delete(String keyword, boolean confirm) {
 
-            if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
+            if (!confirm ||
+                 confirm && MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.List.Confirm.Delete", keyword)
+                ) {
                 Set<String> files = DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(keyword);
 
                 if (files.size() <= 0) return;
