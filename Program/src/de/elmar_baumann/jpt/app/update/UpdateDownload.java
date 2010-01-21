@@ -61,15 +61,23 @@ public final class UpdateDownload extends Thread {
      *
      * @param millisecondsToWait milliseconds to wait before starting the check
      */
-    public static void checkForNewerVersion(int millisecondsToWait) {
-        try {
-            if (millisecondsToWait > 0) {
-                Thread.sleep(millisecondsToWait);
+    public static void checkForNewerVersion(final int millisecondsToWait) {
+        Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    if (millisecondsToWait > 0) {
+                        Thread.sleep(millisecondsToWait);
+                    }
+                    new UpdateDownload().start();
+                } catch (Exception ex) {
+                    AppLogger.logSevere(UpdateDownload.class, ex);
+                }
             }
-            new UpdateDownload().start();
-        } catch (Exception ex) {
-            AppLogger.logSevere(UpdateDownload.class, ex);
-        }
+        });
+        t.setName("Waiting for version check @ " + UpdateDownload.class.getSimpleName());
+        t.start();
     }
 
     @Override
