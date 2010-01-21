@@ -69,15 +69,17 @@ public class ControllerDeleteKeywords
         for (DefaultMutableTreeNode node : nodes) {
             Object userObject = node.getUserObject();
             if (userObject instanceof Keyword) {
-                delete(node, (Keyword) userObject);
+                delete(node, (Keyword) userObject, nodes.size() == 1);
             } else {
                 MessageDisplayer.error(null, "ControllerDeleteKeywords.Tree.Error.Node", node);
             }
         }
     }
 
-    private void delete(DefaultMutableTreeNode node, Keyword keyword) {
-        if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword)) {
+    private void delete(DefaultMutableTreeNode node, Keyword keyword, boolean confirm) {
+        if (!confirm ||
+             confirm && MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword)
+             ) {
             KeywordsHelper.deleteInFiles(keyword);
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(node);
         }
