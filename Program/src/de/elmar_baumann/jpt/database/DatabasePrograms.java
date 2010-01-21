@@ -50,7 +50,7 @@ public final class DatabasePrograms extends Database {
     }
 
     /**
-     * Inserts a new program. Prevoius You should call {@link #isEmpty()}.
+     * Inserts a new program. Prevoius You should call {@link #hasProgram()}.
      *
      * @param  program  program
      * @return true if inserted
@@ -355,11 +355,12 @@ public final class DatabasePrograms extends Database {
     }
 
     /**
-     * Returns whether the database contains at least one program.
+     * Returns whether the database contains at least one program (<em>no</em>
+     * action).
      *
      * @return true if at least one program (ore more) exists
      */
-    public boolean isEmpty() {
+    public boolean hasProgram() {
         int count = 0;
         Connection connection = null;
         try {
