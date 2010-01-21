@@ -390,6 +390,10 @@ public final class AppPanel extends javax.swing.JPanel {
         return editActionsPanel.buttonMetadataTemplateRename;
     }
 
+    public JButton getButtonMetadataTemplateEdit() {
+        return editActionsPanel.buttonMetadataTemplateEdit;
+    }
+
     public JButton getButtonMetadataTemplateInsert() {
         return editActionsPanel.buttonMetadataTemplateInsert;
     }
