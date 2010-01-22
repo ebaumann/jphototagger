@@ -67,6 +67,7 @@ import de.elmar_baumann.jpt.controller.keywords.list.ControllerDisplayKeyword;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerRenameKeywords;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleButtonSelKeywords;
 import de.elmar_baumann.jpt.controller.metadata.ControllerCopyPasteMetadata;
+import de.elmar_baumann.jpt.controller.metadata.ControllerEnableCreateMetadataTemplate;
 import de.elmar_baumann.jpt.controller.metadata.ControllerExifToXmp;
 import de.elmar_baumann.jpt.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.jpt.controller.search.ControllerFastSearch;
@@ -221,6 +222,7 @@ public final class ControllerFactory {
         support.add(new ControllerTimelineItemSelected());
         support.add(new ControllerFavoriteSelected());
         support.add(new ControllerDirectorySelected());
+        support.add(new ControllerEnableCreateMetadataTemplate());
 
         addSizeAndLocationController();
 
