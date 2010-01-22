@@ -32,6 +32,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import javax.swing.SwingUtilities;
 
 /**
  * Applies persistent settings to the thumbnails panel.
@@ -135,9 +136,27 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void readViewportViewPositionFromProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(
-                    GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
-                    KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    // Waiting until TN panel size was calculated
+                    Thread.sleep(2000);
+                } catch (Exception ex) {
+                    AppLogger.logSevere(getClass(), ex);
+                }
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        UserSettings.INSTANCE.getSettings().applySettings(
+                            GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
+                            KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
@@ -146,7 +165,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writeViewportViewPositionToProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(
+        UserSettings.INSTANCE.getSettings().set(
                 GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
                 KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
         UserSettings.INSTANCE.writeToFile();
