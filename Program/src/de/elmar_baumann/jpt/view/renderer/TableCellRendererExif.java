@@ -95,7 +95,9 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
     private String getTagName(ExifTag exifTag) {
         String tagName = exifTag.name();
 
-        if (exifTag.ifdType().equals(IfdType.MAKER_NOTE)) return tagName;
+        if (exifTag.ifdType().equals(IfdType.MAKER_NOTE)          ) return tagName;
+        if (exifTag.id().value() >=  ExifTag.Id.MAKER_NOTE.value()) return tagName;
+
 
         return TRANSLATION.translate(Integer.toString(exifTag.idValue()), tagName);
     }
