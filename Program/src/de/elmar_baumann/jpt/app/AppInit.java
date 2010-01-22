@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.lib.system.SystemUtil;
 import de.elmar_baumann.lib.util.Version;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
+import de.elmar_baumann.lib.util.CommandLineParser;
 
 /**
  * Initializes the application.
@@ -41,11 +42,9 @@ import de.elmar_baumann.lib.dialog.SystemOutputDialog;
  */
 public final class AppInit {
 
-    private static       AppInit  INSTANCE;
-    private static final String   CMD_LINE_OPTION_NO_OUTPUT_CAPTURE = "-nocapture";
-    private final        String[] cmdLineArgs;
-    private volatile     boolean  init;
-    private static       boolean  captureOutput                     = true;
+    public static    AppInit               INSTANCE;
+    private final    AppCommandLineOptions commandLineOptions;
+    private volatile boolean               init;
 
     public static synchronized void init(String[] args) {
         if (INSTANCE == null) {
@@ -54,7 +53,7 @@ public final class AppInit {
     }
 
     private AppInit(String[] cmdLineArgs) {
-        this.cmdLineArgs = cmdLineArgs;
+        this.commandLineOptions = new AppCommandLineOptions(new CommandLineParser(cmdLineArgs, "-", "="));
         init();
     }
 
@@ -88,25 +87,14 @@ public final class AppInit {
         SplashScreen.INSTANCE.setProgress(50);
     }
 
+    public AppCommandLineOptions getCommandLineOptions() {
+        return commandLineOptions;
+    }
+
     private void captureOutput() {
-        setCaptureOutput();
-        if (captureOutput) {
+        if (commandLineOptions.isCaptureOutput()) {
             SystemOutputDialog.INSTANCE.captureOutput();
         }
-    }
-
-    private void setCaptureOutput() {
-        if (cmdLineArgs == null) return;
-        for (String arg : cmdLineArgs) {
-            if (arg.equals(CMD_LINE_OPTION_NO_OUTPUT_CAPTURE)) {
-                captureOutput = false;
-                return;
-            }
-        }
-    }
-
-    public static boolean isCaptureOutput() {
-        return captureOutput;
     }
 
     private static void lock() {
