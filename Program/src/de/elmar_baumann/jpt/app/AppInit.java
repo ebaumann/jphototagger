@@ -44,6 +44,7 @@ public final class AppInit {
     private static       AppInit  INSTANCE;
     private static final String   CMD_LINE_OPTION_NO_OUTPUT_CAPTURE = "-nocapture";
     private final        String[] cmdLineArgs;
+    private volatile     boolean  init;
     private static       boolean  captureOutput                     = true;
 
     public static synchronized void init(String[] args) {
@@ -54,24 +55,37 @@ public final class AppInit {
 
     private AppInit(String[] cmdLineArgs) {
         this.cmdLineArgs = cmdLineArgs;
-        initApp();
+        init();
     }
 
-    private void initApp() {
+    private void init() {
+        synchronized (this) {
+            assert !init;
+            if (init) return;
+            init = true;
+        }
         AppLookAndFeel.set();
         captureOutput();
         checkJavaVersion();
         lock();
-        SplashScreen.INSTANCE.init();
-        SplashScreen.INSTANCE.setProgress(50);
+        displaySplashScreen();
         AppDatabase.init();
         AppLoggingSystem.init();
         SplashScreen.INSTANCE.setProgress(75);
         AbstractImageReader.install(ImageProperties.class);
+        hideSplashScreen();
+        showMainWindow();
+    }
+
+    private void hideSplashScreen() {
         SplashScreen.INSTANCE.setMessage(Bundle.getString("AppInit.Info.SplashScreen.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
-        showMainWindow();
         SplashScreen.INSTANCE.close();
+    }
+
+    private void displaySplashScreen() {
+        SplashScreen.INSTANCE.init();
+        SplashScreen.INSTANCE.setProgress(50);
     }
 
     private void captureOutput() {

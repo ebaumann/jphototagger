@@ -18,12 +18,8 @@
  */
 package de.elmar_baumann.jpt.view;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.Favorite;
-import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -36,9 +32,6 @@ import javax.swing.tree.TreePath;
  * @version 2008-10-26
  */
 public class ViewUtil {
-
-    private static final String KEY_TREE_DIRECTORIES_SELECTED_DIR =
-            "ViewUtil.TreeDirectories";
 
     /**
      * Returns the selected file in a {@link JTree} if the selected node is a
@@ -86,31 +79,6 @@ public class ViewUtil {
         return null;
     }
 
-    public static void writeTreeDirectoriesToProperties() {
-        writeTreeToProperties(GUI.INSTANCE.getAppPanel().getTreeDirectories(),
-                KEY_TREE_DIRECTORIES_SELECTED_DIR);
-    }
-
-    private static void writeTreeToProperties(JTree tree, String key) {
-        if (tree.getSelectionCount() > 0) {
-            UserSettings.INSTANCE.getSettings().set(tree.getSelectionPath().getLastPathComponent().toString(), key);
-        } else {
-            UserSettings.INSTANCE.getProperties().remove(key);
-        }
-        UserSettings.INSTANCE.writeToFile();
-    }
-
-    public static void readTreeDirectoriesFromProperties() {
-        JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        String filename = UserSettings.INSTANCE.getSettings().getString(
-                KEY_TREE_DIRECTORIES_SELECTED_DIR);
-
-        File directory = new File(filename);
-        if (!filename.isEmpty() && FileUtil.existsDirectory(directory)) {
-            TreeModelAllSystemDirectories model = ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class);
-            model.expandToFile(directory, true);
-        }
-    }
     private ViewUtil() {
     }
 }

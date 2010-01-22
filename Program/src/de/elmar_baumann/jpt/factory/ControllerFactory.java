@@ -24,10 +24,12 @@ import de.elmar_baumann.jpt.controller.actions.ControllerActionsShowDialog;
 import de.elmar_baumann.jpt.controller.directories.ControllerCreateDirectory;
 import de.elmar_baumann.jpt.controller.directories.ControllerDeleteDirectory;
 import de.elmar_baumann.jpt.controller.directories.ControllerDirectoryPasteFiles;
+import de.elmar_baumann.jpt.controller.directories.ControllerDirectorySelected;
 import de.elmar_baumann.jpt.controller.metadata.ControllerEnableInsertMetadataTemplate;
 import de.elmar_baumann.jpt.controller.directories.ControllerRefreshDirectoryTree;
 import de.elmar_baumann.jpt.controller.directories.ControllerRenameDirectory;
 import de.elmar_baumann.jpt.controller.favorites.ControllerDeleteFavorite;
+import de.elmar_baumann.jpt.controller.favorites.ControllerFavoriteSelected;
 import de.elmar_baumann.jpt.controller.favorites.ControllerOpenFavoriteInFolders;
 import de.elmar_baumann.jpt.controller.favorites.ControllerFavoritesAddFilesystemFolder;
 import de.elmar_baumann.jpt.controller.favorites.ControllerFavoritesDeleteFilesystemFolder;
@@ -70,6 +72,8 @@ import de.elmar_baumann.jpt.controller.metadata.ControllerExtractEmbeddedXmp;
 import de.elmar_baumann.jpt.controller.search.ControllerFastSearch;
 import de.elmar_baumann.jpt.controller.misc.ControllerGoTo;
 import de.elmar_baumann.jpt.controller.metadata.ControllerIptcToXmp;
+import de.elmar_baumann.jpt.controller.metadata.ControllerMetadataTemplates;
+import de.elmar_baumann.jpt.controller.metadata.ControllerShowMetadata;
 import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataTemplateAdd;
 import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataTemplateDelete;
 import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataTemplateEdit;
@@ -92,6 +96,8 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerDeleteThumbnailsFromD
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import de.elmar_baumann.jpt.controller.misc.ControllerPlugins;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
+import de.elmar_baumann.jpt.controller.miscmetadata.ControllerMiscMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.nometadata.ControllerNoMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.rating.ControllerSetRating;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerRotateThumbnail;
@@ -100,9 +106,12 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerThumbnailsDatabaseChanges;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerThumbnailsPanelPersistence;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerToggleKeywordOverlay;
+import de.elmar_baumann.jpt.controller.timeline.ControllerTimelineItemSelected;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
+import de.elmar_baumann.lib.dialog.HelpBrowser;
+import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import java.util.List;
 
 /**
@@ -119,7 +128,7 @@ public final class ControllerFactory {
 
     void init() {
         synchronized (this) {
-            if (!Util.checkInit(getClass(), init)) return;
+            if (!Support.checkInit(getClass(), init)) return;
             init = true;
         }
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Start");
@@ -206,9 +215,26 @@ public final class ControllerFactory {
         support.add(new ControllerMetadataTemplateRename());
         support.add(new ControllerToggleButtonSelKeywords());
         support.add(new ControllerDisplayKeyword());
+        support.add(new ControllerMetadataTemplates());
+        support.add(new ControllerShowMetadata());
+        support.add(new ControllerMiscMetadataItemSelected());
+        support.add(new ControllerTimelineItemSelected());
+        support.add(new ControllerFavoriteSelected());
+        support.add(new ControllerDirectorySelected());
+
+        addSizeAndLocationController();
 
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");
         GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("ControllerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+    }
+
+    private void addSizeAndLocationController() {
+
+        SizeAndLocationController ctrl = new SizeAndLocationController();
+
+        support.add(ctrl);
+        SystemOutputDialog.INSTANCE.addWindowListener(ctrl);
+        HelpBrowser.INSTANCE.addWindowListener(ctrl);
     }
 
     /**

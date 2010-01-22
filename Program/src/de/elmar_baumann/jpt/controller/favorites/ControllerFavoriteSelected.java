@@ -39,9 +39,9 @@ import javax.swing.event.TreeSelectionListener;
  */
 public final class ControllerFavoriteSelected implements TreeSelectionListener, RefreshListener {
 
-    private final AppPanel           appPanel                = GUI.INSTANCE.getAppPanel();
-    private final JTree              treeFavoriteDirectories = appPanel.getTreeFavorites();
-    private final ThumbnailsPanel    thumbnailsPanel         = appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel                = GUI.INSTANCE.getAppPanel();
+    private final JTree           treeFavoriteDirectories = appPanel.getTreeFavorites();
+    private final ThumbnailsPanel thumbnailsPanel         = appPanel.getPanelThumbnails();
 
     public ControllerFavoriteSelected() {
         listen();

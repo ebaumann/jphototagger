@@ -42,9 +42,9 @@ public final class Cleanup {
      * Shuts down all Tasks.
      */
     public static void shutdown() {
-        ScheduledTasks.INSTANCE.shutdown();
-        AutomaticTask.INSTANCE.shutdown();
-        UserTasks.INSTANCE.shutdown();
+        ScheduledTasks.INSTANCE.stopCurrentTasks();
+        AutomaticTask.INSTANCE.stopCurrentTask();
+        UserTasks.INSTANCE.stopCurrentTasks();
         boolean sleep = ScheduledTasks.INSTANCE.getCount() > 0 ||
                 UserTasks.INSTANCE.getCount() > 0;
         if (sleep) {

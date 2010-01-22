@@ -88,7 +88,7 @@ public final class ScheduledTasks implements ActionListener,
                 }
             }
         });
-        thread.setName("Scheduled tasks waiting for start @ " + getClass().getSimpleName());
+        thread.setName("Scheduled tasks");
         thread.start();
     }
 
@@ -112,7 +112,7 @@ public final class ScheduledTasks implements ActionListener,
      * If the active runnable has a method named <strong>cancel</strong> with
      * no parameters, it will be invoked instead of <strong>interrupt</strong>.
      */
-    public void shutdown() {
+    public void stopCurrentTasks() {
         executor.shutdown();
         setButtonState(ButtonState.START);
         isRunning = false;
@@ -140,7 +140,7 @@ public final class ScheduledTasks implements ActionListener,
     public void actionPerformed(ActionEvent e) {
         synchronized (button) {
             if (isRunning) {
-                shutdown();
+                stopCurrentTasks();
             } else {
                 setStart();
                 startUpdate();

@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.factory;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,5 +55,21 @@ final class Support {
         }
 
         instances.add(instance);
+    }
+
+    /**
+     * Checks whether a factory is initialized more than one times. Logs an
+     * error message if a factory was previously initialized.
+     *
+     * @param  c    Factory class
+     * @param  init true if the factory is already initialized
+     * @return      true if not initialized
+     */
+    static boolean checkInit(Class<?> c, boolean init) {
+        if (init) {
+            AppLogger.logWarning(Support.class, "Support.Error.InitCalledMoreThanOneTimes", c.getName());
+            return false;
+        }
+        return true;
     }
 }

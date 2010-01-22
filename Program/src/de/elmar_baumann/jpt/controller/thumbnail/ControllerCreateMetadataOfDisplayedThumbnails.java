@@ -47,9 +47,8 @@ import java.util.EnumSet;
 public final class ControllerCreateMetadataOfDisplayedThumbnails
         implements ThumbnailsPanelListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
 
     public ControllerCreateMetadataOfDisplayedThumbnails() {
         listen();
@@ -71,8 +70,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
                 FileUtil.getAsFilenames(thumbnailsPanel.getFiles()),
                 EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
 
-        inserter.addProgressListener(new ProgressBarUpdater(
-                Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarAutomaticTasks.String")));
+        inserter.addProgressListener(new ProgressBarUpdater(Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarAutomaticTasks.String")));
 
         AutomaticTask.INSTANCE.setTask(inserter);
     }

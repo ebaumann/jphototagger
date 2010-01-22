@@ -43,17 +43,13 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class ControllerThumbnailSelectionEditMetadata implements
-        ThumbnailsPanelListener {
+public final class ControllerThumbnailSelectionEditMetadata implements ThumbnailsPanelListener {
 
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private final JLabel labelMetadataInfoEditable =
-            appPanel.getLabelMetadataInfoEditable();
-    private final EditMetadataPanels editPanels =
-            appPanel.getEditMetadataPanels();
-    private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
+    private final AppPanel           appPanel                  = GUI.INSTANCE.getAppPanel();
+    private final JButton            buttonEmpty               = appPanel.getButtonEmptyMetadata();
+    private final JLabel             labelMetadataInfoEditable = appPanel.getLabelMetadataInfoEditable();
+    private final EditMetadataPanels editPanels                = appPanel.getEditMetadataPanels();
+    private final ThumbnailsPanel    thumbnailsPanel           = appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {
         listen();
@@ -65,6 +61,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
 
     @Override
     public void thumbnailsChanged() {
+        // ignore
     }
 
     @Override
@@ -81,8 +78,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
                 if (thumbnailsPanel.getSelectionCount() > 0) {
                     canEdit = canEdit();
                     setEnabled(canEdit);
-                    editPanels.setFilenames(FileUtil.getAsFilenames(thumbnailsPanel.
-                            getSelectedFiles()));
+                    editPanels.setFilenames(FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
                 } else {
                     appPanel.getEditMetadataPanels().emptyPanels(false);
                     setEnabled(false);
@@ -111,8 +107,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements
     }
 
     private boolean canEdit() {
-        List<String> filenames =
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
+        List<String> filenames = FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
         for (String filename : filenames) {
             if (!XmpMetadata.canWriteSidecarFileForImageFile(filename)) {
                 return false;
@@ -120,4 +115,4 @@ public final class ControllerThumbnailSelectionEditMetadata implements
         }
         return filenames.size() > 0;
     }
-                }
+}

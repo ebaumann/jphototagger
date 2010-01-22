@@ -42,8 +42,7 @@ import java.util.List;
  */
 public final class ScheduledTaskInsertImageFilesIntoDatabase {
 
-    private static final List<String> SYSTEM_DIRECTORIES_SUBSTRINGS =
-            new ArrayList<String>();
+    private static final List<String> SYSTEM_DIRECTORIES_SUBSTRINGS = new ArrayList<String>();
 
     static {
         SYSTEM_DIRECTORIES_SUBSTRINGS.add("System Volume Information");
@@ -56,20 +55,16 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
      * @return inserters
      */
     public static List<InsertImageFilesIntoDatabase> getThreads() {
-        List<File> directories = getDirectories();
-        List<InsertImageFilesIntoDatabase> updaters =
-                new ArrayList<InsertImageFilesIntoDatabase>(directories.size());
+        List<File>                         directories = getDirectories();
+        List<InsertImageFilesIntoDatabase> updaters    = new ArrayList<InsertImageFilesIntoDatabase>(directories.size());
         if (!directories.isEmpty()) {
             for (File directory : directories) {
                 if (!isSystemDirectory(directory.getAbsolutePath())) {
                     InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                             getImageFilenamesOfDirectory(directory),
-                            EnumSet.of(
-                            InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+                            EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
 
-                    inserter.addProgressListener(
-                            new ProgressBarUpdater(Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String")));
-
+                    inserter.addProgressListener(new ProgressBarUpdater(Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String")));
                     updaters.add(inserter);
                 }
             }
@@ -78,13 +73,12 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     }
 
     private static List<String> getImageFilenamesOfDirectory(File directory) {
-        return FileUtil.getAsFilenames(
-                ImageFilteredDirectory.getImageFilesOfDirectory(directory));
+        return FileUtil.getAsFilenames(ImageFilteredDirectory.getImageFilesOfDirectory(directory));
     }
 
     private static List<File> getDirectories() {
-        List<String> directoryNames =
-                DatabaseAutoscanDirectories.INSTANCE.getAll();
+        List<String> directoryNames = DatabaseAutoscanDirectories.INSTANCE.getAll();
+
         addSubdirectoryNames(directoryNames);
         Collections.sort(directoryNames);
         Collections.reverse(directoryNames);
