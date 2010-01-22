@@ -1016,16 +1016,16 @@ public class ThumbnailsPanel extends JPanel
      */
     public void setFiles(List<File> files, Content content) {
         synchronized (this) {
+            AppLogger.logFine(getClass(), "ThumbnailsPanel.SetFiles.Start", files.size());
             clearSelectionAndFlags();
             Collections.sort(files, fileSortComparator);
             this.files.clear();
             this.files.addAll(files);
             this.content = content;
             scrollToTop();
-            rerender(getNotRenderedIndices());
             setMissingFilesFlags();
-            forceRepaint();
             notifyThumbnailsChanged();
+            repaint();
         }
     }
 
