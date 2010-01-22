@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
-import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -104,7 +103,7 @@ public final class ControllerMiscMetadataItemSelected implements
                 if (parentUserObject instanceof Column) {
                     Column column = (Column) parentUserObject;
                     setTitle(column, userObject);
-                    ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+                    ControllerSortThumbnails.setLastSort();
                     thumbnailsPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesJoinTable(
                             column,
                             userObject.toString()),
@@ -116,13 +115,13 @@ public final class ControllerMiscMetadataItemSelected implements
             } else if (userObject instanceof Column) {
                 Column column = (Column) userObject;
                 setTitle(column);
-                ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+                ControllerSortThumbnails.setLastSort();
                 thumbnailsPanel.setFiles(
                         DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column),
                         Content.MISC_METADATA);
                 thumbnailsPanel.apply(tnPanelSettings);
             } else {
-                ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+                ControllerSortThumbnails.setLastSort();
                 thumbnailsPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);
                 thumbnailsPanel.apply(tnPanelSettings);
                 setTitle();

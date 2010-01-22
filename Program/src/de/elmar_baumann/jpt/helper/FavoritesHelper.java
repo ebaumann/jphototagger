@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.data.Favorite;
-import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
@@ -127,7 +126,7 @@ public final class FavoritesHelper {
 
         @Override
         public void run() {
-            ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+            ControllerSortThumbnails.setLastSort();
             setTitle(files);
             thumbnailsPanel.setFiles(files, Content.FAVORITE);
             thumbnailsPanel.apply(tnPanelSettings);

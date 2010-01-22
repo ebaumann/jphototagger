@@ -34,13 +34,14 @@ final class Util {
      *
      * @param  c    Factory class
      * @param  init true if the factory is already initialized
+     * @return      true if not initialized
      */
-    static void checkInit(Class<?> c, boolean init) {
+    static boolean checkInit(Class<?> c, boolean init) {
         if (init) {
-            AppLogger.logWarning(Util.class,
-                    "Util.Error.InitCalledMoreThanOneTimes",
-                    c.getName());
+            AppLogger.logWarning(Util.class, "Util.Error.InitCalledMoreThanOneTimes", c.getName());
+            return false;
         }
+        return true;
     }
 
     private Util() {

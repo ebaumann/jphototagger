@@ -18,8 +18,10 @@
  */
 package de.elmar_baumann.jpt.factory;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
@@ -31,6 +33,7 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuImageCollections;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
+import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
@@ -44,23 +47,29 @@ import javax.swing.tree.TreeCellRenderer;
  */
 public final class MiscFactory {
 
-    static final MiscFactory INSTANCE = new MiscFactory();
-    private      boolean     init     = false;
+    static final     MiscFactory INSTANCE = new MiscFactory();
+    private volatile boolean     init     = false;
 
-    synchronized void init() {
-        Util.checkInit(MiscFactory.class, init);
-        if (!init) {
+    void init() {
+        synchronized (this) {
+            if (!Util.checkInit(getClass(), init)) return;
             init = true;
-            AppPanel            appPanel                 = GUI.INSTANCE.getAppPanel();
-            PopupMenuThumbnails popupMenuPanelThumbnails = PopupMenuThumbnails.INSTANCE;
-
-            appPanel.getEditMetadataPanels().setAutocomplete();
-
-            popupMenuPanelThumbnails.setOtherPrograms();
-            ScheduledTasks.INSTANCE.run();
-            setPopupMenuHighlighter();
-            setSizeAndLocationController();
         }
+        AppLogger.logFine(getClass(), "MiscFactory.Init.Start");
+        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("MiscFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
+
+        AppPanel            appPanel                 = GUI.INSTANCE.getAppPanel();
+        PopupMenuThumbnails popupMenuPanelThumbnails = PopupMenuThumbnails.INSTANCE;
+
+        appPanel.getEditMetadataPanels().setAutocomplete();
+
+        popupMenuPanelThumbnails.setOtherPrograms();
+        ScheduledTasks.INSTANCE.run();
+        setPopupMenuHighlighter();
+        setSizeAndLocationController();
+
+        AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
+        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("MiscFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
     }
 
     private void setPopupMenuHighlighter() {
