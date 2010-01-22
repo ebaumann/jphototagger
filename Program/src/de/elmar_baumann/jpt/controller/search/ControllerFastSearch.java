@@ -115,7 +115,7 @@ public final class ControllerFastSearch
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == comboboxFastSearch) {
+        if (e.getSource() == comboboxFastSearch && comboboxFastSearch.getSelectedIndex() >= 0) {
             setEnabledSearchTextField();
             decorateTextFieldSearch();
         } else if (e.getSource() == appPanel.getButtonSearch()) {
