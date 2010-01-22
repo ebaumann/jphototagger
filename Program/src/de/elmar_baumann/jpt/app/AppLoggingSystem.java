@@ -145,6 +145,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
             appLogger = Logger.getLogger("de.elmar_baumann");
             addHandlersTo(appLogger);
             appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
+            appLogger.setUseParentHandlers(false); // Don't log info records twice
             LogManager.getLogManager().addLogger(appLogger);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -203,11 +204,9 @@ public final class AppLoggingSystem implements UserSettingsListener {
     }
 
     public static void flush(HandlerType handler) {
-        if (systemOutHandler == null || fileHandler == null) return;
-
         switch (handler) {
-            case SYSTEM_OUT: systemOutHandler.flush(); break;
-            case FILE      : fileHandler     .flush(); break;
+            case SYSTEM_OUT: if (systemOutHandler != null) systemOutHandler.flush(); break;
+            case FILE      : if (fileHandler      != null) fileHandler     .flush(); break;
             default        : assert false;
         }
 
