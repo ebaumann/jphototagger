@@ -32,9 +32,11 @@ import java.util.Map;
  */
 public final class AutoCompleteDataOfColumn {
 
-    public static final  AutoCompleteDataOfColumn      INSTANCE       = new AutoCompleteDataOfColumn();
-    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN = new HashMap<Column, AutoCompleteData>();
-    private              AutoCompleteData              fastSearchData;
+    public static final  AutoCompleteDataOfColumn      INSTANCE         = new AutoCompleteDataOfColumn();
+    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN   = new HashMap<Column, AutoCompleteData>();
+
+    // Suggestions of added columns not before restarting the application
+    private static final AutoCompleteData FAST_SEARCH_DATA = new AutoCompleteData(UserSettings.INSTANCE.getFastSearchColumns());
 
     /**
      * Returns the autocomplete data of a specific column.
@@ -43,6 +45,7 @@ public final class AutoCompleteDataOfColumn {
      * @return        autocomplete data of that column
      */
     public AutoCompleteData get(Column column) {
+        assert column != null;
         synchronized (DATA_OF_COLUMN) {
             AutoCompleteData data = DATA_OF_COLUMN.get(column);
             if (data == null) {
@@ -53,11 +56,8 @@ public final class AutoCompleteDataOfColumn {
         }
     }
 
-    public synchronized AutoCompleteData getFastSearchData() {
-        if (fastSearchData == null) {
-            fastSearchData = new AutoCompleteData(UserSettings.INSTANCE.getFastSearchColumns());
-        }
-        return fastSearchData;
+    public AutoCompleteData getFastSearchData() {
+        return FAST_SEARCH_DATA;
     }
 
     private AutoCompleteDataOfColumn() {
