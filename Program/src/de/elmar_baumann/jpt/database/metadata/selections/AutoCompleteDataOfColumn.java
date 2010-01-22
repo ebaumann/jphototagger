@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.database.metadata.selections;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +33,7 @@ import java.util.Map;
 public final class AutoCompleteDataOfColumn {
 
     public static final  AutoCompleteDataOfColumn      INSTANCE       = new AutoCompleteDataOfColumn();
-    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN = Collections.synchronizedMap(new HashMap<Column, AutoCompleteData>());
+    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN = new HashMap<Column, AutoCompleteData>();
     private              AutoCompleteData              fastSearchData;
 
     /**
@@ -43,13 +42,15 @@ public final class AutoCompleteDataOfColumn {
      * @param  column column
      * @return        autocomplete data of that column
      */
-    public synchronized AutoCompleteData get(Column column) {
-        AutoCompleteData data = DATA_OF_COLUMN.get(column);
-        if (data == null) {
-            data = new AutoCompleteData(Arrays.asList(column));
-            DATA_OF_COLUMN.put(column, data);
+    public AutoCompleteData get(Column column) {
+        synchronized (DATA_OF_COLUMN) {
+            AutoCompleteData data = DATA_OF_COLUMN.get(column);
+            if (data == null) {
+                data = new AutoCompleteData(Arrays.asList(column));
+                DATA_OF_COLUMN.put(column, data);
+            }
+            return data;
         }
-        return data;
     }
 
     public synchronized AutoCompleteData getFastSearchData() {
