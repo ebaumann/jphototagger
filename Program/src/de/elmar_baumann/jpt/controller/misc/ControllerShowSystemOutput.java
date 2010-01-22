@@ -37,7 +37,7 @@ public final class ControllerShowSystemOutput implements ActionListener {
     }
 
     private void listen() {
-        if (AppInit.isCaptureOutput()) {
+        if (AppInit.INSTANCE.getCommandLineOptions().isCaptureOutput()) {
             GUI.INSTANCE.getAppFrame().getMenuItemOutputWindow().addActionListener(this);
         } else {
             GUI.INSTANCE.getAppFrame().getMenuItemOutputWindow().setEnabled(false);
