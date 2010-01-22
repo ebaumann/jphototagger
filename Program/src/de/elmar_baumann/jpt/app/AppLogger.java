@@ -126,11 +126,13 @@ public final class AppLogger {
      */
     public static void logSevere(Class<?> c, Exception ex) {
         Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
+        AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
         ErrorListeners.INSTANCE.notifyListeners(new ErrorEvent(ex.getMessage(), c));
     }
 
     private static void log(Class<?> c, Level level, String bundleKey, Object... params) {
         Logger.getLogger(c.getName()).log(level, Bundle.getString(bundleKey, params));
+        AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
     }
 
     private AppLogger() {
