@@ -24,7 +24,6 @@ import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
-import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -112,7 +111,7 @@ public final class ControllerTimelineItemSelected
         Object userObject = node.getUserObject();
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
-            ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+            ControllerSortThumbnails.setLastSort();
             thumbnailsPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesOfUnknownDate(), Content.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date          date   = (Timeline.Date) userObject;
@@ -128,7 +127,7 @@ public final class ControllerTimelineItemSelected
                           : date.day;
                 setTitle(isYear, date.year, isMonth, month, date);
                 List<File> files = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getFilesOf(date.year, month, day));
-                ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+                ControllerSortThumbnails.setLastSort();
                 thumbnailsPanel.setFiles(files, Content.TIMELINE);
             }
         }

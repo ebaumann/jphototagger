@@ -121,13 +121,13 @@ public final class ControllerThumbnailsPanelPersistence
      *         {@link FileSort#NAMES_ASCENDING}
      */
     @SuppressWarnings("unchecked")
-    public Comparator<File> getFileSortComparator() {
+    public static Comparator<File> getFileSortComparator() {
         if (UserSettings.INSTANCE.getProperties().containsKey(KEY_SORT)) {
             try {
                 String className = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
                 return (Comparator<File>) Class.forName(className).newInstance();
             } catch (Exception ex) {
-                AppLogger.logSevere(getClass(), ex);
+                AppLogger.logSevere(ControllerThumbnailsPanelPersistence.class, ex);
             }
         }
         return FileSort.NAMES_ASCENDING.getComparator();

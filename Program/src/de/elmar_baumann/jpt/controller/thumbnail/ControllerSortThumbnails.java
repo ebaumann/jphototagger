@@ -56,10 +56,10 @@ public final class ControllerSortThumbnails implements ActionListener {
         sortThumbnails(e);
     }
 
-    public void setLastSort() {
-        Comparator<File> cmp = ControllerFactory.INSTANCE.getController(ControllerThumbnailsPanelPersistence.class).getFileSortComparator();
-        thumbnailsPanel.setFileSortComparator(cmp);
-        appFrame.getMenuItemOfSortCmp(cmp).setSelected(true);
+    public static void setLastSort() {
+        Comparator<File> cmp = ControllerThumbnailsPanelPersistence.getFileSortComparator();
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileSortComparator(cmp);
+        GUI.INSTANCE.getAppFrame().getMenuItemOfSortCmp(cmp).setSelected(true);
     }
 
     private void sortThumbnails(final ActionEvent e) {

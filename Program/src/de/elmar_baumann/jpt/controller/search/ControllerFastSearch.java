@@ -29,7 +29,6 @@ import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
-import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -182,7 +181,7 @@ public final class ControllerFastSearch
                     if (filenames != null) {
                         setTitle(userInput);
                         GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
-                        ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+                        ControllerSortThumbnails.setLastSort();
                         thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
                     }
                 }

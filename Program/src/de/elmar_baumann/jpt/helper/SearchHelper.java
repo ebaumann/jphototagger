@@ -2,7 +2,6 @@ package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.data.SavedSearch;
-import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.comparator.FileSort;
@@ -27,7 +26,7 @@ public final class SearchHelper {
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileSortComparator(FileSort.NO_SORT.getComparator());
             GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
         } else {
-            ControllerFactory.INSTANCE.getController(ControllerSortThumbnails.class).setLastSort();
+            ControllerSortThumbnails.setLastSort();
         }
     }
 

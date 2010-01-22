@@ -18,11 +18,14 @@
  */
 package de.elmar_baumann.jpt.factory;
 
+import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererExif;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererIptc;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererXmp;
+import de.elmar_baumann.lib.componentutil.MessageLabel;
 import java.util.List;
 import javax.swing.JTable;
 
@@ -34,21 +37,27 @@ import javax.swing.JTable;
  */
 public final class RendererFactory {
 
-    static final RendererFactory INSTANCE = new RendererFactory();
-    private boolean init = false;
+    static final     RendererFactory INSTANCE = new RendererFactory();
+    private volatile boolean         init;
 
     synchronized void init() {
-        Util.checkInit(RendererFactory.class, init);
-        if (!init) {
+        synchronized (this) {
+            if (!Util.checkInit(getClass(), init)) return;
             init = true;
-            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-            TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
-            List<JTable> xmpTables = appPanel.getXmpTables();
-            for (JTable table : xmpTables) {
-                table.setDefaultRenderer(Object.class, rendererTableCellXmp);
-            }
-            appPanel.getTableIptc().setDefaultRenderer(Object.class, new TableCellRendererIptc());
-            appPanel.getTableExif().setDefaultRenderer(Object.class, new TableCellRendererExif());
         }
+        AppLogger.logFine(getClass(), "RendererFactory.Init.Start");
+        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("RendererFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
+
+        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
+        List<JTable> xmpTables = appPanel.getXmpTables();
+        for (JTable table : xmpTables) {
+            table.setDefaultRenderer(Object.class, rendererTableCellXmp);
+        }
+        appPanel.getTableIptc().setDefaultRenderer(Object.class, new TableCellRendererIptc());
+        appPanel.getTableExif().setDefaultRenderer(Object.class, new TableCellRendererExif());
+
+        AppLogger.logFine(getClass(), "RendererFactory.Init.Finished");
+        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("RendererFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
     }
 }

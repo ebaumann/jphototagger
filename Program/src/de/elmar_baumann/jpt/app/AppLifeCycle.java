@@ -50,16 +50,17 @@ public final class AppLifeCycle {
      *
      * @param appFrame the application's frame
      */
-    public synchronized void started(AppFrame appFrame) {
-        assert !started;
-        if (!started) {
+    public void started(AppFrame appFrame) {
+        synchronized (this) {
+            assert !started;
+            if (started) return;
             started = true;
-            this.appFrame = appFrame;
-            Thread thread = new Thread(MetaFactory.INSTANCE);
-            thread.setName("Initializing meta factory @ " + getClass().getSimpleName());
-            thread.start();
-            listenForQuit();
         }
+        this.appFrame = appFrame;
+        Thread thread = new Thread(MetaFactory.INSTANCE);
+        thread.setName("Initializing meta factory @ " + getClass().getSimpleName());
+        thread.start();
+        listenForQuit();
     }
 
     /**
