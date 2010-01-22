@@ -62,6 +62,9 @@ public final class UpdateDownload extends Thread {
      * @param millisecondsToWait milliseconds to wait before starting the check
      */
     public static void checkForNewerVersion(final int millisecondsToWait) {
+
+        if (!UserSettings.INSTANCE.isAutoDownloadNewerVersions()) return;
+
         Thread t = new Thread(new Runnable() {
 
             @Override
@@ -83,7 +86,6 @@ public final class UpdateDownload extends Thread {
     @Override
     public void run() {
 
-        if (!UserSettings.INSTANCE.isAutoDownloadNewerVersions()) return;
         startProgressBar();
         try {
             if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.Download", currentVersion, netVersion)) {
