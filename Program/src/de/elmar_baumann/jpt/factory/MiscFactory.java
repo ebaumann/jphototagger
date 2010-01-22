@@ -18,13 +18,19 @@
  */
 package de.elmar_baumann.jpt.factory;
 
+import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.AppCommandLineOptions;
+import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.controller.filesystem.ControllerAutocopyDirectory;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
+import de.elmar_baumann.lib.io.FileUtil;
+import java.io.File;
 
 /**
  *
@@ -49,8 +55,20 @@ public final class MiscFactory {
         appPanel.getEditMetadataPanels().setAutocomplete();
         PopupMenuThumbnails.INSTANCE.setOtherPrograms();
         ScheduledTasks.INSTANCE.run();
+        checkImportImageFiles();
 
         AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
         appPanel.setStatusbarText(Bundle.getString("MiscFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+    }
+
+    private void checkImportImageFiles() {
+        AppCommandLineOptions cmdLineOptions = AppInit.INSTANCE.getCommandLineOptions();
+        if (cmdLineOptions.isImportImageFiles()) {
+            String dir = cmdLineOptions.getFileImportDir();
+            if (dir != null && FileUtil.existsDirectory(dir)) {
+                UserSettings.INSTANCE.setAutoCopyDirectory(new File(dir));
+            }
+            ControllerFactory.INSTANCE.getController(ControllerAutocopyDirectory.class).actionPerformed(null);
+        }
     }
 }

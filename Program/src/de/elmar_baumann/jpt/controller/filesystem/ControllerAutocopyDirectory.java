@@ -57,15 +57,13 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemCopyFromAutocopyDirectory().
-                addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemCopyFromAutocopyDirectory().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (stop) {
-            AppLogger.logWarning(ControllerAutocopyDirectory.class,
-                    "ControllerAutocopyDirectory.Error.Stopped");
+            AppLogger.logWarning(getClass(), "ControllerAutocopyDirectory.Error.Stopped");
         } else {
             copy();
         }
@@ -73,9 +71,8 @@ public final class ControllerAutocopyDirectory implements ActionListener {
 
     private void copy() {
         File dir = UserSettings.INSTANCE.getAutocopyDirectory();
-        boolean dirOk = dir != null && confirmAutocopyDir(dir);
 
-        if (dirOk) {
+        if (dir != null) {
             copy(dir);
         } else if (confirmSetAutocopyDirectory(
                 dir == null
@@ -112,23 +109,13 @@ public final class ControllerAutocopyDirectory implements ActionListener {
     }
 
     private void informationMessageNoFilesFound() {
-        if (MessageDisplayer.confirmYesNo(
-                null,
-                "ControllerAutocopyDirectory.Info.NoFilesFound")) {
+        if (MessageDisplayer.confirmYesNo(null, "ControllerAutocopyDirectory.Info.NoFilesFound")) {
             setAutocopyDirectory();
-            copy();
         }
     }
 
     private boolean confirmSetAutocopyDirectory(String bundleKey) {
         return MessageDisplayer.confirmYesNo(null, bundleKey);
-    }
-
-    private boolean confirmAutocopyDir(File dir) {
-        return MessageDisplayer.confirmYesNo(
-                null,
-                "ControllerAutocopyDirectory.Confirm.AutocopyDir",
-                dir);
     }
 
     private class CopyTask extends Thread implements ProgressListener {

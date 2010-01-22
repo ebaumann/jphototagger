@@ -340,6 +340,10 @@
         <url>parameter_substitution.html</url>
         <title>Parameter, die ersetzt werden durch Zeichenketten</title>
     </page>
+    <page>
+        <url>commandline.html</url>
+        <title>Kommandozeilenparameter</title>
+    </page>
     <node>
         <title>Glossar</title>
         <page>
