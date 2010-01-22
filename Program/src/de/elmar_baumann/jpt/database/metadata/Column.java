@@ -36,13 +36,13 @@ public class Column {
     private       String             description;
     private       String             longerDescription;
     private final DataType           dataType;
-    private       Column             references = null;
-    private final boolean            isIgnoreCase = true;
-    private final boolean            isIndexed = true;
-    private       boolean            isUnique = false;
-    private       boolean            isPrimaryKey = false;
-    private       boolean            canBeNull = true;
-    private       int                length = 0;
+    private       Column             references         = null;
+    private final boolean            isIgnoreCase       = true;
+    private final boolean            isIndexed          = true;
+    private       boolean            isUnique           = false;
+    private       boolean            isPrimaryKey       = false;
+    private       boolean            canBeNull          = true;
+    private       int                length             = 0;
     private       ReferenceDirection referenceDirection = ReferenceDirection.BACKWARDS;
 
     /**

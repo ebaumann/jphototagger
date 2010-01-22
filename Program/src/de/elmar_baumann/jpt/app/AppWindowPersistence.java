@@ -22,9 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
-import de.elmar_baumann.jpt.factory.MetaFactory;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
@@ -37,7 +35,6 @@ import java.awt.event.ComponentListener;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.SwingUtilities;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and
@@ -55,7 +52,6 @@ public final class AppWindowPersistence
     // Strings has to be equals to that in AppPanel!
     private static final String                 KEY_DIVIDER_LOCATION_MAIN       = "AppPanel.DividerLocationMain";
     private static final String                 KEY_DIVIDER_LOCATION_THUMBNAILS = "AppPanel.DividerLocationThumbnails";
-
     private static final String                 KEY_KEYWORDS_VIEW               = "AppPanel.KeywordsView";
     private final        Component              cardSelKeywordsList             = GUI.INSTANCE.getAppPanel().getCardSelKeywordsList();
     private final        Component              cardSelKeywordsTree             = GUI.INSTANCE.getAppPanel().getCardSelKeywordsTree();
@@ -110,39 +106,18 @@ public final class AppWindowPersistence
     }
 
     public void readAppPanelFromProperties() {
-        final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel appPanel  = GUI.INSTANCE.getAppPanel();
 
         UserSettings.INSTANCE.getSettings().applySettings(appPanel, getPersistentSettingsHints());
 
         appPanel.setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
         setInitKeywordsView(appPanel);
+        selectFastSearch(appPanel);
+    }
+
+    private void selectFastSearch(AppPanel appPanel) {
         ComponentUtil.forceRepaint(appPanel.getComboBoxFastSearch());
         appPanel.getTextAreaSearch().requestFocusInWindow();
-
-        // Some models maybe not ready at this time, so that settings can't be
-        // applied: Waiting a few seconds and applying them again
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3 * 1000);
-                } catch (Exception ex) {
-                    AppLogger.logSevere(MetaFactory.class, ex);
-                }
-
-                String   keyPrefix = AppPanel.class.getName() + ".";
-                Settings settings  = UserSettings.INSTANCE.getSettings();
-
-                settings.applySelectedIndices(appPanel.getListNoMetadata()   , keyPrefix + "listNoMetadata");
-                settings.applySelectedIndices(appPanel.getListSavedSearches(), keyPrefix + "listSavedSearches");
-                settings.applySelectedIndices(appPanel.getListSelKeywords()  , keyPrefix + "listSelKeywords");
-                settings.applySettings       (appPanel.getTreeSelKeywords()  , keyPrefix + "treeSelKeywords");
-                settings.applySettings       (appPanel.getTreeMiscMetadata() , keyPrefix + "treeMiscMetadata");
-                settings.applySettings       (appPanel.getTreeSelKeywords()  , keyPrefix + "treeSelKeywords");
-                settings.applySettings       (appPanel.getTreeTimeline()     , keyPrefix + "treeTimeline");
-            }
-        });
     }
 
     private void setInitKeywordsView(AppPanel appPanel) {
@@ -182,7 +157,7 @@ public final class AppWindowPersistence
         settings.set(appPanel, getPersistentSettingsHints());
         settings.set(appPanel.getSplitPaneMain().getDividerLocation(), KEY_DIVIDER_LOCATION_MAIN);
         settings.set(appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation(), KEY_DIVIDER_LOCATION_THUMBNAILS);
-        ViewUtil.writeTreeDirectoriesToProperties();
+
         appPanel.getPanelEditKeywords().writeProperties();
         UserSettings.INSTANCE.writeToFile();
     }
@@ -201,8 +176,6 @@ public final class AppWindowPersistence
         // Strings has to be equals to the field names in AppPanel (errors on renamings)!
         hints.addExclude(className + ".textAreaSearch");
         hints.addExclude(className + ".panelEditMetadata");
-        hints.addExclude(className + ".treeDirectories");
-        hints.addExclude(className + ".treeFavorites");
 
         return hints;
     }

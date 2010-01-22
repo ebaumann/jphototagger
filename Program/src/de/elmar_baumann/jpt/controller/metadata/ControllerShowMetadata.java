@@ -158,6 +158,7 @@ public final class ControllerShowMetadata
 
     @Override
     public void thumbnailsChanged() {
+        // ignore
     }
 
     @Override

@@ -40,7 +40,7 @@ public final class MetaFactory implements Runnable {
 
     private void init() {
         synchronized (this) {
-            if(!Util.checkInit(getClass(), init)) return;
+            if(!Support.checkInit(getClass(), init)) return;
             init = true;
         }
         AppWindowPersistence appPersistence = new AppWindowPersistence();
@@ -48,10 +48,10 @@ public final class MetaFactory implements Runnable {
         appPersistence.readAppFrameFromProperties();
 
         ModelFactory         .INSTANCE.init();
+        RendererFactory      .INSTANCE.init();
         ControllerFactory    .INSTANCE.init();
         ActionListenerFactory.INSTANCE.init();
         MouseListenerFactory .INSTANCE.init();
-        RendererFactory      .INSTANCE.init();
         MiscFactory          .INSTANCE.init();
 
         appPersistence.readAppPanelFromProperties();

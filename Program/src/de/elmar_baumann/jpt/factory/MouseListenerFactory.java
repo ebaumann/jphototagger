@@ -51,7 +51,7 @@ public final class MouseListenerFactory {
 
     void init() {
         synchronized (this) {
-            if (!Util.checkInit(getClass(), init)) return;
+            if (!Support.checkInit(getClass(), init)) return;
             init = true;
         }
         AppLogger.logFine(getClass(), "MouseListenerFactory.Init.Start");

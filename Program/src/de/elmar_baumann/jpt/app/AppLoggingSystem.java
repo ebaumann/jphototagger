@@ -49,6 +49,8 @@ public final class AppLoggingSystem implements UserSettingsListener {
     private static final int           MEMORY_HANDLER_LOG_RECORDS_COUNT = 1000;
     private static final List<Handler> HANDLERS                         = new ArrayList<Handler>();
     private static       boolean       init;
+    private static       Handler       systemOutHandler;
+    private static       Handler       fileHandler;
     private static       Logger        appLogger;
 
     /**
@@ -86,10 +88,10 @@ public final class AppLoggingSystem implements UserSettingsListener {
     // 1000 logfile records through it's memory handler)
     private static void addFileHandler() throws Exception {
 
-        Handler fileHandler = new FileHandler(logfileNamePattern(),
-                                              MAX_LOGFILE_SIZE_IN_BYTES,
-                                              LOGFILE_ROTATE_COUNT,
-                                              APPEND_OUTPUT_TO_LOGFILE);
+        fileHandler = new FileHandler(logfileNamePattern(),
+                                      MAX_LOGFILE_SIZE_IN_BYTES,
+                                      LOGFILE_ROTATE_COUNT,
+                                      APPEND_OUTPUT_TO_LOGFILE);
 
          // Ignoring user settings obove (INFO, FINE, ...) and keeping size small
         fileHandler.setLevel(Level.WARNING);
@@ -114,7 +116,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
 
     private static void addSystemOutHandler() {
 
-        Handler systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
+        systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
 
          // Log level shall be restricted only through the logger owning this handler
         systemOutHandler.setLevel(Level.FINEST);
@@ -193,5 +195,21 @@ public final class AppLoggingSystem implements UserSettingsListener {
         if (appLogger != null && evt.getType().equals(UserSettingsEvent.Type.LOG_LEVEL)) {
             appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
         }
+    }
+    
+    public enum HandlerType {
+        SYSTEM_OUT,
+        FILE,
+    }
+
+    public static void flush(HandlerType handler) {
+        if (systemOutHandler == null || fileHandler == null) return;
+
+        switch (handler) {
+            case SYSTEM_OUT: systemOutHandler.flush(); break;
+            case FILE      : fileHandler     .flush(); break;
+            default        : assert false;
+        }
+
     }
 }

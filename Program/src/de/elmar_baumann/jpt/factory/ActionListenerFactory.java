@@ -50,7 +50,7 @@ public final class ActionListenerFactory {
     private      boolean               init;
 
     synchronized void init() {
-        Util.checkInit(ActionListenerFactory.class, init);
+        Support.checkInit(ActionListenerFactory.class, init);
         if (!init) {
             init = true;
             AppFrame appFrame = GUI.INSTANCE.getAppFrame();
@@ -86,38 +86,38 @@ public final class ActionListenerFactory {
      * more then one panel using it (2 panels: popup twice, 3 p. 3 times ...)
      */
     private void listenToPopupMenuKeywordsTree() {
-        KeywordsPanel                        hkwPanel        = InputHelperDialog.INSTANCE.getPanelKeywords();
-        ControllerRenameKeyword              cRename         = new ControllerRenameKeyword(hkwPanel);
-        ControllerDeleteKeywords              cRemove         = new ControllerDeleteKeywords(hkwPanel);
-        ControllerAddKeyword                 cAdd            = new ControllerAddKeyword(hkwPanel);
-        ControllerToggleRealKeyword          cToggleReal     = new ControllerToggleRealKeyword(hkwPanel);
-        ControllerAddKeywordsToEditPanel     cAddToEditPanel = new ControllerAddKeywordsToEditPanel(hkwPanel);
-        ControllerDeleteKeywordFromEditPanel cRemoveFromEPn  = new ControllerDeleteKeywordFromEditPanel(hkwPanel);
-        ControllerCopyCutPasteKeyword        cCopyCutPaste   = new ControllerCopyCutPasteKeyword(hkwPanel);
-        ControllerKeywordsDisplayImages      cKwDisplayImg   = new ControllerKeywordsDisplayImages();
+        KeywordsPanel                        hkwPanel           = InputHelperDialog.INSTANCE.getPanelKeywords();
+        ControllerRenameKeyword              ctrlRename         = new ControllerRenameKeyword(hkwPanel);
+        ControllerDeleteKeywords             ctrlRemove         = new ControllerDeleteKeywords(hkwPanel);
+        ControllerAddKeyword                 ctrlAdd            = new ControllerAddKeyword(hkwPanel);
+        ControllerToggleRealKeyword          ctrlToggleReal     = new ControllerToggleRealKeyword(hkwPanel);
+        ControllerAddKeywordsToEditPanel     ctrlAddToEditPanel = new ControllerAddKeywordsToEditPanel(hkwPanel);
+        ControllerDeleteKeywordFromEditPanel ctrlRemoveFromEPn  = new ControllerDeleteKeywordFromEditPanel(hkwPanel);
+        ControllerCopyCutPasteKeyword        ctrlCopyCutPaste   = new ControllerCopyCutPasteKeyword(hkwPanel);
+        ControllerKeywordsDisplayImages      ctrlKwDisplayImg   = new ControllerKeywordsDisplayImages();
 
-        ControllerFactory.INSTANCE.add(cRename);
-        ControllerFactory.INSTANCE.add(cRemove);
-        ControllerFactory.INSTANCE.add(cAdd);
-        ControllerFactory.INSTANCE.add(cToggleReal);
-        ControllerFactory.INSTANCE.add(cAddToEditPanel);
-        ControllerFactory.INSTANCE.add(cRemoveFromEPn);
-        ControllerFactory.INSTANCE.add(cCopyCutPaste);
-        ControllerFactory.INSTANCE.add(cKwDisplayImg);
+        ControllerFactory.INSTANCE.add(ctrlRename);
+        ControllerFactory.INSTANCE.add(ctrlRemove);
+        ControllerFactory.INSTANCE.add(ctrlAdd);
+        ControllerFactory.INSTANCE.add(ctrlToggleReal);
+        ControllerFactory.INSTANCE.add(ctrlAddToEditPanel);
+        ControllerFactory.INSTANCE.add(ctrlRemoveFromEPn);
+        ControllerFactory.INSTANCE.add(ctrlCopyCutPaste);
+        ControllerFactory.INSTANCE.add(ctrlKwDisplayImg);
 
-        hkwPanel.addKeyListener(cCopyCutPaste);
-        GUI.INSTANCE.getAppPanel().getTreeEditKeywords().addKeyListener(cCopyCutPaste);
+        hkwPanel.addKeyListener(ctrlCopyCutPaste);
+        GUI.INSTANCE.getAppPanel().getTreeEditKeywords().addKeyListener(ctrlCopyCutPaste);
 
         PopupMenuKeywordsTree popup = PopupMenuKeywordsTree.INSTANCE;
 
-        popup.getItemAdd()                .addActionListener(cAdd);
-        popup.getItemRename()             .addActionListener(cRename);
-        popup.getItemRemove()             .addActionListener(cRemove);
-        popup.getItemAddToEditPanel()     .addActionListener(cAddToEditPanel);
-        popup.getItemRemoveFromEditPanel().addActionListener(cRemoveFromEPn);
-        popup.getItemToggleReal()         .addActionListener(cToggleReal);
-        popup.getItemCopy()               .addActionListener(cCopyCutPaste);
-        popup.getItemCut()                .addActionListener(cCopyCutPaste);
-        popup.getItemPaste()              .addActionListener(cCopyCutPaste);
+        popup.getItemAdd()                .addActionListener(ctrlAdd);
+        popup.getItemRename()             .addActionListener(ctrlRename);
+        popup.getItemRemove()             .addActionListener(ctrlRemove);
+        popup.getItemAddToEditPanel()     .addActionListener(ctrlAddToEditPanel);
+        popup.getItemRemoveFromEditPanel().addActionListener(ctrlRemoveFromEPn);
+        popup.getItemToggleReal()         .addActionListener(ctrlToggleReal);
+        popup.getItemCopy()               .addActionListener(ctrlCopyCutPaste);
+        popup.getItemCut()                .addActionListener(ctrlCopyCutPaste);
+        popup.getItemPaste()              .addActionListener(ctrlCopyCutPaste);
     }
 }

@@ -19,26 +19,12 @@
 package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
-import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuImageCollections;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
-import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
-import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
-import de.elmar_baumann.lib.dialog.HelpBrowser;
-import de.elmar_baumann.lib.dialog.SystemOutputDialog;
-import de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories;
-import javax.swing.tree.TreeCellRenderer;
 
 /**
  *
@@ -52,53 +38,19 @@ public final class MiscFactory {
 
     void init() {
         synchronized (this) {
-            if (!Util.checkInit(getClass(), init)) return;
+            if (!Support.checkInit(getClass(), init)) return;
             init = true;
         }
-        AppLogger.logFine(getClass(), "MiscFactory.Init.Start");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("MiscFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
+        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        AppPanel            appPanel                 = GUI.INSTANCE.getAppPanel();
-        PopupMenuThumbnails popupMenuPanelThumbnails = PopupMenuThumbnails.INSTANCE;
+        AppLogger.logFine(getClass(), "MiscFactory.Init.Start");
+        appPanel.setStatusbarText(Bundle.getString("MiscFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
 
         appPanel.getEditMetadataPanels().setAutocomplete();
-
-        popupMenuPanelThumbnails.setOtherPrograms();
+        PopupMenuThumbnails.INSTANCE.setOtherPrograms();
         ScheduledTasks.INSTANCE.run();
-        setPopupMenuHighlighter();
-        setSizeAndLocationController();
 
         AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("MiscFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
-    }
-
-    private void setPopupMenuHighlighter() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-        new TreeCellPopupHighlighter(appPanel.getTreeFavorites()                            , PopupMenuFavorites.INSTANCE);
-        new TreeCellPopupHighlighter(appPanel.getTreeDirectories()                          , PopupMenuDirectories.INSTANCE);
-        new TreeCellPopupHighlighter(appPanel.getTreeEditKeywords()                         , PopupMenuKeywordsTree.INSTANCE);
-        new TreeCellPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(), PopupMenuKeywordsTree.INSTANCE);
-        new ListItemPopupHighlighter(appPanel.getListImageCollections()                     , PopupMenuImageCollections.INSTANCE);
-        new ListItemPopupHighlighter(appPanel.getListSavedSearches()                        , PopupMenuSavedSearches.INSTANCE);
-
-        setColorsToRendererTreeDirectories();
-    }
-
-    private void setColorsToRendererTreeDirectories() {
-        TreeCellRenderer r = GUI.INSTANCE.getAppPanel().getTreeDirectories().getCellRenderer();
-        if (r instanceof TreeCellRendererAllSystemDirectories) {
-            TreeCellRendererAllSystemDirectories renderer = (TreeCellRendererAllSystemDirectories) r;
-            renderer.setHighlightColorsForPopup(
-                    AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE,
-                    AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
-        }
-    }
-
-    private void setSizeAndLocationController() {
-
-        SizeAndLocationController ctrl = new SizeAndLocationController();
-
-        SystemOutputDialog.INSTANCE.addWindowListener(ctrl);
-        HelpBrowser.INSTANCE.addWindowListener(ctrl);
+        appPanel.setStatusbarText(Bundle.getString("MiscFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
     }
 }

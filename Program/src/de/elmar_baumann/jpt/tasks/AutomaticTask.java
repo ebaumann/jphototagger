@@ -48,7 +48,7 @@ public final class AutomaticTask {
      * @param runnable runnable
      */
     public synchronized void setTask(Runnable runnable) {
-        shutdown();
+        stopCurrentTask();
         this.runnable = runnable;
         startTask(runnable);
     }
@@ -57,7 +57,7 @@ public final class AutomaticTask {
      * Interrupts the currently running tasks. For limitations see remarks:
      * {@link #setTask(java.lang.Runnable)}.
      */
-    public void shutdown() {
+    public void stopCurrentTask() {
         if (runnable != null) {
             interrupt(runnable);
         }

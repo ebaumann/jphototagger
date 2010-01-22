@@ -60,7 +60,7 @@ public final class UserTasks {
      * Thus means: The currently running task stops only when it is a thread
      * that will periodically check {@link Thread#isInterrupted()}.
      */
-    public void shutdown() {
+    public void stopCurrentTasks() {
         executor.shutdown();
     }
 
