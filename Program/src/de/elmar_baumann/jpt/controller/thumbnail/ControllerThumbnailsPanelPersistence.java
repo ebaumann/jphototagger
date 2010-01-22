@@ -32,7 +32,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import javax.swing.SwingUtilities;
 
 /**
  * Applies persistent settings to the thumbnails panel.
@@ -41,12 +40,14 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-15
  */
 public final class ControllerThumbnailsPanelPersistence
-        implements ThumbnailsPanelListener, AppExitListener {
+        implements ThumbnailsPanelListener,
+                   AppExitListener
+    {
 
     private static final String          KEY_SELECTED_FILES                         = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
     private static final String          KEY_SORT                                   = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort";
     private static final String          KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition";
-    private              boolean         propertiesRead                             = false;
+    private volatile     boolean         propertiesRead;
     private final        ThumbnailsPanel thumbnailsPanel                            = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private              List<File>      persistentSelectedFiles                    = new ArrayList<File>();
 
@@ -71,11 +72,12 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void checkFirstChange() {
-        if (!propertiesRead) {
-            readSelectedFilesFromProperties();
-            readViewportViewPositionFromProperties();
+        synchronized (this) {
+            if (propertiesRead) return;
             propertiesRead = true;
         }
+        readSelectedFilesFromProperties();
+        readViewportViewPositionFromProperties();
     }
 
     private void writeSelectionToProperties() {
@@ -97,8 +99,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void readProperties() {
-        persistentSelectedFiles = FileUtil.getAsFiles(
-                UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
+        persistentSelectedFiles = FileUtil.getAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
         readSortFromProperties();
     }
 
@@ -134,20 +135,9 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void readViewportViewPositionFromProperties() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3 * 1000);
-                } catch (Exception ex) {
-                    AppLogger.logSevere(getClass(), ex);
-                }
-                UserSettings.INSTANCE.getSettings().applySettings(
-                        GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
-                        KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
-            }
-        });
+        UserSettings.INSTANCE.getSettings().applySettings(
+                    GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
+                    KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
     }
 
     @Override
