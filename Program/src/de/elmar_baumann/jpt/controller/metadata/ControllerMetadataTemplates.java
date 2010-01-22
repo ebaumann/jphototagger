@@ -22,8 +22,6 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
-import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
-import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataTemplates;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -42,8 +40,7 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-22
  */
-public final class ControllerMetadataTemplates
-    implements ActionListener, EditMetadataPanelsListener {
+public final class ControllerMetadataTemplates implements ActionListener {
 
     private final DatabaseMetadataTemplates      db                           = DatabaseMetadataTemplates.INSTANCE;
     private final AppPanel                       appPanel                     = GUI.INSTANCE.getAppPanel();
@@ -70,7 +67,6 @@ public final class ControllerMetadataTemplates
         buttonMetadataTemplateInsert.addActionListener(this);
         buttonMetadataTemplateRename.addActionListener(this);
         buttonMetadataTemplateEdit.addActionListener(this);
-        editPanels.addEditMetadataPanelsListener(this);
     }
 
     private void setButtonsEnabled() {
@@ -79,18 +75,6 @@ public final class ControllerMetadataTemplates
         buttonMetadataTemplateDelete.setEnabled(itemSelected);
         buttonMetadataTemplateRename.setEnabled(itemSelected);
         buttonMetadataTemplateEdit  .setEnabled(itemSelected);
-        buttonMetadataTemplateInsert.setEnabled(itemSelected && editPanels.isEditable());
-    }
-
-    @Override
-    public void actionPerformed(EditMetadataPanelsEvent event) {
-        EditMetadataPanelsEvent.Type type = event.getType();
-
-        if (type.equals(EditMetadataPanelsEvent.Type.EDIT_ENABLED) ||
-                type.equals(EditMetadataPanelsEvent.Type.EDIT_DISABLED)) {
-            buttonMetadataTemplateInsert.setEnabled(
-                    type.equals(EditMetadataPanelsEvent.Type.EDIT_ENABLED));
-        }
     }
 
     @Override
