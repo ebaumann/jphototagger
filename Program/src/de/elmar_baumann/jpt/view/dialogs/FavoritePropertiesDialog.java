@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.view.dialogs;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
@@ -28,7 +27,6 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
@@ -41,16 +39,15 @@ import java.util.List;
  */
 public final class FavoritePropertiesDialog extends Dialog {
 
-    private static final List<Image>                 APP_ICONS          = AppLookAndFeel.getAppIcons();
-    private static final String                      KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
-    private static final long                        serialVersionUID   = 750583413264344283L;
+    private static final String            KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
+    private static final long              serialVersionUID   = 750583413264344283L;
     private final        DatabaseFavorites db                 = DatabaseFavorites.INSTANCE;
-    private              String                      lastDirectory      = "";
-    private              boolean                     accepted           = false;
-    private              boolean                     isUpdate           = false;
+    private              String            lastDirectory      = "";
+    private              boolean           accepted;
+    private              boolean           isUpdate;
 
     public FavoritePropertiesDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -170,25 +167,23 @@ public final class FavoritePropertiesDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readProperties();
+            lastDirectoryFromSettings();
         } else {
-            writeProperties();
+            lastDirectoryToSettings();
         }
         super.setVisible(visible);
     }
 
-    private void readProperties() {
+    private void lastDirectoryFromSettings() {
         lastDirectory = UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void setOkEnabled() {
         buttonOk.setEnabled(valuesOk());
     }
 
-    private void writeProperties() {
+    private void lastDirectoryToSettings() {
         UserSettings.INSTANCE.getSettings().set(lastDirectory, KEY_LAST_DIRECTORY);
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
     }
 

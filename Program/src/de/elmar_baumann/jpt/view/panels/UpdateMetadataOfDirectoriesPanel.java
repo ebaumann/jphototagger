@@ -179,7 +179,6 @@ public final class UpdateMetadataOfDirectoriesPanel
         Settings settings = UserSettings.INSTANCE.getSettings();
         settings.set(checkBoxForce, KEY_FORCE);
         settings.set(checkBoxIncludeSubdirectories, KEY_SUBDIRECTORIES);
-        settings.setSizeAndLocation(this);
         settings.set(lastDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }

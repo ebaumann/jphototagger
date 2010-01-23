@@ -61,7 +61,7 @@ public final class SettingsDialog extends Dialog {
     };
 
     private SettingsDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
@@ -134,7 +134,6 @@ public final class SettingsDialog extends Dialog {
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_INDEX_TABBED_PANE, null);
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         for (Persistence panel : persistentPanels) {
             panel.writeProperties();
         }

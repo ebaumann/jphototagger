@@ -36,18 +36,12 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private static final long                              serialVersionUID = -3660709942403455416L;
 
     private UpdateMetadataOfDirectoriesDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 
     private void endDialog() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.writeToFile();
         panel.willDispose();
         setVisible(false);

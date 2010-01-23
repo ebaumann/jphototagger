@@ -66,7 +66,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private final        FileSystemListenerSupport listenerSupport      = new FileSystemListenerSupport();
 
     public MoveToDirectoryDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -200,7 +200,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readProperties();
             if (moveIfVisible) {
                 start();
                 listenerSupport.add(this);
@@ -209,15 +208,13 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
                 listenerSupport.remove(this);
             }
         } else {
-            writeProperties();
+            targetDirectoryToSettings();
         }
         super.setVisible(visible);
     }
 
     private void setTargetDirectory() {
-        targetDirectory =
-                new File(UserSettings.INSTANCE.getSettings().getString(
-                KEY_TARGET_DIRECTORY));
+        targetDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_TARGET_DIRECTORY));
         if (targetDirectory.exists()) {
             labelDirectoryName.setText(targetDirectory.getAbsolutePath());
             setIconToLabelTargetDirectory();
@@ -225,12 +222,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         }
     }
 
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
+    private void targetDirectoryToSettings() {
         UserSettings.INSTANCE.getSettings().set(targetDirectory.getAbsolutePath(), KEY_TARGET_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }

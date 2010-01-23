@@ -64,7 +64,7 @@ public final class RenameDialog extends Dialog {
     private              boolean                   stop                = false;
 
     public RenameDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
@@ -372,23 +372,16 @@ public final class RenameDialog extends Dialog {
             readProperties();
             setExampleFilename();
         } else {
-            writeProperties();
+            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
         super.setVisible(visible);
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         if (!tabbedPane.isEnabledAt(1)) {
             tabbedPane.setSelectedComponent(panelInputName);
         }
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     private void setEnabledConstantTextFields() {

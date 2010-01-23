@@ -45,7 +45,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private              Xmp              xmp              = new Xmp();
 
     public EditMetaDataTemplateDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
     }
 
@@ -80,20 +80,8 @@ public class EditMetaDataTemplateDialog extends Dialog {
     public void setVisible(boolean visible) {
         if (visible) {
             templateToInput();
-            readSettings();
-        } else {
-            writeSettings();
         }
         super.setVisible(visible);
-    }
-
-    private void readSettings() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-    }
-
-    private void writeSettings() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     private void templateToInput() {

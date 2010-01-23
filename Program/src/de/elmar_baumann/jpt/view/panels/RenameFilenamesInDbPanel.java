@@ -118,11 +118,6 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
                 textFieldSearch.getText(), textFieldReplacement.getText());
     }
 
-    public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(this, null);
-        UserSettings.INSTANCE.writeToFile();
-    }
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

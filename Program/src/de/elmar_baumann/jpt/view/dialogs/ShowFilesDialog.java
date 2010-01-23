@@ -37,7 +37,7 @@ public class ShowFilesDialog extends Dialog {
     private static final long serialVersionUID = 8190708049059659890L;
 
     public ShowFilesDialog(List<File> files) {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents(files);
     }
@@ -45,18 +45,6 @@ public class ShowFilesDialog extends Dialog {
     private void postInitComponents(List<File> files) {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         setFiles(files);
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        if (visible) {
-            UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-
-        } else {
-            UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-            UserSettings.INSTANCE.writeToFile();
-        }
-        super.setVisible(visible);
     }
 
     /** This method is called from within the constructor to

@@ -45,7 +45,7 @@ public class KeywordExportDialog extends Dialog {
     private static final String                        KEY_SEL_EXPORTER_INDEX = "KeywordExportDialog.SelectedExporterIndex";
 
     public KeywordExportDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -122,7 +122,6 @@ public class KeywordExportDialog extends Dialog {
 
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.applySizeAndLocation(this);
         settings.applySelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
         File prevExpFile = new File(settings.getString(KEY_PREV_EXPORT_FILE));
         if (prevExpFile.getParentFile() != null &&
@@ -135,7 +134,6 @@ public class KeywordExportDialog extends Dialog {
 
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.setSizeAndLocation(this);
         settings.setSelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
         if (file != null && file.isFile()) {
             settings.set(file.getAbsolutePath(), KEY_PREV_EXPORT_FILE);

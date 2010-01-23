@@ -37,7 +37,7 @@ public class FileEditorDialog extends Dialog {
     private static final long serialVersionUID = -3235645652277682178L;
 
     public FileEditorDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -50,31 +50,19 @@ public class FileEditorDialog extends Dialog {
     public void setVisible(boolean visible) {
         if (visible) {
             setTitle(panelFileEditor.getTitle());
-            readProperties();
         } else {
-            writeProperties();
-            disposeIfNotRunning();
+            panelFileEditor.writeProperties();
+            hideIfNotRunning();
         }
         super.setVisible(visible);
     }
 
-    private void disposeIfNotRunning() {
+    private void hideIfNotRunning() {
         if (panelFileEditor.isRunning()) {
             MessageDisplayer.error(this, "FileEditorDialog.Error.Running");
         } else {
-            dispose();
+            super.setVisible(false);
         }
-    }
-
-    private void readProperties() {
-        panelFileEditor.readProperties();
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-    }
-
-    private void writeProperties() {
-        panelFileEditor.writeProperties();
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     /** This method is called from within the constructor to
