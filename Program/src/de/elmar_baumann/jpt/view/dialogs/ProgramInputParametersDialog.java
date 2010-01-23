@@ -33,7 +33,7 @@ public final class ProgramInputParametersDialog extends Dialog {
     private              boolean accepted         = false;
 
     public ProgramInputParametersDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
     }
 
@@ -60,22 +60,11 @@ public final class ProgramInputParametersDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readProperties();
+            UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         } else {
-            writeProperties();
+            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
         super.setVisible(visible);
-    }
-
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

@@ -44,7 +44,7 @@ public class KeywordImportDialog extends Dialog {
     private              ComboBoxModelKeywordImporters comboBoxModelImporter = new ComboBoxModelKeywordImporters();
 
     public KeywordImportDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -128,7 +128,6 @@ public class KeywordImportDialog extends Dialog {
 
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.applySizeAndLocation(this);
         settings.applySelectedIndex(comboBoxImporter, KEY_SEL_IMPORTER_INDEX);
         File prevImpFile = new File(settings.getString(KEY_PREV_IMPORT_FILE));
         if (prevImpFile.isFile()) {
@@ -140,7 +139,6 @@ public class KeywordImportDialog extends Dialog {
 
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.setSizeAndLocation(this);
         settings.setSelectedIndex(comboBoxImporter, KEY_SEL_IMPORTER_INDEX);
         if (file != null && file.isFile()) {
             settings.set(file.getAbsolutePath(), KEY_PREV_IMPORT_FILE);

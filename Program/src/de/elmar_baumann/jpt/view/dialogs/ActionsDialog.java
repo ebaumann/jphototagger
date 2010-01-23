@@ -43,7 +43,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
     private static final long          serialVersionUID = -2671488119703014515L;
 
     private ActionsDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         DatabasePrograms.INSTANCE.addListener(this);
     }
@@ -56,20 +56,8 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
     public void setVisible(boolean visible) {
         if (visible) {
             panelActions.setButtonsEnabled();
-            readProperties();
-        } else {
-            writeProperties();
         }
         super.setVisible(visible);
-    }
-
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {

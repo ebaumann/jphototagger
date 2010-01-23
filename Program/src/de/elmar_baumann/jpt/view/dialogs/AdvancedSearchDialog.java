@@ -39,7 +39,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     private static final long                 serialVersionUID = -7381253840654600441L;
 
     private AdvancedSearchDialog(boolean modal) {
-        super(GUI.INSTANCE.getAppFrame(), modal);
+        super(GUI.INSTANCE.getAppFrame(), modal, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -51,26 +51,15 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readProperties();
+            panel.readProperties();
         }
         super.setVisible(visible);
     }
 
     private void beforeWindowClosing() {
-        writeProperties();
         panel.writeProperties();
         panel.willDispose();
         setVisible(false);
-    }
-
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        panel.readProperties();
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

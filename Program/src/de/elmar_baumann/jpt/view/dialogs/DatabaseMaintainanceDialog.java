@@ -35,7 +35,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     private static final long                       serialVersionUID = -6775385212305459197L;
 
     private DatabaseMaintainanceDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -43,27 +43,18 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readProperties();
+            UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+        } else {
+            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
         panelMaintainance.getsVisible(visible);
         panelCount.listenToDatabaseChanges(visible);
         super.setVisible(visible);
     }
 
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-        UserSettings.INSTANCE.writeToFile();
-    }
-
     private void close() {
         if (panelMaintainance.canClose()) {
-            writeProperties();
+            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
             setVisible(false);
         } else {
             MessageDisplayer.error(

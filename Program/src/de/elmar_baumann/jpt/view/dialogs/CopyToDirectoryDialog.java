@@ -49,9 +49,7 @@ import javax.swing.filechooser.FileSystemView;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class CopyToDirectoryDialog
-        extends Dialog
-        implements ProgressListener {
+public final class CopyToDirectoryDialog extends Dialog implements ProgressListener {
 
     private static final String                    KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory";
     private static final String                    KEY_COPY_XMP       = "CopyToDirectoryDialog.CopyXmp";
@@ -65,7 +63,7 @@ public final class CopyToDirectoryDialog
     private              File                      targetDirectory    = new File("");
 
     public CopyToDirectoryDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -281,7 +279,6 @@ public final class CopyToDirectoryDialog
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.applySizeAndLocation(this);
         settings.applySettings(checkBoxCopyXmp, KEY_COPY_XMP);
 
         File directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY));
@@ -294,7 +291,6 @@ public final class CopyToDirectoryDialog
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.setSizeAndLocation(this);
         settings.set(targetDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
         settings.set(checkBoxCopyXmp, KEY_COPY_XMP);
 

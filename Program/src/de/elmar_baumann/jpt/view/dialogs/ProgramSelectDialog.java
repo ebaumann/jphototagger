@@ -48,7 +48,7 @@ public class ProgramSelectDialog extends Dialog {
      * @param type type
      */
     public ProgramSelectDialog(Type type) {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         this.type = type;
         model = new ListModelPrograms(type);
         initComponents();
@@ -82,21 +82,9 @@ public class ProgramSelectDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readProperties();
             accepted = false;
-        } else {
-            writeProperties();
         }
         super.setVisible(visible);
-    }
-
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     private void handleMousClicked(MouseEvent e) {

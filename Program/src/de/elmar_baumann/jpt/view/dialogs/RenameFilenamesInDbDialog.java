@@ -34,7 +34,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
     private static final long serialVersionUID = 4052809300034354623L;
 
     public RenameFilenamesInDbDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
@@ -46,10 +46,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     private void checkClosing() {
         if (!panelDbFilenameReplace.runs()) {
-            panelDbFilenameReplace.writeProperties();
-            UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-            UserSettings.INSTANCE.writeToFile();
-            dispose();
+            setVisible(false);
         }
     }
 

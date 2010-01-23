@@ -40,8 +40,7 @@ import javax.swing.filechooser.FileSystemView;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class IptcToXmpDialog extends Dialog
-        implements ProgressListener {
+public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private static final String     KEY_DIRECTORY_NAME = "de.elmar_baumann.jpt.view.dialogs.IptcToXmpDialog.LastDirectory";
     private static final long       serialVersionUID   = 873528245237986989L;
@@ -50,7 +49,7 @@ public final class IptcToXmpDialog extends Dialog
     private              List<File> files;
 
     public IptcToXmpDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
@@ -114,11 +113,9 @@ public final class IptcToXmpDialog extends Dialog
         UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
         setIconToDirectoryLabel();
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         UserSettings.INSTANCE.getSettings().set(directory.getAbsolutePath(), KEY_DIRECTORY_NAME);
         UserSettings.INSTANCE.writeToFile();

@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.dialogs;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -34,7 +35,7 @@ public class ImportImageFilesDialog extends Dialog {
     private              boolean accepted;
 
     public ImportImageFilesDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
     }
 

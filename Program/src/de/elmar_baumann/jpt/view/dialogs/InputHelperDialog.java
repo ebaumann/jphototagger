@@ -41,7 +41,7 @@ public class InputHelperDialog extends Dialog {
     private static final long              serialVersionUID          = 38960516048549937L;
 
     public InputHelperDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false);
+        super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
@@ -64,12 +64,10 @@ public class InputHelperDialog extends Dialog {
         if (selIndexTabbedPane >= 0 && selIndexTabbedPane < tabbedPane.getTabCount()) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
         }
-        settings.applySizeAndLocation(this);
     }
 
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
-        settings.setSizeAndLocation(this);
         settings.set(tabbedPane.getSelectedIndex(), KEY_SEL_INDEX_TABBED_PANE);
         panelKeywords.writeProperties();
         UserSettings.INSTANCE.writeToFile();

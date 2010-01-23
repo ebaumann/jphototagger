@@ -57,7 +57,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     public PathSelectionDialog(Collection<Collection<String>> paths, Mode mode) {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         this.paths = paths;
         this.mode = mode;
         assert paths != null : "paths == null!";
@@ -74,15 +74,6 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         }
     }
 
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.writeToFile();
-    }
-
     public boolean isAccepted() {
         return accepted;
     }
@@ -93,16 +84,6 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
     public Collection<Collection<String>> getSelPaths() {
         return selPaths;
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        if (visible) {
-            readProperties();
-        } else {
-            writeProperties();
-        }
-        super.setVisible(visible);
     }
 
     private void handleButtonSelectNothingActionPerformed() {

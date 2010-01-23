@@ -46,7 +46,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private              boolean action;
 
     public ProgramPropertiesDialog(boolean action) {
-        super(GUI.INSTANCE.getAppFrame(), true);
+        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         this.action = action;
         program.setAction(action);
         initComponents();
@@ -149,25 +149,6 @@ public final class ProgramPropertiesDialog extends Dialog {
     @Override
     protected void escape() {
         cancel();
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        if (visible) {
-            readProperties();
-        } else {
-            writeProperties();
-        }
-        super.setVisible(visible);
-    }
-
-    private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-    }
-
-    private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     private void chooseProgram() {
