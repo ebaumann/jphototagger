@@ -46,21 +46,18 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class SettingsMiscPanel extends javax.swing.JPanel implements Persistence {
 
-    private static final long                serialVersionUID              = 479354601163285718L;
-    private final        Map<Tab, Component> componentOfTab                = new HashMap<Tab, Component>();
-    private              String              lastSelectedAutocopyDirectory = "";
+    private static final long                serialVersionUID = 479354601163285718L;
+    private final        Map<Tab, Component> componentOfTab   = new HashMap<Tab, Component>();
 
     public enum Tab {
 
         EXTERNAL_APPLICATIONS,
         DATABASE_DIRECTORY,
         LOGFILE,
-        AUTOCOPY_DIRECTORY,
         MISCELLANEOUS,
     }
 
     private void initComponentOfTab() {
-        componentOfTab.put(Tab.AUTOCOPY_DIRECTORY, panelAutoCopyDirectory);
         componentOfTab.put(Tab.DATABASE_DIRECTORY, panelDatabaseDirectory);
         componentOfTab.put(Tab.LOGFILE, panelLogfile);
         componentOfTab.put(Tab.EXTERNAL_APPLICATIONS, panelExternalApplications);
@@ -73,20 +70,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     public void selectTab(Tab tab) {
-        assert componentOfTab.containsKey(tab) :
-                "Missing key " + tab + " in " + componentOfTab;
+        assert componentOfTab.containsKey(tab) : "Missing key " + tab + " in " + componentOfTab;
         tabbedPane.setSelectedComponent(componentOfTab.get(tab));
-    }
-
-    private void chooseAutocopyDirectory() {
-        File file = chooseDirectory(new File(lastSelectedAutocopyDirectory));
-        if (file != null) {
-            String directory = file.getAbsolutePath();
-            labelAutocopyDirectory.setText(directory);
-            lastSelectedAutocopyDirectory = directory;
-            labelAutocopyDirectory.setIcon(IconUtil.getSystemIcon(file));
-            UserSettings.INSTANCE.setAutoCopyDirectory(file);
-        }
     }
 
     private File chooseDirectory(File startDirectory) {
@@ -122,10 +107,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
         UserSettings.INSTANCE.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
-    }
-
-    private void handleActionPerformedCheckBoxTreeDirectoriesSelectLastDirectory() {
-        UserSettings.INSTANCE.setTreeDirectoriesSelectLastDirectory(checkBoxTreeDirectoriesSelectLastDirectory.isSelected());
     }
 
     private void handleActionPerformedChooseDatabaseDirectory() {
@@ -203,7 +184,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     public void readProperties() {
         checkLogLevel();
         UserSettings settings = UserSettings.INSTANCE;
-        readAutoCopyDirectoryProperties(settings);
         readWebBrowserProperties(settings);
         readPdfViewerProperties(settings);
         comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
@@ -211,7 +191,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 (ComboBoxModelLogfileFormatter) comboBoxLogfileFormatterClass.getModel();
         modelLogfileFormatter.setSelectedItem(settings.getLogfileFormatterClass());
         checkBoxIsAcceptHiddenDirectories.setSelected(settings.isAcceptHiddenDirectories());
-        checkBoxTreeDirectoriesSelectLastDirectory.setSelected(settings.isTreeDirectoriesSelectLastDirectory());
         labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(
                 settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
@@ -219,16 +198,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         checkBoxAutoDownloadCheck.setSelected(settings.isAutoDownloadNewerVersions());
         setIconDatabaseDirectory();
-    }
-
-    private void readAutoCopyDirectoryProperties(UserSettings settings) {
-        File lastAcDirectory = settings.getAutocopyDirectory();
-        if (lastAcDirectory != null && lastAcDirectory.exists()) {
-            String lastAcDirectoryName = lastAcDirectory.getAbsolutePath();
-            labelAutocopyDirectory.setText(lastAcDirectoryName);
-            lastSelectedAutocopyDirectory = lastAcDirectoryName;
-            labelAutocopyDirectory.setIcon(IconUtil.getSystemIcon(lastAcDirectory));
-        }
     }
 
     private void readWebBrowserProperties(UserSettings settings) {
@@ -280,12 +249,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         labelLogLogfileFormatterClass = new javax.swing.JLabel();
         comboBoxLogfileFormatterClass = new javax.swing.JComboBox();
         labelInfoLogfile = new javax.swing.JLabel();
-        panelAutoCopyDirectory = new javax.swing.JPanel();
-        labelAutocopyDirectory = new javax.swing.JLabel();
-        buttonChooseAutocopyDirectory = new javax.swing.JButton();
         panelMisc = new javax.swing.JPanel();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
-        checkBoxTreeDirectoriesSelectLastDirectory = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
@@ -327,13 +292,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addGroup(panelExternalApplicationsLayout.createSequentialGroup()
                         .addComponent(labelInfoWebBrowser)
                         .addGap(16, 16, 16)
-                        .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                        .addComponent(labelWebBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonChooseWebBrowser))
                     .addGroup(panelExternalApplicationsLayout.createSequentialGroup()
                         .addComponent(labelInfoPdfViewer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelPdfViewer, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                        .addComponent(labelPdfViewer, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonChoosePdfViewer)))
                 .addContainerGap())
@@ -354,7 +319,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                             .addComponent(labelInfoPdfViewer)
                             .addGap(9, 9, 9)))
                     .addComponent(buttonChoosePdfViewer))
-                .addGap(159, 159, 159))
+                .addContainerGap())
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle"), panelExternalApplications); // NOI18N
@@ -388,10 +353,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatabaseDirectoryLayout.createSequentialGroup()
                         .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonSetStandardDatabaseDirectoryName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonChooseDatabaseDirectory)))
@@ -407,7 +372,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addComponent(buttonChooseDatabaseDirectory)
                     .addComponent(buttonSetStandardDatabaseDirectoryName)
                     .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.TabConstraints.tabTitle"), panelDatabaseDirectory); // NOI18N
@@ -447,8 +412,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                             .addComponent(labelLogLevel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxLogfileFormatterClass, 0, 419, Short.MAX_VALUE)
-                            .addComponent(comboBoxLogLevel, 0, 419, Short.MAX_VALUE)))
+                            .addComponent(comboBoxLogfileFormatterClass, 0, 343, Short.MAX_VALUE)
+                            .addComponent(comboBoxLogLevel, 0, 343, Short.MAX_VALUE)))
                     .addComponent(labelInfoLogfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -465,59 +430,16 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addComponent(labelLogLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoLogfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelLogfile.TabConstraints.tabTitle"), panelLogfile); // NOI18N
-
-        labelAutocopyDirectory.setForeground(new java.awt.Color(0, 0, 255));
-        labelAutocopyDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        buttonChooseAutocopyDirectory.setMnemonic('a');
-        buttonChooseAutocopyDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseAutocopyDirectory.text")); // NOI18N
-        buttonChooseAutocopyDirectory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChooseAutocopyDirectoryActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelAutoCopyDirectoryLayout = new javax.swing.GroupLayout(panelAutoCopyDirectory);
-        panelAutoCopyDirectory.setLayout(panelAutoCopyDirectoryLayout);
-        panelAutoCopyDirectoryLayout.setHorizontalGroup(
-            panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonChooseAutocopyDirectory)
-                .addContainerGap())
-        );
-        panelAutoCopyDirectoryLayout.setVerticalGroup(
-            panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAutoCopyDirectoryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelAutoCopyDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAutocopyDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonChooseAutocopyDirectory))
-                .addContainerGap(193, Short.MAX_VALUE))
-        );
-
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelAutoCopyDirectory.TabConstraints.tabTitle"), panelAutoCopyDirectory); // NOI18N
 
         checkBoxIsAcceptHiddenDirectories.setMnemonic('o');
         checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
-            }
-        });
-
-        checkBoxTreeDirectoriesSelectLastDirectory.setMnemonic('s');
-        checkBoxTreeDirectoriesSelectLastDirectory.setText(Bundle.getString("SettingsMiscPanel.checkBoxTreeDirectoriesSelectLastDirectory.text")); // NOI18N
-        checkBoxTreeDirectoriesSelectLastDirectory.setPreferredSize(new java.awt.Dimension(631, 28));
-        checkBoxTreeDirectoriesSelectLastDirectory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxTreeDirectoriesSelectLastDirectoryActionPerformed(evt);
             }
         });
 
@@ -549,7 +471,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addGroup(panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(radioButtonCopyMoveFileConfirmOverwrite)
                     .addComponent(radioButtonCopyMoveFileRenameIfExists))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         panelCopyMoveFilesLayout.setVerticalGroup(
             panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,7 +498,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxAutoDownloadCheck)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -586,12 +507,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap()
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxTreeDirectoriesSelectLastDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxAutoDownloadCheck)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
@@ -608,56 +527,47 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void comboBoxLogLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
-    handleActionPerformedComboBoxLogLevel();
-}//GEN-LAST:event_comboBoxLogLevelActionPerformed
-
-private void comboBoxLogfileFormatterClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogfileFormatterClassActionPerformed
-    handleActionPerformedComboBoxLogfileFormatterClass();
-}//GEN-LAST:event_comboBoxLogfileFormatterClassActionPerformed
-
-private void buttonChooseAutocopyDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseAutocopyDirectoryActionPerformed
-    chooseAutocopyDirectory();
-}//GEN-LAST:event_buttonChooseAutocopyDirectoryActionPerformed
-
-private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
-    handleActionPerformedCheckBoxIsAcceptHiddenDirectories();
-}//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
-
-private void buttonChooseWebBrowserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseWebBrowserActionPerformed
-    handleActionPerformedChooseWebBrowser();
-}//GEN-LAST:event_buttonChooseWebBrowserActionPerformed
-
-private void checkBoxTreeDirectoriesSelectLastDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxTreeDirectoriesSelectLastDirectoryActionPerformed
-    handleActionPerformedCheckBoxTreeDirectoriesSelectLastDirectory();
-}//GEN-LAST:event_checkBoxTreeDirectoriesSelectLastDirectoryActionPerformed
-
-private void buttonChooseDatabaseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
-    handleActionPerformedChooseDatabaseDirectory();
-}//GEN-LAST:event_buttonChooseDatabaseDirectoryActionPerformed
-
-private void buttonSetStandardDatabaseDirectoryNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
-    handleActionPerformedSetStandardDatabaseDirectory();
-}//GEN-LAST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
-
-private void buttonChoosePdfViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChoosePdfViewerActionPerformed
-    handleActionPerformedChoosePdfViewer();
-}//GEN-LAST:event_buttonChoosePdfViewerActionPerformed
-
-private void radioButtonCopyMoveFileConfirmOverwriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
-    handleActionPerformedCopyMoveFiles();
-}//GEN-LAST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
-
-private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
-    handleActionPerformedCopyMoveFiles();
-}//GEN-LAST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
-
-private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
-    handleActionPerformedAutoDownload();
+    private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
+        handleActionPerformedAutoDownload();
 }//GEN-LAST:event_checkBoxAutoDownloadCheckActionPerformed
 
+    private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
+        handleActionPerformedCopyMoveFiles();
+}//GEN-LAST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
+
+    private void radioButtonCopyMoveFileConfirmOverwriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
+        handleActionPerformedCopyMoveFiles();
+}//GEN-LAST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
+
+    private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
+        handleActionPerformedCheckBoxIsAcceptHiddenDirectories();
+}//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
+
+    private void comboBoxLogfileFormatterClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogfileFormatterClassActionPerformed
+        handleActionPerformedComboBoxLogfileFormatterClass();
+}//GEN-LAST:event_comboBoxLogfileFormatterClassActionPerformed
+
+    private void comboBoxLogLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
+        handleActionPerformedComboBoxLogLevel();
+}//GEN-LAST:event_comboBoxLogLevelActionPerformed
+
+    private void buttonChooseDatabaseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
+        handleActionPerformedChooseDatabaseDirectory();
+}//GEN-LAST:event_buttonChooseDatabaseDirectoryActionPerformed
+
+    private void buttonSetStandardDatabaseDirectoryNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
+        handleActionPerformedSetStandardDatabaseDirectory();
+}//GEN-LAST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
+
+    private void buttonChoosePdfViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChoosePdfViewerActionPerformed
+        handleActionPerformedChoosePdfViewer();
+}//GEN-LAST:event_buttonChoosePdfViewerActionPerformed
+
+    private void buttonChooseWebBrowserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseWebBrowserActionPerformed
+        handleActionPerformedChooseWebBrowser();
+}//GEN-LAST:event_buttonChooseWebBrowserActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonChooseAutocopyDirectory;
     private javax.swing.JButton buttonChooseDatabaseDirectory;
     private javax.swing.JButton buttonChoosePdfViewer;
     private javax.swing.JButton buttonChooseWebBrowser;
@@ -665,10 +575,8 @@ private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JButton buttonSetStandardDatabaseDirectoryName;
     private javax.swing.JCheckBox checkBoxAutoDownloadCheck;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
-    private javax.swing.JCheckBox checkBoxTreeDirectoriesSelectLastDirectory;
     private javax.swing.JComboBox comboBoxLogLevel;
     private javax.swing.JComboBox comboBoxLogfileFormatterClass;
-    private javax.swing.JLabel labelAutocopyDirectory;
     private javax.swing.JLabel labelDatabaseDirectory;
     private javax.swing.JLabel labelInfoDatabaseDirectory;
     private javax.swing.JLabel labelInfoLogfile;
@@ -678,7 +586,6 @@ private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JLabel labelLogLogfileFormatterClass;
     private javax.swing.JLabel labelPdfViewer;
     private javax.swing.JLabel labelWebBrowser;
-    private javax.swing.JPanel panelAutoCopyDirectory;
     private javax.swing.JPanel panelCopyMoveFiles;
     private javax.swing.JPanel panelDatabaseDirectory;
     private javax.swing.JPanel panelExternalApplications;

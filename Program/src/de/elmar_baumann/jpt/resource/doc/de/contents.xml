@@ -176,8 +176,8 @@
             <title>Datei &gt; Datenbank</title>
         </page>
         <page>
-            <url>action_filesystem_autocopy_directory.html</url>
-            <title>Datei &gt; Bilder von der Kamera-Speicherkarte kopieren</title>
+            <url>action_filesystem_import_image_files.html</url>
+            <title>Datei &gt; Bilder importieren</title>
         </page>
         <page>
             <url>action_import_keywords.html</url>

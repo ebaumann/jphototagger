@@ -65,7 +65,6 @@ public final class UserSettings {
     private static final String                      DELIMITER_COLUMNS                                             = "\t";
     private static final String                      DOMAIN_NAME                                                   = "de.elmar_baumann"; // NEVER CHANGE!
     private static final String                      KEY_ACCEPT_HIDDEN_DIRECTORIES                                 = "UserSettings.IsAcceptHiddenDirectories";
-    private static final String                      KEY_AUTOCOPY_DIRECTORY                                        = "UserSettings.AutocopyDirectory";
     private static final String                      KEY_AUTO_DOWNLOAD_NEWER_VERSIONS                              = "UserSettings.AutoDownloadNewerVersions";
     private static final String                      KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES                          = "UserSettings.IsAutoscanIncludeSubdirectories";
     private static final String                      KEY_DATABASE_DIRECTORY                                        = "UserSettings.DatabaseDirectoryName";
@@ -569,25 +568,6 @@ public final class UserSettings {
                : true;
     }
 
-    public void setTreeDirectoriesSelectLastDirectory(boolean select) {
-        settings.set(select, KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
-        writeToFile();
-        notifyListeners(Type.TREE_DIRECTORIES_SELECT_LAST_DIRECTORY);
-    }
-
-    /**
-     * Returns whether in the directories tree the last selected item shall be
-     * selected while starting the application (only when the last selected
-     * tab is the directories tab).
-     *
-     * @return true if select the last selected item. Default: <code>false</code>
-     */
-    public boolean isTreeDirectoriesSelectLastDirectory() {
-        return properties.containsKey(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
-               ? settings.getBoolean(KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY)
-               : false;
-    }
-
     /**
      * Returns whether to save input early, e.g. when an input control has been
      * leaved.
@@ -702,26 +682,6 @@ public final class UserSettings {
         return properties.containsKey(KEY_ACCEPT_HIDDEN_DIRECTORIES)
                ? settings.getBoolean(KEY_ACCEPT_HIDDEN_DIRECTORIES)
                : false;
-    }
-
-    public void setAutoCopyDirectory(File directory) {
-        settings.set(directory.getAbsolutePath(), KEY_AUTOCOPY_DIRECTORY);
-        writeToFile();
-        notifyListeners(Type.AUTOCOPY_DIRECTORY);
-    }
-
-    /**
-     * Returns the autocopy directory, a source directory from which all
-     * image files should be copied to another directory automatically.
-     *
-     * @return Existing directory or null if not defined or not existing.
-     *         Default: <code>null</code>
-     */
-    public File getAutocopyDirectory() {
-        File dir = new File(settings.getString(KEY_AUTOCOPY_DIRECTORY));
-        return dir.exists() && dir.isDirectory()
-               ? dir
-               : null;
     }
 
     /**

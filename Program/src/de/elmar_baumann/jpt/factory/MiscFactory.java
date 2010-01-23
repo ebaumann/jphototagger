@@ -18,11 +18,10 @@
  */
 package de.elmar_baumann.jpt.factory;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppCommandLineOptions;
 import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.controller.filesystem.ControllerAutocopyDirectory;
+import de.elmar_baumann.jpt.controller.filesystem.ControllerImportImageFiles;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
@@ -64,11 +63,12 @@ public final class MiscFactory {
     private void checkImportImageFiles() {
         AppCommandLineOptions cmdLineOptions = AppInit.INSTANCE.getCommandLineOptions();
         if (cmdLineOptions.isImportImageFiles()) {
-            String dir = cmdLineOptions.getFileImportDir();
-            if (dir != null && FileUtil.existsDirectory(dir)) {
-                UserSettings.INSTANCE.setAutoCopyDirectory(new File(dir));
+            String dirName = cmdLineOptions.getFileImportDir();
+            File   dir     = null;
+            if (dirName != null && FileUtil.existsDirectory(dirName)) {
+                dir = new File(dirName);
             }
-            ControllerFactory.INSTANCE.getController(ControllerAutocopyDirectory.class).actionPerformed(null);
+            ControllerFactory.INSTANCE.getController(ControllerImportImageFiles.class).copyFrom(dir);
         }
     }
 }
