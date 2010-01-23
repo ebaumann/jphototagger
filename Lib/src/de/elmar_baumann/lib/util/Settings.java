@@ -485,8 +485,6 @@ public final class Settings {
         String sKey         = key + KEY_APPENDIX_SELECTED;
         String selectedItem = properties.getProperty(sKey);
 
-        comboBox.setSelectedIndex(-1);
-
         if (selectedItem != null) {
 
             comboBox.setSelectedItem(selectedItem);
@@ -505,8 +503,6 @@ public final class Settings {
         if (key      == null) throw new NullPointerException("key == null");
 
         String index = properties.getProperty(key + KEY_APPENDIX_SELECTED);
-
-        comboBox.setSelectedIndex(-1);
 
         if (index != null) {
             try {
