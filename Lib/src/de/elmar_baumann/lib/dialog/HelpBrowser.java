@@ -79,7 +79,6 @@ public final class HelpBrowser
         super(parent);
         initComponents();
         postInitComponents();
-        registerKeyStrokes();
     }
 
     private void postInitComponents() {

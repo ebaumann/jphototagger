@@ -38,7 +38,6 @@ public class SystemOutputDialog extends Dialog {
     public SystemOutputDialog(java.awt.Frame parent) {
         super(parent, false);
         initComponents();
-        registerKeyStrokes();
     }
 
     /**
