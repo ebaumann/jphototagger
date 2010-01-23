@@ -74,11 +74,6 @@ public final class DirectoryChooser extends Dialog {
         initComponents();
         model = new TreeModelAllSystemDirectories(treeDirectories, getTreeModelFilter());
         treeDirectories.setModel(model);
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        registerKeyStrokes();
     }
 
     private void setSelectionMode() {

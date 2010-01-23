@@ -18,26 +18,23 @@ public class InputDialog extends Dialog {
     private              boolean  accepted;
 
     public InputDialog() {
-        super((java.awt.Frame) null, true);
+        super(ComponentUtil.getFrameWithIcon(), true);
         initComponents();
-        registerKeyStrokes();
     }
 
     public InputDialog(String info, String input) {
-        super((java.awt.Frame) null, true);
+        super(ComponentUtil.getFrameWithIcon(), true);
         initComponents();
         labelPrompt.setText(info);
         textFieldInput.setText(input);
-        registerKeyStrokes();
     }
 
     public InputDialog(String info, String input, Properties properties, String propertyKey) {
-        super((java.awt.Frame) null, true);
+        super(ComponentUtil.getFrameWithIcon(), true);
         initComponents();
         labelPrompt.setText(info);
         textFieldInput.setText(input);
         setProperties(properties, propertyKey);
-        registerKeyStrokes();
     }
 
     /**

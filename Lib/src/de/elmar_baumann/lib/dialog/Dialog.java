@@ -19,10 +19,7 @@
 package de.elmar_baumann.lib.dialog;
 
 import java.awt.Component;
-import java.awt.Dialog.ModalityType;
 import java.awt.Frame;
-import java.awt.GraphicsConfiguration;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -34,10 +31,6 @@ import javax.swing.KeyStroke;
 /**
  * Dialog which can close by pressing the ESC key and showing the Help dialog
  * by pressing the F1 key.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-19
@@ -51,84 +44,16 @@ public class Dialog extends JDialog {
     private              String         helpPageUrl;
     private final        HelpBrowser    help                = HelpBrowser.INSTANCE;
 
-    protected Dialog() {
-        super();
-        init();
-    }
-
-    public Dialog(Window owner, String title, ModalityType modalityType, GraphicsConfiguration gc) {
-        super(owner, title, modalityType, gc);
-        init();
-    }
-
-    public Dialog(Window owner, String title, ModalityType modalityType) {
-        super(owner, title, modalityType);
-        init();
-    }
-
-    public Dialog(Window owner, String title) {
-        super(owner, title);
-        init();
-    }
-
-    public Dialog(Window owner, ModalityType modalityType) {
-        super(owner, modalityType);
-        init();
-    }
-
-    public Dialog(Window owner) {
-        super(owner);
-        init();
-    }
-
-    public Dialog(Dialog owner, String title, boolean modal, GraphicsConfiguration gc) {
-        super(owner, title, modal, gc);
-        init();
-    }
-
-    public Dialog(Dialog owner, String title, boolean modal) {
-        super(owner, title, modal);
-        init();
-    }
-
-    public Dialog(Dialog owner, String title) {
-        super(owner, title);
-        init();
-    }
-
-    public Dialog(Dialog owner, boolean modal) {
-        super(owner, modal);
-        init();
-    }
-
-    public Dialog(Dialog owner) {
-        super(owner);
-        init();
-    }
-
-    public Dialog(Frame owner, String title, boolean modal, GraphicsConfiguration gc) {
-        super(owner, title, modal, gc);
-        init();
-    }
-
-    public Dialog(Frame owner, String title, boolean modal) {
-        super(owner, title, modal);
-        init();
-    }
-
-    public Dialog(Frame owner, String title) {
-        super(owner, title);
-        init();
-    }
-
     public Dialog(Frame owner, boolean modal) {
         super(owner, modal);
         init();
+        registerKeyboardActions();
     }
 
     public Dialog(Frame owner) {
         super(owner);
         init();
+        registerKeyboardActions();
     }
 
     /**
@@ -201,11 +126,7 @@ public class Dialog extends JDialog {
         createActionListener();
     }
 
-    /**
-     * If a dialog has more components, it must call this method to register
-     * the accelerators to all components.
-     */
-    protected void registerKeyStrokes() {
+    private void registerKeyboardActions() {
         KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         KeyStroke strokeHelp   = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
         for (Component component : getComponents()) {
