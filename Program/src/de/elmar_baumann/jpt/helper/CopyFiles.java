@@ -81,8 +81,7 @@ public final class CopyFiles implements Runnable {
      * @param options  Optionen
      */
     public CopyFiles(List<Pair<File, File>> sourceTargetFiles, Options options) {
-        this.sourceTargetFiles =
-                new ArrayList<Pair<File, File>>(sourceTargetFiles);
+        this.sourceTargetFiles = new ArrayList<Pair<File, File>>(sourceTargetFiles);
         this.options = options;
     }
 
@@ -125,8 +124,8 @@ public final class CopyFiles implements Runnable {
                 try {
                     File sourceFile = filePair.getFirst();
                     File targetFile = getTargetFile(filePair);
-                    logCopyFile(sourceFile.getAbsolutePath(), targetFile.
-                            getAbsolutePath());
+
+                    logCopyFile(sourceFile.getAbsolutePath(), targetFile.getAbsolutePath());
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
                     AppLogger.logSevere(CopyFiles.class, ex);
@@ -140,16 +139,14 @@ public final class CopyFiles implements Runnable {
 
     private File getTargetFile(Pair<File, File> files) {
         File targetFile = files.getSecond();
-        if (options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS) &&
-                targetFile.exists()) {
+        if (options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS) && targetFile.exists()) {
             targetFile = FileUtil.getNotExistingFile(targetFile);
         }
         return targetFile;
     }
 
     private void logCopyFile(String sourceFilename, String targetFilename) {
-        AppLogger.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy",
-                sourceFilename, targetFilename);
+        AppLogger.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy", sourceFilename, targetFilename);
     }
 
     private synchronized void notifyStart() {
@@ -172,7 +169,8 @@ public final class CopyFiles implements Runnable {
 
     private boolean checkOverwrite(Pair<File, File> filePair) {
         if (options.equals(Options.FORCE_OVERWRITE) ||
-                options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS)) {
+            options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS)
+            ) {
             return true;
         }
         File target = filePair.getSecond();

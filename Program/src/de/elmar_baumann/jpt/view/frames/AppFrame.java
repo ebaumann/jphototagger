@@ -169,8 +169,8 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemExtractEmbeddedXmp;
     }
 
-    public JMenuItem getMenuItemCopyFromAutocopyDirectory() {
-        return menuItemCopyFromAutocopyDirectory;
+    public JMenuItem getMenuItemImportImageFiles() {
+        return menuImportImageFiles;
     }
 
     public JMenuItem getMenuItemOfGoto(GoTo gt) {
@@ -285,7 +285,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemScanDirectory = new javax.swing.JMenuItem();
         menuItemMaintainDatabase = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
-        menuItemCopyFromAutocopyDirectory = new javax.swing.JMenuItem();
+        menuImportImageFiles = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JSeparator();
         menuImport = new javax.swing.JMenu();
         menuItemImportKeywords = new javax.swing.JMenuItem();
@@ -383,10 +383,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuFile.add(menuItemMaintainDatabase);
         menuFile.add(jSeparator1);
 
-        menuItemCopyFromAutocopyDirectory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        menuItemCopyFromAutocopyDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_card.png"))); // NOI18N
-        menuItemCopyFromAutocopyDirectory.setText(Bundle.getString("AppFrame.menuItemCopyFromAutocopyDirectory.text")); // NOI18N
-        menuFile.add(menuItemCopyFromAutocopyDirectory);
+        menuImportImageFiles.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        menuImportImageFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_card.png"))); // NOI18N
+        menuImportImageFiles.setText(Bundle.getString("AppFrame.menuImportImageFiles.text")); // NOI18N
+        menuFile.add(menuImportImageFiles);
         menuFile.add(jSeparator11);
 
         menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_import.png"))); // NOI18N
@@ -709,10 +709,10 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuImport;
+    private javax.swing.JMenuItem menuImportImageFiles;
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemAcceleratorKeys;
     private javax.swing.JMenuItem menuItemActions;
-    private javax.swing.JMenuItem menuItemCopyFromAutocopyDirectory;
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportKeywords;

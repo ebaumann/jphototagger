@@ -54,7 +54,7 @@ import de.elmar_baumann.jpt.controller.keywords.list.ControllerKeywordItemSelect
 import de.elmar_baumann.jpt.controller.metadata.ControllerEmptyMetadata;
 import de.elmar_baumann.jpt.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.jpt.controller.search.ControllerAdvancedSearch;
-import de.elmar_baumann.jpt.controller.filesystem.ControllerAutocopyDirectory;
+import de.elmar_baumann.jpt.controller.filesystem.ControllerImportImageFiles;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerExportKeywords;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDbUpdates;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsSelection;
@@ -177,7 +177,7 @@ public final class ControllerFactory {
         support.add(new ControllerMoveFiles());
         support.add(new ControllerSortThumbnails());
         support.add(new ControllerThumbnailsDatabaseChanges());
-        support.add(new ControllerAutocopyDirectory());
+        support.add(new ControllerImportImageFiles());
         support.add(new ControllerCopyOrCutFilesToClipboard());
         support.add(new ControllerDirectoryPasteFiles());
         support.add(new ControllerPasteFilesFromClipboard());
