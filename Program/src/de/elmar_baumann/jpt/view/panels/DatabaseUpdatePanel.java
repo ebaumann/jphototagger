@@ -31,7 +31,6 @@ import de.elmar_baumann.jpt.helper.SetExifToXmp;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
 import de.elmar_baumann.jpt.model.ListModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.RenameFilenamesInDbDialog;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.awt.event.ActionEvent;
@@ -138,8 +137,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     }
 
     private void renameFilesInDb() {
-        RenameFilenamesInDbDialog dlg =
-                new RenameFilenamesInDbDialog(GUI.INSTANCE.getAppFrame());
+        RenameFilenamesInDbDialog dlg = new RenameFilenamesInDbDialog();
 
         setEnabledAllButtons(false);
         dlg.setVisible(true);

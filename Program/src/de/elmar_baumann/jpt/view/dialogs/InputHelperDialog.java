@@ -19,9 +19,9 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -41,16 +41,14 @@ public class InputHelperDialog extends Dialog {
     private static final long              serialVersionUID          = 38960516048549937L;
 
     public InputHelperDialog() {
-        super((java.awt.Frame) null, false);
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers"));
-        registerKeyStrokes();
         panelKeywords.setKeyCard("InputHelperDialog.Keywords.Card");
         panelKeywords.setKeyTree("InputHelperDialog.Keywords.Tree");
     }

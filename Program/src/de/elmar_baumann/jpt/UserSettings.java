@@ -37,6 +37,7 @@ import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import de.elmar_baumann.lib.util.PropertiesFile;
 import de.elmar_baumann.lib.util.Settings;
+import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -90,6 +91,7 @@ public final class UserSettings {
     private static final String                      KEY_TREE_DIRECTORIES_SELECT_LAST_DIRECTORY                    = "UserSettings.TreeDirectoriesSelectLastDirectory";
     private static final String                      KEY_WEB_BROWSER                                               = "UserSettings.WebBrowser";
     private static final String                      PROPERTIES_FILENAME                                           = "Settings.properties"; // NEVER CHANGE!
+    public static final  SettingsHints               SET_TABBED_PANE_SETTINGS                                      = new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
     private final        Properties                  properties                                                    = new Properties();
     private final        PropertiesFile              propertiesFile                                                = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
     private final        Settings                    settings                                                      = new Settings(properties);

@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.view.dialogs;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
@@ -31,10 +30,8 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import javax.swing.filechooser.FileSystemView;
 
@@ -53,9 +50,9 @@ public final class IptcToXmpDialog extends Dialog
     private              List<File> files;
 
     public IptcToXmpDialog() {
-        super((java.awt.Frame) null, false);
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
-        postInitComponents();
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 
     /**
@@ -97,12 +94,6 @@ public final class IptcToXmpDialog extends Dialog
         MessageDisplayer.error(this, "IptcToXmpDialog.Error.CancelBeforeClose");
     }
 
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
-    }
-
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
@@ -120,7 +111,7 @@ public final class IptcToXmpDialog extends Dialog
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
         setIconToDirectoryLabel();
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
@@ -128,7 +119,7 @@ public final class IptcToXmpDialog extends Dialog
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().set(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         UserSettings.INSTANCE.getSettings().set(directory.getAbsolutePath(), KEY_DIRECTORY_NAME);
         UserSettings.INSTANCE.writeToFile();
     }

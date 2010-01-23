@@ -19,10 +19,10 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.lib.dialog.Dialog;
 import java.awt.event.MouseEvent;
@@ -39,10 +39,10 @@ public final class ImageCollectionsDialog extends Dialog {
     private static final long    serialVersionUID = 1314098937293915298L;
     private              boolean ok               = false;
 
-    public ImageCollectionsDialog(java.awt.Frame parent) {
-        super(parent, true);
+    public ImageCollectionsDialog() {
+        super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
-        postInitComponents();
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 
     public boolean isCollectionSelected() {
@@ -71,12 +71,6 @@ public final class ImageCollectionsDialog extends Dialog {
         ok = true;
         writeProperties();
         dispose();
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     @Override
@@ -196,7 +190,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ImageCollectionsDialog dialog = new ImageCollectionsDialog(new javax.swing.JFrame());
+                ImageCollectionsDialog dialog = new ImageCollectionsDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.view.dialogs;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
@@ -66,11 +65,9 @@ public final class CopyToDirectoryDialog
     private              File                      targetDirectory    = new File("");
 
     public CopyToDirectoryDialog() {
-        super((java.awt.Frame) null, false);
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
-        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     public void addProgressListener(ProgressListener listener) {

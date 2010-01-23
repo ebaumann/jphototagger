@@ -19,14 +19,12 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Component;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +61,7 @@ public final class SettingsDialog extends Dialog {
     };
 
     private SettingsDialog() {
-        super((java.awt.Frame) null, false);
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
         postInitComponents();
     }
@@ -71,10 +69,8 @@ public final class SettingsDialog extends Dialog {
     private void postInitComponents() {
         initMaps();
         initPersistentPanels();
-        setIconImages(AppLookAndFeel.getAppIcons());
         readProperties();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     private void initMaps() {
@@ -128,20 +124,16 @@ public final class SettingsDialog extends Dialog {
         panelMisc.selectTab(tab);
     }
 
-    private SettingsHints getPersistentSettingsHints() {
-        return new SettingsHints(EnumSet.of(SettingsHints.Option.DONT_SET_TABBED_PANE_CONTENT));
-    }
-
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane, KEY_INDEX_TABBED_PANE, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane, KEY_INDEX_TABBED_PANE, null);
         for (Persistence panel : persistentPanels) {
             panel.readProperties();
         }
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_INDEX_TABBED_PANE, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_INDEX_TABBED_PANE, null);
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
         for (Persistence panel : persistentPanels) {
             panel.writeProperties();

@@ -19,11 +19,11 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererPrograms;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -45,20 +45,13 @@ public class ProgramSelectDialog extends Dialog {
     /**
      * Contructor.
      *
-     * @param parent  parent frame
-     * @param type    type
+     * @param type type
      */
-    public ProgramSelectDialog(java.awt.Frame parent, Type type) {
-        super(parent, true);
+    public ProgramSelectDialog(Type type) {
+        super(GUI.INSTANCE.getAppFrame(), true);
         this.type = type;
         model = new ListModelPrograms(type);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        registerKeyStrokes();
     }
 
     /**
@@ -208,7 +201,7 @@ public class ProgramSelectDialog extends Dialog {
 
             @Override
             public void run() {
-                ProgramSelectDialog dialog = new ProgramSelectDialog(new javax.swing.JFrame(), Type.ACTION);
+                ProgramSelectDialog dialog = new ProgramSelectDialog(Type.PROGRAM);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

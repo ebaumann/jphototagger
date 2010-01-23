@@ -63,8 +63,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
     }
 
     private String selectCollectionName() {
-        ImageCollectionsDialog dialog = new ImageCollectionsDialog(
-                GUI.INSTANCE.getAppFrame());
+        ImageCollectionsDialog dialog = new ImageCollectionsDialog();
         dialog.setVisible(true);
         return dialog.getSelectedCollectionName();
     }

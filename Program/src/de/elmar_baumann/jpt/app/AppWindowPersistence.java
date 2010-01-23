@@ -28,11 +28,9 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.util.Settings;
-import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,7 +106,7 @@ public final class AppWindowPersistence
     public void readAppPanelFromProperties() {
         AppPanel appPanel  = GUI.INSTANCE.getAppPanel();
 
-        UserSettings.INSTANCE.getSettings().applySettings(appPanel, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().applySettings(appPanel, null);
 
         appPanel.setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
         setInitKeywordsView(appPanel);
@@ -154,7 +152,7 @@ public final class AppWindowPersistence
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.set(appPanel, getPersistentSettingsHints());
+        settings.set(appPanel, null);
         settings.set(appPanel.getSplitPaneMain().getDividerLocation(), KEY_DIVIDER_LOCATION_MAIN);
         settings.set(appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation(), KEY_DIVIDER_LOCATION_THUMBNAILS);
 
@@ -167,17 +165,6 @@ public final class AppWindowPersistence
         if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_IPTC)) {
             GUI.INSTANCE.getAppPanel().setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
         }
-    }
-
-    private SettingsHints getPersistentSettingsHints() {
-        SettingsHints hints     = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
-        String        className = AppPanel.class.getName();
-
-        // Strings has to be equals to the field names in AppPanel (errors on renamings)!
-        hints.addExclude(className + ".textAreaSearch");
-        hints.addExclude(className + ".panelEditMetadata");
-
-        return hints;
     }
 
     @Override

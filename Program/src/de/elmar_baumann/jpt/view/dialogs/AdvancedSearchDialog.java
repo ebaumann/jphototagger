@@ -19,11 +19,11 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AdvancedSearchPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
 
@@ -35,19 +35,13 @@ import de.elmar_baumann.lib.dialog.Dialog;
  */
 public final class AdvancedSearchDialog extends Dialog implements SearchListener {
 
-    public static final  AdvancedSearchDialog INSTANCE         = new AdvancedSearchDialog(null, false);
+    public static final  AdvancedSearchDialog INSTANCE         = new AdvancedSearchDialog(false);
     private static final long                 serialVersionUID = -7381253840654600441L;
 
-    private AdvancedSearchDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    private AdvancedSearchDialog(boolean modal) {
+        super(GUI.INSTANCE.getAppFrame(), modal);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     public void setSavedSearch(SavedSearch savedSearch) {
@@ -152,8 +146,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
 
             @Override
             public void run() {
-                AdvancedSearchDialog dialog = new AdvancedSearchDialog(
-                        new javax.swing.JFrame(), true);
+                AdvancedSearchDialog dialog = new AdvancedSearchDialog(true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

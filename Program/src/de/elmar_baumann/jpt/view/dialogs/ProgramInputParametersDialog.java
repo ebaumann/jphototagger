@@ -19,11 +19,9 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.util.SettingsHints;
-import java.util.EnumSet;
 
 /**
  *
@@ -35,14 +33,8 @@ public final class ProgramInputParametersDialog extends Dialog {
     private              boolean accepted         = false;
 
     public ProgramInputParametersDialog() {
-        super((java.awt.Frame) null, true);
+        super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        registerKeyStrokes();
     }
 
     public void setProgram(String program) {
@@ -76,15 +68,13 @@ public final class ProgramInputParametersDialog extends Dialog {
     }
 
     private void readProperties() {
-        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(this, hints);
+        UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
     }
 
     private void writeProperties() {
-        SettingsHints hints = new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT));
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().set(this, hints);
+        UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         UserSettings.INSTANCE.writeToFile();
     }
 

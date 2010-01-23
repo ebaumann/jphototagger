@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatDate;
@@ -39,11 +38,9 @@ import de.elmar_baumann.jpt.types.FileType;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.util.SettingsHints;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -67,16 +64,14 @@ public final class RenameDialog extends Dialog {
     private              boolean                   stop                = false;
 
     public RenameDialog() {
-        super((java.awt.Frame) null, true);
+        super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
         setComboBoxModels();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     private void setComboBoxModels() {
@@ -384,7 +379,7 @@ public final class RenameDialog extends Dialog {
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(this, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         if (!tabbedPane.isEnabledAt(1)) {
             tabbedPane.setSelectedComponent(panelInputName);
         }
@@ -392,16 +387,8 @@ public final class RenameDialog extends Dialog {
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().set(this, getPersistentSettingsHints());
+        UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         UserSettings.INSTANCE.writeToFile();
-    }
-
-    private SettingsHints getPersistentSettingsHints() {
-        SettingsHints hints = new SettingsHints(EnumSet.of(
-                SettingsHints.Option.SET_TABBED_PANE_CONTENT));
-        hints.addExclude(getClass().getName() + ".labelBeforeFilename");
-        hints.addExclude(getClass().getName() + ".labelAfterFilename");
-        return hints;
     }
 
     private void setEnabledConstantTextFields() {
