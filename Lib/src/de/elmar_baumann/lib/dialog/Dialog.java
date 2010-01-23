@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.lib.dialog;
 
+import de.elmar_baumann.lib.util.Settings;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -42,17 +43,49 @@ public class Dialog extends JDialog {
     private              ActionListener actionListenerHelp;
     private              String         helpContentsUrl     = "";
     private              String         helpPageUrl;
+    private              Settings       settings;
+    private              String         settingsKey;
     private final        HelpBrowser    help                = HelpBrowser.INSTANCE;
 
     public Dialog(Frame owner, boolean modal) {
         super(owner, modal);
-        init();
-        registerKeyboardActions();
+        init(null, null);
     }
 
     public Dialog(Frame owner) {
         super(owner);
-        init();
+        init(null, null);
+    }
+
+    /**
+     *
+     * @param owner
+     * @param modal
+     * @param settings     settings for size and location
+     * @param settingsKey  key for size and location or null if the class name
+     *                     shall be the key
+     */
+    public Dialog(Frame owner, boolean modal, Settings settings, String settingsKey) {
+        super(owner, modal);
+        init(settings, settingsKey);
+    }
+
+    /**
+     *
+     * @param owner
+     * @param settings     settings for size and location
+     * @param settingsKey  key for size and location or null if the class name
+     *                     shall be the key
+     */
+    public Dialog(Frame owner, Settings settings, String settingsKey) {
+        super(owner);
+        init(settings, settingsKey);
+    }
+
+    private void init(Settings settings, String settingsKey) {
+        this.settings    = settings;
+        this.settingsKey = settingsKey;
+        createActionListener();
         registerKeyboardActions();
     }
 
@@ -119,11 +152,53 @@ public class Dialog extends JDialog {
      * default implementation calls <code>setVisible(false)</code>.
      */
     protected void escape() {
+        setSizeAndLocation();
         setVisible(false);
     }
 
-    private void init() {
-        createActionListener();
+    @Override
+    public void setVisible(boolean visible) {
+        if (visible) {
+            applySizeAndLocation();
+        } else {
+            setSizeAndLocation();
+        }
+        super.setVisible(visible);
+    }
+
+    /**
+     * Sets the settings for storing and retrieving the size and location on
+     * {@link #setVisible(boolean)} and {@link #escape()}.
+     *
+     * @param settings
+     * @param settingsKey key if not the class name of the component shall be
+     *                    the key for size and location, else null
+     */
+    public void setSettings(Settings settings, String settingsKey) {
+        this.settings    = settings;
+        this.settingsKey = settingsKey;
+    }
+
+    private void setSizeAndLocation() {
+        if (settings == null) return;
+
+        String key = getSizeAndLocationKey();
+
+        settings.setSize(this, key);
+        settings.setLocation(this, key);
+    }
+
+    private void applySizeAndLocation() {
+        if (settings == null) return;
+
+        String key = getSizeAndLocationKey();
+
+        settings.applySize(this, key);
+        settings.applyLocation(this, key);
+    }
+
+    private String getSizeAndLocationKey() {
+        return settingsKey == null ? getClass().getName() : settingsKey;
     }
 
     private void registerKeyboardActions() {
