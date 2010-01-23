@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
@@ -66,12 +65,10 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     }
 
     private void showHelp() {
-        String helpContentsPath =
-                helpContentsPathOfTab.get(tabbedPane.getSelectedComponent());
+        String helpContentsPath = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent());
         if (helpContentsPath != null) {
             HelpBrowser help = HelpBrowser.INSTANCE;
             help.setContentsUrl(helpContentsPath);
-            help.setIconImages(AppLookAndFeel.getAppIcons());
             if (help.isVisible()) {
                 help.toFront();
             } else {

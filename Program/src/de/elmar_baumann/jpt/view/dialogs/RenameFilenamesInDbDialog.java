@@ -19,8 +19,8 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 
 /**
@@ -33,16 +33,14 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     private static final long serialVersionUID = 4052809300034354623L;
 
-    public RenameFilenamesInDbDialog(java.awt.Frame parent) {
-        super(parent, true);
+    public RenameFilenamesInDbDialog() {
+        super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
     }
 
@@ -110,8 +108,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
             @Override
             public void run() {
-                RenameFilenamesInDbDialog dialog = new RenameFilenamesInDbDialog(
-                        new javax.swing.JFrame());
+                RenameFilenamesInDbDialog dialog = new RenameFilenamesInDbDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

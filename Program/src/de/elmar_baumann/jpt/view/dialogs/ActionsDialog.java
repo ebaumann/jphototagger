@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
@@ -28,6 +27,7 @@ import de.elmar_baumann.jpt.event.DatabaseProgramsEvent.Type;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import javax.swing.JProgressBar;
 
@@ -43,19 +43,13 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
     private static final long          serialVersionUID = -2671488119703014515L;
 
     private ActionsDialog() {
-        super((java.awt.Frame) null, false);
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
-        postInitComponents();
+        DatabasePrograms.INSTANCE.addListener(this);
     }
 
     public JProgressBar getProgressBar(ControllerActionExecutor executor) {
         return panelActions.getProgressBar(executor);
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        DatabasePrograms.INSTANCE.addListener(this);
-        registerKeyStrokes();
     }
 
     @Override

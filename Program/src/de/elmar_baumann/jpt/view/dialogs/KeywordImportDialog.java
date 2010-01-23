@@ -19,10 +19,10 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.importer.KeywordImporter;
 import de.elmar_baumann.jpt.model.ComboBoxModelKeywordImporters;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
 import java.io.File;
@@ -44,14 +44,8 @@ public class KeywordImportDialog extends Dialog {
     private              ComboBoxModelKeywordImporters comboBoxModelImporter = new ComboBoxModelKeywordImporters();
 
     public KeywordImportDialog() {
-        super((java.awt.Frame) null, true);
+        super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        registerKeyStrokes();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 

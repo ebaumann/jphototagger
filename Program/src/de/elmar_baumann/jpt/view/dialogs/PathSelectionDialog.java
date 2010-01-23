@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     public PathSelectionDialog(Collection<Collection<String>> paths, Mode mode) {
-        super((java.awt.Frame) null, true);
+        super(GUI.INSTANCE.getAppFrame(), true);
         this.paths = paths;
         this.mode = mode;
         assert paths != null : "paths == null!";
@@ -65,9 +66,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
         list.addListSelectionListener(this);
         if (mode.equals(Mode.DISTINCT_ELEMENTS)) {
             list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);

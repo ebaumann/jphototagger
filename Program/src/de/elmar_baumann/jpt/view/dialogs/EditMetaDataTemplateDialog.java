@@ -47,11 +47,6 @@ public class EditMetaDataTemplateDialog extends Dialog {
     public EditMetaDataTemplateDialog() {
         super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        registerKeyStrokes();
     }
 
     /**

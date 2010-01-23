@@ -50,15 +50,9 @@ public final class FavoritePropertiesDialog extends Dialog {
     private              boolean                     isUpdate           = false;
 
     public FavoritePropertiesDialog() {
-        super((java.awt.Frame) null, true);
+        super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        setIconImages(APP_ICONS);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     private void chooseDirectory() {

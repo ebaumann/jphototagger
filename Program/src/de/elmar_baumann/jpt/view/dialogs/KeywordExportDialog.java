@@ -19,11 +19,11 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.exporter.KeywordExporter;
 import de.elmar_baumann.jpt.model.ComboBoxModelKeywordExporters;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
 import java.io.File;
@@ -37,22 +37,16 @@ import javax.swing.JFileChooser;
  */
 public class KeywordExportDialog extends Dialog {
 
-    private static final String                                     KEY_PREV_EXPORT_FILE   = "KeywordExportDialog.PrevExportFile";
-    private static final long                                       serialVersionUID       = 5431485480637999486L;
-    private              boolean accepted;
-    private              File                                       file;
+    private static final String                        KEY_PREV_EXPORT_FILE   = "KeywordExportDialog.PrevExportFile";
+    private static final long                          serialVersionUID       = 5431485480637999486L;
+    private              boolean                       accepted;
+    private              File                          file;
     private              ComboBoxModelKeywordExporters comboBoxModelExporter  = new ComboBoxModelKeywordExporters();
-    private static final String                                     KEY_SEL_EXPORTER_INDEX = "KeywordExportDialog.SelectedExporterIndex";
+    private static final String                        KEY_SEL_EXPORTER_INDEX = "KeywordExportDialog.SelectedExporterIndex";
 
     public KeywordExportDialog() {
-        super((java.awt.Frame) null, true);
+        super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        registerKeyStrokes();
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 

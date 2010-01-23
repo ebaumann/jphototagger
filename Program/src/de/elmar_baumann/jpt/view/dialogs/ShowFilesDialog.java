@@ -19,8 +19,8 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
 import java.io.File;
@@ -36,16 +36,14 @@ public class ShowFilesDialog extends Dialog {
 
     private static final long serialVersionUID = 8190708049059659890L;
 
-    public ShowFilesDialog(java.awt.Frame parent, List<File> files) {
-        super(parent, true);
+    public ShowFilesDialog(List<File> files) {
+        super(GUI.INSTANCE.getAppFrame(), true);
         initComponents();
         postInitComponents(files);
     }
 
     private void postInitComponents(List<File> files) {
-        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
         setFiles(files);
     }
 
@@ -117,8 +115,7 @@ public class ShowFilesDialog extends Dialog {
 
             @Override
             public void run() {
-                ShowFilesDialog dialog = new ShowFilesDialog(
-                        new javax.swing.JFrame(), new ArrayList<File>());
+                ShowFilesDialog dialog = new ShowFilesDialog(new ArrayList<File>());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

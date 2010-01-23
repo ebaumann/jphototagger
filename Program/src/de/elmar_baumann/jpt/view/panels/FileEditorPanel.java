@@ -30,11 +30,9 @@ import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
-import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JFileChooser;
@@ -167,8 +165,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void handleInfoMouseClicked() {
         if (selectDirs) {
-            ShowFilesDialog dialog = new ShowFilesDialog(null,
-                    selectedDirectories);
+            ShowFilesDialog dialog = new ShowFilesDialog(selectedDirectories);
             dialog.setVisible(true);
         }
     }
@@ -185,7 +182,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private void handleShowFilesActionPerformed() {
-        ShowFilesDialog dialog = new ShowFilesDialog(null, selectedFiles);
+        ShowFilesDialog dialog = new ShowFilesDialog(selectedFiles);
         dialog.setVisible(true);
     }
 
@@ -414,12 +411,12 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     public void readProperties() {
         prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
-        UserSettings.INSTANCE.getSettings().applySettings(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().applySettings(this, null);
     }
 
     public void writeProperties() {
         UserSettings.INSTANCE.getSettings().set(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
-        UserSettings.INSTANCE.getSettings().set(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().set(this, null);
         UserSettings.INSTANCE.writeToFile();
     }
 

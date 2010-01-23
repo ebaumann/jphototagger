@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.view.dialogs;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -67,11 +66,9 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private final        FileSystemListenerSupport listenerSupport      = new FileSystemListenerSupport();
 
     public MoveToDirectoryDialog() {
-        super((java.awt.Frame) null, false);
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
-        setIconImages(AppLookAndFeel.getAppIcons());
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {

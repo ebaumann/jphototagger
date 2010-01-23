@@ -19,9 +19,9 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.FileEditorPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
 
@@ -36,10 +36,10 @@ public class FileEditorDialog extends Dialog {
 
     private static final long serialVersionUID = -3235645652277682178L;
 
-    public FileEditorDialog(java.awt.Frame parent) {
-        super(parent, false);
+    public FileEditorDialog() {
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
-        postInitComponents();
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 
     public FileEditorPanel getFileEditorPanel() {
@@ -64,12 +64,6 @@ public class FileEditorDialog extends Dialog {
         } else {
             dispose();
         }
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     private void readProperties() {
@@ -127,8 +121,7 @@ public class FileEditorDialog extends Dialog {
 
             @Override
             public void run() {
-                FileEditorDialog dialog = new FileEditorDialog(
-                        new javax.swing.JFrame());
+                FileEditorDialog dialog = new FileEditorDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

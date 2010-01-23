@@ -24,8 +24,6 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.util.SettingsHints;
-import java.util.EnumSet;
 import javax.swing.JPanel;
 
 /**
@@ -48,7 +46,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     private void postInitComponents() {
-        UserSettings.INSTANCE.getSettings().applySettings(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().applySettings(this, null);
         setButtonReplaceEnabled();
     }
 
@@ -121,7 +119,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(this, new SettingsHints(EnumSet.of(SettingsHints.Option.NONE)));
+        UserSettings.INSTANCE.getSettings().set(this, null);
         UserSettings.INSTANCE.writeToFile();
     }
 

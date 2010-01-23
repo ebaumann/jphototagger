@@ -43,8 +43,6 @@ public final class MessageDisplayer {
         defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE    , Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage"));
         defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE, Bundle.getString("MessageDisplayer.DefaultTitle.Info"));
         defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE   , Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage"));
-
-        inputDialog.setIconImages(AppLookAndFeel.getAppIcons());
     }
 
     /**

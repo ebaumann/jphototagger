@@ -19,12 +19,10 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
-import de.elmar_baumann.lib.util.SettingsHints;
-import java.util.EnumSet;
 
 /**
  * Modaler Dialog zur Wartung der Thumbnaildatenbank.
@@ -37,9 +35,9 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     private static final long                       serialVersionUID = -6775385212305459197L;
 
     private DatabaseMaintainanceDialog() {
-        super((java.awt.Frame) null, false);
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
-        postInitComponents();
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 
     @Override
@@ -54,19 +52,13 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(this, new SettingsHints(EnumSet.of( SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
     }
 
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().set(this, new SettingsHints(EnumSet.of(SettingsHints.Option.SET_TABBED_PANE_CONTENT)));
+        UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         UserSettings.INSTANCE.writeToFile();
-    }
-
-    private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     private void close() {

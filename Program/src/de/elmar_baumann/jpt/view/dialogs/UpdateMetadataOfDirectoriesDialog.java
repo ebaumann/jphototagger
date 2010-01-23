@@ -19,10 +19,9 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
-import java.awt.Frame;
 
 /**
  * Dialog zum Scannen eines Verzeichnisses nach Bildern und Einfügen
@@ -37,16 +36,14 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private static final long                              serialVersionUID = -3660709942403455416L;
 
     private UpdateMetadataOfDirectoriesDialog() {
-        super((Frame) null, false);
+        super(GUI.INSTANCE.getAppFrame(), false);
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        registerKeyStrokes();
     }
 
     private void endDialog() {

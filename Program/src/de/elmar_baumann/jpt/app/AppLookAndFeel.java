@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
-import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Color;
 import java.awt.Font;
@@ -248,7 +247,6 @@ public final class AppLookAndFeel {
     public static void set() {
         LookAndFeelUtil.setSystemLookAndFeel();
         setFonts();
-        SystemOutputDialog.INSTANCE.setIconImages(getAppIcons());
     }
 
     private static void setFonts() {

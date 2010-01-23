@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -42,7 +41,6 @@ public final class MetadataTemplateHelper {
     public static String getNewTemplateName(String oldName) {
         InputDialog dlg = new InputDialog();
 
-        dlg.setIconImages(AppLookAndFeel.getAppIcons());
         dlg.setInfo(Bundle.getString("MetadataTemplateHelper.Info.InputName"));
         if (oldName != null) dlg.setInput(oldName);
 

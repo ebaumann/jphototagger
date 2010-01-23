@@ -19,10 +19,10 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.image.util.IconUtil;
@@ -46,12 +46,11 @@ public final class ProgramPropertiesDialog extends Dialog {
     private              boolean action;
 
     public ProgramPropertiesDialog(boolean action) {
-        super((java.awt.Frame) null, true);
+        super(GUI.INSTANCE.getAppFrame(), true);
         this.action = action;
         program.setAction(action);
         initComponents();
         postInitComponents();
-        registerKeyStrokes();
     }
 
     public void setProgram(Program program) {
@@ -135,7 +134,6 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setIconImages(AppLookAndFeel.getAppIcons());
         if (action) {
             setActionTexts();
         } else {

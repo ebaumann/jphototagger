@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.Main;
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -95,7 +94,6 @@ public final class ControllerHelp
     }
 
     private void initHelp() {
-        help.setIconImages(AppLookAndFeel.getAppIcons());
         if (help.getContentsUrl() == null || !help.getContentsUrl().equals(HELP_CONTENTS_URL)) {
             help.setContentsUrl(HELP_CONTENTS_URL);
         }

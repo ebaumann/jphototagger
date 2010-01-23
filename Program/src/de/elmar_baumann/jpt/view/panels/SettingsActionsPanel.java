@@ -64,7 +64,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private void handleActionsAfterDatabaseInsertionAdd() {
-        ProgramSelectDialog dlg = new ProgramSelectDialog(null, Type.ACTION);
+        ProgramSelectDialog dlg = new ProgramSelectDialog(Type.ACTION);
         dlg.setVisible(true);
         Program action = dlg.getSelectedProgram();
         if (dlg.accepted() && !modelActionsAfterDbInsertion.contains(action)) {

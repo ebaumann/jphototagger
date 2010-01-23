@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
@@ -116,7 +115,6 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
             InputDialog       dlg      = new InputDialog(Bundle.getString("ControllerRenameKeyword.Info.Input"), oldName, UserSettings.INSTANCE.getProperties(), "ControllerRenameKeyword.Input");
             ListModelKeywords model    = getModel();
 
-            dlg.setIconImages(AppLookAndFeel.getAppIcons());
             while (!finished) {
                 dlg.setVisible(true);
                 finished = !dlg.isAccepted();
