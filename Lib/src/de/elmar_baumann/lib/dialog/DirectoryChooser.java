@@ -160,7 +160,7 @@ public final class DirectoryChooser extends Dialog {
 
     private void cancel() {
         accepted = false;
-        dispose();
+        super.setVisible(false);
     }
 
     private void checkOk() {
@@ -171,7 +171,7 @@ public final class DirectoryChooser extends Dialog {
             Object userObject = selNode.getUserObject();
             if (userObject instanceof File) {
                 accepted = true;
-                dispose();
+                super.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this,
                         Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen"),
