@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.factory;
 import de.elmar_baumann.jpt.app.AppCommandLineOptions;
 import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.controller.filesystem.ControllerImportImageFiles;
+import de.elmar_baumann.jpt.helper.ImportImageFiles;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
@@ -68,7 +68,7 @@ public final class MiscFactory {
             if (dirName != null && FileUtil.existsDirectory(dirName)) {
                 dir = new File(dirName);
             }
-            ControllerFactory.INSTANCE.getController(ControllerImportImageFiles.class).copyFrom(dir);
+            ImportImageFiles.importFrom(dir);
         }
     }
 }
