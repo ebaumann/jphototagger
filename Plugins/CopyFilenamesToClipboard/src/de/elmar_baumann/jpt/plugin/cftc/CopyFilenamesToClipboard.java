@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_bauman.jpt.plugin.cftc;
+package de.elmar_baumann.jpt.plugin.cftc;
 
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.plugin.PluginListener.Event;
