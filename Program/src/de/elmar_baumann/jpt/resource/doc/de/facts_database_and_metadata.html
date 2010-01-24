@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Metadaten und die Datenbank</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Metadaten und die Datenbank</h1>
+
+        <p><strong>JPhotoTagger</strong> liest erst die Metdaten aus den
+            XMP-Filialdateien und schreibt sie dann in die Datenbank.
+        </p>
+
+        <p>Falls Sie mit <strong>JPhotoTagger</strong> für ein Bild neue
+            Metadaten eingeben oder existierende bearbeiten, wird erst die
+            XMP-Filialdatei erzeugt oder aktualisiert, danach werden die Daten
+            der XMP-Filialdatei in die Datenbank geschrieben.
+        </p>
+
+        <p><strong>JPhotoTagger</strong> verfährt so aus folgenden Gründen:</p>
+
+        <ol>
+            <li>Arbeiten unterschiedliche oder der gleiche Benutzer mit
+                verschiedenen <strong>JPhotoTagger</strong>-Datenbanken (auf
+                unterschiedlichen Computern) und mit den gleichen Bildern,
+                brauchen die Bild-Metadaten nur ein Mal erfasst werden
+            </li>
+            <li><strong>JPhotoTagger</strong> berücksichtigt, falls Sie
+                XMP-Filialdateien mit anderen Programmen bearbeiten und
+                übernimmt automatisch die modifizierten Daten
+            </li>
+            <li>Wird die Datenbank gelöscht oder beschädigt, können die
+                Metadaten aus dem Bildordner automatisch neu eingelesen werden
+            </li>
+        </ol>
+    </body>
+</html>
