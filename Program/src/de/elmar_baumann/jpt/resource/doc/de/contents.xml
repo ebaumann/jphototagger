@@ -304,12 +304,20 @@
             <url>tip_more_memory.html</url>
             <title>Mehr Arbeitsspeicher</title>
         </page>
+        <page>
+            <url>tipp_export_keyword_tree.html</url>
+            <title>Exportieren Sie regelmäßig Ihren Stichwortbaum</title>
+        </page>
     </node>
     <node>
         <title>Wichtige Fakten</title>
         <page>
             <url>facts_what_metadata_is_read.html</url>
             <title>Welche Metadaten werden gelesen?</title>
+        </page>
+        <page>
+            <url>facts_database_and_metadata.html</url>
+            <title>Metadaten und die Datenbank</title>
         </page>
         <page>
             <url>facts_what_metadata_is_displayed.html</url>
