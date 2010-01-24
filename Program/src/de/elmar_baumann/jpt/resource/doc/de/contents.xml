@@ -193,11 +193,11 @@
         </page>
         <page>
             <url>action_metadata_iptc_to_xmp.html</url>
-            <title>Werkzeuge &gt; IPTC-Daten nach XMP</title>
+            <title>Werkzeuge &gt; IPTC-Daten importieren</title>
         </page>
         <page>
             <url>action_metadata_embedded_xmp_to_xmp_sidecar_file.html</url>
-            <title>Werkzeuge &gt; Eingebettete XMP-Daten in Filialdateien schreiben</title>
+            <title>Werkzeuge &gt; XMP-Daten importieren</title>
         </page>
         <page>
             <url>dialog_input_helpers.html</url>
