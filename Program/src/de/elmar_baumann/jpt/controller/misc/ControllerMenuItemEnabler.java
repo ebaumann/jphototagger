@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
-import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import java.util.ArrayList;
@@ -45,11 +44,10 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
 
     private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresSelectedImages = new HashMap<JMenuItem, List<Content>>();
     private final List<JMenuItem>               itemsRequiresSelectedImages              = new ArrayList<JMenuItem>();
-    private final AppFrame                      appFrame                                 = GUI.INSTANCE.getAppFrame();
     private final PopupMenuThumbnails           popupThumbnails                          = PopupMenuThumbnails.INSTANCE;
     private final ThumbnailsPanel               thumbnailsPanel                          = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem                     itemOpenFilesWithStandardApp             = popupThumbnails.getItemOpenFilesWithStandardApp();
-    private final JMenu                         menuOtherOpenImageApps                   = popupThumbnails.getMenuOtherOpenImageApps();
+    private final JMenu                         menPrograms                              = popupThumbnails.getMenuPrograms();
     private       boolean                       hasProgram                               = DatabasePrograms.INSTANCE.hasProgram();
 
     public ControllerMenuItemEnabler() {
@@ -90,13 +88,15 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
         itemsRequiresSelectedImages.add(popupThumbnails.getItemExifToXmp());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemPick());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemReject());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuRating());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuPlugins());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuActions());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuFsOps());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuImageCollection());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuMetadata());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuPlugins());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuPrograms());
+        itemsRequiresSelectedImages.add(popupThumbnails.getMenuRating());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuRotateThumbnail());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuSelection());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuMetadata());
     }
 
     private void setEnabled() {
@@ -117,7 +117,7 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
 
         itemOpenFilesWithStandardApp.setEnabled(isSelection && settings.hasDefaultImageOpenApp());
 
-        menuOtherOpenImageApps.setEnabled(isSelection && hasProgram);
+        menPrograms.setEnabled(isSelection && hasProgram);
     }
 
     @Override
