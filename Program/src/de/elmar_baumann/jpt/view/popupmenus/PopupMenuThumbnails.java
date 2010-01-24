@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
+import de.elmar_baumann.jpt.helper.ActionsHelper;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.util.Lookup;
@@ -71,6 +72,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final        JMenu                   menuRating                           = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.menuRating"));
     private final        JMenu                   menuSelection                        = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuSelection"));
     private final        JMenu                   menuFsOps                            = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuFileSystemOps"));
+    private final        JMenu                   menuActions                          = ActionsHelper.actionsAsMenu();
     private final        JMenuItem               itemUpdateMetadata                   = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateMetadata")           , AppLookAndFeel.getIcon("icon_metadata_refresh.png"));
     private final        JMenuItem               itemUpdateThumbnail                  = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail")          , AppLookAndFeel.getIcon("icon_image_refresh.png"));
     private final        JMenuItem               itemIptcToXmp                        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.IptcToXmp")                , AppLookAndFeel.getIcon("icon_iptc.png"));
@@ -131,6 +133,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         add(new JSeparator());
         add(itemOpenFilesWithStandardApp);
         add(menuPrograms);
+        add(menuActions);
         addPluginItems();
 
         add(new JSeparator());
@@ -373,10 +376,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return menuPlugins;
     }
 
-    public JMenu getMenuOtherOpenImageApps() {
-        return menuPrograms;
-    }
-
     public JMenu getMenuFsOps() {
         return menuFsOps;
     }
@@ -391,6 +390,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     public JMenu getMenuPrograms() {
         return menuPrograms;
+    }
+
+    public JMenu getMenuActions() {
+        return menuActions;
     }
 
     public JMenu getMenuRefresh() {

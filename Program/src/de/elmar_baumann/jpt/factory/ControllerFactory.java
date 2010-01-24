@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.controller.actions.ControllerActionExecutor;
+import de.elmar_baumann.jpt.controller.actions.ControllerActionsMenuUpdater;
 import de.elmar_baumann.jpt.controller.actions.ControllerActionsShowDialog;
 import de.elmar_baumann.jpt.controller.directories.ControllerCreateDirectory;
 import de.elmar_baumann.jpt.controller.directories.ControllerDeleteDirectory;
@@ -223,6 +224,7 @@ public final class ControllerFactory {
         support.add(new ControllerFavoriteSelected());
         support.add(new ControllerDirectorySelected());
         support.add(new ControllerEnableCreateMetadataTemplate());
+        support.add(new ControllerActionsMenuUpdater());
 
         addSizeAndLocationController();
 
