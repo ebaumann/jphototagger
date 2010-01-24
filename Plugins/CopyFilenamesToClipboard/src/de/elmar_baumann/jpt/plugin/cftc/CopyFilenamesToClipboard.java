@@ -45,7 +45,7 @@ public final class CopyFilenamesToClipboard extends Plugin {
     }
 
     public String getName() {
-        return ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle").
+        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/cftc/Bundle").
                 getString("CopyFilenamesToClipboard.Name");
     }
 

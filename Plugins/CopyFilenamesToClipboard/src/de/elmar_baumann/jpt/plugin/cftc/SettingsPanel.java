@@ -61,7 +61,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         private static final long serialVersionUID = 78207540460538249L;
 
-        private final ResourceBundle      rb                     = ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle");
+        private final ResourceBundle      rb                     = ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/cftc/Bundle");
         private final Map<String, String> descriptionOfDelimiter = new LinkedHashMap<String, String>();
 
         public DelimiterModel() {
