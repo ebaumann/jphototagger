@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.UserTasks;
@@ -28,7 +29,6 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JMenuItem;
@@ -45,12 +45,9 @@ import javax.swing.JMenuItem;
 public final class ControllerCreateMetadataOfSelectedThumbnails
         implements ActionListener {
 
-    private final Map<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>> databaseUpdateOfMenuItem =
-            new HashMap<JMenuItem, EnumSet<InsertImageFilesIntoDatabase.Insert>>();
-    private final PopupMenuThumbnails popupMenu =
-            PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
+    private final Map<JMenuItem, Insert[]> databaseUpdateOfMenuItem = new HashMap<JMenuItem, Insert[]>();
+    private final PopupMenuThumbnails      popupMenu                = PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel          thumbnailsPanel          = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     /**
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
@@ -63,20 +60,16 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private void initDatabaseUpdateOfMenuItem() {
 
         databaseUpdateOfMenuItem.put(
-                popupMenu.getItemUpdateMetadata(), EnumSet.of(
-                InsertImageFilesIntoDatabase.Insert.EXIF,
-                InsertImageFilesIntoDatabase.Insert.XMP));
+                popupMenu.getItemUpdateMetadata(), new Insert[] { Insert.EXIF, Insert.XMP });
         databaseUpdateOfMenuItem.put(
-                popupMenu.getItemUpdateThumbnail(), EnumSet.of(
-                InsertImageFilesIntoDatabase.Insert.THUMBNAIL));
+                popupMenu.getItemUpdateThumbnail(), new Insert[] { Insert.THUMBNAIL });
     }
 
-    private EnumSet<InsertImageFilesIntoDatabase.Insert> getMetadataToInsertIntoDatabase(
-            Object o) {
+    private Insert[] getMetadataToInsertIntoDatabase(Object o) {
         if (o instanceof JMenuItem) {
             return databaseUpdateOfMenuItem.get((JMenuItem) o);
         }
-        return EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
+        return new Insert[] { Insert.OUT_OF_DATE };
     }
 
     private void listen() {
@@ -91,7 +84,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         }
     }
 
-    private void updateMetadata(EnumSet<InsertImageFilesIntoDatabase.Insert> what) {
+    private void updateMetadata(Insert[] what) {
 
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), what);

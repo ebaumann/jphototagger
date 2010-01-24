@@ -22,13 +22,13 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.AutomaticTask;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
-import java.util.EnumSet;
 
 /**
  * Listens to the {@link ThumbnailsPanel} and when the displayed
@@ -67,8 +67,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
         AppLogger.logInfo(getClass(), "ControllerCreateMetadataOfCurrentThumbnails.Info.Update");
 
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(thumbnailsPanel.getFiles()),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+                FileUtil.getAsFilenames(thumbnailsPanel.getFiles()), Insert.OUT_OF_DATE);
 
         inserter.addProgressListener(new ProgressBarUpdater(Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarAutomaticTasks.String")));
 

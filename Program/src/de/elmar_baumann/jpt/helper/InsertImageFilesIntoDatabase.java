@@ -44,7 +44,7 @@ import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -63,7 +63,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private              ProgressEvent                                progressEvent           = new ProgressEvent(this, null);
     private static final Image                                        ERROR_THUMBNAIL         = IconUtil.getIconImage(Bundle.getString("ErrorThumbnailPath"));
     private final        List<String>                                 imageFilenames;
-    private final        EnumSet<Insert>                              what;
+    private final        Set<Insert>                                  what                    = new HashSet<Insert>();
     private              boolean                                      stop;
 
     /**
@@ -113,10 +113,13 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      *                       inserted or updated
      * @param what           metadata to insert
      */
-    public InsertImageFilesIntoDatabase(List<String> imageFilenames, EnumSet<Insert> what) {
+    public InsertImageFilesIntoDatabase(List<String> imageFilenames, Insert... what) {
 
         this.imageFilenames = new ArrayList<String>(imageFilenames);
-        this.what           = what;
+
+        for (Insert ins : what) {
+            this.what.add(ins);
+        }
 
         setName("Inserting image files into database @ " + getClass().getSimpleName());
     }

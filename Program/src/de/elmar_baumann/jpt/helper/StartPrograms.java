@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.helper;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.dialogs.ProgramInputParametersDialog;
@@ -29,7 +30,6 @@ import de.elmar_baumann.lib.runtime.External;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -202,9 +202,7 @@ public final class StartPrograms {
         private void updateDatabase() {
             if (program.isChangeFile()) {
                 InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
-                        FileUtil.getAbsolutePathnames(imageFiles),
-                        EnumSet.of(
-                        InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+                        FileUtil.getAbsolutePathnames(imageFiles), Insert.OUT_OF_DATE);
                 updater.run(); // no subsequent thread
             }
         }

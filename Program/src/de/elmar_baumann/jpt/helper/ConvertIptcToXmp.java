@@ -23,12 +23,12 @@ import de.elmar_baumann.jpt.data.Iptc;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -82,8 +82,7 @@ public final class ConvertIptcToXmp implements Runnable {
 
     private void updateDatabase(String imageFilename) {
         InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
-                Arrays.asList(imageFilename),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
+                                       Arrays.asList(imageFilename), Insert.XMP);
         insert.run(); // Shall run in this thread!
     }
 

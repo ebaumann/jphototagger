@@ -29,7 +29,6 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.EnumSet;
 import javax.swing.JProgressBar;
 
 /**
@@ -84,7 +83,7 @@ public final class SaveXmp extends Thread {
     private void updateDatabase(String filename) {
         InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
                                                         Arrays.asList(filename),
-                                                        EnumSet.of(Insert.XMP));
+                                                        Insert.XMP);
 
         updater.run(); // Starting not a separate thread
     }

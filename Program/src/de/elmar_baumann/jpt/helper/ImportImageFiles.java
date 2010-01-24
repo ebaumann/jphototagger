@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -37,7 +38,6 @@ import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 
@@ -146,8 +146,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private void insertCopiedFilesIntoDb() {
         InsertImageFilesIntoDatabase dbInserter = new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(copiedFiles),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+                        FileUtil.getAsFilenames(copiedFiles), Insert.OUT_OF_DATE);
 
         dbInserter.run(); // No separate thread!
     }
