@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.io.DirectoryInfo;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
@@ -121,20 +122,17 @@ public final class UpdateMetadataOfDirectoriesPanel
 
     private void createImageFileInserter(List<File> selectedImageFiles) {
         imageFileInserter = new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(selectedImageFiles),
-                getWhatToInsertIntoDatabase());
+                                    FileUtil.getAsFilenames(selectedImageFiles),
+                                    getWhatToInsertIntoDatabase());
 
         imageFileInserter.addProgressListener(this);
         imageFileInserter.addUpdateMetadataCheckListener(this);
     }
 
-    private EnumSet<InsertImageFilesIntoDatabase.Insert> getWhatToInsertIntoDatabase() {
+    private Insert[] getWhatToInsertIntoDatabase() {
         return checkBoxForce.isSelected()
-                ? EnumSet.of(
-                InsertImageFilesIntoDatabase.Insert.EXIF,
-                InsertImageFilesIntoDatabase.Insert.THUMBNAIL,
-                InsertImageFilesIntoDatabase.Insert.XMP)
-                : EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE);
+                ? new Insert[] { Insert.EXIF, Insert.THUMBNAIL, Insert.XMP}
+                : new Insert[] { Insert.OUT_OF_DATE };
     }
 
     private void stopUpdate() {

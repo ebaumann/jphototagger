@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.helper;
 import de.elmar_baumann.jpt.types.FileEditor;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
@@ -29,7 +30,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.EnumSet;
 
 /**
  * Extracts in images embedded XMP metadata into sidecar files.
@@ -96,8 +96,8 @@ public final class ExtractEmbeddedXmp extends FileEditor {
 
     private void updateDatabase(String imageFilename) {
         InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(
-                Arrays.asList(imageFilename),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.XMP));
+                                                      Arrays.asList(imageFilename),
+                                                      Insert.XMP);
         insert.run(); // Shall run in this thread!
     }
 }

@@ -21,11 +21,11 @@ package de.elmar_baumann.jpt.helper;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.io.ImageUtil;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import java.io.File;
 import java.util.Arrays;
-import java.util.EnumSet;
 
 /**
  * Updates the database on file system events.
@@ -85,8 +85,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
 
     private void insertFileIntoDatabase(File file) {
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
-                Arrays.asList(file.getAbsolutePath()),
-                EnumSet.of(InsertImageFilesIntoDatabase.Insert.OUT_OF_DATE));
+                       Arrays.asList(file.getAbsolutePath()), Insert.OUT_OF_DATE);
         if (wait) {
             inserter.run();
         } else {
