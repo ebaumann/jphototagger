@@ -28,6 +28,7 @@ import de.elmar_baumann.lib.util.CommandLineParser;
  */
 public final class AppCommandLineOptions {
 
+    private static final String OPTION_NO_SPLASH_SCREEN   = "nosplash";
     private static final String OPTION_NO_OUTPUT_CAPTURE  = "nocapture";
     private static final String OPTION_IMPORT_IMAGE_FILES = "import";
 
@@ -42,7 +43,15 @@ public final class AppCommandLineOptions {
     }
 
     public boolean isImportImageFiles() {
-        return commandLineParser.hasOption(OPTION_IMPORT_IMAGE_FILES);
+        return hasOption(OPTION_IMPORT_IMAGE_FILES);
+    }
+
+    public boolean isShowSplashScreen() {
+        return !hasOption(OPTION_NO_SPLASH_SCREEN);
+    }
+
+    private boolean hasOption(String name) {
+        return commandLineParser.hasOption(name);
     }
 
     public String getFileImportDir() {

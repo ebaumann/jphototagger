@@ -67,7 +67,7 @@ public final class AppInit {
         captureOutput();
         checkJavaVersion();
         lock();
-        displaySplashScreen();
+        showSplashScreen();
         AppDatabase.init();
         AppLoggingSystem.init();
         SplashScreen.INSTANCE.setProgress(75);
@@ -77,12 +77,16 @@ public final class AppInit {
     }
 
     private void hideSplashScreen() {
+        if (!commandLineOptions.isShowSplashScreen()) return;
+
         SplashScreen.INSTANCE.setMessage(Bundle.getString("AppInit.Info.SplashScreen.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
         SplashScreen.INSTANCE.close();
     }
 
-    private void displaySplashScreen() {
+    private void showSplashScreen() {
+        if (!commandLineOptions.isShowSplashScreen()) return;
+
         SplashScreen.INSTANCE.init();
         SplashScreen.INSTANCE.setProgress(50);
     }
