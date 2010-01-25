@@ -241,7 +241,7 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
     public javax.swing.JButton buttonMetadataTemplateUpdate;
     public javax.swing.JComboBox comboBoxMetadataTemplates;
     public javax.swing.JLabel labelMetadataInfoEditable;
-    private javax.swing.JLabel labelPromptCurrentTemplate;
+    public javax.swing.JLabel labelPromptCurrentTemplate;
     private javax.swing.JLabel labelPromptInfoCurrentTemplate;
     private javax.swing.JLabel labelTemplateName;
     private javax.swing.JPanel panelGroupMetadataEdit;

@@ -45,6 +45,7 @@ import de.elmar_baumann.jpt.event.listener.impl.EditMetadataPanelsListenerSuppor
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -89,7 +90,7 @@ public final class EditMetadataPanels
     private final EditMetadataPanelsListenerSupport listenerSupport = new EditMetadataPanelsListenerSupport();
 
     public EditMetadataPanels(JComponent container) {
-        this.container   = container;
+        this.container = container;
         createEditPanels();
         setWrapFocusComponent();
         addPanels();
@@ -548,7 +549,24 @@ public final class EditMetadataPanels
             container.add(panel, constraints);
             panel.readExpandedState();
         }
-        addActionPanel();
+        setMnemonics();
+        addActionPanel(); // After setMnemonics()!
+    }
+
+    private void setMnemonics() {
+        EditMetadataActionsPanel actionsPanel = GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
+
+        // TODO permanent: Exlude to edit panel possible visible app panel buttons
+        ViewUtil.setDisplayedMnemonicsToLabels(container,
+                (char) actionsPanel.buttonEmptyMetadata         .getMnemonic(),
+                (char) actionsPanel.buttonMetadataTemplateCreate.getMnemonic(),
+                (char) actionsPanel.buttonMetadataTemplateDelete.getMnemonic(),
+                (char) actionsPanel.buttonMetadataTemplateEdit  .getMnemonic(),
+                (char) actionsPanel.buttonMetadataTemplateInsert.getMnemonic(),
+                (char) actionsPanel.buttonMetadataTemplateRename.getMnemonic(),
+                (char) actionsPanel.buttonMetadataTemplateUpdate.getMnemonic(),
+                (char) actionsPanel.labelPromptCurrentTemplate  .getDisplayedMnemonic()
+                );
     }
 
     private GridBagConstraints newConstraints() {
