@@ -50,7 +50,7 @@ public final class CopyFilenamesToClipboard extends Plugin {
     }
 
     public String getDescription() {
-        return ResourceBundle.getBundle("de/elmar_bauman/jpt/plugin/cftc/Bundle").
+        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/cftc/Bundle").
                 getString("CopyFilenamesToClipboard.Description");
     }
 
@@ -61,7 +61,7 @@ public final class CopyFilenamesToClipboard extends Plugin {
 
     @Override
     public String getHelpContentsPath() {
-        return "/de/elmar_bauman/jpt/plugin/cftc/help/contents.xml";
+        return "/de/elmar_baumann/jpt/plugin/cftc/help/contents.xml";
     }
 
     public void actionPerformed(ActionEvent e) {
