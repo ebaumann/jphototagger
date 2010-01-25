@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel;
+import de.elmar_baumann.lib.componentutil.TabbedPaneUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
 import javax.swing.ListModel;
@@ -44,13 +45,22 @@ public class InputHelperDialog extends Dialog {
         super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
+        TabbedPaneUtil.setMnemonics(tabbedPane);
     }
 
     private void postInitComponents() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers"));
+        setHelpPages();
+        setKeyCards();
+    }
+
+    private void setKeyCards() {
         panelKeywords.setKeyCard("InputHelperDialog.Keywords.Card");
         panelKeywords.setKeyTree("InputHelperDialog.Keywords.Tree");
+    }
+
+    private void setHelpPages() {
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers"));
     }
 
     public void setModelKeywords(ListModel model) {
@@ -137,7 +147,7 @@ public class InputHelperDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

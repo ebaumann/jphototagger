@@ -28,6 +28,8 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator;
 import de.elmar_baumann.jpt.types.Persistence;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -50,6 +52,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     public SettingsThumbnailsPanel() {
         initComponents();
         initMaps();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void initMaps() {
@@ -148,6 +151,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         panelThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsThumbnailsPanel.panelThumbnailDimensions.border.title"))); // NOI18N
 
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelMaxThumbnailWidth.setLabelFor(spinnerMaxThumbnailWidth);
         labelMaxThumbnailWidth.setText(Bundle.getString("SettingsThumbnailsPanel.labelMaxThumbnailWidth.text")); // NOI18N
 
         spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(150, 50, 256, 1));
@@ -157,7 +161,6 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
             }
         });
 
-        buttonUpdateAllThumbnails.setMnemonic('n');
         buttonUpdateAllThumbnails.setText(Bundle.getString("SettingsThumbnailsPanel.buttonUpdateAllThumbnails.text")); // NOI18N
         buttonUpdateAllThumbnails.setToolTipText(Bundle.getString("SettingsThumbnailsPanel.buttonUpdateAllThumbnails.toolTipText")); // NOI18N
         buttonUpdateAllThumbnails.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +181,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
             .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                     .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
                         .addComponent(labelMaxThumbnailWidth)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -243,7 +246,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                     .addComponent(radioButtonCreateThumbnailsWithImagero)
                     .addComponent(radioButtonUseEmbeddedThumbnails)
                     .addComponent(radioButtonCreateThumbnailsWithExternalApp))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         panelThumbnailCreatorLayout.setVerticalGroup(
             panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,6 +263,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsThumbnailsPanel.panelExternalThumbnailApp.border.title"))); // NOI18N
 
         labelIsCreateThumbnailsWithExternalApp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelIsCreateThumbnailsWithExternalApp.setLabelFor(textFieldExternalThumbnailCreationCommand);
         labelIsCreateThumbnailsWithExternalApp.setText(Bundle.getString("SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
         labelIsCreateThumbnailsWithExternalApp.setPreferredSize(new java.awt.Dimension(1694, 60));
 
@@ -277,8 +281,8 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
             .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
-                    .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE))
+                    .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                    .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelExternalThumbnailAppLayout.setVerticalGroup(

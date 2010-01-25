@@ -22,8 +22,10 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import java.awt.Component;
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -72,6 +74,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
             list.setVisibleRowCount(-1);
         }
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     public boolean isAccepted() {
@@ -80,6 +83,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
     public void setInfoMessage(String message) {
         labelInfo.setText(message);
+        labelInfo.setDisplayedMnemonic(message.charAt(0));
     }
 
     public Collection<Collection<String>> getSelPaths() {
@@ -201,35 +205,34 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectSelected = new javax.swing.JButton();
 
-        setTitle(Bundle.getString("PathSelectionDialog.title"));
+        setTitle(Bundle.getString("PathSelectionDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
+        labelInfo.setLabelFor(list);
+
         list.setModel(new Model());
         list.setCellRenderer(new Renderer());
         scrollPane.setViewportView(list);
 
-        buttonSelectNothing.setMnemonic('n');
-        buttonSelectNothing.setText(Bundle.getString("PathSelectionDialog.buttonSelectNothing.text"));
+        buttonSelectNothing.setText(Bundle.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
         buttonSelectNothing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectNothingActionPerformed(evt);
             }
         });
 
-        buttonSelectAll.setMnemonic('a');
-        buttonSelectAll.setText(Bundle.getString("PathSelectionDialog.buttonSelectAll.text"));
+        buttonSelectAll.setText(Bundle.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectAllActionPerformed(evt);
             }
         });
 
-        buttonSelectSelected.setMnemonic('s');
-        buttonSelectSelected.setText(Bundle.getString("PathSelectionDialog.buttonSelectSelected.text"));
+        buttonSelectSelected.setText(Bundle.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
         buttonSelectSelected.setEnabled(false);
         buttonSelectSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,8 +247,8 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonSelectNothing)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

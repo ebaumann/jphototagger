@@ -34,14 +34,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelInfo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="32" max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                       <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="labelDirectoryName" alignment="0" pref="513" max="32767" attributes="0"/>
                   <Component id="progressBar" alignment="0" pref="513" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelInfoIsThread" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                       <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
@@ -94,7 +94,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseDirectory">
       <Properties>
-        <Property name="mnemonic" type="int" value="97"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonChooseDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -140,7 +139,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonStop">
       <Properties>
-        <Property name="mnemonic" type="int" value="111"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonCancelCopy.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -152,7 +150,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonStart">
       <Properties>
-        <Property name="mnemonic" type="int" value="115"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonStartCopy.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

@@ -36,7 +36,7 @@
                   <Component id="radioButtonParametersBeforeFilename" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="panelContext" alignment="0" max="32767" attributes="0"/>
                   <Component id="labelPrompt" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneAreaParameter" alignment="0" pref="260" max="32767" attributes="0"/>
+                  <Component id="scrollPaneAreaParameter" alignment="0" pref="277" max="32767" attributes="0"/>
                   <Component id="radioButtonParametersAfterFilename" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonCancel" linkSize="1" min="-2" max="-2" attributes="0"/>
@@ -141,6 +141,9 @@
     </Container>
     <Component class="javax.swing.JLabel" name="labelPrompt">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="textAreaParameter"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramInputParametersDialog.labelPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -166,7 +169,6 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup"/>
         </Property>
-        <Property name="mnemonic" type="int" value="118"/>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -178,7 +180,6 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup"/>
         </Property>
-        <Property name="mnemonic" type="int" value="110"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramInputParametersDialog.radioButtonParametersAfterFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -186,7 +187,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
-        <Property name="mnemonic" type="int" value="97"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramInputParametersDialog.buttonCancel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -197,7 +197,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonOk">
       <Properties>
-        <Property name="mnemonic" type="int" value="111"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramInputParametersDialog.buttonOk.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

@@ -21,7 +21,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabbedPane" alignment="0" pref="636" max="32767" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" pref="651" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -38,7 +38,7 @@
         <Container class="javax.swing.JPanel" name="panelExternalApplications">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Externe Programme">
+              <JTabbedPaneConstraints tabName="&amp;Externe Programme">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -55,14 +55,14 @@
                           <Group type="102" attributes="0">
                               <Component id="labelInfoWebBrowser" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                              <Component id="labelWebBrowser" pref="375" max="32767" attributes="0"/>
+                              <Component id="labelWebBrowser" pref="379" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="buttonChooseWebBrowser" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelInfoPdfViewer" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelPdfViewer" pref="375" max="32767" attributes="0"/>
+                              <Component id="labelPdfViewer" pref="379" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="buttonChoosePdfViewer" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -118,7 +118,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonChooseWebBrowser">
               <Properties>
-                <Property name="mnemonic" type="int" value="117"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChooseWebBrowser.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -148,7 +147,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonChoosePdfViewer">
               <Properties>
-                <Property name="mnemonic" type="int" value="117"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChoosePdfViewer.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -162,7 +160,7 @@
         <Container class="javax.swing.JPanel" name="panelDatabaseDirectory">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Datenbankordner">
+              <JTabbedPaneConstraints tabName="&amp;Datenbankordner">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelDatabaseDirectory.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -176,7 +174,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelDatabaseDirectory" pref="609" max="32767" attributes="0"/>
+                          <Component id="labelDatabaseDirectory" pref="627" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labelInfoDatabaseDirectory" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -200,7 +198,7 @@
                           <Component id="buttonSetStandardDatabaseDirectoryName" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelInfoDatabaseDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="88" max="32767" attributes="0"/>
+                      <EmptySpace pref="159" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -220,7 +218,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonSetStandardDatabaseDirectoryName">
               <Properties>
-                <Property name="mnemonic" type="int" value="83"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -231,7 +228,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonChooseDatabaseDirectory">
               <Properties>
-                <Property name="mnemonic" type="int" value="119"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChooseDatabaseDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -255,7 +251,7 @@
         <Container class="javax.swing.JPanel" name="panelLogfile">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Protokoll">
+              <JTabbedPaneConstraints tabName="&amp;Protokoll">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelLogfile.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -276,8 +272,8 @@
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="comboBoxLogfileFormatterClass" alignment="0" pref="343" max="32767" attributes="0"/>
-                                  <Component id="comboBoxLogLevel" alignment="0" pref="343" max="32767" attributes="0"/>
+                                  <Component id="comboBoxLogfileFormatterClass" alignment="0" pref="347" max="32767" attributes="0"/>
+                                  <Component id="comboBoxLogLevel" alignment="0" pref="347" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="labelInfoLogfile" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -301,7 +297,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoLogfile" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="67" max="32767" attributes="0"/>
+                      <EmptySpace pref="138" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -309,6 +305,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labelLogLevel">
               <Properties>
+                <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="comboBoxLogLevel"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelLogLevel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -326,6 +325,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="labelLogLogfileFormatterClass">
               <Properties>
+                <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="comboBoxLogfileFormatterClass"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelLogLogfileFormatterClass.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -359,7 +361,7 @@
         <Container class="javax.swing.JPanel" name="panelMisc">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Verschiedenes">
+              <JTabbedPaneConstraints tabName="&amp;Verschiedenes">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelMisc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -390,7 +392,7 @@
                       <Component id="checkBoxAutoDownloadCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panelCopyMoveFiles" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="83" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -398,7 +400,6 @@
           <SubComponents>
             <Component class="javax.swing.JCheckBox" name="checkBoxIsAcceptHiddenDirectories">
               <Properties>
-                <Property name="mnemonic" type="int" value="111"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -427,7 +428,7 @@
                               <Component id="radioButtonCopyMoveFileConfirmOverwrite" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="radioButtonCopyMoveFileRenameIfExists" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="97" max="32767" attributes="0"/>
+                          <EmptySpace pref="101" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

@@ -108,6 +108,7 @@ public class RatingSelectionPanel
 
     private void setPropmt() {
         labelPrompt.setText(column.getDescription());
+        labelPrompt.setLabelFor(buttonNoRating);
     }
 
     @Override
@@ -338,6 +339,7 @@ public class RatingSelectionPanel
         add(labelPrompt, gridBagConstraints);
 
         buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_remove_not_set.png"))); // NOI18N
+        buttonNoRating.setMnemonic('0');
         buttonNoRating.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);
@@ -354,6 +356,7 @@ public class RatingSelectionPanel
         add(buttonNoRating, gridBagConstraints);
 
         buttonStar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar1.setMnemonic('1');
         buttonStar1.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
         buttonStar1.setBorder(null);
         buttonStar1.setContentAreaFilled(false);
@@ -370,6 +373,7 @@ public class RatingSelectionPanel
         add(buttonStar1, gridBagConstraints);
 
         buttonStar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar2.setMnemonic('2');
         buttonStar2.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
         buttonStar2.setBorder(null);
         buttonStar2.setContentAreaFilled(false);
@@ -386,6 +390,7 @@ public class RatingSelectionPanel
         add(buttonStar2, gridBagConstraints);
 
         buttonStar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar3.setMnemonic('3');
         buttonStar3.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
         buttonStar3.setBorder(null);
         buttonStar3.setContentAreaFilled(false);
@@ -402,6 +407,7 @@ public class RatingSelectionPanel
         add(buttonStar3, gridBagConstraints);
 
         buttonStar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar4.setMnemonic('4');
         buttonStar4.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
         buttonStar4.setBorder(null);
         buttonStar4.setContentAreaFilled(false);
@@ -418,6 +424,7 @@ public class RatingSelectionPanel
         add(buttonStar4, gridBagConstraints);
 
         buttonStar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar5.setMnemonic('5');
         buttonStar5.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
         buttonStar5.setBorder(null);
         buttonStar5.setContentAreaFilled(false);

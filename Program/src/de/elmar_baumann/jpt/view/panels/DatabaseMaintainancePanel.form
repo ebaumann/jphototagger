@@ -20,7 +20,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonDeleteMessages" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="164" max="32767" attributes="0"/>
+              <EmptySpace pref="137" max="32767" attributes="0"/>
               <Component id="buttonAbortAction" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
@@ -96,7 +96,6 @@
   <SubComponents>
     <Component class="javax.swing.JCheckBox" name="checkBoxDeleteRecordsOfNotExistingFilesInDatabase">
       <Properties>
-        <Property name="mnemonic" type="int" value="101"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -120,7 +119,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxCompressDatabase">
       <Properties>
-        <Property name="mnemonic" type="int" value="107"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxCompressDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -211,7 +209,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonAbortAction">
       <Properties>
-        <Property name="mnemonic" type="int" value="111"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.buttonAbortAction.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -223,7 +220,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonStartMaintain">
       <Properties>
-        <Property name="mnemonic" type="int" value="115"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.buttonStartMaintain.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

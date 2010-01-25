@@ -45,7 +45,17 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
     private ActionsDialog() {
         super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
+        setHelpPages();
         DatabasePrograms.INSTANCE.addListener(this);
+    }
+
+    private void setHelpPages() {
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.ActionsDialog"));
     }
 
     public JProgressBar getProgressBar(ControllerActionExecutor executor) {

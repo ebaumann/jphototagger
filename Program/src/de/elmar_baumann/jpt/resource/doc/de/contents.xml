@@ -184,6 +184,10 @@
             <title>Datei &gt; Importieren &gt; Stichwörter</title>
         </page>
         <page>
+            <url>action_export_keywords.html</url>
+            <title>Datei &gt; Exportieren &gt; Stichwörter</title>
+        </page>
+        <page>
             <url>action_dialog_settings.html</url>
             <title>Bearbeiten &gt; Einstellungen</title>
         </page>
@@ -213,7 +217,7 @@
         </page>
     </node>
     <node>
-        <title>Einstellungen-Dialog</title>
+        <title>Einstellungen</title>
         <page>
             <url>dialog_settings_programs.html</url>
             <title>Bilder öffnen</title>
@@ -254,6 +258,10 @@
             <url>dialog_settings_actions.html</url>
             <title>Aktionen</title>
         </page>
+        <page>
+            <url>dialog_settings_plugins.html</url>
+            <title>Plugins</title>
+        </page>
     </node>
     <node>
         <title>Sonstige Dialoge</title>
@@ -274,7 +282,7 @@
         </page>
         <page>
             <url>tip_check_logfile.html</url>
-            <title>Öffnen Sie bei Fehlern die Logdatei</title>
+            <title>Öffnen Sie bei Fehlern das Fehlerprotokoll</title>
         </page>
         <page>
             <url>tip_use_shortcuts.html</url>

@@ -54,7 +54,7 @@
         <Component class="de.elmar_baumann.jpt.view.panels.DatabaseInfoCountPanel" name="panelCount">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Info">
+              <JTabbedPaneConstraints tabName="&amp;Info">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -65,7 +65,7 @@
         <Component class="de.elmar_baumann.jpt.view.panels.DatabaseMaintainancePanel" name="panelMaintainance">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Wartung">
+              <JTabbedPaneConstraints tabName="&amp;Wartung">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -76,7 +76,7 @@
         <Component class="de.elmar_baumann.jpt.view.panels.DatabaseUpdatePanel" name="panelDatabaseUpdate">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Aktualisieren">
+              <JTabbedPaneConstraints tabName="&amp;Aktualisieren">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseMaintainanceDialog.panelDatabaseUpdate.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>

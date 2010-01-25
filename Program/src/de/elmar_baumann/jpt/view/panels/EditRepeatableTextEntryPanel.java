@@ -103,10 +103,12 @@ public final class EditRepeatableTextEntryPanel
 
     private void setPropmt() {
         labelPrompt.setText(column.getDescription());
+        labelPrompt.setLabelFor(textAreaInput);
     }
 
     public void setPrompt(String text) {
         labelPrompt.setText(text);
+        labelPrompt.setLabelFor(textAreaInput);
     }
 
     @Override
@@ -621,6 +623,7 @@ public final class EditRepeatableTextEntryPanel
 
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
+        buttonRemoveSelection.setMnemonic('-');
         buttonRemoveSelection.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
         buttonRemoveSelection.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
@@ -632,6 +635,7 @@ public final class EditRepeatableTextEntryPanel
         });
         panelButtons.add(buttonRemoveSelection);
 
+        buttonAddInput.setMnemonic('+');
         buttonAddInput.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
         buttonAddInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);

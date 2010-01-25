@@ -46,7 +46,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelInfoList" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="scrollPaneListPattern" max="32767" attributes="0"/>
+              <Component id="scrollPaneListPattern" pref="71" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="textFieldInputPattern" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -71,6 +71,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelInfoList">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="listPattern"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoList.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -108,7 +111,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonDeletePattern">
       <Properties>
-        <Property name="mnemonic" type="int" value="101"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonDeletePattern.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -123,7 +125,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonInsertPattern">
       <Properties>
-        <Property name="mnemonic" type="int" value="104"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonInsertPattern.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -161,7 +162,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonUpdateDatabase">
       <Properties>
-        <Property name="mnemonic" type="int" value="100"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

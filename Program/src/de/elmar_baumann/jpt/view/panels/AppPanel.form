@@ -72,6 +72,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="buttonSearch">
                   <Properties>
+                    <Property name="mnemonic" type="int" value="115"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.buttonSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -143,12 +144,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="1" pref="203" max="32767" attributes="2"/>
+                          <Component id="scrollPaneDirectories" alignment="1" pref="221" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="0" pref="276" max="32767" attributes="0"/>
+                          <Component id="scrollPaneDirectories" alignment="0" pref="294" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -196,12 +197,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="203" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSavedSearches" alignment="0" pref="221" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="276" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSavedSearches" alignment="0" pref="294" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -248,12 +249,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="203" max="32767" attributes="0"/>
+                          <Component id="scrollPaneImageCollections" alignment="0" pref="221" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="276" max="32767" attributes="0"/>
+                          <Component id="scrollPaneImageCollections" alignment="0" pref="294" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -304,12 +305,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavorites" alignment="0" pref="203" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="221" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavorites" alignment="0" pref="276" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="294" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -388,21 +389,6 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JToggleButton" name="toggleButtonExpandAllNodesSelKeywords">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.toggleButtonExpandAllNodesSelKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                              <Insets value="[1, 1, 1, 1]"/>
-                            </Property>
-                          </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                              <GridBagConstraints gridX="1" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="2" insetsBottom="1" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
-                            </Constraint>
-                          </Constraints>
-                        </Component>
                         <Component class="javax.swing.JButton" name="buttonDisplaySelKeywordsList">
                           <Properties>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -418,6 +404,21 @@
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                               <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="2" insetsBottom="1" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                            </Constraint>
+                          </Constraints>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="toggleButtonExpandAllNodesSelKeywords">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.toggleButtonExpandAllNodesSelKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                              <Insets value="[1, 1, 1, 1]"/>
+                            </Property>
+                          </Properties>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                              <GridBagConstraints gridX="1" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="2" insetsBottom="1" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
                             </Constraint>
                           </Constraints>
                         </Component>
@@ -552,12 +553,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTimeline" alignment="0" pref="203" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTimeline" alignment="0" pref="221" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTimeline" alignment="0" pref="276" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTimeline" alignment="0" pref="294" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -602,12 +603,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="203" max="32767" attributes="0"/>
+                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="221" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="276" max="32767" attributes="0"/>
+                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="294" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -652,17 +653,17 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="203" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="221" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneNoMetadata" alignment="0" pref="203" max="32767" attributes="0"/>
+                              <Component id="scrollPaneNoMetadata" alignment="0" pref="221" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="276" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="294" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneNoMetadata" alignment="1" pref="276" max="32767" attributes="0"/>
+                              <Component id="scrollPaneNoMetadata" alignment="1" pref="294" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -701,9 +702,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="679" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="661" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="679" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="661" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -744,9 +745,9 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="529" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="511" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneThumbnails" alignment="0" pref="529" max="32767" attributes="0"/>
+                              <Component id="scrollPaneThumbnails" alignment="0" pref="511" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -772,7 +773,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="526" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="508" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -927,7 +928,6 @@
                                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"/>
                                 </Property>
-                                <Property name="mnemonic" type="int" value="120"/>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.buttonIptcToXmp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                                 </Property>

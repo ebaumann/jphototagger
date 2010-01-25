@@ -591,6 +591,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         add(toggleButtonBracketRight, gridBagConstraints);
 
         buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_calendar.png"))); // NOI18N
+        buttonCalendar.setMnemonic('1');
         buttonCalendar.setPreferredSize(new java.awt.Dimension(16, 16));
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

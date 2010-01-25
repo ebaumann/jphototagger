@@ -20,8 +20,11 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
+import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Component;
+import java.awt.Container;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Action;
@@ -38,8 +41,8 @@ import javax.swing.event.ChangeListener;
  */
 public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeListener {
 
-    private static final long                   serialVersionUID      = 6790634142245254676L;
-    private final        Map<Component, String> helpContentsPathOfTab = new HashMap<Component, String>();
+    private static final long                                 serialVersionUID      = 6790634142245254676L;
+    private final        Map<Component, Pair<String, String>> helpContentsPathOfTab = new HashMap<Component, Pair<String, String>>();
 
     public SettingsPluginsPanel() {
         initComponents();
@@ -55,25 +58,31 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
                 Plugin plugin = (Plugin) action;
                 JPanel panel = plugin.getSettingsPanel();
                 if (panel != null) {
-                    helpContentsPathOfTab.put(panel, plugin.getHelpContentsPath());
+                    helpContentsPathOfTab.put(panel, new Pair<String, String>(
+                                                plugin.getHelpContentsPath(),
+                                                plugin.getFirstHelpPageName()));
                     tabbedPane.add(plugin.getName(), panel);
                 }
             }
         }
+        MnemonicUtil.setMnemonics((Container) this);
         setEnabledHelpButton();
         tabbedPane.addChangeListener(this);
     }
 
     private void showHelp() {
-        String helpContentsPath = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent());
+        String helpContentsPath = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).getFirst();
+        String firstPageUrl     = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).getSecond();
         if (helpContentsPath != null) {
             HelpBrowser help = HelpBrowser.INSTANCE;
             help.setContentsUrl(helpContentsPath);
-            if (help.isVisible()) {
-                help.toFront();
-            } else {
+            if (firstPageUrl != null) {
+                help.setDisplayUrl(firstPageUrl);
+            }
+            if (!help.isVisible()) {
                 help.setVisible(true);
             }
+            help.toFront();
         }
     }
 
@@ -100,8 +109,8 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
         tabbedPane = new javax.swing.JTabbedPane();
         buttonHelpPlugin = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
-        buttonHelpPlugin.setText(bundle.getString("SettingsPluginsPanel.buttonHelpPlugin.text"));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        buttonHelpPlugin.setText(bundle.getString("SettingsPluginsPanel.buttonHelpPlugin.text")); // NOI18N
         buttonHelpPlugin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHelpPluginActionPerformed(evt);
@@ -114,7 +123,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(379, Short.MAX_VALUE)
+                .addContainerGap(370, Short.MAX_VALUE)
                 .addComponent(buttonHelpPlugin)
                 .addContainerGap())
         );

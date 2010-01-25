@@ -44,6 +44,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_remove_not_set.png"/>
         </Property>
+        <Property name="mnemonic" type="int" value="48"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonNoRating.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -66,6 +67,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
+        <Property name="mnemonic" type="int" value="49"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar1.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -88,6 +90,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
+        <Property name="mnemonic" type="int" value="50"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar2.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -110,6 +113,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
+        <Property name="mnemonic" type="int" value="51"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar3.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -132,6 +136,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
+        <Property name="mnemonic" type="int" value="52"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar4.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -154,6 +159,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"/>
         </Property>
+        <Property name="mnemonic" type="int" value="53"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RatingSelectionPanel.buttonStar5.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

@@ -24,6 +24,8 @@ import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.model.ListModelFileExcludePatterns;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     public SettingsFileExcludePatternsPanel() {
         initComponents();
         textFieldInputPattern.requestFocusInWindow();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     @Override
@@ -167,6 +170,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         buttonCancelUpdateDatabase = new javax.swing.JButton();
         buttonUpdateDatabase = new javax.swing.JButton();
 
+        labelInfoList.setLabelFor(listPattern);
         labelInfoList.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
 
         listPattern.setModel(model);
@@ -185,7 +189,6 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonDeletePattern.setMnemonic('e');
         buttonDeletePattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
         buttonDeletePattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
         buttonDeletePattern.setEnabled(false);
@@ -195,7 +198,6 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonInsertPattern.setMnemonic('h');
         buttonInsertPattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
         buttonInsertPattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
         buttonInsertPattern.setEnabled(false);
@@ -216,7 +218,6 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonUpdateDatabase.setMnemonic('d');
         buttonUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
         buttonUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,7 +253,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(labelInfoList)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneListPattern)
+                .addComponent(scrollPaneListPattern, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldInputPattern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

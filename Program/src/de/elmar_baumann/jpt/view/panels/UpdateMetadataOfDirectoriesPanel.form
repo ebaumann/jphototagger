@@ -84,6 +84,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelHeadingListDirectories">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="listDirectories"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -169,7 +172,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseDirectories">
       <Properties>
-        <Property name="mnemonic" type="int" value="118"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -180,7 +182,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonStop">
       <Properties>
-        <Property name="mnemonic" type="int" value="98"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonStop.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -192,7 +193,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonStart">
       <Properties>
-        <Property name="mnemonic" type="int" value="109"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonStart.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

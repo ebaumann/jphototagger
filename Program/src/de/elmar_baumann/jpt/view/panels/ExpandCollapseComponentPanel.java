@@ -100,6 +100,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         buttonExpandCollapse.setToolTipText(expanded
                                             ? TOOLTIP_TEXT_COLLAPSE
                                             : TOOLTIP_TEXT_EXPAND);
+        buttonExpandCollapse.setMnemonic(expanded ? '-' : '+');
     }
 
     private void setPersistenceKey() {

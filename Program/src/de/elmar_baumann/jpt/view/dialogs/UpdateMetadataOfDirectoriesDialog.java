@@ -38,18 +38,18 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private UpdateMetadataOfDirectoriesDialog() {
         super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setHelpPages();
+    }
+
+    private void setHelpPages() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.UpdateMetadataOfDirectories"));
     }
 
     private void endDialog() {
         UserSettings.INSTANCE.writeToFile();
         panel.willDispose();
         setVisible(false);
-    }
-
-    @Override
-    protected void help() {
-        help("action_scan_directories.html");
     }
 
     @Override

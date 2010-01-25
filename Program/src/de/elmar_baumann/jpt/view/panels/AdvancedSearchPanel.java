@@ -44,7 +44,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,6 +84,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelKeywordsInput.setAutocomplete();
         setDefaultInputOfComponent();
         searchColumnPanels.get(0).removeFirst();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void setDefaultInputOfComponent() {
@@ -740,7 +743,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                     .addComponent(scrollPaneColumns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSimpleSqlLayout.createSequentialGroup()
                         .addComponent(labelInfoDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(buttonRemoveColumn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonAddColumn)))
@@ -764,6 +767,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
 
+        labelCustomSqlInfo.setDisplayedMnemonic('k');
         labelCustomSqlInfo.setText(bundle.getString("AdvancedSearchPanel.labelCustomSqlInfo.text")); // NOI18N
 
         textAreaCustomSqlQuery.setColumns(20);
@@ -806,7 +810,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         add(tabbedPane, gridBagConstraints);
 
-        buttonSaveSearch.setMnemonic('p');
         buttonSaveSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -821,7 +824,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         });
 
-        buttonResetColumns.setMnemonic('e');
         buttonResetColumns.setText(Bundle.getString("AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
         buttonResetColumns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -829,7 +831,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         });
 
-        buttonSearch.setMnemonic('s');
         buttonSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

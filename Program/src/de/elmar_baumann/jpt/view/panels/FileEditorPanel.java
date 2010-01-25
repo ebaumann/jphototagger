@@ -25,11 +25,13 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.FileEditor;
 import de.elmar_baumann.jpt.view.dialogs.ShowFilesDialog;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
+import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,6 +66,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     public FileEditorPanel() {
         initComponents();
         setModeInfo();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     /**
@@ -218,10 +221,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
 
-        checkBoxIncludeSubdirectories.setMnemonic('u');
         checkBoxIncludeSubdirectories.setText(Bundle.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
 
-        checkBoxReplaceExistingFiles.setMnemonic('x');
         checkBoxReplaceExistingFiles.setText(Bundle.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
 
         javax.swing.GroupLayout panelOptionsLayout = new javax.swing.GroupLayout(panelOptions);
@@ -232,7 +233,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxReplaceExistingFiles)
                     .addComponent(checkBoxIncludeSubdirectories))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         panelOptionsLayout.setVerticalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,7 +262,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonSelectFiles.setMnemonic('e');
         buttonSelectFiles.setText(Bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,7 +269,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonStop.setMnemonic('o');
         buttonStop.setText(Bundle.getString("FileEditorPanel.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +277,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonStart.setMnemonic('s');
         buttonStart.setText(Bundle.getString("FileEditorPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
@@ -294,11 +292,11 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
                     .addComponent(panelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                    .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonShowFiles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

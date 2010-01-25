@@ -24,8 +24,10 @@ import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.image.util.IconUtil;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -139,6 +141,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         } else {
             getContentPane().remove(checkBoxInputBeforeExecute);
         }
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void cancel() {
@@ -244,18 +247,18 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("ProgramPropertiesDialog.title"));
+        setTitle(Bundle.getString("ProgramPropertiesDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        panelProgram.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelProgram.border.title")));
+        panelProgram.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelProgram.border.title"))); // NOI18N
 
-        labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text"));
+        labelFilePrompt.setText(Bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text")); // NOI18N
 
-        buttonChooseFile.setText(Bundle.getString("ProgramPropertiesDialog.buttonChooseFile.text"));
+        buttonChooseFile.setText(Bundle.getString("ProgramPropertiesDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
@@ -265,7 +268,8 @@ public final class ProgramPropertiesDialog extends Dialog {
         labelFile.setForeground(new java.awt.Color(0, 0, 255));
         labelFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text"));
+        labelAlias.setLabelFor(textFieldAlias);
+        labelAlias.setText(Bundle.getString("ProgramPropertiesDialog.labelAlias.text")); // NOI18N
 
         textFieldAlias.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -273,8 +277,8 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        checkBoxChangeFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.text"));
-        checkBoxChangeFile.setToolTipText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.toolTipText"));
+        checkBoxChangeFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.text")); // NOI18N
+        checkBoxChangeFile.setToolTipText(Bundle.getString("ProgramPropertiesDialog.checkBoxChangeFile.toolTipText")); // NOI18N
 
         javax.swing.GroupLayout panelProgramLayout = new javax.swing.GroupLayout(panelProgram);
         panelProgram.setLayout(panelProgramLayout);
@@ -285,13 +289,13 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelProgramLayout.createSequentialGroup()
                         .addComponent(labelFilePrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 258, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
                         .addComponent(buttonChooseFile))
-                    .addComponent(labelFile, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                    .addComponent(labelFile, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
                     .addGroup(panelProgramLayout.createSequentialGroup()
                         .addComponent(labelAlias)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                     .addComponent(checkBoxChangeFile))
                 .addContainerGap())
         );
@@ -312,31 +316,33 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap())
         );
 
-        panelParameter.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelParameter.border.title")));
+        panelParameter.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelParameter.border.title"))); // NOI18N
 
-        labelParametersBeforeFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersBeforeFilename.text"));
+        labelParametersBeforeFilename.setLabelFor(textAreaParametersBeforeFilename);
+        labelParametersBeforeFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersBeforeFilename.text")); // NOI18N
 
         textAreaParametersBeforeFilename.setColumns(20);
         textAreaParametersBeforeFilename.setLineWrap(true);
         textAreaParametersBeforeFilename.setRows(1);
         scrollPaneParametersBeforeFilename.setViewportView(textAreaParametersBeforeFilename);
 
-        labelParametersAfterFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersAfterFilename.text"));
+        labelParametersAfterFilename.setLabelFor(textAreaParametersAfterFilename);
+        labelParametersAfterFilename.setText(Bundle.getString("ProgramPropertiesDialog.labelParametersAfterFilename.text")); // NOI18N
 
         textAreaParametersAfterFilename.setColumns(20);
         textAreaParametersAfterFilename.setLineWrap(true);
         textAreaParametersAfterFilename.setRows(1);
         scrollPaneParametersAfterFilename.setViewportView(textAreaParametersAfterFilename);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
-        checkBoxUsePattern.setText(bundle.getString("ProgramPropertiesDialog.checkBoxUsePattern.text"));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        checkBoxUsePattern.setText(bundle.getString("ProgramPropertiesDialog.checkBoxUsePattern.text")); // NOI18N
         checkBoxUsePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxUsePatternActionPerformed(evt);
             }
         });
 
-        buttonInfoUsePattern.setText(bundle.getString("ProgramPropertiesDialog.buttonInfoUsePattern.text"));
+        buttonInfoUsePattern.setText(bundle.getString("ProgramPropertiesDialog.buttonInfoUsePattern.text")); // NOI18N
         buttonInfoUsePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInfoUsePatternActionPerformed(evt);
@@ -359,11 +365,11 @@ public final class ProgramPropertiesDialog extends Dialog {
                         .addComponent(checkBoxUsePattern)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonInfoUsePattern))
-                    .addComponent(scrollPaneParametersBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                    .addComponent(scrollPaneParametersBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
                     .addComponent(labelParametersBeforeFilename)
                     .addComponent(labelParametersAfterFilename)
-                    .addComponent(scrollPaneParametersAfterFilename, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
-                    .addComponent(scrollPaneUsePattern, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                    .addComponent(scrollPaneParametersAfterFilename, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                    .addComponent(scrollPaneUsePattern, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelParameterLayout.setVerticalGroup(
@@ -385,16 +391,16 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap())
         );
 
-        panelInputBeforeExecute.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelInputBeforeExecute.border.title")));
+        panelInputBeforeExecute.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelInputBeforeExecute.border.title"))); // NOI18N
 
-        checkBoxInputBeforeExecute.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text"));
+        checkBoxInputBeforeExecute.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
         checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxInputBeforeExecuteActionPerformed(evt);
             }
         });
 
-        checkBoxInputBeforeExecutePerFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text"));
+        checkBoxInputBeforeExecutePerFile.setText(Bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text")); // NOI18N
         checkBoxInputBeforeExecutePerFile.setEnabled(false);
 
         javax.swing.GroupLayout panelInputBeforeExecuteLayout = new javax.swing.GroupLayout(panelInputBeforeExecute);
@@ -406,7 +412,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addGroup(panelInputBeforeExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxInputBeforeExecute)
                     .addComponent(checkBoxInputBeforeExecutePerFile))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         panelInputBeforeExecuteLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {checkBoxInputBeforeExecute, checkBoxInputBeforeExecutePerFile});
@@ -420,14 +426,14 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        panelMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelSingleFileProcessing.border.title")));
+        panelMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramPropertiesDialog.panelSingleFileProcessing.border.title"))); // NOI18N
 
         buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingYes);
         radioButtonSingleFileProcessingYes.setSelected(true);
-        radioButtonSingleFileProcessingYes.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text"));
+        radioButtonSingleFileProcessingYes.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text")); // NOI18N
 
         buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingNo);
-        radioButtonSingleFileProcessingNo.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text"));
+        radioButtonSingleFileProcessingNo.setText(Bundle.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text")); // NOI18N
 
         javax.swing.GroupLayout panelMultipleSelectionLayout = new javax.swing.GroupLayout(panelMultipleSelection);
         panelMultipleSelection.setLayout(panelMultipleSelectionLayout);
@@ -438,7 +444,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addGroup(panelMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(radioButtonSingleFileProcessingYes)
                     .addComponent(radioButtonSingleFileProcessingNo))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         panelMultipleSelectionLayout.setVerticalGroup(
             panelMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,14 +455,14 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        buttonCancel.setText(Bundle.getString("ProgramPropertiesDialog.buttonCancel.text"));
+        buttonCancel.setText(Bundle.getString("ProgramPropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
 
-        buttonOk.setText(Bundle.getString("ProgramPropertiesDialog.buttonOk.text"));
+        buttonOk.setText(Bundle.getString("ProgramPropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);

@@ -26,6 +26,8 @@ import de.elmar_baumann.jpt.model.ListModelSelectedColumns;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.component.CheckList;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -50,9 +52,9 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
 
     private void postInitComponents() {
         list.setModel(model);
-        list.setSelectionMode(
-            ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         list.addActionListener(this);
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     @Override
@@ -94,10 +96,11 @@ public final class SettingsFastSearchColumnsPanel extends javax.swing.JPanel
         scrollPaneFastSearchColumns = new JScrollPane(list);
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
 
-        labelFastSearchColumns.setText(Bundle.getString("SettingsFastSearchColumnsPanel.labelFastSearchColumns.text"));
+        labelFastSearchColumns.setLabelFor(scrollPaneFastSearchColumns);
+        labelFastSearchColumns.setText(Bundle.getString("SettingsFastSearchColumnsPanel.labelFastSearchColumns.text")); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
-        checkBoxDisplaySearchButton.setText(bundle.getString("SettingsFastSearchColumnsPanel.checkBoxDisplaySearchButton.text"));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        checkBoxDisplaySearchButton.setText(bundle.getString("SettingsFastSearchColumnsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplaySearchButtonActionPerformed(evt);

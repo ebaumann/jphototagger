@@ -27,6 +27,8 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.helper.CompressDatabase;
 import de.elmar_baumann.jpt.helper.DeleteOrphanedXmp;
 import de.elmar_baumann.jpt.helper.DeleteOrphanedThumbnails;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,6 +69,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         finishedLabelOfRunnable.put(DatabaseImageFiles.class      , labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
         finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
         initCheckBoxes();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void initCheckBoxes() {
@@ -303,7 +306,6 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         buttonAbortAction = new javax.swing.JButton();
         buttonStartMaintain = new javax.swing.JButton();
 
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setMnemonic('e');
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,7 +317,6 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setIconTextGap(0);
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(22, 22));
 
-        checkBoxCompressDatabase.setMnemonic('k');
         checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
         checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,7 +359,6 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             }
         });
 
-        buttonAbortAction.setMnemonic('o');
         buttonAbortAction.setText(Bundle.getString("DatabaseMaintainancePanel.buttonAbortAction.text")); // NOI18N
         buttonAbortAction.setEnabled(false);
         buttonAbortAction.addActionListener(new java.awt.event.ActionListener() {
@@ -367,7 +367,6 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             }
         });
 
-        buttonStartMaintain.setMnemonic('s');
         buttonStartMaintain.setText(Bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
         buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
@@ -383,7 +382,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonDeleteMessages)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addComponent(buttonAbortAction)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonStartMaintain)

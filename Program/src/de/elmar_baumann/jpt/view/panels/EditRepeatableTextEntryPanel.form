@@ -131,6 +131,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="buttonRemoveSelection">
           <Properties>
+            <Property name="mnemonic" type="int" value="45"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonRemoveSelection.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -148,6 +149,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonAddInput">
           <Properties>
+            <Property name="mnemonic" type="int" value="43"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonAddInput.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>

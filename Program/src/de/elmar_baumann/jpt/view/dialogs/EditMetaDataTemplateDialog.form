@@ -32,7 +32,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPane" alignment="0" pref="360" max="32767" attributes="0"/>
+                  <Component id="scrollPane" alignment="0" pref="375" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -41,7 +41,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textFieldName" pref="325" max="32767" attributes="0"/>
+                      <Component id="textFieldName" pref="316" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -71,6 +71,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelName">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="textFieldName"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetaDataTemplateDialog.labelName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
@@ -90,11 +93,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="340" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="357" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="panelXmpEdit" pref="322" max="32767" attributes="0"/>
+                          <Component id="panelXmpEdit" pref="337" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -106,7 +109,7 @@
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="panelXmpEdit" max="32767" attributes="0"/>
+                          <Component id="panelXmpEdit" pref="845" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>

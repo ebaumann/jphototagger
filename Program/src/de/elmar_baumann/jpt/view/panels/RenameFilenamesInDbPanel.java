@@ -24,6 +24,8 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import javax.swing.JPanel;
 
 /**
@@ -48,6 +50,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     private void postInitComponents() {
         UserSettings.INSTANCE.getSettings().applySettings(this, null);
         setButtonReplaceEnabled();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     public boolean runs() {
@@ -140,6 +143,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
         labelTitle.setText(Bundle.getString("RenameFilenamesInDbPanel.labelTitle.text")); // NOI18N
 
         labelSearch.setForeground(new java.awt.Color(0, 196, 0));
+        labelSearch.setLabelFor(textFieldSearch);
         labelSearch.setText(Bundle.getString("RenameFilenamesInDbPanel.labelSearch.text")); // NOI18N
 
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -149,6 +153,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
         });
 
         labelReplacement.setForeground(new java.awt.Color(0, 196, 0));
+        labelReplacement.setLabelFor(textFieldReplacement);
         labelReplacement.setText(Bundle.getString("RenameFilenamesInDbPanel.labelReplacement.text")); // NOI18N
 
         textFieldReplacement.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -157,7 +162,6 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             }
         });
 
-        buttonReplace.setMnemonic('n');
         buttonReplace.setText(Bundle.getString("RenameFilenamesInDbPanel.buttonReplace.text")); // NOI18N
         buttonReplace.setEnabled(false);
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {
@@ -180,8 +184,8 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
                             .addComponent(labelReplacement, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                            .addComponent(textFieldReplacement, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
+                            .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(textFieldReplacement, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)))
                     .addComponent(buttonReplace, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
                 .addContainerGap())

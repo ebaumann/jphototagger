@@ -21,6 +21,8 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 
 /**
  *
@@ -33,6 +35,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
 
     public SettingsPerformancePanel() {
         initComponents();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void setMaximumSecondsToTerminateExternalPrograms() {
@@ -79,6 +82,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
         checkBoxDisplayIptc = new javax.swing.JCheckBox();
         checkBoxSaveInputEarly = new javax.swing.JCheckBox();
 
+        labelMaximumSecondsToTerminateExternalPrograms.setLabelFor(spinnerMaximumSecondsToTerminateExternalPrograms);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
 

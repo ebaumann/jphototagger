@@ -23,7 +23,7 @@
                   <Component id="panelTasksAutoscan" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="panelStartDelay" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="124" max="32767" attributes="0"/>
+                      <EmptySpace pref="115" max="32767" attributes="0"/>
                       <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -66,13 +66,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="checkBoxIsAutoscanIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="44" max="32767" attributes="0"/>
+                          <EmptySpace pref="30" max="32767" attributes="0"/>
                           <Component id="buttonRemoveAutoscanDirectories" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonAddAutoscanDirectories" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="scrollPaneListAutoscanDirectories" alignment="1" pref="537" max="32767" attributes="0"/>
-                      <Component id="labelAutoscanDirectoriesInfo" alignment="0" pref="537" max="32767" attributes="0"/>
+                      <Component id="scrollPaneListAutoscanDirectories" alignment="1" pref="655" max="32767" attributes="0"/>
+                      <Component id="labelAutoscanDirectoriesInfo" alignment="0" pref="655" max="32767" attributes="0"/>
                       <Component id="labelAutoscanDirectoriesPrompt" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -111,6 +111,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelAutoscanDirectoriesPrompt">
           <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="listAutoscanDirectories"/>
+            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.labelAutoscanDirectoriesPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -151,7 +154,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonRemoveAutoscanDirectories">
           <Properties>
-            <Property name="mnemonic" type="int" value="101"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.buttonRemoveAutoscanDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -163,7 +165,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonAddAutoscanDirectories">
           <Properties>
-            <Property name="mnemonic" type="int" value="104"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.buttonAddAutoscanDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -199,6 +200,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labelTasksMinutesToStartScheduledTasks">
           <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="spinnerMinutesToStartScheduledTasks"/>
+            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -221,6 +225,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_stop_scheduled_tasks_enabled.png"/>
         </Property>
+        <Property name="mnemonic" type="int" value="115"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.buttonStopScheduledTasks.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>

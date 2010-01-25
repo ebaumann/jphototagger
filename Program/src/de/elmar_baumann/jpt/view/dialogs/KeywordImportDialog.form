@@ -39,7 +39,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="comboBoxImporter" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelFilename" pref="327" max="32767" attributes="0"/>
+                          <Component id="labelFilename" pref="345" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -81,6 +81,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelFormat">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="comboBoxImporter"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="KeywordImportDialog.labelFormat.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -112,7 +115,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseFile">
       <Properties>
-        <Property name="mnemonic" type="int" value="100"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="KeywordImportDialog.buttonChooseFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -123,7 +125,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
-        <Property name="mnemonic" type="int" value="97"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="KeywordImportDialog.buttonCancel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -137,7 +138,6 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_import.png"/>
         </Property>
-        <Property name="mnemonic" type="int" value="105"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="KeywordImportDialog.buttonImport.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
