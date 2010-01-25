@@ -31,7 +31,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="557" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="597" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -76,13 +76,13 @@
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="labelNewNamePrompt" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelOldName" alignment="0" pref="338" max="32767" attributes="2"/>
+                                  <Component id="labelOldName" alignment="0" pref="368" max="32767" attributes="2"/>
                                   <Component id="labelOldNamePrompt" alignment="0" min="-2" max="-2" attributes="1"/>
-                                  <Component id="textFieldNewName" alignment="0" pref="338" max="32767" attributes="2"/>
+                                  <Component id="textFieldNewName" alignment="0" pref="368" max="32767" attributes="2"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="340" max="32767" attributes="0"/>
+                              <EmptySpace pref="322" max="32767" attributes="0"/>
                               <Component id="buttonNextFile" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonRename" min="-2" max="-2" attributes="0"/>
@@ -90,7 +90,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelDirectory" alignment="0" pref="532" max="32767" attributes="2"/>
+                                  <Component id="labelDirectory" alignment="0" pref="568" max="32767" attributes="2"/>
                                   <Component id="labelDirectoryPrompt" alignment="0" min="-2" max="-2" attributes="1"/>
                               </Group>
                           </Group>
@@ -117,7 +117,7 @@
                               <Component id="labelNewNamePrompt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="textFieldNewName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="183" max="32767" attributes="0"/>
+                              <EmptySpace pref="173" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="buttonRename" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonNextFile" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -212,6 +212,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="labelNewNamePrompt">
               <Properties>
+                <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="textFieldNewName"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNewNamePrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -221,7 +224,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonNextFile">
               <Properties>
-                <Property name="mnemonic" type="int" value="98"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonNextFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -232,7 +234,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonRename">
               <Properties>
-                <Property name="mnemonic" type="int" value="117"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -281,7 +282,7 @@
                       <Component id="panelDefineName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelExample" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="buttonRenameTemplate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -339,6 +340,9 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="labelStartNumber">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="spinnerStartNumber"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelStartNumber.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -356,6 +360,9 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelNumberStepWidth">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="spinnerNumberStepWidth"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNumberStepWidth.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -373,6 +380,9 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelNumberCount">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="spinnerNumberCount"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNumberCount.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -400,7 +410,7 @@
                           <Component id="labelDateDelim" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="textFieldDateDelim" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="210" max="32767" attributes="0"/>
+                          <EmptySpace pref="139" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -419,6 +429,9 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="labelDateDelim">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="textFieldDateDelim"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDateDelim.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -452,8 +465,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textFieldAtBegin" alignment="0" pref="124" max="32767" attributes="2"/>
-                              <Component id="comboBoxAtBegin" alignment="0" pref="124" max="32767" attributes="2"/>
+                              <Component id="textFieldAtBegin" alignment="0" pref="116" max="32767" attributes="2"/>
+                              <Component id="comboBoxAtBegin" alignment="0" pref="116" max="32767" attributes="2"/>
                               <Component id="labelAtBegin" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -463,8 +476,8 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textFieldInTheMiddle" alignment="0" pref="127" max="32767" attributes="0"/>
-                              <Component id="comboBoxInTheMiddle" alignment="0" pref="127" max="32767" attributes="0"/>
+                              <Component id="textFieldInTheMiddle" alignment="0" pref="118" max="32767" attributes="0"/>
+                              <Component id="comboBoxInTheMiddle" alignment="0" pref="118" max="32767" attributes="0"/>
                               <Component id="labelInTheMid" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -475,8 +488,8 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelAtEnd" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboBoxAtEnd" alignment="0" pref="141" max="32767" attributes="2"/>
-                              <Component id="textFieldAtEnd" alignment="0" pref="141" max="32767" attributes="2"/>
+                              <Component id="comboBoxAtEnd" alignment="0" pref="132" max="32767" attributes="2"/>
+                              <Component id="textFieldAtEnd" alignment="0" pref="132" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -516,6 +529,9 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="labelAtBegin">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="comboBoxAtBegin"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelAtBegin.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -533,6 +549,9 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelDelim1">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="textFieldDelim1"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDelim1.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -548,6 +567,9 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelInTheMid">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="comboBoxInTheMiddle"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelInTheMid.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -565,6 +587,9 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelDelim2">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="textFieldDelim2"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDelim2.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -580,6 +605,9 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelAtEnd">
                   <Properties>
+                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="comboBoxAtEnd"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelAtEnd.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                     </Property>
@@ -619,8 +647,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelAfterFilename" alignment="0" pref="450" max="32767" attributes="0"/>
-                              <Component id="labelBeforeFilename" alignment="0" pref="450" max="32767" attributes="0"/>
+                              <Component id="labelAfterFilename" alignment="0" pref="475" max="32767" attributes="0"/>
+                              <Component id="labelBeforeFilename" alignment="0" pref="475" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -686,7 +714,6 @@
             </Container>
             <Component class="javax.swing.JButton" name="buttonRenameTemplate">
               <Properties>
-                <Property name="mnemonic" type="int" value="117"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonRenameTemplate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>

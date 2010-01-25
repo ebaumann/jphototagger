@@ -22,8 +22,10 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.awt.CardLayout;
+import java.awt.Container;
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
@@ -46,8 +48,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
     }
 
     private void postInitComponents() {
-        tree.getSelectionModel().setSelectionMode(
-                TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     public JTree getTree() {

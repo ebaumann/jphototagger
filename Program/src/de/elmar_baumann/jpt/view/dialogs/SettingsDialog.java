@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
+import de.elmar_baumann.lib.componentutil.TabbedPaneUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public final class SettingsDialog extends Dialog {
         initMaps();
         initPersistentPanels();
         readProperties();
+        TabbedPaneUtil.setMnemonics(tabbedPane);
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
     }
 
@@ -90,16 +92,17 @@ public final class SettingsDialog extends Dialog {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
 
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), Bundle.getString("Help.Url.UserSettingsDialog.Programs"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), Bundle.getString("Help.Url.UserSettingsDialog.FastSearch"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), Bundle.getString("Help.Url.UserSettingsDialog.Thumbnails"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), Bundle.getString("Help.Url.UserSettingsDialog.Iptc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), Bundle.getString("Help.Url.UserSettingsDialog.Tasks"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), Bundle.getString("Help.Url.UserSettingsDialog.Performance"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), Bundle.getString("Help.Url.UserSettingsDialog.FileExcludePattern"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), Bundle.getString("Help.Url.UserSettingsDialog.Edit"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(8), Bundle.getString("Help.Url.UserSettingsDialog.Misc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(9), Bundle.getString("Help.Url.UserSettingsDialog.Actions"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 0), Bundle.getString("Help.Url.UserSettingsDialog.Programs"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 1), Bundle.getString("Help.Url.UserSettingsDialog.FastSearch"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 2), Bundle.getString("Help.Url.UserSettingsDialog.Thumbnails"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 3), Bundle.getString("Help.Url.UserSettingsDialog.Iptc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 4), Bundle.getString("Help.Url.UserSettingsDialog.Tasks"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 5), Bundle.getString("Help.Url.UserSettingsDialog.Performance"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 6), Bundle.getString("Help.Url.UserSettingsDialog.FileExcludePattern"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 7), Bundle.getString("Help.Url.UserSettingsDialog.Edit"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 8), Bundle.getString("Help.Url.UserSettingsDialog.Misc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt( 9), Bundle.getString("Help.Url.UserSettingsDialog.Actions"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(10), Bundle.getString("Help.Url.UserSettingsDialog.Plugins"));
     }
 
     private void initPersistentPanels() {
@@ -185,25 +188,25 @@ public final class SettingsDialog extends Dialog {
         panelPlugins = new de.elmar_baumann.jpt.view.panels.SettingsPluginsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("SettingsDialog.title"));
+        setTitle(Bundle.getString("SettingsDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelFastSearchColumns.TabConstraints.tabTitle"), panelFastSearchColumns);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelIptc.TabConstraints.tabTitle"), panelIptc);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelEditColumns.TabConstraints.tabTitle"), panelEditColumns);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc);
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle");
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins);
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelFastSearchColumns.TabConstraints.tabTitle"), panelFastSearchColumns); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelIptc.TabConstraints.tabTitle"), panelIptc); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelEditColumns.TabConstraints.tabTitle"), panelEditColumns); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,14 +214,14 @@ public final class SettingsDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 654, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                .addComponent(tabbedPane)
                 .addContainerGap())
         );
 

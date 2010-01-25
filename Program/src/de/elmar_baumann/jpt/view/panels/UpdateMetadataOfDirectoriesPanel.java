@@ -31,10 +31,12 @@ import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.comparator.FileSort;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import de.elmar_baumann.lib.util.Settings;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -65,6 +67,7 @@ public final class UpdateMetadataOfDirectoriesPanel
     public UpdateMetadataOfDirectoriesPanel() {
         initComponents();
         readProperties();
+        MnemonicUtil.setMnemonics((Container)this);
     }
 
     public void willDispose() {
@@ -313,6 +316,7 @@ public final class UpdateMetadataOfDirectoriesPanel
         buttonStop = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
+        labelHeadingListDirectories.setLabelFor(listDirectories);
         labelHeadingListDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
 
         listDirectories.setModel(listModelDirectories);
@@ -343,7 +347,6 @@ public final class UpdateMetadataOfDirectoriesPanel
         progressBar.setFocusable(false);
         progressBar.setStringPainted(true);
 
-        buttonChooseDirectories.setMnemonic('v');
         buttonChooseDirectories.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
         buttonChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,7 +354,6 @@ public final class UpdateMetadataOfDirectoriesPanel
             }
         });
 
-        buttonStop.setMnemonic('b');
         buttonStop.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
@@ -360,7 +362,6 @@ public final class UpdateMetadataOfDirectoriesPanel
             }
         });
 
-        buttonStart.setMnemonic('m');
         buttonStart.setText(Bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {

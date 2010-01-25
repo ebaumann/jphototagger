@@ -18,8 +18,7 @@
  */
 package de.elmar_baumann.lib.componentutil;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.elmar_baumann.lib.generics.Pair;
 import javax.swing.JTabbedPane;
 
 /**
@@ -31,47 +30,26 @@ import javax.swing.JTabbedPane;
 public final class TabbedPaneUtil {
 
     /**
-     * Sets to a tabbed pane mnemonics.
+     * Sets as mnemonic every character in the tab title after the first
+     * ampersand (&amp;).
      *
-     * Takes the first valid character of the tab titles. If the first character
-     * on a tab is always a mnemonic the second will be taken, then the third etc.
+     * <em>The valid range of mnemonic characters is [A-Za-z0-9]</em>.
      *
      * @param pane tabbed pane
      */
     public static void setMnemonics(JTabbedPane pane) {
-        int             count     = pane.getTabCount();
-        List<Character> mnemonics = new ArrayList<Character>();
+        int tabCount = pane.getTabCount();
 
-        for (int i = 0; i < count; i++) {
-            String title = pane.getTitleAt(i);
-            if (title != null && title.length() >= 1) {
-                char mnemonicChar = getNotExistingMnemonicChar(title, mnemonics);
-                if (MnemonicUtil.isInRange(mnemonicChar)) {
-                    int mnemonic = MnemonicUtil.getMnemonicOf(mnemonicChar);
-                    pane.setMnemonicAt(i, mnemonic);
+        for (int tabIndex = 0; tabIndex < tabCount; tabIndex++) {
+            String title = pane.getTitleAt(tabIndex);
+            if (title != null && title.length() > 1) {
+                Pair<Integer, String> mnPair = MnemonicUtil.getMnemonic(title);
+                if (mnPair.getFirst() != -1) {
+                    pane.setTitleAt(tabIndex, mnPair.getSecond());
+                    pane.setMnemonicAt(tabIndex, mnPair.getFirst());
                 }
             }
         }
-    }
-
-    private static char getNotExistingMnemonicChar(
-                          String title, List<Character> existingMnemonicChars) {
-
-        assert title != null && title.length() >= 1;
-
-        int     len       = title.length();
-        int     index     = 0;
-        boolean doesExist = true;
-        boolean inRange   = false;
-        char    mnemonic  = '0';
-
-        while ((!inRange || doesExist) && index++ < len) {
-            mnemonic = title.substring(index, index + 1).toUpperCase().charAt(0);
-            doesExist = existingMnemonicChars.contains(mnemonic);
-            inRange   = MnemonicUtil.isInRange(mnemonic);
-        }
-
-        return mnemonic;
     }
 
     private TabbedPaneUtil() {

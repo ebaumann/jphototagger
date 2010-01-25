@@ -27,7 +27,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.view.dialogs.ProgramPropertiesDialog;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererPrograms;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.image.util.IconUtil;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -44,6 +46,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
 
     public SettingsProgramsPanel() {
         initComponents();
+        MnemonicUtil.setMnemonics((Container) this);
         setEnabled();
     }
 
@@ -155,7 +158,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
 
         labelChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text")); // NOI18N
 
-        buttonChooseDefaultProgram.setMnemonic('a');
         buttonChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonChooseDefaultProgram.text")); // NOI18N
         buttonChooseDefaultProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +168,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         labelDefaultProgramFile.setForeground(new java.awt.Color(0, 0, 255));
         labelDefaultProgramFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        labelPrograms.setLabelFor(listPrograms);
         labelPrograms.setText(Bundle.getString("SettingsProgramsPanel.labelPrograms.text")); // NOI18N
 
         listPrograms.setModel(model);
@@ -183,7 +186,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         });
         scrollPanePrograms.setViewportView(listPrograms);
 
-        buttonRemoveProgram.setMnemonic('e');
         buttonRemoveProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonRemoveProgram.text")); // NOI18N
         buttonRemoveProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonRemoveProgram.toolTipText")); // NOI18N
         buttonRemoveProgram.setEnabled(false);
@@ -193,7 +195,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
             }
         });
 
-        buttonAddProgram.setMnemonic('h');
         buttonAddProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonAddProgram.text")); // NOI18N
         buttonAddProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonAddProgram.toolTipText")); // NOI18N
         buttonAddProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +203,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
             }
         });
 
-        buttonEditProgram.setMnemonic('b');
         buttonEditProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonEditProgram.text")); // NOI18N
         buttonEditProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonEditProgram.toolTipText")); // NOI18N
         buttonEditProgram.setEnabled(false);
@@ -219,33 +219,28 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
             .addGroup(panelBorderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelBorderLayout.createSequentialGroup()
-                            .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
-                            .addContainerGap())
-                        .addGroup(panelBorderLayout.createSequentialGroup()
-                            .addComponent(labelChooseDefaultProgram, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-                            .addGap(20, 20, 20))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorderLayout.createSequentialGroup()
-                            .addComponent(labelDefaultProgramFile, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(buttonChooseDefaultProgram)
-                            .addContainerGap())
-                        .addGroup(panelBorderLayout.createSequentialGroup()
-                            .addComponent(labelPrograms)
-                            .addContainerGap(197, Short.MAX_VALUE)))
+                    .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                    .addGroup(panelBorderLayout.createSequentialGroup()
+                        .addComponent(labelChooseDefaultProgram, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                        .addGap(8, 8, 8))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorderLayout.createSequentialGroup()
+                        .addComponent(labelDefaultProgramFile, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonChooseDefaultProgram))
+                    .addGroup(panelBorderLayout.createSequentialGroup()
+                        .addComponent(labelPrograms)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorderLayout.createSequentialGroup()
                         .addComponent(buttonRemoveProgram)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonAddProgram)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonEditProgram)
-                        .addContainerGap())))
+                        .addComponent(buttonEditProgram)))
+                .addContainerGap())
         );
         panelBorderLayout.setVerticalGroup(
             panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorderLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addComponent(labelChooseDefaultProgram)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -260,14 +255,14 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
                     .addComponent(buttonRemoveProgram)
                     .addComponent(buttonAddProgram)
                     .addComponent(buttonEditProgram))
-                .addGap(11, 11, 11))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
+            .addGap(0, 618, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -276,12 +271,12 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(panelBorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 

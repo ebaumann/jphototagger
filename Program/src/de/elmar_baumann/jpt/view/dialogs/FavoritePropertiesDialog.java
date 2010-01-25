@@ -24,9 +24,11 @@ import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.database.DatabaseFavorites;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
@@ -49,7 +51,13 @@ public final class FavoritePropertiesDialog extends Dialog {
     public FavoritePropertiesDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setHelpPages();
+        MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void setHelpPages() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.FavoriteDirectoryPropertiesDialog"));
     }
 
     private void chooseDirectory() {
@@ -188,11 +196,6 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     @Override
-    protected void help() {
-        help(Bundle.getString("Help.Url.FavoriteDirectoryPropertiesDialog"));
-    }
-
-    @Override
     protected void escape() {
         accepted = false;
         setVisible(false);
@@ -229,6 +232,7 @@ public final class FavoritePropertiesDialog extends Dialog {
             }
         });
 
+        labelPromptFavoriteName.setLabelFor(textFieldFavoriteName);
         labelPromptFavoriteName.setText(Bundle.getString("FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
 
         textFieldFavoriteName.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -243,7 +247,6 @@ public final class FavoritePropertiesDialog extends Dialog {
             }
         });
 
-        buttonChooseDirectory.setMnemonic('a');
         buttonChooseDirectory.setText(Bundle.getString("FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,7 +256,6 @@ public final class FavoritePropertiesDialog extends Dialog {
 
         labelDirectoryname.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonCancel.setMnemonic('b');
         buttonCancel.setText(Bundle.getString("FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,7 +263,6 @@ public final class FavoritePropertiesDialog extends Dialog {
             }
         });
 
-        buttonOk.setMnemonic('o');
         buttonOk.setText(Bundle.getString("FavoritePropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {

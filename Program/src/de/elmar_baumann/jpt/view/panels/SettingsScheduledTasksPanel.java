@@ -26,9 +26,11 @@ import de.elmar_baumann.jpt.model.ListModelAutoscanDirectories;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.EnumSet;
@@ -66,6 +68,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     private void postInitComponents() {
         modelAutoscanDirectories = new ListModelAutoscanDirectories();
         listAutoscanDirectories.setModel(modelAutoscanDirectories);
+        MnemonicUtil.setMnemonics((Container) this);
         setEnabled();
     }
 
@@ -196,6 +199,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         labelAutoscanDirectoriesInfo.setText(Bundle.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
         labelAutoscanDirectoriesInfo.setPreferredSize(new java.awt.Dimension(978, 48));
 
+        labelAutoscanDirectoriesPrompt.setLabelFor(listAutoscanDirectories);
         labelAutoscanDirectoriesPrompt.setText(Bundle.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
 
         listAutoscanDirectories.setModel(modelAutoscanDirectories);
@@ -219,7 +223,6 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
             }
         });
 
-        buttonRemoveAutoscanDirectories.setMnemonic('e');
         buttonRemoveAutoscanDirectories.setText(Bundle.getString("SettingsScheduledTasksPanel.buttonRemoveAutoscanDirectories.text")); // NOI18N
         buttonRemoveAutoscanDirectories.setEnabled(false);
         buttonRemoveAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +231,6 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
             }
         });
 
-        buttonAddAutoscanDirectories.setMnemonic('h');
         buttonAddAutoscanDirectories.setText(Bundle.getString("SettingsScheduledTasksPanel.buttonAddAutoscanDirectories.text")); // NOI18N
         buttonAddAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,12 +247,12 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
                 .addGroup(panelTasksAutoscanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTasksAutoscanLayout.createSequentialGroup()
                         .addComponent(checkBoxIsAutoscanIncludeSubdirectories)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(buttonRemoveAutoscanDirectories)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonAddAutoscanDirectories))
-                    .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                    .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListAutoscanDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+                    .addComponent(labelAutoscanDirectoriesInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                     .addComponent(labelAutoscanDirectoriesPrompt))
                 .addContainerGap())
         );
@@ -270,6 +272,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
                 .addContainerGap())
         );
 
+        labelTasksMinutesToStartScheduledTasks.setLabelFor(spinnerMinutesToStartScheduledTasks);
         labelTasksMinutesToStartScheduledTasks.setText(Bundle.getString("SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
 
         spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
@@ -297,6 +300,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         );
 
         buttonStopScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_stop_scheduled_tasks_enabled.png"))); // NOI18N
+        buttonStopScheduledTasks.setMnemonic('s');
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         buttonStopScheduledTasks.setToolTipText(bundle.getString("SettingsScheduledTasksPanel.buttonStopScheduledTasks.toolTipText")); // NOI18N
         buttonStopScheduledTasks.setAlignmentY(0.0F);
@@ -316,7 +320,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
                     .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(panelStartDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                         .addComponent(buttonStopScheduledTasks)))
                 .addContainerGap())
         );

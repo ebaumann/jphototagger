@@ -32,8 +32,8 @@
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textFieldSearch" pref="220" max="32767" attributes="2"/>
-                          <Component id="textFieldReplacement" alignment="0" pref="220" max="32767" attributes="2"/>
+                          <Component id="textFieldSearch" pref="211" max="32767" attributes="2"/>
+                          <Component id="textFieldReplacement" alignment="0" pref="211" max="32767" attributes="2"/>
                       </Group>
                   </Group>
                   <Component id="buttonReplace" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -83,6 +83,9 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="c4" red="0" type="rgb"/>
         </Property>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="textFieldSearch"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameFilenamesInDbPanel.labelSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -98,6 +101,9 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="c4" red="0" type="rgb"/>
         </Property>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="textFieldReplacement"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameFilenamesInDbPanel.labelReplacement.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -112,7 +118,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonReplace">
       <Properties>
-        <Property name="mnemonic" type="int" value="110"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameFilenamesInDbPanel.buttonReplace.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

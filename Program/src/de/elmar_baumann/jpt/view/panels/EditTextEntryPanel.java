@@ -79,6 +79,7 @@ public final class EditTextEntryPanel
 
     private void setPropmt() {
         labelPrompt.setText(column.getDescription());
+        labelPrompt.setLabelFor(textAreaEdit);
     }
 
     @Override

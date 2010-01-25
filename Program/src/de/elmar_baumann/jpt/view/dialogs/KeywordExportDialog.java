@@ -24,8 +24,10 @@ import de.elmar_baumann.jpt.exporter.KeywordExporter;
 import de.elmar_baumann.jpt.model.ComboBoxModelKeywordExporters;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
+import java.awt.Container;
 import java.io.File;
 import javax.swing.JFileChooser;
 
@@ -47,7 +49,13 @@ public class KeywordExportDialog extends Dialog {
     public KeywordExportDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setHelpPages();
+        MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void setHelpPages() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.KeywordExportDialog"));
     }
 
     /**
@@ -186,6 +194,7 @@ public class KeywordExportDialog extends Dialog {
             }
         });
 
+        labelFormat.setLabelFor(comboBoxExporter);
         labelFormat.setText(Bundle.getString("KeywordExportDialog.labelFormat.text")); // NOI18N
 
         comboBoxExporter.setModel(comboBoxModelExporter);
@@ -195,7 +204,6 @@ public class KeywordExportDialog extends Dialog {
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
 
-        buttonChooseFile.setMnemonic('d');
         buttonChooseFile.setText(Bundle.getString("KeywordExportDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +211,6 @@ public class KeywordExportDialog extends Dialog {
             }
         });
 
-        buttonCancel.setMnemonic('a');
         buttonCancel.setText(Bundle.getString("KeywordExportDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,7 +219,6 @@ public class KeywordExportDialog extends Dialog {
         });
 
         buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
-        buttonExport.setMnemonic('e');
         buttonExport.setText(Bundle.getString("KeywordExportDialog.buttonExport.text")); // NOI18N
         buttonExport.setEnabled(false);
         buttonExport.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +241,7 @@ public class KeywordExportDialog extends Dialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboBoxExporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)))
+                            .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonChooseFile)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

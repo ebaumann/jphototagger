@@ -20,10 +20,13 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
+import java.awt.Container;
 import java.io.File;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileSystemView;
@@ -47,7 +50,14 @@ public class ImportImageFilesDialog extends Dialog {
     public ImportImageFilesDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setHelpPages();
         init();
+        MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void setHelpPages() {
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.ImportImageFiles"));
     }
 
     private void init() {
@@ -182,7 +192,7 @@ public class ImportImageFilesDialog extends Dialog {
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         setTitle(bundle.getString("ImportImageFilesDialog.title")); // NOI18N
 

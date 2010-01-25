@@ -91,14 +91,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="1">
                           <Component id="labelFilePrompt" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="258" max="32767" attributes="0"/>
+                          <EmptySpace pref="314" max="32767" attributes="0"/>
                           <Component id="buttonChooseFile" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="labelFile" alignment="0" pref="431" max="32767" attributes="0"/>
+                      <Component id="labelFile" alignment="0" pref="533" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelAlias" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldAlias" pref="354" max="32767" attributes="0"/>
+                          <Component id="textFieldAlias" pref="416" max="32767" attributes="0"/>
                       </Group>
                       <Component id="checkBoxChangeFile" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -159,6 +159,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelAlias">
           <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="textFieldAlias"/>
+            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelAlias.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -203,11 +206,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonInfoUsePattern" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="scrollPaneParametersBeforeFilename" alignment="0" pref="431" max="32767" attributes="2"/>
+                      <Component id="scrollPaneParametersBeforeFilename" alignment="0" pref="533" max="32767" attributes="2"/>
                       <Component id="labelParametersBeforeFilename" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="labelParametersAfterFilename" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneParametersAfterFilename" alignment="1" pref="431" max="32767" attributes="2"/>
-                      <Component id="scrollPaneUsePattern" alignment="0" pref="431" max="32767" attributes="2"/>
+                      <Component id="scrollPaneParametersAfterFilename" alignment="1" pref="533" max="32767" attributes="2"/>
+                      <Component id="scrollPaneUsePattern" alignment="0" pref="533" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -238,6 +241,9 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labelParametersBeforeFilename">
           <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="textAreaParametersBeforeFilename"/>
+            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelParametersBeforeFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -264,6 +270,9 @@
         </Container>
         <Component class="javax.swing.JLabel" name="labelParametersAfterFilename">
           <Properties>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="textAreaParametersAfterFilename"/>
+            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelParametersAfterFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -349,7 +358,7 @@
                       <Component id="checkBoxInputBeforeExecute" linkSize="3" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxInputBeforeExecutePerFile" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                  <EmptySpace pref="84" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -405,7 +414,7 @@
                       <Component id="radioButtonSingleFileProcessingYes" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="radioButtonSingleFileProcessingNo" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="98" max="32767" attributes="0"/>
+                  <EmptySpace pref="89" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

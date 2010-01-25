@@ -23,8 +23,10 @@ import de.elmar_baumann.jpt.importer.KeywordImporter;
 import de.elmar_baumann.jpt.model.ComboBoxModelKeywordImporters;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
+import java.awt.Container;
 import java.io.File;
 import javax.swing.JFileChooser;
 
@@ -46,7 +48,13 @@ public class KeywordImportDialog extends Dialog {
     public KeywordImportDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setHelpPages();
+        MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void setHelpPages() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.KeywordImportDialog"));
     }
 
     /**
@@ -82,11 +90,6 @@ public class KeywordImportDialog extends Dialog {
             writeProperties();
         }
         super.setVisible(visible);
-    }
-
-    @Override
-    protected void help() {
-        help(Bundle.getString("Help.Url.KeywordImportDialog"));
     }
 
     /**
@@ -179,6 +182,7 @@ public class KeywordImportDialog extends Dialog {
             }
         });
 
+        labelFormat.setLabelFor(comboBoxImporter);
         labelFormat.setText(Bundle.getString("KeywordImportDialog.labelFormat.text")); // NOI18N
 
         comboBoxImporter.setModel(comboBoxModelImporter);
@@ -188,7 +192,6 @@ public class KeywordImportDialog extends Dialog {
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
 
-        buttonChooseFile.setMnemonic('d');
         buttonChooseFile.setText(Bundle.getString("KeywordImportDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +199,6 @@ public class KeywordImportDialog extends Dialog {
             }
         });
 
-        buttonCancel.setMnemonic('a');
         buttonCancel.setText(Bundle.getString("KeywordImportDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +207,6 @@ public class KeywordImportDialog extends Dialog {
         });
 
         buttonImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_import.png"))); // NOI18N
-        buttonImport.setMnemonic('i');
         buttonImport.setText(Bundle.getString("KeywordImportDialog.buttonImport.text")); // NOI18N
         buttonImport.setEnabled(false);
         buttonImport.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +229,7 @@ public class KeywordImportDialog extends Dialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboBoxImporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)))
+                            .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonChooseFile)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

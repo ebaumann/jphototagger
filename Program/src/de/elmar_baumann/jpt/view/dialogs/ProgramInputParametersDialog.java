@@ -21,7 +21,9 @@ package de.elmar_baumann.jpt.view.dialogs;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
+import java.awt.Container;
 
 /**
  *
@@ -35,6 +37,7 @@ public final class ProgramInputParametersDialog extends Dialog {
     public ProgramInputParametersDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     public void setProgram(String program) {
@@ -101,13 +104,13 @@ public final class ProgramInputParametersDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("ProgramInputParametersDialog.title"));
+        setTitle(Bundle.getString("ProgramInputParametersDialog.title")); // NOI18N
 
-        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramInputParametersDialog.panelContext.border.title")));
+        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
 
-        labelContextProgramPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text"));
+        labelContextProgramPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
 
-        labelContextFilePrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text"));
+        labelContextFilePrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
 
         javax.swing.GroupLayout panelContextLayout = new javax.swing.GroupLayout(panelContext);
         panelContext.setLayout(panelContextLayout);
@@ -141,31 +144,28 @@ public final class ProgramInputParametersDialog extends Dialog {
 
         panelContextLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelContextFile, labelContextFilePrompt});
 
-        labelPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelPrompt.text"));
+        labelPrompt.setLabelFor(textAreaParameter);
+        labelPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
 
         textAreaParameter.setColumns(20);
         textAreaParameter.setRows(2);
         scrollPaneAreaParameter.setViewportView(textAreaParameter);
 
         buttonGroup.add(radioButtonParametersBeforeFilename);
-        radioButtonParametersBeforeFilename.setMnemonic('v');
         radioButtonParametersBeforeFilename.setSelected(true);
-        radioButtonParametersBeforeFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text"));
+        radioButtonParametersBeforeFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
 
         buttonGroup.add(radioButtonParametersAfterFilename);
-        radioButtonParametersAfterFilename.setMnemonic('n');
-        radioButtonParametersAfterFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text"));
+        radioButtonParametersAfterFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
 
-        buttonCancel.setMnemonic('a');
-        buttonCancel.setText(Bundle.getString("ProgramInputParametersDialog.buttonCancel.text"));
+        buttonCancel.setText(Bundle.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
 
-        buttonOk.setMnemonic('o');
-        buttonOk.setText(Bundle.getString("ProgramInputParametersDialog.buttonOk.text"));
+        buttonOk.setText(Bundle.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
@@ -182,7 +182,7 @@ public final class ProgramInputParametersDialog extends Dialog {
                     .addComponent(radioButtonParametersBeforeFilename)
                     .addComponent(panelContext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelPrompt)
-                    .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                    .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                     .addComponent(radioButtonParametersAfterFilename)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonCancel)

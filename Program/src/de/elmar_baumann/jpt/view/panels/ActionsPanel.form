@@ -15,7 +15,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,48,0,0,1,-123"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,48,0,0,1,-93"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
@@ -98,7 +98,6 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="buttonDelete">
           <Properties>
-            <Property name="mnemonic" type="int" value="108"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -113,7 +112,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonEdit">
           <Properties>
-            <Property name="mnemonic" type="int" value="98"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonEdit.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -128,7 +126,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonNew">
           <Properties>
-            <Property name="mnemonic" type="int" value="110"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonNew.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -142,7 +139,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonExecute">
           <Properties>
-            <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonExecute.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>

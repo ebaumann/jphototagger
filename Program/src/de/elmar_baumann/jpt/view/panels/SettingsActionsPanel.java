@@ -28,6 +28,8 @@ import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.view.dialogs.ActionsDialog;
 import de.elmar_baumann.jpt.view.dialogs.ProgramSelectDialog;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -49,8 +51,8 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
-        listActionsAfterDatabaseInsertion.getSelectionModel().
-                addListSelectionListener(this);
+        listActionsAfterDatabaseInsertion.getSelectionModel().addListSelectionListener(this);
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void setButtonsEnabled() {
@@ -235,16 +237,13 @@ public class SettingsActionsPanel extends javax.swing.JPanel
                     .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp)
                     .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteAlways)
                     .addGroup(panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
-                        .addComponent(scrollPaneActionsAfterDatabaseInsertion, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                        .addComponent(scrollPaneActionsAfterDatabaseInsertion, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelActionsAfterDatabaseInsertionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelActionsAfterDatabaseInsertionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(buttonActionsAfterDatabaseInsertionRemove)
-                                .addGroup(panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(panelActionsAfterDatabaseInsertionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(buttonActionsAfterDatabaseInsertionMoveUp)
-                                        .addComponent(buttonActionsAfterDatabaseInsertionMoveDown)))
+                                .addComponent(buttonActionsAfterDatabaseInsertionMoveUp)
+                                .addComponent(buttonActionsAfterDatabaseInsertionMoveDown)
                                 .addComponent(buttonActionsAfterDatabaseInsertionAdd))
                             .addComponent(buttonActionsAfterDatabaseInsertionEdit))))
                 .addContainerGap())
@@ -255,13 +254,9 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         panelActionsAfterDatabaseInsertionLayout.setVerticalGroup(
             panelActionsAfterDatabaseInsertionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addGroup(panelActionsAfterDatabaseInsertionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
-                        .addComponent(scrollPaneActionsAfterDatabaseInsertion, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteAlways)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp))
+                    .addComponent(scrollPaneActionsAfterDatabaseInsertion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                     .addGroup(panelActionsAfterDatabaseInsertionLayout.createSequentialGroup()
                         .addComponent(buttonActionsAfterDatabaseInsertionMoveUp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -272,6 +267,10 @@ public class SettingsActionsPanel extends javax.swing.JPanel
                         .addComponent(buttonActionsAfterDatabaseInsertionRemove)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonActionsAfterDatabaseInsertionEdit)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteAlways)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmp)
                 .addContainerGap())
         );
 

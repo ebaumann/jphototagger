@@ -33,6 +33,8 @@ import de.elmar_baumann.jpt.model.ListModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.dialogs.RenameFilenamesInDbDialog;
 import de.elmar_baumann.lib.componentutil.ListUtil;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -64,6 +66,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
             toggleButtonRefreshXmp,
             toggleButtonExifDateToXmpDateCreated,
         };
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private synchronized void updateThumbnails() {
@@ -214,6 +217,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         labelRefreshExif.setText(bundle.getString("DatabaseUpdatePanel.labelRefreshExif.text")); // NOI18N
 
         toggleButtonRefreshExif.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonRefreshExif.text")); // NOI18N
+        toggleButtonRefreshExif.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshExif.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonRefreshExifActionPerformed(evt);
@@ -224,6 +228,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         labelRefreshXmp.setText(bundle.getString("DatabaseUpdatePanel.labelRefreshXmp.text")); // NOI18N
 
         toggleButtonRefreshXmp.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text")); // NOI18N
+        toggleButtonRefreshXmp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonRefreshXmpActionPerformed(evt);
@@ -234,6 +239,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         labelUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
 
         buttonUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
+        buttonUpdateThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonUpdateThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateThumbnailsActionPerformed(evt);
@@ -244,6 +250,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         labelRenameFiles.setText(bundle.getString("DatabaseUpdatePanel.labelRenameFiles.text")); // NOI18N
 
         buttonRenameFiles.setText(bundle.getString("DatabaseUpdatePanel.buttonRenameFiles.text")); // NOI18N
+        buttonRenameFiles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonRenameFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameFilesActionPerformed(evt);
@@ -254,6 +261,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         labelCopyKeywordsToKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.labelCopyKeywordsToKeywordsTree.text")); // NOI18N
 
         buttonCopyKeywordsToKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text")); // NOI18N
+        buttonCopyKeywordsToKeywordsTree.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonCopyKeywordsToKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopyKeywordsToKeywordsTreeActionPerformed(evt);
@@ -263,6 +271,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         labelExifDateToXmpDateCreated.setText(bundle.getString("DatabaseUpdatePanel.labelExifDateToXmpDateCreated.text")); // NOI18N
 
         toggleButtonExifDateToXmpDateCreated.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text")); // NOI18N
+        toggleButtonExifDateToXmpDateCreated.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonExifDateToXmpDateCreated.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonExifDateToXmpDateCreatedActionPerformed(evt);
@@ -276,7 +285,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelRefreshExif)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -299,7 +308,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                         .addComponent(buttonCopyKeywordsToKeywordsTree))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelExifDateToXmpDateCreated)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                         .addComponent(toggleButtonExifDateToXmpDateCreated)))
                 .addContainerGap())
         );

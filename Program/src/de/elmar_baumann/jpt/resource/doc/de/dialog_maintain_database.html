@@ -2,43 +2,53 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
-        <title>Menübefehl: Datei &gt; Datenbank</title>
+        <title>Datenbankinformationen und -Wartung</title>
         <meta name="author" content="Elmar Baumann" />
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     </head>
     <body>
 
-        <h1>Menübefehl: Datei &gt; Datenbank</h1>
+        <h1>Datenbankinformationen und -Wartung</h1>
 
-        <p>Dieser Menübefehl öffnet einen Dialog mit Informationen über die
-            Datenbank und Möglichkeiten zur Wartung.
-        </p>
-
-        <h2>Kartenreiter <q>Info</q></h2>
+        <h2>Kartenreiter &quot;Info&quot;</h2>
 
         <p>Auf dem <strong>Info</strong>-Kartenreiter sehen Sie, welche Daten
-            enthalten sind in wie vielen Datensätzen. Die Spalte
-            <strong>Was</strong> zeigt die Art der Daten an, die
-            Spalte <strong>Unterschiedliche</strong>, wie viele unterschiedliche
-            Daten dieser Art es gibt und die Spalte <strong>Insgesamt</strong>,
-            in wievielen Datensätzen Daten dieser Art enthalten sind.
-            Beispielsweise könnten Stichwörter in 1.000 Datensätzen gespeichert
-            sein, aber es gibt nur 50 unterschiedliche Stichwörter, falls
-            mehrere Bilder gleichen Stichwörtern zugeordnet sind, was praktisch
-            immer der Fall ist (sofern Sie Stichwörter benutzen).
+            enthalten sind in wie vielen Datensätzen.</p>
+
+        <ul>
+            <li>Spalte <strong>Was</strong>: Art der Daten
+            </li>
+            <li>Spalte <strong>Unterschiedliche</strong>: Wie viele
+                unterschiedliche Daten dieser Art gibt es?
+            </li>
+            <li>Spalte <strong>Insgesamt</strong>: In wievielen Datensätzen sind
+                Daten dieser Art enthalten?
+            </li>
+        </ul>
+
+        <p>Warum unterscheiden sich die Anzahlen von &quot;Unterschiedliche&quot;
+            und &quot;Insgesamt&quot;? Beispielsweise könnten Stichwörter in
+            1.000 Datensätzen gespeichert sein, aber es gibt nur 50
+            unterschiedliche Stichwörter, falls mehrere Bilder gleichen
+            Stichwörtern zugeordnet sind, was praktisch immer der Fall ist
+            (sofern Sie Stichwörter benutzen).
         </p>
 
-        <p>Die <strong>Anzahl aller Bilder</strong> in der Datenbank stehen
-            neben dem Dateinamen.
+        <p>Wollen Sie wissen, wie viele Bilder in der Datenbank erfasst sind,
+            schauen Sie in die Zeile mit dem Dateinamen.
         </p>
 
-        <h2>Kartenreiter <q>Wartung</q></h2>
+        <h2>Kartenreiter &quot;Wartung&quot;</h2>
 
-        <p>Der Kartenreiter Wartung bietet an, <strong>Datensätze zu
-            entfernen</strong>, für die es keine Bilder mehr gibt. Das ist
-            sinnvoll, sonst werden bei Suchen nicht mehr existierende Bilder
-            berücksichtigt.
+        <h3>Datensätze mit nicht mehr existierenden Dateien entfernen, XMP für
+            nicht mehr existierende Filialdateien entfernen</h3>
+
+        <p>Entfernt Datensätze, für die es keine Bilder mehr gibt. Sind Bilder
+            in der Datenbank, aber existieren nicht mehr als Datei, werden bei
+            Suchen nicht mehr existierende Bilder berücksichtigt.
         </p>
+
+        <h3>Datenbank komprimieren</h3>
 
         <p>Das <strong>Komprimieren</strong> der Datenbank verkleinert ihre
             Dateigröße. Dies ist in der Regel nicht nötig, kann aber sinnvoll
@@ -47,6 +57,8 @@
             haben.
         </p>
 
+        <h3>Verwaiste Vorschaubilder löschen</h3>
+
         <p><strong>Verwaiste Vorschaubilder löschen</strong> entfernt
             Vorschaubilder, für die keine Bilddateien in der Datenbank
             existieren. Das kann der Fall sein, falls Sie außerhalb
@@ -54,7 +66,7 @@
             geben Sie auf der Festplatte nicht benötigten Speicherplatz frei.
         </p>
 
-        <h2>Kartenreiter <q>Aktualisieren</q></h2>
+        <h2>Kartenreiter &quot;Aktualisieren&quot;</h2>
 
         <h3>EXIF neu einlesen aus allen bekannten Dateien</h3>
 
@@ -99,10 +111,10 @@
         <p>Kopiert alle Stichwörter in den Stichwortbaum unterhalb dessen Wurzel,
             falls diese dort noch nicht existieren. Dies kann sinnvoll sein,
             falls Sie mit einer älteren Version von
-            <strong>JPhotoTagger</strong> über den
-            <a href="mainwindow_panel_edit.html">Kartenreiter Bearbeiten</a> den
-            Bildern Stichwörter vergaben; diese wurden nicht automatisch
-            in den Stichwortbaum übertragen.
+            <strong>JPhotoTagger</strong> über den Kartenreiter
+            <a href="mainwindow_panel_edit.html">Bearbeiten</a> den Bildern
+            Stichwörter vergaben; diese wurden nicht automatisch in den
+            Stichwortbaum übertragen.
         </p>
 
         <h3>EXIF-Daten übertragen nach XMP</h3>

@@ -64,7 +64,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="549" max="32767" attributes="2"/>
+                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="567" max="32767" attributes="2"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelMaxThumbnailWidth" min="-2" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -95,6 +95,9 @@
         <Component class="javax.swing.JLabel" name="labelMaxThumbnailWidth">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="spinnerMaxThumbnailWidth"/>
+            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.labelMaxThumbnailWidth.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -112,7 +115,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonUpdateAllThumbnails">
           <Properties>
-            <Property name="mnemonic" type="int" value="110"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.buttonUpdateAllThumbnails.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -161,7 +163,7 @@
                       <Component id="radioButtonUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="radioButtonCreateThumbnailsWithExternalApp" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="141" max="32767" attributes="0"/>
+                  <EmptySpace pref="150" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -251,8 +253,8 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelIsCreateThumbnailsWithExternalApp" pref="549" max="32767" attributes="2"/>
-                      <Component id="textFieldExternalThumbnailCreationCommand" alignment="1" pref="549" max="32767" attributes="2"/>
+                      <Component id="labelIsCreateThumbnailsWithExternalApp" pref="567" max="32767" attributes="2"/>
+                      <Component id="textFieldExternalThumbnailCreationCommand" alignment="1" pref="567" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -273,6 +275,9 @@
         <Component class="javax.swing.JLabel" name="labelIsCreateThumbnailsWithExternalApp">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="textFieldExternalThumbnailCreationCommand"/>
+            </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>

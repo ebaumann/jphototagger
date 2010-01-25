@@ -26,6 +26,8 @@ import de.elmar_baumann.jpt.model.ListModelSelectedColumns;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.component.CheckList;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel implement
         list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         list.addActionListener(this);
         scrollPane.setViewportView(list);
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     @Override
@@ -81,7 +84,8 @@ public final class SettingsEditColumnsPanel extends javax.swing.JPanel implement
         labelPrompt = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
 
-        labelPrompt.setText(Bundle.getString("SettingsEditColumnsPanel.labelPrompt.text"));
+        labelPrompt.setLabelFor(scrollPane);
+        labelPrompt.setText(Bundle.getString("SettingsEditColumnsPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setPreferredSize(new java.awt.Dimension(560, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

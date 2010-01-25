@@ -26,7 +26,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererPrograms;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 
 /**
@@ -52,6 +54,7 @@ public class ProgramSelectDialog extends Dialog {
         this.type = type;
         model = new ListModelPrograms(type);
         initComponents();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     /**

@@ -54,6 +54,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelSelectImageCollection">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="listImageCollectionNames"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ImageCollectionsDialog.labelSelectImageCollection.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -84,7 +87,6 @@
     </Container>
     <Component class="javax.swing.JButton" name="buttonOk">
       <Properties>
-        <Property name="mnemonic" type="int" value="111"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ImageCollectionsDialog.buttonOk.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

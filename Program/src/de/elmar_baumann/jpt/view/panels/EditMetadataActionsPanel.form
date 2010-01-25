@@ -17,7 +17,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabbedPane" alignment="0" pref="247" max="32767" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -59,9 +59,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelPromptInfoCurrentTemplate" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelTemplateName" max="32767" attributes="0"/>
+                              <Component id="labelTemplateName" pref="168" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="labelMetadataInfoEditable" alignment="1" pref="218" max="32767" attributes="0"/>
+                          <Component id="labelMetadataInfoEditable" alignment="1" pref="224" max="32767" attributes="0"/>
                           <Component id="buttonMetadataTemplateCreate" alignment="0" min="-2" max="-2" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -103,7 +103,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonEmptyMetadata">
               <Properties>
-                <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonEmptyMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -121,7 +120,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateCreate">
               <Properties>
-                <Property name="mnemonic" type="int" value="118"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateCreate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -139,7 +137,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateInsert">
               <Properties>
-                <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateInsert.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -192,7 +189,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labelPromptCurrentTemplate" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboBoxMetadataTemplates" alignment="1" pref="218" max="32767" attributes="2"/>
+                          <Component id="comboBoxMetadataTemplates" alignment="1" pref="224" max="32767" attributes="2"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="buttonMetadataTemplateRename" linkSize="1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -247,7 +244,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateRename">
               <Properties>
-                <Property name="mnemonic" type="int" value="109"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -265,7 +261,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateUpdate">
               <Properties>
-                <Property name="mnemonic" type="int" value="97"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateUpdate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -283,7 +278,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateDelete">
               <Properties>
-                <Property name="mnemonic" type="int" value="246"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -301,7 +295,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateEdit">
               <Properties>
-                <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateEdit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -313,6 +306,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="labelPromptCurrentTemplate">
               <Properties>
+                <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="comboBoxMetadataTemplates"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelPromptCurrentTemplate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>

@@ -40,19 +40,19 @@ public class RenameFilenamesInDbDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPages();
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
+    }
+
+    private void setHelpPages() {
+        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.RenameFilenamesInDbDialog"));
     }
 
     private void checkClosing() {
         if (!panelDbFilenameReplace.runs()) {
             setVisible(false);
         }
-    }
-
-    @Override
-    protected void help() {
-        help(Bundle.getString("Help.Url.RenameFilenamesInDbDialog"));
     }
 
     @Override

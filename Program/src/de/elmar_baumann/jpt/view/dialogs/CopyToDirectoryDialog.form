@@ -41,19 +41,19 @@
                   <Component id="radioButtonForceOverwrite" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelTargetDirectory" alignment="0" pref="514" max="32767" attributes="2"/>
+                  <Component id="labelTargetDirectory" alignment="0" pref="515" max="32767" attributes="2"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelInfoCurrentFilename" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelCurrentFilename" pref="416" max="32767" attributes="0"/>
+                      <Component id="labelCurrentFilename" pref="417" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="progressBar" alignment="0" pref="514" max="32767" attributes="2"/>
+                  <Component id="progressBar" alignment="0" pref="515" max="32767" attributes="2"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoIsThread" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="61" max="32767" attributes="0"/>
+                      <EmptySpace pref="44" max="32767" attributes="0"/>
                       <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
@@ -107,7 +107,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseDirectory">
       <Properties>
-        <Property name="mnemonic" type="int" value="97"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.buttonChooseDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -147,7 +146,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxCopyXmp">
       <Properties>
-        <Property name="mnemonic" type="int" value="120"/>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.checkBoxCopyXmp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
@@ -182,7 +180,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonStop">
       <Properties>
-        <Property name="mnemonic" type="int" value="111"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.buttonStop.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -194,7 +191,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonStart">
       <Properties>
-        <Property name="mnemonic" type="int" value="115"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.buttonStart.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

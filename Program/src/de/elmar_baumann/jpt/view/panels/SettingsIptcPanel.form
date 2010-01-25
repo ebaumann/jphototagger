@@ -42,6 +42,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelIptcCharset">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="comboBoxIptcCharset"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsIptcPanel.labelIptcCharset.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

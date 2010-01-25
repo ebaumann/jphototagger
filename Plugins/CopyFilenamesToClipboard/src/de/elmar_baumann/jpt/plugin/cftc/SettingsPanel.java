@@ -125,6 +125,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         label = new javax.swing.JLabel();
         comboBoxDelimiter = new javax.swing.JComboBox();
 
+        label.setDisplayedMnemonic('t');
+        label.setLabelFor(comboBoxDelimiter);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/cftc/Bundle"); // NOI18N
         label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
 

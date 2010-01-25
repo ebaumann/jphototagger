@@ -70,6 +70,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelPromptFavoriteName">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="textFieldFavoriteName"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="FavoritePropertiesDialog.labelPromptFavoriteName.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -84,7 +87,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseDirectory">
       <Properties>
-        <Property name="mnemonic" type="int" value="97"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="FavoritePropertiesDialog.buttonChooseDirectory.text_1" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -104,7 +106,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
-        <Property name="mnemonic" type="int" value="98"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="FavoritePropertiesDialog.buttonCancel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -115,7 +116,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonOk">
       <Properties>
-        <Property name="mnemonic" type="int" value="111"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="FavoritePropertiesDialog.buttonOk.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>

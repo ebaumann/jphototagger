@@ -33,11 +33,13 @@ import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.helper.CopyFiles.Options;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.util.Settings;
+import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,7 +67,13 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     public CopyToDirectoryDialog() {
         super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setHelpPages();
+        MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void setHelpPages() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.CopyToDirectoryDialog"));
     }
 
     public void addProgressListener(ProgressListener listener) {
@@ -345,11 +353,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     @Override
-    protected void help() {
-        help(Bundle.getString("Help.Url.CopyToDirectoryDialog"));
-    }
-
-    @Override
     protected void escape() {
         checkClosing();
     }
@@ -392,7 +395,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
         labelInfo.setText(Bundle.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
 
-        buttonChooseDirectory.setMnemonic('a');
         buttonChooseDirectory.setText(Bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -409,7 +411,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         buttonGroupFileExists.add(radioButtonRenameIfTargetFileExists);
         radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
 
-        checkBoxCopyXmp.setMnemonic('x');
         checkBoxCopyXmp.setSelected(true);
         checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
 
@@ -420,7 +421,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
         labelInfoIsThread.setText(Bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
 
-        buttonStop.setMnemonic('o');
         buttonStop.setText(Bundle.getString("CopyToDirectoryDialog.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
@@ -429,7 +429,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
 
-        buttonStart.setMnemonic('s');
         buttonStart.setText(Bundle.getString("CopyToDirectoryDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
@@ -450,17 +449,17 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                     .addComponent(radioButtonForceOverwrite)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonChooseDirectory))
-                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoIsThread)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addComponent(buttonStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStart)))

@@ -21,6 +21,8 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Persistence;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 
 /**
  *
@@ -33,6 +35,7 @@ public final class SettingsIptcPanel extends javax.swing.JPanel implements Persi
 
     public SettingsIptcPanel() {
         initComponents();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void handleActionComboBoxIptcCharset() {
@@ -60,7 +63,8 @@ public final class SettingsIptcPanel extends javax.swing.JPanel implements Persi
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox();
 
-        labelIptcCharset.setText(Bundle.getString("SettingsIptcPanel.labelIptcCharset.text"));
+        labelIptcCharset.setLabelFor(comboBoxIptcCharset);
+        labelIptcCharset.setText(Bundle.getString("SettingsIptcPanel.labelIptcCharset.text")); // NOI18N
 
         comboBoxIptcCharset.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISO-8859-1", "UTF-8" }));
         comboBoxIptcCharset.addActionListener(new java.awt.event.ActionListener() {

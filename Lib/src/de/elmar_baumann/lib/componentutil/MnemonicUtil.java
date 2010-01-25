@@ -18,9 +18,16 @@
  */
 package de.elmar_baumann.lib.componentutil;
 
+import de.elmar_baumann.lib.generics.Pair;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.AbstractButton;
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
 
 /**
  *
@@ -87,6 +94,172 @@ public final class MnemonicUtil {
 
     public static boolean isInRange(char c) {
         return MNEMONIC_OF_CHAR.containsKey(c);
+    }
+
+    /**
+     * Returns a mnemonic of a masked string.
+     *
+     * The mask is the first ampersand (&amp;), the mnemonic is the character
+     * behind the ampersand.
+     *
+     * <em>The valid range of mnemonic characters is [A-Za-z0-9]</em>.
+     *
+     * @param   string masked string or string without an ampersand
+     * @return         The first object of the pair is the mnemonic or -1 if the
+     *                 string does not contain an ampersand or the mnemonic
+     *                 character is invalid. The second object of the pair is
+     *                 the string without the mask, or the string itself if the
+     *                 first object is -1.
+     * @throws NullPointerException if <code>string</code> is null
+     */
+    public static Pair<Integer, String> getMnemonic(String string) {
+
+        if (string == null) throw new NullPointerException("string == null");
+
+        Pair<Integer, String> noMnemonicPair = new Pair<Integer, String>(-1, string);
+        
+        if (string.length() < 2) return noMnemonicPair;
+
+        int strlen         = string.length();
+        int ampersandIndex = string.indexOf('&');
+
+        if (ampersandIndex < 0) return noMnemonicPair;
+        if (strlen < 2 || ampersandIndex < 0 || ampersandIndex > strlen - 2) return noMnemonicPair;
+
+        char    mnemonicChar = string.substring(ampersandIndex + 1, ampersandIndex + 2).toUpperCase().charAt(0);
+        boolean isInRange    = MnemonicUtil.isInRange(mnemonicChar);
+
+        assert isInRange : "Not in Range: " + mnemonicChar + " of " + string;
+
+        if (isInRange) {
+            int    mnemonic     = MnemonicUtil.getMnemonicOf(mnemonicChar);
+            String titlePrefix  = ampersandIndex == 0          ? "" : string.substring(0, ampersandIndex);
+            String titlePostfix = ampersandIndex == strlen - 1 ? "" : string.substring(ampersandIndex + 1);
+
+            return new Pair<Integer, String>(mnemonic, titlePrefix + titlePostfix);
+        }
+        return noMnemonicPair;
+    }
+
+    /**
+     * Returns from a string the first not existing mnemonic character.
+     * 
+     * @param  string                   string
+     * @param  existingMnemonicChars    existing mnemonic chars
+     * @return                          not existing valid mnemonic character in
+     *                                  <code>string</code> but not in
+     *                                  <code>existingMnemonicChars</code> or
+     *                                  <code>'#'</code> if no mnemonic
+     *                                  character was found
+     * @throws NullPointerException     if <code>string</code> or
+     *                                  <strong>existingMnemonicChars</strong>
+     *                                   is null
+     * @throws IllegalArgumentException if the string is empty
+     */
+    public static char getNotExistingMnemonicChar(
+            String string, Collection<? extends Character> existingMnemonicChars) {
+
+        if (string == null)                throw new NullPointerException("string == null");
+        if (existingMnemonicChars == null) throw new NullPointerException("existingMnemonicChars == null");
+        if (string.isEmpty())              throw new IllegalArgumentException("Empty string!");
+
+        int     len       = string.length();
+        int     index     = 0;
+        boolean doesExist = true;
+        boolean inRange   = false;
+        char    mnemonic  = '#';
+
+        while ((!inRange || doesExist) && index < len) {
+            mnemonic = string.substring(index, index + 1).toUpperCase().charAt(0);
+            doesExist = existingMnemonicChars.contains(mnemonic);
+            inRange   = MnemonicUtil.isInRange(mnemonic);
+            index++;
+        }
+
+        return mnemonic;
+    }
+
+    /**
+     * Sets as mnemonic every character in all components of a container after
+     * the first ampersand (&amp;):
+     *
+     * <ul>
+     * <li>{@link JLabel#setDisplayedMnemonic(int)} (Do not forget to call
+     *     {@link JLabel#setLabelFor(java.awt.Component)})
+     * </li>
+     * <li>{@link AbstractButton#setMnemonic(int)}</li>
+     * <li>{@link JTabbedPane#setMnemonicAt(int, int)}</li>
+     * </ul>
+     *
+     * <em>The valid range of mnemonic characters is [A-Za-z0-9]</em>.
+     *
+     * @param container container. All components of this container will
+     *                  gathered recursively.
+     *
+     * @throws NullPointerException if <code>component</code> is null
+     */
+    public static void setMnemonics(Container container) {
+        int count  = container.getComponentCount();
+
+        setMnemonics((Component)container);
+        for (int i = 0; i < count; i++) {
+            Component component = container.getComponent(i);
+
+            setMnemonics(component);
+
+            if (component instanceof Container) {
+                setMnemonics((Container) component); // Recursive
+            }
+        }
+    }
+
+    /**
+     * Sets as mnemonic every character in a (<em>one</em>) component after
+     * the first ampersand (&amp;):
+     *
+     * <ul>
+     * <li>{@link JLabel#setDisplayedMnemonic(int)} (Do not forget to call
+     *     {@link JLabel#setLabelFor(java.awt.Component)})
+     * </li>
+     * <li>{@link AbstractButton#setMnemonic(int)}</li>
+     * <li>{@link JTabbedPane#setMnemonicAt(int, int)}</li>
+     * </ul>
+     *
+     * <em>The valid range of mnemonic characters is [A-Za-z0-9]</em>.
+     *
+     * @param component component
+     *
+     * @throws NullPointerException if <code>component</code> is null
+     */
+    public static void setMnemonics(Component component) {
+        Pair<Integer, String> mnPair = null;
+        if (component instanceof JLabel) {
+            JLabel label = (JLabel) component;
+            String text  = label.getText();
+            if (text != null) {
+                mnPair = getMnemonic(text);
+                if (hasMnemonic(mnPair)) {
+                    label.setText(mnPair.getSecond());
+                    label.setDisplayedMnemonic(mnPair.getFirst());
+                }
+            }
+        } else if (component instanceof AbstractButton) {
+            AbstractButton button = (AbstractButton) component;
+            String  text   = button.getText();
+            if (text != null) {
+                mnPair = getMnemonic(text);
+                if (hasMnemonic(mnPair)) {
+                    button.setText(mnPair.getSecond());
+                    button.setMnemonic(mnPair.getFirst());
+                }
+            }
+        } else if (component instanceof JTabbedPane) {
+            TabbedPaneUtil.setMnemonics((JTabbedPane) component);
+        }
+    }
+
+    private static boolean hasMnemonic(Pair<Integer, String> p) {
+        return MNEMONIC_OF_CHAR.containsValue(p.getFirst());
     }
 
     private MnemonicUtil() {

@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.TabbedPaneUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 
 /**
@@ -37,7 +38,13 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     private DatabaseMaintainanceDialog() {
         super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setHelpPages();
+        TabbedPaneUtil.setMnemonics(tabbedPane);
+    }
+
+    private void setHelpPages() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.DatabaseMaintainanceDialog"));
     }
 
     @Override
@@ -61,11 +68,6 @@ public final class DatabaseMaintainanceDialog extends Dialog {
                     this,
                     "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
         }
-    }
-
-    @Override
-    protected void help() {
-        help(Bundle.getString("Help.Url.DatabaseMaintainanceDialog"));
     }
 
     @Override

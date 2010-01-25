@@ -24,7 +24,9 @@ import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererImageCollections;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 import javax.swing.ListModel;
 
@@ -42,7 +44,13 @@ public final class ImageCollectionsDialog extends Dialog {
     public ImageCollectionsDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setHelpPages();
+        MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void setHelpPages() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpPageUrl(Bundle.getString("Help.Url.ImageCollectionsDialog"));
     }
 
     public boolean isCollectionSelected() {
@@ -72,11 +80,6 @@ public final class ImageCollectionsDialog extends Dialog {
     }
 
     @Override
-    protected void help() {
-        help(Bundle.getString("Help.Url.ImageCollectionsDialog"));
-    }
-
-    @Override
     protected void escape() {
         setVisible(false);
     }
@@ -98,6 +101,7 @@ public final class ImageCollectionsDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString("ImageCollectionsDialog.title")); // NOI18N
 
+        labelSelectImageCollection.setLabelFor(listImageCollectionNames);
         labelSelectImageCollection.setText(Bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
 
         listImageCollectionNames.setModel(ModelFactory.INSTANCE.getModel(ListModelImageCollections.class));
@@ -110,7 +114,6 @@ public final class ImageCollectionsDialog extends Dialog {
         });
         scrollPaneImageCollectionNames.setViewportView(listImageCollectionNames);
 
-        buttonOk.setMnemonic('o');
         buttonOk.setText(Bundle.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

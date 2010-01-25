@@ -32,7 +32,7 @@
         <Container class="javax.swing.JPanel" name="panelKeywords">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Stichwortkombinationen">
+              <JTabbedPaneConstraints tabName="S&amp;tichwortkombinationen">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -46,7 +46,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelKeywordsInput" alignment="0" pref="579" max="32767" attributes="0"/>
+                          <Component id="panelKeywordsInput" alignment="0" pref="575" max="32767" attributes="0"/>
                           <Component id="labelInfoKeywords" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -59,7 +59,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoKeywords" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelKeywordsInput" pref="155" max="32767" attributes="0"/>
+                      <Component id="panelKeywordsInput" pref="148" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -83,7 +83,7 @@
         <Container class="javax.swing.JPanel" name="panelSimpleSql">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Einfaches SQL">
+              <JTabbedPaneConstraints tabName="Einfaches SQ&amp;L">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -97,10 +97,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneColumns" alignment="1" pref="579" max="32767" attributes="0"/>
+                          <Component id="scrollPaneColumns" alignment="1" pref="575" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labelInfoDelete" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="161" max="32767" attributes="0"/>
+                              <EmptySpace pref="30" max="32767" attributes="0"/>
                               <Component id="buttonRemoveColumn" linkSize="1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="buttonAddColumn" linkSize="1" min="-2" max="-2" attributes="0"/>
@@ -114,7 +114,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneColumns" pref="146" max="32767" attributes="0"/>
+                      <Component id="scrollPaneColumns" pref="138" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonAddColumn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -215,7 +215,7 @@
         <Container class="javax.swing.JPanel" name="panelCustomSql">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Eigenes SQL">
+              <JTabbedPaneConstraints tabName="Eigenes S&amp;QL">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -230,10 +230,10 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="scrollPaneCustomSqlQuery" pref="579" max="32767" attributes="2"/>
+                              <Component id="scrollPaneCustomSqlQuery" pref="575" max="32767" attributes="2"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Component id="labelCustomSqlInfo" alignment="0" pref="589" max="32767" attributes="2"/>
+                          <Component id="labelCustomSqlInfo" alignment="0" pref="587" max="32767" attributes="2"/>
                       </Group>
                   </Group>
               </Group>
@@ -242,9 +242,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelCustomSqlInfo" pref="44" max="32767" attributes="0"/>
+                      <Component id="labelCustomSqlInfo" pref="41" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneCustomSqlQuery" pref="125" max="32767" attributes="0"/>
+                      <Component id="scrollPaneCustomSqlQuery" pref="122" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -253,6 +253,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labelCustomSqlInfo">
               <Properties>
+                <Property name="displayedMnemonic" type="int" value="107"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.labelCustomSqlInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -317,7 +318,6 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="buttonSaveSearch">
           <Properties>
-            <Property name="mnemonic" type="int" value="112"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -338,7 +338,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonResetColumns">
           <Properties>
-            <Property name="mnemonic" type="int" value="101"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonResetColumns.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
@@ -349,7 +348,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonSearch">
           <Properties>
-            <Property name="mnemonic" type="int" value="115"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
             </Property>
