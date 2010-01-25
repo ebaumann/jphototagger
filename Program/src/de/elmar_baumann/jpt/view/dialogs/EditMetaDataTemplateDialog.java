@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import java.awt.Container;
@@ -49,7 +50,16 @@ public class EditMetaDataTemplateDialog extends Dialog {
     public EditMetaDataTemplateDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        setMnemonics();
+    }
+
+    private void setMnemonics() {
         MnemonicUtil.setMnemonics((Container) this);
+        ViewUtil.setDisplayedMnemonicsToLabels(panelXmpEdit,
+                (char) buttonCancel.getMnemonic(),
+                (char) buttonSave.getMnemonic(),
+                (char) labelName.getDisplayedMnemonic()
+                );
     }
 
     /**

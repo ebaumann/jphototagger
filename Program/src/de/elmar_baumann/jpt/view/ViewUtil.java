@@ -20,7 +20,14 @@ package de.elmar_baumann.jpt.view;
 
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Container;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -69,14 +76,30 @@ public class ViewUtil {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
             Object userObject = node.getUserObject();
             if (userObject instanceof Favorite) {
-                Favorite favoriteDirectory =
-                        (Favorite) userObject;
+                Favorite favoriteDirectory = (Favorite) userObject;
                 return new File(favoriteDirectory.getDirectoryName());
             } else if (userObject instanceof File) {
                 return (File) userObject;
             }
         }
         return null;
+    }
+
+    public static void setDisplayedMnemonicsToLabels(Container container, Character... exclude) {
+        List<JLabel>    labels     = ComponentUtil.getAllOf(container, JLabel.class);
+        List<Character> mnemonics  = new ArrayList<Character>(labels.size());
+        final char      invalidMn  = '\0';
+
+        Collections.addAll(mnemonics, exclude);
+
+        for (JLabel label : labels) {
+            char mnemonic = MnemonicUtil.getNotExistingMnemonicChar(label.getText(), mnemonics);
+
+            if (mnemonic != invalidMn) {
+                label.setDisplayedMnemonic(mnemonic);
+                mnemonics.add(mnemonic);
+            }
+        }
     }
 
     private ViewUtil() {
