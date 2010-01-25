@@ -64,6 +64,11 @@ public final class CopyFilenamesToClipboard extends Plugin {
         return "/de/elmar_baumann/jpt/plugin/cftc/help/contents.xml";
     }
 
+    @Override
+    public String getFirstHelpPageName() {
+        return "index.html";
+    }
+
     public void actionPerformed(ActionEvent e) {
         setDelimiter();
         StringBuilder sb = new StringBuilder();
