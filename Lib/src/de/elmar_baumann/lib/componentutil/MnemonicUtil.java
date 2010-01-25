@@ -149,7 +149,7 @@ public final class MnemonicUtil {
      * @return                          not existing valid mnemonic character in
      *                                  <code>string</code> but not in
      *                                  <code>existingMnemonicChars</code> or
-     *                                  <code>'#'</code> if no mnemonic
+     *                                  <code>'\0'</code> if no mnemonic
      *                                  character was found
      * @throws NullPointerException     if <code>string</code> or
      *                                  <strong>existingMnemonicChars</strong>
@@ -167,7 +167,7 @@ public final class MnemonicUtil {
         int     index     = 0;
         boolean doesExist = true;
         boolean inRange   = false;
-        char    mnemonic  = '#';
+        char    mnemonic  = '\0';
 
         while ((!inRange || doesExist) && index < len) {
             mnemonic = string.substring(index, index + 1).toUpperCase().charAt(0);
