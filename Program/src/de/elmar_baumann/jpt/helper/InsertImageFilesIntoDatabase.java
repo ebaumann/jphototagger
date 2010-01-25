@@ -139,7 +139,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             // Notify before inserting to enable progress listeners displaying the current image filename
             notifyPerformed(index + 1, imageFilename);
 
-            if (isUpdate(imageFile)) {
+            if (checkExists(imageFilename) && isUpdate(imageFile)) {
                 setExifDateToXmpDateCreated(imageFile);
                 logInsertImageFile(imageFile);
                 db.insertOrUpdate(imageFile);
@@ -411,6 +411,14 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                 InsertImageFilesIntoDatabase.class,
                 "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished",
                 filecount);
+    }
+
+    private boolean checkExists(String imageFilename) {
+        if (!FileUtil.existsFile(imageFilename)) {
+            AppLogger.logInfo(getClass(), "InsertImageFilesIntoDatabase.Error.ImageFileDoesNotExist", imageFilename);
+            return false;
+        }
+        return true;
     }
 
     private void logInsertImageFile(ImageFile data) {
