@@ -19,6 +19,7 @@
 package de.elmar_baumann.lib.componentutil;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
@@ -96,6 +97,48 @@ public final class ComponentUtil {
         List<Frame> frames = findFramesWithIcons();
 
         return frames.size() == 0 ? null : frames.get(0);
+    }
+
+    /**
+     * Returns all elements of a specific class from a container.
+     *
+     * <em>Only elements of that class are detected, not sub- and supertyes!</em>
+     *
+     * @param <T>       class type
+     * @param container container
+     * @param clazz     class
+     * @return
+     */
+    public static <T> List<T> getAllOf(Container container, Class<T> clazz) {
+        if (container == null) throw new NullPointerException("container == null");
+        if (clazz == null)     throw new NullPointerException("clazz == null");
+
+        List<T> components = new ArrayList<T>();
+
+        addAllOf(container, clazz, components);
+
+        return components;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> void addAllOf(Container container, Class<T> clazz, List<T> all) {
+        int     count      = container.getComponentCount();
+
+        if (container.getClass().equals(clazz)) {
+            all.add((T)container);
+        }
+
+        for (int i = 0; i < count; i++) {
+            Component component = container.getComponent(i);
+
+            if (component instanceof Container) {
+                addAllOf((Container) component, clazz, all); // Recursive
+            }
+            else if (component.getClass().equals(clazz)) {
+                all.add((T) component);
+            }
+        }
+
     }
 
     private ComponentUtil() {
