@@ -211,12 +211,16 @@ public abstract class Plugin extends AbstractAction {
     }
 
     /**
-     * Returns the URL of the first help page which will be selected if the
+     * Returns the Name of the first help page which will be selected if the
      * user see calls the plugin's help.
      *
-     * @return help page URL or null. This class return null.
+     * The help page is a file in the same directory as
+     * {@link #getHelpContentsPath()}.
+     *
+     * @return help page name, e.g. <code>"index.html"</code> or null if the
+     *         plugin does not provide help. This class return null.
      */
-    public String getFirstHelpPageUrl() {
+    public String getFirstHelpPageName() {
         return null;
     }
 
