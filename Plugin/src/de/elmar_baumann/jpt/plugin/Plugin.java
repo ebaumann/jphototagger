@@ -211,6 +211,16 @@ public abstract class Plugin extends AbstractAction {
     }
 
     /**
+     * Returns the URL of the first help page which will be selected if the
+     * user see calls the plugin's help.
+     *
+     * @return help page URL or null. This class return null.
+     */
+    public String getFirstHelpPageUrl() {
+        return null;
+    }
+
+    /**
      * Returns a panel where the user can configure this plugin.
      * <p>
      * Uses the properties of {@link #setProperties(java.util.Properties)} to
