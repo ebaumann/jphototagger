@@ -367,7 +367,7 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator12 = new javax.swing.JSeparator();
         menuItemAbout = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);
 
         menuFile.setText(Bundle.getString("AppFrame.menuFile.text")); // NOI18N

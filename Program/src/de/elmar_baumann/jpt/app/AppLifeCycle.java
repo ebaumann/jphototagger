@@ -30,7 +30,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
 import java.util.Set;
-import javax.swing.JFrame;
 
 /**
  * Life cycle of the application.
@@ -120,7 +119,6 @@ public final class AppLifeCycle {
 
     private void listenForQuit() {
 
-        appFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         appFrame.addWindowListener(new WindowAdapter() {
 
             @Override
