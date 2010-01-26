@@ -1,5 +1,6 @@
 package de.elmar_baumann.lib.componentutil;
 
+import de.elmar_baumann.lib.util.CollectionUtil;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Collections;
@@ -55,19 +56,29 @@ public final class Autocomplete implements DocumentListener  {
     /**
      * Adds a new word for auto completion.
      *
+     * Checks whether this word is already contained and adds it only if
+     * unknown.
+     *
      * @param word word
      */
     public void add(String word) {
         String newWord = word.trim().toLowerCase();
+
         synchronized (words) {
-            int size = words.size();
-            for (int i = 0; i < size; i++) {
-                if (words.get(i).equals(newWord)) return;
-                if (words.get(i).compareTo(newWord) > 0) {
-                    words.add(i == 0 ? i : i - 1, newWord);
-                    return;
-                }
-            }
+            if (contains(newWord)) return;
+            CollectionUtil.binaryInsert(words, newWord);
+        }
+    }
+
+    /**
+     * Returns wether autocomplete contains a specific word.
+     *
+     * @param  word word
+     * @return      true if the word is known
+     */
+    public boolean contains(String word) {
+        synchronized (words) {
+            return Collections.binarySearch(words, word) >= 0;
         }
     }
 
