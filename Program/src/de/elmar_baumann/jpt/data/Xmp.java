@@ -51,6 +51,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method
@@ -736,6 +737,15 @@ public final class Xmp implements TextEntryListener {
                 assert false : "Unregognized data type of: " + o;
             }
         }
+    }
+
+    /**
+     * Returns all columns of this XMP object.
+     *
+     * @return columns
+     */
+    public Set<Column> getAllColumns() {
+        return valueOfColumn.keySet();
     }
 
     // If true o is not null

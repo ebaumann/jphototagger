@@ -19,13 +19,18 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.TextEntryContent;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
+import de.elmar_baumann.jpt.helper.AutocompleteHelper;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.types.Suggest;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywordsEdit;
@@ -68,7 +73,9 @@ public final class EditRepeatableTextEntryPanel
         implements TextEntry,
                    ActionListener,
                    DocumentListener,
-                   ListDataListener {
+                   ListDataListener,
+                   DatabaseImageFilesListener
+    {
 
     private static final long                     serialVersionUID         = -5581799743101447535L;
     private final        DefaultListModel         model                    = new DefaultListModel();
@@ -78,7 +85,7 @@ public final class EditRepeatableTextEntryPanel
     private              Suggest                  suggest;
     private              boolean                  ignoreIntervalAdded;
     private              TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
-    private final        Autocomplete             autocomplete             = new Autocomplete();
+    private              Autocomplete             autocomplete;
     private              Color                    editBackground;
 
     public EditRepeatableTextEntryPanel() {
@@ -96,8 +103,8 @@ public final class EditRepeatableTextEntryPanel
         editBackground = textAreaInput.getBackground();
         textAreaInput.setInputVerifier(column.getInputVerifier());
         textAreaInput.getDocument().addDocumentListener(this);
-        autocomplete.setTransferFocusForward(false);
         model.addListDataListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
         setPropmt();
     }
 
@@ -113,9 +120,27 @@ public final class EditRepeatableTextEntryPanel
 
     @Override
     public void setAutocomplete() {
+        synchronized (this) {
+            if (autocomplete != null) return;
+        }
+        autocomplete = new Autocomplete();
+        autocomplete.setTransferFocusForward(false);
         autocomplete.decorate(
                 textAreaInput,
                 AutoCompleteDataOfColumn.INSTANCE.get(column).get());
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageFilesEvent event) {
+        if (autocomplete == null) return;
+        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) return; // Do not remove autocomplete data
+
+        ImageFile imageFile = event.getImageFile();
+
+        if (imageFile != null && imageFile.getXmp() != null) {
+            AutocompleteHelper.addAutocompleteData(
+                    column, autocomplete, imageFile.getXmp());
+        }
     }
 
     /**
@@ -218,8 +243,7 @@ public final class EditRepeatableTextEntryPanel
      */
     private void handleTextFieldKeyReleased(KeyEvent evt) {
         JComponent component = (JComponent) evt.getSource();
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER &&
-                component.getInputVerifier().verify(component)) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER && component.getInputVerifier().verify(component)) {
             addInputToList();
         } else {
             setEnabledButtons();
@@ -413,6 +437,10 @@ public final class EditRepeatableTextEntryPanel
                     ComponentUtil.forceRepaint(getParent().getParent());
                 }
             }
+            if (autocomplete != null) {
+                AutocompleteHelper.addAutocompleteData(column, autocomplete, texts);
+            }
+
         }
         ignoreIntervalAdded = false;
         return countAdded;

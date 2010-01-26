@@ -56,6 +56,14 @@ public final class AutoCompleteDataOfColumn {
         }
     }
 
+    public boolean add(Column column, String word) {
+        synchronized (DATA_OF_COLUMN) {
+            AutoCompleteData data = DATA_OF_COLUMN.get(column);
+            if (data == null) return false;
+            return data.add(word);
+        }
+    }
+
     public AutoCompleteData getFastSearchData() {
         return FAST_SEARCH_DATA;
     }
