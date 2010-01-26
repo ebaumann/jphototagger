@@ -25,8 +25,9 @@ final class CanonMakerNoteTag1Formatter {
     }
 
     private static void addLens(short[] values, ExifTags exifTags) {
-        assert values.length >= 24;
-        if (values.length < 24) return;
+        final int maxValueIndex = 24;
+
+        if (maxValueIndex >= values.length) return; // No lens information available
 
         double mmFactor = values[24];
         assert mmFactor > 0;
@@ -49,10 +50,10 @@ final class CanonMakerNoteTag1Formatter {
         final int offset     = 8;
         final int valueIndex = offset - 1;
 
-        assert values.length >= valueIndex;
-        if (values.length < valueIndex) return;
+        if (valueIndex >= values.length) return;  // No focus mode information available
 
         short value = values[valueIndex];
+
         String mode = null;
         switch (value) {
             case 0: mode = "One-Shot"       ; break;

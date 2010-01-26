@@ -217,7 +217,6 @@ public final class CanonMakerNote {
         if (valueCount <= 0) return null;
 
         int minLength = 2 + valueCount * 2;
-        assert raw.length >= minLength;
         if (raw.length < minLength) return null;
 
         short[] values   = new short[valueCount];
