@@ -386,6 +386,10 @@ public final class AppPanel extends javax.swing.JPanel {
         return editActionsPanel.buttonEmptyMetadata;
     }
 
+    public JButton getButtonMetadataTemplateAdd() {
+        return editActionsPanel.buttonMetadataTemplateAdd;
+    }
+
     public JButton getButtonMetadataTemplateCreate() {
         return editActionsPanel.buttonMetadataTemplateCreate;
     }

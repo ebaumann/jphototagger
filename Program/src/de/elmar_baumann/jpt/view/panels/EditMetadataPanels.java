@@ -565,6 +565,7 @@ public final class EditMetadataPanels
                 (char) actionsPanel.buttonMetadataTemplateInsert.getMnemonic(),
                 (char) actionsPanel.buttonMetadataTemplateRename.getMnemonic(),
                 (char) actionsPanel.buttonMetadataTemplateUpdate.getMnemonic(),
+                (char) actionsPanel.buttonMetadataTemplateAdd   .getMnemonic(),
                 (char) actionsPanel.labelPromptCurrentTemplate  .getDisplayedMnemonic()
                 );
     }
