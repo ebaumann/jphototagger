@@ -386,11 +386,9 @@ public final class XmpMetadata {
                 String value = (String) metadataValue;
                 // 2009-08-02: No side effects if value is empty
                 // ("orphaned data"), because previous metadata was deleted
-                if (XmpColumnXmpDataTypeMapping.isText(column) &&
-                        !value.trim().isEmpty()) {
+                if (XmpColumnXmpDataTypeMapping.isText(column) && !value.trim().isEmpty()) {
                     xmpMeta.setProperty(namespaceUri, propertyName, value);
-                } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(
-                        column)) {
+                } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(column)) {
                     xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", value);
                 }
             } else if (metadataValue instanceof List<?>) {
@@ -417,7 +415,8 @@ public final class XmpMetadata {
             String namespaceUri,
             String propertyName,
             String item)
-            throws XMPException {
+            throws XMPException
+            {
         if (xmpMeta.doesPropertyExist(namespaceUri, propertyName)) {
             for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName, new IteratorOptions()); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
