@@ -54,6 +54,45 @@ public final class Autocomplete implements DocumentListener  {
     }
 
     /**
+     * Sets wether to transfer focus forward on Enter.
+     *
+     * @param transfer transferring focus forward on Enter key. Default: true.
+     */
+    public void setTransferFocusForward(boolean transfer) {
+        this.transferFocusForwardOnEnter = transfer;
+    }
+
+    private void init() {
+        wordsToLowerCase();
+        synchronized (words) {
+            Collections.sort(words); // Binary search requires natural sort order
+        }
+    }
+    
+    private void registerKeyStrokes() {
+        InputMap  im  = textArea.getInputMap();
+        ActionMap am  = textArea.getActionMap();
+
+        am.put(COMMIT_ACTION        , new CommitAction());
+        am.put(FOCUS_FORWARD_ACTION , new FocusForwardAction());
+        am.put(FOCUS_BACKWARD_ACTION, new FocusBackwardAction());
+
+        im.put(KeyStroke.getKeyStroke("ENTER")      , COMMIT_ACTION);
+        im.put(KeyStroke.getKeyStroke("shift ENTER"), FOCUS_BACKWARD_ACTION);
+        im.put(KeyStroke.getKeyStroke("TAB")        , FOCUS_FORWARD_ACTION);
+        im.put(KeyStroke.getKeyStroke("shift TAB")  , FOCUS_BACKWARD_ACTION);
+    }
+
+    private void wordsToLowerCase() {
+        synchronized (words) {
+            int size = words.size();
+            for (int i = 0; i < size; i++) {
+                words.set(i, words.get(i).toLowerCase()); // #insertUpdate() converts input to lowercase
+            }
+        }
+    }
+
+    /**
      * Adds a new word for auto completion.
      *
      * Checks whether this word is already contained and adds it only if
@@ -79,43 +118,6 @@ public final class Autocomplete implements DocumentListener  {
     public boolean contains(String word) {
         synchronized (words) {
             return Collections.binarySearch(words, word) >= 0;
-        }
-    }
-
-    /**
-     * Sets wether to transfer focus forward on Enter.
-     *
-     * @param transfer transferring focus forward on Enter key. Default: true.
-     */
-    public void setTransferFocusForward(boolean transfer) {
-        this.transferFocusForwardOnEnter = transfer;
-    }
-
-    private void init() {
-        wordsToLowerCase();
-    }
-    
-    private void registerKeyStrokes() {
-        InputMap  im  = textArea.getInputMap();
-        ActionMap am  = textArea.getActionMap();
-
-        am.put(COMMIT_ACTION        , new CommitAction());
-        am.put(FOCUS_FORWARD_ACTION , new FocusForwardAction());
-        am.put(FOCUS_BACKWARD_ACTION, new FocusBackwardAction());
-
-        im.put(KeyStroke.getKeyStroke("ENTER")      , COMMIT_ACTION);
-        im.put(KeyStroke.getKeyStroke("shift ENTER"), FOCUS_BACKWARD_ACTION);
-        im.put(KeyStroke.getKeyStroke("TAB")        , FOCUS_FORWARD_ACTION);
-        im.put(KeyStroke.getKeyStroke("shift TAB")  , FOCUS_BACKWARD_ACTION);
-    }
-
-    private void wordsToLowerCase() {
-        synchronized (this.words) {
-            int count = words.size();
-            for (int i = 0; i < count; i++) {
-                words.set(i, words.get(i).toLowerCase()); // Input converted to lowercase
-            }
-            Collections.sort(words); // Binary search requires natural sort order
         }
     }
 
