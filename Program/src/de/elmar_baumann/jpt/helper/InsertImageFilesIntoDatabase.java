@@ -133,17 +133,21 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
         for (index = 0; !isInterrupted() && !stop && index < count; index++) {
 
-            String    imageFilename = imageFilenames.get(index);
-            ImageFile imageFile     = getImageFile(imageFilename);
+            String imageFilename = imageFilenames.get(index);
 
             // Notify before inserting to enable progress listeners displaying the current image filename
             notifyPerformed(index + 1, imageFilename);
 
-            if (checkExists(imageFilename) && isUpdate(imageFile)) {
-                setExifDateToXmpDateCreated(imageFile);
-                logInsertImageFile(imageFile);
-                db.insertOrUpdate(imageFile);
-                runActionsAfterInserting(imageFile);
+            if (checkExists(imageFilename)) {
+
+                ImageFile imageFile = getImageFile(imageFilename);
+
+                if (isUpdate(imageFile)) {
+                    setExifDateToXmpDateCreated(imageFile);
+                    logInsertImageFile(imageFile);
+                    db.insertOrUpdate(imageFile);
+                    runActionsAfterInserting(imageFile);
+                }
             }
         }
         notifyEnded(index);
