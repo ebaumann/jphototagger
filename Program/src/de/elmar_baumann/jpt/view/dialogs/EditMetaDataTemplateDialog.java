@@ -125,6 +125,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             } else {
                 MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.Save");
             }
+            setVisible(false);
         }
     }
 
@@ -190,7 +191,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelPaddingLayout.createSequentialGroup()
                     .addGap(8, 8, 8)
-                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         panelPaddingLayout.setVerticalGroup(
@@ -199,7 +200,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelPaddingLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
+                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -234,7 +235,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)))
+                        .addComponent(textFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

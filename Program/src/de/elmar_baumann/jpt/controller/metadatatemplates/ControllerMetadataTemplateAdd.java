@@ -19,11 +19,13 @@
 package de.elmar_baumann.jpt.controller.metadatatemplates;
 
 import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.EditMetaDataTemplateDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JButton;
 
 /**
  *
@@ -33,13 +35,25 @@ import java.awt.event.KeyEvent;
  */
 public final class ControllerMetadataTemplateAdd extends ControllerMetadataTemplate {
 
+    JButton buttonAdd = GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateAdd();
+
     public ControllerMetadataTemplateAdd() {
         listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemAdd());
+        buttonAdd.addActionListener(this);
     }
 
     @Override
     protected boolean myKey(KeyEvent evt) {
         return KeyEventUtil.isControl(evt, KeyEvent.VK_N);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == buttonAdd) {
+            action((MetadataTemplate) null);
+        } else {
+            super.actionPerformed(evt);
+        }
     }
 
     @Override
