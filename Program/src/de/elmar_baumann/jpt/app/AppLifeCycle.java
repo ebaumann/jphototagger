@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.factory.MetaFactory;
 import de.elmar_baumann.jpt.helper.Cleanup;
+import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -145,14 +146,22 @@ public final class AppLifeCycle {
      * Exits the VM.
      */
     public void quit() {
-        notifyExitListeners();
-        writeProperties();
-        checkDataToSave();
-        Cleanup.shutdown();
-        DatabaseMaintainance.INSTANCE.shutdown();
-        appFrame.dispose();
-        AppLock.unlock();
-        System.exit(0);
+        if (ensureUserTasksFinished()) {
+            notifyExitListeners();
+            writeProperties();
+            checkDataToSave();
+            Cleanup.shutdown();
+            DatabaseMaintainance.INSTANCE.shutdown();
+            appFrame.dispose();
+            AppLock.unlock();
+            System.exit(0);
+        }
+    }
+
+    private boolean ensureUserTasksFinished() {
+        boolean finished = UserTasks.INSTANCE.getCount() <= 0;
+        if (finished) return true;
+        return MessageDisplayer.confirmYesNo(appFrame, "AppLifeCycle.Confirm.QuitOnUserTasks");
     }
 
     private void checkDataToSave() {
