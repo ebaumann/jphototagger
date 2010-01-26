@@ -26,8 +26,7 @@ final class CanonMakerNoteTag4Formatter {
         final int offset = 19;
         final int valueIndex = offset - 1;
 
-        assert values.length >=  valueIndex;
-        if (values.length < valueIndex) return;
+        if (valueIndex >= values.length) return; // No subject distance information available
 
         short distance   = values[valueIndex];
         if (distance <= 0) return;
