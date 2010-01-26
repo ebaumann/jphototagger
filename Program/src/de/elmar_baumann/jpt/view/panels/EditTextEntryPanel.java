@@ -18,13 +18,18 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.TextEntryContent;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
+import de.elmar_baumann.jpt.helper.AutocompleteHelper;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
 import java.awt.Color;
@@ -45,7 +50,9 @@ import javax.swing.event.DocumentListener;
 public final class EditTextEntryPanel
         extends    JPanel
         implements TextEntry,
-                   DocumentListener {
+                   DocumentListener,
+                   DatabaseImageFilesListener
+    {
 
     private static final Color                    EDITABLE_COLOR           = Color.WHITE;
     private static final long                     serialVersionUID         = -6455550547873630461L;
@@ -53,7 +60,7 @@ public final class EditTextEntryPanel
     private              boolean                  dirty                    = false;
     private              boolean                  editable;
     private              TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
-    private final        Autocomplete             autocomplete             = new Autocomplete();
+    private              Autocomplete             autocomplete;
 
     public EditTextEntryPanel() {
         column = ColumnXmpDcTitle.INSTANCE;
@@ -70,6 +77,7 @@ public final class EditTextEntryPanel
         setPropmt();
         textAreaEdit.setInputVerifier(column.getInputVerifier());
         textAreaEdit.getDocument().addDocumentListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
     public void setColumn(Column column) {
@@ -116,9 +124,26 @@ public final class EditTextEntryPanel
 
     @Override
     public void setAutocomplete() {
+        synchronized (this) {
+            if (autocomplete != null) return;
+        }
+        autocomplete = new Autocomplete();
         autocomplete.decorate(
                 textAreaEdit,
                 AutoCompleteDataOfColumn.INSTANCE.get(column).get());
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageFilesEvent event) {
+        if (autocomplete == null) return;
+        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) return; // Do not remove autocomplete data
+
+        ImageFile imageFile = event.getImageFile();
+
+        if (imageFile != null && imageFile.getXmp() != null) {
+            AutocompleteHelper.addAutocompleteData(
+                    column, autocomplete, imageFile.getXmp());
+        }
     }
 
     @Override

@@ -20,9 +20,12 @@ package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.database.DatabaseContent;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.lib.util.CollectionUtil;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -35,9 +38,9 @@ import java.util.StringTokenizer;
  */
 public final class AutoCompleteData {
 
-    private final DatabaseContent db     = DatabaseContent.INSTANCE;
-    private final Set<Column>     columns;
-    private final List<String>    words  = new ArrayList<String>();
+    private final DatabaseContent    db     = DatabaseContent.INSTANCE;
+    private final Set<Column>        columns;
+    private final LinkedList<String> words  = new LinkedList<String>();
 
     /**
      * Creates a new instance of this class.
@@ -49,8 +52,20 @@ public final class AutoCompleteData {
     AutoCompleteData(Collection<? extends Column> columns) {
         this.columns = new LinkedHashSet<Column>(columns);
         words.addAll(wordsOf(db.getDistinctValuesOf(this.columns)));
+        Collections.sort(words);
     }
 
+    public boolean add(String word) {
+        synchronized (words) {
+            for (String wd : wordsOf(word)) {
+                if (Collections.binarySearch(words, wd) < 0) {
+                    CollectionUtil.binaryInsert(words, wd);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     private List<String> wordsOf(Collection<String> strings) {
         List<String> wordsOf = new ArrayList<String>(strings.size());

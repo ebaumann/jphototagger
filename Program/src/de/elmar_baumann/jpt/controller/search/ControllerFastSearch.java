@@ -20,15 +20,19 @@ package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
+import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
+import de.elmar_baumann.jpt.helper.AutocompleteHelper;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -64,11 +68,11 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-05
  */
 public final class ControllerFastSearch
-        implements
-        ActionListener,
-        UserSettingsListener,
-        RefreshListener {
-
+        implements ActionListener,
+                   UserSettingsListener,
+                   RefreshListener,
+                   DatabaseImageFilesListener
+    {
     private static final String             DELIMITER_SEARCH_WORDS = ";";
     private final        DatabaseFind       db                     = DatabaseFind.INSTANCE;
     private final        AppPanel           appPanel               = GUI.INSTANCE.getAppPanel();
@@ -89,6 +93,7 @@ public final class ControllerFastSearch
 
     private void listen() {
         UserSettings.INSTANCE.addUserSettingsListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
 
         textFieldSearch.addKeyListener(new KeyAdapter() {
 
@@ -259,5 +264,19 @@ public final class ControllerFastSearch
         textFieldSearch.setEnabled(isSearchAllDefinedColumns()
                 ? UserSettings.INSTANCE.getFastSearchColumns().size() > 0
                 : true);
+    }
+
+    @Override
+    public void actionPerformed(DatabaseImageFilesEvent event) {
+        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) return;
+
+        ImageFile imageFile = event.getImageFile();
+        if (imageFile == null || imageFile.getXmp() == null) return;
+
+        if (isSearchAllDefinedColumns()) {
+            AutocompleteHelper.addFastSearchAutocompleteData(autocomplete, imageFile.getXmp());
+        } else {
+            AutocompleteHelper.addAutocompleteData(getSearchColumn(), autocomplete, imageFile.getXmp());
+        }
     }
 }
