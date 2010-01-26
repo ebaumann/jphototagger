@@ -35,10 +35,10 @@ import java.util.logging.Logger;
  */
 public final class SerialExecutor implements Executor {
 
-    private final Queue<Exec> runnables = new ArrayDeque<Exec>();
-    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
-    private final Executor executor;
-    private Exec active;
+    private final        Queue<Exec> runnables                 = new ArrayDeque<Exec>();
+    private static final String      ALT_METHOD_NAME_INTERRUPT = "cancel";
+    private final        Executor    executor;
+    private              Exec        active;
 
     public SerialExecutor(Executor executor) {
         this.executor = executor;
@@ -63,8 +63,7 @@ public final class SerialExecutor implements Executor {
         Method methodCancel = null;
         if (hasCancelMethod(active.r)) {
             try {
-                methodCancel = active.r.getClass().getMethod(
-                        ALT_METHOD_NAME_INTERRUPT);
+                methodCancel = active.r.getClass().getMethod(ALT_METHOD_NAME_INTERRUPT);
                 methodCancel.invoke(active.r);
             } catch (Exception ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex);
@@ -92,9 +91,7 @@ public final class SerialExecutor implements Executor {
      * @return count of runnables
      */
     public synchronized int getCount() {
-        int activeCount = active == null
-                          ? 0
-                          : 1;
+        int activeCount = active == null ? 0 : 1;
         return activeCount + runnables.size();
     }
 
