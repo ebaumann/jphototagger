@@ -35,9 +35,9 @@ import javax.swing.KeyStroke;
 public final class PopupMenuImageCollections extends JPopupMenu {
 
     private static final long                      serialVersionUID = -3446852358941591602L;
-    private final        JMenuItem                 itemDelete       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete"), AppLookAndFeel.getIcon("icon_remove.png"));
-    private final        JMenuItem                 itemRename       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename"), AppLookAndFeel.getIcon("icon_rename.png"));
-    private final        JMenuItem                 itemCreate       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Create"), AppLookAndFeel.getIcon("icon_add.png"));
+    private final        JMenuItem                 itemDelete       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete"));
+    private final        JMenuItem                 itemRename       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename"));
+    private final        JMenuItem                 itemCreate       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Create"));
     public               int                       itemIndex;
     public static final  PopupMenuImageCollections INSTANCE         = new PopupMenuImageCollections();
 

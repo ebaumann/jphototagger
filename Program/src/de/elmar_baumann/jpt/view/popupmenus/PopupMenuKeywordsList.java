@@ -37,7 +37,7 @@ import javax.swing.KeyStroke;
 public final class PopupMenuKeywordsList extends JPopupMenu {
 
     private static final long                  serialVersionUID  = -552638878495121120L;
-    private final        JMenuItem             itemRename        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Rename")       , AppLookAndFeel.getIcon("icon_rename.png"));
+    private final        JMenuItem             itemRename        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Rename"));
     private final        JMenuItem             itemDelete        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Delete")       , AppLookAndFeel.getIcon("icon_delete.png"));
     private final        JMenuItem             itemDisplayImages = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"), AppLookAndFeel.getIcon("icon_thumbnails.png"));
     private              int                   selIndex;

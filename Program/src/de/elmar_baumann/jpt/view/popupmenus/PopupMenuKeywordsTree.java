@@ -39,15 +39,15 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuKeywordsTree extends JPopupMenu {
 
     private static final long                          serialVersionUID        = 2140903704744267916L;
-    private final        JMenuItem                     itemAdd                 = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionAddKeyword")         , AppLookAndFeel.getIcon("icon_add.png"));
+    private final        JMenuItem                     itemAdd                 = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionAddKeyword"));
     private final        JMenuItem                     itemAddToEditPanel      = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionAddToEditPanel")     , AppLookAndFeel.getIcon("icon_edit.png"));
-    private final        JMenuItem                     itemRemove              = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveKeyword")      , AppLookAndFeel.getIcon("icon_remove.png"));
-    private final        JMenuItem                     itemRename              = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword")      , AppLookAndFeel.getIcon("icon_rename.png"));
+    private final        JMenuItem                     itemRemove              = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveKeyword"));
+    private final        JMenuItem                     itemRename              = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"));
     private final        JMenuItem                     itemToggleReal          = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionToggleReal")         , AppLookAndFeel.getIcon("icon_keyword_real_helper.png"));
     private final        JMenuItem                     itemRemoveFromEditPanel = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveFromEditPanel"), AppLookAndFeel.getIcon("icon_delete.png"));
-    private final        JMenuItem                     itemCopy                = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionCopy")               , AppLookAndFeel.getIcon("icon_copy_to_clipboard.png"));
-    private final        JMenuItem                     itemCut                 = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionCut")                , AppLookAndFeel.getIcon("icon_cut_to_clipboard.png"));
-    private final        JMenuItem                     itemPaste               = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionPaste")              , AppLookAndFeel.getIcon("icon_paste_from_clipboard.png"));
+    private final        JMenuItem                     itemCopy                = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionCopy"));
+    private final        JMenuItem                     itemCut                 = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionCut"));
+    private final        JMenuItem                     itemPaste               = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionPaste"));
     private final        JMenuItem                     itemDisplayImages       = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImages")      , AppLookAndFeel.getIcon("icon_thumbnails.png"));
     private final        JMenuItem                     itemDisplayImagesKw     = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImagesKw")    , AppLookAndFeel.getIcon("icon_thumbnails.png"));
     private final        JMenuItem                     itemExpandAllSubitems   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
