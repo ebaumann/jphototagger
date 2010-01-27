@@ -288,7 +288,7 @@ public final class ModelFactory {
 
         JTree     tree       = appPanel.getTreeDirectories();
         Cursor    treeCursor = setWaitCursor(tree);
-        TreeModel model      = new TreeModelAllSystemDirectories(tree, UserSettings.INSTANCE.getDefaultDirectoryFilterOptions());
+        TreeModel model      = new TreeModelAllSystemDirectories(tree, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
         support.add(model);
         tree.setModel(model);

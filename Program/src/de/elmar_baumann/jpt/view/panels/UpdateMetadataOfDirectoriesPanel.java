@@ -41,9 +41,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 
@@ -232,7 +230,7 @@ public final class UpdateMetadataOfDirectoriesPanel
         final DirectoryChooser dialog = new DirectoryChooser(
                                             GUI.INSTANCE.getAppFrame(),
                                             lastDirectory,
-                                            getDirectoryChooserOptions());
+                                            UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
         if (dialog.accepted()) {
@@ -240,13 +238,6 @@ public final class UpdateMetadataOfDirectoriesPanel
             lastDirectory = selDirs.get(0);
             addNotContainedDirectories(selDirs);
         }
-    }
-
-    private Set<DirectoryChooser.Option> getDirectoryChooserOptions() {
-        return EnumSet.of(DirectoryChooser.Option.MULTI_SELECTION,
-                UserSettings.INSTANCE.isAcceptHiddenDirectories()
-                ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
-                : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     private void addNotContainedDirectories(List<File> directories) {
@@ -288,7 +279,7 @@ public final class UpdateMetadataOfDirectoriesPanel
             subdirectories.addAll(
                     FileUtil.getSubdirectoriesRecursive(
                     dir,
-                    UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+                    UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
         }
         ArrayUtil.addNotContainedElements(subdirectories, directories);
     }

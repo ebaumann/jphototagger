@@ -85,7 +85,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         DirectoryChooser dialog = new DirectoryChooser(
                                         GUI.INSTANCE.getAppFrame(),
                                         directory,
-                                        UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+                                        UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
         if (dialog.accepted()) {
@@ -169,8 +169,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             directories.add(directory);
             if (checkBoxSubdirectories.isSelected()) {
                 directories.addAll(
-                        FileUtil.getSubdirectoriesRecursive(directory,
-                        UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+                        FileUtil.getSubdirectoriesRecursive(
+                            directory,
+                            UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
             }
             return ImageFilteredDirectory.getImageFilesOfDirectories(directories);
         } else {

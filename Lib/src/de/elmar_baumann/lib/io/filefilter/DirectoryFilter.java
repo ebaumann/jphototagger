@@ -19,8 +19,8 @@
 package de.elmar_baumann.lib.io.filefilter;
 
 import java.io.File;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -38,21 +38,24 @@ public final class DirectoryFilter implements java.io.FileFilter {
     /**
      * Instance which accepts hidden files.
      */
-    public static final DirectoryFilter ACCEPT_HIDDEN_FILES =
-            new DirectoryFilter(EnumSet.of(Option.ACCEPT_HIDDEN_FILES));
+    public static final  DirectoryFilter  ACCEPT_HIDDEN_FILES = new DirectoryFilter(Option.ACCEPT_HIDDEN_FILES);
+
     /**
      * Instance which rejects hidden files.
      */
-    public static final DirectoryFilter REJECT_HIDDEN_FILES =
-            new DirectoryFilter(EnumSet.of(Option.REJECT_HIDDEN_FILES));
-    private static final FileSystemView FILE_SYSTEM_VIEW =
-            FileSystemView.getFileSystemView();
-    private final Set<Option> options;
+    public static final  DirectoryFilter NO_OPTIONS           = new DirectoryFilter(Option.NO_OPTION);
+
+    private static final FileSystemView  FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
+    private final        List<Option>    options;
 
     public enum Option {
 
+        /**
+         * Accepting hidden files (Default: Do not accept hidden files)
+         */
         ACCEPT_HIDDEN_FILES,
-        REJECT_HIDDEN_FILES,
+        NO_OPTION
+        ;
     }
 
     /**
@@ -60,11 +63,10 @@ public final class DirectoryFilter implements java.io.FileFilter {
      *
      * @param options  options
      */
-    public DirectoryFilter(Set<Option> options) {
-        if (options == null)
-            throw new NullPointerException("options == null");
+    public DirectoryFilter(Option... options) {
+        if (options == null) throw new NullPointerException("options == null");
 
-        this.options = options;
+        this.options = Arrays.asList(options);
     }
 
     @Override

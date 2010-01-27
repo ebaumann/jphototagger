@@ -69,7 +69,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     public SettingsMiscPanel() {
         initComponents();
         initComponentOfTab();
-        MnemonicUtil.setMnemonics((Container) this);;
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     public void selectTab(Tab tab) {
@@ -82,7 +82,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         DirectoryChooser dialog = new DirectoryChooser(
                                     GUI.INSTANCE.getAppFrame(),
                                     startDirectory,
-                                    UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+                                    UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);

@@ -173,7 +173,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         DirectoryChooser dialog = new DirectoryChooser(
                                             GUI.INSTANCE.getAppFrame(),
                                             targetDirectory,
-                                            UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+                                            UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);

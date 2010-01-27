@@ -18,17 +18,21 @@
  */
 package de.elmar_baumann.lib.dialog;
 
+import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.resource.Bundle;
+import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JOptionPane;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -40,24 +44,21 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class DirectoryChooser extends Dialog {
+public final class DirectoryChooser extends Dialog implements TreeSelectionListener, PopupMenuListener {
 
     private static final long                          serialVersionUID = -4494883459031977084L;
     private final        File                          startDirectory;
-    private final        Set<Option>                   directoryFilter;
+    private final        List<Option>                  directoryFilter;
     private              boolean                       accepted;
     private final        TreeModelAllSystemDirectories model;
 
     public enum Option {
 
-        /** show hidden directories */
-        ACCEPT_HIDDEN_DIRECTORIES,
-        /** hide hidden directories */
-        REJECT_HIDDEN_DIRECTORIES,
-        /** multiple directories can be selected */
+        /** Show hidden directories */
+        DISPLAY_HIDDEN_DIRECTORIES,
+        /** Multiple directories can be selected (Default: Single selection) */
         MULTI_SELECTION,
-        /** only one directory can be selected */
-        SINGLE_SELECTION
+        NO_OPTION
     }
 
     /**
@@ -67,17 +68,24 @@ public final class DirectoryChooser extends Dialog {
      * @param startDirectory  start directory, will be selected or {@code new File("")}
      * @param options         options
      */
-    public DirectoryChooser(java.awt.Frame parent, File startDirectory, Set<Option> options) {
+    public DirectoryChooser(java.awt.Frame parent, File startDirectory, Option... options) {
         super(parent, true);
-        this.startDirectory = startDirectory;
-        this.directoryFilter = options;
+        this.startDirectory  = startDirectory;
+        this.directoryFilter = Arrays.asList(options);
         initComponents();
-        model = new TreeModelAllSystemDirectories(treeDirectories, getTreeModelFilter());
-        treeDirectories.setModel(model);
+        this.model           = new TreeModelAllSystemDirectories(tree, getIsShowHiddenDirsFilter());
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
+        tree.setModel(model);
+        tree.addTreeSelectionListener(this);
+        popupMenu.addPopupMenuListener(this);
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void setSelectionMode() {
-        treeDirectories.getSelectionModel().setSelectionMode(
+        tree.getSelectionModel().setSelectionMode(
                 directoryFilter.contains(Option.MULTI_SELECTION)
                 ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
                 : TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -126,18 +134,15 @@ public final class DirectoryChooser extends Dialog {
      */
     public List<File> getSelectedDirectories() {
         List<File> files = new ArrayList<File>();
-        TreePath[] paths = treeDirectories.getSelectionPaths();
+        TreePath[] paths = tree.getSelectionPaths();
         if (paths != null) {
             for (int index = 0; index < paths.length; index++) {
                 Object[] path = paths[index].getPath();
                 int filecount = path.length;
                 if (path != null && filecount >= 1) {
-                    Object userObject =
-                            ((DefaultMutableTreeNode) path[filecount - 1]).
-                            getUserObject();
+                    Object userObject = ((DefaultMutableTreeNode) path[filecount - 1]).getUserObject();
                     if (userObject instanceof File) {
                         files.add((File) userObject);
-
                     }
                 }
             }
@@ -151,11 +156,10 @@ public final class DirectoryChooser extends Dialog {
         }
     }
 
-    private Set<DirectoryFilter.Option> getTreeModelFilter() {
-        return EnumSet.of(directoryFilter.contains(
-                Option.ACCEPT_HIDDEN_DIRECTORIES)
-                          ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
-                          : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
+    private DirectoryFilter.Option getIsShowHiddenDirsFilter() {
+        return directoryFilter.contains(Option.DISPLAY_HIDDEN_DIRECTORIES)
+                                  ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                                  : DirectoryFilter.Option.NO_OPTION;
     }
 
     private void cancel() {
@@ -163,12 +167,10 @@ public final class DirectoryChooser extends Dialog {
         super.setVisible(false);
     }
 
-    private void checkOk() {
-        if (treeDirectories.getSelectionCount() > 0) {
-            DefaultMutableTreeNode selNode =
-                    (DefaultMutableTreeNode) treeDirectories.getSelectionPath().
-                    getLastPathComponent();
-            Object userObject = selNode.getUserObject();
+    private void ok() {
+        if (tree.getSelectionCount() > 0) {
+            DefaultMutableTreeNode selNode    = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+            Object                 userObject = selNode.getUserObject();
             if (userObject instanceof File) {
                 accepted = true;
                 super.setVisible(false);
@@ -186,22 +188,15 @@ public final class DirectoryChooser extends Dialog {
     }
 
     private void addDirectory() {
-        if (!checkSelected()) return;
-        TreePath[] selPaths = treeDirectories.getSelectionPaths();
-        model.createNewDirectory(
-                TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                selPaths[0]));
+        TreePath[] selPaths = tree.getSelectionPaths();
+        model.createNewDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(selPaths[0]));
     }
 
     private void renameDirectory() {
-        if (!checkSelected()) return;
-        TreePath[] selPaths = treeDirectories.getSelectionPaths();
+        TreePath[] selPaths = tree.getSelectionPaths();
         for (TreePath treePath : selPaths) {
-            DefaultMutableTreeNode node = TreeFileSystemDirectories.
-                    getNodeOfLastPathComponent(treePath);
-            File dir = node == null
-                       ? null
-                       : TreeFileSystemDirectories.getFile(node);
+            DefaultMutableTreeNode node = TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
+            File                   dir  = node == null ? null : TreeFileSystemDirectories.getFile(node);
             if (dir != null) {
                 File newDir = TreeFileSystemDirectories.rename(dir);
                 if (newDir != null) {
@@ -213,14 +208,10 @@ public final class DirectoryChooser extends Dialog {
     }
 
     private void deleteDirectory() {
-        if (!checkSelected() || !confirmDelete()) return;
-        TreePath[] selPaths = treeDirectories.getSelectionPaths();
+        TreePath[] selPaths = tree.getSelectionPaths();
         for (TreePath treePath : selPaths) {
-            DefaultMutableTreeNode node = TreeFileSystemDirectories.
-                    getNodeOfLastPathComponent(treePath);
-            File dir = node == null
-                       ? null
-                       : TreeFileSystemDirectories.getFile(node);
+            DefaultMutableTreeNode node = TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
+            File                   dir  = node == null ? null : TreeFileSystemDirectories.getFile(node);
             if (dir != null) {
                 if (TreeFileSystemDirectories.delete(dir)) {
                     TreeFileSystemDirectories.removeFromTreeModel(model, node);
@@ -229,22 +220,54 @@ public final class DirectoryChooser extends Dialog {
         }
     }
 
-    private boolean confirmDelete() {
-        return JOptionPane.showConfirmDialog(this,
-                Bundle.getString("DirectoryChooser.Confirm.Delete"),
-                Bundle.getString("DirectoryChooser.Confirm.Delete.Title"),
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+    @Override
+    public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+        Object  node          = tree.getLastSelectedPathComponent();
+        boolean allDirOptions = allDirActionsPossible();
+
+        menuItemAdd.setEnabled(!isWorkspace(node));
+        menuItemDelete.setEnabled(allDirOptions);
+        menuItemRename.setEnabled(allDirOptions);
     }
 
-    private boolean checkSelected() {
-        if (treeDirectories.getSelectionCount() <= 0) {
-            JOptionPane.showMessageDialog(this,
-                    Bundle.getString("DirectoryChooser.Error.NothingSelected"),
-                    Bundle.getString("DirectoryChooser.Error.NothingSelected.Title"),
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
+    @Override
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void popupMenuCanceled(PopupMenuEvent e) {
+        // ignore
+    }
+
+
+    @Override
+    public void valueChanged(TreeSelectionEvent e) {
+        Object  node          = tree.getLastSelectedPathComponent();
+        boolean allDirActions = allDirActionsPossible();
+        boolean isWorkspace   = isWorkspace(node);
+
+        buttonAdd.setEnabled(!isWorkspace);
+        buttonChoose.setEnabled(!isWorkspace);
+        buttonDelete.setEnabled(allDirActions);
+        buttonRename.setEnabled(allDirActions);
+    }
+
+    private boolean allDirActionsPossible() {
+        Object node = tree.getLastSelectedPathComponent();
+
+        return node != null && !isWorkspace(node) && !isRootFile(node);
+    }
+
+    private boolean isWorkspace(Object o) {
+        return o == tree.getModel().getRoot();
+    }
+
+    private boolean isRootFile(Object o) {
+        if (o instanceof DefaultMutableTreeNode) {
+            return ((DefaultMutableTreeNode) o).getParent() == tree.getModel().getRoot();
         }
-        return true;
+        return false;
     }
 
     /** This method is called from within the constructor to
@@ -260,12 +283,15 @@ public final class DirectoryChooser extends Dialog {
         menuItemAdd = new javax.swing.JMenuItem();
         menuItemRename = new javax.swing.JMenuItem();
         menuItemDelete = new javax.swing.JMenuItem();
-        scrollPaneTreeDirectories = new javax.swing.JScrollPane();
-        treeDirectories = new javax.swing.JTree();
+        scrollPane = new javax.swing.JScrollPane();
+        tree = new javax.swing.JTree();
         labelUsage = new javax.swing.JLabel();
+        buttonRefresh = new javax.swing.JButton();
+        buttonAdd = new javax.swing.JButton();
+        buttonDelete = new javax.swing.JButton();
+        buttonRename = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         buttonChoose = new javax.swing.JButton();
-        buttonRefresh = new javax.swing.JButton();
 
         menuItemAdd.setText(Bundle.getString("DirectoryChooser.menuItemAdd.text")); // NOI18N
         menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -301,14 +327,46 @@ public final class DirectoryChooser extends Dialog {
         });
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        treeDirectories.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        treeDirectories.setToolTipText(Bundle.getString("DirectoryChooser.Tree directory chooser.toolTipText")); // NOI18N
-        treeDirectories.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories());
-        treeDirectories.setComponentPopupMenu(popupMenu);
-        treeDirectories.setName("Tree directory chooser"); // NOI18N
-        scrollPaneTreeDirectories.setViewportView(treeDirectories);
+        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree.setCellRenderer(new de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories());
+        tree.setComponentPopupMenu(popupMenu);
+        tree.setName("Tree directory chooser"); // NOI18N
+        scrollPane.setViewportView(tree);
 
         labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); // NOI18N
+
+        buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_refresh.png"))); // NOI18N
+        buttonRefresh.setToolTipText(Bundle.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
+        buttonRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
+        buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRefreshActionPerformed(evt);
+            }
+        });
+
+        buttonAdd.setText(bundle.getString("DirectoryChooser.buttonAdd.text")); // NOI18N
+        buttonAdd.setEnabled(false);
+        buttonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddActionPerformed(evt);
+            }
+        });
+
+        buttonDelete.setText(bundle.getString("DirectoryChooser.buttonDelete.text")); // NOI18N
+        buttonDelete.setEnabled(false);
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
+
+        buttonRename.setText(bundle.getString("DirectoryChooser.buttonRename.text")); // NOI18N
+        buttonRename.setEnabled(false);
+        buttonRename.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRenameActionPerformed(evt);
+            }
+        });
 
         buttonCancel.setMnemonic('b');
         buttonCancel.setText(bundle.getString("DirectoryChooser.buttonCancel.text")); // NOI18N
@@ -326,15 +384,6 @@ public final class DirectoryChooser extends Dialog {
             }
         });
 
-        buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_refresh.png"))); // NOI18N
-        buttonRefresh.setToolTipText(Bundle.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
-        buttonRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
-        buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRefreshActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -342,38 +391,54 @@ public final class DirectoryChooser extends Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                    .addComponent(labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChoose)))
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                    .addComponent(labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonAdd)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonDelete)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonRename))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(buttonCancel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonChoose))))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAdd, buttonCancel, buttonChoose, buttonDelete, buttonRename});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneTreeDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelUsage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonChoose, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonAdd)
+                        .addComponent(buttonDelete)
+                        .addComponent(buttonRename))
+                    .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonChoose)
+                    .addComponent(buttonCancel))
+                .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCancel, buttonChoose, buttonRefresh});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonAdd, buttonCancel, buttonChoose, buttonDelete, buttonRefresh, buttonRename});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 private void buttonChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseActionPerformed
-    checkOk();
+    ok();
 }//GEN-LAST:event_buttonChooseActionPerformed
 
 private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
@@ -400,6 +465,18 @@ private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GE
     deleteDirectory();
 }//GEN-LAST:event_menuItemDeleteActionPerformed
 
+private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
+    addDirectory();
+}//GEN-LAST:event_buttonAddActionPerformed
+
+private void buttonRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameActionPerformed
+    renameDirectory();
+}//GEN-LAST:event_buttonRenameActionPerformed
+
+private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+    deleteDirectory();
+}//GEN-LAST:event_buttonDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -408,9 +485,7 @@ private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
             @Override
             public void run() {
-                DirectoryChooser dialog = new DirectoryChooser(
-                        new javax.swing.JFrame(), new File(""),
-                        new HashSet<DirectoryChooser.Option>());
+                DirectoryChooser dialog = new DirectoryChooser(new javax.swing.JFrame(), new File(""));
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -423,15 +498,18 @@ private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GE
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChoose;
+    private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonRefresh;
+    private javax.swing.JButton buttonRename;
     private javax.swing.JLabel labelUsage;
     private javax.swing.JMenuItem menuItemAdd;
     private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemRename;
     private javax.swing.JPopupMenu popupMenu;
-    private javax.swing.JScrollPane scrollPaneTreeDirectories;
-    private javax.swing.JTree treeDirectories;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
 }

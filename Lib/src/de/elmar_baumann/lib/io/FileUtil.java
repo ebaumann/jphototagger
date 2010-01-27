@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -342,26 +341,27 @@ public final class FileUtil {
     }
 
     /**
-     * Liefert alle Unterverzeichnisse eines Verzeichnisses einschließlich
-     * derer Unterverzeichnisse bis zur untersten Ebene.
      *
-     * @param  directory  Verzeichnis
-     * @param  options    file filtering optins
-     * @return Unterverzeichnisse
+     * @param  directory  
+     * @param  options    
+     * @return 
      */
     public static List<File> getSubdirectoriesRecursive(
-            File                        directory,
-            Set<DirectoryFilter.Option> options
+            File                      directory,
+            DirectoryFilter.Option... options
             ) {
         if (directory == null) throw new NullPointerException("directory == null");
         if (options == null  ) throw new NullPointerException("options == null");
 
         List<File> directories = new ArrayList<File>();
+
         if (directory.isDirectory()) {
-            File[] subdirectories =
-                    directory.listFiles(new DirectoryFilter(options));
+            File[] subdirectories = directory.listFiles(new DirectoryFilter(options));
+
             if (subdirectories != null && subdirectories.length > 0) {
+
                 List<File> subdirectoriesList = Arrays.asList(subdirectories);
+
                 for (File dir : subdirectoriesList) {
                     directories.add(dir);
                     List<File> subdirectoriesSubDirs = getSubdirectoriesRecursive(dir, options);
@@ -373,8 +373,8 @@ public final class FileUtil {
     }
 
     public static List<File> getSubdirectoriesRecursive(
-            String                      directoryname,
-            Set<DirectoryFilter.Option> options
+            String                    directoryname,
+            DirectoryFilter.Option... options
             ) {
         if (directoryname == null) throw new NullPointerException("directoryname == null"); // NOI18N
 
