@@ -44,9 +44,9 @@ public final class PopupMenuFavorites extends JPopupMenu {
     private final        JMenuItem          itemOpenInFolders          = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.OpenInFolders")         , AppLookAndFeel.getIcon("icon_folder.png"));
     private final        JMenuItem          itemRefresh                = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.Refresh")               , AppLookAndFeel.getIcon("icon_refresh.png"));
     private final        JMenuItem          itemMoveUp                 = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveUp")                , AppLookAndFeel.getIcon("icon_move_up.png"));
-    private final        JMenuItem          itemAddFilesystemFolder    = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder")   , AppLookAndFeel.getIcon("icon_folder_add.png"));
-    private final        JMenuItem          itemRenameFilesystemFolder = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"), AppLookAndFeel.getIcon("icon_folder_rename.png"));
-    private final        JMenuItem          itemDeleteFilesystemFolder = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"), AppLookAndFeel.getIcon("icon_folder_delete.png"));
+    private final        JMenuItem          itemAddFilesystemFolder    = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder"));
+    private final        JMenuItem          itemRenameFilesystemFolder = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"));
+    private final        JMenuItem          itemDeleteFilesystemFolder = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"));
     private final        JMenuItem          itemMoveDown               = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveDown")              , AppLookAndFeel.getIcon("icon_move_down.png"));
     private final        JMenuItem          itemExpandAllSubitems      = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
     private final        JMenuItem          itemCollapseAllSubitems    = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));

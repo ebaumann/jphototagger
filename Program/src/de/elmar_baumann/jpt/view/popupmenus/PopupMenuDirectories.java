@@ -38,9 +38,9 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     private static final long                 serialVersionUID            = 4574458335277932153L;
     private final        JMenuItem            itemAddToFavorites          = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel.getIcon("icon_favorite.png"));
-    private final        JMenuItem            itemCreateDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory")         , AppLookAndFeel.getIcon("icon_folder_add.png"));
-    private final        JMenuItem            itemRenameDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory")         , AppLookAndFeel.getIcon("icon_folder_rename.png"));
-    private final        JMenuItem            itemDeleteDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory")         , AppLookAndFeel.getIcon("icon_folder_delete.png"));
+    private final        JMenuItem            itemCreateDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory"));
+    private final        JMenuItem            itemRenameDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory"));
+    private final        JMenuItem            itemDeleteDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory"));
     private final        JMenuItem            itemRefresh                 = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.Refresh")                 , AppLookAndFeel.getIcon("icon_refresh.png"));
     private final        JMenuItem            menuItemExpandAllSubitems   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
     private final        JMenuItem            menuItemCollapseAllSubitems = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
