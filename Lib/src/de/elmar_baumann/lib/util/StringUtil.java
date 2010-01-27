@@ -107,7 +107,7 @@ public final class StringUtil {
         return wordDelimiter.contains(Character.toString(c));
     }
 
-    public static List<? extends String> getTrimmed(Collection<? extends String> strings) {
+    public static List<String> getTrimmed(Collection<? extends String> strings) {
         List<String> trimmedStrings = new ArrayList<String>(strings.size());
 
         for (String string : strings) {
