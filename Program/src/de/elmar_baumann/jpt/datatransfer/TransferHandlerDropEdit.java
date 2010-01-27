@@ -22,12 +22,15 @@ import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.TransferHandler;
+import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -54,6 +57,19 @@ public final class TransferHandlerDropEdit extends TransferHandler {
                 Flavor.hasKeywordsFromTree(transferSupport) ||
                 Flavor.hasKeywordsFromList(transferSupport) ||
                 Flavor.hasMetadataTemplate(transferSupport);
+    }
+
+    @Override
+    protected Transferable createTransferable(JComponent c) {
+        if (c instanceof JTextComponent) {
+            return new StringSelection(((JTextComponent) c).getSelectedText());
+        }
+        return null;
+    }
+
+    @Override
+    public int getSourceActions(JComponent c) {
+        return COPY_OR_MOVE;
     }
 
     @Override
