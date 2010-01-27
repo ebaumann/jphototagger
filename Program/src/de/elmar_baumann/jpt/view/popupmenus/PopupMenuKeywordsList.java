@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.view.popupmenus;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.awt.event.KeyEvent;
 import javax.swing.JList;
@@ -38,8 +37,8 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
 
     private static final long                  serialVersionUID  = -552638878495121120L;
     private final        JMenuItem             itemRename        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Rename"));
-    private final        JMenuItem             itemDelete        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Delete")       , AppLookAndFeel.getIcon("icon_delete.png"));
-    private final        JMenuItem             itemDisplayImages = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"), AppLookAndFeel.getIcon("icon_thumbnails.png"));
+    private final        JMenuItem             itemDelete        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Delete"));
+    private final        JMenuItem             itemDisplayImages = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
     private              int                   selIndex;
     private              JList                 list;
     public static final  PopupMenuKeywordsList INSTANCE          = new PopupMenuKeywordsList();

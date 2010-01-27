@@ -96,7 +96,6 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
         itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemRenameFiles());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemPasteMetadata());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemReject());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuActions());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuImageCollection());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuMetadata());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuPlugins());

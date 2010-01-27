@@ -35,6 +35,7 @@ import javax.swing.JMenu;
 public final class ControllerActionsMenuUpdater implements DatabaseProgramsListener {
 
     public ControllerActionsMenuUpdater() {
+        PopupMenuThumbnails.INSTANCE.getMenuActions().setEnabled(DatabasePrograms.INSTANCE.hasAction());
         listen();
     }
 
@@ -53,6 +54,7 @@ public final class ControllerActionsMenuUpdater implements DatabaseProgramsListe
         } else if (event.getType().equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED)) {
             ActionsHelper.removeAction(actionMenu, event.getProgram());
         }
+        PopupMenuThumbnails.INSTANCE.getMenuActions().setEnabled(DatabasePrograms.INSTANCE.hasAction());
     }
 
 }
