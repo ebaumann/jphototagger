@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -12,13 +13,13 @@
    height="16px"
    id="svg2171"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
-   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons"
+   inkscape:version="0.47 r22583"
    sodipodi:docname="icon_exif_recording_equipment.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons/icon_exif_recording_equipment.png"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   version="1.1">
   <defs
      id="defs2173">
     <inkscape:perspective
@@ -36,17 +37,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="28.875"
-     inkscape:cx="-7.8268398"
+     inkscape:zoom="26.4375"
+     inkscape:cx="3.2718676"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="791"
+     inkscape:window-width="883"
      inkscape:window-height="675"
      inkscape:window-x="187"
-     inkscape:window-y="202" />
+     inkscape:window-y="202"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata2176">
     <rdf:RDF>
@@ -93,28 +95,21 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <rect
-       style="opacity:1;fill:#aaaaaa;fill-opacity:1;stroke:#777777;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#aaaaaa;fill-opacity:1;stroke:#777777;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2159"
        width="13.100495"
        height="8.7836637"
-       x="1.5"
-       y="5.7163363" />
+       x="1.4497523"
+       y="3.6081681" />
     <path
        sodipodi:type="arc"
-       style="opacity:1;fill:#cad0ed;fill-opacity:0.94117647;stroke:#777777;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#cad0ed;fill-opacity:0.94117647;stroke:#777777;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path3134"
        sodipodi:cx="7.5232673"
        sodipodi:cy="10.729208"
        sodipodi:rx="3.1534653"
        sodipodi:ry="3.1534653"
-       d="M 10.676733 10.729208 A 3.1534653 3.1534653 0 1 1  4.369802,10.729208 A 3.1534653 3.1534653 0 1 1  10.676733 10.729208 z"
-       transform="matrix(0.8776753,0,0,0.8633896,1.4158258,0.8350283)" />
-    <rect
-       style="opacity:1;fill:#fdfd1f;fill-opacity:0.94117647;stroke:#777777;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect3136"
-       width="4.5148516"
-       height="2.6386137"
-       x="9"
-       y="3" />
+       d="m 10.676733,10.729208 a 3.1534653,3.1534653 0 1 1 -6.306931,0 3.1534653,3.1534653 0 1 1 6.306931,0 z"
+       transform="matrix(0.8776753,0,0,0.8633896,1.3970141,-1.2634866)" />
   </g>
 </svg>

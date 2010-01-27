@@ -85,9 +85,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final        JMenuItem               itemRotateThumbnail270               = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Rotate.270")               , AppLookAndFeel.getIcon("icon_rotate_270.png"));
     private final        JMenuItem               itemDeleteImageFromDatabase          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.DeleteImageFromDatabase"));
     private final        JMenuItem               itemOpenFilesWithStandardApp         = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.OpenFiles"));
-    private final        JMenuItem               itemFileSystemCopyToDirectory        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemCopyToDirectory"), AppLookAndFeel.getIcon("icon_copy_to_folder.png"));
+    private final        JMenuItem               itemFileSystemCopyToDirectory        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemCopyToDirectory"));
     private final        JMenuItem               itemFileSystemDeleteFiles            = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemDeleteFiles")    , AppLookAndFeel.getIcon("icon_delete.png"));
-    private final        JMenuItem               itemFileSystemRenameFiles            = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemRename")         , AppLookAndFeel.getIcon("icon_rename.png"));
+    private final        JMenuItem               itemFileSystemRenameFiles            = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemRename"));
     private final        JMenuItem               itemFileSystemMoveFiles              = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemMove"));
     private final        JMenuItem               itemRefresh                          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Refresh")                  , AppLookAndFeel.getIcon("icon_refresh.png"));
     private final        JMenuItem               itemPick                             = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Pick")                     , AppLookAndFeel.getIcon("icon_picked.png"));
@@ -98,11 +98,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final        JMenuItem               itemRating3                          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Rating3")                         , AppLookAndFeel.getIcon("icon_xmp_rating_3.png"));
     private final        JMenuItem               itemRating4                          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Rating4")                         , AppLookAndFeel.getIcon("icon_xmp_rating_4.png"));
     private final        JMenuItem               itemRating5                          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Rating5")                         , AppLookAndFeel.getIcon("icon_xmp_rating_5.png"));
-    private final        JMenuItem               itemCopyMetadata                     = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCopyMetadata")                , AppLookAndFeel.getIcon("icon_copy_metadata.png"));
-    private final        JMenuItem               itemCopyToClipboard                  = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCopyToClipboard")             , AppLookAndFeel.getIcon("icon_copy_to_clipboard.png"));
-    private final        JMenuItem               itemCutToClipboard                   = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCutToClipboard")              , AppLookAndFeel.getIcon("icon_cut_to_clipboard.png"));
-    private final        JMenuItem               itemPasteFromClipboard               = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemPasteFromClipboard")          , AppLookAndFeel.getIcon("icon_paste_from_clipboard.png"));
-    private final        JMenuItem               itemPasteMetadata                    = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemPasteMetadata")               , AppLookAndFeel.getIcon("icon_paste_metadata.png"));
+    private final        JMenuItem               itemCopyMetadata                     = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCopyMetadata"));
+    private final        JMenuItem               itemCopyToClipboard                  = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCopyToClipboard"));
+    private final        JMenuItem               itemCutToClipboard                   = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCutToClipboard"));
+    private final        JMenuItem               itemPasteFromClipboard               = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemPasteFromClipboard"));
+    private final        JMenuItem               itemPasteMetadata                    = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemPasteMetadata"));
     // End menu items
     private final        List<ActionListener>    actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final        Map<JMenuItem, Program> programOfMenuItem                    = new HashMap<JMenuItem, Program>();

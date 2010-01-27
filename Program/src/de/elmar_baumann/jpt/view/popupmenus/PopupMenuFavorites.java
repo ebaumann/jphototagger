@@ -38,9 +38,9 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuFavorites extends JPopupMenu {
 
     private static final long               serialVersionUID           = -7344945087460562958L;
-    private final        JMenuItem          itemInsertFavorite         = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.InsertFavorite")        , AppLookAndFeel.getIcon("icon_add.png"));
+    private final        JMenuItem          itemInsertFavorite         = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.InsertFavorite"));
     private final        JMenuItem          itemUpdateFavorite         = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.UpdateFavorite")        , AppLookAndFeel.getIcon("icon_edit.png"));
-    private final        JMenuItem          itemDeleteFavorite         = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.DeleteFavorite")        , AppLookAndFeel.getIcon("icon_remove.png"));
+    private final        JMenuItem          itemDeleteFavorite         = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.DeleteFavorite"));
     private final        JMenuItem          itemOpenInFolders          = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.OpenInFolders")         , AppLookAndFeel.getIcon("icon_folder.png"));
     private final        JMenuItem          itemRefresh                = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.Refresh")               , AppLookAndFeel.getIcon("icon_refresh.png"));
     private final        JMenuItem          itemMoveUp                 = new JMenuItem(Bundle.getString("PopupMenuFavorites.DisplayName.Action.MoveUp")                , AppLookAndFeel.getIcon("icon_move_up.png"));
