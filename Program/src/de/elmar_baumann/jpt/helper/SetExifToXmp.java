@@ -122,7 +122,7 @@ public final class SetExifToXmp extends HelperThread {
             if (isSet(xmp, replaceExistingXmpData)) {
                 setDateCreated(xmp, exif);
                 String xmpFilename = XmpMetadata.suggestSidecarFilename(filename);
-                if (XmpMetadata.writeMetadataToSidecarFile(xmpFilename, xmp)) {
+                if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFilename)) {
                     ImageFile imageFile = new ImageFile();
 
                     xmp.setLastModified(new File(xmpFilename).lastModified());

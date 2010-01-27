@@ -71,7 +71,7 @@ public final class SaveXmp extends Thread {
             Xmp    xmp             = pair.getSecond();
             String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
 
-            if (XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp)) {
+            if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename)) {
                 updateDatabase(filename);
             }
             updateProgressBar(++fileIndex);

@@ -9,7 +9,7 @@ import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMappin
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-27
  */
-public enum Property {
+public enum ArrayName {
 
     LR_HIERARCHICAL_SUBJECTS("lr:hierarchicalSubject", Namespace.LIGHTROOM, XmpValueType.BAG_TEXT),
     ;
@@ -18,7 +18,7 @@ public enum Property {
     private final Namespace    namesapce;
     private final XmpValueType valueType;
 
-    private Property(String name, Namespace namesapce, XmpValueType valueType) {
+    private ArrayName(String name, Namespace namesapce, XmpValueType valueType) {
         this.name      = name;
         this.namesapce = namesapce;
         this.valueType = valueType;

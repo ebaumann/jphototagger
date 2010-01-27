@@ -504,6 +504,15 @@ public final class Xmp implements TextEntryListener {
     }
 
     /**
+     * Sets the hierarchical subjects delimited by {@link #HIER_SUBJECTS_DELIM}.
+     *
+     * @param hierarchicalSubjects hierarchical subjects or null
+     */
+    public void setHierarchicalSubjects(String hierarchicalSubjects) {
+        this.hierarchicalSubjects = hierarchicalSubjects;
+    }
+
+    /**
      * Returns the hierarchical subjects delimited by {@link #HIER_SUBJECTS_DELIM}.
      *
      * @return hierarchical subjects
@@ -769,6 +778,7 @@ public final class Xmp implements TextEntryListener {
                 assert false : "Unregognized data type of: " + o;
             }
         }
+        hierarchicalSubjects = xmp.hierarchicalSubjects;
     }
 
     // If true o is not null

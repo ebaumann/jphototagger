@@ -1245,7 +1245,7 @@ public final class DatabaseImageFiles extends Database {
                         xmp.setValue(xmpColumn, newValue);
                     }
                     String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
-                    if (XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp)) {
+                    if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename)) {
                         updateLastModifiedXmp(connection, idFile, new File(sidecarFilename).lastModified());
                         insertOrUpdateXmp(connection, idFile, xmp);
                         countRenamed++;

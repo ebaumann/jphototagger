@@ -36,6 +36,7 @@ import de.elmar_baumann.lib.util.ArrayUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -63,9 +64,14 @@ public final class KeywordsHelper {
      *             instance of {@link DefaultMutableTreeNode}!</em>
      */
     public static void addKeywordsToEditPanel(DefaultMutableTreeNode node) {
-        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-        for (String keyword : getKeywordStrings(node, true)) {
+        EditMetadataPanels editPanels     = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        List<String>       keywordStrings = getKeywordStrings(node, true);
+        for (String keyword : keywordStrings) {
             editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+        }
+        if (keywordStrings.size() > 1) {
+            Collections.reverse(keywordStrings); // else leaf is first element
+            editPanels.setHierarchicalSubjects(keywordStrings);
         }
     }
 
@@ -78,8 +84,7 @@ public final class KeywordsHelper {
      * @param real true if only real keywords shall be added
      * @return     all keywords
      */
-    public static List<Keyword> getKeywords(
-            DefaultMutableTreeNode node, boolean real) {
+    public static List<Keyword> getKeywords(DefaultMutableTreeNode node, boolean real) {
         List<Keyword> list = new ArrayList<Keyword>();
         while (node != null) {
             Object userObject = node.getUserObject();
@@ -90,11 +95,9 @@ public final class KeywordsHelper {
                 }
             }
             TreeNode parent = node.getParent();
-            assert parent == null || parent instanceof DefaultMutableTreeNode :
-                    "Not a DefaultMutableTreeNode: " + parent;
-            node = parent instanceof DefaultMutableTreeNode
-                   ? (DefaultMutableTreeNode) parent
-                   : null;
+            assert parent == null || parent instanceof DefaultMutableTreeNode : "Not a DefaultMutableTreeNode: " + parent;
+            
+            node = parent instanceof DefaultMutableTreeNode ? (DefaultMutableTreeNode) parent : null;
         }
         return list;
     }
@@ -226,7 +229,7 @@ public final class KeywordsHelper {
      * @return         parent names
      */
     public static List<String> getParentKeywordNames(Keyword keyword, boolean real) {
-        List<String>              names   = new ArrayList<String>();
+        List<String>  names   = new ArrayList<String>();
         List<Keyword> parents = DatabaseKeywords.INSTANCE.getParents(keyword);
         for (Keyword parent : parents) {
             boolean add = !real || real && parent.isReal();
