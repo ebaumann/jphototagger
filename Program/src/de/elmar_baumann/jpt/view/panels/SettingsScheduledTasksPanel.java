@@ -28,14 +28,11 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
-import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
 
@@ -56,13 +53,6 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     public SettingsScheduledTasksPanel() {
         initComponents();
         postInitComponents();
-    }
-
-    private Set<Option> getDirectoryChooserFilter() {
-        return EnumSet.of(Option.MULTI_SELECTION,
-                UserSettings.INSTANCE.isAcceptHiddenDirectories()
-                ? Option.ACCEPT_HIDDEN_DIRECTORIES
-                : Option.REJECT_HIDDEN_DIRECTORIES);
     }
 
     private void postInitComponents() {
@@ -95,7 +85,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         DirectoryChooser dialog = new DirectoryChooser(
                                         GUI.INSTANCE.getAppFrame(),
                                         new File(lastSelectedAutoscanDirectory),
-                                        getDirectoryChooserFilter());
+                                        UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
         if (dialog.accepted()) {

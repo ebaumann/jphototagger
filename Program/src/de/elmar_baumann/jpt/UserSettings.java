@@ -40,10 +40,8 @@ import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.XMLFormatter;
 
@@ -212,41 +210,16 @@ public final class UserSettings {
         return getDatabaseDirectoryName() + File.separator + "thumbnails";
     }
 
-    /**
-     * Returns the default options of a directory filter:
-     *
-     * <ul>
-     * <li>{@link de.elmar_baumann.lib.io.filefilter.DirectoryFilter.Option#ACCEPT_HIDDEN_FILES} if
-     *     {@link #isAcceptHiddenDirectories()} is true
-     * <li>{@link de.elmar_baumann.lib.io.filefilter.DirectoryFilter.Option#REJECT_HIDDEN_FILES} if
-     *     {@link #isAcceptHiddenDirectories()} is false
-     * </ul>
-     *
-     * @return options. Default:
-     *         {@link de.elmar_baumann.lib.io.filefilter.DirectoryFilter.Option#REJECT_HIDDEN_FILES}
-     */
-    public Set<DirectoryFilter.Option> getDefaultDirectoryFilterOptions() {
-        return EnumSet.of(isAcceptHiddenDirectories()
-                          ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
-                          : DirectoryFilter.Option.REJECT_HIDDEN_FILES);
+    public DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                   ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                   : DirectoryChooser.Option.NO_OPTION;
     }
 
-    /**
-     * Returns the default options of a file chooser's file filter:
-     *
-     * <ul>
-     * <li>{@link de.elmar_baumann.lib.dialog.DirectoryChooser.Option#ACCEPT_HIDDEN_DIRECTORIES} if
-     *     {@link #isAcceptHiddenDirectories()} is true
-     * <li>{@link de.elmar_baumann.lib.dialog.DirectoryChooser.Option#REJECT_HIDDEN_DIRECTORIES} if
-     *     {@link #isAcceptHiddenDirectories()} is false
-     * </ul>
-     * @return options. Default:
-     *         {@link de.elmar_baumann.lib.dialog.DirectoryChooser.Option#REJECT_HIDDEN_DIRECTORIES}
-     */
-    public Set<DirectoryChooser.Option> getDefaultDirectoryChooserOptions() {
-        return EnumSet.of(isAcceptHiddenDirectories()
-                          ? DirectoryChooser.Option.ACCEPT_HIDDEN_DIRECTORIES
-                          : DirectoryChooser.Option.REJECT_HIDDEN_DIRECTORIES);
+    public DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
     }
 
     public void setThumbnailCreator(ThumbnailCreator creator) {

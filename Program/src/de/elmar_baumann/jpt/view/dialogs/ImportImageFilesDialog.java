@@ -137,7 +137,7 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private File chooseDir(File startDir) {
-        DirectoryChooser dlg = new DirectoryChooser(GUI.INSTANCE.getAppFrame(), startDir, UserSettings.INSTANCE.getDefaultDirectoryChooserOptions());
+        DirectoryChooser dlg = new DirectoryChooser(GUI.INSTANCE.getAppFrame(), startDir, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);
         dlg.setVisible(true);

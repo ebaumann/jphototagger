@@ -28,7 +28,6 @@ import de.elmar_baumann.jpt.view.dialogs.ShowFilesDialog;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
-import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import java.awt.Container;
@@ -36,7 +35,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
@@ -135,15 +133,17 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         return isRunning;
     }
 
-    private Set<Option> getDirChooserOptions() {
-        Set<Option> options = UserSettings.INSTANCE.getDefaultDirectoryChooserOptions();
-        options.add(DirectoryChooser.Option.MULTI_SELECTION);
-        return options;
+    private Option[] getDirChooserOptions() {
+        return new Option[] { 
+            UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs(),
+            DirectoryChooser.Option.MULTI_SELECTION
+        } ;
     }
 
     private List<File> getFilesOfDirectories(List<File> selectedDirectories) {
         List<File> selFiles = new ArrayList<File>();
-        List<File> selDirs = includeSubdirectories(selectedDirectories);
+        List<File> selDirs  = includeSubdirectories(selectedDirectories);
+
         for (File dir : selDirs) {
             File[] foundFiles = dir.listFiles(dirChooserFileFilter);
             if (foundFiles != null) {
@@ -154,13 +154,12 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private List<File> includeSubdirectories(List<File> dirs) {
-        List<File> allDirs = new ArrayList<File>();
-        boolean includeSubDirs = checkBoxIncludeSubdirectories.isSelected();
-        Set<DirectoryFilter.Option> options = UserSettings.INSTANCE.getDefaultDirectoryFilterOptions();
+        List<File> allDirs        = new ArrayList<File>();
+        boolean    includeSubDirs = checkBoxIncludeSubdirectories.isSelected();
         for (File dir : dirs) {
             allDirs.add(dir);
             if (includeSubDirs) {
-                allDirs.addAll(FileUtil.getSubdirectoriesRecursive(dir, options));
+                allDirs.addAll(FileUtil.getSubdirectoriesRecursive(dir, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
             }
         }
         return allDirs;
@@ -193,6 +192,99 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         Thread thread = new Thread(new EditThread());
         thread.setName("File editor " + title + " @ " + getClass().getSimpleName());
         thread.start();
+    }
+
+    private void selectDirectories() {
+        DirectoryChooser dialog = new DirectoryChooser(
+                                        GUI.INSTANCE.getAppFrame(),
+                                        prevSelectedDirectory,
+                                        getDirChooserOptions());
+        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setVisible(true);
+        if (dialog.accepted()) {
+            selectedDirectories = dialog.getSelectedDirectories();
+            selectedFiles = getFilesOfDirectories(selectedDirectories);
+            prevSelectedDirectory = dialog.getSelectedDirectories().get(0);
+            labelInfo.setText(Bundle.getString("FileEditorPanel.SelectDirectories.LabelInfo.Text"));
+        }
+    }
+
+    private void selectFiles() {
+        JFileChooser fileChooser = new JFileChooser(prevSelectedDirectory);
+        fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.setFileFilter(fileChooserFileFilter);
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            selectedFiles.clear();
+            File[] selFiles = fileChooser.getSelectedFiles();
+            selectedFiles.addAll(Arrays.asList(selFiles));
+            setDirectory(selFiles);
+        }
+    }
+
+    private void setDirectory(File[] selFiles) {
+        if (selFiles.length > 0) {
+            prevSelectedDirectory = selFiles[0].getParentFile();
+        }
+    }
+
+    private void setFileButtonText() {
+        buttonSelectFiles.setText(selectDirs
+                                  ? Bundle.getString("FileEditorDialog.ButtonFiles.DirectoriesText")
+                                  : Bundle.getString("FileEditorDialog.ButtonFiles.FilesText"));
+    }
+
+    private void setInfoText() {
+        labelInfo.setText(selectDirs
+                          ? Bundle.getString("FileEditorPanel.LabelInfo.SelectDirs.Text")
+                          : Bundle.getString("FileEditorPanel.LabelInfo.SelectFiles.Text"));
+    }
+
+    public void readProperties() {
+        prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
+        UserSettings.INSTANCE.getSettings().applySettings(this, null);
+    }
+
+    public void writeProperties() {
+        UserSettings.INSTANCE.getSettings().set(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
+        UserSettings.INSTANCE.getSettings().set(this, null);
+        UserSettings.INSTANCE.writeToFile();
+    }
+
+    private class EditThread implements Runnable {
+
+        @Override
+        public void run() {
+            setIsRunning(true);
+            fileEditor.setConfirmOverwrite(!checkBoxReplaceExistingFiles.
+                    isSelected());
+            int filesCount = selectedFiles.size();
+            initProgressBar(filesCount);
+            for (int i = 0; i < filesCount && !stop; i++) {
+                File file = selectedFiles.get(i);
+                fileEditor.edit(file);
+                labelFilename.setText(file.getAbsolutePath());
+                progressBar.setValue(i + 1);
+            }
+            setIsRunning(false);
+        }
+
+        private void initProgressBar(int count) {
+            progressBar.setMinimum(0);
+            progressBar.setMaximum(count);
+            progressBar.setValue(0);
+        }
+
+        private void setIsRunning(boolean runs) {
+            buttonStart.setEnabled(!runs);
+            buttonShowFiles.setEnabled(!runs);
+            buttonStop.setEnabled(runs);
+            buttonSelectFiles.setEnabled(!runs);
+            checkBoxIncludeSubdirectories.setEnabled(!runs);
+            checkBoxReplaceExistingFiles.setEnabled(!runs);
+            labelFilename.setText("");
+            isRunning = runs;
+            stop = false;
+        }
     }
 
     /** This method is called from within the constructor to
@@ -361,97 +453,4 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelOptions;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
-
-    private void selectDirectories() {
-        DirectoryChooser dialog = new DirectoryChooser(
-                                        GUI.INSTANCE.getAppFrame(),
-                                        prevSelectedDirectory,
-                                        getDirChooserOptions());
-        dialog.addWindowListener(new SizeAndLocationController());
-        dialog.setVisible(true);
-        if (dialog.accepted()) {
-            selectedDirectories = dialog.getSelectedDirectories();
-            selectedFiles = getFilesOfDirectories(selectedDirectories);
-            prevSelectedDirectory = dialog.getSelectedDirectories().get(0);
-            labelInfo.setText(Bundle.getString("FileEditorPanel.SelectDirectories.LabelInfo.Text"));
-        }
-    }
-
-    private void selectFiles() {
-        JFileChooser fileChooser = new JFileChooser(prevSelectedDirectory);
-        fileChooser.setMultiSelectionEnabled(true);
-        fileChooser.setFileFilter(fileChooserFileFilter);
-        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            selectedFiles.clear();
-            File[] selFiles = fileChooser.getSelectedFiles();
-            selectedFiles.addAll(Arrays.asList(selFiles));
-            setDirectory(selFiles);
-        }
-    }
-
-    private void setDirectory(File[] selFiles) {
-        if (selFiles.length > 0) {
-            prevSelectedDirectory = selFiles[0].getParentFile();
-        }
-    }
-
-    private void setFileButtonText() {
-        buttonSelectFiles.setText(selectDirs
-                                  ? Bundle.getString("FileEditorDialog.ButtonFiles.DirectoriesText")
-                                  : Bundle.getString("FileEditorDialog.ButtonFiles.FilesText"));
-    }
-
-    private void setInfoText() {
-        labelInfo.setText(selectDirs
-                          ? Bundle.getString("FileEditorPanel.LabelInfo.SelectDirs.Text")
-                          : Bundle.getString("FileEditorPanel.LabelInfo.SelectFiles.Text"));
-    }
-
-    public void readProperties() {
-        prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
-        UserSettings.INSTANCE.getSettings().applySettings(this, null);
-    }
-
-    public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
-        UserSettings.INSTANCE.getSettings().set(this, null);
-        UserSettings.INSTANCE.writeToFile();
-    }
-
-    private class EditThread implements Runnable {
-
-        @Override
-        public void run() {
-            setIsRunning(true);
-            fileEditor.setConfirmOverwrite(!checkBoxReplaceExistingFiles.
-                    isSelected());
-            int filesCount = selectedFiles.size();
-            initProgressBar(filesCount);
-            for (int i = 0; i < filesCount && !stop; i++) {
-                File file = selectedFiles.get(i);
-                fileEditor.edit(file);
-                labelFilename.setText(file.getAbsolutePath());
-                progressBar.setValue(i + 1);
-            }
-            setIsRunning(false);
-        }
-
-        private void initProgressBar(int count) {
-            progressBar.setMinimum(0);
-            progressBar.setMaximum(count);
-            progressBar.setValue(0);
-        }
-
-        private void setIsRunning(boolean runs) {
-            buttonStart.setEnabled(!runs);
-            buttonShowFiles.setEnabled(!runs);
-            buttonStop.setEnabled(runs);
-            buttonSelectFiles.setEnabled(!runs);
-            checkBoxIncludeSubdirectories.setEnabled(!runs);
-            checkBoxReplaceExistingFiles.setEnabled(!runs);
-            labelFilename.setText("");
-            isRunning = runs;
-            stop = false;
-        }
-    }
 }

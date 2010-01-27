@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
 import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
@@ -61,8 +60,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
      *                        added
      * @param directoryFilter filter, determines which directories are displayed
      */
-    public TreeModelAllSystemDirectories(
-            JTree tree, Set<DirectoryFilter.Option> directoryFilter) {
+    public TreeModelAllSystemDirectories(JTree tree, DirectoryFilter.Option... directoryFilter) {
         super(new TreeNodeSortedChildren("Root of TreeModelAllSystemDirectories"));
         rootNode = (DefaultMutableTreeNode) getRoot();
         this.tree = tree;

@@ -229,7 +229,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                                ? ((Favorite) userObject).getDirectory()
                                : null;
         if (dir == null || !dir.isDirectory()) return;
-        File[] subdirs = dir.listFiles(new DirectoryFilter(UserSettings.INSTANCE.getDefaultDirectoryFilterOptions()));
+        File[] subdirs = dir.listFiles(new DirectoryFilter(UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
         if (subdirs == null) return;
         int childCount = parentNode.getChildCount();
         List<File> nodeChildrenDirs = new ArrayList<File>(childCount);

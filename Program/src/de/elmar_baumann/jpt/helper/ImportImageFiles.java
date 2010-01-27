@@ -34,11 +34,9 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -75,7 +73,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         List<File> sourceDirectories = new ArrayList<File>();
 
         sourceDirectories.add(srcDir);
-        sourceDirectories.addAll(FileUtil.getSubdirectoriesRecursive(srcDir, new HashSet<DirectoryFilter.Option>()));
+        sourceDirectories.addAll(FileUtil.getSubdirectoriesRecursive(srcDir));
 
         List<File> sourceImageFiles = ImageFilteredDirectory.getImageFilesOfDirectories(sourceDirectories);
 
