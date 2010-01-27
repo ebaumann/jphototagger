@@ -21,9 +21,11 @@ package de.elmar_baumann.jpt.controller.metadatatemplates;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
+import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JButton;
 
 /**
  *
@@ -33,8 +35,24 @@ import java.awt.event.KeyEvent;
  */
 public final class ControllerMetadataTemplateDelete extends ControllerMetadataTemplate {
 
+    private JButton buttonDeleteInputHelper = InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonDelete();
+
     public ControllerMetadataTemplateDelete() {
+        listen();
+    }
+
+    private void listen() {
         listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemDelete());
+        buttonDeleteInputHelper.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == buttonDeleteInputHelper && isInputHelperListItemSelected()) {
+            action(getTemplateOfInputHelperList());
+        } else {
+            super.actionPerformed(evt);
+        }
     }
 
     @Override

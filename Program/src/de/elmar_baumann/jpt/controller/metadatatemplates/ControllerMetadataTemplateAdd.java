@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.controller.metadatatemplates;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.EditMetaDataTemplateDialog;
+import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
@@ -35,11 +36,17 @@ import javax.swing.JButton;
  */
 public final class ControllerMetadataTemplateAdd extends ControllerMetadataTemplate {
 
-    JButton buttonAdd = GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateAdd();
+    private JButton buttonAddEditPanel   = GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateAdd();
+    private JButton buttonAddInputHelper = InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonAdd();
 
     public ControllerMetadataTemplateAdd() {
+        listen();
+    }
+
+    private void listen() {
         listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemAdd());
-        buttonAdd.addActionListener(this);
+        buttonAddEditPanel.addActionListener(this);
+        buttonAddInputHelper.addActionListener(this);
     }
 
     @Override
@@ -49,7 +56,8 @@ public final class ControllerMetadataTemplateAdd extends ControllerMetadataTempl
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource() == buttonAdd) {
+        Object source = evt.getSource();
+        if (source == buttonAddEditPanel || source == buttonAddInputHelper) {
             action((MetadataTemplate) null);
         } else {
             super.actionPerformed(evt);

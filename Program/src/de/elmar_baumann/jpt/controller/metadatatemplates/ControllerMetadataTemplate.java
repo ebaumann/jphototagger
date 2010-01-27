@@ -26,6 +26,7 @@ import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JList;
 
 /**
  *
@@ -54,12 +55,20 @@ public abstract class ControllerMetadataTemplate extends Controller {
 
     @Override
     protected void action(KeyEvent evt) {
-        action(getTemplateOfList());
+        action(getTemplateOfInputHelperList());
     }
 
     protected void focusList() {
         InputHelperDialog.INSTANCE.toFront();
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().requestFocusInWindow();
+    }
+
+    protected JList getInputHelperList() {
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList();
+    }
+
+    protected boolean isInputHelperListItemSelected() {
+        return getInputHelperList().getSelectedIndex() >= 0;
     }
 
     private MetadataTemplate getTemplateOfPopupMenu() {
@@ -72,7 +81,8 @@ public abstract class ControllerMetadataTemplate extends Controller {
         return (MetadataTemplate) model.get(index);
     }
 
-    private MetadataTemplate getTemplateOfList() {
-        return (MetadataTemplate) InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().getSelectedValue();
+    protected MetadataTemplate getTemplateOfInputHelperList() {
+        assert isInputHelperListItemSelected();
+        return (MetadataTemplate) getInputHelperList().getSelectedValue();
     }
 }
