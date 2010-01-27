@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JButton;
 
 /**
  *
@@ -40,13 +41,29 @@ public final class ControllerMetadataTemplateEdit
         implements MouseListener
 {
 
+    private JButton buttonEditInputHelper = InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonEdit();
+
     public ControllerMetadataTemplateEdit() {
+        listen();
+    }
+
+    private void listen() {
         listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemEdit());
         listenToDoubleClick();
+        buttonEditInputHelper.addActionListener(this);
     }
 
     private void listenToDoubleClick() {
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().addMouseListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == buttonEditInputHelper && isInputHelperListItemSelected()) {
+            action(getTemplateOfInputHelperList());
+        } else {
+            super.actionPerformed(evt);
+        }
     }
 
     @Override
