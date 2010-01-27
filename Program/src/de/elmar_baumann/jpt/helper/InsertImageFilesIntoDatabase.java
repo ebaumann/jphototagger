@@ -284,7 +284,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
         File sidecarFile = new File(XmpMetadata.suggestSidecarFilename(imageFile.getFilename()));
         if (sidecarFile.canWrite()) {
-            XmpMetadata.writeMetadataToSidecarFile(sidecarFile.getAbsolutePath(), xmp);
+            XmpMetadata.writeXmpToSidecarFile( xmp, sidecarFile.getAbsolutePath());
             xmp.setLastModified(sidecarFile.lastModified());
         }
     }
@@ -296,7 +296,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
             String sidecarFilename = XmpMetadata.suggestSidecarFilename(imageFilename);
 
-            XmpMetadata.writeMetadataToSidecarFile(sidecarFilename, xmp);
+            XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename);
         }
     }
 

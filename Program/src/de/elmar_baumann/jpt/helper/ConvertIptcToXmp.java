@@ -71,7 +71,7 @@ public final class ConvertIptcToXmp implements Runnable {
                 }
                 xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
                 logWriteXmpFile(imageFilename);
-                if (XmpMetadata.writeMetadataToSidecarFile(xmpFilename, xmp)) {
+                if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFilename)) {
                     updateDatabase(imageFilename);
                 }
             }

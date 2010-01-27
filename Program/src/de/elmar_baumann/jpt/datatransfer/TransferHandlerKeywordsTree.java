@@ -130,9 +130,9 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
     }
 
     private void addKeywords(
-            TreeModelKeywords treeModel,
-            DefaultMutableTreeNode        node,
-            TransferSupport               transferSupport) {
+            TreeModelKeywords      treeModel,
+            DefaultMutableTreeNode node,
+            TransferSupport        transferSupport) {
 
         Object[] keywords = TransferHandlerKeywordsList.getKeywords(transferSupport.getTransferable());
         if (keywords == null) return;
@@ -143,9 +143,9 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
 
     @SuppressWarnings("unchecked")
     public static void moveKeywords(
-            TransferSupport               transferSupport,
-            TreeModelKeywords treeModel,
-            DefaultMutableTreeNode        dropNode
+            TransferSupport        transferSupport,
+            TreeModelKeywords      treeModel,
+            DefaultMutableTreeNode dropNode
             ) {
         try {
             List<DefaultMutableTreeNode> sourceNodes = (List<DefaultMutableTreeNode>)

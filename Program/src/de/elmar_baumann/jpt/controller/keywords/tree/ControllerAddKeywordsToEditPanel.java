@@ -32,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -89,6 +90,10 @@ public class ControllerAddKeywordsToEditPanel
                     editPanel.addText(keywordName);
                 }
                 KeywordsHelper.addHighlightKeywords(keywordNames);
+                if (keywordNames.size() > 1) {
+                    Collections.reverse(keywordNames);
+                    editPanels.setHierarchicalSubjects(keywordNames);
+                }
                 editPanels.checkSaveOnChanges();
             } else {
                 MessageDisplayer.error(null, "ControllerAddKeywordsToEditPanel.Error.EditDisabled");

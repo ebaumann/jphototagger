@@ -34,7 +34,7 @@ import de.elmar_baumann.jpt.database.metadata.mapping.IptcEntryXmpPathStartMappi
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnNamespaceUriMapping;
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMapping;
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpValueType;
-import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpPathStartMapping;
+import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpArrayNameMapping;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.database.metadata.selections.XmpInDatabase;
 import de.elmar_baumann.jpt.io.IoUtil;
@@ -75,6 +75,12 @@ public final class XmpMetadata {
         KNOWN_NAMESPACES.add("tiff");
         KNOWN_NAMESPACES.add("xap");
         KNOWN_NAMESPACES.add("xapRights");
+
+        try {
+            XMPMetaFactory.getSchemaRegistry().registerNamespace(Namespace.LIGHTROOM.getUri(), Namespace.LIGHTROOM.getPrefix());
+        } catch (Exception ex) {
+            AppLogger.logSevere(XmpMetadata.class, ex);
+        }
     }
 
     /**
@@ -156,16 +162,16 @@ public final class XmpMetadata {
     /**
      * Adds XMP property infos of XMP metadata to a list of property infos.
      *
-     * @param xmpMeta          XMP metadata
-     * @param xmpPropertyInfos list of property infos to retrieve the properties
-     *                         from XMP metadata
+     * @param toXmpMeta          XMP metadata
+     * @param toXmpPropertyInfos list of property infos to retrieve the properties
+     *                            from XMP metadata
      */
-    private static void addXmpPropertyInfosTo(XMPMeta xmpMeta, List<XMPPropertyInfo> xmpPropertyInfos) {
+    private static void addXmpPropertyInfosTo(XMPMeta fromXmpMeta, List<XMPPropertyInfo> toXmpPropertyInfos) {
         try {
-            for (XMPIterator it = xmpMeta.iterator(); it.hasNext();) {
+            for (XMPIterator it = fromXmpMeta.iterator(); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
                 if (hasContent(xmpPropertyInfo)) {
-                    xmpPropertyInfos.add(xmpPropertyInfo);
+                    toXmpPropertyInfos.add(xmpPropertyInfo);
                 }
             }
         } catch (Exception ex) {
@@ -256,16 +262,16 @@ public final class XmpMetadata {
     /**
      * Returns all {@link XMPPropertyInfo}s matching a {@link IPTCEntryMeta}.
      *
-     * @param  iptcEntryMeta IPTC entry metadata
-     * @param  propertyInfos arbitrary property infos
-     * @return               property infos of <code>propertyInfos</code>
-     *                       matching that metadata
+     * @param  matchingIptcEntryMeta IPTC entry metadata
+     * @param  propertyInfos      arbitrary property infos
+     * @return                    property infos of <code>propertyInfos</code>
+     *                            matching that metadata
      */
     public static List<XMPPropertyInfo> filterPropertyInfosOfIptcEntryMeta(
-            IPTCEntryMeta iptcEntryMeta, List<XMPPropertyInfo> propertyInfos) {
+             List<XMPPropertyInfo> propertyInfos, IPTCEntryMeta matchingIptcEntryMeta) {
 
         List<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<XMPPropertyInfo>();
-        String                startsWith            = IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(iptcEntryMeta);
+        String                startsWith            = IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(matchingIptcEntryMeta);
 
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
             if (propertyInfo.getPath().startsWith(startsWith)) {
@@ -312,18 +318,18 @@ public final class XmpMetadata {
      * Writes the values of a {@link Xmp} instance as or into a XMP sidecar
      * file.
      *
-     * @param  sidecarFilename  name of the sidecar file
-     * @param  metadata         metadata
-     * @return                  true if successfully written
+     * @param  fromXmp           XMP metadata
+     * @param  toSidecarFilename name of the sidecar file
+     * @return                   true if successfully written
      */
-    public static boolean writeMetadataToSidecarFile(String sidecarFilename, Xmp metadata) {
+    public static boolean writeXmpToSidecarFile(Xmp fromXmp, String toSidecarFilename) {
         try {
-            XMPMeta xmpMeta = getXmpMetaOfSidecarFile(sidecarFilename);
+            XMPMeta toXmpMeta = getXmpMetaOfSidecarFile(toSidecarFilename);
 
-            deleteAllEditableMetadataFrom(xmpMeta);
-            setMetadata(xmpMeta, metadata);
+            deleteAllEditableMetadataFrom(toXmpMeta);
+            setMetadata(fromXmp, toXmpMeta);
 
-            return writeSidecarFile(sidecarFilename, xmpMeta);
+            return writeSidecarFile(toXmpMeta, toSidecarFilename);
 
         } catch (Exception ex) {
             AppLogger.logSevere(XmpMetadata.class, ex);
@@ -331,11 +337,12 @@ public final class XmpMetadata {
         }
     }
 
-    private static void setMetadata(XMPMeta xmpMeta, Xmp metadata) throws XMPException {
+    private static void setMetadata(Xmp fromXmp, XMPMeta toXmpMeta) throws XMPException {
         for (Column column : EditColumns.get()) {
             String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(column);
-            String propertyName = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(column);
-            setSidecarFileSetMetadata(column, metadata, xmpMeta, namespaceUri, propertyName);
+            String arrayName    = XmpColumnXmpArrayNameMapping.getXmpArrayNameOfColumn(column);
+            copyMetadata(fromXmp, toXmpMeta, column, namespaceUri, arrayName);
+            setLightroomHierarchicalSubjects(fromXmp, toXmpMeta);
         }
     }
 
@@ -354,13 +361,14 @@ public final class XmpMetadata {
     /**
      * Deletes from an <code>XMPMeta</code> instance all data an user can edit.
      *
-     * @param xmpMeta XMP metadata
+     * @param toXmpMeta XMP metadata
      */
     private static void deleteAllEditableMetadataFrom(XMPMeta xmpMeta) {
         Set<Column> editableXmpColumns = EditColumns.get();
+
         for (Column editableColumn : editableXmpColumns) {
             String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(editableColumn);
-            String propertyName = XmpColumnXmpPathStartMapping.getXmpPathStartOfColumn(editableColumn);
+            String propertyName = XmpColumnXmpArrayNameMapping.getXmpArrayNameOfColumn(editableColumn);
             xmpMeta.deleteProperty(namespaceUri, propertyName);
         }
     }
@@ -368,57 +376,58 @@ public final class XmpMetadata {
     /**
      * Sets metadata of a {@link Xmp} instance to a {@link XMPMeta} instance.
      *
-     * @param column         part of data to set
-     * @param metadata       <code>Xmp</code> metadata to set from
-     * @param xmpMeta        <code>XMPMeta</code> metadata to set to
-     * @param namespaceUri   URI of namespase in <code>XMPMeta</code> to set
-     * @param propertyName   property name to set within the URI
-     * @throws XMPException  if the namespace or uri or data is invalid
+     * @param column        part of data to set
+     * @param fromXmp       <code>Xmp</code> metadata to set from
+     * @param toXmpMeta     <code>XMPMeta</code> metadata to set to
+     * @param namespaceUri  URI of namespase in <code>XMPMeta</code> to set
+     * @param propertyName     array name to set within the URI
+     * @throws XMPException if the namespace or uri or data is invalid
      */
-    private static void setSidecarFileSetMetadata(
+    private static void copyMetadata(
+            Xmp     fromXmp,
+            XMPMeta toXmpMeta,
             Column  column,
-            Xmp     metadata,
-            XMPMeta xmpMeta,
             String  namespaceUri,
-            String  propertyName
+            String  arrayName
             )
-            throws XMPException {
-        Object metadataValue = metadata.getValue(column);
-        if (metadataValue != null) {
-            if (metadataValue instanceof String) {
-                String value = (String) metadataValue;
+            throws XMPException
+            {
+        Object xmpValue = fromXmp.getValue(column);
+        if (xmpValue != null) {
+            if (xmpValue instanceof String) {
+                String value = (String) xmpValue;
                 // 2009-08-02: No side effects if value is empty
                 // ("orphaned data"), because previous metadata was deleted
                 if (XmpColumnXmpDataTypeMapping.isText(column) && !value.trim().isEmpty()) {
-                    xmpMeta.setProperty(namespaceUri, propertyName, value);
+                    toXmpMeta.setProperty(namespaceUri, arrayName, value);
                 } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(column)) {
-                    xmpMeta.setLocalizedText(namespaceUri, propertyName, "", "x-default", value);
+                    toXmpMeta.setLocalizedText(namespaceUri, arrayName, "", "x-default", value);
                 }
-            } else if (metadataValue instanceof List<?>) {
+            } else if (xmpValue instanceof List<?>) {
                 @SuppressWarnings("unchecked")
-                List<String> values = (List<String>) metadataValue;
+                List<String> values = (List<String>) xmpValue;
                 for (String value : values) {
                     value = value.trim();
-                    if (!doesArrayItemExist(xmpMeta, namespaceUri, propertyName, value)) {
-                        xmpMeta.appendArrayItem(namespaceUri, propertyName,
-                                getArrayPropertyOptions(column), value, null);
+                    if (!doesArrayItemExist(toXmpMeta, namespaceUri, arrayName, value)) {
+                        toXmpMeta.appendArrayItem(namespaceUri, arrayName,
+                                getArrayPropertyOptionsOf(column), value, null);
                     }
                 }
-            } else if (metadataValue instanceof Long) {
-                Long value = (Long) metadataValue;
-                xmpMeta.setProperty(namespaceUri, propertyName, Long.toString(value));
+            } else if (xmpValue instanceof Long) {
+                Long value = (Long) xmpValue;
+                toXmpMeta.setProperty(namespaceUri, arrayName, Long.toString(value));
             } else {
-                AppLogger.logWarning(XmpMetadata.class, "XmpMetadata.Error.WriteSetMetadata", metadataValue.getClass());
+                AppLogger.logWarning(XmpMetadata.class, "XmpMetadata.Error.WriteSetMetadata", xmpValue.getClass());
             }
         }
     }
 
     private static boolean doesArrayItemExist(
             XMPMeta xmpMeta,
-            String namespaceUri,
-            String propertyName,
-            String item)
-            throws XMPException
+            String  namespaceUri,
+            String  propertyName,
+            String  item
+            ) throws XMPException
             {
         if (xmpMeta.doesPropertyExist(namespaceUri, propertyName)) {
             for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName, new IteratorOptions()); it.hasNext();) {
@@ -437,7 +446,7 @@ public final class XmpMetadata {
         return false;
     }
 
-    private static PropertyOptions getArrayPropertyOptions(Column xmpColumn) {
+    private static PropertyOptions getArrayPropertyOptionsOf(Column xmpColumn) {
         XmpValueType valueType = XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
 
         if (valueType.equals(XmpValueType.BAG_TEXT)) {
@@ -452,15 +461,15 @@ public final class XmpMetadata {
         }
     }
 
-    private static boolean writeSidecarFile(String sidecarFilename, XMPMeta meta) {
+    private static boolean writeSidecarFile(XMPMeta fromXmpMeta, String toSidecarFilename) {
         FileOutputStream out         = null;
-        File             sidecarFile = new File(sidecarFilename);
+        File             sidecarFile = new File(toSidecarFilename);
         if (!IoUtil.lockLogWarning(sidecarFile, XmpMetadata.class))
             return false;
         try {
             out = new FileOutputStream(sidecarFile);
             out.getChannel().lock();
-            XMPMetaFactory.serialize(meta, out, new SerializeOptions().setPadding(10).setOmitPacketWrapper(true));
+            XMPMetaFactory.serialize(fromXmpMeta, out, new SerializeOptions().setPadding(10).setOmitPacketWrapper(true));
             return true;
         } catch (Exception ex) {
             AppLogger.logSevere(XmpMetadata.class, ex);
@@ -477,15 +486,15 @@ public final class XmpMetadata {
         }
     }
 
-    private static void setLightroomSubjects(Xmp xmp, XMPMeta xmpMeta) throws XMPException {
-        List<String> dcSubjects   = xmp.getDcSubjects();
-        String       hierSubjects = xmp.getHierarchicalSubjects();
+    private static void setLightroomHierarchicalSubjects(Xmp fromXmp, XMPMeta toXmpMeta) throws XMPException {
+        List<String> dcSubjects   = fromXmp.getDcSubjects();
+        String       hierSubjects = fromXmp.getHierarchicalSubjects();
 
         if (dcSubjects == null) return;
 
-        xmpMeta.deleteProperty(Namespace.LIGHTROOM.getUri(), Property.LR_HIERARCHICAL_SUBJECTS.getName());
+        toXmpMeta.deleteProperty(Namespace.LIGHTROOM.getUri(), ArrayName.LR_HIERARCHICAL_SUBJECTS.getName());
 
-        if (hasHierarchicalSubjects(xmp) && checkHierarchicalSubjects(hierSubjects, dcSubjects)) {
+        if (hasHierarchicalSubjects(fromXmp) && checkHierarchicalSubjects(dcSubjects, hierSubjects)) {
             dcSubjects.add(hierSubjects);
         }
 
@@ -493,22 +502,24 @@ public final class XmpMetadata {
         Collections.sort(dcSubjects);
 
         for (String dcSubject : dcSubjects) {
-            xmpMeta.appendArrayItem(
+            toXmpMeta.appendArrayItem(
                                     Namespace.LIGHTROOM.getUri(),
-                                    Property.LR_HIERARCHICAL_SUBJECTS.getName(),
-                                    Property.LR_HIERARCHICAL_SUBJECTS.getArrayPropertyOptions(),
+                                    ArrayName.LR_HIERARCHICAL_SUBJECTS.getName(),
+                                    ArrayName.LR_HIERARCHICAL_SUBJECTS.getArrayPropertyOptions(),
                                     dcSubject,
                                     null);
         }
     }
 
-    private static boolean checkHierarchicalSubjects(String hrSubjects, List<String> dcSubjects) {
-        StringTokenizer st = new StringTokenizer(hrSubjects, Xmp.HIER_SUBJECTS_DELIM);
+    private static boolean checkHierarchicalSubjects(
+            List<String> dcSubjectsMustContain, String allHrSubjects) {
+
+        StringTokenizer st = new StringTokenizer(allHrSubjects, Xmp.HIER_SUBJECTS_DELIM);
 
         while (st.hasMoreTokens()) {
             String hrSubject = st.nextToken().trim();
-            if (!dcSubjects.contains(hrSubject)) {
-                assert false : hrSubject + " is not in " + dcSubjects;
+            if (!dcSubjectsMustContain.contains(hrSubject)) {
+                assert false : hrSubject + " is not in " + dcSubjectsMustContain;
                 return false;
             }
         }
@@ -532,9 +543,9 @@ public final class XmpMetadata {
 
         if (imageFilename == null || !hasImageASidecarFile(imageFilename)) return null;
 
-        return getXmp(XmpLocation.SIDECAR_FILE, imageFilename,
+        return getXmp(
                    getPropertyInfosOfSidecarFile(
-                       new File(getSidecarFilename(imageFilename))));
+                       new File(getSidecarFilename(imageFilename))), imageFilename, XmpLocation.SIDECAR_FILE);
     }
 
     /**
@@ -549,7 +560,7 @@ public final class XmpMetadata {
         String xmpString = getEmbeddedXmpAsString(imageFilename);
         return xmpString == null
                ? null
-               : getXmp(XmpLocation.EMBEDDED, imageFilename, getPropertyInfosOfXmpString(xmpString));
+               : getXmp(  getPropertyInfosOfXmpString(xmpString), imageFilename, XmpLocation.EMBEDDED);
     }
 
     /**
@@ -560,7 +571,7 @@ public final class XmpMetadata {
      * @param  xmpPropertyInfos unordered property infos
      * @return                   ordered property infos
      */
-    public static Map<String, List<XMPPropertyInfo>> getOrderedPropertyInfosForDatabase(List<XMPPropertyInfo> xmpPropertyInfos) {
+    public static Map<String, List<XMPPropertyInfo>> getOrderedPropertyInfosForDatabaseOf(List<XMPPropertyInfo> xmpPropertyInfos) {
 
         if (xmpPropertyInfos == null) throw new NullPointerException("xmpPropertyInfos == null");
 
@@ -584,14 +595,14 @@ public final class XmpMetadata {
         return propertyInfoWithPathStart;
     }
 
-    private static Xmp getXmp(XmpLocation xmpType, String imageFilename, List<XMPPropertyInfo> xmpPropertyInfos) {
+    private static Xmp getXmp(List<XMPPropertyInfo> xmpPropertyInfos, String areFromXmpImageFilename, XmpLocation xmpLocation) {
         Xmp xmp = null;
         if (xmpPropertyInfos != null) {
             xmp = new Xmp();
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
                 String path   = xmpPropertyInfo.getPath();
                 Object value  = xmpPropertyInfo.getValue();
-                Column column = XmpColumnXmpPathStartMapping.findColumn(path);
+                Column column = XmpColumnXmpArrayNameMapping.findColumn(path);
 
                 if (value != null && column != null && column.getDataType() != null) {
                     try {
@@ -600,10 +611,27 @@ public final class XmpMetadata {
                         AppLogger.logSevere(XmpMetadata.class, ex);
                     }
                 }
+                addExtension(path, xmp, value);
             }
-            setLastModified(xmpType, xmp, imageFilename);
+            setLastModified(xmpLocation, xmp, areFromXmpImageFilename);
         }
         return xmp;
+    }
+
+    private static void addExtension(String fromPath, Xmp toXmp, Object value) {
+        addLightroomHierarchicalSubjects(fromPath, toXmp, value);
+    }
+
+    private static void addLightroomHierarchicalSubjects(String fromPath, Xmp toXmp, Object value) {
+        if (fromPath.startsWith(ArrayName.LR_HIERARCHICAL_SUBJECTS.getName()) &&
+            value instanceof String &&
+            ((String) value).contains(Xmp.HIER_SUBJECTS_DELIM)
+            ) {
+            String hrSubjects = ((String) value).trim();
+            if (!hrSubjects.isEmpty()) {
+                toXmp.setHierarchicalSubjects(hrSubjects);
+            }
+        }
     }
 
     private static void setLastModified(XmpLocation xmpType, Xmp xmp, String imageFilename) {

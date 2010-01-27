@@ -242,19 +242,35 @@ public final class EditMetadataPanels
     public void addText(Column column, String text) {
         assert isEditable();
         if (!isEditable()) return;
+
         JPanel panelAdd = null;
         int    size     = panels.size();
+
         for (int i = 0; panelAdd == null && i < size; i++) {
             JPanel panel = panels.get(i);
             if (((TextEntry) panel).getColumn().equals(column)) {
                 panelAdd = panel;
             }
         }
+
         assert panelAdd instanceof EditRepeatableTextEntryPanel : panelAdd;
+
         if (panelAdd instanceof EditRepeatableTextEntryPanel) {
             ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
         }
         checkSaveOnChanges();
+    }
+
+    public void setHierarchicalSubjects(List<String> hierarchicalSubjects) {
+        assert isEditable();
+        if (!isEditable()) return;
+
+        for (Pair<String, Xmp> pair : filenamesXmp) {
+            pair.getSecond().setHierarchicalSubjects(hierarchicalSubjects);
+        }
+        if (UserSettings.INSTANCE.isSaveInputEarly()) {
+            save();
+        }
     }
 
     /**
