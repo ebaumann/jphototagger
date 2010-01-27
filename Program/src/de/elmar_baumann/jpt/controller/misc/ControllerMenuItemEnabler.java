@@ -87,9 +87,16 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
         itemsRequiresSelectedImages.add(popupThumbnails.getItemIptcToXmp());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemExifToXmp());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemPick());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemCopyMetadata());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemCopyToClipboard());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemCutToClipboard());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemCopyToDirectory());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemDeleteFiles());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemMoveFiles());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemFileSystemRenameFiles());
+        itemsRequiresSelectedImages.add(popupThumbnails.getItemPasteMetadata());
         itemsRequiresSelectedImages.add(popupThumbnails.getItemReject());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuActions());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuFsOps());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuImageCollection());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuMetadata());
         itemsRequiresSelectedImages.add(popupThumbnails.getMenuPlugins());
