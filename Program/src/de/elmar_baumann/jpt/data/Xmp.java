@@ -51,7 +51,6 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method
@@ -62,7 +61,13 @@ import java.util.Set;
  */
 public final class Xmp implements TextEntryListener {
 
-    private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
+    private final Map<Column, Object> valueOfColumn       = new HashMap<Column, Object>();
+    private       String              hierarchicalSubjects;
+
+    /**
+     * Delimiter of hierarchical subjects
+     */
+    public static final String        HIER_SUBJECTS_DELIM = "|";
 
     public Xmp() {
     }
@@ -480,6 +485,33 @@ public final class Xmp implements TextEntryListener {
         return longValueOf(ColumnXmpLastModified.INSTANCE);
     }
 
+    /**
+     * Sets hierarchical subjects.
+     *
+     * @param subjects subjects. The first element is the to level element
+     *                 (direct below the root), the second the 2nd level etc.
+     */
+    public void setHierarchicalSubjects(List<String> subjects) {
+        StringBuilder sb    = new StringBuilder();
+        int           size  = subjects.size();
+
+        for (int i = 0; i < size; i++) {
+            sb.append(subjects.get(i));
+            sb.append(i == size - 1 ? "" : HIER_SUBJECTS_DELIM);
+        }
+
+        hierarchicalSubjects = sb.toString();
+    }
+
+    /**
+     * Returns the hierarchical subjects delimited by {@link #HIER_SUBJECTS_DELIM}.
+     *
+     * @return hierarchical subjects
+     */
+    public String getHierarchicalSubjects() {
+        return hierarchicalSubjects;
+    }
+
     @Override
     public void textRemoved(Column column, String removedText) {
         removeValue(column, removedText);
@@ -737,15 +769,6 @@ public final class Xmp implements TextEntryListener {
                 assert false : "Unregognized data type of: " + o;
             }
         }
-    }
-
-    /**
-     * Returns all columns of this XMP object.
-     *
-     * @return columns
-     */
-    public Set<Column> getAllColumns() {
-        return valueOfColumn.keySet();
     }
 
     // If true o is not null

@@ -42,13 +42,16 @@ import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileLock;
+import de.elmar_baumann.lib.util.StringUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
  * Gets and sets XMP metadata from image files and XMP sidecar files and to
@@ -472,6 +475,49 @@ public final class XmpMetadata {
                 }
             }
         }
+    }
+
+    private static void setLightroomSubjects(Xmp xmp, XMPMeta xmpMeta) throws XMPException {
+        List<String> dcSubjects   = xmp.getDcSubjects();
+        String       hierSubjects = xmp.getHierarchicalSubjects();
+
+        if (dcSubjects == null) return;
+
+        xmpMeta.deleteProperty(Namespace.LIGHTROOM.getUri(), Property.LR_HIERARCHICAL_SUBJECTS.getName());
+
+        if (hasHierarchicalSubjects(xmp) && checkHierarchicalSubjects(hierSubjects, dcSubjects)) {
+            dcSubjects.add(hierSubjects);
+        }
+
+        dcSubjects = StringUtil.getTrimmed(dcSubjects);
+        Collections.sort(dcSubjects);
+
+        for (String dcSubject : dcSubjects) {
+            xmpMeta.appendArrayItem(
+                                    Namespace.LIGHTROOM.getUri(),
+                                    Property.LR_HIERARCHICAL_SUBJECTS.getName(),
+                                    Property.LR_HIERARCHICAL_SUBJECTS.getArrayPropertyOptions(),
+                                    dcSubject,
+                                    null);
+        }
+    }
+
+    private static boolean checkHierarchicalSubjects(String hrSubjects, List<String> dcSubjects) {
+        StringTokenizer st = new StringTokenizer(hrSubjects, Xmp.HIER_SUBJECTS_DELIM);
+
+        while (st.hasMoreTokens()) {
+            String hrSubject = st.nextToken().trim();
+            if (!dcSubjects.contains(hrSubject)) {
+                assert false : hrSubject + " is not in " + dcSubjects;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean hasHierarchicalSubjects(Xmp xmp) {
+        return xmp.getHierarchicalSubjects() != null &&
+              !xmp.getHierarchicalSubjects().trim().isEmpty();
     }
 
     /**

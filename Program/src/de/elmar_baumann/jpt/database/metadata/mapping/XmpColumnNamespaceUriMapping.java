@@ -52,8 +52,7 @@ import java.util.Map;
  */
 public final class XmpColumnNamespaceUriMapping {
 
-    private static final Map<Column, String> NAMESPACE_URI_OF_COLUMN =
-            new HashMap<Column, String>();
+    private static final Map<Column, String> NAMESPACE_URI_OF_COLUMN = new HashMap<Column, String>();
 
     static {
         NAMESPACE_URI_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE                     , XMPConst.NS_DC);
