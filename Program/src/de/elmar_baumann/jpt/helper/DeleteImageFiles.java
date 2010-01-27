@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.types.DeleteOption;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.EnumSet;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,27 +45,26 @@ public final class DeleteImageFiles {
      * @param  options     options
      * @return all deleted files
      */
-    public static List<File> delete(List<File> imageFiles,
-            EnumSet<DeleteOption> options) {
-        List<File> deletedImageFiles = new ArrayList<File>(imageFiles.size());
-        if (confirmDelete(options)) {
-            List<Pair<File, File>> imageFilesWithSidecarFiles =
-                    XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
+    public static List<File> delete(List<File> imageFiles, DeleteOption... options) {
+        List<File>         deletedImageFiles = new ArrayList<File>(imageFiles.size());
+        List<DeleteOption> optionList        = Arrays.asList(options);
+
+        if (confirmDelete(optionList)) {
+            List<Pair<File, File>> imageFilesWithSidecarFiles = XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
             for (Pair<File, File> filePair : imageFilesWithSidecarFiles) {
                 File imageFile = filePair.getFirst();
                 if (imageFile.delete()) {
-                    deleteSidecarFile(filePair.getSecond(), options);
+                    deleteSidecarFile(filePair.getSecond(), optionList);
                     deletedImageFiles.add(imageFile);
                 } else {
-                    errorMessageDelete(imageFile, options);
+                    errorMessageDelete(imageFile, optionList);
                 }
             }
         }
         return deletedImageFiles;
     }
 
-    private static void deleteSidecarFile(File sidecarFile,
-            EnumSet<DeleteOption> options) {
+    private static void deleteSidecarFile(File sidecarFile, List<DeleteOption> options) {
         if (sidecarFile != null) {
             if (!sidecarFile.delete()) {
                 errorMessageDelete(sidecarFile, options);
@@ -73,8 +72,7 @@ public final class DeleteImageFiles {
         }
     }
 
-    private static void errorMessageDelete(File file,
-            EnumSet<DeleteOption> options) {
+    private static void errorMessageDelete(File file, List<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
             AppLogger.logWarning(ControllerDeleteFiles.class,
                     "FileSystemDeleteImageFiles.Error.Delete",
@@ -82,7 +80,7 @@ public final class DeleteImageFiles {
         }
     }
 
-    private static boolean confirmDelete(EnumSet<DeleteOption> options) {
+    private static boolean confirmDelete(List<DeleteOption> options) {
         if (options.contains(DeleteOption.CONFIRM_DELETE)) {
             return MessageDisplayer.confirmYesNo(
                     null,
