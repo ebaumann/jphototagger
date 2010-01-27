@@ -32,7 +32,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import java.util.EnumSet;
 import java.util.List;
 import javax.swing.SwingUtilities;
 
@@ -48,11 +47,9 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerDeleteFiles implements ActionListener, KeyListener {
 
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuThumbnails popupMenu =
-            PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles  db              = DatabaseImageFiles.INSTANCE;
+    private final PopupMenuThumbnails popupMenu       = PopupMenuThumbnails.INSTANCE;
 
     public ControllerDeleteFiles() {
         listen();
@@ -66,8 +63,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DELETE) {
-            if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION))
-                return;
+            if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)) return;
             delete();
         }
     }
@@ -92,9 +88,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
 
     private void deleteSelectedFiles() {
         List<File> deletedImageFiles = DeleteImageFiles.delete(
-                thumbnailsPanel.getSelectedFiles(), EnumSet.of(
-                DeleteOption.CONFIRM_DELETE,
-                DeleteOption.MESSAGES_ON_FAILURES));
+                thumbnailsPanel.getSelectedFiles(), DeleteOption.CONFIRM_DELETE, DeleteOption.MESSAGES_ON_FAILURES);
         if (deletedImageFiles.size() > 0) {
             db.delete(FileUtil.getAsFilenames(deletedImageFiles));
             thumbnailsPanel.remove(deletedImageFiles);
