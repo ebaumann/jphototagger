@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.database.metadata.mapping;
 
-import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
@@ -39,9 +38,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.lib.generics.Pair;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
