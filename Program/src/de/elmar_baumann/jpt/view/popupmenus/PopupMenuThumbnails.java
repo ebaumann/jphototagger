@@ -44,8 +44,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
-import javax.swing.Action;
-import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -73,10 +71,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final        JMenu                   menuSelection                        = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuSelection"));
     private final        JMenu                   menuFsOps                            = new JMenu(Bundle.getString("PopupMenuThumbnails.DisplayName.MenuFileSystemOps"));
     private final        JMenu                   menuActions                          = ActionsHelper.actionsAsMenu();
-    private final        JMenuItem               itemUpdateMetadata                   = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateMetadata")           , AppLookAndFeel.getIcon("icon_metadata_refresh.png"));
-    private final        JMenuItem               itemUpdateThumbnail                  = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail")          , AppLookAndFeel.getIcon("icon_image_refresh.png"));
-    private final        JMenuItem               itemIptcToXmp                        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.IptcToXmp")                , AppLookAndFeel.getIcon("icon_iptc.png"));
-    private final        JMenuItem               itemExifToXmp                        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.ExifToXmp")                , AppLookAndFeel.getIcon("icon_exif.png"));
+    private final        JMenuItem               itemUpdateMetadata                   = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateMetadata"));
+    private final        JMenuItem               itemUpdateThumbnail                  = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.UpdateThumbnail"));
+    private final        JMenuItem               itemIptcToXmp                        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.IptcToXmp"));
+    private final        JMenuItem               itemExifToXmp                        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.ExifToXmp"));
     private final        JMenuItem               itemCreateImageCollection            = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.CreateImageCollection")    , AppLookAndFeel.getIcon("icon_imagecollection.png"));
     private final        JMenuItem               itemAddToImageCollection             = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.AddToImageCollection")     , AppLookAndFeel.getIcon("icon_imagecollection_add_to.png"));
     private final        JMenuItem               itemDeleteFromImageCollection        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.DeleteFromImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection_remove_from.png"));
@@ -86,10 +84,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final        JMenuItem               itemDeleteImageFromDatabase          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.DeleteImageFromDatabase"));
     private final        JMenuItem               itemOpenFilesWithStandardApp         = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.OpenFiles"));
     private final        JMenuItem               itemFileSystemCopyToDirectory        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemCopyToDirectory"));
-    private final        JMenuItem               itemFileSystemDeleteFiles            = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemDeleteFiles")    , AppLookAndFeel.getIcon("icon_delete.png"));
+    private final        JMenuItem               itemFileSystemDeleteFiles            = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemDeleteFiles"));
     private final        JMenuItem               itemFileSystemRenameFiles            = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemRename"));
     private final        JMenuItem               itemFileSystemMoveFiles              = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.FileSystemMove"));
-    private final        JMenuItem               itemRefresh                          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Refresh")                  , AppLookAndFeel.getIcon("icon_refresh.png"));
+    private final        JMenuItem               itemRefresh                          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Refresh"));
     private final        JMenuItem               itemPick                             = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Pick")                     , AppLookAndFeel.getIcon("icon_picked.png"));
     private final        JMenuItem               itemReject                           = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Action.Reject")                   , AppLookAndFeel.getIcon("icon_rejected.png"));
     private final        JMenuItem               itemRating0                          = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.Rating0")                         , AppLookAndFeel.getIcon("icon_xmp_rating_remove.png"));
@@ -175,28 +173,18 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void addPluginItems() {
-        Icon iconPlugin = AppLookAndFeel.getIcon("icon_plugin.png");
-        menuPlugins.setIcon(iconPlugin);
         add(menuPlugins);
         Logger     logger     = Logger.getLogger("de.elmar_baumann.jpt.plugin");
         Properties properties = UserSettings.INSTANCE.getProperties();
         for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
             plugin.setProperties(properties);
             plugin.setLogger(logger);
-            plugin.putValue(Action.SMALL_ICON, iconPlugin);
             menuPlugins.add(plugin);
         }
     }
 
     private PopupMenuThumbnails() {
         init();
-    }
-
-    private void setStandardAppIcon() {
-        File app = new File(UserSettings.INSTANCE.getDefaultImageOpenApp());
-        if (app.exists()) {
-            itemOpenFilesWithStandardApp.setIcon(IconUtil.getSystemIcon(app));
-        }
     }
 
     public void setOtherPrograms() {
@@ -236,11 +224,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     @Override
     public void applySettings(UserSettingsEvent evt) {
         if (evt.getType().equals(UserSettingsEvent.Type.DEFAULT_IMAGE_OPEN_APP)) {
-            boolean exists = existsStandardImageOpenApp();
-            itemOpenFilesWithStandardApp.setEnabled(exists);
-            if (exists) {
-                setStandardAppIcon();
-            }
+            itemOpenFilesWithStandardApp.setEnabled(existsStandardImageOpenApp());
         }
     }
 
@@ -442,7 +426,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private void init() {
         initRatingOfItem();
         addItems();
-        setStandardAppIcon();
         setItemsEnabled();
         setAccelerators();
         UserSettings.INSTANCE.addUserSettingsListener(this);

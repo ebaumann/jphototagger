@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.view.popupmenus;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;

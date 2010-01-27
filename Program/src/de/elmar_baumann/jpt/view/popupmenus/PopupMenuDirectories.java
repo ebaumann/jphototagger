@@ -41,7 +41,7 @@ public final class PopupMenuDirectories extends JPopupMenu {
     private final        JMenuItem            itemCreateDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory"));
     private final        JMenuItem            itemRenameDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory"));
     private final        JMenuItem            itemDeleteDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory"));
-    private final        JMenuItem            itemRefresh                 = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.Refresh")                 , AppLookAndFeel.getIcon("icon_refresh.png"));
+    private final        JMenuItem            itemRefresh                 = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.Refresh"));
     private final        JMenuItem            menuItemExpandAllSubitems   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
     private final        JMenuItem            menuItemCollapseAllSubitems = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
     private              TreePath             path;

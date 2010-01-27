@@ -361,12 +361,27 @@ public final class DatabasePrograms extends Database {
      * @return true if at least one program (ore more) exists
      */
     public boolean hasProgram() {
+        return has(false);
+    }
+
+    /**
+     * Returns whether the database contains at least one action (<em>no</em>
+     * program).
+     *
+     * @return true if at least one action (ore more) exists
+     */
+    public boolean hasAction() {
+        return has(true);
+    }
+
+    private boolean has(boolean action) {
         int count = 0;
         Connection connection = null;
         try {
             connection = getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM programs WHERE action = FALSE");
+                    "SELECT COUNT(*) FROM programs WHERE action = " +
+                                                (action ? "TRUE" : "FALSE"));
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
