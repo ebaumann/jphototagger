@@ -19,6 +19,7 @@
 package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -55,23 +56,18 @@ public final class StringUtil {
      *                        continued at the next line
      * @return                lines
      */
-    public static List<String> wrapWords(String text, int maxCharsPerLine,
-            String wordDelimiter) {
-        if (text == null)
-            throw new NullPointerException("text == null");
-        if (maxCharsPerLine <= 0)
-            throw new IllegalArgumentException("Invalid max chars per line: " +
-                    maxCharsPerLine);
-        if (wordDelimiter.isEmpty())
-            throw new IllegalArgumentException("Empty word delimiter string!");
+    public static List<String> wrapWords(String text, int maxCharsPerLine, String wordDelimiter) {
+        if (text == null           ) throw new NullPointerException("text == null");
+        if (maxCharsPerLine <= 0   ) throw new IllegalArgumentException("Invalid max chars per line: " + maxCharsPerLine);
+        if (wordDelimiter.isEmpty()) throw new IllegalArgumentException("Empty word delimiter string!");
 
-        List<String> lines = new ArrayList<String>();
-        int textLength = text.length();
-        int lineBeginIndex = 0;
-        int lineEndIndex = 0;
-        int currentLineBreakCharIndex = 0;
-        int prevLineBreakCharIndex = 0;
-        int index = 0;
+        List<String> lines                     = new ArrayList<String>();
+        int          textLength                = text.length();
+        int          lineBeginIndex            = 0;
+        int          lineEndIndex              = 0;
+        int          currentLineBreakCharIndex = 0;
+        int          prevLineBreakCharIndex    = 0;
+        int          index                     = 0;
         boolean end = text.isEmpty();
         while (!end) {
             if (isWordDelimiter(text.charAt(index), wordDelimiter)) {
@@ -79,8 +75,7 @@ public final class StringUtil {
                 currentLineBreakCharIndex = index;
             }
             int lineCount = lines.size();
-            int maxBreakIndex =
-                    lineCount * maxCharsPerLine + maxCharsPerLine;
+            int maxBreakIndex = lineCount * maxCharsPerLine + maxCharsPerLine;
             if (index == maxBreakIndex) {
                 if (currentLineBreakCharIndex > lineBeginIndex) {
                     lineEndIndex = currentLineBreakCharIndex;
@@ -110,6 +105,16 @@ public final class StringUtil {
 
     private static boolean isWordDelimiter(char c, String wordDelimiter) {
         return wordDelimiter.contains(Character.toString(c));
+    }
+
+    public static List<? extends String> getTrimmed(Collection<? extends String> strings) {
+        List<String> trimmedStrings = new ArrayList<String>(strings.size());
+
+        for (String string : strings) {
+            trimmedStrings.add(string.trim());
+        }
+
+        return trimmedStrings;
     }
 
     private StringUtil() {
