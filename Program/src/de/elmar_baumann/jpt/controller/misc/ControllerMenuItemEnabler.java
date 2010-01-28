@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 /**
  *
@@ -40,7 +42,11 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-27
  */
-public final class ControllerMenuItemEnabler implements DatabaseProgramsListener, ThumbnailsPanelListener {
+public final class ControllerMenuItemEnabler
+        implements DatabaseProgramsListener,
+                   ThumbnailsPanelListener,
+                   PopupMenuListener
+    {
 
     private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresSelectedImages = new HashMap<JMenuItem, List<Content>>();
     private final List<JMenuItem>               itemsRequiresSelectedImages              = new ArrayList<JMenuItem>();
@@ -58,6 +64,7 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
     private void listen() {
         thumbnailsPanel.addThumbnailsPanelListener(this);
         DatabasePrograms.INSTANCE.addListener(this);
+        popupThumbnails.addPopupMenuListener(this);
     }
 
     private void init() {
@@ -127,6 +134,20 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
     }
 
     @Override
+    public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+        Object source = e.getSource();
+
+        if (source == popupThumbnails) {
+            popupMenuThumbnailsBecomeVisible();
+        }
+    }
+
+    private void popupMenuThumbnailsBecomeVisible() {
+        popupThumbnails.getItemSelectAll()    .setEnabled(thumbnailsPanel.getFileCount() > 0);
+        popupThumbnails.getItemSelectNothing().setEnabled(thumbnailsPanel.getSelectionCount() > 0);
+    }
+
+    @Override
     public void thumbnailsSelectionChanged() {
         setEnabled();
     }
@@ -140,5 +161,15 @@ public final class ControllerMenuItemEnabler implements DatabaseProgramsListener
     public void actionPerformed(DatabaseProgramsEvent event) {
         hasProgram = DatabasePrograms.INSTANCE.hasProgram();
         setEnabled();
+    }
+
+    @Override
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void popupMenuCanceled(PopupMenuEvent e) {
+        // ignore
     }
 }

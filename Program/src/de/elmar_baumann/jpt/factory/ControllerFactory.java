@@ -107,6 +107,7 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerThumbnailsDatabaseChanges;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerThumbnailsPanelPersistence;
+import de.elmar_baumann.jpt.controller.thumbnail.ControllerThumbnailsSelectAllOrNothing;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerToggleKeywordOverlay;
 import de.elmar_baumann.jpt.controller.timeline.ControllerTimelineItemSelected;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -225,6 +226,7 @@ public final class ControllerFactory {
         support.add(new ControllerDirectorySelected());
         support.add(new ControllerEnableCreateMetadataTemplate());
         support.add(new ControllerActionsMenuUpdater());
+        support.add(new ControllerThumbnailsSelectAllOrNothing());
 
         addSizeAndLocationController();
 

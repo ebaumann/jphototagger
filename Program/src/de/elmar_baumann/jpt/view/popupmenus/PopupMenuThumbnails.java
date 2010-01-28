@@ -101,6 +101,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final        JMenuItem               itemCutToClipboard                   = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemCutToClipboard"));
     private final        JMenuItem               itemPasteFromClipboard               = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemPasteFromClipboard"));
     private final        JMenuItem               itemPasteMetadata                    = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemPasteMetadata"));
+    private final        JMenuItem               itemSelectAll                        = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemSelectAll"));
+    private final        JMenuItem               itemSelectNothing                    = new JMenuItem(Bundle.getString("PopupMenuThumbnails.DisplayName.ItemSelectNothing"));
     // End menu items
     private final        List<ActionListener>    actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final        Map<JMenuItem, Program> programOfMenuItem                    = new HashMap<JMenuItem, Program>();
@@ -169,6 +171,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
         menuFsOps.add(itemFileSystemRenameFiles);
         menuFsOps.add(itemFileSystemMoveFiles);
         menuFsOps.add(itemFileSystemDeleteFiles);
+        menuFsOps.add(new JSeparator());
+        menuFsOps.add(itemSelectAll);
+        menuFsOps.add(itemSelectNothing);
         add(menuFsOps);
     }
 
@@ -352,6 +357,14 @@ public final class PopupMenuThumbnails extends JPopupMenu
         return itemRating5;
     }
 
+    public JMenuItem getItemSelectAll() {
+        return itemSelectAll;
+    }
+
+    public JMenuItem getItemSelectNothing() {
+        return itemSelectNothing;
+    }
+
     public JMenu getMenuRating() {
         return menuRating;
     }
@@ -454,5 +467,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
         itemRating3                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0));
         itemRating4                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0));
         itemRating5                  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0));
+        itemSelectAll                .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
     }
 }

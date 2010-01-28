@@ -207,6 +207,10 @@ public class ThumbnailsPanel extends JPanel
          clearSelection(new ArrayList<Integer>(selectedThumbnailIndices));
     }
 
+    public void selectAll() {
+        setSelectedAll(true);
+    }
+
     /* Also clears the selection, but takes the new indices of the selection
      * as arguments, if files have been reordered etc.
      */
