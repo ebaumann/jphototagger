@@ -206,7 +206,7 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void showPatternHelp() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        help("parameter_substitution.html");
+        help(Bundle.getString("Help.Url.Contents.ParameterSubstitution"));
     }
 
     /** This method is called from within the constructor to

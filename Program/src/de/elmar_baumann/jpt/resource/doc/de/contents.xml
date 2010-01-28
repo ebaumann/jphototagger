@@ -28,11 +28,11 @@
     <node>
         <title>Schnell arbeiten (Zeit sparen)</title>
         <page>
-            <url>tip_work_fast_order_hierarchical_keywords.html</url>
+            <url>tip_work_fast_order_keywords_tree.html</url>
             <title>Stichwörter im Stichwortbaum ordnen</title>
         </page>
         <page>
-            <url>tip_work_fast_move_into_hierarchical_keywords.html</url>
+            <url>tip_work_fast_scroll_keywords_to_visible.html</url>
             <title>Stichwortbaum: Stichwörter schnell in den Vordergrund bringen</title>
         </page>
         <page>
@@ -44,171 +44,171 @@
             <title>Tippfehler bei vielen Bildern korrigieren</title>
         </page>
         <page>
-            <url>tip_work_fast_add_hierarchical_keywords.html</url>
+            <url>tip_work_fast_add_keywords_to_tree.html</url>
             <title>Vergessene übergeordnete Stichwörter zuordnen</title>
         </page>
     </node>
     <node>
         <title>Die Auswahl-Kartenreiter</title>
         <page>
-            <url>mainwindow_panel_folder.html</url>
+            <url>mainwindow_folders.html</url>
             <title>Ordner</title>
         </page>
         <page>
-            <url>mainwindow_panel_saved_searches.html</url>
+            <url>mainwindow_searches.html</url>
             <title>Suchen</title>
         </page>
         <page>
-            <url>mainwindow_panel_collections.html</url>
+            <url>mainwindow_collections.html</url>
             <title>Fotoalben</title>
         </page>
         <page>
-            <url>mainwindow_panel_keywords.html</url>
-            <title>Stichwörter</title>
+            <url>mainwindow_keywords_list.html</url>
+            <title>Stichwörter / Listenansicht</title>
         </page>
         <page>
-            <url>mainwindow_panel_sel_hierarchical_keywords.html</url>
-            <title>Stichwortbaum</title>
+            <url>mainwindow_sel_keywords_tree.html</url>
+            <title>Stichwörter / Baumansicht</title>
         </page>
         <page>
-            <url>mainwindow_panel_favorite_folders.html</url>
-            <title>Favoriten-Ordner</title>
+            <url>mainwindow_favorites.html</url>
+            <title>Favoriten</title>
         </page>
         <page>
-            <url>mainwindow_panel_timeline.html</url>
+            <url>mainwindow_timeline.html</url>
             <title>Zeitleiste</title>
         </page>
         <page>
-            <url>mainwindow_panel_misc_metadata.html</url>
+            <url>mainwindow_misc_metadata.html</url>
             <title>Verschiedenes</title>
         </page>
         <page>
-            <url>mainwindow_panel_no_metadata.html</url>
+            <url>mainwindow_no_metadata.html</url>
             <title>Ohne Metadaten</title>
         </page>
     </node>
     <node>
         <title>Die Metadaten-Kartenreiter</title>
         <page>
-            <url>mainwindow_panel_iptc.html</url>
+            <url>mainwindow_iptc.html</url>
             <title>IPTC</title>
         </page>
         <page>
-            <url>mainwindow_panel_exif.html</url>
+            <url>mainwindow_exif.html</url>
             <title>EXIF</title>
         </page>
         <page>
-            <url>mainwindow_panel_xmp.html</url>
+            <url>mainwindow_xmp.html</url>
             <title>XMP</title>
         </page>
         <page>
-            <url>mainwindow_panel_edit.html</url>
+            <url>mainwindow_edit.html</url>
             <title>Bearbeiten</title>
         </page>
-        <page>
-            <url>mainwindow_panel_hierarchical_keywords.html</url>
-            <title>Stichwortbaum</title>
-        </page>
     </node>
+    <page>
+        <url>mainwindow_keywords_tree.html</url>
+        <title>Stichwortbaum</title>
+    </page>
     <node>
         <title>Arbeiten im Bildfenster</title>
         <page>
-            <url>action_metadata_update_thumbnail.html</url>
+            <url>update_thumbnail.html</url>
             <title>Vorschaubild aktualisieren</title>
         </page>
         <page>
-            <url>action_metadata_update.html</url>
+            <url>update_metadata.html</url>
             <title>Metadaten aktualisieren</title>
         </page>
         <page>
-            <url>action_database_remove_image.html</url>
+            <url>remove_images_from_database.html</url>
             <title>Aus der Datenbank entfernen</title>
         </page>
         <page>
-            <url>action_filesystem_open.html</url>
+            <url>open_images.html</url>
             <title>Öffnen</title>
         </page>
         <page>
-            <url>action_filesystem_open_with.html</url>
+            <url>open_images_with.html</url>
             <title>Öffnen mit</title>
         </page>
         <page>
-            <url>action_collection_create.html</url>
+            <url>collection_create.html</url>
             <title>Neue Bildammlung erstellen</title>
         </page>
         <page>
-            <url>action_collection_add_to.html</url>
+            <url>collection_add_to.html</url>
             <title>Einer Bildammlung hinzufügen</title>
         </page>
         <page>
-            <url>action_collection_remove_from.html</url>
+            <url>collection_remove_from.html</url>
             <title>Aus der Bildammlung entfernen</title>
         </page>
         <page>
-            <url>action_thumbnail_rotate.html</url>
+            <url>rotate_thumbnail.html</url>
             <title>Vorschaubilder drehen</title>
         </page>
         <page>
-            <url>action_filesystem_copy.html</url>
+            <url>copy_images.html</url>
             <title>In einen Ordner kopieren</title>
         </page>
         <page>
-            <url>dialog_filesystem_rename.html</url>
+            <url>rename_images.html</url>
             <title>Auf dem Datenträger Umbenennen</title>
         </page>
         <page>
-            <url>action_filesystem_move.html</url>
+            <url>move_images.html</url>
             <title>Auf dem Datenträger verschieben</title>
         </page>
         <page>
-            <url>action_filesystem_delete.html</url>
+            <url>delete_images.html</url>
             <title>Vom Datenträger löschen</title>
         </page>
     </node>
     <node>
         <title>Menübefehle</title>
         <page>
-            <url>action_metadata_scan_directories.html</url>
+            <url>scan_directories.html</url>
             <title>Datei &gt; Ordner einlesen</title>
         </page>
         <page>
-            <url>dialog_maintain_database.html</url>
+            <url>maintain_database.html</url>
             <title>Datei &gt; Datenbank</title>
         </page>
         <page>
-            <url>action_filesystem_import_image_files.html</url>
+            <url>import_images.html</url>
             <title>Datei &gt; Bilder importieren</title>
         </page>
         <page>
-            <url>action_import_keywords.html</url>
+            <url>import_keywords.html</url>
             <title>Datei &gt; Importieren &gt; Stichwörter</title>
         </page>
         <page>
-            <url>action_export_keywords.html</url>
+            <url>export_keywords.html</url>
             <title>Datei &gt; Exportieren &gt; Stichwörter</title>
         </page>
         <page>
-            <url>action_dialog_settings.html</url>
+            <url>settings.html</url>
             <title>Bearbeiten &gt; Einstellungen</title>
         </page>
         <page>
-            <url>dialog_advanced_search.html</url>
+            <url>advanced_search.html</url>
             <title>Bearbeiten &gt; Suchen</title>
         </page>
         <page>
-            <url>action_metadata_iptc_to_xmp.html</url>
+            <url>import_iptc.html</url>
             <title>Werkzeuge &gt; IPTC-Daten importieren</title>
         </page>
         <page>
-            <url>action_metadata_embedded_xmp_to_xmp_sidecar_file.html</url>
+            <url>import_xmp.html</url>
             <title>Werkzeuge &gt; XMP-Daten importieren</title>
         </page>
         <page>
-            <url>dialog_input_helpers.html</url>
+            <url>input_helpers.html</url>
             <title>Fenster &gt; Eingabehilfen</title>
         </page>
         <page>
-            <url>dialog_actions.html</url>
+            <url>actions.html</url>
             <title>Fenster &gt; Aktionen</title>
         </page>
         <page>
@@ -219,58 +219,58 @@
     <node>
         <title>Einstellungen</title>
         <page>
-            <url>dialog_settings_programs.html</url>
+            <url>settings_programs.html</url>
             <title>Bilder öffnen</title>
         </page>
         <page>
-            <url>dialog_settings_fastsearch.html</url>
+            <url>settings_fastsearch.html</url>
             <title>Schnellsuche</title>
         </page>
         <page>
-            <url>dialog_settings_thumbnails.html</url>
+            <url>settings_thumbnails.html</url>
             <title>Vorschaubilder</title>
         </page>
         <page>
-            <url>dialog_settings_iptc.html</url>
+            <url>settings_iptc.html</url>
             <title>IPTC</title>
         </page>
         <page>
-            <url>dialog_settings_tasks.html</url>
+            <url>settings_tasks.html</url>
             <title>Automatisieren</title>
         </page>
         <page>
-            <url>dialog_settings_performance.html</url>
+            <url>settings_performance.html</url>
             <title>Leistung</title>
         </page>
         <page>
-            <url>dialog_settings_fileexcludepattern.html</url>
+            <url>settings_file_excludepattern.html</url>
             <title>Ausschließen</title>
         </page>
         <page>
-            <url>dialog_settings_edit.html</url>
+            <url>settings_edit.html</url>
             <title>Bearbeiten</title>
         </page>
         <page>
-            <url>dialog_settings_misc.html</url>
+            <url>settings_misc.html</url>
             <title>Sonstiges</title>
         </page>
         <page>
-            <url>dialog_settings_actions.html</url>
+            <url>settings_actions.html</url>
             <title>Aktionen</title>
         </page>
         <page>
-            <url>dialog_settings_plugins.html</url>
+            <url>settings_plugins.html</url>
             <title>Plugins</title>
         </page>
     </node>
     <node>
         <title>Sonstige Dialoge</title>
         <page>
-            <url>dialog_program_properties.html</url>
+            <url>program_properties.html</url>
             <title>Dialog Programmeigenschaften</title>
         </page>
         <page>
-            <url>dialog_filesystem_rename.html</url>
+            <url>rename_imagefiles.html</url>
             <title>Dialog: Umbenennen</title>
         </page>
     </node>
@@ -313,22 +313,14 @@
             <title>Mehr Arbeitsspeicher</title>
         </page>
         <page>
-            <url>tipp_export_keyword_tree.html</url>
+            <url>tipp_export_keywords_tree.html</url>
             <title>Exportieren Sie regelmäßig Ihren Stichwortbaum</title>
         </page>
     </node>
     <node>
         <title>Wichtige Fakten</title>
         <page>
-            <url>facts_what_metadata_is_read.html</url>
-            <title>Welche Metadaten werden gelesen?</title>
-        </page>
-        <page>
-            <url>facts_database_and_metadata.html</url>
-            <title>Metadaten und die Datenbank</title>
-        </page>
-        <page>
-            <url>facts_what_metadata_is_displayed.html</url>
+            <url>facts_which_metadata_is_displayed.html</url>
             <title>Welche Metadaten werden angezeigt?</title>
         </page>
         <page>
@@ -336,12 +328,16 @@
             <title>Welche Metadaten können bearbeitet werden?</title>
         </page>
         <page>
-            <url>facts_what_metadata_is_in_database.html</url>
-            <title>Was ist in der Datenbank gespeichert?</title>
+            <url>facts_database_and_metadata.html</url>
+            <title>Metadaten und die Datenbank</title>
         </page>
         <page>
-            <url>facts_count_write_to_database.html</url>
+            <url>facts_database_image_updates.html</url>
             <title>Wie oft werden Bilder in die Datenbank geschrieben?</title>
+        </page>
+        <page>
+            <url>facts_which_metadata_is_in_database.html</url>
+            <title>Was ist in der Datenbank gespeichert?</title>
         </page>
         <page>
             <url>facts_database_location.html</url>

@@ -20,8 +20,8 @@
         <ul>
             <li>Automatische Vervollständigung Ihrer Eingaben
             </li>
-            <li>Kopieren von <a href="glossary_metadata.html">Metadaten</a> und
-                Einfügen in andere Bilder
+            <li>Kopieren der <a href="glossary_metadata.html">Metadaten</a>
+                eines Bilds und Einfügen in andere Bilder
             </li>
             <li>Hierarchische Stichwörter: Auf Wunsch werden einem Stichwort
                 übergeordnete Stichwörter ebenfalls eingefügt, beispielsweise
@@ -30,18 +30,19 @@
             <li>Ziehen und Fallenlassen (Drag&amp;Drop) von Stichwörtern auf
                 Bilder
             </li>
-            <li>Einfügen von Vorlagen: Feste Stichwortsätze, Ihre Anschrift, ...
+            <li>Einfügen von Vorlagen: Feste Stichwortsätze, Ihre Anschrift,
+                Copyright, ...
             </li>
         </ul>
 
         <p> Die Bilder können Sie:</p>
         <ul>
-            <li>öffnen mit beliebig vielen Programmen, z.B. einem
+            <li>öffnen mit anderen Programmen, z.B. einem
                 Bildbearbeitungs- oder Betrachtungsprogramm
             </li>
-            <li>an beliebig viele Skripte (&quot;Batch-Dateien&quot;) schicken.
-                Diese Skripte könnten die Bilder schärfen, drehen, hochladen auf
-                einen Webserver oder zu einem Belichtungsservice, ...
+            <li>an Skripte (&quot;Batch-Dateien&quot;) schicken. Diese könnten
+                die Bilder schärfen, drehen, hochladen auf einen Webserver oder
+                zu einem Belichtungsservice, ...
             </li>
         </ul>
 
@@ -62,9 +63,9 @@
 
         <p>Was Sie eingeben, wird in
             <a href="glossary_sidecar_file.html">XMP-Filialdateien</a> gespeichert.
-            Das sind Dateien mit dem gleichen Namen wie die Bilder und der
+            Das sind Dateien des gleichen Namens wie die Bilder und der
             Endung <code>xmp</code>. Heißt ein Bild <code>Blume.jpg</code>, ist
-            seine Filialdatei <code>Blume.xmp</code>. Alle Filialdateien sind im
+            seine Filialdatei <code>Blume.xmp</code>. Eine Filialdatei ist im
             gleichen Ordner gespeichert wie das Bild. Zusätzlich werden Ihre
             Eingaben in eine <strong>Datenbank</strong> geschrieben und so
             schnell gefunden.</p>
@@ -83,54 +84,23 @@
             (<a href="tip_action_embed_xmp.html">Beispiel-Skript</a>).
         </p>
 
-        <h2>Vorteile der XMP-Filialdateien</h2>
-
-        <p>Die Filialdateien und XMP haben die Vorteile:
+        <p>Die Vor- und Nachteile von XMP-Filialdateien sind beschrieben unter
+            <a href="facts_why_xmp_sidecarfiles.html">Warum XMP-Filialdateien?</a>.
         </p>
-
-        <ul>
-            <li>Ihre <strong>Bilder werden nicht verändert</strong>,
-                insbesondere <em>nicht</em> beschädigt.
-            </li>
-            <li>Die Metadaten sind <strong>schneller</strong> geschrieben.
-                XMP in die Bilder zu schreiben dauert länger, Bilddateien sind
-                sehr viel größer als XMP-Textdateien und leer
-                gelassener Platz nach den XMP-Daten - falls das Schreibprogramm
-                daran dachte - ist begrenzt. So muss jedesmal das (ganze) Bild
-                neu geschrieben werden. Im schlimmsten Fall könnte es dabei
-                beschädigt werden.
-            </li>
-            <li>Ist die <strong>Datenbank</strong> beschädigt, können Sie diese
-                <strong>automatisch erneuern</strong> lassen anhand der
-                XMP-Filialdateien.
-            </li>
-            <li><strong>Ändern Sie häufiger die Metadaten</strong>,
-                beispielsweise indem Sie Tippfehler korrigieren, Ihre Adresse
-                ändern, Stichwörter einer neuen Ordnung angleichen, werden nur
-                kleine Dateien modifiziert. Das <strong>verringert signifikant
-                    den Speicherplatz auf Sicherungsmedien</strong>
-                (<strong>Backupmedien</strong> wie externe Festplatten oder
-                beschreibbare DVDs): Statt Gigabytes von 16 Bit TIFF-Dateien
-                werden Kilobytes an Textdateien gesichert - eine
-                Versionsverwaltung, die nur die Unterschiede von
-                Binärdateiversionen speichert, dürften die wenigsten nutzen zum
-                Sichern ihrer Bilder.
-            </li>
-        </ul>
 
         <h2>Weitere Metadaten-Anzeigen</h2>
 
         <p>Es können zusätzlich <strong>IPTC</strong>-Daten angezeigt werden.
             Diese können Sie als
-            <a href="action_metadata_iptc_to_xmp.html">importieren</a>.
+            <a href="import_iptc.html">importieren</a>.
             <a href="glossary_iptc.html">IPTC</a> ist ein älterer Standard und
-            die Daten stehen in den Bildern.
+            die Daten stehen (stets) in den Bildern.
         </p>
 
         <p>In Bildern enthaltene - <strong>eingebettete - XMP-Daten</strong>
             können angezeigt werden, falls keine XMP-Filialdatei existiert und
             ebenfalls 
-            <a href="action_metadata_embedded_xmp_to_xmp_sidecar_file.html">importiert</a>
+            <a href="import_xmp.html">importiert</a>
             werden.
         </p>
 
