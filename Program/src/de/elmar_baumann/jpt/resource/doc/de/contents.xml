@@ -111,18 +111,22 @@
         <title>Stichwortbaum</title>
     </page>
     <node>
-        <title>Arbeiten im Bildfenster</title>
+        <title>Kontextmenü im Vorschaubildfenster</title>
         <page>
             <url>update_thumbnail.html</url>
-            <title>Vorschaubild aktualisieren</title>
+            <title>Aktualisieren &gt; Vorschaubild aktualisieren</title>
         </page>
         <page>
             <url>update_metadata.html</url>
-            <title>Metadaten aktualisieren</title>
+            <title>Aktualisieren &gt; Metadaten aktualisieren</title>
         </page>
         <page>
             <url>remove_images_from_database.html</url>
-            <title>Aus der Datenbank entfernen</title>
+            <title>Aktualisieren &gt; Aus der Datenbank entfernen</title>
+        </page>
+        <page>
+            <url>rotate_thumbnail.html</url>
+            <title>Vorschaubild drehen</title>
         </page>
         <page>
             <url>open_images.html</url>
@@ -134,35 +138,31 @@
         </page>
         <page>
             <url>collection_create.html</url>
-            <title>Neue Bildammlung erstellen</title>
+            <title>Fotoalbum &gt; Neues Fotoalbum erstellen</title>
         </page>
         <page>
             <url>collection_add_to.html</url>
-            <title>Einer Bildammlung hinzufügen</title>
+            <title>Fotoalbum &gt; Einem Fotoalbum hinzufügen</title>
         </page>
         <page>
             <url>collection_remove_from.html</url>
-            <title>Aus der Bildammlung entfernen</title>
-        </page>
-        <page>
-            <url>rotate_thumbnail.html</url>
-            <title>Vorschaubilder drehen</title>
+            <title>Fotoalbum &gt; Aus dem Fotoalbum entfernen</title>
         </page>
         <page>
             <url>copy_images.html</url>
-            <title>In einen Ordner kopieren</title>
+            <title>Dateioperationen &gt; In einen Ordner kopieren</title>
         </page>
         <page>
             <url>rename_images.html</url>
-            <title>Auf dem Datenträger Umbenennen</title>
+            <title>Dateioperationen &gt; Auf dem Datenträger Umbenennen</title>
         </page>
         <page>
             <url>move_images.html</url>
-            <title>Auf dem Datenträger verschieben</title>
+            <title>Dateioperationen &gt; Auf dem Datenträger verschieben</title>
         </page>
         <page>
             <url>delete_images.html</url>
-            <title>Vom Datenträger löschen</title>
+            <title>Dateioperationen &gt; Vom Datenträger löschen</title>
         </page>
     </node>
     <node>
@@ -268,10 +268,6 @@
         <page>
             <url>program_properties.html</url>
             <title>Dialog Programmeigenschaften</title>
-        </page>
-        <page>
-            <url>rename_imagefiles.html</url>
-            <title>Dialog: Umbenennen</title>
         </page>
     </node>
     <node>
