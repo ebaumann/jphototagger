@@ -214,6 +214,73 @@ public final class TreeUtil {
     }
 
     /**
+     * Checks whether a path is below a node.
+     *
+     * All children below <code>parentNode</code> have to be
+     * <code>DefaultMutableTreeNode</code>s. The child nodes <code>toString()</code>
+     * method strings will be compared against the <code>toStrings</code>.
+     *
+     * @param parentNode parent node, not included in <code>toStrings</code>
+     * @param toStrings  first element is the <code>toString()</code> of the
+     *                   first child node, second element is the <code>toString()</code>
+     *                   of the child's child etc. <em>All strings have to be
+     *                   not null!</em>
+     * @param ignoreCase true if the strings shall be compared case insensitive
+     * @return           true if the path was found
+     */
+    public static boolean existsPathBelow(DefaultMutableTreeNode parentNode, List<String> toStrings, boolean ignoreCase) {
+        if (parentNode == null) throw new NullPointerException("parentNode == null");
+        if (toStrings  == null) throw new NullPointerException("toStrings == null");
+
+        int                    size = toStrings.size();
+        DefaultMutableTreeNode node = parentNode;
+
+        for (int i = 0; i < size; i++) {
+            String string = toStrings.get(i);
+            if (string == null) throw new NullPointerException("string == null. Element index: " + i);
+            node = getChild(node, string, ignoreCase);
+            if (node == null) return false;
+        }
+
+        return true;
+    }
+
+    public static DefaultMutableTreeNode getBestMatchingNodeBelow(DefaultMutableTreeNode parentNode, List<String> toStrings, boolean ignoreCase) {
+        if (parentNode == null) throw new NullPointerException("parentNode == null");
+        if (toStrings  == null) throw new NullPointerException("toStrings == null");
+
+        int                    size = toStrings.size();
+        DefaultMutableTreeNode node   = parentNode;
+        DefaultMutableTreeNode latest = parentNode;
+
+        for (int i = 0; i < size && node != null; i++) {
+            String string = toStrings.get(i);
+            if (string == null) throw new NullPointerException("string == null. Element index: " + i);
+            node = getChild(node, string, ignoreCase);
+            if (node != null) {
+                latest = node;
+            }
+        }
+
+        return latest;
+    }
+
+    private static DefaultMutableTreeNode getChild(DefaultMutableTreeNode parentNode, String toString, boolean ignoreCase) {
+        assert toString != null;
+        for (Enumeration<?> e = parentNode.children(); e.hasMoreElements(); ) {
+            Object child = e.nextElement();
+            if (child instanceof DefaultMutableTreeNode) {
+                if (child.toString() == null) return null;
+                boolean exists = ignoreCase
+                            ? child.toString().equalsIgnoreCase(toString)
+                            : child.toString().equals(toString);
+                if (exists) return (DefaultMutableTreeNode) child;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Returns the tree path below a mouse position got by a mouse event.
      *
      * @param  e mouse event within a {@link JTree}
