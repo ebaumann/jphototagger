@@ -153,12 +153,14 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
             for (DefaultMutableTreeNode sourceNode : sourceNodes) {
                 Object userObject = sourceNode.getUserObject();
                 if (userObject instanceof Keyword) {
-                    Keyword sourceKeyword = (Keyword) userObject;
-                    Keyword srcCopy       = new Keyword(sourceKeyword);
-                    treeModel.move(sourceNode, dropNode, sourceKeyword);
-                    KeywordsHelper.moveInFiles(
-                            KeywordsHelper.getParentKeywordNames(
-                                    srcCopy, true), sourceKeyword); // sourceKeyword's new parent ID was set through treeModel.move()
+                    if (sourceNode != dropNode) {
+                        Keyword sourceKeyword = (Keyword) userObject;
+                        Keyword srcCopy       = new Keyword(sourceKeyword);
+                        treeModel.move(sourceNode, dropNode, sourceKeyword);
+                        KeywordsHelper.moveInFiles(
+                                KeywordsHelper.getParentKeywordNames(
+                                        srcCopy, true), sourceKeyword); // sourceKeyword's new parent ID was set through treeModel.move()
+                    }
                 }
             }
         } catch (Exception ex) {
