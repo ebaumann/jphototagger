@@ -42,9 +42,9 @@ import javax.swing.JProgressBar;
  */
 public final class UpdateDownload extends Thread {
 
-    private static final String       URL_CHECK         = "http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/jphototagger-version.txt";
-    private static final String       URL_JAR           = "http://www.elmar-baumann.de/fotografie/download/JPhotoTagger.zip";
-    private static final String       URL_WIN_INSTALLER = "http://www.elmar-baumann.de/fotografie/download/JPhotoTagger-setup.exe";
+    private static final String       URL_CHECK         = "http://jphototagger.kenai.com/jphototagger-version.txt";
+    private static final String       URL_JAR           = "http://jphototagger.kenai.com/dist/JPhotoTagger.zip";
+    private static final String       URL_WIN_INSTALLER = "http://jphototagger.kenai.com/dist/JPhotoTagger-setup.exe";
     private static final String       VERSION_DELIMITER = ".";
     private static final String       FILENAME_WINDOWS  = "JPhotoTagger-Setup.exe";
     private static final String       FILENAME_JAR      = "JPhotoTagger.jar";
@@ -88,7 +88,7 @@ public final class UpdateDownload extends Thread {
 
         startProgressBar();
         try {
-            if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.Download", currentVersion, netVersion)) {
+            if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.Download", currentVersion.toString3(), netVersion.toString3())) {
                 progressBarDownloadInfo();
                 download();
             }
