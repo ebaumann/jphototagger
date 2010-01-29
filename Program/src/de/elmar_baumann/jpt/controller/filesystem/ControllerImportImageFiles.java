@@ -24,7 +24,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Listens to {@link de.elmar_baumann.jpt.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-19

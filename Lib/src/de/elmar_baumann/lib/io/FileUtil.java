@@ -341,10 +341,11 @@ public final class FileUtil {
     }
 
     /**
+     * Returns recursive all subdirectories of a parent directory.
      *
-     * @param  directory  
-     * @param  options    
-     * @return 
+     * @param  directory  parent directory
+     * @param  options    options
+     * @return            subdirectories or empty list
      */
     public static List<File> getSubdirectoriesRecursive(
             File                      directory,
