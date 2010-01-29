@@ -420,6 +420,7 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private int addToList(Collection<String> texts) {
+        if (!column.getInputVerifier().verify(textAreaInput)) return 0;
         ignoreIntervalAdded = true;
         int countAdded = 0;
         for (String text : texts) {

@@ -519,7 +519,6 @@ public final class XmpMetadata {
         while (st.hasMoreTokens()) {
             String hrSubject = st.nextToken().trim();
             if (!dcSubjectsMustContain.contains(hrSubject)) {
-                assert false : hrSubject + " is not in " + dcSubjectsMustContain;
                 return false;
             }
         }

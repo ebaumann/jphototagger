@@ -84,16 +84,17 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     /**
      * Adds a keyword to a node.
      *
-     * @param parentNode parent node; the keyword becomes a child
-     * @param keyword    keyword to add
-     * @param real       true if the keyword is a real keyword
+     * @param  parentNode parent node; the keyword becomes a child
+     * @param  keyword    keyword to add
+     * @param  real       true if the keyword is a real keyword
+     * @return            inserted node or null if no node was inserted
      */
-    public synchronized void insert(
+    public synchronized DefaultMutableTreeNode insert(
             DefaultMutableTreeNode parentNode,
             String                 keyword,
             boolean                real
             ) {
-        if (!ensureIsNotChild(parentNode, keyword)) return;
+        if (!ensureIsNotChild(parentNode, keyword)) return null;
 
         Object  userObject   = parentNode.getUserObject();
         boolean parentIsRoot = parentNode.equals(ROOT);
@@ -101,17 +102,17 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         assert parentIsRoot || userObject instanceof Keyword : parentNode;
 
         if (parentIsRoot || userObject instanceof Keyword) {
-            Long idParent = parentIsRoot
-                    ? null
-                    : ((Keyword) userObject).getId();
-            Keyword child =
-                    new Keyword(null, idParent, keyword, real);
+            Long    idParent = parentIsRoot ? null : ((Keyword) userObject).getId();
+            Keyword child    = new Keyword(null, idParent, keyword, real);
             if (db.insert(child)) {
-                insertNode(parentNode, new TreeNodeSortedChildren(child));
+                TreeNodeSortedChildren node = new TreeNodeSortedChildren(child);
+                insertNode(parentNode, node);
+                return node;
             } else {
                 MessageDisplayer.error(null, "TreeModelKeywords.Error.DbInsert", keyword);
             }
         }
+        return null;
     }
 
     public synchronized void copySubtree(
