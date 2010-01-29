@@ -18,9 +18,15 @@
  */
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
+import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.componentutil.InputVerifierForbiddenCharacters;
+import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 
 /**
  * Spalte <code>subject</code> der Tabelle <code>xmp_dc_subjects</code>.
@@ -30,7 +36,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
  */
 public final class ColumnXmpDcSubjectsSubject extends Column {
 
-    public static final ColumnXmpDcSubjectsSubject INSTANCE = new ColumnXmpDcSubjectsSubject();
+    private static final int                        COL_LENGTH     = 128;
+    public static final  ColumnXmpDcSubjectsSubject INSTANCE       = new ColumnXmpDcSubjectsSubject();
+    private static final InputVerifierDcSubjects      INPUT_VERIFIER = new InputVerifierDcSubjects(COL_LENGTH);
 
     private ColumnXmpDcSubjectsSubject() {
         super(
@@ -38,8 +46,40 @@ public final class ColumnXmpDcSubjectsSubject extends Column {
             "subject",
             DataType.STRING);
 
-        setLength(128);
+        setLength(COL_LENGTH);
         setDescription(Bundle.getString("ColumnXmpDcSubjectsSubject.Description"));
         setLongerDescription(Bundle.getString("ColumnXmpDcSubjectsSubject.LongerDescription"));
+    }
+
+    @Override
+    public InputVerifier getInputVerifier() {
+        return INPUT_VERIFIER;
+    }
+
+    private static class InputVerifierDcSubjects extends InputVerifier {
+
+        private final InputVerifierMaxLength           verifierMaxLen;
+        private final InputVerifierForbiddenCharacters verifierForbiddenChars = new InputVerifierForbiddenCharacters(Xmp.HIER_SUBJECTS_DELIM.charAt(0));
+
+        public InputVerifierDcSubjects(int maxLength) {
+            verifierMaxLen = new InputVerifierMaxLength(maxLength);
+        }
+
+        @Override
+        public boolean verify(JComponent input) {
+            if (!verifierMaxLen.verify(input)) return false;
+            if (!verifierForbiddenChars.verify(input)) {
+                errorMessage();
+                return false;
+            }
+            return true;
+        }
+
+        private void errorMessage() {
+            MessageDisplayer.error(null,
+                    "ColumnXmpDcSubjectsSubject.Error.FrobiddenChars",
+                    verifierForbiddenChars.getChars());
+        }
+
     }
 }

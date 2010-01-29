@@ -126,14 +126,19 @@
             &quot;Stichwortpfad&quot; zur Wurzel (die gleichen &quot;Eltern&quot;).
         </p>
 
-        <h2>Hinweis</h2>
+        <h2>Wird die Stichworthierarchie in der XMP-Filialdatei gespeichert?</h2>
 
-        <p><em>Die hierarchischen Stichwörter werden nicht als Hierarchie in die
-                Filialdateien geschrieben, sondern einzeln, da es keinen
-                Standard gibt, der garantiert, dass andere Programme die
-                Hierarchie (richtig) einlesen.</em> Sie können den Stichwortbaum
-                jedoch in verschiedene Programmformate
-                <a href="export_keywords.html">exportieren</a>.
+        <p>Seit <strong>JPhotoTagger</strong> 0.7.58 wird die Stichworthierarchie
+            im <strong>Adobe Photoshop Lightroom</strong>-Namensraum (<code>http://ns.adobe.com/lightroom/1.0/</code>)
+            gespeichert im Array <code>lr:hierarchicalSubject</code> und zwar
+            die einzelnen Stichwörter durch das Pipe-Zeichen <strong>|</strong>
+            getrennt. Dieses darf nun nicht mehr innerhalb eines Stichworts
+            benutzt werden .
+        </p>
+
+        <p>Entdeckt <strong>JPhotoTagger</strong> beim Einlesen einer XMP-Filialdatei
+           dort eine Stichworthierarchie, wird bei Bedarf der Stichwortbaum
+           ergänzt und das Bild erhält alle Stichwörter dieser Hierarchie.
         </p>
 
     </body>
