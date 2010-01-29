@@ -125,7 +125,7 @@ public final class Version implements Comparable<Version> {
     /**
      * Returns the first 2 version numbers.
      * 
-     * @return
+     * @return version number <code>1.2</code>
      */
     public String toString2() {
         return MessageFormat.format("{0}.{1}", new Object[]{major, minor1 });
@@ -134,7 +134,7 @@ public final class Version implements Comparable<Version> {
     /**
      * Returns the first 3 version numbers.
      * 
-     * @return
+     * @return version number <code>1.2.3</code>
      */
     public String toString3() {
         return MessageFormat.format("{0}.{1}.{2}", new Object[]{major, minor1, minor2 });
@@ -143,7 +143,7 @@ public final class Version implements Comparable<Version> {
     /**
      * Returns the all 4 version numbers.
      *
-     * @return
+     * @return version number <code>1.2.3.4</code>
      */
     @Override
     public String toString() {

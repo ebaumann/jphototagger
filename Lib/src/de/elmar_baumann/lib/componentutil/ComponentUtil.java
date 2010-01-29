@@ -107,7 +107,7 @@ public final class ComponentUtil {
      * @param <T>       class type
      * @param container container
      * @param clazz     class
-     * @return
+     * @return          found elements or empty list
      */
     public static <T> List<T> getAllOf(Container container, Class<T> clazz) {
         if (container == null) throw new NullPointerException("container == null");

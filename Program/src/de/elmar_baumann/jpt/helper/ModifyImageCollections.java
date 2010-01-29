@@ -136,7 +136,7 @@ public final class ModifyImageCollections {
 
     /**
      * Returns wether a name is valid. This is true if the name is not equals
-     * to {@link AppTexts#DISPLAY_NAME_ITEM_IMAGE_COLLECTIONS_PREV_IMPORT}
+     * to {@link ListModelImageCollections#NAME_IMAGE_COLLECTION_PREV_IMPORT}
      * ignoring the case.
      *
      * @param  name name
