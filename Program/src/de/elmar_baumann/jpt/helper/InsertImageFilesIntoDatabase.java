@@ -292,13 +292,13 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private void insertHierarchicalSubjects(Xmp xmp) {
         if (xmp == null || xmp.getHierarchicalSubjects() == null) return;
 
-        String hrSubjects = xmp.getHierarchicalSubjects();
-
-        if (!hrSubjects.trim().isEmpty()) {
-            KeywordsHelper.insertHierarchicalSubjects(
-                    ModelFactory.INSTANCE.getModel(TreeModelKeywords.class), hrSubjects);
-            for (String subject : KeywordsHelper.getHierarchicalSubjectsFromString(hrSubjects)) {
-                xmp.addDcSubject(subject);
+        for (String hrSubjects : xmp.getHierarchicalSubjects()) {
+            if (hrSubjects != null && !hrSubjects.trim().isEmpty()) {
+                KeywordsHelper.insertHierarchicalSubjects(
+                        ModelFactory.INSTANCE.getModel(TreeModelKeywords.class), hrSubjects);
+                for (String subject : KeywordsHelper.getHierarchicalSubjectsFromString(hrSubjects)) {
+                    xmp.addDcSubject(subject);
+                }
             }
         }
     }

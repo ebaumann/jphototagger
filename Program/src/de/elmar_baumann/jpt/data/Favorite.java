@@ -132,7 +132,7 @@ public final class Favorite {
 
     @Override
     public String toString() {
-        return name;
+        return name; // Never change that (will be used to find model items)!
     }
 
     @Override

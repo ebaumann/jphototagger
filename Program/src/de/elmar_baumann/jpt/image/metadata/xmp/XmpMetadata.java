@@ -37,6 +37,7 @@ import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpArrayNameMapping;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.database.metadata.selections.XmpInDatabase;
+import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -51,7 +52,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 /**
  * Gets and sets XMP metadata from image files and XMP sidecar files and to
@@ -406,6 +406,7 @@ public final class XmpMetadata {
             } else if (xmpValue instanceof List<?>) {
                 @SuppressWarnings("unchecked")
                 List<String> values = (List<String>) xmpValue;
+                Collections.sort(values);
                 for (String value : values) {
                     value = value.trim();
                     if (!doesArrayItemExist(toXmpMeta, namespaceUri, arrayName, value)) {
@@ -487,15 +488,21 @@ public final class XmpMetadata {
     }
 
     private static void setLightroomHierarchicalSubjects(Xmp fromXmp, XMPMeta toXmpMeta) throws XMPException {
-        List<String> dcSubjects   = fromXmp.getDcSubjects();
-        String       hierSubjects = fromXmp.getHierarchicalSubjects();
+        List<String> dcSubjects = fromXmp.getDcSubjects(); // Copy of DC subjects
 
-        if (dcSubjects == null) return;
+        if (dcSubjects == null || fromXmp.getHierarchicalSubjects() == null) return;
 
-        toXmpMeta.deleteProperty(Namespace.LIGHTROOM.getUri(), ArrayName.LR_HIERARCHICAL_SUBJECTS.getName());
+        toXmpMeta.deleteProperty(Namespace.LIGHTROOM.getUri(),
+                                 ArrayName.LR_HIERARCHICAL_SUBJECTS.getName());
 
-        if (hasHierarchicalSubjects(fromXmp) && checkHierarchicalSubjects(dcSubjects, hierSubjects)) {
-            dcSubjects.add(hierSubjects);
+        // Adding not contained hierarchical subjects to a copy of DC subjects
+        for (String hierSubjects : fromXmp.getHierarchicalSubjects()) {
+            if (hrSubjectsOk(dcSubjects, hierSubjects)) {
+                addHierarchicalSubjects(hierSubjects, dcSubjects);
+                if (!dcSubjects.contains(hierSubjects)) {
+                    dcSubjects.add(hierSubjects);
+                }
+            }
         }
 
         dcSubjects = StringUtil.getTrimmed(dcSubjects);
@@ -511,23 +518,21 @@ public final class XmpMetadata {
         }
     }
 
-    private static boolean checkHierarchicalSubjects(
-            List<String> dcSubjectsMustContain, String allHrSubjects) {
-
-        StringTokenizer st = new StringTokenizer(allHrSubjects, Xmp.HIER_SUBJECTS_DELIM);
-
-        while (st.hasMoreTokens()) {
-            String hrSubject = st.nextToken().trim();
-            if (!dcSubjectsMustContain.contains(hrSubject)) {
-                return false;
-            }
+    private static boolean hrSubjectsOk(List<String> dcSubjects, String hrSubjects) {
+        for (String hrSubject : KeywordsHelper.getHierarchicalSubjectsFromString(hrSubjects)) {
+            if (!dcSubjects.contains(hrSubject)) return false;
         }
         return true;
     }
 
-    private static boolean hasHierarchicalSubjects(Xmp xmp) {
-        return xmp.getHierarchicalSubjects() != null &&
-              !xmp.getHierarchicalSubjects().trim().isEmpty();
+    private static void addHierarchicalSubjects(String hrSubjects, List<String> toDcSubjects) {
+        assert hrSubjects != null; if (hrSubjects == null) return;
+        
+        for (String hrSubject : KeywordsHelper.getHierarchicalSubjectsFromString(hrSubjects)) {
+            if (!toDcSubjects.contains(hrSubject)) {
+                toDcSubjects.add(hrSubject);
+            }
+        }
     }
 
     /**
@@ -628,7 +633,7 @@ public final class XmpMetadata {
             ) {
             String hrSubjects = ((String) value).trim();
             if (!hrSubjects.isEmpty()) {
-                toXmp.setHierarchicalSubjects(hrSubjects);
+                toXmp.addHierarchicalSubjects(hrSubjects);
             }
         }
     }

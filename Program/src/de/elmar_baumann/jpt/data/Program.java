@@ -206,6 +206,6 @@ public final class Program {
 
     @Override
     public String toString() {
-        return alias;
+        return alias; // Never change that (will be used to find model items)!
     }
 }

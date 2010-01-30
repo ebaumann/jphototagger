@@ -92,7 +92,7 @@ public class ControllerAddKeywordsToEditPanel
                 KeywordsHelper.addHighlightKeywords(keywordNames);
                 if (keywordNames.size() > 1) {
                     Collections.reverse(keywordNames);
-                    editPanels.setHierarchicalSubjects(keywordNames);
+                    editPanels.addHierarchicalSubjects(KeywordsHelper.getHierarchicalSubjectsFromList(keywordNames));
                 }
                 editPanels.checkSaveOnChanges();
             } else {

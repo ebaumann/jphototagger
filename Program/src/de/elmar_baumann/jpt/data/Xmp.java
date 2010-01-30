@@ -62,7 +62,7 @@ import java.util.Map;
 public final class Xmp implements TextEntryListener {
 
     private final Map<Column, Object> valueOfColumn       = new HashMap<Column, Object>();
-    private       String              hierarchicalSubjects;
+    private       List<String>        hierarchicalSubjects;
 
     /**
      * Delimiter of hierarchical subjects
@@ -488,36 +488,36 @@ public final class Xmp implements TextEntryListener {
     /**
      * Sets hierarchical subjects.
      *
-     * @param subjects subjects. The first element is the to level element
-     *                 (direct below the root), the second the 2nd level etc.
+     * @param subjects subjects delimited by {@link #HIER_SUBJECTS_DELIM}. The
+     *                 first element is the to level element (direct below the
+     *                 root), the second the 2nd level etc.
      */
-    public void setHierarchicalSubjects(List<String> subjects) {
-        StringBuilder sb    = new StringBuilder();
-        int           size  = subjects.size();
-
-        for (int i = 0; i < size; i++) {
-            sb.append(subjects.get(i));
-            sb.append(i == size - 1 ? "" : HIER_SUBJECTS_DELIM);
+    public synchronized void addHierarchicalSubjects(String subjects) {
+        if  (hierarchicalSubjects == null) {
+            hierarchicalSubjects = new ArrayList<String>();
         }
+        assert isHrSubjects(subjects) : subjects;
+        if (isHrSubjects(subjects)) {
+            hierarchicalSubjects.add(subjects);
+        }
+    }
 
-        hierarchicalSubjects = sb.toString();
+    private boolean isHrSubjects(String s) {
+        return s != null &&
+              !s.isEmpty() &&
+               s.trim().length() > 1 && // Weak check ("||" is possible)
+               s.contains(HIER_SUBJECTS_DELIM)
+               ;
+
     }
 
     /**
-     * Sets the hierarchical subjects delimited by {@link #HIER_SUBJECTS_DELIM}.
-     *
-     * @param hierarchicalSubjects hierarchical subjects or null
-     */
-    public void setHierarchicalSubjects(String hierarchicalSubjects) {
-        this.hierarchicalSubjects = hierarchicalSubjects;
-    }
-
-    /**
-     * Returns the hierarchical subjects delimited by {@link #HIER_SUBJECTS_DELIM}.
+     * Returns the hierarchical subjects, every element is delimited by
+     * {@link #HIER_SUBJECTS_DELIM}.
      *
      * @return hierarchical subjects
      */
-    public String getHierarchicalSubjects() {
+    public List<String> getHierarchicalSubjects() {
         return hierarchicalSubjects;
     }
 
@@ -701,6 +701,10 @@ public final class Xmp implements TextEntryListener {
      */
     public void empty() {
         valueOfColumn.clear();
+        if (hierarchicalSubjects != null) {
+            hierarchicalSubjects.clear();
+            hierarchicalSubjects = null;
+        }
     }
 
     /**
