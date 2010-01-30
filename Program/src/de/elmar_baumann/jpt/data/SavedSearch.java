@@ -214,7 +214,7 @@ public final class SavedSearch {
 
     @Override
     public String toString() {
-        return getName();
+        return getName(); // Never change that (will be used to find model items)!
     }
 
     private List<SavedSearchPanel> getDeepCopyPanels() {

@@ -261,12 +261,12 @@ public final class EditMetadataPanels
         checkSaveOnChanges();
     }
 
-    public void setHierarchicalSubjects(List<String> hierarchicalSubjects) {
+    public void addHierarchicalSubjects(String hierarchicalSubjects) {
         assert isEditable();
         if (!isEditable()) return;
 
         for (Pair<String, Xmp> pair : filenamesXmp) {
-            pair.getSecond().setHierarchicalSubjects(hierarchicalSubjects);
+            pair.getSecond().addHierarchicalSubjects(hierarchicalSubjects);
         }
         if (UserSettings.INSTANCE.isSaveInputEarly()) {
             save();

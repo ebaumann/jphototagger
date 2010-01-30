@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.59 2010-01-30
+-----------------
+
+* Es werden mehr als nur eine Stichworthierarchie in die XMP-Filialdateien
+  exportiert
+
 0.7.58 2010-01-29
 -----------------
 

@@ -80,7 +80,7 @@ public final class MetadataTemplate {
 
     @Override
     public String toString() {
-        return name == null ? "" : name;
+        return name == null ? "" : name; // Never change that (will be used to find model items)!
     }
 
     @Override

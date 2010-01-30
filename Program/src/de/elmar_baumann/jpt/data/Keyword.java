@@ -165,7 +165,7 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return name; // Never change that (will be used to find model items)!
     }
 
     @Override

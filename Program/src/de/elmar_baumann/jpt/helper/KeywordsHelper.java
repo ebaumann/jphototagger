@@ -74,7 +74,7 @@ public final class KeywordsHelper {
         }
         if (keywordStrings.size() > 1) {
             Collections.reverse(keywordStrings); // else leaf is first element
-            editPanels.setHierarchicalSubjects(keywordStrings);
+            editPanels.addHierarchicalSubjects(getHierarchicalSubjectsFromList(keywordStrings));
         }
     }
 
@@ -404,6 +404,18 @@ public final class KeywordsHelper {
         }
 
         return hSubjects;
+    }
+
+    public static String getHierarchicalSubjectsFromList(List<String> hSubjects) {
+        StringBuilder sb    = new StringBuilder();
+        int           size  = hSubjects.size();
+
+        for (int i = 0; i < size; i++) {
+            sb.append(hSubjects.get(i));
+            sb.append(i == size - 1 ? "" : Xmp.HIER_SUBJECTS_DELIM);
+        }
+
+        return sb.toString();
     }
 
     private KeywordsHelper() {
