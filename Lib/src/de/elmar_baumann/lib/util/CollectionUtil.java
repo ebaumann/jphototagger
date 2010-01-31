@@ -18,7 +18,10 @@
  */
 package de.elmar_baumann.lib.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -72,6 +75,31 @@ public final class CollectionUtil {
             }
 
             list.add(index, element);
+    }
+
+    /**
+     * Returns a list of strings from al collection of arbitrary objects.
+     *
+     * Uses the <code>toString()</code> operation of every collection element.
+     * Null elements set to null in the list.
+     *
+     * @param  coll collection
+     * @return      list of strings
+     */
+    public static List<String> toStringList(Collection<?> coll) {
+        if (coll == null) throw new NullPointerException("coll == null");
+
+        List<String> list = new ArrayList<String>(coll.size());
+
+        for (Object o : coll) {
+            if (o == null) {
+                list.add(null);
+            } else {
+                list.add(o.toString());
+            }
+        }
+
+        return list;
     }
 
     private CollectionUtil() {
