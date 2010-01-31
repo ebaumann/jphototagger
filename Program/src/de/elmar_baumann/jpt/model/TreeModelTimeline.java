@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.data.Timeline.Date;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
@@ -83,7 +84,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
         Exif          exif           = imageFile.getExif();
         Xmp           xmp            = imageFile.getXmp();
         java.sql.Date exifDate       = null;
-        String        xmpDate        = null;
+        Object        xmpDate        = null;
         boolean       exifDateExists = false;
         boolean       xmpDateExists  = false;
 
@@ -93,8 +94,8 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
         }
 
         if (xmp != null) {
-            xmpDate       = xmp.getIptc4XmpCoreDateCreated();
-            xmpDateExists = xmpDate != null && db.existsXMPDateCreated(xmpDate);
+            xmpDate       = xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+            xmpDateExists = xmpDate != null && db.existsXMPDateCreated(xmpDate.toString());
         }
 
         if (!exifDateExists && exifDate != null) {
@@ -108,8 +109,8 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
         if (!xmpDateExists && xmpDate != null) {
             Timeline.Date date = new Timeline.Date(-1, -1, -1);
 
-            date.setXmpDateCreated(xmpDate);
-            if (date.isValid() && !db.existsXMPDateCreated(xmpDate)) {
+            date.setXmpDateCreated(xmpDate.toString());
+            if (date.isValid() && !db.existsXMPDateCreated(xmpDate.toString())) {
                 delete(date);
             }
         }
@@ -127,11 +128,11 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
             }
         }
 
-        if (xmp != null && xmp.getIptc4XmpCoreDateCreated() != null) {
-            String        xmpDate = xmp.getIptc4XmpCoreDateCreated();
+        if (xmp != null && xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE) != null) {
+            Object        xmpDate = xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
             Timeline.Date date    = new Timeline.Date(-1, -1, -1);
 
-            date.setXmpDateCreated(xmpDate);
+            date.setXmpDateCreated(xmpDate.toString());
             if (date.isValid()) {
                 insert(date);
             }

@@ -19,14 +19,11 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.awt.CardLayout;
 import java.awt.Container;
-import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -54,10 +51,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     public JTree getTree() {
         return tree;
-    }
-
-    public JList getList() {
-        return list;
     }
 
     public void setKeyCard(String key) {
@@ -143,55 +136,16 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelTree = new javax.swing.JPanel();
+        panelButtons = new javax.swing.JPanel();
+        buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
         scrollPaneTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
-        panelButtons = new javax.swing.JPanel();
-        buttonAsList = new javax.swing.JButton();
-        buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
-        panelList = new javax.swing.JPanel();
-        scrollPaneList = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
-        list.setTransferHandler(new TransferHandlerDragListItems(de.elmar_baumann.jpt.datatransfer.Flavor.KEYWORDS_LIST));
-        buttonAsTree = new javax.swing.JButton();
 
-        setLayout(new java.awt.CardLayout());
-
-        panelTree.setLayout(new java.awt.GridBagLayout());
-
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setCellRenderer(new de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords());
-        tree.setDragEnabled(true);
-        tree.setShowsRootHandles(true);
-        scrollPaneTree.setViewportView(tree);
-        tree.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsTree());
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTree.add(scrollPaneTree, gridBagConstraints);
+        setLayout(new java.awt.GridBagLayout());
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        buttonAsList.setText(bundle.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
-        buttonAsList.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonAsList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAsListActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
-        panelButtons.add(buttonAsList, gridBagConstraints);
-
         buttonToggleExpandAllNodes.setText(bundle.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
         buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
@@ -210,15 +164,15 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        panelTree.add(panelButtons, gridBagConstraints);
+        add(panelButtons, gridBagConstraints);
 
-        add(panelTree, "Tree");
-
-        panelList.setLayout(new java.awt.GridBagLayout());
-
-        list.setCellRenderer(new ListCellRendererKeywords());
-        list.setDragEnabled(true);
-        scrollPaneList.setViewportView(list);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree.setCellRenderer(new de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords());
+        tree.setDragEnabled(true);
+        tree.setShowsRootHandles(true);
+        scrollPaneTree.setViewportView(tree);
+        tree.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsTree());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -226,46 +180,16 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        panelList.add(scrollPaneList, gridBagConstraints);
-
-        buttonAsTree.setText(bundle.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
-        buttonAsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAsTreeActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
-        panelList.add(buttonAsTree, gridBagConstraints);
-
-        add(panelList, "List");
+        add(scrollPaneTree, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonToggleExpandAllNodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
         handleButtonToggleExpandAllNodesActionPerformed();
     }//GEN-LAST:event_buttonToggleExpandAllNodesActionPerformed
 
-    private void buttonAsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAsListActionPerformed
-        displayCard("List");
-    }//GEN-LAST:event_buttonAsListActionPerformed
-
-    private void buttonAsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAsTreeActionPerformed
-        displayCard("Tree");
-    }//GEN-LAST:event_buttonAsTreeActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAsList;
-    private javax.swing.JButton buttonAsTree;
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
-    private javax.swing.JList list;
     private javax.swing.JPanel panelButtons;
-    private javax.swing.JPanel panelList;
-    private javax.swing.JPanel panelTree;
-    private javax.swing.JScrollPane scrollPaneList;
     private javax.swing.JScrollPane scrollPaneTree;
     private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables

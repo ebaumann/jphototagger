@@ -19,10 +19,10 @@
 package de.elmar_baumann.jpt.database.metadata.mapping;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
@@ -54,7 +54,7 @@ public final class XmpColumnXmpArrayNameMapping {
         XMP_ARRAY_NAME_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE                     , "dc:creator");
         XMP_ARRAY_NAME_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE                 , "dc:description");
         XMP_ARRAY_NAME_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE                      , "dc:rights");
-        XMP_ARRAY_NAME_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE             , "dc:subject");
+        XMP_ARRAY_NAME_OF_COLUMN.put(ColumnKeyword.INSTANCE                          , "dc:subject");
         XMP_ARRAY_NAME_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE                       , "dc:title");
         XMP_ARRAY_NAME_OF_COLUMN.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE       , "Iptc4xmpCore:CountryCode");
         XMP_ARRAY_NAME_OF_COLUMN.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE       , "Iptc4xmpCore:DateCreated");

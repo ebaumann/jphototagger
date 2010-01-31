@@ -225,11 +225,12 @@ public final class DatabaseKeywords extends Database {
      * Returns all parents of a keyword.
      *
      * @param  keyword keyword
-     * @return         Parents or empty List if the keyword has no parent
+     * @return         Parents in reverse order (element below root is the last
+     *                 element) or empty List if the keyword has no parent
      */
     public List<Keyword> getParents(Keyword keyword) {
         List<Keyword> parents    = new ArrayList<Keyword>();
-        Connection                connection = null;
+        Connection    connection = null;
         try {
             connection = getConnection();
             Long idParent = keyword.getIdParent();
@@ -386,7 +387,7 @@ public final class DatabaseKeywords extends Database {
         try {
             connection = getConnection();
             String sql = "SELECT COUNT(*) FROM hierarchical_subjects" +
-                         " WHERE  subject = ? AND id_parent IS NULL";
+                         " WHERE subject = ? AND id_parent IS NULL";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, keyword);
             logFinest(stmt);
@@ -401,6 +402,35 @@ public final class DatabaseKeywords extends Database {
             free(connection);
         }
         return exists;
+    }
+
+    /**
+     * Returns the ID of a keyword below the root.
+     *
+     * @param  keyword keyword name
+     * @return         id or -1 if no such keyword exists below the root
+     */
+    public long getIdOfRootKeyword(String keyword) {
+        Connection connection = null;
+        long       id         = -1;
+        try {
+            connection = getConnection();
+            String sql = "SELECT id FROM hierarchical_subjects" +
+                         " WHERE subject = ? AND id_parent IS NULL";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, keyword);
+            logFinest(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
+        } finally {
+            free(connection);
+        }
+        return id;
     }
 
     public boolean exists(String keyword) {

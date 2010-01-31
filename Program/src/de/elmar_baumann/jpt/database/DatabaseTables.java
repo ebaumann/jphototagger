@@ -58,7 +58,7 @@ public final class DatabaseTables extends Database {
         TABLE_NAMES.add("saved_searches_panels");
         TABLE_NAMES.add("saved_searches_values");
         TABLE_NAMES.add("xmp");
-        TABLE_NAMES.add("xmp_dc_subjects");
+        TABLE_NAMES.add("hierarchical_subjects_files");
     }
 
     public static List<String> getTableNames() {
@@ -90,6 +90,7 @@ public final class DatabaseTables extends Database {
             createProgramsTable(connection, stmt);
             createActionsAfterDbInsertionTable(connection, stmt);
             createHierarchicalSubjectsTable(connection, stmt);
+            createHierarchicalSubjectsFilesTable(connection, stmt);
             UpdateTables.INSTANCE.update(connection);
             stmt.close();
         } catch (Exception ex) {
@@ -104,8 +105,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createFilesTable(Connection connection, Statement stmt) throws
-            SQLException {
+    private void createFilesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "files")) {
             stmt.execute("CREATE CACHED TABLE files " +
                     " (" +
@@ -119,8 +119,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createXmpTables(Connection connection, Statement stmt) throws
-            SQLException {
+    private void createXmpTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp")) {
             stmt.execute("CREATE CACHED TABLE xmp" +
                     " (" +
@@ -165,20 +164,9 @@ public final class DatabaseTables extends Database {
             stmt.execute("CREATE INDEX        idx_xmp_photoshop_transmissionReference ON xmp (photoshop_transmissionReference)");
             stmt.execute("CREATE INDEX        idx_iptc4xmpcore_datecreated            ON xmp (iptc4xmpcore_datecreated)");
         }
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp_dc_subjects")) {
-            stmt.execute("CREATE CACHED TABLE xmp_dc_subjects" +
-                    " (" +
-                    "  id_xmp  BIGINT                NOT NULL" +
-                    ", subject VARCHAR_IGNORECASE(64)" +
-                    ", FOREIGN KEY (id_xmp) REFERENCES xmp (id) ON DELETE CASCADE" +
-                    ");");
-            stmt.execute("CREATE INDEX idx_xmp_dc_subjects_id_xmp  ON xmp_dc_subjects (id_xmp)");
-            stmt.execute("CREATE INDEX idx_xmp_dc_subjects_subject ON xmp_dc_subjects (subject)");
-        }
     }
 
-    private void createExifTables(Connection connection, Statement stmt) throws
-            SQLException {
+    private void createExifTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "exif")) {
             stmt.execute("CREATE CACHED TABLE exif" +
                     " (" +
@@ -201,8 +189,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createCollectionsTables(Connection connection, Statement stmt)
-            throws SQLException {
+    private void createCollectionsTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "collection_names")) {
             stmt.execute("CREATE CACHED TABLE collection_names" +
                     " (" +
@@ -228,8 +215,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createSavedSearchesTables(Connection connection, Statement stmt)
-            throws SQLException {
+    private void createSavedSearchesTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "saved_searches")) {
             stmt.execute("CREATE CACHED TABLE saved_searches" +
                     " (" +
@@ -274,8 +260,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createAutoScanDirectoriesTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createAutoScanDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "autoscan_directories")) {
             stmt.execute("CREATE CACHED TABLE autoscan_directories" +
                     " (" +
@@ -285,8 +270,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createMetadataTemplateTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createMetadataTemplateTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "metadata_edit_templates")) {
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" +
                     " (" +
@@ -315,8 +299,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createFavoriteDirectoriesTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createFavoriteDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "favorite_directories")) {
             stmt.execute("CREATE CACHED TABLE favorite_directories" +
                     " (" +
@@ -328,8 +311,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createFileExcludePatternTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createFileExcludePatternTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "file_exclude_pattern")) {
             stmt.execute("CREATE CACHED TABLE file_exclude_pattern" +
                     " (" +
@@ -339,8 +321,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createProgramsTable(Connection connection, Statement stmt)
-            throws SQLException {
+    private void createProgramsTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "programs")) {
             stmt.execute("CREATE CACHED TABLE programs " +
                     " (" +
@@ -366,8 +347,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createActionsAfterDbInsertionTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createActionsAfterDbInsertionTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "actions_after_db_insertion")) {
             stmt.execute("CREATE CACHED TABLE actions_after_db_insertion " +
                     " (" +
@@ -379,20 +359,38 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createHierarchicalSubjectsTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createHierarchicalSubjectsTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "hierarchical_subjects")) {
             stmt.execute("CREATE CACHED TABLE hierarchical_subjects " +
                     " (" +
-                    "  id        BIGINT                 NOT NULL" +
+                    "  id        BIGINT                 PRIMARY KEY" +
                     ", id_parent BIGINT" +
                     ", subject   VARCHAR_IGNORECASE(64) NOT NULL" +
                     ", real      BOOLEAN" +
+                    ", UNIQUE (id)" +
                     ");");
             stmt.execute("CREATE UNIQUE INDEX idx_hierarchical_subjects_id        ON hierarchical_subjects (id)");
             stmt.execute("CREATE INDEX        idx_hierarchical_subjects_id_parent ON hierarchical_subjects (id_parent)");
             stmt.execute("CREATE INDEX        idx_hierarchical_subjects_subject   ON hierarchical_subjects (subject)");
             stmt.execute("CREATE INDEX        idx_hierarchical_subjects_real      ON hierarchical_subjects (real)");
+        }
+    }
+
+    private void createHierarchicalSubjectsFilesTable(Connection connection, Statement stmt) throws SQLException {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "hierarchical_subjects_files")) {
+            if (!DatabaseMetadata.INSTANCE.isPrimaryKey(connection, "hierarchical_subjects", "id")) {
+                stmt.execute("ALTER TABLE hierarchical_subjects ADD PRIMARY KEY (id)");
+            }
+            stmt.execute("CREATE CACHED TABLE hierarchical_subjects_files " +
+                    " (" +
+                    "  id_file    BIGINT NOT NULL" +
+                    ", id_subject BIGINT NOT NULL" +
+
+                    ", FOREIGN KEY (id_file)    REFERENCES files                 (id) ON DELETE CASCADE" +
+                    ", FOREIGN KEY (id_subject) REFERENCES hierarchical_subjects (id) ON DELETE CASCADE" +
+                    ");");
+            stmt.execute("CREATE INDEX hierarchical_subjects_files_id_file    ON hierarchical_subjects_files (id_file)");
+            stmt.execute("CREATE INDEX hierarchical_subjects_files_id_subject ON hierarchical_subjects_files (id_subject)");
         }
     }
 

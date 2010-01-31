@@ -138,8 +138,10 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     private static boolean isSet(Xmp xmp, boolean replaceExistingXmpData) {
-        return replaceExistingXmpData ||
-               xmp.getIptc4XmpCoreDateCreated() == null;
+        return false;
+        // FIXME
+//        return replaceExistingXmpData ||
+//               xmp.getIptc4XmpCoreDateCreated() == null;
     }
 
     public static boolean exifHasValues(Exif exif) {
@@ -147,9 +149,10 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     public static void setDateCreated(Xmp xmp, Exif exif) {
-        if (exif.getDateTimeOriginal() != null) {
-            xmp.setIptc4XmpCoreDateCreated(exif.getXmpDateCreated());
-        }
+        // FIXME
+//        if (exif.getDateTimeOriginal() != null) {
+//            xmp.setIptc4XmpCoreDateCreated(exif.getXmpDateCreated());
+//        }
     }
 
     @Override

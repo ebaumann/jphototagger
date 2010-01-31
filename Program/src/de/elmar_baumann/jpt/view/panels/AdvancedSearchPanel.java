@@ -32,7 +32,7 @@ import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesId;
 import de.elmar_baumann.jpt.database.metadata.file.TableFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpId;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIdFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
@@ -510,7 +510,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             }
         }
         if (existsKeywords()) {
-            columns.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+            columns.add(ColumnKeyword.INSTANCE);
         }
         return columns;
     }

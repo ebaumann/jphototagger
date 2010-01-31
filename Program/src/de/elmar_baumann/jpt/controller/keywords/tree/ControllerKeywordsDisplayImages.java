@@ -85,6 +85,7 @@ public class ControllerKeywordsDisplayImages
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
         appPanel.displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
-        ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
+        //ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
+        // FIXME
     }
 }

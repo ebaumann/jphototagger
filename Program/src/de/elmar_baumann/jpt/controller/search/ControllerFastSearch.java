@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColum
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
@@ -51,9 +50,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -68,215 +67,213 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-05
  */
 public final class ControllerFastSearch
-        implements ActionListener,
-                   UserSettingsListener,
-                   RefreshListener,
-                   DatabaseImageFilesListener
-    {
-    private static final String             DELIMITER_SEARCH_WORDS = ";";
-    private final        DatabaseFind       db                     = DatabaseFind.INSTANCE;
-    private final        AppPanel           appPanel               = GUI.INSTANCE.getAppPanel();
-    private final        JTextArea          textFieldSearch        = appPanel.getTextAreaSearch();
-    private final        JComboBox          comboboxFastSearch     = appPanel.getComboBoxFastSearch();
-    private final        ThumbnailsPanel    thumbnailsPanel        = appPanel.getPanelThumbnails();
-    private final        List<JTree>        selectionTrees         = appPanel.getSelectionTrees();
-    private final        List<JList>        selectionLists         = appPanel.getSelectionLists();
-    private final        EditMetadataPanels editPanels             = appPanel.getEditMetadataPanels();
-    private final        Autocomplete       autocomplete           = new Autocomplete();
-
-    public ControllerFastSearch() {
-        setEnabledSearchTextField();
-        autocomplete.setTransferFocusForward(false);
-        decorateTextFieldSearch();
-        listen();
-    }
-
-    private void listen() {
-        UserSettings.INSTANCE.addUserSettingsListener(this);
-        DatabaseImageFiles.INSTANCE.addListener(this);
-
-        textFieldSearch.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    search();
-                }
-            }
-        });
-
-        textFieldSearch.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                checkEnabled();
-            }
-        });
-
-        appPanel.getButtonSearch().addActionListener(this);
-        comboboxFastSearch.addActionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == comboboxFastSearch && comboboxFastSearch.getSelectedIndex() >= 0) {
-            setEnabledSearchTextField();
-            decorateTextFieldSearch();
-        } else if (e.getSource() == appPanel.getButtonSearch()) {
-            search();
-        }
-    }
-
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS) ||
-                evt.getType().equals(UserSettingsEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
-            if (isSearchAllDefinedColumns()) {
-                textFieldSearch.setEnabled(evt.getType().equals(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS));
-            }
-        }
-    }
-
-    private void decorateTextFieldSearch() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                autocomplete.decorate(
-                        textFieldSearch,
-                        isSearchAllDefinedColumns()
-                        ? AutoCompleteDataOfColumn.INSTANCE.getFastSearchData().get()
-                        : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).get());
-            }
-        });
-    }
-
-    private void checkEnabled() {
-        if (!textFieldSearch.isEnabled()) {
-            SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
-            settingsDialog.selectTab(SettingsDialog.Tab.FAST_SEARCH);
-            if (settingsDialog.isVisible()) {
-                settingsDialog.toFront();
-            } else {
-                settingsDialog.setVisible(true);
-            }
-        }
-    }
-
-    private void clearSelection() {
-        TreeUtil.clearSelection(selectionTrees);
-        ListUtil.clearSelection(selectionLists);
-    }
-
-    private void search() {
-        search(textFieldSearch.getText());
-        setMetadataEditable();
-    }
-
-    private void search(final String searchText) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                String userInput = searchText.trim();
-                if (!userInput.isEmpty()) {
-                    clearSelection();
-                    List<String> filenames = searchFilenames(userInput);
-                    if (filenames != null) {
-                        setTitle(userInput);
-                        GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
-                        ControllerSortThumbnails.setLastSort();
-                        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
-                    }
-                }
-            }
-
-            private void setTitle(String userInput) {
-                GUI.INSTANCE.getAppFrame().setTitle(
-                        Bundle.getString("AppFrame.Title.FastSearch", userInput));
-            }
-
-            private List<String> searchFilenames(String userInput) {
-                if (isSearchAllDefinedColumns()) {
-                    return db.findFilenamesLikeOr(
-                            UserSettings.INSTANCE.getFastSearchColumns(),
-                            userInput);
-                } else {
-                    List<String> searchWords = getSearchWords(userInput);
-                    Column searchColumn = getSearchColumn();
-                    if (searchColumn == null) return null;
-                    if (searchWords.size() == 1) {
-                        return db.findFilenamesLikeOr(
-                                Arrays.asList(searchColumn), userInput);
-                    } else if (searchWords.size() > 1) {
-                        if (searchColumn.equals(
-                                ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                            return new ArrayList<String>(
-                                    DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(searchWords));
-                        } else {
-                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.
-                                    getFilenamesOfAll(searchColumn, searchWords));
-                        }
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        });
-    }
-
-    private List<String> getSearchWords(String userInput) {
-        List<String> words = new ArrayList<String>();
-        StringTokenizer st = new StringTokenizer(userInput, DELIMITER_SEARCH_WORDS);
-        while (st.hasMoreTokens()) {
-            words.add(st.nextToken().trim());
-        }
-        return words;
-    }
-
-    private Column getSearchColumn() {
-        assert !isSearchAllDefinedColumns() : "More than one search column!";
-        if (isSearchAllDefinedColumns()) return null;
-        return (Column) comboboxFastSearch.getSelectedItem();
-    }
-
-    @Override
-    public void refresh(RefreshEvent evt) {
-        if (textFieldSearch.isEnabled()) {
-            search(textFieldSearch.getText());
-        }
-    }
-
-    private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
-            editPanels.setEditable(false);
-        }
-    }
-
-    private boolean isSearchAllDefinedColumns() {
-        Object selItem = comboboxFastSearch.getSelectedItem();
-        return selItem != null &&
-                selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);
-    }
-
-    private void setEnabledSearchTextField() {
-        textFieldSearch.setEnabled(isSearchAllDefinedColumns()
-                ? UserSettings.INSTANCE.getFastSearchColumns().size() > 0
-                : true);
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) return;
-
-        ImageFile imageFile = event.getImageFile();
-        if (imageFile == null || imageFile.getXmp() == null) return;
-
-        if (isSearchAllDefinedColumns()) {
-            AutocompleteHelper.addFastSearchAutocompleteData(autocomplete, imageFile.getXmp());
-        } else {
-            AutocompleteHelper.addAutocompleteData(getSearchColumn(), autocomplete, imageFile.getXmp());
-        }
-    }
+        // FIXME
+{//        implements ActionListener,
+//                   UserSettingsListener,
+//                   RefreshListener,
+//                   DatabaseImageFilesListener
+//    {
+//    private static final String             DELIMITER_SEARCH_WORDS = ";";
+//    private final        DatabaseFind       db                     = DatabaseFind.INSTANCE;
+//    private final        AppPanel           appPanel               = GUI.INSTANCE.getAppPanel();
+//    private final        JTextArea          textFieldSearch        = appPanel.getTextAreaSearch();
+//    private final        JComboBox          comboboxFastSearch     = appPanel.getComboBoxFastSearch();
+//    private final        ThumbnailsPanel    thumbnailsPanel        = appPanel.getPanelThumbnails();
+//    private final        List<JTree>        selectionTrees         = appPanel.getSelectionTrees();
+//    private final        List<JList>        selectionLists         = appPanel.getSelectionLists();
+//    private final        EditMetadataPanels editPanels             = appPanel.getEditMetadataPanels();
+//    private final        Autocomplete       autocomplete           = new Autocomplete();
+//
+//    public ControllerFastSearch() {
+//        autocomplete.setTransferFocusForward(false);
+//        decorateTextFieldSearch();
+//        listen();
+//    }
+//
+//    private void listen() {
+//        UserSettings.INSTANCE.addUserSettingsListener(this);
+//        DatabaseImageFiles.INSTANCE.addListener(this);
+//
+//        textFieldSearch.addKeyListener(new KeyAdapter() {
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+//                    search();
+//                }
+//            }
+//        });
+//
+//        textFieldSearch.addMouseListener(new MouseAdapter() {
+//
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                checkEnabled();
+//            }
+//        });
+//
+//        appPanel.getButtonSearch().addActionListener(this);
+//        comboboxFastSearch.addActionListener(this);
+//        thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
+//    }
+//
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if (e.getSource() == comboboxFastSearch && comboboxFastSearch.getSelectedIndex() >= 0) {
+//            decorateTextFieldSearch();
+//        } else if (e.getSource() == appPanel.getButtonSearch()) {
+//            search();
+//        }
+//    }
+//
+//    @Override
+//    public void applySettings(UserSettingsEvent evt) {
+//        if (evt.getType().equals(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS) ||
+//                evt.getType().equals(UserSettingsEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
+//            if (isSearchAllDefinedColumns()) {
+//                textFieldSearch.setEnabled(evt.getType().equals(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS));
+//            }
+//        }
+//    }
+//
+//    private void decorateTextFieldSearch() {
+//        SwingUtilities.invokeLater(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                autocomplete.decorate(
+//                        textFieldSearch,
+//                        isSearchAllDefinedColumns()
+//                        ? AutoCompleteDataOfColumn.INSTANCE.getFastSearchData().get()
+//                        : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).get());
+//            }
+//        });
+//    }
+//
+//    private void checkEnabled() {
+//        if (!textFieldSearch.isEnabled()) {
+//            SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
+//            settingsDialog.selectTab(SettingsDialog.Tab.FAST_SEARCH);
+//            if (settingsDialog.isVisible()) {
+//                settingsDialog.toFront();
+//            } else {
+//                settingsDialog.setVisible(true);
+//            }
+//        }
+//    }
+//
+//    private void clearSelection() {
+//        TreeUtil.clearSelection(selectionTrees);
+//        ListUtil.clearSelection(selectionLists);
+//    }
+//
+//    private void search() {
+//        search(textFieldSearch.getText());
+//        setMetadataEditable();
+//    }
+//
+//    private void search(final String searchText) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                String userInput = searchText.trim();
+//                if (!userInput.isEmpty()) {
+//                    clearSelection();
+//                    List<String> filenames = searchFilenames(userInput);
+//                    if (filenames != null) {
+//                        setTitle(userInput);
+//                        GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
+//                        ControllerSortThumbnails.setLastSort();
+//                        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.SAVED_SEARCH);
+//                    }
+//                }
+//            }
+//
+//            private void setTitle(String userInput) {
+//                GUI.INSTANCE.getAppFrame().setTitle(
+//                        Bundle.getString("AppFrame.Title.FastSearch", userInput));
+//            }
+//
+//            private Set<String> searchFilenames(String userInput) {
+////                if (isSearchAllDefinedColumns()) {
+////                    return db.findFilenamesLikeOr(EditColumns.get(), userInput);
+////                } else {
+////                    Set<String> searchWords = getSearchWords(userInput);
+////                    Column searchColumn = getSearchColumn();
+////                    if (searchColumn == null) return null;
+////                    if (searchWords.size() == 1) {
+////                        return db.findFilenamesLikeOr(
+////                                Collections.singleton(searchColumn), userInput);
+////                    } else if (searchWords.size() > 1) {
+////                        if (searchColumn.equals(ColumnKeyword.INSTANCE)) {
+////                            return new ArrayList<String>(
+////                                    DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(searchWords));
+////                        } else {
+////                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.
+////                                    getFilenamesOfAll(searchColumn, searchWords));
+////                        }
+////                    } else {
+////                        return null;
+////                    }
+////                }
+////            }
+////        });
+//                return null;
+//                // FIXME
+//    }
+//
+//    private Set<String> getSearchWords(String userInput) {
+//        Set<String> words = new HashSet<String>();
+//        StringTokenizer st = new StringTokenizer(userInput, DELIMITER_SEARCH_WORDS);
+//        while (st.hasMoreTokens()) {
+//            words.add(st.nextToken().trim());
+//        }
+//        return words;
+//    }
+//
+//    private Column getSearchColumn() {
+//        assert !isSearchAllDefinedColumns() : "More than one search column!";
+//        if (isSearchAllDefinedColumns()) return null;
+//        return (Column) comboboxFastSearch.getSelectedItem();
+//    }
+//
+//    @Override
+//    public void refresh(RefreshEvent evt) {
+//        if (textFieldSearch.isEnabled()) {
+//            search(textFieldSearch.getText());
+//        }
+//    }
+//
+//    private void setMetadataEditable() {
+//        if (thumbnailsPanel.getSelectionCount() <= 0) {
+//            editPanels.setEditable(false);
+//        }
+//    }
+//
+//    private boolean isSearchAllDefinedColumns() {
+//        Object selItem = comboboxFastSearch.getSelectedItem();
+//        return selItem != null &&
+//                selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);
+//    }
+//
+//    private void setEnabledSearchTextField() {
+//        textFieldSearch.setEnabled(isSearchAllDefinedColumns()
+//                ? UserSettings.INSTANCE.getFastSearchColumns().size() > 0
+//                : true);
+//    }
+//
+//    @Override
+//    public void actionPerformed(DatabaseImageFilesEvent event) {
+//        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) return;
+//
+//        ImageFile imageFile = event.getImageFile();
+//        if (imageFile == null || imageFile.getXmp() == null) return;
+//
+//        if (isSearchAllDefinedColumns()) {
+//            AutocompleteHelper.addFastSearchAutocompleteData(autocomplete, imageFile.getXmp());
+//        } else {
+//            AutocompleteHelper.addAutocompleteData(getSearchColumn(), autocomplete, imageFile.getXmp());
+//        }
+//    }
 }

@@ -19,10 +19,10 @@
 package de.elmar_baumann.jpt.database.metadata.mapping;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
@@ -62,7 +62,7 @@ public final class XmpColumnXmpDataTypeMapping {
         XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE                     , XmpValueType.TEXT);
         XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE                 , XmpValueType.LANG_ALT);
         XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE                      , XmpValueType.LANG_ALT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE             , XmpValueType.BAG_TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnKeyword.INSTANCE                          , XmpValueType.BAG_TEXT);
         XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE                       , XmpValueType.LANG_ALT);
         XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE          , XmpValueType.TEXT);
         XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE       , XmpValueType.TEXT);
