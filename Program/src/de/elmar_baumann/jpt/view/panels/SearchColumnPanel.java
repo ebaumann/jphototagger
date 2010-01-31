@@ -27,8 +27,8 @@ import de.elmar_baumann.jpt.database.metadata.Comparator;
 import de.elmar_baumann.jpt.database.metadata.FormatterFactory;
 import de.elmar_baumann.jpt.database.metadata.Operator;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
+import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.selections.AdvancedSearchColumns;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
@@ -460,7 +460,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void showInputHelpers() {
-        if (listenToActions && getColumn().equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+        if (listenToActions && getColumn().equals(ColumnKeyword.INSTANCE)) {
             GUI.INSTANCE.getAppFrame().getMenuItemInputHelper().doClick();
         }
     }

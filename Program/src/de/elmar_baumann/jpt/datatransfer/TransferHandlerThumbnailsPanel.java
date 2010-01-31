@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.io.ImageUtil;
 import de.elmar_baumann.jpt.io.ImageUtil.ConfirmOverwrite;
@@ -191,7 +191,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
         EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         Column                  column     = dataFlavor.equals(Flavor.KEYWORDS_LIST)
-                                                ? ColumnXmpDcSubjectsSubject.INSTANCE
+                                                ? ColumnKeyword.INSTANCE
                                                 : null;
         for (Object string : strings) {
             editPanels.addText(column, string.toString());

@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.TextEntryContent;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
@@ -79,7 +79,7 @@ public final class EditRepeatableTextEntryPanel
 
     private static final long                     serialVersionUID         = -5581799743101447535L;
     private final        DefaultListModel         model                    = new DefaultListModel();
-    private              Column                   column                   = ColumnXmpDcSubjectsSubject.INSTANCE;
+    private              Column                   column                   = ColumnKeyword.INSTANCE;
     private              boolean                  editable                 = true;
     private              boolean                  dirty                    = false;
     private              Suggest                  suggest;

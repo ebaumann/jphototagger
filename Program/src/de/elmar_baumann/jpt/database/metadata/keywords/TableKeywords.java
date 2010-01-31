@@ -16,31 +16,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.database.metadata.xmp;
+package de.elmar_baumann.jpt.database.metadata.keywords;
 
 import de.elmar_baumann.jpt.database.metadata.Table;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Collection of all XMP tables.
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2010-01-08
+ * @version 2010-01-31
  */
-public final class XmpTables {
+public final class TableKeywords extends Table {
 
-    private static final List<Table> XMP_TABLES = new ArrayList<Table>(2);
+    public static final TableKeywords INSTANCE = new TableKeywords();
 
-    static {
-        XMP_TABLES.add(TableXmp.INSTANCE);
-        XMP_TABLES.add(TableXmpDcSubjects.INSTANCE);
+    private TableKeywords() {
+        super("hierarchical_subjects");
     }
 
-    public static List<Table> get() {
-        return new ArrayList<Table>(XMP_TABLES);
-    }
-
-    private XmpTables() {
+    @Override
+    protected void addColumns() {
+        addColumn(ColumnKeyword.INSTANCE);
     }
 }

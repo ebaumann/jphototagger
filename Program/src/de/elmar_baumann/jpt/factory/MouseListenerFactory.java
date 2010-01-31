@@ -24,14 +24,12 @@ import de.elmar_baumann.jpt.event.listener.impl.MouseListenerImageCollections;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerSavedSearches;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerFavorites;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerKeywordsTree;
-import de.elmar_baumann.jpt.event.listener.impl.MouseListenerKeywordsList;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerMetadataTemplates;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerTreeExpand;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
 import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
@@ -65,7 +63,6 @@ public final class MouseListenerFactory {
 
         appPanel.getTreeDirectories()                                   .addMouseListener(new MouseListenerDirectories());
         appPanel.getListSavedSearches()                                 .addMouseListener(new MouseListenerSavedSearches());
-        appPanel.getListEditKeywords()                                  .addMouseListener(new MouseListenerKeywordsList());
         appPanel.getListImageCollections()                              .addMouseListener(new MouseListenerImageCollections());
         appPanel.getTreeFavorites()                                     .addMouseListener(new MouseListenerFavorites());
 
@@ -75,15 +72,12 @@ public final class MouseListenerFactory {
 
         appPanel.getTreeEditKeywords()                                  .addMouseListener(listenerKeywordsTree);
         InputHelperDialog.INSTANCE.getPanelKeywords().getTree()         .addMouseListener(listenerKeywordsTree);
-        InputHelperDialog.INSTANCE.getPanelKeywords().getList()         .addMouseListener(new MouseListenerKeywordsList());
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().addMouseListener(new MouseListenerMetadataTemplates());
 
         new TreeCellPopupHighlighter(appPanel.getTreeMiscMetadata(), listenerTreeExpand.getPopupMenu());
         new TreeCellPopupHighlighter(appPanel.getTreeTimeline()    , listenerTreeExpand.getPopupMenu());
         new TreeCellPopupHighlighter(appPanel.getTreeSelKeywords() , listenerTreeExpand.getPopupMenu());
 
-        new ListItemPopupHighlighter(appPanel.getListEditKeywords()                                  , PopupMenuKeywordsList.INSTANCE);
-        new ListItemPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getList()         , PopupMenuKeywordsList.INSTANCE);
         new ListItemPopupHighlighter(InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList(), PopupMenuMetadataTemplates.INSTANCE);
 
         AppLogger.logFine(getClass(), "MouseListenerFactory.Init.Finished");

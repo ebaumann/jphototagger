@@ -23,9 +23,9 @@ import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
+import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
@@ -44,7 +44,7 @@ public final class FastSearchColumns {
 
     static {
         // XMP
-        COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+        COLUMNS.add(ColumnKeyword.INSTANCE);
         COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
         COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);

@@ -24,10 +24,10 @@ import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
+import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
@@ -57,7 +57,7 @@ public final class NoMetadataColumns {
     private static final List<Column> COLUMNS = new ArrayList<Column>();
 
     static {
-        COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+        COLUMNS.add(ColumnKeyword.INSTANCE);
         COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
         COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);

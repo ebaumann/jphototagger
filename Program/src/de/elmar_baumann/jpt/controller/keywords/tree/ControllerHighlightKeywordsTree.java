@@ -66,9 +66,10 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
             List<File> selFile = tnPanel.getSelectedFiles();
             assert selFile.size() == 1;
             if (selFile.size() == 1 && hasSidecarFile(selFile)) {
-                Collection<String> keywords = db.getDcSubjectsOf(selFile.get(0).getAbsolutePath());
-                setKeywords(treeAppPanel, keywords);
-                setKeywords(treeDialog, keywords);
+                // FIXME
+//                Collection<String> keywords = db.getDcSubjectsOf(selFile.get(0).getAbsolutePath());
+//                setKeywords(treeAppPanel, keywords);
+//                setKeywords(treeDialog, keywords);
             }
         }
     }

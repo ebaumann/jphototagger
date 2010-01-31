@@ -19,8 +19,7 @@
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.Table;
-import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
+import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import java.util.HashMap;
 
 /**
@@ -108,12 +107,11 @@ public final class MetadataTemplate {
     }
 
     public void setXmp(Xmp xmp) {
-        for (Table xmpTable : XmpTables.get()) {
-            for (Column column : xmpTable.getColumns()) {
-                if (!column.isPrimaryKey() && ! column.isForeignKey()) {
-                    fieldOfColumn.put(column, xmp.getValue(column));
-                }
+        for (Column column : TableXmp.INSTANCE.getColumns()) {
+            if (!column.isPrimaryKey() && ! column.isForeignKey()) {
+                fieldOfColumn.put(column, xmp.getValue(column));
             }
         }
+        // FIXME: keywords
     }
 }

@@ -27,9 +27,9 @@ import de.elmar_baumann.jpt.resource.Bundle;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-23
  */
-public final class ColumnXmpLastModified extends Column {
+final class ColumnXmpLastModified extends Column {
 
-    public static final ColumnXmpLastModified INSTANCE = new ColumnXmpLastModified();
+    static final ColumnXmpLastModified INSTANCE = new ColumnXmpLastModified();
 
     private ColumnXmpLastModified() {
         super(

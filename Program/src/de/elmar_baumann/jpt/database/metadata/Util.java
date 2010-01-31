@@ -19,7 +19,9 @@
 package de.elmar_baumann.jpt.database.metadata;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -36,8 +38,8 @@ public final class Util {
      * @param columns Spalten
      * @return        Tabellennamen
      */
-    public static List<String> getUniqueTableNamesOfColumnArray(List<Column> columns) {
-        List<String> tablenames = new ArrayList<String>();
+    public static Set<String> getUniqueTableNamesOfColumnArray(Set<Column> columns) {
+        Set<String> tablenames = new HashSet<String>();
 
         for (Column column : columns) {
             String tableName = column.getTable().getName();
@@ -131,9 +133,8 @@ public final class Util {
      *                     anfangen, werden hinzugefügt
      * @return             Spalten der Tabelle aus <code>tableColumns</code>
      */
-    public static List<Column> getTableColumnsOfTableStartsWith(
-        List<Column> tableColumns, String tablename) {
-        List<Column> columns = new ArrayList<Column>();
+    public static Set<Column> getTableColumnsOfTableStartsWith(Set<Column> tableColumns, String tablename) {
+        Set<Column> columns = new HashSet<Column>();
         for (Column column : tableColumns) {
             if (column.getTable().getName().startsWith(tablename)) {
                 columns.add(column);
@@ -148,24 +149,25 @@ public final class Util {
      * @param tableColumns Spalten
      * @return             SQL-String
      */
-    public static String getSqlSelectFrom(List<Column> tableColumns) {
+    public static String getSqlSelectFrom(Set<Column> tableColumns) {
         StringBuffer sql = new StringBuffer("SELECT ");
         int columnCount = tableColumns.size();
 
-        for (int index = 0; index < columnCount; index++) {
-            Column tableColumn = tableColumns.get(index);
+        int index = 0;
+        for (Column tableColumn : tableColumns) {
             sql.append(tableColumn.getTable().getName() + "." + tableColumn.
                 getName() + (index < columnCount - 1
                 ? ", " : ""));
+            index++;
         }
 
         sql.append(" FROM ");
 
-        List<String> tablenames = getUniqueTableNamesOfColumnArray(tableColumns);
-        int tableCount = tablenames.size();
-        for (int index = 0; index < tableCount; index++) {
-            String tablename = tablenames.get(index);
+        Set<String> tablenames = getUniqueTableNamesOfColumnArray(tableColumns);
+        index = 0;
+        for (String tablename : tablenames) {
             sql.append(tablename + (index < columnCount - 1 ? ", " : ""));
+            index++;
         }
 
         return sql.toString();

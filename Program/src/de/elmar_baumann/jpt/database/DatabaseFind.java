@@ -28,7 +28,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -87,10 +89,9 @@ public final class DatabaseFind extends Database {
      * @param searchString  Suchteilzeichenkette
      * @return              Alle gefundenen Dateinamen
      */
-    public List<String> findFilenamesLikeOr(
-            List<Column> searchColumns, String searchString) {
+    public Set<String> findFilenamesLikeOr(Set<Column> searchColumns, String searchString) {
 
-        List<String> filenames = new ArrayList<String>();
+        Set<String> filenames = new HashSet<String>();
         addFilenamesSearchFilenamesLikeOr(Util.getTableColumnsOfTableStartsWith(
                 searchColumns, "xmp"), searchString, filenames, "xmp");
         addFilenamesSearchFilenamesLikeOr(Util.getTableColumnsOfTableStartsWith(
@@ -98,8 +99,8 @@ public final class DatabaseFind extends Database {
         return filenames;
     }
 
-    private void addFilenamesSearchFilenamesLikeOr(List<Column> searchColumns,
-            String searchString, List<String> filenames, String tablename) {
+    private void addFilenamesSearchFilenamesLikeOr(Set<Column> searchColumns,
+            String searchString, Set<String> filenames, String tablename) {
         if (searchColumns.size() > 0) {
             Connection connection = null;
             try {
@@ -130,17 +131,13 @@ public final class DatabaseFind extends Database {
         }
     }
 
-    private String getSqlSearchFilenamesLikeOr(
-            List<Column> searchColumns, String tablename) {
+    private String getSqlSearchFilenamesLikeOr(Set<Column> searchColumns, String tablename) {
 
-        StringBuffer sql = new StringBuffer(
-                "SELECT DISTINCT files.filename FROM ");
-        List<String> tablenames =
-                Util.getUniqueTableNamesOfColumnArray(
-                searchColumns);
+        StringBuffer sql        = new StringBuffer("SELECT DISTINCT files.filename FROM ");
+        Set<String> tablenames = Util.getUniqueTableNamesOfColumnArray(searchColumns);
 
         sql.append((tablename.equals("xmp")
-                    ? Join.getSqlFilesXmpJoin(Type.INNER, Type.LEFT, tablenames)
+                    ? Join.getSqlFilesXmpJoin(Type.INNER, tablenames)
                     : Join.getSqlFilesExifJoin(Type.INNER, tablenames)) +
                 " WHERE ");
         boolean isFirstColumn = true;
