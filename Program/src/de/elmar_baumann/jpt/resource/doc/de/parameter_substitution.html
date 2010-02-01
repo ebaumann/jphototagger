@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title></title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <style type="text/css">
+            th {background: #eeeeee;}
+        </style>
+    </head>
+    <body>
+
+        <h1>Parameter, die ersetzt werden durch Zeichenketten</h1>
+
+        <p>Beim Aufrufen externer Programme werden folgende Parameter ersetzt
+            durch folgende Zeichenketten:
+        </p>
+
+        <table border="1px"><!--Style definition in header ignored through current renderer-->
+            <tr>
+                <th>Parameter</th>
+                <th>Ersatz</th>
+            </tr>
+            <tr>
+                <td>%s</td>
+                <td><strong>Vollständiger Dateiname</strong> einschließlich
+                    Wurzel und Verzeichnispfad, z.B.
+                    <code>D:\Bilder\2009\Bild.jpg</code> oder
+                    <code>/home/peter/bilder/2009/Bild.jpg</code>
+                </td>
+            </tr>
+            <tr>
+                <td>%n</td>
+                <td><strong>Dateiname</strong> ohne Erweiterung, ohne
+                    Verzeichnispfad und ohne Wurzel. Heißt eine Datei
+                    <code>Bild.jpg</code>, wird <code>Bild</code> eingesetzt in
+                    <code>%n</code>.
+                </td>
+            </tr>
+            <tr>
+                <td>%x</td>
+                <td><strong>Erweiterung</strong> des Dateinamens: Alles was dem
+                    letzten Punkt folgt. Heißt eine Datei <code>Bild.jpg</code>,
+                    ist ihre Erweiterung <code>jpg</code>. Dateinamen ohne Punkt
+                    oder nur einem Punkt am Anfang oder einem Punkt am Ende
+                    haben keine Erweiterung.
+                </td>
+            </tr>
+            <tr>
+                <td>%p</td>
+                <td><strong>Verzeichnispfad</strong> ab der Wurzel ohne
+                    Dateinamen. Heißt eine Datei
+                    <code>D:\Bilder\2009\Bild.jpg</code>, ist ihr
+                    Verzeichnispfad <code>Bilder\2009</code>, heißt sie
+                    <code>/home/peter/bilder/2009/Bild.jpg</code> ist ihr
+                    Verzeichnispfad <code>home/peter/bilder/2009</code>.
+                </td>
+            </tr>
+            <tr>
+                <td>%d</td>
+                <td><strong>Wurzel</strong> des Dateinamens; unter Windows ist das
+                    ein Laufwerksbuchstabe, z.B. <code>D:\\</code> (Nicht
+                    getestet: UNC-Pfade), unter Unix-Systemen ein Schrägstrich
+                    (<code>/</code>).
+                </td>
+            </tr>
+            <tr>
+                <td>%i</td>
+                <td>Eine <strong>Ganzzahl</strong>, beispielsweise die maximale
+                    Länge der längeren Seite eines Vorschaubilds
+                </td>
+            </tr>
+        </table>
+
+        <p>Bitten denken Sie daran, Parameter in Anführungszeichen einzuschließen,
+            falls Leerzeichen darin sein könnten, z.B. <code>"%s"</code>
+            anstelle <code>%s</code> (ohne Anführungszeichen).</p>
+    </body>
+</html>

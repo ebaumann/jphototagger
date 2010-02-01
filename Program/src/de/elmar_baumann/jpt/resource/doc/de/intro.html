@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Was erledigt dieses Programm?</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Was erledigt dieses Programm?</h1>
+
+        <p>Das Programm <strong>JPhotoTagger</strong> hilft Ihnen, Ihre Bilder
+            zu kennzeichnen (<strong>&quot;taggen&quot;</strong>) und schnell zu
+            finden.
+        </p>
+
+        <p>Ihnen stehen unter anderem folgende Eingabehilfen zur Verfügung:</p>
+
+        <ul>
+            <li>Automatische Vervollständigung Ihrer Eingaben
+            </li>
+            <li>Kopieren der <a href="glossary_metadata.html">Metadaten</a>
+                eines Bilds und Einfügen in andere Bilder
+            </li>
+            <li>Hierarchische Stichwörter: Auf Wunsch werden einem Stichwort
+                übergeordnete Stichwörter ebenfalls eingefügt, beispielsweise
+                <code>Landschaft</code>, falls Sie <code>Baum</code> zuordnen
+            </li>
+            <li>Ziehen und Fallenlassen (Drag&amp;Drop) von Stichwörtern auf
+                Bilder
+            </li>
+            <li>Einfügen von Vorlagen: Feste Stichwortsätze, Ihre Anschrift,
+                Copyright, ...
+            </li>
+        </ul>
+
+        <p> Die Bilder können Sie:</p>
+        <ul>
+            <li>öffnen mit anderen Programmen, z.B. einem
+                Bildbearbeitungs- oder Betrachtungsprogramm
+            </li>
+            <li>an Skripte (&quot;Batch-Dateien&quot;) schicken. Diese könnten
+                die Bilder schärfen, drehen, hochladen auf einen Webserver oder
+                zu einem Belichtungsservice, ...
+            </li>
+        </ul>
+
+        <h2>Wie werden Bilder gefunden?</h2>
+
+        <p>Gefunden werden die Bilder über verschiedene Merkmale wie
+            Stichwörter, Beschreibung und Aufnahmeorte. Diese Daten werden als
+            <strong>Metadaten</strong> bezeichnet und Sie
+            können die Metadaten im Programm <strong>JPhotoTagger</strong>
+            eingeben. Damit Sie möglichst wenig Arbeit haben, können Sie
+            Vorlagen speichern mit immer wieder benutzten Angaben, z.B. Ihre
+            Kontaktdaten und das Copyright. Haben Sie mehrere Bilder ausgewählt,
+            werden Ihre Eingaben für alle Bilder gespeichert. Ihre bisherigen
+            Eingaben werden vorgeschlagen, während Sie neue Begriffe eingeben.
+        </p>
+
+        <h2>Wo werden die Metadaten gespeichert?</h2>
+
+        <p>Was Sie eingeben, wird in
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a> gespeichert.
+            Das sind Dateien des gleichen Namens wie die Bilder und der
+            Endung <code>xmp</code>. Heißt ein Bild <code>Blume.jpg</code>, ist
+            seine Filialdatei <code>Blume.xmp</code>. Eine Filialdatei ist im
+            gleichen Ordner gespeichert wie das Bild. Zusätzlich werden Ihre
+            Eingaben in eine <strong>Datenbank</strong> geschrieben und so
+            schnell gefunden.</p>
+
+        <p>Auch die <strong>Vorschaubilder</strong> sind im gleichen Ordner
+            gespeichert wie die Datenbank, damit sie schnell angezeigt werden.
+        </p>
+
+        <p>Wurde ein Bild oder seine Filialdatei außerhalb dieses Programms
+            aktualisiert, werden das Vorschaubild und/oder die Metadaten in der
+            Datenbank automatisch erneuert.
+        </p>
+
+        <p>Falls Sie die Metadaten zusätzlich in Ihren Bildern haben wollen,
+            erreichen Sie das mit einem Skript
+            (<a href="tip_action_embed_xmp.html">Beispiel-Skript</a>).
+        </p>
+
+        <p>Die Vor- und Nachteile von XMP-Filialdateien sind beschrieben unter
+            <a href="facts_why_xmp_sidecarfiles.html">Warum XMP-Filialdateien?</a>.
+        </p>
+
+        <h2>Weitere Metadaten-Anzeigen</h2>
+
+        <p>Es können zusätzlich <strong>IPTC</strong>-Daten angezeigt werden.
+            Diese können Sie als
+            <a href="import_iptc.html">importieren</a>.
+            <a href="glossary_iptc.html">IPTC</a> ist ein älterer Standard und
+            die Daten stehen (stets) in den Bildern.
+        </p>
+
+        <p>In Bildern enthaltene - <strong>eingebettete - XMP-Daten</strong>
+            können angezeigt werden, falls keine XMP-Filialdatei existiert und
+            ebenfalls 
+            <a href="import_xmp.html">importiert</a>
+            werden.
+        </p>
+
+        <p>Außerdem werden <a href="glossary_exif.html">EXIF</a>-Daten angezeigt
+            und nach einigen kann gesucht werden.
+        </p>
+
+    </body>
+</html>

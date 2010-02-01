@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Kommandozeilenparameter</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Kommandozeilenparameter</h1>
+
+        <p>Kommandozeilenparameter sind weitere Eingaben nach dem Aufruf, der
+            <strong>JPhotoTagger</strong> startet. Üblicherweise wird
+            <strong>JPhotoTagger</strong> so gestartet:
+        </p>
+
+        <pre>java -jar -Xms30m -Xmx250m JPhotoTagger.jar</pre>
+
+        <p>Die Parameter werden hinter <code>JPhotoTagger.jar</code> nach einem
+            Leerzeichen angegeben. Ein Aufruf könnte so aussehen:
+        </p>
+
+        <pre>java -jar -Xms30m -Xmx250m JPhotoTagger.jar -import=E:</pre>
+
+        <p>Der Kommandozeilenparameter ist in diesem Beispiel
+            <strong>-import=E:</strong>.
+        </p>
+
+        <p>Mit Kommandozeilenparametern können Sie <strong>JPhotoTagger</strong>
+            verschiedene Anweisungen geben. Durch mehrere Skript- oder
+            Batchdateien lässt <strong>JPhotoTagger</strong> sich mit
+            unterschiedlichen Kommandozeilenparametern starten.
+        </p>
+
+        <dl>
+            <dt>-import</dt>
+            <dd>Öffnet gleich nach dem Start den Dialog zum
+                <a href="import_images.html">Importieren von Bildern</a>. Folgt
+                dem Parameter ein Gleichheitseichen mit dem Namen eines Ordners
+                (Laufwerks), ist dieser als Quell-Ordner (-Laufwerk) eingestellt.
+                Mit <code>-import=F:</code> stellt <strong>JPhotoTagger</strong>
+                das Laufwerk <code>F:</code> als Quell-Laufwerk ein, mit
+                <code>-import=/mnt/cf</code> den (Linux-) Ordner <code>/mnt/cf</code>.
+                <p>Tipp: Schreiben Sie eine extra Batchdatei, ein extra Skript,
+                    das <strong>JPhotoTagger</strong> mit diesem Parameter aufruft
+                    und verknüpfen es mit den Vorschlägen, die Ihr Betriebssystem
+                    (Ihr Desktop) anbietet, nachdem eine Speicherkarte in einen
+                    Kartenleser eingeführt wurde.
+                </p>
+            </dd>
+        </dl>
+
+    </body>
+</html>
