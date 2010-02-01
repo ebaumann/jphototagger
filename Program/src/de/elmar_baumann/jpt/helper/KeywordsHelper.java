@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
@@ -32,7 +31,6 @@ import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
-import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.util.ArrayList;
@@ -43,7 +41,6 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -74,7 +71,6 @@ public final class KeywordsHelper {
         }
         if (keywordStrings.size() > 1) {
             Collections.reverse(keywordStrings); // else leaf is first element
-            editPanels.addHierarchicalSubjects(getHierarchicalSubjectsFromList(keywordStrings));
         }
     }
 
@@ -371,53 +367,6 @@ public final class KeywordsHelper {
         }
     }
     
-    public static void insertHierarchicalSubjects(TreeModelKeywords model, String hSubjects) {
-        DefaultMutableTreeNode rootNode             = (DefaultMutableTreeNode) model.getRoot();
-        List<String>           hierarchicalSubjects = getHierarchicalSubjectsFromString(hSubjects);
-        
-        if (TreeUtil.existsPathBelow(rootNode, hierarchicalSubjects, true)) return;
-
-        DefaultMutableTreeNode node  = TreeUtil.getBestMatchingNodeBelow(rootNode, hierarchicalSubjects, true);
-        int                    level = node.getLevel();
-        int                    size  = hierarchicalSubjects.size();
-
-        logInsertHierarchicalSubjects(level, size, hSubjects);
-        for (int i = level; i < size; i++) {
-            String subject = hierarchicalSubjects.get(i);
-            node = model.insert(node, subject, true);
-            assert node != null;
-            if (node == null) return;
-        }
-    }
-
-    private static void logInsertHierarchicalSubjects(int level, int size, String hSubjects) {
-        if (level > size) return;
-        AppLogger.logFine(KeywordsHelper.class, "KeywordsHelper.Info.InsertHierarchicalSubjects", hSubjects);
-    }
-
-    public static List<String> getHierarchicalSubjectsFromString(String hSubject) {
-        List<String>    hSubjects = new ArrayList<String>();
-        StringTokenizer st        = new StringTokenizer(hSubject, Xmp.HIER_SUBJECTS_DELIM);
-
-        while (st.hasMoreTokens()) {
-            hSubjects.add(st.nextToken().trim());
-        }
-
-        return hSubjects;
-    }
-
-    public static String getHierarchicalSubjectsFromList(List<String> hSubjects) {
-        StringBuilder sb    = new StringBuilder();
-        int           size  = hSubjects.size();
-
-        for (int i = 0; i < size; i++) {
-            sb.append(hSubjects.get(i));
-            sb.append(i == size - 1 ? "" : Xmp.HIER_SUBJECTS_DELIM);
-        }
-
-        return sb.toString();
-    }
-
     private KeywordsHelper() {
     }
 }

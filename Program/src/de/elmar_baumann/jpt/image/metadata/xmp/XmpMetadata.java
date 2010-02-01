@@ -37,13 +37,11 @@ import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpArrayNameMapping;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.database.metadata.selections.XmpInDatabase;
-import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileLock;
-import de.elmar_baumann.lib.util.StringUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Set;
@@ -342,7 +340,6 @@ public final class XmpMetadata {
             String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(column);
             String arrayName    = XmpColumnXmpArrayNameMapping.getXmpArrayNameOfColumn(column);
             copyMetadata(fromXmp, toXmpMeta, column, namespaceUri, arrayName);
-            setLightroomHierarchicalSubjects(fromXmp, toXmpMeta);
         }
     }
 
@@ -487,54 +484,6 @@ public final class XmpMetadata {
         }
     }
 
-    private static void setLightroomHierarchicalSubjects(Xmp fromXmp, XMPMeta toXmpMeta) throws XMPException {
-        List<String> dcSubjects = fromXmp.getDcSubjects(); // Copy of DC subjects
-
-        if (dcSubjects == null || fromXmp.getHierarchicalSubjects() == null) return;
-
-        toXmpMeta.deleteProperty(Namespace.LIGHTROOM.getUri(),
-                                 ArrayName.LR_HIERARCHICAL_SUBJECTS.getName());
-
-        // Adding not contained hierarchical subjects to a copy of DC subjects
-        for (String hierSubjects : fromXmp.getHierarchicalSubjects()) {
-            if (hrSubjectsOk(dcSubjects, hierSubjects)) {
-                addHierarchicalSubjects(hierSubjects, dcSubjects);
-                if (!dcSubjects.contains(hierSubjects)) {
-                    dcSubjects.add(hierSubjects);
-                }
-            }
-        }
-
-        dcSubjects = StringUtil.getTrimmed(dcSubjects);
-        Collections.sort(dcSubjects);
-
-        for (String dcSubject : dcSubjects) {
-            toXmpMeta.appendArrayItem(
-                                    Namespace.LIGHTROOM.getUri(),
-                                    ArrayName.LR_HIERARCHICAL_SUBJECTS.getName(),
-                                    ArrayName.LR_HIERARCHICAL_SUBJECTS.getArrayPropertyOptions(),
-                                    dcSubject,
-                                    null);
-        }
-    }
-
-    private static boolean hrSubjectsOk(List<String> dcSubjects, String hrSubjects) {
-        for (String hrSubject : KeywordsHelper.getHierarchicalSubjectsFromString(hrSubjects)) {
-            if (!dcSubjects.contains(hrSubject)) return false;
-        }
-        return true;
-    }
-
-    private static void addHierarchicalSubjects(String hrSubjects, List<String> toDcSubjects) {
-        assert hrSubjects != null; if (hrSubjects == null) return;
-        
-        for (String hrSubject : KeywordsHelper.getHierarchicalSubjectsFromString(hrSubjects)) {
-            if (!toDcSubjects.contains(hrSubject)) {
-                toDcSubjects.add(hrSubject);
-            }
-        }
-    }
-
     /**
      * Returns XMP metadata of a image file. If the image has a sidecar file,
      * it's metadata will be read. If the image hasn't a sidecar file but
@@ -615,27 +564,10 @@ public final class XmpMetadata {
                         AppLogger.logSevere(XmpMetadata.class, ex);
                     }
                 }
-                addExtension(path, xmp, value);
             }
             setLastModified(xmpLocation, xmp, areFromXmpImageFilename);
         }
         return xmp;
-    }
-
-    private static void addExtension(String fromPath, Xmp toXmp, Object value) {
-        addLightroomHierarchicalSubjects(fromPath, toXmp, value);
-    }
-
-    private static void addLightroomHierarchicalSubjects(String fromPath, Xmp toXmp, Object value) {
-        if (fromPath.startsWith(ArrayName.LR_HIERARCHICAL_SUBJECTS.getName()) &&
-            value instanceof String &&
-            ((String) value).contains(Xmp.HIER_SUBJECTS_DELIM)
-            ) {
-            String hrSubjects = ((String) value).trim();
-            if (!hrSubjects.isEmpty()) {
-                toXmp.addHierarchicalSubjects(hrSubjects);
-            }
-        }
     }
 
     private static void setLastModified(XmpLocation xmpType, Xmp xmp, String imageFilename) {

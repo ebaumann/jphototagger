@@ -343,6 +343,10 @@
             <url>facts_why_xmp_sidecarfiles.html</url>
             <title>Warum XMP-Filialdateien?</title>
         </page>
+        <page>
+            <url>facts_hr_keywords.html</url>
+            <title>Behandlung von Stichworthierarchien</title>
+        </page>
     </node>
     <page>
         <url>parameter_substitution.html</url>

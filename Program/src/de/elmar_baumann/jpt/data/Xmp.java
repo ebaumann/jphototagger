@@ -61,13 +61,7 @@ import java.util.Map;
  */
 public final class Xmp implements TextEntryListener {
 
-    private final Map<Column, Object> valueOfColumn       = new HashMap<Column, Object>();
-    private       List<String>        hierarchicalSubjects;
-
-    /**
-     * Delimiter of hierarchical subjects
-     */
-    public static final String        HIER_SUBJECTS_DELIM = "|";
+    private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     public Xmp() {
     }
@@ -485,41 +479,6 @@ public final class Xmp implements TextEntryListener {
         return longValueOf(ColumnXmpLastModified.INSTANCE);
     }
 
-    /**
-     * Sets hierarchical subjects.
-     *
-     * @param subjects subjects delimited by {@link #HIER_SUBJECTS_DELIM}. The
-     *                 first element is the to level element (direct below the
-     *                 root), the second the 2nd level etc.
-     */
-    public synchronized void addHierarchicalSubjects(String subjects) {
-        if  (hierarchicalSubjects == null) {
-            hierarchicalSubjects = new ArrayList<String>();
-        }
-        assert isHrSubjects(subjects) : subjects;
-        if (isHrSubjects(subjects)) {
-            hierarchicalSubjects.add(subjects);
-        }
-    }
-
-    private boolean isHrSubjects(String s) {
-        return s != null &&
-              !s.isEmpty() &&
-               s.trim().length() > 1 && // Weak check ("||" is possible)
-               s.contains(HIER_SUBJECTS_DELIM)
-               ;
-
-    }
-
-    /**
-     * Returns the hierarchical subjects, every element is delimited by
-     * {@link #HIER_SUBJECTS_DELIM}.
-     *
-     * @return hierarchical subjects
-     */
-    public List<String> getHierarchicalSubjects() {
-        return hierarchicalSubjects;
-    }
 
     @Override
     public void textRemoved(Column column, String removedText) {
@@ -701,10 +660,6 @@ public final class Xmp implements TextEntryListener {
      */
     public void empty() {
         valueOfColumn.clear();
-        if (hierarchicalSubjects != null) {
-            hierarchicalSubjects.clear();
-            hierarchicalSubjects = null;
-        }
     }
 
     /**
@@ -782,7 +737,6 @@ public final class Xmp implements TextEntryListener {
                 assert false : "Unregognized data type of: " + o;
             }
         }
-        hierarchicalSubjects = xmp.hierarchicalSubjects;
     }
 
     // If true o is not null

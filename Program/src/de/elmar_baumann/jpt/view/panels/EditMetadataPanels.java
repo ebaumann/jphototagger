@@ -261,18 +261,6 @@ public final class EditMetadataPanels
         checkSaveOnChanges();
     }
 
-    public void addHierarchicalSubjects(String hierarchicalSubjects) {
-        assert isEditable();
-        if (!isEditable()) return;
-
-        for (Pair<String, Xmp> pair : filenamesXmp) {
-            pair.getSecond().addHierarchicalSubjects(hierarchicalSubjects);
-        }
-        if (UserSettings.INSTANCE.isSaveInputEarly()) {
-            save();
-        }
-    }
-
     /**
      * Returns the current entries as a XMP object.
      *
