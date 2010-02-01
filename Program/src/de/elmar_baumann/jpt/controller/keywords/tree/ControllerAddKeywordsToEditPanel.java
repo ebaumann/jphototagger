@@ -90,10 +90,6 @@ public class ControllerAddKeywordsToEditPanel
                     editPanel.addText(keywordName);
                 }
                 KeywordsHelper.addHighlightKeywords(keywordNames);
-                if (keywordNames.size() > 1) {
-                    Collections.reverse(keywordNames);
-                    editPanels.addHierarchicalSubjects(KeywordsHelper.getHierarchicalSubjectsFromList(keywordNames));
-                }
                 editPanels.checkSaveOnChanges();
             } else {
                 MessageDisplayer.error(null, "ControllerAddKeywordsToEditPanel.Error.EditDisabled");

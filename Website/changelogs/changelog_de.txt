@@ -5,6 +5,16 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.60 2010-02-01
+-----------------
+
+* Stichworthierarchien werden nicht mehr in die Filialdateien geschrieben, da
+  eine konsistente Haltung aktuell zu zeitaufwändig wäre. Siehe hierzu auch die
+  neue Hilfeseite: Wichtige Fakten > Behandlung von Stichworthierarchien (dort
+  steht, worauf dies hinliefe. Der Zeitaufand ohne jene Änderungen läge beim
+  Verschieben und Kopieren von Teilbäumen und dabei Anpassen der
+  Stichworthierarchien.)
+
 0.7.59 2010-01-30
 -----------------
 

@@ -34,11 +34,9 @@ import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.event.listener.UpdateMetadataCheckListener;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
-import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -143,7 +141,6 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                 ImageFile imageFile = getImageFile(imageFilename);
                 if (isUpdate(imageFile)) {
                     setExifDateToXmpDateCreated(imageFile);
-                    insertHierarchicalSubjects(imageFile.getXmp());
                     logInsertImageFile(imageFile);
                     db.insertOrUpdate(imageFile);
                     runActionsAfterInserting(imageFile);
@@ -286,20 +283,6 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         if (sidecarFile.canWrite()) {
             XmpMetadata.writeXmpToSidecarFile( xmp, sidecarFile.getAbsolutePath());
             xmp.setLastModified(sidecarFile.lastModified());
-        }
-    }
-
-    private void insertHierarchicalSubjects(Xmp xmp) {
-        if (xmp == null || xmp.getHierarchicalSubjects() == null) return;
-
-        for (String hrSubjects : xmp.getHierarchicalSubjects()) {
-            if (hrSubjects != null && !hrSubjects.trim().isEmpty()) {
-                KeywordsHelper.insertHierarchicalSubjects(
-                        ModelFactory.INSTANCE.getModel(TreeModelKeywords.class), hrSubjects);
-                for (String subject : KeywordsHelper.getHierarchicalSubjectsFromString(hrSubjects)) {
-                    xmp.addDcSubject(subject);
-                }
-            }
         }
     }
 
