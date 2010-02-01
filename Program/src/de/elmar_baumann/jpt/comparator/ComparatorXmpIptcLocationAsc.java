@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.comparator;
 
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.lib.util.ClassNameEquality;
 import java.io.File;
 import java.text.Collator;
@@ -41,8 +40,8 @@ public final class ComparatorXmpIptcLocationAsc
     public int compare(File fileLeft, File fileRight) {
         Xmp    xmpLeft  = DatabaseImageFiles.INSTANCE.getXmpOf(fileLeft.getAbsolutePath());
         Xmp    xmpRight = DatabaseImageFiles.INSTANCE.getXmpOf(fileRight.getAbsolutePath());
-        Object locLeft  =  xmpLeft == null ? null : xmpLeft .getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        Object locRight = xmpRight == null ? null : xmpRight.getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        String locLeft  =  xmpLeft == null ? null : xmpLeft .getIptc4XmpCoreLocation();
+        String locRight = xmpRight == null ? null : xmpRight.getIptc4XmpCoreLocation();
 
         return locLeft == null && locRight == null
                 ? 0

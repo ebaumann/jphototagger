@@ -21,23 +21,36 @@ package de.elmar_baumann.jpt.data;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
+import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpRepeatableValues;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
+import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
-import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.lib.generics.Pair;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method
@@ -48,13 +61,13 @@ import java.util.Set;
  */
 public final class Xmp implements TextEntryListener {
 
-    private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
-    private       Long                lastModified;
+    private final Map<Column, Object> valueOfColumn       = new HashMap<Column, Object>();
+    private       List<String>        hierarchicalSubjects;
 
     /**
      * Delimiter of hierarchical subjects
      */
-    public static final String HIER_SUBJECTS_DELIM = "|";
+    public static final String        HIER_SUBJECTS_DELIM = "|";
 
     public Xmp() {
     }
@@ -62,6 +75,452 @@ public final class Xmp implements TextEntryListener {
     public Xmp(Xmp other) {
         set(other);
     }
+
+    /**
+     * Returns the XMP value of dc:creator (photographer).
+     *
+     * @return value of dc:creator (photographer) or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getByLines()
+     */
+    public String getDcCreator() {
+        return stringValueOf(ColumnXmpDcCreator.INSTANCE);
+    }
+
+    /**
+     * Sets the value of dc:creator (photographer).
+     *
+     * @param creator value of dc:creator (photographer) not null
+     * @see           de.elmar_baumann.jpt.data.Iptc#addByLine(java.lang.String)
+     */
+    public void setDcCreator(String creator) {
+        valueOfColumn.put(ColumnXmpDcCreator.INSTANCE, creator);
+    }
+
+    /**
+     * Returns the XMP value of dc:description (image description).
+     *
+     * @return value of dc:description (image description) or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getCaptionAbstract()
+     */
+    public String getDcDescription() {
+        return stringValueOf(ColumnXmpDcDescription.INSTANCE);
+    }
+
+    /**
+     * Sets the value of dc:description (image description).
+     *
+     * @param dcDescription value of dc:description (image description)
+     * @see                 de.elmar_baumann.jpt.data.Iptc#setCaptionAbstract(java.lang.String)
+     */
+    public void setDcDescription(String dcDescription) {
+        valueOfColumn.put(ColumnXmpDcDescription.INSTANCE, dcDescription);
+    }
+
+    /**
+     * Returns the XMP value of dc:rights (Copyright).
+     *
+     * @return value of dc:rights (Copyright) or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getCopyrightNotice()
+     */
+    public String getDcRights() {
+        return stringValueOf(ColumnXmpDcRights.INSTANCE);
+    }
+
+    /**
+     * Sets the value of dc:rights (Copyright).
+     *
+     * @param dcRights value of dc:rights (Copyright)
+     * @see            de.elmar_baumann.jpt.data.Iptc#setCopyrightNotice(java.lang.String)
+     */
+    public void setDcRights(String dcRights) {
+        valueOfColumn.put(ColumnXmpDcRights.INSTANCE, dcRights);
+    }
+
+    /**
+     * Returns the values of dc:subject (keywords, tags).
+     *
+     * @return value of dc:subject (keywords, tags) or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getKeywords()
+     */
+    public List<String> getDcSubjects() {
+        List<String> list = stringListReferenceOf(ColumnXmpDcSubjectsSubject.INSTANCE);
+        return list == null
+               ? null
+               : new ArrayList<String>(list);
+    }
+
+    public void setDcSubjects(List<String> subjects) {
+        List<String> list = stringListReferenceOf(ColumnXmpDcSubjectsSubject.INSTANCE);
+        if (list == null) {
+            valueOfColumn.put(ColumnXmpDcSubjectsSubject.INSTANCE, new ArrayList<String>(subjects));
+        } else {
+            list.clear();
+            list.addAll(subjects);
+        }
+    }
+
+    /**
+     * Adds a value to dc:subject (keyword, tag).
+     *
+     * @param subject value of dc:subject (keyword, tag) not null
+     * @see           de.elmar_baumann.jpt.data.Iptc#addKeyword(java.lang.String)
+     */
+    public void addDcSubject(String subject) {
+        addToStringList(ColumnXmpDcSubjectsSubject.INSTANCE, subject);
+    }
+
+    /**
+     * Returns the XMP value of dc:title (image title).
+     *
+     * @return value of dc:title (image title) or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getObjectName()
+     */
+    public String getDcTitle() {
+        return stringValueOf(ColumnXmpDcTitle.INSTANCE);
+    }
+
+    /**
+     * Sets the value of dc:title (image title).
+     *
+     * @param dcTitle value of dc:title (image title)
+     * @see           de.elmar_baumann.jpt.data.Iptc#setObjectName(java.lang.String)
+     */
+    public void setDcTitle(String dcTitle) {
+        valueOfColumn.put(ColumnXmpDcTitle.INSTANCE, dcTitle);
+    }
+
+    /**
+     * Returns the XMP value of Iptc4xmpCore:CountryCode (ISO country code).
+     *
+     * @return value of Iptc4xmpCore:CountryCode (ISO country code) or null if not
+     *         set
+     * @see             de.elmar_baumann.jpt.data.Iptc#getContentLocationCodes()
+     */
+    public String getIptc4XmpCoreCountrycode() {
+        return stringValueOf(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
+    }
+
+    /**
+     * Sets the value of Iptc4xmpCore:CountryCode (ISO country code).
+     *
+     * @param iptc4xmpcoreCountrycode value of Iptc4xmpCore:CountryCode (ISO country code)
+     */
+    public void setIptc4XmpCoreCountrycode(String iptc4xmpcoreCountrycode) {
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, iptc4xmpcoreCountrycode);
+    }
+
+    /**
+     * Returns the XMP value of Iptc4xmpCore:Location (location where the image
+     * was taken).
+     *
+     * @return value of Iptc4xmpCore:Location or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getContentLocationNames()
+     */
+    public String getIptc4XmpCoreLocation() {
+        return stringValueOf(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+    }
+
+    /**
+     * Sets the value of Iptc4xmpCore:Location (location where the image
+     * was taken).
+     *
+     * @param iptc4xmpcoreLocation value of Iptc4xmpCore:Location
+     */
+    public void setIptc4XmpCoreLocation(String iptc4xmpcoreLocation) {
+        valueOfColumn.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, iptc4xmpcoreLocation);
+    }
+
+    public void setIptc4XmpCoreDateCreated(String date) {
+        valueOfColumn.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, date);
+    }
+
+    public String getIptc4XmpCoreDateCreated() {
+        return stringValueOf(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+    }
+
+    /**
+     * Liefert value of photoshop:AuthorsPosition (position of the photographer).
+     *
+     * @return value of photoshop:AuthorsPosition (position of the photographer)
+     *         or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getByLinesTitles()
+     */
+    public String getPhotoshopAuthorsposition() {
+        return stringValueOf(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:AuthorsPosition (position of the photographer).
+     *
+     * @param photoshopAuthorsposition value of photoshop:AuthorsPosition
+     *        (position of the photographer)
+     */
+    public void setPhotoshopAuthorsposition(String photoshopAuthorsposition) {
+        valueOfColumn.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, photoshopAuthorsposition);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:CaptionWriter (author of the
+     * description).
+     *
+     * @return value of photoshop:CaptionWriter (author of the description) or
+     *         null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getWritersEditors()
+     */
+    public String getPhotoshopCaptionwriter() {
+        return stringValueOf(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:CaptionWriter (author of the description).
+     *
+     * @param photoshopCaptionwriter value of photoshop:CaptionWriter (author of
+     *                               the description)
+     */
+    public void setPhotoshopCaptionwriter(String photoshopCaptionwriter) {
+        valueOfColumn.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, photoshopCaptionwriter);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:City (city of the photographer).
+     *
+     * @return value of photoshop:City (city of the photographer) or null if not
+     *         set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getCity()
+     */
+    public String getPhotoshopCity() {
+        return stringValueOf(ColumnXmpPhotoshopCity.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:City (city of the photographer).
+     *
+     * @param photoshopCity value of photoshop:City (city of the photographer)
+     * @see                 de.elmar_baumann.jpt.data.Iptc#setCity(java.lang.String)
+     */
+    public void setPhotoshopCity(String photoshopCity) {
+        valueOfColumn.put(ColumnXmpPhotoshopCity.INSTANCE, photoshopCity);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:Country (country of the photographer).
+     *
+     * @return value of photoshop:Country (country of the photographer) or null
+     *         if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getCountryPrimaryLocationName()
+     */
+    public String getPhotoshopCountry() {
+        return stringValueOf(ColumnXmpPhotoshopCountry.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:Country (country of the photographer).
+     *
+     * @param photoshopCountry value of photoshop:Country (country of the
+     *                         photographer)
+     * @see   de.elmar_baumann.jpt.data.Iptc#setCountryPrimaryLocationName(java.lang.String)
+     */
+    public void setPhotoshopCountry(String photoshopCountry) {
+        valueOfColumn.put(ColumnXmpPhotoshopCountry.INSTANCE, photoshopCountry);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:Credit (provider of the image).
+     *
+     * @return value of photoshop:Credit (provider of the image) or null if not
+     *         set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getCredit()
+     */
+    public String getPhotoshopCredit() {
+        return stringValueOf(ColumnXmpPhotoshopCredit.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:Credit (provider of the image).
+     *
+     * @param photoshopCredit value of photoshop:Credit (provider of the image)
+     * @see   de.elmar_baumann.jpt.data.Iptc#setCredit(java.lang.String)
+     */
+    public void setPhotoshopCredit(String photoshopCredit) {
+        valueOfColumn.put(ColumnXmpPhotoshopCredit.INSTANCE, photoshopCredit);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:Headline (image title).
+     *
+     * @return value of photoshop:Headline (image title) or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getHeadline()
+     */
+    public String getPhotoshopHeadline() {
+        return stringValueOf(ColumnXmpPhotoshopHeadline.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:Headline (image title).
+     *
+     * @param photoshopHeadline value of photoshop:Headline (image title)
+     * @see                     de.elmar_baumann.jpt.data.Iptc#setHeadline(java.lang.String)
+     */
+    public void setPhotoshopHeadline(String photoshopHeadline) {
+        valueOfColumn.put(ColumnXmpPhotoshopHeadline.INSTANCE, photoshopHeadline);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:Instructions (instructions).
+     *
+     * @return value of photoshop:Instructions (instructions) or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getSpecialInstructions()
+     */
+    public String getPhotoshopInstructions() {
+        return stringValueOf(ColumnXmpPhotoshopInstructions.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:Instructions (instructions).
+     *
+     * @param photoshopInstructions value of photoshop:Instructions
+     *                              (instructions)
+     * @see                         de.elmar_baumann.jpt.data.Iptc#setSpecialInstructions(java.lang.String)
+     */
+    public void setPhotoshopInstructions(String photoshopInstructions) {
+        valueOfColumn.put(ColumnXmpPhotoshopInstructions.INSTANCE, photoshopInstructions);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:Source (image source).
+     *
+     * @return value of photoshop:Source (image source) or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getSource()
+     */
+    public String getPhotoshopSource() {
+        return stringValueOf(ColumnXmpPhotoshopSource.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:Source (image source).
+     *
+     * @param photoshopSource value of photoshop:Source (image source)
+     * @see                   de.elmar_baumann.jpt.data.Iptc#setSource(java.lang.String)
+     */
+    public void setPhotoshopSource(String photoshopSource) {
+        valueOfColumn.put(ColumnXmpPhotoshopSource.INSTANCE, photoshopSource);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:State (state of the photographer).
+     *
+     * @return value of photoshop:State (state of the photographer) or null if
+     *         not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getProvinceState()
+     */
+    public String getPhotoshopState() {
+        return stringValueOf(ColumnXmpPhotoshopState.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:State (state of the photographer).
+     *
+     * @param photoshopState value of photoshop:State (state of the photographer)
+     * @see                  de.elmar_baumann.jpt.data.Iptc#setProvinceState(java.lang.String)
+     */
+    public void setPhotoshopState(String photoshopState) {
+        valueOfColumn.put(ColumnXmpPhotoshopState.INSTANCE, photoshopState);
+    }
+
+    /**
+     * Returns the XMP value of photoshop:TransmissionReference.
+     *
+     * @return value of photoshop:TransmissionReference or null if not set
+     * @see    de.elmar_baumann.jpt.data.Iptc#getOriginalTransmissionReference()
+     */
+    public String getPhotoshopTransmissionReference() {
+        return stringValueOf(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
+    }
+
+    /**
+     * Sets the value of photoshop:TransmissionReference.
+     *
+     * @param photoshopTransmissionReference value of
+     *                                       photoshop:TransmissionReference
+     * @see                                  de.elmar_baumann.jpt.data.Iptc#setOriginalTransmissionReference(java.lang.String)
+     */
+    public void setPhotoshopTransmissionReference(String photoshopTransmissionReference) {
+        valueOfColumn.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, photoshopTransmissionReference);
+    }
+
+    /**
+     * Returns the XMP rating.
+     *
+     * @return value of rating or null if not set
+     */
+    public Long getRating() {
+        return longValueOf(ColumnXmpRating.INSTANCE);
+    }
+
+    /**
+     * Sets the XMP rating.
+     *
+     * @param rating value of rating not null
+     */
+    public void setRating(Long rating) {
+        valueOfColumn.put(ColumnXmpRating.INSTANCE, rating);
+    }
+
+    /**
+     * Sets the last modification time of the XMP data.
+     *
+     * @param lastModified  milliseconds since 1970 of the modification time
+     */
+    public void setLastModified(long lastModified) {
+        valueOfColumn.put(ColumnXmpLastModified.INSTANCE, lastModified);
+    }
+
+    /**
+     * Returns the last modification time of the XMP data.
+     *
+     * @return milliseconds since 1970 of the modification time or null
+     *         if not defined
+     */
+    public Long getLastModified() {
+        return longValueOf(ColumnXmpLastModified.INSTANCE);
+    }
+
+    /**
+     * Sets hierarchical subjects.
+     *
+     * @param subjects subjects delimited by {@link #HIER_SUBJECTS_DELIM}. The
+     *                 first element is the to level element (direct below the
+     *                 root), the second the 2nd level etc.
+     */
+    public synchronized void addHierarchicalSubjects(String subjects) {
+        if  (hierarchicalSubjects == null) {
+            hierarchicalSubjects = new ArrayList<String>();
+        }
+        assert isHrSubjects(subjects) : subjects;
+        if (isHrSubjects(subjects)) {
+            hierarchicalSubjects.add(subjects);
+        }
+    }
+
+    private boolean isHrSubjects(String s) {
+        return s != null &&
+              !s.isEmpty() &&
+               s.trim().length() > 1 && // Weak check ("||" is possible)
+               s.contains(HIER_SUBJECTS_DELIM)
+               ;
+
+    }
+
+    /**
+     * Returns the hierarchical subjects, every element is delimited by
+     * {@link #HIER_SUBJECTS_DELIM}.
+     *
+     * @return hierarchical subjects
+     */
+    public List<String> getHierarchicalSubjects() {
+        return hierarchicalSubjects;
+    }
+
     @Override
     public void textRemoved(Column column, String removedText) {
         removeValue(column, removedText);
@@ -75,40 +534,36 @@ public final class Xmp implements TextEntryListener {
     @Override
     @SuppressWarnings("unchecked")
     public void textChanged(Column column, String oldText, String newText) {
-        if (oldText != null && XmpRepeatableValues.isRepeatable(column)) {
-            removeValue(column, oldText);
+        if (XmpRepeatableValues.isRepeatable(column)) {
+            Object o = valueOfColumn.get(column);
+            if (o == null) {
+                List<String> list = new ArrayList<String>();
+                list.add(newText);
+                valueOfColumn.put(column, list);
+            }
+            assert o instanceof List<?> : "Not a List: " + o;
+            if (o instanceof List<?>) {
+                List<String> list = (List<String>) o;
+                int index = list.indexOf(oldText);
+                if (index >= 0) {
+                    list.set(index, newText);
+                } else {
+                    list.add(newText);
+                }
+            }
+        } else {
+            setValue(column, newText);
         }
-        setValue(column, newText);
     }
 
     public void setMetaDataTemplate(MetadataTemplate template) {
-        for (Column column : TableXmp.INSTANCE.getColumns()) {
-            if (!column.isPrimaryKey() && !column.isForeignKey()) {
-                setValue(column, template.getValueOfColumn(column));
+        for (Table xmpTable : XmpTables.get()) {
+            for (Column column : xmpTable.getColumns()) {
+                if (!column.isPrimaryKey() && !column.isForeignKey()) {
+                    valueOfColumn.put(column, template.getValueOfColumn(column));
+                }
             }
         }
-    }
-
-    public Set<String> getSubjects() {
-        Collection<?> coll = collectionReferenceOf(ColumnKeyword.INSTANCE);
-        if (coll == null) return null;
-        Set<String> subjects = new HashSet<String>();
-
-        for (Object o : coll) {
-            if (o instanceof String) {
-                subjects.addAll(KeywordsHelper.getHierarchicalSubjectsFromString((String) o));
-            }
-        }
-
-        return subjects;
-    }
-
-    public void setLastModified(long lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public Long getLastModified() {
-        return lastModified;
     }
 
     /**
@@ -150,13 +605,18 @@ public final class Xmp implements TextEntryListener {
                 } else if (iptcValue instanceof List<?>) {
                     @SuppressWarnings("unchecked")
                     List<String> array = (List<String>) iptcValue;
-                    if (xmpColumn.equals(ColumnKeyword.INSTANCE)) {
+                    if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
                         for (String string : array) {
-                            setValue(ColumnKeyword.INSTANCE, string);
+                            setValue(xmpColumn, string);
+                        }
+                    } else {
+                        if (!array.isEmpty()) {
+                            setValue(xmpColumn, array.get(0));
                         }
                     }
                 } else {
-                    AppLogger.logWarning(Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);
+                    AppLogger.logWarning(
+                            Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);
                 }
             }
         }
@@ -173,30 +633,6 @@ public final class Xmp implements TextEntryListener {
         return iptcString;
     }
 
-    public Long getRating() {
-        Object o = getValue(ColumnXmpRating.INSTANCE);
-        if (o instanceof Long) {
-            long rating = (Long) o;
-            return rating < ColumnXmpRating.getMinValue()
-                    ? null
-                    : rating > ColumnXmpRating.getMaxValue()
-                    ? ColumnXmpRating.getMaxValue()
-                    : rating;
-        }
-        return null;
-    }
-
-    public void setRating(Long rating) {
-        if (rating == null || rating < ColumnXmpRating.getMinValue()) {
-            valueOfColumn.remove(ColumnXmpRating.INSTANCE);
-            return;
-        }
-        valueOfColumn.put(ColumnXmpRating.INSTANCE,
-                          rating > ColumnXmpRating.getMaxValue()
-                                ? ColumnXmpRating.getMaxValue()
-                                : rating);
-    }
-
     /**
      * Returns a value of a XMP column.
      *
@@ -205,36 +641,34 @@ public final class Xmp implements TextEntryListener {
      *         <ul>
      *         <li>String when set with a <code>set...()</code> method setting
      *             a string
-     *         <li>A {@link Collection} if
-     *             {@link XmpRepeatableValues#isRepeatable(de.elmar_baumann.jpt.database.metadata.Column)}
-     *             returns true
+     *         <li>String list when set with a
+     *             <code>add...()</code> methoden adding a string
      *         <li>Long when set with a <code>set...()</code> method setting a
      *             Long value (lastmodified)
      */
     @SuppressWarnings("unchecked")
     public Object getValue(Column xmpColumn) {
         Object o = valueOfColumn.get(xmpColumn);
-        return o instanceof Collection<?>
-                 ? deepCopy((Collection<?>) o)
-                 : o;
+        assert o == null || o instanceof List<?> || o instanceof String || o instanceof Long : "Neither List nor String nor Long: " + o;
+        return o instanceof List<?>
+               ? new ArrayList<String>((List<String>) o)
+               : o instanceof String || o instanceof Long
+                 ? o
+                 : null;
     }
 
     /**
-     * Sets a value of a column.
+     * Sets a value of a column. When the column has repetable values it will
+     * be added to it's list.
      *
-     * @param xmpColumn XMP column
-     * @param value     value
+     * @param xmpColumn  XMP column
+     * @param value      value
      */
-    @SuppressWarnings("unchecked")
     public void setValue(Column xmpColumn, Object value) {
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
-            Object o = valueOfColumn.get(xmpColumn);
-            if (o == null) {
-                valueOfColumn.put(xmpColumn, new ArrayList<Object>(Arrays.asList(value)));
-            } else if (o instanceof Collection<?>) {
-                ((Collection<Object>) o).add(value);
-            }  else {
-                assert false : "Can't handle " + value + " of column " + xmpColumn;
+            if (value != null) {
+                assert value instanceof String; // Other not recoginzed
+                addToStringList(xmpColumn, value.toString());
             }
         } else {
             valueOfColumn.put(xmpColumn, value);
@@ -245,25 +679,19 @@ public final class Xmp implements TextEntryListener {
      * Removes a value of a XMP column.
      *
      * @param xmpColumn  XMP column
-     * @param value      value not null
+     * @param value      value not null. If the column contains a repeatable
+     *                   value it will be removed from it's list.
      */
-    @SuppressWarnings({"unchecked", "element-type-mismatch"})
+    @SuppressWarnings("unchecked")
     public void removeValue(Column xmpColumn, String value) {
-        if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
-            if (value == null) {
-                valueOfColumn.remove(xmpColumn);
-                return;
-            }
-            Object o = valueOfColumn.get(xmpColumn);
-            assert o == null || o instanceof Collection<?> : o;
-            if (o instanceof Collection<?>) {
-                Collection<?> coll = (Collection<?>) o;
-                coll.remove(value);
-                if (coll.isEmpty()) {
-                    valueOfColumn.remove(xmpColumn);
-                }
-            }
-        } else {
+        Object o = valueOfColumn.get(xmpColumn);
+        boolean remove = true;
+        if (o instanceof List<?>) {
+            List<String> list = (List<String>) o;
+            list.remove(value);
+            remove = list.isEmpty();
+        }
+        if (remove) {
             valueOfColumn.remove(xmpColumn);
         }
     }
@@ -273,6 +701,10 @@ public final class Xmp implements TextEntryListener {
      */
     public void empty() {
         valueOfColumn.clear();
+        if (hierarchicalSubjects != null) {
+            hierarchicalSubjects.clear();
+            hierarchicalSubjects = null;
+        }
     }
 
     /**
@@ -286,24 +718,48 @@ public final class Xmp implements TextEntryListener {
             if (o instanceof String) {
                 String string = (String) o;
                 if (!string.trim().isEmpty()) return false;
-            } else if (o instanceof Collection<?>) {
-                return ((Collection<?>)o).size() > 0;
-            } else if (o != null) {
+            } else if (o instanceof List<?>) {
+                List<?> list = (List<?>) o;
+                if (!list.isEmpty()) return false;
+            } else if (o != null) { // last position, empty list can be != null but empty
                 return false;
             }
         }
         return true;
     }
 
-    private Collection<?> collectionReferenceOf(Column column) {
+    private Long longValueOf(Column column) {
         Object o = valueOfColumn.get(column);
-        return o instanceof Collection<?>
-                ? (Collection<?>)o
-                : null;
+        return o instanceof Long
+               ? (Long) o
+               : null;
     }
 
-    private Collection<?> deepCopy(Collection<?> coll) {
-        return new ArrayList<Object>(coll);
+    private String stringValueOf(Column column) {
+        Object o = valueOfColumn.get(column);
+        return o instanceof String
+               ? (String) o
+               : null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<String> stringListReferenceOf(Column column) {
+        Object o = valueOfColumn.get(column);
+        return o instanceof List<?>
+               ? (List<String>) o
+               : null;
+    }
+
+    private void addToStringList(Column column, String string) {
+        if (string == null) return;
+        List<String> list = stringListReferenceOf(column);
+        if (list == null) {
+            list = new ArrayList<String>();
+            valueOfColumn.put(column, list);
+        }
+        if (!list.contains(string)) {
+            list.add(string);
+        }
     }
 
     /**
@@ -317,8 +773,41 @@ public final class Xmp implements TextEntryListener {
         if (xmp == this) return;
         valueOfColumn.clear();
         for (Column column : xmp.valueOfColumn.keySet()) {
-            setValue(column, xmp.valueOfColumn.get(column));
+            Object o = xmp.valueOfColumn.get(column);
+            if (isImmutable(o)) {
+                valueOfColumn.put(column, o);
+            } else if (o instanceof List<?>) {
+                valueOfColumn.put(column, deepCopy((List<?>) o));
+            } else if (o != null) {
+                assert false : "Unregognized data type of: " + o;
+            }
         }
+        hierarchicalSubjects = xmp.hierarchicalSubjects;
+    }
+
+    // If true o is not null
+    private boolean isImmutable(Object o) {
+        return o instanceof Boolean ||
+                o instanceof Character ||
+                o instanceof Byte ||
+                o instanceof Short ||
+                o instanceof Integer ||
+                o instanceof Long ||
+                o instanceof Float ||
+                o instanceof Double ||
+                o instanceof String;
+    }
+
+    private List<Object> deepCopy(List<?> list) {
+        List<Object> copy = new ArrayList<Object>(list.size());
+        for (Object o : list) {
+            if (isImmutable(o)) {
+                copy.add(o);
+            } else { // Even null in a collection is not valid
+                assert false : "Unregognized data type of: " + o;
+            }
+        }
+        return copy;
     }
 
     @Override

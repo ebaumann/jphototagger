@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.update.UpdateUserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.ColumnUtil;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.UserSettingsEvent.Type;
@@ -33,13 +34,14 @@ import de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator;
 import de.elmar_baumann.jpt.types.Filename;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
+import de.elmar_baumann.lib.util.ArrayUtil;
 import de.elmar_baumann.lib.util.PropertiesFile;
 import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.XMLFormatter;
 
@@ -66,6 +68,7 @@ public final class UserSettings {
     private static final String                      KEY_DATABASE_DIRECTORY                                        = "UserSettings.DatabaseDirectoryName";
     private static final String                      KEY_DEFAULT_IMAGE_OPEN_APP                                    = "UserSettings.DefaultImageOpenApp";
     private static final String                      KEY_DISPLAY_SEARCH_BUTTON                                     = "UserSettings.DisplaySearchButton";
+    private static final String                      KEY_EDIT_COLUMNS                                              = "UserSettings.EditColumns";
     private static final String                      KEY_DISPLAY_IPTC                                              = "UserSettings.DisplayIptc";
     private static final String                      KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS           = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
     private static final String                      KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
@@ -335,8 +338,36 @@ public final class UserSettings {
      *
      * @return columns. Default: Empty list
      */
-    public Set<Column> getFastSearchColumns() {
-        return EditColumns.get();
+    public List<Column> getFastSearchColumns() {
+        List<Column> columns = new ArrayList<Column>();
+        if (!settings.getString(KEY_FAST_SEARCH_COLUMNS).isEmpty()) {
+            List<String> columnKeys = ArrayUtil.stringTokenToList(
+                    settings.getString(KEY_FAST_SEARCH_COLUMNS),
+                    DELIMITER_COLUMNS);
+            return ColumnUtil.columnKeysToColumns(columnKeys);
+        }
+        return columns;
+    }
+
+    public void setEditColumns(List<Column> columns) {
+        settings.set(getColumnKeys(columns), KEY_EDIT_COLUMNS);
+        writeToFile();
+        notifyListeners(Type.EDIT_COLUMNS);
+    }
+
+    /**
+     * Returns the edit columns the user want to see in the edit columns panel
+     * array.
+     *
+     * @return edit columns
+     */
+    public List<Column> getEditColumns() {
+        if (!settings.getString(KEY_EDIT_COLUMNS).isEmpty()) {
+            List<String> columnKeys = ArrayUtil.stringTokenToList(
+                    settings.getString(KEY_EDIT_COLUMNS), DELIMITER_COLUMNS);
+            return ColumnUtil.columnKeysToColumns(columnKeys);
+        }
+        return new ArrayList<Column>(EditColumns.get());
     }
 
     public void setDefaultImageOpenApp(File app) {

@@ -119,20 +119,4 @@ public class Database {
 
     protected Database() {
     }
-
-    protected void setLong(PreparedStatement stmt, int paramIndex, Long value) throws SQLException {
-        if (value == null) {
-            stmt.setNull(paramIndex, java.sql.Types.BIGINT);
-        } else {
-            stmt.setLong(paramIndex, value);
-        }
-    }
-
-    protected void setString(PreparedStatement stmt, int paramIndex, String s) throws SQLException {
-        if (s == null) {
-            stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
-        } else {
-            stmt.setString(paramIndex, s);
-        }
-    }
 }

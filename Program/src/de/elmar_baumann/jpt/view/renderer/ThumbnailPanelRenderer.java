@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.cache.ThumbnailRenderer;
 import de.elmar_baumann.jpt.cache.XmpCache;
 import de.elmar_baumann.jpt.data.ThumbnailFlag;
 import de.elmar_baumann.jpt.data.Xmp;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -36,7 +35,7 @@ import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.File;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 import javax.swing.ImageIcon;
 
 /**
@@ -247,7 +246,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
     }
 
     private boolean paintThumbnailKeywords(Graphics g, File file) {
-        Set<String> keywords = getKeywords(file);
+        List<String> keywords = getKeywords(file);
         if (keywords == null || keywords.size() == 0) {
             return false;
         }
@@ -390,14 +389,14 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
      * @param file  File designating a Thumbnail
      * @return      keywords
      */
-    public synchronized Set<String> getKeywords(File file) {
+    public synchronized List<String> getKeywords(File file) {
         Xmp xmp = xmpCache.getXmp(file);
 
         if (xmp == null) {
             return null;
         }
 
-        return xmp.getSubjects();
+        return xmp.getDcSubjects();
     }
 
     /**
@@ -412,10 +411,11 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
             return 0;
         }
 
-        Object rating = xmp.getValue(ColumnXmpRating.INSTANCE);
-        if (rating instanceof Long) {
-            return ((Long) rating).intValue();
+        Long rating = xmp.getRating();
+        if (rating == null) {
+            return 0;
         }
-        return 0;
+
+        return xmp.getRating().intValue();
     }
 }

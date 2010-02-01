@@ -18,12 +18,14 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
+import de.elmar_baumann.jpt.controller.keywords.list.ShowThumbnailsContainingAllKeywords2;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -58,9 +60,8 @@ public final class ControllerKeywordsSelection
     }
 
     private void showThumbnailsOfSelKeywords() {
-//        SwingUtilities.invokeLater(
-//                new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
-        // TODO: FIXME
+        SwingUtilities.invokeLater(
+                new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
     }
 
     private List<List<String>> getKeywordStringPaths() {
