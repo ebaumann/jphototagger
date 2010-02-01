@@ -25,10 +25,10 @@ import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
-import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
@@ -59,7 +59,7 @@ public final class DatabaseInfoRecordCountColumns {
 
     static {
         COLUMNS.add(ColumnFilesFilename.INSTANCE);
-        COLUMNS.add(ColumnKeyword.INSTANCE);
+        COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
         COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
         COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);

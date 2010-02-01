@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
@@ -34,14 +34,17 @@ import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.generics.Pair;
+import de.elmar_baumann.lib.util.ArrayUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
+import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
@@ -67,12 +70,11 @@ public final class KeywordsHelper {
         EditMetadataPanels editPanels     = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         List<String>       keywordStrings = getKeywordStrings(node, true);
         for (String keyword : keywordStrings) {
-            editPanels.addText(ColumnKeyword.INSTANCE, keyword);
+            editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
         }
         if (keywordStrings.size() > 1) {
             Collections.reverse(keywordStrings); // else leaf is first element
-        // FIXME
-            //editPanels.addHierarchicalSubjects(getHierarchicalSubjectsFromList(keywordStrings));
+            editPanels.addHierarchicalSubjects(getHierarchicalSubjectsFromList(keywordStrings));
         }
     }
 
@@ -154,53 +156,33 @@ public final class KeywordsHelper {
      * @param keyword keyword
      */
     public static void deleteInFiles(Keyword keyword) {
-        new DeleteKeywordInFiles(getPathString(keyword)).start();
+        Set<String>                     filenames = new HashSet<String>();
+        Collection<Keyword> keywords  = DatabaseKeywords.INSTANCE.getChildren(keyword.getId());
 
-    }
+        keywords.add(keyword);
 
-    public static class DeleteKeywordInFiles extends Thread {
+        for (Keyword kw : keywords) {
+            List<String> parentNames = getParentKeywordNames(kw, true);
 
-        private final String keywordPath;
-        private final String keywordName;
-
-        public DeleteKeywordInFiles(String keywordPath) {
-            this.keywordPath = keywordPath;
-            this.keywordName = getLastPathElement(keywordPath);
-            setName("Deleting keyword " + keywordPath);
+            parentNames.add(kw.getName());
+            filenames.addAll(DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(parentNames));
         }
 
-        @Override
-        public void run() {
-            // FIXME
-//            Set<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(keywordName);
-//
-//            for (String filename : filenames) {
-//                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
-//
-//                if (xmp != null && xmp.removeHierarchicalSubjectPath(keywordPath)) {
-//                    XmpMetadata.writeXmpToSidecarFile(xmp, filename);
-//                }
-//            }
+        if (filenames.size() > 0) {
+            new Replace(getWithChildNames(keyword), new ArrayList<String>(), filenames).start();
         }
     }
 
-    /**
-     * Returns the last element in a keywords path delimited by
-     * {@link Xmp#HIER_SUBJECTS_DELIM}.
-     *
-     * @param  keywordPath path
-     * @return      last element (rightmost element)
-     */
-    public static String getLastPathElement(String keywordPath) {
-        StringTokenizer st      = new StringTokenizer(keywordPath, Xmp.HIER_SUBJECTS_DELIM);
-        int             count   = st.countTokens();
-        String          element = keywordPath;
+    private static List<String> getWithChildNames(Keyword keyword) {
+        Collection<Keyword> children   = DatabaseKeywords.INSTANCE.getChildren(keyword.getId());
+        List<String>                    childNames = new ArrayList<String>();
 
-        for (int i = 0; i < count; i++) {
-            element = st.nextToken();
+        childNames.add(keyword.getName());
+        for (Keyword child : children) {
+            childNames.add(child.getName());
         }
 
-        return element;
+        return childNames;
     }
 
     /**
@@ -211,18 +193,17 @@ public final class KeywordsHelper {
      * @param keywordAfterMove
      */
     public static void moveInFiles(List<String> parentKeywordNamesBeforeMove, Keyword keywordAfterMove) {
-        // FIXME
-//        String       movedKeyword = keywordAfterMove.getName();
-//        List<String> oldKeywords  = new ArrayList<String>(parentKeywordNamesBeforeMove);
-//        List<String> newKeywords  = getParentKeywordNames(keywordAfterMove, true);
-//
-//        oldKeywords.add(movedKeyword);
-//        Collection<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(oldKeywords);
-//        oldKeywords.remove(movedKeyword);
-//
-//        if (filenames.size() > 0) {
-//            new Replace(oldKeywords, newKeywords, filenames).start();
-//        }
+        String       movedKeyword = keywordAfterMove.getName();
+        List<String> oldKeywords  = new ArrayList<String>(parentKeywordNamesBeforeMove);
+        List<String> newKeywords  = getParentKeywordNames(keywordAfterMove, true);
+
+        oldKeywords.add(movedKeyword);
+        Collection<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(oldKeywords);
+        oldKeywords.remove(movedKeyword);
+
+        if (filenames.size() > 0) {
+            new Replace(oldKeywords, newKeywords, filenames).start();
+        }
     }
 
     /**
@@ -232,16 +213,15 @@ public final class KeywordsHelper {
      * @param keyword keyword with new name
      */
     public static void renameInFiles(String oldName, Keyword keyword) {
-        // FIXME
-//        boolean equals = oldName.equalsIgnoreCase(keyword.getName()); assert !equals;
-//        if (equals) return;
-//        List<String> keywords = getParentKeywordNames(keyword, true);
-//
-//        keywords.add(oldName);
-//        Collection<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(keywords);
-//        if (filenames.size() > 0) {
-//            new Rename(oldName, keyword.getName(), filenames).start();
-//        }
+        boolean equals = oldName.equalsIgnoreCase(keyword.getName()); assert !equals;
+        if (equals) return;
+        List<String> keywords = getParentKeywordNames(keyword, true);
+
+        keywords.add(oldName);
+        Collection<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(keywords);
+        if (filenames.size() > 0) {
+            new Rename(oldName, keyword.getName(), filenames).start();
+        }
     }
 
     /**
@@ -277,20 +257,19 @@ public final class KeywordsHelper {
 
         @Override
         public void run() {
-            // FIXME
-//            List<Pair<String, Xmp>> xmps = new ArrayList<Pair<String, Xmp>>();
-//            for (String filename : filenames) {
-//                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
-//                if (xmp != null) {
-//                    List<String> keywords = xmp.getDcSubjects();
-//                    keywords.remove(oldName);
-//                    keywords.add(newName);
-//                    xmp.setDcSubjects(keywords);
-//                    xmps.add(new Pair<String, Xmp>(filename, xmp));
-//                }
-//            }
-//            SaveXmp.save(xmps);
-//            new CheckExists(Arrays.asList(oldName)).run(); // No separate thread
+            List<Pair<String, Xmp>> xmps = new ArrayList<Pair<String, Xmp>>();
+            for (String filename : filenames) {
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
+                if (xmp != null) {
+                    List<String> keywords = xmp.getDcSubjects();
+                    keywords.remove(oldName);
+                    keywords.add(newName);
+                    xmp.setDcSubjects(keywords);
+                    xmps.add(new Pair<String, Xmp>(filename, xmp));
+                }
+            }
+            SaveXmp.save(xmps);
+            new CheckExists(Arrays.asList(oldName)).run(); // No separate thread
         }
     }
 
@@ -308,20 +287,19 @@ public final class KeywordsHelper {
 
         @Override
         public void run() {
-            // FIXME
-//            List<Pair<String, Xmp>> xmps = new ArrayList<Pair<String, Xmp>>();
-//            for (String filename : filenames) {
-//                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
-//                if (xmp != null) {
-//                    List<String> keywords = xmp.getDcSubjects();
-//                    keywords.removeAll(toReplace);
-//                    keywords.addAll(replacement);
-//                    xmp.setDcSubjects(keywords);
-//                    xmps.add(new Pair<String, Xmp>(filename, xmp));
-//                }
-//            }
-//            SaveXmp.save(xmps);
-//            new CheckExists(toReplace).run(); // No separate thread
+            List<Pair<String, Xmp>> xmps = new ArrayList<Pair<String, Xmp>>();
+            for (String filename : filenames) {
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
+                if (xmp != null) {
+                    List<String> keywords = xmp.getDcSubjects();
+                    keywords.removeAll(toReplace);
+                    keywords.addAll(replacement);
+                    xmp.setDcSubjects(keywords);
+                    xmps.add(new Pair<String, Xmp>(filename, xmp));
+                }
+            }
+            SaveXmp.save(xmps);
+            new CheckExists(toReplace).run(); // No separate thread
         }
     }
 
@@ -337,7 +315,7 @@ public final class KeywordsHelper {
         public void run() {
             for (String keyword : keywords) {
                 if (!DatabaseKeywords.INSTANCE.exists(keyword) &&
-                    DatabaseImageFiles.INSTANCE.exists(ColumnKeyword.INSTANCE, keyword)
+                    DatabaseImageFiles.INSTANCE.exists(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)
                     ) {
                     TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
                     model.insert((DefaultMutableTreeNode) model.getRoot(), keyword, true);
@@ -380,6 +358,19 @@ public final class KeywordsHelper {
         return trees;
     }
 
+    public static void selectInSelKeywordsList(List<Integer> indices) {
+
+        JList selKeywordsList = GUI.INSTANCE.getAppPanel().getListSelKeywords();
+
+        selKeywordsList.clearSelection();
+        GUI.INSTANCE.getAppPanel().displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
+
+        if (!indices.isEmpty()) {
+            selKeywordsList.setSelectedIndices(ArrayUtil.toIntArray(indices));
+            selKeywordsList.ensureIndexIsVisible(indices.get(0));
+        }
+    }
+    
     public static void insertHierarchicalSubjects(TreeModelKeywords model, String hSubjects) {
         DefaultMutableTreeNode rootNode             = (DefaultMutableTreeNode) model.getRoot();
         List<String>           hierarchicalSubjects = getHierarchicalSubjectsFromString(hSubjects);
@@ -425,28 +416,6 @@ public final class KeywordsHelper {
         }
 
         return sb.toString();
-    }
-
-    /**
-     * Returns the path: The names from the root to a keyword delimited by
-     * {@link Xmp#HIER_SUBJECTS_DELIM}.
-     *
-     * @param  keyword keyword
-     * @return         hierarchical path
-     */
-    public static String getPathString(Keyword keyword) {
-        List<Keyword> parents = DatabaseKeywords.INSTANCE.getParents(keyword);
-        List<String>  path    = new ArrayList<String>(parents.size() + 1);
-
-        Collections.reverse(parents);
-
-        for (Keyword parent : parents) {
-            path.add(parent.getName());
-        }
-
-        path.add(keyword.getName());
-
-        return getHierarchicalSubjectsFromList(path);
     }
 
     private KeywordsHelper() {

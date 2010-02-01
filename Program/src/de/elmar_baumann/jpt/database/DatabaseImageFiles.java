@@ -27,23 +27,7 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Join;
 import de.elmar_baumann.jpt.database.metadata.Join.Type;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
@@ -62,9 +46,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -796,14 +780,39 @@ public final class DatabaseImageFiles extends Database {
             logFiner(stmt);
             stmt.executeUpdate();
             long idXmp = findIdXmpOfIdFile(connection, idFile);
-            insertKeywords(connection, idXmp, xmp);
+            insertXmpDcSubjects(connection, idXmp, xmp.getDcSubjects());
             stmt.close();
         }
     }
 
-    private void insertKeywords(Connection connection, long idXmp, Xmp xmp) throws SQLException {
-    // FIXME
+    private void insertXmpDcSubjects(Connection connection, long idXmp, List<String> dcSubjects) throws SQLException {
+
+        if (dcSubjects != null) {
+            String sql = "INSERT INTO xmp_dc_subjects (id_xmp, subject)";
+            insertValues(
+                    connection,
+                    sql,
+                    idXmp,
+                    dcSubjects);
+        }
     }
+
+    private void insertValues(
+            Connection connection,
+            String sql,
+            long id,
+            List<String> values) throws SQLException {
+
+        PreparedStatement stmt = connection.prepareStatement(sql + " VALUES (?, ?)");
+        for (String value : values) {
+            stmt.setLong(1, id);
+            stmt.setString(2, value);
+            logFiner(stmt);
+            stmt.executeUpdate();
+        }
+        stmt.close();
+    }
+
 
     private String getUpdateXmpStatement() {
         return "UPDATE xmp SET" +
@@ -855,37 +864,34 @@ public final class DatabaseImageFiles extends Database {
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
-    private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmp) throws SQLException {
-        stmt.setLong(1, idFile);
-        setStringValue(stmt,  2, ColumnXmpDcCreator.INSTANCE, xmp);
-        setStringValue(stmt,  3, ColumnXmpDcDescription.INSTANCE, xmp);
-        setStringValue(stmt,  4, ColumnXmpDcRights.INSTANCE, xmp);
-        setStringValue(stmt,  5, ColumnXmpDcTitle.INSTANCE, xmp);
-        setStringValue(stmt,  6, ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, xmp);
-        setStringValue(stmt,  7, ColumnXmpIptc4xmpcoreLocation.INSTANCE, xmp);
-        setStringValue(stmt,  8, ColumnXmpPhotoshopAuthorsposition.INSTANCE, xmp);
-        setStringValue(stmt,  9, ColumnXmpPhotoshopCaptionwriter.INSTANCE, xmp);
-        setStringValue(stmt, 10, ColumnXmpPhotoshopCity.INSTANCE, xmp);
-        setStringValue(stmt, 11, ColumnXmpPhotoshopCountry.INSTANCE, xmp);
-        setStringValue(stmt, 12, ColumnXmpPhotoshopCredit.INSTANCE, xmp);
-        setStringValue(stmt, 13, ColumnXmpPhotoshopHeadline.INSTANCE, xmp);
-        setStringValue(stmt, 14, ColumnXmpPhotoshopInstructions.INSTANCE, xmp);
-        setStringValue(stmt, 15, ColumnXmpPhotoshopSource.INSTANCE, xmp);
-        setStringValue(stmt, 16, ColumnXmpPhotoshopState.INSTANCE, xmp);
-        setStringValue(stmt, 17, ColumnXmpPhotoshopTransmissionReference.INSTANCE, xmp);
-        setLong       (stmt, 18, xmp.getRating());
-        setStringValue(stmt, 19, ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, xmp);
-    }
-
-    private void setStringValue(PreparedStatement stmt, int paramIndex, Column col, Xmp xmp) throws SQLException {
-        Object o = xmp.getValue(col);
-        if (o == null) {
-            stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
-        } else if (o instanceof String) {
-            stmt.setString(paramIndex, (String) o);
+    private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmp)
+            throws SQLException {
+        stmt.setLong(   1, idFile);
+        stmt.setString( 2, xmp.getDcCreator());
+        stmt.setString( 3, xmp.getDcDescription());
+        stmt.setString( 4, xmp.getDcRights());
+        stmt.setString( 5, xmp.getDcTitle());
+        stmt.setString( 6, xmp.getIptc4XmpCoreCountrycode());
+        stmt.setString( 7, xmp.getIptc4XmpCoreLocation());
+        stmt.setString( 8, xmp.getPhotoshopAuthorsposition());
+        stmt.setString( 9, xmp.getPhotoshopCaptionwriter());
+        stmt.setString(10, xmp.getPhotoshopCity());
+        stmt.setString(11, xmp.getPhotoshopCountry());
+        stmt.setString(12, xmp.getPhotoshopCredit());
+        stmt.setString(13, xmp.getPhotoshopHeadline());
+        stmt.setString(14, xmp.getPhotoshopInstructions());
+        stmt.setString(15, xmp.getPhotoshopSource());
+        stmt.setString(16, xmp.getPhotoshopState());
+        stmt.setString(17, xmp.getPhotoshopTransmissionReference());
+        Long rating = xmp.getRating();
+        if (rating == null || rating < ColumnXmpRating.getMinValue()) {
+            stmt.setNull(18, java.sql.Types.BIGINT);
         } else {
-            assert false : "Not a string: " + o;
+            stmt.setLong(18, rating <= ColumnXmpRating.getMaxValue()
+                             ? rating
+                             : ColumnXmpRating.getMaxValue());
         }
+        stmt.setString(19, xmp.getIptc4XmpCoreDateCreated());
     }
 
     private void insertOrUpdateXmp(Connection connection, long idFile, Xmp xmp) throws SQLException {
@@ -899,13 +905,23 @@ public final class DatabaseImageFiles extends Database {
                 logFiner(stmt);
                 stmt.executeUpdate();
                 stmt.close();
-                // FIXME: Update keywords
+                deleteXmpDcSubjects(connection, idXmp);
+                insertXmpDcSubjects(connection, idXmp, xmp.getDcSubjects());
             } else {
                 insertXmp(connection, idFile, xmp);
             }
         }
     }
 
+    private void deleteXmpDcSubjects(Connection connection, long idXmp) throws SQLException {
+        String            sql  = "DELETE FROM xmp_dc_subjects WHERE id_xmp = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+
+        stmt.setLong(1, idXmp);
+        logFiner(stmt);
+        stmt.executeUpdate();
+        stmt.close();
+    }
     /**
      * Deletes XMP-Data of image files when a XMP sidecar file does not
      * exist but in the database is XMP data for this image file.
@@ -985,11 +1001,14 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp.photoshop_source" +                                      // -- 15 --
                 ", xmp.photoshop_state" +                                       // -- 16 --
                 ", xmp.photoshop_transmissionReference" +                       // -- 17 --
-                ", xmp.rating" +                                                // -- 18 --
-                ", xmp.iptc4xmpcore_datecreated" +                              // -- 19 --
+                ", xmp_dc_subjects.subject" +                                   // -- 18 --
+                ", xmp.rating" +                                                // -- 19 --
+                ", xmp.iptc4xmpcore_datecreated" +                              // -- 20 --
                 " FROM" +
                 " files LEFT JOIN xmp" +
                 " ON files.id = xmp.id_files" +
+                " LEFT JOIN xmp_dc_subjects" +
+                " ON xmp.id = xmp_dc_subjects.id_xmp" +
                 " WHERE files.filename IN" +
                 " (" + getPlaceholder(fileCount) + ")";
     }
@@ -1002,7 +1021,8 @@ public final class DatabaseImageFiles extends Database {
      *                  name of a file and the second the XMP metadata of that
      *                  file
      */
-    public List<Pair<String, Xmp>> getXmpOf(Collection<? extends String> filenames) {
+    public List<Pair<String, Xmp>> getXmpOf(
+            Collection<? extends String> filenames) {
         List<Pair<String, Xmp>> list = new ArrayList<Pair<String, Xmp>>();
         Connection connection = null;
         try {
@@ -1019,29 +1039,37 @@ public final class DatabaseImageFiles extends Database {
                 if (!filename.equals(prevFilename)) {
                     xmp = new Xmp();
                 }
-                xmp.setValue(ColumnXmpDcCreator.INSTANCE,                      rs.getString(2));
-                xmp.setValue(ColumnXmpDcDescription.INSTANCE,                  rs.getString(3));
-                xmp.setValue(ColumnXmpDcRights.INSTANCE,                       rs.getString(4));
-                xmp.setValue(ColumnXmpDcTitle.INSTANCE,                        rs.getString(5));
-                xmp.setValue(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,        rs.getString(6));
-                xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE,           rs.getString(7));
-                xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE,       rs.getString(8));
-                xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE,         rs.getString(9));
-                xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE,                  rs.getString(10));
-                xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE,               rs.getString(11));
-                xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE,                rs.getString(12));
-                xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE,              rs.getString(13));
-                xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE,          rs.getString(14));
-                xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE,                rs.getString(15));
-                xmp.setValue(ColumnXmpPhotoshopState.INSTANCE,                 rs.getString(16));
-                xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE, rs.getString(17));
-                long rating = rs.getLong(18);
-                xmp.setRating(rs.wasNull() ? null : rating);
-                xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, rs.getString(19));
+                xmp.setDcCreator(                     rs.getString(2));
+                xmp.setDcDescription(                 rs.getString(3));
+                xmp.setDcRights(                      rs.getString(4));
+                xmp.setDcTitle(                       rs.getString(5));
+                xmp.setIptc4XmpCoreCountrycode(       rs.getString(6));
+                xmp.setIptc4XmpCoreLocation(          rs.getString(7));
+                xmp.setPhotoshopAuthorsposition(      rs.getString(8));
+                xmp.setPhotoshopCaptionwriter(        rs.getString(9));
+                xmp.setPhotoshopCity(                 rs.getString(10));
+                xmp.setPhotoshopCountry(              rs.getString(11));
+                xmp.setPhotoshopCredit(               rs.getString(12));
+                xmp.setPhotoshopHeadline(             rs.getString(13));
+                xmp.setPhotoshopInstructions(         rs.getString(14));
+                xmp.setPhotoshopSource(               rs.getString(15));
+                xmp.setPhotoshopState(                rs.getString(16));
+                xmp.setPhotoshopTransmissionReference(rs.getString(17));
+                String value =                        rs.getString(18);
+                if (value != null) {
+                    xmp.addDcSubject(value);
+                }
+                long rating =                         rs.getLong(19);
+                xmp.setRating(rs.wasNull() ||
+                        rating < ColumnXmpRating.getMinValue()
+                              ? null
+                              : rating <= ColumnXmpRating.getMaxValue()
+                                ? rating
+                                : ColumnXmpRating.getMaxValue());
+                xmp.setIptc4XmpCoreDateCreated(rs.getString(20));
                 if (!filename.equals(prevFilename)) {
                     list.add(new Pair<String, Xmp>(filename, xmp));
                 }
-                // FIXME: keywords
                 prevFilename = filename;
             }
             stmt.close();
@@ -1070,7 +1098,9 @@ public final class DatabaseImageFiles extends Database {
     private static String getPlaceholder(int count) {
         StringBuilder sb = new StringBuilder(count * 3 - 2); // 3: ", ?"
         for (int i = 0; i < count; i++) {
-            sb.append(i > 0 && i < count ? ", ?" : "?");
+            sb.append(i > 0 && i < count
+                      ? ", ?"
+                      : "?");
         }
         return sb.toString();
     }
@@ -1093,11 +1123,14 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp.photoshop_source" +                                      // -- 14 --
                 ", xmp.photoshop_state" +                                       // -- 15 --
                 ", xmp.photoshop_transmissionReference" +                       // -- 16 --
-                ", xmp.rating" +                                                // -- 17 --
-                ", xmp.iptc4xmpcore_datecreated" +                              // -- 18 --
+                ", xmp_dc_subjects.subject" +                                   // -- 17 --
+                ", xmp.rating" +                                                // -- 18 --
+                ", xmp.iptc4xmpcore_datecreated" +                              // -- 19 --
                 " FROM" +
                 " files INNER JOIN xmp" +
                 " ON files.id = xmp.id_files" +
+                " LEFT JOIN xmp_dc_subjects" +
+                " ON xmp.id = xmp_dc_subjects.id_xmp" +
                 " WHERE files.filename = ?";
     }
 
@@ -1117,26 +1150,34 @@ public final class DatabaseImageFiles extends Database {
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                xmp.setValue(ColumnXmpDcCreator.INSTANCE,                      rs.getString(1));
-                xmp.setValue(ColumnXmpDcDescription.INSTANCE,                  rs.getString(2));
-                xmp.setValue(ColumnXmpDcRights.INSTANCE,                       rs.getString(3));
-                xmp.setValue(ColumnXmpDcTitle.INSTANCE,                        rs.getString(4));
-                xmp.setValue(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,        rs.getString(5));
-                xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE,           rs.getString(6));
-                xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE,       rs.getString(7));
-                xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE,         rs.getString(8));
-                xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE,                  rs.getString(9));
-                xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE,               rs.getString(10));
-                xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE,                rs.getString(11));
-                xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE,              rs.getString(12));
-                xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE,          rs.getString(13));
-                xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE,                rs.getString(14));
-                xmp.setValue(ColumnXmpPhotoshopState.INSTANCE,                 rs.getString(15));
-                xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE, rs.getString(16));
-                long rating = rs.getLong(17);
-                xmp.setRating(rs.wasNull() ? null : rating);
-                xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,        rs.getString(18));
-                // FIXME: keywords
+                xmp.setDcCreator(                      rs.getString(1));
+                xmp.setDcDescription(                  rs.getString(2));
+                xmp.setDcRights(                       rs.getString(3));
+                xmp.setDcTitle(                        rs.getString(4));
+                xmp.setIptc4XmpCoreCountrycode(        rs.getString(5));
+                xmp.setIptc4XmpCoreLocation(           rs.getString(6));
+                xmp.setPhotoshopAuthorsposition(       rs.getString(7));
+                xmp.setPhotoshopCaptionwriter(         rs.getString(8));
+                xmp.setPhotoshopCity(                  rs.getString(9));
+                xmp.setPhotoshopCountry(              rs.getString(10));
+                xmp.setPhotoshopCredit(               rs.getString(11));
+                xmp.setPhotoshopHeadline(             rs.getString(12));
+                xmp.setPhotoshopInstructions(         rs.getString(13));
+                xmp.setPhotoshopSource(               rs.getString(14));
+                xmp.setPhotoshopState(                rs.getString(15));
+                xmp.setPhotoshopTransmissionReference(rs.getString(16));
+                String value =                        rs.getString(17);
+                if (value != null) {
+                    xmp.addDcSubject(value);
+                }
+                long rating = rs.getLong(18);
+                xmp.setRating(rs.wasNull() ||
+                        rating < ColumnXmpRating.getMinValue()
+                              ? null
+                              : rating <= ColumnXmpRating.getMaxValue()
+                                ? rating
+                                : ColumnXmpRating.getMaxValue());
+                xmp.setIptc4XmpCoreDateCreated(rs.getString(19));
             }
             stmt.close();
         } catch (Exception ex) {
@@ -1240,6 +1281,187 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
+     * Returns the dublin core subjects (keywords).
+     *
+     * @return dc subjects distinct ordererd ascending
+     */
+    public Set<String> getAllDcSubjects() {
+        Set<String> dcSubjects = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT DISTINCT subject" +
+                    " FROM xmp_dc_subjects" +
+                    " ORDER BY 1 ASC";
+            Statement stmt = connection.createStatement();
+            logFinest(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                dcSubjects.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return dcSubjects;
+    }
+
+    /**
+     * Returns all dublin core subjects (keywords) of a file.
+     *
+     * @param  filename name of the file
+     * @return          dc subjects (keywords) ordered ascending
+     */
+    public List<String> getDcSubjectsOf(String filename) {
+        List<String> dcSubjects = new ArrayList<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    "SELECT DISTINCT xmp_dc_subjects.subject FROM" +
+                    " files INNER JOIN xmp ON files.id = xmp.id_files" +
+                    " INNER JOIN xmp_dc_subjects" +
+                    " ON xmp.id = xmp_dc_subjects.id_xmp" +
+                    " WHERE files.filename = ? " +
+                    " ORDER BY xmp_dc_subjects.subject ASC";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, filename);
+            logFinest(stmt);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                dcSubjects.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return dcSubjects;
+    }
+
+    /**
+     * Returns the filenames within a specific dublin core subject (keyword).
+     *
+     * @param  dcSubject subject
+     * @return           filenames
+     */
+    public Set<String> getFilenamesOfDcSubject(String dcSubject) {
+        Set<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            String sql =
+                    " SELECT DISTINCT files.filename FROM" +
+                    " xmp_dc_subjects INNER JOIN xmp" +
+                    " ON xmp_dc_subjects.id_xmp = xmp.id" +
+                    " INNER JOIN files ON xmp.id_files = files.id" +
+                    " WHERE xmp_dc_subjects.subject = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, dcSubject);
+            logFinest(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return filenames;
+    }
+
+    /**
+     * Returns all images which have all subjects of a list.
+     *
+     * E.g. If You are searching for an image with a tree AND a cloud AND
+     * a car the list contains these three words.
+     *
+     * Because it's faster, call {@link #getFilenamesOfDcSubject(java.lang.String)}
+     * if You are searching for only one subject.
+     *
+     * @param  dcSubjects subjects
+     * @return            images containing all of these subjects
+     */
+    public Set<String> getFilenamesOfAllDcSubjects(
+            List<? extends String> dcSubjects) {
+        Set<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            int count = dcSubjects.size();
+            String sql =
+                    " SELECT files.filename FROM" +
+                    " xmp_dc_subjects INNER JOIN xmp" +
+                    " ON xmp_dc_subjects.id_xmp = xmp.id" +
+                    " INNER JOIN files ON xmp.id_files = files.id" +
+                    " WHERE xmp_dc_subjects.subject IN " +
+                    Util.getParamsInParentheses(count) +
+                    " GROUP BY files.filename" +
+                    " HAVING COUNT(*) = " + count;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            Util.setStringParams(stmt, dcSubjects, 0);
+            logFinest(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return filenames;
+    }
+
+    /**
+     * Returns all images which have at least one of subjects in a list.
+     *
+     * Because it's faster, call {@link #getFilenamesOfDcSubject(java.lang.String)}
+     * if You are searching for only one subject.
+     *
+     * @param  dcSubjects subjects
+     * @return            images containing one or more of these subjects
+     */
+    public Set<String> getFilenamesOfDcSubjects(
+            List<? extends String> dcSubjects) {
+        Set<String> filenames = new LinkedHashSet<String>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            int count = dcSubjects.size();
+            String sql =
+                    " SELECT DISTINCT files.filename FROM" +
+                    " xmp_dc_subjects INNER JOIN xmp" +
+                    " ON xmp_dc_subjects.id_xmp = xmp.id" +
+                    " INNER JOIN files ON xmp.id_files = files.id" +
+                    " WHERE xmp_dc_subjects.subject IN " +
+                    Util.getParamsInParentheses(count);
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            Util.setStringParams(stmt, dcSubjects, 0);
+            logFinest(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+        return filenames;
+    }
+
+    /**
      * Returns all images which have all words of a list in a column.
      *
      * E.g. If You are searching for an image with a tree AND a cloud AND
@@ -1251,7 +1473,8 @@ public final class DatabaseImageFiles extends Database {
      *                through a column <code>id_files</code>!
      * @return        images containing all of these terms in that column
      */
-    public Set<String> getFilenamesOfAll(Column column, List<? extends String> words) {
+    public Set<String> getFilenamesOfAll(
+            Column column, List<? extends String> words) {
         Set<String> filenames = new LinkedHashSet<String>();
         Connection connection = null;
         try {
@@ -1841,8 +2064,10 @@ public final class DatabaseImageFiles extends Database {
                     " files.filename" +
                     " FROM" +
                     (tableName.startsWith("exif")
-                     ? Join.getSqlFilesExifJoin(Type.LEFT, Collections.singleton(tableName))
-                     : Join.getSqlFilesXmpJoin(Type.LEFT, Collections.singleton(tableName))) +
+                     ? Join.getSqlFilesExifJoin(Type.LEFT, Arrays.asList(
+                    tableName))
+                     : Join.getSqlFilesXmpJoin(Type.LEFT, Type.LEFT, Arrays.
+                    asList(tableName))) +
                     " WHERE " + tableName + "." + columnName + " IS NULL";
             PreparedStatement stmt = connection.prepareStatement(sql);
             logFinest(stmt);

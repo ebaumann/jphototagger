@@ -271,35 +271,36 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void setExifDateToXmpDateCreated(ImageFile imageFile) {
-        // FIXME
-//        Exif    exif              = imageFile.getExif();
-//        Xmp     xmp               = imageFile.getXmp();
-//        boolean hasExif           = exif != null;
-//        boolean hasXmp            = xmp  != null;
-//        boolean hasXmpDateCreated = hasXmp  && xmp.getIptc4XmpCoreDateCreated() != null;
-//        boolean hasExifDate       = hasExif && exif.getDateTimeOriginal() != null;
-//
-//        if (hasXmpDateCreated || !hasXmp || !hasExif || !hasExifDate) return;
-//
-//        xmp.setIptc4XmpCoreDateCreated(exif.getXmpDateCreated());
-//
-//        File sidecarFile = new File(XmpMetadata.suggestSidecarFilename(imageFile.getFilename()));
-//        if (sidecarFile.canWrite()) {
-//            XmpMetadata.writeXmpToSidecarFile( xmp, sidecarFile.getAbsolutePath());
-//            xmp.setLastModified(sidecarFile.lastModified());
-//        }
+        Exif    exif              = imageFile.getExif();
+        Xmp     xmp               = imageFile.getXmp();
+        boolean hasExif           = exif != null;
+        boolean hasXmp            = xmp  != null;
+        boolean hasXmpDateCreated = hasXmp  && xmp.getIptc4XmpCoreDateCreated() != null;
+        boolean hasExifDate       = hasExif && exif.getDateTimeOriginal() != null;
+
+        if (hasXmpDateCreated || !hasXmp || !hasExif || !hasExifDate) return;
+
+        xmp.setIptc4XmpCoreDateCreated(exif.getXmpDateCreated());
+
+        File sidecarFile = new File(XmpMetadata.suggestSidecarFilename(imageFile.getFilename()));
+        if (sidecarFile.canWrite()) {
+            XmpMetadata.writeXmpToSidecarFile( xmp, sidecarFile.getAbsolutePath());
+            xmp.setLastModified(sidecarFile.lastModified());
+        }
     }
 
     private void insertHierarchicalSubjects(Xmp xmp) {
-        // FIXME
-//        if (xmp == null || xmp.getHierarchicalSubjectPaths() == null) return;
-//
-//        for (String hrSubjects : xmp.getHierarchicalSubjectPaths()) {
-//            if (hrSubjects != null && !hrSubjects.trim().isEmpty()) {
-//                KeywordsHelper.insertHierarchicalSubjects(
-//                        ModelFactory.INSTANCE.getModel(TreeModelKeywords.class), hrSubjects);
-//            }
-//        }
+        if (xmp == null || xmp.getHierarchicalSubjects() == null) return;
+
+        for (String hrSubjects : xmp.getHierarchicalSubjects()) {
+            if (hrSubjects != null && !hrSubjects.trim().isEmpty()) {
+                KeywordsHelper.insertHierarchicalSubjects(
+                        ModelFactory.INSTANCE.getModel(TreeModelKeywords.class), hrSubjects);
+                for (String subject : KeywordsHelper.getHierarchicalSubjectsFromString(hrSubjects)) {
+                    xmp.addDcSubject(subject);
+                }
+            }
+        }
     }
 
     private void writeSidecarFileIfNotExists(String imageFilename, Xmp xmp) {

@@ -51,6 +51,7 @@ import de.elmar_baumann.jpt.controller.imagecollection.ControllerDeleteFromImage
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerDeleteImageCollection;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerImageCollectionSelected;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerRenameImageCollection;
+import de.elmar_baumann.jpt.controller.keywords.list.ControllerKeywordItemSelected;
 import de.elmar_baumann.jpt.controller.metadata.ControllerEmptyMetadata;
 import de.elmar_baumann.jpt.controller.metadata.ControllerThumbnailSelectionEditMetadata;
 import de.elmar_baumann.jpt.controller.search.ControllerAdvancedSearch;
@@ -62,6 +63,9 @@ import de.elmar_baumann.jpt.controller.keywords.tree.ControllerHighlightKeywords
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerImportKeywords;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerShowKeywordsDialog;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerPickReject;
+import de.elmar_baumann.jpt.controller.keywords.list.ControllerDeleteKeywords;
+import de.elmar_baumann.jpt.controller.keywords.list.ControllerDisplayKeyword;
+import de.elmar_baumann.jpt.controller.keywords.list.ControllerRenameKeywords;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleButtonSelKeywords;
 import de.elmar_baumann.jpt.controller.metadata.ControllerCopyPasteMetadata;
 import de.elmar_baumann.jpt.controller.metadata.ControllerEnableCreateMetadataTemplate;
@@ -135,6 +139,7 @@ public final class ControllerFactory {
 
         support.add(new ControllerThumbnailsPanelPersistence());
         support.add(new ControllerItemsMutualExcludeSelection());
+        support.add(new ControllerKeywordItemSelected());
         support.add(new ControllerSavedSearchSelected());
         support.add(new ControllerImageCollectionSelected());
         support.add(new ControllerMenuItemEnabler());
@@ -204,12 +209,15 @@ public final class ControllerFactory {
         support.add(new ControllerKeywordsSelection());
         support.add(new ControllerPlugins());
         support.add(new ControllerKeywordsDbUpdates());
+        support.add(new ControllerRenameKeywords());
+        support.add(new ControllerDeleteKeywords());
         support.add(new ControllerMetadataTemplateSetToSelImages());
         support.add(new ControllerMetadataTemplateAdd());
         support.add(new ControllerMetadataTemplateEdit());
         support.add(new ControllerMetadataTemplateDelete());
         support.add(new ControllerMetadataTemplateRename());
         support.add(new ControllerToggleButtonSelKeywords());
+        support.add(new ControllerDisplayKeyword());
         support.add(new ControllerMetadataTemplates());
         support.add(new ControllerShowMetadata());
         support.add(new ControllerMiscMetadataItemSelected());

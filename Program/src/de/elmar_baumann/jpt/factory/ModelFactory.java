@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.model.ComboBoxModelMetadataTemplates;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
+import de.elmar_baumann.jpt.model.ListModelKeywords;
 import de.elmar_baumann.jpt.model.ListModelMetadataTemplates;
 import de.elmar_baumann.jpt.model.ListModelNoMetadata;
 import de.elmar_baumann.jpt.model.ListModelSavedSearches;
@@ -38,10 +39,12 @@ import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
+import de.elmar_baumann.lib.thirdparty.SortedListModel;
 import java.awt.Cursor;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.ListModel;
 import javax.swing.tree.TreeModel;
 
 /**
@@ -94,6 +97,7 @@ public final class ModelFactory {
     private void setListModels(AppPanel appPanel) {
         setListModelSavedSearches(appPanel);
         setListModelImageCollections(appPanel);
+        setListModelKeywords(appPanel);
         setListModelNoMetadata(appPanel);
     }
 
@@ -127,6 +131,25 @@ public final class ModelFactory {
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.ListModelImageCollections");
         appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.ListModelImageCollections"), MessageLabel.MessageType.INFO, -1);
+    }
+
+    private void setListModelKeywords(AppPanel appPanel) {
+        AppLogger.logFine(getClass(), "ModelFactory.Starting.ListModelKeywords");
+        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.ListModelKeywords"), MessageLabel.MessageType.INFO, -1);
+
+        JList             listKeywords  = appPanel.getListSelKeywords();
+        Cursor            listCursor    = setWaitCursor(listKeywords);
+        ListModelKeywords modelKeywords = new ListModelKeywords();
+        ListModel         sortedModel   = new SortedListModel(modelKeywords);
+
+        support.add(modelKeywords);
+        listKeywords.setModel(sortedModel);
+        appPanel.getListEditKeywords().setModel(sortedModel);
+        InputHelperDialog.INSTANCE.setModelKeywords(sortedModel);
+
+        listKeywords.setCursor(listCursor);
+        AppLogger.logFine(getClass(), "ModelFactory.Finished.ListModelKeywords");
+        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.ListModelKeywords"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setListModelNoMetadata(AppPanel appPanel) {

@@ -99,19 +99,6 @@ public final class DatabaseMetadata extends Database {
         public short  SOURCE_DATA_TYPE;
     }
 
-    public boolean isPrimaryKey(Connection connection, String tableName, String columnName) throws SQLException {
-        DatabaseMetaData  meta      = connection.getMetaData();
-        ResultSet         rs        = meta.getPrimaryKeys(null, null, tableName.toUpperCase());
-        boolean           isPrimary = false;
-
-        while (rs.next() && !isPrimary) {
-            String cName = rs.getString("COLUMN_NAME");
-            isPrimary = cName != null && cName.equalsIgnoreCase(columnName);
-        }
-
-        return isPrimary;
-    }
-
     /**
      * Returns information of one or all columns of a specific table.
      *

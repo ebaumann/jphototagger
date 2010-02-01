@@ -20,10 +20,10 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
-import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
@@ -132,9 +132,9 @@ public class DatabaseMetadataTemplates extends Database {
             SQLException {
 
         stmt.setString(1, template.getName());
-        stmt.setBytes(2, template.getValueOfColumn(ColumnKeyword.INSTANCE) == null
+        stmt.setBytes(2, template.getValueOfColumn(ColumnXmpDcSubjectsSubject.INSTANCE) == null
                          ? null
-                         : fromRepeatable((Collection<String>)template.getValueOfColumn(ColumnKeyword.INSTANCE)).getBytes());
+                         : fromRepeatable((Collection<String>)template.getValueOfColumn(ColumnXmpDcSubjectsSubject.INSTANCE)).getBytes());
         stmt.setBytes(3, template.getValueOfColumn(ColumnXmpDcTitle.INSTANCE) == null
                          ? null
                          : ((String)template.getValueOfColumn(ColumnXmpDcTitle.INSTANCE)).getBytes());
@@ -308,7 +308,7 @@ public class DatabaseMetadataTemplates extends Database {
         byte[] bytes;
         template.setName(rs.getString(1));
         bytes = rs.getBytes(2);
-        template.setValueOfColumn(ColumnKeyword.INSTANCE, rs.wasNull() ? null : toRepeatable(new String(bytes)));
+        template.setValueOfColumn(ColumnXmpDcSubjectsSubject.INSTANCE, rs.wasNull() ? null : toRepeatable(new String(bytes)));
         bytes = rs.getBytes(3);
         template.setValueOfColumn(ColumnXmpDcTitle.INSTANCE, rs.wasNull() ? null : new String(bytes));
         bytes = rs.getBytes(4);

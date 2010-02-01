@@ -20,10 +20,10 @@ package de.elmar_baumann.jpt.database.metadata.mapping;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
@@ -69,7 +69,7 @@ public final class IptcXmpMapping {
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.SPECIAL_INSTRUCTIONS           , ColumnXmpPhotoshopInstructions.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CREDIT                         , ColumnXmpPhotoshopCredit.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.SOURCE                         , ColumnXmpPhotoshopSource.INSTANCE);
-        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.KEYWORDS                       , ColumnKeyword.INSTANCE);
+        XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.KEYWORDS                       , ColumnXmpDcSubjectsSubject.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.BYLINE                         , ColumnXmpDcCreator.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.CONTENT_LOCATION_NAME          , ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.DATE_CREATED                   , ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);

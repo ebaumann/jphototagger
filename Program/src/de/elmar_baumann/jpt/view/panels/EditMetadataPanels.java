@@ -31,10 +31,10 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.data.SelectedFile;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.selections.EditHints;
 import de.elmar_baumann.jpt.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
@@ -261,6 +261,18 @@ public final class EditMetadataPanels
         checkSaveOnChanges();
     }
 
+    public void addHierarchicalSubjects(String hierarchicalSubjects) {
+        assert isEditable();
+        if (!isEditable()) return;
+
+        for (Pair<String, Xmp> pair : filenamesXmp) {
+            pair.getSecond().addHierarchicalSubjects(hierarchicalSubjects);
+        }
+        if (UserSettings.INSTANCE.isSaveInputEarly()) {
+            save();
+        }
+    }
+
     /**
      * Returns the current entries as a XMP object.
      *
@@ -285,7 +297,7 @@ public final class EditMetadataPanels
                     // Only one call possible, so try catch within a loop is ok
                     String s = p.getText();
                     if (s != null && !s.isEmpty()) {
-                        xmp.setValue(ColumnXmpRating.INSTANCE, Long.getLong(s));
+                        xmp.setRating(Long.getLong(s));
                     }
                 } catch (Exception ex) {
                     AppLogger.logSevere(getClass(), ex);
@@ -329,9 +341,9 @@ public final class EditMetadataPanels
                 }
             } else if (panel instanceof RatingSelectionPanel) {
                 RatingSelectionPanel p      = (RatingSelectionPanel) panel;
-                Object               rating = xmp.getValue(ColumnXmpRating.INSTANCE);
-                if (rating instanceof Long) {
-                    p.setText(Long.toString((Long)rating));
+                Long                 rating = xmp.getRating();
+                if (rating != null) {
+                    p.setText(Long.toString(rating));
                     p.setDirty(true);
                 }
             } else {
@@ -614,7 +626,9 @@ public final class EditMetadataPanels
     }
 
     private void createEditPanels() {
-        for (Column column : EditColumns.get()) {
+        List<Column> columns = UserSettings.INSTANCE.getEditColumns();
+
+        for (Column column : columns) {
             EditHints editHints  = EditColumns.getEditHints(column);
             boolean large        = editHints.getSizeEditField().equals(SizeEditField.LARGE);
             boolean isRepeatable = editHints.isRepeatable();
@@ -622,7 +636,7 @@ public final class EditMetadataPanels
             if (isRepeatable) {
                 EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(column);
                 panel.textAreaInput.addFocusListener(this);
-                if (column.equals(ColumnKeyword.INSTANCE)) {
+                if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
                     panel.setSuggest(new SuggestKeywords());
                 }
                 panels.add(panel);

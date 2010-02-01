@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.database.metadata;
 import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
 import de.elmar_baumann.jpt.database.metadata.file.TableFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
-import java.util.Set;
+import java.util.List;
 
 /**
  * SQL-Joins.
@@ -60,7 +60,7 @@ public final class Join {
      * @param tablenames Namen der Tabellen
      * @return           JOIN-Statement
      */
-    public static String getSqlFilesExifJoin(Type type, Set<String> tablenames) {
+    public static String getSqlFilesExifJoin(Type type, List<String> tablenames) {
         return " files " + type.toString() + " exif on files.id = exif.id_files";
     }
 
@@ -70,12 +70,22 @@ public final class Join {
      *
      * @param typeFiles  type of join between {@link TableFiles} and
      *                   {@link TableXmp}
+     * @param typeXmp    type of join between {@link TableXmp} and one of it's
+     *                   n:m resolution tables
      * @param tablenames Namen der Tabellen
      * @return           JOIN-Statement
      */
-    public static String getSqlFilesXmpJoin(Type typeFiles, Set<String> tablenames) {
+    public static String getSqlFilesXmpJoin(Type typeFiles, Type typeXmp,
+            List<String> tablenames) {
         StringBuilder sb = new StringBuilder(" files " + typeFiles.toString() +
                 " xmp on files.id = xmp.id_files");
+
+        for (String tablename : tablenames) {
+            if (tablename.startsWith("xmp") && !tablename.equals("xmp")) {
+                sb.append(" " + typeXmp.toString() + " " + tablename +
+                        " ON xmp.id = " + tablename + ".id_xmp");
+            }
+        }
 
         return sb.toString();
     }

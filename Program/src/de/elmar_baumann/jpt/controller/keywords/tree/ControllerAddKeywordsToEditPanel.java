@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
-import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
@@ -80,7 +80,7 @@ public class ControllerAddKeywordsToEditPanel
 
     private void addToEditPanel(List<String> keywordNames) {
         EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-        JPanel             panel      = editPanels.getEditPanel(ColumnKeyword.INSTANCE);
+        JPanel             panel      = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
@@ -92,8 +92,7 @@ public class ControllerAddKeywordsToEditPanel
                 KeywordsHelper.addHighlightKeywords(keywordNames);
                 if (keywordNames.size() > 1) {
                     Collections.reverse(keywordNames);
-                    // FIXME
-                    //editPanels.addHierarchicalSubjects(KeywordsHelper.getHierarchicalSubjectsFromList(keywordNames));
+                    editPanels.addHierarchicalSubjects(KeywordsHelper.getHierarchicalSubjectsFromList(keywordNames));
                 }
                 editPanels.checkSaveOnChanges();
             } else {

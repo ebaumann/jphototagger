@@ -19,11 +19,11 @@
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.keywords.ColumnKeyword;
 import de.elmar_baumann.jpt.database.metadata.selections.EditHints.SizeEditField;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
@@ -59,7 +59,7 @@ public final class EditColumns {
         EditHints notRepeatableHintLarge = new EditHints(false, SizeEditField.LARGE);
         EditHints repeatableHint         = new EditHints(true , SizeEditField.LARGE);
 
-        EDIT_HINT_OF_COLUMN.put(ColumnKeyword.INSTANCE                          , repeatableHint);
+        EDIT_HINT_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE             , repeatableHint);
         EDIT_HINT_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE                       , notRepeatableHintSmall);
         EDIT_HINT_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE                 , notRepeatableHintLarge);
         EDIT_HINT_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE             , notRepeatableHintSmall);

@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel;
 import de.elmar_baumann.lib.componentutil.TabbedPaneUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
+import javax.swing.ListModel;
 
 /**
  * Dialog for input assistance.
@@ -60,6 +61,10 @@ public class InputHelperDialog extends Dialog {
     private void setHelpPages() {
         setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
         setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers"));
+    }
+
+    public void setModelKeywords(ListModel model) {
+        panelKeywords.getList().setModel(model);
     }
 
     private void readProperties() {

@@ -34,17 +34,16 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
     }
 
     private void addNotExistingKeywords(ImageFile imageFile) {
-        // FIXME
-//        if (imageFile != null && imageFile.getXmp() != null) {
-//             List<String> keywords = imageFile.getXmp().getDcSubjects();
-//             if (keywords != null) {
-//                for (String keyword : keywords) {
-//                   if (!DatabaseKeywords.INSTANCE.exists(keyword)) {
-//                       addKeyword(keyword);
-//                   }
-//                }
-//            }
-//        }
+        if (imageFile != null && imageFile.getXmp() != null) {
+             List<String> keywords = imageFile.getXmp().getDcSubjects();
+             if (keywords != null) {
+                for (String keyword : keywords) {
+                   if (!DatabaseKeywords.INSTANCE.exists(keyword)) {
+                       addKeyword(keyword);
+                   }
+                }
+            }
+        }
     }
 
     private void addKeyword(String keyword) {
