@@ -73,12 +73,6 @@ public final class XmpMetadata {
         KNOWN_NAMESPACES.add("tiff");
         KNOWN_NAMESPACES.add("xap");
         KNOWN_NAMESPACES.add("xapRights");
-
-        try {
-            XMPMetaFactory.getSchemaRegistry().registerNamespace(Namespace.LIGHTROOM.getUri(), Namespace.LIGHTROOM.getPrefix());
-        } catch (Exception ex) {
-            AppLogger.logSevere(XmpMetadata.class, ex);
-        }
     }
 
     /**
