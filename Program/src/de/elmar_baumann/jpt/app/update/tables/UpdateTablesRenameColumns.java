@@ -66,7 +66,7 @@ final class UpdateTablesRenameColumns {
     }
 
     private void renameColumns(Connection connection) throws SQLException {
-        messages.message(Bundle.getString("UpdateTableRenameColumns.Info.update"));
+        messages.message(Bundle.getString("UpdateTablesRenameColumns.Info.update"));
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
@@ -86,6 +86,6 @@ final class UpdateTablesRenameColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTableRenameColumns.Info.RenameColumn", tableName, columnName));
+        messages.message(Bundle.getString("UpdateTablesRenameColumns.Info.RenameColumn", tableName, columnName));
     }
 }

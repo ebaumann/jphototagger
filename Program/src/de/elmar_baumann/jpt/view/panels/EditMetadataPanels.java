@@ -781,7 +781,7 @@ public final class EditMetadataPanels
                 if (entry instanceof RatingSelectionPanel) {
                     // Text not parsable as number leads to an exception
                 } else {
-                    entry.setText(Bundle.getString("DisableIfMultipleValues.Info.TextEntry"));
+                    entry.setText(Bundle.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
                 }
                 entry.addMouseListenerToInputComponents(this);
                 entry.setDirty(false);
@@ -846,7 +846,7 @@ public final class EditMetadataPanels
         public boolean enableEdit(TextEntry entry) {
             if (MessageDisplayer.confirmYesNo(
                     null,
-                    "DisableIfMultipleValues.Confirm.Edit")) {
+                    "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit")) {
                 releaseEntry(entry);
                 return true;
             }

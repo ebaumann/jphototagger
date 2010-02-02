@@ -61,7 +61,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private final        ProgressListenerSupport                      progressListenerSupport = new ProgressListenerSupport();
     private final        ListenerSupport<UpdateMetadataCheckListener> updateListenerSupport   = new ListenerSupport<UpdateMetadataCheckListener>();
     private              ProgressEvent                                progressEvent           = new ProgressEvent(this, null);
-    private static final Image                                        ERROR_THUMBNAIL         = IconUtil.getIconImage(Bundle.getString("ErrorThumbnailPath"));
+    private static final Image                                        ERROR_THUMBNAIL         = IconUtil.getIconImage(Bundle.getString("InsertImageFilesIntoDatabase.ErrorThumbnailPath"));
     private final        List<String>                                 imageFilenames;
     private final        Set<Insert>                                  what                    = new HashSet<Insert>();
     private              boolean                                      stop;

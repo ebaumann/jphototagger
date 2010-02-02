@@ -215,7 +215,7 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneMetadata.setEnabledAt(index, enabled);
         tabbedPaneMetadata.setToolTipTextAt(index, enabled
                 ? ""
-                : Bundle.getString("TabMetadataIptc.TooltipText.Disabled")
+                : Bundle.getString("AppPanel.TabMetadataIptc.TooltipText.Disabled")
                 );
     }
 

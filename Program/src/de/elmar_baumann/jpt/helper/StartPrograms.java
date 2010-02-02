@@ -77,7 +77,7 @@ public final class StartPrograms {
 
     private boolean checkFilecount(List<File> imageFiles) {
         if (imageFiles.size() <= 0) {
-            MessageDisplayer.error(null, "ProgramStarter.Error.Selection");
+            MessageDisplayer.error(null, "StartPrograms.Error.Selection");
             return false;
         }
         return true;
@@ -112,7 +112,7 @@ public final class StartPrograms {
 
         private void logCommand(String command) {
             AppLogger.logInfo(StartPrograms.class,
-                    "ProgramStarter.Info.ExecuteCommand", command);
+                    "StartPrograms.Info.ExecuteCommand", command);
         }
 
         private void processPattern() {
@@ -142,7 +142,7 @@ public final class StartPrograms {
             return IoUtil.quoteForCommandLine(program.getFile()) +
                     IoUtil.getDefaultCommandLineSeparator() +
                     program.getCommandlineParameters(imageFiles,
-                        getAdditionalParameters(Bundle.getString("ProgramStarter.GetInput.Title"), 2),
+                        getAdditionalParameters(Bundle.getString("StartPrograms.GetInput.Title"), 2),
                         dialog.isParametersBeforeFilename());
         }
 

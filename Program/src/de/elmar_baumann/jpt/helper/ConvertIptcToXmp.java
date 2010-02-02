@@ -94,7 +94,7 @@ public final class ConvertIptcToXmp implements Runnable {
 
     private void logWriteXmpFile(String imageFilename) {
         AppLogger.logInfo(ConvertIptcToXmp.class,
-                "IptcToXmp.Info.StartWriteXmpFile", imageFilename);
+                "ConvertIptcToXmp.Info.StartWriteXmpFile", imageFilename);
     }
 
     private synchronized void notifyStart() {

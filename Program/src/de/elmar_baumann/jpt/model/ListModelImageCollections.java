@@ -43,17 +43,17 @@ public final class ListModelImageCollections extends DefaultListModel {
      * Name of the image collection which contains the previous imported
      * image files
      */
-    public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT = Bundle.getString("DisplayName.ItemImageCollections.LastImport");
+    public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT = Bundle.getString("ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
 
     /**
      * Name of the image collection which contains picked images
      */
-    public static final String NAME_IMAGE_COLLECTION_PICKED      = Bundle.getString("DisplayName.ItemImageCollections.Picked");
+    public static final String NAME_IMAGE_COLLECTION_PICKED      = Bundle.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
 
     /**
      * Name of the image collection which contains rejected images
      */
-    public static final String NAME_IMAGE_COLLECTION_REJECTED    = Bundle.getString("DisplayName.ItemImageCollections.Rejected");
+    public static final String NAME_IMAGE_COLLECTION_REJECTED    = Bundle.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
 
     static {
         // Order of appearance

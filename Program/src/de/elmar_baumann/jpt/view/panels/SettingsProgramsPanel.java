@@ -114,7 +114,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
     private boolean askRemove(String otherImageOpenApp) {
         return MessageDisplayer.confirmYesNo(
                 this,
-                "UserSettingsDialog.Confirm.RemoveImageOpenApp",
+                "SettingsProgramsPanel.Confirm.RemoveImageOpenApp",
                 otherImageOpenApp);
     }
 
