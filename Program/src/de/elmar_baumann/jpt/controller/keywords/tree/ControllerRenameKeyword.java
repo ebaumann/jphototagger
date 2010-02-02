@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
@@ -79,11 +78,9 @@ public class ControllerRenameKeyword
     private void renameKeyword(DefaultMutableTreeNode node, Keyword keyword) {
         String newName = getName(keyword, db, getHKPanel().getTree());
         if (newName != null && !newName.trim().isEmpty()) {
-            TreeModelKeywords model   = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-            String            oldName = keyword.getName();
+            TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
             keyword.setName(newName);
-            KeywordsHelper.renameInFiles(oldName, keyword);
             model.changed(node, keyword);
         }
     }

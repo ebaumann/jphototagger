@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.controller.keywords.tree;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
@@ -80,7 +79,6 @@ public class ControllerDeleteKeywords
         if (!confirm ||
              confirm && MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword)
              ) {
-            KeywordsHelper.deleteInFiles(keyword);
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(node);
         }
     }

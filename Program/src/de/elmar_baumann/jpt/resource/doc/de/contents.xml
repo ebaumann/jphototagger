@@ -67,7 +67,7 @@
             <title>Stichwörter / Listenansicht</title>
         </page>
         <page>
-            <url>mainwindow_keywords_tree_sel.html</url>
+            <url>mainwindow_keywords_tree.html</url>
             <title>Stichwörter / Baumansicht</title>
         </page>
         <page>
@@ -106,10 +106,6 @@
             <title>Bearbeiten</title>
         </page>
     </node>
-    <page>
-        <url>mainwindow_keywords_tree.html</url>
-        <title>Stichwortbaum</title>
-    </page>
     <node>
         <title>Kontextmenü im Vorschaubildfenster</title>
         <page>

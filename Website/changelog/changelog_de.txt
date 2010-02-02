@@ -5,6 +5,16 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.61 2010-02-02
+-----------------
+
+* Werden Stichwörter in der  Baumansicht modifiziert, hat das keine (globalen)
+  Auswirkungen mehr auf die Filialdateien, da JPhotoTagger dies nicht sicher
+  durchführen kann, es fehlt die Zuordnung zu Pfaden des Stichwortbaums. Über
+  die Listenansicht können Stichwörter global umbenannt und gelöscht werden.
+  Näheres dazu steht in der Hilfe unter
+  "Die Auswahl-Kartenreiter > Stichwörter / Baumansicht"
+
 0.7.60 2010-02-01
 -----------------
 
