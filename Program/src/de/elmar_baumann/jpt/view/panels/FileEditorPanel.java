@@ -229,8 +229,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void setFileButtonText() {
         buttonSelectFiles.setText(selectDirs
-                                  ? Bundle.getString("FileEditorDialog.ButtonFiles.DirectoriesText")
-                                  : Bundle.getString("FileEditorDialog.ButtonFiles.FilesText"));
+                                  ? Bundle.getString("FileEditorPanel.ButtonFiles.DirectoriesText")
+                                  : Bundle.getString("FileEditorPanel.ButtonFiles.FilesText"));
     }
 
     private void setInfoText() {

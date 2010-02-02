@@ -52,7 +52,7 @@ import java.util.List;
 public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private final List<File>         copiedFiles        = new ArrayList<File>();
-    private final ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(Bundle.getString("ControllerImportImageFiles.Info.ProgressBar"));
+    private final ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(Bundle.getString("ImportImageFiles.Info.ProgressBar"));
     private final CopyFiles          copier;
 
     public static void importFrom(File sourceDirectory) {

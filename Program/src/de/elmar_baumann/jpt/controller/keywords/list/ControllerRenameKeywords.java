@@ -111,8 +111,8 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
         private String getNewName(String oldName) {
             assert oldName != null && oldName.trim().length() > 0 : oldName;
 
-            boolean           finished = !MessageDisplayer.confirmYesNo(null, "ControllerRenameKeyword.Confirm", oldName);
-            InputDialog       dlg      = new InputDialog(Bundle.getString("ControllerRenameKeyword.Info.Input"), oldName, UserSettings.INSTANCE.getProperties(), "ControllerRenameKeyword.Input");
+            boolean           finished = !MessageDisplayer.confirmYesNo(null, "ControllerRenameKeywords.Confirm", oldName);
+            InputDialog       dlg      = new InputDialog(Bundle.getString("ControllerRenameKeywords.Info.Input"), oldName, UserSettings.INSTANCE.getProperties(), "ControllerRenameKeyword.Input");
             ListModelKeywords model    = getModel();
 
             while (!finished) {
@@ -122,11 +122,11 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
                     String  newName = dlg.getInput();
                     boolean equals  = newName != null && !newName.trim().isEmpty() && newName.equalsIgnoreCase(oldName);
                     if (equals) {
-                        finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeyword.Confirm.NewName");
+                        finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewName");
                     } else {
                         boolean exists = model.exists(newName);
                         if (exists) {
-                            finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeyword.Confirm.NewNameExists");
+                            finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewNameExists");
                         } else {
                             return newName;
                         }

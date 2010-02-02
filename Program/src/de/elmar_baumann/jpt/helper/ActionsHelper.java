@@ -42,7 +42,7 @@ public final class ActionsHelper {
 
     public static JMenu actionsAsMenu() {
         List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
-        JMenu         menu    = new JMenu(Bundle.getString("ActionMenu.DisplayName"));
+        JMenu         menu    = new JMenu(Bundle.getString("ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
             menu.add(new JMenuItem(new ActionStarter(action)));

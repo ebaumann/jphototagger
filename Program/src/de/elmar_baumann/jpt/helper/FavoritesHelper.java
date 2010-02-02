@@ -138,7 +138,7 @@ public final class FavoritesHelper {
 
             File dir = files.get(0).getParentFile();
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("AppFrame.Title.FavoriteDirectory", dir.getName()));
+                    Bundle.getString("FavoritesHelper.AppFrame.Title.FavoriteDirectory", dir.getName()));
         }
 
         private void setMetadataEditable() {

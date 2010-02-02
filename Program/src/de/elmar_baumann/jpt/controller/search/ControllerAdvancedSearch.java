@@ -100,8 +100,8 @@ public final class ControllerAdvancedSearch
             private void setTitle(String name) {
                 GUI.INSTANCE.getAppFrame().setTitle(
                         name == null
-                        ? Bundle.getString("AppFrame.Title.AdvancedSearch")
-                        : Bundle.getString("AppFrame.Title.AdvancedSearch.Saved", name));
+                        ? Bundle.getString("ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch")
+                        : Bundle.getString("ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved", name));
             }
         });
     }

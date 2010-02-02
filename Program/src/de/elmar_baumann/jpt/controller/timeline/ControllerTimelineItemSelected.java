@@ -134,7 +134,7 @@ public final class ControllerTimelineItemSelected
     }
 
     private void setTitle() {
-        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timline.Unknown"));
+        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("ControllerTimelineItemSelected.AppFrame.Title.Timline.Unknown"));
     }
 
     private void setTitle(boolean isYear, int year, boolean isMonth, int month, Timeline.Date date) {
@@ -156,6 +156,6 @@ public final class ControllerTimelineItemSelected
                              ? mf.format(month) + " " + yf.format(year)
                              : d == null ? "" : df.format(d);
 
-        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Timeline.Date", fDate));
+        GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("ControllerTimelineItemSelected.AppFrame.Title.Timeline.Date", fDate));
     }
 }

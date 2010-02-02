@@ -63,7 +63,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
                     InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                             getImageFilenamesOfDirectory(directory), Insert.OUT_OF_DATE);
 
-                    inserter.addProgressListener(new ProgressBarUpdater(Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarScheduledTasks.String")));
+                    inserter.addProgressListener(new ProgressBarUpdater(Bundle.getString("ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String")));
                     updaters.add(inserter);
                 }
             }

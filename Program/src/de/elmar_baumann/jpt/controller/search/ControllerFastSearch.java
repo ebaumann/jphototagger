@@ -194,7 +194,7 @@ public final class ControllerFastSearch
 
             private void setTitle(String userInput) {
                 GUI.INSTANCE.getAppFrame().setTitle(
-                        Bundle.getString("AppFrame.Title.FastSearch", userInput));
+                        Bundle.getString("ControllerFastSearch.AppFrame.Title.FastSearch", userInput));
             }
 
             private List<String> searchFilenames(String userInput) {

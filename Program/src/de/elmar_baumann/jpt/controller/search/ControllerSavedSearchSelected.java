@@ -111,7 +111,7 @@ public final class ControllerSavedSearchSelected
 
         private void setTitle(String name) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("AppFrame.Title.AdvancedSearch.Saved", name));
+                    Bundle.getString("ControllerSavedSearchSelected.AppFrame.Title.AdvancedSearch.Saved", name));
         }
 
         private void setMetadataEditable() {

@@ -94,7 +94,7 @@ public final class ImageUtil {
             List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
 
         if (confirm.yes() &&
-            !confirmFileAction("IoUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
+            !confirmFileAction("ImageUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
             return;
         }
 
@@ -121,7 +121,7 @@ public final class ImageUtil {
             List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
 
         if (confirm.yes() &&
-            !confirmFileAction("IoUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
+            !confirmFileAction("ImageUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
             return;
         }
 
