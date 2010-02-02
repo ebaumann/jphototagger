@@ -143,7 +143,7 @@ public final class FavoritePropertiesDialog extends Dialog {
             if (!isUpdate && exists) {
                 MessageDisplayer.error(
                         this,
-                        "FavoriteDirectoryPropertiesDialog.Error.FavoriteExists",
+                        "FavoritePropertiesDialog.Error.FavoriteExists",
                         favoriteName);
             } else {
                 accepted = true;
@@ -156,7 +156,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         if (!valuesOk()) {
             MessageDisplayer.error(
                     this,
-                    "FavoriteDirectoryPropertiesDialog.Error.InvalidInput");
+                    "FavoritePropertiesDialog.Error.InvalidInput");
             return false;
         }
         return true;

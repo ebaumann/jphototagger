@@ -49,7 +49,7 @@ public final class ControllerLogfileDialog
 
     private static final long      MILLISECONDS_ERROR_DISPLAY = 4000;
     private static final String    LABEL_ERROR_TOOLTIP_TEXT   = Bundle.getString("ControllerLogfileDialog.LabelErrorTooltipText");
-    private static final String    STATUSBAR_ERROR_TEXT       = Bundle.getString("Error.Info");
+    private static final String    STATUSBAR_ERROR_TEXT       = Bundle.getString("ControllerLogfileDialog.Error.Info");
     private final        JMenuItem itemShowDlg                = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
     private final        JLabel    labelError                 = GUI.INSTANCE.getAppPanel().getLabelError();
 

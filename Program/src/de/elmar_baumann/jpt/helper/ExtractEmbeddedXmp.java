@@ -56,7 +56,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
         if (getConfirmOverwrite()) {
             return MessageDisplayer.confirmYesNo(
                     null,
-                    "ExtractEmbeddedXmpEditor.Confirm.Overwrite",
+                    "ExtractEmbeddedXmp.Confirm.Overwrite",
                     absolutePath);
         }
         return true;

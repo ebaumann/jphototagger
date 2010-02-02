@@ -61,7 +61,7 @@ public final class ModifyImageCollections {
     public static boolean deleteImagesFromCollection(String collectionName,
             List<String> filenames) {
         if (confirmDelete(
-                "ImageCollectionToDatabase.Confirm.DeleteSelectedFiles",
+                "ModifyImageCollections.Confirm.DeleteSelectedFiles",
                 collectionName)) {
             boolean removed = DatabaseImageCollections.INSTANCE.
                     deleteImagesFrom(collectionName, filenames) ==
@@ -83,7 +83,7 @@ public final class ModifyImageCollections {
     public static boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
         if (confirmDelete(
-                "ImageCollectionToDatabase.Confirm.DeleteCollection",
+                "ModifyImageCollections.Confirm.DeleteCollection",
                 collectionName)) {
             deleted = DatabaseImageCollections.INSTANCE.delete(
                     collectionName);
@@ -150,34 +150,34 @@ public final class ModifyImageCollections {
         if (isValidName(name)) return true;
         MessageDisplayer.error(
                 null,
-                "ImageCollectionDatabaseUtils.Error.InvalidName",
+                "ModifyImageCollections.Error.InvalidName",
                 name);
         return false;
     }
 
     private static void logAddImageCollection(String name) {
         AppLogger.logInfo(ModifyImageCollections.class,
-                "ImageCollectionToDatabase.Info.StartInsert", name);
+                "ModifyImageCollections.Info.StartInsert", name);
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
         MessageDisplayer.error(
                 null,
-                "ImageCollectionToDatabase.Error.AddImagesToCollection",
+                "ModifyImageCollections.Error.AddImagesToCollection",
                 collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
         MessageDisplayer.error(
                 null,
-                "ImageCollectionToDatabase.Error.AddImageCollection",
+                "ModifyImageCollections.Error.AddImageCollection",
                 collectionName);
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
         MessageDisplayer.error(
                 null,
-                "ImageCollectionToDatabase.Error.DeleteImageCollection",
+                "ModifyImageCollections.Error.DeleteImageCollection",
                 collectionName);
     }
 
@@ -185,14 +185,14 @@ public final class ModifyImageCollections {
             String collectionName) {
         MessageDisplayer.error(
                 null,
-                "ImageCollectionToDatabase.Error.DeleteImagesFromCollection",
+                "ModifyImageCollections.Error.DeleteImagesFromCollection",
                 collectionName);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
         MessageDisplayer.error(
                 null,
-                "ImageCollectionToDatabase.Error.RenameImageCollection",
+                "ModifyImageCollections.Error.RenameImageCollection",
                 collectionName);
     }
 
@@ -208,7 +208,7 @@ public final class ModifyImageCollections {
             String nameNextTry = name;
             if (DatabaseImageCollections.INSTANCE.exists(name) ||
                     !checkIsValidName(name)) {
-                willAdd = MessageDisplayer.confirmYesNo(null, "ImageCollectionToDatabase.Confirm.InputNewCollectionName", name);
+                willAdd = MessageDisplayer.confirmYesNo(null, "ModifyImageCollections.Confirm.InputNewCollectionName", name);
                 name = null;
             }
             if (willAdd) {
@@ -220,7 +220,7 @@ public final class ModifyImageCollections {
 
     private static String getCollectionName(String defaultName) {
         String name = MessageDisplayer.input(
-                "ImageCollectionToDatabase.Input.CollectionName",
+                "ModifyImageCollections.Input.CollectionName",
                 defaultName,
                 ModifyImageCollections.class.getName());
         if (name != null) {

@@ -124,16 +124,16 @@ public final class DeleteOrphanedXmp
 
     private void logDeleteRecords() {
         AppLogger.logInfo(DeleteOrphanedXmp.class,
-            "RecordsWithNotExistingFilesDeleter.Info.StartRemove");
+            "DeleteOrphanedXmp.Info.StartRemove");
     }
 
     private void setMessagesFiles() {
-        startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.Start");
-        endMessage   = Bundle.getString("RecordsWithNotExistingFilesDeleter.Files.End");
+        startMessage = Bundle.getString("DeleteOrphanedXmp.Files.Start");
+        endMessage   = Bundle.getString("DeleteOrphanedXmp.Files.End");
     }
 
     private void setMessagesXmp() {
-        startMessage = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.Start");
-        endMessage   = Bundle.getString("RecordsWithNotExistingFilesDeleter.Xmp.End");
+        startMessage = Bundle.getString("DeleteOrphanedXmp.Xmp.Start");
+        endMessage   = Bundle.getString("DeleteOrphanedXmp.Xmp.End");
     }
 }
