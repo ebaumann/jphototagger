@@ -42,9 +42,9 @@ import javax.swing.JProgressBar;
  */
 public final class UpdateDownload extends Thread {
 
-    private static final String       URL_CHECK         = "http://jphototagger.kenai.com/jphototagger-version.txt";
-    private static final String       URL_JAR           = "http://jphototagger.kenai.com/dist/JPhotoTagger.zip";
-    private static final String       URL_WIN_INSTALLER = "http://jphototagger.kenai.com/dist/JPhotoTagger-setup.exe";
+    private static final String       URL_CHECK         = "http://www.elmar-baumann.de/JPhotoTagger/jphototagger-version.txt";
+    private static final String       URL_JAR           = "http://www.elmar-baumann.de/JPhotoTagger/dist/JPhotoTagger.zip";
+    private static final String       URL_WIN_INSTALLER = "http://www.elmar-baumann.de/JPhotoTagger/dist/JPhotoTagger-setup.exe";
     private static final String       VERSION_DELIMITER = ".";
     private static final String       FILENAME_WINDOWS  = "JPhotoTagger-Setup.exe";
     private static final String       FILENAME_JAR      = "JPhotoTagger.jar";
