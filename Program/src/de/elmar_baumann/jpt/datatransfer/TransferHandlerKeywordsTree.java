@@ -24,7 +24,6 @@ import de.elmar_baumann.jpt.controller.keywords.tree.KeywordTreeNodesClipboard;
 import de.elmar_baumann.jpt.controller.keywords.tree.KeywordsTreePathExpander;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
@@ -155,11 +154,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
                 if (userObject instanceof Keyword) {
                     if (sourceNode != dropNode) {
                         Keyword sourceKeyword = (Keyword) userObject;
-                        Keyword srcCopy       = new Keyword(sourceKeyword);
                         treeModel.move(sourceNode, dropNode, sourceKeyword);
-                        KeywordsHelper.moveInFiles(
-                                KeywordsHelper.getParentKeywordNames(
-                                        srcCopy, true), sourceKeyword); // sourceKeyword's new parent ID was set through treeModel.move()
                     }
                 }
             }
