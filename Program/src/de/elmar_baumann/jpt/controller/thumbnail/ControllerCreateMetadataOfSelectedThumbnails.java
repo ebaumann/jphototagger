@@ -90,7 +90,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), what);
 
         inserter.addProgressListener(new ProgressBarUpdater(
-                Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarUserTasks.String")));
+                Bundle.getString("ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String")));
 
         UserTasks.INSTANCE.add(inserter);
     }

@@ -64,12 +64,12 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
     }
 
     private synchronized void updateMetadata() {
-        AppLogger.logInfo(getClass(), "ControllerCreateMetadataOfCurrentThumbnails.Info.Update");
+        AppLogger.logInfo(getClass(), "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
 
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                 FileUtil.getAsFilenames(thumbnailsPanel.getFiles()), Insert.OUT_OF_DATE);
 
-        inserter.addProgressListener(new ProgressBarUpdater(Bundle.getString("InsertImageFilesIntoDatabase.ProgressBarAutomaticTasks.String")));
+        inserter.addProgressListener(new ProgressBarUpdater(Bundle.getString("ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String")));
 
         AutomaticTask.INSTANCE.setTask(inserter);
     }

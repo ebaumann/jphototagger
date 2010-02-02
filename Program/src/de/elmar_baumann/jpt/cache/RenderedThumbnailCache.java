@@ -59,7 +59,7 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
     private XmpCache xmpCache = XmpCache.INSTANCE;
     private Image scaledDummyThumbnail = null;
     private Image dummyThumbnail = IconUtil.getIconImage(
-            Bundle.getString("ThumbnailCache.Path.DummyThumbnail"));
+            Bundle.getString("RenderedThumbnailCache.Path.DummyThumbnail"));
     /**
      * Mapping from file to all kinds of cached data
      */

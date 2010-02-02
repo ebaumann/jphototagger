@@ -130,17 +130,17 @@ public final class ControllerMiscMetadataItemSelected implements
         // 1 path where thumbnailsPanel.apply(tnPanelSettings) is not to call
 
         private void setTitle() {
-            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Metadata"));
+            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
         }
 
         private void setTitle(Column column) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("AppFrame.Title.Metadata.Column", column.getDescription()));
+                    Bundle.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column", column.getDescription()));
         }
 
         private void setTitle(Column column, Object userObject) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("AppFrame.Title.Metadata.Object", column.getDescription() + " " + userObject.toString()));
+                    Bundle.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Object", column.getDescription() + " " + userObject.toString()));
         }
     }
 }

@@ -75,6 +75,6 @@ public final class ControllerNoMetadataItemSelected
 
     private void setTitle(Column column) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                Bundle.getString("AppFrame.Title.WithoutMetadata", column.getDescription()));
+                Bundle.getString("ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata", column.getDescription()));
     }
 }

@@ -108,7 +108,7 @@ public final class ControllerImageCollectionSelected implements
             }
 
             private void setTitle() {
-                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("AppFrame.Title.Collection", collectionName));
+                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("ControllerImageCollectionSelected.AppFrame.Title.Collection", collectionName));
             }
         });
     }

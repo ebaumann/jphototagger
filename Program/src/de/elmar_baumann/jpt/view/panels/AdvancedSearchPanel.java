@@ -127,7 +127,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         valid = valid && checkBrackets();
 
         if (!valid) {
-            MessageDisplayer.error(this, "AdvancedSearchDialog.Error.InvalidQuery");
+            MessageDisplayer.error(this, "AdvancedSearchPanel.Error.InvalidQuery");
         }
 
         return valid;
@@ -369,7 +369,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         if (isSavedSearch && isChanged()) {
             if (MessageDisplayer.confirmYesNo(
                     this,
-                    "AdvancedSearchDialog.Confirm.SaveChanges")) {
+                    "AdvancedSearchPanel.Confirm.SaveChanges")) {
                 saveSearch();
             }
         }
@@ -422,7 +422,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             return searchName;
         } else {
             return MessageDisplayer.input(
-                    "AdvancedSearchDialog.Input.SearchName",
+                    "AdvancedSearchPanel.Input.SearchName",
                     searchName,
                     getClass().getName());
         }

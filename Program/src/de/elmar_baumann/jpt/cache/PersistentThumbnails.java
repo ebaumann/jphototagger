@@ -69,7 +69,7 @@ public final class PersistentThumbnails {
 
     private static void logWriteThumbnail(File tnFile) {
         AppLogger.logInfo(PersistentThumbnails.class,
-                "ThumbnailUtil.Info.WriteThumbnail",
+                "PersistentThumbnails.Info.WriteThumbnail",
                 tnFile);
     }
 

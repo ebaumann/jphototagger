@@ -49,7 +49,7 @@ public final class AppInfo {
     /**
      * Title of the application
      */
-    public static final String APP_DESCRIPTION = Bundle.getString("AppDescription");
+    public static final String APP_DESCRIPTION = Bundle.getString("AppInfo.AppDescription");
     /**
      * Minimum required Java version
      */
