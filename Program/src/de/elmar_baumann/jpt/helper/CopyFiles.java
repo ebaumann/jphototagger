@@ -175,10 +175,7 @@ public final class CopyFiles implements Runnable {
         }
         File target = filePair.getSecond();
         if (target.exists()) {
-            MessageDisplayer.ConfirmAction action = MessageDisplayer.confirmYesNoCancel(
-                    null,
-                    "CopyFiles.Confirm.OverwriteExisting",
-                    filePair.getSecond(), filePair.getFirst());
+            MessageDisplayer.ConfirmAction action = MessageDisplayer.confirmYesNoCancel(null, "CopyFiles.Confirm.OverwriteExisting", filePair.getSecond(), filePair.getFirst());
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
                 stop();
             } else {
@@ -190,10 +187,7 @@ public final class CopyFiles implements Runnable {
 
     private boolean checkDifferent(Pair<File, File> filePair) {
         if (filePair.getFirst().equals(filePair.getSecond())) {
-            MessageDisplayer.error(
-                    null,
-                    "CopyFiles.Error.FilesAreEquals",
-                    filePair.getFirst());
+            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals", filePair.getFirst());
             return false;
         }
         return true;

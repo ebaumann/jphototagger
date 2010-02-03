@@ -82,10 +82,7 @@ public final class FavoritesHelper {
     }
 
     private static boolean confirmDelete(String favoriteName) {
-        return MessageDisplayer.confirmYesNo(
-                null,
-                "FavoritesHelper.Confirm.Delete",
-                favoriteName);
+        return MessageDisplayer.confirmYesNo(null, "FavoritesHelper.Confirm.Delete", favoriteName);
     }
 
     public static List<File> getFilesOfCurrentDirectory() {

@@ -529,16 +529,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private void errorMessage(String favoriteName, String cause) {
-        MessageDisplayer.error(
-                null,
-                "TreeModelFavorites.Error.Template",
-                favoriteName, cause);
+        MessageDisplayer.error(null, "TreeModelFavorites.Error.Template", favoriteName, cause);
     }
 
     private void errorMessageAddDirectory(Favorite directory) {
-        AppLogger.logWarning(
-                TreeModelFavorites.class,
-                "TreeModelFavorites.Error.DbDirectoryDoesNotExist",
-                directory.getDirectoryName());
+        AppLogger.logWarning(TreeModelFavorites.class, "TreeModelFavorites.Error.DbDirectoryDoesNotExist", directory.getDirectoryName());
     }
 }

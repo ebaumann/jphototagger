@@ -291,9 +291,7 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private boolean confirmRemoveSelectedItems() {
-        return MessageDisplayer.confirmYesNo(
-                this,
-                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
+        return MessageDisplayer.confirmYesNo(this, "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
     }
 
     @Override
@@ -461,17 +459,14 @@ public final class EditRepeatableTextEntryPanel
         String oldName = model.getElementAt(index).toString();
         String newName = null;
         do {
-            newName = MessageDisplayer.input(
-                    "EditRepeatableTextEntryPanel.Input.RenameListItem",
-                    oldName,
-                    getClass().getName());
+            newName = MessageDisplayer.input("EditRepeatableTextEntryPanel.Input.RenameListItem", oldName, getClass().getName());
             ready = newName == null;
             if (newName != null && newName.trim().equalsIgnoreCase(oldName)) {
-                ready = !confirm("EditRepeatableTextEntryPanel.Confirm.SameNames");
+                ready = !MessageDisplayer.confirmYesNo(null, "EditRepeatableTextEntryPanel.Confirm.SameNames");
                 newName = null;
             } else if (newName != null &&
                     ListUtil.containsString(list.getModel(), newName.trim())) {
-                ready = !confirm("EditRepeatableTextEntryPanel.Confirm.NameExists", newName);
+                ready = !MessageDisplayer.confirmYesNo(null, "EditRepeatableTextEntryPanel.Confirm.NameExists", newName);
                 newName = null;
             } else if (newName != null && !newName.trim().isEmpty()) {
                 ready = true;
@@ -483,10 +478,6 @@ public final class EditRepeatableTextEntryPanel
             dirty = true;
             notifyTextChanged(column, oldName, newName);
         }
-    }
-
-    private boolean confirm(String key, Object... params) {
-        return MessageDisplayer.confirmYesNo(this, key, params);
     }
 
     private boolean checkSelected(int selCount) {

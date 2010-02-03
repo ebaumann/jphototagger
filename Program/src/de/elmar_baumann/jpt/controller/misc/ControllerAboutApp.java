@@ -34,13 +34,6 @@ public final class ControllerAboutApp implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        showAbout();
-    }
-
-    private void showAbout() {
-        MessageDisplayer.information(
-                null,
-                "ControllerAboutApp.Info.About",
-                AppInfo.APP_NAME, AppInfo.APP_VERSION);
+        MessageDisplayer.information(null, "ControllerAboutApp.Info.About", AppInfo.APP_NAME, AppInfo.APP_VERSION);
     }
 }

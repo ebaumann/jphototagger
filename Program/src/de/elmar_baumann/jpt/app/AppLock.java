@@ -93,10 +93,7 @@ public final class AppLock {
     }
 
     private static boolean confirmForceUnlock() {
-        return MessageDisplayer.confirmYesNo(
-                null,
-                "AppLock.Error.LockFileExists",
-                LOCKFILE_NAME);
+        return MessageDisplayer.confirmYesNo(null, "AppLock.Error.LockFileExists", LOCKFILE_NAME);
     }
 
     private static void errorMessageDelete() {

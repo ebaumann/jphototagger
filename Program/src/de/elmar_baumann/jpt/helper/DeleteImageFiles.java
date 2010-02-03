@@ -82,9 +82,7 @@ public final class DeleteImageFiles {
 
     private static boolean confirmDelete(List<DeleteOption> options) {
         if (options.contains(DeleteOption.CONFIRM_DELETE)) {
-            return MessageDisplayer.confirmYesNo(
-                    null,
-                    "DeleteImageFiles.Confirm.Delete");
+            return MessageDisplayer.confirmYesNo(null, "DeleteImageFiles.Confirm.Delete");
         }
         return true;
     }

@@ -79,23 +79,14 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     }
 
     private void errorMessageDelete(String trimmedPattern) {
-        MessageDisplayer.error(
-                null,
-                "ListModelFileExcludePatterns.Error.Delete",
-                trimmedPattern);
+        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.Delete", trimmedPattern);
     }
 
     private void errorMessageInsert(String trimmedPattern) {
-        MessageDisplayer.error(
-                null,
-                "ListModelFileExcludePatterns.Error.InsertPattern.Add",
-                trimmedPattern);
+        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Add", trimmedPattern);
     }
 
     private void errorMessageExists(String trimmedPattern) {
-        MessageDisplayer.error(
-                null,
-                "ListModelFileExcludePatterns.Error.InsertPattern.Exists",
-                trimmedPattern);
+        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Exists", trimmedPattern);
     }
 }

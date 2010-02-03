@@ -159,10 +159,7 @@ public class KeywordExportDialog extends Dialog {
         assert file != null : "File is null!";
         if (file == null) return false;
         if (!file.exists()) return true;
-        return MessageDisplayer.confirmYesNo(
-                this,
-                "KeywordExportDialog.Confirm.OverwriteFile",
-                file);
+        return MessageDisplayer.confirmYesNo(this, "KeywordExportDialog.Confirm.OverwriteFile", file);
     }
 
     private void handleCancelActionPerformed() {

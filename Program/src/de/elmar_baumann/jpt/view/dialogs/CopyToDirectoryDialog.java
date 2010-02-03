@@ -101,9 +101,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     private void checkClosing() {
         if (copy) {
-            MessageDisplayer.error(
-                    this,
-                    "CopyToDirectoryDialog.Error.AbortBeforeClose");
+            MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.AbortBeforeClose");
         } else {
             setVisible(false);
         }
@@ -259,16 +257,11 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void errorMessageTargetDirectoryDoesNotExist() {
-        MessageDisplayer.error(
-                this,
-                "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist",
-                targetDirectory.getAbsolutePath());
+        MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist", targetDirectory.getAbsolutePath());
     }
 
     private void errorMessageMissingSourceFiles() {
-        MessageDisplayer.error(
-                this,
-                "CopyToDirectoryDialog.Error.MissingSourceFiles");
+        MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.MissingSourceFiles");
     }
 
     @Override

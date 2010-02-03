@@ -148,10 +148,7 @@ public final class ModifyImageCollections {
 
     private static boolean checkIsValidName(String name) {
         if (isValidName(name)) return true;
-        MessageDisplayer.error(
-                null,
-                "ModifyImageCollections.Error.InvalidName",
-                name);
+        MessageDisplayer.error(null, "ModifyImageCollections.Error.InvalidName", name);
         return false;
     }
 
@@ -161,39 +158,23 @@ public final class ModifyImageCollections {
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
-        MessageDisplayer.error(
-                null,
-                "ModifyImageCollections.Error.AddImagesToCollection",
-                collectionName);
+        MessageDisplayer.error(null, "ModifyImageCollections.Error.AddImagesToCollection", collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
-        MessageDisplayer.error(
-                null,
-                "ModifyImageCollections.Error.AddImageCollection",
-                collectionName);
+        MessageDisplayer.error(null, "ModifyImageCollections.Error.AddImageCollection", collectionName);
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
-        MessageDisplayer.error(
-                null,
-                "ModifyImageCollections.Error.DeleteImageCollection",
-                collectionName);
+        MessageDisplayer.error(null, "ModifyImageCollections.Error.DeleteImageCollection", collectionName);
     }
 
-    private static void errorMessageDeleteImagesFromCollection(
-            String collectionName) {
-        MessageDisplayer.error(
-                null,
-                "ModifyImageCollections.Error.DeleteImagesFromCollection",
-                collectionName);
+    private static void errorMessageDeleteImagesFromCollection(String collectionName) {
+        MessageDisplayer.error(null, "ModifyImageCollections.Error.DeleteImagesFromCollection", collectionName);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
-        MessageDisplayer.error(
-                null,
-                "ModifyImageCollections.Error.RenameImageCollection",
-                collectionName);
+        MessageDisplayer.error(null, "ModifyImageCollections.Error.RenameImageCollection", collectionName);
     }
 
     private static boolean confirmDelete(String bundleKey, String collectionName) {
@@ -219,10 +200,7 @@ public final class ModifyImageCollections {
     }
 
     private static String getCollectionName(String defaultName) {
-        String name = MessageDisplayer.input(
-                "ModifyImageCollections.Input.CollectionName",
-                defaultName,
-                ModifyImageCollections.class.getName());
+        String name = MessageDisplayer.input("ModifyImageCollections.Input.CollectionName", defaultName, ModifyImageCollections.class.getName());
         if (name != null) {
             name = name.trim();
             if (name.isEmpty()) {

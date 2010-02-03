@@ -127,9 +127,6 @@ public final class AppInit {
     }
 
     private static void errorMessageJavaVersion(Version javaVersion) {
-        MessageDisplayer.error(
-                null,
-                "AppInit.Error.JavaVersion",
-                javaVersion, AppInfo.MIN_JAVA_VERSION);
+        MessageDisplayer.error(null, "AppInit.Error.JavaVersion", javaVersion, AppInfo.MIN_JAVA_VERSION);
     }
 }

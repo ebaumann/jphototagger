@@ -115,10 +115,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     private boolean confirmReplace() {
-        return MessageDisplayer.confirmYesNo(
-                this,
-                "RenameFilenamesInDbPanel.Confirm.Replace",
-                textFieldSearch.getText(), textFieldReplacement.getText());
+        return MessageDisplayer.confirmYesNo(this, "RenameFilenamesInDbPanel.Confirm.Replace", textFieldSearch.getText(), textFieldReplacement.getText());
     }
 
     /** This method is called from within the constructor to
