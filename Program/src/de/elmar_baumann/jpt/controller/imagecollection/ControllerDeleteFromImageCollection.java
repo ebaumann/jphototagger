@@ -98,8 +98,7 @@ public final class ControllerDeleteFromImageCollection
                         thumbnailsPanel.remove(selectedFiles);
                     }
                 } else {
-                    AppLogger.logWarning(ControllerDeleteFromImageCollection.class,
-                            "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull");
+                    AppLogger.logWarning(ControllerDeleteFromImageCollection.class, "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull");
                 }
             }
         });

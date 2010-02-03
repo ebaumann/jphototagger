@@ -100,8 +100,7 @@ public final class CompressDatabase implements Runnable {
     }
 
     private void logCompressDatabase() {
-        AppLogger.logInfo(CompressDatabase.class,
-                "CompressDatabase.Info.StartCompress");
+        AppLogger.logInfo(CompressDatabase.class, "CompressDatabase.Info.StartCompress");
     }
 
     private synchronized void notifyEnded() {
@@ -112,11 +111,9 @@ public final class CompressDatabase implements Runnable {
 
     private Object getEndMessage() {
         double mb = 1024 * 1024;
-        String bundleKey = (success
-            ? "CompressDatabase.End.Success.True"
-            : "CompressDatabase.End.Success.False");
-
-        Object[] params = {Bundle.getString(bundleKey),
+        Object[] params = { success
+                ? Bundle.getString("CompressDatabase.End.Success.True")
+                : Bundle.getString("CompressDatabase.End.Success.False"),
             sizeBefore, new Double(sizeBefore / mb), sizeAfter, new Double(sizeAfter / mb)
         };
         return Bundle.getString("CompressDatabase.End", params);

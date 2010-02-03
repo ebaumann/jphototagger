@@ -152,15 +152,11 @@ public final class RenameDialog extends Dialog {
             File oldXmpFile = new File(oldXmpFilename);
             if (newXmpFile.exists()) {
                 if (!newXmpFile.delete()) {
-                    AppLogger.logWarning(RenameDialog.class,
-                            "RenameDialog.Error.XmpFileCouldNotBeDeleted",
-                            newXmpFilename);
+                    AppLogger.logWarning(RenameDialog.class, "RenameDialog.Error.XmpFileCouldNotBeDeleted", newXmpFilename);
                 }
             }
             if (!oldXmpFile.renameTo(newXmpFile)) {
-                AppLogger.logWarning(RenameDialog.class,
-                        "RenameDialog.Error.XmpFileCouldNotBeRenamed",
-                        oldXmpFilename, newXmpFilename);
+                AppLogger.logWarning(RenameDialog.class, "RenameDialog.Error.XmpFileCouldNotBeRenamed", oldXmpFilename, newXmpFilename);
             }
         }
     }

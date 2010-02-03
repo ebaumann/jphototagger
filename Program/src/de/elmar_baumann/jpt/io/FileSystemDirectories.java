@@ -102,16 +102,11 @@ public final class FileSystemDirectories {
     }
 
     private static void logDelete(File directory, int countDeletedInDatabase) {
-        AppLogger.logInfo(FileSystemDirectories.class,
-                "FileSystemDirectories.Info.Delete",
-                directory, countDeletedInDatabase);
+        AppLogger.logInfo(FileSystemDirectories.class, "FileSystemDirectories.Info.Delete", directory, countDeletedInDatabase);
     }
 
-    private static void logInfoRenamed(File directory, File newDirectory,
-            int countRenamedInDatabase) {
-        AppLogger.logInfo(FileSystemDirectories.class,
-                "FileSystemDirectories.Info.Rename",
-                directory, newDirectory, countRenamedInDatabase);
+    private static void logInfoRenamed(File directory, File newDirectory, int countRenamedInDatabase) {
+        AppLogger.logInfo(FileSystemDirectories.class, "FileSystemDirectories.Info.Rename", directory, newDirectory, countRenamedInDatabase);
     }
 
     private FileSystemDirectories() {

@@ -111,8 +111,7 @@ public final class StartPrograms {
         }
 
         private void logCommand(String command) {
-            AppLogger.logInfo(StartPrograms.class,
-                    "StartPrograms.Info.ExecuteCommand", command);
+            AppLogger.logInfo(StartPrograms.class, "StartPrograms.Info.ExecuteCommand", command);
         }
 
         private void processPattern() {

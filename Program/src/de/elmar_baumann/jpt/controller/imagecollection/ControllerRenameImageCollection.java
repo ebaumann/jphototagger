@@ -96,8 +96,7 @@ public final class ControllerRenameImageCollection
                 });
             }
         } else {
-            AppLogger.logWarning(ControllerRenameImageCollection.class,
-                    "ControllerRenameImageCollection.Error.NameIsNull");
+            AppLogger.logWarning(ControllerRenameImageCollection.class, "ControllerRenameImageCollection.Error.NameIsNull");
         }
     }
 

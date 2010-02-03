@@ -117,8 +117,7 @@ public final class UpdateAllThumbnails
     }
 
     private void logUpdateAllThumbnails() {
-        AppLogger.logInfo(UpdateAllThumbnails.class,
-                "UpdateAllThumbnails.Info.StartUpdate");
+        AppLogger.logInfo(UpdateAllThumbnails.class, "UpdateAllThumbnails.Info.StartUpdate");
     }
 
     private synchronized void notifyActionPerformed() {

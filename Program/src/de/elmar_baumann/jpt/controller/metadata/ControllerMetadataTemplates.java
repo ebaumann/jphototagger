@@ -123,8 +123,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
                         model.delete(template);
                     }
                 } else {
-                    AppLogger.logWarning(ControllerMetadataTemplates.class,
-                            "ControllerMetadataTemplates.Error.WrongObject", o);
+                    AppLogger.logWarning(ControllerMetadataTemplates.class, "ControllerMetadataTemplates.Error.WrongObject", o);
                 }
             }
         });
@@ -171,8 +170,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
                     newTemplate.setName(oldTemplate.getName());
                     model.update(newTemplate);
                 } else {
-                    AppLogger.logWarning(ControllerMetadataTemplates.class,
-                            "ControllerMetadataTemplates.Error.WrongObject", o);
+                    AppLogger.logWarning(ControllerMetadataTemplates.class, "ControllerMetadataTemplates.Error.WrongObject", o);
                 }
             }
         });
@@ -188,8 +186,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
                     MetadataTemplate template = (MetadataTemplate) o;
                     editPanels.setMetadataTemplate(template);
                 } else {
-                    AppLogger.logWarning(ControllerMetadataTemplates.class,
-                            "ControllerMetadataTemplates.Error.InsertTemplateIsNull");
+                    AppLogger.logWarning(ControllerMetadataTemplates.class, "ControllerMetadataTemplates.Error.InsertTemplateIsNull");
                 }
             }
         });

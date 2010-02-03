@@ -123,8 +123,7 @@ public final class DeleteOrphanedXmp
     }
 
     private void logDeleteRecords() {
-        AppLogger.logInfo(DeleteOrphanedXmp.class,
-            "DeleteOrphanedXmp.Info.StartRemove");
+        AppLogger.logInfo(DeleteOrphanedXmp.class, "DeleteOrphanedXmp.Info.StartRemove");
     }
 
     private void setMessagesFiles() {

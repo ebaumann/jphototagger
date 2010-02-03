@@ -129,9 +129,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 Program program =
                         DatabasePrograms.INSTANCE.find(idProgram);
                 if (program == null) {
-                    AppLogger.logWarning(DatabaseActionsAfterDbInsertion.class,
-                            "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist",
-                            idProgram);
+                    AppLogger.logWarning(getClass(), "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist", idProgram);
                 } else {
                     programs.add(program);
                 }

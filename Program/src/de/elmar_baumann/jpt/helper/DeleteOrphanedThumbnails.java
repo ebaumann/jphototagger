@@ -89,8 +89,7 @@ public final class DeleteOrphanedThumbnails implements Runnable {
     }
 
     private synchronized void logDelete(File file) {
-        AppLogger.logInfo(DeleteOrphanedThumbnails.class,
-                "DeleteOrphanedThumbnails.Info.DeleteFile", file);
+        AppLogger.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.DeleteFile", file);
     }
 
     private synchronized void notifyStarted() {

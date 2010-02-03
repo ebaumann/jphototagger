@@ -153,8 +153,7 @@ public final class ModifyImageCollections {
     }
 
     private static void logAddImageCollection(String name) {
-        AppLogger.logInfo(ModifyImageCollections.class,
-                "ModifyImageCollections.Info.StartInsert", name);
+        AppLogger.logInfo(ModifyImageCollections.class, "ModifyImageCollections.Info.StartInsert", name);
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {

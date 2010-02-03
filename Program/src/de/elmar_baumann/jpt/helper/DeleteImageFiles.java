@@ -74,9 +74,7 @@ public final class DeleteImageFiles {
 
     private static void errorMessageDelete(File file, List<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
-            AppLogger.logWarning(ControllerDeleteFiles.class,
-                    "DeleteImageFiles.Error.Delete",
-                    file.getAbsolutePath());
+            AppLogger.logWarning(ControllerDeleteFiles.class, "DeleteImageFiles.Error.Delete", file.getAbsolutePath());
         }
     }
 

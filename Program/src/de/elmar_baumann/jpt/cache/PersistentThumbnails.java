@@ -68,9 +68,7 @@ public final class PersistentThumbnails {
     }
 
     private static void logWriteThumbnail(File tnFile) {
-        AppLogger.logInfo(PersistentThumbnails.class,
-                "PersistentThumbnails.Info.WriteThumbnail",
-                tnFile);
+        AppLogger.logInfo(PersistentThumbnails.class, "PersistentThumbnails.Info.WriteThumbnail", tnFile);
     }
 
     public static boolean deleteThumbnail(String hash) {
