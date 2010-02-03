@@ -41,8 +41,7 @@ public final class DatabaseMaintainance extends Database {
         try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
-            AppLogger.logInfo(DatabaseMaintainance.class,
-                    "DatabaseMaintainance.Info.Shutdown");
+            AppLogger.logInfo(DatabaseMaintainance.class, "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");
             stmt.close();
         } catch (Exception ex) {

@@ -274,8 +274,7 @@ public final class KeywordsHelper {
         }
 
         private static void logStartRename(String oldName, String newName) {
-            AppLogger.logInfo(KeywordsHelper.class, "KeywordsHelper.Info.StartRename",
-                    oldName, newName);
+            AppLogger.logInfo(KeywordsHelper.class, "KeywordsHelper.Info.StartRename", oldName, newName);
         }
 
         @Override

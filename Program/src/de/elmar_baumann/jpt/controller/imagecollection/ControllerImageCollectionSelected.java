@@ -84,8 +84,7 @@ public final class ControllerImageCollectionSelected implements
                 if (selectedValue != null) {
                     showImageCollection(selectedValue.toString(), settings);
                 } else {
-                    AppLogger.logWarning(ControllerImageCollectionSelected.class,
-                            "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
+                    AppLogger.logWarning(ControllerImageCollectionSelected.class, "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
                 }
                 setMetadataEditable();
             }

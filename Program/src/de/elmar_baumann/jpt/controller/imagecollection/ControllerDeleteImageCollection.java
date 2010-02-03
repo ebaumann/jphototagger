@@ -93,8 +93,7 @@ public final class ControllerDeleteImageCollection
                 });
             }
         } else {
-            AppLogger.logWarning(ControllerDeleteImageCollection.class,
-                    "ControllerDeleteImageCollection.Error.CollectionNameIsNull");
+            AppLogger.logWarning(ControllerDeleteImageCollection.class, "ControllerDeleteImageCollection.Error.CollectionNameIsNull");
         }
     }
 

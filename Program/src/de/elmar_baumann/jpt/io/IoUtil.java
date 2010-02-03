@@ -212,9 +212,7 @@ public final class IoUtil {
      */
     public static boolean lockLogWarning(File file, Object owner) {
         if (!FileLock.INSTANCE.lock(file, owner)) {
-            AppLogger.logWarning(owner.getClass(),
-                    "IoUtil.Error.lock", file, owner,
-                    FileLock.INSTANCE.getOwner(file));
+            AppLogger.logWarning(owner.getClass(), "IoUtil.Error.lock", file, owner, FileLock.INSTANCE.getOwner(file));
             return false;
         }
         return true;

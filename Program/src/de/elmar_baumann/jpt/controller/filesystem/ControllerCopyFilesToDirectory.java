@@ -64,8 +64,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
             dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
             dialog.setVisible(true);
         } else {
-            AppLogger.logWarning(ControllerCopyFilesToDirectory.class,
-                    "ControllerCopyFilesToDirectory.Error.NoImagesSelected");
+            AppLogger.logWarning(ControllerCopyFilesToDirectory.class, "ControllerCopyFilesToDirectory.Error.NoImagesSelected");
         }
     }
 }

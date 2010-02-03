@@ -192,20 +192,17 @@ public final class ControllerHelp
     }
 
     private static void logJarDir(File jarPath) {
-        AppLogger.logFinest(ControllerHelp.class,
-                "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile());
+        AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile());
     }
 
     private static void logJarFile(File jarPath) {
-        AppLogger.logFinest(ControllerHelp.class,
-                "ControllerHelp.ManualPath.JarPath", jarPath);
+        AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.ManualPath.JarPath", jarPath);
     }
 
     private static void logIfNotExists(File file) {
         if (file == null) return;
         if (!file.exists()) {
-            AppLogger.logFinest(ControllerHelp.class,
-                    "ControllerHelp.Info.FileNotExists", file);
+            AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.Info.FileNotExists", file);
         }
     }
 }

@@ -395,23 +395,15 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void errorMessageNullThumbnail(String filename) {
-        AppLogger.logWarning(
-                InsertImageFilesIntoDatabase.class,
-                "InsertImageFilesIntoDatabase.Error.NullThumbnail",
-                filename);
+        AppLogger.logWarning(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Error.NullThumbnail", filename);
     }
 
     private void informationMessagePerformed(String filename) {
-        AppLogger.logFinest(InsertImageFilesIntoDatabase.class,
-                "InsertImageFilesIntoDatabase.Info.CheckImageForModifications",
-                filename);
+        AppLogger.logFinest(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.CheckImageForModifications", filename);
     }
 
     private void informationMessageEnded(int filecount) {
-        AppLogger.logInfo(
-                InsertImageFilesIntoDatabase.class,
-                "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished",
-                filecount);
+        AppLogger.logInfo(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished", filecount);
     }
 
     private boolean checkExists(String imageFilename) {
@@ -434,9 +426,6 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             data.getThumbnail() == null
             ? Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
             : Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes")};
-        AppLogger.logInfo(
-                InsertImageFilesIntoDatabase.class,
-                "InsertImageFilesIntoDatabase.Info.StartInsert",
-                params);
+        AppLogger.logInfo(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert", params);
     }
 }
