@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.62 2010-02-03
+-----------------
+
+* Bugfix: "Out of memory" beim Umbenennen von Stichwörtern und größerer
+  Bildanzahl
+
 0.7.61 2010-02-02
 -----------------
 
