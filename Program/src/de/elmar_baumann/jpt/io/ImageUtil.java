@@ -136,10 +136,7 @@ public final class ImageUtil {
     }
 
     private static boolean confirmFileAction(String bundleKey, int size, String absolutePath) {
-        return MessageDisplayer.confirmYesNo(
-                null,
-                bundleKey,
-                size, absolutePath);
+        return MessageDisplayer.confirmYesNo(null, bundleKey, size, absolutePath);
     }
 
     private synchronized static void addProgressListener(MoveToDirectoryDialog dialog) {

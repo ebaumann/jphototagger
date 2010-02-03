@@ -136,10 +136,7 @@ final class UpdateTablesDropCategories {
     }
 
     private boolean errorSave(Exception ex) {
-        MessageDisplayer.error(
-                null,
-                "UpdateTablesDropCategories.Error.Save",
-                ex.getLocalizedMessage());
+        MessageDisplayer.error(null, "UpdateTablesDropCategories.Error.Save", ex.getLocalizedMessage());
         return false;
     }
 
@@ -159,10 +156,7 @@ final class UpdateTablesDropCategories {
                     }
                 }
             } catch (Exception ex) {
-                MessageDisplayer.error(
-                        null,
-                        "UpdateTablesDropCategories.Import.Error",
-                        ex.getLocalizedMessage());
+                MessageDisplayer.error(null, "UpdateTablesDropCategories.Import.Error", ex.getLocalizedMessage());
             } finally {
                 try {
                     reader.close();

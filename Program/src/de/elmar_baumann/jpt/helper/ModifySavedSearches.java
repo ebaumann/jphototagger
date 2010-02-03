@@ -56,9 +56,7 @@ public final class ModifySavedSearches {
                                     0, model.getSize() - 1);
                         }
                     } else {
-                        MessageDisplayer.error(
-                                null,
-                                "ModifySavedSearches.Error.SearchCouldntBeSaved");
+                        MessageDisplayer.error(null, "ModifySavedSearches.Error.SearchCouldntBeSaved");
                     }
                 }
             });
@@ -81,9 +79,7 @@ public final class ModifySavedSearches {
                         ListModelSavedSearches model = getModel();
                         model.removeElement(savedSearch);
                     } else {
-                        MessageDisplayer.error(
-                                null,
-                                "ModifySavedSearches.Error.SavedSearchCouldntBeDeleted");
+                        MessageDisplayer.error(null, "ModifySavedSearches.Error.SavedSearchCouldntBeDeleted");
                     }
                 }
             }
@@ -107,18 +103,12 @@ public final class ModifySavedSearches {
                     if (db.updateRename(oldName, newName)) {
                         SavedSearch newSearch = db.find(newName);
                         if (newSearch == null) {
-                            MessageDisplayer.error(
-                                    null,
-                                    "ModifySavedSearches.Error.SavedSearchWasRenamedButCouldntBeLoaded",
-                                    oldName);
+                            MessageDisplayer.error(null, "ModifySavedSearches.Error.SavedSearchWasRenamedButCouldntBeLoaded", oldName);
                         } else {
                             getModel().rename(oldSearch, newSearch);
                         }
                     } else {
-                        MessageDisplayer.error(
-                                null,
-                                "ModifySavedSearches.Error.RenameFailed",
-                                oldName);
+                        MessageDisplayer.error(null, "ModifySavedSearches.Error.RenameFailed", oldName);
                     }
                 }
             }
@@ -152,31 +142,20 @@ public final class ModifySavedSearches {
     }
 
     private static String getInput(String oldName) {
-        return MessageDisplayer.input(
-                "ModifySavedSearches.Input.NewName",
-                oldName,
-                ModifySavedSearches.class.getName());
+        return MessageDisplayer.input("ModifySavedSearches.Input.NewName", oldName, ModifySavedSearches.class.getName());
     }
 
     private static boolean confirmInputDifferentName(String input) {
-        return MessageDisplayer.confirmYesNo(
-                null,
-                "ModifySavedSearches.Confirm.ChangeNameBecauseExists",
-                input);
+        return MessageDisplayer.confirmYesNo(null, "ModifySavedSearches.Confirm.ChangeNameBecauseExists", input);
     }
 
     private static boolean confirmDelete(String name) {
-        return MessageDisplayer.confirmYesNo(
-                null,
-                "ModifySavedSearches.Confirm.DeleteSearch",
-                name);
+        return MessageDisplayer.confirmYesNo(null, "ModifySavedSearches.Confirm.DeleteSearch", name);
     }
 
     private static boolean confirmInsert(SavedSearch savedSearch) {
         if (getDb().exists(savedSearch)) {
-            return MessageDisplayer.confirmYesNo(
-                null,
-                "ModifySavedSearches.Confirm.ReplaceExisting");
+            return MessageDisplayer.confirmYesNo(null, "ModifySavedSearches.Confirm.ReplaceExisting");
         }
         return true;
     }

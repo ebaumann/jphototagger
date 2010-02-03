@@ -162,10 +162,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
                     setIconToLabelTargetDirectory();
                     buttonStart.setEnabled(true);
                 } else {
-                    MessageDisplayer.error(
-                            this,
-                            "MoveToDirectoryDialog.TargetDirNotWritable",
-                            targetDirectory);
+                    MessageDisplayer.error(this, "MoveToDirectoryDialog.TargetDirNotWritable", targetDirectory);
                 }
             }
         } else {

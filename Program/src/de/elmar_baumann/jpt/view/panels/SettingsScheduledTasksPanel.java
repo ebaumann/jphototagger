@@ -124,17 +124,11 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     }
 
     private void errorMessageInsertAutoscanDirectory(String directoryName) {
-        MessageDisplayer.error(
-                this,
-                "SettingsScheduledTasksPanel.Error.InsertAutoscanDirectory",
-                directoryName);
+        MessageDisplayer.error(this, "SettingsScheduledTasksPanel.Error.InsertAutoscanDirectory", directoryName);
     }
 
     private void errorMessageDeleteAutoscanDirectory(String directoryName) {
-        MessageDisplayer.error(
-                this,
-                "SettingsScheduledTasksPanel.Error.DeleteAutoscanDirectory",
-                directoryName);
+        MessageDisplayer.error(this, "SettingsScheduledTasksPanel.Error.DeleteAutoscanDirectory", directoryName);
     }
 
     private void handleKeyEventListTasksAutoscanDirectories(KeyEvent evt) {

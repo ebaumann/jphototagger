@@ -130,23 +130,14 @@ public final class ListModelActionsAfterDbInsertion
     }
 
     private void errorMessageDelete(Program action) {
-        MessageDisplayer.error(
-                null,
-                "ListModelActionsAfterDbInsertion.Error.Remove",
-                action);
+        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Remove", action);
     }
 
     private void errorMessageSwap(int indexFirstElement) {
-        MessageDisplayer.error(
-                null,
-                "ListModelActionsAfterDbInsertion.Error.Swap",
-                (Program) get(indexFirstElement));
+        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Swap", (Program) get(indexFirstElement));
     }
 
     private void errorMessageInsert(Program action) {
-        MessageDisplayer.error(
-                null,
-                "ListModelActionsAfterDbInsertion.Error.Add",
-                action);
+        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Add", action);
     }
 }

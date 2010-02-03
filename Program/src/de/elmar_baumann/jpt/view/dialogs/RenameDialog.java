@@ -270,8 +270,7 @@ public final class RenameDialog extends Dialog {
     private boolean checkNewFileNotExists(File file) {
         boolean exists = file.exists();
         if (exists) {
-            MessageDisplayer.error(this, "RenameDialog.Error.NewFileExists",
-                    file.getName());
+            MessageDisplayer.error(this, "RenameDialog.Error.NewFileExists", file.getName());
         }
         return !exists;
     }
@@ -364,10 +363,7 @@ public final class RenameDialog extends Dialog {
     }
 
     private void errorMessageNotRenamed(String filename) {
-        if (!MessageDisplayer.confirmYesNo(
-                this,
-                "RenameDialog.Confirm.RenameNextFile",
-                filename)) {
+        if (!MessageDisplayer.confirmYesNo(this, "RenameDialog.Confirm.RenameNextFile", filename)) {
             stop = true;
             setVisible(false);
             dispose();

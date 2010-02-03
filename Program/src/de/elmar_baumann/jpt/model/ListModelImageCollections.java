@@ -133,14 +133,10 @@ public final class ListModelImageCollections extends DefaultListModel {
      * @return                true if everything is ok: the image collection is
      *                        <em>not</em> a special collection
      */
-    public static boolean checkIsNotSpecialCollection(
-            String collectionName, String propertyKey) {
+    public static boolean checkIsNotSpecialCollection(String collectionName, String propertyKey) {
 
         if (isSpecialCollection(collectionName)) {
-            MessageDisplayer.warning(
-                    null,
-                    propertyKey,
-                    collectionName);
+            MessageDisplayer.warning(null, propertyKey, collectionName);
             return false;
         }
         return true;

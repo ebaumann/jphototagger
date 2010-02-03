@@ -367,9 +367,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private void checkChanged() {
         if (isSavedSearch && isChanged()) {
-            if (MessageDisplayer.confirmYesNo(
-                    this,
-                    "AdvancedSearchPanel.Confirm.SaveChanges")) {
+            if (MessageDisplayer.confirmYesNo(this, "AdvancedSearchPanel.Confirm.SaveChanges")) {
                 saveSearch();
             }
         }
@@ -421,10 +419,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         if (isSavedSearch) {
             return searchName;
         } else {
-            return MessageDisplayer.input(
-                    "AdvancedSearchPanel.Input.SearchName",
-                    searchName,
-                    getClass().getName());
+            return MessageDisplayer.input("AdvancedSearchPanel.Input.SearchName", searchName, getClass().getName());
         }
     }
 

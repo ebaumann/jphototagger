@@ -200,10 +200,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
         boolean abort = false;
         String name = null;
         while (exists && !abort) {
-            name = MessageDisplayer.input(
-                    "ControllerMetadataTemplates.Input.TemplateName",
-                    name,
-                    getClass().getName());
+            name = MessageDisplayer.input("ControllerMetadataTemplates.Input.TemplateName", name, getClass().getName());
             exists = name != null && db.exists(name);
             if (exists) {
                 abort = confirmOverride(name);
@@ -216,16 +213,10 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private boolean confirmDelete(String templateName) {
-        return MessageDisplayer.confirmYesNo(
-                null,
-                "ControllerMetadataTemplates.Confirm.Delete",
-                templateName);
+        return MessageDisplayer.confirmYesNo(null, "ControllerMetadataTemplates.Confirm.Delete", templateName);
     }
 
     private boolean confirmOverride(String name) {
-        return !MessageDisplayer.confirmYesNo(
-                null,
-                "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate",
-                name);
+        return !MessageDisplayer.confirmYesNo(null, "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate", name);
     }
 }

@@ -87,10 +87,6 @@ public class ControllerDeleteKeywords
         int size = nodes.size();
         if (size <= 1) return true;
 
-        return MessageDisplayer.confirmYesNo(
-                null,
-                "ControllerDeleteKeywords.Tree.Confirm.MultipleKeywords",
-                size
-                );
+        return MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.Tree.Confirm.MultipleKeywords", size);
     }
 }

@@ -64,9 +64,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
             setVisible(false);
         } else {
-            MessageDisplayer.error(
-                    this,
-                    "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
+            MessageDisplayer.error(this, "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
         }
     }
 

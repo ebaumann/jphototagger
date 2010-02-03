@@ -844,9 +844,7 @@ public final class EditMetadataPanels
         }
 
         public boolean enableEdit(TextEntry entry) {
-            if (MessageDisplayer.confirmYesNo(
-                    null,
-                    "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit")) {
+            if (MessageDisplayer.confirmYesNo(null, "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit")) {
                 releaseEntry(entry);
                 return true;
             }

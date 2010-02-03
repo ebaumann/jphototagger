@@ -118,10 +118,7 @@ public final class ComboBoxModelMetadataTemplates
     }
 
     private void errorMessage(String name, String cause) {
-        MessageDisplayer.error(
-                null,
-                "ComboBoxModelMetadataTemplates.Error.Template",
-                name, cause);
+        MessageDisplayer.error(null, "ComboBoxModelMetadataTemplates.Error.Template", name, cause);
     }
 
     @Override
