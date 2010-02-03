@@ -41,7 +41,7 @@ public final class AppInfo {
     /**
      * The application's version
      */
-    public static final String APP_VERSION = "0.7.61";
+    public static final String APP_VERSION = "0.7.62";
     /**
      * The application's name
      */

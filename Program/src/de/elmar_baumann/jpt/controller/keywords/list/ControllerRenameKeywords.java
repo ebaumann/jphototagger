@@ -20,21 +20,14 @@ package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.helper.RenameXmpMetadata;
+import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.model.ListModelKeywords;
-import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import de.elmar_baumann.lib.dialog.InputDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Renames keywords of selected items whithin the keywords list.
@@ -60,80 +53,43 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
 
     @Override
     protected void action(List<String> keywords) {
-        new Rename(keywords).start();
+        int size = keywords.size();
+        if (size == 1) {
+            String oldName = keywords.get(0);
+            String newName = getNewName(oldName);
+            if (newName != null && !newName.equalsIgnoreCase(oldName)) {
+                KeywordsHelper.renameKeyword(oldName, newName);
+            }
+        } else if (size > 1) {
+            MessageDisplayer.information(null, "ControllerRenameKeywords.Info.MultipleSelected");
+        }
     }
 
-    private final class Rename extends Thread {
-        private final List<String> oldNames = new ArrayList<String>();
+    private String getNewName(String oldName) {
+        assert oldName != null && oldName.trim().length() > 0 : oldName;
 
-        public Rename(Collection<String> oldNames) {
-            this.oldNames.addAll(oldNames);
-            setName("Reanaming Keywords @ " + getClass().getSimpleName());
-        }
+        boolean           finished = false;
+        InputDialog       dlg      = new InputDialog(Bundle.getString("ControllerRenameKeywords.Info.Input"), oldName, UserSettings.INSTANCE.getProperties(), "ControllerRenameKeyword.Input");
+        ListModelKeywords model    = getModel();
 
-        @Override
-        public void run() {
-            if (!confirmMultipleRenames()) return;
-
-            for (String oldName : oldNames) {
-                rename(oldName);
-            }
-        }
-
-        private boolean confirmMultipleRenames() {
-            int count = oldNames.size();
-            if (count > 1) {
-                return MessageDisplayer.confirmYesNo(null,
-                         "ControllerRenameKeyword.Confirm.MultipleKeywords", count);
-            }
-            return true;
-        }
-
-        private void rename(String oldName) {
-            String newName = getNewName(oldName);
-
-            if (newName != null) {
-                Set<String> files = DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(oldName);
-
-                if (files.size() <= 0) return;
-
-                new RenameXmpMetadata(
-                        files,
-                        ColumnXmpDcSubjectsSubject.INSTANCE,
-                        oldName,
-                        newName).run(); // No separate thread!
-
-                getModel().rename(oldName, newName);
-                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).setAllRenamed(oldName, newName);
-            }
-        }
-
-        private String getNewName(String oldName) {
-            assert oldName != null && oldName.trim().length() > 0 : oldName;
-
-            boolean           finished = false;
-            InputDialog       dlg      = new InputDialog(Bundle.getString("ControllerRenameKeywords.Info.Input"), oldName, UserSettings.INSTANCE.getProperties(), "ControllerRenameKeyword.Input");
-            ListModelKeywords model    = getModel();
-
-            while (!finished) {
-                dlg.setVisible(true);
-                finished = !dlg.isAccepted();
-                if (dlg.isAccepted()) {
-                    String  newName = dlg.getInput();
-                    boolean equals  = newName != null && !newName.trim().isEmpty() && newName.equalsIgnoreCase(oldName);
-                    if (equals) {
-                        finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewName");
+        while (!finished) {
+            dlg.setVisible(true);
+            finished = !dlg.isAccepted();
+            if (dlg.isAccepted()) {
+                String  newName = dlg.getInput();
+                boolean equals  = newName != null && !newName.trim().isEmpty() && newName.equalsIgnoreCase(oldName);
+                if (equals) {
+                    finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewName");
+                } else {
+                    boolean exists = model.exists(newName);
+                    if (exists) {
+                        finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewNameExists");
                     } else {
-                        boolean exists = model.exists(newName);
-                        if (exists) {
-                            finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewNameExists");
-                        } else {
-                            return newName;
-                        }
+                        return newName;
                     }
                 }
             }
-            return null;
         }
+        return null;
     }
 }

@@ -19,18 +19,11 @@
 package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.factory.ModelFactory;
-import de.elmar_baumann.jpt.helper.RenameXmpMetadata;
-import de.elmar_baumann.jpt.model.TreeModelKeywords;
+import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Deletes keywords of selected items whithin the keywords list.
@@ -56,52 +49,17 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
 
     @Override
     protected void action(List<String> keywords) {
-        new Delete(keywords).start();
-    }
-
-    private final class Delete extends Thread {
-        private final List<String> keywords = new ArrayList<String>();
-
-        public Delete(Collection<String> oldNames) {
-            this.keywords.addAll(oldNames);
-            setName("Deleting Keywords @ " + getClass().getSimpleName());
-        }
-
-        @Override
-        public void run() {
-            if (!confirmMultipleDeletes()) return;
-
-            for (String keyword : keywords) {
-                delete(keyword, keywords.size() == 1);
+        int size = keywords.size();
+        if (size == 1) {
+            String keyword = keywords.get(0);
+            if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
+                KeywordsHelper.deleteKeyword(keyword);
             }
-        }
-
-        private boolean confirmMultipleDeletes() {
-            int count = keywords.size();
-            if (count > 1) {
-                return MessageDisplayer.confirmYesNo(null,
-                         "ControllerDeleteKeywords.List.Confirm.MultipleKeywords", count);
-            }
-            return true;
-        }
-
-        private void delete(String keyword, boolean confirm) {
-
-            if (!confirm ||
-                 confirm && MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.List.Confirm.Delete", keyword)
-                ) {
-                Set<String> files = DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(keyword);
-
-                if (files.size() <= 0) return;
-
-                new RenameXmpMetadata(
-                        files,
-                        ColumnXmpDcSubjectsSubject.INSTANCE,
-                        keyword,
-                        "").run(); // No separate thread!
-
-                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).removeRootItemWithoutChildren(keyword);
-                getModel().delete(keyword);
+        } else if (size > 1) {
+            if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.List.Confirm.DeleteMultiple", size)) {
+                for (String keyword : keywords) {
+                    KeywordsHelper.deleteKeyword(keyword);
+                }
             }
         }
     }

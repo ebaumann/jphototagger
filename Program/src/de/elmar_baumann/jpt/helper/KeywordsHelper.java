@@ -18,16 +18,24 @@
  */
 package de.elmar_baumann.jpt.helper;
 
+import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.data.Xmp;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.factory.ModelFactory;
+import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
+import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
+import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -204,7 +212,132 @@ public final class KeywordsHelper {
             selKeywordsList.ensureIndexIsVisible(indices.get(0));
         }
     }
-    
+
+    /**
+     * Renames in the database and all sidecar files a keyword.
+     *
+     * @param oldName old name
+     * @param newName new name
+     */
+    public static void renameKeyword(String oldName, String newName) {
+        boolean valid = oldName != null && newName != null && !oldName.equalsIgnoreCase(newName);
+        assert valid;
+        if (valid) {
+            UserTasks.INSTANCE.add(new RenameKeyword(oldName, newName));
+        }
+    }
+
+    /**
+     * Renames in the database and all sidecar files a keyword.
+     *
+     * @param keyword keyword
+     */
+    public static void deleteKeyword(String keyword) {
+        boolean valid = keyword != null;
+        assert valid;
+        if (valid) {
+            UserTasks.INSTANCE.add(new DeleteKeyword(keyword));
+        }
+    }
+
+    private static class RenameKeyword extends HelperThread {
+        private final    String  oldName;
+        private final    String  newName;
+        private volatile boolean stop;
+
+        public RenameKeyword(String oldName, String newName) {
+            this.oldName = oldName;
+            this.newName = newName;
+            setName("Renaming keyword @ " + getClass().getSimpleName());
+            setInfo(Bundle.getString("KeywordsHelper.Info.Rename"));
+        }
+
+        @Override
+        public void run() {
+            List<String> filenames = new ArrayList<String>(DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(oldName));
+            logStartRename(oldName, newName);
+            progressStarted(0, 0, filenames.size(), null);
+            int size = filenames.size();
+            int index = 0;
+            for (index = 0; !stop && index < size; index++) {
+                String filename = filenames.get(index);
+                String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
+                if (xmp != null) {
+                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE, oldName);
+                    xmp.addDcSubject(newName);
+                    updateXmp(xmp, filename, sidecarFilename);
+                }
+                progressPerformed(index + 1, xmp);
+            }
+            progressEnded(index);
+        }
+
+        private static void logStartRename(String oldName, String newName) {
+            AppLogger.logInfo(KeywordsHelper.class, "KeywordsHelper.Info.StartRename",
+                    oldName, newName);
+        }
+
+        @Override
+        protected void stopRequested() {
+            stop = true;
+        }
+
+    }
+
+    private static class DeleteKeyword extends HelperThread {
+        private final    String  keyword;
+        private volatile boolean stop;
+
+        public DeleteKeyword(String keyword) {
+            this.keyword = keyword;
+            setName("Deleting keyword @ " + getClass().getSimpleName());
+            setInfo(Bundle.getString("KeywordsHelper.Info.Delete"));
+        }
+
+        @Override
+        public void run() {
+            List<String> filenames = new ArrayList<String>(DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(keyword));
+            logStartDelete(keyword);
+            progressStarted(0, 0, filenames.size(), null);
+            int size = filenames.size();
+            int index = 0;
+            for (index = 0; !stop && index < size; index++) {
+                String filename = filenames.get(index);
+                String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
+                if (xmp != null) {
+                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+                    updateXmp(xmp, filename, sidecarFilename);
+                }
+                progressPerformed(index, xmp);
+            }
+            progressEnded(index);
+        }
+
+        private static void logStartDelete(String keyword) {
+            AppLogger.logInfo(KeywordsHelper.class, "KeywordsHelper.Info.StartDelete", keyword);
+        }
+
+        @Override
+        protected void stopRequested() {
+            stop = true;
+        }
+
+    }
+
+    private static void updateXmp(Xmp xmp, String filename, String sidecarFilename) {
+        if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename)) {
+            ImageFile imageFile = new ImageFile();
+            imageFile.setFilename(filename);
+            imageFile.setLastmodified(FileUtil.getLastModified(filename));
+            xmp.setLastModified(FileUtil.getLastModified(sidecarFilename));
+            imageFile.setXmp(xmp);
+            imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
+            DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
+        }
+    }
+
     private KeywordsHelper() {
     }
 }
