@@ -111,7 +111,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
         private String getNewName(String oldName) {
             assert oldName != null && oldName.trim().length() > 0 : oldName;
 
-            boolean           finished = !MessageDisplayer.confirmYesNo(null, "ControllerRenameKeywords.Confirm", oldName);
+            boolean           finished = false;
             InputDialog       dlg      = new InputDialog(Bundle.getString("ControllerRenameKeywords.Info.Input"), oldName, UserSettings.INSTANCE.getProperties(), "ControllerRenameKeyword.Input");
             ListModelKeywords model    = getModel();
 
