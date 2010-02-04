@@ -86,7 +86,7 @@ public class ControllerAddKeyword
 
         if (name != null && !name.trim().isEmpty()) {
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).insert(parentNode, name, true);
-            KeywordsTreePathExpander.expand(parentNode);
+            KeywordsTreePathExpander.expand(getHKPanel().getTree(), parentNode);
         }
     }
 

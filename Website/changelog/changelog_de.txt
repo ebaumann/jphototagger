@@ -9,6 +9,8 @@ Changelog JPhotoTagger
 -----------------
 
 * Neues Stichwort im Stichwortbaum erzeugen: Keine Vorgabe "Neues Stichwort"
+* Nur im bearbeiteten Stichwortbaum wird ein Teilbaum geöffnet beim Hinzufügen
+  neuer Stichwörter
 
 0.7.62 2010-02-03
 -----------------
