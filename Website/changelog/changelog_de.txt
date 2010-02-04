@@ -5,6 +5,11 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.63 2010-02-04
+-----------------
+
+* Neues Stichwort im Stichwortbaum erzeugen: Keine Vorgabe "Neues Stichwort"
+
 0.7.62 2010-02-03
 -----------------
 

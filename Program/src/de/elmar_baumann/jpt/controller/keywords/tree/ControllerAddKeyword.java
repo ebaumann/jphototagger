@@ -18,11 +18,11 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
+import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
@@ -80,19 +80,34 @@ public class ControllerAddKeyword
     }
 
     private void add(DefaultMutableTreeNode parentNode, Keyword parentKeyword) {
-        Keyword newKeyword = new Keyword(
-                                         null,
-                                         parentKeyword == null
-                                             ? null
-                                             : parentKeyword.getId(),
-                                          Bundle.getString("ControllerAddKeyword.DefaultName"),
-                                          true);
-        JTree  tree = getHKPanel().getTree();
-        String name = ControllerRenameKeyword.getName(newKeyword, DatabaseKeywords.INSTANCE, tree);
+        Keyword newKeyword = new Keyword(null, parentKeyword == null ? null : parentKeyword.getId(), "", true);
+        JTree   tree       = getHKPanel().getTree();
+        String  name       = getName(newKeyword, tree);
 
         if (name != null && !name.trim().isEmpty()) {
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).insert(parentNode, name, true);
             KeywordsTreePathExpander.expand(parentNode);
         }
+    }
+
+
+    static String getName(Keyword keyword, JTree tree) {
+        String           newName   = null;
+        boolean          confirmed = true;
+        DatabaseKeywords db        = DatabaseKeywords.INSTANCE;
+
+        while (newName == null && confirmed) {
+            newName   = MessageDisplayer.input("ControllerAddKeyword.Input.Name", "", ControllerAddKeyword.class.getName());
+            confirmed = newName != null;
+
+            if (newName != null && !newName.trim().isEmpty()) {
+                Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(), newName.trim(), keyword.isReal());
+                if (db.hasParentChildWithEqualName(s)) {
+                    newName = null;
+                    confirmed = MessageDisplayer.confirmYesNo(null, "ControllerAddKeyword.Confirm.Exists", s);
+                }
+            }
+        }
+        return newName;
     }
 }
