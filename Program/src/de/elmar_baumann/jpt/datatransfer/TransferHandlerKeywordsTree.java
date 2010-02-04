@@ -91,7 +91,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
                 moveKeywords(transferSupport, model, dropNode);
                 KeywordTreeNodesClipboard.INSTANCE.empty();
             }
-            KeywordsTreePathExpander.expand(dropNode);
+            KeywordsTreePathExpander.expand((JTree) transferSupport.getComponent(), dropNode);
         }
         return true;
     }

@@ -18,9 +18,8 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -32,10 +31,9 @@ import javax.swing.tree.TreePath;
  */
 public final class KeywordsTreePathExpander {
 
-    public static void expand(DefaultMutableTreeNode node) {
+    public static void expand(JTree tree, DefaultMutableTreeNode node) {
         TreePath path = new TreePath(node.getPath());
-        GUI.INSTANCE.getAppPanel().getTreeEditKeywords().expandPath(path);
-        InputHelperDialog.INSTANCE.getPanelKeywords().getTree().expandPath(path);
+        tree.expandPath(path);
     }
 
     private KeywordsTreePathExpander() {
