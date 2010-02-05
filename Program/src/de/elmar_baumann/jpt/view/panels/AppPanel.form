@@ -149,7 +149,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneDirectories" alignment="0" pref="294" max="32767" attributes="0"/>
+                          <Component id="scrollPaneDirectories" alignment="0" pref="312" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -202,7 +202,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneSavedSearches" alignment="0" pref="294" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSavedSearches" alignment="0" pref="312" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -254,7 +254,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneImageCollections" alignment="0" pref="294" max="32767" attributes="0"/>
+                          <Component id="scrollPaneImageCollections" alignment="0" pref="312" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -291,7 +291,7 @@
                 <Container class="javax.swing.JPanel" name="panelFavorites">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Favoriten-Ordner">
+                      <JTabbedPaneConstraints tabName="Favoriten">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.panelFavorites.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
                         </Property>
@@ -310,7 +310,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneFavorites" alignment="0" pref="294" max="32767" attributes="0"/>
+                          <Component id="scrollPaneFavorites" alignment="0" pref="312" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -558,7 +558,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTimeline" alignment="0" pref="294" max="32767" attributes="0"/>
+                          <Component id="scrollPaneTimeline" alignment="0" pref="312" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -608,7 +608,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="294" max="32767" attributes="0"/>
+                          <Component id="scrollPaneMiscMetadata" alignment="0" pref="312" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -661,9 +661,9 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="294" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="312" max="32767" attributes="0"/>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Component id="scrollPaneNoMetadata" alignment="1" pref="294" max="32767" attributes="0"/>
+                              <Component id="scrollPaneNoMetadata" alignment="1" pref="312" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1235,9 +1235,6 @@
                           </SubComponents>
                         </Container>
                         <Component class="de.elmar_baumann.jpt.view.panels.KeywordsPanel" name="panelEditKeywords">
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="new de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywords(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywordFromEditPanel(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword(panelEditKeywords);&#xa;new de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages();"/>
-                          </AuxValues>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="Stichw&#xf6;rter">

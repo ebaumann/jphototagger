@@ -50,7 +50,7 @@ public final class MetaFactory implements Runnable {
         ModelFactory         .INSTANCE.init();
         RendererFactory      .INSTANCE.init();
         ControllerFactory    .INSTANCE.init();
-        ActionListenerFactory.INSTANCE.init();
+        ActionKeyListenerFactory.INSTANCE.init();
         MouseListenerFactory .INSTANCE.init();
         MiscFactory          .INSTANCE.init();
 
