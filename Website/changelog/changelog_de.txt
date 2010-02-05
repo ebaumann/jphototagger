@@ -8,6 +8,8 @@ Changelog JPhotoTagger
 0.7.63 2010-02-05
 -----------------
 
+* Stichwortliste: Umbenennen ist möglich, falls ein gleichnamiges Stichwort int
+  der Liste existiert
 * Stichwortbaum: Umlaute werden wie Selbstlaute sortiert (ä -> a)
 * Neues Stichwort im Stichwortbaum erzeugen: Keine Vorgabe "Neues Stichwort"
 * Nur im bearbeiteten Stichwortbaum wird ein Teilbaum geöffnet beim Hinzufügen
