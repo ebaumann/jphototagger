@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.lib.model;
 
+import java.text.Collator;
 import java.util.Collections;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
@@ -32,7 +33,8 @@ import javax.swing.tree.MutableTreeNode;
  */
 public final class TreeNodeSortedChildren extends DefaultMutableTreeNode implements Comparable<Object> {
 
-    private static final long serialVersionUID = 5429135948886700418L;
+    private static final long     serialVersionUID = 5429135948886700418L;
+    private static final Collator collator         = Collator.getInstance();
 
     public TreeNodeSortedChildren() {
     }
@@ -61,6 +63,6 @@ public final class TreeNodeSortedChildren extends DefaultMutableTreeNode impleme
 
     @Override
     public int compareTo(final Object o) {
-        return this.toString().compareToIgnoreCase(o.toString());
+        return collator.compare(this.toString(), o.toString());
     }
 }

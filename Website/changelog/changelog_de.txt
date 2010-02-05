@@ -5,9 +5,10 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
-0.7.63 2010-02-04
+0.7.63 2010-02-05
 -----------------
 
+* Stichwortbaum: Umlaute werden wie Selbstlaute sortiert (ä -> a)
 * Neues Stichwort im Stichwortbaum erzeugen: Keine Vorgabe "Neues Stichwort"
 * Nur im bearbeiteten Stichwortbaum wird ein Teilbaum geöffnet beim Hinzufügen
   neuer Stichwörter

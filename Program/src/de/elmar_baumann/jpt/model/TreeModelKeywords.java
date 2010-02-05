@@ -47,9 +47,9 @@ import javax.swing.tree.TreeNode;
  */
 public final class TreeModelKeywords extends DefaultTreeModel {
 
-    private static final long                         serialVersionUID = -1044898256327030256L;
-    private final        DefaultMutableTreeNode       ROOT;
-    private final        DatabaseKeywords db               = DatabaseKeywords.INSTANCE;
+    private static final long                    serialVersionUID = -1044898256327030256L;
+    private final        DefaultMutableTreeNode  ROOT;
+    private final        DatabaseKeywords        db               = DatabaseKeywords.INSTANCE;
 
     public TreeModelKeywords() {
         super(new TreeNodeSortedChildren(Bundle.getString("TreeModelKeywords.DisplayName.Root")));
