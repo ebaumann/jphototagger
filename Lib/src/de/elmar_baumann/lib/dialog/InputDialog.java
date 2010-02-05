@@ -123,7 +123,7 @@ public class InputDialog extends Dialog {
 
     @Override
     protected void escape() {
-        setAccepted(accepted);
+        setAccepted(false);
     }
 
     /** This method is called from within the constructor to
