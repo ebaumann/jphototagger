@@ -57,14 +57,19 @@ import javax.swing.tree.TreePath;
 public class ControllerCopyCutPasteKeyword
         implements ActionListener, KeyListener {
 
-    private final KeywordsPanel     panel;
+    private final KeywordsPanel         panel;
     private final PopupMenuKeywordsTree popup     = PopupMenuKeywordsTree.INSTANCE;
-    private final JMenuItem                     itemCopy  = popup.getItemCopy();
-    private final JMenuItem                     itemCut   = popup.getItemCut();
-    private final JMenuItem                     itemPaste = popup.getItemPaste();
+    private final JMenuItem             itemCopy  = popup.getItemCopy();
+    private final JMenuItem             itemCut   = popup.getItemCut();
+    private final JMenuItem             itemPaste = popup.getItemPaste();
 
     public ControllerCopyCutPasteKeyword(KeywordsPanel panel) {
         this.panel = panel;
+        listen();
+    }
+
+    private void listen() {
+        panel.addKeyListener(this);
     }
 
     // Does not extend ControllerKeywords and using localAction

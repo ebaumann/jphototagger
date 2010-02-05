@@ -66,7 +66,14 @@ import de.elmar_baumann.jpt.controller.imagecollection.ControllerPickReject;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDeleteKeywords;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDisplayKeyword;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerRenameKeywords;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywordFromEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleButtonSelKeywords;
+import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword;
 import de.elmar_baumann.jpt.controller.metadata.ControllerCopyPasteMetadata;
 import de.elmar_baumann.jpt.controller.metadata.ControllerEnableCreateMetadataTemplate;
 import de.elmar_baumann.jpt.controller.metadata.ControllerExifToXmp;
@@ -76,13 +83,17 @@ import de.elmar_baumann.jpt.controller.misc.ControllerGoTo;
 import de.elmar_baumann.jpt.controller.metadata.ControllerIptcToXmp;
 import de.elmar_baumann.jpt.controller.metadata.ControllerMetadataTemplates;
 import de.elmar_baumann.jpt.controller.metadata.ControllerShowMetadata;
+import de.elmar_baumann.jpt.controller.metadata.ControllerShowUpdateMetadataDialog;
 import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataTemplateAdd;
 import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataTemplateDelete;
 import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataTemplateEdit;
 import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataTemplateRename;
 import de.elmar_baumann.jpt.controller.metadatatemplates.ControllerMetadataTemplateSetToSelImages;
+import de.elmar_baumann.jpt.controller.misc.ControllerAboutApp;
+import de.elmar_baumann.jpt.controller.misc.ControllerHelp;
 import de.elmar_baumann.jpt.controller.misc.ControllerItemsMutualExcludeSelection;
 import de.elmar_baumann.jpt.controller.misc.ControllerLogfileDialog;
+import de.elmar_baumann.jpt.controller.misc.ControllerMaintainDatabase;
 import de.elmar_baumann.jpt.controller.misc.ControllerMenuItemEnabler;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.jpt.controller.misc.ControllerThumbnailCountDisplay;
@@ -98,10 +109,12 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerDeleteThumbnailsFromD
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import de.elmar_baumann.jpt.controller.misc.ControllerPlugins;
+import de.elmar_baumann.jpt.controller.misc.ControllerShowUserSettingsDialog;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.controller.miscmetadata.ControllerMiscMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.nometadata.ControllerNoMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.rating.ControllerSetRating;
+import de.elmar_baumann.jpt.controller.search.ControllerShowAdvancedSearchDialog;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerRotateThumbnail;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSliderThumbnailSize;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
@@ -112,6 +125,8 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerToggleKeywordOverlay;
 import de.elmar_baumann.jpt.controller.timeline.ControllerTimelineItemSelected;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
+import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
@@ -227,11 +242,35 @@ public final class ControllerFactory {
         support.add(new ControllerEnableCreateMetadataTemplate());
         support.add(new ControllerActionsMenuUpdater());
         support.add(new ControllerThumbnailsSelectAllOrNothing());
+        support.add(new ControllerAboutApp());
+        support.add(new ControllerHelp());
+        support.add(new ControllerMaintainDatabase());
+        support.add(new ControllerShowUpdateMetadataDialog());
+        support.add(new ControllerShowUserSettingsDialog());
+        support.add(new ControllerShowAdvancedSearchDialog());
 
+        addKeywordsTreeControllers();
         addSizeAndLocationController();
 
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");
         GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("ControllerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+    }
+
+    private void addKeywordsTreeControllers() {
+        KeywordsPanel[] keywordPanels = {
+                                GUI.INSTANCE.getAppPanel().getPanelEditKeywords(),
+                                InputHelperDialog.INSTANCE.getPanelKeywords() };
+
+        for (KeywordsPanel keywordsPanel : keywordPanels) {
+            support.add(new ControllerToggleRealKeyword(keywordsPanel));
+            support.add(new ControllerRenameKeyword(keywordsPanel));
+            support.add(new ControllerAddKeyword(keywordsPanel));
+            support.add(new de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywords(keywordsPanel));
+            support.add(new ControllerAddKeywordsToEditPanel(keywordsPanel));
+            support.add(new ControllerDeleteKeywordFromEditPanel(keywordsPanel));
+            support.add(new ControllerCopyCutPasteKeyword(keywordsPanel));
+            support.add(new ControllerKeywordsDisplayImages());
+        }
     }
 
     private void addSizeAndLocationController() {
@@ -265,9 +304,5 @@ public final class ControllerFactory {
      */
     public <T> T getController(Class<T> controllerClass) {
         return support.getFirst(controllerClass);
-    }
-
-    void add(Object controller) {
-        support.add(controller);
     }
 }
