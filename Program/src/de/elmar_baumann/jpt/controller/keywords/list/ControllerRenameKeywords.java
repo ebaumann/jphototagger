@@ -81,12 +81,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
                 if (equals) {
                     finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewName");
                 } else {
-                    boolean exists = model.exists(newName);
-                    if (exists) {
-                        finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewNameExists");
-                    } else {
-                        return newName;
-                    }
+                    return newName;
                 }
             }
         }
