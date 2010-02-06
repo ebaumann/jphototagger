@@ -97,7 +97,7 @@ public final class AppLock {
     }
 
     private static void errorMessageDelete() {
-        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile");
+        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile", LOCKFILE_NAME);
     }
 
     private AppLock() {
