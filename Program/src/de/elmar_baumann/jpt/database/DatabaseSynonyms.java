@@ -19,6 +19,9 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.event.DatabaseSynonymsEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseSynonymsListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +37,8 @@ import java.util.Set;
  */
 public final class DatabaseSynonyms extends Database {
 
-    public static final DatabaseSynonyms INSTANCE = new DatabaseSynonyms();
+    public static final DatabaseSynonyms                          INSTANCE        = new DatabaseSynonyms();
+    private final       ListenerSupport<DatabaseSynonymsListener> listenerSupport = new ListenerSupport<DatabaseSynonymsListener>();
 
     public int updateSynonymOf(String word, String oldSynonym, String newSynonym) {
         int        count      = 0;
@@ -51,6 +55,9 @@ public final class DatabaseSynonyms extends Database {
             count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
+            if (count > 0) {
+                notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_UPDATED, word, word, oldSynonym, newSynonym);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             count = 0;
@@ -75,6 +82,9 @@ public final class DatabaseSynonyms extends Database {
             count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
+            if (count > 0) {
+                notifyListeners(DatabaseSynonymsEvent.Type.WORD_UPDATED, oldWord, newWord, null, null);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             count = 0;
@@ -99,6 +109,9 @@ public final class DatabaseSynonyms extends Database {
             count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
+            if (count > 0) {
+                notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_UPDATED, null, null, oldSynonym, newSynonym);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             count = 0;
@@ -134,8 +147,8 @@ public final class DatabaseSynonyms extends Database {
         return count == 1;
     }
 
-    public boolean insert(String word, String synonym) {
-        if (exists(word, synonym)) return true;
+    public int insert(String word, String synonym) {
+        if (exists(word, synonym)) return 0;
         int        count      = 0;
         Connection connection = null;
         try {
@@ -149,6 +162,9 @@ public final class DatabaseSynonyms extends Database {
             count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
+            if (count > 0) {
+                notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_INSERTED, word, word, synonym, synonym);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             count = 0;
@@ -156,7 +172,7 @@ public final class DatabaseSynonyms extends Database {
         } finally {
             free(connection);
         }
-        return count == 1;
+        return count;
     }
 
     public int delete(String word, String synonym) {
@@ -173,6 +189,9 @@ public final class DatabaseSynonyms extends Database {
             count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
+            if (count > 0) {
+                notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_DELETED, word, word, synonym, synonym);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             count = 0;
@@ -202,6 +221,9 @@ public final class DatabaseSynonyms extends Database {
             count = stmt.executeUpdate();
             connection.commit();
             stmt.close();
+            if (count > 0) {
+                notifyListeners(DatabaseSynonymsEvent.Type.WORD_DELETED, word, word, null, null);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             count = 0;
@@ -265,5 +287,37 @@ public final class DatabaseSynonyms extends Database {
             free(connection);
         }
         return words;
+    }
+
+
+    public void addListener(DatabaseSynonymsListener listener) {
+        listenerSupport.add(listener);
+    }
+
+    public void removeListener(DatabaseSynonymsListener listener) {
+        listenerSupport.remove(listener);
+    }
+
+    private void notifyListeners(
+            DatabaseSynonymsEvent.Type type,
+            String oldWord,
+            String newWord,
+            String oldSynonym,
+            String newSynonym
+            ) {
+
+        DatabaseSynonymsEvent         evt       = new DatabaseSynonymsEvent(type);
+        Set<DatabaseSynonymsListener> listeners = listenerSupport.get();
+
+        evt.setWord(newWord);
+        evt.setOldWord(oldWord);
+        evt.setSynonym(newSynonym);
+        evt.setOldSynonym(oldSynonym);
+
+        synchronized (listeners) {
+            for (DatabaseSynonymsListener listener : listeners) {
+                listener.actionPerformed(evt);
+            }
+        }
     }
 }

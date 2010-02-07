@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.view.dialogs.ActionsDialog;
 import de.elmar_baumann.jpt.view.dialogs.ProgramSelectDialog;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
 import javax.swing.event.ListSelectionEvent;
@@ -122,12 +123,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private void handleActionsAfterDatabaseInsertionEdit() {
-        ActionsDialog dlg = ActionsDialog.INSTANCE;
-        if (dlg.isVisible()) {
-            dlg.toFront();
-        } else {
-            dlg.setVisible(true);
-        }
+        ComponentUtil.show(ActionsDialog.INSTANCE);
     }
 
     @Override

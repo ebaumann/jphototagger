@@ -42,6 +42,7 @@ import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -156,11 +157,7 @@ public final class ControllerFastSearch
         if (!textFieldSearch.isEnabled()) {
             SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
             settingsDialog.selectTab(SettingsDialog.Tab.FAST_SEARCH);
-            if (settingsDialog.isVisible()) {
-                settingsDialog.toFront();
-            } else {
-                settingsDialog.setVisible(true);
-            }
+            ComponentUtil.show(settingsDialog);
         }
     }
 

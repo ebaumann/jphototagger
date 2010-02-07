@@ -20,6 +20,8 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
+import de.elmar_baumann.jpt.event.DatabaseSynonymsEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseSynonymsListener;
 import javax.swing.DefaultListModel;
 
 /**
@@ -28,9 +30,10 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-07
  */
-public final class ListModelSynonyms extends DefaultListModel {
+public final class ListModelSynonyms extends DefaultListModel implements DatabaseSynonymsListener {
 
-    private static final long serialVersionUID = -7595224452344062647L;
+    private static final long    serialVersionUID = -7595224452344062647L;
+    private              boolean listen           = true;
 
     public enum Role {
         WORDS,
@@ -43,6 +46,25 @@ public final class ListModelSynonyms extends DefaultListModel {
     public ListModelSynonyms(Role role) {
         this.role = role;
         addElements();
+        listen();
+    }
+
+    private void listen() {
+        if (role.equals(Role.WORDS)) {
+            DatabaseSynonyms.INSTANCE.addListener(this);
+        }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseSynonymsEvent event) {
+        if (!listen || !role.equals(Role.WORDS)) return;
+        // Currently only import can changing (adding) words outside this model
+        if (event.getType().equals(DatabaseSynonymsEvent.Type.SYNONYM_INSERTED)) {
+            String w = event.getWord();
+            if (!contains(w)) {
+                addWord(w);
+            }
+        }
     }
 
     public void addWord(String word) {
@@ -55,7 +77,9 @@ public final class ListModelSynonyms extends DefaultListModel {
     public void removeWord(String word) {
         assert role.equals(Role.WORDS);
         if (role.equals(Role.WORDS) && contains(word)) {
+            listen = false;
             DatabaseSynonyms.INSTANCE.deleteWord(word);
+            listen = true;
             removeElement(word);
         }
     }
@@ -63,7 +87,9 @@ public final class ListModelSynonyms extends DefaultListModel {
     public void changeWord(String oldWord, String newWord) {
         assert role.equals(Role.WORDS) && !oldWord.equals(newWord);
         if (role.equals(Role.WORDS) && contains(oldWord)) {
+            listen = false;
             DatabaseSynonyms.INSTANCE.updateWord(oldWord, newWord);
+            listen = true;
             setElementAt(newWord, indexOf(oldWord));
         }
     }
@@ -71,29 +97,35 @@ public final class ListModelSynonyms extends DefaultListModel {
     public void addSynonym(String synonym) {
         assert role.equals(Role.SYNONYMS) && word != null;
         if (role.equals(Role.SYNONYMS) && word != null && !contains(synonym)) {
-            if (DatabaseSynonyms.INSTANCE.insert(word, synonym)) {
+            listen = false;
+            if (DatabaseSynonyms.INSTANCE.insert(word, synonym) == 1) {
                 addElement(synonym);
             } else {
                 MessageDisplayer.error(null, "ListModelSynonyms.Error.AddSynonym", word, synonym);
             }
+            listen = true;
         }
     }
 
     public void removeSynonym(String synonym) {
         assert role.equals(Role.SYNONYMS) && word != null;
         if (role.equals(Role.SYNONYMS) && word != null && contains(synonym)) {
+            listen = false;
             if (DatabaseSynonyms.INSTANCE.delete(word, synonym) == 1) {
                 removeElement(synonym);
             }
+            listen = true;
         }
     }
 
     public void changeSynonym(String oldSynonym, String newSynonym) {
         assert role.equals(Role.SYNONYMS) && word != null && !oldSynonym.equals(newSynonym);
         if (role.equals(Role.SYNONYMS) && word != null && contains(oldSynonym)) {
+            listen = false;
             if (DatabaseSynonyms.INSTANCE.updateSynonymOf(word, oldSynonym, newSynonym) == 1) {
                 setElementAt(newSynonym, indexOf(oldSynonym));
             }
+            listen = true;
         }
     }
 
@@ -108,6 +140,7 @@ public final class ListModelSynonyms extends DefaultListModel {
 
     private void addElements() {
         removeAllElements();
+        listen = false;
         if (role.equals(Role.WORDS)) {
             for (String w : DatabaseSynonyms.INSTANCE.getAllWords()) {
                 addElement(w);
@@ -117,5 +150,6 @@ public final class ListModelSynonyms extends DefaultListModel {
                 addElement(s);
             }
         }
+        listen = true;
     }
 }

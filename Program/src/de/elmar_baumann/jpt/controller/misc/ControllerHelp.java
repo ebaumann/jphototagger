@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel.Tab;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
 import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
@@ -114,11 +115,7 @@ public final class ControllerHelp
     }
 
     public void helpToFront() {
-        if (help.isVisible()) {
-            help.toFront();
-        } else {
-            help.setVisible(true);
-        }
+        ComponentUtil.show(help);
     }
 
     private void openPdfUserManual() {
@@ -139,11 +136,7 @@ public final class ControllerHelp
         if (!viewer.exists()) {
             if (MessageDisplayer.confirmYesNo(null, "ControllerHelp.Error.NoPdfViewer")) {
                 SettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
-                if (SettingsDialog.INSTANCE.isVisible()) {
-                    SettingsDialog.INSTANCE.toFront();
-                } else {
-                    SettingsDialog.INSTANCE.setVisible(true);
-                }
+                ComponentUtil.show(SettingsDialog.INSTANCE);
             }
             return false;
         }

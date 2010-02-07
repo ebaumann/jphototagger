@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.helper;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.InputDialog;
 
 /**
@@ -45,8 +46,7 @@ public final class MetadataTemplateHelper {
         if (oldName != null) dlg.setInput(oldName);
 
         while (true) {
-            dlg.setVisible(true);
-            dlg.toFront();
+            ComponentUtil.show(dlg);
             if (!dlg.isAccepted()) return null;
             String name = dlg.getInput();
             if (name == null || name.trim().length() == 0) return null;

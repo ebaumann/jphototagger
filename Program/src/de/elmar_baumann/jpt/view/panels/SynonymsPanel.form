@@ -18,13 +18,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="scrollPaneListWords" pref="208" max="32767" attributes="2"/>
                           <Component id="scrollPaneTextAreaWords" alignment="1" pref="208" max="32767" attributes="0"/>
                           <Component id="labelListWords" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonAddAllKeywords" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -58,7 +59,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelTextFieldSynonym" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -101,10 +102,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonChangeWord" linkSize="6" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="scrollPaneListWords" alignment="0" pref="197" max="32767" attributes="2"/>
-                  <Component id="scrollPaneListSynonyms" alignment="1" pref="197" max="32767" attributes="2"/>
+                  <Component id="scrollPaneListWords" alignment="0" pref="191" max="32767" attributes="2"/>
+                  <Component id="scrollPaneListSynonyms" alignment="0" pref="191" max="32767" attributes="2"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="buttonAddAllKeywords" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -319,6 +322,19 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChangeSynonymActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonAddAllKeywords">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SynonymsPanel.buttonAddAllKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SynonymsPanel.buttonAddAllKeywords.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddAllKeywordsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
