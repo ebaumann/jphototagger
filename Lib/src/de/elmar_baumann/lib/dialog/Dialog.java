@@ -24,6 +24,8 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JRootPane;
@@ -36,7 +38,7 @@ import javax.swing.KeyStroke;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-19
  */
-public class Dialog extends JDialog {
+public class Dialog extends JDialog implements WindowListener {
 
     private static final long           serialVersionUID    = 847375186274302816L;
     private              ActionListener actionListenerEscape;
@@ -87,6 +89,7 @@ public class Dialog extends JDialog {
         this.settingsKey = settingsKey;
         createActionListener();
         registerKeyboardActions();
+        addWindowListener(this);
     }
 
     /**
@@ -152,7 +155,6 @@ public class Dialog extends JDialog {
      * default implementation calls <code>setVisible(false)</code>.
      */
     protected void escape() {
-        setSizeAndLocation();
         setVisible(false);
     }
 
@@ -239,5 +241,40 @@ public class Dialog extends JDialog {
         pane.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
         pane.registerKeyboardAction(actionListenerHelp  , strokeHelp  , JComponent.WHEN_IN_FOCUSED_WINDOW);
         return pane;
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        setSizeAndLocation();
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        // ignore
     }
 }
