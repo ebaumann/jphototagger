@@ -90,6 +90,7 @@ public final class DatabaseTables extends Database {
             createProgramsTable(connection, stmt);
             createActionsAfterDbInsertionTable(connection, stmt);
             createHierarchicalSubjectsTable(connection, stmt);
+            createSynonymsTable(connection, stmt);
             UpdateTables.INSTANCE.update(connection);
             stmt.close();
         } catch (Exception ex) {
@@ -201,8 +202,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createCollectionsTables(Connection connection, Statement stmt)
-            throws SQLException {
+    private void createCollectionsTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "collection_names")) {
             stmt.execute("CREATE CACHED TABLE collection_names" +
                     " (" +
@@ -228,8 +228,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createSavedSearchesTables(Connection connection, Statement stmt)
-            throws SQLException {
+    private void createSavedSearchesTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "saved_searches")) {
             stmt.execute("CREATE CACHED TABLE saved_searches" +
                     " (" +
@@ -274,8 +273,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createAutoScanDirectoriesTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createAutoScanDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "autoscan_directories")) {
             stmt.execute("CREATE CACHED TABLE autoscan_directories" +
                     " (" +
@@ -285,8 +283,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createMetadataTemplateTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createMetadataTemplateTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "metadata_edit_templates")) {
             stmt.execute("CREATE CACHED TABLE metadata_edit_templates" +
                     " (" +
@@ -315,8 +312,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createFavoriteDirectoriesTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createFavoriteDirectoriesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "favorite_directories")) {
             stmt.execute("CREATE CACHED TABLE favorite_directories" +
                     " (" +
@@ -328,8 +324,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createFileExcludePatternTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createFileExcludePatternTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "file_exclude_pattern")) {
             stmt.execute("CREATE CACHED TABLE file_exclude_pattern" +
                     " (" +
@@ -339,8 +334,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createProgramsTable(Connection connection, Statement stmt)
-            throws SQLException {
+    private void createProgramsTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "programs")) {
             stmt.execute("CREATE CACHED TABLE programs " +
                     " (" +
@@ -366,8 +360,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createActionsAfterDbInsertionTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createActionsAfterDbInsertionTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "actions_after_db_insertion")) {
             stmt.execute("CREATE CACHED TABLE actions_after_db_insertion " +
                     " (" +
@@ -379,8 +372,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createHierarchicalSubjectsTable(Connection connection,
-            Statement stmt) throws SQLException {
+    private void createHierarchicalSubjectsTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "hierarchical_subjects")) {
             stmt.execute("CREATE CACHED TABLE hierarchical_subjects " +
                     " (" +
@@ -404,14 +396,27 @@ public final class DatabaseTables extends Database {
      * @param stmt       sql statement
      * @throws           SQLException on sql errors
      */
-    private void createAppTable(Connection connection, Statement stmt)
-            throws SQLException {
+    private void createAppTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "application")) {
             stmt.execute("CREATE CACHED TABLE application " +
                     " (" +
                     "  key   VARCHAR(128) PRIMARY KEY" +
                     ", value BINARY" +
                     ");");
+        }
+    }
+
+    private void createSynonymsTable(Connection connection, Statement stmt) throws SQLException {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "synonyms")) {
+            stmt.execute("CREATE CACHED TABLE synonyms " +
+                    " (" +
+                    "  word VARCHAR(128)" +
+                    ", synonym VARCHAR(128)" +
+                    ", PRIMARY KEY (word, synonym)" +
+                    ");");
+            stmt.execute("CREATE UNIQUE INDEX idx_synonyms         ON synonyms (word, synonym)");
+            stmt.execute("CREATE        INDEX idx_synonyms_word    ON synonyms (word)");
+            stmt.execute("CREATE        INDEX idx_synonyms_synonym ON synonyms (synonym)");
         }
     }
 

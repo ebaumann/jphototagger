@@ -208,6 +208,10 @@
             <title>Fenster &gt; Aktionen</title>
         </page>
         <page>
+            <url>synonyms.html</url>
+            <title>Synonyme</title>
+        </page>
+        <page>
             <url>accelerator_keys.html</url>
             <title>Hilfe &gt; Tastenkombinationen</title>
         </page>

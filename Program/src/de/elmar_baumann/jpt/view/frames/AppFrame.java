@@ -253,6 +253,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemDisplayLogfile;
     }
 
+    public JMenuItem getMenuItemSynonyms() {
+        return menuItemSynonyms;
+    }
+
     public void selectMenuItemUnsorted() {
         radioButtonMenuItemSortNone.setSelected(true);
     }
@@ -356,6 +360,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuWindow = new javax.swing.JMenu();
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
+        menuItemSynonyms = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
         menuItemOutputWindow = new javax.swing.JMenuItem();
         jSeparator21 = new javax.swing.JPopupMenu.Separator();
@@ -643,6 +648,9 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_action.png"))); // NOI18N
         menuItemActions.setText(Bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
         menuWindow.add(menuItemActions);
+
+        menuItemSynonyms.setText(bundle.getString("AppFrame.menuItemSynonyms.text")); // NOI18N
+        menuWindow.add(menuItemSynonyms);
         menuWindow.add(jSeparator20);
 
         menuItemOutputWindow.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -743,6 +751,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;
+    private javax.swing.JMenuItem menuItemSynonyms;
     private javax.swing.JMenuItem menuItemToolIptcToXmp;
     private javax.swing.JMenu menuSort;
     private javax.swing.JMenu menuTools;
