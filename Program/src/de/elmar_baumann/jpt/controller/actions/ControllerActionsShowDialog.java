@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.controller.actions;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.ActionsDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,12 +45,6 @@ public final class ControllerActionsShowDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ActionsDialog dialog = ActionsDialog.INSTANCE;
-
-        if (!dialog.isVisible()) {
-            dialog.setVisible(true);
-        }
-
-        dialog.toFront();
+        ComponentUtil.show(ActionsDialog.INSTANCE);
     }
 }

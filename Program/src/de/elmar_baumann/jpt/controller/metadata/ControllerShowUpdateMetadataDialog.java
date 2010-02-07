@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.view.dialogs.UpdateMetadataOfDirectoriesDialog;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,12 +37,6 @@ public final class ControllerShowUpdateMetadataDialog implements ActionListener 
     }
 
     private void showDialog() {
-        UpdateMetadataOfDirectoriesDialog dialog =
-                UpdateMetadataOfDirectoriesDialog.INSTANCE;
-        if (dialog.isVisible()) {
-            dialog.toFront();
-        } else {
-            dialog.setVisible(true);
-        }
+        ComponentUtil.show(UpdateMetadataOfDirectoriesDialog.INSTANCE);
     }
 }

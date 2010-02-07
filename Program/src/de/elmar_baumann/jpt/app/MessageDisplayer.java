@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.app;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.InputDialog;
 import java.awt.Component;
 import java.util.HashMap;
@@ -59,8 +60,7 @@ public final class MessageDisplayer {
         inputDialog.setInfo(infoBundleKey == null ? "" : Bundle.getString(infoBundleKey, infoArgs));
         inputDialog.setInput(input == null ? "" : input);
         inputDialog.setProperties(UserSettings.INSTANCE.getProperties(), propertyKey + ".InputDialog");
-        inputDialog.setVisible(true);
-        inputDialog.toFront();
+        ComponentUtil.show(inputDialog);
         boolean accepted = inputDialog.isAccepted();
         UserSettings.INSTANCE.writeToFile();
         return accepted ? inputDialog.getInput() : null;

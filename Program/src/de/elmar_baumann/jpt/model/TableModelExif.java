@@ -32,6 +32,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.Translation;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.runtime.External;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -205,11 +206,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private void setWebBrowser() {
             SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
-            if (settingsDialog.isVisible()) {
-                settingsDialog.toFront();
-            } else {
-                settingsDialog.setVisible(true);
-            }
+            ComponentUtil.show(settingsDialog);
             settingsDialog.selectTab(SettingsMiscPanel.Tab.EXTERNAL_APPLICATIONS);
         }
 

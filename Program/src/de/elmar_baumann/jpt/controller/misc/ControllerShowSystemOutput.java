@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,11 +51,6 @@ public final class ControllerShowSystemOutput implements ActionListener {
     }
 
     private void showDialog() {
-        SystemOutputDialog dlg = SystemOutputDialog.INSTANCE;
-        if (dlg.isVisible()) {
-            dlg.toFront();
-        } else {
-            dlg.setVisible(true);
-        }
+        ComponentUtil.show(SystemOutputDialog.INSTANCE);
     }
 }

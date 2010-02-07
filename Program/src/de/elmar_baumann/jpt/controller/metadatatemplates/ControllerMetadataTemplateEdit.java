@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.view.dialogs.EditMetaDataTemplateDialog;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
 import java.awt.event.ActionEvent;
@@ -81,8 +82,7 @@ public final class ControllerMetadataTemplateEdit
         EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
 
         dlg.setTemplate(template);
-        dlg.setVisible(true);
-        dlg.toFront();
+        ComponentUtil.show(dlg);
         focusList();
     }
 

@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.view.dialogs.DatabaseMaintainanceDialog;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,11 +37,6 @@ public final class ControllerMaintainDatabase implements ActionListener {
     }
 
     private void maintainDatabase() {
-        DatabaseMaintainanceDialog dialog = DatabaseMaintainanceDialog.INSTANCE;
-        if (dialog.isVisible()) {
-            dialog.toFront();
-        } else {
-            dialog.setVisible(true);
-        }
+        ComponentUtil.show(DatabaseMaintainanceDialog.INSTANCE);
     }
 }

@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.SynonymsDialog;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -41,9 +42,7 @@ public final class ControllerShowSynonymsDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        SynonymsDialog dlg = new SynonymsDialog();
-
-        dlg.setVisible(true);
+        ComponentUtil.show(SynonymsDialog.INSTANCE);
     }
 
 }

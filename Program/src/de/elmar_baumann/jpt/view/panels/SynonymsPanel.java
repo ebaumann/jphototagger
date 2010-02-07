@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.model.ListModelSynonyms;
@@ -201,6 +202,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         }
     }
 
+    private void addAllKeywords() {
+        for (String word : DatabaseImageFiles.INSTANCE.getAllDcSubjects()) {
+            modelWords.addWord(word);
+        }
+        MessageDisplayer.information(this, "SynonymsPanel.Info.AddAllKeywords");
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -227,6 +235,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonAddSynonym = new javax.swing.JButton();
         buttonRemoveSynonym = new javax.swing.JButton();
         buttonChangeSynonym = new javax.swing.JButton();
+        buttonAddAllKeywords = new javax.swing.JButton();
 
         labelTextAreaWord.setLabelFor(textAreaWords);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
@@ -347,6 +356,14 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
             }
         });
 
+        buttonAddAllKeywords.setText(bundle.getString("SynonymsPanel.buttonAddAllKeywords.text")); // NOI18N
+        buttonAddAllKeywords.setToolTipText(bundle.getString("SynonymsPanel.buttonAddAllKeywords.toolTipText")); // NOI18N
+        buttonAddAllKeywords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddAllKeywordsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -358,7 +375,8 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(scrollPaneListWords, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                             .addComponent(scrollPaneTextAreaWords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                            .addComponent(labelListWords))
+                            .addComponent(labelListWords)
+                            .addComponent(buttonAddAllKeywords, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(buttonAddWord)
@@ -383,7 +401,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
                         .addGap(14, 14, 14))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelTextFieldSynonym)
-                        .addGap(56, 56, 56))))
+                        .addGap(137, 137, 137))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAddSynonym, buttonAddWord, buttonChangeSynonym, buttonChangeWord, buttonRemoveSynonym, buttonRemoveWord});
@@ -418,8 +436,10 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
                         .addComponent(buttonRemoveWord)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonChangeWord))
-                    .addComponent(scrollPaneListWords, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(scrollPaneListSynonyms, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+                    .addComponent(scrollPaneListWords, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListSynonyms, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonAddAllKeywords)
                 .addContainerGap())
         );
 
@@ -460,7 +480,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     }//GEN-LAST:event_textAreaWordsKeyPressed
 
     private void textFieldSynonymsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSynonymsKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER && listWords.getSelectedValue() != null) {
             addSynonym();
         }
     }//GEN-LAST:event_textFieldSynonymsKeyPressed
@@ -493,8 +513,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         }
     }//GEN-LAST:event_listWordsKeyPressed
 
+    private void buttonAddAllKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddAllKeywordsActionPerformed
+        addAllKeywords();
+    }//GEN-LAST:event_buttonAddAllKeywordsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAddAllKeywords;
     private javax.swing.JButton buttonAddSynonym;
     private javax.swing.JButton buttonAddWord;
     private javax.swing.JButton buttonChangeSynonym;

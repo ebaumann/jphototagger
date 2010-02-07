@@ -33,6 +33,8 @@ import de.elmar_baumann.jpt.comparator.ComparatorXmpIptcLocationAsc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpIptcLocationDesc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpRatingAsc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpRatingDesc;
+import de.elmar_baumann.jpt.exporter.SynonymsExporter;
+import de.elmar_baumann.jpt.importer.SynonymsImporter;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -293,8 +295,10 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator11 = new javax.swing.JSeparator();
         menuImport = new javax.swing.JMenu();
         menuItemImportKeywords = new javax.swing.JMenuItem();
+        menuItemImportSynonyms = new javax.swing.JMenuItem();
         menuExport = new javax.swing.JMenu();
         menuItemExportKeywords = new javax.swing.JMenuItem();
+        menuItemExportSynonyms = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
@@ -401,6 +405,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemImportKeywords.setText(Bundle.getString("AppFrame.menuItemImportKeywords.text")); // NOI18N
         menuImport.add(menuItemImportKeywords);
 
+        menuItemImportSynonyms.setAction(SynonymsImporter.INSTANCE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        menuItemImportSynonyms.setText(bundle.getString("AppFrame.menuItemImportSynonyms.text")); // NOI18N
+        menuImport.add(menuItemImportSynonyms);
+
         menuFile.add(menuImport);
 
         menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
@@ -409,6 +418,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemExportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemExportKeywords.setText(Bundle.getString("AppFrame.menuItemExportKeywords.text")); // NOI18N
         menuExport.add(menuItemExportKeywords);
+
+        menuItemExportSynonyms.setAction(SynonymsExporter.INSTANCE);
+        menuItemExportSynonyms.setText(bundle.getString("AppFrame.menuItemExportSynonyms.text")); // NOI18N
+        menuExport.add(menuItemExportSynonyms);
 
         menuFile.add(menuExport);
         menuFile.add(jSeparator4);
@@ -450,7 +463,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuSort.add(jSeparator26);
 
         buttonGroupSort.add(radioButtonMenuItemSortFilenameAscending);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         radioButtonMenuItemSortFilenameAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilenameAscending);
 
@@ -728,6 +740,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportKeywords;
+    private javax.swing.JMenuItem menuItemExportSynonyms;
     private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
     private javax.swing.JMenuItem menuItemGotoCollections;
     private javax.swing.JMenuItem menuItemGotoDirectories;
@@ -745,6 +758,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemImportKeywords;
+    private javax.swing.JMenuItem menuItemImportSynonyms;
     private javax.swing.JMenuItem menuItemInputHelper;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;

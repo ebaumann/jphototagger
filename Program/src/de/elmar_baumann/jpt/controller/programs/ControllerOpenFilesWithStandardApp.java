@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -68,11 +69,7 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
         if (UserSettings.INSTANCE.getDefaultImageOpenApp().isEmpty()) {
             SettingsDialog dialog = SettingsDialog.INSTANCE;
             dialog.selectTab(SettingsDialog.Tab.PROGRAMS);
-            if (dialog.isVisible()) {
-                dialog.toFront();
-            } else {
-                dialog.setVisible(true);
-            }
+            ComponentUtil.show(dialog);
             return false;
         }
         return true;

@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.generics.Pair;
@@ -79,10 +80,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
             if (firstPageUrl != null) {
                 help.setDisplayUrl(firstPageUrl);
             }
-            if (!help.isVisible()) {
-                help.setVisible(true);
-            }
-            help.toFront();
+            ComponentUtil.show(help);
         }
     }
 

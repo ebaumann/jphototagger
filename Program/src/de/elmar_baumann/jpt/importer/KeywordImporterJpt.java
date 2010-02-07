@@ -57,13 +57,14 @@ public final class KeywordImporterJpt
     @Override
     public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
         try {
-            DocumentBuilderFactory docFactory =
-                    DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder        docBuilder = docFactory.newDocumentBuilder();
+
             docBuilder.setEntityResolver(this);
+
             Document doc = docBuilder.parse(file);
-            NodeList nl = doc.getElementsByTagName(
-                    KeywordExporterJpt.TAGNAME_ROOT);
+            NodeList nl  = doc.getElementsByTagName(KeywordExporterJpt.TAGNAME_ROOT);
+
             if (nl.getLength() > 0) {
                 return getPaths(nl.item(0));
             }
@@ -75,10 +76,9 @@ public final class KeywordImporterJpt
     }
 
     private List<List<Pair<String, Boolean>>> getPaths(Node rootNode) {
-        List<List<Pair<String, Boolean>>> paths =
-                new ArrayList<List<Pair<String, Boolean>>>();
-        List<Node> leafs = getAllLeafs(rootNode);
-        List<Stack<Node>> pathStacks = new ArrayList<Stack<Node>>();
+        List<List<Pair<String, Boolean>>> paths      = new ArrayList<List<Pair<String, Boolean>>>();
+        List<Node>                        leafs      = getAllLeafs(rootNode);
+        List<Stack<Node>>                 pathStacks = new ArrayList<Stack<Node>>();
         for (Node leaf : leafs) {
             Stack<Node> stack = new Stack<Node>();
             stack.push(leaf);
@@ -86,8 +86,7 @@ public final class KeywordImporterJpt
             pathStacks.add(stack);
         }
         for (Stack<Node> stack : pathStacks) {
-            List<Pair<String, Boolean>> path =
-                    new ArrayList<Pair<String, Boolean>>(stack.size());
+            List<Pair<String, Boolean>> path = new ArrayList<Pair<String, Boolean>>(stack.size());
             while (!stack.isEmpty()) {
                 path.add(getKeyword(stack.pop()));
             }
@@ -98,29 +97,25 @@ public final class KeywordImporterJpt
 
     private Pair<String, Boolean> getKeyword(Node node) {
         NamedNodeMap attr = node.getAttributes();
-        String name = attr.getNamedItem(
-                KeywordExporterJpt.ATTRIBUTE_NAME).getNodeValue();
-        Boolean real =
-                attr.getNamedItem(
-                KeywordExporterJpt.ATTRIBUTE_TYPE).getNodeValue().
-                equals(
-                KeywordExporterJpt.VALUE_OF_ATTRIBUTE_TYPE.get(true));
+        String       name = attr.getNamedItem(KeywordExporterJpt.ATTRIBUTE_NAME).getNodeValue();
+        Boolean      real = attr.getNamedItem(KeywordExporterJpt.ATTRIBUTE_TYPE).getNodeValue().equals(KeywordExporterJpt.VALUE_OF_ATTRIBUTE_TYPE.get(true));
+
         return new Pair<String, Boolean>(name, real);
     }
 
     private void pushParents(Stack<Node> nodes, Node node) {
         Node parent = node.getParentNode();
-        if (parent != null && !parent.getNodeName().equals(
-                KeywordExporterJpt.TAGNAME_ROOT)) {
+        if (parent != null && !parent.getNodeName().equals(KeywordExporterJpt.TAGNAME_ROOT)) {
             nodes.push(parent);
             pushParents(nodes, parent); // recursive
         }
     }
 
     private List<Node> getAllLeafs(Node rootNode) {
-        List<Node> leafs = new ArrayList<Node>();
-        NodeList nl = rootNode.getChildNodes();
-        int length = nl.getLength();
+        List<Node> leafs  = new ArrayList<Node>();
+        NodeList   nl     = rootNode.getChildNodes();
+        int        length = nl.getLength();
+
         for (int i = 0; i < length; i++) {
             addLeaf(leafs, nl.item(i));
         }
@@ -128,11 +123,11 @@ public final class KeywordImporterJpt
     }
 
     private void addLeaf(Collection<Node> leafs, Node node) {
-        if (!node.getNodeName().equals(
-                KeywordExporterJpt.TAGNAME_KEYWORD))
-            return;
-        NodeList nl = node.getChildNodes();
-        int length = nl.getLength();
+        if (!node.getNodeName().equals(KeywordExporterJpt.TAGNAME_KEYWORD)) return;
+
+        NodeList nl     = node.getChildNodes();
+        int      length = nl.getLength();
+
         if (length <= 0) {
             leafs.add(node);
             return;
@@ -161,11 +156,12 @@ public final class KeywordImporterJpt
     }
 
     @Override
-    public InputSource resolveEntity(String publicId, String systemId)
-            throws SAXException, IOException {
+    public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         InputStream stream = null;
-        String dtd = KeywordExporterJpt.DTD;
+        String      dtd    = KeywordExporterJpt.DTD;
+
         if (systemId.endsWith(dtd)) {
+
             stream = EntityResolver.class.getResourceAsStream(
                     "/de/elmar_baumann/jpt/resource/dtd/" + dtd);
         }
