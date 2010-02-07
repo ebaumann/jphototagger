@@ -686,6 +686,13 @@
                 </Property>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemSynonyms">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemSynonyms.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemOutputWindow">

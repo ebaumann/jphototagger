@@ -109,6 +109,7 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerDeleteThumbnailsFromD
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerPasteFilesFromClipboard;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import de.elmar_baumann.jpt.controller.misc.ControllerPlugins;
+import de.elmar_baumann.jpt.controller.misc.ControllerShowSynonymsDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowUserSettingsDialog;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.controller.miscmetadata.ControllerMiscMetadataItemSelected;
@@ -248,6 +249,7 @@ public final class ControllerFactory {
         support.add(new ControllerShowUpdateMetadataDialog());
         support.add(new ControllerShowUserSettingsDialog());
         support.add(new ControllerShowAdvancedSearchDialog());
+        support.add(new ControllerShowSynonymsDialog());
 
         addKeywordsTreeControllers();
         addSizeAndLocationController();
