@@ -141,6 +141,18 @@ public final class ComponentUtil {
 
     }
 
+    /**
+     * Makes a window visible - if invisible - and brings it to front.
+     *
+     * @param window window
+     */
+    public static void show(Window window) {
+        if (!window.isVisible()) {
+            window.setVisible(true);
+        }
+        window.toFront();
+    }
+
     private ComponentUtil() {
     }
 }
