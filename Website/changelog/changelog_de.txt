@@ -5,6 +5,15 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.64 2010-02-07
+-----------------
+
+* Neu Synonyme: Für Stichwörter können Synonyme definiert werden, die bei
+  der Schnellsuche berücksichtigt werden. Menü Fenster > Synonyme. Mehr steht
+  in der Hilfe zu diesem Menüpunkt (oder F1 bei geöffnetem Synonymdialog F7).
+* Ex- und Import von Synonymen (Datei > Exportieren > Synonyme und
+  Datei > Importieren > Synonyme). Mehr steht in der Hilfe zu diesen Menüpunkten.
+
 0.7.63 2010-02-05
 -----------------
 
