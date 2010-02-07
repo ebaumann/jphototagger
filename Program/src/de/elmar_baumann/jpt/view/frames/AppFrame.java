@@ -649,6 +649,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions.setText(Bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
         menuWindow.add(menuItemActions);
 
+        menuItemSynonyms.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         menuItemSynonyms.setText(bundle.getString("AppFrame.menuItemSynonyms.text")); // NOI18N
         menuWindow.add(menuItemSynonyms);
         menuWindow.add(jSeparator20);

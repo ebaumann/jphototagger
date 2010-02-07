@@ -206,17 +206,18 @@ public final class ControllerFastSearch
                     List<String> searchWords = getSearchWords(userInput);
                     Column searchColumn = getSearchColumn();
                     if (searchColumn == null) return null;
+                    boolean isKeywordSearch = searchColumn.equals(ColumnXmpDcSubjectsSubject.INSTANCE);
                     if (searchWords.size() == 1) {
-                        return db.findFilenamesLikeOr(
-                                Arrays.asList(searchColumn), userInput);
-                    } else if (searchWords.size() > 1) {
-                        if (searchColumn.equals(
-                                ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                            return new ArrayList<String>(
-                                    DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(searchWords));
+                        if (isKeywordSearch) {
+                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(searchWords.get(0), DatabaseImageFiles.DcSubjectOption.INCLUDE_SYNONYMS));
                         } else {
-                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.
-                                    getFilenamesOfAll(searchColumn, searchWords));
+                            return db.findFilenamesLikeOr(Arrays.asList(searchColumn), userInput);
+                        }
+                    } else if (searchWords.size() > 1) {
+                        if (isKeywordSearch) {
+                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.getFilenamesOfAllDcSubjects(searchWords));
+                        } else {
+                            return new ArrayList<String>(DatabaseImageFiles.INSTANCE.getFilenamesOfAll(searchColumn, searchWords));
                         }
                     } else {
                         return null;

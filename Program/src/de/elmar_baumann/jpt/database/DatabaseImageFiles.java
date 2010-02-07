@@ -1253,25 +1253,25 @@ public final class DatabaseImageFiles extends Database {
         return dcSubjects;
     }
 
+    public enum DcSubjectOption {
+        INCLUDE_SYNONYMS
+    }
+
     /**
      * Returns the filenames within a specific dublin core subject (keyword).
      *
      * @param  dcSubject subject
+     * @param options    options
      * @return           filenames
      */
-    public Set<String> getFilenamesOfDcSubject(String dcSubject) {
-        Set<String> filenames = new LinkedHashSet<String>();
-        Connection connection = null;
+    public Set<String> getFilenamesOfDcSubject(String dcSubject, DcSubjectOption... options) {
+        Set<String> filenames  = new LinkedHashSet<String>();
+        Connection  connection = null;
+        Set<DcSubjectOption> opts = new HashSet<DcSubjectOption>(Arrays.asList(options));
         try {
             connection = getConnection();
-            String sql =
-                    " SELECT DISTINCT files.filename FROM" +
-                    " xmp_dc_subjects INNER JOIN xmp" +
-                    " ON xmp_dc_subjects.id_xmp = xmp.id" +
-                    " INNER JOIN files ON xmp.id_files = files.id" +
-                    " WHERE xmp_dc_subjects.subject = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, dcSubject);
+            PreparedStatement stmt = connection.prepareStatement(getGetFilenamesOfDcSubjectSql(dcSubject, opts));
+            setDcSubjectSynonyms(dcSubject, opts, stmt);
             logFinest(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -1284,6 +1284,33 @@ public final class DatabaseImageFiles extends Database {
             free(connection);
         }
         return filenames;
+    }
+    
+    private void setDcSubjectSynonyms(String dcSubject, Set<DcSubjectOption> options, PreparedStatement stmt) throws SQLException {
+        stmt.setString(1, dcSubject);
+        if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
+            int paramIndex = 2;
+            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject)) {
+                stmt.setString(paramIndex++, synonym);
+            }
+        }
+    }
+
+    private String getGetFilenamesOfDcSubjectSql(String dcSubject, Set<DcSubjectOption> options) {
+        StringBuilder sql = new StringBuilder(" SELECT DISTINCT files.filename FROM" +
+                    " xmp_dc_subjects INNER JOIN xmp" +
+                    " ON xmp_dc_subjects.id_xmp = xmp.id" +
+                    " INNER JOIN files ON xmp.id_files = files.id" +
+                    " WHERE xmp_dc_subjects.subject = ?");
+
+        if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
+            int size = DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject).size();
+            for (int i = 0; i < size; i++) {
+                sql.append(" OR xmp_dc_subjects.subject = ?");
+            }
+        }
+
+        return sql.toString();
     }
 
     /**
@@ -1298,10 +1325,9 @@ public final class DatabaseImageFiles extends Database {
      * @param  dcSubjects subjects
      * @return            images containing all of these subjects
      */
-    public Set<String> getFilenamesOfAllDcSubjects(
-            List<? extends String> dcSubjects) {
-        Set<String> filenames = new LinkedHashSet<String>();
-        Connection connection = null;
+    public Set<String> getFilenamesOfAllDcSubjects(List<? extends String> dcSubjects) {
+        Set<String> filenames  = new LinkedHashSet<String>();
+        Connection  connection = null;
         try {
             connection = getConnection();
             int count = dcSubjects.size();
@@ -1381,10 +1407,9 @@ public final class DatabaseImageFiles extends Database {
      *                through a column <code>id_files</code>!
      * @return        images containing all of these terms in that column
      */
-    public Set<String> getFilenamesOfAll(
-            Column column, List<? extends String> words) {
-        Set<String> filenames = new LinkedHashSet<String>();
-        Connection connection = null;
+    public Set<String> getFilenamesOfAll(Column column, List<? extends String> words) {
+        Set<String> filenames  = new LinkedHashSet<String>();
+        Connection  connection = null;
         try {
             connection = getConnection();
             String tableName = column.getTable().getName();
