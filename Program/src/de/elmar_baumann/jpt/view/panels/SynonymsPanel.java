@@ -161,7 +161,8 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         Object o = listWords.getSelectedValue();
         if (o instanceof String) {
             String oldWord = (String)o;
-            String newWord = MessageDisplayer.input("SynonymsPanel.Info.ChangeWord", oldWord, "SynonymsPanel.Pos.ChangeWord", oldWord);
+            String newWord = MessageDisplayer.input("SynonymsPanel.Info.ChangeWord", oldWord,
+                                                    "SynonymsPanel.Pos.ChangeWord", oldWord);
             if (newWord != null && !newWord.equals(oldWord)) {
                 modelWords.changeWord(oldWord, newWord);
                 modelSynonyms.setWord(newWord);
@@ -195,7 +196,8 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         Object o = listSynonyms.getSelectedValue();
         if (o instanceof String) {
             String oldSynonym = (String)o;
-            String newSynonym = MessageDisplayer.input("SynonymsPanel.Info.ChangeSynonym", oldSynonym, "SynonymsPanel.Pos.ChangeSynonym", oldSynonym);
+            String newSynonym = MessageDisplayer.input("SynonymsPanel.Info.ChangeSynonym", oldSynonym,
+                                                       "SynonymsPanel.Pos.ChangeSynonym", oldSynonym);
             if (newSynonym != null && !newSynonym.equals(oldSynonym)) {
                 modelSynonyms.changeSynonym(oldSynonym, newSynonym);
             }
