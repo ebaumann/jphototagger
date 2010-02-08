@@ -59,6 +59,7 @@ public final class DatabaseTables extends Database {
         TABLE_NAMES.add("saved_searches_values");
         TABLE_NAMES.add("xmp");
         TABLE_NAMES.add("xmp_dc_subjects");
+        TABLE_NAMES.add("synonyms");
     }
 
     public static List<String> getTableNames() {
