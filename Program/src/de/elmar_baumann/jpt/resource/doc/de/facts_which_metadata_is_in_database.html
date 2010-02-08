@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Was ist in der Datenbank gespeichert?</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Was ist in der Datenbank gespeichert?</h1>
+
+        <p>In der Datenbank gespeichert sind eine <em>Auswahl</em> an
+            <a href="glossary_metadata.html">Metadaten</a> und einige weitere
+            Daten:
+        </p>
+
+        <h2>Aus den <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            oder in Bilddateien eingebettetem XMP:
+        </h2>
+
+        <ul>
+            <li>dc:creator
+            </li>
+            <li>dc:description
+            </li>
+            <li>dc:rights
+            </li>
+            <li>dc:subject
+            </li>
+            <li>dc:title
+            </li>
+            <li>Iptc4xmpCore:CountryCode
+            </li>
+            <li>Iptc4xmpCore:DateCreated
+            </li>
+            <li>Iptc4xmpCore:Location
+            </li>
+            <li>photoshop:AuthorsPosition
+            </li>
+            <li>photoshop:CaptionWriter
+            </li>
+            <li>photoshop:City
+            </li>
+            <li>photoshop:Country
+            </li>
+            <li>photoshop:Credit
+            </li>
+            <li>photoshop:Headline
+            </li>
+            <li>photoshop:Instructions
+            </li>
+            <li>photoshop:Source
+            </li>
+            <li>photoshop:State
+            </li>
+            <li>photoshop:TransmissionReference
+            </li>
+        </ul>
+
+        <h2>Aus den <a href="glossary_exif.html">EXIF</a>-Daten der Bilddatei:
+        </h2>
+        <ul>
+            <li>DateTimeOriginal
+            </li>
+            <li>FocalLength
+            </li>
+            <li>ISOSpeedRatings
+            </li>
+            <li>Model
+            </li>
+            <li>MakerNote: Objektiv (falls dafür ein EXIF-Konverter implementiert wurde)
+            </li>
+        </ul>
+
+        <h2>Weitere Daten in der Datenbank</h2>
+
+        <ul>
+            <li>Automatisch einzulesende Ordner
+            </li>
+            <li>Fotoalben
+            </li>
+            <li>Reguläre Ausdrücke zum Ausschließen von Bilddateien
+            </li>
+            <li>Vorlagen zum Bearbeiten von Metadaten
+            </li>
+            <li>Weitere Programme zum Öffnen und Bearbeiten von Bildern
+            </li>
+            <li>Gespeicherte Suchen
+            </li>
+            <li>Aktionen, die ausgeführt werden, nachdem ein Bild in die
+                Datenbank eingefügt wurde oder in ihr aktualisiert
+            </li>
+        </ul>
+
+        <h2>Nicht in der Datenbank</h2>
+
+        <p>Die <strong>Vorschaubilder</strong> sind gespeichert im Ordner
+            <code>thumbnails</code> unterhalb des Ordners mit den
+            Datenbank-Dateien.
+        </p>
+
+        <p>Alles andere, beispielsweise das Standardprogramm zum Öffnen von
+            Bildern oder die Spalten für die Schnellsuche, ist in der
+            Einstellungen-Datei gespeichert (<code>Settings.properties</code>)
+            im <a href="facts_database_location.html">Benutzerordner</a>.
+        </p>
+        
+    </body>
+</html>

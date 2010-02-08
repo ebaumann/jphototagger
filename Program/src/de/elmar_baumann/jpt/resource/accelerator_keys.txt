@@ -1,0 +1,1 @@
+See de.elmar_baumann.jpt.resource.doc.<lang>.accelerator_keys.html
