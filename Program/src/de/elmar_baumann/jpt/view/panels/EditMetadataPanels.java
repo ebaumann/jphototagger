@@ -614,7 +614,7 @@ public final class EditMetadataPanels
     }
 
     private void createEditPanels() {
-        List<Column> columns = UserSettings.INSTANCE.getEditColumns();
+        List<Column> columns = EditColumns.get();
 
         for (Column column : columns) {
             EditHints editHints  = EditColumns.getEditHints(column);

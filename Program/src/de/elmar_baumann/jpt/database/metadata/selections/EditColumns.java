@@ -38,9 +38,10 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Supported XMP columns for editing and updating XMP sidecar files.
@@ -50,8 +51,7 @@ import java.util.Set;
  */
 public final class EditColumns {
 
-    private static final Map<Column, EditHints> EDIT_HINT_OF_COLUMN =
-            new LinkedHashMap<Column, EditHints>();
+    private static final Map<Column, EditHints> EDIT_HINT_OF_COLUMN = new LinkedHashMap<Column, EditHints>();
 
 
     static {
@@ -79,8 +79,8 @@ public final class EditColumns {
         EDIT_HINT_OF_COLUMN.put(ColumnXmpRating.INSTANCE                        , notRepeatableHintSmall);
     }
 
-    public static Set<Column> get() {
-        return EDIT_HINT_OF_COLUMN.keySet();
+    public static List<Column> get() {
+        return new ArrayList<Column>(EDIT_HINT_OF_COLUMN.keySet());
     }
 
     public static EditHints getEditHints(Column column) {
