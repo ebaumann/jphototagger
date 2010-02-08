@@ -333,22 +333,6 @@ public final class UserSettings {
         return buffer.toString();
     }
 
-    /**
-     * Returns the columns to include into the fast search.
-     *
-     * @return columns. Default: Empty list
-     */
-    public List<Column> getFastSearchColumns() {
-        List<Column> columns = new ArrayList<Column>();
-        if (!settings.getString(KEY_FAST_SEARCH_COLUMNS).isEmpty()) {
-            List<String> columnKeys = ArrayUtil.stringTokenToList(
-                    settings.getString(KEY_FAST_SEARCH_COLUMNS),
-                    DELIMITER_COLUMNS);
-            return ColumnUtil.columnKeysToColumns(columnKeys);
-        }
-        return columns;
-    }
-
     public void setEditColumns(List<Column> columns) {
         settings.set(getColumnKeys(columns), KEY_EDIT_COLUMNS);
         writeToFile();

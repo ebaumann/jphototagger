@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.65 2010-02-08
+-----------------
+
+* Schnellsuchfelder können nicht mehr individuell bestimmt werden. Es wird
+  nun in allen bisher definierbaren Feldern gesucht.
+
 0.7.64 2010-02-07
 -----------------
 

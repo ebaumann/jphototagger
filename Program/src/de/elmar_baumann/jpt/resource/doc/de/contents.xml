@@ -231,10 +231,6 @@
             <title>Bilder öffnen</title>
         </page>
         <page>
-            <url>settings_fastsearch.html</url>
-            <title>Schnellsuche</title>
-        </page>
-        <page>
             <url>settings_thumbnails.html</url>
             <title>Vorschaubilder</title>
         </page>

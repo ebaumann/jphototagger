@@ -50,7 +50,6 @@ public final class SettingsDialog extends Dialog {
     public enum Tab {
         ACTIONS,
         EDIT,
-        FAST_SEARCH,
         FILE_EXCLUDE_PATTERNS,
         IPTC,
         MISC,
@@ -76,39 +75,36 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void initMaps() {
-        indexOfTab.put(Tab.PROGRAMS             ,  0);
-        indexOfTab.put(Tab.FAST_SEARCH          ,  1);
-        indexOfTab.put(Tab.THUMBNAILS           ,  2);
-        indexOfTab.put(Tab.IPTC                 ,  3);
-        indexOfTab.put(Tab.TASKS                ,  4);
-        indexOfTab.put(Tab.PERFORMANCE          ,  5);
-        indexOfTab.put(Tab.FILE_EXCLUDE_PATTERNS,  6);
-        indexOfTab.put(Tab.EDIT                 ,  7);
-        indexOfTab.put(Tab.MISC                 ,  8);
-        indexOfTab.put(Tab.ACTIONS              ,  9);
-        indexOfTab.put(Tab.PLUGINS              , 10);
+        indexOfTab.put(Tab.PROGRAMS             , 0);
+        indexOfTab.put(Tab.THUMBNAILS           , 1);
+        indexOfTab.put(Tab.IPTC                 , 2);
+        indexOfTab.put(Tab.TASKS                , 3);
+        indexOfTab.put(Tab.PERFORMANCE          , 4);
+        indexOfTab.put(Tab.FILE_EXCLUDE_PATTERNS, 5);
+        indexOfTab.put(Tab.EDIT                 , 6);
+        indexOfTab.put(Tab.MISC                 , 7);
+        indexOfTab.put(Tab.ACTIONS              , 8);
+        indexOfTab.put(Tab.PLUGINS              , 9);
 
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
 
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 0), Bundle.getString("Help.Url.UserSettingsDialog.Programs"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 1), Bundle.getString("Help.Url.UserSettingsDialog.FastSearch"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 2), Bundle.getString("Help.Url.UserSettingsDialog.Thumbnails"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 3), Bundle.getString("Help.Url.UserSettingsDialog.Iptc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 4), Bundle.getString("Help.Url.UserSettingsDialog.Tasks"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 5), Bundle.getString("Help.Url.UserSettingsDialog.Performance"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 6), Bundle.getString("Help.Url.UserSettingsDialog.FileExcludePattern"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 7), Bundle.getString("Help.Url.UserSettingsDialog.Edit"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 8), Bundle.getString("Help.Url.UserSettingsDialog.Misc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt( 9), Bundle.getString("Help.Url.UserSettingsDialog.Actions"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(10), Bundle.getString("Help.Url.UserSettingsDialog.Plugins"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), Bundle.getString("Help.Url.UserSettingsDialog.Programs"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), Bundle.getString("Help.Url.UserSettingsDialog.Thumbnails"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), Bundle.getString("Help.Url.UserSettingsDialog.Iptc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), Bundle.getString("Help.Url.UserSettingsDialog.Tasks"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), Bundle.getString("Help.Url.UserSettingsDialog.Performance"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), Bundle.getString("Help.Url.UserSettingsDialog.FileExcludePattern"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), Bundle.getString("Help.Url.UserSettingsDialog.Edit"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), Bundle.getString("Help.Url.UserSettingsDialog.Misc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(8), Bundle.getString("Help.Url.UserSettingsDialog.Actions"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(9), Bundle.getString("Help.Url.UserSettingsDialog.Plugins"));
     }
 
     private void initPersistentPanels() {
         persistentPanels.add(panelActions);
         persistentPanels.add(panelEditColumns);
-        persistentPanels.add(panelFastSearchColumns);
         persistentPanels.add(panelFileExcludePatterns);
         persistentPanels.add(panelIptc);
         persistentPanels.add(panelMisc);
@@ -119,7 +115,10 @@ public final class SettingsDialog extends Dialog {
     }
 
     public void selectTab(Tab tab) {
-        tabbedPane.setSelectedIndex(indexOfTab.get(tab));
+        int index = indexOfTab.get(tab);
+        if (index >= 0 && index < tabbedPane.getComponentCount()) {
+            tabbedPane.setSelectedIndex(index);
+        }
     }
 
     public void selectTab(de.elmar_baumann.jpt.view.panels.SettingsMiscPanel.Tab tab) {
@@ -176,7 +175,6 @@ public final class SettingsDialog extends Dialog {
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelPrograms = new de.elmar_baumann.jpt.view.panels.SettingsProgramsPanel();
-        panelFastSearchColumns = new de.elmar_baumann.jpt.view.panels.SettingsFastSearchColumnsPanel();
         panelThumbnails = new de.elmar_baumann.jpt.view.panels.SettingsThumbnailsPanel();
         panelIptc = new de.elmar_baumann.jpt.view.panels.SettingsIptcPanel();
         panelTasks = new de.elmar_baumann.jpt.view.panels.SettingsScheduledTasksPanel();
@@ -196,7 +194,6 @@ public final class SettingsDialog extends Dialog {
         });
 
         tabbedPane.addTab(Bundle.getString("SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
-        tabbedPane.addTab(Bundle.getString("SettingsDialog.panelFastSearchColumns.TabConstraints.tabTitle"), panelFastSearchColumns); // NOI18N
         tabbedPane.addTab(Bundle.getString("SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
         tabbedPane.addTab(Bundle.getString("SettingsDialog.panelIptc.TabConstraints.tabTitle"), panelIptc); // NOI18N
         tabbedPane.addTab(Bundle.getString("SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks); // NOI18N
@@ -255,7 +252,6 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.jpt.view.panels.SettingsActionsPanel panelActions;
     private de.elmar_baumann.jpt.view.panels.SettingsEditColumnsPanel panelEditColumns;
-    private de.elmar_baumann.jpt.view.panels.SettingsFastSearchColumnsPanel panelFastSearchColumns;
     private de.elmar_baumann.jpt.view.panels.SettingsFileExcludePatternsPanel panelFileExcludePatterns;
     private de.elmar_baumann.jpt.view.panels.SettingsIptcPanel panelIptc;
     private de.elmar_baumann.jpt.view.panels.SettingsMiscPanel panelMisc;

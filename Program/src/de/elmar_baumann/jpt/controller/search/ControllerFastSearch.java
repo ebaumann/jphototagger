@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColum
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.RefreshEvent;
@@ -36,13 +37,11 @@ import de.elmar_baumann.jpt.helper.AutocompleteHelper;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
-import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -50,8 +49,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,7 +83,6 @@ public final class ControllerFastSearch
     private final        Autocomplete       autocomplete           = new Autocomplete();
 
     public ControllerFastSearch() {
-        setEnabledSearchTextField();
         autocomplete.setTransferFocusForward(false);
         decorateTextFieldSearch();
         listen();
@@ -106,14 +102,6 @@ public final class ControllerFastSearch
             }
         });
 
-        textFieldSearch.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                checkEnabled();
-            }
-        });
-
         appPanel.getButtonSearch().addActionListener(this);
         comboboxFastSearch.addActionListener(this);
         thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
@@ -122,7 +110,6 @@ public final class ControllerFastSearch
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == comboboxFastSearch && comboboxFastSearch.getSelectedIndex() >= 0) {
-            setEnabledSearchTextField();
             decorateTextFieldSearch();
         } else if (e.getSource() == appPanel.getButtonSearch()) {
             search();
@@ -151,14 +138,6 @@ public final class ControllerFastSearch
                         : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).get());
             }
         });
-    }
-
-    private void checkEnabled() {
-        if (!textFieldSearch.isEnabled()) {
-            SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
-            settingsDialog.selectTab(SettingsDialog.Tab.FAST_SEARCH);
-            ComponentUtil.show(settingsDialog);
-        }
     }
 
     private void clearSelection() {
@@ -196,9 +175,7 @@ public final class ControllerFastSearch
 
             private List<String> searchFilenames(String userInput) {
                 if (isSearchAllDefinedColumns()) {
-                    return db.findFilenamesLikeOr(
-                            UserSettings.INSTANCE.getFastSearchColumns(),
-                            userInput);
+                    return db.findFilenamesLikeOr(FastSearchColumns.get(), userInput);
                 } else {
                     List<String> searchWords = getSearchWords(userInput);
                     Column searchColumn = getSearchColumn();
@@ -256,12 +233,6 @@ public final class ControllerFastSearch
         Object selItem = comboboxFastSearch.getSelectedItem();
         return selItem != null &&
                 selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);
-    }
-
-    private void setEnabledSearchTextField() {
-        textFieldSearch.setEnabled(isSearchAllDefinedColumns()
-                ? UserSettings.INSTANCE.getFastSearchColumns().size() > 0
-                : true);
     }
 
     @Override
