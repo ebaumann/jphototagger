@@ -18,11 +18,11 @@
  */
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteData;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
+import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +48,7 @@ public final class AutocompleteHelper {
         AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.getFastSearchData();
         if (acData == null)  return;
 
-        for (Column column : UserSettings.INSTANCE.getFastSearchColumns()) {
+        for (Column column : FastSearchColumns.get()) {
             add(column, acData, ac, xmp);
         }
     }

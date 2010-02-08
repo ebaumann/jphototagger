@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.database.metadata.selections;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,9 +33,7 @@ public final class AutoCompleteDataOfColumn {
 
     public static final  AutoCompleteDataOfColumn      INSTANCE         = new AutoCompleteDataOfColumn();
     private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN   = new HashMap<Column, AutoCompleteData>();
-
-    // Suggestions of added columns not before restarting the application
-    private static final AutoCompleteData FAST_SEARCH_DATA = new AutoCompleteData(UserSettings.INSTANCE.getFastSearchColumns());
+    private static final AutoCompleteData              FAST_SEARCH_DATA = new AutoCompleteData(FastSearchColumns.get());
 
     /**
      * Returns the autocomplete data of a specific column.
