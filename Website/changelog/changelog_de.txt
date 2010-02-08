@@ -12,6 +12,8 @@ Changelog JPhotoTagger
   nun in allen bisher definierbaren Feldern gesucht.
 * Es kann nicht mehr bestimmt werden, dass Bearbeiten-Felder ausgeblendet
   werden können
+* Im Einstellungen-Dialog die Einstellung des IPTC-Zeichensatzes verlagert
+  nach "Sonstiges > Verschiedenes"
 
 0.7.64 2010-02-07
 -----------------

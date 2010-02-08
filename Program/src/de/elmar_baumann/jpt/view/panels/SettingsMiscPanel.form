@@ -379,6 +379,11 @@
                           <Component id="checkBoxAutoDownloadCheck" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="panelCopyMoveFiles" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelIptcCharset" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="comboBoxIptcCharset" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -395,7 +400,12 @@
                       <Component id="checkBoxDisplaySearchButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelCopyMoveFiles" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labelIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboBoxIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -493,6 +503,26 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDisplaySearchButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelIptcCharset">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelIptcCharset.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="comboBoxIptcCharset">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="2">
+                    <StringItem index="0" value="ISO-8859-1"/>
+                    <StringItem index="1" value="UTF-8"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxIptcCharsetActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
