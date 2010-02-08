@@ -62,24 +62,22 @@ import java.util.Set;
  */
 public final class ColumnIds {
 
-    private static final Map<Integer, Column> COLUMN_OF_ID =
-            new HashMap<Integer, Column>();
-    private static final Map<Column, Integer> ID_OF_COLUMN =
-            new HashMap<Column, Integer>();
+    private static final Map<Integer, Column> COLUMN_OF_ID = new HashMap<Integer, Column>();
+    private static final Map<Column, Integer> ID_OF_COLUMN = new HashMap<Column, Integer>();
 
     static {
-        // TODO PERMANENT: Add new relevant columns
+        // TODO PERMANENT: Add new relevant (e. g. searchable) columns
         // Never change existing IDs, don't use an ID twice!
-        COLUMN_OF_ID.put(0, ColumnExifDateTimeOriginal.INSTANCE);
-        COLUMN_OF_ID.put(1, ColumnExifFocalLength.INSTANCE);
-        COLUMN_OF_ID.put(2, ColumnExifIsoSpeedRatings.INSTANCE);
-        COLUMN_OF_ID.put(3, ColumnExifRecordingEquipment.INSTANCE);
-        COLUMN_OF_ID.put(4, ColumnFilesFilename.INSTANCE);
-        COLUMN_OF_ID.put(5, ColumnFilesLastModified.INSTANCE);
-        COLUMN_OF_ID.put(6, ColumnFilesThumbnail.INSTANCE);
-        COLUMN_OF_ID.put(7, ColumnXmpDcDescription.INSTANCE);
-        COLUMN_OF_ID.put(8, ColumnXmpDcRights.INSTANCE);
-        COLUMN_OF_ID.put(9, ColumnXmpDcTitle.INSTANCE);
+        COLUMN_OF_ID.put( 0, ColumnExifDateTimeOriginal.INSTANCE);
+        COLUMN_OF_ID.put( 1, ColumnExifFocalLength.INSTANCE);
+        COLUMN_OF_ID.put( 2, ColumnExifIsoSpeedRatings.INSTANCE);
+        COLUMN_OF_ID.put( 3, ColumnExifRecordingEquipment.INSTANCE);
+        COLUMN_OF_ID.put( 4, ColumnFilesFilename.INSTANCE);
+        COLUMN_OF_ID.put( 5, ColumnFilesLastModified.INSTANCE);
+        COLUMN_OF_ID.put( 6, ColumnFilesThumbnail.INSTANCE);
+        COLUMN_OF_ID.put( 7, ColumnXmpDcDescription.INSTANCE);
+        COLUMN_OF_ID.put( 8, ColumnXmpDcRights.INSTANCE);
+        COLUMN_OF_ID.put( 9, ColumnXmpDcTitle.INSTANCE);
         COLUMN_OF_ID.put(10, ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
         COLUMN_OF_ID.put(11, ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         COLUMN_OF_ID.put(12, ColumnXmpPhotoshopAuthorsposition.INSTANCE);
