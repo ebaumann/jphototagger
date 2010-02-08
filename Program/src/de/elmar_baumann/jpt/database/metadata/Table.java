@@ -22,31 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Eine Tabelle.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
 public abstract class Table {
 
-    private final List<Column> columns = new ArrayList<Column>();
+    private final List<Column> columns          = new ArrayList<Column>();
     private final List<Column> referenceColumns = new ArrayList<Column>();
-    private final String name;
+    private final String       name;
 
-    /**
-     * Erzeugt eine Instanz.
-     *
-     * @param name Tabellenname
-     */
     protected Table(String name) {
         this.name = name;
     }
 
-    /**
-     * Liefert den Tabellennamen.
-     *
-     * @return Tabellenname
-     */
     public String getName() {
         return name;
     }
@@ -69,13 +58,8 @@ public abstract class Table {
         return hash;
     }
 
-    /**
-     * Fügt der Tabelle eine Spalte hinzu. Setzt diese Tabelle bei der Spalte.
-     *
-     * @param column Spalte
-     * @see          de.elmar_baumann.jpt.database.metadata.Column#setTable(de.elmar_baumann.jpt.database.metadata.Table)
-     */
     protected void addColumn(Column column) {
+        assert !columns.contains(column);
         column.setTable(this);
         columns.add(column);
         if (column.getReferences() != null) {
@@ -83,11 +67,6 @@ public abstract class Table {
         }
     }
 
-    /**
-     * Liefert die Spalten der Tabelle.
-     *
-     * @return Spalten
-     */
     public List<Column> getColumns() {
         if (columns.isEmpty()) {
             addColumns();
@@ -113,16 +92,6 @@ public abstract class Table {
     }
 
     /**
-     * Liefert, ob die Tabelle Spalten hat, die Spalten anderer Tabellen
-     * referenzieren (Fremdschlüsselspalten):
-     *
-     * @return true, wenn die Tabelle Fremdschlüsselspalten hat
-     */
-    public boolean hasReferenceColumns() {
-        return !referenceColumns.isEmpty();
-    }
-
-    /**
      * Liefert die Spalten, die eine bestimmte Tabelle referenzieren.
      *
      * @param table Tabelle
@@ -139,19 +108,8 @@ public abstract class Table {
         return joinColumns;
     }
 
-    /**
-     * Liefert alle Spalten, die den Primärschlüssel bilden.
-     *
-     * @return Primärschlüsselspalten
-     */
-    public List<Column> getPrimaryKeyColumns() {
-        List<Column> pColumns = new ArrayList<Column>();
-        for (Column column : columns) {
-            if (column.isPrimaryKey()) {
-                pColumns.add(column);
-            }
-        }
-        return pColumns;
+    public boolean contains(Column column) {
+        return columns.contains(column);
     }
 
     /**

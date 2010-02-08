@@ -22,46 +22,30 @@ import de.elmar_baumann.jpt.resource.Bundle;
 import java.awt.Color;
 
 /**
- * Flag für ein Thumbnail.
+ * Flag of a Thumbnail.
  *
  * @author  Elmar Baumann <eb@elmar-aumann.de>
  * @version 2008-09-09
  */
 public final class ThumbnailFlag {
 
-    private final Color color;
+    private final Color  color;
     private final String string;
 
-    /**
-     * Flag: Datei wurde nicht gefunden.
-     */
-    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND =
-        new ThumbnailFlag(Color.RED, Bundle.getString("ThumbnailFlag.Error.FileNotFound"));
+    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND = new ThumbnailFlag(Color.RED, Bundle.getString("ThumbnailFlag.Error.FileNotFound"));
 
-    /**
-     * Konstruktor.
-     *
-     * @param color  Farbe des Flags
-     * @param string String mit Bedeutung des Flags
-     */
     public ThumbnailFlag(Color color, String string) {
         this.color = color;
         this.string = string;
     }
 
-    /**
-     * Liefert die Farbe des Flags.
-     *
-     * @return Farbe
-     */
     public Color getColor() {
         return color;
     }
 
     /**
-     * Liefert den String mit der Bedeutung des Flags.
      *
-     * @return String mit Bedeutung
+     * @return Meaning of the flag
      */
     public String getString() {
         return string;

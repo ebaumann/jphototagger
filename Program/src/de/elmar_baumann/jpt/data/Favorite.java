@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.data;
 import java.io.File;
 
 /**
- * Favoritenverzeichnis.
+ * Favorite: File system directory + alias name + order (index).
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-23
@@ -33,11 +33,11 @@ public final class Favorite {
     private int    index;
 
     /**
-     * Konstruktor.
+     * Constructor.
      *
-     * @param name           Name des Favoriten (Alias)
-     * @param directoryName  Name des Verzeichnisses
-     * @param index          Reihenfolge innerhalb der Favoriten
+     * @param name           name (alias) of the favorite
+     * @param directoryName  name of the directory
+     * @param index          order within the favorites
      */
     public Favorite(String name, String directoryName, int index) {
         this.name          = name;
@@ -45,37 +45,21 @@ public final class Favorite {
         this.index         = index;
     }
 
-    /**
-     * Kopierkonstruktor (klont).
-     *
-     * @param favorite  Anderer Favorit
-     */
     public Favorite(Favorite favorite) {
         set(favorite);
     }
 
-    /**
-     * Zuweisung (klont).
-     *
-     * @param favorite  Anderer Favorit
-     */
     public void set(Favorite favorite) {
         this.name          = new String(favorite.name);
         this.directoryName = new String(favorite.directoryName);
         this.index         = favorite.index;
     }
 
-    /**
-     * Liefert den Verzeichnisnamen.
-     *
-     * @return Verzeichnisname
-     */
     public String getDirectoryName() {
         return directoryName;
     }
 
     /**
-     * Returns the directory; a file created from the directory name.
      *
      * @return directory or null if the directory name is null
      */
@@ -85,47 +69,22 @@ public final class Favorite {
                : new File(directoryName);
     }
 
-    /**
-     * Setzt den Verzeichnisnamen.
-     *
-     * @param directoryName  Verzeichnisname
-     */
     public void setDirectoryName(String directoryName) {
         this.directoryName = directoryName;
     }
 
-    /**
-     * Liefert den Favoritennamen (Alias).
-     *
-     * @return Favoritenname
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Setzt den Favoritennamen (Alias).
-     *
-     * @param name Favoritenname
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * Liefert die Reihenfolge innerhalb der Favoriten.
-     *
-     * @return Reihenfolge
-     */
     public int getIndex() {
         return index;
     }
 
-    /**
-     * Setzt die Reihenfolge innerhalb der Favoriten.
-     *
-     * @param index  Reihenfolge
-     */
     public void setIndex(int index) {
         this.index = index;
     }
@@ -144,8 +103,7 @@ public final class Favorite {
             return false;
         }
         final Favorite other = (Favorite) obj;
-        if ((this.name == null || !this.name.equals(
-                other.name))) {
+        if ((this.name == null || !this.name.equals(other.name))) {
             return false;
         }
         return true;
@@ -154,9 +112,7 @@ public final class Favorite {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + (this.name != null
-                            ? this.name.hashCode()
-                            : 0);
+        hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
 }

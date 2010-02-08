@@ -30,10 +30,10 @@ import java.util.List;
  */
 public final class ParamStatement {
 
-    private String sql;
+    private String   sql;
     private Object[] values;
-    private boolean isQuery;
-    private String name;
+    private boolean  isQuery;
+    private String   name;
 
     public ParamStatement() {
     }
@@ -50,35 +50,22 @@ public final class ParamStatement {
             String sql, Object[] values, boolean isQuery, String name) {
 
         this.sql = sql;
-        this.values = values == null
-                      ? null
-                      : Arrays.copyOf(values, values.length);
+        this.values = values == null ? null : Arrays.copyOf(values, values.length);
         this.isQuery = isQuery;
         this.name = name;
     }
 
-    /**
-     * Liefert den SQL-String.
-     *
-     * @return SQL-String
-     */
     public String getSql() {
         return sql;
     }
 
-    /**
-     * Setzt den SQL-String.
-     *
-     * @param sql SQL-String. Default: null.
-     */
     public void setSql(String sql) {
         this.sql = sql;
     }
 
     /**
-     * Liefert die Parameterwerte.
      *
-     * @return Parameterwerte oder null, wenn es keine gibt
+     * @return parameter values or null
      */
     public Object[] getValues() {
         return values == null
@@ -87,9 +74,8 @@ public final class ParamStatement {
     }
 
     /**
-     * Setzt die Parameterwerte.
      *
-     * @param values Parameterwerte. Default: null.
+     * @param values parameter values. Default: null.
      */
     public void setValues(Object[] values) {
         if (values == null) {
@@ -99,53 +85,27 @@ public final class ParamStatement {
         }
     }
 
-    /**
-     * Liefert die Werte als Liste.
-     *
-     * @return Werte als Stringarray
-     */
     public List<String> getValuesAsStringList() {
         if (values == null) return new ArrayList<String>();
-        List<String> array = new ArrayList<String>();
+        List<String> list = new ArrayList<String>();
         for (int index = 0; index < values.length; index++) {
-            array.add(values[index].toString());
+            list.add(values[index].toString());
         }
-        return array;
+        return list;
     }
 
-    /**
-     * Liefert, ob das Statement eine Abfrage ist.
-     *
-     * @return true, wenn das Statement eine Abfrage ist
-     */
     public boolean isQuery() {
         return isQuery;
     }
 
-    /**
-     * Setzt, ob das Statement eine Abfrage ist.
-     *
-     * @param isQuery true, wenn das Statement eine Abfrage ist.
-     *     Default: true.
-     */
     public void setIsQuery(boolean isQuery) {
         this.isQuery = isQuery;
     }
 
-    /**
-     * Liefert den Namen des Statements.
-     *
-     * @return Name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Setzt den Namen des Statements.
-     *
-     * @param name Name. Default: null.
-     */
     public void setName(String name) {
         this.name = name;
     }

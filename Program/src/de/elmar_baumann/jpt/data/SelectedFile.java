@@ -32,9 +32,9 @@ import java.util.List;
  */
 public final class SelectedFile {
 
-    public static final SelectedFile INSTANCE = new SelectedFile();
-    private List<XMPPropertyInfo> xmpPropertyInfos;
-    private File file = new File("");
+    public static final SelectedFile          INSTANCE        = new SelectedFile();
+    private             List<XMPPropertyInfo> xmpPropertyInfos;
+    private             File                  file            = new File("");
 
     /**
      * Sets the file and it's metadata.
@@ -43,20 +43,16 @@ public final class SelectedFile {
      * @param xmpPropertyInfos      XMP metadata
      * @throws NullPointerException if the file is null
      */
-    public synchronized void setFile(
-            File file, List<XMPPropertyInfo> xmpPropertyInfos) {
-        if (file == null)
-            throw new NullPointerException("file == null");
+    public synchronized void setFile(File file, List<XMPPropertyInfo> xmpPropertyInfos) {
+        if (file == null) throw new NullPointerException("file == null");
 
         this.file = file;
         this.xmpPropertyInfos = xmpPropertyInfos == null
                                 ? null
-                                : new ArrayList<XMPPropertyInfo>(
-                xmpPropertyInfos);
+                                : new ArrayList<XMPPropertyInfo>(xmpPropertyInfos);
     }
 
     /**
-     * Returns the file.
      *
      * @return File. If not set, a file with an empty name is returned.
      */
@@ -65,9 +61,8 @@ public final class SelectedFile {
     }
 
     /**
-     * Returns XMP metadata.
      *
-     * @return XMP metadata or null if not set or set as null
+     * @return XMP metadata or null
      */
     public synchronized List<XMPPropertyInfo> getPropertyInfos() {
         return xmpPropertyInfos == null
