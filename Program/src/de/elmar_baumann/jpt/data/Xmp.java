@@ -31,6 +31,7 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -70,24 +71,18 @@ public final class Xmp implements TextEntryListener {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void textChanged(Column column, String oldText, String newText) {
         if (XmpRepeatableValues.isRepeatable(column)) {
             Object o = valueOfColumn.get(column);
             if (o == null) {
-                List<Object> list = new ArrayList<Object>();
-                list.add(newText);
-                valueOfColumn.put(column, list);
-            }
-            assert o instanceof List<?> : "Not a List: " + o;
-            if (o instanceof List<?>) {
-                List<Object> list = (List<Object>) o;
-                int index = list.indexOf(oldText);
-                if (index >= 0) {
-                    list.set(index, newText);
-                } else {
-                    list.add(newText);
-                }
+                Collection<Object> collection = new ArrayList<Object>();
+                collection.add(newText);
+                valueOfColumn.put(column, collection);
+            } else if (o instanceof Collection<?>) {
+                @SuppressWarnings("unchecked")
+                Collection<? super Object> collection = (Collection<? super Object>) o;
+                collection.remove(oldText);
+                collection.add(newText);
             }
         } else {
             setValue(column, newText);
@@ -135,16 +130,12 @@ public final class Xmp implements TextEntryListener {
                         iptcString = formatIptcDate(xmpColumn, iptcString);
                         setValue(xmpColumn, iptcString);
                     }
-                } else if (iptcValue instanceof List<?>) {
+                } else if (iptcValue instanceof Collection<?>) {
                     @SuppressWarnings("unchecked")
-                    List<Object> list = (List<Object>) iptcValue;
-                    if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
-                        for (Object o : list) {
+                    Collection<?> collection = (Collection<?>) iptcValue;
+                    if (XmpRepeatableValues.isRepeatable(xmpColumn) || !collection.isEmpty()) {
+                        for (Object o : collection) {
                             setValue(xmpColumn, o);
-                        }
-                    } else {
-                        if (!list.isEmpty()) {
-                            setValue(xmpColumn, list.get(0));
                         }
                     }
                 } else {
@@ -168,14 +159,14 @@ public final class Xmp implements TextEntryListener {
     public Object getValue(Column xmpColumn) {
         Object o = valueOfColumn.get(xmpColumn);
         return o instanceof List<?>
-               ? new ArrayList<Object>((List<?>) o)
+               ? new ArrayList<Object>((List<?>) o) // Returning a copy
                : o;
     }
 
     public void setValue(Column xmpColumn, Object value) {
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
             if (value != null) {
-                addToList(xmpColumn, value);
+                addToCollection(xmpColumn, value);
             }
         } else {
             valueOfColumn.put(xmpColumn, value);
@@ -192,11 +183,11 @@ public final class Xmp implements TextEntryListener {
     public void removeValue(Column xmpColumn, Object value) {
         Object o = valueOfColumn.get(xmpColumn);
         boolean remove = true;
-        if (o instanceof List<?>) {
+        if (o instanceof Collection<?>) {
             @SuppressWarnings("unchecked")
-            List<Object> list = (List<Object>) o;
-            list.remove(value);
-            remove = list.isEmpty();
+            Collection<?> collection = (Collection<?>) o;
+            collection.remove(value);
+            remove = collection.isEmpty();
         }
         if (remove) {
             valueOfColumn.remove(xmpColumn);
@@ -224,22 +215,22 @@ public final class Xmp implements TextEntryListener {
     }
 
     @SuppressWarnings("unchecked")
-    private List<Object> listReferenceOf(Column column) {
+    private Collection<? super Object> collectionReferenceOf(Column column) {
         Object o = valueOfColumn.get(column);
-        return o instanceof List<?>
-               ? (List<Object>) o
+        return o instanceof Collection<?>
+               ? (Collection<? super Object>) o
                : null;
     }
 
-    private void addToList(Column column, Object value) {
+    private void addToCollection(Column column, Object value) {
         if (value == null) return;
-        List<Object> list = listReferenceOf(column);
-        if (list == null) {
-            list = new ArrayList<Object>();
-            valueOfColumn.put(column, list);
+        Collection<? super Object> collection = collectionReferenceOf(column);
+        if (collection == null) {
+            collection = new ArrayList<Object>();
+            valueOfColumn.put(column, collection);
         }
-        if (!list.contains(value)) {
-            list.add(value);
+        if (!collection.contains(value)) {
+            collection.add(value);
         }
     }
 
@@ -255,7 +246,7 @@ public final class Xmp implements TextEntryListener {
         valueOfColumn.clear();
         for (Column column : xmp.valueOfColumn.keySet()) {
             Object o = xmp.valueOfColumn.get(column);
-            if (o instanceof List<?>) {
+            if (o instanceof Collection<?>) {
                 valueOfColumn.put(column, new ArrayList<Object>((List<?>) o));
             } else if (o != null) {
                 valueOfColumn.put(column, o);
