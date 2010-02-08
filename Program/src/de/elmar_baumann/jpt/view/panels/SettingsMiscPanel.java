@@ -181,6 +181,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         UserSettings.INSTANCE.setAutoDownloadNewerVersions(checkBoxAutoDownloadCheck.isSelected());
     }
 
+    private void handleActionComboBoxIptcCharset() {
+        UserSettings.INSTANCE.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
+    }
+
     private void checkLogLevel() {
         if (comboBoxLogLevel.getSelectedIndex() < 0) {
             comboBoxLogLevel.setSelectedIndex(0);
@@ -205,6 +209,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         checkBoxAutoDownloadCheck.setSelected(settings.isAutoDownloadNewerVersions());
         checkBoxDisplaySearchButton.setSelected(UserSettings.INSTANCE.isDisplaySearchButton());
+        comboBoxIptcCharset.getModel().setSelectedItem(UserSettings.INSTANCE.getIptcCharset());
         setIconDatabaseDirectory();
     }
 
@@ -264,6 +269,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
         checkBoxAutoDownloadCheck = new javax.swing.JCheckBox();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
+        labelIptcCharset = new javax.swing.JLabel();
+        comboBoxIptcCharset = new javax.swing.JComboBox();
 
         labelInfoWebBrowser.setText(Bundle.getString("SettingsMiscPanel.labelInfoWebBrowser.text")); // NOI18N
 
@@ -502,6 +509,15 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
+        labelIptcCharset.setText(Bundle.getString("SettingsMiscPanel.labelIptcCharset.text")); // NOI18N
+
+        comboBoxIptcCharset.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISO-8859-1", "UTF-8" }));
+        comboBoxIptcCharset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxIptcCharsetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMiscLayout = new javax.swing.GroupLayout(panelMisc);
         panelMisc.setLayout(panelMiscLayout);
         panelMiscLayout.setHorizontalGroup(
@@ -512,7 +528,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBoxAutoDownloadCheck)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelMiscLayout.createSequentialGroup()
+                        .addComponent(labelIptcCharset)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelMiscLayout.setVerticalGroup(
@@ -526,7 +546,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelIptcCharset)
+                    .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
@@ -587,6 +611,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         handleActionPerformedCheckBoxDisplaySearchButton();
 }//GEN-LAST:event_checkBoxDisplaySearchButtonActionPerformed
 
+    private void comboBoxIptcCharsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetActionPerformed
+        handleActionComboBoxIptcCharset();
+}//GEN-LAST:event_comboBoxIptcCharsetActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseDatabaseDirectory;
     private javax.swing.JButton buttonChoosePdfViewer;
@@ -596,6 +624,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxAutoDownloadCheck;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
+    private javax.swing.JComboBox comboBoxIptcCharset;
     private javax.swing.JComboBox comboBoxLogLevel;
     private javax.swing.JComboBox comboBoxLogfileFormatterClass;
     private javax.swing.JLabel labelDatabaseDirectory;
@@ -603,6 +632,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JLabel labelInfoLogfile;
     private javax.swing.JLabel labelInfoPdfViewer;
     private javax.swing.JLabel labelInfoWebBrowser;
+    private javax.swing.JLabel labelIptcCharset;
     private javax.swing.JLabel labelLogLevel;
     private javax.swing.JLabel labelLogLogfileFormatterClass;
     private javax.swing.JLabel labelPdfViewer;

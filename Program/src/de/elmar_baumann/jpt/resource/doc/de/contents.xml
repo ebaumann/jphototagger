@@ -235,10 +235,6 @@
             <title>Vorschaubilder</title>
         </page>
         <page>
-            <url>settings_iptc.html</url>
-            <title>IPTC</title>
-        </page>
-        <page>
             <url>settings_tasks.html</url>
             <title>Automatisieren</title>
         </page>
