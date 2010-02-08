@@ -22,6 +22,8 @@ import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -125,7 +127,7 @@ public final class SetExifToXmp extends HelperThread {
                 if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFilename)) {
                     ImageFile imageFile = new ImageFile();
 
-                    xmp.setLastModified(new File(xmpFilename).lastModified());
+                    xmp.setValue(ColumnXmpLastModified.INSTANCE, new File(xmpFilename).lastModified());
                     imageFile.setLastmodified(new File(filename).lastModified()); // Avoids re-reading thumbnails
                     imageFile.setFilename(filename);
                     imageFile.setXmp(xmp);
@@ -139,7 +141,7 @@ public final class SetExifToXmp extends HelperThread {
 
     private static boolean isSet(Xmp xmp, boolean replaceExistingXmpData) {
         return replaceExistingXmpData ||
-               xmp.getIptc4XmpCoreDateCreated() == null;
+               !xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
     }
 
     public static boolean exifHasValues(Exif exif) {
@@ -148,7 +150,7 @@ public final class SetExifToXmp extends HelperThread {
 
     public static void setDateCreated(Xmp xmp, Exif exif) {
         if (exif.getDateTimeOriginal() != null) {
-            xmp.setIptc4XmpCoreDateCreated(exif.getXmpDateCreated());
+            xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, exif.getXmpDateCreated());
         }
     }
 

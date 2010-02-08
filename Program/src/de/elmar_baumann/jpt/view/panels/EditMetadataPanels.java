@@ -285,7 +285,7 @@ public final class EditMetadataPanels
                     // Only one call possible, so try catch within a loop is ok
                     String s = p.getText();
                     if (s != null && !s.isEmpty()) {
-                        xmp.setRating(Long.getLong(s));
+                        xmp.setValue(ColumnXmpRating.INSTANCE, Long.getLong(s));
                     }
                 } catch (Exception ex) {
                     AppLogger.logSevere(getClass(), ex);
@@ -329,7 +329,7 @@ public final class EditMetadataPanels
                 }
             } else if (panel instanceof RatingSelectionPanel) {
                 RatingSelectionPanel p      = (RatingSelectionPanel) panel;
-                Long                 rating = xmp.getRating();
+                Long                 rating = xmp.contains(ColumnXmpRating.INSTANCE) ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE) : null;
                 if (rating != null) {
                     p.setText(Long.toString(rating));
                     p.setDirty(true);

@@ -23,6 +23,8 @@ import de.elmar_baumann.jpt.cache.ThumbnailRenderer;
 import de.elmar_baumann.jpt.cache.XmpCache;
 import de.elmar_baumann.jpt.data.ThumbnailFlag;
 import de.elmar_baumann.jpt.data.Xmp;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -389,14 +391,15 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
      * @param file  File designating a Thumbnail
      * @return      keywords
      */
+    @SuppressWarnings("unchecked")
     public synchronized List<String> getKeywords(File file) {
         Xmp xmp = xmpCache.getXmp(file);
 
-        if (xmp == null) {
+        if (xmp == null || !xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
             return null;
         }
 
-        return xmp.getDcSubjects();
+        return (List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE);
     }
 
     /**
@@ -411,11 +414,11 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
             return 0;
         }
 
-        Long rating = xmp.getRating();
+        Long rating = xmp.contains(ColumnXmpRating.INSTANCE) ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE) : null;
         if (rating == null) {
             return 0;
         }
 
-        return xmp.getRating().intValue();
+        return rating.intValue();
     }
 }
