@@ -19,8 +19,6 @@
 package de.elmar_baumann.jpt.database.metadata;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.model.ListModelSelectedColumns;
-import de.elmar_baumann.lib.component.CheckList;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,24 +70,6 @@ public final class ColumnUtil {
             text.add(column.getDescription());
         }
         return text;
-    }
-
-    /**
-     * Returns all selected columns in a
-     * {@link de.elmar_baumann.lib.component.CheckList} with a
-     * {@link de.elmar_baumann.jpt.model.ListModelSelectedColumns}.
-     *
-     * @param  list  check list
-     * @return selected columns
-     */
-    public static List<Column> getSelectedColumns(CheckList list) {
-        List<Column> columns = new ArrayList<Column>();
-        ListModelSelectedColumns model = (ListModelSelectedColumns) list.getModel();
-        List<Integer> indices = list.getSelectedItemIndices();
-        for (Integer index : indices) {
-            columns.add(model.getColumnAtIndex(index));
-        }
-        return columns;
     }
 
     private ColumnUtil() {}

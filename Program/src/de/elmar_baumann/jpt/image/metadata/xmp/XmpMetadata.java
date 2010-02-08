@@ -356,7 +356,7 @@ public final class XmpMetadata {
      * @param toXmpMeta XMP metadata
      */
     private static void deleteAllEditableMetadataFrom(XMPMeta xmpMeta) {
-        Set<Column> editableXmpColumns = EditColumns.get();
+        List<Column> editableXmpColumns = EditColumns.get();
 
         for (Column editableColumn : editableXmpColumns) {
             String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(editableColumn);

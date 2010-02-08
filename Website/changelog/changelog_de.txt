@@ -10,6 +10,8 @@ Changelog JPhotoTagger
 
 * Schnellsuchfelder können nicht mehr individuell bestimmt werden. Es wird
   nun in allen bisher definierbaren Feldern gesucht.
+* Es kann nicht mehr bestimmt werden, dass Bearbeiten-Felder ausgeblendet
+  werden können
 
 0.7.64 2010-02-07
 -----------------
