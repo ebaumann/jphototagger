@@ -30,6 +30,7 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -51,10 +52,13 @@ public final class NikonMakerNotes implements ExifMakerNotes {
         while (exists) {
 
             try {
-                // FIXME: Checking for existance rather than using the exception
-                // as stop criteria or even better: Reading the package content
-                // and getting all names of property files starting with
-                // "ExifMakerNote_" and load them
+                // Better than catching an exception?
+                //    java.util.jar.JarFile jarFile = new java.util.jar.JarFile(".../JPhotoTagger.jar");
+                //    Enumeration entries = jarFile.entries();
+                //    while (entries.hasMoreElements()) {
+                //        java.util.zip.ZipEntry entry = (java.util.zip.ZipEntry) entries.nextElement();
+                //        if (entry.getName().startsWith(PROPERTY_FILE_PREFIX) ...
+                //    }
                 ResourceBundle bundle = ResourceBundle.getBundle(PROPERTY_FILE_PREFIX + Integer.toString(index++));
                 MAKER_NOTES.add(new NikonMakerNote(bundle));
             } catch (Exception ex) {
