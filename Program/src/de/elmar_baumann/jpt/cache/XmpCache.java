@@ -105,7 +105,7 @@ public class XmpCache extends Cache<XmpCacheIndirection>
                         files.remove(temp);
                     }
                     // if we have files left, there was nothing in the DB, we
-                    // fabricate empty xmp objects for them, in order not to
+                    // fabricate clear xmp objects for them, in order not to
                     // have to ask the DB again
                     for (String f : files) {
                         Xmp xmp = new Xmp();

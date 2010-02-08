@@ -127,11 +127,12 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
         return DatabaseStatistics.INSTANCE.existsValueIn(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
     }
 
+    @SuppressWarnings("unchecked")
     private List<String> getKeywords(ImageFile imageFile) {
         List<String> keywords = new ArrayList<String>();
         Xmp          xmp      = imageFile.getXmp();
-        if (xmp != null && xmp.getDcSubjects() != null) {
-            keywords.addAll(xmp.getDcSubjects());
+        if (xmp != null && xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+            keywords.addAll((List<String>)xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE));
         }
         return keywords;
     }

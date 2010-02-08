@@ -27,6 +27,8 @@ import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent;
 import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent.Type;
 import de.elmar_baumann.jpt.event.ProgressEvent;
@@ -272,17 +274,17 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         Xmp     xmp               = imageFile.getXmp();
         boolean hasExif           = exif != null;
         boolean hasXmp            = xmp  != null;
-        boolean hasXmpDateCreated = hasXmp  && xmp.getIptc4XmpCoreDateCreated() != null;
+        boolean hasXmpDateCreated = hasXmp  && xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         boolean hasExifDate       = hasExif && exif.getDateTimeOriginal() != null;
 
         if (hasXmpDateCreated || !hasXmp || !hasExif || !hasExifDate) return;
 
-        xmp.setIptc4XmpCoreDateCreated(exif.getXmpDateCreated());
+        xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, exif.getXmpDateCreated());
 
         File sidecarFile = new File(XmpMetadata.suggestSidecarFilename(imageFile.getFilename()));
         if (sidecarFile.canWrite()) {
             XmpMetadata.writeXmpToSidecarFile( xmp, sidecarFile.getAbsolutePath());
-            xmp.setLastModified(sidecarFile.lastModified());
+            xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
         }
     }
 

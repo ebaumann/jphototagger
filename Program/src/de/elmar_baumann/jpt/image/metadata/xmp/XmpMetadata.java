@@ -37,6 +37,7 @@ import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpArrayNameMapping;
 import de.elmar_baumann.jpt.database.metadata.selections.EditColumns;
 import de.elmar_baumann.jpt.database.metadata.selections.XmpInDatabase;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.lib.image.metadata.xmp.XmpFileReader;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -387,7 +388,7 @@ public final class XmpMetadata {
         if (xmpValue != null) {
             if (xmpValue instanceof String) {
                 String value = (String) xmpValue;
-                // 2009-08-02: No side effects if value is empty
+                // 2009-08-02: No side effects if value is clear
                 // ("orphaned data"), because previous metadata was deleted
                 if (XmpColumnXmpDataTypeMapping.isText(column) && !value.trim().isEmpty()) {
                     toXmpMeta.setProperty(namespaceUri, arrayName, value);
@@ -570,9 +571,9 @@ public final class XmpMetadata {
         File   imageFile       = new File(imageFilename);
 
         if (xmpType.equals(XmpLocation.SIDECAR_FILE) && sidecarFilename != null) {
-            xmp.setLastModified(new File(sidecarFilename).lastModified());
+            xmp.setValue(ColumnXmpLastModified.INSTANCE, new File(sidecarFilename).lastModified());
         } else if (xmpType.equals(XmpLocation.EMBEDDED) && FileUtil.existsFile(imageFile)) {
-            xmp.setLastModified(imageFile.lastModified());
+            xmp.setValue(ColumnXmpLastModified.INSTANCE, imageFile.lastModified());
         }
     }
 

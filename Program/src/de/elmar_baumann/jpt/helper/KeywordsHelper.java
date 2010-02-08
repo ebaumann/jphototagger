@@ -25,6 +25,7 @@ import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
@@ -265,7 +266,7 @@ public final class KeywordsHelper {
                 Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE, oldName);
-                    xmp.addDcSubject(newName);
+                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, newName);
                     updateXmp(xmp, filename, sidecarFilename);
                 }
                 progressPerformed(index + 1, xmp);
@@ -330,7 +331,7 @@ public final class KeywordsHelper {
             ImageFile imageFile = new ImageFile();
             imageFile.setFilename(filename);
             imageFile.setLastmodified(FileUtil.getLastModified(filename));
-            xmp.setLastModified(FileUtil.getLastModified(sidecarFilename));
+            xmp.setValue(ColumnXmpLastModified.INSTANCE, FileUtil.getLastModified(sidecarFilename));
             imageFile.setXmp(xmp);
             imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
             DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);

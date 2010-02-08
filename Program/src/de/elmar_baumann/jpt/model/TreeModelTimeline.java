@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.data.Timeline.Date;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
@@ -93,7 +94,8 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
         }
 
         if (xmp != null) {
-            xmpDate       = xmp.getIptc4XmpCoreDateCreated();
+            Object o = xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+            xmpDate       = o == null ? null : (String) xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
             xmpDateExists = xmpDate != null && db.existsXMPDateCreated(xmpDate);
         }
 
@@ -127,8 +129,8 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
             }
         }
 
-        if (xmp != null && xmp.getIptc4XmpCoreDateCreated() != null) {
-            String        xmpDate = xmp.getIptc4XmpCoreDateCreated();
+        if (xmp != null && xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)) {
+            String        xmpDate = (String)xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
             Timeline.Date date    = new Timeline.Date(-1, -1, -1);
 
             date.setXmpDateCreated(xmpDate);

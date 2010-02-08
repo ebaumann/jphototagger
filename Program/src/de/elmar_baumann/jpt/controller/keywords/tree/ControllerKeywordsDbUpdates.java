@@ -3,6 +3,7 @@ package de.elmar_baumann.jpt.controller.keywords.tree;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.factory.ModelFactory;
@@ -33,11 +34,12 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void addNotExistingKeywords(ImageFile imageFile) {
         if (imageFile != null && imageFile.getXmp() != null) {
-             List<String> keywords = imageFile.getXmp().getDcSubjects();
-             if (keywords != null) {
-                for (String keyword : keywords) {
+             Object o = imageFile.getXmp().getValue(ColumnXmpDcSubjectsSubject.INSTANCE);
+             if (o instanceof List<?>) {
+                for (String keyword : (List<String>) o) {
                    if (!DatabaseKeywords.INSTANCE.exists(keyword)) {
                        addKeyword(keyword);
                    }
