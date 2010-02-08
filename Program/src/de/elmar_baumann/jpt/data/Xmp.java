@@ -52,12 +52,12 @@ public final class Xmp implements TextEntryListener {
         set(other);
     }
 
-    public boolean contains(Column column) {
-        return valueOfColumn.get(column) != null;
+    public boolean contains(Column xmpColumn) {
+        return valueOfColumn.get(xmpColumn) != null;
     }
 
-    public Object remove(Column column) {
-        return valueOfColumn.remove(column);
+    public Object remove(Column xmpColumn) {
+        return valueOfColumn.remove(xmpColumn);
     }
 
     @Override
@@ -71,13 +71,13 @@ public final class Xmp implements TextEntryListener {
     }
 
     @Override
-    public void textChanged(Column column, String oldText, String newText) {
-        if (XmpRepeatableValues.isRepeatable(column)) {
-            Object o = valueOfColumn.get(column);
+    public void textChanged(Column xmpColumn, String oldText, String newText) {
+        if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
+            Object o = valueOfColumn.get(xmpColumn);
             if (o == null) {
                 Collection<Object> collection = new ArrayList<Object>();
                 collection.add(newText);
-                valueOfColumn.put(column, collection);
+                valueOfColumn.put(xmpColumn, collection);
             } else if (o instanceof Collection<?>) {
                 @SuppressWarnings("unchecked")
                 Collection<? super Object> collection = (Collection<? super Object>) o;
@@ -85,7 +85,7 @@ public final class Xmp implements TextEntryListener {
                 collection.add(newText);
             }
         } else {
-            setValue(column, newText);
+            setValue(xmpColumn, newText);
         }
     }
 
@@ -119,9 +119,9 @@ public final class Xmp implements TextEntryListener {
         }
         List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getAllPairs();
         for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
-            Column xmpColumn = mappingPair.getSecond();
+            Column         xmpColumn    = mappingPair.getSecond();
             IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
-            Object iptcValue = iptc.getValue(iptcEntryMeta);
+            Object         iptcValue    = iptc.getValue(iptcEntryMeta);
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
                     String iptcString = (String) iptcValue;
@@ -133,9 +133,17 @@ public final class Xmp implements TextEntryListener {
                 } else if (iptcValue instanceof Collection<?>) {
                     @SuppressWarnings("unchecked")
                     Collection<?> collection = (Collection<?>) iptcValue;
-                    if (XmpRepeatableValues.isRepeatable(xmpColumn) || !collection.isEmpty()) {
+                    if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
                         for (Object o : collection) {
                             setValue(xmpColumn, o);
+                        }
+                    } else if (!collection.isEmpty()) {
+                        boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES) || getValue(xmpColumn) == null;
+                        if (isSet) {
+                            int i = 0;
+                            for (Object value : collection) {
+                                if (i++ == 0) setValue(xmpColumn, value);
+                            }
                         }
                     }
                 } else {
@@ -176,9 +184,11 @@ public final class Xmp implements TextEntryListener {
     /**
      * Removes a value of a XMP column.
      *
-     * @param xmpColumn  XMP column
-     * @param value      value not null. If the column contains a repeatable
-     *                   value it will be removed from it's list.
+     * If the column contains a repeatable value it will be removed from it's
+     * collection.
+     *
+     * @param xmpColumn XMP column
+     * @param value     value not null
      */
     public void removeValue(Column xmpColumn, Object value) {
         Object o = valueOfColumn.get(xmpColumn);
@@ -234,13 +244,6 @@ public final class Xmp implements TextEntryListener {
         }
     }
 
-    /**
-     * Sets the values of an other XMP object via deep copy.
-     *
-     * @param xmp Other XMP object
-     */
-    // All get() calls are returning null after clear(). Thus a column with a
-    // value of null has not to be set.
     public void set(Xmp xmp) {
         if (xmp == this) return;
         valueOfColumn.clear();
