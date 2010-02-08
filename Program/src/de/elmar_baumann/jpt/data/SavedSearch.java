@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Daten einer gespeicherten Suche.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
@@ -77,22 +76,12 @@ public final class SavedSearch {
         type   = other.type;
     }
 
-    /**
-     * Liefert die Paneldaten.
-     *
-     * @return Paneldaten
-     */
     public List<SavedSearchPanel> getPanels() {
         return panels == null
                ? null
                : getDeepCopyPanels();
     }
 
-    /**
-     * Setzt die Paneldaten.
-     *
-     * @param panels panels
-     */
     public void setPanels(List<SavedSearchPanel> panels) {
         if (panels == null) {
             this.panels = null;
@@ -101,11 +90,6 @@ public final class SavedSearch {
         }
     }
 
-    /**
-     * Fügt Paneldaten hinzu.
-     *
-     * @param panel Panel
-     */
     public void addPanel(SavedSearchPanel panel) {
         if (panels == null) {
             panels = new ArrayList<SavedSearchPanel>();
@@ -113,31 +97,16 @@ public final class SavedSearch {
         panels.add(panel);
     }
 
-    /**
-     * Setzt die Satementdaten.
-     *
-     * @return <strong>reference</strong> to satement data
-     */
     public SavedSearchParamStatement getParamStatement() {
         return paramStatement == null
                ? null
                : new SavedSearchParamStatement(paramStatement);
     }
 
-    /**
-     * Sets the param statement.
-     *
-     * @param paramStatement Satement
-     */
     public void setParamStatement(SavedSearchParamStatement paramStatement) {
         this.paramStatement = new SavedSearchParamStatement(paramStatement);
     }
 
-    /**
-     * Liefert, ob Statementdaten existieren.
-     *
-     * @return true, wenn Statementdaten existieren
-     */
     public boolean hasParamStatement() {
         return paramStatement != null;
     }
@@ -150,11 +119,6 @@ public final class SavedSearch {
         this.type = type;
     }
 
-    /**
-     * Liefert, ob Paneldaten existieren.
-     *
-     * @return true, wenn Paneldaten existieren
-     */
     public boolean hasPanels() {
         return panels != null && !panels.isEmpty();
     }
@@ -184,13 +148,6 @@ public final class SavedSearch {
         return hash;
     }
 
-    /**
-     * Liefert den Namen des parametrisierten Statements. Diesen liefert auch
-     * {@link #toString()}.
-     *
-     * @return Name
-     * @see    de.elmar_baumann.jpt.data.ParamStatement#getName()
-     */
     public String getName() {
         String string = null;
         if (paramStatement != null) {
@@ -201,12 +158,6 @@ public final class SavedSearch {
                 : string);
     }
 
-    /**
-     * Setzt den Namen des parametrisierten Statements.
-     *
-     * @param name Name
-     * @see    de.elmar_baumann.jpt.data.ParamStatement#setName(java.lang.String)
-     */
     public void setName(String name) {
         if (paramStatement == null) return;
         paramStatement.setName(name);

@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
+import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,13 @@ public final class XmpTables {
 
     public static List<Table> get() {
         return new ArrayList<Table>(XMP_TABLES);
+    }
+
+    public static boolean isXmpColumn(Column column) {
+        for (Table table : XMP_TABLES) {
+            if (table.contains(column)) return true;
+        }
+        return false;
     }
 
     private XmpTables() {

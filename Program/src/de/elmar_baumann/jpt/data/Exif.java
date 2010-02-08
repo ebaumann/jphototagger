@@ -30,8 +30,8 @@ import java.text.SimpleDateFormat;
 public final class Exif {
 
     private Date   dateTimeOriginal;
-    private double focalLength = -1;
-    private short  isoSpeedRatings = -1;
+    private double focalLength       = -1;
+    private short  isoSpeedRatings   = -1;
     private String recordingEquipment;
     private String lens;
 
@@ -106,12 +106,9 @@ public final class Exif {
      * @param recordingEquipment camera
      */
     public void setRecordingEquipment(String recordingEquipment) {
-        // Bugfix imagero: when first byte of RAW data is 0, then the returned
-        // string is "0"
-        this.recordingEquipment = recordingEquipment == null ||
-                recordingEquipment.equals("0")
-                                  ? null
-                                  : recordingEquipment;
+        // Bugfix imagero: If first byte of RAW data is 0, then the returned string is "0"
+        this.recordingEquipment = recordingEquipment == null || recordingEquipment.equals("0")
+                    ? null : recordingEquipment;
     }
 
     public String getLens() {
@@ -128,11 +125,6 @@ public final class Exif {
         return new SimpleDateFormat("yyyy-MM-dd").format(dateTimeOriginal);
     }
 
-    /**
-     * Returns wheter no EXIF field of this class was set.
-     *
-     * @return true if no EXIF field was set
-     */
     public boolean isEmpty() {
         return dateTimeOriginal == null &&
                 focalLength < 0 &&
