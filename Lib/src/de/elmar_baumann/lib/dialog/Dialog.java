@@ -54,7 +54,17 @@ public class Dialog extends JDialog implements WindowListener {
         init(null, null);
     }
 
+    public Dialog(JDialog owner, boolean modal) {
+        super(owner, modal);
+        init(null, null);
+    }
+
     public Dialog(Frame owner) {
+        super(owner);
+        init(null, null);
+    }
+
+    public Dialog(JDialog owner) {
         super(owner);
         init(null, null);
     }
@@ -75,11 +85,36 @@ public class Dialog extends JDialog implements WindowListener {
     /**
      *
      * @param owner
+     * @param modal
+     * @param settings     settings for size and location
+     * @param settingsKey  key for size and location or null if the class name
+     *                     shall be the key
+     */
+    public Dialog(JDialog owner, boolean modal, Settings settings, String settingsKey) {
+        super(owner, modal);
+        init(settings, settingsKey);
+    }
+
+    /**
+     *
+     * @param owner
      * @param settings     settings for size and location
      * @param settingsKey  key for size and location or null if the class name
      *                     shall be the key
      */
     public Dialog(Frame owner, Settings settings, String settingsKey) {
+        super(owner);
+        init(settings, settingsKey);
+    }
+
+    /**
+     *
+     * @param owner
+     * @param settings     settings for size and location
+     * @param settingsKey  key for size and location or null if the class name
+     *                     shall be the key
+     */
+    public Dialog(JDialog owner, Settings settings, String settingsKey) {
         super(owner);
         init(settings, settingsKey);
     }
