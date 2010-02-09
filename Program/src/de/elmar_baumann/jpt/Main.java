@@ -29,7 +29,7 @@ import de.elmar_baumann.jpt.app.AppInit;
 public final class Main {
 
     public static void main(String[] args) {
-        AppInit.init(args);
+        AppInit.INSTANCE.init(args);
     }
 
     private Main() {

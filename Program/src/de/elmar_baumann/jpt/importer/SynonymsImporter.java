@@ -47,8 +47,8 @@ import org.xml.sax.SAXException;
  */
 public final class SynonymsImporter extends AbstractAction implements EntityResolver {
 
-    public static SynonymsImporter INSTANCE         = new SynonymsImporter();
-    private static final long      serialVersionUID = 1L;
+    public static final  SynonymsImporter INSTANCE         = new SynonymsImporter();
+    private static final long             serialVersionUID = 1L;
 
     @Override
     public void actionPerformed(ActionEvent e) {

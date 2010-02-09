@@ -39,11 +39,11 @@ import java.util.Set;
  */
 public final class AppLifeCycle {
 
-    public static AppLifeCycle                     INSTANCE        = new AppLifeCycle();
-    private final Set<Object>                      saveObjects     = new HashSet<Object>();
-    private final ListenerSupport<AppExitListener> listenerSupport = new ListenerSupport<AppExitListener>();
-    private       AppFrame                         appFrame;
-    private       boolean                          started;
+    public static final AppLifeCycle                     INSTANCE        = new AppLifeCycle();
+    private final       Set<Object>                      saveObjects     = new HashSet<Object>();
+    private final       ListenerSupport<AppExitListener> listenerSupport = new ListenerSupport<AppExitListener>();
+    private             AppFrame                         appFrame;
+    private             boolean                          started;
 
     /**
      * Has be to call <em>once</em> after the {@link AppFrame} has been created.
