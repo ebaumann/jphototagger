@@ -140,16 +140,21 @@ final class KeywordImporterLightroom
 
     }
 
-    private List<String> readLines(File file)
-            throws FileNotFoundException, IOException {
-        List<String> lines = new ArrayList<String>();
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(
-                new FileInputStream(file.getAbsolutePath()),
-                CharEncoding.LIGHTROOM_KEYWORDS));
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            lines.add(line);
+    private List<String> readLines(File file) throws FileNotFoundException, IOException {
+        List<String>   lines  = new ArrayList<String>();
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePath()), CharEncoding.LIGHTROOM_KEYWORDS));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException ex) {
+            throw ex;
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
         }
         return lines;
     }
