@@ -86,6 +86,7 @@ public final class HelpBrowser
         editorPanePage.addHyperlinkListener(this);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.addTreeSelectionListener(this);
+        setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
     }
 
     /**
