@@ -4,6 +4,7 @@ import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.util.Settings;
 import java.awt.event.KeyEvent;
 import java.util.Properties;
+import javax.swing.JDialog;
 
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
@@ -22,6 +23,11 @@ public class InputDialog extends Dialog {
         initComponents();
     }
 
+    public InputDialog(JDialog owner) {
+        super(owner, true);
+        initComponents();
+    }
+
     public InputDialog(String info, String input) {
         super(ComponentUtil.getFrameWithIcon(), true);
         initComponents();
@@ -29,8 +35,23 @@ public class InputDialog extends Dialog {
         textFieldInput.setText(input);
     }
 
+    public InputDialog(JDialog owner, String info, String input) {
+        super(owner, true);
+        initComponents();
+        labelPrompt.setText(info);
+        textFieldInput.setText(input);
+    }
+
     public InputDialog(String info, String input, Properties properties, String propertyKey) {
         super(ComponentUtil.getFrameWithIcon(), true);
+        initComponents();
+        labelPrompt.setText(info);
+        textFieldInput.setText(input);
+        setProperties(properties, propertyKey);
+    }
+
+    public InputDialog(JDialog owner, String info, String input, Properties properties, String propertyKey) {
+        super(owner, true);
         initComponents();
         labelPrompt.setText(info);
         textFieldInput.setText(input);
@@ -109,11 +130,6 @@ public class InputDialog extends Dialog {
         textFieldInput.requestFocusInWindow();
     }
 
-    private void setAccepted(boolean accepted) {
-        this.accepted = accepted && !textFieldInput.getText().trim().isEmpty();
-        setVisible(false);
-    }
-
     private void writeProperties() {
         if (settings != null && propertyKey != null) {
             settings.setSize    (this, propertyKey);
@@ -123,7 +139,8 @@ public class InputDialog extends Dialog {
 
     @Override
     protected void escape() {
-        setAccepted(false);
+        accepted = false;
+        setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -201,16 +218,19 @@ public class InputDialog extends Dialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
-        setAccepted(true);
+        accepted = true;
+        setVisible(false);
     }//GEN-LAST:event_buttonOkActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        setAccepted(false);
+        accepted = false;
+        setVisible(false);
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            setAccepted(true);
+            accepted = true;
+            setVisible(false);
         }
     }//GEN-LAST:event_textFieldInputKeyPressed
 

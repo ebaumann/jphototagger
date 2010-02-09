@@ -43,7 +43,7 @@ final class CanonMakerNoteTag1Formatter {
                 : df.format(minF) + "-" + df.format(maxF) + " mm"
                 ;
 
-        CanonMakerNotes.addTag(exifTags, ExifTag.Id.MAKER_NOTE_LENS.value(), "Objektiv", lens);
+        CanonMakerNotes.addTag(exifTags, ExifTag.Id.MAKER_NOTE_LENS.value(), "Lens", lens);
     }
 
     private static void addFocusMode(short[] values, ExifTags exifTags) {
@@ -65,7 +65,7 @@ final class CanonMakerNoteTag1Formatter {
             case 6: mode = "MF"             ; break;
             default: return;
         }
-        CanonMakerNotes.addTag(exifTags, CanonMakerNotes.tagId(CANON_TAG, offset), "Scharfeinstellung", mode);
+        CanonMakerNotes.addTag(exifTags, CanonMakerNotes.tagId(CANON_TAG, offset), "FocusMode", mode);
     }
 
     private CanonMakerNoteTag1Formatter() {

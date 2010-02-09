@@ -63,6 +63,7 @@ import de.elmar_baumann.jpt.controller.keywords.tree.ControllerHighlightKeywords
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerImportKeywords;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerShowKeywordsDialog;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerPickReject;
+import de.elmar_baumann.jpt.controller.keywords.list.ControllerEditKeywordSynonyms;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDeleteKeywords;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDisplayKeyword;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerRenameKeywords;
@@ -250,6 +251,7 @@ public final class ControllerFactory {
         support.add(new ControllerShowUserSettingsDialog());
         support.add(new ControllerShowAdvancedSearchDialog());
         support.add(new ControllerShowSynonymsDialog());
+        support.add(new ControllerEditKeywordSynonyms());
 
         addKeywordsTreeControllers();
         addSizeAndLocationController();

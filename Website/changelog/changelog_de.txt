@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.66 2010-02-09
+-----------------
+
+* Neuer Menü-Eintrag für Stichwörter / Listenansicht, Programmfenster rechts:
+  Synonyme bearbeiten (Definieren, Ändern, Löschen von Synonymen für ein
+  ausgewähltes Stichwort)
+
 0.7.65 2010-02-08
 -----------------
 

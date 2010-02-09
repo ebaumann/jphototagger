@@ -43,11 +43,6 @@ public final class DatabaseSynonymsEvent {
         this.type = type;
     }
 
-    /**
-     * Returns the event type.
-     *
-     * @return event type
-     */
     public Type getType() {
         return type;
     }
@@ -82,5 +77,25 @@ public final class DatabaseSynonymsEvent {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public boolean isSynonymDeleted() {
+        return type.equals(Type.SYNONYM_DELETED);
+    }
+
+    public boolean isSynonymInserted() {
+        return type.equals(Type.SYNONYM_INSERTED);
+    }
+
+    public boolean isSynonymUpdated() {
+        return type.equals(Type.SYNONYM_UPDATED);
+    }
+
+    public boolean isWordUpdated() {
+        return type.equals(Type.WORD_UPDATED);
+    }
+
+    public boolean isWordDeleted() {
+        return type.equals(Type.WORD_DELETED);
     }
 }
