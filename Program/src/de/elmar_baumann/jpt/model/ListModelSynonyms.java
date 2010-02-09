@@ -50,21 +50,51 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
     }
 
     private void listen() {
-        if (role.equals(Role.WORDS)) {
-            DatabaseSynonyms.INSTANCE.addListener(this);
-        }
+        DatabaseSynonyms.INSTANCE.addListener(this);
     }
 
     @Override
     public void actionPerformed(DatabaseSynonymsEvent event) {
-        if (!listen || !role.equals(Role.WORDS)) return;
-        // Currently only import can changing (adding) words outside this model
-        if (event.getType().equals(DatabaseSynonymsEvent.Type.SYNONYM_INSERTED)) {
+        if (!listen) return;
+        if (event.isSynonymInserted()) {
             String w = event.getWord();
-            if (!contains(w)) {
-                addWord(w);
+            String s = event.getSynonym();
+            if (role.equals(Role.WORDS) && !contains(w)) {
+                addElement(w);
+            } else if (isRoleSynonymForWord(w) && !contains(s)) {
+                addElement(s);
+            }
+        } else if (event.isSynonymDeleted()) {
+            String w = event.getWord();
+            String s = event.getSynonym();
+            if (isRoleSynonymForWord(w) && contains(s)) {
+                removeElement(s);
+            } else if (role.equals(Role.WORDS) && contains(w) && !DatabaseSynonyms.INSTANCE.existsWord(w)) {
+                removeElement(w);
+            }
+        } else if (event.isSynonymUpdated()) {
+            String w  = event.getWord();
+            String s  = event.getSynonym();
+            String os = event.getOldSynonym();
+            if (isRoleSynonymForWord(w) && contains(os)) {
+                setElementAt(s, indexOf(os));
+            }
+        } else if (event.isWordUpdated()) {
+            String w  = event.getWord();
+            String ow = event.getOldWord();
+            if (role.equals(Role.WORDS) && contains(ow)) {
+                setElementAt(w, indexOf(ow));
+            }
+        } else if (event.isWordDeleted()) {
+            String w = event.getWord();
+            if (role.equals(Role.WORDS) && contains(w)) {
+                removeElement(w);
             }
         }
+    }
+
+    private boolean isRoleSynonymForWord(String word) {
+        return role.equals(Role.SYNONYMS) && this.word != null && this.word.equals(word);
     }
 
     public void addWord(String word) {
