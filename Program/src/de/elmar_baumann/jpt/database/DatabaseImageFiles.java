@@ -703,7 +703,7 @@ public final class DatabaseImageFiles extends Database {
         } finally {
             free(connection);
         }
-        event.setInfo(new Integer(countDeleted));
+        event.setInfo(countDeleted);
         notifyProgressListenerEnd(listener, event);
         return countDeleted;
     }
@@ -974,7 +974,7 @@ public final class DatabaseImageFiles extends Database {
         } finally {
             free(connection);
         }
-        progressEvent.setInfo(new Integer(countDeleted));
+        progressEvent.setInfo(countDeleted);
         notifyProgressListenerEnd(listener, progressEvent);
         return countDeleted;
     }

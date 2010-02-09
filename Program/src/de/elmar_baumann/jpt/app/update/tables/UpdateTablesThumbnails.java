@@ -86,7 +86,7 @@ final class UpdateTablesThumbnails extends Database {
             writeThumbnail(inputStream, id);
             messages.setValue(current++ / cnt * 100);
         }
-        clean(stmt, rs);
+        stmt.close();
         return current;
     }
 
@@ -206,13 +206,6 @@ final class UpdateTablesThumbnails extends Database {
         } else {
             oldFile.renameTo(newFile);
         }
-    }
-
-    private void clean(Statement stmt, ResultSet rs) throws SQLException {
-        stmt.close();
-        stmt = null;
-        rs = null;
-        System.gc();
     }
 
     private int getCount(Connection connection) throws SQLException {

@@ -75,7 +75,7 @@ public final class DatabaseMetadata extends Database {
     /**
      * Column info. The fields are documented in {@code DatabaseMetaData#getColumns()}.
      */
-    public class ColumnInfo {
+    public static class ColumnInfo {
         public String TABLE_CAT;
         public String TABLE_SCHEM;
         public String TABLE_NAME;

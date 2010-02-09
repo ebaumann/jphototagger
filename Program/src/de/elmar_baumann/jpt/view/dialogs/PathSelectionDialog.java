@@ -154,7 +154,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         }
     }
 
-    private class Renderer extends DefaultListCellRenderer {
+    private static class Renderer extends DefaultListCellRenderer {
 
         private static final long serialVersionUID = -3753515545397949621L;
 

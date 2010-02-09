@@ -70,7 +70,7 @@ public final class ControllerPlugins implements ActionListener {
         }
     }
 
-    private class Listener implements PluginListener {
+    private static class Listener implements PluginListener {
 
         @Override
         public void action(Set<Event> events) {

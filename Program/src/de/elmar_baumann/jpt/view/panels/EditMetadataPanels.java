@@ -484,8 +484,7 @@ public final class EditMetadataPanels
             // 1 ore more files without metadata
             return new ArrayList<String>(1);
         }
-        List<String> coll = new ArrayList<String>();
-        coll = lists.pop();
+        List<String> coll = lists.pop();
         while (!lists.isEmpty() && coll.size() > 0) {
             coll.retainAll(lists.pop());
         }

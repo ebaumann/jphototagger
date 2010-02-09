@@ -50,8 +50,8 @@ public final class Favorite {
     }
 
     public void set(Favorite favorite) {
-        this.name          = new String(favorite.name);
-        this.directoryName = new String(favorite.directoryName);
+        this.name          = favorite.name;
+        this.directoryName = favorite.directoryName;
         this.index         = favorite.index;
     }
 

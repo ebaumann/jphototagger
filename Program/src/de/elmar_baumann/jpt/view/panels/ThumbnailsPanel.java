@@ -197,7 +197,7 @@ public class ThumbnailsPanel extends JPanel
             file = oldFiles.get(i);
             int newI = newFiles.indexOf(file);
             if (newI < 0) continue;
-            newSelection.add(new Integer(newI));
+            newSelection.add(newI);
         }
         selectedThumbnailIndices.clear();
         selectedThumbnailIndices.addAll(newSelection);
@@ -403,7 +403,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private int getRowCountInHeight(int height) {
-        return (int) ((height - MARGIN_THUMBNAIL) /
+        return (int) ((double) (height - MARGIN_THUMBNAIL) /
                 (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL) + 0.5);
     }
 
@@ -626,7 +626,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void removeSelection(int index) {
         if (isSelected(index)) {
-            selectedThumbnailIndices.remove(new Integer(index));
+            selectedThumbnailIndices.remove(index);
             //renderedThumbnailCache.remove(getFile(index));
             rerender(index);
             notifySelectionChanged();
@@ -747,7 +747,7 @@ public class ThumbnailsPanel extends JPanel
             String flagText = flag == null ? "" : flag.getString();
             long length = file.length();
             SizeUnit unit = SizeUnit.unit(length);
-            long unitLength = (long) (length / unit.bytes() + 0.5);
+            long unitLength = (long) ((double)length / unit.bytes() + 0.5);
             Date date = new Date(file.lastModified());
             String unitString = unit.toString();
             return Bundle.getString("ThumbnailsPanel.TooltipText", file, unitLength, unitString, date, date, getSidecarFilename(file), flagText);
@@ -1029,7 +1029,7 @@ public class ThumbnailsPanel extends JPanel
             scrollToTop();
             setMissingFilesFlags();
             notifyThumbnailsChanged();
-            repaint();
+            forceRepaint();
         }
     }
 
