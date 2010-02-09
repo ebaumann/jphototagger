@@ -4,6 +4,7 @@ import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.util.Settings;
 import java.awt.event.KeyEvent;
 import java.util.Properties;
+import javax.swing.JDialog;
 
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
@@ -22,6 +23,11 @@ public class InputDialog extends Dialog {
         initComponents();
     }
 
+    public InputDialog(JDialog owner) {
+        super(owner, true);
+        initComponents();
+    }
+
     public InputDialog(String info, String input) {
         super(ComponentUtil.getFrameWithIcon(), true);
         initComponents();
@@ -29,8 +35,23 @@ public class InputDialog extends Dialog {
         textFieldInput.setText(input);
     }
 
+    public InputDialog(JDialog owner, String info, String input) {
+        super(owner, true);
+        initComponents();
+        labelPrompt.setText(info);
+        textFieldInput.setText(input);
+    }
+
     public InputDialog(String info, String input, Properties properties, String propertyKey) {
         super(ComponentUtil.getFrameWithIcon(), true);
+        initComponents();
+        labelPrompt.setText(info);
+        textFieldInput.setText(input);
+        setProperties(properties, propertyKey);
+    }
+
+    public InputDialog(JDialog owner, String info, String input, Properties properties, String propertyKey) {
+        super(owner, true);
         initComponents();
         labelPrompt.setText(info);
         textFieldInput.setText(input);
