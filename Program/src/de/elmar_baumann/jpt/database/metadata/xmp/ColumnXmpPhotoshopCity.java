@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.resource.Bundle;
  */
 public final class ColumnXmpPhotoshopCity extends Column {
 
-    public static ColumnXmpPhotoshopCity INSTANCE = new ColumnXmpPhotoshopCity();
+    public static final ColumnXmpPhotoshopCity INSTANCE = new ColumnXmpPhotoshopCity();
 
     private ColumnXmpPhotoshopCity() {
         super(

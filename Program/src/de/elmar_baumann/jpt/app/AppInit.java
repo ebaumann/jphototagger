@@ -42,18 +42,12 @@ import de.elmar_baumann.lib.util.CommandLineParser;
  */
 public final class AppInit {
 
-    public static    AppInit               INSTANCE;
-    private final    AppCommandLineOptions commandLineOptions;
-    private volatile boolean               init;
+    public static final AppInit               INSTANCE          = new AppInit();
+    private             AppCommandLineOptions commandLineOptions;
+    private volatile    boolean               init;
 
-    public static synchronized void init(String[] args) {
-        if (INSTANCE == null) {
-            INSTANCE = new AppInit(args);
-        }
-    }
-
-    private AppInit(String[] cmdLineArgs) {
-        this.commandLineOptions = new AppCommandLineOptions(new CommandLineParser(cmdLineArgs, "-", "="));
+    public synchronized void init(String[] args) {
+        this.commandLineOptions = new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
         init();
     }
 
@@ -128,5 +122,8 @@ public final class AppInit {
 
     private static void errorMessageJavaVersion(Version javaVersion) {
         MessageDisplayer.error(null, "AppInit.Error.JavaVersion", javaVersion, AppInfo.MIN_JAVA_VERSION);
+    }
+
+    private AppInit() {
     }
 }
