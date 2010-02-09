@@ -109,11 +109,6 @@ public class InputDialog extends Dialog {
         textFieldInput.requestFocusInWindow();
     }
 
-    private void setAccepted(boolean accepted) {
-        this.accepted = accepted && !textFieldInput.getText().trim().isEmpty();
-        setVisible(false);
-    }
-
     private void writeProperties() {
         if (settings != null && propertyKey != null) {
             settings.setSize    (this, propertyKey);
@@ -123,7 +118,8 @@ public class InputDialog extends Dialog {
 
     @Override
     protected void escape() {
-        setAccepted(false);
+        accepted = false;
+        setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -201,16 +197,19 @@ public class InputDialog extends Dialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
-        setAccepted(true);
+        accepted = true;
+        setVisible(false);
     }//GEN-LAST:event_buttonOkActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        setAccepted(false);
+        accepted = false;
+        setVisible(false);
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            setAccepted(true);
+            accepted = true;
+            setVisible(false);
         }
     }//GEN-LAST:event_textFieldInputKeyPressed
 
