@@ -61,8 +61,8 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords {
 
     private void addSynonyms(String keyword) {
         Set<String> oldSynonyms = DatabaseSynonyms.INSTANCE.getSynonymsOf(keyword);
-        String      synonyms    = MessageDisplayer.input("ControllerAddSynonyms.Info.Input", catSynonyms(oldSynonyms),
-                                                         "ControllerAddSynonyms.Pos", keyword, DELIM);
+        String      synonyms    = MessageDisplayer.input("ControllerEditKeywordSynonyms.Info.Input", catSynonyms(oldSynonyms),
+                                                         "ControllerEditKeywordSynonyms.Pos", keyword, DELIM);
 
         if (synonyms != null) {
             Set<String> newSynonyms = splitSynonyms(synonyms);
