@@ -26,7 +26,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -261,7 +260,8 @@ public final class DatabaseSynonyms extends Database {
 
     private String getGetSynonymsOfSql() {
         return "SELECT synonym FROM synonyms WHERE word = ?" +
-               " UNION SELECT word FROM synonyms WHERE synonym = ?";
+               " UNION SELECT word FROM synonyms WHERE synonym = ?" +
+               " ORDER BY 1";
     }
 
     /**
@@ -271,7 +271,7 @@ public final class DatabaseSynonyms extends Database {
      * @return      synonyms or empty set
      */
     public Set<String> getSynonymsOf(String word) {
-        Set<String> synonyms   = new HashSet<String>();
+        Set<String> synonyms   = new LinkedHashSet<String>();
         Connection  connection = null;
         try {
             connection = getConnection();
