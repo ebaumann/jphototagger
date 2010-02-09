@@ -226,7 +226,7 @@ public final class ThumbnailUtil {
         if (!file.exists()) return null;
         AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", file, maxLength);
 
-        String cmd   = command.replace("%s", file.getAbsolutePath()).replace("%i", new Integer(maxLength).toString());
+        String cmd   = command.replace("%s", file.getAbsolutePath()).replace("%i", Integer.toString(maxLength));
         Image  image = null;
 
         logExternalAppCommand(cmd);

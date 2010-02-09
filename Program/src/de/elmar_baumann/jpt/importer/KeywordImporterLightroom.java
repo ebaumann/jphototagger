@@ -44,19 +44,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-final class KeywordImporterLightroom
-        implements KeywordImporter {
+final class KeywordImporterLightroom implements KeywordImporter {
 
-    public static final KeywordImporterLightroom INSTANCE =
-            new KeywordImporterLightroom();
-    private static final Icon icon = AppLookAndFeel.getIcon("icon_lightroom.png");
+    public static final  KeywordImporterLightroom INSTANCE = new KeywordImporterLightroom();
+    private static final Icon                     ICON     = AppLookAndFeel.getIcon("icon_lightroom.png");
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
      */
-    private static final String SYNONYM_START_CHAR = "{";
+    private static final String SYNONYM_START_CHAR     = "{";
     private static final String ONE_LEVEL_INDENT_CHILD = "\t";
-    private final Node root = new Node(null, -1, "ROOT");
+    private final        Node   root                   = new Node(null, -1, "ROOT");
 
     @Override
     public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
@@ -141,17 +139,29 @@ final class KeywordImporterLightroom
     }
 
     private List<String> readLines(File file) throws FileNotFoundException, IOException {
-        List<String>   lines  = new ArrayList<String>();
-        BufferedReader reader = null;
+        List<String>      lines  = new ArrayList<String>();
+        BufferedReader    reader = null;
+        FileInputStream   fis    = null;
+        InputStreamReader isr    = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePath()), CharEncoding.LIGHTROOM_KEYWORDS));
+            fis    = new FileInputStream(file.getAbsolutePath());
+            isr    = new InputStreamReader(fis, CharEncoding.LIGHTROOM_KEYWORDS);
+            reader = new BufferedReader(isr);
             String line = null;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
             }
+        } catch (FileNotFoundException ex) {
+            throw ex;
         } catch (IOException ex) {
             throw ex;
         } finally {
+            if (fis != null) {
+                fis.close();
+            }
+            if (isr != null) {
+                isr.close();
+            }
             if (reader != null) {
                 reader.close();
             }
@@ -180,7 +190,7 @@ final class KeywordImporterLightroom
 
     @Override
     public Icon getIcon() {
-        return icon;
+        return ICON;
     }
 
     private class Node {
