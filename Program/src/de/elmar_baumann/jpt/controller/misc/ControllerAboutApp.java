@@ -19,9 +19,12 @@
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.app.AppInfo;
-import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
+import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  * Kontrolliert die Aktion: Informationen über die Anwendung sollen angezeigt
@@ -34,6 +37,11 @@ public final class ControllerAboutApp implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MessageDisplayer.information(null, "ControllerAboutApp.Info.About", AppInfo.APP_NAME, AppInfo.APP_VERSION);
+        JOptionPane.showMessageDialog(
+                GUI.INSTANCE.getAppFrame(),
+                Bundle.getString("ControllerAboutApp.Info.About", AppInfo.APP_NAME, AppInfo.APP_VERSION),
+                "JPhotoTagger",
+                JOptionPane.INFORMATION_MESSAGE,
+                AppLookAndFeel.getIcon("icon_app_about.png"));
     }
 }

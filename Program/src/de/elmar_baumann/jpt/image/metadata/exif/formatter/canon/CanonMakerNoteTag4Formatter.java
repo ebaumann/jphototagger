@@ -42,7 +42,7 @@ final class CanonMakerNoteTag4Formatter {
                 : dfCm.format(distanceCm)
                 ;
 
-        CanonMakerNotes.addTag(exifTags, CanonMakerNotes.tagId(CANON_TAG, offset), "Entfernung", d);
+        CanonMakerNotes.addTag(exifTags, CanonMakerNotes.tagId(CANON_TAG, offset), "SubjectDistance", d);
     }
 
     private CanonMakerNoteTag4Formatter() {
