@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.view.popupmenus;
 
 import de.elmar_baumann.jpt.resource.Bundle;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -38,6 +39,7 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
     private static final long                  serialVersionUID  = -552638878495121120L;
     private final        JMenuItem             itemRename        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Rename"));
     private final        JMenuItem             itemDelete        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Delete"));
+    private final        JMenuItem             itemEditSynonyms  = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"));
     private final        JMenuItem             itemDisplayImages = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
     private              int                   selIndex;
     private              JList                 list;
@@ -76,9 +78,15 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
         return itemDisplayImages;
     }
 
+    public JMenuItem getItemEditSynonyms() {
+        return itemEditSynonyms;
+    }
+
     private void addItems() {
         add(itemRename);
         add(itemDelete);
+        add(new JSeparator());
+        add(itemEditSynonyms);
         add(new JSeparator());
         add(itemDisplayImages);
     }
@@ -86,5 +94,6 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
     private void setAccelerators() {
         itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
         itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemEditSynonyms.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_MASK | InputEvent.CTRL_MASK));
     }
 }
