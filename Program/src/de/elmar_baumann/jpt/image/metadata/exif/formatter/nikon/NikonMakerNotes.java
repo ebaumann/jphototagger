@@ -30,7 +30,6 @@ import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -46,10 +45,9 @@ public final class NikonMakerNotes implements ExifMakerNotes {
     private static final Collection<NikonMakerNote> MAKER_NOTES          = new ArrayList<NikonMakerNote>();
 
     static {
-
-        boolean exists = true;
-        int     index  = 0;
-        while (exists) {
+        int       index    = 0;
+        final int maxIndex = 100;
+        while (index <= maxIndex) {
 
             try {
                 // Better than catching an exception?
@@ -62,7 +60,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
                 ResourceBundle bundle = ResourceBundle.getBundle(PROPERTY_FILE_PREFIX + Integer.toString(index++));
                 MAKER_NOTES.add(new NikonMakerNote(bundle));
             } catch (Exception ex) {
-                exists = false;
+                index = maxIndex;
             }
         }
     }
