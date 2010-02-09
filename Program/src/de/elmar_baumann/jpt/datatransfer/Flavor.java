@@ -59,7 +59,7 @@ public final class Flavor {
      * Contains {@link DataFlavor#javaFileListFlavor} and
      * {@link TransferUtil#getUriListFlavor()}.
      */
-    public static final DataFlavor[] FILE_FLAVORS = new DataFlavor[]{FILE_LIST_FLAVOR, URI_LIST};
+    static final DataFlavor[] FILE_FLAVORS = new DataFlavor[]{FILE_LIST_FLAVOR, URI_LIST};
 
     /**
      * Returns whether a transferable supports the data flavor

@@ -45,21 +45,16 @@ import javax.swing.SwingUtilities;
  */
 public class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
-    public static final RenderedThumbnailCache INSTANCE =
-            new RenderedThumbnailCache();
+    public static final RenderedThumbnailCache INSTANCE = new RenderedThumbnailCache();
 
     protected final int MAX_ENTRIES = 1500;
-    protected static int currentAge = 0;
-    private final Set<ThumbnailUpdateListener> updateListeners =
-            new HashSet<ThumbnailUpdateListener>();
-    protected WorkQueue<RenderedThumbnailCacheIndirection> workQueue =
-            new WorkQueue<RenderedThumbnailCacheIndirection>();
-
+    static int currentAge = 0;
+    private final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
+    protected WorkQueue<RenderedThumbnailCacheIndirection> workQueue = new WorkQueue<RenderedThumbnailCacheIndirection>();
     private ThumbnailCache thumbCache = ThumbnailCache.INSTANCE;
     private XmpCache xmpCache = XmpCache.INSTANCE;
     private Image scaledDummyThumbnail = null;
-    private Image dummyThumbnail = IconUtil.getIconImage(
-            Bundle.getString("RenderedThumbnailCache.Path.DummyThumbnail"));
+    private Image dummyThumbnail = IconUtil.getIconImage(Bundle.getString("RenderedThumbnailCache.Path.DummyThumbnail"));
     /**
      * Mapping from file to all kinds of cached data
      */

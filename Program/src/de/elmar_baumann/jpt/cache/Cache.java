@@ -31,10 +31,9 @@ import java.util.Set;
  */
 public abstract class Cache<CI extends CacheIndirection> {
 
-    protected static int currentAge = 0;
-    protected final int MAX_ENTRIES = 1500;
-    protected final Set<ThumbnailUpdateListener> updateListeners =
-            new HashSet<ThumbnailUpdateListener>();
+    static int currentAge = 0;
+    final int MAX_ENTRIES = 1500;
+    final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
     protected WorkQueue<CI> workQueue = new WorkQueue<CI>();
     /**
      * Mapping from file to all kinds of cached data
