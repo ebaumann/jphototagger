@@ -338,9 +338,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     private File getDirectory(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
-        return node == null
-               ? null
-               : userObject instanceof Favorite
+        return userObject instanceof Favorite
                ? ((Favorite) userObject).getDirectory()
                : userObject instanceof File
                ? (File) userObject
