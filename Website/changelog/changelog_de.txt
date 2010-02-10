@@ -8,6 +8,10 @@ Changelog JPhotoTagger
 0.7.67 2010-02-10
 -----------------
 
+* Vorschaubilder werden neu erzeugt, falls deren Datum der letzten Modifikation
+  älter ist als das der Datei (vorher wurde das Datum aus der Datenbank gelesen).
+  Betrifft automatische Aktualisierung beim Auswählen von Ordnern oder als
+  geplante Aufgabe.
 * Klick mit der rechten Maustaste innerhalb des Vorschaubildfensters:
   ** Klick in ein ausgewähltes Bild behält die Auswahl bei
   ** Klick in ein nicht ausgewähltes Bild wählt dieses aus und löscht die

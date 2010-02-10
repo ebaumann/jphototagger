@@ -166,7 +166,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
         if (isUpdateThumbnail(imageFilename)) {
             imageFile.addInsertIntoDb(Insert.THUMBNAIL);
-            setThumbnail(imageFile);
+            createAndSetThumbnail(imageFile);
         }
         if (isUpdateXmp(imageFilename)) {
             imageFile.addInsertIntoDb(Insert.XMP);
@@ -182,7 +182,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private boolean isUpdateThumbnail(String imageFilename) {
         return what.contains(Insert.THUMBNAIL) ||
                what.contains(Insert.OUT_OF_DATE) &&
-                    (!existsThumbnail(imageFilename) || !isImageFileUpToDate(imageFilename));
+                    (!existsThumbnail(imageFilename) || !isThumbnailUpToDate(imageFilename));
     }
 
     private boolean existsThumbnail(String imageFilename) {
@@ -204,6 +204,16 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         long fileTime = FileUtil.getLastModified(imageFilename);
 
         return fileTime == dbTime;
+    }
+
+    private boolean isThumbnailUpToDate(String imageFilename) {
+        File tnFile = PersistentThumbnails.getThumbnailFileOfImageFile(imageFilename);
+        if (tnFile == null || !tnFile.exists()) return false;
+
+        long lastModifiedTn  = tnFile.lastModified();
+        long lastModifiedImg = FileUtil.getLastModified(imageFilename);
+
+        return lastModifiedTn >= lastModifiedImg;
     }
 
     private boolean isXmpUpToDate(String imageFilename) {
@@ -235,7 +245,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         return !hasEmbeddedXmp;
     }
 
-    private void setThumbnail(ImageFile imageFile) {
+    private void createAndSetThumbnail(ImageFile imageFile) {
         File   file      = imageFile.getFile();
         Image  thumbnail = ThumbnailUtil.getThumbnail(file);
 
