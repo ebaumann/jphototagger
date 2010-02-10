@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.app.update.tables;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.io.CharEncoding;
@@ -118,12 +119,10 @@ final class UpdateTablesDropCategories {
     }
 
     private void fixSavedSearches(Connection connection) throws SQLException {
-        Statement stmt = connection.createStatement();
         // Now as keyword
-        stmt.execute("UPDATE saved_searches_panels" +
+        Database.execute(connection, "UPDATE saved_searches_panels" +
                 " SET column_id = 24" +
                 " WHERE column_id = 25 OR column_id = 14");
-        stmt.close();
     }
 
     private void updateDatabase(Connection connection) throws SQLException {
