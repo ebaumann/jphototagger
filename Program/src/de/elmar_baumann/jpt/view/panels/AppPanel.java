@@ -1228,10 +1228,10 @@ public final class AppPanel extends javax.swing.JPanel {
         panelStatusbar.setLayout(panelStatusbarLayout);
         panelStatusbarLayout.setHorizontalGroup(
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStatusbarLayout.createSequentialGroup()
-                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatusbarLayout.createSequentialGroup()
+                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
