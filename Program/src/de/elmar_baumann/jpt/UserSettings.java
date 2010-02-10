@@ -510,35 +510,12 @@ public final class UserSettings {
         notifyListeners(Type.SAVE_INPUT_EARLY);
     }
 
-    public void setLogfileFormatterClass(Class<?> logfileFormatterClass) {
-        setToPropertiesLogfileFormatterClass(logfileFormatterClass);
-        writeToFile();
-        notifyListeners(Type.LOGFILE_FORMATTER_CLASS);
-    }
-
     private void setToPropertiesLogfileFormatterClass(Class<?> formatterClass) {
         String classString = formatterClass.toString();
         int    index       = classString.lastIndexOf(" ");
         settings.set(index >= 0 && index + 1 < classString.length()
                            ? classString.substring(index + 1)
                            : XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
-    }
-
-    /**
-     * Returns the class object of the logfile formatter.
-     *
-     * @return Class object of the logfile formatter.
-     *         Default: {@link XMLFormatter}
-     */
-    public Class<?> getLogfileFormatterClass() {
-        String className = settings.getString(KEY_LOGFILE_FORMATTER_CLASS);
-        try {
-            return Class.forName(className);
-        } catch (Exception ex) {
-            AppLogger.logSevere(UserSettings.class, ex);
-            settings.set(XMLFormatter.class.getName(), KEY_LOGFILE_FORMATTER_CLASS);
-        }
-        return XMLFormatter.class;
     }
 
     public void setMinutesToStartScheduledTasks(int minutes) {

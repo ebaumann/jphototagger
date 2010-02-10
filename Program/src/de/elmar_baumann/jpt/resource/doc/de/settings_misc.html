@@ -52,72 +52,6 @@
             Datenbank gewährleistet ist.
         </p>
 
-        <h2>Kartenreiter &quot;Protokoll&quot;</h2>
-
-        <h3>Was / wie viel soll protokolliert werden?</h3>
-
-        <p>Der Programmablauf wird protokolliert und Programmfehler in eine
-            Logdatei geschrieben. Diese kann angezeigt werden über das Menü
-            <code>Fenster &gt; Fehlerprotokoll</code>. Bedeutungen:
-        </p>
-
-        <ul>
-            <li><strong>SCHWERWIEGEND</strong>: Nur wichtige Fehler werden
-                protokolliert. Schwer wiegendes wird bei allen anderen
-                Einstellungen zusätzlich protokolliert.
-            </li>
-            <li><strong>WARNUNG</strong>: Nur wichtige Fehler und weniger
-                wichtige werden protokolliert. Warnungen werden bei anderen
-                Einstellungen zusätzlich protokolliert außer bei
-                <strong>SCHWERWIEGEND</strong>.
-            </li>
-            <li><strong>INFO</strong>: Informative Ausgaben, beispielsweise
-                welche Verzeichnisse gerade automatisch eingelesen werden. Dies
-                ist die Grunddeinstellung.
-            </li>
-            <li><strong>KONFIG</strong>: Ausgaben betreffend die Konfiguration,
-                für den Benutzer eines Programms meist unwichtig.
-            </li>
-            <li><strong>FEIN</strong>: Detaillierte Ausgaben über den
-                Programmablauf
-            </li>
-            <li><strong>FEINER</strong>: Noch detailliertere Ausgaben,
-                insbesondere SQL-Statements, die die Datenbank aktualisieren
-            </li>
-            <li><strong>AM FEINSTEN</strong>: SQL-Statements, die die Datenbank
-                abfragen und <em>nicht</em> modifizieren, noch detailliertere
-                Informationen über den Programmablauf
-            </li>
-        </ul>
-
-        <p>Wählen Sie <strong>WARNUNG</strong> oder <strong>INFO</strong>,
-            solange keine Probleme bestehen und zur Fehlerbehebung
-            <strong>AM FEINSTEN</strong>. Meldungen anderer Kategorien als
-            <strong>WARNUNG</strong> oder <strong>SCHWERWIEGEND</strong> werden
-            in die <strong>Standardausgabe</strong> des Betriebssystems
-            geschrieben, andernfalls würde die Protokolldatei viele Megabyte
-            groß. Die Standardausgabe sehen Sie im Fenster
-            <strong>Systemausgabe</strong>, zu erreichen über die Schaltfläche
-            <strong>Ausgabe</strong> am unteren Fensterrand.
-        </p>
-
-        <h3>Format</h3>
-
-        <ul>
-            <li><strong>Strukturiert:</strong> Nachrichten können sortiert
-                werden nach ihrer Kategorie, jede Nachricht kann einzeln
-                ausgewählt werden und betrachtet im Detail und Sie können
-                filtern und suchen innerhalb der Nachrichten. Dies ist die
-                Grundeinstellung.
-            </li>
-            <li><strong>Textzeilen:</strong> Die Nachrichten werden Zeile für
-                Zeile untereinander angezeigt. Sie können die Zeilen
-                betrachten und haben sonst keine weitere Optionen. Bei dieser
-                Einstellung benötigt das Protokollieren am wenigsten
-                Speicherplatz.
-            </li>
-        </ul>
-
         <h2>Kartenreiter &quot;Verschiedenes&quot;</h2>
 
         <h3>Versteckte Ordner einlesen und anzeigen</h3>
@@ -170,6 +104,53 @@
             Ist der Zeichensatz falsch, werden beispielsweise Umlaute verkehrt
             angezeigt und Sie können nicht danach suchen, außer, Sie geben die
             gleichen &quot;Hieroglyphen&quot; ein, die falsch angezeigt werden.
+        </p>
+
+        <h3>Was / wie viel soll protokolliert werden?</h3>
+
+        <p>Der Programmablauf wird protokolliert und Programmfehler in eine
+            Logdatei geschrieben. Diese kann angezeigt werden über das Menü
+            <code>Fenster &gt; Fehlerprotokoll</code>. Bedeutungen:
+        </p>
+
+        <ul>
+            <li><strong>SCHWERWIEGEND</strong>: Nur wichtige Fehler werden
+                protokolliert. Schwer wiegendes wird bei allen anderen
+                Einstellungen zusätzlich protokolliert.
+            </li>
+            <li><strong>WARNUNG</strong>: Nur wichtige Fehler und weniger
+                wichtige werden protokolliert. Warnungen werden bei anderen
+                Einstellungen zusätzlich protokolliert außer bei
+                <strong>SCHWERWIEGEND</strong>.
+            </li>
+            <li><strong>INFO</strong>: Informative Ausgaben, beispielsweise
+                welche Verzeichnisse gerade automatisch eingelesen werden. Dies
+                ist die Grunddeinstellung.
+            </li>
+            <li><strong>KONFIG</strong>: Ausgaben betreffend die Konfiguration,
+                für den Benutzer eines Programms meist unwichtig.
+            </li>
+            <li><strong>FEIN</strong>: Detaillierte Ausgaben über den
+                Programmablauf
+            </li>
+            <li><strong>FEINER</strong>: Noch detailliertere Ausgaben,
+                insbesondere SQL-Statements, die die Datenbank aktualisieren
+            </li>
+            <li><strong>AM FEINSTEN</strong>: SQL-Statements, die die Datenbank
+                abfragen und <em>nicht</em> modifizieren, noch detailliertere
+                Informationen über den Programmablauf
+            </li>
+        </ul>
+
+        <p>Wählen Sie <strong>WARNUNG</strong> oder <strong>INFO</strong>,
+            solange keine Probleme bestehen und zur Fehlerbehebung
+            <strong>AM FEINSTEN</strong>. Meldungen anderer Kategorien als
+            <strong>WARNUNG</strong> oder <strong>SCHWERWIEGEND</strong> werden
+            in die <strong>Standardausgabe</strong> des Betriebssystems
+            geschrieben, andernfalls würde die Protokolldatei viele Megabyte
+            groß. Die Standardausgabe sehen Sie im Fenster
+            <strong>Systemausgabe</strong>, zu erreichen über die Schaltfläche
+            <strong>Ausgabe</strong> am unteren Fensterrand.
         </p>
 
     </body>

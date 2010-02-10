@@ -25,7 +25,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Formatter;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -34,6 +33,7 @@ import java.util.logging.Logger;
 import java.util.logging.MemoryHandler;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
+import java.util.logging.XMLFormatter;
 
 /**
  * Logging system of the application.
@@ -98,14 +98,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
 
          // Ignoring user settings obove (INFO, FINE, ...) and keeping size small
         fileHandler.setLevel(Level.WARNING);
-
-        try {
-            Class<?> formatterClass = UserSettings.INSTANCE.getLogfileFormatterClass();
-
-            fileHandler.setFormatter((Formatter) formatterClass.newInstance());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        fileHandler.setFormatter(new XMLFormatter());
 
         synchronized (HANDLERS) {
             HANDLERS.add(fileHandler);

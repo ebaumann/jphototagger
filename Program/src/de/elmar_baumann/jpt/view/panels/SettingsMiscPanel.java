@@ -21,11 +21,9 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.helper.CopyFiles;
-import de.elmar_baumann.jpt.model.ComboBoxModelLogfileFormatter;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
-import de.elmar_baumann.jpt.view.renderer.ListCellRendererLogfileFormatter;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.image.util.IconUtil;
@@ -55,13 +53,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
         EXTERNAL_APPLICATIONS,
         DATABASE_DIRECTORY,
-        LOGFILE,
         MISCELLANEOUS,
     }
 
     private void initComponentOfTab() {
         componentOfTab.put(Tab.DATABASE_DIRECTORY, panelDatabaseDirectory);
-        componentOfTab.put(Tab.LOGFILE, panelLogfile);
         componentOfTab.put(Tab.EXTERNAL_APPLICATIONS, panelExternalApplications);
         componentOfTab.put(Tab.MISCELLANEOUS, panelMisc);
     }
@@ -165,10 +161,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         UserSettings.INSTANCE.setLogLevel(Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
     }
 
-    private void handleActionPerformedComboBoxLogfileFormatterClass() {
-        UserSettings.INSTANCE.setLogfileFormatterClass((Class<?>) comboBoxLogfileFormatterClass.getSelectedItem());
-    }
-
     private void handleActionPerformedCopyMoveFiles() {
         UserSettings.INSTANCE.setCopyMoveFilesOptions(radioButtonCopyMoveFileConfirmOverwrite.isSelected()
             ? CopyFiles.Options.CONFIRM_OVERWRITE
@@ -198,9 +190,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         readWebBrowserProperties(settings);
         readPdfViewerProperties(settings);
         comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
-        ComboBoxModelLogfileFormatter modelLogfileFormatter =
-                (ComboBoxModelLogfileFormatter) comboBoxLogfileFormatterClass.getModel();
-        modelLogfileFormatter.setSelectedItem(settings.getLogfileFormatterClass());
         checkBoxIsAcceptHiddenDirectories.setSelected(settings.isAcceptHiddenDirectories());
         labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(
@@ -256,12 +245,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         buttonSetStandardDatabaseDirectoryName = new javax.swing.JButton();
         buttonChooseDatabaseDirectory = new javax.swing.JButton();
         labelInfoDatabaseDirectory = new javax.swing.JLabel();
-        panelLogfile = new javax.swing.JPanel();
-        labelLogLevel = new javax.swing.JLabel();
-        comboBoxLogLevel = new javax.swing.JComboBox();
-        labelLogLogfileFormatterClass = new javax.swing.JLabel();
-        comboBoxLogfileFormatterClass = new javax.swing.JComboBox();
-        labelInfoLogfile = new javax.swing.JLabel();
         panelMisc = new javax.swing.JPanel();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
@@ -271,6 +254,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox();
+        labelLogLevel = new javax.swing.JLabel();
+        comboBoxLogLevel = new javax.swing.JComboBox();
 
         labelInfoWebBrowser.setText(Bundle.getString("SettingsMiscPanel.labelInfoWebBrowser.text")); // NOI18N
 
@@ -389,66 +374,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.TabConstraints.tabTitle"), panelDatabaseDirectory); // NOI18N
 
-        labelLogLevel.setLabelFor(comboBoxLogLevel);
-        labelLogLevel.setText(Bundle.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
-
-        comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
-        comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxLogLevelActionPerformed(evt);
-            }
-        });
-
-        labelLogLogfileFormatterClass.setLabelFor(comboBoxLogfileFormatterClass);
-        labelLogLogfileFormatterClass.setText(Bundle.getString("SettingsMiscPanel.labelLogLogfileFormatterClass.text")); // NOI18N
-
-        comboBoxLogfileFormatterClass.setModel(new ComboBoxModelLogfileFormatter());
-        comboBoxLogfileFormatterClass.setRenderer(new ListCellRendererLogfileFormatter());
-        comboBoxLogfileFormatterClass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxLogfileFormatterClassActionPerformed(evt);
-            }
-        });
-
-        labelInfoLogfile.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoLogfile.setText(Bundle.getString("SettingsMiscPanel.labelInfoLogfile.text")); // NOI18N
-
-        javax.swing.GroupLayout panelLogfileLayout = new javax.swing.GroupLayout(panelLogfile);
-        panelLogfile.setLayout(panelLogfileLayout);
-        panelLogfileLayout.setHorizontalGroup(
-            panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLogfileLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLogfileLayout.createSequentialGroup()
-                        .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelLogLogfileFormatterClass, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelLogLevel, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxLogfileFormatterClass, 0, 427, Short.MAX_VALUE)
-                            .addComponent(comboBoxLogLevel, 0, 427, Short.MAX_VALUE)))
-                    .addComponent(labelInfoLogfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        panelLogfileLayout.setVerticalGroup(
-            panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLogfileLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelLogLevel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelLogfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelLogLogfileFormatterClass, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoLogfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
-        );
-
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelLogfile.TabConstraints.tabTitle"), panelLogfile); // NOI18N
-
         checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -518,6 +443,16 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
+        labelLogLevel.setLabelFor(comboBoxLogLevel);
+        labelLogLevel.setText(Bundle.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
+
+        comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
+        comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxLogLevelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMiscLayout = new javax.swing.GroupLayout(panelMisc);
         panelMisc.setLayout(panelMiscLayout);
         panelMiscLayout.setHorizontalGroup(
@@ -530,9 +465,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
                     .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelMiscLayout.createSequentialGroup()
-                        .addComponent(labelIptcCharset)
+                        .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelLogLevel)
+                            .addComponent(labelIptcCharset))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxLogLevel, 0, 427, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelMiscLayout.setVerticalGroup(
@@ -550,7 +489,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelIptcCharset)
                     .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelLogLevel))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
@@ -582,10 +525,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
         handleActionPerformedCheckBoxIsAcceptHiddenDirectories();
 }//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
-
-    private void comboBoxLogfileFormatterClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogfileFormatterClassActionPerformed
-        handleActionPerformedComboBoxLogfileFormatterClass();
-}//GEN-LAST:event_comboBoxLogfileFormatterClassActionPerformed
 
     private void comboBoxLogLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
         handleActionPerformedComboBoxLogLevel();
@@ -626,21 +565,17 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JComboBox comboBoxIptcCharset;
     private javax.swing.JComboBox comboBoxLogLevel;
-    private javax.swing.JComboBox comboBoxLogfileFormatterClass;
     private javax.swing.JLabel labelDatabaseDirectory;
     private javax.swing.JLabel labelInfoDatabaseDirectory;
-    private javax.swing.JLabel labelInfoLogfile;
     private javax.swing.JLabel labelInfoPdfViewer;
     private javax.swing.JLabel labelInfoWebBrowser;
     private javax.swing.JLabel labelIptcCharset;
     private javax.swing.JLabel labelLogLevel;
-    private javax.swing.JLabel labelLogLogfileFormatterClass;
     private javax.swing.JLabel labelPdfViewer;
     private javax.swing.JLabel labelWebBrowser;
     private javax.swing.JPanel panelCopyMoveFiles;
     private javax.swing.JPanel panelDatabaseDirectory;
     private javax.swing.JPanel panelExternalApplications;
-    private javax.swing.JPanel panelLogfile;
     private javax.swing.JPanel panelMisc;
     private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;
     private javax.swing.JRadioButton radioButtonCopyMoveFileRenameIfExists;
