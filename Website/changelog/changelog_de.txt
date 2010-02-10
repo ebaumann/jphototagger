@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.69 2010-02-10
+-----------------
+
+* Die Anzahl der ausgewählten Bilder steht in der Statuszeile (Programmfenster
+  unten links)
+
 0.7.68 2010-02-10
 -----------------
 

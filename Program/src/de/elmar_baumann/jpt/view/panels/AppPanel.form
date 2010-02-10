@@ -1268,15 +1268,15 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="labelThumbnailInfo" min="-2" pref="200" max="-2" attributes="1"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="labelStatusbarText" pref="259" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <Component id="labelThumbnailInfo" pref="244" max="32767" attributes="1"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelStatusbarText" pref="209" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="sliderThumbnailSize" min="-2" pref="135" max="-2" attributes="1"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Component id="labelError" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="progressBar" min="-2" pref="247" max="-2" attributes="2"/>
               </Group>
           </Group>

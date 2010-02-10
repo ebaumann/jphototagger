@@ -42,8 +42,9 @@ public final class ControllerThumbnailCountDisplay
     private final JSlider         sliderThumbnailSize = appPanel.getSliderThumbnailSize();
     private final JLabel          label               = appPanel.getLabelThumbnailInfo();
     private final ThumbnailsPanel panelThumbnails     = appPanel.getPanelThumbnails();
-    private int thumbnailCount                        = 0;
-    private int thumbnailZoom                         = sliderThumbnailSize.getValue();
+    private int                   thumbnailZoom       = sliderThumbnailSize.getValue();
+    private int                   thumbnailCount;
+    private int                   selectionCount;
 
     public ControllerThumbnailCountDisplay() {
         listen();
@@ -56,7 +57,8 @@ public final class ControllerThumbnailCountDisplay
 
     @Override
     public void thumbnailsSelectionChanged() {
-        // ignore
+        selectionCount = panelThumbnails.getSelectionCount();
+        setCount();
     }
 
     @Override
@@ -84,7 +86,7 @@ public final class ControllerThumbnailCountDisplay
 
             @Override
             public void run() {
-                String info = Bundle.getString("ControllerThumbnailCountDisplay.Info", thumbnailCount, thumbnailZoom);
+                String info = Bundle.getString("ControllerThumbnailCountDisplay.Info", thumbnailCount, selectionCount, thumbnailZoom);
                 label.setText(info);
                 label.setToolTipText(info);
             }
