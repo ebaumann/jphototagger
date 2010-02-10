@@ -19,8 +19,9 @@
 package de.elmar_baumann.jpt.comparator;
 
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
-import de.elmar_baumann.lib.util.ClassNameEquality;
+import de.elmar_baumann.lib.util.ClassEquality;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -32,8 +33,9 @@ import java.util.Comparator;
  * @version 2009-12-15
  */
 public final class ComparatorExifDateTimeOriginalAsc
-        extends    ClassNameEquality
-        implements Comparator<File> {
+        extends    ClassEquality
+        implements Comparator<File>,
+                   Serializable {
 
     @Override
     public int compare(File fileLeft, File fileRight) {

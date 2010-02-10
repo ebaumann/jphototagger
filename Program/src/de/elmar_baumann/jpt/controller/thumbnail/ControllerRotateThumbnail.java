@@ -90,20 +90,19 @@ public final class ControllerRotateThumbnail implements ActionListener {
 
             @Override
             public void run() {
-                List<Integer> selectedIndices = thumbnailsPanel.
-                        getSelectedIndices();
+                List<Integer> selectedIndices = thumbnailsPanel.getSelectedIndices();
                 for (Integer index : selectedIndices) {
-                    Image thumbnail = ImageTransform.rotate(
-                            PersistentThumbnails.getThumbnail(
-                                    PersistentThumbnails.getMd5File(
-                                    thumbnailsPanel.getFile(index.intValue()).
-                                            getAbsolutePath())),
-                            rotateAngle);
-                    if (thumbnail != null) {
-                        String filename = thumbnailsPanel.getFile(
-                                index.intValue()).getAbsolutePath();
-                        // should fire an update caught by cache
-                        db.updateThumbnail(filename, thumbnail);
+                    final String md5File = PersistentThumbnails.getMd5Filename(thumbnailsPanel.getFile(index.intValue()).getAbsolutePath());
+                    if (md5File != null) {
+                        final Image tnUnrotated = PersistentThumbnails.getThumbnail(md5File);
+                        if (tnUnrotated != null) {
+                            Image thumbnail = ImageTransform.rotate(tnUnrotated, rotateAngle);
+                            if (thumbnail != null) {
+                                String filename = thumbnailsPanel.getFile(index.intValue()).getAbsolutePath();
+                                // should fire an update caught by cache
+                                db.updateThumbnail(filename, thumbnail);
+                            }
+                        }
                     }
                 }
             }

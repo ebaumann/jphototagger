@@ -117,9 +117,9 @@ final class UpdateTablesThumbnails extends Database {
     public void writeThumbnail(Image thumbnail, long id) {
         FileOutputStream fos = null;
         File tnFile = getThumbnailfile(id);
+        if (tnFile == null) return;
         try {
-            if (!IoUtil.lockLogWarning(tnFile, UpdateTablesThumbnails.class))
-                return;
+            if (!IoUtil.lockLogWarning(tnFile, UpdateTablesThumbnails.class)) return;
             fos = new FileOutputStream(tnFile);
             fos.getChannel().lock();
             ByteArrayInputStream is =
@@ -170,7 +170,7 @@ final class UpdateTablesThumbnails extends Database {
                     if (rs.next()) {
                         String filename = rs.getString(1);
                         convertThumbnailName(
-                                id, PersistentThumbnails.getMd5File(filename));
+                                id, PersistentThumbnails.getMd5Filename(filename));
                     } else {
                         file.delete(); // orphaned thumbnail
                     }
@@ -194,12 +194,19 @@ final class UpdateTablesThumbnails extends Database {
 
     private File getThumbnailfile(long id) {
         String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
-        FileUtil.ensureDirectoryExists(new File(dir));
-        return new File(dir + File.separator + id);
+        try {
+            FileUtil.ensureDirectoryExists(new File(dir));
+            return new File(dir + File.separator + id);
+        } catch (Exception ex) {
+            AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
+        }
+        return null;
     }
 
     private void convertThumbnailName(long oldId, String newHash) {
+        if (newHash == null) return;
         File oldFile = getThumbnailfile(oldId);
+        if (oldFile == null) return;
         File newFile = PersistentThumbnails.getThumbnailfile(newHash);
         if (newFile.exists()) {
             oldFile.delete();
