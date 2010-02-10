@@ -128,17 +128,17 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Has the mouse clicked into a thumbnail?
      */
-    private       int                                 clickInSelection          = -1;
-    private       boolean                             keywordsOverlay;
-    public        RenderedThumbnailCache              renderedThumbnailCache    = RenderedThumbnailCache.INSTANCE;
-    private       ThumbnailPanelRenderer              renderer                  = new ThumbnailPanelRenderer(this);
-    private       Content                             content                   = Content.UNDEFINED;
-    private       ControllerDoubleklickThumbnail      controllerDoubleklick;
-    private       FileAction                          fileAction                = FileAction.UNDEFINED;
-    private       Comparator<File>                    fileSortComparator        = FileSort.NAMES_ASCENDING.getComparator();
-    private final List<File>                          files                     = Collections.synchronizedList(new ArrayList<File>());
-    private final PopupMenuThumbnails                 popupMenu                 = PopupMenuThumbnails.INSTANCE;
-    private final Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
+    private           int                                 clickInSelection          = -1;
+    private           boolean                             keywordsOverlay;
+    public transient  RenderedThumbnailCache              renderedThumbnailCache    = RenderedThumbnailCache.INSTANCE;
+    private           ThumbnailPanelRenderer              renderer                  = new ThumbnailPanelRenderer(this);
+    private           Content                             content                   = Content.UNDEFINED;
+    private transient ControllerDoubleklickThumbnail      controllerDoubleklick;
+    private           FileAction                          fileAction                = FileAction.UNDEFINED;
+    private           Comparator<File>                    fileSortComparator        = FileSort.NAMES_ASCENDING.getComparator();
+    private final     List<File>                          files                     = Collections.synchronizedList(new ArrayList<File>());
+    private final     PopupMenuThumbnails                 popupMenu                 = PopupMenuThumbnails.INSTANCE;
+    private final     Map<Content, List<RefreshListener>> refreshListenersOfContent = new HashMap<Content, List<RefreshListener>>();
 
     public ThumbnailsPanel() {
         initRefreshListeners();

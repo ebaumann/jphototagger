@@ -60,7 +60,6 @@ final class KeywordExporterLightroom
     @Override
     public void export(File file) {
         TreeModel tm = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        assert tm instanceof TreeModelKeywords : tm;
         if (tm instanceof TreeModelKeywords) {
             Writer writer = null;
             String suffix = "." + FilenameSuffixes.LIGHTROOM_KEYWORDS;
@@ -68,8 +67,7 @@ final class KeywordExporterLightroom
                 if (!file.getName().endsWith(suffix)) {
                     file = new File(file.getAbsolutePath() + suffix);
                 }
-                writer = new BufferedWriter(new OutputStreamWriter(
-            new FileOutputStream(file.getAbsolutePath()), CharEncoding.LIGHTROOM_KEYWORDS));
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath()), CharEncoding.LIGHTROOM_KEYWORDS));
                 addChildrenToRoot((DefaultMutableTreeNode) tm.getRoot(), writer);
             } catch (Exception ex) {
                 AppLogger.logSevere(getClass(), ex);
@@ -87,8 +85,6 @@ final class KeywordExporterLightroom
             throws IOException {
         for (Enumeration<?> e = root.children(); e.hasMoreElements();) {
             Object el = e.nextElement();
-            assert el instanceof DefaultMutableTreeNode :
-                    "Not a DefaultMutableTreeNode: " + el;
 
             if (el instanceof DefaultMutableTreeNode) {
                 addChildren((DefaultMutableTreeNode) el, 0, writer);
@@ -96,11 +92,8 @@ final class KeywordExporterLightroom
         }
     }
 
-    private void addChildren(
-            DefaultMutableTreeNode node, int level, Writer writer)
-            throws IOException {
+    private void addChildren(DefaultMutableTreeNode node, int level, Writer writer) throws IOException {
         Object userObject = node.getUserObject();
-        assert userObject instanceof Keyword : userObject;
 
         boolean appended = false;
         if (userObject instanceof Keyword) {

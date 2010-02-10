@@ -48,10 +48,7 @@ public abstract class ExifFormatter {
     public abstract String format(ExifTag exifTag);
 
     protected String translate(IfdType ifdType, String propertyKey) {
-
         Translation translation = TRANSLATION_OF_IFD.get(ifdType);
-
-        assert translation != null;
 
         return translation == null ? "?" : translation.translate(propertyKey);
     }

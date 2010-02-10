@@ -52,7 +52,6 @@ public final class InsertKeywords extends Thread {
         TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         Object            root  = model.getRoot();
 
-        assert root instanceof DefaultMutableTreeNode;
         if (root instanceof DefaultMutableTreeNode) {
             insertKeywords((DefaultMutableTreeNode) root, model);
         }

@@ -46,17 +46,17 @@ public final class AppInit {
     private             AppCommandLineOptions commandLineOptions;
     private volatile    boolean               init;
 
-    public synchronized void init(String[] args) {
-        this.commandLineOptions = new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
-        init();
-    }
-
-    private void init() {
+    public void init(String[] args) {
         synchronized (this) {
             assert !init;
             if (init) return;
             init = true;
         }
+        this.commandLineOptions = new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
+        init();
+    }
+
+    private void init() {
         AppLookAndFeel.set();
         captureOutput();
         checkJavaVersion();

@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.cache;
 
 import java.io.File;
+import java.io.Serializable;
 import java.lang.ref.SoftReference;
 import java.util.Comparator;
 import java.util.Map.Entry;
@@ -32,7 +33,7 @@ import java.util.Map.Entry;
  * @version 2009-07-18
  */
 public class CacheIndirectionAgeComparator<C extends CacheIndirection>
-        implements Comparator<Entry<File, SoftReference<C>>> {
+        implements Comparator<Entry<File, SoftReference<C>>>, Serializable {
 
     @Override
     public int compare(Entry<File, SoftReference<C>> o1,

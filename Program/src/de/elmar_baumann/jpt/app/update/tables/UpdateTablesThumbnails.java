@@ -172,7 +172,9 @@ final class UpdateTablesThumbnails extends Database {
                         convertThumbnailName(
                                 id, PersistentThumbnails.getMd5Filename(filename));
                     } else {
-                        file.delete(); // orphaned thumbnail
+                        if (!file.delete()) { // orphaned thumbnail
+                            AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.DeleteThumbnail", file);
+                        }
                     }
                     setMessageCurrentFile(id, ++fileIndex, "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Hash");
                 } catch (Exception ex) {
@@ -209,9 +211,13 @@ final class UpdateTablesThumbnails extends Database {
         if (oldFile == null) return;
         File newFile = PersistentThumbnails.getThumbnailfile(newHash);
         if (newFile.exists()) {
-            oldFile.delete();
+            if (!oldFile.delete()) {
+                AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.DeleteOld", oldFile);
+            }
         } else {
-            oldFile.renameTo(newFile);
+            if (!oldFile.renameTo(newFile)) {
+                AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.Rename", oldFile, newFile);
+            }
         }
     }
 

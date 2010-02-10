@@ -47,9 +47,9 @@ import javax.swing.tree.TreeNode;
  */
 public final class TreeModelKeywords extends DefaultTreeModel {
 
-    private static final long                    serialVersionUID = -1044898256327030256L;
-    private final        DefaultMutableTreeNode  ROOT;
-    private final        DatabaseKeywords        db               = DatabaseKeywords.INSTANCE;
+    private static final    long                    serialVersionUID = -1044898256327030256L;
+    private final           DefaultMutableTreeNode  ROOT;
+    private final transient DatabaseKeywords        db               = DatabaseKeywords.INSTANCE;
 
     public TreeModelKeywords() {
         super(new TreeNodeSortedChildren(Bundle.getString("TreeModelKeywords.DisplayName.Root")));
@@ -196,16 +196,11 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     public synchronized void delete(DefaultMutableTreeNode keywordNode) {
 
         List<Keyword> delKeywords = new ArrayList<Keyword>();
-        Object        o           = keywordNode.getUserObject();
-
-        assert o instanceof Keyword : o;
 
         for (Enumeration<?> e = keywordNode.preorderEnumeration(); e.hasMoreElements();) {
-            Object el = e.nextElement(); assert el instanceof DefaultMutableTreeNode : el;
+            Object el = e.nextElement();
             if (el instanceof DefaultMutableTreeNode) {
                 Object userObject = ((DefaultMutableTreeNode) el).getUserObject();
-
-                assert userObject instanceof Keyword : userObject;
 
                 if (userObject instanceof Keyword) {
                     delKeywords.add((Keyword) userObject);

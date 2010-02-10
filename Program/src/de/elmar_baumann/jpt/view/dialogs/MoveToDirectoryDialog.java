@@ -54,18 +54,18 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class MoveToDirectoryDialog extends Dialog implements ProgressListener, FileSystemListener {
 
-    private static final String                    KEY_TARGET_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
-    private static final long                      serialVersionUID     = 3213926343815394815L;
-    private final        List<File>                movedFiles           = new ArrayList<File>();
-    private final        ProgressListenerSupport   pListenerSupport     = new ProgressListenerSupport();
-    private              FileSystemMove            moveTask;
-    private              boolean                   runs                 = false;
-    private              boolean                   stop                 = false;
-    private              boolean                   errors               = false;
-    private              List<File>                sourceFiles;
-    private              File                      targetDirectory      = new File("");
-    private              boolean                   moveIfVisible        = false;
-    private final        FileSystemListenerSupport listenerSupport      = new FileSystemListenerSupport();
+    private static final    String                    KEY_TARGET_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
+    private static final    long                      serialVersionUID     = 3213926343815394815L;
+    private final           List<File>                movedFiles           = new ArrayList<File>();
+    private final transient ProgressListenerSupport   pListenerSupport     = new ProgressListenerSupport();
+    private transient       FileSystemMove            moveTask;
+    private                 boolean                   runs                 = false;
+    private                 boolean                   stop                 = false;
+    private                 boolean                   errors               = false;
+    private                 List<File>                sourceFiles;
+    private                 File                      targetDirectory      = new File("");
+    private                 boolean                   moveIfVisible        = false;
+    private final transient FileSystemListenerSupport listenerSupport      = new FileSystemListenerSupport();
 
     public MoveToDirectoryDialog() {
         super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
@@ -83,7 +83,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         pListenerSupport.add(listener);
     }
 
-    private void checkClosing() {
+    private synchronized void checkClosing() {
         if (runs) {
             MessageDisplayer.error(this, "MoveToDirectoryDialog.Error.AbortBeforeClose");
         } else {
@@ -108,7 +108,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         sourceFiles.addAll(xmpFiles);
     }
 
-    private void reset() {
+    private synchronized void reset() {
         runs   = false;
         stop   = false;
         errors = false;
@@ -261,16 +261,18 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        progressBar.setValue(evt.getValue());
-        buttonStop.setEnabled(true);
-        buttonStart.setEnabled(true);
-        runs = false;
-        moveTask = null;
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().remove(movedFiles);
-        removeMovedFiles();
-        pListenerSupport.notifyEnded(evt);
-        checkErrors();
-        setVisible(false);
+        synchronized (this) {
+            progressBar.setValue(evt.getValue());
+            buttonStop.setEnabled(true);
+            buttonStart.setEnabled(true);
+            runs = false;
+            moveTask = null;
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails().remove(movedFiles);
+            removeMovedFiles();
+            pListenerSupport.notifyEnded(evt);
+            checkErrors();
+            setVisible(false);
+        }
     }
 
     private void removeMovedFiles() {
@@ -297,7 +299,9 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             FileSystemError error  = event.getError();
 
             AppLogger.logWarning(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.Error.Logfile", src, target, error.getLocalizedMessage());
-            errors = true;
+            synchronized (this) {
+                errors = true;
+            }
         } else {
             movedFiles.add(src);
         }

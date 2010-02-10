@@ -63,18 +63,18 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public final class AppPanel extends javax.swing.JPanel {
 
-    private static final String                   KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain";
-    private static final String                   KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails";
-    private static final int                      DEFAULT_DIVIDER_LOCATION_MAIN       = 100;
-    private static final int                      DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
-    private static final long                     serialVersionUID                    = -7555272441595172631L;
-    private final        MessageLabel             messageLabel;
-    private final        List<JTable>             xmpTables                           = new ArrayList<JTable>();
-    private final        List<JTable>             metadataTables                      = new ArrayList<JTable>();
-    private final        List<JTree>              selectionTrees                      = new ArrayList<JTree>();
-    private final        List<JList>              selectionLists                      = new ArrayList<JList>();
-    private              EditMetadataPanels       editMetadtaPanels;
-    private              EditMetadataActionsPanel editActionsPanel;
+    private static final    String                   KEY_DIVIDER_LOCATION_MAIN           = "AppPanel.DividerLocationMain";
+    private static final    String                   KEY_DIVIDER_LOCATION_THUMBNAILS     = "AppPanel.DividerLocationThumbnails";
+    private static final    int                      DEFAULT_DIVIDER_LOCATION_MAIN       = 100;
+    private static final    int                      DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
+    private static final    long                     serialVersionUID                    = -7555272441595172631L;
+    private final transient MessageLabel             messageLabel;
+    private final           List<JTable>             xmpTables                           = new ArrayList<JTable>();
+    private final           List<JTable>             metadataTables                      = new ArrayList<JTable>();
+    private final           List<JTree>              selectionTrees                      = new ArrayList<JTree>();
+    private final           List<JList>              selectionLists                      = new ArrayList<JList>();
+    private transient       EditMetadataPanels       editMetadtaPanels;
+    private transient       EditMetadataActionsPanel editActionsPanel;
 
     public AppPanel() {
         GUI.INSTANCE.setAppPanel(this);

@@ -96,7 +96,6 @@ public final class KeywordsHelper {
                 }
             }
             TreeNode parent = node.getParent();
-            assert parent == null || parent instanceof DefaultMutableTreeNode : "Not a DefaultMutableTreeNode: " + parent;
             
             node = parent instanceof DefaultMutableTreeNode ? (DefaultMutableTreeNode) parent : null;
         }

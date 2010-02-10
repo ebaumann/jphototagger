@@ -65,7 +65,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private              Component       firstInputComponent;
     private              Component       lastInputComponent;
     private              Component       lastFocussedComponent;
-    private              Xmp             xmp                  = new Xmp();
+    private transient    Xmp             xmp                  = new Xmp();
 
     public EditXmpPanel() {
         init();

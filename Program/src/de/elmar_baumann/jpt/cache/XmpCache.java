@@ -36,7 +36,7 @@ import javax.swing.SwingUtilities;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class XmpCache extends Cache<XmpCacheIndirection>
+public final class XmpCache extends Cache<XmpCacheIndirection>
         implements DatabaseImageFilesListener {
 
     public static final XmpCache INSTANCE = new XmpCache();

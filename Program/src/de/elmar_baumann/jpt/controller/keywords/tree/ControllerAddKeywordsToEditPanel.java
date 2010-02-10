@@ -113,7 +113,6 @@ public class ControllerAddKeywordsToEditPanel
         if (parent == null || getHKPanel().getTree().getModel().getRoot().equals(parent)) {
             return;
         }
-        assert parent instanceof DefaultMutableTreeNode : parent;
         if (parent instanceof DefaultMutableTreeNode) {
             addParentKeywords((DefaultMutableTreeNode) parent, keywords);
         }

@@ -40,7 +40,7 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
     private final        JMenuItem              itemEdit         = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit")  , AppLookAndFeel.getIcon("icon_edit.png"));
     private final        JMenuItem              itemCreate       = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New"));
     private final        JMenuItem              itemRename       = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"));
-    private              SavedSearch            savedSearch;
+    private transient    SavedSearch            savedSearch;
     public static final  PopupMenuSavedSearches INSTANCE         = new PopupMenuSavedSearches();
 
     private PopupMenuSavedSearches() {

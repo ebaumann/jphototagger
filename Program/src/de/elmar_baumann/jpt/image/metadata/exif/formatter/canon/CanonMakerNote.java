@@ -6,6 +6,7 @@ import de.elmar_baumann.jpt.types.FileType;
 import de.elmar_baumann.lib.lang.Util;
 import de.elmar_baumann.lib.thirdparty.KMPMatch;
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteOrder;
 
@@ -58,7 +59,8 @@ public final class CanonMakerNote {
 
             final long app1DataPos = raf.getFilePointer();
             raf.seek(app1DataPos + 2); // +2: Data size info
-            raf.read(app1Data, 0, app1DataSize - 2);
+            int read = raf.read(app1Data, 0, app1DataSize - 2);
+            if (read != app1DataSize - 2) return null;
 
             if (!hasExif(app1Data)) return null;
 
@@ -96,7 +98,8 @@ public final class CanonMakerNote {
             raf.seek(markerOffset);
 
             if (!isReadLengthOk(raf, 2)) return false;
-            raf.read(marker, 0, 2);
+            int read = raf.read(marker, 0, 2);
+            if (read != 2) return false;
 
             found = Util.compareTo(marker, JPEG_APP1_MARKER) == 0;
             boolean isSos = Util.compareTo(marker, JPEG_SOS_MARKER) == 0;
@@ -136,7 +139,8 @@ public final class CanonMakerNote {
         byte[] size = new byte[2];
         long   pos  = raf.getFilePointer();
 
-        raf.read(size, 0, 2);
+        int read = raf.read(size, 0, 2);
+        if (read != 2) throw new IOException("Size read != 2");
         raf.seek(pos);
 
         return ExifDatatypeUtil.shortFromRawValue(size, JPEG_BYTE_ORDER);
@@ -146,7 +150,8 @@ public final class CanonMakerNote {
         byte[] start = new byte[2];
 
         raf.seek(0);
-        raf.read(start, 0, 2);
+        int read = raf.read(start, 0, 2);
+        if (read != 2) return false;
 
         return Util.compareTo(start, JPEG_MAGIC_BYTES) == 0;
     }

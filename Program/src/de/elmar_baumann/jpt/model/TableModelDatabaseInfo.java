@@ -44,12 +44,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelDatabaseInfo extends DefaultTableModel implements DatabaseImageFilesListener {
 
-    private static final List<DatabaseImageFilesEvent.Type>  COUNT_EVENTS            = new ArrayList<DatabaseImageFilesEvent.Type>();
-    private static final long                                serialVersionUID        = 1974343527501774916L;
-    private final        DatabaseStatistics                  db                      = DatabaseStatistics.INSTANCE;
-    private final        LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
-    private final        LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn     = new LinkedHashMap<Column, StringBuffer>();
-    private              boolean                             listenToDatabase;
+    private static final    List<DatabaseImageFilesEvent.Type>  COUNT_EVENTS            = new ArrayList<DatabaseImageFilesEvent.Type>();
+    private static final    long                                serialVersionUID        = 1974343527501774916L;
+    private final transient DatabaseStatistics                  db                      = DatabaseStatistics.INSTANCE;
+    private final           LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
+    private final           LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn     = new LinkedHashMap<Column, StringBuffer>();
+    private                 boolean                             listenToDatabase;
 
     static {
         COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED);

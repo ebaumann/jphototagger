@@ -428,7 +428,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     public Program getProgram(Object source) {
-        assert source instanceof JMenuItem : "Not a JMenuItem: " + source;
         if (source instanceof JMenuItem) {
             return programOfMenuItem.get((JMenuItem) source);
 

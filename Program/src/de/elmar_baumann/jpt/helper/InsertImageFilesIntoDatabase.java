@@ -325,7 +325,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * A <em>soft</em> interrupt: I/O operations can finishing their current
      * process.
      */
-    public synchronized void cancel() {
+    public void cancel() {
         stop = true;
     }
 

@@ -60,7 +60,7 @@ public final class UpdateMetadataOfDirectoriesPanel
     private static final long                         serialVersionUID     = -8953645248403117494L;
     private final        DefaultListModel             listModelDirectories = new DefaultListModel();
     private              File                         lastDirectory        = new File("");
-    private              InsertImageFilesIntoDatabase imageFileInserter;
+    private transient    InsertImageFilesIntoDatabase imageFileInserter;
 
     public UpdateMetadataOfDirectoriesPanel() {
         initComponents();

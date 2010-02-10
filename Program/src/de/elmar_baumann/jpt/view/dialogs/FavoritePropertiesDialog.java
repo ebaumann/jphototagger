@@ -41,12 +41,12 @@ import java.util.List;
  */
 public final class FavoritePropertiesDialog extends Dialog {
 
-    private static final String            KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
-    private static final long              serialVersionUID   = 750583413264344283L;
-    private final        DatabaseFavorites db                 = DatabaseFavorites.INSTANCE;
-    private              String            lastDirectory      = "";
-    private              boolean           accepted;
-    private              boolean           isUpdate;
+    private static final    String            KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
+    private static final    long              serialVersionUID   = 750583413264344283L;
+    private final transient DatabaseFavorites db                 = DatabaseFavorites.INSTANCE;
+    private                 String            lastDirectory      = "";
+    private                 boolean           accepted;
+    private                 boolean           isUpdate;
 
     public FavoritePropertiesDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);

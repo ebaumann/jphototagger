@@ -22,7 +22,6 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
-import de.elmar_baumann.jpt.data.TextEntryContent;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
@@ -79,12 +78,12 @@ public final class EditRepeatableTextEntryPanel
 
     private static final long                     serialVersionUID         = -5581799743101447535L;
     private final        DefaultListModel         model                    = new DefaultListModel();
-    private              Column                   column                   = ColumnXmpDcSubjectsSubject.INSTANCE;
+    private transient    Column                   column                   = ColumnXmpDcSubjectsSubject.INSTANCE;
     private              boolean                  editable                 = true;
     private              boolean                  dirty                    = false;
     private              Suggest                  suggest;
     private              boolean                  ignoreIntervalAdded;
-    private              TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private transient    TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private              Autocomplete             autocomplete;
     private              Color                    editBackground;
 
@@ -344,11 +343,6 @@ public final class EditRepeatableTextEntryPanel
     @Override
     public void setDirty(boolean dirty) {
         this.dirty = dirty;
-    }
-
-    @Override
-    public TextEntry clone() {
-        return new TextEntryContent(getText(), column);
     }
 
     /**

@@ -136,13 +136,11 @@ public final class ControllerSliderThumbnailSize
 
     private void handleSliderMoved() {
         int value = slider.getValue();
-        synchronized (this) {
-            // value % STEP_WIDTH == 0 is not necessary as long as STEP_WIDTH == 1
-            if (/* value % STEP_WIDTH == 0 && */ value != currentValue) {
-                currentValue = value;
-                writeProperties();
-                setThumbnailWidth();
-            }
+        // value % STEP_WIDTH == 0 is not necessary as long as STEP_WIDTH == 1
+        if (/* value % STEP_WIDTH == 0 && */value != currentValue) {
+            currentValue = value;
+            writeProperties();
+            setThumbnailWidth();
         }
     }
 

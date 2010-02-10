@@ -35,7 +35,7 @@ import javax.swing.SwingUtilities;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
+public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         implements DatabaseImageFilesListener {
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();

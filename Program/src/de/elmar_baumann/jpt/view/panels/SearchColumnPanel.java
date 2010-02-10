@@ -57,17 +57,17 @@ import javax.swing.JToggleButton;
  */
 public final class SearchColumnPanel extends javax.swing.JPanel {
 
-    private static final long                         serialVersionUID      = -2063583386957538525L;
-    private static final String                       SEL_LEFT_BRACKET      = "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
-    private static final String                       NOT_SEL_LEFT_BRACKET  = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
-    private static final String                       SEL_RIGHT_BRACKET     = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
-    private static final String                       NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
-    private final        SearchListenerSupport        listenerSupport       = new SearchListenerSupport();
-    private final        ListCellRendererTableColumns columnRenderer        = new ListCellRendererTableColumns();
-    private              boolean                      isOperatorsEnabled    = true;
-    private              boolean                      listenToActions       = true;
-    private              boolean                      isFirst;
-    private              boolean                      changed;
+    private static final    long                         serialVersionUID      = -2063583386957538525L;
+    private static final    String                       SEL_LEFT_BRACKET      = "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
+    private static final    String                       NOT_SEL_LEFT_BRACKET  = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
+    private static final    String                       SEL_RIGHT_BRACKET     = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
+    private static final    String                       NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
+    private final transient SearchListenerSupport        listenerSupport       = new SearchListenerSupport();
+    private final           ListCellRendererTableColumns columnRenderer        = new ListCellRendererTableColumns();
+    private                 boolean                      isOperatorsEnabled    = true;
+    private                 boolean                      listenToActions       = true;
+    private                 boolean                      isFirst;
+    private                 boolean                      changed;
 
     public SearchColumnPanel() {
         initComponents();

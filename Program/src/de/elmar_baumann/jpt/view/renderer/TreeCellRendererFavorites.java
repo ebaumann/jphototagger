@@ -65,9 +65,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
             setText(favoriteDirectory.getName());
         } else if (userObject instanceof File) {
             file = (File) userObject;
-            setText(file != null
-                    ? getDirectoryName(file)
-                    : "");
+            setText(getDirectoryName(file));
         }
         if (file != null) {
             if (file.exists()) {

@@ -64,13 +64,13 @@ import javax.swing.tree.TreePath;
 public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener, AppExitListener {
 
-    private static final String                 KEY_SELECTED_FAV_NAME = "TreeModelFavorites.SelFavDir";
-    private static final String                 KEY_SELECTED_DIR      = "TreeModelFavorites.SelDir";
-    private static final long                   serialVersionUID      = -2453748094818942669L;
-    private final        DefaultMutableTreeNode rootNode;
-    private final        DatabaseFavorites      db;
-    private final        JTree                  tree;
-    private final        Object                 monitor               = new Object();
+    private static final    String                 KEY_SELECTED_FAV_NAME = "TreeModelFavorites.SelFavDir";
+    private static final    String                 KEY_SELECTED_DIR      = "TreeModelFavorites.SelDir";
+    private static final    long                   serialVersionUID      = -2453748094818942669L;
+    private final           DefaultMutableTreeNode rootNode;
+    private final transient DatabaseFavorites      db;
+    private final           JTree                  tree;
+    private final           Object                 monitor               = new Object();
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(Bundle.getString("TreeModelFavorites.Root.DisplayName")));

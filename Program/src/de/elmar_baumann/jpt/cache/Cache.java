@@ -32,7 +32,7 @@ import java.util.Set;
 public abstract class Cache<CI extends CacheIndirection> {
 
     static int currentAge = 0;
-    final int MAX_ENTRIES = 1500;
+    private static final int MAX_ENTRIES = 1500;
     final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
     protected WorkQueue<CI> workQueue = new WorkQueue<CI>();
     /**

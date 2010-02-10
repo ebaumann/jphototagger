@@ -62,14 +62,14 @@ public final class TreeModelMiscMetadata
         extends    DefaultTreeModel
         implements DatabaseImageFilesListener {
 
-    private static final DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(Bundle.getString("TreeModelMiscMetadata.Root.DisplayName"));
-    private static final Object                 EXIF_USER_OBJECT    = Bundle.getString("TreeModelMiscMetadata.ExifNode.DisplayName");
-    private static final Object                 XMP_USER_OBJECT     = Bundle.getString("TreeModelMiscMetadata.XmpNode.DisplayName");
-    private static final Set<Column>            EXIF_COLUMNS        = new LinkedHashSet<Column>();
-    private static final Set<Column>            XMP_COLUMNS         = new LinkedHashSet<Column>();
-    private static final Set<Object>            COLUMN_USER_OBJECTS = new LinkedHashSet<Object>();
-    private static final long                   serialVersionUID    = 2498087635943355657L;
-    private final        DatabaseImageFiles     db;
+    private static final    DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(Bundle.getString("TreeModelMiscMetadata.Root.DisplayName"));
+    private static final    Object                 EXIF_USER_OBJECT    = Bundle.getString("TreeModelMiscMetadata.ExifNode.DisplayName");
+    private static final    Object                 XMP_USER_OBJECT     = Bundle.getString("TreeModelMiscMetadata.XmpNode.DisplayName");
+    private static final    Set<Column>            EXIF_COLUMNS        = new LinkedHashSet<Column>();
+    private static final    Set<Column>            XMP_COLUMNS         = new LinkedHashSet<Column>();
+    private static final    Set<Object>            COLUMN_USER_OBJECTS = new LinkedHashSet<Object>();
+    private static final    long                   serialVersionUID    = 2498087635943355657L;
+    private final transient DatabaseImageFiles     db;
 
 
     static {

@@ -62,15 +62,15 @@ import java.util.Map;
 public final class AdvancedSearchPanel extends javax.swing.JPanel
         implements SearchListener, Persistence {
 
-    private static final int                       MIN_COLUMN_COUNT        = 5;
-    private static final String                    SQL_IDENTIFIER_KEYWORDS = "xmp_dc_subjects.subject IN";
-    private static final String                    KEY_SELECTED_TAB_INDEX  = "AdvancedSearchPanel.SelectedTabIndex";
-    private static final long                      serialVersionUID        = -4036432653670374380L;
-    private final        List<SearchColumnPanel>   searchColumnPanels      = new LinkedList<SearchColumnPanel>();
-    private final        Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
-    private              String                    searchName              = "";
-    private              boolean                   isSavedSearch           = false;
-    private final        SearchListenerSupport     listenerSupport         = new SearchListenerSupport();
+    private static final    int                       MIN_COLUMN_COUNT        = 5;
+    private static final    String                    SQL_IDENTIFIER_KEYWORDS = "xmp_dc_subjects.subject IN";
+    private static final    String                    KEY_SELECTED_TAB_INDEX  = "AdvancedSearchPanel.SelectedTabIndex";
+    private static final    long                      serialVersionUID        = -4036432653670374380L;
+    private final           List<SearchColumnPanel>   searchColumnPanels      = new LinkedList<SearchColumnPanel>();
+    private final           Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
+    private                 String                    searchName              = "";
+    private                 boolean                   isSavedSearch           = false;
+    private final transient SearchListenerSupport     listenerSupport         = new SearchListenerSupport();
 
     public AdvancedSearchPanel() {
         initComponents();

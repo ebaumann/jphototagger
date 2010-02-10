@@ -22,8 +22,6 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Creates an application lock file to prevent multiple instances. Uses
@@ -35,10 +33,7 @@ import java.util.logging.Logger;
  */
 public final class AppLock {
 
-    private static final String LOCKFILE_NAME =
-            UserSettings.INSTANCE.getDatabaseDirectoryName() +
-            File.separator +
-            AppInfo.PROJECT_NAME + ".lck";
+    private static final String LOCKFILE_NAME = UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + AppInfo.PROJECT_NAME + ".lck";
 
     /**
      * Returns whether the application ist locked.

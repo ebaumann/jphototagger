@@ -65,6 +65,7 @@ public final class TextEntryContent implements TextEntry {
 
     /**
      * Does nothing.
+     * @param editable true if editable
      */
     @Override
     public void setEditable(boolean editable) {
@@ -101,11 +102,6 @@ public final class TextEntryContent implements TextEntry {
     @Override
     public void setDirty(boolean dirty) {
         // ignore
-    }
-
-    @Override
-    public TextEntry clone() {
-        return new TextEntryContent(text, column);
     }
 
     /**

@@ -75,7 +75,6 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
 
     private void setKeywords(JTree tree, Collection<String> keywords) {
         TreeCellRenderer r = tree.getCellRenderer();
-        assert r instanceof TreeCellRendererKeywords : r;
         if (r instanceof TreeCellRendererKeywords) {
             ((TreeCellRendererKeywords) r).setHighlightKeywords(keywords);
             tree.repaint();
