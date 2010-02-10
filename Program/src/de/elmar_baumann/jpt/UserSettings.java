@@ -132,7 +132,11 @@ public final class UserSettings {
      *
      */
     public void writeToFile() {
-        propertiesFile.writeToFile();
+        try {
+            propertiesFile.writeToFile();
+        } catch (Exception ex) {
+            AppLogger.logSevere(UserSettings.class, ex);
+        }
     }
 
     /**

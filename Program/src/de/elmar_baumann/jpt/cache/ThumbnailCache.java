@@ -83,7 +83,7 @@ public class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                     if (file == null) {
                         AppLogger.logWarning(ThumbnailFetcher.class, "ThumbnailCache.Info.FileIsNull");
                     } else {
-                        String tnFilename = PersistentThumbnails.getMd5File(file.getAbsolutePath());
+                        String tnFilename = PersistentThumbnails.getMd5Filename(file.getAbsolutePath());
                         if (tnFilename == null) {
                             AppLogger.logWarning(ThumbnailFetcher.class, "ThumbnailCache.Info.NoTnFilename", file);
                         } else {

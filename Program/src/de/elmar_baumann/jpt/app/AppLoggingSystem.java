@@ -67,8 +67,11 @@ public final class AppLoggingSystem implements UserSettingsListener {
     }
 
     private static void ensureLogDirectoryExists() {
-
-        FileUtil.ensureDirectoryExists(UserSettings.INSTANCE.getSettingsDirectoryName());
+        try {
+            FileUtil.ensureDirectoryExists(UserSettings.INSTANCE.getSettingsDirectoryName());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private static void createHandlers() {

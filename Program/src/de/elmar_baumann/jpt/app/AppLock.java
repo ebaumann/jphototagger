@@ -21,6 +21,9 @@ package de.elmar_baumann.jpt.app;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Creates an application lock file to prevent multiple instances. Uses
@@ -53,7 +56,12 @@ public final class AppLock {
      */
     public static synchronized boolean lock() {
         if (!isLocked()) {
-            return FileUtil.ensureFileExists(LOCKFILE_NAME);
+            try {
+                FileUtil.ensureFileExists(LOCKFILE_NAME);
+                return true;
+            } catch (IOException ex) {
+                AppLogger.logSevere(AppLock.class, ex);
+            }
         }
         return false;
     }

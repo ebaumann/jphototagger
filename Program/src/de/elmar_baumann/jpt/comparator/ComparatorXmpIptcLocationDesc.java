@@ -21,8 +21,9 @@ package de.elmar_baumann.jpt.comparator;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import de.elmar_baumann.lib.util.ClassNameEquality;
+import de.elmar_baumann.lib.util.ClassEquality;
 import java.io.File;
+import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
 
@@ -32,8 +33,10 @@ import java.util.Comparator;
  * @version 2009-12-16
  */
 public final class ComparatorXmpIptcLocationDesc
-        extends    ClassNameEquality
-        implements Comparator<File> {
+        extends    ClassEquality
+        implements Comparator<File>,
+                   Serializable
+    {
 
     private Collator collator = Collator.getInstance();
 

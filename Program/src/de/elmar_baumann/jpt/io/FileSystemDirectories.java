@@ -48,18 +48,13 @@ public final class FileSystemDirectories {
         if (directory.isDirectory()) {
             if (TreeFileSystemDirectories.confirmDelete(directory.getName())) {
                 try {
-                    List<File> imageFiles = ImageFilteredDirectory.
-                            getImageFilesOfDirAndSubDirs(directory);
-                    if (FileUtil.deleteDirectoryRecursive(directory)) {
-                        int count = DatabaseImageFiles.INSTANCE.delete(
-                                FileUtil.getAsFilenames(imageFiles));
-                        logDelete(directory, count);
-                        return true;
-                    } else {
-                        TreeFileSystemDirectories.errorMessageDelete(
-                                directory.getName());
-                    }
+                    List<File> imageFiles = ImageFilteredDirectory.getImageFilesOfDirAndSubDirs(directory);
+                    FileUtil.deleteDirectoryRecursive(directory);
+                    int count = DatabaseImageFiles.INSTANCE.delete(FileUtil.getAsFilenames(imageFiles));
+                    logDelete(directory, count);
+                    return true;
                 } catch (Exception ex) {
+                    TreeFileSystemDirectories.errorMessageDelete(directory.getName());
                     AppLogger.logSevere(FileSystemDirectories.class, ex);
                 }
             }

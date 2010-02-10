@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -204,7 +205,7 @@ public final class DatabaseFileExcludePattern extends Database {
                         count += affectedRows;
                         if (affectedRows > 0) {
 
-                            PersistentThumbnails.getThumbnailFileOfImageFile(filename).delete();
+                            deleteThumbnail(filename);
                             ImageFile deletedImageFile = new ImageFile();
                             deletedImageFile.setFilename(filename);
                             DatabaseImageFiles.INSTANCE.notifyListeners(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED, deletedImageFile);
@@ -227,5 +228,14 @@ public final class DatabaseFileExcludePattern extends Database {
             free(connection);
         }
         return count;
+    }
+
+    private void deleteThumbnail(String filename) {
+        File tnFile = PersistentThumbnails.getThumbnailFileOfImageFile(filename);
+        if (tnFile == null) return;
+
+        if (!tnFile.delete()) {
+            AppLogger.logWarning(getClass(), "DatabaseFileExcludePattern.Error.DeleteThumbnail", tnFile, filename);
+        }
     }
 }
