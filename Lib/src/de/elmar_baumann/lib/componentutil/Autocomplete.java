@@ -2,6 +2,7 @@ package de.elmar_baumann.lib.componentutil;
 
 import de.elmar_baumann.lib.util.CollectionUtil;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -27,7 +28,7 @@ import javax.swing.event.DocumentListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-01-13
  */
-public final class Autocomplete implements DocumentListener  {
+public final class Autocomplete implements DocumentListener, Serializable  {
 
     private              JTextArea          textArea;
     private static final String             COMMIT_ACTION         = "commit";

@@ -61,6 +61,8 @@ public final class TreeNodeSortedChildren extends DefaultMutableTreeNode impleme
         Collections.sort(this.children);
     }
 
+    // Only used by Collections.sort(this.children) in #insert(), so that
+    // a compare of the path is not neccessary
     @Override
     public int compareTo(final Object o) {
         return collator.compare(this.toString(), o.toString());

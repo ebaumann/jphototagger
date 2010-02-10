@@ -46,17 +46,13 @@ public final class RegexFileFilter implements java.io.FileFilter {
      * @param delim            Begrenzer zwischen den einzelnen Mustern
      */
     public RegexFileFilter(String acceptedPatterns, String delim) {
-        if (acceptedPatterns == null)
-            throw new NullPointerException("acceptedPatterns == null");
-        if (delim == null)
-            throw new NullPointerException("delim == null");
+        if (acceptedPatterns == null) throw new NullPointerException("acceptedPatterns == null");
+        if (delim == null)            throw new NullPointerException("delim == null");
 
         setAcceptedValues(acceptedPatterns, delim);
     }
 
     private void setAcceptedValues(String acceptedValueString, String delim) {
-        assert acceptedValueString != null : acceptedValueString;
-        assert delim != null : delim;
 
         StringTokenizer token = new StringTokenizer(acceptedValueString, delim);
         while (token.hasMoreElements()) {

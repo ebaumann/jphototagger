@@ -22,6 +22,7 @@ import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,20 +100,26 @@ public final class PropertiesFile {
      * Writes the propertie's values to the propertie's file. If the file does
      * not exist it will be created.
      *
-     * @return true if successful written
+     * @throws IOException if the file couldn't be written
      */
-    public boolean writeToFile() {
-        if (FileUtil.ensureDirectoryExists(new File(directoryName))) {
-            try {
-                FileOutputStream out = new FileOutputStream(getPropertyFilePathName());
-                properties.store(out, "--- " + projectName + " persistent settings ---");
-                out.close();
-                return true;
-            } catch (Exception ex) {
-                Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+    public void writeToFile() throws IOException {
+        FileUtil.ensureDirectoryExists(directoryName);
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(getPropertyFilePathName());
+            properties.store(out, "--- " + projectName + " persistent settings ---");
+        } catch (Exception ex) {
+            Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         }
-        return false;
     }
 
     /**
@@ -122,13 +129,20 @@ public final class PropertiesFile {
     public void readFromFile() {
         String propertyFilename = getPropertyFilePathName();
         if (FileUtil.existsFile(new File(propertyFilename))) {
-            FileInputStream in;
+            FileInputStream in = null;
             try {
                 in = new FileInputStream(propertyFilename);
                 properties.load(in);
-                in.close();
             } catch (Exception ex) {
                 Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
         }
     }

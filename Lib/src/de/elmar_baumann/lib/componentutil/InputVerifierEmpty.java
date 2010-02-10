@@ -48,7 +48,6 @@ public final class InputVerifierEmpty extends InputVerifier {
 
     @Override
     public boolean verify(JComponent input) {
-        assert input instanceof JTextComponent;
         if (input instanceof JTextComponent) {
             String text = ((JTextComponent) input).getText();
             return trim ? text.trim().isEmpty() : text.isEmpty();

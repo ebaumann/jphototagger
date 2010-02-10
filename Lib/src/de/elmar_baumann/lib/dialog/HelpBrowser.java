@@ -160,7 +160,7 @@ public final class HelpBrowser
         setBaseUrl(url);
     }
 
-    public String getContentsUrl() {
+    public synchronized String getContentsUrl() {
         return contentsUrl;
     }
 
@@ -314,14 +314,16 @@ public final class HelpBrowser
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (!settingPath && e.isAddedPath()) {
-            Object o = e.getNewLeadSelectionPath().getLastPathComponent();
-            if (o instanceof HelpPage) {
-                HelpPage helpPage = (HelpPage) o;
-                String helpPageUrl = helpPage.getUrl();
-                URL url = getClass().getResource(baseUrl + "/" + helpPageUrl);
-                setTitle(helpPage.getTitle() + Bundle.getString("HelpBrowser.TitlePostfix"));
-                showUrl(url);
+        synchronized (this) {
+            if (!settingPath && e.isAddedPath()) {
+                Object o = e.getNewLeadSelectionPath().getLastPathComponent();
+                if (o instanceof HelpPage) {
+                    HelpPage helpPage = (HelpPage) o;
+                    String helpPageUrl = helpPage.getUrl();
+                    URL url = getClass().getResource(baseUrl + "/" + helpPageUrl);
+                    setTitle(helpPage.getTitle() + Bundle.getString("HelpBrowser.TitlePostfix"));
+                    showUrl(url);
+                }
             }
         }
     }

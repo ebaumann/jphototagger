@@ -639,7 +639,7 @@ public final class Settings {
         int              tableColumnCount = model.getColumnCount();
 
         for (int index = 0; index < tableColumnCount; index++) {
-            colWidths.add(new Integer(colModel.getColumn(index).getWidth()));
+            colWidths.add(colModel.getColumn(index).getWidth());
         }
         setIntegerCollection(colWidths, key);
     }
@@ -892,27 +892,22 @@ public final class Settings {
     }
 
     private static String getKeyHeight(String key) {
-        assert key != null : key;
         return key + POSTFIX_KEY_HEIGHT;
     }
 
     private static String getKeyWidth(String key) {
-        assert key != null : key;
         return key + POSTFIX_KEY_WIDTH;
     }
 
     private static String getKeyLocationX(String key) {
-        assert key != null : key;
         return key + POSTFIX_KEY_LOCATION_X;
     }
 
     private static String getKeyLocationY(String key) {
-        assert key != null : key;
         return key + POSTFIX_KEY_LOCATION_Y;
     }
 
     private String getArrayKeyMatchPattern(String key) {
-        assert key != null : key;
         return "^" + java.util.regex.Pattern.quote(key + DELIMITER_ARRAY_KEYS) + "[0-9]+$";
     }
 }

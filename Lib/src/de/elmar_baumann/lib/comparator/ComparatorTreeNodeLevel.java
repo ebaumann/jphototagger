@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.lib.comparator;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -27,8 +28,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-28
  */
-public final class ComparatorTreeNodeLevel implements
-        Comparator<DefaultMutableTreeNode> {
+public final class ComparatorTreeNodeLevel
+        implements Comparator<DefaultMutableTreeNode>,
+                   Serializable
+    {
 
     /**
      * Sorts tree nodes in ascending order: A node with a lower level is before

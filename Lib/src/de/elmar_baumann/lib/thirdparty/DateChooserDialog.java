@@ -40,6 +40,8 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -140,7 +142,6 @@ public final class DateChooserDialog extends JComponent {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 gc.add(Calendar.MONTH, -1);
-                int mon = gc.get(Calendar.MONTH);
                 if (selectedDay >
                     gc.getActualMaximum(Calendar.DAY_OF_MONTH)) {
                     selectedDay = 1;
@@ -166,7 +167,6 @@ public final class DateChooserDialog extends JComponent {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 gc.add(Calendar.MONTH, 1);
-                int mon = gc.get(Calendar.MONTH);
                 if (selectedDay >
                     gc.getActualMaximum(Calendar.DAY_OF_MONTH)) {
                     selectedDay = 1;
@@ -188,6 +188,7 @@ public final class DateChooserDialog extends JComponent {
                     selectedDay = num;
                     drawCalendar();
                 } catch (Exception nfe) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, nfe);
                 }
             }
         };

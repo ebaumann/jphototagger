@@ -214,7 +214,6 @@ public final class ListUtil {
      */
     public static int getItemIndex(MouseEvent e) {
         Object source = e.getSource();
-        assert source instanceof JList : "Not a JList: " + source;
         if (source instanceof JList) {
             int mousePosX = e.getX();
             int mousePosY = e.getY();

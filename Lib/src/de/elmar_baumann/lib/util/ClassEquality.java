@@ -19,7 +19,7 @@
 package de.elmar_baumann.lib.util;
 
 /**
- * Object equality if the class name is equals.
+ * Object equality if the classes are equals.
  * <p>
  * Motivation: Comparing different instances of stateless classes via
  * <code>equals()</code>.
@@ -28,18 +28,18 @@ package de.elmar_baumann.lib.util;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-12-14
  */
-public class ClassNameEquality {
+public class ClassEquality {
 
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null) return false;
 
-        return getClass().getName().equals(obj.getClass().getName());
+        return getClass().equals(obj.getClass());
     }
 
     @Override
     public int hashCode() {
-        return getClass().getName().hashCode();
+        return getClass().hashCode();
     }
 }

@@ -43,15 +43,9 @@ import java.util.logging.Logger;
  */
 public final class XmpFileReader {
 
-    /** Marker für den Beginn eines XMP-Packets (<?xpacket begin=) */
-    private static final byte[] XMP_PACKET_MARKER = {0x3C, 0x3F, 0x78, 0x70,
-        0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65, 0x67, 0x69, 0x6E,
-        0x3D
-    };
-    private static final byte[] XMP_BEGIN_MARKER =
-            new String("<x:xmpmeta").getBytes();
-    private static final byte[] XMP_END_MARKER =
-            new String("</x:xmpmeta>").getBytes();
+    private static final byte[] XMP_PACKET_MARKER = {0x3C, 0x3F, 0x78, 0x70, 0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65, 0x67, 0x69, 0x6E, 0x3D }; // "<?xpacket begin="
+    private static final byte[] XMP_BEGIN_MARKER  = { 0x3C, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61 };                                    // "<x:xmpmeta"
+    private static final byte[] XMP_END_MARKER    = { 0x3C, 0x2F, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61, 0x3E };                        // "</x:xmpmeta>"
 
     /**
      * Liest eine Datei und liefert einen String mit den XMP-Informationen.
@@ -70,8 +64,7 @@ public final class XmpFileReader {
      *                 ein Eingabefehler aufgetreten ist
      */
     public static String readFile(String filename) {
-        if (filename == null)
-            throw new NullPointerException("filename == null");
+        if (filename == null) throw new NullPointerException("filename == null");
 
         RandomAccessFile file = null;
         try {
@@ -79,11 +72,9 @@ public final class XmpFileReader {
             file.getChannel().lock(0, Long.MAX_VALUE, true);
             int xmpPacketStartIndex = getMatchIndex(file, 0, XMP_PACKET_MARKER);
             if (xmpPacketStartIndex >= 0) {
-                int xmpStartIndex = getMatchIndex(file, xmpPacketStartIndex +
-                        XMP_PACKET_MARKER.length, XMP_BEGIN_MARKER);
+                int xmpStartIndex = getMatchIndex(file, xmpPacketStartIndex + XMP_PACKET_MARKER.length, XMP_BEGIN_MARKER);
                 if (xmpStartIndex > 0) {
-                    int xmpEndIndex = getMatchIndex(file, xmpStartIndex +
-                            XMP_BEGIN_MARKER.length, XMP_END_MARKER);
+                    int xmpEndIndex = getMatchIndex(file, xmpStartIndex + XMP_BEGIN_MARKER.length, XMP_END_MARKER);
                     if (xmpEndIndex > 0) {
                         // file will be closed in finally
                         return getXmp(filename, xmpStartIndex, xmpEndIndex);
@@ -91,19 +82,15 @@ public final class XmpFileReader {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeFile(file);
         }
         return null;
     }
 
-    private static String getXmp(String filename, int xmpStartIndex,
-            int xmpEndIndex) {
-        assert filename != null : filename;
-        assert xmpStartIndex >= 0 && xmpStartIndex <= xmpEndIndex :
-                xmpStartIndex;
+    private static String getXmp(String filename, int xmpStartIndex, int xmpEndIndex) {
+        assert xmpStartIndex >= 0 && xmpStartIndex <= xmpEndIndex : xmpStartIndex;
         assert xmpEndIndex >= xmpStartIndex : xmpEndIndex;
 
         RandomAccessFile file = null;
@@ -112,9 +99,9 @@ public final class XmpFileReader {
             file.seek(xmpStartIndex);
             int count = xmpEndIndex - xmpStartIndex + XMP_END_MARKER.length;
             byte[] bytes = new byte[count];
-            file.read(bytes, 0, count);
+            int bytesRead = file.read(bytes, 0, count);
             // file will be closed in finally
-            return new String(bytes, 0, count, "UTF-8");
+            return new String(bytes, 0, bytesRead, "UTF-8");
         } catch (Exception ex) {
             Logger.getLogger(XmpFileReader.class.getName()).log(
                     Level.SEVERE, null, ex);
@@ -131,8 +118,7 @@ public final class XmpFileReader {
      * @return         true, wenn die Datei XMP-Informationen enthält
      */
     public static boolean existsXmp(String filename) {
-        if (filename == null)
-            throw new NullPointerException("filename == null");
+        if (filename == null) throw new NullPointerException("filename == null");
 
         BufferedReader bufferedReader = null;
         try {
@@ -146,36 +132,32 @@ public final class XmpFileReader {
                 }
             } while (line != null);
         } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(
-                    Level.SEVERE, null, ex);
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeReader(bufferedReader);
         }
         return false;
     }
 
-    private static int getMatchIndex(RandomAccessFile file, int startAtOffset,
-            byte[] pattern) throws IOException {
-        assert file != null : file;
+    private static int getMatchIndex(RandomAccessFile file, int startAtOffset, byte[] pattern) throws IOException {
         assert startAtOffset >= 0;
-        assert pattern != null : pattern;
 
-        long fileLength = file.length();
-        byte byteRead = 0;
-        int startOffset = -1;
-        int matchCount = 0;
+        long    fileLength     = file.length();
+        byte    byteRead       = 0;
+        int     startOffset    = -1;
+        int     matchCount     = 0;
         boolean patternMatches = false;
-        int bufferSize = 1024 * 512;
-        byte[] buffer = new byte[bufferSize];
-        long bytesToRead = fileLength - startAtOffset + 1;
+        int     bufferSize     = 1024 * 512;
+        byte[]  buffer         = new byte[bufferSize];
+        long    bytesToRead    = fileLength - startAtOffset + 1;
 
         for (int offset = startAtOffset; offset < fileLength;) {
             bytesToRead = offset + bufferSize > fileLength
                           ? fileLength - offset + 1
                           : bufferSize;
             file.seek(offset);
-            file.read(buffer, 0, (int) bytesToRead);
-            for (int index = 0; index < bytesToRead; index++) {
+            int bytesRead = file.read(buffer, 0, (int) bytesToRead);
+            for (int index = 0; index < bytesRead; index++) {
                 byteRead = buffer[index];
                 if (!patternMatches && matchCount <= 0 && byteRead == pattern[0]) {
                     matchCount = 1;

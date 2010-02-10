@@ -19,6 +19,7 @@
 package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -100,7 +101,7 @@ public final class CommandLineParser {
         if (optionsDelimiter       == null) throw new NullPointerException("optionsDelimiter == null"); // NOI18N
         if (optionsValuesDelimiter == null) throw new NullPointerException("optionsValuesDelimiter == null"); // NOI18N
 
-        this.args                   = args;
+        this.args                   = Arrays.copyOf(args, args.length);
         this.optionsDelimiter       = optionsDelimiter;
         this.optionsValuesDelimiter = optionsValuesDelimiter;
 

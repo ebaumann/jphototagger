@@ -47,10 +47,10 @@ import javax.swing.tree.TreePath;
  */
 public final class TreeModelAllSystemDirectories extends DefaultTreeModel implements TreeWillExpandListener {
 
-    private static final long                   serialVersionUID = 8297582930734874242L;
-    private final        DirectoryFilter        directoryFilter;
-    private final        DefaultMutableTreeNode rootNode;
-    private final        JTree                  tree;
+    private static final     long                   serialVersionUID = 8297582930734874242L;
+    private final  transient DirectoryFilter        directoryFilter;
+    private final            DefaultMutableTreeNode rootNode;
+    private final            JTree                  tree;
 
     /**
      * Constructor.

@@ -21,8 +21,8 @@ package de.elmar_baumann.lib.dialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.logging.LogfileParser;
 import de.elmar_baumann.lib.util.logging.LogfileRecord;
-import de.elmar_baumann.lib.util.logging.LogfileRecordException;
-import de.elmar_baumann.lib.util.logging.LogfileRecordFrame;
+import de.elmar_baumann.lib.util.logging.ExceptionLogfileRecord;
+import de.elmar_baumann.lib.util.logging.FrameLogfileRecord;
 import de.elmar_baumann.lib.model.TableModelLogfiles;
 import de.elmar_baumann.lib.renderer.TableCellRendererLogfileDialog;
 import de.elmar_baumann.lib.resource.Bundle;
@@ -176,7 +176,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
         } else if (logfileBytes >= MAX_BYTES) {
             JOptionPane.showMessageDialog(
                     this,
-                    Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded", Math.round(logfileBytes / MAX_BYTES)),
+                    Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded", Math.round((float) logfileBytes / (float) MAX_BYTES)),
                     Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded.Title"),
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -262,12 +262,12 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
     }
 
     private void addDetailException(StringBuffer stringBuffer,
-            LogfileRecordException ex) {
+            ExceptionLogfileRecord ex) {
         if (ex != null) {
             addDetailExceptionMessage(ex, stringBuffer);
             stringBuffer.append("\n<pre>");
-            List<LogfileRecordFrame> frames = ex.getFrames();
-            for (LogfileRecordFrame frame : frames) {
+            List<FrameLogfileRecord> frames = ex.getFrames();
+            for (FrameLogfileRecord frame : frames) {
                 stringBuffer.append("\n" + frame.getClassName() + ":");
                 stringBuffer.append(" " + frame.getMethodName());
                 stringBuffer.append(
@@ -278,7 +278,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
         }
     }
 
-    private void addDetailExceptionMessage(LogfileRecordException exception,
+    private void addDetailExceptionMessage(ExceptionLogfileRecord exception,
             StringBuffer stringBuffer) {
         String message = exception.getMessage();
         if (message != null) {

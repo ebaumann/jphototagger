@@ -43,23 +43,18 @@ public final class TreeFileSystemDirectories {
      * Deletes a directory from the file system. Let's the user confirm deletion.
      *
      * @param  directory directory
-     * @return           true if deleted and false if not deleted or the file
-     *                   isn't a directory
+     * @return           true if deleted
      *
      */
     public static boolean delete(File directory) {
         if (directory.isDirectory()) {
             if (confirmDelete(directory.getName())) {
                 try {
-                    if (FileUtil.deleteDirectoryRecursive(directory)) {
-                        return true;
-                    } else {
-                        errorMessageDelete(directory.getName());
-                    }
+                    FileUtil.deleteDirectoryRecursive(directory);
+                    return true;
                 } catch (Exception ex) {
-                    Logger.getLogger(
-                            TreeFileSystemDirectories.class.getName()).log(
-                            Level.SEVERE, null, ex);
+                    errorMessageDelete(directory.getName());
+                    Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -77,19 +72,15 @@ public final class TreeFileSystemDirectories {
     public static File rename(File directory) {
         if (directory.isDirectory()) {
             String newDirectoryName = getNewName(directory);
-            if (newDirectoryName != null &&
-                    !newDirectoryName.trim().isEmpty()) {
-                File newDirectory = new File(directory.getParentFile(),
-                        newDirectoryName);
+            if (newDirectoryName != null && !newDirectoryName.trim().isEmpty()) {
+                File newDirectory = new File(directory.getParentFile(), newDirectoryName);
                 if (checkDoesNotExist(newDirectory)) {
                     try {
                         if (directory.renameTo(newDirectory)) {
                             return newDirectory;
                         }
                     } catch (Exception ex) {
-                        Logger.getLogger(
-                                TreeFileSystemDirectories.class.getName()).log(
-                                Level.SEVERE, null, ex);
+                        Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }

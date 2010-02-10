@@ -82,13 +82,9 @@ public final class InputVerifierNumberRange extends InputVerifier {
     }
 
     private String getString(JComponent component) {
-
-        assert component instanceof JTextComponent : component;
-
         if (component instanceof JTextComponent) {
             return ((JTextComponent) component).getText().trim();
         }
-
         return "";
     }
 
