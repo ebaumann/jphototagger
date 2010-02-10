@@ -36,6 +36,7 @@ public final class ComparatorXmpRatingDesc
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = -6367296007733860352L;
 
     @Override
     public int compare(File fileLeft, File fileRight) {

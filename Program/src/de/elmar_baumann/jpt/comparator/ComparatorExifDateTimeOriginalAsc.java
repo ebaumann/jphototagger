@@ -37,6 +37,8 @@ public final class ComparatorExifDateTimeOriginalAsc
         implements Comparator<File>,
                    Serializable {
 
+    private static final long serialVersionUID = -7558718187586080760L;
+
     @Override
     public int compare(File fileLeft, File fileRight) {
         long timeLeft  = ExifMetadata.timestampDateTimeOriginalDb(fileLeft);

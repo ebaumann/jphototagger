@@ -294,21 +294,6 @@ public class ThumbnailsPanel extends JPanel
         return new ArrayList<Integer>(selectedThumbnailIndices);
     }
 
-    private Set<Integer> getNotRenderedIndices() {
-        Set<Integer> indices = new HashSet<Integer>();
-        int          index   = 0;
-
-        for (File file : files) {
-
-            if (!renderedThumbnailCache.contains(file)) {
-                indices.add(index);
-            }
-            index++;
-        }
-
-        return indices;
-    }
-
     protected synchronized void repaint(int index) {
         repaint(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
                 renderer.getThumbnailAreaWidth(),
@@ -382,7 +367,7 @@ public class ThumbnailsPanel extends JPanel
         return isThumbnailAreaInWidth(x) && isThumbnailAreaInHeight(y);
     }
 
-    protected int getIndexAtPoint(int x, int y) {
+    protected int getThumbnailIndexAtPoint(int x, int y) {
         if (isThumbnailArea(x, y)) {
             int tnOffset = (x - MARGIN_THUMBNAIL) /
                     (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
@@ -403,8 +388,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private int getRowCountInHeight(int height) {
-        return (int) ((double) (height - MARGIN_THUMBNAIL) /
-                (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL) + 0.5);
+        return (height - MARGIN_THUMBNAIL) /
+                        (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
     }
 
     public synchronized boolean isSelected(int index) {
@@ -468,7 +453,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private boolean isClickInSelection(MouseEvent e) {
-        int clickIndex = getIndexAtPoint(e.getX(), e.getY());
+        int clickIndex = getThumbnailIndexAtPoint(e.getX(), e.getY());
         return selectedThumbnailIndices.contains(clickIndex);
     }
 
@@ -478,7 +463,7 @@ public class ThumbnailsPanel extends JPanel
             requestFocus();
         }
         if (isLeftClick) {
-            int thumbnailIndex = getIndexAtPoint(e.getX(), e.getY());
+            int thumbnailIndex = getThumbnailIndexAtPoint(e.getX(), e.getY());
             if (isValidIndex(thumbnailIndex)) {
                 transferData = true;
                 if (MouseEventUtil.isDoubleClick(e)) {
@@ -503,8 +488,24 @@ public class ThumbnailsPanel extends JPanel
                 setSelectedAll(false);
             }
         } else if (MouseEventUtil.isPopupTrigger(e)) {
-            showPopupMenu(e);
+            handlePopupTrigger(e);
         }
+    }
+
+    private void handlePopupTrigger(MouseEvent e) {
+        int     clickIndex   = getThumbnailIndexAtPoint(e.getX(), e.getY());
+        boolean isClickInSel = selectedThumbnailIndices.contains(clickIndex);
+
+        if (!isClickInSel) {
+            if (isIndex(clickIndex)) {
+                setSelected(clickIndex);
+                isClickInSel = true;
+            } else {
+                clearSelection();
+            }
+        }
+
+        showPopupMenu(e);
     }
 
     private void handleMouseReleased() {
@@ -530,8 +531,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void setSelectedAll(boolean select) {
-        Set<Integer> rerenderTargets =
-                new HashSet<Integer>(selectedThumbnailIndices);
+        Set<Integer> rerenderTargets = new HashSet<Integer>(selectedThumbnailIndices);
         selectedThumbnailIndices.clear();
         if (select) {
             for (int index = 0; index < files.size(); index++) {
@@ -551,8 +551,7 @@ public class ThumbnailsPanel extends JPanel
         if (getSelectionCount() <= 0) {
             setSelected(index);
         } else {
-            Set<Integer> rerenderTargets =
-                    new HashSet<Integer>(selectedThumbnailIndices);
+            Set<Integer> rerenderTargets = new HashSet<Integer>(selectedThumbnailIndices);
             int firstSelected = getFirstSelectedIndex();
             selectedThumbnailIndices.clear();
             int startIndex = index > firstSelected
@@ -626,8 +625,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void removeSelection(int index) {
         if (isSelected(index)) {
-            selectedThumbnailIndices.remove(index);
-            //renderedThumbnailCache.remove(getFile(index));
+            selectedThumbnailIndices.remove(Integer.valueOf(index)); // NOT remove(int)
             rerender(index);
             notifySelectionChanged();
         }
@@ -747,7 +745,7 @@ public class ThumbnailsPanel extends JPanel
             String flagText = flag == null ? "" : flag.getString();
             long length = file.length();
             SizeUnit unit = SizeUnit.unit(length);
-            long unitLength = (long) ((double)length / unit.bytes() + 0.5);
+            long unitLength = length / unit.bytes();
             Date date = new Date(file.lastModified());
             String unitString = unit.toString();
             return Bundle.getString("ThumbnailsPanel.TooltipText", file, unitLength, unitString, date, date, getSidecarFilename(file), flagText);
@@ -1393,7 +1391,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     protected void showToolTip(MouseEvent evt) {
-        int index = getIndexAtPoint(evt.getX(), evt.getY());
+        int index = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
         setToolTipText(createTooltipText(index));
     }
 

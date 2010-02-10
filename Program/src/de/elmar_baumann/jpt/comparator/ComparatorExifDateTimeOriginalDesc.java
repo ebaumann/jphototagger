@@ -37,6 +37,7 @@ public final class ComparatorExifDateTimeOriginalDesc
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = -288734067911706453L;
 
     @Override
     public int compare(File fileLeft, File fileRight) {

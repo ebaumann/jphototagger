@@ -37,6 +37,7 @@ public final class ComparatorXmpIptcLocationDesc
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = -3947931666327801561L;
 
     private transient Collator collator = Collator.getInstance();
 
