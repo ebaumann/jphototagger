@@ -46,7 +46,7 @@ public class MutualExcludedResourceTest {
     public void testIsAvailable() {
         System.out.println("isAvailable");
 
-        MutualExcludedResource res = new TestClass();
+        MutualExcludedResource<?> res = new TestClass();
 
         assertTrue(res.isAvailable());
         res.getResource(this);
@@ -60,7 +60,7 @@ public class MutualExcludedResourceTest {
     public void testGetResource() {
         System.out.println("getResource");
 
-        MutualExcludedResource res = new TestClass();
+        MutualExcludedResource<?> res = new TestClass();
         assertNotNull(res.getResource(this));
 
         Object o = new Object();
@@ -75,7 +75,7 @@ public class MutualExcludedResourceTest {
     public void testReleaseResource() {
         System.out.println("releaseResource");
 
-        MutualExcludedResource res = new TestClass();
+        MutualExcludedResource<?> res = new TestClass();
         Object o = new Object();
 
         res.getResource(this);
@@ -91,7 +91,7 @@ public class MutualExcludedResourceTest {
     public void testSetResource() {
         System.out.println("setResource");
 
-        final class TestClass2 extends MutualExcludedResource {
+        final class TestClass2 extends MutualExcludedResource<Object> {
 
             @SuppressWarnings("unchecked")
             public TestClass2() {

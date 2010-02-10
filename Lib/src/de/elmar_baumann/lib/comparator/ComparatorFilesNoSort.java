@@ -34,6 +34,7 @@ public final class ComparatorFilesNoSort
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = 6632501783143748216L;
 
     /**
      * Returns always zero.

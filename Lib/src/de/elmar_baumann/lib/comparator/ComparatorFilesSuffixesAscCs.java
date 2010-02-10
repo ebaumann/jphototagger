@@ -35,6 +35,7 @@ public final class ComparatorFilesSuffixesAscCs
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = 332879468887099729L;
 
     @Override
     public int compare(File leftFile, File rightFile) {
