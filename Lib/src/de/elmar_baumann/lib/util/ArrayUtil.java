@@ -109,15 +109,11 @@ public final class ArrayUtil {
      *         is null
      */
     public static String[] toStringArray(Object[] objectArray) {
-        if (objectArray == null)
-            throw new NullPointerException("array == null");
+        if (objectArray == null) throw new NullPointerException("array == null");
 
         String[] stringArray = new String[objectArray.length];
         for (int i = 0; i < objectArray.length; i++) {
-            if (objectArray[i] == null)
-                throw new IllegalArgumentException(
-                        "Element with index " + i + " is not an object: " +
-                        objectArray[i] + " (" + objectArray.toString() + ")");
+            if (objectArray[i] == null) throw new IllegalArgumentException("Element with index " + i + " is not an object: " + objectArray[i]);
 
             Object object = objectArray[i];
             stringArray[i] = object.toString();

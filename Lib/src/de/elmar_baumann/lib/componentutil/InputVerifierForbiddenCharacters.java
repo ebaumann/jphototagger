@@ -47,8 +47,6 @@ public final class InputVerifierForbiddenCharacters extends InputVerifier {
      */
     @Override
     public boolean verify(JComponent input) {
-        assert input instanceof JTextComponent : input;
-
         if (input instanceof JTextComponent) {
             return !containsOneOf((JTextComponent) input);
         }

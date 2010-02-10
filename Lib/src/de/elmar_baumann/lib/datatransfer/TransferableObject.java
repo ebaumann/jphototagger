@@ -21,6 +21,7 @@ package de.elmar_baumann.lib.datatransfer;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Transferable for objects of an arbitrary type.
@@ -58,7 +59,7 @@ public final class TransferableObject implements Transferable {
 
     @Override
     public DataFlavor[] getTransferDataFlavors() {
-        return dataFlavors;
+        return Arrays.copyOf(dataFlavors, dataFlavors.length);
     }
 
     @Override

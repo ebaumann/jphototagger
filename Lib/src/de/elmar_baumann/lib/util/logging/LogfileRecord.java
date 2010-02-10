@@ -41,7 +41,7 @@ public final class LogfileRecord {
     private String message;
     private String key;
     private String catalog;
-    private LogfileRecordException exception;
+    private ExceptionLogfileRecord exception;
     private List<String> params;
 
     /**
@@ -314,7 +314,7 @@ public final class LogfileRecord {
      * @return Ausnahme oder null, falls nicht gesetzt
      * @see    #hasException()
      */
-    public LogfileRecordException getException() {
+    public ExceptionLogfileRecord getException() {
         return exception;
     }
 
@@ -323,7 +323,7 @@ public final class LogfileRecord {
      *
      * @param ex Ausnahme
      */
-    public void setException(LogfileRecordException ex) {
+    public void setException(ExceptionLogfileRecord ex) {
         this.exception = ex;
     }
 

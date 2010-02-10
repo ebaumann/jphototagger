@@ -70,8 +70,8 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
                         Logger.getLogger(TreeCellRendererAllSystemDirectories.class.getName()).log(Level.WARNING, null, ex);
                     }
                 }
+                setText(getDirectoryName(file));
             }
-            setText(getDirectoryName(file));
         }
         renderHighlightPopup(row);
         return this;

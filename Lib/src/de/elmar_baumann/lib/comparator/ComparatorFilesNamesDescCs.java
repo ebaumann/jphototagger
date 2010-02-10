@@ -18,8 +18,9 @@
  */
 package de.elmar_baumann.lib.comparator;
 
-import de.elmar_baumann.lib.util.ClassNameEquality;
+import de.elmar_baumann.lib.util.ClassEquality;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -29,8 +30,10 @@ import java.util.Comparator;
  * @version 2009-12-20
  */
 public final class ComparatorFilesNamesDescCs
-        extends    ClassNameEquality
-        implements Comparator<File> {
+        extends    ClassEquality
+        implements Comparator<File>,
+                   Serializable
+    {
 
     @Override
     public int compare(File leftFile, File rightFile) {

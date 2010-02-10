@@ -86,14 +86,12 @@ public final class TreeModelHelpContents implements TreeModel {
      * @param url  URL of the XML file for the class
      */
     public TreeModelHelpContents(String url) {
-        if (url == null)
-            throw new NullPointerException("url == null");
+        if (url == null) throw new NullPointerException("url == null");
 
         parse(url);
     }
 
     private void parse(String url) {
-        assert url != null : url;
 
         HelpNode rootNode = HelpIndexParser.parse(this.getClass().getResourceAsStream(url));
         if (rootNode != null) {

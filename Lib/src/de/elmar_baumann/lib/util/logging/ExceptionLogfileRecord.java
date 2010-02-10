@@ -29,9 +29,9 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
  * @version 2008-10-05
  */
-public final class LogfileRecordException {
+public final class ExceptionLogfileRecord {
 
-    private final List<LogfileRecordFrame> logfileRecordFrames = new ArrayList<LogfileRecordFrame>();
+    private final List<FrameLogfileRecord> logfileRecordFrames = new ArrayList<FrameLogfileRecord>();
     private String message;
 
     /**
@@ -39,7 +39,7 @@ public final class LogfileRecordException {
      *
      * @return Stack-Frames
      */
-    public List<LogfileRecordFrame> getFrames() {
+    public List<FrameLogfileRecord> getFrames() {
         return logfileRecordFrames;
     }
 
@@ -49,7 +49,7 @@ public final class LogfileRecordException {
      * @param  frame Stack-Frame
      * @throws NullPointerException if frame is null
      */
-    public void addFrame(LogfileRecordFrame frame) {
+    public void addFrame(FrameLogfileRecord frame) {
         if (frame == null)
             throw new NullPointerException("frame == null");
 

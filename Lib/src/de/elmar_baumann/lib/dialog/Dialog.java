@@ -40,14 +40,14 @@ import javax.swing.KeyStroke;
  */
 public class Dialog extends JDialog implements WindowListener {
 
-    private static final long           serialVersionUID    = 847375186274302816L;
-    private              ActionListener actionListenerEscape;
-    private              ActionListener actionListenerHelp;
-    private              String         helpContentsUrl     = "";
-    private              String         helpPageUrl;
-    private              Settings       settings;
-    private              String         settingsKey;
-    private final        HelpBrowser    help                = HelpBrowser.INSTANCE;
+    private static final    long           serialVersionUID    = 847375186274302816L;
+    private transient       ActionListener actionListenerEscape;
+    private transient       ActionListener actionListenerHelp;
+    private                 String         helpContentsUrl     = "";
+    private                 String         helpPageUrl;
+    private transient       Settings       settings;
+    private                 String         settingsKey;
+    private transient final HelpBrowser    help                = HelpBrowser.INSTANCE;
 
     public Dialog(Frame owner, boolean modal) {
         super(owner, modal);

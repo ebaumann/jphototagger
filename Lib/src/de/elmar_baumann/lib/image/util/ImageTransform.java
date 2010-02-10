@@ -52,15 +52,13 @@ public final class ImageTransform {
      * @return      Rotiertes Bild
      */
     public static Image rotate(Image img, double angle) {
-        if (img == null)
-            throw new NullPointerException("img == null");
+        if (img == null) throw new NullPointerException("img == null");
 
         return tilt(toBufferedImage(img), Math.toRadians(angle));
     }
 
     // Code von http://forums.sun.com/thread.jspa?forumID=54&threadID=5286788
     private static BufferedImage tilt(BufferedImage image, double angle) {
-        assert image != null : image;
 
         double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
         int w = image.getWidth(), h = image.getHeight();
@@ -71,7 +69,7 @@ public final class ImageTransform {
             Transparency.OPAQUE);
         Graphics2D g = result.createGraphics();
         g.translate((neww - w) / 2, (newh - h) / 2);
-        g.rotate(angle, w / 2, h / 2);
+        g.rotate(angle, (double) w / 2.0, (double) h / 2.0);
         g.drawRenderedImage(image, null);
         g.dispose();
         return result;
@@ -87,16 +85,13 @@ public final class ImageTransform {
 
     // Code von http://exampledepot.com/egs/java.awt.image/Image2Buf.html?l=rel
     private static BufferedImage toBufferedImage(Image image) {
-        assert image != null : image;
 
-        if (image instanceof BufferedImage) {
-            return (BufferedImage) image;
-        }
+        if (image instanceof BufferedImage) return (BufferedImage) image;
+
         image = new ImageIcon(image).getImage();
-        boolean hasAlpha = hasAlpha(image);
-        BufferedImage bimage = null;
-        GraphicsEnvironment ge =
-            GraphicsEnvironment.getLocalGraphicsEnvironment();
+        boolean             hasAlpha = hasAlpha(image);
+        BufferedImage       bimage   = null;
+        GraphicsEnvironment ge       = GraphicsEnvironment.getLocalGraphicsEnvironment();
         try {
             int transparency = Transparency.OPAQUE;
             if (hasAlpha) {
@@ -104,8 +99,7 @@ public final class ImageTransform {
             }
             GraphicsDevice gs = ge.getDefaultScreenDevice();
             GraphicsConfiguration gc = gs.getDefaultConfiguration();
-            bimage = gc.createCompatibleImage(
-                image.getWidth(null), image.getHeight(null), transparency);
+            bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
         } catch (Exception ex) {
             Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, ex);
         }

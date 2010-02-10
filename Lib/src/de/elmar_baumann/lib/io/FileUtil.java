@@ -19,7 +19,6 @@
 package de.elmar_baumann.lib.io;
 
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
-import de.elmar_baumann.lib.resource.Bundle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -53,7 +52,6 @@ public final class FileUtil {
      * @return         content or null when errors occur
      */
     public static String getFileContentAsString(File file, String encoding) {
-
         if (file == null    ) throw new NullPointerException("file == null");
         if (encoding == null) throw new NullPointerException("encoding == null");
 
@@ -77,7 +75,6 @@ public final class FileUtil {
      * @return          content or null when errors occur
      */
     public static String getFileContentAsString(String filename, String encoding) {
-
         if (filename == null) throw new NullPointerException("filename == null");
 
         return getFileContentAsString(new File(filename), encoding);
@@ -90,7 +87,6 @@ public final class FileUtil {
      * @return     content or null when errors occur
      */
     public static byte[] getFileContentAsBytes(File file) {
-
         if (file == null) throw new NullPointerException("file == null");
 
         FileInputStream fileInputStream = null;
@@ -125,7 +121,6 @@ public final class FileUtil {
      * @return          content or null when errors occur
      */
     public static byte[] getFileContentAsBytes(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null");
 
         return getFileContentAsBytes(new File(filename));
@@ -136,38 +131,30 @@ public final class FileUtil {
      * necessary directories.
      *
      * @param  file file
-     * @return      true if the file exists
+     * @throws IOException if the file couldn't be created if it does not exist
      */
-    public static boolean ensureFileExists(File file) {
-
+    public static void ensureFileExists(File file) throws IOException {
         if (file == null) throw new NullPointerException("file == null");
 
-        boolean exists = file.exists();
-        if (!exists) {
-            File directory = file.getParentFile();
-            if (ensureDirectoryExists(directory)) {
-                try {
-                    file.createNewFile();
-                    exists = true;
-                } catch (Exception ex) {
-                    Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        if (file.exists()) return;
+
+        File directory = file.getParentFile();
+        ensureDirectoryExists(directory);
+        if (!file.createNewFile()) {
+            throw new IOException("File couldn't be created: " + file);
         }
-        return exists;
     }
 
     /**
      * Calls {@link #ensureFileExists(java.io.File)}.
      *
-     * @param filename filename
-     * @return         true if the file exists
+     * @param filename     filename
+     * @throws IOException if the file does not exist and couldn't be created
      */
-    public static boolean ensureFileExists(String filename) {
-
+    public static void ensureFileExists(String filename) throws IOException {
         if (filename == null) throw new NullPointerException("filename == null");
 
-        return ensureFileExists(new File(filename));
+        ensureFileExists(new File(filename));
     }
 
     /**
@@ -177,7 +164,6 @@ public final class FileUtil {
      * @return     true if the file exists and it is not a directory
      */
     public static boolean existsFile(File file) {
-
         if (file == null) throw new NullPointerException("file == null");
 
         return file.exists() && !file.isDirectory();
@@ -190,7 +176,6 @@ public final class FileUtil {
      * @return         true if the file exists and it is not a directory
      */
     public static boolean existsFile(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null");
 
         return existsFile(new File(filename));
@@ -201,36 +186,28 @@ public final class FileUtil {
      * creates a new directory including it's parent directories if they does
      * not exist.
      *
-     * @param directory directory
-     * @return          true if the directory exists
+     * @param directory    directory
+     * @throws IOException if the directory couldn't be created
      */
-    public static boolean ensureDirectoryExists(File directory) {
-
+    public static void ensureDirectoryExists(File directory) throws IOException {
         if (directory == null) throw new NullPointerException("directory == null");
 
-        boolean exists = existsDirectory(directory);
-        if (!exists) {
-            if (!directory.exists()) {
-                exists = directory.mkdirs();
-                if (!exists) {
-                    Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, Bundle.getString("FileUtil.Error.CreateDirectoryFailed"));
-                }
-            }
+        if (existsDirectory(directory)) return;
+        if (!directory.mkdirs()) {
+            throw new IOException("Directory couldn't be created: " + directory);
         }
-        return exists;
     }
 
     /**
      * Calls {@link #ensureDirectoryExists(java.io.File)}.
      *
      * @param directoryname name of the directory
-     * @return              true if the directory exists
+     * @throws IOException  if the directory couldn't be created
      */
-    public static boolean ensureDirectoryExists(String directoryname) {
+    public static void ensureDirectoryExists(String directoryname) throws IOException {
+        if (directoryname == null) throw new NullPointerException("directoryname == null");
 
-        if (directoryname == null) throw new NullPointerException("directoryname == null"); // NOI18N
-
-        return ensureDirectoryExists(new File(directoryname));
+        ensureDirectoryExists(new File(directoryname));
     }
     /**
      * Returns whether a directory exists and it's a directory.
@@ -240,7 +217,6 @@ public final class FileUtil {
      *                   a directory
      */
     public static boolean existsDirectory(File directory) {
-
         if (directory == null) throw new NullPointerException("directory == null");
 
         return directory.exists() && directory.isDirectory();
@@ -254,7 +230,6 @@ public final class FileUtil {
      *                      a directory
      */
     public static boolean existsDirectory(String directoryname) {
-
         if (directoryname == null) throw new NullPointerException("directoryname == null"); // NOI18N
 
         return existsDirectory(new File(directoryname));
@@ -267,13 +242,12 @@ public final class FileUtil {
      * @throws         java.io.IOException on errors
      */
     public static void copyFile(File source, File target) throws IOException {
-
         if (source == null) throw new NullPointerException("source == null");
         if (target == null) throw new NullPointerException("target == null");
 
         if (source.equals(target)) return;
 
-        FileChannel inChannel = new FileInputStream(source).getChannel();
+        FileChannel inChannel  = new FileInputStream(source).getChannel();
         FileChannel outChannel = new FileOutputStream(target).getChannel();
         try {
             inChannel.transferTo(0, inChannel.size(), outChannel);
@@ -285,8 +259,8 @@ public final class FileUtil {
             }
             if (outChannel != null) {
                 outChannel.close();
-                if (target.exists()) {
-                    target.setLastModified(source.lastModified());
+                if (!target.setLastModified(source.lastModified())) {
+                    throw new IOException("Last modified couldn't be set to " + target + " from " + source);
                 }
             }
         }
@@ -300,7 +274,6 @@ public final class FileUtil {
      * @throws IOException    on errors
      */
     public static void copyFile(String sourceFilename, String targetFilename) throws IOException {
-
         if (sourceFilename == null) throw new NullPointerException("sourceFilename == null"); // NOI18N
         if (targetFilename == null) throw new NullPointerException("targetFilename == null"); // NOI18N
 
@@ -314,7 +287,6 @@ public final class FileUtil {
      * @return Pfad, das oberste Element ist die Wurzel
      */
     public static Stack<File> getPathFromRoot(File file) {
-
         if (file == null) throw new NullPointerException("file == null");
 
         if (file.getParent() == null) return new Stack<File>();
@@ -334,7 +306,6 @@ public final class FileUtil {
      * @return          path where the top of the stack is the root directory
      */
     public static Stack<File> getPathFromRoot(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         return getPathFromRoot(new File(filename));
@@ -389,7 +360,6 @@ public final class FileUtil {
      * @return      Pfadnamen
      */
     public static List<String> getAbsolutePathnames(Collection<? extends File> files) {
-
         if (files == null) throw new NullPointerException("files == null");
 
         List<String> pathnames = new ArrayList<String>(files.size());
@@ -407,7 +377,6 @@ public final class FileUtil {
      * @return files
      */
     public static List<File> getAsFiles(Collection<? extends String> filenames) {
-
         if (filenames == null) throw new NullPointerException("filenames == null");
 
         List<File> files = new ArrayList<File>(filenames.size());
@@ -425,7 +394,6 @@ public final class FileUtil {
      * @return filenames
      */
     public static List<String> getAsFilenames(Collection<? extends File> files) {
-
         if (files == null) throw new NullPointerException("files == null");
 
         List<String> filenames = new ArrayList<String>(files.size());
@@ -442,12 +410,10 @@ public final class FileUtil {
      * @return files
      */
     public static List<File> objectCollectionToFileList(Collection<Object> objects) {
-
         if (objects == null) throw new NullPointerException("objects == null");
 
         List<File> fileList = new ArrayList<File>(objects.size());
         for (Object o : objects) {
-            assert o instanceof File : "Not a file: " + o;
             if (o instanceof File) {
                 fileList.add((File) o);
             }
@@ -462,7 +428,6 @@ public final class FileUtil {
      * @return array
      */
     public static File[] fileCollectionToFileArray(Collection<? extends File> files) {
-
         if (files == null) throw new NullPointerException("files == null");
 
         File[] fileArray = new File[files.size()];
@@ -482,7 +447,6 @@ public final class FileUtil {
      * @return existing directories within <code>files</code>
      */
     public static List<File> filterDirectories(Collection<? extends File> files) {
-
         if (files == null) throw new NullPointerException("files == null");
 
         List<File> directories = new ArrayList<File>();
@@ -498,11 +462,10 @@ public final class FileUtil {
     /**
      * Deletes a directory and all it's contents: files and subdirectories.
      *
-     * @param  directory directory
-     * @return           true if successfully deleted
+     * @param  directory   directory
+     * @throws IOException if a file couldn't be deleted
      */
-    public static boolean deleteDirectoryRecursive(File directory) {
-
+    public static void deleteDirectoryRecursive(File directory) throws IOException {
         if (directory == null) throw new NullPointerException("directory == null");
 
         if (directory.exists()) {
@@ -511,24 +474,25 @@ public final class FileUtil {
                 if (file.isDirectory()) {
                     deleteDirectoryRecursive(file);
                 } else {
-                    file.delete();
+                    if (!file.delete()) {
+                        throw new IOException("File couldn't be deleted: " + file);
+                    }
                 }
             }
         }
-        return (directory.delete());
+        if (!directory.delete()) throw new IOException("Directory couldn't be deleted: " + directory);
     }
 
     /**
      * Calls {@link #deleteDirectoryRecursive(java.io.File)}.
      *
      * @param  directoryname name of the directory
-     * @return               true if successfully deleted
+     * @throws IOException   if the directory couldn't be deleted
      */
-    public static boolean deleteDirectoryRecursive(String directoryname) {
-
+    public static void deleteDirectoryRecursive(String directoryname) throws IOException {
         if (directoryname == null) throw new NullPointerException("directoryname == null"); // NOI18N
 
-        return deleteDirectoryRecursive(new File(directoryname));
+        deleteDirectoryRecursive(new File(directoryname));
     }
 
 
@@ -540,7 +504,6 @@ public final class FileUtil {
      *              suffix
      */
     public static File getNotExistingFile(File file) {
-
         if (file == null) throw new NullPointerException("file == null"); // NOI18N
 
         File newFile = file;
@@ -569,7 +532,6 @@ public final class FileUtil {
      *                  the suffix
      */
     public static File getNotExistingFile(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         return getNotExistingFile(new File(filename));
@@ -587,7 +549,6 @@ public final class FileUtil {
      *              parents
      */
     public static File getRoot(File file) {
-
         if (file == null) throw new NullPointerException("file == null"); // NOI18N
 
         File root   = file.getParentFile();
@@ -611,7 +572,6 @@ public final class FileUtil {
      *                  parents
      */
     public static File getRoot(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         return getRoot(new File(filename));
@@ -626,7 +586,6 @@ public final class FileUtil {
      * @return          name of the file's root
      */
     public static String getRootName(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         return getRoot(filename).getAbsolutePath();
@@ -641,7 +600,6 @@ public final class FileUtil {
      * @return      directory path
      */
     public static String getDirPath(File file) {
-
         if (file == null) throw new NullPointerException("file == null"); // NOI18N
 
         String parent = file.getParent();
@@ -664,7 +622,6 @@ public final class FileUtil {
      * @return          directory path
      */
     public static String getDirPath(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         return getDirPath(new File(filename));
@@ -681,7 +638,6 @@ public final class FileUtil {
      *                  filename
      */
     public static String getSuffix(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         if (hasSuffix(filename)) {
@@ -698,7 +654,6 @@ public final class FileUtil {
      *              is the first or last character within the filename
      */
     public static String getSuffix(File file) {
-
         if (file == null) throw new NullPointerException("file == null"); // NOI18N
 
         return getSuffix(file.getName());
@@ -723,7 +678,6 @@ public final class FileUtil {
      * @return          prefix
      */
     public static String getPrefix(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         int index = filename.lastIndexOf(".");
@@ -743,7 +697,6 @@ public final class FileUtil {
      * @return      prefix
      */
     public static String getPrefix(File file) {
-
         if (file == null) throw new NullPointerException("file == null"); // NOI18N
 
         return getPrefix(file.getName());
@@ -759,7 +712,6 @@ public final class FileUtil {
      * @return          timestamp or 0L if the file does not exist or on errors
      */
     public static long getLastModified(String filename) {
-
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         return new File(filename).lastModified();

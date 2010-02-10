@@ -18,8 +18,9 @@
  */
 package de.elmar_baumann.lib.comparator;
 
-import de.elmar_baumann.lib.util.ClassNameEquality;
+import de.elmar_baumann.lib.util.ClassEquality;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -29,8 +30,10 @@ import java.util.Comparator;
  * @version 2010-01-19
  */
 public final class ComparatorFilesNoSort
-        extends    ClassNameEquality
-        implements Comparator<File> {
+        extends    ClassEquality
+        implements Comparator<File>,
+                   Serializable
+    {
 
     /**
      * Returns always zero.

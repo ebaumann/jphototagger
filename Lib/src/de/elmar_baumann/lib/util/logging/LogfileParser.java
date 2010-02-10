@@ -98,14 +98,11 @@ public final class LogfileParser implements EntityResolver {
     }
 
     private static void setException(LogfileRecord record, Node recordNode) {
-        assert record != null : record;
-        assert recordNode != null : recordNode;
-
         NodeList nodeList = ((Element) recordNode).getElementsByTagName("exception");
         if (nodeList != null && nodeList.getLength() == 1) {
             Node exceptionNode = nodeList.item(0);
             if (recordNode.getNodeType() == Node.ELEMENT_NODE) {
-                LogfileRecordException ex = new LogfileRecordException();
+                ExceptionLogfileRecord ex = new ExceptionLogfileRecord();
                 ex.setMessage(getElement(exceptionNode, "message"));
                 setFrames(ex, exceptionNode);
                 record.setException(ex);
@@ -113,18 +110,14 @@ public final class LogfileParser implements EntityResolver {
         }
     }
 
-    private static void setFrames(LogfileRecordException ex, Node exceptionNode) {
-        assert ex != null : ex;
-        assert exceptionNode != null : exceptionNode;
-
-        NodeList nodeList = ((Element) exceptionNode).getElementsByTagName(
-            "frame");
+    private static void setFrames(ExceptionLogfileRecord ex, Node exceptionNode) {
+        NodeList nodeList = ((Element) exceptionNode).getElementsByTagName("frame");
         if (nodeList != null) {
             int nodeCount = nodeList.getLength();
             for (int index = 0; index < nodeCount; index++) {
                 Node node = nodeList.item(index);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    LogfileRecordFrame frame = new LogfileRecordFrame();
+                    FrameLogfileRecord frame = new FrameLogfileRecord();
                     frame.setClassName(getElement(node, "class"));
                     frame.setLine(getElement(node, "line"));
                     frame.setMethodName(getElement(node, "method"));
@@ -135,9 +128,6 @@ public final class LogfileParser implements EntityResolver {
     }
 
     private static void setParams(LogfileRecord record, Node recordNode) { // TODO Testen, bislang keinen Musterdatensatz gefunden
-        assert record != null : record;
-        assert recordNode != null : recordNode;
-
         NodeList nodeList = ((Element) recordNode).getElementsByTagName("param");
         if (nodeList != null) {
             int count = nodeList.getLength();
@@ -161,9 +151,6 @@ public final class LogfileParser implements EntityResolver {
      * @return        Inhalt oder null
      */
     private static String getElement(Node recordNode, String tagName) {
-        assert recordNode != null : recordNode;
-        assert tagName != null : tagName;
-
         String elementData = null;
         NodeList nodeList = ((Element) recordNode).getElementsByTagName(tagName);
         if (nodeList != null) {

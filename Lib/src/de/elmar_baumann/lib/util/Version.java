@@ -122,6 +122,28 @@ public final class Version implements Comparable<Version> {
         return 0;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        final Version other = (Version) obj;
+        if (this.major != other.major) return false;
+        if (this.minor1 != other.minor1) return false;
+        if (this.minor2 != other.minor2) return false;
+        if (this.minor3 != other.minor3) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.major;
+        hash = 97 * hash + this.minor1;
+        hash = 97 * hash + this.minor2;
+        hash = 97 * hash + this.minor3;
+        return hash;
+    }
+
     /**
      * Returns the first 2 version numbers.
      * 

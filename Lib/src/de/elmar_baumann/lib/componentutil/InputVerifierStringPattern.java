@@ -62,11 +62,7 @@ public final class InputVerifierStringPattern extends InputVerifier {
      */
     @Override
     public boolean verify(JComponent input) {
-
-        assert input instanceof JTextComponent : input;
-
         if (input instanceof JTextComponent) {
-
             return isValid((JTextComponent) input);
         }
         return  true;

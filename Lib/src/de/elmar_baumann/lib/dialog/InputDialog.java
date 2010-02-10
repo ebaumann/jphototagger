@@ -14,7 +14,7 @@ import javax.swing.JDialog;
 public class InputDialog extends Dialog {
 
     private static final long     serialVersionUID = -4217215186067129031L;
-    private              Settings settings;
+    private transient    Settings settings;
     private              String   propertyKey;
     private              boolean  accepted;
 

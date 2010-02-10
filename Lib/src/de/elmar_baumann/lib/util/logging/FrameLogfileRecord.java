@@ -25,7 +25,7 @@ package de.elmar_baumann.lib.util.logging;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 1.0 2008-08-04
  */
-public final class LogfileRecordFrame {
+public final class FrameLogfileRecord {
 
     private String className;
     private String methodName;
