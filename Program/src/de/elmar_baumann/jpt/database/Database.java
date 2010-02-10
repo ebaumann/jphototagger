@@ -79,12 +79,47 @@ public class Database {
      * @param connection  The connection to be freed.
      */
     protected void free(Connection connection) {
-        if (connection != null) {
-            try {
-                ConnectionPool.INSTANCE.free(connection);
-            } catch (Exception ex) {
-                AppLogger.logSevere(Database.class, ex);
-            }
+        if (connection == null) return;
+        try {
+            ConnectionPool.INSTANCE.free(connection);
+        } catch (Exception ex) {
+            AppLogger.logSevere(Database.class, ex);
+        }
+    }
+
+    public static void close(Statement stmt) {
+        if (stmt == null) return;
+        try {
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLogger.logSevere(Database.class, ex);
+        }
+    }
+
+    public static void close(PreparedStatement stmt) {
+        if (stmt == null) return;
+        try {
+            stmt.close();
+        } catch (SQLException ex) {
+            AppLogger.logSevere(Database.class, ex);
+        }
+    }
+
+    public static void close(ResultSet rs, Statement stmt) {
+        try {
+            if (rs   != null) rs.close();
+            if (stmt != null) stmt.close();
+        } catch (SQLException ex) {
+            AppLogger.logSevere(Database.class, ex);
+        }
+    }
+
+    public static void close(ResultSet rs, PreparedStatement stmt) {
+        try {
+            if (rs   != null) rs.close();
+            if (stmt != null) stmt.close();
+        } catch (SQLException ex) {
+            AppLogger.logSevere(Database.class, ex);
         }
     }
 
@@ -94,7 +129,7 @@ public class Database {
      *
      * @param connection  connection
      */
-    protected void rollback(Connection connection) {
+    public static void rollback(Connection connection) {
         try {
             connection.rollback();
         } catch (Exception ex) {

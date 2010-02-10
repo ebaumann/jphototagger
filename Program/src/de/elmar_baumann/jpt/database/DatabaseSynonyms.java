@@ -41,12 +41,13 @@ public final class DatabaseSynonyms extends Database {
     private final       ListenerSupport<DatabaseSynonymsListener> listenerSupport = new ListenerSupport<DatabaseSynonymsListener>();
 
     public int updateSynonymOf(String word, String oldSynonym, String newSynonym) {
-        int        count      = 0;
-        Connection connection = null;
+        int               count      = 0;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "UPDATE synonyms SET synonym = ? WHERE word = ? AND synonym = ?");
             stmt.setString(1, newSynonym);
             stmt.setString(2, word);
@@ -54,7 +55,6 @@ public final class DatabaseSynonyms extends Database {
             logFiner(stmt);
             count = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
             if (count > 0) {
                 notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_UPDATED, word, word, oldSynonym, newSynonym);
             }
@@ -63,25 +63,26 @@ public final class DatabaseSynonyms extends Database {
             count = 0;
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return count;
     }
 
     public int updateWord(String oldWord, String newWord) {
-        int        count      = 0;
-        Connection connection = null;
+        int               count      = 0;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "UPDATE synonyms SET word = ? WHERE word = ?");
             stmt.setString(1, newWord);
             stmt.setString(2, oldWord);
             logFiner(stmt);
             count = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
             if (count > 0) {
                 notifyListeners(DatabaseSynonymsEvent.Type.WORD_UPDATED, oldWord, newWord, null, null);
             }
@@ -90,25 +91,26 @@ public final class DatabaseSynonyms extends Database {
             count = 0;
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return count;
     }
 
     public int updateSynonym(String oldSynonym, String newSynonym) {
-        int        count      = 0;
-        Connection connection = null;
+        int               count      = 0;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                            "UPDATE synonyms SET synonym = ? WHERE synonym = ?");
             stmt.setString(1, newSynonym);
             stmt.setString(2, oldSynonym);
             logFiner(stmt);
             count = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
             if (count > 0) {
                 notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_UPDATED, null, null, oldSynonym, newSynonym);
             }
@@ -117,55 +119,60 @@ public final class DatabaseSynonyms extends Database {
             count = 0;
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return count;
     }
 
     public boolean existsWord(String word) {
-        long       count      = 0;
-        Connection connection = null;
+        long              count      = 0;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
         try {
             connection = getConnection();
-            String            sql  = "SELECT COUNT(*) FROM synonyms WHERE word = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            String sql  = "SELECT COUNT(*) FROM synonyms WHERE word = ?";
+            stmt = connection.prepareStatement(sql);
             stmt.setString(1, word);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             count = 0;
             rollback(connection);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return count > 0;
     }
 
     public boolean exists(String word, String synonym) {
-        long       count      = 0;
-        Connection connection = null;
+        long              count      = 0;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
         try {
             connection = getConnection();
             String            sql  = "SELECT COUNT(*) FROM synonyms WHERE word = ? AND synonym = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt = connection.prepareStatement(sql);
             stmt.setString(1, word);
             stmt.setString(2, synonym);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             count = 0;
             rollback(connection);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return count == 1;
@@ -175,17 +182,17 @@ public final class DatabaseSynonyms extends Database {
         if (exists(word, synonym)) return 0;
         int        count      = 0;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                           "INSERT INTO synonyms (word, synonym) VALUES (?, ?)");
             stmt.setString(1, word);
             stmt.setString(2, synonym);
             logFiner(stmt);
             count = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
             if (count > 0) {
                 notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_INSERTED, word, word, synonym, synonym);
             }
@@ -194,25 +201,26 @@ public final class DatabaseSynonyms extends Database {
             count = 0;
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return count;
     }
 
     public int delete(String word, String synonym) {
-        int        count      = 0;
-        Connection connection = null;
+        int               count      = 0;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                          "DELETE FROM synonyms WHERE word = ? AND synonym = ?");
             stmt.setString(1, word);
             stmt.setString(2, synonym);
             logFiner(stmt);
             count = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
             if (count > 0) {
                 notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_DELETED, word, word, synonym, synonym);
             }
@@ -221,6 +229,7 @@ public final class DatabaseSynonyms extends Database {
             count = 0;
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return count;
@@ -233,18 +242,18 @@ public final class DatabaseSynonyms extends Database {
      * @return      count of deleted word synonym pairs
      */
     public int deleteWord(String word) {
-        int        count      = 0;
-        Connection connection = null;
+        int               count      = 0;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                                          "DELETE FROM synonyms WHERE word = ?");
             stmt.setString(1, word);
             logFiner(stmt);
             count = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
             if (count > 0) {
                 notifyListeners(DatabaseSynonymsEvent.Type.WORD_DELETED, word, word, null, null);
             }
@@ -253,6 +262,7 @@ public final class DatabaseSynonyms extends Database {
             count = 0;
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return count;
@@ -271,22 +281,24 @@ public final class DatabaseSynonyms extends Database {
      * @return      synonyms or empty set
      */
     public Set<String> getSynonymsOf(String word) {
-        Set<String> synonyms   = new LinkedHashSet<String>();
-        Connection  connection = null;
+        Set<String>       synonyms   = new LinkedHashSet<String>();
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(getGetSynonymsOfSql());
+            stmt = connection.prepareStatement(getGetSynonymsOfSql());
             stmt.setString(1, word);
             stmt.setString(2, word);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 synonyms.add(rs.getString(1));
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return synonyms;
@@ -295,20 +307,22 @@ public final class DatabaseSynonyms extends Database {
     public Set<String> getAllWords() {
         Set<String> words      = new LinkedHashSet<String>();
         Connection  connection = null;
+        Statement   stmt       = null;
+        ResultSet   rs         = null;
         try {
             connection = getConnection();
             String    sql  = "SELECT DISTINCT word FROM synonyms ORDER BY word";
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 words.add(rs.getString(1));
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
             words.clear();
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return words;

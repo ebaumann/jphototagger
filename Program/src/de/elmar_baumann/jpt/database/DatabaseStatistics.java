@@ -45,9 +45,11 @@ public final class DatabaseStatistics extends Database {
     public int getDistinctCountOf(Column column) {
         int count = -1;
         Connection connection = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String columnName = column.getName();
             String sql = "SELECT COUNT(*) FROM (SELECT DISTINCT " +
                     columnName +
@@ -56,14 +58,14 @@ public final class DatabaseStatistics extends Database {
                     " WHERE " + columnName + " IS NOT NULL" +
                     ")";
             logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return count;
@@ -80,23 +82,25 @@ public final class DatabaseStatistics extends Database {
     public int getTotalRecordCountIn(Column column) {
         int count = -1;
         Connection connection = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String sql = "SELECT COUNT(*) FROM " +
                     column.getTable().getName() +
                     " WHERE " +
                     column.getName() +
                     " IS NOT NULL";
             logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return count;
@@ -110,19 +114,21 @@ public final class DatabaseStatistics extends Database {
     public int getFileCount() {
         int count = -1;
         Connection connection = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String sql = "SELECT COUNT(*) FROM files";
             logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return count;
@@ -136,21 +142,23 @@ public final class DatabaseStatistics extends Database {
     public int getXmpCount() {
         int count = -1;
         Connection connection = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String sql =
                     "SELECT COUNT(*)" +
                     " FROM xmp LEFT JOIN files ON xmp.id_files = files.id";
             logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return count;
@@ -165,22 +173,26 @@ public final class DatabaseStatistics extends Database {
         long count = -1;
         Connection connection = null;
         List<String> tableNames = DatabaseTables.getTableNames();
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
             for (String tableName : tableNames) {
-                Statement stmt = connection.createStatement();
+                stmt = connection.createStatement();
                 String sql = "SELECT COUNT(*) FROM " + tableName;
                 logFinest(sql);
-                ResultSet rs = stmt.executeQuery(sql);
+                rs = stmt.executeQuery(sql);
                 if (rs.next()) {
                     count += rs.getInt(1);
                 }
+                rs.close();
                 stmt.close();
             }
         } catch (Exception ex) {
             count = -1;
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return count;
@@ -196,12 +208,14 @@ public final class DatabaseStatistics extends Database {
     public boolean existsValueIn(List<Column> columns, String value) {
         boolean exists = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
             int size = columns.size();
             for (int i = 0; !exists && i < size; i++) {
                 Column column = columns.get(i);
-                PreparedStatement stmt = connection.prepareStatement(
+                stmt = connection.prepareStatement(
                         "SELECT COUNT(*) FROM " +
                         column.getTable().getName() +
                         " WHERE " +
@@ -209,15 +223,17 @@ public final class DatabaseStatistics extends Database {
                         " = ?");
                 stmt.setString(1, value);
                 logFinest(stmt);
-                ResultSet rs = stmt.executeQuery();
+                rs = stmt.executeQuery();
                 if (rs.next()) {
                     exists = rs.getInt(1) > 0;
                 }
+                rs.close();
                 stmt.close();
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return exists;
@@ -233,9 +249,11 @@ public final class DatabaseStatistics extends Database {
     public boolean existsValueIn(Column column, String value) {
         int count = 0;
         Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "SELECT COUNT(*) FROM " +
                     column.getTable().getName() +
                     " WHERE " +
@@ -243,14 +261,14 @@ public final class DatabaseStatistics extends Database {
                     " = ?");
             stmt.setString(1, value);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return count > 0;

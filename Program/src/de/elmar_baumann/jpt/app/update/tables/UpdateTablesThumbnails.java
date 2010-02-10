@@ -76,8 +76,11 @@ final class UpdateTablesThumbnails extends Database {
 
         String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " +
                 "id, thumbnail FROM files WHERE thumbnail IS NOT NULL";
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+        stmt = connection.createStatement();
+        rs = stmt.executeQuery(sql);
         while (rs.next()) {
             long id = rs.getInt(1);
             InputStream inputStream = rs.getBinaryStream(2);
@@ -86,17 +89,22 @@ final class UpdateTablesThumbnails extends Database {
             writeThumbnail(inputStream, id);
             messages.setValue(current++ / cnt * 100);
         }
-        stmt.close();
+        } finally {
+            Database.close(rs, stmt);
+        }
         return current;
     }
 
     private void setThumbnailNull(Connection connection, long id) throws SQLException {
-        PreparedStatement stmt = connection.prepareStatement(
-                "UPDATE files SET thumbnail = NULL WHERE id = ?");
-        stmt.setLong(1, id);
-        AppLogger.logFiner(UpdateTablesThumbnails.class, stmt.toString());
-        stmt.executeUpdate();
-        stmt.close();
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement("UPDATE files SET thumbnail = NULL WHERE id = ?");
+            stmt.setLong(1, id);
+            AppLogger.logFiner(UpdateTablesThumbnails.class, stmt.toString());
+            stmt.executeUpdate();
+        } finally {
+            Database.close(stmt);
+        }
     }
 
     private void writeThumbnail(InputStream inputStream, long id) {
@@ -152,21 +160,22 @@ final class UpdateTablesThumbnails extends Database {
      * Convert all thumbnail names to new format using hashes.
      */
     private void convertThumbnailIdNamesIntoHashNames(Connection connection) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
-            if (DatabaseApplicationProperties.INSTANCE.getBoolean(
-                    KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) return;
+            if (DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) return;
             File[] thumbnailFiles = getThumbnailFiles();
             int filecount = thumbnailFiles.length;
             count = filecount;
             String sql = "SELECT filename FROM files WHERE id = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt = connection.prepareStatement(sql);
             int fileIndex = 0;
             for (File file : thumbnailFiles) {
                 try {
                     long id = Long.parseLong(file.getName());
                     stmt.setLong(1, id);
                     AppLogger.logFinest(UpdateTablesThumbnails.class, AppLogger.USE_STRING, sql);
-                    ResultSet rs = stmt.executeQuery();
+                    rs = stmt.executeQuery();
                     if (rs.next()) {
                         String filename = rs.getString(1);
                         convertThumbnailName(
@@ -181,10 +190,11 @@ final class UpdateTablesThumbnails extends Database {
                     AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
                 }
             }
-            stmt.close();
             DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (Exception ex) {
             AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
+        } finally {
+            Database.close(rs, stmt);
         }
     }
 
@@ -223,13 +233,18 @@ final class UpdateTablesThumbnails extends Database {
 
     private int getCount(Connection connection) throws SQLException {
         int cnt = 0;
-        Statement stmt = connection.createStatement();
-        String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
-        ResultSet rs = stmt.executeQuery(sql);
-        if (rs.next()) {
-            cnt = rs.getInt(1);
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = connection.createStatement();
+            String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
+            rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                cnt = rs.getInt(1);
+            }
+        } finally {
+            Database.close(rs, stmt);
         }
-        stmt.close();
         return cnt;
     }
 

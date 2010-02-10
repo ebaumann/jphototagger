@@ -87,20 +87,22 @@ final class UpdateTablesDropCategories {
                 " WHERE supplementalcategory IS NOT NULL" +
                 " ORDER BY 1 ASC";
         Writer writer = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
                     getFilename()), CharEncoding.LIGHTROOM_KEYWORDS));
 
-            Statement stmt = connection.createStatement();
-            ResultSet rs   = stmt.executeQuery(sql);
+            stmt = connection.createStatement();
+            rs   = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 writer.append(rs.getString(1));
             }
-            stmt.close();
         } catch (Exception ex) {
             return errorSave(ex);
         } finally {
+            Database.close(rs, stmt);
             if (writer != null) {
                 try {
                     writer.close();
@@ -126,12 +128,16 @@ final class UpdateTablesDropCategories {
     }
 
     private void updateDatabase(Connection connection) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE xmp DROP COLUMN photoshop_category");
-        stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopCategory");
-        stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopSupplementalCategories");
-        stmt.execute("DROP TABLE xmp_photoshop_supplementalcategories");
-        stmt.close();
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.execute("ALTER TABLE xmp DROP COLUMN photoshop_category");
+            stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopCategory");
+            stmt.execute("ALTER TABLE metadata_edit_templates DROP COLUMN photoshopSupplementalCategories");
+            stmt.execute("DROP TABLE xmp_photoshop_supplementalcategories");
+        } finally {
+            Database.close(stmt);
+        }
     }
 
     private boolean errorSave(Exception ex) {

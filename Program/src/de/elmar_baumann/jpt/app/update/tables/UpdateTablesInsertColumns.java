@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.sql.Connection;
@@ -144,8 +145,7 @@ final class UpdateTablesInsertColumns {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
         missingColumns.clear();
         for (ColumnInfo info : columns) {
-            if (!dbMeta.existsColumn(
-                    connection, info.getTableName(), info.getColumnName())) {
+            if (!dbMeta.existsColumn(connection, info.getTableName(), info.getColumnName())) {
                 missingColumns.add(info);
             }
         }
@@ -159,15 +159,18 @@ final class UpdateTablesInsertColumns {
     }
 
     private void addColumn(Connection connection, ColumnInfo info) throws SQLException {
-
         setMessage(info.getTableName(), info.getColumnName());
-        Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " +
-                info.getColumnName() + " " + info.getDataType());
-        if (info.getIndex() != null) {
-            stmt.execute(info.getIndex().getSql());
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " +
+                    info.getColumnName() + " " + info.getDataType());
+            if (info.getIndex() != null) {
+                stmt.execute(info.getIndex().getSql());
+            }
+        } finally {
+            Database.close(stmt);
         }
-        stmt.close();
     }
 
     private void setMessage(String tableName, String columnName) {
@@ -184,8 +187,7 @@ final class UpdateTablesInsertColumns {
         if (!DatabaseMetadata.INSTANCE.existsColumn(connection, tableName, columnName)) {
             return;
         }
-        List<DatabaseMetadata.ColumnInfo> infos =
-                DatabaseMetadata.INSTANCE.getColumnInfo(connection, tableName, columnName);
+        List<DatabaseMetadata.ColumnInfo> infos = DatabaseMetadata.INSTANCE.getColumnInfo(connection, tableName, columnName);
         boolean hasInfo = infos.size() == 1;
         assert  hasInfo : infos.size();
         if (hasInfo) {
@@ -201,8 +203,12 @@ final class UpdateTablesInsertColumns {
     }
 
     void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("ALTER TABLE " + tableName + " DROP "+columnName);
-        stmt.close();
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate("ALTER TABLE " + tableName + " DROP "+columnName);
+        } finally {
+            Database.close(stmt);
+        }
     }
 }

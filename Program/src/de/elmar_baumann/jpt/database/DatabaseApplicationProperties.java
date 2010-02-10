@@ -50,23 +50,25 @@ public final class DatabaseApplicationProperties extends Database {
      */
     public boolean existsKey(String key) {
         Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
             String sql = "SELECT COUNT(*) FROM application WHERE key = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt = connection.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             int count = 0;
 
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            stmt.close();
             return count > 0;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return false;
@@ -79,18 +81,19 @@ public final class DatabaseApplicationProperties extends Database {
      */
     public void deleteKey(String key) {
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
             String sql = "DELETE FROM application WHERE key = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt = connection.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);
             stmt.executeUpdate();
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
+            close(stmt);
             free(connection);
         }
     }
@@ -106,12 +109,14 @@ public final class DatabaseApplicationProperties extends Database {
     public boolean getBoolean(String key) {
         Connection connection = null;
         boolean isTrue = false;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(getQueryStmt());
+            stmt = connection.prepareStatement(getQueryStmt());
             stmt.setString(1, key);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
 
             if (rs.next()) {
                 String value = new String(rs.getBytes(1));
@@ -119,10 +124,10 @@ public final class DatabaseApplicationProperties extends Database {
                     isTrue = value.equals(VALUE_TRUE);
                 }
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return isTrue;
@@ -136,11 +141,11 @@ public final class DatabaseApplicationProperties extends Database {
      */
     public void setBoolean(String key, boolean value) {
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            PreparedStatement stmt =
-                    connection.prepareStatement(getInsertOrUpdateStmt(key));
+            stmt = connection.prepareStatement(getInsertOrUpdateStmt(key));
             stmt.setBytes(1, value
                              ? VALUE_TRUE.getBytes()
                              : VALUE_FALSE.getBytes());
@@ -149,11 +154,11 @@ public final class DatabaseApplicationProperties extends Database {
             }
             logFinest(stmt);
             int count = stmt.executeUpdate();
-            stmt.close();
             assert count > 0 : "Not updated: " + key;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
+            close(stmt);
             free(connection);
         }
     }

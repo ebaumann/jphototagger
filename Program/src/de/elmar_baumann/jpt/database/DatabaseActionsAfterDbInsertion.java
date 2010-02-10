@@ -53,10 +53,11 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     public boolean insert(Program action, int order) {
         int countAffectedRows = 0;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "INSERT INTO actions_after_db_insertion" +
                     " (" +
                     "id_programs" +    // -- 1 --
@@ -68,11 +69,11 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return countAffectedRows == 1;
@@ -87,21 +88,21 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     public boolean delete(Program action) {
         int countAffectedRows = 0;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt =
-                    connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "DELETE FROM actions_after_db_insertion WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return countAffectedRows == 1;
@@ -115,15 +116,17 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     public List<Program> getAll() {
         List<Program> programs = new LinkedList<Program>();
         Connection connection = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String sql = "SELECT" +
                     " id_programs" + // -- 1 --
                     " FROM actions_after_db_insertion" +
                     " ORDER BY action_order ASC";
             logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 long idProgram = rs.getLong(1);
                 Program program =
@@ -134,10 +137,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                     programs.add(program);
                 }
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return programs;
@@ -152,22 +155,24 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     public boolean exists(Program action) {
         boolean exists = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT" +
+            stmt = connection.prepareStatement("SELECT" +
                     " COUNT(*) " + // -- 1 --
                     " FROM actions_after_db_insertion" +
                     " WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return exists;
@@ -185,10 +190,11 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     public boolean setOrder(List<Program> actions, int startIndex) {
         Connection connection = null;
         boolean allReordered = false;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "UPDATE actions_after_db_insertion" +
                     " SET" +
                     " action_order = ?" + // -- 1 --
@@ -203,11 +209,11 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             }
             connection.commit();
             allReordered = countAffected == actions.size();
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return allReordered;

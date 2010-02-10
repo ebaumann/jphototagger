@@ -54,25 +54,26 @@ public final class DatabaseFind extends Database {
     public List<String> findFilenames(ParamStatement paramStatement) {
         List<String> filenames  = new ArrayList<String>();
         Connection   connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(paramStatement.getSql());
+            stmt = connection.prepareStatement(paramStatement.getSql());
             if (paramStatement.getValues() != null) {
                 for (int i = 0; i < paramStatement.getValues().length; i++) {
                     stmt.setObject(i + 1, paramStatement.getValues()[i]);
                 }
             }
             logFinest(stmt);
-            ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()) {
-                filenames.add(resultSet.getString(1));
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                filenames.add(rs.getString(1));
             }
-            resultSet.close();
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFind.class, ex);
             filenames.clear();
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return filenames;
@@ -103,28 +104,29 @@ public final class DatabaseFind extends Database {
             ) {
         if (searchColumns.size() > 0) {
             Connection connection = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
             try {
                 connection = getConnection();
-                PreparedStatement stmt = connection.prepareStatement(getSqlSearchFilenamesLikeOr(searchColumns, tablename, searchString));
+                stmt = connection.prepareStatement(getSqlSearchFilenamesLikeOr(searchColumns, tablename, searchString));
                 for (int i = 0; i < searchColumns.size(); i++) {
                     stmt.setString(i + 1, "%" + searchString + "%");
                 }
                 addSynonyms(searchColumns, searchString, stmt);
                 logFinest(stmt);
-                ResultSet resultSet = stmt.executeQuery();
+                rs = stmt.executeQuery();
                 String string;
-                while (resultSet.next()) {
-                    string = resultSet.getString(1);
+                while (rs.next()) {
+                    string = rs.getString(1);
                     if (!filenames.contains(string)) {
                         filenames.add(string);
                     }
                 }
-                resultSet.close();
-                stmt.close();
             } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseFind.class, ex);
                 filenames.clear();
             } finally {
+                close(rs, stmt);
                 free(connection);
             }
         }
@@ -140,7 +142,6 @@ public final class DatabaseFind extends Database {
     }
 
     private String getSqlSearchFilenamesLikeOr(List<Column> searchColumns, String tablename, String searchString) {
-
         StringBuilder sql = new StringBuilder("SELECT DISTINCT files.filename FROM ");
         List<String> tablenames = Util.getUniqueTableNamesOfColumnArray(searchColumns);
 

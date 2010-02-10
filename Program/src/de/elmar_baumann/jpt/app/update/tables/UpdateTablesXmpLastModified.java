@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -46,44 +47,44 @@ final class UpdateTablesXmpLastModified {
     private void removeColumnXmpLastModifiedFromTableXmp(Connection connection) throws SQLException {
         if (DatabaseMetadata.INSTANCE.existsColumn(
             connection, "xmp", "lastmodified")) {
-            Statement stmt = connection.createStatement();
             messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.RemoveColumnXmpLastModified"));
-            stmt.execute("ALTER TABLE xmp DROP COLUMN lastmodified");
-            stmt.close();
+            Database.execute(connection, "ALTER TABLE xmp DROP COLUMN lastmodified");
         }
     }
 
     private void addColumnXmpLastModifiedToTableFiles(Connection connection) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsColumn(
-            connection, "files", "xmp_lastmodified")) {
-            Statement stmt = connection.createStatement();
+        if (!DatabaseMetadata.INSTANCE.existsColumn(connection, "files", "xmp_lastmodified")) {
             messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.AddColumn"));
-            stmt.execute("ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT");
+            Database.execute(connection, "ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT");
             copyLastModifiedToXmp(connection);
-            stmt.close();
         }
     }
 
     // too slow and no feedback: "UPDATE files SET xmp_lastmodified = lastmodified"
     private void copyLastModifiedToXmp(Connection connection) throws SQLException {
         setProgress();
-        Statement stmtQueryXmp = connection.createStatement();
-        PreparedStatement stmtUpdate = connection.prepareStatement(
-            "UPDATE files SET xmp_lastmodified = ? WHERE id = ?");
-        long lastModified = -1;
-        long idFiles = -1;
-        int value = 0;
-        ResultSet rsQuery = stmtQueryXmp.executeQuery("SELECT id, lastmodified FROM files");
-        while (rsQuery.next()) {
-            idFiles = rsQuery.getLong(1);
-            lastModified = rsQuery.getLong(2);
-            stmtUpdate.setLong(1, lastModified);
-            stmtUpdate.setLong(2, idFiles);
-            stmtUpdate.execute();
-            messages.setValue(++value / count * 100);
+        PreparedStatement stmtUpdate = null;
+        Statement stmtQuery = null;
+        ResultSet rsQuery = null;
+        try {
+            stmtQuery = connection.createStatement();
+            stmtUpdate = connection.prepareStatement("UPDATE files SET xmp_lastmodified = ? WHERE id = ?");
+            long lastModified = -1;
+            long idFiles = -1;
+            int value = 0;
+            rsQuery = stmtQuery.executeQuery("SELECT id, lastmodified FROM files");
+            while (rsQuery.next()) {
+                idFiles = rsQuery.getLong(1);
+                lastModified = rsQuery.getLong(2);
+                stmtUpdate.setLong(1, lastModified);
+                stmtUpdate.setLong(2, idFiles);
+                stmtUpdate.execute();
+                messages.setValue(++value / count * 100);
+            }
+        } finally {
+            Database.close(rsQuery, stmtQuery);
+            Database.close(stmtUpdate);
         }
-        stmtQueryXmp.close();
-        stmtUpdate.close();
     }
 
     private void setProgress() {
