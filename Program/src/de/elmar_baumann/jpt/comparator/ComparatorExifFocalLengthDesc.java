@@ -35,6 +35,7 @@ public final class ComparatorExifFocalLengthDesc
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = 8930101703487566400L;
 
     @Override
     public int compare(File fileLeft, File fileRight) {

@@ -36,6 +36,7 @@ public final class ComparatorExifRecordingEquipmentAsc
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = -7653829996215237671L;
 
     private transient Collator collator = Collator.getInstance();
 

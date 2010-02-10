@@ -8,6 +8,11 @@ Changelog JPhotoTagger
 0.7.67 2010-02-10
 -----------------
 
+* Klick mit der rechten Maustaste innerhalb des Vorschaubildfensters:
+  ** Klick in ein ausgewähltes Bild behält die Auswahl bei
+  ** Klick in ein nicht ausgewähltes Bild wählt dieses aus und löscht die
+     bisherige Auswahl
+  ** Klick in einen freien Bereich (unten, kein Bild) löscht die Auswahl
 * Format der Protokolldatei kann nicht mehr definiert werden, dies ist
   autotamisch "ausführlich" (XML-Datei)
 * Bugfix beim Lesen von Nikon EXIF-Daten

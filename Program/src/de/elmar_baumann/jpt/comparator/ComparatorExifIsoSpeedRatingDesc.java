@@ -35,6 +35,7 @@ public final class ComparatorExifIsoSpeedRatingDesc
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = -3791741623919608627L;
 
     @Override
     public int compare(File fileLeft, File fileRight) {
