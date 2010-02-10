@@ -5,6 +5,11 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.68 2010-02-10
+-----------------
+
+* Interna modifiziert
+
 0.7.67 2010-02-10
 -----------------
 
