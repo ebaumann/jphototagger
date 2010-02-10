@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.67 2010-02-10
+-----------------
+
+* Format der Protokolldatei kann nicht mehr definiert werden, dies ist
+  autotamisch "ausführlich" (XML-Datei)
+* Bugfix beim Lesen von Nikon EXIF-Daten
+
 0.7.66 2010-02-09
 -----------------
 
