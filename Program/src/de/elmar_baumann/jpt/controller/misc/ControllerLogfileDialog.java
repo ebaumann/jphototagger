@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.jpt.controller.misc;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLoggingSystem;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.event.ErrorEvent;
@@ -33,6 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.XMLFormatter;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
@@ -89,7 +89,7 @@ public final class ControllerLogfileDialog
         LogfileDialog dialog = new LogfileDialog(
                                     GUI.INSTANCE.getAppFrame(),
                                     AppLoggingSystem.getCurrentLogfileName(),
-                                    UserSettings.INSTANCE.getLogfileFormatterClass());
+                                    XMLFormatter.class);
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
     }
