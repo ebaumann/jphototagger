@@ -60,7 +60,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
                 ResourceBundle bundle = ResourceBundle.getBundle(PROPERTY_FILE_PREFIX + Integer.toString(index++));
                 MAKER_NOTES.add(new NikonMakerNote(bundle));
             } catch (Exception ex) {
-                index = maxIndex;
+                index = maxIndex + 1;
             }
         }
     }
