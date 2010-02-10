@@ -50,7 +50,7 @@ public final class PopupMenuFavorites extends JPopupMenu {
     private final        JMenuItem          itemExpandAllSubitems      = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
     private final        JMenuItem          itemCollapseAllSubitems    = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
     private              TreePath           treePath;
-    private              Favorite  favoriteDirectory;
+    private transient    Favorite           favoriteDirectory;
     public static final  PopupMenuFavorites INSTANCE                   = new PopupMenuFavorites();
 
     public JMenuItem getItemDeleteFavorite() {

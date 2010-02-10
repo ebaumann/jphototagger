@@ -191,8 +191,8 @@ public final class ExifTag {
         this.idValue     = tagId;
         this.dataTypeId  = dataTypeId;
         this.valueCount  = valueCount;
-        this.valueOffset  = valueOffset;
-        this.rawValue    = rawValue;
+        this.valueOffset = valueOffset;
+        this.rawValue    = rawValue == null ? null : Arrays.copyOf(rawValue, rawValue.length);
         this.stringValue = stringValue;
         this.name        = name;
         this.byteOrderId = byteOrderId;

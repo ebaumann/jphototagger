@@ -107,7 +107,6 @@ public class KeywordImportDialog extends Dialog {
 
     private void chooseFile() {
         Object selItem = comboBoxImporter.getSelectedItem();
-        assert selItem instanceof KeywordImporter : selItem;
         if (selItem instanceof KeywordImporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null && file.isFile()) {

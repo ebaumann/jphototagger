@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.cache;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.jpt.resource.Bundle;
@@ -43,7 +44,7 @@ import javax.swing.SwingUtilities;
  * @author Martin Pohlack <martinp@gmx.de>
  * @version 2009-07-18
  */
-public class RenderedThumbnailCache implements ThumbnailUpdateListener {
+public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     public static final RenderedThumbnailCache INSTANCE = new RenderedThumbnailCache();
 
@@ -153,7 +154,11 @@ public class RenderedThumbnailCache implements ThumbnailUpdateListener {
                                 false);
                     }
                     cache.update(im, rtci.file, rtci.length, true);
-                } catch (Exception e) {}
+                } catch (InterruptedException ex) {
+                    AppLogger.logSevere(getClass(), ex);
+                } catch (RuntimeException ex) {
+                    AppLogger.logSevere(getClass(), ex);
+                }
             }
         }
     }

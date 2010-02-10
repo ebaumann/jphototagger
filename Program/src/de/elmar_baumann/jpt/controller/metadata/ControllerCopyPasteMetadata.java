@@ -86,7 +86,6 @@ public final class ControllerCopyPasteMetadata
     }
 
     private void paste() {
-        assert xmp != null : "xmp is null!";
         if (xmp == null) return;
         EditMetadataPanels editPanel = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         if (!checkSelected() || !checkCanEdit(editPanel)) return;

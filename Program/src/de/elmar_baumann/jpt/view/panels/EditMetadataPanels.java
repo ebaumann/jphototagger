@@ -253,8 +253,6 @@ public final class EditMetadataPanels
             }
         }
 
-        assert panelAdd instanceof EditRepeatableTextEntryPanel : panelAdd;
-
         if (panelAdd instanceof EditRepeatableTextEntryPanel) {
             ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
         }
@@ -319,7 +317,6 @@ public final class EditMetadataPanels
                 EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
                 Column column = p.getColumn();
                 Object value  = xmp.getValue(column);
-                assert value == null || value instanceof Collection<?> : "Not a collection: " + value;
                 if (value instanceof Collection<?>) {
                     Collection<?> collection = (Collection<?>) value;
                     for (Object o : collection) {
@@ -439,7 +436,7 @@ public final class EditMetadataPanels
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
                 EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) textEntry;
                 editPanel.setText(getCommonXmpCollection(xmpColumn));
-            } else if (textEntry instanceof TextEntry) {
+            } else {
                 String commonText = getCommonXmpString(xmpColumn);
                 textEntry.setText(commonText);
                 if (multipleFiles() && commonText.isEmpty() && hasValue(xmpColumn)) {
@@ -463,7 +460,6 @@ public final class EditMetadataPanels
         assert filenamesXmp.size() >= 1 : "No files!";
         if (filenamesXmp.size() == 1) {
             Object value = filenamesXmp.get(0).getSecond().getValue(column);
-            assert value == null || value instanceof List<?> : value;
             if (value instanceof List<?>) {
                 return (List<String>) value;
             } else {
@@ -475,7 +471,6 @@ public final class EditMetadataPanels
         for (Pair<String, Xmp> pair : filenamesXmp) {
             Xmp    xmp   = pair.getSecond();
             Object value = xmp.getValue(column);
-            assert value == null || value instanceof List<?> : value;
             if (value instanceof List<?>) {
                 lists.push((List<String>) value);
             }

@@ -45,7 +45,7 @@ import javax.swing.SpinnerNumberModel;
 public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements ActionListener, Persistence {
 
     private static final long                                serialVersionUID              = -5283587664627790755L;
-    private              UpdateAllThumbnails                 thumbnailsUpdater;
+    private transient    UpdateAllThumbnails                 thumbnailsUpdater;
     private final        Map<JRadioButton, ThumbnailCreator> thumbnailCreatorOfRadioButton = new HashMap<JRadioButton, ThumbnailCreator>();
     private final        Map<ThumbnailCreator, JRadioButton> radioButtonOfThumbnailCreator = new HashMap<ThumbnailCreator, JRadioButton>();
 
@@ -110,8 +110,10 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == thumbnailsUpdater) {
-            buttonUpdateAllThumbnails.setEnabled(true);
+        synchronized (this) {
+            if (e.getSource() == thumbnailsUpdater) {
+                buttonUpdateAllThumbnails.setEnabled(true);
+            }
         }
     }
 

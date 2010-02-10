@@ -34,10 +34,10 @@ import de.elmar_baumann.jpt.view.renderer.TableCellRendererDatabaseInfoColumns;
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
-    private static final long                             serialVersionUID         = -8537559082830438692L;
-    private final        DatabaseTotalRecordCountListener listenerTotalRecordCount = new DatabaseTotalRecordCountListener();
-    private              TableModelDatabaseInfo           modelDatabaseInfo;
-    private volatile     boolean                          listenToDbChanges;
+    private static final    long                             serialVersionUID         = -8537559082830438692L;
+    private final transient DatabaseTotalRecordCountListener listenerTotalRecordCount = new DatabaseTotalRecordCountListener();
+    private                 TableModelDatabaseInfo           modelDatabaseInfo;
+    private volatile        boolean                          listenToDbChanges;
 
     public DatabaseInfoCountPanel() {
         initComponents();

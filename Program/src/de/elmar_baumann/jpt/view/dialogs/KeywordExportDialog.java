@@ -108,7 +108,6 @@ public class KeywordExportDialog extends Dialog {
 
     private void chooseFile() {
         Object selItem = comboBoxExporter.getSelectedItem();
-        assert selItem instanceof KeywordExporter : selItem;
         if (selItem instanceof KeywordExporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null) {
@@ -156,7 +155,6 @@ public class KeywordExportDialog extends Dialog {
     }
 
     private boolean checkOverwrite() {
-        assert file != null : "File is null!";
         if (file == null) return false;
         if (!file.exists()) return true;
         return MessageDisplayer.confirmYesNo(this, "KeywordExportDialog.Confirm.OverwriteFile", file);

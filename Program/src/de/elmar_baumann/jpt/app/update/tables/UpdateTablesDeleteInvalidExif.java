@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
@@ -63,23 +64,15 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     private void setNullIfNotPositiv(Connection connection, Column column) throws SQLException {
-
-        Statement stmt = connection.createStatement();
-
-        stmt.execute("UPDATE " + column.getTable().getName() +
+        Database.execute(connection, "UPDATE " + column.getTable().getName() +
                 " SET " + column.getName() + " = NULL" +
                 " WHERE " + column.getName() + " <= 0");
-        stmt.close();
     }
 
     private void checkRecordingEquipment(Connection connection) throws SQLException {
-
-        Column    column = ColumnExifRecordingEquipment.INSTANCE;
-        Statement stmt   = connection.createStatement();
-
-        stmt.execute("UPDATE " + column.getTable().getName() +
+        Column column = ColumnExifRecordingEquipment.INSTANCE;
+        Database.execute(connection, "UPDATE " + column.getTable().getName() +
                 " SET " + column.getName() + " = NULL" +
                 " WHERE " + column.getName() + " = '0'");
-        stmt.close();
     }
 }

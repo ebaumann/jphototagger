@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
-import de.elmar_baumann.jpt.data.TextEntryContent;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
@@ -56,10 +55,10 @@ public final class EditTextEntryPanel
 
     private static final Color                    EDITABLE_COLOR           = Color.WHITE;
     private static final long                     serialVersionUID         = -6455550547873630461L;
-    private              Column                   column;
+    private transient    Column                   column;
     private              boolean                  dirty                    = false;
     private              boolean                  editable;
-    private              TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private transient    TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private              Autocomplete             autocomplete;
 
     public EditTextEntryPanel() {
@@ -167,11 +166,6 @@ public final class EditTextEntryPanel
     @Override
     public boolean isEditable() {
         return editable;
-    }
-
-    @Override
-    public TextEntry clone() {
-        return new TextEntryContent(getText(), column);
     }
 
     @Override

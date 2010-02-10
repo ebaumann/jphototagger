@@ -44,8 +44,8 @@ import java.awt.Container;
 public class EditMetaDataTemplateDialog extends Dialog {
 
     private static final long             serialVersionUID = -6621176928237283620L;
-    private              MetadataTemplate template;
-    private              Xmp              xmp              = new Xmp();
+    private transient    MetadataTemplate template;
+    private transient    Xmp              xmp              = new Xmp();
 
     public EditMetaDataTemplateDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);

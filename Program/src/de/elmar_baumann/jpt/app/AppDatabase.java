@@ -18,8 +18,11 @@
  */
 package de.elmar_baumann.jpt.app;
 
+import de.elmar_baumann.jpt.database.ConnectionPool;
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseTables;
 import de.elmar_baumann.jpt.resource.Bundle;
+import java.sql.SQLException;
 
 /**
  * Initializes the application's database.
@@ -36,7 +39,13 @@ public final class AppDatabase {
         if (!init) {
             init = true;
             informationMessageInitDatabase();
-            DatabaseTables.INSTANCE.createTables();
+            try {
+                ConnectionPool.INSTANCE.init();
+                DatabaseTables.INSTANCE.createTables();
+            } catch (SQLException ex) {
+                Database.errorMessageSqlException(ex);
+                System.exit(1);
+            }
         }
     }
 

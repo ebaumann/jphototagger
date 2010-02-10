@@ -121,8 +121,8 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
             } else if (userObject instanceof Favorite) {
                 return ((Favorite) userObject).getDirectory();
             }
-
-            return (File) selNode;
+        } else if (selNode instanceof File) {
+                return (File) selNode;
         }
         return null;
     }

@@ -51,7 +51,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     private static final String              BUTTON_TEXT_START = Bundle.getString("DatabaseUpdatePanel.DisplayName.Start");
     private static final String              BUTTON_TEXT_STOP  = Bundle.getString("DatabaseUpdatePanel.DisplayName.Stop");
     private static final long                serialVersionUID  = 3148751698141558616L;
-    private              UpdateAllThumbnails thumbnailUpdater;
+    private transient    UpdateAllThumbnails thumbnailUpdater;
     private final        AbstractButton[]    buttons;
     private volatile     boolean             stop;
 
@@ -71,9 +71,11 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
 
     private synchronized void updateThumbnails() {
         setEnabledAllButtons(false);
-        thumbnailUpdater = new UpdateAllThumbnails();
-        thumbnailUpdater.addActionListener(this);
-        new Thread(thumbnailUpdater).start();
+        synchronized (this) {
+            thumbnailUpdater = new UpdateAllThumbnails();
+            thumbnailUpdater.addActionListener(this);
+            new Thread(thumbnailUpdater).start();
+        }
     }
 
     private synchronized void updateExif() {
@@ -182,10 +184,12 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == thumbnailUpdater) {
-                thumbnailUpdater = null;
-            buttonUpdateThumbnails.setEnabled(true);
-            setEnabledAllButtons(true);
+        synchronized (this) {
+            if (e.getSource() == thumbnailUpdater) {
+                    thumbnailUpdater = null;
+                buttonUpdateThumbnails.setEnabled(true);
+                setEnabledAllButtons(true);
+            }
         }
     }
 

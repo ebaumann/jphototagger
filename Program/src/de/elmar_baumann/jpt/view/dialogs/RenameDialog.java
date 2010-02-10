@@ -57,13 +57,13 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class RenameDialog extends Dialog {
 
-    private static final long                      serialVersionUID    = 2975958115627670989L;
-    private final        FilenameFormatArray       filenameFormatArray = new FilenameFormatArray();
-    private              List<File>                files               = new ArrayList<File>();
-    private final        FileSystemListenerSupport listenerSupport     = new FileSystemListenerSupport();
-    private              int                       fileIndex           = 0;
-    private              boolean                   lockClose           = false;
-    private              boolean                   stop                = false;
+    private static final    long                      serialVersionUID    = 2975958115627670989L;
+    private final transient FilenameFormatArray       filenameFormatArray = new FilenameFormatArray();
+    private                 List<File>                files               = new ArrayList<File>();
+    private final transient FileSystemListenerSupport listenerSupport     = new FileSystemListenerSupport();
+    private                 int                       fileIndex           = 0;
+    private                 boolean                   lockClose           = false;
+    private                 boolean                   stop                = false;
 
     public RenameDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);

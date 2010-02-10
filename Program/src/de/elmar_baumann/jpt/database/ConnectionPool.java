@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.types.Filename;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -58,6 +59,10 @@ import java.util.List;
  * @author Tobias Stening
  */
 public final class ConnectionPool implements Runnable {
+
+    public static final ConnectionPool INSTANCE = new ConnectionPool();
+
+    private volatile boolean init;
 
     /**
      * The name of the JDBC-Driver.
@@ -101,11 +106,15 @@ public final class ConnectionPool implements Runnable {
      */
     private static ConnectionPool instance;
 
-    /**
-     * Constructor
-     * @throws SQLException
-     */
-    private ConnectionPool() throws SQLException {
+    private ConnectionPool() {}
+
+    public synchronized void init() throws SQLException {
+        if (init) {
+            assert false;
+            return;
+        }
+        init = true;
+
         url = "jdbc:hsqldb:file:" +
                 UserSettings.INSTANCE.getDatabaseFileName(
                 Filename.FULL_PATH_NO_SUFFIX) +
@@ -130,23 +139,12 @@ public final class ConnectionPool implements Runnable {
     }
 
     /**
-     * Returns the unique instance of this connection pool.
-     * @return The unique instance of this connection pool
-     * @throws SQLException
-     */
-    public static ConnectionPool getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new ConnectionPool();
-        }
-        return instance;
-    }
-
-    /**
      * This method returns a availabel connection.
      * @return Returns a connection
      * @throws SQLException
      */
     public synchronized Connection getConnection() throws SQLException {
+        assert init;
         if (!availableConnections.isEmpty()) {
             Connection existingConnection = availableConnections.getLast();
             availableConnections.removeLast();
@@ -231,9 +229,12 @@ public final class ConnectionPool implements Runnable {
                 connectionPending = false;
                 notifyAll();
             }
-        } catch (Exception e) { // SQLException or OutOfMemory
+        } catch (SQLException ex) { // SQLException
             // Give up on new connection and wait for existing one
             // to free up.
+            AppLogger.logSevere(getClass(), ex);
+        } catch (RuntimeException ex) { // OutOfMemoryException
+            AppLogger.logSevere(getClass(), ex);
         }
     }
 
@@ -262,6 +263,7 @@ public final class ConnectionPool implements Runnable {
      * @param connection The connection to be released.
      */
     public synchronized void free(Connection connection) {
+        assert init;
         busyConnections.remove(connection);
         availableConnections.add(connection);
         // Wake up threads that are waiting for a connection
@@ -286,6 +288,7 @@ public final class ConnectionPool implements Runnable {
      *  regarding when the connections are closed.
      */
     public synchronized void closeAllConnections() {
+        assert init;
         closeConnections(availableConnections);
         availableConnections = new LinkedList<Connection>();
         closeConnections(busyConnections);

@@ -21,8 +21,6 @@ package de.elmar_baumann.jpt.database;
 import de.elmar_baumann.jpt.app.update.tables.UpdateTables;
 import de.elmar_baumann.jpt.app.AppLock;
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.dialog.LongMessageDialog;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -419,16 +417,5 @@ public final class DatabaseTables extends Database {
             stmt.execute("CREATE        INDEX idx_synonyms_word    ON synonyms (word)");
             stmt.execute("CREATE        INDEX idx_synonyms_synonym ON synonyms (synonym)");
         }
-    }
-
-    private void errorMessageSqlException(SQLException ex) {
-        LongMessageDialog dlg = new LongMessageDialog(null, true);
-        dlg.setTitle(Bundle.getString("DatabaseTables.Error.Title"));
-        dlg.setMessage(getExceptionMessage(ex));
-        dlg.setVisible(true);
-    }
-
-    private String getExceptionMessage(SQLException ex) {
-        return Bundle.getString("DatabaseTables.Error", ex.getLocalizedMessage());
     }
 }

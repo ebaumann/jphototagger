@@ -62,8 +62,6 @@ public final class ControllerNoMetadataItemSelected
 
     private void setFiles() {
         Object selValue = list.getSelectedValue();
-        assert selValue == null || selValue instanceof Column :
-                "Not a Column: " + selValue;
         if (selValue instanceof Column) {
             List<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadataIn((Column) selValue);
             setTitle((Column) selValue);

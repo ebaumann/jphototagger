@@ -77,10 +77,13 @@ public final class DeleteOrphanedThumbnails implements Runnable {
             isDelete = !imageFilesExisting.contains(fileInDir);
             if (isDelete && fileInDir.isFile()) {
                 logDelete(fileInDir);
-                fileInDir.delete();
-                countDeleted++;
-                if (tnPanel.displaysFile(fileInDir)) {
-                    tnPanel.remove(Arrays.asList(fileInDir));
+                if (fileInDir.delete()) {
+                    countDeleted++;
+                    if (tnPanel.displaysFile(fileInDir)) {
+                        tnPanel.remove(Arrays.asList(fileInDir));
+                    }
+                } else {
+                    AppLogger.logWarning(getClass(), "DeleteOrphanedThumbnails.Error.Delete", fileInDir);
                 }
             }
             notifyPerformed(fileInDir);
@@ -99,14 +102,14 @@ public final class DeleteOrphanedThumbnails implements Runnable {
         listenerSupport.notifyStarted(evt);
     }
 
-    private synchronized void notifyPerformed(File file) {
+    private void notifyPerformed(File file) {
         AppLogger.logFinest(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Performed", file);
         ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, currentFileIndex, getPerformedMessage(file));
 
         listenerSupport.notifyPerformed(evt);
     }
 
-    private synchronized void notifyEnded() {
+    private void notifyEnded() {
         ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, currentFileIndex, getEndMessage());
 
         listenerSupport.notifyEnded(evt);

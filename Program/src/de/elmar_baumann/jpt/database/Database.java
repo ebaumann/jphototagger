@@ -21,11 +21,14 @@ package de.elmar_baumann.jpt.database;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.dialog.LongMessageDialog;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Base class of specialized database classes.
@@ -35,13 +38,40 @@ import java.sql.SQLException;
  */
 public class Database {
 
+    public static void errorMessageSqlException(SQLException ex) {
+        LongMessageDialog dlg = new LongMessageDialog(null, true);
+        dlg.setTitle(Bundle.getString("DatabaseTables.Error.Title"));
+        dlg.setMessage(getExceptionMessage(ex));
+        dlg.setVisible(true);
+    }
+
+    private static String getExceptionMessage(SQLException ex) {
+        return Bundle.getString("DatabaseTables.Error", ex.getLocalizedMessage());
+    }
+
+    public static boolean execute(Connection connection, String sql) throws SQLException {
+        Statement stmt        = null;
+        boolean   isResultSet = false;
+        try {
+            stmt = connection.createStatement();
+            isResultSet = stmt.execute(sql);
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return isResultSet;
+    }
+
     /**
      * Returns a connection from the Connection Pool.
      * @return The connection from the pool.
      * @throws SQLException
      */
     protected Connection getConnection() throws SQLException {
-        return ConnectionPool.getInstance().getConnection();
+        return ConnectionPool.INSTANCE.getConnection();
     }
 
     /**
@@ -51,7 +81,7 @@ public class Database {
     protected void free(Connection connection) {
         if (connection != null) {
             try {
-                ConnectionPool.getInstance().free(connection);
+                ConnectionPool.INSTANCE.free(connection);
             } catch (Exception ex) {
                 AppLogger.logSevere(Database.class, ex);
             }

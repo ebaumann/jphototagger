@@ -38,7 +38,7 @@ public final class ComparatorXmpIptcLocationAsc
                    Serializable
     {
 
-    private Collator collator = Collator.getInstance();
+    private transient Collator collator = Collator.getInstance();
 
     @Override
     public int compare(File fileLeft, File fileRight) {

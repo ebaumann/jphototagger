@@ -85,8 +85,6 @@ public interface TextEntry {
      */
     public List<Component> getInputComponents();
 
-    public TextEntry clone();
-
     public void addMouseListenerToInputComponents(MouseListener l);
 
     public void removeMouseListenerFromInputComponents(MouseListener l);

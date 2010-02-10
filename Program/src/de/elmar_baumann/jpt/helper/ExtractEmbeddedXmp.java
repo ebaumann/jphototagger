@@ -61,7 +61,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
 
     private void create(File file) throws IOException {
         if (!file.exists()) {
-            file.createNewFile();
+            if (!file.createNewFile()) throw new IOException("File couldn't be created: " + file);
         }
     }
 

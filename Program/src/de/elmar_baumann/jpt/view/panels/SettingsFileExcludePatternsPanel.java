@@ -37,12 +37,12 @@ import java.util.List;
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         implements ProgressListener, Persistence {
 
-    private static final String                       ADD_INFO_TEXT    = Bundle.getString("SettingsFileExcludePatternsPanel.AddInfoText");
-    private static final long                         serialVersionUID = -3083582823254767001L;
-    private final        DatabaseFileExcludePattern   db               = DatabaseFileExcludePattern.INSTANCE;
-    private final        ListModelFileExcludePatterns model            = new ListModelFileExcludePatterns();
-    private              boolean                      isUpdateDatabase = false;
-    private              boolean                      stop             = false;
+    private static final    String                       ADD_INFO_TEXT    = Bundle.getString("SettingsFileExcludePatternsPanel.AddInfoText");
+    private static final    long                         serialVersionUID = -3083582823254767001L;
+    private final transient DatabaseFileExcludePattern   db               = DatabaseFileExcludePattern.INSTANCE;
+    private final           ListModelFileExcludePatterns model            = new ListModelFileExcludePatterns();
+    private                 boolean                      isUpdateDatabase = false;
+    private                 boolean                      stop             = false;
 
     public SettingsFileExcludePatternsPanel() {
         initComponents();

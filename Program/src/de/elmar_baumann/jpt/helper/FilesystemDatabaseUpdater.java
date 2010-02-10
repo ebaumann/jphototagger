@@ -87,7 +87,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                        Arrays.asList(file.getAbsolutePath()), Insert.OUT_OF_DATE);
         if (wait) {
-            inserter.run();
+            inserter.run(); // Do not start a thread!
         } else {
             UserTasks.INSTANCE.add(inserter);
         }

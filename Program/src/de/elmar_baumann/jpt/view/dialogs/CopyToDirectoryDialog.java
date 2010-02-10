@@ -53,16 +53,16 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class CopyToDirectoryDialog extends Dialog implements ProgressListener {
 
-    private static final String                    KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory";
-    private static final String                    KEY_COPY_XMP       = "CopyToDirectoryDialog.CopyXmp";
-    private static final long                      serialVersionUID   = 2401347394410721552L;
-    private final        ProgressListenerSupport   pListenerSupport   = new ProgressListenerSupport();
-    private final        FileSystemListenerSupport fsListenerSupport  = new FileSystemListenerSupport();
-    private              CopyFiles                 copyTask;
-    private              boolean                   copy;
-    private              boolean                   writeProperties    = true;
-    private              Collection<File>          sourceFiles;
-    private              File                      targetDirectory    = new File("");
+    private static final    String                    KEY_LAST_DIRECTORY = "de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog.LastDirectory";
+    private static final    String                    KEY_COPY_XMP       = "CopyToDirectoryDialog.CopyXmp";
+    private static final    long                      serialVersionUID   = 2401347394410721552L;
+    private final transient ProgressListenerSupport   pListenerSupport   = new ProgressListenerSupport();
+    private final transient FileSystemListenerSupport fsListenerSupport  = new FileSystemListenerSupport();
+    private transient       CopyFiles                 copyTask;
+    private                 boolean                   copy;
+    private                 boolean                   writeProperties    = true;
+    private                 Collection<File>          sourceFiles;
+    private                 File                      targetDirectory    = new File("");
 
     public CopyToDirectoryDialog() {
         super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);

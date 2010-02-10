@@ -81,8 +81,8 @@ public final class ActionsHelper {
 
     private static class ActionStarter extends AbstractAction {
 
-        private static final long    serialVersionUID = 1L;
-        private final        Program action;
+        private static final    long    serialVersionUID = 1L;
+        private final transient Program action;
 
         public ActionStarter(Program action) {
             super(action.getAlias(), AppLookAndFeel.getIcon("icon_action.png"));

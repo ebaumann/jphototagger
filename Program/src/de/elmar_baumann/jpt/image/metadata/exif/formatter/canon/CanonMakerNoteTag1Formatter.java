@@ -35,7 +35,7 @@ final class CanonMakerNoteTag1Formatter {
 
         double    minF           = (double) values[23] / mmFactor;
         double    maxF           = (double) values[22] / mmFactor;
-        boolean   fixFocalLength = minF == maxF;
+        boolean   fixFocalLength = Math.abs(minF - maxF) < .0000001;
         DecimalFormat df         = new DecimalFormat("#.#");
 
         String lens = fixFocalLength

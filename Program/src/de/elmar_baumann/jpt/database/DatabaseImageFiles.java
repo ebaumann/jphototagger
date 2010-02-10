@@ -253,7 +253,9 @@ public final class DatabaseImageFiles extends Database {
             if (filename == null) return;
             File newTnFile = PersistentThumbnails.getThumbnailfile(filename);
             if (newTnFile == null) return;
-            oldTnFile.renameTo(newTnFile);
+            if (!oldTnFile.renameTo(newTnFile)) {
+                AppLogger.logWarning(getClass(), "DatabaseImageFiles.Error.RenameThumbnail", oldTnFile, newTnFile);
+            }
         }
     }
 
