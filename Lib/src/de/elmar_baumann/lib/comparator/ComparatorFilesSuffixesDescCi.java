@@ -35,6 +35,7 @@ public final class ComparatorFilesSuffixesDescCi
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = 10242248897095575L;
 
     @Override
     public int compare(File leftFile, File rightFile) {

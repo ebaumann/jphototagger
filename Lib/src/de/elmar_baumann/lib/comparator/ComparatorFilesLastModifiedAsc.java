@@ -34,6 +34,7 @@ public final class ComparatorFilesLastModifiedAsc
         implements Comparator<File>,
                    Serializable
         {
+    private static final long serialVersionUID = 8350747112635768758L;
 
     @Override
     public int compare(File fileLeft, File fileRight) {

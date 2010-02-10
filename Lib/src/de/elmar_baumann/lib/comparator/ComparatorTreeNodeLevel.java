@@ -45,6 +45,7 @@ public final class ComparatorTreeNodeLevel
      */
     public static final ComparatorTreeNodeLevel DESCENDING =
             new ComparatorTreeNodeLevel(CompareOrder.DESCENDING);
+    private static final long serialVersionUID = 1955019986650441963L;
     /**
      * Sort order.
      */

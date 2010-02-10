@@ -127,7 +127,7 @@ public final class LogfileParser implements EntityResolver {
         }
     }
 
-    private static void setParams(LogfileRecord record, Node recordNode) { // TODO Testen, bislang keinen Musterdatensatz gefunden
+    private static void setParams(LogfileRecord record, Node recordNode) {
         NodeList nodeList = ((Element) recordNode).getElementsByTagName("param");
         if (nodeList != null) {
             int count = nodeList.getLength();

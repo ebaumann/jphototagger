@@ -29,6 +29,7 @@ import javax.swing.event.DocumentListener;
  * @version 2010-01-13
  */
 public final class Autocomplete implements DocumentListener, Serializable  {
+    private static final long serialVersionUID = 7533238660594168356L;
 
     private              JTextArea          textArea;
     private static final String             COMMIT_ACTION         = "commit";

@@ -34,6 +34,7 @@ public final class ComparatorFilesPathsDescCi
         implements Comparator<File>,
                    Serializable
     {
+    private static final long serialVersionUID = 5524247857708597709L;
 
     @Override
     public int compare(File leftFile, File rightFile) {
