@@ -82,11 +82,11 @@ public class DatabaseMetadataTemplates extends Database {
         }
         boolean inserted = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt =
-                    connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "INSERT INTO metadata_edit_templates" +
                     " (name" +                            // --  1 --
                     ", dcSubjects" +                      // --  2 --
@@ -115,21 +115,19 @@ public class DatabaseMetadataTemplates extends Database {
             stmt.executeUpdate();
             connection.commit();
             inserted = true;
-            stmt.close();
             notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.ADDED, template, this));
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return inserted;
     }
 
     @SuppressWarnings("unchecked")
-    private void set(
-            PreparedStatement stmt, MetadataTemplate template) throws
-            SQLException {
+    private void set(PreparedStatement stmt, MetadataTemplate template) throws SQLException {
 
         stmt.setString(1, template.getName());
         stmt.setBytes(2, template.getValueOfColumn(ColumnXmpDcSubjectsSubject.INSTANCE) == null
@@ -219,27 +217,25 @@ public class DatabaseMetadataTemplates extends Database {
      */
     public MetadataTemplate find(String name) {
 
-        MetadataTemplate template   = null;
-        Connection           connection = null;
+        MetadataTemplate  template   = null;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
         try {
             connection = getConnection();
-
-            String            sql  = getSelectForSetValues() + " WHERE name = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
-
+            String sql  = getSelectForSetValues() + " WHERE name = ?";
+            stmt = connection.prepareStatement(sql);
             stmt.setString(1, name);
-
             logFinest(stmt);
-
-            ResultSet rs   = stmt.executeQuery();
+            rs   = stmt.executeQuery();
             if (rs.next()) {
                 template = new MetadataTemplate();
                 setValues(template, rs);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return template;
@@ -251,27 +247,26 @@ public class DatabaseMetadataTemplates extends Database {
      * @return Templates
      */
     public List<MetadataTemplate> getAll() {
-
         List<MetadataTemplate> templates  = new ArrayList<MetadataTemplate>();
-        Connection                 connection = null;
+        Connection             connection = null;
+        Statement              stmt       = null;
+        ResultSet              rs         = null;
         try {
             connection = getConnection();
 
-            Statement stmt = connection.createStatement();
-            String    sql = getSelectForSetValues() + " WHERE name IS NOT NULL";
-
+            stmt = connection.createStatement();
+            String sql = getSelectForSetValues() + " WHERE name IS NOT NULL";
             logFinest(sql);
-
-            ResultSet rs   = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 MetadataTemplate template = new MetadataTemplate();
                 setValues(template, rs);
                 templates.add(template);
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return templates;
@@ -357,11 +352,12 @@ public class DatabaseMetadataTemplates extends Database {
 
         boolean updated = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             MetadataTemplate oldTemplate = find(template.getName());
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "UPDATE metadata_edit_templates" +
                     " SET name = ?" +                         // --  1 --
                     ", dcSubjects = ?" +                      // --  2 --
@@ -390,12 +386,12 @@ public class DatabaseMetadataTemplates extends Database {
             int count = stmt.executeUpdate();
             connection.commit();
             updated = count > 0;
-            stmt.close();
             if (updated) notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.UPDATED, template, oldTemplate, this));
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return updated;
@@ -408,16 +404,16 @@ public class DatabaseMetadataTemplates extends Database {
      * @param  newName  Neuer Name
      * @return true bei Erfolg
      */
-    public boolean updateRename(
-            String oldName, String newName) {
+    public boolean updateRename(String oldName, String newName) {
 
         boolean renamed = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             MetadataTemplate oldTemplate = find(oldName);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "UPDATE metadata_edit_templates SET name = ? WHERE name = ?");
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
@@ -425,7 +421,6 @@ public class DatabaseMetadataTemplates extends Database {
             int count = stmt.executeUpdate();
             connection.commit();
             renamed = count > 0;
-            stmt.close();
             if (renamed) {
                 MetadataTemplate newTemplate = find(newName);
                 notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.UPDATED, newTemplate, oldTemplate, this));
@@ -434,6 +429,7 @@ public class DatabaseMetadataTemplates extends Database {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return renamed;
@@ -448,23 +444,23 @@ public class DatabaseMetadataTemplates extends Database {
     public boolean delete(String name) {
         boolean deleted = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             MetadataTemplate template = find(name);
-            PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM metadata_edit_templates WHERE name = ?");
+            stmt = connection.prepareStatement("DELETE FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
             logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
-            stmt.close();
             if (deleted) notifyListeners(new DatabaseMetadataTemplatesEvent(DatabaseMetadataTemplatesEvent.Type.DELETED, template, this));
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return deleted;
@@ -473,22 +469,24 @@ public class DatabaseMetadataTemplates extends Database {
     public boolean exists(String name) {
         boolean exists = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "SELECT COUNT(*)" +
                     " FROM metadata_edit_templates" +
                     " WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return exists;

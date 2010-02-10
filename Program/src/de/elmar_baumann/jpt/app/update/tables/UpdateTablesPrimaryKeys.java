@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -46,18 +47,23 @@ final class UpdateTablesPrimaryKeys {
 
     private void dropPrimaryKeys(Connection connection) throws SQLException {
         DatabaseMetaData meta = connection.getMetaData();
+        Statement        stmt = null;
+        ResultSet        rs   = null;
         for (String table : TABLES_PRIMARY_KEYS_TO_DROP) {
-            ResultSet rs = meta.getPrimaryKeys(connection.getCatalog(), null, table.toUpperCase());
-            Statement stmt = connection.createStatement();
-            boolean hasPk = false;
-            while (!hasPk && rs.next()) {
-                String pkName = rs.getString("PK_NAME");
-                if (pkName != null) {
-                    hasPk = true;
-                    stmt.executeUpdate("alter table " + table + " drop primary key");
+            try {
+                rs = meta.getPrimaryKeys(connection.getCatalog(), null, table.toUpperCase());
+                stmt = connection.createStatement();
+                boolean hasPk = false;
+                while (!hasPk && rs.next()) {
+                    String pkName = rs.getString("PK_NAME");
+                    if (pkName != null) {
+                        hasPk = true;
+                        stmt.executeUpdate("alter table " + table + " drop primary key");
+                    }
                 }
+            } finally {
+                Database.close(rs, stmt);
             }
-            stmt.close();
         }
     }
 }

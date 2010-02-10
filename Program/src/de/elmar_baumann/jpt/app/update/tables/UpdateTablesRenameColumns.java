@@ -18,12 +18,12 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,9 +57,7 @@ final class UpdateTablesRenameColumns {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
         renameColumns.clear();
         for (Pair<ColumnInfo, ColumnInfo> info : COLUMNS) {
-            if (dbMeta.existsColumn(
-                    connection, info.getFirst().getTableName(), info.getFirst().
-                    getColumnName())) {
+            if (dbMeta.existsColumn(connection, info.getFirst().getTableName(), info.getFirst().getColumnName())) {
                 renameColumns.add(info);
             }
         }
@@ -72,17 +70,14 @@ final class UpdateTablesRenameColumns {
         }
     }
 
-    private void renameColumn(Connection connection,
-            Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
+    private void renameColumn(Connection connection, Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
         setMessage(info.getFirst().getTableName(), info.getFirst().getColumnName());
-        Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE " +
+        Database.execute(connection, "ALTER TABLE " +
                 info.getFirst().getTableName() +
                 " ALTER COLUMN " +
                 info.getFirst().getColumnName() +
                 " RENAME TO " +
                 info.getSecond().getColumnName());
-        stmt.close();
     }
 
     private void setMessage(String tableName, String columnName) {

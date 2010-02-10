@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.sql.Connection;
@@ -75,25 +76,33 @@ final class UpdateTablesIndexes {
     }
 
     private void replaceIndex(Connection connection, String indexName, IndexInfo[] indexInfos) throws SQLException {
-        Statement stmt = connection.createStatement();
-        String sql = "DROP INDEX " + indexName + " IF EXISTS";
-        stmt.executeUpdate(sql);
-        for (IndexInfo indexInfo : indexInfos) {
-            stmt.executeUpdate(indexInfo.sql());
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            String sql = "DROP INDEX " + indexName + " IF EXISTS";
+            stmt.executeUpdate(sql);
+            for (IndexInfo indexInfo : indexInfos) {
+                stmt.executeUpdate(indexInfo.sql());
+            }
+        } finally {
+            Database.close(stmt);
         }
-        stmt.close();
     }
 
     private boolean existsIndex(Connection connection, String indexName, String tableName) throws SQLException {
-
         boolean exists = false;
-        DatabaseMetaData meta = connection.getMetaData();
-        ResultSet rs = meta.getIndexInfo(connection.getCatalog(), null, tableName.toUpperCase(), false, true);
-        while (!exists && rs.next()) {
-            String name = rs.getString("INDEX_NAME");
-            if (name != null) {
-                exists = name.equalsIgnoreCase(indexName);
+        ResultSet rs = null;
+        try {
+            DatabaseMetaData meta = connection.getMetaData();
+            rs = meta.getIndexInfo(connection.getCatalog(), null, tableName.toUpperCase(), false, true);
+            while (!exists && rs.next()) {
+                String name = rs.getString("INDEX_NAME");
+                if (name != null) {
+                    exists = name.equalsIgnoreCase(indexName);
+                }
             }
+        } finally {
+            Database.close(rs, null);
         }
         return exists;
     }

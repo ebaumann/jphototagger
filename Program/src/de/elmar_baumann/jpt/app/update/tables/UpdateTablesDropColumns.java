@@ -18,11 +18,11 @@
  */
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.Bundle;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,9 +74,7 @@ final class UpdateTablesDropColumns {
 
     private void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {
         setMessage(tableName, columnName);
-        Statement stmt = connection.createStatement();
-        stmt.execute("ALTER TABLE " + tableName + " DROP COLUMN " + columnName);
-        stmt.close();
+        Database.execute(connection, "ALTER TABLE " + tableName + " DROP COLUMN " + columnName);
     }
 
     private void setMessage(String tableName, String columnName) {

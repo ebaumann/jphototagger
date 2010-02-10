@@ -55,20 +55,21 @@ public final class DatabaseFileExcludePattern extends Database {
     public boolean insert(String pattern) {
         boolean inserted = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "INSERT INTO file_exclude_pattern (pattern) VALUES (?)");
             stmt.setString(1, pattern);
             logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
             inserted = count > 0;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
+            close(stmt);
             free(connection);
         }
         return inserted;
@@ -83,20 +84,21 @@ public final class DatabaseFileExcludePattern extends Database {
     public boolean delete(String pattern) {
         boolean deleted = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "DELETE FROM file_exclude_pattern WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
-            stmt.close();
             deleted = count > 0;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
+            close(stmt);
             free(connection);
         }
         return deleted;
@@ -111,20 +113,22 @@ public final class DatabaseFileExcludePattern extends Database {
     public boolean exists(String pattern) {
         boolean exists = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return exists;
@@ -138,23 +142,23 @@ public final class DatabaseFileExcludePattern extends Database {
     public List<String> getAll() {
         List<String> patterns = new LinkedList<String>();
         Connection connection = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
-            String sql =
-                    "SELECT pattern" +
-                    " FROM file_exclude_pattern" +
-                    " ORDER BY pattern ASC";
+            stmt = connection.createStatement();
+            String sql = "SELECT pattern" +
+                         " FROM file_exclude_pattern" +
+                         " ORDER BY pattern ASC";
             logFinest(sql);
-            ResultSet rs =
-                    stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 patterns.add(rs.getString(1));
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return patterns;
@@ -168,21 +172,23 @@ public final class DatabaseFileExcludePattern extends Database {
      * @return  count of deleted files
      */
     public int deleteMatchingFiles(List<String> patterns, ProgressListener listener) {
-
-        Connection connection = null;
         int count = 0;
+        Connection        connection = null;
+        PreparedStatement stmtUpdate = null;
+        Statement         stmtQuery  = null;
+        ResultSet         rs         = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
 
-            List<String>      deletedFiles = new LinkedList<String>();
-            Statement         stmtQuery    = connection.createStatement();
-            String            sqlUpdate    = "DELETE FROM files WHERE filename = ?";
-            PreparedStatement stmtUpdate   = connection.prepareStatement(sqlUpdate);
-            String            sqlQuery     = "SELECT filename FROM files";
+            List<String> deletedFiles = new LinkedList<String>();
+            String       sqlUpdate    = "DELETE FROM files WHERE filename = ?";
+            String       sqlQuery     = "SELECT filename FROM files";
 
+            stmtQuery  = connection.createStatement();
+            stmtUpdate = connection.prepareStatement(sqlUpdate);
             logFinest(sqlQuery);
-            ResultSet rs = stmtQuery.executeQuery(sqlQuery);
+            rs = stmtQuery.executeQuery(sqlQuery);
 
             int           patternCount = patterns.size();
             int           progress     = 0;
@@ -219,12 +225,12 @@ public final class DatabaseFileExcludePattern extends Database {
                 }
             }
             connection.commit();
-            stmtQuery.close();
-            stmtUpdate.close();
             notifyProgressListenerEnd(listener, event);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
         } finally {
+            close(rs, stmtQuery);
+            close(stmtUpdate);
             free(connection);
         }
         return count;

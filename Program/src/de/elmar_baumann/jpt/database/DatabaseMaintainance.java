@@ -38,15 +38,17 @@ public final class DatabaseMaintainance extends Database {
      */
     public void shutdown() {
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             AppLogger.logInfo(DatabaseMaintainance.class, "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(Database.class, ex);
             MessageDisplayer.error(null, "DatabaseMaintainance.Error.Shutdown");
+        } finally {
+            close(stmt);
         }
     }
 
@@ -58,16 +60,17 @@ public final class DatabaseMaintainance extends Database {
     public boolean compressDatabase() {
         boolean success = false;
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             stmt.executeUpdate("CHECKPOINT DEFRAG");
             success = true;
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMaintainance.class, ex);
         } finally {
+            close(stmt);
             free(connection);
         }
         return success;

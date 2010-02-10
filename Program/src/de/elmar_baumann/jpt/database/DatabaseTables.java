@@ -72,10 +72,11 @@ public final class DatabaseTables extends Database {
      */
     public void createTables() {
         Connection connection = null;
+        Statement  stmt       = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             createAppTable(connection, stmt); // prior to all other tables!
             createFilesTable(connection, stmt);
             createXmpTables(connection, stmt);
@@ -91,21 +92,21 @@ public final class DatabaseTables extends Database {
             createHierarchicalSubjectsTable(connection, stmt);
             createSynonymsTable(connection, stmt);
             UpdateTables.INSTANCE.update(connection);
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseTables.class, ex);
             if (ex instanceof SQLException) {
                 errorMessageSqlException((SQLException) ex);
             }
+            close(stmt);
             AppLock.unlock();
             System.exit(0);
         } finally {
+            close(stmt);
             free(connection);
         }
     }
 
-    private void createFilesTable(Connection connection, Statement stmt) throws
-            SQLException {
+    private void createFilesTable(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "files")) {
             stmt.execute("CREATE CACHED TABLE files " +
                     " (" +
@@ -119,8 +120,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createXmpTables(Connection connection, Statement stmt) throws
-            SQLException {
+    private void createXmpTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp")) {
             stmt.execute("CREATE CACHED TABLE xmp" +
                     " (" +
@@ -177,8 +177,7 @@ public final class DatabaseTables extends Database {
         }
     }
 
-    private void createExifTables(Connection connection, Statement stmt) throws
-            SQLException {
+    private void createExifTables(Connection connection, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "exif")) {
             stmt.execute("CREATE CACHED TABLE exif" +
                     " (" +

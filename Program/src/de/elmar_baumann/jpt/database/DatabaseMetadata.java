@@ -57,18 +57,24 @@ public final class DatabaseMetadata extends Database {
 
         if (!existsTable(connection, tableName)) return false;
 
-        boolean exists = false;
-        Statement         stmt        = connection.createStatement();
-        String            sql         = "select * from " + tableName + " WHERE 1 = 0"; // "WHERE 1 = 0": speed, memory!
-        ResultSet         rs          = stmt.executeQuery(sql);
-        ResultSetMetaData rsmd        = rs.getMetaData();
-        int               columnCount = rsmd.getColumnCount();
+        Statement         stmt   = null;
+        ResultSet         rs     = null;
+        ResultSetMetaData rsmd   = null;
+        boolean           exists = false;
+        try {
+            stmt = connection.createStatement();
+            String            sql         = "select * from " + tableName + " WHERE 1 = 0"; // "WHERE 1 = 0": speed, memory!
+            rs   = stmt.executeQuery(sql);
+            rsmd = rs.getMetaData();
+            int  columnCount = rsmd.getColumnCount();
 
-        for (int i = 1; !exists && i <= columnCount; i++) {
-            String column = rsmd.getColumnName(i);
-            exists = column.equalsIgnoreCase(columnName);
+            for (int i = 1; !exists && i <= columnCount; i++) {
+                String column = rsmd.getColumnName(i);
+                exists = column.equalsIgnoreCase(columnName);
+            }
+        } finally {
+            close(rs, stmt);
         }
-        stmt.close();
         return exists;
     }
 
@@ -111,36 +117,41 @@ public final class DatabaseMetadata extends Database {
     public List<ColumnInfo> getColumnInfo(
             Connection connection, String tableName, String columnName) throws SQLException {
 
+        ResultSet rs = null;
         List<ColumnInfo>  infos = new ArrayList<ColumnInfo>();
-        DatabaseMetaData  meta  = connection.getMetaData();
-        ResultSet         rs    = meta.getColumns(null, null, tableName.toUpperCase(), columnName == null ? "%" : columnName.toUpperCase());
+        try {
+            DatabaseMetaData  meta  = connection.getMetaData();
+            rs = meta.getColumns(null, null, tableName.toUpperCase(), columnName == null ? "%" : columnName.toUpperCase());
 
-        while (rs.next()) {
-            ColumnInfo colInfo = new ColumnInfo();
+            while (rs.next()) {
+                ColumnInfo colInfo = new ColumnInfo();
 
-            colInfo.CHAR_OCTET_LENGTH = rs.getInt("CHAR_OCTET_LENGTH");
-            colInfo.COLUMN_DEF        = rs.getString("COLUMN_DEF");
-            colInfo.COLUMN_NAME       = rs.getString("COLUMN_NAME");
-            colInfo.COLUMN_SIZE       = rs.getInt("COLUMN_SIZE");
-            colInfo.DATA_TYPE         = rs.getInt("DATA_TYPE");
-            colInfo.DECIMAL_DIGITS    = rs.getInt("DECIMAL_DIGITS");
-            colInfo.IS_NULLABLE       = rs.getString("IS_NULLABLE");
-            colInfo.NULLABLE          = rs.getInt("NULLABLE");
-            colInfo.NUM_PREC_RADIX    = rs.getInt("NUM_PREC_RADIX");
-            colInfo.ORDINAL_POSITION  = rs.getInt("ORDINAL_POSITION");
-            colInfo.REMARKS           = rs.getString("REMARKS");
-            colInfo.SCOPE_CATLOG      = rs.getString("SCOPE_CATLOG");
-            colInfo.SCOPE_SCHEMA      = rs.getString("SCOPE_SCHEMA");
-            colInfo.SCOPE_TABLE       = rs.getString("SCOPE_TABLE");
-            colInfo.SOURCE_DATA_TYPE  = rs.getShort("SOURCE_DATA_TYPE");
-            colInfo.SQL_DATA_TYPE     = rs.getInt("SQL_DATA_TYPE");
-            colInfo.SQL_DATETIME_SUB  = rs.getInt("SQL_DATETIME_SUB");
-            colInfo.TABLE_CAT         = rs.getString("TABLE_CAT");
-            colInfo.TABLE_NAME        = rs.getString("TABLE_NAME");
-            colInfo.TABLE_SCHEM       = rs.getString("TABLE_SCHEM");
-            colInfo.TYPE_NAME         = rs.getString("TYPE_NAME");
+                colInfo.CHAR_OCTET_LENGTH = rs.getInt("CHAR_OCTET_LENGTH");
+                colInfo.COLUMN_DEF        = rs.getString("COLUMN_DEF");
+                colInfo.COLUMN_NAME       = rs.getString("COLUMN_NAME");
+                colInfo.COLUMN_SIZE       = rs.getInt("COLUMN_SIZE");
+                colInfo.DATA_TYPE         = rs.getInt("DATA_TYPE");
+                colInfo.DECIMAL_DIGITS    = rs.getInt("DECIMAL_DIGITS");
+                colInfo.IS_NULLABLE       = rs.getString("IS_NULLABLE");
+                colInfo.NULLABLE          = rs.getInt("NULLABLE");
+                colInfo.NUM_PREC_RADIX    = rs.getInt("NUM_PREC_RADIX");
+                colInfo.ORDINAL_POSITION  = rs.getInt("ORDINAL_POSITION");
+                colInfo.REMARKS           = rs.getString("REMARKS");
+                colInfo.SCOPE_CATLOG      = rs.getString("SCOPE_CATLOG");
+                colInfo.SCOPE_SCHEMA      = rs.getString("SCOPE_SCHEMA");
+                colInfo.SCOPE_TABLE       = rs.getString("SCOPE_TABLE");
+                colInfo.SOURCE_DATA_TYPE  = rs.getShort("SOURCE_DATA_TYPE");
+                colInfo.SQL_DATA_TYPE     = rs.getInt("SQL_DATA_TYPE");
+                colInfo.SQL_DATETIME_SUB  = rs.getInt("SQL_DATETIME_SUB");
+                colInfo.TABLE_CAT         = rs.getString("TABLE_CAT");
+                colInfo.TABLE_NAME        = rs.getString("TABLE_NAME");
+                colInfo.TABLE_SCHEM       = rs.getString("TABLE_SCHEM");
+                colInfo.TYPE_NAME         = rs.getString("TYPE_NAME");
 
-            infos.add(colInfo);
+                infos.add(colInfo);
+            }
+        } finally {
+            close(rs, null);
         }
         return infos;
     }

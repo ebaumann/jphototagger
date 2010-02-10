@@ -43,9 +43,7 @@ public final class Util {
         StringBuilder sb = new StringBuilder(count * 2);
         sb.append("(");
         for (int i = 0; i < count; i++) {
-            sb.append((i == 0
-                       ? ""
-                       : ",") + "?");
+            sb.append((i == 0 ? "" : ",") + "?");
         }
         sb.append(")");
         return sb.toString();
@@ -62,9 +60,7 @@ public final class Util {
      *                be the parameter <code>1 + offset</code>.
      * @throws        SQLException
      */
-    static void setStringParams(
-            PreparedStatement stmt, List<? extends String> params, int offset)
-            throws SQLException {
+    static void setStringParams(PreparedStatement stmt, List<? extends String> params, int offset) throws SQLException {
         assert offset >= 0 : "Negative offset: " + offset;
         if (offset < 0) return;
         int size = params.size();

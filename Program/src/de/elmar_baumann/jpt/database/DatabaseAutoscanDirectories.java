@@ -50,20 +50,20 @@ public final class DatabaseAutoscanDirectories extends Database {
         boolean inserted = false;
         if (!exists(directoryName)) {
             Connection connection = null;
+            PreparedStatement stmt = null;
             try {
                 connection = getConnection();
                 connection.setAutoCommit(true);
-                PreparedStatement stmt =
-                        connection.prepareStatement(
+                stmt = connection.prepareStatement(
                         "INSERT INTO autoscan_directories (directory) VALUES (?)");
                 stmt.setString(1, directoryName);
                 logFiner(stmt);
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
-                stmt.close();
             } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             } finally {
+                close(stmt);
                 free(connection);
             }
         }
@@ -77,13 +77,13 @@ public final class DatabaseAutoscanDirectories extends Database {
      * @return true bei Erfolg
      */
     public boolean insert(List<String> directoryNames) {
-
         boolean inserted = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "INSERT INTO autoscan_directories (directory) VALUES (?)");
             for (String directoryName : directoryNames) {
                 if (!exists(directoryName)) {
@@ -93,11 +93,11 @@ public final class DatabaseAutoscanDirectories extends Database {
                 }
             }
             connection.commit();
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             rollback(connection);
         } finally {
+            close(stmt);
             free(connection);
         }
         return inserted;
@@ -113,19 +113,20 @@ public final class DatabaseAutoscanDirectories extends Database {
     public boolean delete(String directoryName) {
         boolean deleted = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
-            PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM autoscan_directories WHERE directory = ?");
+            stmt = connection.prepareStatement(
+                        "DELETE FROM autoscan_directories WHERE directory = ?");
             stmt.setString(1, directoryName);
             logFiner(stmt);
             int count = stmt.executeUpdate();
             deleted = count > 0;
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
+            close(stmt);
             free(connection);
         }
         return deleted;
@@ -141,21 +142,22 @@ public final class DatabaseAutoscanDirectories extends Database {
     public boolean exists(String directoryName) {
         boolean exists = false;
         Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            PreparedStatement stmt =
-                    connection.prepareStatement(
+            stmt = connection.prepareStatement(
                     "SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?");
             stmt.setString(1, directoryName);
             logFinest(stmt);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
+            close(rs, stmt);
             free(connection);
         }
         return exists;
@@ -169,21 +171,23 @@ public final class DatabaseAutoscanDirectories extends Database {
     public List<String> getAll() {
         List<String> directories = new ArrayList<String>();
         Connection connection = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             connection = getConnection();
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String sql = "SELECT directory FROM autoscan_directories" +
                          " ORDER BY directory ASC";
             logFinest(sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 directories.add(rs.getString(1));
             }
-            stmt.close();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             directories.clear();
         } finally {
+            close(rs, stmt);
             free(connection);
         }
 
