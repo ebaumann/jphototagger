@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.70 2010-02-11
+-----------------
+
+* Kartenreiter Bearbeiten: Neuer Menü-Eintrag für das Kontextemenü der
+  Stichwortliste: Synonyme bearbeiten
+
 0.7.69 2010-02-10
 -----------------
 

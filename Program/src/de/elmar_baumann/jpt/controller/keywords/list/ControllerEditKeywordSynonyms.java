@@ -20,26 +20,102 @@ package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
+import javax.swing.JList;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
+import javax.swing.KeyStroke;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-09
  */
-public final class ControllerEditKeywordSynonyms extends ControllerKeywords {
+public final class ControllerEditKeywordSynonyms extends ControllerKeywords 
+    implements PopupMenuListener
+    {
 
-    private static final String DELIM = ";";
+    private final        JMenuItem                    itemEditSynonyms   = new JMenuItem(Bundle.getString("ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName"));
+    private final        EditRepeatableTextEntryPanel editPanel          = (EditRepeatableTextEntryPanel) GUI.INSTANCE.getAppPanel().getEditMetadataPanels().getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+    private final        JPopupMenu                   popupMenuEditPanel = editPanel.getPopupMenu();
+    private final        JList                        listEditPanel      = editPanel.getList();
+    private static final String                       DELIM              = ";";
 
     public ControllerEditKeywordSynonyms() {
-        listenToActionsOf(PopupMenuKeywordsList.INSTANCE.getItemEditSynonyms());
+        addMenuItem();
+        listen();
+    }
+
+    private void listen() {
+        listenToActionsOf(
+                PopupMenuKeywordsList.INSTANCE.getItemEditSynonyms(),
+                itemEditSynonyms
+                );
+        listEditPanel.addKeyListener(this);
+        popupMenuEditPanel.addPopupMenuListener(this);
+    }
+
+    private void addMenuItem() {
+        itemEditSynonyms.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.CTRL_MASK));
+        popupMenuEditPanel.add(new JSeparator());
+        popupMenuEditPanel.add(itemEditSynonyms);
+    }
+
+    private void editInEditList() {
+        List<String> keywords = new ArrayList<String>();
+        for (Object selValue : listEditPanel.getSelectedValues()) {
+            keywords.add(selValue.toString());
+        }
+        if (!keywords.isEmpty()) {
+            action(keywords);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == itemEditSynonyms) {
+            editInEditList();
+        } else {
+            super.actionPerformed(evt);
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent evt) {
+        if (evt.getSource() == listEditPanel && myKey(evt)) {
+            editInEditList();
+        } else {
+            super.keyPressed(evt);
+        }
+    }
+
+    private boolean itemsInEditListSelected() {
+        return listEditPanel.getSelectedValue() != null;
+    }
+
+    @Override
+    public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+        boolean selected = itemsInEditListSelected();
+
+        editPanel.getItemRename().setEnabled(selected);
+        editPanel.getItemRemove().setEnabled(selected);
+        itemEditSynonyms.setEnabled(selected);
     }
 
     @Override
@@ -55,15 +131,14 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords {
     @Override
     protected void action(List<String> keywords) {
         for (String keyword : keywords) {
-            addSynonyms(keyword);
+            editSynonyms(keyword);
         }
     }
 
-    private void addSynonyms(String keyword) {
+    private void editSynonyms(String keyword) {
         Set<String> oldSynonyms = DatabaseSynonyms.INSTANCE.getSynonymsOf(keyword);
         String      synonyms    = MessageDisplayer.input("ControllerEditKeywordSynonyms.Info.Input", catSynonyms(oldSynonyms),
                                                          "ControllerEditKeywordSynonyms.Pos", keyword, DELIM);
-
         if (synonyms != null) {
             Set<String> newSynonyms = splitSynonyms(synonyms);
             for (String synonym : newSynonyms) {
@@ -101,5 +176,15 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords {
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void popupMenuCanceled(PopupMenuEvent e) {
+        // ignore
     }
 }
