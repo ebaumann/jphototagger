@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
+import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
@@ -77,7 +78,7 @@ public class ControllerDeleteKeywords
 
     private void delete(DefaultMutableTreeNode node, Keyword keyword, boolean confirm) {
         if (!confirm ||
-             confirm && MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword)
+             confirm && MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword)
              ) {
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(node);
         }
@@ -87,6 +88,6 @@ public class ControllerDeleteKeywords
         int size = nodes.size();
         if (size <= 1) return true;
 
-        return MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.Tree.Confirm.MultipleKeywords", size);
+        return MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, "ControllerDeleteKeywords.Tree.Confirm.MultipleKeywords", size);
     }
 }

@@ -18,13 +18,15 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.list;
 
-import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
+import de.elmar_baumann.lib.dialog.InputDialog;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
@@ -137,9 +139,16 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
 
     private void editSynonyms(String keyword) {
         Set<String> oldSynonyms = DatabaseSynonyms.INSTANCE.getSynonymsOf(keyword);
-        String      synonyms    = MessageDisplayer.input("ControllerEditKeywordSynonyms.Info.Input", catSynonyms(oldSynonyms),
-                                                         "ControllerEditKeywordSynonyms.Pos", keyword, DELIM);
-        if (synonyms != null) {
+        InputDialog dlg         = new InputDialog(InputHelperDialog.INSTANCE,
+                                      Bundle.getString("ControllerEditKeywordSynonyms.Info.Input", keyword, DELIM),
+                                      catSynonyms(oldSynonyms),
+                                      UserSettings.INSTANCE.getProperties(),
+                                      "ControllerEditKeywordSynonyms.Pos");
+
+        dlg.setVisible(true);
+        String synonyms = dlg.getInput();
+
+        if (dlg.isAccepted() && synonyms != null) {
             Set<String> newSynonyms = splitSynonyms(synonyms);
             for (String synonym : newSynonyms) {
                 DatabaseSynonyms.INSTANCE.insert(keyword, synonym);

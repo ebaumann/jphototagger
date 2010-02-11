@@ -24,7 +24,6 @@ import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -48,7 +47,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private transient    Xmp              xmp              = new Xmp();
 
     public EditMetaDataTemplateDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(InputHelperDialog.INSTANCE, true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setMnemonics();
     }
