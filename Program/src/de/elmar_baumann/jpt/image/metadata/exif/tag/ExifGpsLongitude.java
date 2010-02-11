@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.util.ByteUtil;
 import java.nio.ByteOrder;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,8 +60,7 @@ public final class ExifGpsLongitude {
     private static Ref ref(byte[] rawValue) {
         String s = null;
         if (rawValue != null && rawValue.length == 2) {
-            s = new StringBuilder(1).append((char)
-                    new Byte(rawValue[0]).intValue()).toString();
+            s = new StringBuilder(1).append((char) ByteUtil.toInt(rawValue[0])).toString();
         }
         return REF_OF_STRING.get(s);
     }

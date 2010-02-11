@@ -18,6 +18,8 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
+import de.elmar_baumann.lib.util.ByteUtil;
+
 /**
  * The version of GPSInfoIFD. The version is given as 2.2.0.0. This tag is
  * mandatory when GPSInfo tag is present.
@@ -42,10 +44,10 @@ public final class ExifGpsVersion {
     public ExifGpsVersion(byte[] rawValue) {
 
         if (rawValue != null && byteCountOk(rawValue)) {
-            first  = new Byte(rawValue[0]).intValue();
-            second = new Byte(rawValue[1]).intValue();
-            third  = new Byte(rawValue[2]).intValue();
-            fourth = new Byte(rawValue[3]).intValue();
+            first  = ByteUtil.toInt(rawValue[0]);
+            second = ByteUtil.toInt(rawValue[1]);
+            third  = ByteUtil.toInt(rawValue[2]);
+            fourth = ByteUtil.toInt(rawValue[3]);
         }
     }
 
