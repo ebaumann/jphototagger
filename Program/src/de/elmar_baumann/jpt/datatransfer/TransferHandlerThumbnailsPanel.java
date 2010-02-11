@@ -39,6 +39,7 @@ import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -77,10 +78,11 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private boolean metadataTransferred(TransferSupport transferSupport) {
-        final boolean dropOverSelectedThumbnail = isDropOverSelectedThumbnail(transferSupport);
-        return (Flavor.hasKeywordsFromList(transferSupport) ||
-                Flavor.hasKeywordsFromTree(transferSupport)) && dropOverSelectedThumbnail ||
-                Flavor.hasMetadataTemplate(transferSupport)  && dropOverSelectedThumbnail;
+        boolean dropOverSelectedThumbnail = isDropOverSelectedThumbnail(transferSupport);
+        boolean isThumbnailPos            = isThumbnailPos(transferSupport);
+        return  (Flavor.hasKeywordsFromList(transferSupport) ||
+                 Flavor.hasKeywordsFromTree(transferSupport)) && isThumbnailPos ||
+                 Flavor.hasMetadataTemplate(transferSupport)  && dropOverSelectedThumbnail;
     }
 
     @Override
@@ -163,20 +165,24 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     private boolean insertMetadata(TransferSupport transferSupport) {
 
-        if (!GUI.INSTANCE.getAppPanel().getEditMetadataPanels().isEditable()) {
-            return true;
-        }
+        if (!GUI.INSTANCE.getAppPanel().getEditMetadataPanels().isEditable()) return true;
 
-        Transferable t = transferSupport.getTransferable();
+        Transferable t                         = transferSupport.getTransferable();
+        boolean      dropOverSelectedThumbnail = isDropOverSelectedThumbnail(transferSupport);
+        String       imageFilename             = getImageFilename(transferSupport);
 
         if (Flavor.hasKeywordsFromList(transferSupport)) {
 
-            importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t));
+            importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t), dropOverSelectedThumbnail, imageFilename);
 
         } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
 
             for (DefaultMutableTreeNode node : Support.getKeywordNodes(t)) {
-                KeywordsHelper.addKeywordsToEditPanel(node);
+                if (dropOverSelectedThumbnail) {
+                    KeywordsHelper.addKeywordsToEditPanel(node);
+                } else {
+                    KeywordsHelper.saveKeywordsToImageFile(KeywordsHelper.getKeywordStrings(node, true), imageFilename);
+                }
             }
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
             importMetadataTemplate(transferSupport);
@@ -186,24 +192,52 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         return true;
     }
 
-    public void importStrings(DataFlavor dataFlavor, Object[] strings) {
+    public void importStrings(DataFlavor dataFlavor, Object[] strings, boolean dropOverSelectedThumbnail, String imageFilename) {
         if (strings == null || strings.length <= 0) return;
 
-        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-        Column                  column     = dataFlavor.equals(Flavor.KEYWORDS_LIST)
-                                                ? ColumnXmpDcSubjectsSubject.INSTANCE
-                                                : null;
-        for (Object string : strings) {
-            editPanels.addText(column, string.toString());
+        List<String> keywords = new ArrayList<String>(strings.length);
+        for (Object o : strings) {
+            keywords.add(o.toString());
+        }
+
+        if (dropOverSelectedThumbnail) {
+            EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            Column                 column = dataFlavor.equals(Flavor.KEYWORDS_LIST)
+                                                    ? ColumnXmpDcSubjectsSubject.INSTANCE
+                                                    : null;
+            for (String keyword : keywords) {
+                editPanels.addText(column, keyword);
+            }
+        } else {
+            KeywordsHelper.saveKeywordsToImageFile(keywords, imageFilename);
         }
     }
 
     public boolean isDropOverSelectedThumbnail(TransferSupport transferSupport) {
-
         Point           p     = transferSupport.getDropLocation().getDropPoint();
         ThumbnailsPanel panel = (ThumbnailsPanel) transferSupport.getComponent();
 
         return panel.isSelected(panel.getDnDIndex(p.x, p.y));
+    }
+
+    private boolean isThumbnailPos(TransferSupport transferSupport) {
+        Point           p     = transferSupport.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel = (ThumbnailsPanel) transferSupport.getComponent();
+
+        int index = panel.getThumbnailIndexAtPoint(p.x, p.y);
+        return (panel.isIndex(index));
+    }
+
+    private String getImageFilename(TransferSupport transferSupport) {
+        Point           p     = transferSupport.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel = (ThumbnailsPanel) transferSupport.getComponent();
+
+        int index = panel.getThumbnailIndexAtPoint(p.x, p.y);
+        if (panel.isIndex(index)) {
+            return panel.getFile(index).getAbsolutePath();
+        } else {
+            return null;
+        }
     }
 
     private boolean importFiles(File targetDir, TransferSupport transferSupport) {

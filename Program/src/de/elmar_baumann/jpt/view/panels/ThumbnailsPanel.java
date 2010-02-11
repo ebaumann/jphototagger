@@ -367,7 +367,7 @@ public class ThumbnailsPanel extends JPanel
         return isThumbnailAreaInWidth(x) && isThumbnailAreaInHeight(y);
     }
 
-    protected int getThumbnailIndexAtPoint(int x, int y) {
+    public int getThumbnailIndexAtPoint(int x, int y) {
         if (isThumbnailArea(x, y)) {
             int tnOffset = (x - MARGIN_THUMBNAIL) /
                     (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);

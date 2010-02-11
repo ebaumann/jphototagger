@@ -36,9 +36,11 @@ import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
+import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -74,6 +76,20 @@ public final class KeywordsHelper {
         if (keywordStrings.size() > 1) {
             Collections.reverse(keywordStrings); // else leaf is first element
         }
+    }
+
+    public static void saveKeywordsToImageFile(List<String> keywordStrings, String imageFilename) {
+        if (!FileUtil.existsFile(imageFilename)) return;
+        Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFilename);
+        if (xmp == null) xmp = new Xmp();
+        for (String keyword : keywordStrings) {
+            if (!xmp.containsValue(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)) {
+                xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+            }
+        }
+        List<Pair<String, Xmp>> saveList = new ArrayList<Pair<String, Xmp>>();
+        saveList.add(new Pair<String, Xmp>(imageFilename, xmp));
+        SaveXmp.save(saveList);
     }
 
     /**

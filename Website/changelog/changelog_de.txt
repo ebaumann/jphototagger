@@ -10,6 +10,13 @@ Changelog JPhotoTagger
 
 * Kartenreiter Bearbeiten: Neuer Menü-Eintrag für das Kontextemenü der
   Stichwortliste: Synonyme bearbeiten
+* Ziehen und fallen lassen von Stichwörtern im Vorschaubildfenster:
+  Es können Stichwörter auch auf nicht ausgewählte Bilder gezogen werden:
+  * Werden Stichwörter auf ein nicht ausgewähltes Bild fallen gelassen,
+    so werden sie diesem zugeordnet (neu)
+  * Werden Stichwörter auf ein ausgewähltes Bild fallen gelassen, werden
+    sie diesem und allen anderen ausgewählten Bildern zugeordnet
+	(bisheriges Verhalten)
 
 0.7.69 2010-02-10
 -----------------
@@ -30,10 +37,10 @@ Changelog JPhotoTagger
   Betrifft automatische Aktualisierung beim Auswählen von Ordnern oder als
   geplante Aufgabe.
 * Klick mit der rechten Maustaste innerhalb des Vorschaubildfensters:
-  ** Klick in ein ausgewähltes Bild behält die Auswahl bei
-  ** Klick in ein nicht ausgewähltes Bild wählt dieses aus und löscht die
-     bisherige Auswahl
-  ** Klick in einen freien Bereich (unten, kein Bild) löscht die Auswahl
+  * Klick in ein ausgewähltes Bild behält die Auswahl bei
+  * Klick in ein nicht ausgewähltes Bild wählt dieses aus und löscht die
+    bisherige Auswahl
+  * Klick in einen freien Bereich (unten, kein Bild) löscht die Auswahl
 * Format der Protokolldatei kann nicht mehr definiert werden, dies ist
   autotamisch "ausführlich" (XML-Datei)
 * Bugfix beim Lesen von Nikon EXIF-Daten
