@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpRepeatableValues;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
@@ -96,6 +97,17 @@ public final class Xmp implements TextEntryListener {
                     valueOfColumn.put(column, template.getValueOfColumn(column));
                 }
             }
+        }
+    }
+
+    @SuppressWarnings("element-type-mismatch")
+    public boolean containsValue(Column column, Object value) {
+        Object o = valueOfColumn.get(column);
+        if (o == null) return false;
+        if (o instanceof Collection<?>) {
+            return ((Collection<?>) o).contains(value);
+        } else {
+            return o.equals(value);
         }
     }
 

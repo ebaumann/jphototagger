@@ -342,4 +342,43 @@ public class XmpTest {
         assertEquals(Arrays.asList(subject), xmp2.getValue(col2));
         assertEquals(longVal, xmp2.getValue(col3));
     }
+
+    /**
+     * Test of containsValue method, of class Xmp.
+     */
+    @Test
+    public void testContainsValue() {
+        System.out.println("containsValue");
+
+        Column columnDcSubj = ColumnXmpDcSubjectsSubject.INSTANCE;
+        Column columnLastM  = ColumnXmpLastModified.INSTANCE;
+        Column columnTitle  = ColumnXmpDcTitle.INSTANCE;
+        String keyw1        = "keyw1";
+        String keyw2        = "keyw2";
+        String title        = "title";
+        Long   lastM        = Long.valueOf(200);
+        Xmp    xmp          = new Xmp();
+
+        assertFalse(xmp.containsValue(columnDcSubj, keyw1));
+        assertFalse(xmp.containsValue(columnLastM, lastM));
+        assertFalse(xmp.containsValue(columnTitle, title));
+
+        xmp.setValue(columnDcSubj, keyw1);
+        xmp.setValue(columnLastM, lastM);
+        xmp.setValue(columnTitle, title);
+        assertTrue(xmp.containsValue(columnDcSubj, keyw1));
+        assertTrue(xmp.containsValue(columnLastM, lastM));
+        assertTrue(xmp.containsValue(columnTitle, title));
+
+        xmp.setValue(columnDcSubj, keyw2);
+        assertTrue(xmp.containsValue(columnDcSubj, keyw1));
+        assertTrue(xmp.containsValue(columnDcSubj, keyw2));
+    }
+
+    /**
+     * Test of toString method, of class Xmp.
+     */
+    @Test
+    public void testToString() {
+    }
 }
