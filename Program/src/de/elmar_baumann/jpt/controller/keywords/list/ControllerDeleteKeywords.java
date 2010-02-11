@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
+import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -52,11 +53,11 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
         int size = keywords.size();
         if (size == 1) {
             String keyword = keywords.get(0);
-            if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
+            if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
                 KeywordsHelper.deleteKeyword(keyword);
             }
         } else if (size > 1) {
-            if (MessageDisplayer.confirmYesNo(null, "ControllerDeleteKeywords.List.Confirm.DeleteMultiple", size)) {
+            if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, "ControllerDeleteKeywords.List.Confirm.DeleteMultiple", size)) {
                 for (String keyword : keywords) {
                     KeywordsHelper.deleteKeyword(keyword);
                 }

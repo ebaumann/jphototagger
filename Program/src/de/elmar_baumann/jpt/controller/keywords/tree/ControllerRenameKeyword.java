@@ -18,13 +18,17 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
+import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
+import de.elmar_baumann.lib.dialog.InputDialog;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -86,19 +90,25 @@ public class ControllerRenameKeyword
     }
 
     static String getName(Keyword keyword, DatabaseKeywords database, JTree tree) {
-        String  newName   = null;
-        String  oldName   = keyword.getName();
-        boolean confirmed = true;
+        String      newName = null;
+        String      oldName = keyword.getName();
+        boolean     input   = true;
+        InputDialog dlg     = new InputDialog(InputHelperDialog.INSTANCE,
+                                      Bundle.getString("ControllerRenameKeyword.Input.Name", oldName),
+                                      oldName,
+                                      UserSettings.INSTANCE.getProperties(),
+                                      ControllerRenameKeyword.class.getName());
 
-        while (newName == null && confirmed) {
-            newName   = MessageDisplayer.input("ControllerRenameKeyword.Input.Name", oldName, ControllerRenameKeyword.class.getName(), oldName);
-            confirmed = newName != null;
+        while (input && newName == null) {
+            dlg.setVisible(true);
+            newName = dlg.getInput();
+            input = false;
 
-            if (newName != null && !newName.trim().isEmpty()) {
+            if (dlg.isAccepted() && newName != null && !newName.trim().isEmpty()) {
                 Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(), newName.trim(), keyword.isReal());
                 if (database.hasParentChildWithEqualName(s)) {
                     newName = null;
-                    confirmed = MessageDisplayer.confirmYesNo(null, "ControllerRenameKeyword.Confirm.Exists", s);
+                    input = MessageDisplayer.confirmYesNo(null, "ControllerRenameKeyword.Confirm.Exists", s);
                 }
             }
         }
