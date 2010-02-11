@@ -44,6 +44,12 @@ public final class SaveXmp extends Thread {
     private final        Collection<Pair<String, Xmp>> filenamesXmp;
     private              JProgressBar                  progressBar;
 
+    private SaveXmp(Collection<Pair<String, Xmp>> filenamesXmp) {
+        AppLifeCycle.INSTANCE.addSaveObject(this);
+        this.filenamesXmp = new ArrayList<Pair<String, Xmp>>(filenamesXmp);
+        setName("Saving XMP @ " + getClass().getSimpleName());
+    }
+
     public synchronized static void save(Collection<Pair<String, Xmp>> filenamesXmp) {
 
         final int fileCount = filenamesXmp.size();
@@ -51,15 +57,6 @@ public final class SaveXmp extends Thread {
         if (fileCount >= 1) {
             UserTasks.INSTANCE.add(new SaveXmp(filenamesXmp));
         }
-    }
-
-    private SaveXmp(Collection<Pair<String, Xmp>> filenamesXmp) {
-
-        AppLifeCycle.INSTANCE.addSaveObject(this);
-
-        this.filenamesXmp = new ArrayList<Pair<String, Xmp>>(filenamesXmp);
-
-        setName("Saving XMP @ " + getClass().getSimpleName());
     }
 
     @Override
