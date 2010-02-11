@@ -32,6 +32,5 @@ import java.awt.Image;
  * @version 2009-08-17
  */
 public interface ThumbnailRenderer {
-    public Image getRenderedThumbnail(Image scaled,
-            RenderedThumbnailCacheIndirection rtci, boolean dummy);
+    public Image getRenderedThumbnail(Image scaled, RenderedThumbnailCacheIndirection rtci, boolean dummy);
 }
