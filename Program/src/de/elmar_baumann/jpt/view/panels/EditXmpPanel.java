@@ -80,6 +80,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         firstInputComponent = panelDcSubjects.textAreaInput;
         lastInputComponent  = panelRating.getInputComponents().get(panelRating.getInputComponents().size() - 1);
         firstInputComponent.requestFocusInWindow();
+        panelDcSubjects.setBundleKeyPosRenameDialog("EditXmpPanel.Keywords.RenameDialog.Pos");
     }
 
     private void setColumns() {

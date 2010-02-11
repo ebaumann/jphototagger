@@ -620,6 +620,7 @@ public final class EditMetadataPanels
                 panel.textAreaInput.addFocusListener(this);
                 if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
                     panel.setSuggest(new SuggestKeywords());
+                    panel.setBundleKeyPosRenameDialog("EditMetadataPanels.Keywords.RenameDialog.Pos");
                 }
                 panels.add(panel);
             } else {

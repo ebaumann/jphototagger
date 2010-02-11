@@ -80,6 +80,7 @@ public final class EditRepeatableTextEntryPanel
     {
 
     private static final long                     serialVersionUID         = -5581799743101447535L;
+    private              String                   bundleKeyPosRenameDialog;
     private final        DefaultListModel         model                    = new DefaultListModel();
     private transient    Column                   column                   = ColumnXmpDcSubjectsSubject.INSTANCE;
     private              boolean                  editable                 = true;
@@ -218,6 +219,10 @@ public final class EditRepeatableTextEntryPanel
 
     public JList getList() {
         return list;
+    }
+
+    public void setBundleKeyPosRenameDialog(String key) {
+        bundleKeyPosRenameDialog = key;
     }
 
     @Override
@@ -471,7 +476,8 @@ public final class EditRepeatableTextEntryPanel
         String  oldName = model.getElementAt(index).toString();
         String  newName = null;
         do {
-            newName = MessageDisplayer.input("EditRepeatableTextEntryPanel.Input.RenameListItem", oldName, getClass().getName());
+            bundleKeyPosRenameDialog = getClass().getName();
+            newName = MessageDisplayer.input("EditRepeatableTextEntryPanel.Input.RenameListItem", oldName, bundleKeyPosRenameDialog);
             ready = newName == null;
             if (newName != null && newName.trim().equalsIgnoreCase(oldName)) {
                 ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.SameNames");
