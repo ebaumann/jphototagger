@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.image.metadata.exif.tag;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.lib.util.ByteUtil;
 import java.nio.ByteOrder;
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -87,8 +88,7 @@ public final class ExifGpsAltitude {
     }
 
     private static Ref ref(byte[] rawValue) {
-        int i = new Byte(rawValue[0]).intValue();
-        return REF_OF_INTEGER.get(i);
+        return REF_OF_INTEGER.get(ByteUtil.toInt(rawValue[0]));
     }
 
     public String localizedString() {
