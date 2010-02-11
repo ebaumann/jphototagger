@@ -111,12 +111,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             insertMetadata(transferSupport);
             return true;
         }
-
         if (imagesSelected && isImageCollection(panel)) {
             moveSelectedImages(transferSupport, panel);
             return true;
         }
-
         if (importFiles(getCurrentDirectory(), transferSupport)) {
             panel.refresh();
             return true;
@@ -164,9 +162,6 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private boolean insertMetadata(TransferSupport transferSupport) {
-
-        if (!GUI.INSTANCE.getAppPanel().getEditMetadataPanels().isEditable()) return true;
-
         Transferable t                         = transferSupport.getTransferable();
         boolean      dropOverSelectedThumbnail = isDropOverSelectedThumbnail(transferSupport);
         String       imageFilename             = getImageFilename(transferSupport);
