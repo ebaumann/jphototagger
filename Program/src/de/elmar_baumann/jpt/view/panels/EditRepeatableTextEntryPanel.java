@@ -50,7 +50,10 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
+import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListDataEvent;
@@ -201,6 +204,22 @@ public final class EditRepeatableTextEntryPanel
         dirty = false;
     }
 
+    public JPopupMenu getPopupMenu() {
+        return popupMenuList;
+    }
+
+    public JMenuItem getItemRename() {
+        return menuItemRename;
+    }
+
+    public JMenuItem getItemRemove() {
+        return menuItemRemove;
+    }
+
+    public JList getList() {
+        return list;
+    }
+
     @Override
     public void empty(boolean dirty) {
         textAreaInput.setText("");
@@ -324,10 +343,10 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private void handleListKeyPressed(KeyEvent evt) {
-        // won't be called but avoids that other components's key listeners
-        // triggered
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             removeSelectedElements();
+        } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            renameSelectedListItems();
         }
     }
 
@@ -448,19 +467,17 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private void renameListItem(int index) {
-        assert model.getElementAt(index) != null : "Invalid model index: " + index + ". Valid: 0.." + (model.size() - 1);
-        boolean ready = false;
-        String oldName = model.getElementAt(index).toString();
-        String newName = null;
+        boolean ready   = false;
+        String  oldName = model.getElementAt(index).toString();
+        String  newName = null;
         do {
             newName = MessageDisplayer.input("EditRepeatableTextEntryPanel.Input.RenameListItem", oldName, getClass().getName());
             ready = newName == null;
             if (newName != null && newName.trim().equalsIgnoreCase(oldName)) {
-                ready = !MessageDisplayer.confirmYesNo(null, "EditRepeatableTextEntryPanel.Confirm.SameNames");
+                ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.SameNames");
                 newName = null;
-            } else if (newName != null &&
-                    ListUtil.containsString(list.getModel(), newName.trim())) {
-                ready = !MessageDisplayer.confirmYesNo(null, "EditRepeatableTextEntryPanel.Confirm.NameExists", newName);
+            } else if (newName != null && ListUtil.containsString(list.getModel(), newName.trim())) {
+                ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.NameExists", newName);
                 newName = null;
             } else if (newName != null && !newName.trim().isEmpty()) {
                 ready = true;
@@ -574,6 +591,7 @@ public final class EditRepeatableTextEntryPanel
         scrollPaneTextArea = new javax.swing.JScrollPane();
         textAreaInput = new javax.swing.JTextArea();
 
+        menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         menuItemRename.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
@@ -583,6 +601,7 @@ public final class EditRepeatableTextEntryPanel
         });
         popupMenuList.add(menuItemRename);
 
+        menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemRemove.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
         menuItemRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -609,7 +628,6 @@ public final class EditRepeatableTextEntryPanel
         list.setComponentPopupMenu(popupMenuList);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);
-        list.setFocusable(false);
         list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);
         list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
