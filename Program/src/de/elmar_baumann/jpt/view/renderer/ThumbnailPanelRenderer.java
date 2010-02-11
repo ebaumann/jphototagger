@@ -25,13 +25,20 @@ import de.elmar_baumann.jpt.data.ThumbnailFlag;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
+import de.elmar_baumann.jpt.datatransfer.Flavor;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
@@ -42,10 +49,10 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack <martinp@gmx.de>, Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-20
  */
-public class ThumbnailPanelRenderer implements ThumbnailRenderer {
+public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetListener {
 
     /**
      * Width of a thumbnail flag in pixel
@@ -76,8 +83,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
     /**
      * Background color of the space between a thumbnail and it's border
      */
-    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL = new Color(
-            0, 0, 0);
+    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL = new Color(0, 0, 0);
     /**
      * Color of the border surrounding the thumbnails
      */
@@ -95,13 +101,12 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
      * Color of the background surrounding a highlighted thumbnail. When
      * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
      */
-    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED = new Color(
-            112, 122, 148);
+    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED = new Color(112, 122, 148);
+    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_DRAG_OVER = new Color(169, 171, 176);
     /**
      * Color of the border surrounding the highlighted thumbnails.
      */
-    private static final Color COLOR_BORDER_THUMBNAIL_HIGHLIGHTED =
-            new Color(128, 128, 164);
+    private static final Color COLOR_BORDER_THUMBNAIL_HIGHLIGHTED = new Color(128, 128, 164);
     /**
      * Maximum character count of the text below a thumbnail
      */
@@ -124,6 +129,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
      * Width of a thumbnail
      */
     private int thumbnailWidth = 0;
+    private int dragIndex = -1;
     private XmpCache xmpCache = XmpCache.INSTANCE;
 
     private Image starImage[] = new Image[5];
@@ -149,9 +155,14 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
         }
     }
 
+    private boolean isDragOver(File file) {
+        if (file == null || dragIndex < 0) return false;
+        File dragOverFile = panel.getFile(dragIndex);
+        return panel.getIndexOf(file) >= 0 && file.equals(dragOverFile);
+    }
+
     @Override
-    public Image getRenderedThumbnail(Image scaled,
-            RenderedThumbnailCacheIndirection rtci, boolean dummy) {
+    public Image getRenderedThumbnail(Image scaled, RenderedThumbnailCacheIndirection rtci, boolean dummy) {
         synchronized(panel) {
             int sw = scaled.getWidth(null);
             int sh = scaled.getHeight(null);
@@ -159,8 +170,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
             int w = length + 2 * PADDING_THUMBNAIL + 2 * WIDHT_BORDER_THUMBNAIL;
             int h = w + FONT_PIXEL_HEIGHT;
 
-            BufferedImage bi =
-                    new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+            BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = bi.createGraphics();
             // switch this for performance / beauty
             if (! dummy) {
@@ -171,7 +181,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
 
             g2.setColor(ThumbnailsPanel.COLOR_BACKGROUND_PANEL);
             g2.fillRect(0, 0, w, h);
-            paintThumbnailBackground(g2, panel.isSelected(rtci.file));
+            paintThumbnailBackground(g2, panel.isSelected(rtci.file), isDragOver(rtci.file));
             paintThumbnailFlag(g2, rtci.file);
             paintThumbnail(scaled, g2);
             if (! dummy) {
@@ -189,9 +199,11 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
         }
     }
 
-    private void paintThumbnailBackground(Graphics2D g, boolean isSelected) {
+    private void paintThumbnailBackground(Graphics2D g, boolean isSelected, boolean isDrag) {
         Color backgroundColor = isSelected
                 ? COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED
+                : isDrag
+                ? COLOR_BACKGROUND_PADDING_THUMBNAIL_DRAG_OVER
                 : COLOR_BACKGROUND_PADDING_THUMBNAIL;
         Color borderColor = isSelected
                 ? COLOR_BORDER_THUMBNAIL_HIGHLIGHTED
@@ -255,8 +267,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
         int width = getThumbnailAreaWidth();
         int height = getThumbnailAreaHeightNoText();
 
-        BufferedImage bi = new BufferedImage(width, height,
-                BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = bi.createGraphics();
         g2.setColor(new Color(0, 0, 0, 0));
         g2.fillRect(0, 0, width, height);
@@ -420,5 +431,56 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer {
         }
 
         return rating.intValue();
+    }
+
+    private void clearDragIndex() {
+        if (dragIndex < 0) return;
+        if (panel.isIndex(dragIndex)) {
+            int oldDragIndex = dragIndex;
+            dragIndex = -1;
+            panel.rerender(oldDragIndex);
+        }
+    }
+
+    private boolean isMetadataDrag(Transferable t) {
+        return t.isDataFlavorSupported(Flavor.KEYWORDS_LIST) ||
+               t.isDataFlavorSupported(Flavor.KEYWORDS_TREE);
+    }
+
+    @Override
+    public void dragOver(DropTargetDragEvent dtde) {
+        if (!isMetadataDrag(dtde.getTransferable())) return;
+
+        Point loc   = dtde.getLocation();
+        int   index = panel.getThumbnailIndexAtPoint(loc.x, loc.y);
+
+        if (index != dragIndex && panel.isIndex(index)) {
+            int oldDragIndex = dragIndex;
+            dragIndex = index;
+            if (panel.isIndex(oldDragIndex)) {
+                panel.rerender(oldDragIndex);
+            }
+            panel.rerender(index);
+        }
+    }
+
+    @Override
+    public void dragExit(DropTargetEvent dte) {
+        clearDragIndex();
+    }
+
+    @Override
+    public void drop(DropTargetDropEvent dtde) {
+        clearDragIndex();
+    }
+
+    @Override
+    public void dragEnter(DropTargetDragEvent dtde) {
+        // ignore
+    }
+
+    @Override
+    public void dropActionChanged(DropTargetDragEvent dtde) {
+        // ignore
     }
 }

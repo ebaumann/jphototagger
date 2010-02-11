@@ -67,6 +67,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TooManyListenersException;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
@@ -146,9 +147,6 @@ public class ThumbnailsPanel extends JPanel
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerThumbnailsPanel());
         readProperties();
-        // hack to activate Drag events
-        //new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, this, true, null);
-
         renderedThumbnailCache.setRenderer(renderer);
         renderedThumbnailCache.addThumbnailUpdateListener(this);
         setBackground(COLOR_BACKGROUND_PANEL);
@@ -161,6 +159,11 @@ public class ThumbnailsPanel extends JPanel
         addMouseMotionListener(this);
         addKeyListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
+        try {
+            getDropTarget().addDropTargetListener(renderer);
+        } catch (TooManyListenersException ex) {
+            AppLogger.logSevere(getClass(), ex);
+        }
     }
 
     private void clearSelectionAndFlags() {
@@ -168,9 +171,9 @@ public class ThumbnailsPanel extends JPanel
         flagOfThumbnail.clear();
     }
 
-    private synchronized void rerender(int index) {
+    public synchronized void rerender(int index) {
         File file = getFile(index);
-        assert file != null;
+        assert file != null : "index: " + index + ", filecount: " + files.size();
         renderedThumbnailCache.rerender(file);
     }
 
@@ -257,8 +260,7 @@ public class ThumbnailsPanel extends JPanel
 
     private float getRelativeScrollPosition() {
         if (viewport != null) {
-            int middle = viewport.getViewRect().y +
-                    viewport.getExtentSize().height / 2;
+            int middle = viewport.getViewRect().y + viewport.getExtentSize().height / 2;
             return (float) middle / (float) getHeight();
         }
         return (float) 0.0;
@@ -266,8 +268,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void setRelativeScrollPosition(float p) {
         if (viewport != null) {
-            int newY = ((int) (p * getHeight())) -
-                    viewport.getExtentSize().height / 2;
+            int newY = ((int) (p * getHeight())) - viewport.getExtentSize().height / 2;
             viewport.setViewPosition(new Point(0, Math.max(0, newY)));
         }
     }
@@ -309,8 +310,6 @@ public class ThumbnailsPanel extends JPanel
     @Override
     public synchronized void actionPerformed(ThumbnailUpdateEvent event) {
         int index = getIndexOf(event.getSource());
-        //renderedThumbnailCache.remove(event.getSource());
-        // drop stale update request
         if (index >= 0) {
             repaint(index);
         }
@@ -349,11 +348,10 @@ public class ThumbnailsPanel extends JPanel
 
     private boolean isThumbnailAreaInWidth(int x) {
         int startExtPadding = getCountHorizontalLeftFromX(x) *
-                (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
+                         (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
         int endExtPadding = startExtPadding + MARGIN_THUMBNAIL;
         return x < startExtPadding || (x > endExtPadding && endExtPadding +
-                renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL <=
-                getWidth());
+                renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL <= getWidth());
     }
 
     private boolean isThumbnailAreaInHeight(int y) {
@@ -438,9 +436,7 @@ public class ThumbnailsPanel extends JPanel
         int tnWidth = renderer.getThumbnailAreaWidth();
         int count = (int) ((double) (width - MARGIN_THUMBNAIL) /
                 (double) tnWidth);
-        return count > files.size()
-                ? files.size()
-                : count;
+        return count > files.size() ? files.size() : count;
     }
 
     private void transferData(MouseEvent e) {
@@ -554,12 +550,8 @@ public class ThumbnailsPanel extends JPanel
             Set<Integer> rerenderTargets = new HashSet<Integer>(selectedThumbnailIndices);
             int firstSelected = getFirstSelectedIndex();
             selectedThumbnailIndices.clear();
-            int startIndex = index > firstSelected
-                    ? firstSelected
-                    : index;
-            int endIndex = index > firstSelected
-                    ? index
-                    : firstSelected;
+            int startIndex = index > firstSelected ? firstSelected : index;
+            int endIndex = index > firstSelected ? index : firstSelected;
             for (int i = startIndex; i <= endIndex; i++) {
                 selectedThumbnailIndices.add(i);
             }
@@ -585,7 +577,6 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized Set<Integer> getValidIndicesOf(Collection<Integer> indices) {
-
         Set<Integer> validIndices = new HashSet<Integer>(indices.size());
 
         if (indices.isEmpty() || files.isEmpty()) return validIndices;
