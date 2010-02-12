@@ -96,25 +96,31 @@ public final class AppLookAndFeel {
      * Selection foreground color of highlighted tree nodes when a popup menu
      * was invoked obove a tree node
      */
-    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE = Color.BLACK;
+    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE = Color.BLACK; // UIManager.getColor("Tree.selectionForeground")
 
     /**
      * Selection background color of highlighted tree nodes when a popup menu
      * was invoked obove a tree node
      */
-    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE = new Color(251, 232, 158);
+    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE = new Color(251, 232, 158); // UIManager.getColor("Tree.selectionBackground")
+
+    public static final Color COLOR_BACKGROUND_TREE_TEXT = UIManager.getColor("Tree.textBackground");
+    public static final Color COLOR_FOREGROUND_TREE_TEXT = UIManager.getColor("Tree.textForeground");
 
     /**
      * Selection foreground color of highlighted list items when a popup menu
      * was invoked obove a list item
      */
-    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST = COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE;
+    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST = COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE; // UIManager.getColor("List.selectionForeground")
 
     /**
      * Selection background color of highlighted list items when a popup menu
      * was invoked obove a list item
      */
-    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST = COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE;
+    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST = COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE; // UIManager.getColor("List.selectionBackground")
+
+    public static final Color COLOR_BACKGROUND_LIST_TEXT = UIManager.getColor("List.background");
+    public static final Color COLOR_FOREGROUND_LIST_TEXT = UIManager.getColor("List.foreground");
 
     /**
      * Path where all icons stored

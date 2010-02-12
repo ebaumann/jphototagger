@@ -55,10 +55,14 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
         if (ListModelImageCollections.isSpecialCollection(value.toString()) && !isSelected) {
             label.setForeground(COLOR_FOREGROUND_PREV_IMPORT);
         }
+        boolean rowHighlighted = popupHighLightRow >= 0;
+        label.setOpaque(true);
         if (index == popupHighLightRow) {
             label.setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
             label.setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
-            label.setOpaque(true);
+        } else if (rowHighlighted) {
+            setForeground(AppLookAndFeel.COLOR_FOREGROUND_LIST_TEXT);
+            setBackground(AppLookAndFeel.COLOR_BACKGROUND_LIST_TEXT);
         }
         label.setIcon(getIconOfValue(value));
         return label;
@@ -66,9 +70,7 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
 
     private Icon getIconOfValue(Object value) {
         Icon icon = ICON_OF_VALUE.get(value);
-        return icon == null
-               ? ICON_DEFAULT
-               : icon;
+        return icon == null ? ICON_DEFAULT : icon;
     }
 
     public void setHighlightIndexForPopup(int index) {

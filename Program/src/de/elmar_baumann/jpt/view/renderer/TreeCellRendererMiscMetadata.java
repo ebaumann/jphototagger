@@ -67,9 +67,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
         DefaultMutableTreeNode node             = (DefaultMutableTreeNode) value;
         DefaultMutableTreeNode parentNode       = (DefaultMutableTreeNode) node.getParent();
         Object                 userObject       = node.getUserObject();
-        Object                 parentUserObject = parentNode == null
-                                  ? null
-                                  : parentNode.getUserObject();
+        Object                 parentUserObject = parentNode == null ? null : parentNode.getUserObject();
         setIcon(userObject,
                 parentUserObject,
                 parentNode,
@@ -90,14 +88,10 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
             boolean                leaf
             ) {
         if (userObject instanceof Column) {
-
             setColumnIcon((Column) userObject);
         } else if (leaf) {
-
             Icon iconDetail = getIconDetail(parentUserObject);
-            setIcon(iconDetail == null
-                    ? ICON_DETAIL
-                    : iconDetail);
+            setIcon(iconDetail == null ? ICON_DETAIL : iconDetail);
 
         } else if (parentNode != null && parentNode.equals(root)) {
             setIcon(ICON_MISC_METADATA);

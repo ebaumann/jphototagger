@@ -49,8 +49,6 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
-
-        assert value instanceof DefaultMutableTreeNode : "Not a DefaultMutableTreeNode: " + value;
         render(((DefaultMutableTreeNode) value).getUserObject(), row);
         return this;
     }
@@ -59,28 +57,34 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
         boolean highlight = false;
         if (userObject instanceof Keyword) {
             Keyword keyword = (Keyword) userObject;
-            boolean real = keyword.isReal() == null ? false : keyword.isReal();
+            boolean real    = keyword.isReal() == null ? false : keyword.isReal();
+
             highlight = keyword.isReal() && isKeyword(keyword.getName());
             setText(keyword.getName());
             setIcon(real ? ICON_REAL : ICON_HELPER);
             if (highlight) {
                 setForeground(AppLookAndFeel.COLOR_FOREGROUND_KEYWORD_TREE_IMG_HAS_KEYWORD);
                 setBackground(AppLookAndFeel.COLOR_BACKGROUND_KEYWORD_TREE_IMG_HAS_KEYWORD);
-                // Necessary here and not obove
                 setIcon(ICON_REAL_HIGHLIGHTED);
             }
         } else { // Root item
             setIcon(ICON_REAL);
         }
-        setOpaque(row == popupHighLightRow || highlight);
-        if (row == popupHighLightRow) {
+        boolean rowHighlighted = popupHighLightRow >= 0;
+        boolean popupRow       = row == popupHighLightRow;
+
+        setOpaque(popupRow || highlight || rowHighlighted);
+
+        if (popupRow) {
             setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
             setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
+        } else if (rowHighlighted) {
+            setForeground(AppLookAndFeel.COLOR_FOREGROUND_TREE_TEXT);
+            setBackground(AppLookAndFeel.COLOR_BACKGROUND_TREE_TEXT);
         }
     }
 
     private boolean isKeyword(Object value) {
-        assert value != null : "value is null!";
         synchronized (highLightKeywords) {
             return highLightKeywords.contains(value.toString());
         }

@@ -33,10 +33,17 @@ public class TreeCellRendererExt extends DefaultTreeCellRenderer {
     protected            int  popupHighLightRow = -1;
 
     protected void highlightRow(int row) {
-        setOpaque(row == popupHighLightRow);
-        if (row == popupHighLightRow) {
+        boolean rowHighlighted = popupHighLightRow >= 0;
+        boolean popupRow       = row == popupHighLightRow;
+
+        setOpaque(popupRow || rowHighlighted);
+        
+        if (popupRow) {
             setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
             setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
+        } else if (rowHighlighted) {
+            setForeground(AppLookAndFeel.COLOR_FOREGROUND_TREE_TEXT);
+            setBackground(AppLookAndFeel.COLOR_BACKGROUND_TREE_TEXT);
         }
     }
 

@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.71 2010-02-12
+-----------------
+
+* Bäume und Listen des Programmfensters: Wird das Kontextemenü geöffnet,
+  wird temporär nur das Element unter dem Mauszeiger hervorgehoben,
+  andere Auswahl-Hervorhebungen werden ausgeblendet
+
 0.7.70 2010-02-11
 -----------------
 

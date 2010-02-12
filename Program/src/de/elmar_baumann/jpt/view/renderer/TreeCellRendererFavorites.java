@@ -42,16 +42,10 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
     private              int            popupHighLightRow = -1;
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value,
-            boolean sel, boolean expanded, boolean leaf, int row,
-            boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
-                row, hasFocus);
-
-        assert value instanceof DefaultMutableTreeNode :
-                "Not a DefaultMutableTreeNode: " + value;
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
-        Object userObject = node.getUserObject();
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
+        DefaultMutableTreeNode node       = (DefaultMutableTreeNode) value;
+        Object                 userObject = node.getUserObject();
         render(userObject, row);
         return this;
     }
@@ -59,8 +53,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
     private void render(Object userObject, int row) {
         File file = null;
         if (userObject instanceof Favorite) {
-            Favorite favoriteDirectory =
-                    (Favorite) userObject;
+            Favorite favoriteDirectory = (Favorite) userObject;
             file = favoriteDirectory.getDirectory();
             setText(favoriteDirectory.getName());
         } else if (userObject instanceof File) {
@@ -78,10 +71,17 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
                 }
             }
         }
-        setOpaque(row == popupHighLightRow);
-        if (row == popupHighLightRow) {
+        boolean rowHighlighted = popupHighLightRow >= 0;
+        boolean popupRow       = row == popupHighLightRow;
+        
+        setOpaque(popupRow || rowHighlighted);
+
+        if (popupRow) {
             setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
             setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
+        } else if (rowHighlighted) {
+            setForeground(AppLookAndFeel.COLOR_FOREGROUND_TREE_TEXT);
+            setBackground(AppLookAndFeel.COLOR_BACKGROUND_TREE_TEXT);
         }
     }
 
