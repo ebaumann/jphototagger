@@ -86,13 +86,11 @@ public final class EditMetadataPanels
     private       JComponent                        container;
     private       EditMetadataActionsPanel          editActionsPanel;
     private       Component                         lastFocussedEditControl;
-    private       Component                         wrapFocusComponent;
     private final EditMetadataPanelsListenerSupport listenerSupport = new EditMetadataPanelsListenerSupport();
 
     public EditMetadataPanels(JComponent container) {
         this.container = container;
         createEditPanels();
-        setWrapFocusComponent();
         addPanels();
         setFocusToFirstEditField();
         listenToActionSources();
@@ -672,9 +670,6 @@ public final class EditMetadataPanels
     public void focusLost(FocusEvent e) {
         if (isEditComponent(e.getOppositeComponent())) {
             checkSaveOnChanges();
-            if (e.getSource() == wrapFocusComponent) {
-                setFocusToFirstEditField();
-            }
         }
     }
 
@@ -746,16 +741,6 @@ public final class EditMetadataPanels
     @Override
     public void appWillExit() {
         checkDirty();
-    }
-
-    private void setWrapFocusComponent() {
-        Component lastInputComponent = null;
-        for (JPanel panel : panels) {
-            for (Component inputComponent : ((TextEntry)panel).getInputComponents()) {
-                lastInputComponent = inputComponent;
-            }
-        }
-        wrapFocusComponent = lastInputComponent;
     }
 
     private class WatchDifferentValues extends MouseAdapter {
