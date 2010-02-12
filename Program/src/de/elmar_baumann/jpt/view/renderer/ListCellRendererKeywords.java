@@ -38,7 +38,7 @@ public final class ListCellRendererKeywords extends ListCellRendererExt {
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        highlight(index, label);
+        setColors(index, label);
         label.setIcon(ICON);
         return label;
     }

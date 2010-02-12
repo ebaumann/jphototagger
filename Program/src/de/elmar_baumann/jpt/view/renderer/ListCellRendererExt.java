@@ -33,11 +33,18 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
     private static final long serialVersionUID  = 7531004273695822498L;
     protected            int  popupHighLightRow = -1;
 
-    protected void highlight(int index, JLabel label) {
+    protected void setColors(int index, JLabel label) {
+        boolean rowHighlighted = popupHighLightRow >= 0;
+        boolean isPopupRow     = index == popupHighLightRow;
+
         setOpaque(true);
-        if (index == popupHighLightRow) {
+        
+        if (isPopupRow) {
             label.setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
             label.setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
+        } else if (rowHighlighted) {
+            setForeground(AppLookAndFeel.COLOR_FOREGROUND_LIST_TEXT);
+            setBackground(AppLookAndFeel.COLOR_BACKGROUND_LIST_TEXT);
         }
     }
 

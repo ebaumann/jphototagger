@@ -44,7 +44,7 @@ public final class ListCellRendererMetadataTemplates extends ListCellRendererExt
 
         label.setText(name);
         label.setIcon(ICON);
-        highlight(index, label);
+        setColors(index, label);
 
         return label;
     }

@@ -38,15 +38,18 @@ public final class ListCellRendererSavedSearches extends DefaultListCellRenderer
     private              int  popupHighLightRow = -1;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(
-                list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel  label          = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        boolean rowHighlighted = popupHighLightRow >= 0;
+
         label.setIcon(ICON);
+        label.setOpaque(true);
         if (index == popupHighLightRow) {
-            label.setOpaque(true);
             label.setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
             label.setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
+        } else if (rowHighlighted) {
+            setForeground(AppLookAndFeel.COLOR_FOREGROUND_LIST_TEXT);
+            setBackground(AppLookAndFeel.COLOR_BACKGROUND_LIST_TEXT);
         }
         return label;
     }
