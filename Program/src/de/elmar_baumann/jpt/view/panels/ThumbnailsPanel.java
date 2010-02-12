@@ -131,6 +131,7 @@ public class ThumbnailsPanel extends JPanel
      */
     private           int                                 clickInSelection          = -1;
     private           boolean                             keywordsOverlay;
+    private           boolean                             drag;
     public transient  RenderedThumbnailCache              renderedThumbnailCache    = RenderedThumbnailCache.INSTANCE;
     private           ThumbnailPanelRenderer              renderer                  = new ThumbnailPanelRenderer(this);
     private           Content                             content                   = Content.UNDEFINED;
@@ -402,7 +403,7 @@ public class ThumbnailsPanel extends JPanel
         return selectedThumbnailIndices.size();
     }
 
-    private Point getTopLeftOfTnIndex(int index) {
+    public Point getTopLeftOfTnIndex(int index) {
         int rowIndex = getRowIndexAt(index);
         int columnIndex = getColumnIndexAt(index);
         int x = MARGIN_THUMBNAIL + columnIndex *
@@ -412,11 +413,15 @@ public class ThumbnailsPanel extends JPanel
         return new Point(x, y);
     }
 
-    public synchronized int getDnDIndex(MouseEvent e) {
-        return getDnDIndex(e.getX(), e.getY());
+    public synchronized void setDrag(boolean drag) {
+        this.drag = drag;
     }
 
-    public synchronized int getDnDIndex(int x, int y) {
+    public synchronized int getImageMoveDropIndex(MouseEvent e) {
+        return getImageMoveDropIndex(e.getX(), e.getY());
+    }
+
+    public synchronized int getImageMoveDropIndex(int x, int y) {
         int row = Math.max(0,
                 (y - MARGIN_THUMBNAIL) /
                 (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL));
@@ -662,15 +667,13 @@ public class ThumbnailsPanel extends JPanel
         if (files.size() > 0) {
             Rectangle rectClip = g.getClipBounds();
             int firstIndex = Math.min(files.size(),
-                    getFirstPaintIndexAtHeight(rectClip.y));
+                                      getFirstPaintIndexAtHeight(rectClip.y));
             int lastIndex = Math.min(
                     getLastPaintIndexAtHeight(rectClip.y + rectClip.height),
                     files.size());
-            int firstColumn = Math.max(0,
-                    getCountHorizontalLeftFromX(rectClip.x));
-            int lastColumn = Math.min(thumbnailCountPerRow - 1,
+            int firstColumn = Math.max(0, getCountHorizontalLeftFromX(rectClip.x));
+            int lastColumn  = Math.min(thumbnailCountPerRow - 1,
                     getCountHorizontalRightFromX(rectClip.x + rectClip.width));
-            //g.setFont(FONT);
             for (int index = firstIndex; index < lastIndex; index++) {
                 if (index % thumbnailCountPerRow >= firstColumn &&
                         index % thumbnailCountPerRow <= lastColumn) {
@@ -689,6 +692,7 @@ public class ThumbnailsPanel extends JPanel
             prefetch(prefetchHighStart, prefetchHighEnd, isKeywordsOverlay());
             prefetch(prefetchLowStart, prefetchLowEnd, isKeywordsOverlay());
         }
+        if (drag) renderer.paintImgDropMarker(g);
     }
 
     private void paintPanelBackground(Graphics g) {

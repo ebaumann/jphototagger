@@ -33,6 +33,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DropTargetDragEvent;
@@ -102,7 +103,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
      * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
      */
     private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED = new Color(112, 122, 148);
-    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_DRAG_OVER = new Color(169, 171, 176);
+    private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_DRAG_OVER   = new Color(169, 171, 176);
+    private static final Color COLOR_DROP_MARKER                              = new Color(225, 225, 225);
     /**
      * Color of the border surrounding the highlighted thumbnails.
      */
@@ -115,7 +117,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
      * Empty space surrounding a thumbnail within the border (space between
      * the thumbnail's image and the border) in pixel
      */
-    private static final int PADDING_THUMBNAIL = 3;
+    private static final int MARGIN_THUMBNAIL = 3;
     /**
      * Width of the border surrounding the thumbnails in pixel
      */
@@ -129,7 +131,12 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
      * Width of a thumbnail
      */
     private int thumbnailWidth = 0;
+
+    // Render sources while dragging
     private int dragIndex = -1;
+    private int dropIndex = -1;
+    private int oldDropIndex = -1;
+
     private XmpCache xmpCache = XmpCache.INSTANCE;
 
     private Image starImage[] = new Image[5];
@@ -167,7 +174,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             int sw = scaled.getWidth(null);
             int sh = scaled.getHeight(null);
             int length = sw > sh ? sw : sh;
-            int w = length + 2 * PADDING_THUMBNAIL + 2 * WIDHT_BORDER_THUMBNAIL;
+            int w = length + 2 * MARGIN_THUMBNAIL + 2 * WIDHT_BORDER_THUMBNAIL;
             int h = w + FONT_PIXEL_HEIGHT;
 
             BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -211,16 +218,16 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
         Color oldColor = g.getColor();
         g.setColor(backgroundColor);
         g.fillRoundRect(0, 0,
-                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                PADDING_THUMBNAIL * 2,
-                PADDING_THUMBNAIL * 2);
+                thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
+                thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
+                MARGIN_THUMBNAIL * 2,
+                MARGIN_THUMBNAIL * 2);
         g.setColor(borderColor);
         g.drawRoundRect(0, 0,
-                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                thumbnailWidth + 2 * PADDING_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                PADDING_THUMBNAIL * 2,
-                PADDING_THUMBNAIL * 2);
+                thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
+                thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
+                MARGIN_THUMBNAIL * 2,
+                MARGIN_THUMBNAIL * 2);
         g.setColor(oldColor);
     }
 
@@ -229,11 +236,33 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
         if (flag != null) {
             Color oldColor = g.getColor();
             g.setColor(flag.getColor());
-            g.fillRect(thumbnailWidth + 2 * PADDING_THUMBNAIL - FLAG_WIDTH,
-                       thumbnailWidth + 2 * PADDING_THUMBNAIL - FLAG_HEIGHT,
+            g.fillRect(thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_WIDTH,
+                       thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_HEIGHT,
                        FLAG_WIDTH, FLAG_HEIGHT);
             g.setColor(oldColor);
         }
+    }
+
+    public void paintImgDropMarker(Graphics g) { // similar to capitalized letter "I"
+        if (dropIndex < 0) return;
+
+        Point topLeft = panel.getTopLeftOfTnIndex(dropIndex);
+        Color oldColor = g.getColor();
+        g.setColor(COLOR_DROP_MARKER);
+        final int xCenter   = topLeft.x + WIDHT_BORDER_THUMBNAIL + thumbnailWidth / 2;
+        final int y         = topLeft.y - 4;
+        final int halfTopWidth = 10;
+        final int height    = 10;
+        g.fillPolygon(getDropMarkerTriangle(xCenter, y, halfTopWidth, height));
+        g.setColor(oldColor);
+    }
+
+    private Polygon getDropMarkerTriangle(int xCenter, int y, int halfTopWidth, int height) {
+                   // top left                 top right      bottom center
+		int[] xs = { xCenter - halfTopWidth, xCenter + halfTopWidth,   xCenter  };
+		int[] ys = {            y          ,           y           , y + height };
+
+		return new Polygon(xs, ys, xs.length);
     }
 
     private void paintThumbnail(Image thumbnail, Graphics g) {
@@ -367,12 +396,12 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     }
 
     private int getThumbnailAreaHeightNoText() {
-        return thumbnailWidth + 2 * PADDING_THUMBNAIL +
+        return thumbnailWidth + 2 * MARGIN_THUMBNAIL +
                 2 * WIDHT_BORDER_THUMBNAIL;
     }
 
     public int getThumbnailAreaWidth() {
-        return thumbnailWidth + 2 * PADDING_THUMBNAIL +
+        return thumbnailWidth + 2 * MARGIN_THUMBNAIL +
                 2 * WIDHT_BORDER_THUMBNAIL;
     }
 
@@ -433,13 +462,22 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
         return rating.intValue();
     }
 
-    private void clearDragIndex() {
-        if (dragIndex < 0) return;
+    private void clearDrag() {
+        panel.setDrag(false);
+        if (dropIndex >= 0 || oldDropIndex >= 0) {
+            dropIndex = - 1;
+            oldDropIndex = -1;
+            panel.repaint();
+        }
         if (panel.isIndex(dragIndex)) {
             int oldDragIndex = dragIndex;
             dragIndex = -1;
             panel.rerender(oldDragIndex);
         }
+    }
+
+    private boolean isImageCollectionDrag(Transferable t) {
+        return t.isDataFlavorSupported(Flavor.IMAGE_COLLECTION);
     }
 
     private boolean isMetadataDrag(Transferable t) {
@@ -449,29 +487,39 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
     @Override
     public void dragOver(DropTargetDragEvent dtde) {
-        if (!isMetadataDrag(dtde.getTransferable())) return;
+        panel.setDrag(true);
+        if (isMetadataDrag(dtde.getTransferable())) {
+            Point loc   = dtde.getLocation();
+            int   index = panel.getThumbnailIndexAtPoint(loc.x, loc.y);
 
-        Point loc   = dtde.getLocation();
-        int   index = panel.getThumbnailIndexAtPoint(loc.x, loc.y);
-
-        if (index != dragIndex && panel.isIndex(index)) {
-            int oldDragIndex = dragIndex;
-            dragIndex = index;
-            if (panel.isIndex(oldDragIndex)) {
-                panel.rerender(oldDragIndex);
+            if (index != dragIndex && panel.isIndex(index)) {
+                int oldDragIndex = dragIndex;
+                dragIndex = index;
+                if (panel.isIndex(oldDragIndex)) {
+                    panel.rerender(oldDragIndex);
+                }
+                panel.rerender(index);
             }
-            panel.rerender(index);
+        } else if (isImageCollectionDrag(dtde.getTransferable())) {
+            Point loc = dtde.getLocation();
+            int   index = panel.getImageMoveDropIndex(loc.x, loc.y);
+
+            if (index != dropIndex && panel.isIndex(index)) {
+                oldDropIndex = dropIndex;
+                dropIndex = index;
+                panel.repaint();
+            }
         }
     }
 
     @Override
     public void dragExit(DropTargetEvent dte) {
-        clearDragIndex();
+        clearDrag();
     }
 
     @Override
     public void drop(DropTargetDropEvent dtde) {
-        clearDragIndex();
+        clearDrag();
     }
 
     @Override
