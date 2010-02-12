@@ -70,6 +70,10 @@ pre {
     background: #fafafa;
 }
 
+pre, code {
+    font-family: 'Courier New',Courier,monospace;
+}
+
 #page {
     width: 55em;
     overflow: hidden;
