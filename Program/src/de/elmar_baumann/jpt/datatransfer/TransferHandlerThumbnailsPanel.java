@@ -89,9 +89,14 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     protected Transferable createTransferable(JComponent c) {
         return new TransferableObject(
                 ImageUtil.addSidecarFiles(((ThumbnailsPanel) c).getSelectedFiles()),
-                Flavor.THUMBNAILS_PANEL,
-                Flavor.FILE_LIST_FLAVOR,
-                Flavor.URI_LIST);
+                getFlavors(c));
+    }
+
+    private java.awt.datatransfer.DataFlavor[] getFlavors(JComponent c) {
+        return ((ThumbnailsPanel) c).getContent().equals(Content.IMAGE_COLLECTION)
+                ? new java.awt.datatransfer.DataFlavor[] { Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR, Flavor.URI_LIST, Flavor.IMAGE_COLLECTION }
+                : new java.awt.datatransfer.DataFlavor[] { Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR, Flavor.URI_LIST }
+        ;
     }
 
     @Override
@@ -136,7 +141,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
         Point dropPoint = transferSupport.getDropLocation().getDropPoint();
 
-        panel.moveSelectedToIndex(panel.getDnDIndex(dropPoint.x, dropPoint.y));
+        panel.moveSelectedToIndex(panel.getImageMoveDropIndex(dropPoint.x, dropPoint.y));
 
         String imageCollectionName = getImageCollectionName();
 
@@ -212,7 +217,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         Point           p     = transferSupport.getDropLocation().getDropPoint();
         ThumbnailsPanel panel = (ThumbnailsPanel) transferSupport.getComponent();
 
-        return panel.isSelected(panel.getDnDIndex(p.x, p.y));
+        return panel.isSelected(panel.getImageMoveDropIndex(p.x, p.y));
     }
 
     private boolean isThumbnailPos(TransferSupport transferSupport) {

@@ -8,6 +8,8 @@ Changelog JPhotoTagger
 0.7.71 2010-02-12
 -----------------
 
+* Verschieben von Bildern in einem Album: Dreicksspitze nach unten zeigt auf
+  neuen Platz
 * Bäume und Listen des Programmfensters: Wird das Kontextemenü geöffnet,
   wird temporär nur das Element unter dem Mauszeiger hervorgehoben,
   andere Auswahl-Hervorhebungen werden ausgeblendet
