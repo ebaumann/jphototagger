@@ -153,6 +153,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         scrollPaneList = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
         list.setTransferHandler(new TransferHandlerDragListItems(de.elmar_baumann.jpt.datatransfer.Flavor.KEYWORDS_LIST));
+        labelInfoListView = new javax.swing.JLabel();
         buttonAsTree = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
@@ -223,10 +224,19 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         panelList.add(scrollPaneList, gridBagConstraints);
+
+        labelInfoListView.setText(bundle.getString("KeywordsPanel.labelInfoListView.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        panelList.add(labelInfoListView, gridBagConstraints);
 
         buttonAsTree.setText(bundle.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
         buttonAsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -236,10 +246,10 @@ public class KeywordsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         panelList.add(buttonAsTree, gridBagConstraints);
 
         add(panelList, "List");
@@ -261,6 +271,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonAsList;
     private javax.swing.JButton buttonAsTree;
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
+    private javax.swing.JLabel labelInfoListView;
     private javax.swing.JList list;
     private javax.swing.JPanel panelButtons;
     private javax.swing.JPanel panelList;
