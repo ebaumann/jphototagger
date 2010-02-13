@@ -30,6 +30,7 @@ import de.elmar_baumann.lib.dialog.DirectoryChooser.Option;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.renderer.ListCellRendererFileSystem;
+import de.elmar_baumann.lib.util.Settings;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
@@ -48,15 +49,17 @@ import javax.swing.filechooser.FileFilter;
  */
 public final class FileEditorPanel extends javax.swing.JPanel {
 
-    private static final String          KEY_DIRECTORY_NAME    = "de.elmar_baumann.jpt.view.FileEditorDialog.panels.Directory";
-    private static final long            serialVersionUID      = 1672989914070513384L;
-    private              List<File>      selectedFiles         = new ArrayList<File>();
-    private              List<File>      selectedDirectories   = new ArrayList<File>();
-    private              File            prevSelectedDirectory = new File("");
-    private              FileEditor      fileEditor            = new FileEditor();
-    private              FileFilter      fileChooserFileFilter = AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER.forFileChooser(Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
-    private transient    RegexFileFilter dirChooserFileFilter  = new RegexFileFilter(".*", ";");
-    private              String          title                 = "";
+    private static final String          KEY_DIRECTORY_NAME          = "de.elmar_baumann.jpt.view.FileEditorDialog.panels.Directory";
+    private static final String          KEY_INCLUDE_SUBDIRS         = "FileEditorPanel.IncludeSubdirs";
+    private static final String          KEY_REPLACE_EXISTING_FILES  = "FileEditorPanel.ReplaceExistingFiles";
+    private static final long            serialVersionUID            = 1672989914070513384L;
+    private              List<File>      selectedFiles               = new ArrayList<File>();
+    private              List<File>      selectedDirectories         = new ArrayList<File>();
+    private              File            prevSelectedDirectory       = new File("");
+    private              FileEditor      fileEditor                  = new FileEditor();
+    private              FileFilter      fileChooserFileFilter       = AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER.forFileChooser(Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
+    private transient    RegexFileFilter dirChooserFileFilter        = new RegexFileFilter(".*", ";");
+    private              String          title                       = "";
     private volatile     boolean         selectDirs;
     private volatile     boolean         stop;
     private volatile     boolean         isRunning;
@@ -78,6 +81,10 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         this.fileEditor = fileEditor;
         this.selectDirs = selectDirs;
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         setModeInfo();
     }
 
@@ -221,13 +228,19 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void readProperties() {
+        Settings settings = UserSettings.INSTANCE.getSettings();
         prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
-        UserSettings.INSTANCE.getSettings().applySettings(this, null);
+        settings.applySettings(this, null);
+        checkBoxIncludeSubdirectories.setSelected(settings.getBoolean(KEY_INCLUDE_SUBDIRS));
+        checkBoxReplaceExistingFiles.setSelected(settings.getBoolean(KEY_REPLACE_EXISTING_FILES));
     }
 
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
-        UserSettings.INSTANCE.getSettings().set(this, null);
+        Settings settings = UserSettings.INSTANCE.getSettings();
+        settings.set(this, null);
+        settings.set(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
+        settings.set(checkBoxIncludeSubdirectories, KEY_INCLUDE_SUBDIRS);
+        settings.set(checkBoxReplaceExistingFiles, KEY_REPLACE_EXISTING_FILES);
         UserSettings.INSTANCE.writeToFile();
     }
 
