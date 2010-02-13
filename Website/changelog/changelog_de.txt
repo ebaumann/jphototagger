@@ -19,6 +19,7 @@ Changelog JPhotoTagger
   Unterverzeichnisse einbezogen werden sollen, wird beim Beenden von
   JPhotoTagger gespeichert und nach dem Start wieder hergestellt.
 * In der Hilfe/im Handbuch ungültige Links auf kenai.com ersetzt durch gültige
+* Bugfix: Hilfe > Tastenkombinationen ruft Hilfe wieder auf
 
 0.7.72 2010-02-12
 -----------------
