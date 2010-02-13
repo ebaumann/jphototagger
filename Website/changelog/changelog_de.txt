@@ -8,6 +8,8 @@ Changelog JPhotoTagger
 0.7.72 2010-02-12
 -----------------
 
+* Fenster > Synonyme: In die Textfelder für Wort und Synonym können Stichwörter
+  mit der Maus gezogen werden
 * Bearbeiten > Einstellungen, Kartenreiter "Sonstiges": Inhalt des
   Unter-Kartenreiters "Datenbankordner" verschoben in den Unter-Kartenreiter
   "Verschiedenes"

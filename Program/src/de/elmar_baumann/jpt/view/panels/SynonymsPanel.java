@@ -223,6 +223,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         labelTextAreaWord = new javax.swing.JLabel();
         scrollPaneTextAreaWords = new javax.swing.JScrollPane();
         textAreaWords = new javax.swing.JTextArea();
+        textAreaWords.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
         labelListWords = new javax.swing.JLabel();
         scrollPaneListWords = new javax.swing.JScrollPane();
         listWords = new javax.swing.JList();
@@ -231,6 +232,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonChangeWord = new javax.swing.JButton();
         labelTextFieldSynonym = new javax.swing.JLabel();
         textFieldSynonyms = new javax.swing.JTextField();
+        textFieldSynonyms.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
         labelListSynonyms = new javax.swing.JLabel();
         scrollPaneListSynonyms = new javax.swing.JScrollPane();
         listSynonyms = new javax.swing.JList();

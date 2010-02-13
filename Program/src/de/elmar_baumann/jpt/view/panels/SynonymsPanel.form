@@ -142,6 +142,9 @@
           <Events>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textAreaWordsKeyPressed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaWords.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -241,6 +244,9 @@
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldSynonymsKeyPressed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textFieldSynonyms.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="labelListSynonyms">
       <Properties>
