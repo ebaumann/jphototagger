@@ -8,6 +8,8 @@ Changelog JPhotoTagger
 0.7.73 2010-02-13
 -----------------
 
+* Datei > Datenban, Kartenreiter Wartung: Angekreuzte Wartungsaufgaben werden
+  nach dem Start wieder angekreuzt (oder nicht, falls nicht angekreuzt)
 * Werkzeuge > XMP-Daten importieren: Nach Auswahl des Verzeichnisses werden die
   darin enthaltenen Bilddateien in einer Liste angezeigt, es ist nicht mehr
   erforderlich, einen separaten Dialog zu diesem Zweck zu öffnen.

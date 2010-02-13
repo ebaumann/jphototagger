@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
@@ -28,6 +29,7 @@ import de.elmar_baumann.jpt.helper.CompressDatabase;
 import de.elmar_baumann.jpt.helper.DeleteOrphanedXmp;
 import de.elmar_baumann.jpt.helper.DeleteOrphanedThumbnails;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import de.elmar_baumann.lib.util.Settings;
 import java.awt.Container;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -48,13 +50,16 @@ import javax.swing.JPanel;
  */
 public final class DatabaseMaintainancePanel extends JPanel implements ProgressListener {
 
-    private static final Icon                   ICON_FINISHED           = AppLookAndFeel.getIcon("icon_finished.png");
-    private static final String                 METHOD_NAME_CANCEL      = "cancel";
-    private static final long                   serialVersionUID        = -4557401822534070313L;
-    private final        Stack<Runnable>        runnables               = new Stack<Runnable>();
-    private final        Map<Class<?>, JLabel>  finishedLabelOfRunnable = new HashMap<Class<?>, JLabel>();
-    private final        Set<JCheckBox>         checkBoxes              = new HashSet<JCheckBox>();
-    private final        Map<JCheckBox, JLabel> labelOfCheckBox         = new HashMap<JCheckBox, JLabel>();
+    private static final Icon                   ICON_FINISHED                   = AppLookAndFeel.getIcon("icon_finished.png");
+    private static final String                 METHOD_NAME_CANCEL              = "cancel";
+    private static final String                 KEY_DEL_RECORDS_OF_NOT_EX_FILES = "DatabaseMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
+    private static final String                 KEY_COMPRESS_DB             = "DatabaseMaintainancePanel.CheckBox.CompressDb";
+    private static final String                 KEY_DEL_ORPHANED_THUMBS         = "DatabaseMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
+    private static final long                   serialVersionUID                = -4557401822534070313L;
+    private final        Stack<Runnable>        runnables                       = new Stack<Runnable>();
+    private final        Map<Class<?>, JLabel>  finishedLabelOfRunnable         = new HashMap<Class<?>, JLabel>();
+    private final        Set<JCheckBox>         checkBoxes                      = new HashSet<JCheckBox>();
+    private final        Map<JCheckBox, JLabel> labelOfCheckBox                 = new HashMap<JCheckBox, JLabel>();
     private volatile     Runnable               currentRunnable;
     private volatile     boolean                stop;
     private volatile     boolean                canClose                = true;
@@ -80,6 +85,11 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelOfCheckBox.put(checkBoxCompressDatabase                         , labelFinishedCompressDatabase);
         labelOfCheckBox.put(checkBoxDeleteOrphanedThumbnails                 , labelFinishedDeleteOrphanedThumbnails);
         labelOfCheckBox.put(checkBoxDeleteRecordsOfNotExistingFilesInDatabase, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+
+        Settings settings = UserSettings.INSTANCE.getSettings();
+        checkBoxCompressDatabase                         .setSelected(settings.getBoolean(KEY_COMPRESS_DB));
+        checkBoxDeleteOrphanedThumbnails                 .setSelected(settings.getBoolean(KEY_DEL_ORPHANED_THUMBS));
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setSelected(settings.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
     }
 
     private void setProgressbarStart(ProgressEvent evt) {
@@ -451,10 +461,14 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
     }// </editor-fold>//GEN-END:initComponents
 
 private void checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
+    UserSettings.INSTANCE.getSettings().set(checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected(), KEY_DEL_RECORDS_OF_NOT_EX_FILES);
+    UserSettings.INSTANCE.writeToFile();
     checkCheckboxes();
 }//GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
 
 private void checkBoxCompressDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressDatabaseActionPerformed
+    UserSettings.INSTANCE.getSettings().set(checkBoxCompressDatabase.isSelected(), KEY_COMPRESS_DB);
+    UserSettings.INSTANCE.writeToFile();
     checkCheckboxes();
 }//GEN-LAST:event_checkBoxCompressDatabaseActionPerformed
 
@@ -471,6 +485,8 @@ private void buttonDeleteMessagesActionPerformed(java.awt.event.ActionEvent evt)
 }//GEN-LAST:event_buttonDeleteMessagesActionPerformed
 
 private void checkBoxDeleteOrphanedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
+    UserSettings.INSTANCE.getSettings().set(checkBoxDeleteOrphanedThumbnails.isSelected(), KEY_DEL_ORPHANED_THUMBS);
+    UserSettings.INSTANCE.writeToFile();
     checkCheckboxes();
 }//GEN-LAST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
