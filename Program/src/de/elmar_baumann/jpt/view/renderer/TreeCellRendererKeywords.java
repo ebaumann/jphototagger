@@ -76,17 +76,17 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
         setIcon(selImgHasKeyword ? ICON_IMG_HAS_KEYWORD : real ? ICON_REAL : helper ? ICON_HELPER : ICON_REAL); // Last: Root item
 
         setForeground(isTempSelRow || selected && !tempSelExists
-                ? AppLookAndFeel.TREE_SELECTION_FOREGROUND
+                ? AppLookAndFeel.getTreeSelectionForeground()
                 : selImgHasKeyword
                 ? AppLookAndFeel.TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND
-                : AppLookAndFeel.TREE_TEXT_FOREGROUND
+                : AppLookAndFeel.getTreeTextForeground()
                 );
 
         setBackground(isTempSelRow || selected && !tempSelExists
-                ? AppLookAndFeel.TREE_SELECTION_BACKGROUND
+                ? AppLookAndFeel.getTreeSelectionBackground()
                 : selImgHasKeyword
                 ? AppLookAndFeel.TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND
-                : AppLookAndFeel.TREE_TEXT_BACKGROUND
+                : AppLookAndFeel.getTreeTextBackground()
                 );
     }
     

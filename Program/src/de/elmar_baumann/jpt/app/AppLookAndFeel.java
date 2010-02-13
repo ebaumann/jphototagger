@@ -48,14 +48,14 @@ public final class AppLookAndFeel {
     public static final Color TABLE_TEXT_BACKGROUND = Color.WHITE;
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(100, 100, 100);
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND = new Color(255, 255, 255);
-    public static final Color TREE_SELECTION_FOREGROUND = ComponentUtil.getUiColor("Tree.selectionForeground");
-    public static final Color TREE_SELECTION_BACKGROUND = ComponentUtil.getUiColor("Tree.selectionBackground");
-    public static final Color TREE_TEXT_BACKGROUND = ComponentUtil.getUiColor("Tree.textBackground");
-    public static final Color TREE_TEXT_FOREGROUND = ComponentUtil.getUiColor("Tree.textForeground");
-    public static final Color LIST_SELECTION_FOREGROUND = ComponentUtil.getUiColor("List.selectionForeground");
-    public static final Color LIST_SELECTION_BACKGROUND = ComponentUtil.getUiColor("List.selectionBackground");
-    public static final Color LIST_BACKGROUND = ComponentUtil.getUiColor("List.background");
-    public static final Color LIST_FOREGROUND = ComponentUtil.getUiColor("List.foreground");
+    private static Color treeSelectionForeground;
+    private static Color treeSelectionBackground;
+    private static Color treeTextBackground;
+    private static Color treeTextForeground;
+    private static Color listSelectionForeground;
+    private static Color listSelectionBackground;
+    private static Color listBackground;
+    private static Color listForeground;
 
     public static final String TABLE_ROW_HEADER_CSS = "margin-left:3px;margin-right:3px;";
     public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
@@ -145,6 +145,50 @@ public final class AppLookAndFeel {
     public static void set() {
         LookAndFeelUtil.setSystemLookAndFeel();
         setFonts();
+        setUiColors();
+    }
+
+    private static void setUiColors() {
+        treeSelectionForeground = ComponentUtil.getUiColor("Tree.selectionForeground");
+        treeSelectionBackground = ComponentUtil.getUiColor("Tree.selectionBackground");
+        treeTextBackground      = ComponentUtil.getUiColor("Tree.textBackground");
+        treeTextForeground      = ComponentUtil.getUiColor("Tree.textForeground");
+        listSelectionForeground = ComponentUtil.getUiColor("List.selectionForeground");
+        listSelectionBackground = ComponentUtil.getUiColor("List.selectionBackground");
+        listBackground          = ComponentUtil.getUiColor("List.background");
+        listForeground          = ComponentUtil.getUiColor("List.foreground");
+    }
+
+    public static Color getListBackground() {
+        return listBackground;
+    }
+
+    public static Color getListForeground() {
+        return listForeground;
+    }
+
+    public static Color getListSelectionBackground() {
+        return listSelectionBackground;
+    }
+
+    public static Color getListSelectionForeground() {
+        return listSelectionForeground;
+    }
+
+    public static Color getTreeSelectionBackground() {
+        return treeSelectionBackground;
+    }
+
+    public static Color getTreeSelectionForeground() {
+        return treeSelectionForeground;
+    }
+
+    public static Color getTreeTextBackground() {
+        return treeTextBackground;
+    }
+
+    public static Color getTreeTextForeground() {
+        return treeTextForeground;
     }
 
     private static void setFonts() {

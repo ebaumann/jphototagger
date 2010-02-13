@@ -48,13 +48,13 @@ public final class ListCellRendererSavedSearches extends DefaultListCellRenderer
         boolean isTempSelRow  = index == tempSelRow;
 
         label.setForeground(isTempSelRow || isSelected && !tempSelExists
-                ? AppLookAndFeel.LIST_SELECTION_FOREGROUND
-                : AppLookAndFeel.LIST_FOREGROUND
+                ? AppLookAndFeel.getListSelectionForeground()
+                : AppLookAndFeel.getListForeground()
                 );
 
         label.setBackground(isTempSelRow || isSelected && !tempSelExists
-                ? AppLookAndFeel.LIST_SELECTION_BACKGROUND
-                : AppLookAndFeel.LIST_BACKGROUND
+                ? AppLookAndFeel.getListSelectionBackground()
+                : AppLookAndFeel.getListBackground()
                 );
 
         label.setIcon(ICON);
