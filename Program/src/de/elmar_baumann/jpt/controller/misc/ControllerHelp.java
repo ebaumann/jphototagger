@@ -46,8 +46,7 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
  */
-public final class ControllerHelp
-        implements ActionListener, HelpBrowserListener {
+public final class ControllerHelp implements ActionListener, HelpBrowserListener {
 
     private static final String      HELP_CONTENTS_URL         = Bundle.getString("Help.Url.Contents");
     private final        HelpBrowser help                      = HelpBrowser.INSTANCE;
@@ -64,6 +63,7 @@ public final class ControllerHelp
     private void listen() {
         help.addHelpBrowserListener(this);
         menuItemOpenPdfUserManual.addActionListener(this);
+        menuItemAcceleratorKeys.addActionListener(this);
     }
 
     @Override
@@ -105,16 +105,12 @@ public final class ControllerHelp
         if (!currentUrl.isEmpty()) {
             help.setDisplayUrl(currentUrl);
         }
-        helpToFront();
+        ComponentUtil.show(help);
     }
 
     private void showAcceleratorKeyHelp() {
         initHelp();
         help.setDisplayUrl(Bundle.getString("Help.Url.AcceleratorKeys"));
-        helpToFront();
-    }
-
-    public void helpToFront() {
         ComponentUtil.show(help);
     }
 
