@@ -42,11 +42,11 @@ public class FormatterLabelMetadata {
     protected static void setDefaultCellColors(JLabel cellLabel,
             boolean isSelected) {
         cellLabel.setForeground(isSelected
-                                ? AppLookAndFeel.TABLE_SELECTION_FOREGROUND
-                                : AppLookAndFeel.TABLE_TEXT_FOREGROUND);
+                                ? AppLookAndFeel.getTableSelectionForeground()
+                                : AppLookAndFeel.getTableForeground());
         cellLabel.setBackground(isSelected
-                                ? AppLookAndFeel.TABLE_SELECTION_BACKGROUND
-                                : AppLookAndFeel.TABLE_TEXT_BACKGROUND);
+                                ? AppLookAndFeel.getTableSelectionBackground()
+                                : AppLookAndFeel.getTableBackground());
         cellLabel.setOpaque(true);
     }
 
@@ -81,24 +81,24 @@ public class FormatterLabelMetadata {
             boolean isSelected) {
         cellLabel.setForeground(
                 isSelected
-                ? AppLookAndFeel.TABLE_SELECTION_FOREGROUND
-                : AppLookAndFeel.TABLE_STORED_IN_DATABASE_FOREGROUND);
+                ? AppLookAndFeel.getTableSelectionForeground()
+                : AppLookAndFeel.getTableStoredInDatabaseForeground());
         cellLabel.setBackground(
                 isSelected
-                ? AppLookAndFeel.TABLE_SELECTION_BACKGROUND
-                : AppLookAndFeel.TABLE_STORED_IN_DATABASE_BACKGROUND);
+                ? AppLookAndFeel.getTableSelectionBackground()
+                : AppLookAndFeel.getTableStoredInDatabaseBackground());
     }
 
     protected void setIsExifMakerNoteColors(JLabel cellLabel,
             boolean isSelected) {
         cellLabel.setForeground(
                 isSelected
-                ? AppLookAndFeel.TABLE_SELECTION_FOREGROUND
-                : AppLookAndFeel.TABLE_EXIF_MAKER_NOTE_FOREGROUND);
+                ? AppLookAndFeel.getTableSelectionForeground()
+                : AppLookAndFeel.getTableExifMakerNoteForeground());
         cellLabel.setBackground(
                 isSelected
-                ? AppLookAndFeel.TABLE_SELECTION_BACKGROUND
-                : AppLookAndFeel.TABLE_EXIF_MAKER_NOTE_BACKGROUND);
+                ? AppLookAndFeel.getTableSelectionBackground()
+                : AppLookAndFeel.getTableExifMakerNoteBackground());
     }
 
     private void initFonts(JLabel cellLabel) {
