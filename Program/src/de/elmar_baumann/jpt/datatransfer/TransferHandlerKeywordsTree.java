@@ -84,10 +84,8 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
         if (dropNode != null) {
             TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
             if (Flavor.hasKeywordsFromList(transferSupport)) {
-                if (!checkImportSelection(transferSupport)) return false;
                 addKeywords(model, dropNode, transferSupport);
             } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
-                if (!checkImportSelection(transferSupport)) return false;
                 moveKeywords(transferSupport, model, dropNode);
                 KeywordTreeNodesClipboard.INSTANCE.empty();
             }
@@ -119,9 +117,8 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
         return null;
     }
 
-    private boolean checkImportSelection(TransferSupport transferSupport) {
-        JTree tree = (JTree) transferSupport.getComponent();
-        if (tree.getSelectionCount() != 1) {
+    private static boolean checkSelCount(int selCount) {
+        if (selCount != 1) {
             MessageDisplayer.error(null, "TransferHandlerKeywordsTree.Error.Import.Selection");
             return false;
         }
@@ -131,8 +128,8 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
     private void addKeywords(
             TreeModelKeywords      treeModel,
             DefaultMutableTreeNode node,
-            TransferSupport        transferSupport) {
-
+            TransferSupport        transferSupport
+            ) {
         Object[] keywords = TransferHandlerKeywordsList.getKeywords(transferSupport.getTransferable());
         if (keywords == null) return;
         for (Object keyword : keywords) {
@@ -149,6 +146,9 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
         try {
             List<DefaultMutableTreeNode> sourceNodes = (List<DefaultMutableTreeNode>)
                     transferSupport.getTransferable().getTransferData(Flavor.KEYWORDS_TREE);
+
+            if (!checkSelCount(sourceNodes.size())) return;
+
             for (DefaultMutableTreeNode sourceNode : sourceNodes) {
                 Object userObject = sourceNode.getUserObject();
                 if (userObject instanceof Keyword) {
