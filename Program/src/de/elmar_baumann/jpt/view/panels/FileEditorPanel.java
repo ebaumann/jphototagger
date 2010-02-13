@@ -338,7 +338,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         scrollPaneListFiles.setViewportView(listFiles);
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
-        labelFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         buttonSelectFiles.setText(Bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
