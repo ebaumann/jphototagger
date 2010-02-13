@@ -43,13 +43,13 @@ import javax.swing.tree.TreeCellRenderer;
  */
 public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelListener {
 
-    private final ThumbnailsPanel           tnPanel      = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles        db           = DatabaseImageFiles.INSTANCE;
-    private final AppPanel                  appPanel     = GUI.INSTANCE.getAppPanel();
-    private final KeywordsPanel appHkPanel   = appPanel.getPanelEditKeywords();
-    private final KeywordsPanel dlgHkPanel   = InputHelperDialog.INSTANCE.getPanelKeywords();
-    private final JTree                     treeAppPanel = appHkPanel.getTree();
-    private final JTree                     treeDialog   = dlgHkPanel.getTree();
+    private final ThumbnailsPanel    tnPanel      = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db           = DatabaseImageFiles.INSTANCE;
+    private final AppPanel           appPanel     = GUI.INSTANCE.getAppPanel();
+    private final KeywordsPanel      appHkPanel   = appPanel.getPanelEditKeywords();
+    private final KeywordsPanel      dlgHkPanel   = InputHelperDialog.INSTANCE.getPanelKeywords();
+    private final JTree              treeAppPanel = appHkPanel.getTree();
+    private final JTree              treeDialog   = dlgHkPanel.getTree();
 
     public ControllerHighlightKeywordsTree() {
         listen();
@@ -76,7 +76,7 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
     private void setKeywords(JTree tree, Collection<String> keywords) {
         TreeCellRenderer r = tree.getCellRenderer();
         if (r instanceof TreeCellRendererKeywords) {
-            ((TreeCellRendererKeywords) r).setHighlightKeywords(keywords);
+            ((TreeCellRendererKeywords) r).setSelImgKeywords(keywords);
             tree.repaint();
         }
     }

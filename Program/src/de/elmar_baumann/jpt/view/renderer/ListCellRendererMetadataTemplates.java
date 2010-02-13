@@ -44,13 +44,13 @@ public final class ListCellRendererMetadataTemplates extends ListCellRendererExt
 
         label.setText(name);
         label.setIcon(ICON);
-        setColors(index, label);
+        setColors(index, isSelected, label);
 
         return label;
     }
 
     @Override
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    public void setTempSelectionRow(int index) {
+        tempSelRow = index;
     }
 }

@@ -37,18 +37,16 @@ import javax.swing.tree.TreeCellRenderer;
  * If the popup menu becomes invisible, the row index will be set to -1.
  *
  * The cell renderer has to implement the method
- * <strong>setHighlightIndexForPopup</strong> with an <strong>int</strong> as
+ * <strong>setTempSelectionRow</strong> with an <strong>int</strong> as
  * parameter for the index.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-27
  */
-public final class TreeCellPopupHighlighter
-        implements MouseListener, PopupMenuListener {
+public final class TreeItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {
 
     private final JTree tree;
-    private static final String METHOD_NAME_HIGHLIGHT_INDEX =
-            "setHighlightIndexForPopup";
+    private static final String TEMP_SEL_ROW_METHOD_NAME = "setTempSelectionRow";
 
     /**
      * Creates a new instance.
@@ -56,7 +54,7 @@ public final class TreeCellPopupHighlighter
      * @param tree      tree
      * @param popupMenu the tree's popup menu
      */
-    public TreeCellPopupHighlighter(JTree tree, JPopupMenu popupMenu) {
+    public TreeItemTempSelectionRowSetter(JTree tree, JPopupMenu popupMenu) {
         this.tree = tree;
         tree.addMouseListener(this);
         popupMenu.addPopupMenuListener(this);
@@ -64,7 +62,7 @@ public final class TreeCellPopupHighlighter
 
     @Override
     public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-        setHighlightIndex(-1);
+        setRowIndex(-1);
     }
 
     @Override
@@ -72,28 +70,28 @@ public final class TreeCellPopupHighlighter
         if (MouseEventUtil.isPopupTrigger(e)) {
             int index = tree.getRowForLocation(e.getX(), e.getY());
             if (index < 0) return;
-            setHighlightIndex(index);
+            setRowIndex(index);
         }
     }
 
-    private void setHighlightIndex(int index) {
+    private void setRowIndex(int index) {
         TreeCellRenderer renderer = tree.getCellRenderer();
-        if (hasHighlightMethod(renderer)) {
+        if (hasMethod(renderer)) {
             try {
                 Method m = renderer.getClass().getMethod(
-                        METHOD_NAME_HIGHLIGHT_INDEX, int.class);
+                        TEMP_SEL_ROW_METHOD_NAME, int.class);
                 m.invoke(renderer, index);
                 tree.repaint();
             } catch (Exception ex) {
-                Logger.getLogger(TreeCellPopupHighlighter.class.getName()).log(
+                Logger.getLogger(TreeItemTempSelectionRowSetter.class.getName()).log(
                         Level.SEVERE, null, ex);
             }
         }
     }
 
-    private boolean hasHighlightMethod(TreeCellRenderer renderer) {
+    private boolean hasMethod(TreeCellRenderer renderer) {
         for (Method method : renderer.getClass().getDeclaredMethods()) {
-            if (method.getName().equals(METHOD_NAME_HIGHLIGHT_INDEX)) {
+            if (method.getName().equals(TEMP_SEL_ROW_METHOD_NAME)) {
                 Class<?>[] parameterTypes = method.getParameterTypes();
                 if (parameterTypes.length == 1 &&
                         parameterTypes[0].equals(int.class)) {

@@ -38,18 +38,16 @@ import javax.swing.event.PopupMenuListener;
  * If the popup menu becomes invisible, the row index will be set to -1.
  *
  * The cell renderer has to implement the method
- * <strong>setHighlightIndexForPopup</strong> with an <strong>int</strong> as
+ * <strong>setTempSelectionRow</strong> with an <strong>int</strong> as
  * parameter for the index.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-07-27
  */
-public final class ListItemPopupHighlighter
-        implements MouseListener, PopupMenuListener {
+public final class ListItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {
 
     private final JList list;
-    private static final String METHOD_NAME_HIGHLIGHT_INDEX =
-            "setHighlightIndexForPopup";
+    private static final String TEMP_SEL_ROW_METHOD_NAME = "setTempSelectionRow";
 
     /**
      * Creates a new instance.
@@ -57,7 +55,7 @@ public final class ListItemPopupHighlighter
      * @param list      list
      * @param popupMenu the list's popup menu
      */
-    public ListItemPopupHighlighter(JList list, JPopupMenu popupMenu) {
+    public ListItemTempSelectionRowSetter(JList list, JPopupMenu popupMenu) {
         this.list = list;
         list.addMouseListener(this);
         popupMenu.addPopupMenuListener(this);
@@ -65,7 +63,7 @@ public final class ListItemPopupHighlighter
 
     @Override
     public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-        setHighlightIndex(-1);
+        setRowIndex(-1);
     }
 
     @Override
@@ -73,28 +71,26 @@ public final class ListItemPopupHighlighter
         if (MouseEventUtil.isPopupTrigger(e)) {
             int index = list.locationToIndex(new Point(e.getX(), e.getY()));
             if (index < 0) return;
-            setHighlightIndex(index);
+            setRowIndex(index);
         }
     }
 
-    private void setHighlightIndex(int index) {
+    private void setRowIndex(int index) {
         ListCellRenderer renderer = list.getCellRenderer();
-        if (hasHighlightMethod(renderer)) {
+        if (hasMethod(renderer)) {
             try {
-                Method m = renderer.getClass().getMethod(
-                        METHOD_NAME_HIGHLIGHT_INDEX, int.class);
+                Method m = renderer.getClass().getMethod(TEMP_SEL_ROW_METHOD_NAME, int.class);
                 m.invoke(renderer, index);
                 list.repaint();
             } catch (Exception ex) {
-                Logger.getLogger(ListItemPopupHighlighter.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                Logger.getLogger(ListItemTempSelectionRowSetter.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    private boolean hasHighlightMethod(ListCellRenderer renderer) {
+    private boolean hasMethod(ListCellRenderer renderer) {
         for (Method method : renderer.getClass().getDeclaredMethods()) {
-            if (method.getName().equals(METHOD_NAME_HIGHLIGHT_INDEX)) {
+            if (method.getName().equals(TEMP_SEL_ROW_METHOD_NAME)) {
                 Class<?>[] parameterTypes = method.getParameterTypes();
                 if (parameterTypes.length == 1 &&
                         parameterTypes[0].equals(int.class)) {

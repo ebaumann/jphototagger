@@ -31,24 +31,28 @@ import javax.swing.JLabel;
 public class ListCellRendererExt extends DefaultListCellRenderer {
 
     private static final long serialVersionUID  = 7531004273695822498L;
-    protected            int  popupHighLightRow = -1;
+    protected            int  tempSelRow        = -1;
 
-    protected void setColors(int index, JLabel label) {
-        boolean rowHighlighted = popupHighLightRow >= 0;
-        boolean isPopupRow     = index == popupHighLightRow;
-
+    public ListCellRendererExt() {
         setOpaque(true);
-        
-        if (isPopupRow) {
-            label.setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
-            label.setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
-        } else if (rowHighlighted) {
-            setForeground(AppLookAndFeel.COLOR_FOREGROUND_LIST_TEXT);
-            setBackground(AppLookAndFeel.COLOR_BACKGROUND_LIST_TEXT);
-        }
     }
 
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    protected void setColors(int index, boolean selected, JLabel label) {
+        boolean tempSelExists = tempSelRow>= 0;
+        boolean isTempSelRow  = index == tempSelRow;
+
+        label.setForeground(isTempSelRow || selected && !tempSelExists
+                ? AppLookAndFeel.LIST_SELECTION_FOREGROUND
+                : AppLookAndFeel.LIST_FOREGROUND
+                );
+
+        label.setBackground(isTempSelRow || selected && !tempSelExists
+                ? AppLookAndFeel.LIST_SELECTION_BACKGROUND
+                : AppLookAndFeel.LIST_BACKGROUND
+                );
+    }
+
+    public void setTempSelectionRow(int index) {
+        tempSelRow = index;
     }
 }

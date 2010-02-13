@@ -75,7 +75,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
                 leaf);
 
         setText(userObject, parentUserObject);
-        highlightRow(row);
+        setColors(row, selected);
 
         return this;
     }
@@ -150,7 +150,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     }
 
     @Override
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    public void setTempSelectionRow(int index) {
+        tempSelRow = index;
     }
 }

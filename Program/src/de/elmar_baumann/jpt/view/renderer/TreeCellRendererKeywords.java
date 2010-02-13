@@ -39,12 +39,16 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
 
-    private static final Icon         ICON_REAL             = AppLookAndFeel.getIcon("icon_keyword.png");
-    private static final Icon         ICON_REAL_HIGHLIGHTED = AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
-    private static final Icon         ICON_HELPER           = AppLookAndFeel.getIcon("icon_folder.png");
-    private static final long         serialVersionUID      = -1948927991470364757L;
-    private              int          popupHighLightRow     = -1;
-    private final        List<String> highLightKeywords     = new ArrayList<String>();
+    private static final Icon         ICON_REAL            = AppLookAndFeel.getIcon("icon_keyword.png");
+    private static final Icon         ICON_IMG_HAS_KEYWORD = AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
+    private static final Icon         ICON_HELPER          = AppLookAndFeel.getIcon("icon_folder.png");
+    private static final long         serialVersionUID     = -1948927991470364757L;
+    private              int          tempSelectionRow     = -1;
+    private final        List<String> highLightKeywords    = new ArrayList<String>();
+
+    public TreeCellRendererKeywords() {
+        setOpaque(true);
+    }
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -54,79 +58,76 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     }
 
     private void render(Object userObject, int row) {
-        boolean highlight = false;
+        boolean selImgHasKeyword = false;
+        boolean real             = false;
+        boolean helper           = false; // to know whether to render root item
+        
         if (userObject instanceof Keyword) {
             Keyword keyword = (Keyword) userObject;
-            boolean real    = keyword.isReal() == null ? false : keyword.isReal();
-
-            highlight = keyword.isReal() && isKeyword(keyword.getName());
+            real = keyword.isReal();
+            helper = !real;
+            selImgHasKeyword = real && isKeyword(keyword.getName());
             setText(keyword.getName());
-            setIcon(real ? ICON_REAL : ICON_HELPER);
-            if (highlight) {
-                setForeground(AppLookAndFeel.COLOR_FOREGROUND_KEYWORD_TREE_IMG_HAS_KEYWORD);
-                setBackground(AppLookAndFeel.COLOR_BACKGROUND_KEYWORD_TREE_IMG_HAS_KEYWORD);
-                setIcon(ICON_REAL_HIGHLIGHTED);
-            }
-        } else { // Root item
-            setIcon(ICON_REAL);
         }
-        boolean rowHighlighted = popupHighLightRow >= 0;
-        boolean popupRow       = row == popupHighLightRow;
+        
+        boolean tempSelExists = tempSelectionRow >= 0;
+        boolean isTempSelRow  = row == tempSelectionRow;
 
-        setOpaque(popupRow || highlight || rowHighlighted);
+        setIcon(selImgHasKeyword ? ICON_IMG_HAS_KEYWORD : real ? ICON_REAL : helper ? ICON_HELPER : ICON_REAL); // Last: Root item
 
-        if (popupRow) {
-            setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
-            setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
-        } else if (rowHighlighted) {
-            setForeground(AppLookAndFeel.COLOR_FOREGROUND_TREE_TEXT);
-            setBackground(AppLookAndFeel.COLOR_BACKGROUND_TREE_TEXT);
-        }
+        setForeground(isTempSelRow || selected && !tempSelExists
+                ? AppLookAndFeel.TREE_SELECTION_FOREGROUND
+                : selImgHasKeyword
+                ? AppLookAndFeel.TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND
+                : AppLookAndFeel.TREE_TEXT_FOREGROUND
+                );
+
+        setBackground(isTempSelRow || selected && !tempSelExists
+                ? AppLookAndFeel.TREE_SELECTION_BACKGROUND
+                : selImgHasKeyword
+                ? AppLookAndFeel.TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND
+                : AppLookAndFeel.TREE_TEXT_BACKGROUND
+                );
     }
-
+    
     private boolean isKeyword(Object value) {
         synchronized (highLightKeywords) {
             return highLightKeywords.contains(value.toString());
         }
     }
 
-    /**
-     * Sets keywords to highlight.
-     *
-     * @param keywords keywords
-     */
-    public void setHighlightKeywords(Collection<? extends String> keywords) {
+    public void setSelImgKeywords(Collection<? extends String> keywords) {
         synchronized (this.highLightKeywords) {
             this.highLightKeywords.clear();
             this.highLightKeywords.addAll(keywords);
         }
     }
 
-    public void addHighlightKeywords(Collection<? extends String> keywords) {
+    public void addSelImgKeywords(Collection<? extends String> keywords) {
         synchronized(this.highLightKeywords) {
             this.highLightKeywords.addAll(keywords);
         }
     }
 
-    public void removeHighlightKeywords(Collection<? extends String> keywords) {
+    public void removeSelImgKeywords(Collection<? extends String> keywords) {
         synchronized(this.highLightKeywords) {
             this.highLightKeywords.removeAll(keywords);
         }
     }
 
-    public void addHighlightKeyword(String keyword) {
+    public void addSelImgKeyword(String keyword) {
         synchronized (highLightKeywords) {
             highLightKeywords.add(keyword);
         }
     }
 
-    public void removeHighlightKeyword(String keyword) {
+    public void removeSelImgKeyword(String keyword) {
         synchronized (highLightKeywords) {
             highLightKeywords.remove(keyword);
         }
     }
 
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    public void setTempSelectionRow(int index) {
+        tempSelectionRow = index;
     }
 }

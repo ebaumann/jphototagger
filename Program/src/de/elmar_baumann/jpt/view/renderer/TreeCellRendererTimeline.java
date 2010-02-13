@@ -70,13 +70,13 @@ public final class TreeCellRendererTimeline extends TreeCellRendererExt {
             setText(node.getUserObject().toString());
         }
 
-        highlightRow(row);
+        setColors(row, selected);
 
         return this;
     }
 
     @Override
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    public void setTempSelectionRow(int index) {
+        tempSelRow = index;
     }
 }

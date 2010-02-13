@@ -35,26 +35,34 @@ public final class ListCellRendererSavedSearches extends DefaultListCellRenderer
 
     private static final Icon ICON              = AppLookAndFeel.getIcon("icon_search.png");
     private static final long serialVersionUID  = 3108457488446314020L;
-    private              int  popupHighLightRow = -1;
+    private              int  tempSelRow        = -1;
+
+    public ListCellRendererSavedSearches() {
+        setOpaque(true);
+    }
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel  label          = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        boolean rowHighlighted = popupHighLightRow >= 0;
+        JLabel  label         = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        boolean tempSelExists = tempSelRow>= 0;
+        boolean isTempSelRow  = index == tempSelRow;
+
+        label.setForeground(isTempSelRow || isSelected && !tempSelExists
+                ? AppLookAndFeel.LIST_SELECTION_FOREGROUND
+                : AppLookAndFeel.LIST_FOREGROUND
+                );
+
+        label.setBackground(isTempSelRow || isSelected && !tempSelExists
+                ? AppLookAndFeel.LIST_SELECTION_BACKGROUND
+                : AppLookAndFeel.LIST_BACKGROUND
+                );
 
         label.setIcon(ICON);
-        label.setOpaque(true);
-        if (index == popupHighLightRow) {
-            label.setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
-            label.setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
-        } else if (rowHighlighted) {
-            setForeground(AppLookAndFeel.COLOR_FOREGROUND_LIST_TEXT);
-            setBackground(AppLookAndFeel.COLOR_BACKGROUND_LIST_TEXT);
-        }
+
         return label;
     }
 
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    public void setTempSelectionRow(int index) {
+        tempSelRow = index;
     }
 }
