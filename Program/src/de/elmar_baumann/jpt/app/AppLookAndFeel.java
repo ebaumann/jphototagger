@@ -37,17 +37,14 @@ import javax.swing.plaf.FontUIResource;
  * @version 2009-06-06
  */
 public final class AppLookAndFeel {
-
-    public static final Color TABLE_STORED_IN_DATABASE_FOREGROUND = Color.BLACK;
-    public static final Color TABLE_STORED_IN_DATABASE_BACKGROUND = new Color(251, 249, 241);
-    public static final Color TABLE_EXIF_MAKER_NOTE_FOREGROUND  = Color.BLACK;
-    public static final Color TABLE_EXIF_MAKER_NOTE_BACKGROUND = new Color(226, 226, 255);
-    public static final Color TABLE_SELECTION_FOREGROUND = Color.BLACK;
-    public static final Color TABLE_SELECTION_BACKGROUND = new Color(226, 226, 255);
-    public static final Color TABLE_TEXT_FOREGROUND = Color.BLACK;
-    public static final Color TABLE_TEXT_BACKGROUND = Color.WHITE;
-    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(100, 100, 100);
-    public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND = new Color(255, 255, 255);
+    private static Color tableStoredInDatabaseForeground = Color.BLACK;
+    private static Color tableStoredInDatabaseBackground = new Color(251, 249, 241);
+    private static Color tableExifMakerNoteForeground = Color.BLACK;
+    private static Color tableExifMakerNoteBackground = new Color(226, 226, 255);
+    private static Color tableSelectionForeground = Color.BLACK;
+    private static Color tableSelectionBackground = new Color(226, 226, 255);
+    private static Color tableForeground = Color.BLACK;
+    private static Color tableBackground = Color.WHITE;
     private static Color treeSelectionForeground;
     private static Color treeSelectionBackground;
     private static Color treeTextBackground;
@@ -56,6 +53,8 @@ public final class AppLookAndFeel {
     private static Color listSelectionBackground;
     private static Color listBackground;
     private static Color listForeground;
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(100, 100, 100);
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND = new Color(255, 255, 255);
 
     public static final String TABLE_ROW_HEADER_CSS = "margin-left:3px;margin-right:3px;";
     public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
@@ -149,14 +148,22 @@ public final class AppLookAndFeel {
     }
 
     private static void setUiColors() {
-        treeSelectionForeground = ComponentUtil.getUiColor("Tree.selectionForeground");
-        treeSelectionBackground = ComponentUtil.getUiColor("Tree.selectionBackground");
-        treeTextBackground      = ComponentUtil.getUiColor("Tree.textBackground");
-        treeTextForeground      = ComponentUtil.getUiColor("Tree.textForeground");
-        listSelectionForeground = ComponentUtil.getUiColor("List.selectionForeground");
-        listSelectionBackground = ComponentUtil.getUiColor("List.selectionBackground");
-        listBackground          = ComponentUtil.getUiColor("List.background");
-        listForeground          = ComponentUtil.getUiColor("List.foreground");
+        treeSelectionForeground         = ComponentUtil.getUiColor("Tree.selectionForeground");
+        treeSelectionBackground         = ComponentUtil.getUiColor("Tree.selectionBackground");
+        treeTextBackground              = ComponentUtil.getUiColor("Tree.textBackground");
+        treeTextForeground              = ComponentUtil.getUiColor("Tree.textForeground");
+        listSelectionForeground         = ComponentUtil.getUiColor("List.selectionForeground");
+        listSelectionBackground         = ComponentUtil.getUiColor("List.selectionBackground");
+        listBackground                  = ComponentUtil.getUiColor("List.background");
+        listForeground                  = ComponentUtil.getUiColor("List.foreground");
+        tableForeground                 = ComponentUtil.getUiColor("Table.foreground");
+        tableBackground                 = ComponentUtil.getUiColor("Table.background ");
+        tableSelectionForeground        = ComponentUtil.getUiColor("Table.selectionForeground");
+        tableSelectionBackground        = ComponentUtil.getUiColor("Table.selectionBackground ");
+        tableStoredInDatabaseForeground = new Color(0, 0, 200);
+        tableStoredInDatabaseBackground = tableBackground;
+        tableExifMakerNoteForeground    = new Color(0, 125, 0);
+        tableExifMakerNoteBackground    = tableBackground;
     }
 
     public static Color getListBackground() {
@@ -189,6 +196,38 @@ public final class AppLookAndFeel {
 
     public static Color getTreeTextForeground() {
         return treeTextForeground;
+    }
+
+    public static Color getTableStoredInDatabaseForeground() {
+        return tableStoredInDatabaseForeground;
+    }
+
+    public static Color getTableStoredInDatabaseBackground() {
+        return tableStoredInDatabaseBackground;
+    }
+
+    public static Color getTableExifMakerNoteForeground() {
+        return tableExifMakerNoteForeground;
+    }
+
+    public static Color getTableExifMakerNoteBackground() {
+        return tableExifMakerNoteBackground;
+    }
+
+    public static Color getTableSelectionForeground() {
+        return tableSelectionForeground;
+    }
+
+    public static Color getTableSelectionBackground() {
+        return tableSelectionBackground;
+    }
+
+    public static Color getTableForeground() {
+        return tableForeground;
+    }
+
+    public static Color getTableBackground() {
+        return tableBackground;
     }
 
     private static void setFonts() {
@@ -247,7 +286,6 @@ public final class AppLookAndFeel {
             UIManager.put(key, new FontUIResource(plainFont));
         }
     }
-
 
     private AppLookAndFeel() {
     }
