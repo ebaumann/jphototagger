@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.73 2010-02-13
+-----------------
+
+* Werkzeuge > XMP-Daten importieren: Nach Auswahl des Verzeichnisses werden die
+  darin enthaltenen Bilddateien in einer Liste angezeigt, es ist nicht mehr
+  erforderlich, einen separaten Dialog zu diesem Zweck zu öffnen.
+
 0.7.72 2010-02-12
 -----------------
 
