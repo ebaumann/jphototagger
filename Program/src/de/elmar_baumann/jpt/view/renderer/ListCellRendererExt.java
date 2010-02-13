@@ -42,13 +42,13 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
         boolean isTempSelRow  = index == tempSelRow;
 
         label.setForeground(isTempSelRow || selected && !tempSelExists
-                ? AppLookAndFeel.LIST_SELECTION_FOREGROUND
-                : AppLookAndFeel.LIST_FOREGROUND
+                ? AppLookAndFeel.getListSelectionForeground()
+                : AppLookAndFeel.getListForeground()
                 );
 
         label.setBackground(isTempSelRow || selected && !tempSelExists
-                ? AppLookAndFeel.LIST_SELECTION_BACKGROUND
-                : AppLookAndFeel.LIST_BACKGROUND
+                ? AppLookAndFeel.getListSelectionBackground()
+                : AppLookAndFeel.getListBackground()
                 );
     }
 

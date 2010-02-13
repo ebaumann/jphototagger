@@ -61,15 +61,15 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
         boolean isTempSelRow      = index == tempSelRow;
 
         label.setForeground(isTempSelRow || isSelected && !tempSelExists
-                ? AppLookAndFeel.LIST_SELECTION_FOREGROUND
+                ? AppLookAndFeel.getListSelectionForeground()
                 : specialCollection
                 ? SPECIAL_COLLECTION_FOREGROUND
-                : AppLookAndFeel.LIST_FOREGROUND
+                : AppLookAndFeel.getListForeground()
                 );
 
         label.setBackground(isTempSelRow || isSelected && !tempSelExists
-                ? AppLookAndFeel.LIST_SELECTION_BACKGROUND
-                : AppLookAndFeel.LIST_BACKGROUND
+                ? AppLookAndFeel.getListSelectionBackground()
+                : AppLookAndFeel.getListBackground()
                 );
 
         label.setIcon(getIconOfValue(value));

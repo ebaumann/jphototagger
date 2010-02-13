@@ -79,13 +79,13 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
         boolean isTempSelRow  = row == tempSelRow;
 
         setForeground(isTempSelRow || selected && !tempSelExists
-                ? AppLookAndFeel.TREE_SELECTION_FOREGROUND
-                : AppLookAndFeel.TREE_TEXT_FOREGROUND
+                ? AppLookAndFeel.getTreeSelectionForeground()
+                : AppLookAndFeel.getTreeTextForeground()
                 );
 
         setBackground(isTempSelRow || selected && !tempSelExists
-                ? AppLookAndFeel.TREE_SELECTION_BACKGROUND
-                : AppLookAndFeel.TREE_TEXT_BACKGROUND
+                ? AppLookAndFeel.getTreeSelectionBackground()
+                : AppLookAndFeel.getTreeTextBackground()
                 );
     }
 
