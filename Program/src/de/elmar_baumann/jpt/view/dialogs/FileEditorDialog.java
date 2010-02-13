@@ -50,6 +50,7 @@ public class FileEditorDialog extends Dialog {
     public void setVisible(boolean visible) {
         if (visible) {
             setTitle(panelFileEditor.getTitle());
+            panelFileEditor.readProperties();
         } else {
             panelFileEditor.writeProperties();
             hideIfNotRunning();
