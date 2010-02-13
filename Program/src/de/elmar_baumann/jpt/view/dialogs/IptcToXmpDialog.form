@@ -33,7 +33,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="progressBar" alignment="0" pref="661" max="32767" attributes="0"/>
-                  <Component id="checkBoxSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="labelDirectoryName" alignment="0" pref="661" max="32767" attributes="1"/>
                   <Component id="labelInfo" alignment="0" pref="661" max="32767" attributes="1"/>
                   <Group type="102" alignment="1" attributes="0">
@@ -64,7 +64,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labelDirectoryName" min="-2" pref="18" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="checkBoxSubdirectories" min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="progressBar" min="-2" pref="20" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -111,10 +111,10 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxSubdirectories">
+    <Component class="javax.swing.JCheckBox" name="checkBoxIncludeSubdirectories">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="IptcToXmpDialog.checkBoxSubdirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="IptcToXmpDialog.checkBoxIncludeSubdirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>

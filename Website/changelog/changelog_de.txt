@@ -15,6 +15,9 @@ Changelog JPhotoTagger
   erforderlich, einen separaten Dialog zu diesem Zweck zu öffnen.
 * Werkzeuge > XMP-Daten importieren: Status der Ankreuzfelder wird beim
   Beenden von JPhotoTagger gespeichert und nach dem Start wieder hergestellt.
+* Werkzeuge > IPTC-Daten importieren: Status des Ankreuzfelds, ob
+  Unterverzeichnisse einbezogen werden sollen, wird beim Beenden von
+  JPhotoTagger gespeichert und nach dem Start wieder hergestellt.
 * In der Hilfe/im Handbuch ungültige Links auf kenai.com ersetzt durch gültige
 
 0.7.72 2010-02-12
