@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.Bundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
@@ -32,13 +31,11 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererExif;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererIptc;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererXmp;
-import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
+import de.elmar_baumann.lib.componentutil.ListItemTempSelectionRowSetter;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
-import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
-import de.elmar_baumann.lib.renderer.TreeCellRendererAllSystemDirectories;
+import de.elmar_baumann.lib.componentutil.TreeItemTempSelectionRowSetter;
 import java.util.List;
 import javax.swing.JTable;
-import javax.swing.tree.TreeCellRenderer;
 
 /**
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.
@@ -82,24 +79,11 @@ public final class RendererFactory {
     private void setPopupMenuHighlighter() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        new TreeCellPopupHighlighter(appPanel.getTreeFavorites()                            , PopupMenuFavorites.INSTANCE);
-        new TreeCellPopupHighlighter(appPanel.getTreeDirectories()                          , PopupMenuDirectories.INSTANCE);
-        new TreeCellPopupHighlighter(appPanel.getTreeEditKeywords()                         , PopupMenuKeywordsTree.INSTANCE);
-        new TreeCellPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(), PopupMenuKeywordsTree.INSTANCE);
-        new ListItemPopupHighlighter(appPanel.getListImageCollections()                     , PopupMenuImageCollections.INSTANCE);
-        new ListItemPopupHighlighter(appPanel.getListSavedSearches()                        , PopupMenuSavedSearches.INSTANCE);
-
-        setColorsToRendererTreeDirectories();
-    }
-
-    private void setColorsToRendererTreeDirectories() {
-        TreeCellRenderer r = GUI.INSTANCE.getAppPanel().getTreeDirectories().getCellRenderer();
-
-        if (r instanceof TreeCellRendererAllSystemDirectories) {
-            TreeCellRendererAllSystemDirectories renderer = (TreeCellRendererAllSystemDirectories) r;
-            renderer.setHighlightColorsForPopup(
-                    AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE,
-                    AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
-        }
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeFavorites()                            , PopupMenuFavorites.INSTANCE);
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeDirectories()                          , PopupMenuDirectories.INSTANCE);
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeEditKeywords()                         , PopupMenuKeywordsTree.INSTANCE);
+        new TreeItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(), PopupMenuKeywordsTree.INSTANCE);
+        new ListItemTempSelectionRowSetter(appPanel.getListImageCollections()                     , PopupMenuImageCollections.INSTANCE);
+        new ListItemTempSelectionRowSetter(appPanel.getListSavedSearches()                        , PopupMenuSavedSearches.INSTANCE);
     }
 }

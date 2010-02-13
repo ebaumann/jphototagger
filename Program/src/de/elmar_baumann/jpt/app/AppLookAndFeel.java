@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.app;
 
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Color;
@@ -31,138 +32,56 @@ import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
 /**
- * Look and feel of this application.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-06
  */
 public final class AppLookAndFeel {
 
-    /**
-     * Foreground color of table cells containing text which is stored in the
-     * database
-     */
-    public static final Color COLOR_FOREGROUND_TABLE_TEXT_STORED_IN_DATABASE = Color.BLACK;
+    public static final Color TABLE_STORED_IN_DATABASE_FOREGROUND = Color.BLACK;
+    public static final Color TABLE_STORED_IN_DATABASE_BACKGROUND = new Color(251, 249, 241);
+    public static final Color TABLE_EXIF_MAKER_NOTE_FOREGROUND  = Color.BLACK;
+    public static final Color TABLE_EXIF_MAKER_NOTE_BACKGROUND = new Color(226, 226, 255);
+    public static final Color TABLE_SELECTION_FOREGROUND = Color.BLACK;
+    public static final Color TABLE_SELECTION_BACKGROUND = new Color(226, 226, 255);
+    public static final Color TABLE_TEXT_FOREGROUND = Color.BLACK;
+    public static final Color TABLE_TEXT_BACKGROUND = Color.WHITE;
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(100, 100, 100);
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND = new Color(255, 255, 255);
+    public static final Color TREE_SELECTION_FOREGROUND = ComponentUtil.getUiColor("Tree.selectionForeground");
+    public static final Color TREE_SELECTION_BACKGROUND = ComponentUtil.getUiColor("Tree.selectionBackground");
+    public static final Color TREE_TEXT_BACKGROUND = ComponentUtil.getUiColor("Tree.textBackground");
+    public static final Color TREE_TEXT_FOREGROUND = ComponentUtil.getUiColor("Tree.textForeground");
+    public static final Color LIST_SELECTION_FOREGROUND = ComponentUtil.getUiColor("List.selectionForeground");
+    public static final Color LIST_SELECTION_BACKGROUND = ComponentUtil.getUiColor("List.selectionBackground");
+    public static final Color LIST_BACKGROUND = ComponentUtil.getUiColor("List.background");
+    public static final Color LIST_FOREGROUND = ComponentUtil.getUiColor("List.foreground");
 
-    /**
-     * Background color of table cells containing text which is stored in the
-     * database
-     */
-    public static final Color COLOR_BACKGROUND_TABLE_TEXT_STORED_IN_DATABASE = new Color(251, 249, 241);
+    public static final String TABLE_ROW_HEADER_CSS = "margin-left:3px;margin-right:3px;";
+    public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
+    public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
+    public static final int TABLE_MAX_CHARS_CELL = 45;
 
-    /**
-     * Foreground color of table cells containing text which is from an EXIF maker note
-     */
-    public static final Color COLOR_FOREGROUND_TABLE_TEXT_EXIF_MAKER_NOTE = Color.BLACK;
-
-    /**
-     * Foreground color of table cells containing text which is from an EXIF maker note
-     */
-    public static final Color COLOR_BACKGROUND_TABLE_TEXT_EXIF_MAKER_NOTE = new Color(226, 226, 255);
-
-    /**
-     * Foreground color of selected table cells
-     */
-    public static final Color COLOR_FOREGROUND_TABLE_TEXT_SELECTED = Color.BLACK;
-
-    /**
-     * Background color of selected table cells
-     */
-    public static final Color COLOR_BACKGROUND_TABLE_TEXT_SELECTED = new Color(226, 226, 255);
-
-    /**
-     * Default foreground color of table cells
-     */
-    public static final Color COLOR_FOREGROUND_TABLE_TEXT_DEFAULT = Color.BLACK;
-
-    /**
-     * Default background color of table cells
-     */
-    public static final Color COLOR_BACKGROUND_TABLE_TEXT_DEFAULT = Color.WHITE;
-
-    /**
-     * Background color of a keyword in a tree if a selected image has that keyword
-     * of a selected image
-     */
-    public static final Color COLOR_BACKGROUND_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(100, 100, 100);
-
-    /**
-     * Foreground color of a keyword in a tree if a selected image has that keyword
-     * of a selected image
-     */
-    public static final Color COLOR_FOREGROUND_KEYWORD_TREE_IMG_HAS_KEYWORD = new Color(255, 255, 255);
-
-    /**
-     * Selection foreground color of highlighted tree nodes when a popup menu
-     * was invoked obove a tree node
-     */
-    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE = Color.BLACK; // UIManager.getColor("Tree.selectionForeground")
-
-    /**
-     * Selection background color of highlighted tree nodes when a popup menu
-     * was invoked obove a tree node
-     */
-    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE = new Color(251, 232, 158); // UIManager.getColor("Tree.selectionBackground")
-
-    public static final Color COLOR_BACKGROUND_TREE_TEXT = UIManager.getColor("Tree.textBackground");
-    public static final Color COLOR_FOREGROUND_TREE_TEXT = UIManager.getColor("Tree.textForeground");
-
-    /**
-     * Selection foreground color of highlighted list items when a popup menu
-     * was invoked obove a list item
-     */
-    public static final Color COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST = COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE; // UIManager.getColor("List.selectionForeground")
-
-    /**
-     * Selection background color of highlighted list items when a popup menu
-     * was invoked obove a list item
-     */
-    public static final Color COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST = COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE; // UIManager.getColor("List.selectionBackground")
-
-    public static final Color COLOR_BACKGROUND_LIST_TEXT = UIManager.getColor("List.background");
-    public static final Color COLOR_FOREGROUND_LIST_TEXT = UIManager.getColor("List.foreground");
-
-    /**
-     * Path where all icons stored
-     */
-    private static final String PATH_ICONS = "/de/elmar_baumann/jpt/resource/icons";
-
-    /**
-     * Path to the small application's icon (16 x 16 pixels)
-     */
-    private static final String PATH_APP_ICON_SMALL = PATH_ICONS + "/icon_app_small.png";
-
-    /**
-     * Path to the medium sized application's icon (32 x 32 pixels)
-     */
-    private static final String       PATH_APP_ICON_MEDIUM = PATH_ICONS + "/icon_app_medium.png";
-    private static final List<String> APP_ICON_PATHS       = new ArrayList<String>();
-    private static final List<Image>  APP_ICONS            = new ArrayList<Image>();
+    private static final String ICONS_PATH = "/de/elmar_baumann/jpt/resource/icons";
+    private static final String SMALL_APP_ICON_PATH = ICONS_PATH + "/icon_app_small.png";
+    private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH + "/icon_app_medium.png";
+    private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
+    private static final List<Image>  APP_ICONS = new ArrayList<Image>();
 
     static {
-        APP_ICON_PATHS.add(PATH_APP_ICON_SMALL);
-        APP_ICON_PATHS.add(PATH_APP_ICON_MEDIUM);
+        APP_ICON_PATHS.add(SMALL_APP_ICON_PATH);
+        APP_ICON_PATHS.add(MEDIUM_APP_ICON_PATH);
     }
 
     static {
-        APP_ICONS.add(IconUtil.getIconImage(PATH_APP_ICON_SMALL));
-        APP_ICONS.add(IconUtil.getIconImage(PATH_APP_ICON_MEDIUM));
+        APP_ICONS.add(IconUtil.getIconImage(SMALL_APP_ICON_PATH));
+        APP_ICONS.add(IconUtil.getIconImage(MEDIUM_APP_ICON_PATH));
     }
 
-    /**
-     * Returns the application's icons (small and medium sized).
-     *
-     * @return icons
-     */
     public static List<Image> getAppIcons() {
         return APP_ICONS;
     }
 
-    /**
-     * Returns the paths to the application's icons (small and medium sized).
-     *
-     * @return Pfade
-     */
     public static List<String> getAppIconPaths() {
         return APP_ICON_PATHS;
     }
@@ -210,7 +129,7 @@ public final class AppLookAndFeel {
      *              will be returned or null if the icon of the path does not
      *              exist.
      */
-    public static Image localizedImage(String path) {
+    public static Image getLocalizedImage(String path) {
         java.net.URL imgURL = IconUtil.class.getResource(toLocalizedPath(path));
         if (imgURL != null) {
             return new ImageIcon(imgURL).getImage();
@@ -219,36 +138,9 @@ public final class AppLookAndFeel {
         }
     }
 
-    /**
-     * Returns an icon located in the application's icon path.
-     *
-     * @param  name  name of the icon file
-     * @return icon
-     */
     public static ImageIcon getIcon(String name) {
-        return IconUtil.getImageIcon(PATH_ICONS + "/" + name);
+        return IconUtil.getImageIcon(ICONS_PATH + "/" + name);
     }
-    /**
-     * CSS of the table row headers
-     */
-    public static final String TABLE_CSS_ROW_HEADER = "margin-left:3px;margin-right:3px;";
-
-    /**
-     * CSS of the table cells
-     */
-    public static final String TABLE_CSS_CELL = "margin-left:3px;margin-right:3px;";
-
-    /**
-     * Maximum character count in the table row headers before breaking into
-     * lines
-     */
-    public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
-
-    /**
-     * Maximum character count in the table cells before breaking into
-     * lines
-     */
-    public static final int TABLE_MAX_CHARS_CELL = 45;
 
     public static void set() {
         LookAndFeelUtil.setSystemLookAndFeel();
@@ -311,6 +203,7 @@ public final class AppLookAndFeel {
             UIManager.put(key, new FontUIResource(plainFont));
         }
     }
+
 
     private AppLookAndFeel() {
     }

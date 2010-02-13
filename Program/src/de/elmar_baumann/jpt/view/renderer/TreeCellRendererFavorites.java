@@ -39,7 +39,11 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
 
     private static final long           serialVersionUID  = 4280765256503091379L;
     private final        FileSystemView fileSystemView    = FileSystemView.getFileSystemView();
-    private              int            popupHighLightRow = -1;
+    private              int            tempSelRow  = -1;
+
+    public TreeCellRendererFavorites() {
+        setOpaque(true);
+    }
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -71,18 +75,18 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
                 }
             }
         }
-        boolean rowHighlighted = popupHighLightRow >= 0;
-        boolean popupRow       = row == popupHighLightRow;
-        
-        setOpaque(popupRow || rowHighlighted);
+        boolean tempSelExists = tempSelRow >= 0;
+        boolean isTempSelRow  = row == tempSelRow;
 
-        if (popupRow) {
-            setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_TREE);
-            setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_TREE);
-        } else if (rowHighlighted) {
-            setForeground(AppLookAndFeel.COLOR_FOREGROUND_TREE_TEXT);
-            setBackground(AppLookAndFeel.COLOR_BACKGROUND_TREE_TEXT);
-        }
+        setForeground(isTempSelRow || selected && !tempSelExists
+                ? AppLookAndFeel.TREE_SELECTION_FOREGROUND
+                : AppLookAndFeel.TREE_TEXT_FOREGROUND
+                );
+
+        setBackground(isTempSelRow || selected && !tempSelExists
+                ? AppLookAndFeel.TREE_SELECTION_BACKGROUND
+                : AppLookAndFeel.TREE_TEXT_BACKGROUND
+                );
     }
 
     private String getDirectoryName(File file) {
@@ -98,7 +102,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
         return name;
     }
 
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    public void setTempSelectionRow(int index) {
+        tempSelRow = index;
     }
 }

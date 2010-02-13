@@ -184,13 +184,13 @@ public final class KeywordsHelper {
 
     public static void addHighlightKeywords(Collection<String> keywords) {
         for (TreeCellRendererKeywords r : getCellRenderer()) {
-            r.addHighlightKeywords(keywords);
+            r.addSelImgKeywords(keywords);
         }
     }
 
     public static void removeHighlightKeyword(String keyword) {
         for (TreeCellRendererKeywords r : getCellRenderer()) {
-            r.removeHighlightKeyword(keyword);
+            r.removeSelImgKeyword(keyword);
         }
     }
 

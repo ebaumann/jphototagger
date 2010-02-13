@@ -56,7 +56,7 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                     number,
                     AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
-                    AppLookAndFeel.TABLE_CSS_ROW_HEADER);
+                    AppLookAndFeel.TABLE_ROW_HEADER_CSS);
 
         } else if (column == 1) {
 
@@ -64,7 +64,7 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                     TRANSLATION.translate(number, number),
                     AppLookAndFeel.TABLE_MAX_CHARS_CELL,
-                    AppLookAndFeel.TABLE_CSS_CELL);
+                    AppLookAndFeel.TABLE_CELL_CSS);
 
         } else {
 
@@ -73,7 +73,7 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                     iptcEntry.getData(),
                     AppLookAndFeel.TABLE_MAX_CHARS_CELL,
-                    AppLookAndFeel.TABLE_CSS_CELL);
+                    AppLookAndFeel.TABLE_CELL_CSS);
         }
         return cellLabel;
     }

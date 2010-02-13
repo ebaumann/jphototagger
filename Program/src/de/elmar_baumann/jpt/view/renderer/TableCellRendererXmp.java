@@ -63,14 +63,14 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                     translate(xmpPath, xmpPath),
                     AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
-                    AppLookAndFeel.TABLE_CSS_ROW_HEADER);
+                    AppLookAndFeel.TABLE_ROW_HEADER_CSS);
         } else {
             assert column < 2 : column;
             setContentFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                     xmpPropertyInfo.getValue().toString(),
                     AppLookAndFeel.TABLE_MAX_CHARS_CELL,
-                    AppLookAndFeel.TABLE_CSS_CELL);
+                    AppLookAndFeel.TABLE_CELL_CSS);
         }
         return cellLabel;
     }

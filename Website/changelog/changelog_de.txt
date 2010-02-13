@@ -5,6 +5,16 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.72 2010-02-12
+-----------------
+
+* Bearbeiten > Einstellungen, Kartenreiter "Sonstiges": Inhalt des
+  Unter-Kartenreiters "Datenbankordner" verschoben in den Unter-Kartenreiter
+  "Verschiedenes"
+* Bäume und Listen des Programmfensters: Farbe der temporären Auswahl beim
+  Öffnen des Kontextmenüs ist gleich jender der "Standardauswahl" (Linksklick
+  auf einen Eintrag)
+
 0.7.71 2010-02-12
 -----------------
 

@@ -37,11 +37,11 @@ import javax.swing.JList;
  */
 public final class ListCellRendererImageCollections extends DefaultListCellRenderer {
 
-    private static final Icon              ICON_DEFAULT                 = AppLookAndFeel.getIcon("icon_imagecollection.png");
-    private static final Color             COLOR_FOREGROUND_PREV_IMPORT = Color.BLUE;
-    private static final Map<Object, Icon> ICON_OF_VALUE                = new HashMap<Object, Icon>();
-    private static final long              serialVersionUID             = -431048760716078334L;
-    private              int               popupHighLightRow            = -1;
+    private static final Icon              ICON_DEFAULT                  = AppLookAndFeel.getIcon("icon_imagecollection.png");
+    private static final Color             SPECIAL_COLLECTION_FOREGROUND = Color.BLUE;
+    private static final Map<Object, Icon> ICON_OF_VALUE                 = new HashMap<Object, Icon>();
+    private static final long              serialVersionUID              = -431048760716078334L;
+    private              int               tempSelRow                    = -1;
 
     {
         ICON_OF_VALUE.put(ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT, AppLookAndFeel.getIcon("icon_card.png"));
@@ -49,21 +49,29 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
         ICON_OF_VALUE.put(ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED   , AppLookAndFeel.getIcon("icon_rejected.png"));
     }
 
+    public ListCellRendererImageCollections() {
+        setOpaque(true);
+    }
+
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        if (ListModelImageCollections.isSpecialCollection(value.toString()) && !isSelected) {
-            label.setForeground(COLOR_FOREGROUND_PREV_IMPORT);
-        }
-        boolean rowHighlighted = popupHighLightRow >= 0;
-        label.setOpaque(true);
-        if (index == popupHighLightRow) {
-            label.setForeground(AppLookAndFeel.COLOR_FOREGROUND_POPUP_HIGHLIGHT_LIST);
-            label.setBackground(AppLookAndFeel.COLOR_BACKGROUND_POPUP_HIGHLIGHT_LIST);
-        } else if (rowHighlighted) {
-            setForeground(AppLookAndFeel.COLOR_FOREGROUND_LIST_TEXT);
-            setBackground(AppLookAndFeel.COLOR_BACKGROUND_LIST_TEXT);
-        }
+        JLabel  label             = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        boolean specialCollection = ListModelImageCollections.isSpecialCollection(value.toString());
+        boolean tempSelExists     = tempSelRow>= 0;
+        boolean isTempSelRow      = index == tempSelRow;
+
+        label.setForeground(isTempSelRow || isSelected && !tempSelExists
+                ? AppLookAndFeel.LIST_SELECTION_FOREGROUND
+                : specialCollection
+                ? SPECIAL_COLLECTION_FOREGROUND
+                : AppLookAndFeel.LIST_FOREGROUND
+                );
+
+        label.setBackground(isTempSelRow || isSelected && !tempSelExists
+                ? AppLookAndFeel.LIST_SELECTION_BACKGROUND
+                : AppLookAndFeel.LIST_BACKGROUND
+                );
+
         label.setIcon(getIconOfValue(value));
         return label;
     }
@@ -73,7 +81,7 @@ public final class ListCellRendererImageCollections extends DefaultListCellRende
         return icon == null ? ICON_DEFAULT : icon;
     }
 
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    public void setTempSelectionRow(int index) {
+        tempSelRow = index;
     }
 }

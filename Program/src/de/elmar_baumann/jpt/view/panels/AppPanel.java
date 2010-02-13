@@ -542,7 +542,7 @@ public final class AppPanel extends javax.swing.JPanel {
         scrollPaneTextAreaSearch = new javax.swing.JScrollPane();
         textAreaSearch = new ImageTextArea();
         ((ImageTextArea) textAreaSearch).setImage(
-            AppLookAndFeel.localizedImage(
+            AppLookAndFeel.getLocalizedImage(
                 "/de/elmar_baumann/jpt/resource/images/textfield_search.png"));
         tabbedPaneSelection = new javax.swing.JTabbedPane();
         panelDirectories = new javax.swing.JPanel();

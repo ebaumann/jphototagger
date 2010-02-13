@@ -38,13 +38,13 @@ public final class ListCellRendererKeywords extends ListCellRendererExt {
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        setColors(index, label);
+        setColors(index, isSelected, label);
         label.setIcon(ICON);
         return label;
     }
 
     @Override
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
+    public void setTempSelectionRow(int index) {
+        tempSelRow= index;
     }
 }

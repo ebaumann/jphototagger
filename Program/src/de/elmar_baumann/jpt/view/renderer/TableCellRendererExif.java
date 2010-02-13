@@ -70,12 +70,12 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
                 TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                         translated.trim(),
                         AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
-                        AppLookAndFeel.TABLE_CSS_ROW_HEADER);
+                        AppLookAndFeel.TABLE_ROW_HEADER_CSS);
             } else {
                 TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                         ExifTagValueFormatter.format(exifTag),
                         AppLookAndFeel.TABLE_MAX_CHARS_CELL,
-                        AppLookAndFeel.TABLE_CSS_CELL);
+                        AppLookAndFeel.TABLE_CELL_CSS);
             }
         } else if (value instanceof ExifGpsMetadata) {
             if (column == 0) {
@@ -87,7 +87,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
                     value.toString(),
                     AppLookAndFeel.TABLE_MAX_CHARS_CELL,
-                    AppLookAndFeel.TABLE_CSS_CELL);
+                    AppLookAndFeel.TABLE_CELL_CSS);
         }
         return cellLabel;
     }

@@ -33,9 +33,9 @@ import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMetadataTemplates;
-import de.elmar_baumann.lib.componentutil.ListItemPopupHighlighter;
+import de.elmar_baumann.lib.componentutil.ListItemTempSelectionRowSetter;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
-import de.elmar_baumann.lib.componentutil.TreeCellPopupHighlighter;
+import de.elmar_baumann.lib.componentutil.TreeItemTempSelectionRowSetter;
 import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
 
 /**
@@ -78,13 +78,13 @@ public final class MouseListenerFactory {
         InputHelperDialog.INSTANCE.getPanelKeywords().getList()         .addMouseListener(new MouseListenerKeywordsList());
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().addMouseListener(new MouseListenerMetadataTemplates());
 
-        new TreeCellPopupHighlighter(appPanel.getTreeMiscMetadata(), listenerTreeExpand.getPopupMenu());
-        new TreeCellPopupHighlighter(appPanel.getTreeTimeline()    , listenerTreeExpand.getPopupMenu());
-        new TreeCellPopupHighlighter(appPanel.getTreeSelKeywords() , listenerTreeExpand.getPopupMenu());
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeMiscMetadata(), listenerTreeExpand.getPopupMenu());
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeTimeline()    , listenerTreeExpand.getPopupMenu());
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeSelKeywords() , listenerTreeExpand.getPopupMenu());
 
-        new ListItemPopupHighlighter(appPanel.getListEditKeywords()                                  , PopupMenuKeywordsList.INSTANCE);
-        new ListItemPopupHighlighter(InputHelperDialog.INSTANCE.getPanelKeywords().getList()         , PopupMenuKeywordsList.INSTANCE);
-        new ListItemPopupHighlighter(InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList(), PopupMenuMetadataTemplates.INSTANCE);
+        new ListItemTempSelectionRowSetter(appPanel.getListEditKeywords()                                  , PopupMenuKeywordsList.INSTANCE);
+        new ListItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelKeywords().getList()         , PopupMenuKeywordsList.INSTANCE);
+        new ListItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList(), PopupMenuMetadataTemplates.INSTANCE);
 
         AppLogger.logFine(getClass(), "MouseListenerFactory.Init.Finished");
         GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("MouseListenerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);

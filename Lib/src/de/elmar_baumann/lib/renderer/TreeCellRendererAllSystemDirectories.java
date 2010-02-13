@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.lib.renderer;
 
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.resource.Bundle;
@@ -41,13 +42,19 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellRenderer {
 
-    private static final long           serialVersionUID             = -1995225344254643215L;
-    private final        FileSystemView fileSystemView               = FileSystemView.getFileSystemView();
-    private              Icon           rootIcon                     = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
-    private static final String         DISPLAY_NAME_ROOT            = Bundle.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
-    private              int            popupHighLightRow            = -1;
-    private              Color          foregroundColorHighlightPopup;
-    private              Color          backgroundColorHighlightPopup;
+    private static final long           serialVersionUID   = -1995225344254643215L;
+    private final        FileSystemView fileSystemView     = FileSystemView.getFileSystemView();
+    private              Icon           rootIcon           = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
+    private static final String         DISPLAY_NAME_ROOT  = Bundle.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
+    private              int            tempSelRow         = -1;
+    private static final Color TREE_SELECTION_FOREGROUND   = ComponentUtil.getUiColor("Tree.selectionForeground");
+    private static final Color TREE_SELECTION_BACKGROUND   = ComponentUtil.getUiColor("Tree.selectionBackground");
+    private static final Color TREE_TEXT_BACKGROUND        = ComponentUtil.getUiColor("Tree.textBackground");
+    private static final Color TREE_TEXT_FOREGROUND        = ComponentUtil.getUiColor("Tree.textForeground");
+
+    public TreeCellRendererAllSystemDirectories() {
+        setOpaque(true);
+    }
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -73,7 +80,7 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
                 setText(getDirectoryName(file));
             }
         }
-        renderHighlightPopup(row);
+        renderSelectionPopup(row, selected);
         return this;
     }
 
@@ -90,23 +97,22 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
         return name;
     }
 
-    public void setHighlightColorsForPopup(Color foreground, Color background) {
-        foregroundColorHighlightPopup = foreground;
-        backgroundColorHighlightPopup = background;
+    public void setTempSelectionRow(int index) {
+        tempSelRow = index;
     }
 
-    public void setHighlightIndexForPopup(int index) {
-        popupHighLightRow = index;
-    }
+    private void renderSelectionPopup(int row, boolean selected) {
+        boolean tempSelExists = tempSelRow >= 0;
+        boolean isTempSelRow  = row == tempSelRow;
 
-    private void renderHighlightPopup(int row) {
-        if (row == popupHighLightRow && foregroundColorHighlightPopup != null &&
-                backgroundColorHighlightPopup != null) {
-            setOpaque(true);
-            setForeground(foregroundColorHighlightPopup);
-            setBackground(backgroundColorHighlightPopup);
-        } else {
-            setOpaque(false);
-        }
+        setForeground(isTempSelRow || selected && !tempSelExists
+                ? TREE_SELECTION_FOREGROUND
+                : TREE_TEXT_FOREGROUND
+                );
+
+        setBackground(isTempSelRow || selected && !tempSelExists
+                ? TREE_SELECTION_BACKGROUND
+                : TREE_TEXT_BACKGROUND
+                );
     }
 }

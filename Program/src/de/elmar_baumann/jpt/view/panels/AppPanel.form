@@ -111,7 +111,7 @@
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ImageTextArea()"/>
-                        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="((ImageTextArea) textAreaSearch).setImage(&#xa;                AppLookAndFeel.localizedImage(&#xa;                    &quot;/de/elmar_baumann/jpt/resource/images/textfield_search.png&quot;));"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="((ImageTextArea) textAreaSearch).setImage(&#xa;                AppLookAndFeel.getLocalizedImage(&#xa;                    &quot;/de/elmar_baumann/jpt/resource/images/textfield_search.png&quot;));"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
