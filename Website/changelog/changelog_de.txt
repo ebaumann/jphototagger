@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.74 2010-02-14
+-----------------
+
+* Plugin für Flickr-Upload hinzugefügt. In der ersten Version werden die Bilder
+  einfach (ohne Kommentare, Tags) hochgeladen. Hilfe: "Bearbeiten >
+  Einstellungen > Plugins > Flickr-Upload", Schaltfläche "Hilfe".
+
 0.7.73 2010-02-13
 -----------------
 
