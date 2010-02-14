@@ -18,25 +18,20 @@
  */
 package de.elmar_baumann.jpt.plugin.flickrupload;
 
-import java.util.Properties;
-
 /**
  *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-14
  */
-public class SettingsDialog extends javax.swing.JDialog {
+public class LargeMessagesDialog extends javax.swing.JDialog {
 
-    private static final long serialVersionUID = -2117242402770959470L;
+    private static final long serialVersionUID = 8014430500435229969L;
 
-    public SettingsDialog() {
+    public LargeMessagesDialog(String message) {
         super((java.awt.Frame) null, true);
         initComponents();
-    }
-
-    public void setProperties(Properties properties) {
-        panelSettings.setProperties(properties);
+        textPane.setText(message);
     }
 
     /** This method is called from within the constructor to
@@ -48,19 +43,32 @@ public class SettingsDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelSettings = new de.elmar_baumann.jpt.plugin.flickrupload.SettingsPanel();
+        scrollPane = new javax.swing.JScrollPane();
+        textPane = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle"); // NOI18N
+        setTitle(bundle.getString("LargeMessagesDialog.title")); // NOI18N
+
+        textPane.setContentType(bundle.getString("LargeMessagesDialog.textPane.contentType")); // NOI18N
+        textPane.setEditable(false);
+        scrollPane.setViewportView(textPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -72,7 +80,7 @@ public class SettingsDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SettingsDialog dialog = new SettingsDialog();
+                LargeMessagesDialog dialog = new LargeMessagesDialog(Bundle.getString("Auth.Info.GetToken.Browse"));
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -85,7 +93,8 @@ public class SettingsDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private de.elmar_baumann.jpt.plugin.flickrupload.SettingsPanel panelSettings;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTextPane textPane;
     // End of variables declaration//GEN-END:variables
 
 }

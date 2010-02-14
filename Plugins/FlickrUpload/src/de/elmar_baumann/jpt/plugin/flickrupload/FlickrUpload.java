@@ -1,19 +1,35 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * FlickrUpload - plugin for JPhotoTagger
+ * Copyright (C) 2009 by Elmar Baumann<eb@elmar-baumann.de>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package de.elmar_baumann.jpt.plugin.flickrupload;
 
+import com.aetrion.flickr.uploader.UploadMetaData;
 import com.aetrion.flickr.uploader.Uploader;
 import de.elmar_baumann.jpt.plugin.Plugin;
+import de.elmar_baumann.jpt.plugin.PluginListener.Event;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -25,39 +41,33 @@ import javax.swing.JPanel;
  */
 public final class FlickrUpload extends Plugin {
 
-    private              Uploader  uploader;
-    private static final long      serialVersionUID = 1526844548400296813L;
-    private static final String    KEY_USERNAME     = "de.elmar_baumann.jpt.plugin.flickrupload.FlickrUsername";
-    private static final String    KEY_PASSWORD     = "de.elmar_baumann.jpt.plugin.flickrupload.FlickrPassword";
-    private static final String    API_KEY          = "";
-    private static final SecretKey SEC_KEY;
-
-    static {
-        String key         = "d?=30sd#fgvjie}[]§$aslkg";
-        byte[] secKeyBytes = new byte[24];
-
-        for (int i = 0; i < secKeyBytes.length; i++) {
-            secKeyBytes[i] = (byte) key.charAt(i);
-        }
-
-        SEC_KEY = new SecretKeySpec(secKeyBytes, "DESede");
-    }
+    private static final long serialVersionUID = 1526844548400296813L;
 
     @Override
     public String getName() {
-        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle").
-                getString("FlickrUpload.Name");
+        return Bundle.getString("FlickrUpload.Name");
     }
 
     @Override
     public String getDescription() {
-        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle").
-                getString("FlickrUpload.Description");
+        return Bundle.getString("FlickrUpload.Description");
     }
 
     @Override
     public JPanel getSettingsPanel() {
-        return new SettingsPanel(getProperties());
+        SettingsPanel panel = new SettingsPanel();
+        panel.setProperties(getProperties());
+        return panel;
+    }
+
+    @Override
+    public String getHelpContentsPath() {
+        return "/de/elmar_baumann/jpt/plugin/flickrupload/help/contents.xml";
+    }
+
+    @Override
+    public String getFirstHelpPageName() {
+        return "index.html";
     }
 
     @Override
@@ -66,63 +76,43 @@ public final class FlickrUpload extends Plugin {
     }
 
     private void upload() {
-        String password = getPassword(getProperties());
-        String username = getUsername(getProperties());
-        if (!checkExistsUserData(username, password)) return;
+        new Upload(getFiles()).start();
 
-        //uploader = new Uploader(
+    }
 
-        for (File file : getFiles()) {
-            System.out.println("UP: " + file);
+    private class Upload extends Thread {
+        private final List<File> files;
+
+        Upload(List<File> files) {
+            this.files = new ArrayList<File>(files);
+            setName("Uploading images to Flickr  @ " + FlickrUpload.class.getSimpleName());
         }
-    }
 
-    private boolean checkExistsUserData(String username, String password) {
-        if (username == null || username.isEmpty() ||
-            password == null || password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, getMessageNoUserData());
-            SettingsDialog dlg = new SettingsDialog();
-            dlg.setProperties(getProperties());
-            dlg.setVisible(true);
+        @Override
+        public void run() {
+            Authorization auth = new Authorization(getProperties());
+            if (!auth.authenticate()) return;
+
+            Uploader   uploader      = new Uploader("1efba3cf4198b683047512bec1429f19", "b58bc39d8aedd4c5");
+            int        size          = files.size();
+            int        index         = 0;
+            String progressBarString = Bundle.getString("FlickrUpload.ProgressBar.String");
+
+            progressStarted(0, size, 0, progressBarString);
+            for (File file : files) {
+                try {
+                    InputStream is = new FileInputStream(file);
+                    uploader.upload(is, new UploadMetaData());
+                    progressPerformed(0, size, ++index, progressBarString);
+                } catch (Exception ex) {
+                    Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, Bundle.getString("FlickrUpload.Error.Upload", file));
+                    break;
+                }
+            }
+            progressEnded();
+            JOptionPane.showMessageDialog(null, Bundle.getString("FlickrUpload.Info.UploadCount", index));
+            notifyPluginListeners(Event.FINISHED_NO_ERRORS);
         }
-        return true;
-    }
-
-    private String getMessageNoUserData() {
-        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/cftc/Bundle").
-                getString("FlickrUpload.Error.NoUserData");
-    }
-
-    static String getUsername(Properties p) {
-        if (!p.containsKey(KEY_USERNAME)) return null;
-        return p.getProperty(KEY_USERNAME).trim();
-    }
-
-    static String getPassword(Properties p) {
-        if (!p.containsKey(KEY_PASSWORD)) return null;
-        String encryptedPassword = p.getProperty(KEY_PASSWORD).trim();
-        if (encryptedPassword.isEmpty()) return null;
-        try {
-            Crypt decrypter = new Crypt(SEC_KEY);
-            return decrypter.decrypt(encryptedPassword);
-        } catch (Exception ex) {
-            Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    static void saveUsername(String username, Properties p) {
-        p.setProperty(KEY_USERNAME, username.trim());
-    }
-
-    static boolean savePassword(String plainPassword, Properties p) {
-        try {
-            Crypt encrypter = new Crypt(SEC_KEY);
-            p.setProperty(KEY_PASSWORD, encrypter.encrypt(plainPassword));
-            return true;
-        } catch (Exception ex) {
-            Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
     }
 }

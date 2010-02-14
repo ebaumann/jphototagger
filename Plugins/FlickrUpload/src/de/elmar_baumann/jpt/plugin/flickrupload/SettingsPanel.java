@@ -1,12 +1,24 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * FlickrUpload - plugin for JPhotoTagger
+ * Copyright (C) 2009 by Elmar Baumann<eb@elmar-baumann.de>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package de.elmar_baumann.jpt.plugin.flickrupload;
 
 import java.util.Properties;
-import java.util.ResourceBundle;
-import javax.swing.JOptionPane;
 
 /**
  * 
@@ -23,93 +35,13 @@ public class SettingsPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public SettingsPanel(Properties properties) {
+    public void setProperties(Properties properties) {
         this.properties = properties;
-        initComponents();
-        initUsername();
     }
 
-    public void setProperties(Properties p) {
-        properties = p;
-        initUsername();
-    }
-
-    private void initUsername() {
-        String username = FlickrUpload.getUsername(properties);
-        if (username != null && !username.trim().isEmpty()) {
-            textFieldUsername.setText(username);
-        }
-    }
-
-    private void save() {
-        String username        = textFieldUsername.getText().trim();
-        String password        = new String(passwordField.getPassword()).trim();
-        String passwordConfirm = new String(passwordFieldConfirm.getPassword()).trim();
-
-        if (username.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()) {
-            JOptionPane.showMessageDialog(null, getErrorMessageEmpty());
-            return;
-        }
-        
-        if (!checkChangePassword()) return;
-        if (!checkPasswordsEquals(password, passwordConfirm)) return;
-
-        FlickrUpload.saveUsername(username, properties);
-        JOptionPane.showMessageDialog(null, FlickrUpload.savePassword(password, properties)
-                ? getInfoMessageSavePassword()
-                : getErrorMessageSavePassword()
-                );
-    }
-
-    private boolean checkPasswordsEquals(String p1, String p2) {
-        if (!p1.equals(p2)) {
-            JOptionPane.showMessageDialog(null, getPasswordsNotEqualErrorMessage());
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkChangePassword() {
-        String password = FlickrUpload.getPassword(properties);
-        if (password == null) return true;
-
-        PasswordConfirmDialog dlg = new PasswordConfirmDialog();
-        dlg.setVisible(true);
-        if (!dlg.isAccepted()) return false;
-
-        String oldPassword = dlg.getPassword();
-
-        if (oldPassword == null || oldPassword.trim().isEmpty()) return false;
-        if (!oldPassword.equals(password)) {
-            JOptionPane.showMessageDialog(null, getPasswordConfirmErrorMessage());
-            return false;
-        }
-        return true;
-    }
-
-    private String getPasswordsNotEqualErrorMessage() {
-        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle").
-                getString("FlickrUpload.SettingsPanel.Error.PasswordsNotEqual");
-    }
-
-    private String getPasswordConfirmErrorMessage() {
-        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle").
-                getString("FlickrUpload.SettingsPanel.Error.PasswordsConfirm");
-    }
-
-    private String getErrorMessageEmpty() {
-        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle").
-                getString("FlickrUpload.SettingsPanel.Error.Empty");
-    }
-
-    private String getInfoMessageSavePassword() {
-        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle").
-                getString("FlickrUpload.SettingsPanel.Info.SavePassword");
-    }
-
-    private String getErrorMessageSavePassword() {
-        return ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle").
-                getString("FlickrUpload.SettingsPanel.Error.SavePassword");
+    private void deleteToken() {
+        assert properties != null;
+        new Authorization(properties).deleteToken();
     }
 
     /** This method is called from within the constructor to
@@ -121,28 +53,18 @@ public class SettingsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelUsername = new javax.swing.JLabel();
-        textFieldUsername = new javax.swing.JTextField();
-        labelPassword = new javax.swing.JLabel();
-        passwordField = new javax.swing.JPasswordField();
-        buttonSave = new javax.swing.JButton();
-        labelPasswordConfirm = new javax.swing.JLabel();
-        passwordFieldConfirm = new javax.swing.JPasswordField();
+        label = new javax.swing.JLabel();
+        buttonDeleteToken = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle"); // NOI18N
-        labelUsername.setText(bundle.getString("SettingsPanel.labelUsername.text")); // NOI18N
+        label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
 
-        labelPassword.setText(bundle.getString("SettingsPanel.labelPassword.text")); // NOI18N
-
-        buttonSave.setMnemonic('s');
-        buttonSave.setText(bundle.getString("SettingsPanel.buttonSave.text")); // NOI18N
-        buttonSave.addActionListener(new java.awt.event.ActionListener() {
+        buttonDeleteToken.setText(bundle.getString("SettingsPanel.buttonDeleteToken.text")); // NOI18N
+        buttonDeleteToken.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSaveActionPerformed(evt);
+                buttonDeleteTokenActionPerformed(evt);
             }
         });
-
-        labelPasswordConfirm.setText(bundle.getString("SettingsPanel.labelPasswordConfirm.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -150,59 +72,29 @@ public class SettingsPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelUsername)
-                            .addComponent(labelPassword)
-                            .addComponent(labelPasswordConfirm))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordFieldConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(buttonSave, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                .addComponent(label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonDeleteToken)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {passwordField, textFieldUsername});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelUsername)
-                    .addComponent(textFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPassword)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordFieldConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPasswordConfirm))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSave)
+                    .addComponent(label)
+                    .addComponent(buttonDeleteToken))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {passwordField, textFieldUsername});
-
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
-        save();
-    }//GEN-LAST:event_buttonSaveActionPerformed
+    private void buttonDeleteTokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteTokenActionPerformed
+        deleteToken();
+    }//GEN-LAST:event_buttonDeleteTokenActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonSave;
-    private javax.swing.JLabel labelPassword;
-    private javax.swing.JLabel labelPasswordConfirm;
-    private javax.swing.JLabel labelUsername;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JPasswordField passwordFieldConfirm;
-    private javax.swing.JTextField textFieldUsername;
+    private javax.swing.JButton buttonDeleteToken;
+    private javax.swing.JLabel label;
     // End of variables declaration//GEN-END:variables
 }

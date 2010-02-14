@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.plugin.PluginListener;
 import de.elmar_baumann.jpt.plugin.PluginListener.Event;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,6 +66,7 @@ public final class ControllerPlugins implements ActionListener {
             if (action instanceof Plugin) {
                 Plugin plugin = (Plugin) action;
                 plugin.setFiles(selFiles);
+                plugin.setProgressBar(ProgressBar.INSTANCE.getResource(this));
                 plugin.actionPerformed(e);
             }
         }
@@ -79,6 +81,7 @@ public final class ControllerPlugins implements ActionListener {
             }
             if (Plugin.isFinished(events)) {
                 UserSettings.INSTANCE.writeToFile();
+                ProgressBar.INSTANCE.releaseResource(this);
             }
         }
     }
