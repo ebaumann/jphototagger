@@ -16,25 +16,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelUsername" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelPassword" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelPasswordConfirm" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="passwordFieldConfirm" alignment="0" min="-2" pref="235" max="-2" attributes="0"/>
-                          <Component id="passwordField" linkSize="1" alignment="0" min="-2" pref="235" max="-2" attributes="0"/>
-                          <Component id="textFieldUsername" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Component id="buttonSave" alignment="1" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="label" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="buttonDeleteToken" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -43,64 +30,31 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textFieldUsername" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonDeleteToken" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passwordField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="passwordFieldConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelPasswordConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="labelUsername">
+    <Component class="javax.swing.JLabel" name="label">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/plugin/flickrupload/Bundle.properties" key="SettingsPanel.labelUsername.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/plugin/flickrupload/Bundle.properties" key="SettingsPanel.label.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textFieldUsername">
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelPassword">
+    <Component class="javax.swing.JButton" name="buttonDeleteToken">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/plugin/flickrupload/Bundle.properties" key="SettingsPanel.labelPassword.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="passwordField">
-    </Component>
-    <Component class="javax.swing.JButton" name="buttonSave">
-      <Properties>
-        <Property name="mnemonic" type="int" value="115"/>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/plugin/flickrupload/Bundle.properties" key="SettingsPanel.buttonSave.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/plugin/flickrupload/Bundle.properties" key="SettingsPanel.buttonDeleteToken.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSaveActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteTokenActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelPasswordConfirm">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/plugin/flickrupload/Bundle.properties" key="SettingsPanel.labelPasswordConfirm.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="passwordFieldConfirm">
     </Component>
   </SubComponents>
 </Form>
