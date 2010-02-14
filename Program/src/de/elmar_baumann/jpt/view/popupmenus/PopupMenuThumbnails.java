@@ -44,6 +44,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -107,6 +108,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final        List<ActionListener>    actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final        Map<JMenuItem, Program> programOfMenuItem                    = new HashMap<JMenuItem, Program>();
     private final        Map<JMenuItem, Long>    RATING_OF_ITEM                       = new HashMap<JMenuItem, Long>();
+    private final        Map<JMenuItem, Action>  ACTION_OF_ITEM                       = new HashMap<JMenuItem, Action>();
+    private final        List<JMenuItem>         PLUGIN_MENU_ITEMS                    = new ArrayList<JMenuItem>();
 
     private void initRatingOfItem() {
         RATING_OF_ITEM.put(itemRating0, Long.valueOf(0));
@@ -184,7 +187,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
         for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
             plugin.setProperties(properties);
             plugin.setLogger(logger);
-            menuPlugins.add(plugin);
+            JMenuItem item = new JMenuItem(plugin.getName());
+            menuPlugins.add(item);
+            ACTION_OF_ITEM.put(item, plugin);
+            PLUGIN_MENU_ITEMS.add(item);
         }
     }
 
@@ -211,6 +217,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
             }
         }
         menuPrograms.setEnabled(menuPrograms.getItemCount() > 0);
+    }
+
+    public Action getActionOfItem(JMenuItem item) {
+        return ACTION_OF_ITEM.get(item);
     }
 
     @Override
@@ -410,16 +420,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     public Set<JMenuItem> getPluginMenuItems() {
-        Set<JMenuItem> items     = new HashSet<JMenuItem>();
-        int            itemCount = menuPlugins.getItemCount();
-
-        for (int i = 0; i < itemCount; i++) {
-            JMenuItem item = menuPlugins.getItem(i);
-            if (item != null && item.getAction() instanceof Plugin) {
-                items.add(item);
-            }
-        }
-        return items;
+        return new HashSet<JMenuItem>(PLUGIN_MENU_ITEMS);
     }
 
     public synchronized void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {
