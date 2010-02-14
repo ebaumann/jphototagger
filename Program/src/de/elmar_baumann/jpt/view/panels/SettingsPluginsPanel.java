@@ -54,7 +54,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
         // Plugins have to be the same instances used in the menu items
         for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
-            Action action = item.getAction();
+            Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
             if (action instanceof Plugin) {
                 Plugin plugin = (Plugin) action;
                 JPanel panel = plugin.getSettingsPanel();
