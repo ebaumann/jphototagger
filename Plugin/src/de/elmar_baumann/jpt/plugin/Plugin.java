@@ -48,8 +48,9 @@ public abstract class Plugin extends AbstractAction {
     private              Logger              logger;
     private              Properties          properties;
     private              JProgressBar        progressBar;
-    private final        List<File>          files = new ArrayList<File>();
-    private final        Set<PluginListener> pluginListeners = Collections.synchronizedSet(new HashSet<PluginListener>());
+    private final        List<File>          files            = new ArrayList<File>();
+    private final        Set<PluginListener> pluginListeners  = Collections.synchronizedSet(new HashSet<PluginListener>());
+    private              boolean             pBarStringPainted;
 
     protected Plugin() {
         putValues();
@@ -76,6 +77,9 @@ public abstract class Plugin extends AbstractAction {
      */
     public void setProgressBar(JProgressBar progressBar) {
         this.progressBar = progressBar;
+        if (progressBar != null) {
+            pBarStringPainted = progressBar.isStringPainted();
+        }
     }
 
     /**
@@ -270,5 +274,54 @@ public abstract class Plugin extends AbstractAction {
      */
     public static boolean finishedNoErrors(Collection<Event> events) {
         return events.contains(Event.FINISHED_NO_ERRORS);
+    }
+
+    /**
+     * Paints the progress bar start event.
+     *
+     * @param minimum miniumum
+     * @param maximum maximum
+     * @param value   current value
+     * @param string  string to paint onto progress bar or null
+     */
+    protected void progressStarted(int minimum, int maximum, int value, String string) {
+        setProgressBar(0, maximum, value, string);
+    }
+
+    /**
+     * Paints a progress bar progress event.
+     *
+     * @param minimum minimum
+     * @param maximum maximum
+     * @param value   current value
+     * @param string  string to paint onto progress bar or null
+     */
+    protected void progressPerformed(int minimum, int maximum, int value, String string) {
+        setProgressBar(minimum, maximum, value, string);
+    }
+
+    /**
+     * Paints the progress bar progress event.
+     */
+    protected void progressEnded() {
+        if (progressBar != null) {
+            if (progressBar.isStringPainted()) {
+                progressBar.setString("");
+            }
+            progressBar.setStringPainted(pBarStringPainted);
+            progressBar.setValue(0);
+        }
+    }
+
+    private void setProgressBar(final int minimum, final int maximum, final int value, final String string) {
+        if (progressBar != null) {
+            progressBar.setMinimum(minimum);
+            progressBar.setMaximum(maximum);
+            progressBar.setValue(value);
+            if (string != null) {
+                progressBar.setStringPainted(true);
+                progressBar.setString(string);
+            }
+        }
     }
 }
