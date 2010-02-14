@@ -48,7 +48,7 @@ public final class ControllerPlugins implements ActionListener {
     private void listen() {
         for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
             item.addActionListener(this);
-            Action action = item.getAction();
+            Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
             if (action instanceof Plugin) {
                 ((Plugin) action).addPluginListener(new Listener());
             }
@@ -58,10 +58,10 @@ public final class ControllerPlugins implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-        List<File> selFiles = GUI.INSTANCE.getAppPanel().getPanelThumbnails().
-                getSelectedFiles();
+        List<File> selFiles =
+                GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
         if (selFiles.size() > 0 && src instanceof JMenuItem) {
-            Action action = ((JMenuItem) src).getAction();
+            Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem((JMenuItem) src);
             if (action instanceof Plugin) {
                 Plugin plugin = (Plugin) action;
                 plugin.setFiles(selFiles);
