@@ -29,7 +29,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -162,16 +161,6 @@ public final class PersistentThumbnails {
         }
     }
 
-    private static String getCanonicalFilepath(String filename) {
-        File file = new File(filename);
-        try {
-            return file.getCanonicalPath();
-        } catch (IOException ex) {
-            AppLogger.logSevere(PersistentThumbnails.class, ex);
-        }
-        return "";
-    }
-
     /* Compute an MD5 hash from a fully canonicalized filename.
      * @return MD5 filename or null on errors
      */
@@ -184,7 +173,7 @@ public final class PersistentThumbnails {
             return null;
         }
         md5.reset();
-        md5.update(("file://" + getCanonicalFilepath(cFilename)).getBytes());
+        md5.update(("file://" + cFilename).getBytes());
         byte[] result = md5.digest();
 
         StringBuffer hex = new StringBuffer();
