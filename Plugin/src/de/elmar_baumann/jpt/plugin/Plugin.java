@@ -82,7 +82,7 @@ public abstract class Plugin {
     }
 
     /**
-     * Returns all actions of this plugin.
+     * Returns all actions of this plugin (all what the plugin can do).
      *
      * @return actions ordered for presentation in a menu
      */
