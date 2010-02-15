@@ -49,26 +49,21 @@ public final class ControllerPlugins implements ActionListener {
     private void listen() {
         for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
             item.addActionListener(this);
-            Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
-            if (action instanceof Plugin) {
-                ((Plugin) action).addPluginListener(new Listener());
-            }
+            PopupMenuThumbnails.INSTANCE.getPluginOfItem(item).addPluginListener(new Listener());
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-        List<File> selFiles =
-                GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
-        if (selFiles.size() > 0 && src instanceof JMenuItem) {
-            Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem((JMenuItem) src);
-            if (action instanceof Plugin) {
-                Plugin plugin = (Plugin) action;
-                plugin.setFiles(selFiles);
-                plugin.setProgressBar(ProgressBar.INSTANCE.getResource(this));
-                plugin.actionPerformed(e);
-            }
+        List<File> selFiles = GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
+        if (selFiles.size() > 0) {
+            JMenuItem item = (JMenuItem) src;
+            Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
+            Plugin plugin = PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
+            plugin.setFiles(selFiles);
+            plugin.setProgressBar(ProgressBar.INSTANCE.getResource(this));
+            action.actionPerformed(e);
         }
     }
 

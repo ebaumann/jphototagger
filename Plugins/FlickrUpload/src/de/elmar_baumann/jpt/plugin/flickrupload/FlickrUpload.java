@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.plugin.flickrupload;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.aetrion.flickr.uploader.UploadMetaData;
 import com.aetrion.flickr.uploader.Uploader;
+import de.elmar_baumann.jpt.plugin.ImageUtil;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.plugin.PluginListener.Event;
 import de.elmar_baumann.jpt.plugin.Xmp;
@@ -28,9 +29,12 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -42,7 +46,7 @@ import javax.swing.JPanel;
  */
 public final class FlickrUpload extends Plugin {
 
-    private static final long serialVersionUID = 1526844548400296813L;
+    private final UploadAction uploadAction = new UploadAction();
 
     @Override
     public String getName() {
@@ -71,14 +75,24 @@ public final class FlickrUpload extends Plugin {
         return "index.html";
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        upload();
+    private class UploadAction extends AbstractAction {
+
+        private static final long serialVersionUID = -5807124252712511456L;
+
+        public UploadAction() {
+            putValue(Action.NAME, getName());
+            putValue(Action.SMALL_ICON, ImageUtil.getImageIcon("/de/elmar_baumann/jpt/plugin/flickrupload/flickr.png"));
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new Upload(getFiles()).start();
+        }
     }
 
-    private void upload() {
-        new Upload(getFiles()).start();
-
+    @Override
+    public List<? extends Action> getActions() {
+        return Arrays.asList(uploadAction);
     }
 
     private class Upload extends Thread {

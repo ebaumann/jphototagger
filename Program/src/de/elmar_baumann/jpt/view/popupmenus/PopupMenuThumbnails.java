@@ -38,13 +38,13 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -109,7 +109,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private final        Map<JMenuItem, Program> programOfMenuItem                    = new HashMap<JMenuItem, Program>();
     private final        Map<JMenuItem, Long>    RATING_OF_ITEM                       = new HashMap<JMenuItem, Long>();
     private final        Map<JMenuItem, Action>  ACTION_OF_ITEM                       = new HashMap<JMenuItem, Action>();
-    private final        List<JMenuItem>         PLUGIN_MENU_ITEMS                    = new ArrayList<JMenuItem>();
+    private final        Map<JMenuItem, Plugin>  PLUGIN_OF_ITEM                       = new HashMap<JMenuItem, Plugin>();
 
     private void initRatingOfItem() {
         RATING_OF_ITEM.put(itemRating0, Long.valueOf(0));
@@ -187,10 +187,37 @@ public final class PopupMenuThumbnails extends JPopupMenu
         for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
             plugin.setProperties(properties);
             plugin.setLogger(logger);
-            JMenuItem item = new JMenuItem(plugin.getName());
-            menuPlugins.add(item);
-            ACTION_OF_ITEM.put(item, plugin);
-            PLUGIN_MENU_ITEMS.add(item);
+            addItemsOf(plugin);
+        }
+    }
+
+    private void addItemsOf(Plugin plugin) {
+        List<? extends Action> pluginActions = plugin.getActions();
+        int                    actionCount   = pluginActions.size();
+        List<JMenuItem>        pluginItems   = new ArrayList<JMenuItem>(actionCount);
+
+        for (Action action : pluginActions) {
+            Object value = action.getValue(Action.SMALL_ICON);
+            Icon actionIcon = null;
+            if (value instanceof Icon) actionIcon = (Icon) value;
+            String actionName = action.getValue(Action.NAME).toString();
+            JMenuItem pluginItem = new JMenuItem( actionName, actionIcon);
+            pluginItems.add(pluginItem);
+            ACTION_OF_ITEM.put(pluginItem, action);
+        }
+
+        for (JMenuItem pluginItem : pluginItems) {
+            PLUGIN_OF_ITEM.put(pluginItem, plugin);
+        }
+
+        if (pluginItems.size() == 1) {
+            menuPlugins.add(pluginItems.get(0));
+        } else if (pluginItems.size() > 1) { // Adding submenu
+            JMenu pluginMenu = new JMenu(plugin.getName());
+            for (JMenuItem pluginItem : pluginItems) {
+                pluginMenu.add(pluginItem);
+            }
+            menuPlugins.add(pluginMenu);
         }
     }
 
@@ -420,7 +447,11 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     public Set<JMenuItem> getPluginMenuItems() {
-        return new HashSet<JMenuItem>(PLUGIN_MENU_ITEMS);
+        return PLUGIN_OF_ITEM.keySet();
+    }
+
+    public Plugin getPluginOfItem(JMenuItem item) {
+        return PLUGIN_OF_ITEM.get(item);
     }
 
     public synchronized void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {

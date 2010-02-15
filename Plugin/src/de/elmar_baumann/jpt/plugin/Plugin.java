@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -37,28 +36,17 @@ import javax.swing.JProgressBar;
 /**
  * Base class for Plugins.
  *
- * A plugin processes image files.
- *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-27
  */
-public abstract class Plugin extends AbstractAction {
+public abstract class Plugin {
 
-    private static final long                serialVersionUID = -7687802754449125574L;
-    private              Logger              logger;
-    private              Properties          properties;
-    private              JProgressBar        progressBar;
-    private final        List<File>          files            = new ArrayList<File>();
-    private final        Set<PluginListener> pluginListeners  = Collections.synchronizedSet(new HashSet<PluginListener>());
-    private              boolean             pBarStringPainted;
-
-    protected Plugin() {
-        putValues();
-    }
-
-    private void putValues() {
-        putValue(Action.NAME, getName());
-    }
+    private       Logger              logger;
+    private       Properties          properties;
+    private       JProgressBar        progressBar;
+    private final List<File>          files            = new ArrayList<File>();
+    private final Set<PluginListener> pluginListeners  = Collections.synchronizedSet(new HashSet<PluginListener>());
+    private       boolean             pBarStringPainted;
 
     /**
      * Sets a logger for logging status or error messages.
@@ -92,6 +80,13 @@ public abstract class Plugin extends AbstractAction {
     public void setProperties(Properties properties) {
         this.properties = properties;
     }
+
+    /**
+     * Returns all actions of this plugin.
+     *
+     * @return actions ordered for presentation in a menu
+     */
+    public abstract List<? extends Action> getActions();
 
     /**
      * Returns the logger.
