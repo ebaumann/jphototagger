@@ -106,6 +106,7 @@ public final class FlickrUpload extends Plugin {
 
         @Override
         public void run() {
+            if (!confirmUpload()) return;
             Authorization auth = new Authorization(getProperties());
             if (!auth.authenticate()) return;
 
@@ -144,34 +145,43 @@ public final class FlickrUpload extends Plugin {
 
         private UploadMetaData getUploadMetaData(File imageFile, Settings settings) {
             UploadMetaData umd = new UploadMetaData();
+
             File sidecarFile = Xmp.getSidecarfileOf(imageFile);
             if (sidecarFile == null) return umd;
+
             List<XMPPropertyInfo> pInfos = Xmp.getPropertyInfosOfSidecarFile(sidecarFile);
             if (pInfos == null) return umd;
-            List<String> properties = null;
+            
+            List<String> values = null;
+            String       value  = null;
 
             if (settings.isAddDcDescription()) {
-                properties = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.DC_DESCRIPTION);
-                for (String p : properties) {
-                    umd.setDescription(p);
+                value = Xmp.getPropertyValueFrom(pInfos, Xmp.PropertyValue.DC_DESCRIPTION);
+                if (value != null && !value.isEmpty()) {
+                    umd.setDescription(value);
                 }
             }
 
             if (settings.isAddPhotoshopHeadline()) {
-                properties = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.PHOTOSHOP_HEADLINE);
-                for (String p : properties) {
-                    umd.setDescription(p);
+                value = Xmp.getPropertyValueFrom(pInfos, Xmp.PropertyValue.PHOTOSHOP_HEADLINE);
+                if (value != null && !value.isEmpty()) {
+                    umd.setTitle(value);
                 }
             }
 
             if (settings.isAddDcSubjects()) {
-                properties = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.DC_SUBJECT);
-                if (!properties.isEmpty()) {
-                    umd.setTags(properties);
+                values = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.DC_SUBJECT);
+                if (!values.isEmpty()) {
+                    umd.setTags(values);
                 }
             }
 
             return umd;
+        }
+
+        private boolean confirmUpload() {
+            return JOptionPane.showConfirmDialog(null, Bundle.getString("FlickrUpload.Confirm.Upload", files.size()))
+                    == JOptionPane.YES_OPTION;
         }
     }
 }
