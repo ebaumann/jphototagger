@@ -206,7 +206,7 @@ public final class Xmp {
     public static File getSidecarfileOf(File imageFile) {
         if (imageFile == null) throw new NullPointerException("imageFile == null");
 
-        String imgFilename    = imageFile.getName();
+        String imgFilename    = imageFile.getAbsolutePath();
         int    indexExtension = imgFilename.lastIndexOf(".");
 
         if (indexExtension > 0) {
