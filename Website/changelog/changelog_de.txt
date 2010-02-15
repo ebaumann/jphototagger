@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.75 2010-02-14
+-----------------
+
+* Vorschaubilder: Cache nutzt wieder absolute statt kanonische URIs (sonst
+  würden alle bisherige Vorschaubilder neu erzeugt).
+
+
 0.7.74 2010-02-14
 -----------------
 
