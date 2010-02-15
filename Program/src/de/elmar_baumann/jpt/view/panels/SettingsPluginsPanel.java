@@ -28,8 +28,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.Action;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -51,19 +49,14 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     }
 
     private void postInitComponents() {
-
         // Plugins have to be the same instances used in the menu items
-        for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
-            Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
-            if (action instanceof Plugin) {
-                Plugin plugin = (Plugin) action;
-                JPanel panel = plugin.getSettingsPanel();
-                if (panel != null) {
-                    helpContentsPathOfTab.put(panel, new Pair<String, String>(
-                                                plugin.getHelpContentsPath(),
-                                                plugin.getFirstHelpPageName()));
-                    tabbedPane.add(plugin.getName(), panel);
-                }
+        for (Plugin plugin : PopupMenuThumbnails.INSTANCE.getPlugins()) {
+            JPanel panel = plugin.getSettingsPanel();
+            if (panel != null) {
+                helpContentsPathOfTab.put(panel, new Pair<String, String>(
+                                            plugin.getHelpContentsPath(),
+                                            plugin.getFirstHelpPageName()));
+                tabbedPane.add(plugin.getName(), panel);
             }
         }
         MnemonicUtil.setMnemonics((Container) this);
