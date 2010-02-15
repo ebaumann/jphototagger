@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.76 2010-02-15
+-----------------
+
+* Plugin Flickr-Upload lädt auf Wunsch Stichwörter (Tags), Bildtitel und
+  Bildbeschreibung hoch mit den Bildern: Bearbeiten > Einstellungen > Plugins >
+  Flickr-Upload. Siehe dort auch die Hilfe (Schaltfläche "Hilfe").
+
 0.7.75 2010-02-14
 -----------------
 
