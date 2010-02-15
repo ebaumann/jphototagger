@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.plugin.PluginListener.Event;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -81,6 +80,7 @@ public final class FlickrUpload extends Plugin {
     }
 
     private class Upload extends Thread {
+
         private final List<File> files;
 
         Upload(List<File> files) {
@@ -93,21 +93,31 @@ public final class FlickrUpload extends Plugin {
             Authorization auth = new Authorization(getProperties());
             if (!auth.authenticate()) return;
 
-            Uploader   uploader      = new Uploader("1efba3cf4198b683047512bec1429f19", "b58bc39d8aedd4c5");
-            int        size          = files.size();
-            int        index         = 0;
-            String progressBarString = Bundle.getString("FlickrUpload.ProgressBar.String");
+            Uploader        uploader          = new Uploader("1efba3cf4198b683047512bec1429f19", "b58bc39d8aedd4c5");
+            int             size              = files.size();
+            int             index             = 0;
+            String          progressBarString = Bundle.getString("FlickrUpload.ProgressBar.String");
+            FileInputStream is                = null;
 
             progressStarted(0, size, 0, progressBarString);
             for (File file : files) {
                 try {
-                    InputStream is = new FileInputStream(file);
+                    is = new FileInputStream(file);
                     uploader.upload(is, new UploadMetaData());
+                    is.close();
                     progressPerformed(0, size, ++index, progressBarString);
                 } catch (Exception ex) {
                     Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, Bundle.getString("FlickrUpload.Error.Upload", file));
                     break;
+                } finally {
+                    if (is != null) {
+                        try {
+                            is.close();
+                        } catch (Exception ex) {
+                            Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
             }
             progressEnded();

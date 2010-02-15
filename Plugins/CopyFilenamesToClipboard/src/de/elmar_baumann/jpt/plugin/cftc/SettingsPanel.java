@@ -100,7 +100,6 @@ public class SettingsPanel extends javax.swing.JPanel {
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            assert value instanceof String : "Not a String: " + value;
             if (value instanceof String) {
                 String delimiter = (String) value;
                 String description = model.getDescription(delimiter);

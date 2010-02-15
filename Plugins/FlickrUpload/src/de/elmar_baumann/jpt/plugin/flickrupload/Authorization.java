@@ -39,25 +39,6 @@ final class Authorization {
         return authInterface;
     }
 
-    public Auth getAuth() {
-        return auth;
-    }
-
-    public String getFrob() {
-        assert authenticated;
-        return frob;
-    }
-
-    public RequestContext getRequestContext() {
-        assert authenticated;
-        return requestContext;
-    }
-
-    public String getToken() {
-        assert authenticated;
-        return token;
-    }
-
     public void deleteToken() {
         properties.remove(KEY_TOKEN);
     }
