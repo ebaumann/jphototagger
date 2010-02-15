@@ -29,6 +29,7 @@ import java.util.Properties;
 public class SettingsPanel extends javax.swing.JPanel {
 
     private static final long       serialVersionUID = -7766362003081534388L;
+    private              Settings   settings;
     private              Properties properties;
 
     public SettingsPanel() {
@@ -37,11 +38,19 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     public void setProperties(Properties properties) {
         this.properties = properties;
+        settings = new Settings(properties);
+        readProperties();
     }
 
     private void deleteToken() {
         assert properties != null;
         new Authorization(properties).deleteToken();
+    }
+
+    private void readProperties() {
+        checkBoxDcDescription.setSelected(settings.isAddDcDescription());
+        checkBoxDcSubjects.setSelected(settings.isAddDcSubjects());
+        checkBoxPhotoshopHeadline.setSelected(settings.isAddPhotoshopHeadline());
     }
 
     /** This method is called from within the constructor to
@@ -55,6 +64,10 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         label = new javax.swing.JLabel();
         buttonDeleteToken = new javax.swing.JButton();
+        panelXmp = new javax.swing.JPanel();
+        checkBoxDcSubjects = new javax.swing.JCheckBox();
+        checkBoxPhotoshopHeadline = new javax.swing.JCheckBox();
+        checkBoxDcDescription = new javax.swing.JCheckBox();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/plugin/flickrupload/Bundle"); // NOI18N
         label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
@@ -66,16 +79,65 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
 
+        panelXmp.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsPanel.panelXmp.border.title"))); // NOI18N
+
+        checkBoxDcSubjects.setText(bundle.getString("SettingsPanel.checkBoxDcSubjects.text")); // NOI18N
+        checkBoxDcSubjects.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDcSubjectsActionPerformed(evt);
+            }
+        });
+
+        checkBoxPhotoshopHeadline.setText(bundle.getString("SettingsPanel.checkBoxPhotoshopHeadline.text")); // NOI18N
+        checkBoxPhotoshopHeadline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxPhotoshopHeadlineActionPerformed(evt);
+            }
+        });
+
+        checkBoxDcDescription.setText(bundle.getString("SettingsPanel.checkBoxDcDescription.text")); // NOI18N
+        checkBoxDcDescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDcDescriptionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelXmpLayout = new javax.swing.GroupLayout(panelXmp);
+        panelXmp.setLayout(panelXmpLayout);
+        panelXmpLayout.setHorizontalGroup(
+            panelXmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelXmpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelXmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxDcSubjects)
+                    .addComponent(checkBoxPhotoshopHeadline)
+                    .addComponent(checkBoxDcDescription))
+                .addContainerGap(142, Short.MAX_VALUE))
+        );
+        panelXmpLayout.setVerticalGroup(
+            panelXmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelXmpLayout.createSequentialGroup()
+                .addComponent(checkBoxDcSubjects)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxPhotoshopHeadline)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxDcDescription)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonDeleteToken)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelXmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonDeleteToken)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,6 +146,8 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label)
                     .addComponent(buttonDeleteToken))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelXmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -92,9 +156,31 @@ public class SettingsPanel extends javax.swing.JPanel {
         deleteToken();
     }//GEN-LAST:event_buttonDeleteTokenActionPerformed
 
+    private void checkBoxDcSubjectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDcSubjectsActionPerformed
+        if (settings != null) {
+            settings.setAddDcSubjects(checkBoxDcSubjects.isSelected());
+        }
+    }//GEN-LAST:event_checkBoxDcSubjectsActionPerformed
+
+    private void checkBoxPhotoshopHeadlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxPhotoshopHeadlineActionPerformed
+        if (settings != null) {
+            settings.setAddPhotoshopHeadline(checkBoxPhotoshopHeadline.isSelected());
+        }
+    }//GEN-LAST:event_checkBoxPhotoshopHeadlineActionPerformed
+
+    private void checkBoxDcDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDcDescriptionActionPerformed
+        if (settings != null) {
+            settings.setAddDcDescription(checkBoxDcDescription.isSelected());
+        }
+    }//GEN-LAST:event_checkBoxDcDescriptionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDeleteToken;
+    private javax.swing.JCheckBox checkBoxDcDescription;
+    private javax.swing.JCheckBox checkBoxDcSubjects;
+    private javax.swing.JCheckBox checkBoxPhotoshopHeadline;
     private javax.swing.JLabel label;
+    private javax.swing.JPanel panelXmp;
     // End of variables declaration//GEN-END:variables
 }
