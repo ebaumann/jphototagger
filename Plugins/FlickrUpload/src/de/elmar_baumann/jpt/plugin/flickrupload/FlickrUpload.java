@@ -18,10 +18,12 @@
  */
 package de.elmar_baumann.jpt.plugin.flickrupload;
 
+import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.aetrion.flickr.uploader.UploadMetaData;
 import com.aetrion.flickr.uploader.Uploader;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.plugin.PluginListener.Event;
+import de.elmar_baumann.jpt.plugin.Xmp;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -98,12 +100,13 @@ public final class FlickrUpload extends Plugin {
             int             index             = 0;
             String          progressBarString = Bundle.getString("FlickrUpload.ProgressBar.String");
             FileInputStream is                = null;
+            Settings        settings          = new Settings(getProperties());
 
             progressStarted(0, size, 0, progressBarString);
             for (File file : files) {
                 try {
                     is = new FileInputStream(file);
-                    uploader.upload(is, new UploadMetaData());
+                    uploader.upload(is, getUploadMetaData(file, settings));
                     is.close();
                     progressPerformed(0, size, ++index, progressBarString);
                 } catch (Exception ex) {
@@ -123,6 +126,38 @@ public final class FlickrUpload extends Plugin {
             progressEnded();
             JOptionPane.showMessageDialog(null, Bundle.getString("FlickrUpload.Info.UploadCount", index));
             notifyPluginListeners(Event.FINISHED_NO_ERRORS);
+        }
+
+        private UploadMetaData getUploadMetaData(File imageFile, Settings settings) {
+            UploadMetaData umd = new UploadMetaData();
+            File sidecarFile = Xmp.getSidecarfileOf(imageFile);
+            if (sidecarFile == null) return umd;
+            List<XMPPropertyInfo> pInfos = Xmp.getPropertyInfosOfSidecarFile(sidecarFile);
+            if (pInfos == null) return umd;
+            List<String> properties = null;
+
+            if (settings.isAddDcDescription()) {
+                properties = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.DC_DESCRIPTION);
+                for (String p : properties) {
+                    umd.setDescription(p);
+                }
+            }
+
+            if (settings.isAddPhotoshopHeadline()) {
+                properties = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.PHOTOSHOP_HEADLINE);
+                for (String p : properties) {
+                    umd.setDescription(p);
+                }
+            }
+
+            if (settings.isAddDcSubjects()) {
+                properties = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.DC_SUBJECT);
+                if (!properties.isEmpty()) {
+                    umd.setTags(properties);
+                }
+            }
+
+            return umd;
         }
     }
 }
