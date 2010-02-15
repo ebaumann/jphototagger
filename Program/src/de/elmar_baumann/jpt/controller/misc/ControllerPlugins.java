@@ -62,6 +62,7 @@ public final class ControllerPlugins implements ActionListener {
             Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
             Plugin plugin = PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
             plugin.setFiles(selFiles);
+            plugin.setProperties(UserSettings.INSTANCE.getProperties());
             plugin.setProgressBar(ProgressBar.INSTANCE.getResource(this));
             action.actionPerformed(e);
         }
