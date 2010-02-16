@@ -18,6 +18,9 @@
  */
 package de.elmar_baumann.lib.resource;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Resource that should't be used by two different objects at the same time. The
  * owner gets the resource only <em>once</em> by calling
@@ -43,9 +46,9 @@ package de.elmar_baumann.lib.resource;
  */
 public class MutualExcludedResource<T> {
 
-    private T resource = null;
-    private boolean locked = false;
-    private Object owner = null;
+    private T       resource = null;
+    private boolean locked   = false;
+    private Object  owner    = null;
 
     /**
      * Returns, whether a resource can be used: It exists (is not null)
@@ -70,12 +73,12 @@ public class MutualExcludedResource<T> {
      * @see #isAvailable()
      */
     public synchronized T getResource(Object owner) {
-        if (owner == null)
-            throw new NullPointerException("owner == null");
+        if (owner == null) throw new NullPointerException("owner == null");
 
         if (isAvailable()) {
             setLocked(true);
             setOwner(owner);
+            Logger.getLogger(MutualExcludedResource.class.getName()).log(Level.FINEST, Bundle.getString("MutualExcludedResource.Info.Get", resource, owner));
             return resource;
         }
         return null;
@@ -90,12 +93,12 @@ public class MutualExcludedResource<T> {
      *         {@link #isAvailable()} returns <code>true</code>.
      */
     public synchronized boolean releaseResource(Object owner) {
-        if (owner == null)
-            throw new NullPointerException("o == null");
+        if (owner == null) throw new NullPointerException("o == null");
 
         if (isLocked() && owner != null && owner == getOwner()) {
             this.owner = null;
             setLocked(false);
+            Logger.getLogger(MutualExcludedResource.class.getName()).log(Level.FINEST, Bundle.getString("MutualExcludedResource.Info.Release", resource, owner));
             return true;
         }
         return false;
@@ -108,8 +111,7 @@ public class MutualExcludedResource<T> {
      * @param resource resource
      */
     protected synchronized void setResource(T resource) {
-        if (resource == null)
-            throw new NullPointerException("resource == null");
+        if (resource == null) throw new NullPointerException("resource == null");
 
         this.resource = resource;
     }
@@ -140,7 +142,6 @@ public class MutualExcludedResource<T> {
      * @param owner  owner
      */
     private synchronized void setOwner(Object owner) {
-        assert owner != null;
         this.owner = owner;
     }
 
