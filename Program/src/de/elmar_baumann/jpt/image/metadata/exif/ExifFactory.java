@@ -92,6 +92,11 @@ final class ExifFactory {
                 int      day      = new Integer(datestring.substring(8, 10)).intValue();
                 Calendar calendar = new GregorianCalendar();
 
+                if (year < 1839) {
+                    AppLogger.logInfo(ExifFactory.class, "ExifFactory.Info.TooOldYear");
+                    return;
+                }
+
                 calendar.set(year, month - 1, day);
                 try {
                     exif.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
