@@ -21,10 +21,10 @@ package de.elmar_baumann.jpt.plugin.flickrupload;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.aetrion.flickr.uploader.UploadMetaData;
 import com.aetrion.flickr.uploader.Uploader;
-import de.elmar_baumann.jpt.plugin.ImageUtil;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.plugin.PluginListener.Event;
-import de.elmar_baumann.jpt.plugin.Xmp;
+import de.elmar_baumann.lib.image.metadata.xmp.Xmp;
+import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +37,6 @@ import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -50,19 +49,19 @@ import javax.swing.JPanel;
 public final class FlickrUpload extends Plugin implements Serializable {
 
     private static final long serialVersionUID = -2935460271965834936L;
-    private static final Icon icon = ImageUtil.getImageIcon("/de/elmar_baumann/jpt/plugin/flickrupload/flickr.png");
+    private static final Icon icon             = IconUtil.getImageIcon("/de/elmar_baumann/jpt/plugin/flickrupload/flickr.png");
 
 
     private final UploadAction uploadAction = new UploadAction();
 
     @Override
     public String getName() {
-        return Bundle.getString("FlickrUpload.Name");
+        return FlickrBundle.INSTANCE.getString("FlickrUpload.Name");
     }
 
     @Override
     public String getDescription() {
-        return Bundle.getString("FlickrUpload.Description");
+        return FlickrBundle.INSTANCE.getString("FlickrUpload.Description");
     }
 
     @Override
@@ -125,7 +124,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
             Uploader        uploader          = new Uploader("1efba3cf4198b683047512bec1429f19", "b58bc39d8aedd4c5");
             int             size              = files.size();
             int             index             = 0;
-            String          progressBarString = Bundle.getString("FlickrUpload.ProgressBar.String");
+            String          progressBarString = FlickrBundle.INSTANCE.getString("FlickrUpload.ProgressBar.String");
             FileInputStream is                = null;
             Settings        settings          = new Settings(getProperties());
 
@@ -138,7 +137,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
                     progressPerformed(0, size, ++index, progressBarString);
                 } catch (Exception ex) {
                     Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, Bundle.getString("FlickrUpload.Error.Upload", file));
+                    JOptionPane.showMessageDialog(null, FlickrBundle.INSTANCE.getString("FlickrUpload.Error.Upload", file));
                     break;
                 } finally {
                     if (is != null) {
@@ -151,7 +150,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
                 }
             }
             progressEnded();
-            JOptionPane.showMessageDialog(null, Bundle.getString("FlickrUpload.Info.UploadCount", index));
+            JOptionPane.showMessageDialog(null, FlickrBundle.INSTANCE.getString("FlickrUpload.Info.UploadCount", index));
             notifyPluginListeners(Event.FINISHED_NO_ERRORS);
         }
 
@@ -193,8 +192,8 @@ public final class FlickrUpload extends Plugin implements Serializable {
 
         private boolean confirmUpload() {
             return JOptionPane.showConfirmDialog(null,
-                    Bundle.getString("FlickrUpload.Confirm.Upload", files.size()),
-                    Bundle.getString("FlickrUpload.Confirm.Upload.Title"),
+                    FlickrBundle.INSTANCE.getString("FlickrUpload.Confirm.Upload", files.size()),
+                    FlickrBundle.INSTANCE.getString("FlickrUpload.Confirm.Upload.Title"),
                     JOptionPane.YES_NO_OPTION
                     )
                     == JOptionPane.YES_OPTION;
