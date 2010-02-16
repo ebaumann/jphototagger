@@ -18,7 +18,6 @@
  */
 package de.elmar_baumann.lib.resource;
 
-import de.elmar_baumann.lib.util.logging.LogUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -80,7 +79,6 @@ public class MutualExcludedResource<T> {
             setLocked(true);
             setOwner(owner);
             logger.log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Get", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
-            LogUtil.flushHandlers(logger);
             return resource;
         }
         return null;
@@ -101,7 +99,6 @@ public class MutualExcludedResource<T> {
             this.owner = null;
             setLocked(false);
             logger.log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Release", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
-            LogUtil.flushHandlers(logger);
             return true;
         }
         return false;
