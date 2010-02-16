@@ -157,6 +157,11 @@ public class KeywordImportDialog extends Dialog {
         setVisible(false);
     }
 
+    @Override
+    protected void escape() {
+        setVisible(false);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
