@@ -57,7 +57,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         }
     }
 
-    private class DelimiterModel extends DefaultComboBoxModel {
+    private static class DelimiterModel extends DefaultComboBoxModel {
 
         private static final long serialVersionUID = 78207540460538249L;
 

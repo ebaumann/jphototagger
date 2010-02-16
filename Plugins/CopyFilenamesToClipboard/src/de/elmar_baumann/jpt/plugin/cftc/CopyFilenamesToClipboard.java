@@ -25,6 +25,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -38,13 +39,14 @@ import javax.swing.JPanel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-27
  */
-public final class CopyFilenamesToClipboard extends Plugin {
+public final class CopyFilenamesToClipboard extends Plugin implements Serializable {
 
-    public static final  String     KEY_FILENAME_DELIMITER     = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
-    public static final  String     DEFAULT_FILENAME_DELIMITER = "\n";
-    private final        CopyAction copyAction                 = new CopyAction();
-    private              String     fileNameDelimiter          = DEFAULT_FILENAME_DELIMITER;
-    private static final Bundle     BUNDLE                     = new Bundle("de/elmar_baumann/jpt/plugin/cftc/Bundle");
+    private static final           long       serialVersionUID           = 526527636923496736L;
+    public static final            String     KEY_FILENAME_DELIMITER     = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
+    public static final            String     DEFAULT_FILENAME_DELIMITER = "\n";
+    private final                  CopyAction copyAction                 = new CopyAction();
+    private                        String     fileNameDelimiter          = DEFAULT_FILENAME_DELIMITER;
+    private static final transient Bundle     BUNDLE                     = new Bundle("de/elmar_baumann/jpt/plugin/cftc/Bundle");
 
     public CopyFilenamesToClipboard() {
     }
