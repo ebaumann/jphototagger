@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.lib.resource;
 
+import de.elmar_baumann.lib.util.logging.LogUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,7 +50,7 @@ public class MutualExcludedResource<T> {
     private T       resource = null;
     private boolean locked   = false;
     private Object  owner    = null;
-
+    private Logger  logger   = Logger.getLogger(MutualExcludedResource.class.getName());
     /**
      * Returns, whether a resource can be used: It exists (is not null)
      * and it is not locked.
@@ -78,7 +79,8 @@ public class MutualExcludedResource<T> {
         if (isAvailable()) {
             setLocked(true);
             setOwner(owner);
-            Logger.getLogger(MutualExcludedResource.class.getName()).log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Get", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
+            logger.log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Get", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
+            LogUtil.flushHandlers(logger);
             return resource;
         }
         return null;
@@ -98,7 +100,8 @@ public class MutualExcludedResource<T> {
         if (isLocked() && owner != null && owner == getOwner()) {
             this.owner = null;
             setLocked(false);
-            Logger.getLogger(MutualExcludedResource.class.getName()).log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Release", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
+            logger.log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Release", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
+            LogUtil.flushHandlers(logger);
             return true;
         }
         return false;
