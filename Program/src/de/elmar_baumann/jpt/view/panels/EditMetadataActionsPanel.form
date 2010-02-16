@@ -39,7 +39,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Bearbeiten">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -94,7 +94,7 @@
             <Component class="javax.swing.JLabel" name="labelMetadataInfoEditable">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelMetadataInfoEditable.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelMetadataInfoEditable.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -104,10 +104,10 @@
             <Component class="javax.swing.JButton" name="buttonEmptyMetadata">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonEmptyMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonEmptyMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonEmptyMetadata.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonEmptyMetadata.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -121,10 +121,10 @@
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateCreate">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateCreate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateCreate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateCreate.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateCreate.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -138,10 +138,10 @@
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateInsert">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateInsert.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateInsert.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateInsert.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateInsert.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -179,7 +179,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Vorlagen">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -250,7 +250,7 @@
             <Component class="javax.swing.JComboBox" name="comboBoxMetadataTemplates">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.comboBoxMetadataTemplates.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.comboBoxMetadataTemplates.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <Events>
@@ -264,10 +264,10 @@
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateRename">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateRename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateRename.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateRename.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -281,10 +281,10 @@
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateUpdate">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateUpdate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateUpdate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateUpdate.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateUpdate.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -298,10 +298,10 @@
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateDelete">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -326,10 +326,10 @@
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateAdd">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateAdd.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateAdd.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateAdd.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateAdd.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 2, 2, 2]"/>

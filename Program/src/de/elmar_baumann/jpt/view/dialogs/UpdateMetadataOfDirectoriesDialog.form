@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <SyntheticProperties>
