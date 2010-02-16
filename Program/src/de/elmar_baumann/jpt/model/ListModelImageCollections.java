@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.model;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.comparator.ComparatorStringAscending;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,17 +43,17 @@ public final class ListModelImageCollections extends DefaultListModel {
      * Name of the image collection which contains the previous imported
      * image files
      */
-    public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT = Bundle.getString("ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
+    public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT = JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
 
     /**
      * Name of the image collection which contains picked images
      */
-    public static final String NAME_IMAGE_COLLECTION_PICKED      = Bundle.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
+    public static final String NAME_IMAGE_COLLECTION_PICKED      = JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
 
     /**
      * Name of the image collection which contains rejected images
      */
-    public static final String NAME_IMAGE_COLLECTION_REJECTED    = Bundle.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
+    public static final String NAME_IMAGE_COLLECTION_REJECTED    = JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
 
     static {
         // Order of appearance

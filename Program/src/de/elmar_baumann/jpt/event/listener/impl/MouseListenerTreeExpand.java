@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -35,8 +35,8 @@ public final class MouseListenerTreeExpand
         implements ActionListener {
 
     private final JPopupMenu popupMenu    = new JPopupMenu();
-    private final JMenuItem  itemExpand   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final JMenuItem  itemCollapse = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private final JMenuItem  itemExpand   = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final JMenuItem  itemCollapse = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
 
     public MouseListenerTreeExpand() {
         popupMenu.add(itemExpand);

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.lib.runtime;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.IOException;
 import java.io.InputStream;
@@ -181,7 +181,7 @@ public final class External {
             if (!processFinished) {
                 process.destroy();
                 destroyed = true;
-                String errorMessage = Bundle.getString("External.ExecuteGetOutput.ErrorMessage", millisecondsWait, command);
+                String errorMessage = JslBundle.INSTANCE.getString("External.ExecuteGetOutput.ErrorMessage", millisecondsWait, command);
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, errorMessage);
             }
         }

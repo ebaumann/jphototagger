@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.app;
 import de.elmar_baumann.jpt.database.ConnectionPool;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseTables;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.sql.SQLException;
 
 /**
@@ -51,7 +51,7 @@ public final class AppDatabase {
 
     private static void informationMessageInitDatabase() {
         SplashScreen.INSTANCE.setMessage(
-                Bundle.getString("AppDatabase.Info.SplashScreen.ConnectToDatabase"));
+                JptBundle.INSTANCE.getString("AppDatabase.Info.SplashScreen.ConnectToDatabase"));
     }
 
     private AppDatabase() {

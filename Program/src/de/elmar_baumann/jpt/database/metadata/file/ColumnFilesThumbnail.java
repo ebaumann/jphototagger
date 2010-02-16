@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.file;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Tabellenspalte <code>thumbnail</code> der Tabelle <code>files</code>.
@@ -38,6 +38,6 @@ public final class ColumnFilesThumbnail extends Column {
             "thumbnail",
             DataType.BINARY);
 
-        setDescription(Bundle.getString("ColumnFilesThumbnail.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnFilesThumbnail.Description"));
     }
 }

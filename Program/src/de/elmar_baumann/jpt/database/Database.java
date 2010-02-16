@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.database;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.dialog.LongMessageDialog;
 import java.sql.Connection;
 import java.sql.Date;
@@ -40,13 +40,13 @@ public class Database {
 
     public static void errorMessageSqlException(SQLException ex) {
         LongMessageDialog dlg = new LongMessageDialog(null, true);
-        dlg.setTitle(Bundle.getString("DatabaseTables.Error.Title"));
+        dlg.setTitle(JptBundle.INSTANCE.getString("DatabaseTables.Error.Title"));
         dlg.setMessage(getExceptionMessage(ex));
         dlg.setVisible(true);
     }
 
     private static String getExceptionMessage(SQLException ex) {
-        return Bundle.getString("DatabaseTables.Error", ex.getLocalizedMessage());
+        return JptBundle.INSTANCE.getString("DatabaseTables.Error", ex.getLocalizedMessage());
     }
 
     public static boolean execute(Connection connection, String sql) throws SQLException {

@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Tabellenspalte <code>exif_date_time_original</code> der Tabelle <code>exif</code>.
@@ -41,6 +41,6 @@ public final class ColumnExifDateTimeOriginal extends Column {
             "exif_date_time_original",
             DataType.DATE);
 
-        setDescription(Bundle.getString("ColumnExifDateTimeOriginal.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifDateTimeOriginal.Description"));
     }
 }

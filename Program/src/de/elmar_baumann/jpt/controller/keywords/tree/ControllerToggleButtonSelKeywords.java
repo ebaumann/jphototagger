@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -51,8 +51,8 @@ public final class ControllerToggleButtonSelKeywords implements ActionListener {
         TreeUtil.expandAll(GUI.INSTANCE.getAppPanel().getTreeSelKeywords(), selected);
         toggleButtonExpandAllNodesSelKeywords.setText(
                 selected
-                ? Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                ? JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
 }

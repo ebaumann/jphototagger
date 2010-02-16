@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.BufferedReader;
 import java.io.File;
@@ -177,7 +177,7 @@ final class KeywordImporterLightroom implements KeywordImporter {
 
     @Override
     public String getDescription() {
-        return Bundle.getString("KeywordImporterLightroom.Description");
+        return JptBundle.INSTANCE.getString("KeywordImporterLightroom.Description");
     }
 
     @Override

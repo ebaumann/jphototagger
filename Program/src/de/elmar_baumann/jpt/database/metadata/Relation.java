@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database.metadata;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Art einer Spaltenverknüpfung.
@@ -30,10 +30,10 @@ public enum Relation {
 
     /** Verknüpfung zweier Spalten mit AND */
     AND("AND",
-    Bundle.getString("Relation.And")),
+    JptBundle.INSTANCE.getString("Relation.And")),
     /** Verknüpfung zweier Spalten mit OR */
     OR("OR",
-    Bundle.getString("Relation.Or")),;
+    JptBundle.INSTANCE.getString("Relation.Or")),;
     /** SQL-String der Verknüpfung */
     private final String sqlString;
     /** Lokalisierter String */

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database.metadata;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Comparator einer Spaltensuche (vergleicht den Spaltenwert mit einem
@@ -32,31 +32,31 @@ public enum Comparator {
     /** SQL-Operator "=" */
     EQUALS(0,
     "=",
-    Bundle.getString("Comparator.OperatorEquals")),
+    JptBundle.INSTANCE.getString("Comparator.OperatorEquals")),
     /** SQL-Operator "LIKE" */
     LIKE(1,
     "LIKE",
-    Bundle.getString("Comparator.OperatorLike")),
+    JptBundle.INSTANCE.getString("Comparator.OperatorLike")),
     /** SQL-Operator "<>" */
     NOT_EQUALS(2,
     "<>",
-    Bundle.getString("Comparator.OperatorNotEquals")),
+    JptBundle.INSTANCE.getString("Comparator.OperatorNotEquals")),
     /** SQL-Operator ">" */
     GREATER(3,
     ">",
-    Bundle.getString("Comparator.OperatorGreaterThan")),
+    JptBundle.INSTANCE.getString("Comparator.OperatorGreaterThan")),
     /** SQL-Operator ">=" */
     GREATER_EQUALS(4,
     ">=",
-    Bundle.getString("Comparator.OperatorGreaterEquals")),
+    JptBundle.INSTANCE.getString("Comparator.OperatorGreaterEquals")),
     /** SQL-Operator "<" */
     LOWER(5,
     "<",
-    Bundle.getString("Comparator.OperatorLessThan")),
+    JptBundle.INSTANCE.getString("Comparator.OperatorLessThan")),
     /** SQL-Operator "<=" */
     LOWER_EQUALS(6,
     "<=",
-    Bundle.getString("Comparator.OperatorLessEquals"));
+    JptBundle.INSTANCE.getString("Comparator.OperatorLessEquals"));
     private final int id;
     private final String sqlString;
     private final String localizedString;

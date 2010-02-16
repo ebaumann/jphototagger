@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.InputDialog;
@@ -40,16 +40,16 @@ public final class MessageDisplayer {
     private static final InputDialog          inputDialog               = new InputDialog();
 
     static {
-        defaultTitleOfMessageType.put(JOptionPane.ERROR_MESSAGE      , Bundle.getString("MessageDisplayer.DefaultTitle.ErrorMessage"));
-        defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE    , Bundle.getString("MessageDisplayer.DefaultTitle.WarningMessage"));
-        defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE, Bundle.getString("MessageDisplayer.DefaultTitle.Info"));
-        defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE   , Bundle.getString("MessageDisplayer.DefaultTitle.QuestionMessage"));
+        defaultTitleOfMessageType.put(JOptionPane.ERROR_MESSAGE      , JptBundle.INSTANCE.getString("MessageDisplayer.DefaultTitle.ErrorMessage"));
+        defaultTitleOfMessageType.put(JOptionPane.WARNING_MESSAGE    , JptBundle.INSTANCE.getString("MessageDisplayer.DefaultTitle.WarningMessage"));
+        defaultTitleOfMessageType.put(JOptionPane.INFORMATION_MESSAGE, JptBundle.INSTANCE.getString("MessageDisplayer.DefaultTitle.Info"));
+        defaultTitleOfMessageType.put(JOptionPane.QUESTION_MESSAGE   , JptBundle.INSTANCE.getString("MessageDisplayer.DefaultTitle.QuestionMessage"));
     }
 
     /**
      * Displays a input dialog.
      *
-     * @param infoBundleKey Bundle key of info (prompts, what to input) or null
+     * @param infoBundleKey JptBundle key of info (prompts, what to input) or null
      * @param input         default value or null
      * @param propertyKey   key to write size and location
      * @param infoArgs      optional argumets for the info message
@@ -57,7 +57,7 @@ public final class MessageDisplayer {
      */
     public static String input(String infoBundleKey, String input, String propertyKey, Object... infoArgs) {
         assert propertyKey != null;
-        inputDialog.setInfo(infoBundleKey == null ? "" : Bundle.getString(infoBundleKey, infoArgs));
+        inputDialog.setInfo(infoBundleKey == null ? "" : JptBundle.INSTANCE.getString(infoBundleKey, infoArgs));
         inputDialog.setInput(input == null ? "" : input);
         inputDialog.setProperties(UserSettings.INSTANCE.getProperties(), propertyKey + ".InputDialog");
         ComponentUtil.show(inputDialog);
@@ -70,7 +70,7 @@ public final class MessageDisplayer {
      * Displays an error message.
      *
      * @param component   parent component or null
-     * @param propertyKey property key for {@link Bundle}. If in the property
+     * @param propertyKey property key for {@link JptBundle}. If in the property
      *                    file exists a key having the same name plus the
      *                    postfix <code>.Title</code> this key is used for the
      *                    title. Else a default title will be set.
@@ -84,7 +84,7 @@ public final class MessageDisplayer {
      * Displays an warning message.
      *
      * @param component   parent component or null
-     * @param propertyKey property key for {@link Bundle}. If in the property
+     * @param propertyKey property key for {@link JptBundle}. If in the property
      *                    file exists a key having the same name plus the
      *                    postfix <code>.Title</code> this key is used for the
      *                    title. Else a default title will be set.
@@ -98,7 +98,7 @@ public final class MessageDisplayer {
      * Displays an information message.
      *
      * @param component   parent component or null
-     * @param propertyKey property key for {@link Bundle}. If in the property
+     * @param propertyKey property key for {@link JptBundle}. If in the property
      *                    file exists a key having the same name plus the
      *                    postfix <code>.Title</code> this key is used for the
      *                    title. Else a default title will be set.
@@ -163,7 +163,7 @@ public final class MessageDisplayer {
      * Displays a confirm message with a Yes, No and Cancel button.
      *
      * @param component    component where to display the dialog or null
-     * @param propertyKey  property key for {@link Bundle}. There also a key for
+     * @param propertyKey  property key for {@link JptBundle}. There also a key for
      *                     the title has to be in the properties file with the
      *                     same name and the postfix <code>.Title</code>
      * @param params       optional parameters for message format placeholders
@@ -177,7 +177,7 @@ public final class MessageDisplayer {
 
         int exit = JOptionPane.showConfirmDialog(
                         component == null ? GUI.INSTANCE.getAppFrame() : component,
-                        Bundle.getString(propertyKey, params),
+                        JptBundle.INSTANCE.getString(propertyKey, params),
                         getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
                         JOptionPane.YES_NO_CANCEL_OPTION);
 
@@ -193,7 +193,7 @@ public final class MessageDisplayer {
      * Displays a confirmYesNo message with a Yes and No option (<em>no</em> Cancel option).
      *
      * @param component    component where to display the dialog or null
-     * @param propertyKey  property key for {@link Bundle}. There also a key for
+     * @param propertyKey  property key for {@link JptBundle}. There also a key for
      *                     the title has to be in the properties file with the
      *                     same name and the postfix <code>.Title</code>
      * @param params       optional parameters for message format placeholders
@@ -207,7 +207,7 @@ public final class MessageDisplayer {
 
         return JOptionPane.showConfirmDialog(
                     component == null ? GUI.INSTANCE.getAppFrame() : component,
-                    Bundle.getString(propertyKey, params),
+                    JptBundle.INSTANCE.getString(propertyKey, params),
                     getTitle(propertyKey, JOptionPane.QUESTION_MESSAGE),
                     JOptionPane.YES_NO_OPTION)
                     == JOptionPane.YES_OPTION;
@@ -217,7 +217,7 @@ public final class MessageDisplayer {
 
         JOptionPane.showMessageDialog(
                 component == null ? GUI.INSTANCE.getAppFrame() : component,
-                Bundle.getString(propertyKey, params),
+                JptBundle.INSTANCE.getString(propertyKey, params),
                 getTitle(propertyKey, type),
                 type);
     }
@@ -228,8 +228,8 @@ public final class MessageDisplayer {
 
         String titlePropertyKey = propertyKey + ".Title";
 
-        return Bundle.containsKey(titlePropertyKey)
-                                    ? Bundle.getString(titlePropertyKey)
+        return JptBundle.INSTANCE.containsKey(titlePropertyKey)
+                                    ? JptBundle.INSTANCE.getString(titlePropertyKey)
                                     : defaultTitleOfMessageType.get(messageType);
     }
 

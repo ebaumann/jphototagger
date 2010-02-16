@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.app;
 
 import com.imagero.reader.AbstractImageReader;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.ImageProperties;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.lib.system.SystemUtil;
@@ -73,7 +73,7 @@ public final class AppInit {
     private void hideSplashScreen() {
         if (!commandLineOptions.isShowSplashScreen()) return;
 
-        SplashScreen.INSTANCE.setMessage(Bundle.getString("AppInit.Info.SplashScreen.InitGui"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("AppInit.Info.SplashScreen.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
         SplashScreen.INSTANCE.close();
     }

@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.nometadata;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -73,6 +73,6 @@ public final class ControllerNoMetadataItemSelected
 
     private void setTitle(Column column) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                Bundle.getString("ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata", column.getDescription()));
+                JptBundle.INSTANCE.getString("ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata", column.getDescription()));
     }
 }

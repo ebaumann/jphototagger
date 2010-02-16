@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywords;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
@@ -129,8 +129,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
         TreeUtil.expandAll(tree, selected);
         buttonToggleExpandAllNodes.setText(
                 selected
-                ? Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : Bundle.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                ? JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
     /** This method is called from within the constructor to

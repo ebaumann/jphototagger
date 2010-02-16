@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Tabellenspalte <code>exif_lens</code> der Tabelle <code>exif</code>.
@@ -40,6 +40,6 @@ public final class ColumnExifLens extends Column {
             "exif_lens",
             DataType.STRING);
 
-        setDescription(Bundle.getString("ColumnExifLens.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifLens.Description"));
     }
 }

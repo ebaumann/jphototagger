@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.data.ParamStatement;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.helper.SearchHelper;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -111,7 +111,7 @@ public final class ControllerSavedSearchSelected
 
         private void setTitle(String name) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("ControllerSavedSearchSelected.AppFrame.Title.AdvancedSearch.Saved", name));
+                    JptBundle.INSTANCE.getString("ControllerSavedSearchSelected.AppFrame.Title.AdvancedSearch.Saved", name));
         }
 
         private void setMetadataEditable() {

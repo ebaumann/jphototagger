@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
 import java.awt.event.ActionEvent;
@@ -63,8 +63,8 @@ public final class UpdateAllThumbnails
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(GUI.INSTANCE.getAppFrame());
-        progressDialog.setTitle(Bundle.getString("UpdateAllThumbnails.Dialog.Title"));
-        progressDialog.setInfoText(Bundle.getString("UpdateAllThumbnails.Dialog.InfoText"));
+        progressDialog.setTitle(JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.Title"));
+        progressDialog.setInfoText(JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.InfoText"));
         progressDialog.addActionListener(this);
         progressDialog.addWindowListener(new SizeAndLocationController());
         progressDialog.setVisible(true);

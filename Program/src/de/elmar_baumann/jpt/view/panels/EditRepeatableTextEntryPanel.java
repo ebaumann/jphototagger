@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.helper.AutocompleteHelper;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Suggest;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywordsEdit;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
@@ -618,7 +618,7 @@ public final class EditRepeatableTextEntryPanel
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(Bundle.getString("EditRepeatableTextEntryPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -629,7 +629,7 @@ public final class EditRepeatableTextEntryPanel
         scrollPaneList.setMinimumSize(new java.awt.Dimension(22, 44));
 
         list.setModel(model);
-        list.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
+        list.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
         list.setCellRenderer(new ListCellRendererKeywordsEdit());
         list.setComponentPopupMenu(popupMenuList);
         list.setDragEnabled(true);
@@ -660,8 +660,8 @@ public final class EditRepeatableTextEntryPanel
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
         buttonRemoveSelection.setMnemonic('-');
-        buttonRemoveSelection.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
-        buttonRemoveSelection.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
+        buttonRemoveSelection.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
+        buttonRemoveSelection.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
         buttonRemoveSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
@@ -672,8 +672,8 @@ public final class EditRepeatableTextEntryPanel
         panelButtons.add(buttonRemoveSelection);
 
         buttonAddInput.setMnemonic('+');
-        buttonAddInput.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
-        buttonAddInput.setToolTipText(Bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
+        buttonAddInput.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
+        buttonAddInput.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
         buttonAddInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
@@ -684,7 +684,7 @@ public final class EditRepeatableTextEntryPanel
         panelButtons.add(buttonAddInput);
 
         buttonSuggestion.setMnemonic('k');
-        buttonSuggestion.setText(Bundle.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
+        buttonSuggestion.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
         buttonSuggestion.setMargin(new java.awt.Insets(0, 0, 0, 0));

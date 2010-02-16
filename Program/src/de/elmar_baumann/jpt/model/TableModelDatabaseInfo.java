@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.DatabaseInfoRecordCountColumns;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -97,9 +97,9 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
     }
 
     private void addColumnHeaders() {
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.1"));
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.2"));
-        addColumn(Bundle.getString("TableModelDatabaseInfo.HeaderColumn.3"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.1"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.2"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.3"));
     }
 
     private void addRows() {

@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.exporter.KeywordExporter;
 import de.elmar_baumann.jpt.model.ComboBoxModelKeywordExporters;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -54,8 +54,8 @@ public class KeywordExportDialog extends Dialog {
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.KeywordExportDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.KeywordExportDialog"));
     }
 
     /**
@@ -182,7 +182,7 @@ public class KeywordExportDialog extends Dialog {
         buttonCancel = new javax.swing.JButton();
         buttonExport = new javax.swing.JButton();
 
-        setTitle(Bundle.getString("KeywordExportDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("KeywordExportDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -190,23 +190,23 @@ public class KeywordExportDialog extends Dialog {
         });
 
         labelFormat.setLabelFor(comboBoxExporter);
-        labelFormat.setText(Bundle.getString("KeywordExportDialog.labelFormat.text")); // NOI18N
+        labelFormat.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.labelFormat.text")); // NOI18N
 
         comboBoxExporter.setModel(comboBoxModelExporter);
         comboBoxExporter.setRenderer(new de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywordImExport());
 
-        labelInfoFilename.setText(Bundle.getString("KeywordExportDialog.labelInfoFilename.text")); // NOI18N
+        labelInfoFilename.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.labelInfoFilename.text")); // NOI18N
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
 
-        buttonChooseFile.setText(Bundle.getString("KeywordExportDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
         });
 
-        buttonCancel.setText(Bundle.getString("KeywordExportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -214,7 +214,7 @@ public class KeywordExportDialog extends Dialog {
         });
 
         buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
-        buttonExport.setText(Bundle.getString("KeywordExportDialog.buttonExport.text")); // NOI18N
+        buttonExport.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonExport.text")); // NOI18N
         buttonExport.setEnabled(false);
         buttonExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

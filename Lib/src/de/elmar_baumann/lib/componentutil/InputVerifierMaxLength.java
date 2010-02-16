@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.lib.componentutil;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -81,7 +81,7 @@ public final class InputVerifierMaxLength extends InputVerifier {
         if (!message) return;
         JOptionPane.showMessageDialog(
                 input,
-                Bundle.getString("InputVerifierMaxLength.ErrorMessage", maxLength),
-                Bundle.getString("InputVerifierMaxLength.Error.Title"), JOptionPane.ERROR_MESSAGE);
+                JslBundle.INSTANCE.getString("InputVerifierMaxLength.ErrorMessage", maxLength),
+                JslBundle.INSTANCE.getString("InputVerifierMaxLength.Error.Title"), JOptionPane.ERROR_MESSAGE);
     }
 }

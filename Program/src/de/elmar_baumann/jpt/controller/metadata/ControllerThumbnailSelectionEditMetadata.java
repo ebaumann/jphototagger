@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -97,9 +97,9 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
         labelMetadataInfoEditable.setText(
                   canEdit
                 ? multipleThumbnailsSelected()
-                ? Bundle.getString("ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
-                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
-                : Bundle.getString("ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
+                ? JptBundle.INSTANCE.getString("ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
+                : JptBundle.INSTANCE.getString("ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
+                : JptBundle.INSTANCE.getString("ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
     }
 
     private boolean multipleThumbnailsSelected() {

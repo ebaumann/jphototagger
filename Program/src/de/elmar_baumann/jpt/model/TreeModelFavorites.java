@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.database.DatabaseFavorites;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -73,7 +73,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     private final           Object                 monitor               = new Object();
 
     public TreeModelFavorites(JTree tree) {
-        super(new DefaultMutableTreeNode(Bundle.getString("TreeModelFavorites.Root.DisplayName")));
+        super(new DefaultMutableTreeNode(JptBundle.INSTANCE.getString("TreeModelFavorites.Root.DisplayName")));
         this.tree = tree;
         rootNode  = (DefaultMutableTreeNode) getRoot();
         db        = DatabaseFavorites.INSTANCE;
@@ -90,7 +90,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                  db.insertOrUpdate(favoriteDirectory)) {
                 addDirectory(favoriteDirectory);
             } else {
-                errorMessage(favoriteDirectory.getName(), Bundle.getString("TreeModelFavorites.Error.ParamInsert"));
+                errorMessage(favoriteDirectory.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamInsert"));
             }
         }
     }
@@ -111,7 +111,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                     }
                 }
             } else {
-                errorMessage(favoriteDirctory.getName(), Bundle.getString("TreeModelFavorites.Error.ParamDelete"));
+                errorMessage(favoriteDirctory.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamDelete"));
             }
         }
     }
@@ -126,7 +126,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 removeAllChildren(nodeOfFavorite);
                 addChildren(nodeOfFavorite);
             } else {
-                errorMessage(oldFavorite.getName(), Bundle.getString("TreeModelFavorites.Error.ParamUpdate"));
+                errorMessage(oldFavorite.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamUpdate"));
             }
         }
     }

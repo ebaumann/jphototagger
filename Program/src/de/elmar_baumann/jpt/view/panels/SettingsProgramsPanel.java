@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.view.dialogs.ProgramPropertiesDialog;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererPrograms;
@@ -150,9 +150,9 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         buttonAddProgram = new javax.swing.JButton();
         buttonEditProgram = new javax.swing.JButton();
 
-        labelChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text")); // NOI18N
+        labelChooseDefaultProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text")); // NOI18N
 
-        buttonChooseDefaultProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonChooseDefaultProgram.text")); // NOI18N
+        buttonChooseDefaultProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonChooseDefaultProgram.text")); // NOI18N
         buttonChooseDefaultProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDefaultProgramActionPerformed(evt);
@@ -163,7 +163,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         labelDefaultProgramFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         labelPrograms.setLabelFor(listPrograms);
-        labelPrograms.setText(Bundle.getString("SettingsProgramsPanel.labelPrograms.text")); // NOI18N
+        labelPrograms.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.labelPrograms.text")); // NOI18N
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -180,8 +180,8 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         });
         scrollPanePrograms.setViewportView(listPrograms);
 
-        buttonRemoveProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonRemoveProgram.text")); // NOI18N
-        buttonRemoveProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonRemoveProgram.toolTipText")); // NOI18N
+        buttonRemoveProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonRemoveProgram.text")); // NOI18N
+        buttonRemoveProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonRemoveProgram.toolTipText")); // NOI18N
         buttonRemoveProgram.setEnabled(false);
         buttonRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,16 +189,16 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
             }
         });
 
-        buttonAddProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonAddProgram.text")); // NOI18N
-        buttonAddProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonAddProgram.toolTipText")); // NOI18N
+        buttonAddProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonAddProgram.text")); // NOI18N
+        buttonAddProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonAddProgram.toolTipText")); // NOI18N
         buttonAddProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddProgramActionPerformed(evt);
             }
         });
 
-        buttonEditProgram.setText(Bundle.getString("SettingsProgramsPanel.buttonEditProgram.text")); // NOI18N
-        buttonEditProgram.setToolTipText(Bundle.getString("SettingsProgramsPanel.buttonEditProgram.toolTipText")); // NOI18N
+        buttonEditProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonEditProgram.text")); // NOI18N
+        buttonEditProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonEditProgram.toolTipText")); // NOI18N
         buttonEditProgram.setEnabled(false);
         buttonEditProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

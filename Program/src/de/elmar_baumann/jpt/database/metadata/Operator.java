@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.database.metadata;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Operator einer Spaltenverknüpfung.
@@ -31,11 +31,11 @@ public enum Operator {
     /** Verknüpfung zweier Spalten mit AND */
     AND(0,
     "AND",
-    Bundle.getString("Operator.And")),
+    JptBundle.INSTANCE.getString("Operator.And")),
     /** Verknüpfung zweier Spalten mit OR */
     OR(1,
     "OR",
-    Bundle.getString("Operator.Or")),;
+    JptBundle.INSTANCE.getString("Operator.Or")),;
     private final int id;
     private final String sqlString;
     private final String localizedString;

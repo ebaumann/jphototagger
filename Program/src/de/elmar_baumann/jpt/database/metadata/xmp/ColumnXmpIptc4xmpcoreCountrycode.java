@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Spalte <code>iptc4xmpcore_countrycode</code> der Tabelle <code>xmp</code>.
@@ -39,7 +39,7 @@ public final class ColumnXmpIptc4xmpcoreCountrycode extends Column {
             DataType.STRING);
 
         setLength(3);
-        setDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpIptc4xmpcoreCountrycode.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpIptc4xmpcoreCountrycode.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpIptc4xmpcoreCountrycode.LongerDescription"));
     }
 }

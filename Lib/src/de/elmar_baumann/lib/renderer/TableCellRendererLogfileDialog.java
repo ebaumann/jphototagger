@@ -19,7 +19,7 @@
 package de.elmar_baumann.lib.renderer;
 
 import de.elmar_baumann.lib.resource.LogLevelIcons;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
@@ -63,7 +63,7 @@ public final class TableCellRendererLogfileDialog implements TableCellRenderer {
 
     private void renderDate(JLabel cellLabel, Date date) {
         SimpleDateFormat format =
-            new SimpleDateFormat(Bundle.getString("TableCellRendererLogfileDialog.DateFormat"));
+            new SimpleDateFormat(JslBundle.INSTANCE.getString("TableCellRendererLogfileDialog.DateFormat"));
         cellLabel.setText(format.format(date));
     }
 }

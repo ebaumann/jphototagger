@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.lib.image.util;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public final class IconUtil {
             return new ImageIcon(imgURL).getImage();
         } else {
             Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
-                    Bundle.getString("IconUtil.GetIconImage.Error.FileNotFound") + path);
+                    JslBundle.INSTANCE.getString("IconUtil.GetIconImage.Error.FileNotFound") + path);
         }
         return null;
     }
@@ -101,7 +101,7 @@ public final class IconUtil {
             return new ImageIcon(imgURL);
         } else {
             Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
-                    Bundle.getString("IconUtil.GetImageIcon.Error.FileNotFound") + path);
+                    JslBundle.INSTANCE.getString("IconUtil.GetImageIcon.Error.FileNotFound") + path);
         }
         return null;
     }

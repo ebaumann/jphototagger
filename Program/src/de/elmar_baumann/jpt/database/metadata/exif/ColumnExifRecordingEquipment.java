@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Tabellenspalte <code>exif_recording_equipment</code> der Tabelle <code>exif</code>.
@@ -43,6 +43,6 @@ public final class ColumnExifRecordingEquipment extends Column {
             DataType.STRING);
 
         setLength(125);
-        setDescription(Bundle.getString("ColumnExifRecordingEquipment.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifRecordingEquipment.Description"));
     }
 }

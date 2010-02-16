@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
 import javax.swing.JPanel;
@@ -137,11 +137,11 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
         buttonReplace = new javax.swing.JButton();
 
         labelTitle.setForeground(new java.awt.Color(0, 0, 255));
-        labelTitle.setText(Bundle.getString("RenameFilenamesInDbPanel.labelTitle.text")); // NOI18N
+        labelTitle.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelTitle.text")); // NOI18N
 
         labelSearch.setForeground(new java.awt.Color(0, 196, 0));
         labelSearch.setLabelFor(textFieldSearch);
-        labelSearch.setText(Bundle.getString("RenameFilenamesInDbPanel.labelSearch.text")); // NOI18N
+        labelSearch.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelSearch.text")); // NOI18N
 
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -151,7 +151,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
         labelReplacement.setForeground(new java.awt.Color(0, 196, 0));
         labelReplacement.setLabelFor(textFieldReplacement);
-        labelReplacement.setText(Bundle.getString("RenameFilenamesInDbPanel.labelReplacement.text")); // NOI18N
+        labelReplacement.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelReplacement.text")); // NOI18N
 
         textFieldReplacement.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -159,7 +159,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             }
         });
 
-        buttonReplace.setText(Bundle.getString("RenameFilenamesInDbPanel.buttonReplace.text")); // NOI18N
+        buttonReplace.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.buttonReplace.text")); // NOI18N
         buttonReplace.setEnabled(false);
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

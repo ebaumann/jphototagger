@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     private final transient DatabaseKeywords        db               = DatabaseKeywords.INSTANCE;
 
     public TreeModelKeywords() {
-        super(new TreeNodeSortedChildren(Bundle.getString("TreeModelKeywords.DisplayName.Root")));
+        super(new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("TreeModelKeywords.DisplayName.Root")));
         ROOT = (DefaultMutableTreeNode) getRoot();
         createTree();
     }

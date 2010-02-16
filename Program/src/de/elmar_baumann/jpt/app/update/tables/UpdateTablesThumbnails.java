@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.io.IoUtil;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.image.util.ImageUtil;
 import de.elmar_baumann.lib.io.FileLock;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -249,12 +249,12 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private void compress() {
-        messages.message(Bundle.getString("UpdateTablesThumbnails.Info.CompressDatabase"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesThumbnails.Info.CompressDatabase"));
         DatabaseMaintainance.INSTANCE.compressDatabase();
     }
 
     private void setMessageCurrentFile(long id, long current, String message) {
-        messages.message(Bundle.getString(message, id, current, count));
+        messages.message(JptBundle.INSTANCE.getString(message, id, current, count));
         messages.setValue((int) (current / count * 100));
     }
 }

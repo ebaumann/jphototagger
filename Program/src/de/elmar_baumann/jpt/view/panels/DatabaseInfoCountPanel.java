@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.event.listener.impl.DatabaseTotalRecordCountListener;
 import de.elmar_baumann.jpt.model.TableModelDatabaseInfo;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Filename;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererDatabaseInfoColumns;
 
@@ -73,7 +73,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     }
 
     private void setLabelFilename() {
-        labelFilename.setText(Bundle.getString("DatabaseInfoCountPanel.labelFilename.Filename", UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
+        labelFilename.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelFilename.Filename", UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
     }
 
     private void setModelDatabaseInfo() {
@@ -114,13 +114,13 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         labelTotalRecordCount = new javax.swing.JLabel();
         labelFilename = new javax.swing.JLabel();
 
-        labelTable.setText(Bundle.getString("DatabaseInfoCountPanel.labelTable.text"));
+        labelTable.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelTable.text"));
 
         scrollPane.setViewportView(table);
 
-        labelPromptTotalRecordCount.setText(Bundle.getString("DatabaseInfoCountPanel.labelPromptTotalRecordCount.text"));
+        labelPromptTotalRecordCount.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelPromptTotalRecordCount.text"));
 
-        labelFilename.setText(Bundle.getString("DatabaseInfoCountPanel.labelFilename.text"));
+        labelFilename.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelFilename.text"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.view.renderer;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.ColumnIcons;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
@@ -45,7 +45,7 @@ public final class ListCellRendererFastSearchColumns extends DefaultListCellRend
             label.setText(column.getDescription());
             label.setIcon(ColumnIcons.getIcon(column));
         } else if (value != null && value.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS)) {
-            label.setText(Bundle.getString("ListCellRendererFastSearchColumns.Text.AllDefinedColumns"));
+            label.setText(JptBundle.INSTANCE.getString("ListCellRendererFastSearchColumns.Text.AllDefinedColumns"));
             label.setIcon(null);
         }
         return label;

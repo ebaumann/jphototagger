@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 /**
  * Logs <strong>localized</strong> messages.
  *
- * Uses {@link Bundle} to get the messages. If a message must not be displayed
+ * Uses {@link JptBundle} to get the messages. If a message must not be displayed
  * to the user, the following bundle key can be used: * {@link #USE_STRING}.
  * Example:
  *
@@ -131,7 +131,7 @@ public final class AppLogger {
     }
 
     private static void log(Class<?> c, Level level, String bundleKey, Object... params) {
-        Logger.getLogger(c.getName()).log(level, Bundle.getString(bundleKey, params));
+        Logger.getLogger(c.getName()).log(level, JptBundle.INSTANCE.getString(bundleKey, params));
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
     }
 

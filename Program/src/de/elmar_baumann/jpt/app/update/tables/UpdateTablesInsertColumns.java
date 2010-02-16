@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -152,7 +152,7 @@ final class UpdateTablesInsertColumns {
     }
 
     private void addColumns(Connection connection) throws SQLException {
-        messages.message(Bundle.getString("UpdateTablesInsertColumns.Info.update"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesInsertColumns.Info.update"));
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
@@ -174,7 +174,7 @@ final class UpdateTablesInsertColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesInsertColumns.Info", tableName, columnName));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesInsertColumns.Info", tableName, columnName));
     }
 
     private void fixBugs(Connection connection) throws SQLException {
@@ -196,7 +196,7 @@ final class UpdateTablesInsertColumns {
             boolean                     indexOk = info.ORDINAL_POSITION == 21;
             boolean                     isOk    = typeOk && indexOk;
             if (!isOk) {
-                messages.message(Bundle.getString("UpdateTablesInsertColumns.Info.DropColumnMetaDataTemplates", tableName, columnName));
+                messages.message(JptBundle.INSTANCE.getString("UpdateTablesInsertColumns.Info.DropColumnMetaDataTemplates", tableName, columnName));
                 dropColumn(connection, tableName, columnName);
             }
         }

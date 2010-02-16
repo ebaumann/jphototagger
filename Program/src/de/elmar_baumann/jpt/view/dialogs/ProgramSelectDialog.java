@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererPrograms;
@@ -118,7 +118,7 @@ public class ProgramSelectDialog extends Dialog {
         buttonSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(type.equals(Type.ACTION) ? Bundle.getString("ProgramSelectDialog.Title.Actions") : Bundle.getString("ProgramSelectDialog.Title.Programs"));
+        setTitle(type.equals(Type.ACTION) ? JptBundle.INSTANCE.getString("ProgramSelectDialog.Title.Actions") : JptBundle.INSTANCE.getString("ProgramSelectDialog.Title.Programs"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -137,7 +137,7 @@ public class ProgramSelectDialog extends Dialog {
         });
         scrollPanePrograms.setViewportView(listPrograms);
 
-        buttonSelect.setText(Bundle.getString("ProgramSelectDialog.buttonSelect.text")); // NOI18N
+        buttonSelect.setText(JptBundle.INSTANCE.getString("ProgramSelectDialog.buttonSelect.text")); // NOI18N
         buttonSelect.setEnabled(false);
         buttonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

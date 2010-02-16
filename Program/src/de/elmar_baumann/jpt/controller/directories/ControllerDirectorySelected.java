@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -104,7 +104,7 @@ public final class ControllerDirectorySelected
 
         private void setTitle(File selectedDirectory) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory.getName()));
+                    JptBundle.INSTANCE.getString("ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory.getName()));
         }
 
         private String getDirectorynameFromTree() {

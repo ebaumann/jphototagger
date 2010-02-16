@@ -1,5 +1,5 @@
 /*
- * JPhotoTagger tags and finds images fast
+ * JavaStandardLibrary JSL - subproject of JPhotoTagger
  * Copyright (C) 2009 by the developer team, resp. Elmar Baumann<eb@elmar-baumann.de>
  *
  * This program is free software; you can redistribute it and/or
@@ -16,29 +16,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.io;
-
-import de.elmar_baumann.jpt.resource.JptBundle;
+package de.elmar_baumann.lib.resource;
 
 /**
+ * {@link Bundle} with the path <code>"de/elmar_baumann/lib/resource/properties/Bundle"</code>.
  *
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
-public enum FileSystemError {
+public final class JslBundle extends Bundle {
 
-    LOCKED             (JptBundle.INSTANCE.getString("FileSystemError.LOCKED")),
-    MISSING_PRIVILEGES (JptBundle.INSTANCE.getString("FileSystemError.MISSING_PRIVILEGES")),
-    MOVE_RENAME_EXISTS (JptBundle.INSTANCE.getString("FileSystemError.MOVE_RENAME_EXISTS")),
-    READ_ONLY          (JptBundle.INSTANCE.getString("FileSystemError.READ_ONLY")),
-    UNKNOWN            (JptBundle.INSTANCE.getString("FileSystemError.UNKNOWN"));
+    public static final JslBundle INSTANCE = new JslBundle();
 
-    private final String message;
-
-    private FileSystemError(String message) {
-        this.message = message;
-    }
-
-    public String getLocalizedMessage() {
-        return message;
+    private JslBundle() {
+        super("de/elmar_baumann/lib/resource/properties/Bundle");
     }
 }

@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 
@@ -42,8 +42,8 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.UpdateMetadataOfDirectories"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.UpdateMetadataOfDirectories"));
     }
 
     private void endDialog() {
@@ -69,7 +69,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
         panel = new de.elmar_baumann.jpt.view.panels.UpdateMetadataOfDirectoriesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("UpdateMetadataOfDirectoriesDialog.title"));
+        setTitle(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

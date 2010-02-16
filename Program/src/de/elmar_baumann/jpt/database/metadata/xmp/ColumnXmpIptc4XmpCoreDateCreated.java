@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.InputVerifierEmpty;
 import de.elmar_baumann.lib.componentutil.InputVerifierStringPattern;
 import de.elmar_baumann.lib.componentutil.InputVerifiersOr;
@@ -49,8 +49,8 @@ public final class ColumnXmpIptc4XmpCoreDateCreated extends Column {
             DataType.STRING);
 
         setLength(10);
-        setDescription(Bundle.getString("ColumnXmpIptc4XmpCoreDateCreated.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpIptc4XmpCoreDateCreated.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpIptc4XmpCoreDateCreated.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpIptc4XmpCoreDateCreated.LongerDescription"));
     }
 
     @Override

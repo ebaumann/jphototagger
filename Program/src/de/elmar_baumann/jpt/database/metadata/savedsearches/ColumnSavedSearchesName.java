@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.database.metadata.savedsearches;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Spalte <code>name</code> der Tabelle <code>saved_searches</code>.
@@ -38,7 +38,7 @@ public final class ColumnSavedSearchesName extends Column {
             DataType.STRING);
 
         setLength(32);
-        setDescription(Bundle.getString("ColumnSavedSearchesName.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnSavedSearchesName.Description"));
     }
 
 }

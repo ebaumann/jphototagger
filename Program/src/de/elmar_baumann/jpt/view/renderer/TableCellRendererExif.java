@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTagValueFormatter;
 import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.Translation;
 import de.elmar_baumann.lib.componentutil.TableUtil;
 import java.awt.Component;
@@ -79,7 +79,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata
             }
         } else if (value instanceof ExifGpsMetadata) {
             if (column == 0) {
-                cellLabel.setText(Bundle.getString("TableCellRendererExif.Column.ShowLocationIn"));
+                cellLabel.setText(JptBundle.INSTANCE.getString("TableCellRendererExif.Column.ShowLocationIn"));
             }
         } else if (value instanceof Component) {
             return (Component) value;

@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.DatabaseProgramsEvent.Type;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 import javax.swing.JProgressBar;
@@ -54,8 +54,8 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.ActionsDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ActionsDialog"));
     }
 
     public JProgressBar getProgressBar(ControllerActionExecutor executor) {
@@ -94,7 +94,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
 
         panelActions = new de.elmar_baumann.jpt.view.panels.ActionsPanel();
 
-        setTitle(Bundle.getString("ActionsDialog.title"));
+        setTitle(JptBundle.INSTANCE.getString("ActionsDialog.title"));
         setAlwaysOnTop(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

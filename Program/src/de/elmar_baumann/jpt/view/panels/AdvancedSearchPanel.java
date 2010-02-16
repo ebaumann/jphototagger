@@ -40,7 +40,7 @@ import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.event.listener.impl.SearchListenerSupport;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -806,28 +806,28 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         add(tabbedPane, gridBagConstraints);
 
-        buttonSaveSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
+        buttonSaveSearch.setText(JptBundle.INSTANCE.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveSearchActionPerformed(evt);
             }
         });
 
-        buttonSaveAs.setText(Bundle.getString("AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
+        buttonSaveAs.setText(JptBundle.INSTANCE.getString("AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
         buttonSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveAsActionPerformed(evt);
             }
         });
 
-        buttonResetColumns.setText(Bundle.getString("AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
+        buttonResetColumns.setText(JptBundle.INSTANCE.getString("AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
         buttonResetColumns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonResetColumnsActionPerformed(evt);
             }
         });
 
-        buttonSearch.setText(Bundle.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
+        buttonSearch.setText(JptBundle.INSTANCE.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSearchActionPerformed(evt);

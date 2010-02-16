@@ -32,7 +32,7 @@ import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.types.FileAction;
 import de.elmar_baumann.jpt.types.SizeUnit;
@@ -743,7 +743,7 @@ public class ThumbnailsPanel extends JPanel
             long unitLength = length / unit.bytes();
             Date date = new Date(file.lastModified());
             String unitString = unit.toString();
-            return Bundle.getString("ThumbnailsPanel.TooltipText", file, unitLength, unitString, date, date, getSidecarFilename(file), flagText);
+            return JptBundle.INSTANCE.getString("ThumbnailsPanel.TooltipText", file, unitLength, unitString, date, date, getSidecarFilename(file), flagText);
         } else {
             return "";
         }

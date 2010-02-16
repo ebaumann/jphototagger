@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.model.ListModelActionsAfterDbInsertion;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.view.dialogs.ActionsDialog;
 import de.elmar_baumann.jpt.view.dialogs.ProgramSelectDialog;
@@ -158,14 +158,14 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         buttonActionsAfterDatabaseInsertionRemove = new javax.swing.JButton();
         buttonActionsAfterDatabaseInsertionAdd = new javax.swing.JButton();
 
-        panelActionsAfterDatabaseInsertion.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsActionsPanel.panelActionsAfterDatabaseInsertion.border.title"))); // NOI18N
+        panelActionsAfterDatabaseInsertion.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsActionsPanel.panelActionsAfterDatabaseInsertion.border.title"))); // NOI18N
 
         listActionsAfterDatabaseInsertion.setModel(modelActionsAfterDbInsertion);
         listActionsAfterDatabaseInsertion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listActionsAfterDatabaseInsertion.setCellRenderer(new ListCellRendererActions());
         scrollPaneActionsAfterDatabaseInsertion.setViewportView(listActionsAfterDatabaseInsertion);
 
-        buttonActionsAfterDatabaseInsertionMoveUp.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveUp.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionMoveUp.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveUp.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionMoveUp.setEnabled(false);
         buttonActionsAfterDatabaseInsertionMoveUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +173,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonActionsAfterDatabaseInsertionMoveDown.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveDown.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionMoveDown.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionMoveDown.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionMoveDown.setEnabled(false);
         buttonActionsAfterDatabaseInsertionMoveDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,14 +198,14 @@ public class SettingsActionsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonActionsAfterDatabaseInsertionEdit.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionEdit.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionEdit.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionEdit.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionsAfterDatabaseInsertionEditActionPerformed(evt);
             }
         });
 
-        buttonActionsAfterDatabaseInsertionRemove.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionRemove.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionRemove.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionRemove.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionRemove.setEnabled(false);
         buttonActionsAfterDatabaseInsertionRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +213,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonActionsAfterDatabaseInsertionAdd.setText(Bundle.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionAdd.text")); // NOI18N
+        buttonActionsAfterDatabaseInsertionAdd.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonActionsAfterDatabaseInsertionAdd.text")); // NOI18N
         buttonActionsAfterDatabaseInsertionAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionsAfterDatabaseInsertionAddActionPerformed(evt);

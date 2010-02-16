@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.filesystem;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Filename format that returns exactly a set string (formats nothing).
@@ -54,7 +54,7 @@ public final class FilenameFormatConstantString extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatConstantString.String");
+        return JptBundle.INSTANCE.getString("FilenameFormatConstantString.String");
     }
 
     private FilenameFormatConstantString() {

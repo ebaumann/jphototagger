@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -130,17 +130,17 @@ public final class ControllerMiscMetadataItemSelected implements
         // 1 path where thumbnailsPanel.apply(tnPanelSettings) is not to call
 
         private void setTitle() {
-            GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
+            GUI.INSTANCE.getAppFrame().setTitle(JptBundle.INSTANCE.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
         }
 
         private void setTitle(Column column) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column", column.getDescription()));
+                    JptBundle.INSTANCE.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column", column.getDescription()));
         }
 
         private void setTitle(Column column, Object userObject) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Object", column.getDescription() + " " + userObject.toString()));
+                    JptBundle.INSTANCE.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Object", column.getDescription() + " " + userObject.toString()));
         }
     }
 }

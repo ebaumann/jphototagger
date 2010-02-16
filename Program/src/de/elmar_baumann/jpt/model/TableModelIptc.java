@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcEntryComparator;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcEntry;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -93,8 +93,8 @@ public final class TableModelIptc extends DefaultTableModel {
     }
 
     private void addColumnHeaders() {
-        addColumn(Bundle.getString("TableModelIptc.HeaderColumn.1"));
-        addColumn(Bundle.getString("TableModelIptc.HeaderColumn.2"));
-        addColumn(Bundle.getString("TableModelIptc.HeaderColumn.3"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.1"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.2"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.3"));
     }
 }

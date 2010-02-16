@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.jpt.model.ListModelAutoscanDirectories;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -178,13 +178,13 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
         buttonStopScheduledTasks = new javax.swing.JButton();
 
-        panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsScheduledTasksPanel.panelTasksAutoscan.border.title"))); // NOI18N
+        panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.panelTasksAutoscan.border.title"))); // NOI18N
 
-        labelAutoscanDirectoriesInfo.setText(Bundle.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
+        labelAutoscanDirectoriesInfo.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
         labelAutoscanDirectoriesInfo.setPreferredSize(new java.awt.Dimension(978, 48));
 
         labelAutoscanDirectoriesPrompt.setLabelFor(listAutoscanDirectories);
-        labelAutoscanDirectoriesPrompt.setText(Bundle.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
+        labelAutoscanDirectoriesPrompt.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
 
         listAutoscanDirectories.setModel(modelAutoscanDirectories);
         listAutoscanDirectories.setCellRenderer(new ListCellRendererFileSystem(true));
@@ -200,14 +200,14 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         });
         scrollPaneListAutoscanDirectories.setViewportView(listAutoscanDirectories);
 
-        checkBoxIsAutoscanIncludeSubdirectories.setText(Bundle.getString("SettingsScheduledTasksPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
+        checkBoxIsAutoscanIncludeSubdirectories.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed(evt);
             }
         });
 
-        buttonRemoveAutoscanDirectories.setText(Bundle.getString("SettingsScheduledTasksPanel.buttonRemoveAutoscanDirectories.text")); // NOI18N
+        buttonRemoveAutoscanDirectories.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.buttonRemoveAutoscanDirectories.text")); // NOI18N
         buttonRemoveAutoscanDirectories.setEnabled(false);
         buttonRemoveAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +215,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
             }
         });
 
-        buttonAddAutoscanDirectories.setText(Bundle.getString("SettingsScheduledTasksPanel.buttonAddAutoscanDirectories.text")); // NOI18N
+        buttonAddAutoscanDirectories.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.buttonAddAutoscanDirectories.text")); // NOI18N
         buttonAddAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddAutoscanDirectoriesActionPerformed(evt);
@@ -257,7 +257,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         );
 
         labelTasksMinutesToStartScheduledTasks.setLabelFor(spinnerMinutesToStartScheduledTasks);
-        labelTasksMinutesToStartScheduledTasks.setText(Bundle.getString("SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
+        labelTasksMinutesToStartScheduledTasks.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
 
         spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
         spinnerMinutesToStartScheduledTasks.addChangeListener(new javax.swing.event.ChangeListener() {

@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.io.File;
@@ -118,14 +118,14 @@ public final class DeleteOrphanedThumbnails implements Runnable {
     }
 
     private String getStartMessage() {
-        return Bundle.getString("DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
+        return JptBundle.INSTANCE.getString("DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
     }
 
     private String getPerformedMessage(File file) {
-        return Bundle.getString("DeleteOrphanedThumbnails.Info.Performed", file);
+        return JptBundle.INSTANCE.getString("DeleteOrphanedThumbnails.Info.Performed", file);
     }
 
     private String getEndMessage() {
-        return Bundle.getString("DeleteOrphanedThumbnails.Info.End", countDeleted);
+        return JptBundle.INSTANCE.getString("DeleteOrphanedThumbnails.Info.End", countDeleted);
     }
 }

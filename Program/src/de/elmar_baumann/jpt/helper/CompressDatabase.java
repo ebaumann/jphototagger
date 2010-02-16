@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Filename;
 import java.io.File;
 
@@ -94,7 +94,7 @@ public final class CompressDatabase implements Runnable {
     }
 
     private synchronized void notifyStarted() {
-        ProgressEvent evt = new ProgressEvent(this, Bundle.getString("CompressDatabase.Start"));
+        ProgressEvent evt = new ProgressEvent(this, JptBundle.INSTANCE.getString("CompressDatabase.Start"));
 
         listenerSupport.notifyStarted(evt);
     }
@@ -112,10 +112,10 @@ public final class CompressDatabase implements Runnable {
     private Object getEndMessage() {
         double mb = 1024 * 1024;
         Object[] params = { success
-                ? Bundle.getString("CompressDatabase.End.Success.True")
-                : Bundle.getString("CompressDatabase.End.Success.False"),
+                ? JptBundle.INSTANCE.getString("CompressDatabase.End.Success.True")
+                : JptBundle.INSTANCE.getString("CompressDatabase.End.Success.False"),
             sizeBefore, new Double(sizeBefore / mb), sizeAfter, new Double(sizeAfter / mb)
         };
-        return Bundle.getString("CompressDatabase.End", params);
+        return JptBundle.INSTANCE.getString("CompressDatabase.End", params);
     }
 }

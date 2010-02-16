@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.keywords.list;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 import de.elmar_baumann.lib.dialog.InputDialog;
@@ -69,7 +69,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
         assert oldName != null && oldName.trim().length() > 0 : oldName;
 
         boolean     finished = false;
-        InputDialog dlg      = new InputDialog(InputHelperDialog.INSTANCE, Bundle.getString("ControllerRenameKeywords.Info.Input"), oldName, UserSettings.INSTANCE.getProperties(), "ControllerRenameKeyword.Input");
+        InputDialog dlg      = new InputDialog(InputHelperDialog.INSTANCE, JptBundle.INSTANCE.getString("ControllerRenameKeywords.Info.Input"), oldName, UserSettings.INSTANCE.getProperties(), "ControllerRenameKeyword.Input");
 
         while (!finished) {
             dlg.setVisible(true);

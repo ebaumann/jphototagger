@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppCommandLineOptions;
 import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.helper.ImportImageFiles;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -49,7 +49,7 @@ public final class MiscFactory {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
         AppLogger.logFine(getClass(), "MiscFactory.Init.Start");
-        appPanel.setStatusbarText(Bundle.getString("MiscFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("MiscFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
 
         appPanel.getEditMetadataPanels().setAutocomplete();
         PopupMenuThumbnails.INSTANCE.setOtherPrograms();
@@ -57,7 +57,7 @@ public final class MiscFactory {
         checkImportImageFiles();
 
         AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
-        appPanel.setStatusbarText(Bundle.getString("MiscFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("MiscFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
     }
 
     private void checkImportImageFiles() {

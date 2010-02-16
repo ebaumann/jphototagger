@@ -28,7 +28,7 @@ import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.helper.CopyFiles.Options;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -72,8 +72,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.CopyToDirectoryDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.CopyToDirectoryDialog"));
     }
 
     public void addProgressListener(ProgressListener listener) {
@@ -379,16 +379,16 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         buttonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("CopyToDirectoryDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelInfo.setText(Bundle.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
 
-        buttonChooseDirectory.setText(Bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -405,16 +405,16 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
 
         checkBoxCopyXmp.setSelected(true);
-        checkBoxCopyXmp.setText(Bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
+        checkBoxCopyXmp.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
 
         labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(Bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
 
-        buttonStop.setText(Bundle.getString("CopyToDirectoryDialog.buttonStop.text")); // NOI18N
+        buttonStop.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,7 +422,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
 
-        buttonStart.setText(Bundle.getString("CopyToDirectoryDialog.buttonStart.text")); // NOI18N
+        buttonStart.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

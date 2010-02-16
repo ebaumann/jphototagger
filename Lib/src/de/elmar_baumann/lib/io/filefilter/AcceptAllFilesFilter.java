@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.lib.io.filefilter;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.io.File;
 import java.io.FileFilter;
 
@@ -46,6 +46,6 @@ public final class AcceptAllFilesFilter implements FileFilter {
      * @return file filter
      */
     public javax.swing.filechooser.FileFilter forFileChooser() {
-        return new FileChooserFilter(this, Bundle.getString("AcceptAllFilesFilter.Description"));
+        return new FileChooserFilter(this, JslBundle.INSTANCE.getString("AcceptAllFilesFilter.Description"));
     }
 }

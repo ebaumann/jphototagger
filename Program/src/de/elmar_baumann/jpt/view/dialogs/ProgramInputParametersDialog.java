@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -104,13 +104,13 @@ public final class ProgramInputParametersDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("ProgramInputParametersDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.title")); // NOI18N
 
-        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
+        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
 
-        labelContextProgramPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
+        labelContextProgramPrompt.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
 
-        labelContextFilePrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
+        labelContextFilePrompt.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
 
         javax.swing.GroupLayout panelContextLayout = new javax.swing.GroupLayout(panelContext);
         panelContext.setLayout(panelContextLayout);
@@ -145,7 +145,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         panelContextLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelContextFile, labelContextFilePrompt});
 
         labelPrompt.setLabelFor(textAreaParameter);
-        labelPrompt.setText(Bundle.getString("ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
 
         textAreaParameter.setColumns(20);
         textAreaParameter.setRows(2);
@@ -153,19 +153,19 @@ public final class ProgramInputParametersDialog extends Dialog {
 
         buttonGroup.add(radioButtonParametersBeforeFilename);
         radioButtonParametersBeforeFilename.setSelected(true);
-        radioButtonParametersBeforeFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
+        radioButtonParametersBeforeFilename.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
 
         buttonGroup.add(radioButtonParametersAfterFilename);
-        radioButtonParametersAfterFilename.setText(Bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
+        radioButtonParametersAfterFilename.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
 
-        buttonCancel.setText(Bundle.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
 
-        buttonOk.setText(Bundle.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);

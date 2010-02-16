@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.generics.Pair;
@@ -40,7 +40,7 @@ import javax.swing.JProgressBar;
  */
 public final class SaveXmp extends Thread {
 
-    private static final String                        PROGRESSBAR_STRING = Bundle.getString("SaveXmp.ProgressBar.String");
+    private static final String                        PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
     private final        Collection<Pair<String, Xmp>> filenamesXmp;
     private              JProgressBar                  progressBar;
 

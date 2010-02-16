@@ -32,7 +32,7 @@ import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.io.FileSystemMove;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -75,8 +75,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.MoveToDirectoryDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.MoveToDirectoryDialog"));
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {
@@ -327,16 +327,16 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         buttonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("MoveToDirectoryDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("MoveToDirectoryDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        labelInfo.setText(Bundle.getString("MoveToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(JptBundle.INSTANCE.getString("MoveToDirectoryDialog.labelInfo.text")); // NOI18N
 
-        buttonChooseDirectory.setText(Bundle.getString("MoveToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(JptBundle.INSTANCE.getString("MoveToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -351,9 +351,9 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(Bundle.getString("MoveToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(JptBundle.INSTANCE.getString("MoveToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
 
-        buttonStop.setText(Bundle.getString("MoveToDirectoryDialog.buttonCancelCopy.text")); // NOI18N
+        buttonStop.setText(JptBundle.INSTANCE.getString("MoveToDirectoryDialog.buttonCancelCopy.text")); // NOI18N
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,7 +361,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
 
-        buttonStart.setText(Bundle.getString("MoveToDirectoryDialog.buttonStartCopy.text")); // NOI18N
+        buttonStart.setText(JptBundle.INSTANCE.getString("MoveToDirectoryDialog.buttonStartCopy.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

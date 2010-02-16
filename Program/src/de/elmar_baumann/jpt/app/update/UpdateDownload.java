@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.net.HttpUtil;
 import de.elmar_baumann.lib.net.NetVersion;
@@ -142,13 +142,13 @@ public final class UpdateDownload extends Thread {
         if (progressBar != null) {
             progressBar.setIndeterminate(true);
             progressBar.setStringPainted(true);
-            progressBar.setString(Bundle.getString("UpdateDownload.Info.ProgressBar"));
+            progressBar.setString(JptBundle.INSTANCE.getString("UpdateDownload.Info.ProgressBar"));
         }
     }
 
     private void progressBarDownloadInfo() {
         if (progressBar != null) {
-            progressBar.setString(Bundle.getString("UpdateDownload.Info.ProgressBarDownload"));
+            progressBar.setString(JptBundle.INSTANCE.getString("UpdateDownload.Info.ProgressBarDownload"));
         }
     }
 

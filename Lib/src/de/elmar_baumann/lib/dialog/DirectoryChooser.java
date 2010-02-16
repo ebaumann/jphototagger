@@ -22,7 +22,7 @@ import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
@@ -96,15 +96,15 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     private void setUsageText() {
         labelUsage.setText(
                 directoryFilter.contains(Option.MULTI_SELECTION)
-                ? Bundle.getString("DirectoryChooser.LabelUsage.MultipleSelection")
-                : Bundle.getString("DirectoryChooser.LabelUsage.SingleSelection"));
+                ? JslBundle.INSTANCE.getString("DirectoryChooser.LabelUsage.MultipleSelection")
+                : JslBundle.INSTANCE.getString("DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
     private void setTitle() {
         setTitle(
                 directoryFilter.contains(Option.MULTI_SELECTION)
-                ? Bundle.getString("DirectoryChooser.Title.MultipleSelection")
-                : Bundle.getString("DirectoryChooser.Title.SingleSelection"));
+                ? JslBundle.INSTANCE.getString("DirectoryChooser.Title.MultipleSelection")
+                : JslBundle.INSTANCE.getString("DirectoryChooser.Title.SingleSelection"));
     }
 
     @Override
@@ -176,8 +176,8 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
                 super.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this,
-                        Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen"),
-                        Bundle.getString("DirectoryChooser.Error.NoDirectoryChosen.Title"),
+                        JslBundle.INSTANCE.getString("DirectoryChooser.Error.NoDirectoryChosen"),
+                        JslBundle.INSTANCE.getString("DirectoryChooser.Error.NoDirectoryChosen.Title"),
                         JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -293,7 +293,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         buttonCancel = new javax.swing.JButton();
         buttonChoose = new javax.swing.JButton();
 
-        menuItemAdd.setText(Bundle.getString("DirectoryChooser.menuItemAdd.text")); // NOI18N
+        menuItemAdd.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemAdd.text")); // NOI18N
         menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddActionPerformed(evt);
@@ -301,7 +301,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         popupMenu.add(menuItemAdd);
 
-        menuItemRename.setText(Bundle.getString("DirectoryChooser.menuItemRename.text")); // NOI18N
+        menuItemRename.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemRename.text")); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRenameActionPerformed(evt);
@@ -309,7 +309,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         popupMenu.add(menuItemRename);
 
-        menuItemDelete.setText(Bundle.getString("DirectoryChooser.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemDelete.text")); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
@@ -336,7 +336,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); // NOI18N
 
         buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/lib/resource/icons/icon_refresh.png"))); // NOI18N
-        buttonRefresh.setToolTipText(Bundle.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
+        buttonRefresh.setToolTipText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
         buttonRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
         buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

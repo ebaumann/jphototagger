@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.lib.io.filefilter;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
@@ -37,7 +37,7 @@ public final class ExecutableFileChooserFileFilter extends FileFilter {
 
     @Override
     public String getDescription() {
-        return Bundle.getString("ExecutableFileChooserFileFilter.Description");
+        return JslBundle.INSTANCE.getString("ExecutableFileChooserFileFilter.Description");
     }
 
 }

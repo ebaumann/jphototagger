@@ -33,7 +33,7 @@ import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.model.TreeModelMiscMetadata;
 import de.elmar_baumann.jpt.model.TreeModelTimeline;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -67,7 +67,7 @@ public final class ModelFactory {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
         AppLogger.logFine(getClass(), "ModelFactory.Init.Start");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Init.Start"), MessageLabel.MessageType.INFO, 1000);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Init.Start"), MessageLabel.MessageType.INFO, 1000);
 
         setTableModels(appPanel);
         setComboBoxModels(appPanel);
@@ -75,7 +75,7 @@ public final class ModelFactory {
         setTreeModels(appPanel);
 
         AppLogger.logFine(getClass(), "ModelFactory.Init.Finished");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Init.Finished"), MessageLabel.MessageType.INFO, 2000);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Init.Finished"), MessageLabel.MessageType.INFO, 2000);
     }
 
     private void setComboBoxModels(AppPanel appPanel) {
@@ -84,14 +84,14 @@ public final class ModelFactory {
 
     private void setComboBoxModelMetadataTemplates(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.ComboBoxModelMetadataTemplates");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.ComboBoxModelMetadataTemplates"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.ComboBoxModelMetadataTemplates"), MessageLabel.MessageType.INFO, -1);
 
         ComboBoxModelMetadataTemplates model = new ComboBoxModelMetadataTemplates();
         support.add(model);
         appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates().setModel(model);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.ComboBoxModelMetadataTemplates");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.ComboBoxModelMetadataTemplates"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.ComboBoxModelMetadataTemplates"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setListModels(AppPanel appPanel) {
@@ -103,7 +103,7 @@ public final class ModelFactory {
 
     private void setListModelSavedSearches(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.ListModelSavedSearches");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.ListModelSavedSearches"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.ListModelSavedSearches"), MessageLabel.MessageType.INFO, -1);
 
         JList                  list       = appPanel.getListSavedSearches();
         Cursor                 listCursor = setWaitCursor(list);
@@ -114,12 +114,12 @@ public final class ModelFactory {
         list.setCursor(listCursor);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.ListModelSavedSearches");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.ListModelSavedSearches"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.ListModelSavedSearches"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setListModelImageCollections(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.ListModelImageCollections");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.ListModelImageCollections"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.ListModelImageCollections"), MessageLabel.MessageType.INFO, -1);
 
         JList                     list       = appPanel.getListImageCollections();
         Cursor                    listCursor = setWaitCursor(list);
@@ -130,12 +130,12 @@ public final class ModelFactory {
         list.setCursor(listCursor);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.ListModelImageCollections");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.ListModelImageCollections"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.ListModelImageCollections"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setListModelKeywords(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.ListModelKeywords");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.ListModelKeywords"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.ListModelKeywords"), MessageLabel.MessageType.INFO, -1);
 
         JList             listKeywords  = appPanel.getListSelKeywords();
         Cursor            listCursor    = setWaitCursor(listKeywords);
@@ -149,12 +149,12 @@ public final class ModelFactory {
 
         listKeywords.setCursor(listCursor);
         AppLogger.logFine(getClass(), "ModelFactory.Finished.ListModelKeywords");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.ListModelKeywords"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.ListModelKeywords"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setListModelNoMetadata(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.ListModelNoMetadata");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.ListModelNoMetadata"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.ListModelNoMetadata"), MessageLabel.MessageType.INFO, -1);
 
         ListModelNoMetadata model = new ListModelNoMetadata();
 
@@ -162,12 +162,12 @@ public final class ModelFactory {
         appPanel.getListNoMetadata().setModel(model);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.ListModelNoMetadata");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.ListModelNoMetadata"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.ListModelNoMetadata"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setTableModels(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.TableModels");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.TableModels"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.TableModels"), MessageLabel.MessageType.INFO, -1);
 
         TableModelIptc modelIptc = new TableModelIptc();
         TableModelXmp  modelXmp1 = new TableModelXmp();
@@ -203,7 +203,7 @@ public final class ModelFactory {
         appPanel.getTableExif()                .setModel(modelExif);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.TableModels");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.TableModels"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.TableModels"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setTreeModels(AppPanel appPanel) {
@@ -216,7 +216,7 @@ public final class ModelFactory {
 
     private void setTreeModelKeywords(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.TreeModelKeywords");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.TreeModelKeywords"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.TreeModelKeywords"), MessageLabel.MessageType.INFO, -1);
 
         TreeModel                  treeModelKeywords  = new TreeModelKeywords();
         ListModelMetadataTemplates listModelTemplates = new ListModelMetadataTemplates();
@@ -230,12 +230,12 @@ public final class ModelFactory {
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().setModel(listModelTemplates);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.TreeModelKeywords");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.TreeModelKeywords"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.TreeModelKeywords"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setTreeModelMiscMetadata(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.TreeModelMiscMetadata");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.TreeModelMiscMetadata"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.TreeModelMiscMetadata"), MessageLabel.MessageType.INFO, -1);
 
         JTree     tree       = appPanel.getTreeMiscMetadata();
         Cursor    treeCursor = setWaitCursor(tree);
@@ -246,12 +246,12 @@ public final class ModelFactory {
         tree.setCursor(treeCursor);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.TreeModelMiscMetadata");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.TreeModelMiscMetadata"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.TreeModelMiscMetadata"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setTreeModelTimeline(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.TreeModelTimeline");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.TreeModelTimeline"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.TreeModelTimeline"), MessageLabel.MessageType.INFO, -1);
 
         JTree     tree       = appPanel.getTreeTimeline();
         Cursor    treeCursor = setWaitCursor(tree);
@@ -262,12 +262,12 @@ public final class ModelFactory {
         tree.setCursor(treeCursor);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.TreeModelTimeline");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.TreeModelTimeline"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.TreeModelTimeline"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setTreeModelFavorites(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.TreeModelFavorites");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.TreeModelFavorites"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.TreeModelFavorites"), MessageLabel.MessageType.INFO, -1);
 
         JTree              tree       = appPanel.getTreeFavorites();
         Cursor             treeCursor = setWaitCursor(tree);
@@ -279,12 +279,12 @@ public final class ModelFactory {
         tree.setCursor(treeCursor);
 
         AppLogger.logFine(getClass(), "ModelFactory.Starting.TreeModelDirectories");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.TreeModelFavorites"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.TreeModelFavorites"), MessageLabel.MessageType.INFO, -1);
     }
 
     private void setTreeModelDirectories(AppPanel appPanel) {
         AppLogger.logFine(getClass(), "ModelFactory.Starting.TreeModelDirectories");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Starting.TreeModelDirectories"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Starting.TreeModelDirectories"), MessageLabel.MessageType.INFO, -1);
 
         JTree     tree       = appPanel.getTreeDirectories();
         Cursor    treeCursor = setWaitCursor(tree);
@@ -295,7 +295,7 @@ public final class ModelFactory {
         tree.setCursor(treeCursor);
 
         AppLogger.logFine(getClass(), "ModelFactory.Finished.TreeModelDirectories");
-        appPanel.setStatusbarText(Bundle.getString("ModelFactory.Finished.TreeModelDirectories"), MessageLabel.MessageType.INFO, -1);
+        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("ModelFactory.Finished.TreeModelDirectories"), MessageLabel.MessageType.INFO, -1);
     }
 
     /**

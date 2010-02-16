@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -68,7 +68,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     private void postInitComponents() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
         list.addListSelectionListener(this);
         if (mode.equals(Mode.DISTINCT_ELEMENTS)) {
             list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
@@ -205,7 +205,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectSelected = new javax.swing.JButton();
 
-        setTitle(Bundle.getString("PathSelectionDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("PathSelectionDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -218,21 +218,21 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         list.setCellRenderer(new Renderer());
         scrollPane.setViewportView(list);
 
-        buttonSelectNothing.setText(Bundle.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
+        buttonSelectNothing.setText(JptBundle.INSTANCE.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
         buttonSelectNothing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectNothingActionPerformed(evt);
             }
         });
 
-        buttonSelectAll.setText(Bundle.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
+        buttonSelectAll.setText(JptBundle.INSTANCE.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectAllActionPerformed(evt);
             }
         });
 
-        buttonSelectSelected.setText(Bundle.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
+        buttonSelectSelected.setText(JptBundle.INSTANCE.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
         buttonSelectSelected.setEnabled(false);
         buttonSelectSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

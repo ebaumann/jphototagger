@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.File;
 import java.util.List;
 
@@ -39,7 +39,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
     public RefreshXmpInDbOfKnownFiles() {
         setName("Refreshing XMP in the database of known files @ " + getClass().getSimpleName());
-        setInfo(Bundle.getString("RefreshXmpInDbOfKnownFiles.Info"));
+        setInfo(JptBundle.INSTANCE.getString("RefreshXmpInDbOfKnownFiles.Info"));
     }
 
     @Override

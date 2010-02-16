@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -78,7 +78,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void setTitle() {
-        setTitle(Bundle.getString(templateHasName()
+        setTitle(JptBundle.INSTANCE.getString(templateHasName()
                 ? "EditMetaDataTemplateDialog.Title.Edit"
                 : "EditMetaDataTemplateDialog.Title.New"
                 ));

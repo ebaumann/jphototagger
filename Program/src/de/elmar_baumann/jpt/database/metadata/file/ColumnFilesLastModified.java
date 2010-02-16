@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.file;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Tabellenspalte <code>lastmodified</code> der Tabelle <code>files</code>.
@@ -38,6 +38,6 @@ public final class ColumnFilesLastModified extends Column {
             "lastmodified",
             DataType.DATE);
 
-        setDescription(Bundle.getString("ColumnFilesLastModified.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnFilesLastModified.Description"));
     }
 }

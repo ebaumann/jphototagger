@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.io.DirectoryInfo;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.Component;
 import java.io.File;
 import javax.swing.DefaultListCellRenderer;
@@ -60,6 +60,6 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
     }
 
     private static String getLabelText(DirectoryInfo directoryInfo) {
-        return Bundle.getString("ListCellRendererDirectories.LabelText", directoryInfo.getDirectory().getAbsolutePath(), directoryInfo.getImageFileCount());
+        return JptBundle.INSTANCE.getString("ListCellRendererDirectories.LabelText", directoryInfo.getDirectory().getAbsolutePath(), directoryInfo.getImageFileCount());
     }
 }

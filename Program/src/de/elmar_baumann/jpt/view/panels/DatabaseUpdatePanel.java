@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.helper.RefreshXmpInDbOfKnownFiles;
 import de.elmar_baumann.jpt.helper.SetExifToXmp;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
 import de.elmar_baumann.jpt.model.ListModelKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.RenameFilenamesInDbDialog;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -48,8 +48,8 @@ import javax.swing.JToggleButton;
  */
 public class DatabaseUpdatePanel extends JPanel implements ActionListener, ProgressListener {
 
-    private static final String              BUTTON_TEXT_START = Bundle.getString("DatabaseUpdatePanel.DisplayName.Start");
-    private static final String              BUTTON_TEXT_STOP  = Bundle.getString("DatabaseUpdatePanel.DisplayName.Stop");
+    private static final String              BUTTON_TEXT_START = JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Start");
+    private static final String              BUTTON_TEXT_STOP  = JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Stop");
     private static final long                serialVersionUID  = 3148751698141558616L;
     private transient    UpdateAllThumbnails thumbnailUpdater;
     private final        AbstractButton[]    buttons;

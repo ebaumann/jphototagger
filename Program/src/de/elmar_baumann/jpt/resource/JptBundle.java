@@ -16,29 +16,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.io;
+package de.elmar_baumann.jpt.resource;
 
-import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.lib.resource.Bundle;
 
 /**
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2008-09-02
  */
-public enum FileSystemError {
+public final class JptBundle extends Bundle {
 
-    LOCKED             (JptBundle.INSTANCE.getString("FileSystemError.LOCKED")),
-    MISSING_PRIVILEGES (JptBundle.INSTANCE.getString("FileSystemError.MISSING_PRIVILEGES")),
-    MOVE_RENAME_EXISTS (JptBundle.INSTANCE.getString("FileSystemError.MOVE_RENAME_EXISTS")),
-    READ_ONLY          (JptBundle.INSTANCE.getString("FileSystemError.READ_ONLY")),
-    UNKNOWN            (JptBundle.INSTANCE.getString("FileSystemError.UNKNOWN"));
+    public static final JptBundle INSTANCE = new JptBundle();
 
-    private final String message;
-
-    private FileSystemError(String message) {
-        this.message = message;
-    }
-
-    public String getLocalizedMessage() {
-        return message;
+    private JptBundle() {
+        super("de/elmar_baumann/jpt/resource/properties/Bundle");
     }
 }

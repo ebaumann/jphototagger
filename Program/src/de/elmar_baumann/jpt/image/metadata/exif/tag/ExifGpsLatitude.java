@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.util.ByteUtil;
 import java.nio.ByteOrder;
 import java.util.HashMap;
@@ -46,8 +46,8 @@ public final class ExifGpsLatitude {
         REF_OF_STRING.put("N", Ref.NORTH);
         REF_OF_STRING.put("S", Ref.SOUTH);
 
-        LOCALIZED_STRING_OF_REF.put(Ref.NORTH, Bundle.getString("ExifGpsLatitudeRefNorth"));
-        LOCALIZED_STRING_OF_REF.put(Ref.SOUTH, Bundle.getString("ExifGpsLatitudeRefSouth"));
+        LOCALIZED_STRING_OF_REF.put(Ref.NORTH, JptBundle.INSTANCE.getString("ExifGpsLatitudeRefNorth"));
+        LOCALIZED_STRING_OF_REF.put(Ref.SOUTH, JptBundle.INSTANCE.getString("ExifGpsLatitudeRefSouth"));
     }
     private Ref ref;
     private ExifDegrees degrees;

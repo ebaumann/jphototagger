@@ -39,7 +39,7 @@ import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Image;
@@ -63,7 +63,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private final        ProgressListenerSupport                      progressListenerSupport = new ProgressListenerSupport();
     private final        ListenerSupport<UpdateMetadataCheckListener> updateListenerSupport   = new ListenerSupport<UpdateMetadataCheckListener>();
     private              ProgressEvent                                progressEvent           = new ProgressEvent(this, null);
-    private static final Image                                        ERROR_THUMBNAIL         = IconUtil.getIconImage(Bundle.getString("InsertImageFilesIntoDatabase.ErrorThumbnailPath"));
+    private static final Image                                        ERROR_THUMBNAIL         = IconUtil.getIconImage(JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.ErrorThumbnailPath"));
     private final        List<String>                                 imageFilenames;
     private final        Set<Insert>                                  what                    = new HashSet<Insert>();
     private              boolean                                      stop;
@@ -430,14 +430,14 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         Object[] params = {
             data.getFile().getAbsolutePath(),
             data.getExif() == null
-            ? Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
+            ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
+            : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
             data.getXmp() == null
-            ? Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
+            ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
+            : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
             data.getThumbnail() == null
-            ? Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes")};
+            ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
+            : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes")};
         AppLogger.logInfo(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert", params);
     }
 }

@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -60,7 +60,7 @@ final class UpdateTablesIndexes {
     }
 
     void update(Connection connection) throws SQLException {
-        messages.message(Bundle.getString("UpdateTablesIndexes.Info"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesIndexes.Info"));
         replaceIndices(connection);
         messages.message("");
     }

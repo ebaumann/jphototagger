@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -333,7 +333,7 @@ public class RatingSelectionPanel
 
         buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_remove_not_set.png"))); // NOI18N
         buttonNoRating.setMnemonic('0');
-        buttonNoRating.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
+        buttonNoRating.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);
         buttonNoRating.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -350,7 +350,7 @@ public class RatingSelectionPanel
 
         buttonStar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar1.setMnemonic('1');
-        buttonStar1.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
+        buttonStar1.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
         buttonStar1.setBorder(null);
         buttonStar1.setContentAreaFilled(false);
         buttonStar1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -367,7 +367,7 @@ public class RatingSelectionPanel
 
         buttonStar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar2.setMnemonic('2');
-        buttonStar2.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
+        buttonStar2.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
         buttonStar2.setBorder(null);
         buttonStar2.setContentAreaFilled(false);
         buttonStar2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -384,7 +384,7 @@ public class RatingSelectionPanel
 
         buttonStar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar3.setMnemonic('3');
-        buttonStar3.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
+        buttonStar3.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
         buttonStar3.setBorder(null);
         buttonStar3.setContentAreaFilled(false);
         buttonStar3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -401,7 +401,7 @@ public class RatingSelectionPanel
 
         buttonStar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar4.setMnemonic('4');
-        buttonStar4.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
+        buttonStar4.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
         buttonStar4.setBorder(null);
         buttonStar4.setContentAreaFilled(false);
         buttonStar4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -418,7 +418,7 @@ public class RatingSelectionPanel
 
         buttonStar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar5.setMnemonic('5');
-        buttonStar5.setToolTipText(Bundle.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
+        buttonStar5.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
         buttonStar5.setBorder(null);
         buttonStar5.setContentAreaFilled(false);
         buttonStar5.addMouseListener(new java.awt.event.MouseAdapter() {

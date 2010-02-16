@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Image;
 import java.io.File;
@@ -39,7 +39,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         implements DatabaseImageFilesListener {
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
-    private Image noPreviewThumbnail = IconUtil.getIconImage(Bundle.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
+    private Image noPreviewThumbnail = IconUtil.getIconImage(JptBundle.INSTANCE.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private ThumbnailCache() {

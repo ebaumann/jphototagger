@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -40,7 +40,7 @@ final class UpdateTablesPrimaryKeys {
     private static final List<String>         TABLES_PRIMARY_KEYS_TO_DROP = new ArrayList<String>();
 
     void update(Connection connection) throws SQLException {
-        messages.message(Bundle.getString("UpdateTablesPrimaryKeys.Info"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
         dropPrimaryKeys(connection);
         messages.message("");
     }

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.popupmenus;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
@@ -34,9 +34,9 @@ import javax.swing.KeyStroke;
 public final class PopupMenuImageCollections extends JPopupMenu {
 
     private static final long                      serialVersionUID = -3446852358941591602L;
-    private final        JMenuItem                 itemDelete       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Delete"));
-    private final        JMenuItem                 itemRename       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Rename"));
-    private final        JMenuItem                 itemCreate       = new JMenuItem(Bundle.getString("PopupMenuImageCollections.DisplayName.Action.Create"));
+    private final        JMenuItem                 itemDelete       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Delete"));
+    private final        JMenuItem                 itemRename       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Rename"));
+    private final        JMenuItem                 itemCreate       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Create"));
     public               int                       itemIndex;
     public static final  PopupMenuImageCollections INSTANCE         = new PopupMenuImageCollections();
 

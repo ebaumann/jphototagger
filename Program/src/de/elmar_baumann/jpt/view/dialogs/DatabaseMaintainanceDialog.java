@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.TabbedPaneUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -43,8 +43,8 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.DatabaseMaintainanceDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.DatabaseMaintainanceDialog"));
     }
 
     @Override
@@ -88,15 +88,15 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         panelDatabaseUpdate = new de.elmar_baumann.jpt.view.panels.DatabaseUpdatePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("DatabaseMaintainanceDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
-        tabbedPane.addTab(Bundle.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         tabbedPane.addTab(bundle.getString("DatabaseMaintainanceDialog.panelDatabaseUpdate.TabConstraints.tabTitle"), panelDatabaseUpdate); // NOI18N
 

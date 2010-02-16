@@ -43,7 +43,7 @@ import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
 import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
 import de.elmar_baumann.jpt.event.listener.impl.EditMetadataPanelsListenerSupport;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.lib.generics.Pair;
@@ -761,7 +761,7 @@ public final class EditMetadataPanels
                 if (entry instanceof RatingSelectionPanel) {
                     // Text not parsable as number leads to an exception
                 } else {
-                    entry.setText(Bundle.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
+                    entry.setText(JptBundle.INSTANCE.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
                 }
                 entry.addMouseListenerToInputComponents(this);
                 entry.setDirty(false);

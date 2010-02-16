@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.ErrorListener;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
@@ -48,8 +48,8 @@ public final class ControllerLogfileDialog
                    ErrorListener {
 
     private static final long      MILLISECONDS_ERROR_DISPLAY = 4000;
-    private static final String    LABEL_ERROR_TOOLTIP_TEXT   = Bundle.getString("ControllerLogfileDialog.LabelErrorTooltipText");
-    private static final String    STATUSBAR_ERROR_TEXT       = Bundle.getString("ControllerLogfileDialog.Error.Info");
+    private static final String    LABEL_ERROR_TOOLTIP_TEXT   = JptBundle.INSTANCE.getString("ControllerLogfileDialog.LabelErrorTooltipText");
+    private static final String    STATUSBAR_ERROR_TEXT       = JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
     private final        JMenuItem itemShowDlg                = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
     private final        JLabel    labelError                 = GUI.INSTANCE.getAppPanel().getLabelError();
 

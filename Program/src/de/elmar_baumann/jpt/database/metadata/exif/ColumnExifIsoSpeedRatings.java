@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Tabellenspalte <code>exif_iso_speed_ratings</code> der Tabelle <code>exif</code>.
@@ -41,6 +41,6 @@ public final class ColumnExifIsoSpeedRatings extends Column {
             "exif_iso_speed_ratings",
             DataType.SMALLINT);
 
-        setDescription(Bundle.getString("ColumnExifIsoSpeedRatings.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifIsoSpeedRatings.Description"));
     }
 }

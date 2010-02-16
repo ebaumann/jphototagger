@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.text.MessageFormat;
 import java.util.Set;
 
@@ -127,12 +127,12 @@ public final class DeleteOrphanedXmp
     }
 
     private void setMessagesFiles() {
-        startMessage = Bundle.getString("DeleteOrphanedXmp.Files.Start");
-        endMessage   = Bundle.getString("DeleteOrphanedXmp.Files.End");
+        startMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.Start");
+        endMessage   = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.End");
     }
 
     private void setMessagesXmp() {
-        startMessage = Bundle.getString("DeleteOrphanedXmp.Xmp.Start");
-        endMessage   = Bundle.getString("DeleteOrphanedXmp.Xmp.End");
+        startMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.Start");
+        endMessage   = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.End");
     }
 }
