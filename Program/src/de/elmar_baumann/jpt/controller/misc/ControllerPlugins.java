@@ -49,7 +49,7 @@ public final class ControllerPlugins implements ActionListener {
     private void listen() {
         for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
             item.addActionListener(this);
-            PopupMenuThumbnails.INSTANCE.getPluginOfItem(item).addPluginListener(new Listener());
+            PopupMenuThumbnails.INSTANCE.getPluginOfItem(item).addPluginListener(new Listener(this));
         }
     }
 
@@ -70,6 +70,12 @@ public final class ControllerPlugins implements ActionListener {
 
     private static class Listener implements PluginListener {
 
+        private final Object progressBarOwner;
+
+        public Listener(Object progressBarOwner) {
+            this.progressBarOwner = progressBarOwner;
+        }
+
         @Override
         public void action(Set<Event> events) {
             if (Plugin.filesChanged(events)) {
@@ -77,7 +83,7 @@ public final class ControllerPlugins implements ActionListener {
             }
             if (Plugin.isFinished(events)) {
                 UserSettings.INSTANCE.writeToFile();
-                ProgressBar.INSTANCE.releaseResource(this);
+                ProgressBar.INSTANCE.releaseResource(progressBarOwner);
             }
         }
     }
