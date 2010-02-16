@@ -27,10 +27,10 @@ import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
+import de.elmar_baumann.jpt.factory.PluginManager;
 import de.elmar_baumann.jpt.helper.ActionsHelper;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.resource.Bundle;
-import de.elmar_baumann.lib.util.Lookup;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -41,9 +41,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
-import java.util.logging.Logger;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JMenu;
@@ -182,12 +180,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     private void addPluginItems() {
+        if (!PluginManager.INSTANCE.hasPlugins()) return;
         add(menuPlugins);
-        Logger     logger     = Logger.getLogger("de.elmar_baumann.jpt.plugin");
-        Properties properties = UserSettings.INSTANCE.getProperties();
-        for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
-            plugin.setProperties(properties);
-            plugin.setLogger(logger);
+        for (Plugin plugin : PluginManager.INSTANCE.getPlugins()) {
             addItemsOf(plugin);
         }
     }
