@@ -8,6 +8,8 @@ Changelog JPhotoTagger
 0.7.77 2010-02-16
 -----------------
 
+* Bearbeiten > Einstellungen > Plugins > Ein/Ausschließen: Einzelne Plugins
+  können aktiviert oder deaktiviert werden
 * Flickr-Upload: Bestätigungsdialog mit nur noch 2 Schaltflächen: "Ja" und
   "Nein"
 

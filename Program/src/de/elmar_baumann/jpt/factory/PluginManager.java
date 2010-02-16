@@ -21,8 +21,7 @@ package de.elmar_baumann.jpt.factory;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.lib.util.Lookup;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -34,30 +33,76 @@ import java.util.logging.Logger;
  */
 public final class PluginManager {
 
-    private static final List<Plugin> PLUGINS  = new ArrayList<Plugin>();
-    public static final PluginManager INSTANCE = new PluginManager();
+    private static final LinkedHashSet<Plugin> ALL_PLUGINS = new LinkedHashSet<Plugin>();
+    private static final LinkedHashSet<Plugin> PLUGINS     = new LinkedHashSet<Plugin>();
+    public static final PluginManager INSTANCE             = new PluginManager();
 
-    public List<Plugin> getPlugins() {
-        return new ArrayList<Plugin>(PLUGINS);
+    /**
+     * Returns not excluded plugins.
+     *
+     * @return plugins
+     */
+    public LinkedHashSet<Plugin> getPlugins() {
+        return new LinkedHashSet<Plugin>(PLUGINS);
     }
 
+    /**
+     * Returns the count of not excluded plugins.
+     *
+     * @return count
+     */
     public int getPluginCount() {
         return PLUGINS.size();
     }
 
+    /**
+     * Returns the count of all plugins (includes the excluded plugins).
+     * 
+     * @return count
+     */
+    public int getAllPluginsCount() {
+        return ALL_PLUGINS.size();
+    }
+
+    /**
+     * Returns whether a not excluded plugin does exist.
+     *
+     * @return true if at least one not excluded plugin does exist
+     */
     public boolean hasPlugins() {
         return !PLUGINS.isEmpty();
     }
 
+    /**
+     * Excludes a plugin.
+     *
+     * @param plugin  plugin to exclude
+     * @param exclude true if exclude, else false
+     */
     public void exclude(Plugin plugin, boolean exclude) {
         Properties properties = UserSettings.INSTANCE.getProperties();
         String     key        = plugin.getClass().getName();
 
         if (exclude) {
+            PLUGINS.remove(plugin);
             properties.setProperty(key, "0");
         } else {
+            PLUGINS.add(plugin);
             properties.setProperty(key, "1");
         }
+    }
+
+    /**
+     * Returns all plugins, even excluded.
+     *
+     * @return all plugins
+     */
+    public LinkedHashSet<Plugin> getAllPlugins() {
+        return new LinkedHashSet<Plugin>(ALL_PLUGINS);
+    }
+
+    public boolean isExcluded(Plugin plugin) {
+        return !PLUGINS.contains(plugin);
     }
 
     private boolean isExclude(Plugin plugin) {
@@ -78,9 +123,10 @@ public final class PluginManager {
         Properties properties = UserSettings.INSTANCE.getProperties();
 
         for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
+            plugin.setProperties(properties);
+            plugin.setLogger(logger);
+            ALL_PLUGINS.add(plugin);
             if (!isExclude(plugin)) {
-                plugin.setProperties(properties);
-                plugin.setLogger(logger);
                 PLUGINS.add(plugin);
             }
         }

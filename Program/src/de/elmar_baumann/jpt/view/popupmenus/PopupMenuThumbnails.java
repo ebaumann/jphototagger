@@ -38,7 +38,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -243,10 +242,6 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     public Action getActionOfItem(JMenuItem item) {
         return ACTION_OF_ITEM.get(item);
-    }
-
-    public Set<Plugin> getPlugins() {
-        return new LinkedHashSet<Plugin>(PLUGIN_OF_ITEM.values());
     }
 
     @Override
