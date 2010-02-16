@@ -30,6 +30,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -189,6 +190,15 @@ public abstract class Plugin {
      * @return text
      */
     public abstract String getDescription();
+
+    /**
+     * Returns an icon of this plugin.
+     *
+     * @return icon or null if this plugin has not an icon. Default: null.
+     */
+    public Icon getIcon() {
+        return null;
+    }
 
     /**
      * Returns the path to the XML contents file of the plugin's help.
