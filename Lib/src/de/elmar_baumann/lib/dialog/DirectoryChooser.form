@@ -11,7 +11,7 @@
         <MenuItem class="javax.swing.JMenuItem" name="menuItemAdd">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.menuItemAdd.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.menuItemAdd.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -21,7 +21,7 @@
         <MenuItem class="javax.swing.JMenuItem" name="menuItemRename">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.menuItemRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.menuItemRename.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -31,7 +31,7 @@
         <MenuItem class="javax.swing.JMenuItem" name="menuItemDelete">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.menuItemDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.menuItemDelete.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -158,7 +158,7 @@
           <Image iconType="3" name="/de/elmar_baumann/lib/resource/icons/icon_refresh.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.buttonRefresh.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="DirectoryChooser.buttonRefresh.toolTipText" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[25, 25]"/>
