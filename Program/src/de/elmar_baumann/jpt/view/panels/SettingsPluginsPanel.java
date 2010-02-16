@@ -18,16 +18,21 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.factory.PluginManager;
 import de.elmar_baumann.jpt.plugin.Plugin;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.generics.Pair;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -49,19 +54,68 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     }
 
     private void postInitComponents() {
-        // Plugins have to be the same instances used in the menu items
-        for (Plugin plugin : PopupMenuThumbnails.INSTANCE.getPlugins()) {
-            JPanel panel = plugin.getSettingsPanel();
-            if (panel != null) {
-                helpContentsPathOfTab.put(panel, new Pair<String, String>(
-                                            plugin.getHelpContentsPath(),
-                                            plugin.getFirstHelpPageName()));
-                tabbedPane.add(plugin.getName(), panel);
-            }
+        for (Plugin plugin : PluginManager.INSTANCE.getPlugins()) {
+            addPluginSettingsPanel(plugin);
         }
+        for (Plugin plugin : PluginManager.INSTANCE.getAllPlugins()) {
+            addPluginCheckBox(plugin);
+        }
+        panelExcludeCheckboxes.add(new JPanel(), getGbcAfterLastCheckBox()); // ensures checkboxes vertically top and not centered
         MnemonicUtil.setMnemonics((Container) this);
         setEnabledHelpButton();
         tabbedPane.addChangeListener(this);
+    }
+
+    private void addPluginSettingsPanel(Plugin plugin) {
+        JPanel panel = plugin.getSettingsPanel();
+        if (panel != null) {
+            helpContentsPathOfTab.put(panel, new Pair<String, String>(plugin.getHelpContentsPath(), plugin.getFirstHelpPageName()));
+            tabbedPane.add(plugin.getName(), panel);
+        }
+    }
+
+    private void addPluginCheckBox(Plugin plugin) {
+        JCheckBox checkBox = new JCheckBox(new ActionExcludePlugin(plugin));
+        checkBox.setSelected(!PluginManager.INSTANCE.isExcluded(plugin));
+        panelExcludeCheckboxes.add(checkBox, getGbcCheckBox());
+    }
+
+    private GridBagConstraints getGbcCheckBox() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx   = GridBagConstraints.REMAINDER;
+        gbc.gridy   = GridBagConstraints.RELATIVE;
+        gbc.anchor  = GridBagConstraints.NORTHWEST;
+        gbc.fill    = GridBagConstraints.NONE;
+        return gbc;
+    }
+
+    private GridBagConstraints getGbcAfterLastCheckBox() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx   = GridBagConstraints.REMAINDER;
+        gbc.gridy   = GridBagConstraints.RELATIVE;
+        gbc.anchor  = GridBagConstraints.SOUTH;
+        gbc.fill    = GridBagConstraints.BOTH;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        return gbc;
+    }
+
+    private static class ActionExcludePlugin extends AbstractAction {
+
+        private static final long serialVersionUID = -7156530079287891717L;
+        private transient final Plugin plugin;
+
+        public ActionExcludePlugin(Plugin plugin) {
+            this.plugin = plugin;
+            putValue(Action.NAME, plugin.getName());
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JCheckBox cb = (JCheckBox) e.getSource();
+            PluginManager.INSTANCE.exclude(plugin, !cb.isSelected());
+        }
+
     }
 
     private void showHelp() {
@@ -98,9 +152,44 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
         buttonGroupActionsAfterDatabaseInsertion = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
+        panelExclude = new javax.swing.JPanel();
+        labelInfoExclude = new javax.swing.JLabel();
+        scrollPaneExclude = new javax.swing.JScrollPane();
+        panelExcludeCheckboxes = new javax.swing.JPanel();
         buttonHelpPlugin = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        labelInfoExclude.setText(bundle.getString("SettingsPluginsPanel.labelInfoExclude.text")); // NOI18N
+
+        scrollPaneExclude.setAlignmentX(0.0F);
+        scrollPaneExclude.setAlignmentY(0.0F);
+
+        panelExcludeCheckboxes.setLayout(new java.awt.GridBagLayout());
+        scrollPaneExclude.setViewportView(panelExcludeCheckboxes);
+
+        javax.swing.GroupLayout panelExcludeLayout = new javax.swing.GroupLayout(panelExclude);
+        panelExclude.setLayout(panelExcludeLayout);
+        panelExcludeLayout.setHorizontalGroup(
+            panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelExcludeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                    .addComponent(labelInfoExclude))
+                .addContainerGap())
+        );
+        panelExcludeLayout.setVerticalGroup(
+            panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelExcludeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelInfoExclude)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tabbedPane.addTab(bundle.getString("SettingsPluginsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N
+
         buttonHelpPlugin.setText(bundle.getString("SettingsPluginsPanel.buttonHelpPlugin.text")); // NOI18N
         buttonHelpPlugin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +203,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(370, Short.MAX_VALUE)
+                .addContainerGap(381, Short.MAX_VALUE)
                 .addComponent(buttonHelpPlugin)
                 .addContainerGap())
         );
@@ -135,6 +224,10 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupActionsAfterDatabaseInsertion;
     private javax.swing.JButton buttonHelpPlugin;
+    private javax.swing.JLabel labelInfoExclude;
+    private javax.swing.JPanel panelExclude;
+    private javax.swing.JPanel panelExcludeCheckboxes;
+    private javax.swing.JScrollPane scrollPaneExclude;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }
