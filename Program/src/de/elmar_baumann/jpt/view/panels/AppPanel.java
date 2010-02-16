@@ -30,14 +30,11 @@ import de.elmar_baumann.jpt.view.renderer.ListCellRendererSavedSearches;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererMiscMetadata;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererTimeline;
 import de.elmar_baumann.lib.component.ImageTextArea;
-import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -94,16 +91,7 @@ public final class AppPanel extends javax.swing.JPanel {
         setTreesSingleSelection();
         initCollections();
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
-        //setTextAreaSearchMinimumSize();
         setMnemonics();
-    }
-
-    private void setTextAreaSearchMinimumSize() {
-        FontMetrics fm = textAreaSearch.getFontMetrics(textAreaSearch.getFont());
-        textAreaSearch.setMinimumSize(new Dimension(25, fm.getMaxAscent() + fm.getMaxDescent()));
-        scrollPaneTextAreaSearch.setMinimumSize(new Dimension(25, (int) Math.round((fm.getMaxAscent() + fm.getMaxDescent()) * 1.1)));
-        System.out.println(fm.getMaxAscent() + fm.getMaxDescent());
-        ComponentUtil.forceRepaint(panelSearch);
     }
 
     private void setMnemonics() {
