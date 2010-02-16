@@ -35,7 +35,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Methods for accessing XMP (Extensible Metadata Platform).
+ * <p>
+ * A project using this class has to include <code>XMPCore.jar</code> in the
+ * <code>lib</code> directory of this project.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-15
