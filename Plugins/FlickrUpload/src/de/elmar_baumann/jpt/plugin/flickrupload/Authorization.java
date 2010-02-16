@@ -62,17 +62,17 @@ final class Authorization {
             return true;
         } catch (Exception ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, Bundle.getString("Auth.Error"));
+            JOptionPane.showMessageDialog(null, FlickrBundle.INSTANCE.getString("Auth.Error"));
         }
         return false;
     }
 
     private void authenticateViaWebBrowser() throws Exception {
         URL url = authInterface.buildAuthenticationUrl(Permission.DELETE, frob);
-        LargeMessagesDialog dlg = new LargeMessagesDialog(Bundle.getString("Auth.Info.GetToken.Browse", url.toExternalForm()));
+        LargeMessagesDialog dlg = new LargeMessagesDialog(FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Browse", url.toExternalForm()));
         dlg.setVisible(true);
         Desktop.getDesktop().browse(url.toURI());
-        JOptionPane.showMessageDialog(null, Bundle.getString("Auth.Info.GetToken.Confirm"));
+        JOptionPane.showMessageDialog(null, FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Confirm"));
         auth = authInterface.getToken(frob);
         token = auth.getToken();
         properties.setProperty(KEY_TOKEN, token);

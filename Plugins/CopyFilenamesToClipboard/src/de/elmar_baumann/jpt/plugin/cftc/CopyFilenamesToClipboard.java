@@ -18,9 +18,9 @@
  */
 package de.elmar_baumann.jpt.plugin.cftc;
 
-import de.elmar_baumann.jpt.plugin.Bundle;
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.plugin.PluginListener.Event;
+import de.elmar_baumann.lib.resource.Bundle;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
