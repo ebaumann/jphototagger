@@ -142,6 +142,13 @@ public enum ExifDataType {
         return null;
     }
 
+    public static boolean isType(int type) {
+        for (ExifDataType dataType : values()) {
+            if (dataType.value == type) return true;
+        }
+        return false;
+    }
+
     /**
      * Returns the string representation of the Value.
      *
