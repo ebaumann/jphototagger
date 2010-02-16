@@ -198,11 +198,10 @@ public final class PopupMenuThumbnails extends JPopupMenu
         List<JMenuItem>        pluginItems   = new ArrayList<JMenuItem>(actionCount);
 
         for (Action action : pluginActions) {
-            Object value = action.getValue(Action.SMALL_ICON);
-            Icon actionIcon = null;
-            if (value instanceof Icon) actionIcon = (Icon) value;
-            String actionName = action.getValue(Action.NAME).toString();
+            Icon      actionIcon = (Icon) action.getValue(Action.SMALL_ICON);
+            String    actionName = action.getValue(Action.NAME).toString();
             JMenuItem pluginItem = new JMenuItem( actionName, actionIcon);
+
             pluginItems.add(pluginItem);
             ACTION_OF_ITEM.put(pluginItem, action);
         }
