@@ -80,11 +80,11 @@ public final class ControllerFastSearch
     private final        List<JTree>        selectionTrees         = appPanel.getSelectionTrees();
     private final        List<JList>        selectionLists         = appPanel.getSelectionLists();
     private final        EditMetadataPanels editPanels             = appPanel.getEditMetadataPanels();
+    private              boolean            isAutocomplete;
     private final        Autocomplete       autocomplete           = new Autocomplete();
 
     public ControllerFastSearch() {
         autocomplete.setTransferFocusForward(false);
-        decorateTextFieldSearch();
         listen();
     }
 
@@ -107,9 +107,16 @@ public final class ControllerFastSearch
         thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
     }
 
+    public void setAutocomplete(boolean autocomplete) {
+        isAutocomplete = autocomplete;
+        if (autocomplete) {
+            decorateTextFieldSearch();
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == comboboxFastSearch && comboboxFastSearch.getSelectedIndex() >= 0) {
+        if (isAutocomplete && e.getSource() == comboboxFastSearch && comboboxFastSearch.getSelectedIndex() >= 0) {
             decorateTextFieldSearch();
         } else if (e.getSource() == appPanel.getButtonSearch()) {
             search();
@@ -127,7 +134,7 @@ public final class ControllerFastSearch
     }
 
     private void decorateTextFieldSearch() {
-        SwingUtilities.invokeLater(new Runnable() {
+        new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -137,7 +144,7 @@ public final class ControllerFastSearch
                         ? AutoCompleteDataOfColumn.INSTANCE.getFastSearchData().get()
                         : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).get());
             }
-        });
+        }).start();
     }
 
     private void clearSelection() {

@@ -21,6 +21,7 @@ package de.elmar_baumann.jpt.factory;
 import de.elmar_baumann.jpt.app.AppCommandLineOptions;
 import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.controller.search.ControllerFastSearch;
 import de.elmar_baumann.jpt.helper.ImportImageFiles;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -55,6 +56,7 @@ public final class MiscFactory {
         PopupMenuThumbnails.INSTANCE.setOtherPrograms();
         ScheduledTasks.INSTANCE.run();
         checkImportImageFiles();
+        ControllerFactory.INSTANCE.getController(ControllerFastSearch.class).setAutocomplete(true);
 
         AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
         appPanel.setStatusbarText(JptBundle.INSTANCE.getString("MiscFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
