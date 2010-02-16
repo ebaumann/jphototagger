@@ -12,6 +12,7 @@ Changelog JPhotoTagger
   können aktiviert oder deaktiviert werden
 * Flickr-Upload: Bestätigungsdialog mit nur noch 2 Schaltflächen: "Ja" und
   "Nein"
+* Interna modifiziert
 
 0.7.76 2010-02-15
 -----------------
