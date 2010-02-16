@@ -36,6 +36,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -48,6 +50,8 @@ import javax.swing.JPanel;
 public final class FlickrUpload extends Plugin implements Serializable {
 
     private static final long serialVersionUID = -2935460271965834936L;
+    private static final Icon icon = ImageUtil.getImageIcon("/de/elmar_baumann/jpt/plugin/flickrupload/flickr.png");
+
 
     private final UploadAction uploadAction = new UploadAction();
 
@@ -78,13 +82,18 @@ public final class FlickrUpload extends Plugin implements Serializable {
         return "index.html";
     }
 
+    @Override
+    public Icon getIcon() {
+        return icon;
+    }
+
     private class UploadAction extends AbstractAction {
 
         private static final long serialVersionUID = -5807124252712511456L;
 
         public UploadAction() {
             putValue(Action.NAME, getName());
-            putValue(Action.SMALL_ICON, ImageUtil.getImageIcon("/de/elmar_baumann/jpt/plugin/flickrupload/flickr.png"));
+            putValue(Action.SMALL_ICON, icon);
         }
 
         @Override
