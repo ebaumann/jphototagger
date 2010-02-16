@@ -29,7 +29,7 @@ import java.util.Properties;
 public class SettingsPanel extends javax.swing.JPanel {
 
     private static final long       serialVersionUID = -7766362003081534388L;
-    private              Settings   settings;
+    private transient    Settings   settings;
     private              Properties properties;
 
     public SettingsPanel() {

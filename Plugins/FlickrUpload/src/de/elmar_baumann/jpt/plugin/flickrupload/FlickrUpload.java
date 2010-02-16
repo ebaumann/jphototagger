@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.plugin.Xmp;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,9 @@ import javax.swing.JPanel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-13
  */
-public final class FlickrUpload extends Plugin {
+public final class FlickrUpload extends Plugin implements Serializable {
+
+    private static final long serialVersionUID = -2935460271965834936L;
 
     private final UploadAction uploadAction = new UploadAction();
 
