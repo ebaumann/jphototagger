@@ -19,6 +19,7 @@
 package de.elmar_baumann.lib.image.metadata.xmp;
 
 import com.adobe.xmp.XMPConst;
+import com.adobe.xmp.XMPException;
 import com.adobe.xmp.XMPIterator;
 import com.adobe.xmp.XMPMeta;
 import com.adobe.xmp.XMPMetaFactory;
@@ -218,6 +219,29 @@ public final class Xmp {
     }
 
     /**
+     * Returns the property infos of a XMP string.
+     *
+     * @param xmpString string with valid XMP content
+     * @return          property infos or null on errors
+     * @throws          NullPointerException if <code>xmpString</code> is null
+     */
+    public static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmpString) {
+        try {
+            List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
+            XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmpString);
+            if (xmpMeta == null) return null;
+            for (XMPIterator it = xmpMeta.iterator(); it.hasNext();) {
+                XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
+                propertyInfos.add(xmpPropertyInfo);
+            }
+            return propertyInfos;
+        } catch (XMPException ex) {
+            Logger.getLogger(Xmp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    /**
      * Returns the property infos of a sidecar file.
      * 
      * @param  sidecarFile sidcar file
@@ -256,6 +280,13 @@ public final class Xmp {
 
     /**
      * Returns specific property values from a collection of property infos.
+     * <p>
+     * Usage example for getting all Dublin Core subjects (keywords) from a XMP
+     * sidecar file:
+     * <pre>
+     * List&lt;XMPPropertyInfo&gt; xmpPropertyInfos = Xmp.getPropertyInfosOfSidecarFile(xmpFile);
+     * List&lt;String&gt; dcSubjects = Xmp.getPropertyValuesFrom(xmpPropertyInfos, Xmp.PropertyValue.DC_SUBJECT);
+     * </pre>
      *
      * @param  xmpPropertyInfos property infos
      * @param  propertyValue    value to retrieve
@@ -289,6 +320,12 @@ public final class Xmp {
      * and returns the first value.
      * <p>
      * Usage for not repeatable values.
+     * <p>
+     * Usage example for the headline (title) from a XMP sidecar file:
+     * <pre>
+     * List&lt;XMPPropertyInfo&gt; xmpPropertyInfos = Xmp.getPropertyInfosOfSidecarFile(xmpFile);
+     * String headline = Xmp.getPropertyValueFrom(xmpPropertyInfos, Xmp.PropertyValue.PHOTOSHOP_HEADLINE);
+     * </pre>
      *
      * @param xmpPropertyInfos property infos
      * @param propertyValue    value to retrieve
