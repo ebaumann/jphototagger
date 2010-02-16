@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
@@ -84,12 +84,12 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
 
     private void setTitle(List<String> keywords) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                Bundle.getString("ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
+                JptBundle.INSTANCE.getString("ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                Bundle.getString("ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword", keyword));
+                JptBundle.INSTANCE.getString("ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword", keyword));
     }
 
     private void setMetadataEditable() {

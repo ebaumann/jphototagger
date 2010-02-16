@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.lib.dialog;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -183,7 +183,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
         labelInfo.setText(bundle.getString("ProgressDialogLabelMessageText")); // NOI18N
 
-        buttonStop.setText(Bundle.getString("ProgressDialog.buttonStop.text")); // NOI18N
+        buttonStop.setText(JslBundle.INSTANCE.getString("ProgressDialog.buttonStop.text")); // NOI18N
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStopActionPerformed(evt);

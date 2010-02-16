@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -49,7 +49,7 @@ final class UpdateTablesDeleteInvalidExif {
 
     void update(Connection connection) throws SQLException {
         if (DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_REMOVED_INVALID_EXIF)) return;
-        messages.message(Bundle.getString("UpdateTablesDeleteInvalidExif.Info.update"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesDeleteInvalidExif.Info.update"));
         setNull(connection);
         messages.clearMessage();
         DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_REMOVED_INVALID_EXIF, true);

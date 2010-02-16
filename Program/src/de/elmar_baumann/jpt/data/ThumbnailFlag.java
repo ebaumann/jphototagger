@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.data;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.Color;
 
 /**
@@ -32,7 +32,7 @@ public final class ThumbnailFlag {
     private final Color  color;
     private final String string;
 
-    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND = new ThumbnailFlag(Color.RED, Bundle.getString("ThumbnailFlag.Error.FileNotFound"));
+    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND = new ThumbnailFlag(Color.RED, JptBundle.INSTANCE.getString("ThumbnailFlag.Error.FileNotFound"));
 
     public ThumbnailFlag(Color color, String string) {
         this.color = color;

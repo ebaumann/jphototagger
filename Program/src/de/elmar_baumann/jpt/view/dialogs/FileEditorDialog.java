@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.FileEditorPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -39,7 +39,7 @@ public class FileEditorDialog extends Dialog {
     public FileEditorDialog() {
         super(GUI.INSTANCE.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
     }
 
     public FileEditorPanel getFileEditorPanel() {

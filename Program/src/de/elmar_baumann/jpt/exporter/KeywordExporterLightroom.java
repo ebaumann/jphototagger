@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -124,7 +124,7 @@ final class KeywordExporterLightroom
 
     @Override
     public String getDescription() {
-        return Bundle.getString("KeywordExporterLightroom.Description");
+        return JptBundle.INSTANCE.getString("KeywordExporterLightroom.Description");
     }
 
     @Override

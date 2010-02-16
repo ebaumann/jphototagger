@@ -28,7 +28,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTagsToDisplay;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.Translation;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel;
@@ -70,8 +70,8 @@ public final class TableModelExif extends DefaultTableModel {
     }
 
     private void setRowHeaders() {
-        addColumn(Bundle.getString("TableModelExif.HeaderColumn.1"));
-        addColumn(Bundle.getString("TableModelExif.HeaderColumn.2"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.1"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.2"));
     }
 
     /**
@@ -163,7 +163,7 @@ public final class TableModelExif extends DefaultTableModel {
         }
         if (exifGpsMetadata.longitude() != null && exifGpsMetadata.latitude() != null) {
 
-            final JButton button = new JButton(Bundle.getString("TableModelExif.Button.GoogleMaps"));
+            final JButton button = new JButton(JptBundle.INSTANCE.getString("TableModelExif.Button.GoogleMaps"));
 
             button.addActionListener(new GpsButtonListener());
             super.addRow(new Object[]{exifGpsMetadata, button});

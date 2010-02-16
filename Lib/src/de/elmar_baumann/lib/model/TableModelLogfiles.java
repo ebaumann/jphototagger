@@ -19,7 +19,7 @@
 package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.util.logging.LogfileRecord;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import de.elmar_baumann.lib.util.ArrayUtil;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,7 +69,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
             row.add(new Date(record.getMillis()));
             String message = record.getMessage();
             row.add(message == null
-                    ? Bundle.getString("TableModelLogfiles.Error.MessageIsNull")
+                    ? JslBundle.INSTANCE.getString("TableModelLogfiles.Error.MessageIsNull")
                     : message);
             records.add(record);
             addRow(row.toArray(new Object[row.size()]));
@@ -92,9 +92,9 @@ public final class TableModelLogfiles extends DefaultTableModel {
     }
 
     private void addColumns() {
-        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.1"));
-        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.2"));
-        addColumn(Bundle.getString("TableModelLogfiles.HeaderColumn.3"));
+        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.1"));
+        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.2"));
+        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.3"));
     }
 
     /**

@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.selections.ColumnIcons;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.model.TreeModelMiscMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import java.awt.Component;
 import java.text.DecimalFormat;
@@ -143,7 +143,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
             if (column.equals(ColumnExifFocalLength.INSTANCE)) {
                 return " mm";
             } else if (column.equals(ColumnXmpRating.INSTANCE)) {
-                return Bundle.getString("TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
+                return JptBundle.INSTANCE.getString("TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
             }
         }
         return "";

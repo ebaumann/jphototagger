@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.keywords.list;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
@@ -53,7 +53,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     implements PopupMenuListener
     {
 
-    private final        JMenuItem                    itemEditSynonyms   = new JMenuItem(Bundle.getString("ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName"));
+    private final        JMenuItem                    itemEditSynonyms   = new JMenuItem(JptBundle.INSTANCE.getString("ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName"));
     private final        EditRepeatableTextEntryPanel editPanel          = (EditRepeatableTextEntryPanel) GUI.INSTANCE.getAppPanel().getEditMetadataPanels().getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
     private final        JPopupMenu                   popupMenuEditPanel = editPanel.getPopupMenu();
     private final        JList                        listEditPanel      = editPanel.getList();
@@ -140,7 +140,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     private void editSynonyms(String keyword) {
         Set<String> oldSynonyms = DatabaseSynonyms.INSTANCE.getSynonymsOf(keyword);
         InputDialog dlg         = new InputDialog(InputHelperDialog.INSTANCE,
-                                      Bundle.getString("ControllerEditKeywordSynonyms.Info.Input", keyword, DELIM),
+                                      JptBundle.INSTANCE.getString("ControllerEditKeywordSynonyms.Info.Input", keyword, DELIM),
                                       catSynonyms(oldSynonyms),
                                       UserSettings.INSTANCE.getProperties(),
                                       "ControllerEditKeywordSynonyms.Pos");

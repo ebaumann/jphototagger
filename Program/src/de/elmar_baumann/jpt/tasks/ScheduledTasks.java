@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent;
 import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent.Type;
 import de.elmar_baumann.jpt.event.listener.UpdateMetadataCheckListener;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.lib.concurrent.SerialExecutor;
 import java.awt.event.ActionEvent;
@@ -59,8 +59,8 @@ public final class ScheduledTasks implements ActionListener,
 
     static {
         ICON_OF_BUTTON_STATE.put        (ButtonState.START, AppLookAndFeel.getIcon("icon_start_scheduled_tasks.png"));
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START, Bundle.getString("ScheduledTasks.TooltipText.Start"));
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.STOP , Bundle.getString("ScheduledTasks.TooltipText.Stop"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START, JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.STOP , JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Stop"));
         ICON_OF_BUTTON_STATE.put        (ButtonState.STOP , AppLookAndFeel.getIcon("icon_stop_scheduled_tasks_enabled.png"));
     }
 

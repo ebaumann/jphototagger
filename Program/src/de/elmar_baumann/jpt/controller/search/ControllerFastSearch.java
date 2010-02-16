@@ -35,7 +35,7 @@ import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.helper.AutocompleteHelper;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -170,7 +170,7 @@ public final class ControllerFastSearch
 
             private void setTitle(String userInput) {
                 GUI.INSTANCE.getAppFrame().setTitle(
-                        Bundle.getString("ControllerFastSearch.AppFrame.Title.FastSearch", userInput));
+                        JptBundle.INSTANCE.getString("ControllerFastSearch.AppFrame.Title.FastSearch", userInput));
             }
 
             private List<String> searchFilenames(String userInput) {

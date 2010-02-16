@@ -29,7 +29,7 @@ import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.helper.AutocompleteHelper;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
 import java.awt.Color;
 import java.awt.Component;
@@ -235,7 +235,7 @@ public final class EditTextEntryPanel
 
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(Bundle.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(JptBundle.INSTANCE.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

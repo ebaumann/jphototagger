@@ -1,64 +1,75 @@
-/*
- * JavaStandardLibrary JSL - subproject of JPhotoTagger
- * Copyright (C) 2009 by the developer team, resp. Elmar Baumann<eb@elmar-baumann.de>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
 package de.elmar_baumann.lib.resource;
 
 import java.text.MessageFormat;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Returns the strings defined in the <code>Bundle.properties</code> file
- * (<code>"de/elmar_baumann/lib/resource/properties/Bundle"</code>).
+ * Manages <em>one</em> {@link ResourceBundle}.
+ * <p>
+ * Can be instanciated directly or subclussed, e.g.:
+ * <pre>
+ * public final class JslBundle extends Bundle {
  *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
+ *     public static final JslBundle INSTANCE = new JslBundle();
+ *
+ *     private JslBundle() {
+ *         super("de/elmar_baumann/lib/resource/properties/Bundle");
+ *     }
+ * }
+ * </pre>
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2008-09-02
+ * @version 2010-02-14
  */
-public final class Bundle {
+public class Bundle {
 
-    private static final ResourceBundle BUNDLE =
-            ResourceBundle.getBundle(
-            "de/elmar_baumann/lib/resource/properties/Bundle");
+    private final ResourceBundle bundle;
 
     /**
-     * Returns <code>java.util.ResourceBundle.getBundle().getString()</code>
-     * and catches exceptions.
-     *
-     * @param  key     key
-     * @param  params  parameters to format via {@link java.text.MessageFormat}
-     * @return     value or key between two question marks if the value could
-     *             not be retrieved
+     * Constructor initializing the {@link ResourceBundle} with a specific
+     * path.
+     * 
+     * @param path path, e.g. <code>"de/elmar_baumann/lib/resource/properties/Bundle"</code>
+     *             if in that package at least one file <code>Bundle.properties</code>
+     *             does exist
      */
-    public static String getString(String key, Object... params) {
+    public Bundle(String path) {
+        if (path == null) throw new NullPointerException("path == null");
+        bundle = ResourceBundle.getBundle(path);
+    }
+
+    /**
+     * Returns a string from the resource bundle and does log
+     * {@link MissingResourceException}s rather than throwing it.
+     *
+     * @param key    key
+     * @param params optional params as described in the {@link MessageFormat}
+     *               class documentation
+     * @return       string or the key whithin two question marks if that key
+     *               does not address a string whithin the resource bundle
+     * @throws       NullPointerException if <code>key</code> is null
+     */
+    public String getString(String key, Object... params) {
+        if (key == null) throw new NullPointerException("key == null");
         try {
-            MessageFormat msg = new MessageFormat(BUNDLE.getString(key));
-            return msg.format(params);
+            String s = bundle.getString(key);
+            return MessageFormat.format(s, params);
         } catch (Exception ex) {
             Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "?" + key + "?";
     }
 
-    private Bundle() {
+    /**
+     * Returns whether a specific key is in the resource bundle.
+     *
+     * @param  key key
+     * @return     true if the bundle contains that key
+     */
+    public boolean containsKey(String key) {
+        return bundle.containsKey(key);
     }
 }

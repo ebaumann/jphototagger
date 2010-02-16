@@ -24,7 +24,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.helper.UpdateAllThumbnails;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailCreator;
 import de.elmar_baumann.jpt.types.Persistence;
@@ -150,11 +150,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         labelIsCreateThumbnailsWithExternalApp = new javax.swing.JLabel();
         textFieldExternalThumbnailCreationCommand = new javax.swing.JTextField();
 
-        panelThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsThumbnailsPanel.panelThumbnailDimensions.border.title"))); // NOI18N
+        panelThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.panelThumbnailDimensions.border.title"))); // NOI18N
 
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelMaxThumbnailWidth.setLabelFor(spinnerMaxThumbnailWidth);
-        labelMaxThumbnailWidth.setText(Bundle.getString("SettingsThumbnailsPanel.labelMaxThumbnailWidth.text")); // NOI18N
+        labelMaxThumbnailWidth.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.labelMaxThumbnailWidth.text")); // NOI18N
 
         spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(150, 50, 256, 1));
         spinnerMaxThumbnailWidth.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -163,8 +163,8 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
             }
         });
 
-        buttonUpdateAllThumbnails.setText(Bundle.getString("SettingsThumbnailsPanel.buttonUpdateAllThumbnails.text")); // NOI18N
-        buttonUpdateAllThumbnails.setToolTipText(Bundle.getString("SettingsThumbnailsPanel.buttonUpdateAllThumbnails.toolTipText")); // NOI18N
+        buttonUpdateAllThumbnails.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.buttonUpdateAllThumbnails.text")); // NOI18N
+        buttonUpdateAllThumbnails.setToolTipText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.buttonUpdateAllThumbnails.toolTipText")); // NOI18N
         buttonUpdateAllThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateAllThumbnailsActionPerformed(evt);
@@ -173,7 +173,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
         labelUpdateAllThumbnails.setForeground(new java.awt.Color(0, 0, 255));
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelUpdateAllThumbnails.setText(Bundle.getString("SettingsThumbnailsPanel.labelUpdateAllThumbnails.text")); // NOI18N
+        labelUpdateAllThumbnails.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.labelUpdateAllThumbnails.text")); // NOI18N
         labelUpdateAllThumbnails.setPreferredSize(new java.awt.Dimension(1030, 32));
 
         javax.swing.GroupLayout panelThumbnailDimensionsLayout = new javax.swing.GroupLayout(panelThumbnailDimensions);
@@ -262,11 +262,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                 .addComponent(radioButtonCreateThumbnailsWithExternalApp))
         );
 
-        panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("SettingsThumbnailsPanel.panelExternalThumbnailApp.border.title"))); // NOI18N
+        panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.panelExternalThumbnailApp.border.title"))); // NOI18N
 
         labelIsCreateThumbnailsWithExternalApp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelIsCreateThumbnailsWithExternalApp.setLabelFor(textFieldExternalThumbnailCreationCommand);
-        labelIsCreateThumbnailsWithExternalApp.setText(Bundle.getString("SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
+        labelIsCreateThumbnailsWithExternalApp.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
         labelIsCreateThumbnailsWithExternalApp.setPreferredSize(new java.awt.Dimension(1694, 60));
 
         textFieldExternalThumbnailCreationCommand.setEnabled(false);

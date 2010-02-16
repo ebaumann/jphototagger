@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.filesystem;
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.event.listener.FilenameFormatListener.Request;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -91,7 +91,7 @@ public final class FilenameFormatDate extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatDate.String");
+        return JptBundle.INSTANCE.getString("FilenameFormatDate.String");
     }
 
     private FilenameFormatDate() {

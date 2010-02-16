@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,7 +55,7 @@ final class UpdateTablesDropCategories {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "xmp_photoshop_supplementalcategories"))
             return;
 
-        messages.message(Bundle.getString("UpdateTablesDropCategories.Info"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesDropCategories.Info"));
 
         if (!categoriesAlreadyDropped(connection) && saveCategoriesToFile(connection)) {
             updateDatabase(connection);

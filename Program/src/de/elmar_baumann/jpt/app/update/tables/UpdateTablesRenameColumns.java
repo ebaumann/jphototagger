@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -64,7 +64,7 @@ final class UpdateTablesRenameColumns {
     }
 
     private void renameColumns(Connection connection) throws SQLException {
-        messages.message(Bundle.getString("UpdateTablesRenameColumns.Info.update"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesRenameColumns.Info.update"));
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
@@ -81,6 +81,6 @@ final class UpdateTablesRenameColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesRenameColumns.Info.RenameColumn", tableName, columnName));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesRenameColumns.Info.RenameColumn", tableName, columnName));
     }
 }

@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.database.DatabaseFileExcludePattern;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.model.ListModelFileExcludePatterns;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
@@ -37,7 +37,7 @@ import java.util.List;
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         implements ProgressListener, Persistence {
 
-    private static final    String                       ADD_INFO_TEXT    = Bundle.getString("SettingsFileExcludePatternsPanel.AddInfoText");
+    private static final    String                       ADD_INFO_TEXT    = JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.AddInfoText");
     private static final    long                         serialVersionUID = -3083582823254767001L;
     private final transient DatabaseFileExcludePattern   db               = DatabaseFileExcludePattern.INSTANCE;
     private final           ListModelFileExcludePatterns model            = new ListModelFileExcludePatterns();
@@ -171,7 +171,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         buttonUpdateDatabase = new javax.swing.JButton();
 
         labelInfoList.setLabelFor(listPattern);
-        labelInfoList.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
+        labelInfoList.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
 
         listPattern.setModel(model);
         listPattern.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -189,8 +189,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonDeletePattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
-        buttonDeletePattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
+        buttonDeletePattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
+        buttonDeletePattern.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
         buttonDeletePattern.setEnabled(false);
         buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,8 +198,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonInsertPattern.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
-        buttonInsertPattern.setToolTipText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
+        buttonInsertPattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
+        buttonInsertPattern.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
         buttonInsertPattern.setEnabled(false);
         buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,9 +208,9 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         });
 
         labelInfoDatabase.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
+        labelInfoDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
 
-        buttonCancelUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
+        buttonCancelUpdateDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
         buttonCancelUpdateDatabase.setEnabled(false);
         buttonCancelUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,7 +218,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonUpdateDatabase.setText(Bundle.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
+        buttonUpdateDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
         buttonUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateDatabaseActionPerformed(evt);

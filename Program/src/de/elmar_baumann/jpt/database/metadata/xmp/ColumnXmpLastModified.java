@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Column <code>lastmodified</code> of table <code>xmp</code>.
@@ -37,8 +37,8 @@ public final class ColumnXmpLastModified extends Column {
             "lastmodified",
             DataType.BIGINT);
 
-        setDescription(Bundle.getString("ColumnXmpLastModified.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpLastModified.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpLastModified.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpLastModified.LongerDescription"));
     }
 
 }

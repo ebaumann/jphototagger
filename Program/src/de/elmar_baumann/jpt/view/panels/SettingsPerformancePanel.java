@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
@@ -93,7 +93,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
             }
         });
 
-        checkBoxScanForEmbeddedXmp.setText(Bundle.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
+        checkBoxScanForEmbeddedXmp.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
         checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxScanForEmbeddedXmpActionPerformed(evt);

@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.model;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -100,7 +100,7 @@ public final class TableModelXmp extends DefaultTableModel {
     }
 
     private void setRowHeaders() {
-        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.1"));
-        addColumn(Bundle.getString("TableModelXmp.HeaderColumn.2"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelXmp.HeaderColumn.1"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelXmp.HeaderColumn.2"));
     }
 }

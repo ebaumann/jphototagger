@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,7 +92,7 @@ public final class KeywordExporterJpt implements KeywordExporter {
     /**
      * Description returned by {@link #getDescription()}
      */
-    public static final String DESCRIPTION = Bundle.getString("KeywordExporterJpt.Description");
+    public static final String DESCRIPTION = JptBundle.INSTANCE.getString("KeywordExporterJpt.Description");
     /**
      * File filter returned by {@link #getFileFilter()}
      */

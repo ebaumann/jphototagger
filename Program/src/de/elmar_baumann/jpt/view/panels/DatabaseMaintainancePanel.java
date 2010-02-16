@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.helper.CompressDatabase;
 import de.elmar_baumann.jpt.helper.DeleteOrphanedXmp;
 import de.elmar_baumann.jpt.helper.DeleteOrphanedThumbnails;
@@ -316,7 +316,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         buttonAbortAction = new javax.swing.JButton();
         buttonStartMaintain = new javax.swing.JButton();
 
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(evt);
@@ -327,7 +327,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setIconTextGap(0);
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(22, 22));
 
-        checkBoxCompressDatabase.setText(Bundle.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
+        checkBoxCompressDatabase.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
         checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCompressDatabaseActionPerformed(evt);
@@ -361,7 +361,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         scrollPaneMessages.setViewportView(textAreaMessages);
 
         buttonDeleteMessages.setForeground(new java.awt.Color(0, 0, 255));
-        buttonDeleteMessages.setText(Bundle.getString("DatabaseMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
+        buttonDeleteMessages.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
         buttonDeleteMessages.setEnabled(false);
         buttonDeleteMessages.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -369,7 +369,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             }
         });
 
-        buttonAbortAction.setText(Bundle.getString("DatabaseMaintainancePanel.buttonAbortAction.text")); // NOI18N
+        buttonAbortAction.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.buttonAbortAction.text")); // NOI18N
         buttonAbortAction.setEnabled(false);
         buttonAbortAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,7 +377,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             }
         });
 
-        buttonStartMaintain.setText(Bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
+        buttonStartMaintain.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
         buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

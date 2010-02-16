@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreat
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,7 +82,7 @@ public final class SetExifToXmp extends HelperThread {
 
     private void setInfo() {
         setName("Setting EXIF metadata to XMP metadata @ " + getClass().getSimpleName());
-        setInfo(Bundle.getString("SetExifToXmp.Info"));
+        setInfo(JptBundle.INSTANCE.getString("SetExifToXmp.Info"));
     }
 
     @Override

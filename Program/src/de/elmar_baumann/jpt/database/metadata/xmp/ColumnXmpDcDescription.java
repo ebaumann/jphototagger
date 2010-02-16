@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Spalte <code>dc_description</code> der Tabelle <code>xmp</code>.
@@ -39,7 +39,7 @@ public final class ColumnXmpDcDescription extends Column {
             DataType.STRING);
 
         setLength(2000);
-        setDescription(Bundle.getString("ColumnXmpDcDescription.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpDcDescription.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpDcDescription.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpDcDescription.LongerDescription"));
     }
 }

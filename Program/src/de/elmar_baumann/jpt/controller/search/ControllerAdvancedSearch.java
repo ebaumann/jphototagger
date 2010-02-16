@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.helper.SearchHelper;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -100,8 +100,8 @@ public final class ControllerAdvancedSearch
             private void setTitle(String name) {
                 GUI.INSTANCE.getAppFrame().setTitle(
                         name == null
-                        ? Bundle.getString("ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch")
-                        : Bundle.getString("ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved", name));
+                        ? JptBundle.INSTANCE.getString("ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch")
+                        : JptBundle.INSTANCE.getString("ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved", name));
             }
         });
     }

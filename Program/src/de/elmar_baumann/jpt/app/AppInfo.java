@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.app;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.util.Version;
 
 /**
@@ -49,7 +49,7 @@ public final class AppInfo {
     /**
      * Title of the application
      */
-    public static final String APP_DESCRIPTION = Bundle.getString("AppInfo.AppDescription");
+    public static final String APP_DESCRIPTION = JptBundle.INSTANCE.getString("AppInfo.AppDescription");
     /**
      * Minimum required Java version
      */

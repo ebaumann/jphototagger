@@ -34,7 +34,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -62,9 +62,9 @@ public final class TreeModelMiscMetadata
         extends    DefaultTreeModel
         implements DatabaseImageFilesListener {
 
-    private static final    DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(Bundle.getString("TreeModelMiscMetadata.Root.DisplayName"));
-    private static final    Object                 EXIF_USER_OBJECT    = Bundle.getString("TreeModelMiscMetadata.ExifNode.DisplayName");
-    private static final    Object                 XMP_USER_OBJECT     = Bundle.getString("TreeModelMiscMetadata.XmpNode.DisplayName");
+    private static final    DefaultMutableTreeNode ROOT                = new DefaultMutableTreeNode(JptBundle.INSTANCE.getString("TreeModelMiscMetadata.Root.DisplayName"));
+    private static final    Object                 EXIF_USER_OBJECT    = JptBundle.INSTANCE.getString("TreeModelMiscMetadata.ExifNode.DisplayName");
+    private static final    Object                 XMP_USER_OBJECT     = JptBundle.INSTANCE.getString("TreeModelMiscMetadata.XmpNode.DisplayName");
     private static final    Set<Column>            EXIF_COLUMNS        = new LinkedHashSet<Column>();
     private static final    Set<Column>            XMP_COLUMNS         = new LinkedHashSet<Column>();
     private static final    Set<Object>            COLUMN_USER_OBJECTS = new LinkedHashSet<Object>();

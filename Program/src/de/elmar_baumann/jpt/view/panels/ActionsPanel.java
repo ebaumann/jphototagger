@@ -27,7 +27,7 @@ import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererActions;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.ProgramPropertiesDialog;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
@@ -195,7 +195,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         add(scrollPane, gridBagConstraints);
 
-        progressBar.setToolTipText(Bundle.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
+        progressBar.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -204,8 +204,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         add(progressBar, gridBagConstraints);
 
-        buttonDelete.setText(Bundle.getString("ActionsPanel.buttonDelete.text")); // NOI18N
-        buttonDelete.setToolTipText(Bundle.getString("ActionsPanel.buttonDelete.toolTipText")); // NOI18N
+        buttonDelete.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,8 +213,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonEdit.setText(Bundle.getString("ActionsPanel.buttonEdit.text")); // NOI18N
-        buttonEdit.setToolTipText(Bundle.getString("ActionsPanel.buttonEdit.toolTipText")); // NOI18N
+        buttonEdit.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonEdit.text")); // NOI18N
+        buttonEdit.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonEdit.toolTipText")); // NOI18N
         buttonEdit.setEnabled(false);
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,16 +222,16 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonNew.setText(Bundle.getString("ActionsPanel.buttonNew.text")); // NOI18N
-        buttonNew.setToolTipText(Bundle.getString("ActionsPanel.buttonNew.toolTipText")); // NOI18N
+        buttonNew.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonNew.text")); // NOI18N
+        buttonNew.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonNew.toolTipText")); // NOI18N
         buttonNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNewActionPerformed(evt);
             }
         });
 
-        buttonExecute.setText(Bundle.getString("ActionsPanel.buttonExecute.text")); // NOI18N
-        buttonExecute.setToolTipText(Bundle.getString("ActionsPanel.buttonExecute.toolTipText")); // NOI18N
+        buttonExecute.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonExecute.text")); // NOI18N
+        buttonExecute.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonExecute.toolTipText")); // NOI18N
         buttonExecute.setEnabled(false);
         buttonExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

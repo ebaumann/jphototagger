@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.io.IoUtil;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel.Tab;
@@ -48,7 +48,7 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerHelp implements ActionListener, HelpBrowserListener {
 
-    private static final String      HELP_CONTENTS_URL         = Bundle.getString("Help.Url.Contents");
+    private static final String      HELP_CONTENTS_URL         = JptBundle.INSTANCE.getString("Help.Url.Contents");
     private final        HelpBrowser help                      = HelpBrowser.INSTANCE;
     private static final String      KEY_CURRENT_URL           = ControllerHelp.class.getName() + ".CurrentURL";
     private              String      currentUrl                = UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
@@ -110,7 +110,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
 
     private void showAcceleratorKeyHelp() {
         initHelp();
-        help.setDisplayUrl(Bundle.getString("Help.Url.AcceleratorKeys"));
+        help.setDisplayUrl(JptBundle.INSTANCE.getString("Help.Url.AcceleratorKeys"));
         ComponentUtil.show(help);
     }
 

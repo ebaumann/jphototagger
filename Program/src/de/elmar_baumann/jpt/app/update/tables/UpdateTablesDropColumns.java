@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ final class UpdateTablesDropColumns {
     }
 
     private void dropColumns(Connection connection) throws SQLException {
-        messages.message(Bundle.getString("UpdateTablesDropColumns.Info.update"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesDropColumns.Info.update"));
         for (ColumnInfo info : dropColumns) {
             dropColumn(connection,info.getTableName(), info.getColumnName());
         }
@@ -78,6 +78,6 @@ final class UpdateTablesDropColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(Bundle.getString("UpdateTablesDropColumns.Info", tableName, columnName));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesDropColumns.Info", tableName, columnName));
     }
 }

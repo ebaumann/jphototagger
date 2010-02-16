@@ -20,7 +20,7 @@ package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.component.SystemOutputPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 
 /**
  * Contains a {@link de.elmar_baumann.lib.component.SystemOutputPanel}.
@@ -59,7 +59,7 @@ public class SystemOutputDialog extends Dialog {
         panelSystemOutput = new de.elmar_baumann.lib.component.SystemOutputPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("SystemOutputDialog.title"));
+        setTitle(JslBundle.INSTANCE.getString("SystemOutputDialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

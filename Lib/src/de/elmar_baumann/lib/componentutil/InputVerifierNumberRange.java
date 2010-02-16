@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.lib.componentutil;
 
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.InputVerifier;
@@ -101,8 +101,8 @@ public final class InputVerifierNumberRange extends InputVerifier {
         if (!message) return;
         JOptionPane.showMessageDialog(
                 input,
-                Bundle.getString("InputVerifierNumberRange.ErrorMessage", min, max),
-                Bundle.getString("InputVerifierNumberRange.Error.Title"),
+                JslBundle.INSTANCE.getString("InputVerifierNumberRange.ErrorMessage", min, max),
+                JslBundle.INSTANCE.getString("InputVerifierNumberRange.Error.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 }

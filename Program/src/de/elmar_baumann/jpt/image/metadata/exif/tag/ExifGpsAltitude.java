@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.util.ByteUtil;
 import java.nio.ByteOrder;
 import java.text.MessageFormat;
@@ -47,8 +47,8 @@ public final class ExifGpsAltitude {
         REF_OF_INTEGER.put(0, Ref.OBOVE_SEA_LEVEL);
         REF_OF_INTEGER.put(1, Ref.BELOW_SEA_LEVEL);
 
-        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, Bundle.getString("ExifGpsAltitudeRefOboveSeaLevel"));
-        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, Bundle.getString("ExifGpsAltitudeRefBelowSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, JptBundle.INSTANCE.getString("ExifGpsAltitudeRefOboveSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, JptBundle.INSTANCE.getString("ExifGpsAltitudeRefBelowSeaLevel"));
     }
     private Ref ref;
     private ExifRational value;

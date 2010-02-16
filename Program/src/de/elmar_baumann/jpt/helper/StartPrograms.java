@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.io.IoUtil;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.ProgramInputParametersDialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
@@ -141,7 +141,7 @@ public final class StartPrograms {
             return IoUtil.quoteForCommandLine(program.getFile()) +
                     IoUtil.getDefaultCommandLineSeparator() +
                     program.getCommandlineParameters(imageFiles,
-                        getAdditionalParameters(Bundle.getString("StartPrograms.GetInput.Title"), 2),
+                        getAdditionalParameters(JptBundle.INSTANCE.getString("StartPrograms.GetInput.Title"), 2),
                         dialog.isParametersBeforeFilename());
         }
 

@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.thumbnail;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -90,7 +90,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
                 FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()), what);
 
         inserter.addProgressListener(new ProgressBarUpdater(
-                Bundle.getString("ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String")));
+                JptBundle.INSTANCE.getString("ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String")));
 
         UserTasks.INSTANCE.add(inserter);
     }

@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.popupmenus;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JList;
@@ -37,10 +37,10 @@ import javax.swing.KeyStroke;
 public final class PopupMenuKeywordsList extends JPopupMenu {
 
     private static final long                  serialVersionUID  = -552638878495121120L;
-    private final        JMenuItem             itemRename        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Rename"));
-    private final        JMenuItem             itemDelete        = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.Delete"));
-    private final        JMenuItem             itemEditSynonyms  = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"));
-    private final        JMenuItem             itemDisplayImages = new JMenuItem(Bundle.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
+    private final        JMenuItem             itemRename        = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Rename"));
+    private final        JMenuItem             itemDelete        = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Delete"));
+    private final        JMenuItem             itemEditSynonyms  = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"));
+    private final        JMenuItem             itemDisplayImages = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
     private              int                   selIndex;
     private              JList                 list;
     public static final  PopupMenuKeywordsList INSTANCE          = new PopupMenuKeywordsList();

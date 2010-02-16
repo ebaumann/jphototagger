@@ -23,7 +23,7 @@ import de.elmar_baumann.lib.event.HelpBrowserEvent;
 import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
 import de.elmar_baumann.lib.model.TreeModelHelpContents;
 import de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import de.elmar_baumann.lib.util.help.HelpNode;
 import de.elmar_baumann.lib.util.help.HelpPage;
 import java.awt.Frame;
@@ -60,8 +60,8 @@ public final class HelpBrowser
                    MouseListener,
                    TreeSelectionListener {
 
-    private static final String                    DISPLAY_NAME_ACTION_PREVIOUS = Bundle.getString("HelpBrowser.Action.Previous");
-    private static final String                    DISPLAY_NAME_ACTION_NEXT     = Bundle.getString("HelpBrowser.Action.Next");
+    private static final String                    DISPLAY_NAME_ACTION_PREVIOUS = JslBundle.INSTANCE.getString("HelpBrowser.Action.Previous");
+    private static final String                    DISPLAY_NAME_ACTION_NEXT     = JslBundle.INSTANCE.getString("HelpBrowser.Action.Next");
     private static final long                      serialVersionUID             = 6909713450716449838L;
     private final        LinkedList<URL>           urlHistory                   = new LinkedList<URL>();
     private final        List<HelpBrowserListener> helpBrowserListeners         = new ArrayList<HelpBrowserListener>();
@@ -321,7 +321,7 @@ public final class HelpBrowser
                     HelpPage helpPage = (HelpPage) o;
                     String helpPageUrl = helpPage.getUrl();
                     URL url = getClass().getResource(baseUrl + "/" + helpPageUrl);
-                    setTitle(helpPage.getTitle() + Bundle.getString("HelpBrowser.TitlePostfix"));
+                    setTitle(helpPage.getTitle() + JslBundle.INSTANCE.getString("HelpBrowser.TitlePostfix"));
                     showUrl(url);
                 }
             }

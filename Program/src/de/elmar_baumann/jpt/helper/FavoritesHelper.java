@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.FavoritePropertiesDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -135,7 +135,7 @@ public final class FavoritesHelper {
 
             File dir = files.get(0).getParentFile();
             GUI.INSTANCE.getAppFrame().setTitle(
-                    Bundle.getString("FavoritesHelper.AppFrame.Title.FavoriteDirectory", dir.getName()));
+                    JptBundle.INSTANCE.getString("FavoritesHelper.AppFrame.Title.FavoriteDirectory", dir.getName()));
         }
 
         private void setMetadataEditable() {

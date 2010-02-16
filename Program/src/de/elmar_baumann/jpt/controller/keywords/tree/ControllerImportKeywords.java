@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.controller.keywords.tree;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.importer.KeywordImporter;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.KeywordImportDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
@@ -46,7 +46,7 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerImportKeywords implements ActionListener {
 
-    private static final String PROGRESSBAR_STRING = Bundle.getString("ControllerImportKeywords.ProgressBar.String");
+    private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("ControllerImportKeywords.ProgressBar.String");
 
     public ControllerImportKeywords() {
         listen();

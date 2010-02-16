@@ -125,7 +125,7 @@ import de.elmar_baumann.jpt.controller.thumbnail.ControllerThumbnailsPanelPersis
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerThumbnailsSelectAllOrNothing;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerToggleKeywordOverlay;
 import de.elmar_baumann.jpt.controller.timeline.ControllerTimelineItemSelected;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
@@ -152,7 +152,7 @@ public final class ControllerFactory {
             init = true;
         }
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Start");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("ControllerFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString("ControllerFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
 
         support.add(new ControllerThumbnailsPanelPersistence());
         support.add(new ControllerItemsMutualExcludeSelection());
@@ -257,7 +257,7 @@ public final class ControllerFactory {
         addSizeAndLocationController();
 
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("ControllerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString("ControllerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
     }
 
     private void addKeywordsTreeControllers() {

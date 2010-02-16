@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
@@ -94,7 +94,7 @@ public class ControllerRenameKeyword
         String      oldName = keyword.getName();
         boolean     input   = true;
         InputDialog dlg     = new InputDialog(InputHelperDialog.INSTANCE,
-                                      Bundle.getString("ControllerRenameKeyword.Input.Name", oldName),
+                                      JptBundle.INSTANCE.getString("ControllerRenameKeyword.Input.Name", oldName),
                                       oldName,
                                       UserSettings.INSTANCE.getProperties(),
                                       ControllerRenameKeyword.class.getName());

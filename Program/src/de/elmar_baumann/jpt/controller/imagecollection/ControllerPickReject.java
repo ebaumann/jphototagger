@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.controller.imagecollection;
 
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -111,8 +111,8 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
 
     private String getPopupMessage(boolean pick) {
         return pick
-                ? Bundle.getString("ControllerPickReject.Info.Pick")
-                : Bundle.getString("ControllerPickReject.Info.Reject");
+                ? JptBundle.INSTANCE.getString("ControllerPickReject.Info.Pick")
+                : JptBundle.INSTANCE.getString("ControllerPickReject.Info.Reject");
     }
 
     private boolean isPickCollection() {

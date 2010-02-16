@@ -2,7 +2,7 @@ package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Suggest;
 import de.elmar_baumann.jpt.view.dialogs.PathSelectionDialog;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class SuggestionKeywords implements Suggest {
         if (parentKeywords.size() > 0) {
             PathSelectionDialog dlg = new PathSelectionDialog(
                     parentKeywords, PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
-            dlg.setInfoMessage(Bundle.getString("SuggestKeywords.Info", keywordName));
+            dlg.setInfoMessage(JptBundle.INSTANCE.getString("SuggestKeywords.Info", keywordName));
             dlg.setVisible(true);
             if (dlg.isAccepted()) {
                 addToKeywords(keywords, dlg.getSelPaths());
@@ -75,6 +75,6 @@ public class SuggestionKeywords implements Suggest {
 
     @Override
     public String getDescription() {
-        return Bundle.getString("SuggestKeywords.Description");
+        return JptBundle.INSTANCE.getString("SuggestKeywords.Description");
     }
 }

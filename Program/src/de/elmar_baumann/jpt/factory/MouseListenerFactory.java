@@ -27,7 +27,7 @@ import de.elmar_baumann.jpt.event.listener.impl.MouseListenerKeywordsTree;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerKeywordsList;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerMetadataTemplates;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerTreeExpand;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -55,7 +55,7 @@ public final class MouseListenerFactory {
             init = true;
         }
         AppLogger.logFine(getClass(), "MouseListenerFactory.Init.Start");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("MouseListenerFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString("MouseListenerFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
 
         AppPanel                  appPanel             = GUI.INSTANCE.getAppPanel();
         MouseListenerTreeExpand   listenerTreeExpand   = new MouseListenerTreeExpand();
@@ -87,6 +87,6 @@ public final class MouseListenerFactory {
         new ListItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList(), PopupMenuMetadataTemplates.INSTANCE);
 
         AppLogger.logFine(getClass(), "MouseListenerFactory.Init.Finished");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("MouseListenerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString("MouseListenerFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
     }
 }

@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDragListItems;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.panels.MetaDataTemplatesPanel;
@@ -59,8 +59,8 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.InputHelpers"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.InputHelpers"));
     }
 
     public void setModelKeywords(ListModel model) {
@@ -117,7 +117,7 @@ public class InputHelperDialog extends Dialog {
         labelInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("InputHelperDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("InputHelperDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -126,7 +126,7 @@ public class InputHelperDialog extends Dialog {
         });
 
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        tabbedPane.addTab(Bundle.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
 

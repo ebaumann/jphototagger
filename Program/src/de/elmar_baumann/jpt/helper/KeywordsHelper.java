@@ -29,7 +29,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
@@ -265,7 +265,7 @@ public final class KeywordsHelper {
             this.oldName = oldName;
             this.newName = newName;
             setName("Renaming keyword @ " + getClass().getSimpleName());
-            setInfo(Bundle.getString("KeywordsHelper.Info.Rename"));
+            setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Rename"));
         }
 
         @Override
@@ -307,7 +307,7 @@ public final class KeywordsHelper {
         public DeleteKeyword(String keyword) {
             this.keyword = keyword;
             setName("Deleting keyword @ " + getClass().getSimpleName());
-            setInfo(Bundle.getString("KeywordsHelper.Info.Delete"));
+            setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Delete"));
         }
 
         @Override

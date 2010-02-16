@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.filesystem;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * A format which is always an empty string.
@@ -30,7 +30,7 @@ public final class FilenameFormatEmptyString extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatEmptyString.String");
+        return JptBundle.INSTANCE.getString("FilenameFormatEmptyString.String");
     }
 
     /**

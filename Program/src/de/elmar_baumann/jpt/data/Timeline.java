@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
 import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
 import java.text.DateFormat;
@@ -43,8 +43,8 @@ import javax.swing.tree.TreeModel;
  */
 public final class Timeline {
 
-    private final        DefaultMutableTreeNode ROOT_NODE    = new TreeNodeSortedChildren(Bundle.getString("Timeline.RootNode.DisplayName"));
-    private static final DefaultMutableTreeNode UNKNOWN_NODE = new TreeNodeSortedChildren(Bundle.getString("Timeline.UnknownNode.DisplayName"));
+    private final        DefaultMutableTreeNode ROOT_NODE    = new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.RootNode.DisplayName"));
+    private static final DefaultMutableTreeNode UNKNOWN_NODE = new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.UnknownNode.DisplayName"));
     private              boolean                unknownNode;
 
     /**
@@ -484,7 +484,7 @@ public final class Timeline {
          */
         public String getMonthDisplayName() {
             try {
-                if (!hasMonth()) return Bundle.getString("Timeline.DisplayName.NoMonth");
+                if (!hasMonth()) return JptBundle.INSTANCE.getString("Timeline.DisplayName.NoMonth");
 
                 DateFormat     df     = new SimpleDateFormat("M");
                 java.util.Date date   = df.parse(Integer.toString(month));
@@ -494,7 +494,7 @@ public final class Timeline {
             } catch (Exception ex) {
                 AppLogger.logSevere(Date.class, ex);
             }
-            return Bundle.getString("Timeline.DisplayName.NoMonth");
+            return JptBundle.INSTANCE.getString("Timeline.DisplayName.NoMonth");
         }
 
         @Override

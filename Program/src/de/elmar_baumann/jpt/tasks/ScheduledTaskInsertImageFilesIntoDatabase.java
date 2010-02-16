@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
                     InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
                             getImageFilenamesOfDirectory(directory), Insert.OUT_OF_DATE);
 
-                    inserter.addProgressListener(new ProgressBarUpdater(Bundle.getString("ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String")));
+                    inserter.addProgressListener(new ProgressBarUpdater(JptBundle.INSTANCE.getString("ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String")));
                     updaters.add(inserter);
                 }
             }

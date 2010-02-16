@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.filesystem;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Format with the name of a filname excluded the postfix and the parents.
@@ -39,6 +39,6 @@ public final class FilenameFormatFileName extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatFileName.String");
+        return JptBundle.INSTANCE.getString("FilenameFormatFileName.String");
     }
 }

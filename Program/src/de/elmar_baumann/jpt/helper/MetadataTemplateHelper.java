@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.InputDialog;
@@ -43,7 +43,7 @@ public final class MetadataTemplateHelper {
     public static String getNewTemplateName(String oldName) {
         InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE);
 
-        dlg.setInfo(Bundle.getString("MetadataTemplateHelper.Info.InputName"));
+        dlg.setInfo(JptBundle.INSTANCE.getString("MetadataTemplateHelper.Info.InputName"));
         if (oldName != null) dlg.setInput(oldName);
 
         while (true) {

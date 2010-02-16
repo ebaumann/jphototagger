@@ -19,7 +19,7 @@
 package de.elmar_baumann.lib.io;
 
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -203,7 +203,7 @@ public final class TreeFileSystemDirectories {
      */
     public static String getNewName(File file) {
         return JOptionPane.showInputDialog(ComponentUtil.getFrameWithIcon(),
-                Bundle.getString("TreeFileSystemDirectories.Input.NewName", file), file.getName());
+                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Input.NewName", file), file.getName());
     }
 
     /**
@@ -216,8 +216,8 @@ public final class TreeFileSystemDirectories {
     public static boolean checkDoesNotExist(File file) {
         if (file.exists()) {
             JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                    Bundle.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists", file.getAbsolutePath()),
-                    Bundle.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title"),
+                    JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists", file.getAbsolutePath()),
+                    JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title"),
                     JOptionPane.ERROR_MESSAGE);
         }
         return true;
@@ -232,8 +232,8 @@ public final class TreeFileSystemDirectories {
     public static boolean confirmDelete(String directoryName) {
         return JOptionPane.showConfirmDialog(
                 ComponentUtil.getFrameWithIcon(),
-                Bundle.getString("TreeFileSystemDirectories.Confirm.Delete", directoryName),
-                Bundle.getString("TreeFileSystemDirectories.Confirm.Delete.Title"),
+                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Confirm.Delete", directoryName),
+                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Confirm.Delete.Title"),
                 JOptionPane.YES_NO_OPTION) ==
                 JOptionPane.YES_OPTION;
     }
@@ -246,14 +246,14 @@ public final class TreeFileSystemDirectories {
      */
     public static void errorMessageDelete(String directoryName) {
         JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                Bundle.getString("TreeFileSystemDirectories.Error.Delete", directoryName),
-                Bundle.getString("TreeFileSystemDirectories.Error.Delete.Title"),
+                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.Delete", directoryName),
+                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.Delete.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
     private static String getSubDirectoryName() {
         return JOptionPane.showInputDialog(ComponentUtil.getFrameWithIcon(),
-                Bundle.getString("TreeFileSystemDirectories.Input.SubDirectoryName"));
+                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Input.SubDirectoryName"));
     }
 
     private TreeFileSystemDirectories() {

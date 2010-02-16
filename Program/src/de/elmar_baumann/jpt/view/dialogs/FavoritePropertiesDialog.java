@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.database.DatabaseFavorites;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -56,8 +56,8 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.FavoriteDirectoryPropertiesDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.FavoriteDirectoryPropertiesDialog"));
     }
 
     private void chooseDirectory() {
@@ -218,7 +218,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("FavoritePropertiesDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -226,7 +226,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         });
 
         labelPromptFavoriteName.setLabelFor(textFieldFavoriteName);
-        labelPromptFavoriteName.setText(Bundle.getString("FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
+        labelPromptFavoriteName.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
 
         textFieldFavoriteName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -240,7 +240,7 @@ public final class FavoritePropertiesDialog extends Dialog {
             }
         });
 
-        buttonChooseDirectory.setText(Bundle.getString("FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
+        buttonChooseDirectory.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
@@ -249,14 +249,14 @@ public final class FavoritePropertiesDialog extends Dialog {
 
         labelDirectoryname.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonCancel.setText(Bundle.getString("FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
 
-        buttonOk.setText(Bundle.getString("FavoritePropertiesDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Spalte <code>photoshop_headline</code> der Tabelle <code>xmp</code>.
@@ -39,7 +39,7 @@ public final class ColumnXmpPhotoshopHeadline extends Column {
             DataType.STRING);
 
         setLength(256);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopHeadline.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopHeadline.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopHeadline.LongerDescription"));
     }
 }

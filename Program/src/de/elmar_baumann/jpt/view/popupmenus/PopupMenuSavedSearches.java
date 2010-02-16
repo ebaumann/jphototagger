@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.popupmenus;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.SavedSearch;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
@@ -36,10 +36,10 @@ import javax.swing.KeyStroke;
 public final class PopupMenuSavedSearches extends JPopupMenu {
 
     private static final long                   serialVersionUID = 3540766100829834971L;
-    private final        JMenuItem              itemDelete       = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"));
-    private final        JMenuItem              itemEdit         = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Edit")  , AppLookAndFeel.getIcon("icon_edit.png"));
-    private final        JMenuItem              itemCreate       = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.New"));
-    private final        JMenuItem              itemRename       = new JMenuItem(Bundle.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"));
+    private final        JMenuItem              itemDelete       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"));
+    private final        JMenuItem              itemEdit         = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Edit")  , AppLookAndFeel.getIcon("icon_edit.png"));
+    private final        JMenuItem              itemCreate       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.New"));
+    private final        JMenuItem              itemRename       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"));
     private transient    SavedSearch            savedSearch;
     public static final  PopupMenuSavedSearches INSTANCE         = new PopupMenuSavedSearches();
 

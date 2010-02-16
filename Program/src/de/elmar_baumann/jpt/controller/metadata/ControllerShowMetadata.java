@@ -32,7 +32,7 @@ import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TableModelExif;
 import de.elmar_baumann.jpt.model.TableModelIptc;
 import de.elmar_baumann.jpt.model.TableModelXmp;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -203,7 +203,7 @@ public final class ControllerShowMetadata
             removeMetadataFromTables(allMetadata);
             repaintMetadataTables(allMetadata);
             appPanel.getLabelMetadataFilename().setText(
-                    Bundle.getString("ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected"));
+                    JptBundle.INSTANCE.getString("ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected"));
         }
     }
 
@@ -234,7 +234,7 @@ public final class ControllerShowMetadata
             appPanel.getLabelMetadataFilename().setText(file.getName() +
                     (XmpMetadata.hasImageASidecarFile(file.getAbsolutePath())
                         ? ""
-                        : Bundle.getString("ControllerShowMetadata.Embedded")));
+                        : JptBundle.INSTANCE.getString("ControllerShowMetadata.Embedded")));
             resizeMetadataTables(metadata);
             repaintMetadataTables(metadata);
         }

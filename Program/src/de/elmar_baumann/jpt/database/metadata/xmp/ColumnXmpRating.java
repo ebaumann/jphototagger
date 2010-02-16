@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.InputVerifierNumberRange;
 import javax.swing.InputVerifier;
 
@@ -42,8 +42,8 @@ public final class ColumnXmpRating extends Column {
 
         setLength(1);
 
-        setDescription(Bundle.getString("ColumnXmpRating.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpRating.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpRating.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpRating.LongerDescription"));
     }
 
     /**

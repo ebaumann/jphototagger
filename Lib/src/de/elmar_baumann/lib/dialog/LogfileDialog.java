@@ -25,7 +25,7 @@ import de.elmar_baumann.lib.util.logging.ExceptionLogfileRecord;
 import de.elmar_baumann.lib.util.logging.FrameLogfileRecord;
 import de.elmar_baumann.lib.model.TableModelLogfiles;
 import de.elmar_baumann.lib.renderer.TableCellRendererLogfileDialog;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -169,15 +169,15 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
         if (logfileBytes <= 0) {
             JOptionPane.showMessageDialog(
                     this,
-                    Bundle.getString("LogfileDialog.Error.LogfileIsEmpty"),
-                    Bundle.getString("LogfileDialog.Error.LogfileIsEmpty.Title"),
+                    JslBundle.INSTANCE.getString("LogfileDialog.Error.LogfileIsEmpty"),
+                    JslBundle.INSTANCE.getString("LogfileDialog.Error.LogfileIsEmpty.Title"),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (logfileBytes >= MAX_BYTES) {
             JOptionPane.showMessageDialog(
                     this,
-                    Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded", Math.round((float) logfileBytes / (float) MAX_BYTES)),
-                    Bundle.getString("LogfileDialog.Error.MaximumSizeExceeded.Title"),
+                    JslBundle.INSTANCE.getString("LogfileDialog.Error.MaximumSizeExceeded", Math.round((float) logfileBytes / (float) MAX_BYTES)),
+                    JslBundle.INSTANCE.getString("LogfileDialog.Error.MaximumSizeExceeded.Title"),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -223,22 +223,22 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
 
         details.append("<html>");
         details.append("\n<table>");
-        addDetailTableRow(details, Bundle.getString("LogfileDialog.Info.Loglevel"),
+        addDetailTableRow(details, JslBundle.INSTANCE.getString("LogfileDialog.Info.Loglevel"),
                 logfileRecord.getLevel().getLocalizedName());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Message"),
+                JslBundle.INSTANCE.getString("LogfileDialog.Info.Message"),
                 logfileRecord.getMessage());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.LoggerClass"),
+                JslBundle.INSTANCE.getString("LogfileDialog.Info.LoggerClass"),
                 logfileRecord.getLogger());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Class"),
+                JslBundle.INSTANCE.getString("LogfileDialog.Info.Class"),
                 logfileRecord.getClassname());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Method"),
+                JslBundle.INSTANCE.getString("LogfileDialog.Info.Method"),
                 logfileRecord.getMethodname());
         addDetailTableRow(details,
-                Bundle.getString("LogfileDialog.Info.Thread"),
+                JslBundle.INSTANCE.getString("LogfileDialog.Info.Thread"),
                 logfileRecord.getThread());
         details.append("\n</table>");
         addDetailException(details, logfileRecord.getException());
@@ -271,7 +271,7 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
                 stringBuffer.append("\n" + frame.getClassName() + ":");
                 stringBuffer.append(" " + frame.getMethodName());
                 stringBuffer.append(
-                        Bundle.getString("LogfileDialog.Info.StartLineNumber") +
+                        JslBundle.INSTANCE.getString("LogfileDialog.Info.StartLineNumber") +
                         frame.getLine() + ")");
             }
             stringBuffer.append("\n</pre>");
@@ -348,8 +348,8 @@ public final class LogfileDialog extends javax.swing.JDialog implements ListSele
     private void errorMessageNotSupportedFormat() {
         JOptionPane.showMessageDialog(
                 this,
-                Bundle.getString("LogfileDialog.Error.UnknownLogfileFormat"),
-                Bundle.getString("LogfileDialog.Error.UnknownLogfileFormat.Title"),
+                JslBundle.INSTANCE.getString("LogfileDialog.Error.UnknownLogfileFormat"),
+                JslBundle.INSTANCE.getString("LogfileDialog.Error.UnknownLogfileFormat.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 

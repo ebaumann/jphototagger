@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Tabellenspalte <code>exif_focal_length</code> der Tabelle <code>exif</code>.
@@ -41,6 +41,6 @@ public final class ColumnExifFocalLength extends Column {
             "exif_focal_length",
             DataType.REAL);
 
-        setDescription(Bundle.getString("ColumnExifFocalLength.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifFocalLength.Description"));
     }
 }

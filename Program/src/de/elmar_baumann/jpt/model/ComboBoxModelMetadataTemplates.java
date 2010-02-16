@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
 import de.elmar_baumann.jpt.event.DatabaseMetadataTemplatesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplatesListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
@@ -55,7 +55,7 @@ public final class ComboBoxModelMetadataTemplates
         if (getIndexOf(template) >= 0 && db.delete(template.getName())) {
             removeElement(template);
         } else {
-            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamDelete"));
+            errorMessage(template.getName(), JptBundle.INSTANCE.getString("ComboBoxModelMetadataTemplates.Error.ParamDelete"));
         }
     }
 
@@ -71,7 +71,7 @@ public final class ComboBoxModelMetadataTemplates
             addElement(template);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamInsert"));
+            errorMessage(template.getName(), JptBundle.INSTANCE.getString("ComboBoxModelMetadataTemplates.Error.ParamInsert"));
         }
     }
 
@@ -87,7 +87,7 @@ public final class ComboBoxModelMetadataTemplates
             insertElementAt(template, index);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
+            errorMessage(template.getName(), JptBundle.INSTANCE.getString("ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
         }
 
     }
@@ -106,7 +106,7 @@ public final class ComboBoxModelMetadataTemplates
             insertElementAt(template, index);
             setSelectedItem(template);
         } else {
-            errorMessage(template.getName(), Bundle.getString("ComboBoxModelMetadataTemplates.Error.ParamRename"));
+            errorMessage(template.getName(), JptBundle.INSTANCE.getString("ComboBoxModelMetadataTemplates.Error.ParamRename"));
         }
     }
 

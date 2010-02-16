@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
@@ -100,7 +100,7 @@ public class ControllerAddKeyword
         boolean          input   = true;
         DatabaseKeywords db      = DatabaseKeywords.INSTANCE;
         InputDialog      dlg     = new InputDialog(InputHelperDialog.INSTANCE,
-                                      Bundle.getString("ControllerAddKeyword.Input.Name"),
+                                      JptBundle.INSTANCE.getString("ControllerAddKeyword.Input.Name"),
                                       "",
                                       UserSettings.INSTANCE.getProperties(),
                                       ControllerAddKeyword.class.getName());

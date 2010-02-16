@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.helper.CopyFiles;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -257,24 +257,24 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         buttonChooseDatabaseDirectory = new javax.swing.JButton();
         labelInfoDatabaseDirectory = new javax.swing.JLabel();
 
-        labelInfoWebBrowser.setText(Bundle.getString("SettingsMiscPanel.labelInfoWebBrowser.text")); // NOI18N
+        labelInfoWebBrowser.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelInfoWebBrowser.text")); // NOI18N
 
         labelWebBrowser.setForeground(new java.awt.Color(0, 0, 255));
         labelWebBrowser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonChooseWebBrowser.setText(Bundle.getString("SettingsMiscPanel.buttonChooseWebBrowser.text")); // NOI18N
+        buttonChooseWebBrowser.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonChooseWebBrowser.text")); // NOI18N
         buttonChooseWebBrowser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseWebBrowserActionPerformed(evt);
             }
         });
 
-        labelInfoPdfViewer.setText(Bundle.getString("SettingsMiscPanel.labelInfoPdfViewer.text")); // NOI18N
+        labelInfoPdfViewer.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelInfoPdfViewer.text")); // NOI18N
 
         labelPdfViewer.setForeground(new java.awt.Color(0, 0, 255));
         labelPdfViewer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonChoosePdfViewer.setText(Bundle.getString("SettingsMiscPanel.buttonChoosePdfViewer.text")); // NOI18N
+        buttonChoosePdfViewer.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonChoosePdfViewer.text")); // NOI18N
         buttonChoosePdfViewer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChoosePdfViewerActionPerformed(evt);
@@ -321,9 +321,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle"), panelExternalApplications); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle"), panelExternalApplications); // NOI18N
 
-        checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
+        checkBoxIsAcceptHiddenDirectories.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
@@ -383,7 +383,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        labelIptcCharset.setText(Bundle.getString("SettingsMiscPanel.labelIptcCharset.text")); // NOI18N
+        labelIptcCharset.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelIptcCharset.text")); // NOI18N
 
         comboBoxIptcCharset.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISO-8859-1", "UTF-8" }));
         comboBoxIptcCharset.addActionListener(new java.awt.event.ActionListener() {
@@ -393,7 +393,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         });
 
         labelLogLevel.setLabelFor(comboBoxLogLevel);
-        labelLogLevel.setText(Bundle.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
+        labelLogLevel.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
 
         comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
         comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
@@ -407,14 +407,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         labelDatabaseDirectory.setForeground(new java.awt.Color(0, 0, 255));
         labelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonSetStandardDatabaseDirectoryName.setText(Bundle.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text")); // NOI18N
+        buttonSetStandardDatabaseDirectoryName.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text")); // NOI18N
         buttonSetStandardDatabaseDirectoryName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetStandardDatabaseDirectoryNameActionPerformed(evt);
             }
         });
 
-        buttonChooseDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text")); // NOI18N
+        buttonChooseDatabaseDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text")); // NOI18N
         buttonChooseDatabaseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDatabaseDirectoryActionPerformed(evt);
@@ -422,7 +422,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         });
 
         labelInfoDatabaseDirectory.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoDatabaseDirectory.setText(Bundle.getString("SettingsMiscPanel.labelInfoDatabaseDirectory.text")); // NOI18N
+        labelInfoDatabaseDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelInfoDatabaseDirectory.text")); // NOI18N
 
         javax.swing.GroupLayout panelDatabaseDirectoryLayout = new javax.swing.GroupLayout(panelDatabaseDirectory);
         panelDatabaseDirectory.setLayout(panelDatabaseDirectoryLayout);
@@ -499,7 +499,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab(Bundle.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsMiscPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

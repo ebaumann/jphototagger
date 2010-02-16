@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.file;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Tabellenspalte <code>filename</code> der Tabelle <code>files</code>.
@@ -39,6 +39,6 @@ public final class ColumnFilesFilename extends Column {
             DataType.STRING);
 
         setLength(512);
-        setDescription(Bundle.getString("ColumnFilesFilename.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnFilesFilename.Description"));
     }
 }

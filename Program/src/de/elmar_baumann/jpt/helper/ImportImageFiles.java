@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.dialogs.ImportImageFilesDialog;
@@ -52,7 +52,7 @@ import java.util.List;
 public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private final List<File>         copiedFiles        = new ArrayList<File>();
-    private final ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(Bundle.getString("ImportImageFiles.Info.ProgressBar"));
+    private final ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar"));
     private final CopyFiles          copier;
 
     public static void importFrom(File sourceDirectory) {

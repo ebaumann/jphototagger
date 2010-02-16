@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -86,7 +86,7 @@ public final class ControllerThumbnailCountDisplay
 
             @Override
             public void run() {
-                String info = Bundle.getString("ControllerThumbnailCountDisplay.Info", thumbnailCount, selectionCount, thumbnailZoom);
+                String info = JptBundle.INSTANCE.getString("ControllerThumbnailCountDisplay.Info", thumbnailCount, selectionCount, thumbnailZoom);
                 label.setText(info);
                 label.setToolTipText(info);
             }

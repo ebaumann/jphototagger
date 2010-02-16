@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.app.AppFileFilters;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.ExtractEmbeddedXmp;
 import de.elmar_baumann.jpt.view.dialogs.FileEditorDialog;
@@ -55,12 +55,12 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
         FileEditorPanel  panel  = dialog.getFileEditorPanel();
 
         panel.setEditor(new ExtractEmbeddedXmp());
-        panel.setTitle(Bundle.getString("ControllerExtractEmbeddedXmp.Panel.Title"));
-        panel.setDescription(Bundle.getString("ControllerExtractEmbeddedXmp.Panel.Description"));
+        panel.setTitle(JptBundle.INSTANCE.getString("ControllerExtractEmbeddedXmp.Panel.Title"));
+        panel.setDescription(JptBundle.INSTANCE.getString("ControllerExtractEmbeddedXmp.Panel.Description"));
         panel.setDirChooserFileFilter(AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER);
         panel.setSelectDirs(true);
 
-        dialog.setHelpPageUrl(Bundle.getString("Help.Url.ExtractEmbeddedXmp"));
+        dialog.setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ExtractEmbeddedXmp"));
         dialog.setVisible(true);
     }
 }

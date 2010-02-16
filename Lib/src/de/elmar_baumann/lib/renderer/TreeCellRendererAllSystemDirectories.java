@@ -21,7 +21,7 @@ package de.elmar_baumann.lib.renderer;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
@@ -45,7 +45,7 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
     private static final long           serialVersionUID   = -1995225344254643215L;
     private final        FileSystemView fileSystemView     = FileSystemView.getFileSystemView();
     private              Icon           rootIcon           = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
-    private static final String         DISPLAY_NAME_ROOT  = Bundle.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
+    private static final String         DISPLAY_NAME_ROOT  = JslBundle.INSTANCE.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
     private              int            tempSelRow         = -1;
     private static final Color TREE_SELECTION_FOREGROUND   = ComponentUtil.getUiColor("Tree.selectionForeground");
     private static final Color TREE_SELECTION_BACKGROUND   = ComponentUtil.getUiColor("Tree.selectionBackground");

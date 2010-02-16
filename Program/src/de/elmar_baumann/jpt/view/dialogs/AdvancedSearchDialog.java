@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AdvancedSearchPanel;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -41,7 +41,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
     private AdvancedSearchDialog(boolean modal) {
         super(GUI.INSTANCE.getAppFrame(), modal, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
     }
 
     public void setSavedSearch(SavedSearch savedSearch) {
@@ -64,7 +64,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
 
     @Override
     protected void help() {
-        help(Bundle.getString("Help.Url.AdvancedSearchDialog"));
+        help(JptBundle.INSTANCE.getString("Help.Url.AdvancedSearchDialog"));
     }
 
     @Override
@@ -83,7 +83,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
             String separator = name.isEmpty()
                                ? ""
                                : ": ";
-            setTitle(Bundle.getString("AdvancedSearchDialog.TitlePrefix") + separator + name);
+            setTitle(JptBundle.INSTANCE.getString("AdvancedSearchDialog.TitlePrefix") + separator + name);
         }
     }
 
@@ -99,7 +99,7 @@ public final class AdvancedSearchDialog extends Dialog implements SearchListener
         panel = new de.elmar_baumann.jpt.view.panels.AdvancedSearchPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("AdvancedSearchDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("AdvancedSearchDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

@@ -19,7 +19,7 @@
 package de.elmar_baumann.lib.thirdparty;
 
 import de.elmar_baumann.lib.image.util.IconUtil;
-import de.elmar_baumann.lib.resource.Bundle;
+import de.elmar_baumann.lib.resource.JslBundle;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -55,7 +55,7 @@ import javax.swing.JPanel;
  * - Konstruktoren private
  * - Buttons für Monatswechsel mit Icons
  * - Icons für die Titelleiste können wahlweise gesetzt werden
- * - Strings aus Bundle
+ * - Strings aus JslBundle
  * - main() entfernt
  *
  *
@@ -303,7 +303,7 @@ public final class DateChooserDialog extends JComponent {
 
         c.gridwidth = 2;
         JFrame f = new JFrame();
-        dialog = new JDialog(f, Bundle.getString("DateChooserDialog.title"), true);
+        dialog = new JDialog(f, JslBundle.INSTANCE.getString("DateChooserDialog.title"), true);
         if (icons != null) {
             dialog.setIconImages(icons);
         }
@@ -321,7 +321,7 @@ public final class DateChooserDialog extends JComponent {
         ++c.gridy;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.WEST;
-        JButton okButton = new JButton(Bundle.getString("DateChooserDialog.okButton"));
+        JButton okButton = new JButton(JslBundle.INSTANCE.getString("DateChooserDialog.okButton"));
         okButton.addActionListener(new ActionListener() {
 
             @Override
@@ -334,7 +334,7 @@ public final class DateChooserDialog extends JComponent {
 
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
-        JButton cancelButton = new JButton(Bundle.getString("DateChooserDialog.cancelButton"));
+        JButton cancelButton = new JButton(JslBundle.INSTANCE.getString("DateChooserDialog.cancelButton"));
         cancelButton.addActionListener(new ActionListener() {
 
             @Override

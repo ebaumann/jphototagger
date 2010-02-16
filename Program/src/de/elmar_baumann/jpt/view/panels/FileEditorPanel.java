@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.view.panels;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppFileFilters;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.FileEditor;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -57,7 +57,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private              List<File>      selectedDirectories         = new ArrayList<File>();
     private              File            prevSelectedDirectory       = new File("");
     private              FileEditor      fileEditor                  = new FileEditor();
-    private              FileFilter      fileChooserFileFilter       = AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER.forFileChooser(Bundle.getString("FileEditorPanel.FileChooserFileFilter.Description"));
+    private              FileFilter      fileChooserFileFilter       = AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER.forFileChooser(JptBundle.INSTANCE.getString("FileEditorPanel.FileChooserFileFilter.Description"));
     private transient    RegexFileFilter dirChooserFileFilter        = new RegexFileFilter(".*", ";");
     private              String          title                       = "";
     private volatile     boolean         selectDirs;
@@ -223,8 +223,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void setFileButtonText() {
         buttonSelectFiles.setText(selectDirs
-                                  ? Bundle.getString("FileEditorPanel.ButtonFiles.DirectoriesText")
-                                  : Bundle.getString("FileEditorPanel.ButtonFiles.FilesText"));
+                                  ? JptBundle.INSTANCE.getString("FileEditorPanel.ButtonFiles.DirectoriesText")
+                                  : JptBundle.INSTANCE.getString("FileEditorPanel.ButtonFiles.FilesText"));
     }
 
     public void readProperties() {
@@ -321,11 +321,11 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         labelDescription.setText(bundle.getString("FileEditorPanel.labelDescription.text")); // NOI18N
 
-        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
+        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
 
-        checkBoxIncludeSubdirectories.setText(Bundle.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setText(JptBundle.INSTANCE.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
 
-        checkBoxReplaceExistingFiles.setText(Bundle.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
+        checkBoxReplaceExistingFiles.setText(JptBundle.INSTANCE.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
 
         javax.swing.GroupLayout panelOptionsLayout = new javax.swing.GroupLayout(panelOptions);
         panelOptions.setLayout(panelOptionsLayout);
@@ -352,14 +352,14 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
 
-        buttonSelectFiles.setText(Bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
+        buttonSelectFiles.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectFilesActionPerformed(evt);
             }
         });
 
-        buttonStop.setText(Bundle.getString("FileEditorPanel.buttonStop.text")); // NOI18N
+        buttonStop.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,7 +367,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonStart.setText(Bundle.getString("FileEditorPanel.buttonStart.text")); // NOI18N
+        buttonStart.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

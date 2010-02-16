@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.dialog.Dialog;
 
@@ -45,8 +45,8 @@ public class RenameFilenamesInDbDialog extends Dialog {
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.RenameFilenamesInDbDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.RenameFilenamesInDbDialog"));
     }
 
     private void checkClosing() {
@@ -72,7 +72,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
         panelDbFilenameReplace = new de.elmar_baumann.jpt.view.panels.RenameFilenamesInDbPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("RenameFilenamesInDbDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("RenameFilenamesInDbDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

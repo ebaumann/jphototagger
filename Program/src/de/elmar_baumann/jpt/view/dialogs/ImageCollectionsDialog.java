@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererImageCollections;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -49,8 +49,8 @@ public final class ImageCollectionsDialog extends Dialog {
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.ImageCollectionsDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ImageCollectionsDialog"));
     }
 
     public boolean isCollectionSelected() {
@@ -99,10 +99,10 @@ public final class ImageCollectionsDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(Bundle.getString("ImageCollectionsDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("ImageCollectionsDialog.title")); // NOI18N
 
         labelSelectImageCollection.setLabelFor(listImageCollectionNames);
-        labelSelectImageCollection.setText(Bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
+        labelSelectImageCollection.setText(JptBundle.INSTANCE.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
 
         listImageCollectionNames.setModel(ModelFactory.INSTANCE.getModel(ListModelImageCollections.class));
         listImageCollectionNames.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -114,7 +114,7 @@ public final class ImageCollectionsDialog extends Dialog {
         });
         scrollPaneImageCollectionNames.setViewportView(listImageCollectionNames);
 
-        buttonOk.setText(Bundle.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(JptBundle.INSTANCE.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);

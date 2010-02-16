@@ -35,7 +35,7 @@ import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.types.FileType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -94,8 +94,8 @@ public final class RenameDialog extends Dialog {
     }
 
     private void setHelpPages() {
-        setHelpContentsUrl(Bundle.getString("Help.Url.Contents"));
-        setHelpPageUrl(Bundle.getString("Help.Url.RenameDialog"));
+        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.RenameDialog"));
     }
 
     public void addFileSystemListener(FileSystemListener listener) {
@@ -455,7 +455,7 @@ public final class RenameDialog extends Dialog {
         buttonRenameTemplate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(Bundle.getString("RenameDialog.title")); // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("RenameDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -468,10 +468,10 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        labelDirectoryPrompt.setText(Bundle.getString("RenameDialog.labelDirectoryPrompt.text")); // NOI18N
+        labelDirectoryPrompt.setText(JptBundle.INSTANCE.getString("RenameDialog.labelDirectoryPrompt.text")); // NOI18N
 
         labelDirectory.setForeground(new java.awt.Color(0, 175, 0));
-        labelDirectory.setText(Bundle.getString("RenameDialog.labelDirectory.text")); // NOI18N
+        labelDirectory.setText(JptBundle.INSTANCE.getString("RenameDialog.labelDirectory.text")); // NOI18N
 
         panelBorder.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -501,22 +501,22 @@ public final class RenameDialog extends Dialog {
             .addComponent(panelThumbnail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        labelOldNamePrompt.setText(Bundle.getString("RenameDialog.labelOldNamePrompt.text")); // NOI18N
+        labelOldNamePrompt.setText(JptBundle.INSTANCE.getString("RenameDialog.labelOldNamePrompt.text")); // NOI18N
 
         labelOldName.setForeground(new java.awt.Color(0, 175, 0));
-        labelOldName.setText(Bundle.getString("RenameDialog.labelOldName.text")); // NOI18N
+        labelOldName.setText(JptBundle.INSTANCE.getString("RenameDialog.labelOldName.text")); // NOI18N
 
         labelNewNamePrompt.setLabelFor(textFieldNewName);
-        labelNewNamePrompt.setText(Bundle.getString("RenameDialog.labelNewNamePrompt.text")); // NOI18N
+        labelNewNamePrompt.setText(JptBundle.INSTANCE.getString("RenameDialog.labelNewNamePrompt.text")); // NOI18N
 
-        buttonNextFile.setText(Bundle.getString("RenameDialog.buttonNextFile.text")); // NOI18N
+        buttonNextFile.setText(JptBundle.INSTANCE.getString("RenameDialog.buttonNextFile.text")); // NOI18N
         buttonNextFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNextFileActionPerformed(evt);
             }
         });
 
-        buttonRename.setText(Bundle.getString("RenameDialog.buttonRename.text")); // NOI18N
+        buttonRename.setText(JptBundle.INSTANCE.getString("RenameDialog.buttonRename.text")); // NOI18N
         buttonRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameActionPerformed(evt);
@@ -575,12 +575,12 @@ public final class RenameDialog extends Dialog {
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(Bundle.getString("RenameDialog.panelInputName.TabConstraints.tabTitle"), panelInputName); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("RenameDialog.panelInputName.TabConstraints.tabTitle"), panelInputName); // NOI18N
 
-        panelNumbers.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameDialog.panelNumbers.border.title"))); // NOI18N
+        panelNumbers.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("RenameDialog.panelNumbers.border.title"))); // NOI18N
 
         labelStartNumber.setLabelFor(spinnerStartNumber);
-        labelStartNumber.setText(Bundle.getString("RenameDialog.labelStartNumber.text")); // NOI18N
+        labelStartNumber.setText(JptBundle.INSTANCE.getString("RenameDialog.labelStartNumber.text")); // NOI18N
 
         spinnerStartNumber.setModel(new SpinnerNumberModel(1, 1, 999999, 1));
         spinnerStartNumber.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -590,7 +590,7 @@ public final class RenameDialog extends Dialog {
         });
 
         labelNumberStepWidth.setLabelFor(spinnerNumberStepWidth);
-        labelNumberStepWidth.setText(Bundle.getString("RenameDialog.labelNumberStepWidth.text")); // NOI18N
+        labelNumberStepWidth.setText(JptBundle.INSTANCE.getString("RenameDialog.labelNumberStepWidth.text")); // NOI18N
 
         spinnerNumberStepWidth.setModel(new SpinnerNumberModel(1, 1, 99, 1));
         spinnerNumberStepWidth.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -600,7 +600,7 @@ public final class RenameDialog extends Dialog {
         });
 
         labelNumberCount.setLabelFor(spinnerNumberCount);
-        labelNumberCount.setText(Bundle.getString("RenameDialog.labelNumberCount.text")); // NOI18N
+        labelNumberCount.setText(JptBundle.INSTANCE.getString("RenameDialog.labelNumberCount.text")); // NOI18N
 
         spinnerNumberCount.setModel(new SpinnerNumberModel(3, 1, 7, 1));
         spinnerNumberCount.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -645,7 +645,7 @@ public final class RenameDialog extends Dialog {
         );
 
         labelDateDelim.setLabelFor(textFieldDateDelim);
-        labelDateDelim.setText(Bundle.getString("RenameDialog.labelDateDelim.text")); // NOI18N
+        labelDateDelim.setText(JptBundle.INSTANCE.getString("RenameDialog.labelDateDelim.text")); // NOI18N
 
         textFieldDateDelim.setColumns(1);
         textFieldDateDelim.setText("-");
@@ -675,10 +675,10 @@ public final class RenameDialog extends Dialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelDefineName.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameDialog.panelDefineName.border.title"))); // NOI18N
+        panelDefineName.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("RenameDialog.panelDefineName.border.title"))); // NOI18N
 
         labelAtBegin.setLabelFor(comboBoxAtBegin);
-        labelAtBegin.setText(Bundle.getString("RenameDialog.labelAtBegin.text")); // NOI18N
+        labelAtBegin.setText(JptBundle.INSTANCE.getString("RenameDialog.labelAtBegin.text")); // NOI18N
 
         comboBoxAtBegin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -693,7 +693,7 @@ public final class RenameDialog extends Dialog {
         });
 
         labelDelim1.setLabelFor(textFieldDelim1);
-        labelDelim1.setText(Bundle.getString("RenameDialog.labelDelim1.text")); // NOI18N
+        labelDelim1.setText(JptBundle.INSTANCE.getString("RenameDialog.labelDelim1.text")); // NOI18N
 
         textFieldDelim1.setColumns(1);
         textFieldDelim1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -703,7 +703,7 @@ public final class RenameDialog extends Dialog {
         });
 
         labelInTheMid.setLabelFor(comboBoxInTheMiddle);
-        labelInTheMid.setText(Bundle.getString("RenameDialog.labelInTheMid.text")); // NOI18N
+        labelInTheMid.setText(JptBundle.INSTANCE.getString("RenameDialog.labelInTheMid.text")); // NOI18N
 
         comboBoxInTheMiddle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -718,7 +718,7 @@ public final class RenameDialog extends Dialog {
         });
 
         labelDelim2.setLabelFor(textFieldDelim2);
-        labelDelim2.setText(Bundle.getString("RenameDialog.labelDelim2.text")); // NOI18N
+        labelDelim2.setText(JptBundle.INSTANCE.getString("RenameDialog.labelDelim2.text")); // NOI18N
 
         textFieldDelim2.setColumns(1);
         textFieldDelim2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -728,7 +728,7 @@ public final class RenameDialog extends Dialog {
         });
 
         labelAtEnd.setLabelFor(comboBoxAtEnd);
-        labelAtEnd.setText(Bundle.getString("RenameDialog.labelAtEnd.text")); // NOI18N
+        labelAtEnd.setText(JptBundle.INSTANCE.getString("RenameDialog.labelAtEnd.text")); // NOI18N
 
         comboBoxAtEnd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -804,14 +804,14 @@ public final class RenameDialog extends Dialog {
 
         panelDefineNameLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textFieldAtBegin, textFieldAtEnd, textFieldInTheMiddle});
 
-        panelExample.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString("RenameDialog.panelExample.border.title"))); // NOI18N
+        panelExample.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("RenameDialog.panelExample.border.title"))); // NOI18N
 
-        labelBefore.setText(Bundle.getString("RenameDialog.labelBefore.text")); // NOI18N
+        labelBefore.setText(JptBundle.INSTANCE.getString("RenameDialog.labelBefore.text")); // NOI18N
 
         labelBeforeFilename.setForeground(new java.awt.Color(0, 0, 175));
         labelBeforeFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelAfter.setText(Bundle.getString("RenameDialog.labelAfter.text")); // NOI18N
+        labelAfter.setText(JptBundle.INSTANCE.getString("RenameDialog.labelAfter.text")); // NOI18N
 
         labelAfterFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelAfterFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -846,7 +846,7 @@ public final class RenameDialog extends Dialog {
 
         panelExampleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelAfterFilename, labelBeforeFilename});
 
-        buttonRenameTemplate.setText(Bundle.getString("RenameDialog.buttonRenameTemplate.text")); // NOI18N
+        buttonRenameTemplate.setText(JptBundle.INSTANCE.getString("RenameDialog.buttonRenameTemplate.text")); // NOI18N
         buttonRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameTemplateActionPerformed(evt);
@@ -883,7 +883,7 @@ public final class RenameDialog extends Dialog {
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(Bundle.getString("RenameDialog.panelTemplates.TabConstraints.tabTitle"), panelTemplates); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("RenameDialog.panelTemplates.TabConstraints.tabTitle"), panelTemplates); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

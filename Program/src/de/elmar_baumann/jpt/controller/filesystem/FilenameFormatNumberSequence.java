@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.filesystem;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.text.DecimalFormat;
 
 /**
@@ -97,7 +97,7 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     @Override
     public String toString() {
-        return Bundle.getString("FilenameFormatNumberSequence.String");
+        return JptBundle.INSTANCE.getString("FilenameFormatNumberSequence.String");
     }
 
     private FilenameFormatNumberSequence() {

@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.helper;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -42,7 +42,7 @@ public final class ActionsHelper {
 
     public static JMenu actionsAsMenu() {
         List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
-        JMenu         menu    = new JMenu(Bundle.getString("ActionsHelper.ActionMenu.DisplayName"));
+        JMenu         menu    = new JMenu(JptBundle.INSTANCE.getString("ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
             menu.add(new JMenuItem(new ActionStarter(action)));

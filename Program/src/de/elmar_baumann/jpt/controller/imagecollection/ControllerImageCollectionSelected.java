@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
@@ -107,7 +107,7 @@ public final class ControllerImageCollectionSelected implements
             }
 
             private void setTitle() {
-                GUI.INSTANCE.getAppFrame().setTitle(Bundle.getString("ControllerImageCollectionSelected.AppFrame.Title.Collection", collectionName));
+                GUI.INSTANCE.getAppFrame().setTitle(JptBundle.INSTANCE.getString("ControllerImageCollectionSelected.AppFrame.Title.Collection", collectionName));
             }
         });
     }

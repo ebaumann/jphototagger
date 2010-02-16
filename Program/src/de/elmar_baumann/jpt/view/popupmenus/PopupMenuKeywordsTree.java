@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.popupmenus;
 
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -38,19 +38,19 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuKeywordsTree extends JPopupMenu {
 
     private static final long                          serialVersionUID        = 2140903704744267916L;
-    private final        JMenuItem                     itemAdd                 = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionAddKeyword"));
-    private final        JMenuItem                     itemAddToEditPanel      = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionAddToEditPanel"));
-    private final        JMenuItem                     itemRemove              = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveKeyword"));
-    private final        JMenuItem                     itemRename              = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"));
-    private final        JMenuItem                     itemToggleReal          = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionToggleReal"));
-    private final        JMenuItem                     itemRemoveFromEditPanel = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveFromEditPanel"));
-    private final        JMenuItem                     itemCopy                = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionCopy"));
-    private final        JMenuItem                     itemCut                 = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionCut"));
-    private final        JMenuItem                     itemPaste               = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionPaste"));
-    private final        JMenuItem                     itemDisplayImages       = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImages"));
-    private final        JMenuItem                     itemDisplayImagesKw     = new JMenuItem(Bundle.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImagesKw"));
-    private final        JMenuItem                     itemExpandAllSubitems   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final        JMenuItem                     itemCollapseAllSubitems = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private final        JMenuItem                     itemAdd                 = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionAddKeyword"));
+    private final        JMenuItem                     itemAddToEditPanel      = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionAddToEditPanel"));
+    private final        JMenuItem                     itemRemove              = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveKeyword"));
+    private final        JMenuItem                     itemRename              = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"));
+    private final        JMenuItem                     itemToggleReal          = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionToggleReal"));
+    private final        JMenuItem                     itemRemoveFromEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveFromEditPanel"));
+    private final        JMenuItem                     itemCopy                = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCopy"));
+    private final        JMenuItem                     itemCut                 = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCut"));
+    private final        JMenuItem                     itemPaste               = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionPaste"));
+    private final        JMenuItem                     itemDisplayImages       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImages"));
+    private final        JMenuItem                     itemDisplayImagesKw     = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImagesKw"));
+    private final        JMenuItem                     itemExpandAllSubitems   = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final        JMenuItem                     itemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
     private              JTree                         tree;
     private              TreePath                      treePath;
     private              TreePath[]                    treePaths;
@@ -145,7 +145,7 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
         add(itemAddToEditPanel);
         add(itemRemoveFromEditPanel);
 
-        JMenu menuEdit = new JMenu(Bundle.getString("PopupMenuKeywordsTree.DisplayName.MenuEdit"));
+        JMenu menuEdit = new JMenu(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.MenuEdit"));
         menuEdit.add(itemAdd);
         menuEdit.add(itemRemove);
         menuEdit.add(itemRename);

@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.collections;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Spalte <code>sequence_number</code> der Tabelle <code>collections</code>.
@@ -38,6 +38,6 @@ public final class ColumnCollectionsSequenceNumber extends Column {
             "sequence_number",
             DataType.INTEGER);
 
-        setDescription(Bundle.getString("ColumnCollectionsSequenceNumber.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnCollectionsSequenceNumber.Description"));
     }
 }

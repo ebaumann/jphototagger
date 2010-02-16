@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.view.popupmenus;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
@@ -37,13 +37,13 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuDirectories extends JPopupMenu {
 
     private static final long                 serialVersionUID            = 4574458335277932153L;
-    private final        JMenuItem            itemAddToFavorites          = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel.getIcon("icon_favorite.png"));
-    private final        JMenuItem            itemCreateDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory"));
-    private final        JMenuItem            itemRenameDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory"));
-    private final        JMenuItem            itemDeleteDirectory         = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory"));
-    private final        JMenuItem            itemRefresh                 = new JMenuItem(Bundle.getString("PopupMenuDirectories.DisplayName.Action.Refresh"));
-    private final        JMenuItem            menuItemExpandAllSubitems   = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final        JMenuItem            menuItemCollapseAllSubitems = new JMenuItem(Bundle.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private final        JMenuItem            itemAddToFavorites          = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel.getIcon("icon_favorite.png"));
+    private final        JMenuItem            itemCreateDirectory         = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory"));
+    private final        JMenuItem            itemRenameDirectory         = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory"));
+    private final        JMenuItem            itemDeleteDirectory         = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory"));
+    private final        JMenuItem            itemRefresh                 = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.Refresh"));
+    private final        JMenuItem            menuItemExpandAllSubitems   = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final        JMenuItem            menuItemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
     private              TreePath             path;
     private              String               directoryName;
     private              boolean              treeSelected                = false;

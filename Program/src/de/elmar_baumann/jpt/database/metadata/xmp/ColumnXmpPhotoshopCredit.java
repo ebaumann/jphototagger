@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  * Spalte <code>photoshop_credit</code> der Tabelle <code>xmp</code>.
@@ -39,7 +39,7 @@ public final class ColumnXmpPhotoshopCredit extends Column {
             DataType.STRING);
 
         setLength(32);
-        setDescription(Bundle.getString("ColumnXmpPhotoshopCredit.Description"));
-        setLongerDescription(Bundle.getString("ColumnXmpPhotoshopCredit.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCredit.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCredit.LongerDescription"));
     }
 }

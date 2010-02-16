@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
@@ -54,13 +54,13 @@ public final class RendererFactory {
             init = true;
         }
         AppLogger.logFine(getClass(), "RendererFactory.Init.Start");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("RendererFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString("RendererFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
 
         setMetadataTablesRenderers();
         setPopupMenuHighlighter();
 
         AppLogger.logFine(getClass(), "RendererFactory.Init.Finished");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(Bundle.getString("RendererFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString("RendererFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
     }
 
     private void setMetadataTablesRenderers() {

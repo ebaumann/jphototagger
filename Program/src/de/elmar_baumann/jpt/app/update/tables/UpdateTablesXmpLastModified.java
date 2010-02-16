@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.app.update.tables;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
-import de.elmar_baumann.jpt.resource.Bundle;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,14 +47,14 @@ final class UpdateTablesXmpLastModified {
     private void removeColumnXmpLastModifiedFromTableXmp(Connection connection) throws SQLException {
         if (DatabaseMetadata.INSTANCE.existsColumn(
             connection, "xmp", "lastmodified")) {
-            messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.RemoveColumnXmpLastModified"));
+            messages.message(JptBundle.INSTANCE.getString("UpdateTablesXmpLastModified.Info.RemoveColumnXmpLastModified"));
             Database.execute(connection, "ALTER TABLE xmp DROP COLUMN lastmodified");
         }
     }
 
     private void addColumnXmpLastModifiedToTableFiles(Connection connection) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsColumn(connection, "files", "xmp_lastmodified")) {
-            messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.AddColumn"));
+            messages.message(JptBundle.INSTANCE.getString("UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.AddColumn"));
             Database.execute(connection, "ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT");
             copyLastModifiedToXmp(connection);
         }
@@ -88,7 +88,7 @@ final class UpdateTablesXmpLastModified {
     }
 
     private void setProgress() {
-        messages.message(Bundle.getString("UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.SetLastModified"));
+        messages.message(JptBundle.INSTANCE.getString("UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.SetLastModified"));
         count = DatabaseStatistics.INSTANCE.getXmpCount();
     }
 }
