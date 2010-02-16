@@ -16,12 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.plugin;
+package de.elmar_baumann.lib.image.metadata.xmp;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import java.io.File;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -53,8 +53,8 @@ public class XmpTest {
 
         File xmpFile = new File(XmpTest.class.getProtectionDomain().getCodeSource().getLocation().getPath() +
                 File.separator +  "de" + File.separator +  "elmar_baumann" +
-                File.separator +  "jpt" + File.separator +  "plugin" + 
-                File.separator + "test.xmp");
+                File.separator +  "lib" + File.separator +  "image" + File.separator + "metadata" +
+                File.separator + "xmp" + File.separator + "test.xmp");
         List<XMPPropertyInfo> xmpPropertyInfos = Xmp.getPropertyInfosOfSidecarFile(xmpFile);
 
         assertEquals(Arrays.asList("dc:creator"), Xmp.getPropertyValuesFrom(xmpPropertyInfos, Xmp.PropertyValue.DC_CREATOR));
