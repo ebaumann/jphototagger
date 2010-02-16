@@ -160,6 +160,11 @@ public class KeywordExportDialog extends Dialog {
         return MessageDisplayer.confirmYesNo(this, "KeywordExportDialog.Confirm.OverwriteFile", file);
     }
 
+    @Override
+    protected void escape() {
+        setVisible(false);
+    }
+
     private void handleCancelActionPerformed() {
         accepted = false;
         setVisible(false);

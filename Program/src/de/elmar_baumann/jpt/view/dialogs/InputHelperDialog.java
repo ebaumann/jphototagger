@@ -83,6 +83,11 @@ public class InputHelperDialog extends Dialog {
         UserSettings.INSTANCE.writeToFile();
     }
 
+    @Override
+    protected void escape() {
+        setVisible(false);
+    }
+
     public KeywordsPanel getPanelKeywords() {
         return panelKeywords;
     }
