@@ -78,7 +78,7 @@ public class MutualExcludedResource<T> {
         if (isAvailable()) {
             setLocked(true);
             setOwner(owner);
-            Logger.getLogger(MutualExcludedResource.class.getName()).log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Get", resource, owner));
+            Logger.getLogger(MutualExcludedResource.class.getName()).log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Get", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
             return resource;
         }
         return null;
@@ -98,7 +98,7 @@ public class MutualExcludedResource<T> {
         if (isLocked() && owner != null && owner == getOwner()) {
             this.owner = null;
             setLocked(false);
-            Logger.getLogger(MutualExcludedResource.class.getName()).log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Release", resource, owner));
+            Logger.getLogger(MutualExcludedResource.class.getName()).log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Release", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
             return true;
         }
         return false;
