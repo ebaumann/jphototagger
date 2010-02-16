@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.77 2010-02-16
+-----------------
+
+* Flickr-Upload: Bestätigungsdialog mit nur noch 2 Schaltflächen: "Ja" und
+  "Nein"
+
 0.7.76 2010-02-15
 -----------------
 
