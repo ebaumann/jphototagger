@@ -180,7 +180,11 @@ public final class FlickrUpload extends Plugin {
         }
 
         private boolean confirmUpload() {
-            return JOptionPane.showConfirmDialog(null, Bundle.getString("FlickrUpload.Confirm.Upload", files.size()))
+            return JOptionPane.showConfirmDialog(null,
+                    Bundle.getString("FlickrUpload.Confirm.Upload", files.size()),
+                    Bundle.getString("FlickrUpload.Confirm.Upload.Title"),
+                    JOptionPane.YES_NO_OPTION
+                    )
                     == JOptionPane.YES_OPTION;
         }
     }
