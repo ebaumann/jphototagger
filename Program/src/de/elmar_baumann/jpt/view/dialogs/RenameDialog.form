@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -59,7 +59,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Namen eingeben">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelInputName.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelInputName.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -133,7 +133,7 @@
             <Component class="javax.swing.JLabel" name="labelDirectoryPrompt">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDirectoryPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDirectoryPrompt.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -143,7 +143,7 @@
                   <Color blue="0" green="af" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -196,7 +196,7 @@
             <Component class="javax.swing.JLabel" name="labelOldNamePrompt">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelOldNamePrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelOldNamePrompt.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -206,7 +206,7 @@
                   <Color blue="0" green="af" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelOldName.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelOldName.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -216,7 +216,7 @@
                   <ComponentRef name="textFieldNewName"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNewNamePrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNewNamePrompt.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -225,7 +225,7 @@
             <Component class="javax.swing.JButton" name="buttonNextFile">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonNextFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonNextFile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <Events>
@@ -235,7 +235,7 @@
             <Component class="javax.swing.JButton" name="buttonRename">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonRename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonRename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <Events>
@@ -249,7 +249,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Vorlage benutzen">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelTemplates.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelTemplates.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -295,7 +295,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Ziffernfolgen">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelNumbers.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelNumbers.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </TitledBorder>
                   </Border>
                 </Property>
@@ -344,7 +344,7 @@
                       <ComponentRef name="spinnerStartNumber"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelStartNumber.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelStartNumber.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -364,7 +364,7 @@
                       <ComponentRef name="spinnerNumberStepWidth"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNumberStepWidth.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNumberStepWidth.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -384,7 +384,7 @@
                       <ComponentRef name="spinnerNumberCount"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNumberCount.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelNumberCount.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -433,7 +433,7 @@
                       <ComponentRef name="textFieldDateDelim"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDateDelim.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDateDelim.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -453,7 +453,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Namen definieren">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelDefineName.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelDefineName.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </TitledBorder>
                   </Border>
                 </Property>
@@ -533,7 +533,7 @@
                       <ComponentRef name="comboBoxAtBegin"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelAtBegin.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelAtBegin.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -553,7 +553,7 @@
                       <ComponentRef name="textFieldDelim1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDelim1.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDelim1.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -571,7 +571,7 @@
                       <ComponentRef name="comboBoxInTheMiddle"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelInTheMid.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelInTheMid.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -591,7 +591,7 @@
                       <ComponentRef name="textFieldDelim2"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDelim2.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDelim2.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -609,7 +609,7 @@
                       <ComponentRef name="comboBoxAtEnd"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelAtEnd.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelAtEnd.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -630,7 +630,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Beispiel">
-                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelExample.border.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelExample.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </TitledBorder>
                   </Border>
                 </Property>
@@ -675,7 +675,7 @@
                 <Component class="javax.swing.JLabel" name="labelBefore">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelBefore.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelBefore.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -694,7 +694,7 @@
                 <Component class="javax.swing.JLabel" name="labelAfter">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelAfter.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelAfter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -715,7 +715,7 @@
             <Component class="javax.swing.JButton" name="buttonRenameTemplate">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonRenameTemplate.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonRenameTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <Events>

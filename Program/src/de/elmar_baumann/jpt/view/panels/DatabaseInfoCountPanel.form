@@ -58,7 +58,7 @@
     <Component class="javax.swing.JLabel" name="labelTable">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseInfoCountPanel.labelTable.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseInfoCountPanel.labelTable.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -76,7 +76,7 @@
     <Component class="javax.swing.JLabel" name="labelPromptTotalRecordCount">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseInfoCountPanel.labelPromptTotalRecordCount.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseInfoCountPanel.labelPromptTotalRecordCount.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -85,7 +85,7 @@
     <Component class="javax.swing.JLabel" name="labelFilename">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseInfoCountPanel.labelFilename.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="DatabaseInfoCountPanel.labelFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>

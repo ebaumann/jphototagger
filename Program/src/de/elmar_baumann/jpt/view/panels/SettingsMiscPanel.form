@@ -40,7 +40,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;Externe Programme">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelExternalApplications.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -100,7 +100,7 @@
             <Component class="javax.swing.JLabel" name="labelInfoWebBrowser">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoWebBrowser.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoWebBrowser.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -119,7 +119,7 @@
             <Component class="javax.swing.JButton" name="buttonChooseWebBrowser">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChooseWebBrowser.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChooseWebBrowser.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <Events>
@@ -129,7 +129,7 @@
             <Component class="javax.swing.JLabel" name="labelInfoPdfViewer">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoPdfViewer.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoPdfViewer.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -148,7 +148,7 @@
             <Component class="javax.swing.JButton" name="buttonChoosePdfViewer">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChoosePdfViewer.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChoosePdfViewer.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <Events>
@@ -162,7 +162,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;Verschiedenes">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelMisc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelMisc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -227,7 +227,7 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxIsAcceptHiddenDirectories">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <Events>
@@ -321,7 +321,7 @@
             <Component class="javax.swing.JLabel" name="labelIptcCharset">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelIptcCharset.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelIptcCharset.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -344,7 +344,7 @@
                   <ComponentRef name="comboBoxLogLevel"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelLogLevel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelLogLevel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -420,7 +420,7 @@
                 <Component class="javax.swing.JButton" name="buttonSetStandardDatabaseDirectoryName">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -430,7 +430,7 @@
                 <Component class="javax.swing.JButton" name="buttonChooseDatabaseDirectory">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChooseDatabaseDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChooseDatabaseDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -443,7 +443,7 @@
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoDatabaseDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoDatabaseDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>

@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -59,7 +59,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;1. Bilder &#xf6;ffnen">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelPrograms.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelPrograms.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -70,7 +70,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;2. Vorschaubilder">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelThumbnails.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelThumbnails.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -81,7 +81,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;3. Automatisieren">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelTasks.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelTasks.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -92,7 +92,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;4. Leistung">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelPerformance.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelPerformance.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -103,7 +103,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;5. Ausschlie&#xdf;en">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -114,7 +114,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;6. Sonstiges">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelMisc.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelMisc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -125,7 +125,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;7. Aktionen">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelActions.TabConstraints.tabTitle" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsDialog.panelActions.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>

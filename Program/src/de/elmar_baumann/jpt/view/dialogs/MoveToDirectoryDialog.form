@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.title" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -88,14 +88,14 @@
     <Component class="javax.swing.JLabel" name="labelInfo">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.labelInfo.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.labelInfo.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseDirectory">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonChooseDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonChooseDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
@@ -133,14 +133,14 @@
           <Color blue="ff" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.labelInfoIsThread.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.labelInfoIsThread.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonStop">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonCancelCopy.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonCancelCopy.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -151,7 +151,7 @@
     <Component class="javax.swing.JButton" name="buttonStart">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonStartCopy.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="MoveToDirectoryDialog.buttonStartCopy.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>

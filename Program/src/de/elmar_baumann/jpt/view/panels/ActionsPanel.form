@@ -54,7 +54,7 @@
     <Component class="javax.swing.JProgressBar" name="progressBar">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.progressBar.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.progressBar.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Constraints>
@@ -99,10 +99,10 @@
         <Component class="javax.swing.JButton" name="buttonDelete">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonDelete.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonDelete.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonDelete.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonDelete.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -113,10 +113,10 @@
         <Component class="javax.swing.JButton" name="buttonEdit">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonEdit.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonEdit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonEdit.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonEdit.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -127,10 +127,10 @@
         <Component class="javax.swing.JButton" name="buttonNew">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonNew.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonNew.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonNew.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonNew.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -140,10 +140,10 @@
         <Component class="javax.swing.JButton" name="buttonExecute">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonExecute.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonExecute.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonExecute.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ActionsPanel.buttonExecute.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>

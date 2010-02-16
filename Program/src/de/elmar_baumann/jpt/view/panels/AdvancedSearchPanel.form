@@ -319,7 +319,7 @@
         <Component class="javax.swing.JButton" name="buttonSaveSearch">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -329,7 +329,7 @@
         <Component class="javax.swing.JButton" name="buttonSaveAs">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveAs.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveAs.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -339,7 +339,7 @@
         <Component class="javax.swing.JButton" name="buttonResetColumns">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonResetColumns.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonResetColumns.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -349,7 +349,7 @@
         <Component class="javax.swing.JButton" name="buttonSearch">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>

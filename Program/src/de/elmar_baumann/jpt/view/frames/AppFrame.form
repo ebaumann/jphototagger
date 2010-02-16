@@ -9,7 +9,7 @@
         <Menu class="javax.swing.JMenu" name="menuFile">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuFile.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuFile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -22,7 +22,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_folder.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemScanDirectory.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemScanDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -35,7 +35,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_file.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemMaintainDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemMaintainDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -50,7 +50,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_card.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuImportImageFiles.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuImportImageFiles.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -62,7 +62,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_import.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuImport.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuImport.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <SubComponents>
@@ -72,7 +72,7 @@
                       <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_keyword.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemImportKeywords.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemImportKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -94,7 +94,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_export.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuExport.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuExport.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <SubComponents>
@@ -104,7 +104,7 @@
                       <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_keyword.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemExportKeywords.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemExportKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -131,7 +131,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_exit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemExit.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemExit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -140,7 +140,7 @@
         <Menu class="javax.swing.JMenu" name="menuEdit">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuEdit.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuEdit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -153,7 +153,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_settings.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemSettings.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemSettings.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -168,7 +168,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_search.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -177,7 +177,7 @@
         <Menu class="javax.swing.JMenu" name="menuView">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuView.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuView.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -187,7 +187,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_sort.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuSort.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuSort.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <SubComponents>
@@ -197,7 +197,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilepathAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilepathAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -207,7 +207,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilepathDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilepathDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -241,7 +241,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -251,7 +251,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -263,7 +263,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -273,7 +273,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -285,7 +285,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -295,7 +295,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -307,7 +307,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -317,7 +317,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -329,7 +329,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -339,7 +339,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -351,7 +351,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -361,7 +361,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -373,7 +373,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -383,7 +383,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -395,7 +395,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingAscending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -405,7 +405,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingDescending.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </MenuItem>
@@ -417,7 +417,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortNone.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortNone.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
@@ -444,7 +444,7 @@
         <Menu class="javax.swing.JMenu" name="menuGoto">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuGoto.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuGoto.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -457,7 +457,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_search.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoFastSearch.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoFastSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -470,7 +470,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_workspace.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoEdit.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoEdit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -485,7 +485,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_folder.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoDirectories.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -498,7 +498,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_search.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoSavedSearches.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoSavedSearches.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -511,7 +511,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_imagecollection.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoCollections.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoCollections.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -524,7 +524,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_favorite.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoFavorites.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoFavorites.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -537,7 +537,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_keyword.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoKeywordsSel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoKeywordsSel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -550,7 +550,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_timeline.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoTimeline.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoTimeline.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -563,7 +563,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoMiscMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoMiscMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -578,7 +578,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_thumbnails.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoThumbnailsPanel.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoThumbnailsPanel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -593,7 +593,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_iptc.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoIptcMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoIptcMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -606,7 +606,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_exif.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoExifMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoExifMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -619,7 +619,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoXmpMetadata.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoXmpMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -632,7 +632,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_keyword.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoKeywordsEdit.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoKeywordsEdit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -641,7 +641,7 @@
         <Menu class="javax.swing.JMenu" name="menuTools">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuTools.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuTools.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -654,7 +654,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_iptc.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemToolIptcToXmp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemToolIptcToXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -667,7 +667,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_xmp.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemExtractEmbeddedXmp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemExtractEmbeddedXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -676,7 +676,7 @@
         <Menu class="javax.swing.JMenu" name="menuWindow">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuWindow.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuWindow.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -689,7 +689,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_edit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemInputHelper.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemInputHelper.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -702,7 +702,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_action.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemActions.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemActions.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -746,7 +746,7 @@
         <Menu class="javax.swing.JMenu" name="menuHelp">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuHelp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuHelp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -759,7 +759,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_help.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemHelp.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemHelp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -769,7 +769,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_pdf_manual.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemOpenPdfUserManual.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemOpenPdfUserManual.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -791,7 +791,7 @@
                   <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_app_small.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemAbout.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemAbout.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </MenuItem>

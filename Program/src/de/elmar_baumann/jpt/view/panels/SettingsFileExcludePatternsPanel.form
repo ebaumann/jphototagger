@@ -75,7 +75,7 @@
           <ComponentRef name="listPattern"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoList.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoList.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -112,10 +112,10 @@
     <Component class="javax.swing.JButton" name="buttonDeletePattern">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonDeletePattern.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonDeletePattern.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -126,10 +126,10 @@
     <Component class="javax.swing.JButton" name="buttonInsertPattern">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonInsertPattern.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonInsertPattern.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -143,7 +143,7 @@
           <Color blue="ff" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -152,7 +152,7 @@
     <Component class="javax.swing.JButton" name="buttonCancelUpdateDatabase">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -163,7 +163,7 @@
     <Component class="javax.swing.JButton" name="buttonUpdateDatabase">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>

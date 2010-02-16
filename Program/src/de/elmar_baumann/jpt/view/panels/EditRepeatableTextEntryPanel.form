@@ -56,7 +56,7 @@
     <Component class="javax.swing.JLabel" name="labelPrompt">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.labelPrompt.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.labelPrompt.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="column.getLongerDescription()" type="code"/>
@@ -91,7 +91,7 @@
               <Connection code="model" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.list.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.list.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new ListCellRendererKeywordsEdit()" type="code"/>
@@ -132,10 +132,10 @@
           <Properties>
             <Property name="mnemonic" type="int" value="45"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonRemoveSelection.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonRemoveSelection.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -150,10 +150,10 @@
           <Properties>
             <Property name="mnemonic" type="int" value="43"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonAddInput.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonAddInput.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonAddInput.toolTipText" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonAddInput.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -168,7 +168,7 @@
           <Properties>
             <Property name="mnemonic" type="int" value="107"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonSuggestion.text" replaceFormat="Bundle.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.buttonSuggestion.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
