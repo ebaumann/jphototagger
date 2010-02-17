@@ -158,6 +158,8 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
         panelExcludeCheckboxes = new javax.swing.JPanel();
         buttonHelpPlugin = new javax.swing.JButton();
 
+        tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         labelInfoExclude.setText(bundle.getString("SettingsPluginsPanel.labelInfoExclude.text")); // NOI18N
 
@@ -174,7 +176,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
             .addGroup(panelExcludeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                    .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                     .addComponent(labelInfoExclude))
                 .addContainerGap())
         );
@@ -184,7 +186,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
                 .addContainerGap()
                 .addComponent(labelInfoExclude)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -201,16 +203,16 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(381, Short.MAX_VALUE)
+                .addContainerGap(449, Short.MAX_VALUE)
                 .addComponent(buttonHelpPlugin)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonHelpPlugin)
                 .addContainerGap())
