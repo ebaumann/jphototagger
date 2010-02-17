@@ -133,8 +133,10 @@ public abstract class Plugin {
      *
      * @return files
      */
-    protected List<File> getFiles() {
-        return files;
+    public List<File> getFiles() {
+        synchronized (files) {
+            return new ArrayList<File>(files);
+        }
     }
 
     /**
@@ -165,7 +167,7 @@ public abstract class Plugin {
      *
      * @param events events
      */
-    protected void notifyPluginListeners(Event... events) {
+    public void notifyPluginListeners(Event... events) {
         if (pluginListeners.size() > 0) {
             Set<Event> evts = new HashSet<Event>(Arrays.asList(events));
             synchronized (pluginListeners) {
@@ -289,7 +291,7 @@ public abstract class Plugin {
      * @param value   current value
      * @param string  string to paint onto progress bar or null
      */
-    protected void progressStarted(int minimum, int maximum, int value, String string) {
+    public void progressStarted(int minimum, int maximum, int value, String string) {
         setProgressBar(0, maximum, value, string);
     }
 
@@ -301,14 +303,14 @@ public abstract class Plugin {
      * @param value   current value
      * @param string  string to paint onto progress bar or null
      */
-    protected void progressPerformed(int minimum, int maximum, int value, String string) {
+    public void progressPerformed(int minimum, int maximum, int value, String string) {
         setProgressBar(minimum, maximum, value, string);
     }
 
     /**
      * Paints the progress bar progress event.
      */
-    protected void progressEnded() {
+    public void progressEnded() {
         if (progressBar != null) {
             if (progressBar.isStringPainted()) {
                 progressBar.setString("");
