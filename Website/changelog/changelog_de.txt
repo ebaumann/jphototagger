@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.78 2010-02-17
+-----------------
+
+* Bugfix: Lesen eingebetteter Vorschaubilder sollte keine (weniger) Fehler
+  verursachen, *falls* Vorschaubilder eingebettet sind
+
 0.7.77 2010-02-16
 -----------------
 

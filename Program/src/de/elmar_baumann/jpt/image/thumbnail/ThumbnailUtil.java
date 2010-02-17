@@ -186,7 +186,6 @@ public final class ThumbnailUtil {
     }
 
     private static Image getEmbeddedThumbnailRotated(File file) {
-
         Pair<Image, ImageReader> pair      = getEmbeddedThumbnailWithReader(file);
         Image                    thumbnail = pair.getFirst();
         Image rotatedThumbnail = thumbnail;
@@ -195,21 +194,17 @@ public final class ThumbnailUtil {
 
             ExifTags exifTags = ExifMetadata.getExifTags(file);
 
-            if (exifTags == null) return null;
-
-            ExifTag exifTag = exifTags.exifTagById(274);
-
-            if (exifTag == null) return null;
-
-            double rotateAngle = ExifThumbnailUtil.getThumbnailRotationAngle(exifTag);
-
-            if (rotateAngle != 0) {
-
-                AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetRotatedThumbnail.Information", file);
-                rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
+            double rotateAngle = 0.0;
+            if (exifTags != null) {
+                ExifTag exifTag = exifTags.exifTagById(274);
+                if (exifTag != null) {
+                    rotateAngle = ExifThumbnailUtil.getThumbnailRotationAngle(exifTag);
+                }
             }
+            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetRotatedThumbnail.Information", file);
+            rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
         }
-        closeReader(pair.getSecond());
+        closeReader(pair.getSecond()); // Needs to be open for calling ImageTransform.rotate()
         return rotatedThumbnail;
     }
 
