@@ -552,7 +552,9 @@ public final class EditMetadataPanels
     private void setMnemonics() {
         EditMetadataActionsPanel actionsPanel = GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
 
-        // TODO permanent: Exlude to edit panel possible visible app panel buttons
+        // TODO permanent: Exlude to edit panel possible visible app panel buttons.
+        // Else Alt+Mnemonic triggers that action even if the component with the
+        // button is not focussed.
         ViewUtil.setDisplayedMnemonicsToLabels(container,
                 (char) actionsPanel.buttonEmptyMetadata         .getMnemonic(),
                 (char) actionsPanel.buttonMetadataTemplateCreate.getMnemonic(),
