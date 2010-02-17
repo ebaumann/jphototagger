@@ -988,7 +988,10 @@ public class ThumbnailsPanel extends JPanel
      * @param file  file
      */
     public synchronized void repaint(File file) {
-        repaint();
+        int index = getIndexOf(file);
+        if (index > 0) {
+            repaint(Collections.singleton(index));
+        }
     }
 
     /**

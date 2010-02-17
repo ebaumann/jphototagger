@@ -23,7 +23,6 @@ import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.lib.util.Lookup;
 import java.util.LinkedHashSet;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 /**
  *
@@ -119,12 +118,10 @@ public final class PluginManager {
     }
 
     private void init() {
-        Logger     logger     = Logger.getLogger("de.elmar_baumann.jpt.plugin");
         Properties properties = UserSettings.INSTANCE.getProperties();
 
         for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
             plugin.setProperties(properties);
-            plugin.setLogger(logger);
             ALL_PLUGINS.add(plugin);
             if (!isExclude(plugin)) {
                 PLUGINS.add(plugin);

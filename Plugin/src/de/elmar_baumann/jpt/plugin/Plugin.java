@@ -18,17 +18,12 @@
  */
 package de.elmar_baumann.jpt.plugin;
 
-import de.elmar_baumann.jpt.plugin.PluginListener.Event;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.logging.Logger;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JPanel;
@@ -42,21 +37,11 @@ import javax.swing.JProgressBar;
  */
 public abstract class Plugin {
 
-    private       Logger              logger;
     private       Properties          properties;
     private       JProgressBar        progressBar;
     private final List<File>          files            = new ArrayList<File>();
-    private final Set<PluginListener> pluginListeners  = Collections.synchronizedSet(new HashSet<PluginListener>());
+    private final Set<PluginListener> pluginListeners  = new HashSet<PluginListener>();
     private       boolean             pBarStringPainted;
-
-    /**
-     * Sets a logger for logging status or error messages.
-     *
-     * @param logger logger
-     */
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
 
     /**
      * Sets a progress bar.
@@ -72,6 +57,15 @@ public abstract class Plugin {
     }
 
     /**
+     * Returns the progress bar.
+     *
+     * @return progress bar or null
+     */
+    public JProgressBar getProgressBar() {
+        return progressBar;
+    }
+
+    /**
      * Sets properties to set persistent values.
      *
      * @param properties properties read and written persistent. The key
@@ -80,31 +74,6 @@ public abstract class Plugin {
      */
     public void setProperties(Properties properties) {
         this.properties = properties;
-    }
-
-    /**
-     * Returns all actions of this plugin (all what the plugin can do).
-     *
-     * @return actions ordered for presentation in a menu
-     */
-    public abstract List<? extends Action> getActions();
-
-    /**
-     * Returns the logger.
-     *
-     * @return logger
-     */
-    public Logger getLogger() {
-        return logger;
-    }
-
-    /**
-     * Returns the progress bar.
-     *
-     * @return progress bar or null
-     */
-    public JProgressBar getProgressBar() {
-        return progressBar;
     }
 
     /**
@@ -150,7 +119,9 @@ public abstract class Plugin {
      *                 progress bar.
      */
     public void addPluginListener(PluginListener listener) {
-        pluginListeners.add(listener);
+        synchronized (pluginListeners) {
+            pluginListeners.add(listener);
+        }
     }
 
     /**
@@ -159,20 +130,21 @@ public abstract class Plugin {
      * @param listener listener to remove
      */
     public void removePluginListener(PluginListener listener) {
-        pluginListeners.remove(listener);
+        synchronized (pluginListeners) {
+            pluginListeners.remove(listener);
+        }
     }
 
     /**
      * Notifies all added plugin listeners that a specific event has occured.
      *
-     * @param events events
+     * @param event event
      */
-    public void notifyPluginListeners(Event... events) {
-        if (pluginListeners.size() > 0) {
-            Set<Event> evts = new HashSet<Event>(Arrays.asList(events));
-            synchronized (pluginListeners) {
+    public void notifyPluginListeners(PluginEvent event) {
+        synchronized (pluginListeners) {
+            if (pluginListeners.size() > 0) {
                 for (PluginListener listener : pluginListeners) {
-                    listener.action(evts);
+                    listener.action(event);
                 }
             }
         }
@@ -201,6 +173,13 @@ public abstract class Plugin {
     public Icon getIcon() {
         return null;
     }
+
+    /**
+     * Returns all actions of this plugin (all what the plugin can do).
+     *
+     * @return actions ordered for presentation in a menu
+     */
+    public abstract List<? extends Action> getActions();
 
     /**
      * Returns the path to the XML contents file of the plugin's help.
@@ -246,41 +225,6 @@ public abstract class Plugin {
      */
     public JPanel getSettingsPanel() {
         return null;
-    }
-
-    /**
-     * Returns whether the plugin's action has been finished.
-     * <p>
-     * @param   events events got through
-     *                 {@link PluginListener#action(java.util.Set)}
-     * @return         true if the plugin has been finished
-     */
-    public static boolean isFinished(Collection<Event> events) {
-        return events.contains(Event.FINISHED_ERRORS) ||
-                events.contains(Event.FINISHED_NO_ERRORS) ||
-                events.contains(Event.FINISHED_FILES_CHANGED);
-    }
-
-    /**
-     * Returns whether the plugin's action has been changed files.
-     *
-     * @param   events events got through
-     *                 {@link PluginListener#action(java.util.Set)}
-     * @return         true if the plugin has been changed files
-     */
-    public static boolean filesChanged(Collection<Event> events) {
-        return events.contains(Event.FINISHED_FILES_CHANGED);
-    }
-
-    /**
-     * Returns whether the plugin's action has been finished with no errors.
-     *
-     * @param   events events got through
-     *                 {@link PluginListener#action(java.util.Set)}
-     * @return         true if the plugin has been finished with no errors
-     */
-    public static boolean finishedNoErrors(Collection<Event> events) {
-        return events.contains(Event.FINISHED_NO_ERRORS);
     }
 
     /**

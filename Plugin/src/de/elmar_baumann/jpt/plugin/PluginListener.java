@@ -18,46 +18,12 @@
  */
 package de.elmar_baumann.jpt.plugin;
 
-import java.util.Set;
-
 /**
- * Listens to {@link Plugin} actions.
- * <p>
- * The listener can be added with
- * {@link Plugin#addPluginListener(de.elmar_baumann.jpt.plugin.PluginListener)}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-27
  */
 public interface PluginListener {
 
-    /**
-     * Event of a process.
-     */
-    public enum Event {
-
-        /**
-         * The plugin action has been started
-         */
-        STARTED,
-        /**
-         * The plugin action has been finished without errors
-         */
-        FINISHED_NO_ERRORS,
-        /**
-         * The plugin action has been finished with errors
-         */
-        FINISHED_ERRORS,
-        /**
-         * The plugin action has been changed the processed files
-         */
-        FINISHED_FILES_CHANGED,
-    }
-
-    /**
-     * Called on plugin actions.
-     *
-     * @param events events
-     */
-    public void action(Set<Event> events);
+    public void action(PluginEvent event);
 }
