@@ -87,6 +87,7 @@ public final class AppLock {
     }
 
     private static boolean deleteLockFile() {
+        if (!FileUtil.existsFile(LOCKFILE_NAME)) return true;
         if (new File(LOCKFILE_NAME).delete()) {
             return true;
         } else {
