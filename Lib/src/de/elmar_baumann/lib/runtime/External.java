@@ -191,7 +191,7 @@ public final class External {
             throws IOException {
 
         // http://gcc.gnu.org/ml/java-patches/2000-q3/msg00026.html:
-        // "\XXX (octal esacpe) are converted to the appropriate char values"
+        // "\nnn (octal esacpe) are converted to the appropriate char values"
                // On Windows systems, where the backslash is a path delimiter, the
         // tokenizer converts e.g. \200 in F:\2009 to '\u0080'. This results in
         // an invalid path. Let's escaping all backslashes, because it's not
