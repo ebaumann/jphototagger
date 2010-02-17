@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.plugin.cftc;
 
 import de.elmar_baumann.jpt.plugin.Plugin;
-import de.elmar_baumann.jpt.plugin.PluginListener.Event;
+import de.elmar_baumann.jpt.plugin.PluginEvent;
 import de.elmar_baumann.lib.resource.Bundle;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -86,6 +86,7 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
             setDelimiter();
             StringBuilder sb = new StringBuilder();
             int index = 0;
@@ -95,7 +96,13 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
                            : fileNameDelimiter) + file.getAbsolutePath());
             }
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
-            notifyPluginListeners(Event.FINISHED_NO_ERRORS);
+            notifyFinished();
+        }
+
+        private void notifyFinished() {
+            PluginEvent evt = new PluginEvent(PluginEvent.Type.FINISHED_SUCCESS);
+            evt.setProcessedFiles(getFiles());
+            notifyPluginListeners(evt);
         }
 
         private void setDelimiter() {

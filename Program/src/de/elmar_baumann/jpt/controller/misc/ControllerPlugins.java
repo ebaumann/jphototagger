@@ -20,16 +20,16 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.plugin.Plugin;
+import de.elmar_baumann.jpt.plugin.PluginEvent;
 import de.elmar_baumann.jpt.plugin.PluginListener;
-import de.elmar_baumann.jpt.plugin.PluginListener.Event;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
@@ -42,6 +42,12 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerPlugins implements ActionListener {
 
+    // Possible enhancement: Listen to selected thumbnails and calling on all
+    // plugins Plugin#setFiles() to enable/disable actions of the plugin through
+    // the plugin itself. Current status: If no files selected, a plugin
+    // can't be called: The TN panel's popup menu's plugin items are disabled
+    // in that case.
+
     public ControllerPlugins() {
         listen();
     }
@@ -49,7 +55,8 @@ public final class ControllerPlugins implements ActionListener {
     private void listen() {
         for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
             item.addActionListener(this);
-            PopupMenuThumbnails.INSTANCE.getPluginOfItem(item).addPluginListener(new Listener(this));
+            Plugin plugin = PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
+            PopupMenuThumbnails.INSTANCE.getPluginOfItem(item).addPluginListener(new Listener(plugin, this));
         }
     }
 
@@ -70,19 +77,25 @@ public final class ControllerPlugins implements ActionListener {
 
     private static class Listener implements PluginListener {
 
+        private final Plugin plugin;
         private final Object progressBarOwner;
 
-        public Listener(Object progressBarOwner) {
+        public Listener(Plugin plugin, Object progressBarOwner) {
+            this.plugin           = plugin;
             this.progressBarOwner = progressBarOwner;
         }
 
         @Override
-        public void action(Set<Event> events) {
-            if (Plugin.filesChanged(events)) {
-                GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
+        public void action(PluginEvent evt) {
+            if (evt.filesChanged()) {
+                for (File changedFile : evt.getChangedFiles()) {
+                    GUI.INSTANCE.getAppPanel().getPanelThumbnails().repaint(changedFile);
+                }
             }
-            if (Plugin.isFinished(events)) {
+            if (evt.isFinished()) {
                 UserSettings.INSTANCE.writeToFile();
+                plugin.setProgressBar(null);
+                plugin.setFiles(new ArrayList<File>());
                 ProgressBar.INSTANCE.releaseResource(progressBarOwner);
             }
         }
