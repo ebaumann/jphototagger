@@ -30,7 +30,6 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
-import java.util.logging.MemoryHandler;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 import java.util.logging.XMLFormatter;
@@ -43,11 +42,10 @@ import java.util.logging.XMLFormatter;
  */
 public final class AppLoggingSystem implements UserSettingsListener {
 
-    private static final int           MAX_LOGFILE_SIZE_IN_BYTES        = 1000000;
-    private static final int           LOGFILE_ROTATE_COUNT             = 5;
-    private static final boolean       APPEND_OUTPUT_TO_LOGFILE         = false;
-    private static final int           MEMORY_HANDLER_LOG_RECORDS_COUNT = 1000;
-    private static final List<Handler> HANDLERS                         = new ArrayList<Handler>();
+    private static final int           MAX_LOGFILE_SIZE_IN_BYTES = 1000000;
+    private static final int           LOGFILE_ROTATE_COUNT      = 5;
+    private static final boolean       APPEND_OUTPUT_TO_LOGFILE  = false;
+    private static final List<Handler> HANDLERS                  = new ArrayList<Handler>();
     private static       boolean       init;
     private static       Handler       systemOutHandler;
     private static       Handler       fileHandler;
@@ -78,10 +76,6 @@ public final class AppLoggingSystem implements UserSettingsListener {
         try {
             addFileHandler();
             addSystemOutHandler();
-
-            // Has to be called after all other handlers were added!
-            addMemoryHandlersForAllExistingHandlers();
-
         } catch (Exception ex) {
             AppLogger.logSevere(AppLoggingSystem.class, ex);
         }
@@ -122,20 +116,6 @@ public final class AppLoggingSystem implements UserSettingsListener {
         }
     }
 
-    // Ensures publishing the last 1000 log records of all levels through all
-    // other handlers on SEVERE events. These records may help finding the cause.
-    private static void addMemoryHandlersForAllExistingHandlers() {
-
-        synchronized (HANDLERS) {
-             // New array list is neccessary because HANDLERS will be modified
-             // while adding memory handlers (would lead to iterator troubles)
-            for (Handler handler : new ArrayList<Handler>(HANDLERS)) {
-                HANDLERS.add(
-                        new MemoryHandler(handler, MEMORY_HANDLER_LOG_RECORDS_COUNT, Level.SEVERE));
-            }
-        }
-    }
-
     private static void createLogger() {
         try {
             appLogger = Logger.getLogger("de.elmar_baumann");
@@ -149,7 +129,6 @@ public final class AppLoggingSystem implements UserSettingsListener {
     }
 
     private static void addHandlersTo(Logger logger) {
-
         synchronized (HANDLERS) {
             for (Handler handler : HANDLERS) {
                 logger.addHandler(handler);
