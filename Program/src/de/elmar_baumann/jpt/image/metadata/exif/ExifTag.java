@@ -42,6 +42,7 @@ public final class ExifTag {
     public enum Id {
 
         // Ordered by tag ID
+        UNKNOWN                   (Integer.MIN_VALUE),
         GPS_VERSION_ID            (    0),
         GPS_LATITUDE_REF          (    1),
         GPS_LATITUDE              (    2),
@@ -110,7 +111,7 @@ public final class ExifTag {
          * Returns an tag id with a specific integer value.
          *
          * @param  value value
-         * @return       Id or null if no tag has such value
+         * @return       Id or {@link Id#UNKNOWN} if no tag has such value
          */
         public static Id fromValue(int value) {
             for (Id id : Id.values()) {
@@ -118,7 +119,7 @@ public final class ExifTag {
                     return id;
                 }
             }
-            return null;
+            return UNKNOWN;
         }
 
         private Id(int value) {
