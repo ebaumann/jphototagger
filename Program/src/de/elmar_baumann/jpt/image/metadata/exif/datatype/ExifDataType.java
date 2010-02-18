@@ -139,7 +139,7 @@ public enum ExifDataType {
             if (dataType.value == type) return dataType;
         }
         assert false: type;
-        return null;
+        return UNDEFINED;
     }
 
     public static boolean isType(int type) {

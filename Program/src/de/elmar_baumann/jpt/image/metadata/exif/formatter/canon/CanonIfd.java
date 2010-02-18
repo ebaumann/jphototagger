@@ -138,7 +138,7 @@ public final class CanonIfd {
 
         int          tag         = ExifDatatypeUtil.shortFromRawValue(tagBytes        , byteOrder);
         int          fieldType   = ExifDatatypeUtil.shortFromRawValue(fieldTypeBytes  , byteOrder);
-        ExifDataType dataType    = ExifDataType.isType(fieldType) ? ExifDataType.fromType(fieldType) : ExifDataType.UNDEFINED;
+        ExifDataType dataType    = ExifDataType.fromType(fieldType);
         int          valueNumber = ExifDatatypeUtil.intFromRawValue  (valueNumberBytes, byteOrder);
         int          offsetBytes = dataType.bitCount() * valueNumber > 32
                                       ? ExifDatatypeUtil.intFromRawValue(valueOffsetBytes, byteOrder)
