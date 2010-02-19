@@ -1,6 +1,7 @@
 package de.elmar_baumann.lib.thirdparty;
 
-// Code: http://www.fmi.uni-sofia.bg/fmi/logic/vboutchkova/sources/KMPMatch_java.html
+// Code: http://stackoverflow.com/questions/1507780/searching-for-a-sequence-of-bytes-in-a-binary-file-with-java
+// "Master"-Source?: http://www.fmi.uni-sofia.bg/fmi/logic/vboutchkova/sources/KMPMatch_java.html
 
 /**
  * The Knuth-Morris-Pratt Algorithm for Pattern Matching modified for comparing
@@ -10,75 +11,53 @@ package de.elmar_baumann.lib.thirdparty;
  */
 public final class KMPMatch {
 
-  private final byte[] bytes;
-  private final byte[] pattern;
-  private int[]        failure;
-  private int          matchPoint;
+    /**
+     * Finds the first occurrence of the pattern in the text.
+     * @param data    data
+     * @param pattern pattern
+     * @return
+     */
+    public static int indexOf(byte[] data, byte[] pattern) {
+        int[] failure = computeFailure(pattern);
 
-  public KMPMatch(byte[] bytes, byte[] pattern) {
-    this.bytes   = bytes;
-    this.pattern = pattern;
-    failure      = new int[pattern.length];
-    computeFailure();
-  }
+        int j = 0;
+        if (data.length == 0) return -1;
 
-  public int getMatchPoint() {
-    return matchPoint;
-  }
-
-
-  public boolean match() {
-    // Tries to find an occurence of the pattern in the string
-
-    int j = 0;
-    if (bytes.length == 0) return false;
-
-    for (int i = 0; i < bytes.length; i++) {
-      while (j > 0 && pattern[j] != bytes[i]) {
-        j = failure[j - 1];
-      }
-      if (pattern[j] == bytes[i]) { j++; }
-      if (j == pattern.length) {
-        matchPoint = i - pattern.length + 1;
-        return true;
-      }
+        for (int i = 0; i < data.length; i++) {
+            while (j > 0 && pattern[j] != data[i]) {
+                j = failure[j - 1];
+            }
+            if (pattern[j] == data[i]) {
+                j++;
+            }
+            if (j == pattern.length) {
+                return i - pattern.length + 1;
+            }
+        }
+        return -1;
     }
-    return false;
-  }
 
-  public boolean match1() {
+    /**
+     * Computes the failure function using a boot-strapping process,
+     * where the pattern is matched against itself.
+     */
+    private static int[] computeFailure(byte[] pattern) {
+        int[] failure = new int[pattern.length];
 
-    int i = 0;
-    int j = 0;
-    if (bytes.length == 0) return false;
+        int j = 0;
+        for (int i = 1; i < pattern.length; i++) {
+            while (j > 0 && pattern[j] != pattern[i]) {
+                j = failure[j - 1];
+            }
+            if (pattern[j] == pattern[i]) {
+                j++;
+            }
+            failure[i] = j;
+        }
 
-    while (i + pattern.length - j <= bytes.length) {
-      if (j >= pattern.length) {
-        matchPoint = i - pattern.length;
-        return true;
-      }
-      if (bytes[i] == pattern[j]) {
-        i++;
-        j++;
-      } else {
-        if (j > 0) { j = failure[j - 1]; }
-        else { i++; }
-      }
+        return failure;
     }
-    return false;
-  }
 
-  /**
-   * Computes the failure function using a boot-strapping process,
-   * where the pattern is matched against itself.
-   */
-  private void computeFailure() {
-
-    int j = 0;
-    for (int i = 1; i < pattern.length; i++) {
-      while (j > 0 && pattern[j] != pattern[i]) { j = failure[j - 1]; }
-      if (pattern[j] == pattern[i]) { j++; }
-      failure[i] = j;
+    private KMPMatch() {
     }
-  }
  }
