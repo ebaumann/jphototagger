@@ -64,11 +64,7 @@ public final class CanonMakerNote {
 
             if (!hasExif(app1Data)) return null;
 
-            KMPMatch find = new KMPMatch(app1Data, JPEG_TIFF_MAGIC_BYTES);
-            if (!find.match()) return null;
-
-            int tiffStart = find.getMatchPoint();
-            assert tiffStart > 0;
+            int tiffStart = KMPMatch.indexOf(app1Data, JPEG_TIFF_MAGIC_BYTES);
             if (tiffStart <= 0) return null;
 
             long valueOffset    = app1DataPos + 2 + tiffStart + entry.getValueOffset();
@@ -85,7 +81,7 @@ public final class CanonMakerNote {
     }
 
     private static boolean hasExif(byte[] raw) {
-        return new KMPMatch(raw, JPEG_EXIF_MAGIC_BYTES).match();
+        return KMPMatch.indexOf(raw, JPEG_EXIF_MAGIC_BYTES) >= 0;
     }
 
     private static boolean seekToJpegApp1Marker(RandomAccessFile raf) throws Exception {
