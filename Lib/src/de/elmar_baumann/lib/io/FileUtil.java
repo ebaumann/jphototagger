@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -715,6 +716,65 @@ public final class FileUtil {
         if (filename == null) throw new NullPointerException("filename == null"); // NOI18N
 
         return new File(filename).lastModified();
+    }
+    
+    /**
+     * Returns the location a class' source.
+     * 
+     * @param  clazz class
+     * @return       source code path (root of all classes within the same location)
+     */
+    public static String getSourceLocation(Class<?> clazz) {
+        return clazz.getProtectionDomain().getCodeSource().getLocation().getPath();
+    }
+
+    /**
+     * Returns the path of a file in a package.
+     *
+     * @param  classInPackgage class residing in the same package as the file
+     * @param  filename        name of the file without any parents
+     * @return                 file
+     */
+    public static File getFileOfPackage(Class<?> classInPackgage, String filename) {
+        String packagePath = classInPackgage.getName();
+        int    index       = packagePath.lastIndexOf(".");
+
+        if (index > 0) {
+            packagePath = packagePath.substring(0, index);
+        }
+
+        packagePath = packagePath.replace('.', File.separatorChar);
+
+        return new File(getSourceLocation(classInPackgage) + File.separator +
+                            packagePath + File.separator + filename);
+    }
+
+    /**
+     * Finds in a file a byte pattern and returns it's file offset.
+     *
+     * @param file    file. It will be searched from the current file pointer
+     *                position and the file pointer will be moved forwards
+     *                either behind the end of the file or to the first byte
+     *                behind the found byte pattern.
+     * @param search  byte pattern to find
+     * @return        file offset of the first byte where <code>search</code>
+     *                starts or -1 if <code>search</code> was not found
+     * @throws IOException on errors while accessing the file
+     */
+    public static long getIndexOf(RandomAccessFile file, byte[] search) throws IOException {
+        int matched = 0;
+        int  b      = file.getFilePointer() < file.length() - 1 ? 0 : -1;
+
+        while (matched < search.length && b >= 0) {
+            b = file.read();
+            if ((byte) b == search[matched]) {
+                matched++;
+            } else {
+                matched = (byte) b == search[0] ? 1 : 0;
+            }
+        }
+
+        return matched == search.length ? file.getFilePointer() - search.length : -1;
     }
 
     private FileUtil() {
