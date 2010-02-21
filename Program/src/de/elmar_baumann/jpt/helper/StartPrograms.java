@@ -119,7 +119,7 @@ public final class StartPrograms {
             for (File file : imageFiles) {
                 String command = getProcessPatternCommand(file);
                 logCommand(command);
-                External.ProcessResult result = External.execute(command);
+                External.ProcessResult result = External.execute(command, true);
                 if (result == null || result.getExitValue() != 0) {
                     AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
                 }
@@ -136,7 +136,7 @@ public final class StartPrograms {
         private void processAll() {
             String command = getProcessAllCommand();
             logCommand(command);
-            External.ProcessResult result = External.execute(command);
+            External.ProcessResult result = External.execute(command, true);
             if (result == null || result.getExitValue() != 0) {
                 AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
             }
@@ -156,7 +156,7 @@ public final class StartPrograms {
             for (File file : imageFiles) {
                 String command = getProcessSingleCommand(file, count);
                 logCommand(command);
-                External.ProcessResult result = External.execute(command);
+                External.ProcessResult result = External.execute(command, true);
                 if (result == null || result.getExitValue() != 0) {
                     AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
                 }
