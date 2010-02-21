@@ -118,7 +118,11 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
         if (!checkPdfViewer()) return;
         File manual = getPdfUserManualPath();
         if (manual == null) return;
-        External.execute(logAndGetPdfManualOpenCommand(manual));
+        String command = logAndGetPdfManualOpenCommand(manual);
+        External.ProcessResult result = External.execute(command);
+        if (result == null || result.getExitValue() != 0) {
+            AppLogger.logWarning(ControllerHelp.class, "Execute.ControllerHelp.Error.OpenPdfUserManual", command, result == null ? "?" : result.getErrorStream());
+        }
     }
 
     private String logAndGetPdfManualOpenCommand(File manual) {
