@@ -215,10 +215,8 @@ public final class TableModelExif extends DefaultTableModel {
                 String url = ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(), exifGpsMetadata.latitude());
                 String cmd = "\"" + webBrowser + "\" \"" + url + "\"";
                 logExternalAppCommand(cmd);
-                External.ProcessResult result = External.execute(cmd);
-                if (result == null || result.getExitValue() != 0) {
-                    MessageDisplayer.error(null, "GpsButtonListener.StartWebBrowser.Error", cmd, result == null ? "?" : result.getErrorStream());
-                }
+                External.ProcessResult result = External.execute(cmd, false);
+                assert result == null;
             }
         }
 
