@@ -150,7 +150,6 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
         String manualPath = "";
         try {
             File jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            MessageDisplayer.information(null, AppLogger.USE_STRING, jarPath);
             logJar(jarPath);
             if (jarPath.exists() && jarPath.getParentFile() != null) {
                 File   dir = jarPath.getParentFile();
