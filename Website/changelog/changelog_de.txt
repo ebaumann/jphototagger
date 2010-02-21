@@ -8,7 +8,8 @@ Changelog JPhotoTagger
 0.7.79 2010-02-21
 -----------------
 
-* Beim Ausführen von Aktionen wird auf deren Prozess-Ende gewartet und
+* Bugfix: PDF-Handbuch wird geöffnet, falls Leerzeichen im Pfad sind
+* Bugfix: Beim Ausführen von Aktionen wird auf deren Prozess-Ende gewartet und
   Fehlermeldungen werden angezeigt
 
 0.7.78 2010-02-17

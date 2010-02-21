@@ -149,13 +149,12 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
     private static File getPdfUserManualPath() {
         String manualPath = "";
         try {
-            File jarPath = new File(Main.class.getProtectionDomain().
-                    getCodeSource().getLocation().getPath());
+            File jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            MessageDisplayer.information(null, AppLogger.USE_STRING, jarPath);
             logJar(jarPath);
             if (jarPath.exists() && jarPath.getParentFile() != null) {
-                File dir = jarPath.getParentFile();
-                String pathPrefix =
-                        dir.getAbsolutePath() + File.separator + "Manual";
+                File   dir = jarPath.getParentFile();
+                String pathPrefix = dir.getAbsolutePath() + File.separator + "Manual";
                 // Trying to get Locale specific manual
                 manualPath = pathPrefix + "_" +
                         Locale.getDefault().getLanguage() + ".pdf";
