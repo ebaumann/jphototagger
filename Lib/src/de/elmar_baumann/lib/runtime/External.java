@@ -80,17 +80,24 @@ public final class External {
     }
 
     /**
-     * Executes an external program and waits until it's executed.
+     * Executes an external program and can wait until it's completed.
      *
      * @param  command command
-     * @return         process result after execution or null on errors
+     * @param wait     true if wait for the process' completion
+     * @return         process result after execution or null if not to wait or
+     *                 on errors
      */
-    public static ProcessResult execute(String command) {
+    public static ProcessResult execute(String command, boolean wait) {
         Runtime runtime = Runtime.getRuntime();
         try {
-            Process p = runtime.exec(parseQuotedCommandLine(command));
-            p.waitFor();
-            return new ProcessResult(p);
+            if (wait) {
+                Process p = runtime.exec(parseQuotedCommandLine(command));
+                p.waitFor();
+                return new ProcessResult(p);
+            } else {
+                // "Process p = ..." seems to wait
+                runtime.exec(parseQuotedCommandLine(command));
+            }
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
         }
