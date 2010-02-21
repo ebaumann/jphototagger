@@ -88,15 +88,13 @@ public final class External {
      *                 on errors
      */
     public static ProcessResult execute(String command, boolean wait) {
-        Runtime runtime = Runtime.getRuntime();
         try {
+            Runtime  runtime = Runtime.getRuntime();
+            String[] cmd     = parseQuotedCommandLine(command);
+            Process  p       = runtime.exec(cmd);
             if (wait) {
-                Process p = runtime.exec(parseQuotedCommandLine(command));
                 p.waitFor();
                 return new ProcessResult(p);
-            } else {
-                // "Process p = ..." seems to wait
-                runtime.exec(parseQuotedCommandLine(command));
             }
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
