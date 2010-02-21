@@ -46,19 +46,55 @@ public final class External {
         STANDARD_OUT,
     }
 
+    public static class ProcessResult {
+        private static final byte[] emptyStream = {};
+        private final int           exitValue;
+        private final String        outputStream;
+        private final String        errorStream;
+
+        public ProcessResult(int exitValue, String outputStream, String errorStream) {
+            this.exitValue    = exitValue;
+            this.outputStream = outputStream;
+            this.errorStream  = errorStream;
+        }
+
+        public ProcessResult(Process process) {
+            byte[] os = getStream(process, Stream.STANDARD_OUT);
+            byte[] es = getStream(process, Stream.STANDARD_ERROR);
+            this.exitValue    = process.exitValue();
+            this.outputStream = new String(os == null ? emptyStream : os);
+            this.errorStream  = new String(es == null ? emptyStream : es);
+        }
+
+        public String getErrorStream() {
+            return errorStream;
+        }
+
+        public int getExitValue() {
+            return exitValue;
+        }
+
+        public String getOutputStream() {
+            return outputStream;
+        }
+    }
+
     /**
-     * Executes an external program.
+     * Executes an external program and waits until it's executed.
      *
-     * @param command command
+     * @param  command command
+     * @return         process result after execution or null on errors
      */
-    public static void execute(String command) {
+    public static ProcessResult execute(String command) {
         Runtime runtime = Runtime.getRuntime();
         try {
-            runtime.exec(parseQuotedCommandLine(command));
+            Process p = runtime.exec(parseQuotedCommandLine(command));
+            p.waitFor();
+            return new ProcessResult(p);
         } catch (Exception ex) {
-            Logger.getLogger(
-                    External.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
     /**
@@ -79,17 +115,15 @@ public final class External {
      *                 system's standard error output or the bytes the program
      *                 has written to the system's standard error output.
      */
-    public static Pair<byte[], byte[]> executeGetOutput(
-            String command, long maxMilliseconds) {
+    public static Pair<byte[], byte[]> executeGetOutput(String command, long maxMilliseconds) {
         if (command == null) throw new NullPointerException("command == null");
 
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
         try {
             process = runtime.exec(parseQuotedCommandLine(command));
-            ProcessDestroyer processDestroyer =
-                    new ProcessDestroyer(process, maxMilliseconds, command);
-            Thread threadProcessDestroyer = new Thread(processDestroyer);
+            ProcessDestroyer processDestroyer       = new ProcessDestroyer(process, maxMilliseconds, command);
+            Thread           threadProcessDestroyer = new Thread(processDestroyer);
             threadProcessDestroyer.start();
             Pair<byte[], byte[]> streamContent = new Pair<byte[], byte[]>(
                     getStream(process, Stream.STANDARD_OUT),
@@ -150,17 +184,16 @@ public final class External {
 
     private static class ProcessDestroyer implements Runnable {
 
-        private final Process process;
-        private final long millisecondsWait;
-        private final String command;
+        private final Process    process;
+        private final long       millisecondsWait;
+        private final String     command;
         private volatile boolean processFinished;
-        private boolean destroyed = false;
+        private boolean          destroyed       = false;
 
-        public ProcessDestroyer(
-                Process process, long millisecondsWait, String command) {
-            this.process = process;
+        public ProcessDestroyer(Process process, long millisecondsWait, String command) {
+            this.process          = process;
             this.millisecondsWait = millisecondsWait;
-            this.command = command;
+            this.command          = command;
         }
 
         public boolean destroyed() {
@@ -187,8 +220,7 @@ public final class External {
         }
     }
 
-    public static String[] parseQuotedCommandLine(String command)
-            throws IOException {
+    public static String[] parseQuotedCommandLine(String command) throws IOException {
 
         // http://gcc.gnu.org/ml/java-patches/2000-q3/msg00026.html:
         // "\nnn (octal esacpe) are converted to the appropriate char values"
