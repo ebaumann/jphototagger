@@ -24,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -722,10 +724,10 @@ public final class FileUtil {
      * Returns the location a class' source.
      * 
      * @param  clazz class
-     * @return       source code path (root of all classes within the same location)
+     * @return       source code path
      */
-    public static String getSourceLocation(Class<?> clazz) {
-        return clazz.getProtectionDomain().getCodeSource().getLocation().getPath();
+    public static URL getSourceLocation(Class<?> clazz) {
+        return clazz.getProtectionDomain().getCodeSource().getLocation();
     }
 
     /**
@@ -745,8 +747,18 @@ public final class FileUtil {
 
         packagePath = packagePath.replace('.', File.separatorChar);
 
-        return new File(getSourceLocation(classInPackgage) + File.separator +
-                            packagePath + File.separator + filename);
+        File dir = null;
+        try {
+            dir = new File(getSourceLocation(classInPackgage).toURI());
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (dir == null) {
+            return new File("");
+        } else {
+            return new File(dir.getAbsolutePath() + File.separator + packagePath +
+                    File.separator + filename);
+        }
     }
 
     /**
