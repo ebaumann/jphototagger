@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.79 2010-02-21
+-----------------
+
+* Beim Ausführen von Aktionen wird auf deren Prozess-Ende gewartet und
+  Fehlermeldungen werden angezeigt
+
 0.7.78 2010-02-17
 -----------------
 
