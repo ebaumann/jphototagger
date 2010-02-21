@@ -121,7 +121,7 @@ public final class StartPrograms {
                 logCommand(command);
                 External.ProcessResult result = External.execute(command);
                 if (result == null || result.getExitValue() != 0) {
-                    AppLogger.logWarning(Execute.class, "Execute.Error.ExternalExcecute", command, result == null ? "?" : result.getErrorStream());
+                    AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
                 }
                 setValueToProgressBar(++count);
             }
@@ -138,7 +138,7 @@ public final class StartPrograms {
             logCommand(command);
             External.ProcessResult result = External.execute(command);
             if (result == null || result.getExitValue() != 0) {
-                AppLogger.logWarning(Execute.class, "Execute.Error.ExternalExcecute", command, result == null ? "?" : result.getErrorStream());
+                AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
             }
             setValueToProgressBar(imageFiles.size());
         }
@@ -158,7 +158,7 @@ public final class StartPrograms {
                 logCommand(command);
                 External.ProcessResult result = External.execute(command);
                 if (result == null || result.getExitValue() != 0) {
-                    AppLogger.logWarning(Execute.class, "Execute.Error.ExternalExcecute", command, result == null ? "?" : result.getErrorStream());
+                    AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
                 }
                 setValueToProgressBar(++count);
             }
