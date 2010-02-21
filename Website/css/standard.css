@@ -70,6 +70,10 @@ pre {
     background: #fafafa;
 }
 
+code {
+    background: #eee;
+}
+
 pre, code {
     font-family: 'Courier New',Courier,monospace;
 }
@@ -92,6 +96,10 @@ pre, code {
     float: left;
     width: 35em;
     padding: 90px 0 0.5em 0;
+}
+
+#content a {
+    text-decoration: underline;
 }
 
 #content p, #content table, #content ul, #content pre {
