@@ -24,8 +24,10 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.InputDialog;
 import java.awt.Component;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /**
@@ -78,6 +80,7 @@ public final class MessageDisplayer {
      */
     public static void error(Component component, String propertyKey, Object... params) {
         message(component, propertyKey, JOptionPane.ERROR_MESSAGE, params);
+        enableMenuItemErrorLogfile();
     }
 
     /**
@@ -106,6 +109,18 @@ public final class MessageDisplayer {
      */
     public static void information(Component component, String propertyKey, Object... params) {
         message(component, propertyKey, JOptionPane.INFORMATION_MESSAGE, params);
+    }
+
+    private static void enableMenuItemErrorLogfile() {
+        JMenuItem item = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
+        if (item.isEnabled()) return;
+
+        String logfile = AppLoggingSystem.getCurrentLogfileName();
+        long   len     = new File(logfile).length();
+
+        if (len > 0) {
+            item.setEnabled(true);
+        }
     }
 
     /**
