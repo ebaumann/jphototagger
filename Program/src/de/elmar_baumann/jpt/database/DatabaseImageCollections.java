@@ -168,17 +168,21 @@ public final class DatabaseImageCollections extends Database {
             stmtColl = connection.prepareStatement(
                     "INSERT INTO collections" +
                     " (id_collectionnnames" + // -- 1 --
-                    ", id_files" + // -- 2 --
-                    ", sequence_number)" + // -- 3 --
+                    ", id_files" +            // -- 2 --
+                    ", sequence_number)" +    // -- 3 --
                     " VALUES (?, ?, ?)");
             stmtName.setString(1, collectionName);
             logFiner(stmtName);
             stmtName.executeUpdate();
-            long idCollectionName = findId(connection,
-                    collectionName);
+            long idCollectionName = findId(connection, collectionName);
             int sequence_number = 0;
             for (String filename : filenames) {
                 long idFile = DatabaseImageFiles.INSTANCE.findIdFile(connection, filename);
+                if (!DatabaseImageFiles.INSTANCE.exists(filename)) {
+                    AppLogger.logWarning(getClass(), "DatabaseImageCollections.Error.Insert.FileId", filename);
+                    rollback(connection);
+                    return false;
+                }
                 stmtColl.setLong(1, idCollectionName);
                 stmtColl.setLong(2, idFile);
                 stmtColl.setInt(3, sequence_number++);
