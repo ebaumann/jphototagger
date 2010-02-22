@@ -54,7 +54,7 @@ public final class ProgressBarUpdater implements ProgressListener {
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
+    public synchronized void progressEnded(ProgressEvent evt) {
         updateProgressBar(evt);
         if (progressBar != null) {
             if (progressBar.isStringPainted()) {
@@ -63,5 +63,13 @@ public final class ProgressBarUpdater implements ProgressListener {
             progressBar.setValue(0);
         }
         ProgressBar.INSTANCE.releaseResource(this);
+    }
+
+    public synchronized boolean setIndeterminate(boolean indeterminate) {
+        if (progressBar != null) {
+            progressBar.setIndeterminate(indeterminate);
+            return true;
+        }
+        return false;
     }
 }
