@@ -85,7 +85,42 @@ public final class FavoritesHelper {
         return MessageDisplayer.confirmYesNo(null, "FavoritesHelper.Confirm.Delete", favoriteName);
     }
 
-    public static List<File> getFilesOfCurrentDirectory() {
+    /**
+     * Returns the selected node of the favorites tree.
+     *
+     * @return node or null if no node is selected
+     */
+    public static DefaultMutableTreeNode getSelectedNode() {
+        TreePath path = GUI.INSTANCE.getAppPanel().getTreeFavorites().getSelectionPath();
+        if (path != null) {
+            return (DefaultMutableTreeNode) path.getLastPathComponent();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the directory of the selected node of the favorites tree.
+     *
+     * @return directory or null if no node is selected
+     */
+    public static File getSelectedDir() {
+        DefaultMutableTreeNode selNode    = getSelectedNode();
+        Object                 userObject = selNode.getUserObject();
+        if (userObject instanceof Favorite) {
+            Favorite favoriteDirectory = (Favorite) userObject;
+             return favoriteDirectory.getDirectory();
+        } else if (userObject instanceof File) {
+            return (File) userObject;
+        }
+        return null;
+    }
+
+    /**
+     * Returns the files in the directory of the selected node of the favorites tree.
+     *
+     * @return files or empty list
+     */
+    public static List<File> getFilesOfSelectedtDirectory() {
         TreePath path = GUI.INSTANCE.getAppPanel().getTreeFavorites().getSelectionPath();
         if (path != null) {
             File dir = null;
@@ -124,18 +159,17 @@ public final class FavoritesHelper {
         @Override
         public void run() {
             ControllerSortThumbnails.setLastSort();
-            setTitle(files);
+            setTitle();
             thumbnailsPanel.setFiles(files, Content.FAVORITE);
             thumbnailsPanel.apply(tnPanelSettings);
             setMetadataEditable();
         }
 
-        private void setTitle(List<File> files) {
-            if (files.isEmpty()) return;
-
-            File dir = files.get(0).getParentFile();
+        private void setTitle() {
+            File dir = FavoritesHelper.getSelectedDir();
             GUI.INSTANCE.getAppFrame().setTitle(
-                    JptBundle.INSTANCE.getString("FavoritesHelper.AppFrame.Title.FavoriteDirectory", dir.getName()));
+                    JptBundle.INSTANCE.getString("FavoritesHelper.AppFrame.Title.FavoriteDirectory",
+                        dir == null ? "?" : dir));
         }
 
         private void setMetadataEditable() {
