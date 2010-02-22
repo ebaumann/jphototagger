@@ -63,6 +63,7 @@ public final class ProgressBarUpdater implements ProgressListener {
             progressBar.setValue(0);
         }
         ProgressBar.INSTANCE.releaseResource(this);
+        progressBar = null;
     }
 
     public synchronized boolean setIndeterminate(boolean indeterminate) {
