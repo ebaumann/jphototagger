@@ -32,7 +32,6 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.dialogs.ImportImageFilesDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -40,7 +39,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.swing.JProgressBar;
 
 /**
  * Imports image files from a source directory to a target directory.
@@ -54,11 +52,9 @@ import javax.swing.JProgressBar;
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
 
-    private final        List<File>         copiedFiles             = new ArrayList<File>();
-    private static final String             progressBarString       = JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
-    private final        ProgressBarUpdater progressBarUpdater      = new ProgressBarUpdater(progressBarString);
-    private              JProgressBar       progressBar;
-    private              boolean            progressBarStringPainted;
+    private final        List<File>         copiedFiles        = new ArrayList<File>();
+    private static final String             progressBarString  = JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
+    private final        ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(progressBarString);
     private final        CopyFiles          copier;
 
     public static void importFrom(File sourceDirectory) {
@@ -137,27 +133,26 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        setIndeterminate(true);
         addFilesToCollection();
-        setIndeterminate(false);
     }
 
     private void addFilesToCollection() {
-        if (copiedFiles.isEmpty()) return;
-        insertCopiedFilesIntoDb();
-        if (insertCopiedFilesAsCollectionIntoDb()) {
-            selectPrevImportCollection();
+        if (!copiedFiles.isEmpty()) {
+            insertCopiedFilesIntoDb(); // Needs to be in the DB to be added to an image collection
         }
+        insertCopiedFilesAsCollectionIntoDb();
+        selectPrevImportCollection();
     }
 
     private void insertCopiedFilesIntoDb() {
         InsertImageFilesIntoDatabase dbInserter = new InsertImageFilesIntoDatabase(
                         FileUtil.getAsFilenames(copiedFiles), Insert.OUT_OF_DATE);
 
+        dbInserter.addProgressListener(progressBarUpdater);
         dbInserter.run(); // No separate thread!
     }
 
-    private boolean insertCopiedFilesAsCollectionIntoDb() {
+    private void insertCopiedFilesAsCollectionIntoDb() {
         String                   collectionName      = ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT;
         DatabaseImageCollections db                  = DatabaseImageCollections.INSTANCE;
         List<String>             prevCollectionFiles = db.getFilenamesOf(collectionName);
@@ -166,10 +161,10 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
             int delCount = db.deleteImagesFrom(collectionName, prevCollectionFiles);
             if (delCount != prevCollectionFiles.size()) {
                 AppLogger.logWarning(getClass(), "ImportImageFiles.Error.DeleteCollectionImages", collectionName);
-                return false;
+                return;
             }
         }
-        return db.insert(collectionName, FileUtil.getAsFilenames(copiedFiles));
+        db.insert(collectionName, FileUtil.getAsFilenames(copiedFiles));
     }
 
     private void selectPrevImportCollection() {
@@ -178,17 +173,5 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         GUI.INSTANCE.getAppPanel().getListImageCollections().setSelectedValue(
                 ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT,
                 true);
-    }
-
-    private void setIndeterminate(boolean indeterminate) {
-        if (!progressBarUpdater.setIndeterminate(indeterminate)) {
-            if (progressBar == null) progressBar = ProgressBar.INSTANCE.getResource(this);
-            if (progressBar != null) {
-                if (indeterminate) progressBarStringPainted = progressBar.isStringPainted();
-                progressBar.setStringPainted(indeterminate ? true : progressBarStringPainted);
-                progressBar.setString(indeterminate ? progressBarString : "");
-                progressBar.setIndeterminate(indeterminate);
-            }
-        }
     }
 }
