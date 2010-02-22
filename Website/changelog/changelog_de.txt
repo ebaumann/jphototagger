@@ -8,6 +8,7 @@ Changelog JPhotoTagger
 0.7.80 2010-02-22
 -----------------
 
+* Im Fenstertitel wird bei Auswahl von Ordnern der komplette Pfad angezeigt
 * Bilder importieren: Nach Kopieren der Dateien wird in der Fortschrittsanzeige
   symbolisiert, dass die importierten Bilder noch in die Datenbank eingefügt
   werden
