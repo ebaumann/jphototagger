@@ -56,7 +56,7 @@ public final class ControllerFavoriteSelected implements TreeSelectionListener, 
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
             FavoritesHelper.setFilesToThumbnailPanel(
-                    FavoritesHelper.getFilesOfCurrentDirectory(), null);
+                    FavoritesHelper.getFilesOfSelectedtDirectory(), null);
         }
     }
 
@@ -64,7 +64,7 @@ public final class ControllerFavoriteSelected implements TreeSelectionListener, 
     public void refresh(RefreshEvent evt) {
         if (treeFavoriteDirectories.getSelectionCount() > 0) {
             FavoritesHelper.setFilesToThumbnailPanel(
-                    FavoritesHelper.getFilesOfCurrentDirectory(), evt.getSettings());
+                    FavoritesHelper.getFilesOfSelectedtDirectory(), evt.getSettings());
         }
     }
 }
