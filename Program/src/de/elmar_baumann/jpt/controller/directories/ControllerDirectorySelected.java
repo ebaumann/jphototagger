@@ -104,7 +104,7 @@ public final class ControllerDirectorySelected
 
         private void setTitle(File selectedDirectory) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    JptBundle.INSTANCE.getString("ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory.getName()));
+                    JptBundle.INSTANCE.getString("ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory));
         }
 
         private String getDirectorynameFromTree() {
