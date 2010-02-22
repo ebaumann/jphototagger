@@ -18,6 +18,7 @@
  */
 package de.elmar_baumann.jpt.helper;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.controller.filesystem.ControllerImportImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
@@ -31,6 +32,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.dialogs.ImportImageFilesDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -38,6 +40,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.swing.JProgressBar;
 
 /**
  * Imports image files from a source directory to a target directory.
@@ -51,9 +54,12 @@ import java.util.List;
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
 
-    private final List<File>         copiedFiles        = new ArrayList<File>();
-    private final ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar"));
-    private final CopyFiles          copier;
+    private final        List<File>         copiedFiles             = new ArrayList<File>();
+    private static final String             progressBarString       = JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
+    private final        ProgressBarUpdater progressBarUpdater      = new ProgressBarUpdater(progressBarString);
+    private              JProgressBar       progressBar;
+    private              boolean            progressBarStringPainted;
+    private final        CopyFiles          copier;
 
     public static void importFrom(File sourceDirectory) {
         ImportImageFilesDialog dlg = new ImportImageFilesDialog();
@@ -131,7 +137,9 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        setIndeterminate(true);
         addFilesToCollection();
+        setIndeterminate(false);
     }
 
     private void addFilesToCollection() {
@@ -155,7 +163,11 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         List<String>             prevCollectionFiles = db.getFilenamesOf(collectionName);
 
         if (!prevCollectionFiles.isEmpty()) {
-            db.deleteImagesFrom(collectionName, prevCollectionFiles);
+            int delCount = db.deleteImagesFrom(collectionName, prevCollectionFiles);
+            if (delCount != prevCollectionFiles.size()) {
+                AppLogger.logWarning(getClass(), "ImportImageFiles.Error.DeleteCollectionImages", collectionName);
+                return false;
+            }
         }
         return db.insert(collectionName, FileUtil.getAsFilenames(copiedFiles));
     }
@@ -166,5 +178,17 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         GUI.INSTANCE.getAppPanel().getListImageCollections().setSelectedValue(
                 ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT,
                 true);
+    }
+
+    private void setIndeterminate(boolean indeterminate) {
+        if (!progressBarUpdater.setIndeterminate(indeterminate)) {
+            if (progressBar == null) progressBar = ProgressBar.INSTANCE.getResource(this);
+            if (progressBar != null) {
+                if (indeterminate) progressBarStringPainted = progressBar.isStringPainted();
+                progressBar.setStringPainted(indeterminate ? true : progressBarStringPainted);
+                progressBar.setString(indeterminate ? progressBarString : "");
+                progressBar.setIndeterminate(indeterminate);
+            }
+        }
     }
 }
