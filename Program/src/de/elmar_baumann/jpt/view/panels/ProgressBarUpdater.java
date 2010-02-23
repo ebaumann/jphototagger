@@ -65,12 +65,4 @@ public final class ProgressBarUpdater implements ProgressListener {
         ProgressBar.INSTANCE.releaseResource(this);
         progressBar = null;
     }
-
-    public synchronized boolean setIndeterminate(boolean indeterminate) {
-        if (progressBar != null) {
-            progressBar.setIndeterminate(indeterminate);
-            return true;
-        }
-        return false;
-    }
 }
