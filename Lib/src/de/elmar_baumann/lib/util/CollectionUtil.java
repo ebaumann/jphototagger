@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -30,6 +31,8 @@ import java.util.List;
  * @version 2010-01-26
  */
 public final class CollectionUtil {
+
+    private static final String EMPTY_STRING = "";
 
     /**
      * Inserts into an ascending sorted list an element.
@@ -100,6 +103,122 @@ public final class CollectionUtil {
         }
 
         return list;
+    }
+
+    /**
+     * Creates a list of strings from a string within tokens. Empty tokens will
+     * be omitted: If a string within tokens is <code>"a,,b,,c"</code> and the
+     * delimiter string is <code>","</code>, the returned list of strings
+     * contains the tree elements <code>"a", "b", "c"</code>.
+     *
+     * @param string    String within tokens
+     * @param delimiter Delimiter that separates the tokens. Every character
+     *                  of the delimiter string is a separate delimiter. If
+     *                  the string within tokens is <code>"I,like:ice"</code>
+     *                  and the delimiter string is <code>",:"</code>, the
+     *                  returned list of strings contains the three elements
+     *                  <code>"I", "like", "ice"</code>.
+     * @return          List of strings
+     */
+    public static List<String> stringTokenToList(String string, String delimiter) {
+        if (string    == null) throw new NullPointerException("string == null");
+        if (delimiter == null) throw new NullPointerException("delimiter == null");
+
+        StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
+        List<String>    list      = new ArrayList<String>(tokenizer.countTokens());
+        while (tokenizer.hasMoreTokens()) {
+            list.add(tokenizer.nextToken());
+        }
+        return list;
+    }
+
+    /**
+     * Creates a list of integers from a string within tokens. Empty tokens will
+     * be omitted: If a string within tokens is <code>"1,,2,,3"</code> and the
+     * delimiter string is <code>","</code>, the returned list of integers
+     * contains the tree elements <code>1, 2, 3</code>.
+     *
+     * <em>It is expected, that each token can be parsed as an integer or is
+     * empty!</em>
+     *
+     * @param string    String within tokens parsable as integer
+     * @param delimiter Delimiter between the integer tokens. Every character
+     *                  of the delimiter string is a separate delimiter. If
+     *                  the string within tokens is <code>"1,2:3"</code>
+     *                  and the delimiter string is <code>",:"</code>, the
+     *                  returned list of integers contains the three elements
+     *                  <code>1, 2, 3</code>.
+     * @return          list of integers
+     * @throws          NumberFormatException if the string contains a not empty
+     *                  token that can't parsed as an integer
+     */
+    public static List<Integer> integerTokenToList(String string, String delimiter) {
+        if (string    == null) throw new NullPointerException("string == null");
+        if (delimiter == null) throw new NullPointerException("delimiter == null");
+
+        List<Integer>   integerList = new ArrayList<Integer>();
+        StringTokenizer tokenizer   = new StringTokenizer(string, delimiter);
+        while (tokenizer.hasMoreTokens()) {
+            integerList.add(Integer.parseInt(tokenizer.nextToken()));
+        }
+        return integerList;
+    }
+
+    /**
+     * Returns wheter an list index is in the range of valid indexes.
+     *
+     * @param  list   list
+     * @param  index  index
+     * @return true if the index is valid
+     */
+    public static boolean isValidIndex(List<?> list, int index) {
+        return index >= 0 && index < list.size();
+    }
+
+    /**
+     * Inserts into one collection all elements of another collection not
+     * contained in that collection.
+     * <p>
+     * Uses {@link Collection#contains(java.lang.Object)} to compare elements.
+     *
+     * @param <T>    the collection's element type
+     * @param src    source collection to get elements from
+     * @param target target collection to put elements into
+     */
+    public static <T> void addNotContainedElements(
+            Collection<? extends T> src, Collection<? super T> target) {
+
+        if (src == target) return;
+
+        for (T t : src) {
+            if (!target.contains(t)) {
+                target.add(t);
+            }
+        }
+    }
+
+    /**
+     * Returns a token string from a collection. Uses {@link Object#toString()}
+     * to get the collection elements strings.
+     *
+     * @param collection           collection
+     * @param delimiter            delimiter
+     * @param delimiterReplacement replacement for all delimiters contained in
+     *                             a collection's element
+     * @return                     token string
+     */
+    public static String toTokenString(
+            Collection<? extends Object> collection,
+            String                       delimiter,
+            String                       delimiterReplacement
+            ) {
+        StringBuilder tokenString = new StringBuilder();
+        int           index       = 0;
+        for (Object o : collection) {
+            tokenString.append((index++ == 0 ? EMPTY_STRING : delimiter));
+            tokenString.append(o.toString().replace(delimiter, delimiterReplacement));
+        }
+        return tokenString.toString();
     }
 
     private CollectionUtil() {
