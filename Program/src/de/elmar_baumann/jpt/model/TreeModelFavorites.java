@@ -326,7 +326,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                                ? null
                                : getDirectory(parentNode);
         if (dirOfParentNode != null) {
-            File newDir = TreeFileSystemDirectories.createSubDirectory(dirOfParentNode);
+            File newDir = TreeFileSystemDirectories.createDirectoryIn(dirOfParentNode);
             if (newDir != null) {
                 TreeNodeSortedChildren newDirNode = new TreeNodeSortedChildren(newDir);
                 parentNode.add(newDirNode);

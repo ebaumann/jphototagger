@@ -189,7 +189,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private void addDirectory() {
         TreePath[] selPaths = tree.getSelectionPaths();
-        model.createNewDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(selPaths[0]));
+        model.createDirectoryIn(TreeFileSystemDirectories.getNodeOfLastPathComponent(selPaths[0]));
     }
 
     private void renameDirectory() {

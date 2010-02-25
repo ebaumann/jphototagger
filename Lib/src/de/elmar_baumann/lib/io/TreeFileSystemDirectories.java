@@ -95,7 +95,7 @@ public final class TreeFileSystemDirectories {
      *                         will be created
      * @return                 created subdirectory or null if not created
      */
-    public static File createSubDirectoryIn(File parentDirectory) {
+    public static File createDirectoryIn(File parentDirectory) {
         if (parentDirectory.isDirectory()) {
             String subdirectoryName = getSubDirectoryName();
             if (subdirectoryName != null && !subdirectoryName.trim().isEmpty()) {

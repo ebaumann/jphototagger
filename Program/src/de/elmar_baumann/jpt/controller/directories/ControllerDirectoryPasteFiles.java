@@ -26,6 +26,7 @@ import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
+import de.elmar_baumann.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -59,47 +60,45 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
         if (KeyEventUtil.isPaste(e)) {
             Object source = e.getSource();
             if (source instanceof JTree) {
-                copyOrMovePastedFiles((JTree) source);
+                copyOrMovePastedFilesTo((JTree) source);
             }
         }
     }
 
-    private void copyOrMovePastedFiles(JTree targetTree) {
-        if (isValidContent   (thumbnailsPanel.getContent()) &&
-            isValidFileAction(thumbnailsPanel.getFileAction())
+    private void copyOrMovePastedFilesTo(JTree targetTree) {
+        if (isSingleDirectory    (thumbnailsPanel.getContent()) &&
+            filesWereCopiedOrCutted(thumbnailsPanel.getFileAction())
             ) {
-            insertFilesIntoSelectedDirectory(targetTree);
+            insertFilesIntoSelectedDirectoryOf(targetTree);
         }
     }
 
-    private void insertFilesIntoSelectedDirectory(JTree targetTree) {
-        List<File> sourceFiles     = ClipboardUtil.getFilesFromSystemClipboard("\n");
+    private void insertFilesIntoSelectedDirectoryOf(JTree targetTree) {
+        List<File> sourceFiles     = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
         File       targetDirectory = ViewUtil.getSelectedFile(targetTree);
 
-        if (sourceFiles.size() > 0 && targetDirectory != null) {
+        if (targetDirectory != null && !sourceFiles.isEmpty()) {
             copyOrMoveFiles(sourceFiles, targetDirectory);
         }
     }
 
     private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
         FileAction action = thumbnailsPanel.getFileAction();
-        assert isValidFileAction(action) : action;
 
-        if (isValidFileAction(action)) {
+        if (filesWereCopiedOrCutted(action)) {
             TransferHandlerDirectoryTree.handleDroppedFiles(
-                    action.getTransferHandlerAction(), sourceFiles,
-                    targetDirectory);
+                    action.getTransferHandlerAction(), sourceFiles, targetDirectory);
             thumbnailsPanel.setFileAction(FileAction.UNDEFINED);
         }
     }
 
-    private boolean isValidFileAction(FileAction action) {
+    private boolean filesWereCopiedOrCutted(FileAction action) {
         return action.equals(FileAction.COPY) || action.equals(FileAction.CUT);
     }
 
-    private boolean isValidContent(Content content) {
+    private boolean isSingleDirectory(Content content) {
         return content.equals(Content.DIRECTORY) ||
-                content.equals(Content.FAVORITE);
+               content.equals(Content.FAVORITE);
     }
 
     @Override

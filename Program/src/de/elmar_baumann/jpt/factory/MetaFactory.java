@@ -47,12 +47,12 @@ public final class MetaFactory implements Runnable {
 
         appPersistence.readAppFrameFromProperties();
 
-        ModelFactory         .INSTANCE.init();
-        RendererFactory      .INSTANCE.init();
-        ControllerFactory    .INSTANCE.init();
+        ModelFactory            .INSTANCE.init();
+        RendererFactory         .INSTANCE.init();
+        ControllerFactory       .INSTANCE.init();
         ActionKeyListenerFactory.INSTANCE.init();
-        MouseListenerFactory .INSTANCE.init();
-        MiscFactory          .INSTANCE.init();
+        MouseListenerFactory    .INSTANCE.init();
+        MiscFactory             .INSTANCE.init();
 
         appPersistence.readAppPanelFromProperties();
         UpdateDownload.checkForNewerVersion(60 * 1000);

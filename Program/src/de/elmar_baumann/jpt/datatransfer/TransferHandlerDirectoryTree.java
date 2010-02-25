@@ -23,6 +23,7 @@ import de.elmar_baumann.jpt.io.ImageUtil;
 import de.elmar_baumann.jpt.io.ImageUtil.ConfirmOverwrite;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
+import de.elmar_baumann.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.List;
@@ -65,14 +66,11 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean importData(TransferSupport transferSupport) {
-
         if (!transferSupport.isDrop()) return false;
 
-        File targetDirectory = getTargetDirectory(transferSupport);
-
-        List<File> sourceFiles = TransferUtil.getFiles(transferSupport.getTransferable(), "");
+        File       targetDirectory = getTargetDirectory(transferSupport);
+        List<File> sourceFiles     = TransferUtil.getFiles(transferSupport.getTransferable(), FilenameDelimiter.EMPTY);
 
         if (targetDirectory != null && !sourceFiles.isEmpty()) {
             handleDroppedFiles(

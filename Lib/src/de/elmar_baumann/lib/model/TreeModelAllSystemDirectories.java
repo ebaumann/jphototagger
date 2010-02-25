@@ -139,20 +139,17 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
      *
      * @param parentNode parent node. If null, nothing will be done.
      */
-    public void createNewDirectory(DefaultMutableTreeNode parentNode) {
-        File dirOfParentNode = parentNode == null
-                ? null
-                : TreeFileSystemDirectories.getFile(parentNode);
-        if (dirOfParentNode != null) {
-            File newDir =
-                    TreeFileSystemDirectories.createSubDirectory(dirOfParentNode);
-            if (newDir != null) {
-                TreeNodeSortedChildren newDirNode = new TreeNodeSortedChildren(
-                        newDir);
-                parentNode.add(newDirNode);
-                int childIndex = parentNode.getIndex(newDirNode);
-                fireTreeNodesInserted(this, parentNode.getPath(),
-                        new int[]{childIndex}, new Object[]{newDirNode});
+    public void createDirectoryIn(DefaultMutableTreeNode parentNode) {
+        File parentDir = parentNode == null
+                                ? null
+                                : TreeFileSystemDirectories.getFile(parentNode);
+        if (parentDir != null) {
+            File createdDir = TreeFileSystemDirectories.createDirectoryIn(parentDir);
+            if (createdDir != null) {
+                TreeNodeSortedChildren createdDirNode = new TreeNodeSortedChildren(createdDir);
+                parentNode.add(createdDirNode);
+                int childIndex = parentNode.getIndex(createdDirNode);
+                fireTreeNodesInserted(this, parentNode.getPath(), new int[]{childIndex}, new Object[]{createdDirNode});
             }
         }
     }
