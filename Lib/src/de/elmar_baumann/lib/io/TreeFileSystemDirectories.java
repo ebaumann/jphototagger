@@ -95,11 +95,10 @@ public final class TreeFileSystemDirectories {
      *                         will be created
      * @return                 created subdirectory or null if not created
      */
-    public static File createSubDirectory(File parentDirectory) {
+    public static File createSubDirectoryIn(File parentDirectory) {
         if (parentDirectory.isDirectory()) {
             String subdirectoryName = getSubDirectoryName();
-            if (subdirectoryName != null &&
-                    !subdirectoryName.trim().isEmpty()) {
+            if (subdirectoryName != null && !subdirectoryName.trim().isEmpty()) {
                 File subdirectory = new File(parentDirectory, subdirectoryName);
                 if (checkDoesNotExist(subdirectory)) {
                     try {
@@ -107,9 +106,7 @@ public final class TreeFileSystemDirectories {
                             return subdirectory;
                         }
                     } catch (Exception ex) {
-                        Logger.getLogger(
-                                TreeFileSystemDirectories.class.getName()).log(
-                                Level.SEVERE, null, ex);
+                        Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -219,6 +216,7 @@ public final class TreeFileSystemDirectories {
                     JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists", file.getAbsolutePath()),
                     JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title"),
                     JOptionPane.ERROR_MESSAGE);
+            return false;
         }
         return true;
     }
