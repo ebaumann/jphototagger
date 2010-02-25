@@ -55,6 +55,7 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
 
     @Override
     protected void action(DefaultMutableTreeNode node) {
-        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).createNewDirectory(node);
+        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).
+                                                        createDirectoryIn(node);
     }
 }

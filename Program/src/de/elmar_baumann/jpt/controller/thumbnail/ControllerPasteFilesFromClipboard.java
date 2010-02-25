@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
+import de.elmar_baumann.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -115,9 +116,9 @@ public final class ControllerPasteFilesFromClipboard
 
             @Override
             public void run() {
-                List<File> files = ClipboardUtil.getFilesFromSystemClipboard("\n");
+                List<File> files = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
                 TransferHandlerDirectoryTree.handleDroppedFiles(
-                        getEstimatedTransferHandlerAction(), files, file);
+                              getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();
             }
 

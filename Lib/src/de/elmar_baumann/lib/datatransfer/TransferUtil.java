@@ -60,6 +60,33 @@ public final class TransferUtil {
     }
 
     /**
+     * Delimiter between file names whithin a string.
+     */
+    public enum FilenameDelimiter {
+
+        /** 
+         * Filenames are delimited by an empty string <code>""</code>
+         */
+        EMPTY(""),
+
+        /**
+         * Filenames are delimited by a newline string <code>"\n"</code>
+         */
+        NEWLINE("\n"),
+                ;
+        private final String delimiter;
+
+        private FilenameDelimiter(String delimiter) {
+            this.delimiter = delimiter;
+        }
+
+        @Override
+        public String toString() {
+            return delimiter;
+        }
+    }
+
+    /**
      * Returns the selected items in a {@link JList} as a token string within a
      * {@link java.awt.datatransfer.StringSelection}.
      *
@@ -69,8 +96,7 @@ public final class TransferUtil {
      *                    separated by <code>delimiter</code>
      */
     public static Transferable getSelectedItemStringsTransferable(JList objects, String delimiter) {
-
-        if (objects == null)   throw new NullPointerException("list == null");
+        if (objects   == null) throw new NullPointerException("list == null");
         if (delimiter == null) throw new NullPointerException("delimiter == null");
 
         Object[]      values = objects.getSelectedValues();
@@ -96,8 +122,7 @@ public final class TransferUtil {
      *                   separated by <code>delimiter</code>
      */
     public static Transferable getIntegerListTransferable(List<Integer> integers, String delimiter) {
-
-        if (integers == null)  throw new NullPointerException("list == null");
+        if (integers  == null) throw new NullPointerException("list == null");
         if (delimiter == null) throw new NullPointerException("delimiter == null");
 
         StringBuilder sb   = new StringBuilder();
@@ -123,8 +148,7 @@ public final class TransferUtil {
      *                   token separated by <code>delimiter</code>
      */
     public static Transferable getStringListTransferable(List<String> strings, String delimiter) {
-
-        if (strings == null)   throw new NullPointerException("list == null");
+        if (strings   == null) throw new NullPointerException("list == null");
         if (delimiter == null) throw new NullPointerException("delimiter == null");
 
         StringBuilder sb = new StringBuilder();
@@ -157,7 +181,6 @@ public final class TransferUtil {
      * @return              files
      */
     public static List<File> getFilesFromUriList(Transferable transferable) {
-
         if (transferable == null) throw new NullPointerException("transferable == null");
 
         List<File> files = new ArrayList<File>();
@@ -183,27 +206,24 @@ public final class TransferUtil {
      * <code>/home/elmar/workspace</code>.
      *
      * @param  transferable transferable
-     * @param  delimiter    delimiter which separates the file names
+     * @param  delimiter    delimiter
      * @return              files
      */
-    public static List<File> getFilesFromTokenString(Transferable transferable, String delimiter) {
-
+    public static List<File> getFilesFromTokenString(Transferable transferable, FilenameDelimiter delimiter) {
         if (transferable == null) throw new NullPointerException("transferable == null");
-        if (delimiter == null)    throw new NullPointerException("delimiter == null");
+        if (delimiter    == null) throw new NullPointerException("delimiter == null");
 
         List<File> files = new ArrayList<File>();
         try {
             Object o = transferable.getTransferData(STRING_FLAVOR);
             if (o instanceof String) {
                 String data = (String) o;
-
-                for (StringTokenizer st = new StringTokenizer(data, delimiter); st.hasMoreTokens();) {
+                for (StringTokenizer st = new StringTokenizer(data, delimiter.toString()); st.hasMoreTokens();) {
                     files.add(new File(st.nextToken().trim()));
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(
-                    TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return files;
     }
@@ -216,7 +236,6 @@ public final class TransferUtil {
      * @return               list of files
      */
     public static List<File> getFilesFromJavaFileList(Transferable transferable) {
-
         if (transferable == null) throw new NullPointerException("transferable == null");
 
         List<File> list = new ArrayList<File>();
@@ -239,11 +258,10 @@ public final class TransferUtil {
      * file list.
      *
      * @param  transferable transferable
-     * @param  delimiter    token delimiter if files names are in a token string
+     * @param  delimiter    delimiter
      * @return              files
      */
-    public static List<File> getFiles(Transferable transferable, String delimiter) {
-
+    public static List<File> getFiles(Transferable transferable, FilenameDelimiter delimiter) {
         if (transferable == null) throw new NullPointerException("transferable == null");
         if (delimiter == null)    throw new NullPointerException("delimiter == null");
 
@@ -251,15 +269,10 @@ public final class TransferUtil {
         DataFlavor[] flavors = transferable.getTransferDataFlavors();
 
         if (isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
-
             return getFilesFromJavaFileList(transferable);
-
         } else if (isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
-
             return getFilesFromUriList(transferable);
-
         } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
-
             return getFilesFromTokenString(transferable, delimiter);
         }
         return files;
@@ -272,26 +285,19 @@ public final class TransferUtil {
      * @return              true, if the transferable maybe contain file data
      */
     public static boolean maybeContainFileData(Transferable transferable) {
-
         if (transferable == null) throw new NullPointerException("transferable == null");
 
         return containsFiles(transferable);
     }
 
     private static boolean containsFiles(Transferable transferable) {
-
         final DataFlavor[] flavors = transferable.getTransferDataFlavors();
         try {
             if (isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
-
                 return ((java.util.List<?>) transferable.getTransferData(FILE_LIST_FLAVOR)).size() > 0;
-
             } else if (isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
-
                 return ((String) transferable.getTransferData(URI_LIST_FLAVOR)).startsWith("file:");
-
             } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
-
                 return new File((String) transferable.getTransferData(STRING_FLAVOR)).exists();
             }
         } catch (Exception ex) {

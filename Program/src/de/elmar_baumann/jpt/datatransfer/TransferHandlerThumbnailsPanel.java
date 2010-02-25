@@ -33,6 +33,7 @@ import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
+import de.elmar_baumann.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import de.elmar_baumann.lib.io.FileUtil;
 import java.awt.Point;
@@ -244,7 +245,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
         if (targetDir == null) return false;
 
-        List<File> srcFiles   = TransferUtil.getFiles(transferSupport.getTransferable(), "");
+        List<File> srcFiles   = TransferUtil.getFiles(transferSupport.getTransferable(), FilenameDelimiter.EMPTY);
         int        dropAction = transferSupport.getDropAction();
 
         if (dropAction == TransferHandler.COPY) {
