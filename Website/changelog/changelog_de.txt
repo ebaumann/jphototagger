@@ -5,6 +5,14 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.81 2010-02-25
+-----------------
+
+* Aufklappstatus und Markierungen aller Teilbäume einer Baumansicht (Ordner,
+  Favoriten, Stichwörter, ...) werden beim Beenden gemerkt und wiederhergestellt
+  nach dem Start. Bislang wurde nur der Status *eines* markierten Teilbaums
+  gespeichert.
+
 0.7.80 2010-02-22
 -----------------
 
