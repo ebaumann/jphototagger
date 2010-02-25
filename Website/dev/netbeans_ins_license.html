@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>NetBeans Auto inserting license</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="../usr/index.html">Users</a></li>
+            <li><a href="index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>How NetBeans automatically inserts the JPhotoTagger license into new
+            created files (using the new file wizard)
+        </h1>
+
+        <p>The files &quot;<code>project.properties</code>&quot; in all <strong>JPhotoTagger</strong>
+            project subdirectories &quot;<code>nbproject</code>&quot; are containing a
+            variable definition since 2010-01-05:
+        </p>
+
+        <pre>project.license=jphototagger</pre>
+
+        <p>To add the license automatically when creating a file with the
+            NetBeans Wizard:
+        </p>
+
+        <ol>
+            <li>Add the file &quot;<code>license-jphototagger.txt</code>&quot; in the root
+                directory of all JPhotoTagger project directories to the
+                &quot;<code>License</code>&quot; templates (<strong>Tools &gt; Templates &gt; Licenses</strong>;
+                Add-Button). This file contains the license and Freemarker tags.
+                After adding, that file will be copied into Your &quot;<code>.netbeans</code>&quot;
+                user configuration directory (e.g.
+               &quot;<code>$HOME/.netbeans/6.8/config</code>&quot;), subdirectory
+                &quot;<code>Templates/Licenses</code>&quot;.
+            </li>
+            <li>Ensure that in Your Code templates (<strong>Tools &gt; Templates &gt;
+                Java, Swing GUI Forms</strong>) is this text, beginning at the first line:
+            </li>
+        </ol>
+
+<pre>
+&lt;#-- FreeMarker template (see http://freemarker.org/) --&gt;
+&lt;#assign licenseFirst = "/*"&gt;
+&lt;#assign licensePrefix = " * "&gt;
+&lt;#assign licenseLast = " */"&gt;
+&lt;#include "../Licenses/license-${project.license}.txt"&gt;
+</pre>
+
+        <h2>Tipp: Inserting user and date</h2>
+
+        <p>Insert this text into the code templates above the class declaration:
+        </p>
+
+<pre>
+/**
+ *
+ *
+ * @author  ${user}
+ * @version ${date?date?string("yyyy-MM-dd")}
+ */
+</pre>
+
+        <p>The variable <code>user</code> is defined in <strong>Tools &gt; Templates &gt;
+                User configuration properties (User.properties)</strong>, e.g.
+        </p>
+
+        <pre>user=Elmar Baumann &lt;eb@elmar-baumann.de&gt;</pre>
+
+        <p>All Java code templates are now having this header:</p>
+
+<pre>
+&lt;#-- FreeMarker template (see http://freemarker.org/) --&gt;
+&lt;#assign licenseFirst = "/*"&gt;
+&lt;#assign licensePrefix = " * "&gt;
+&lt;#assign licenseLast = " */"&gt;
+&lt;#include "../Licenses/license-${project.license}.txt"&gt;
+&lt;#if package?? && package != ""&gt;
+package ${package};
+
+&lt;/#if&gt;
+/**
+ *
+ *
+ * @author  ${user}
+ * @version ${date?date?string("yyyy-MM-dd")}
+ */
+</pre>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>

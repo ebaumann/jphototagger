@@ -1,0 +1,393 @@
+/*
+ * JPhotoTagger tags and finds images fast
+ * Copyright (C) 2009 by the developer team, resp. Elmar Baumann<eb@elmar-baumann.de>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+package de.elmar_baumann.jpt.database.metadata;
+
+import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
+import java.text.DateFormat;
+import javax.swing.InputVerifier;
+
+/**
+ * Eine Tabellenspalte.
+ *
+ * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @version 2007-07-29
+ */
+public class Column {
+
+    private       Table              table;
+    private final String             name;
+    private       String             description;
+    private       String             longerDescription;
+    private final DataType           dataType;
+    private       Column             references         = null;
+    private final boolean            isIgnoreCase       = true;
+    private final boolean            isIndexed          = true;
+    private       boolean            isUnique           = false;
+    private       boolean            isPrimaryKey       = false;
+    private       boolean            canBeNull          = true;
+    private       int                length             = 0;
+    private       ReferenceDirection referenceDirection = ReferenceDirection.BACKWARDS;
+
+    /**
+     * Typ der Spaltendaten.
+     */
+    public enum DataType {
+
+        /** Binärdaten, Java-Typ: byte[] */
+        BINARY,
+        /** Datum, Java-Typ: java.sql.DATE */
+        DATE,
+        /** Ganzzahl, Java-Typ: int */
+        INTEGER,
+        /** Java-Typ: long */
+        BIGINT,
+        /** Realzahl, Java-Typ: double */
+        REAL,
+        /** kleine Ganzzahl, Java-Typ: short */
+        SMALLINT,
+        /** Zeichenkette variabler Länge, Java-Typ: java.lang.STRING */
+        STRING
+        ;
+
+        public Object fromString(String string) {
+            switch (this) {
+                case BINARY  : return string.getBytes();
+                case DATE    : return s2date(string);
+                case INTEGER : return Integer.parseInt(string);
+                case BIGINT  : return Long.parseLong(string);
+                case REAL    : return Double.parseDouble(string);
+                case SMALLINT: return Short.parseShort(string);
+                case STRING  : return string;
+                default      : return string;
+            }
+        }
+
+        private Object s2date(String s) {
+             try {
+                 return new java.sql.Date(DateFormat.getInstance().parse(s).getTime());
+             } catch(Exception ex) {
+                 AppLogger.logSevere(Column.class, ex);
+             }
+             return s;
+        }
+    };
+
+    /**
+     * Richtung der Referenz.
+     */
+    public enum ReferenceDirection {
+
+        /**
+         * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
+         * n-Teil
+         */
+        BACKWARDS,
+        /**
+         * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
+         * 1-Teil
+         */
+        FORWARDS
+    }
+
+    /**
+     * Erzeugt eine Instanz.
+     *
+     * @param table    Tabelle, in der die Spalte ist
+     * @param name     Spaltenname
+     * @param dataType Spaltentyp
+     */
+    protected Column(Table table, String name, DataType dataType) {
+        this.table    = table;
+        this.name     = name;
+        this.dataType = dataType;
+    }
+
+    @Override
+    public String toString() {
+        String desc = getDescription();
+        if (desc.isEmpty()) {
+            return name;
+        }
+        return desc;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Column) {
+            Column other = (Column) o;
+            return getTable().equals(other.getTable()) &&
+                getName().equals(other.getName());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + (this.getTable() != null ? this.getTable().hashCode() : 0);
+        hash = 83 * hash + (this.getName() != null ? this.getName().hashCode() : 0);
+        return hash;
+    }
+
+    /**
+     * Liefert, ob unterschieden wird zwischen Groß- und Kleinschreibung.
+     *
+     * @return true, wenn unterschieden wird zwischen Groß- und Kleinschreibung
+     */
+    public boolean isIgnoreCase() {
+        return isIgnoreCase;
+    }
+
+    /**
+     * Liefert, ob ein Index existiert für diese Spalte.
+     *
+     * @return true, wenn ein Index existiert für diese Spalte
+     */
+    public boolean isIndexed() {
+        return isIndexed;
+    }
+
+    /**
+     * Liefert, ob die Spalte (Teil eines) Primärschlüssels ist.
+     *
+     * @return true, wenn die Spalte (Teil eines) Primärschlüssels ist
+     */
+    public boolean isPrimaryKey() {
+        return isPrimaryKey;
+    }
+
+    /**
+     * Setzt, dass die Spalte (Teil eines) Primärschlüssels ist.
+     *
+     * @param isPrimaryKey true, wenn die Spalte (Teil eines) Primärschlüssels
+     *                     ist. Default: false.
+     */
+    protected void setIsPrimaryKey(boolean isPrimaryKey) {
+        this.isPrimaryKey = isPrimaryKey;
+        if (isPrimaryKey) {
+            canBeNull = false;
+        }
+    }
+
+    /**
+     * Liefert, ob die Spalte leer sein kann.
+     *
+     * @return true, wenn die Spalte leer sein kann
+     */
+    public boolean isCanBeNull() {
+        return canBeNull;
+    }
+
+    /**
+     * Setzt, ob die Spalte leer sein kann.
+     *
+     * @param canBeNull true, wenn die Spalte leer sein kann.
+     *                   Default: true, bei Primärschlüsselspalten false
+     */
+    protected void setCanBeNull(boolean canBeNull) {
+        this.canBeNull = canBeNull;
+    }
+
+    /**
+     * Liefert, ob alle Werte in dieser Spalte in der Tabelle nur einmal
+     * vorkommen.
+     *
+     * @return true, wenn alle Werte in dieser Spalte in der Tabelle nur
+     *         einmal vorkommen
+     */
+    public boolean isIsUnique() {
+        return isUnique;
+    }
+
+    /**
+     * Setzt, dass alle Werte in dieser Spalte in der Tabelle nur einmal
+     * vorkommen.
+     *
+     * @param isUnique true, wenn alle Werte in dieser Spalte in der Tabelle
+     *                 nur einmal vorkommen. Default: false.
+     */
+    protected void setIsUnique(boolean isUnique) {
+        this.isUnique = isUnique;
+    }
+
+    /**
+     * Liefert die (maximale) Länge dieser Spalte.
+     *
+     * @return (maximale) Länge dieser Spalte
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /**
+     * Setzt die (maximale) Länge dieser Spalte.
+     *
+     * @param length (maximale) Länge dieser Spalte.
+     *               Default: 0.
+     */
+    protected void setLength(int length) {
+        this.length = length;
+    }
+
+    /**
+     * Liefert einen Schlüssel, z.B. zum persistenten Abspeichern.
+     *
+     * @return Schlüssel
+     */
+    public String getKey() {
+        return getClass().getName();
+    }
+
+    /**
+     * Liefert die Tabelle, in der sich diese Spalte befindet.
+     *
+     * @return Tabelle
+     */
+    public Table getTable() {
+        return table;
+    }
+
+    /**
+     * Setzt die Tabelle, in der sich diese Spalte befindet.
+     *
+     * @param table die Tabelle, in der sich diese Spalte befindet
+     */
+    protected void setTable(Table table) {
+        this.table = table;
+    }
+
+    /**
+     * Liefert, welche Spalte (einer anderen Tabelle) diese Spalte referenziert.
+     * Das heißt, diese Spalte enthält den (Teil eines) Primärschlüssel(s) einer
+     * anderen Tabelle; sie ist ein Fremdschlüssel.
+     *
+     * @return Referenzierte Spalte (einer anderen Tabelle) oder null, wenn
+     *         diese Spalte keine andere Spalte referenziert
+     */
+    public Column getReferences() {
+        return references;
+    }
+
+    /**
+     * Setzt, welche Spalte (einer anderen Tabelle) diese Spalte refernziert.
+     * Das heißt, diese Spalte enthält den (Teil eines) Primärschlüssel(s) einer
+     * anderen Tabelle; sie ist ein Fremdschlüssel.
+     *
+     * @param references Refernziert Spalte.
+     *                   Default: null.
+     */
+    protected void setReferences(Column references) {
+        this.references = references;
+    }
+
+    /**
+     * Liefert den Namen der Spalte.
+     *
+     * @return Spaltenname
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Liefert eine Beschreibung der Spalte.
+     *
+     * @return Beschreibung der Spalte
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns the longer description.
+     *
+     * @return description or null if not set
+     */
+    public String getLongerDescription() {
+        return longerDescription;
+    }
+
+    /**
+     * Setzt die Beschreibung der Spalte.
+     *
+     * @param description Beschreibung der Spalte
+     */
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Sets a longer description e.g. for tooltip texts.
+     *
+     * @param description  description
+     */
+    protected void setLongerDescription(String description) {
+        longerDescription = description;
+    }
+
+    /**
+     * Liefert den Datentyp der Spalte.
+     *
+     * @return Datentyp der Spalte
+     */
+    public DataType getDataType() {
+        return dataType;
+    }
+
+    /**
+     * Liefert, ob die Spalte Fremdschlüssel ist. Abkürzung für
+     * getReferences() != null.
+     *
+     * @return true, wenn die Spalte Fremdschlüssel ist
+     */
+    public boolean isForeignKey() {
+        return references != null;
+    }
+
+    /**
+     * Liefert die Richtung der Referenz.
+     *
+     * @return Richtung der Referenz
+     */
+    public ReferenceDirection getReferenceDirection() {
+        return referenceDirection;
+    }
+
+    /**
+     * Returns an appropriate input verifier for a text component.
+     *
+     * @return this class returns an {@link InputVerifierMaxLength} with this
+     *         column's length. Specialized classes can return an instance with
+     *         a better verification.
+     */
+    public InputVerifier getInputVerifier() {
+        return new InputVerifierMaxLength(getLength());
+    }
+
+    /**
+     * Setzt die Richtung der Referenz.
+     *
+     * @param referenceDirection Richtung der Referenz.
+     *                           Default: BACKWARDS
+     */
+    protected void setReferenceDirection(ReferenceDirection referenceDirection) {
+        this.referenceDirection = referenceDirection;
+    }
+}

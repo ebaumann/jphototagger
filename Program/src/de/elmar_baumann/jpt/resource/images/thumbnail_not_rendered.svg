@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="12.94"
+   height="10.972117"
+   id="svg2160"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons"
+   sodipodi:docname="thumbnail_not_rendered.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons/icon_imagecollection.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
+   version="1.0">
+  <defs
+     id="defs2162">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       id="perspective9" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="49.875"
+     inkscape:cx="7.0697853"
+     inkscape:cy="7.8624982"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     gridtolerance="10000"
+     inkscape:window-width="791"
+     inkscape:window-height="675"
+     inkscape:window-x="104"
+     inkscape:window-y="109" />
+  <metadata
+     id="metadata2165">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Image</dc:title>
+        <dc:identifier>de.elmar_baumann.jpt.resource.icons.icon_imagecollection.svg</dc:identifier>
+        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:coverage></dc:coverage>
+        <cc:license
+           rdf:resource="http://artlibre.org/licence.php/lalgb.html" />
+        <dc:description>icon not rendered</dc:description>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>error</rdf:li>
+            <rdf:li>rendering</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:date>2010-01-15</dc:date>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://artlibre.org/licence.php/lalgb.html">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(-1.5014097,-2.4838659)">
+    <rect
+       style="opacity:0.49000005;fill:#ffffff;fill-opacity:1;stroke:#555555;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2168"
+       width="13.028623"
+       height="11.028623"
+       x="1.4856886"
+       y="2.485688" />
+    <rect
+       style="opacity:0.49000005;fill:#aaaaaa;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3141"
+       width="11.709272"
+       height="9.9298248"
+       x="2.1553884"
+       y="3.0350878" />
+    <path
+       style="opacity:0.5;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.1;stroke-linecap:square;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 1.5639097,2.5463659 L 14.375939,13.393483"
+       id="path3153"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="opacity:0.5;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.1;stroke-linecap:square;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 14.45614,2.5864661 L 1.5839599,13.393483"
+       id="path3155"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Importing images with Autoplay on Windows</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="index.html">Users</a></li>
+            <li><a href="../dev/index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>Importing images with Autoplay on Windows</h1>
+
+        <p>If <strong>Autoplay</strong> is enabled in <strong>Windows</strong>,
+            <strong>JPhotoTagger</strong>
+            can automatically be started and importing image files, when You put Your
+            camera's card into a card reader, which is connected to Your PC. I tested that under
+            <strong>Windows 7</strong>:
+        </p>
+
+        <ul>
+            <li>If not installed, download and install
+                <a href="http://www.orangeblue.net.ms/">Autoplay Repair</a>
+            </li>
+            <li>Create a batch file in <strong>JPhotoTagger's</strong> program
+                directory (Default: <code>C:\Program Files\JPhotoTagger\</code>).
+                You can use <a href="files/JPhotoTaggerImport.bat">this</a>
+                (right click the link and choose &quot;Save Target as...&quot;)
+                and fit it to Your needs. It starts <strong>JPhotoTagger</strong>
+                with the command line parameter <code>-import</code> and the
+                drive letter of the camera card as argument:
+                <code> -import=%1</code> where %1 will be automatically replaced
+                by the drive letter.
+            </li>
+            <li>Start <strong>Autoplay Repair</strong> and select the tab
+                <strong>Images</strong> (in the picture below that is the German
+                translation &quot;<strong>Bilder</strong>&quot;)
+                <p><img src="img/autoplay-repair-1.png" width="642" height="482" alt="" /></p>
+            </li>
+            <li>
+                Create a new entry (German translation on the picture below):
+                <ul>
+                    <li><strong>Action (Aktion):</strong> Import images (Fotos
+                        importieren)
+                    </li>
+                    <li><strong>Provider:</strong> JPhotoTagger
+                    </li>
+                    <li><strong>Program (Anwendung):</strong> Path to the batch
+                        file, e.g.
+                        <code>C:\Program Files\JPhotoTagger\JPhotoTaggerImport.bat</code>
+                    </li>
+                    <li><strong>Arguments (Argumente):</strong> %L
+                    </li>
+                    <li><strong>Icon (Symbol):</strong> Path to
+                        <code>JPhotoTagger.ico</code> in <strong>JPhotoTagger's</strong>
+                        program directory, e.g.
+                        <code>C:\Program Files\JPhotoTagger\JPhotoTagger.ico</code>
+                    </li>
+                </ul>
+                <p><img src="img/autoplay-repair-2.png" width="386" height="442" alt="" /></p>
+            </li>
+        </ul>
+
+        <p>After finishing creating the entry and inserting the camera card
+            into a card reader, <strong>Windows</strong> should display an
+            <strong>Autoplay dialog</strong> in that You can choose
+            <strong>Import images with JPhotoTagger</strong> (Fotos importieren
+            mit JPhotoTagger), such as in the picture below.
+        </p>
+
+        <p><img src="img/autoplay.png" width="349" height="476" alt="" /></p>
+
+        <p>If You choose <strong>JPhotoTagger</strong>, it will start and
+            display the import dialog, such as in the picture below.
+        </p>
+
+        <p><img src="img/jpg-import-dlg.png" width="397" height="146" alt="" /></p>
+
+        <p>Elmar Baumann, Status: 2010-02-17</p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>

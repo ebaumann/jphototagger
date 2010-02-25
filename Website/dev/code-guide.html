@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Coding guidelines</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="../usr/index.html">Users</a></li>
+            <li><a href="index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>Coding guidelines [Start, will be continued]</h1>
+
+        <h2>Tabs</h2>
+
+        <p>Tabs shall be replaced (automatically) with white spaces. The
+            indentation of one tab is 4 white spaces.
+        </p>
+
+        <h2>Logging</h2>
+
+        <p>For logging use the class <code>de.elmar_baumann.jpt.app.AppLogger</code>.
+           It creates the class' logger, formats messages with an arbitrary
+           count of parameters and notifies silently users on  logging level
+           <code>WARNING</code> and <code>SEVERE</code>.
+        </p>
+
+        <p>The call <code>AppLogger.log...()</code> until the end of the
+           bundle key should be in the same line to enable easy automated
+           checks for missing bundle keys.
+        </p>
+
+        <h2>Message-, input-, confirmation dialogs</h2>
+
+        <p>For displaying messages, getting input and confirmation use
+           the class <code>de.elmar_baumann.jpt.app.MessageDisplayer</code>.
+        </p>
+
+        <p>As described obove in <strong>Logging</strong>, the call until the
+            bundle key should be in the same line.
+        </p>
+
+        <h2>Internationalization</h2>
+
+        <p>All GUI strings and internationalized logging messages are in <em>one</em>
+            properties file (per language a variant with the language code, e.g.
+            <code>Bundle_en.properties</code> for English):
+            <code>de/elmar_baumann/jpt/resource/properties/Bundle.properties</code>.
+            In <strong>NetBeans</strong> open it in the <strong>Projects</strong>
+            tab and the context menu item <strong>Open</strong> for comparing
+            different translations and sorting the keys and translations to
+            find fast missing strings. Conventions:
+        </p>
+
+        <ul>
+            <li>Every key starts with the class' simple name, e.g.
+                <code>"ThumbnailCache"</code>
+            </li>
+            <li>After a dot one follows a type identifier, most common are:
+                <ul>
+                    <li><strong>Info</strong> for information messages</li>
+                    <li><strong>Error</strong> for warnings and errors</li>
+                    <li><strong>Input</strong> for user input dialog text</li>
+                    <li><strong>Confirm</strong> for confirmation messages</li>
+                    <li><strong>DisplayName</strong> for strings on menu items etc.</li>
+                </ul>
+            </li>
+            <li>After a dot follows a individual message shortcut.
+            </li>
+            <li>Examples:
+                <ul>
+                    <li><code>KeywordsHelper.Info.Rename</code></li>
+                    <li><code>CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist</code></li>
+                    <li><code>ModifySavedSearches.Input.NewName</code></li>
+                    <li><code>DeleteImageFiles.Confirm.Delete</code></li>
+                    <li><code>PopupMenuThumbnails.DisplayName.MenuPlugins</code></li>
+                </ul>
+
+            </li>
+        </ul>
+
+        <p>If You create a GUI form in <strong>NetBeans</strong>, select in the
+            navigator the root node (<strong>Form ...</strong>), open the
+            context menu, choose <strong>Properties</strong> and select that
+            bundle file (<strong>Properties Bundle File</strong> button). Ensure,
+            that <strong>Automatic Internationalization</strong> is checked.
+            That can be done automatically: <strong>Tools &gt; Options  &gt;
+            Miscellaneous &gt; GUI Builder / Automatic Internationalization:
+            On</strong>.
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>
