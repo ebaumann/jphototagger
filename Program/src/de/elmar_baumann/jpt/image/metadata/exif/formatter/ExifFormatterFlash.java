@@ -22,7 +22,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.lib.lang.Util;
+import de.elmar_baumann.lib.util.ByteUtil;
 
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FLASH}.
@@ -46,7 +46,7 @@ public final class ExifFormatterFlash extends ExifFormatter {
 
         if (rawValue != null && rawValue.length >= 1) {
 
-            boolean[] bitsByte1 = Util.getBits(rawValue[0]);
+            boolean[] bitsByte1 = ByteUtil.getBits(rawValue[0]);
             boolean   fired     = bitsByte1[0];
             boolean   hasFlash  = !bitsByte1[5];
 

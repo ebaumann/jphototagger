@@ -18,6 +18,9 @@
  */
 package de.elmar_baumann.lib.util;
 
+import java.io.PrintStream;
+import java.nio.ByteBuffer;
+
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -29,6 +32,62 @@ public final class ByteUtil {
         int i = b;
         i &= 0x000000FF;
         return i;
+    }
+
+    /**
+     * Liefert die in einem Byte gesetzten Bits.
+     *
+     * @param b Byte
+     * @return  true für jedes gesetzte Bit, false für jedes nicht gesetzte
+     */
+    public static boolean[] getBits(byte b) {
+        boolean[] bits = new boolean[8];
+        for (int i = 0; i < bits.length; i++) {
+            bits[i] = ((b & (1 << i)) != 0);
+        }
+        return bits;
+    }
+
+    /**
+     * Gibt das Bitmuster der Bytes aus, 0 für ein nicht gesetztes Bit und 1 für
+     * ein gesetzts.
+     *
+     * Die Bytes werden in der Array-Reihenfolge ausgegeben, die Bits jedes
+     * Bytes von rechts nach links.
+     *
+     * @param b   Bytearray
+     * @param out Ausgabe
+     */
+    public static void dumpBits(byte[] b, PrintStream out) {
+        if (b == null)
+            throw new NullPointerException("b == null");
+        if (out == null)
+            throw new NullPointerException("out == null");
+
+        out.println();
+        for (int i = 0; i < b.length; i++) {
+            boolean[] bits = getBits(b[i]);
+            for (int j = bits.length - 1; j >= 0; j--) {
+                out.print(bits[j] ? "1" : "0");
+            }
+            out.print(" ");
+        }
+    }
+
+    /**
+     * Compares two byte arrays.
+     *
+     * @param a1  first byte array
+     * @param a2  second byte array
+     *
+     * @return    A negative integer, zero, or a positive integer as the first
+     *            byte array is less than, equal to, or greater than the second
+     *            byte array
+     */
+    public static int compareTo(byte[] a1, byte[] a2) {
+        ByteBuffer buf1 = ByteBuffer.wrap(a1);
+        ByteBuffer buf2 = ByteBuffer.wrap(a2);
+        return buf1.compareTo(buf2);
     }
 
     private ByteUtil() {
