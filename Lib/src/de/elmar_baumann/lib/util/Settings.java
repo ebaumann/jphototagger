@@ -65,9 +65,12 @@ import javax.swing.tree.TreePath;
 public final class Settings {
 
     private final        Properties properties;
+    private static final String     DOT                                  = ".";
+    private static final String     BOOLEAN_FALSE_STRING                 = "0";
+    private static final String     BOOLEAN_TRUE_STRING                  = "1";
     private static final String     DELIMITER_NUMBER_ARRAY               = ";";
-    private static final String     DELIMITER_ARRAY_KEYS                 = ".";
-    private static final String     FILE_PATH_SEPARATOR                  = "|";
+    private static final String     DELIMITER_ARRAY_KEYS                 = DOT;
+    private static final String     TREE_PATH_SEPARATOR                  = "|";
     private static final String     KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X = ".ViewportViewPositionX";
     private static final String     KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y = ".ViewportViewPositionY";
     private static final String     KEY_APPENDIX_SELECTED                = "-selected";
@@ -119,7 +122,7 @@ public final class Settings {
             field.setAccessible(true);
 
             final String fieldName = field.getName();
-            final String key       = componentName + "." + fieldName;
+            final String key       = componentName + DOT + fieldName;
 
             if (hints == null || hints.isSet(key)) {
                 try {
@@ -180,16 +183,42 @@ public final class Settings {
 
         tree.clearSelection();
 
-        if (properties.containsKey(key)) {
-            String   value = properties.getProperty(key);
-            TreePath path  = TreeUtil.getTreePath(tree.getModel(), value, FILE_PATH_SEPARATOR);
+        int pathIndex = 0;
+        String indexedKey = toIndexedKey(key, pathIndex);
+        while (properties.containsKey(indexedKey)) {
+            String   value = properties.getProperty(indexedKey);
+            TreePath path  = TreeUtil.getTreePath(tree.getModel(), removeSelToken(value), TREE_PATH_SEPARATOR);
 
             if (path != null) {
                 TreeUtil.expandPath(tree, path);
                 tree.scrollPathToVisible(path);
-                tree.setSelectionPath(path);
+                if (isSelected(value)) {
+                    tree.addSelectionPath(path);
+                }
             }
+            indexedKey = toIndexedKey(key, ++pathIndex);
         }
+    }
+
+    private String toIndexedKey(String key, int index) {
+        return key + DOT + Integer.toString(index);
+    }
+
+    private String removeSelToken(String path) {
+        int sepIndex  = path.lastIndexOf(TREE_PATH_SEPARATOR);
+        int length    = path.length();
+        return sepIndex >= 0 && sepIndex < length - 1
+                ? path.substring(0, sepIndex)
+                : path;
+    }
+
+    private boolean isSelected(String path) {
+        int sepIndex = path.lastIndexOf(TREE_PATH_SEPARATOR);
+        int length   = path.length();
+        if (sepIndex >= 0 && sepIndex < length - 1) {
+            return path.substring(sepIndex + 1).equals(BOOLEAN_TRUE_STRING);
+        }
+        return false;
     }
 
     /**
@@ -349,7 +378,7 @@ public final class Settings {
         String status = properties.getProperty(key);
 
         if (status != null) {
-            button.setSelected(status.equals("1"));
+            button.setSelected(status.equals(BOOLEAN_TRUE_STRING));
         }
     }
 
@@ -497,7 +526,7 @@ public final class Settings {
             field.setAccessible(true);
 
             final String fieldName = field.getName();
-            final String key       = componentName + "." + fieldName;
+            final String key       = componentName + DOT + fieldName;
 
             if (hints == null || hints.isSet(key)) {
                 try {
@@ -596,7 +625,7 @@ public final class Settings {
         if (button == null) throw new NullPointerException("button == null");
         if (key    == null) throw new NullPointerException("key == null");
 
-        String status = button.isSelected() ? "1" : "0";
+        String status = button.isSelected() ? BOOLEAN_TRUE_STRING : BOOLEAN_FALSE_STRING;
 
         properties.setProperty(key, status);
     }
@@ -668,22 +697,33 @@ public final class Settings {
         if (tree == null) throw new NullPointerException("tree == null");
         if (key == null ) throw new NullPointerException("key == null");
 
-        TreePath selectionPath = tree.getSelectionPath();
+        int rowCount  = tree.getRowCount();
+        int pathIndex = 0;
 
-        if (selectionPath == null) {
-            properties.remove(key);
+        deleteKeysMatching(key + "\\.[0-9]+");
+        for (int row = 0; row < rowCount; row++) {
+            if (tree.isExpanded(row)) {
+                setTreePath(tree.getPathForRow(row).getPath(),
+                            tree.isRowSelected(row),
+                            toIndexedKey(key, pathIndex));
+            } else if (tree.isRowSelected(row)) { // Selected but not expanded
+                setTreePath(tree.getPathForRow(row).getPath(),
+                            true,
+                            toIndexedKey(key, pathIndex));
+            }
+            pathIndex++;
+        }
+    }
 
-        } else {
-            Object[]      path = selectionPath.getPath();
+    private void setTreePath(Object[] path, boolean selected, String key) {
             StringBuilder sb   = new StringBuilder();
 
             for (int index = 0; index < path.length; index++) {
-                final String delimiter = index + 1 < path.length ? FILE_PATH_SEPARATOR : "";
-
-                sb.append(path[index].toString() + delimiter);
+                sb.append(path[index].toString());
+                sb.append(TREE_PATH_SEPARATOR);
             }
+            sb.append(selected ? BOOLEAN_TRUE_STRING : BOOLEAN_FALSE_STRING);
             properties.setProperty(key, sb.toString());
-        }
     }
 
     public int getInt(String key) {
