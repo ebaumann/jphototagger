@@ -698,20 +698,19 @@ public final class Settings {
         if (key == null ) throw new NullPointerException("key == null");
 
         int rowCount  = tree.getRowCount();
-        int pathIndex = 0;
+        int pathIndex = 0; // has to be increased only on written paths!
 
         deleteKeysMatching(key + "\\.[0-9]+");
         for (int row = 0; row < rowCount; row++) {
             if (tree.isExpanded(row)) {
                 setTreePath(tree.getPathForRow(row).getPath(),
                             tree.isRowSelected(row),
-                            toIndexedKey(key, pathIndex));
+                            toIndexedKey(key, pathIndex++));
             } else if (tree.isRowSelected(row)) { // Selected but not expanded
                 setTreePath(tree.getPathForRow(row).getPath(),
                             true,
-                            toIndexedKey(key, pathIndex));
+                            toIndexedKey(key, pathIndex++));
             }
-            pathIndex++;
         }
     }
 
