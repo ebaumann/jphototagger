@@ -59,8 +59,16 @@ public final class Version implements Comparable<Version> {
         return major;
     }
 
-    public int getMinor() {
+    public int getMinor1() {
         return minor1;
+    }
+
+    public int getMinor2() {
+        return minor2;
+    }
+
+    public int getMinor3() {
+        return minor3;
     }
 
     /**
