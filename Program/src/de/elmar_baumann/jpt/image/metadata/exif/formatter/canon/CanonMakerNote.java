@@ -3,8 +3,8 @@ package de.elmar_baumann.jpt.image.metadata.exif.formatter.canon;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.types.FileType;
-import de.elmar_baumann.lib.lang.Util;
 import de.elmar_baumann.lib.thirdparty.KMPMatch;
+import de.elmar_baumann.lib.util.ByteUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -97,8 +97,8 @@ public final class CanonMakerNote {
             int read = raf.read(marker, 0, 2);
             if (read != 2) return false;
 
-            found = Util.compareTo(marker, JPEG_APP1_MARKER) == 0;
-            boolean isSos = Util.compareTo(marker, JPEG_SOS_MARKER) == 0;
+            found = ByteUtil.compareTo(marker, JPEG_APP1_MARKER) == 0;
+            boolean isSos = ByteUtil.compareTo(marker, JPEG_SOS_MARKER) == 0;
 
             if (isSos) return false;
 
@@ -149,7 +149,7 @@ public final class CanonMakerNote {
         int read = raf.read(start, 0, 2);
         if (read != 2) return false;
 
-        return Util.compareTo(start, JPEG_MAGIC_BYTES) == 0;
+        return ByteUtil.compareTo(start, JPEG_MAGIC_BYTES) == 0;
     }
 
     private static byte[] rawValueFromTiff(File file, CanonIfd.Entry entry) {
