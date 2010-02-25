@@ -20,7 +20,7 @@ package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.util.logging.LogfileRecord;
 import de.elmar_baumann.lib.resource.JslBundle;
-import de.elmar_baumann.lib.util.ArrayUtil;
+import de.elmar_baumann.lib.util.CollectionUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,9 +84,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
      * @throws IllegalArgumentException if the index is not valid
      */
     public LogfileRecord getLogfileRecord(int index) {
-        if (!ArrayUtil.isValidIndex(records, index))
-            throw new IllegalArgumentException("Invalid index: " + index +
-                    " element count: " + records.size());
+        if (!CollectionUtil.isValidIndex(records, index)) throw new IllegalArgumentException("Invalid index: " + index + " element count: " + records.size());
 
         return records.get(index);
     }

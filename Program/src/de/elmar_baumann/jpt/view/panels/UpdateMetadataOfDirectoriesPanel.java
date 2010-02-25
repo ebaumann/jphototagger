@@ -34,7 +34,7 @@ import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.util.ArrayUtil;
+import de.elmar_baumann.lib.util.CollectionUtil;
 import de.elmar_baumann.lib.util.Settings;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
@@ -243,7 +243,7 @@ public final class UpdateMetadataOfDirectoriesPanel
     private void addNotContainedDirectories(List<File> directories) {
         List<File> newDirectories =
                 getNotDirectoriesNotInListFrom(directories);
-        ArrayUtil.addNotContainedElements(directories, newDirectories);
+        CollectionUtil.addNotContainedElements(directories, newDirectories);
         addDirectories(newDirectories);
         labelFilecount.setText(Integer.toString(getFileCount()));
         buttonStart.setEnabled(listModelDirectories.getSize() > 0);
@@ -281,7 +281,7 @@ public final class UpdateMetadataOfDirectoriesPanel
                     dir,
                     UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
         }
-        ArrayUtil.addNotContainedElements(subdirectories, directories);
+        CollectionUtil.addNotContainedElements(subdirectories, directories);
     }
 
     /** This method is called from within the constructor to
