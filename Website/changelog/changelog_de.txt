@@ -8,6 +8,7 @@ Changelog JPhotoTagger
 0.7.81 2010-02-25
 -----------------
 
+* Bearbeiten > Einstellungen: Dialog hat Textfeld für Suche
 * Aufklappstatus und Markierungen aller Teilbäume einer Baumansicht (Ordner,
   Favoriten, Stichwörter, ...) werden beim Beenden gemerkt und wiederhergestellt
   nach dem Start. Bislang wurde nur der Status *eines* markierten Teilbaums
