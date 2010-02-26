@@ -41,6 +41,10 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelSearch">
       <Properties>
+        <Property name="displayedMnemonic" type="int" value="115"/>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="textFieldSearch"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/elmar_baumann/lib/resource/properties/Bundle.properties" key="TabbedPaneSearchPanel.labelSearch.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
