@@ -18,8 +18,10 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.factory.PluginManager;
 import de.elmar_baumann.jpt.plugin.Plugin;
+import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
@@ -43,9 +45,10 @@ import javax.swing.event.ChangeListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-27
  */
-public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeListener {
+public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeListener, Persistence {
 
     private static final long                                 serialVersionUID      = 6790634142245254676L;
+    private static final String                               KEY_TABBED_PANE       = "SettingsMiscPanel.TabbedPane";
     private final        Map<Component, Pair<String, String>> helpContentsPathOfTab = new HashMap<Component, Pair<String, String>>();
 
     public SettingsPluginsPanel() {
@@ -98,6 +101,16 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
         gbc.weightx = 1;
         gbc.weighty = 1;
         return gbc;
+    }
+
+    @Override
+    public void readProperties() {
+        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane, KEY_TABBED_PANE, null);
+    }
+
+    @Override
+    public void writeProperties() {
+        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_TABBED_PANE, null);
     }
 
     private static class ActionExcludePlugin extends AbstractAction {

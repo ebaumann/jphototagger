@@ -99,13 +99,13 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void initPersistentPanels() {
-        persistentPanels.add(panelActions);
-        persistentPanels.add(panelFileExcludePatterns);
-        persistentPanels.add(panelMisc);
-        persistentPanels.add(panelPerformance);
-        persistentPanels.add(panelPrograms);
-        persistentPanels.add(panelTasks);
-        persistentPanels.add(panelThumbnails);
+        int tabCount = tabbedPane.getTabCount();
+        for (int i = 0; i < tabCount; i++) {
+            Component c = tabbedPane.getComponentAt(i);
+            if (c instanceof Persistence) {
+                persistentPanels.add((Persistence) c);
+            }
+        }
     }
 
     private void initSearchPanel() {

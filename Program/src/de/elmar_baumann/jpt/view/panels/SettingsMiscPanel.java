@@ -47,6 +47,7 @@ import javax.swing.filechooser.FileSystemView;
 public final class SettingsMiscPanel extends javax.swing.JPanel implements Persistence {
 
     private static final long                serialVersionUID = 479354601163285718L;
+    private static final String              KEY_TABBED_PANE  = "SettingsMiscPanel.TabbedPane";
     private final        Map<Tab, Component> componentOfTab   = new HashMap<Tab, Component>();
 
     public enum Tab {
@@ -200,6 +201,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         checkBoxDisplaySearchButton.setSelected(UserSettings.INSTANCE.isDisplaySearchButton());
         comboBoxIptcCharset.getModel().setSelectedItem(UserSettings.INSTANCE.getIptcCharset());
         setIconDatabaseDirectory();
+        settings.getSettings().applySettings(tabbedPane, KEY_TABBED_PANE, null);
     }
 
     private void readWebBrowserProperties(UserSettings settings) {
@@ -220,6 +222,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     @Override
     public void writeProperties() {
+        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_TABBED_PANE, null);
     }
 
     /** This method is called from within the constructor to
