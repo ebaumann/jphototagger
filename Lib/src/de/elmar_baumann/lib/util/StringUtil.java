@@ -21,6 +21,7 @@ package de.elmar_baumann.lib.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Utils for strings.
@@ -115,6 +116,16 @@ public final class StringUtil {
         }
 
         return trimmedStrings;
+    }
+
+    public static List<String> getWordsOf(String string) {
+        List<String>    words = new ArrayList<String>();
+        StringTokenizer st    = new StringTokenizer(string, WORD_DELIMITER);
+
+        while (st.hasMoreTokens()) {
+            words.add(st.nextToken().trim());
+        }
+        return words;
     }
 
     private StringUtil() {

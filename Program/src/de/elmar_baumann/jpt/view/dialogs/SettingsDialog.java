@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.componentutil.TabbedPaneUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
+import de.elmar_baumann.lib.util.StringUtil;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +71,7 @@ public final class SettingsDialog extends Dialog {
         readProperties();
         TabbedPaneUtil.setMnemonics(tabbedPane);
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        initSearchPanel();
     }
 
     private void initMaps() {
@@ -97,13 +99,22 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void initPersistentPanels() {
-        persistentPanels.add(panelActions);
-        persistentPanels.add(panelFileExcludePatterns);
-        persistentPanels.add(panelMisc);
-        persistentPanels.add(panelPerformance);
-        persistentPanels.add(panelPrograms);
-        persistentPanels.add(panelTasks);
-        persistentPanels.add(panelThumbnails);
+        int tabCount = tabbedPane.getTabCount();
+        for (int i = 0; i < tabCount; i++) {
+            Component c = tabbedPane.getComponentAt(i);
+            if (c instanceof Persistence) {
+                persistentPanels.add((Persistence) c);
+            }
+        }
+    }
+
+    private void initSearchPanel() {
+        panelSearch.setParentPane(tabbedPane);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelThumbnails")), panelThumbnails);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelTasks")), panelTasks);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelPerformance")), panelPerformance);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelExclude")), panelFileExcludePatterns);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelPlugins")), panelPlugins);
     }
 
     public void selectTab(Tab tab) {
@@ -136,7 +147,9 @@ public final class SettingsDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
-        if (!visible) {
+        if (visible) {
+            panelSearch.focusSearchTextfield();
+        } else {
             writeProperties();
         }
         super.setVisible(visible);
@@ -165,6 +178,7 @@ public final class SettingsDialog extends Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelSearch = new de.elmar_baumann.lib.component.TabbedPaneSearchPanel();
         tabbedPane = new javax.swing.JTabbedPane();
         panelPrograms = new de.elmar_baumann.jpt.view.panels.SettingsProgramsPanel();
         panelThumbnails = new de.elmar_baumann.jpt.view.panels.SettingsThumbnailsPanel();
@@ -200,14 +214,18 @@ public final class SettingsDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 654, Short.MAX_VALUE)
+                .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 583, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -245,6 +263,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     private de.elmar_baumann.jpt.view.panels.SettingsPerformancePanel panelPerformance;
     private de.elmar_baumann.jpt.view.panels.SettingsPluginsPanel panelPlugins;
     private de.elmar_baumann.jpt.view.panels.SettingsProgramsPanel panelPrograms;
+    private de.elmar_baumann.lib.component.TabbedPaneSearchPanel panelSearch;
     private de.elmar_baumann.jpt.view.panels.SettingsScheduledTasksPanel panelTasks;
     private de.elmar_baumann.jpt.view.panels.SettingsThumbnailsPanel panelThumbnails;
     private javax.swing.JTabbedPane tabbedPane;
