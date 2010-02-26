@@ -674,7 +674,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(labelInfoKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -752,7 +752,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleSqlLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAddColumn)
@@ -763,35 +763,33 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
 
+        panelCustomSql.setLayout(new java.awt.GridBagLayout());
+
         labelCustomSqlInfo.setDisplayedMnemonic('k');
         labelCustomSqlInfo.setText(bundle.getString("AdvancedSearchPanel.labelCustomSqlInfo.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelCustomSql.add(labelCustomSqlInfo, gridBagConstraints);
 
         textAreaCustomSqlQuery.setColumns(20);
         textAreaCustomSqlQuery.setLineWrap(true);
         textAreaCustomSqlQuery.setRows(2);
         scrollPaneCustomSqlQuery.setViewportView(textAreaCustomSqlQuery);
 
-        javax.swing.GroupLayout panelCustomSqlLayout = new javax.swing.GroupLayout(panelCustomSql);
-        panelCustomSql.setLayout(panelCustomSqlLayout);
-        panelCustomSqlLayout.setHorizontalGroup(
-            panelCustomSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustomSqlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCustomSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustomSqlLayout.createSequentialGroup()
-                        .addComponent(scrollPaneCustomSqlQuery, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(labelCustomSqlInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)))
-        );
-        panelCustomSqlLayout.setVerticalGroup(
-            panelCustomSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustomSqlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelCustomSqlInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneCustomSqlQuery, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelCustomSql.add(scrollPaneCustomSqlQuery, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql); // NOI18N
 
