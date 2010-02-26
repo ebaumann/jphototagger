@@ -188,6 +188,10 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Documen
         }
     }
 
+    public void focusSearchTextfield() {
+        textFieldSearch.requestFocusInWindow();
+    }
+
     private void search() {
         setToListTabsOfWord(textFieldSearch.getText().trim().toLowerCase());
     }
@@ -276,6 +280,8 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Documen
         scrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
 
+        labelSearch.setDisplayedMnemonic('s');
+        labelSearch.setLabelFor(textFieldSearch);
         labelSearch.setText(JslBundle.INSTANCE.getString("TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
 
         list.setModel(listModel);
