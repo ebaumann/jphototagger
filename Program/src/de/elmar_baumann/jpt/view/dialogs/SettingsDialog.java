@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Persistence;
+import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel;
 import de.elmar_baumann.lib.componentutil.TabbedPaneUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.StringUtil;
@@ -115,6 +116,7 @@ public final class SettingsDialog extends Dialog {
         panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelPerformance")), panelPerformance);
         panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelExclude")), panelFileExcludePatterns);
         panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelPlugins")), panelPlugins);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelMiscMisc")), panelMisc.getTab(SettingsMiscPanel.Tab.MISCELLANEOUS));
     }
 
     public void selectTab(Tab tab) {
