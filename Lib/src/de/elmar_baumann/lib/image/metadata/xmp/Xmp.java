@@ -319,7 +319,7 @@ public final class Xmp {
     }
 
     /**
-     * Calls {@link #getPropertyValuesFrom(java.util.Collection, de.elmar_baumann.jpt.plugin.Xmp.PropertyValue)}
+     * Calls {@link #getPropertyValuesFrom(java.util.Collection, de.elmar_baumann.lib.image.metadata.xmp.Xmp.PropertyValue)}
      * and returns the first value.
      * <p>
      * Usage for not repeatable values.

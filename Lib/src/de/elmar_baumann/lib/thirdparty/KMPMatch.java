@@ -15,7 +15,7 @@ public final class KMPMatch {
      * Finds the first occurrence of the pattern in the text.
      * @param data    data
      * @param pattern pattern
-     * @return
+     * @return first occurrence of the pattern in the text
      */
     public static int indexOf(byte[] data, byte[] pattern) {
         int[] failure = computeFailure(pattern);
