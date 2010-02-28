@@ -149,6 +149,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         panelExternalThumbnailApp = new javax.swing.JPanel();
         labelIsCreateThumbnailsWithExternalApp = new javax.swing.JLabel();
         textFieldExternalThumbnailCreationCommand = new javax.swing.JTextField();
+        panelPadding2 = new javax.swing.JPanel();
 
         panelThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.panelThumbnailDimensions.border.title"))); // NOI18N
 
@@ -174,21 +175,20 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         labelUpdateAllThumbnails.setForeground(new java.awt.Color(0, 0, 255));
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelUpdateAllThumbnails.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.labelUpdateAllThumbnails.text")); // NOI18N
-        labelUpdateAllThumbnails.setPreferredSize(new java.awt.Dimension(1030, 32));
 
         javax.swing.GroupLayout panelThumbnailDimensionsLayout = new javax.swing.GroupLayout(panelThumbnailDimensions);
         panelThumbnailDimensions.setLayout(panelThumbnailDimensionsLayout);
         panelThumbnailDimensionsLayout.setHorizontalGroup(
             panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelThumbnailDimensionsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addGroup(panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
                     .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
-                        .addComponent(labelMaxThumbnailWidth)
+                        .addComponent(labelMaxThumbnailWidth, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
                         .addComponent(buttonUpdateAllThumbnails)))
                 .addContainerGap())
         );
@@ -197,10 +197,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
             .addGroup(panelThumbnailDimensionsLayout.createSequentialGroup()
                 .addGroup(panelThumbnailDimensionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMaxThumbnailWidth)
-                    .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonUpdateAllThumbnails))
+                    .addComponent(buttonUpdateAllThumbnails)
+                    .addComponent(spinnerMaxThumbnailWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(labelUpdateAllThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
@@ -243,12 +244,19 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         panelThumbnailCreatorLayout.setHorizontalGroup(
             panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioButtonCreateThumbnailsWithJavaImageIo)
-                    .addComponent(radioButtonCreateThumbnailsWithImagero)
+                    .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
+                        .addComponent(radioButtonCreateThumbnailsWithJavaImageIo)
+                        .addGap(146, 146, 146))
+                    .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
+                        .addComponent(radioButtonCreateThumbnailsWithImagero, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                        .addGap(159, 159, 159))
                     .addComponent(radioButtonUseEmbeddedThumbnails)
-                    .addComponent(radioButtonCreateThumbnailsWithExternalApp))
-                .addContainerGap(150, Short.MAX_VALUE))
+                    .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
+                        .addComponent(radioButtonCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                        .addGap(111, 111, 111)))
+                .addContainerGap())
         );
         panelThumbnailCreatorLayout.setVerticalGroup(
             panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +267,8 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioButtonUseEmbeddedThumbnails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonCreateThumbnailsWithExternalApp))
+                .addComponent(radioButtonCreateThumbnailsWithExternalApp)
+                .addContainerGap())
         );
 
         panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.panelExternalThumbnailApp.border.title"))); // NOI18N
@@ -276,24 +285,41 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
             }
         });
 
+        javax.swing.GroupLayout panelPadding2Layout = new javax.swing.GroupLayout(panelPadding2);
+        panelPadding2.setLayout(panelPadding2Layout);
+        panelPadding2Layout.setHorizontalGroup(
+            panelPadding2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelPadding2Layout.setVerticalGroup(
+            panelPadding2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelExternalThumbnailAppLayout = new javax.swing.GroupLayout(panelExternalThumbnailApp);
         panelExternalThumbnailApp.setLayout(panelExternalThumbnailAppLayout);
         panelExternalThumbnailAppLayout.setHorizontalGroup(
             panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-                    .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE))
+                    .addComponent(panelPadding2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
+                    .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelExternalThumbnailAppLayout.setVerticalGroup(
             panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
-                .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelPadding2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -316,8 +342,8 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelThumbnailCreator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -356,6 +382,7 @@ private void radioButtonCreateThumbnailsWithJavaImageIoActionPerformed(java.awt.
     private javax.swing.JLabel labelMaxThumbnailWidth;
     private javax.swing.JLabel labelUpdateAllThumbnails;
     private javax.swing.JPanel panelExternalThumbnailApp;
+    private javax.swing.JPanel panelPadding2;
     private javax.swing.JPanel panelThumbnailCreator;
     private javax.swing.JPanel panelThumbnailDimensions;
     private javax.swing.JRadioButton radioButtonCreateThumbnailsWithExternalApp;
