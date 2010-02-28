@@ -74,6 +74,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         }
     }
 
+    public Component getTab(Tab tab) {
+        return componentOfTab.get(tab);
+    }
+
     private File chooseDirectory(File startDirectory) {
         File dir = null;
         DirectoryChooser dialog = new DirectoryChooser(
