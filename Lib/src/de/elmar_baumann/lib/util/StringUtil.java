@@ -109,6 +109,8 @@ public final class StringUtil {
     }
 
     public static List<String> getTrimmed(Collection<? extends String> strings) {
+        if (strings == null) throw new NullPointerException("strings == null");
+
         List<String> trimmedStrings = new ArrayList<String>(strings.size());
 
         for (String string : strings) {
@@ -119,6 +121,8 @@ public final class StringUtil {
     }
 
     public static List<String> getWordsOf(String string) {
+        if (string == null) throw new NullPointerException("string == null");
+
         List<String>    words = new ArrayList<String>();
         StringTokenizer st    = new StringTokenizer(string, WORD_DELIMITER);
 
@@ -126,6 +130,19 @@ public final class StringUtil {
             words.add(st.nextToken().trim());
         }
         return words;
+    }
+
+    public static boolean isIndex(String s, int index) {
+        if (s == null) throw new NullPointerException("s == null");
+
+        return index >= 0 && index < s.length();
+    }
+
+    public static boolean isSubstring(String s, int beginIndex, int endIndex) {
+        if (s == null) throw new NullPointerException("s == null");
+
+        int len = s.length();
+        return len > 0 && beginIndex >= 0 && endIndex >= beginIndex && endIndex <= len;
     }
 
     private StringUtil() {
