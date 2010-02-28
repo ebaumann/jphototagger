@@ -52,10 +52,12 @@ import java.util.List;
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
 
-    private final        List<File>         copiedFiles        = new ArrayList<File>();
-    private static final String             progressBarString  = JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
-    private final        ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(progressBarString);
+    private final        List<File>         copiedTargetFiles         = new ArrayList<File>();
+    private final        List<File>         copiedSourceFiles         = new ArrayList<File>();
+    private static final String             progressBarString         = JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
+    private final        ProgressBarUpdater progressBarUpdater        = new ProgressBarUpdater(progressBarString);
     private final        CopyFiles          copier;
+    private final        boolean            deleteScrFilesAfterCopying;
 
     public static void importFrom(File sourceDirectory) {
         ImportImageFilesDialog dlg = new ImportImageFilesDialog();
@@ -66,22 +68,27 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
         dlg.setVisible(true);
         if (dlg.isAccepted()) {
-            copy(dlg.getSourceDir(), dlg.getTargetDir());
-        }
+            if (dlg.filesChoosed()) {
+                copy(dlg.getSourceFiles(), dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying());
+            } else {
+                List<File> sourceDirectories = new ArrayList<File>();
+                File       srcDir            = dlg.getSourceDir();
 
+                sourceDirectories.add(srcDir);
+                sourceDirectories.addAll(FileUtil.getSubdirectoriesRecursive(srcDir));
+
+                List<File> sourceImageFiles = ImageFilteredDirectory.getImageFilesOfDirectories(sourceDirectories);
+                copy(sourceImageFiles, dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying());
+            }
+        }
     }
 
-    private static void copy(File srcDir, File targetDir) {
-        List<File> sourceDirectories = new ArrayList<File>();
-
-        sourceDirectories.add(srcDir);
-        sourceDirectories.addAll(FileUtil.getSubdirectoriesRecursive(srcDir));
-
-        List<File> sourceImageFiles = ImageFilteredDirectory.getImageFilesOfDirectories(sourceDirectories);
-
+    private static void copy(List<File> sourceImageFiles, File targetDir, boolean deleteScrFilesAfterCopying) {
         if (sourceImageFiles.size() > 0) {
             UserTasks.INSTANCE.add(
-                    new ImportImageFiles(getSourceTargetFilePairs(sourceImageFiles, targetDir)));
+                    new ImportImageFiles(
+                            getSourceTargetFilePairs(sourceImageFiles, targetDir),
+                            deleteScrFilesAfterCopying));
         }
     }
 
@@ -98,7 +105,8 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         return pairs;
     }
 
-    public ImportImageFiles(List<Pair<File, File>> sourceTargetFiles) {
+    private ImportImageFiles(List<Pair<File, File>> sourceTargetFiles, boolean deleteScrFilesAfterCopying) {
+        this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
         copier = new CopyFiles(sourceTargetFiles, CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS);
         setName("Importing image files @ " + ControllerImportImageFiles.class.getSimpleName());
     }
@@ -125,7 +133,8 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
                 File file = (File) second;
                 String filename = file.getName().toLowerCase();
                 if (!filename.endsWith(".xmp")) {
-                    copiedFiles.add(file);
+                    copiedTargetFiles.add(file);
+                    copiedSourceFiles.add((File) pair.getFirst());
                 }
             }
         }
@@ -134,10 +143,13 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     @Override
     public void progressEnded(ProgressEvent evt) {
         addFilesToCollection();
+        if (deleteScrFilesAfterCopying) {
+            deleteCopiedSourceFiles();
+        }
     }
 
     private void addFilesToCollection() {
-        if (!copiedFiles.isEmpty()) {
+        if (!copiedTargetFiles.isEmpty()) {
             insertCopiedFilesIntoDb(); // Needs to be in the DB to be added to an image collection
         }
         insertCopiedFilesAsCollectionIntoDb();
@@ -146,7 +158,8 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private void insertCopiedFilesIntoDb() {
         InsertImageFilesIntoDatabase dbInserter = new InsertImageFilesIntoDatabase(
-                        FileUtil.getAsFilenames(copiedFiles), Insert.OUT_OF_DATE);
+                                            FileUtil.getAsFilenames(copiedTargetFiles),
+                                            Insert.OUT_OF_DATE);
 
         dbInserter.addProgressListener(progressBarUpdater);
         dbInserter.run(); // No separate thread!
@@ -164,7 +177,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
                 return;
             }
         }
-        db.insert(collectionName, FileUtil.getAsFilenames(copiedFiles));
+        db.insert(collectionName, FileUtil.getAsFilenames(copiedTargetFiles));
     }
 
     private void selectPrevImportCollection() {
@@ -173,5 +186,14 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         GUI.INSTANCE.getAppPanel().getListImageCollections().setSelectedValue(
                 ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT,
                 true);
+    }
+
+    private void deleteCopiedSourceFiles() {
+        for (File file : copiedSourceFiles) {
+            AppLogger.logInfo(ImportImageFiles.class, "ImportImageFiles.Info.DeleteCopiedFile", file);
+            if (!file.delete()) {
+                AppLogger.logWarning(ImportImageFiles.class, progressBarString, "ImportImageFiles.Error.DeleteCopiedFile", file);
+            }
+        }
     }
 }

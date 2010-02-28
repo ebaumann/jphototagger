@@ -22,12 +22,18 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.view.panels.ImagePreviewPanel;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
 import de.elmar_baumann.lib.io.FileUtil;
+import de.elmar_baumann.lib.util.StringUtil;
 import java.awt.Container;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileSystemView;
 
@@ -39,20 +45,24 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class ImportImageFilesDialog extends Dialog {
 
-    private static final long           serialVersionUID    = -8291157139781240235L;
-    private static final String         KEY_LAST_SRC_DIR    = "ImportImageFiles.LastSrcDir";
-    private static final String         KEY_LAST_TARGET_DIR = "ImportImageFiles.LastTargetDir";
-    private final        FileSystemView fileSystemView      = FileSystemView.getFileSystemView();
-    private              File           sourceDir           = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_SRC_DIR));
-    private              File           targetDir           = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_TARGET_DIR));
+    private static final long           serialVersionUID          = -8291157139781240235L;
+    private static final String         KEY_LAST_SRC_DIR          = "ImportImageFiles.LastSrcDir";
+    private static final String         KEY_LAST_TARGET_DIR       = "ImportImageFiles.LastTargetDir";
+    private static final String         KEY_DEL_SRC_AFTER_COPY    = "ImportImageFiles.DelSrcAfterCopy";
+    private final        FileSystemView fileSystemView            = FileSystemView.getFileSystemView();
+    private              File           sourceDir                 = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_SRC_DIR));
+    private              File           targetDir                 = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_TARGET_DIR));
+    private final        List<File>     sourceFiles               = new ArrayList<File>();
+    private              boolean        filesChoosed;
     private              boolean        accepted;
+    private              boolean        deleteSrcFilesAfterCopying;
+    private              boolean        listenToCheckBox          = true;
 
     public ImportImageFilesDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         init();
-        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void setHelpPages() {
@@ -62,12 +72,25 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void init() {
         if (FileUtil.existsDirectory(sourceDir)) {
-            setLabel(labelSourceDir, sourceDir);
+            setDirLabel(labelSourceDir, sourceDir);
         }
         if (dirsValid()) {
-            setLabel(labelTargetDir, targetDir);
+            setDirLabel(labelTargetDir, targetDir);
             buttonOk.setEnabled(true);
         }
+        initDeleteSrcFilesAfterCopying();
+        MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void initDeleteSrcFilesAfterCopying() {
+        listenToCheckBox = false;
+        checkBoxDeleteAfterCopy.setSelected(UserSettings.INSTANCE.getSettings().getBoolean(KEY_DEL_SRC_AFTER_COPY));
+        deleteSrcFilesAfterCopying = checkBoxDeleteAfterCopy.isSelected();
+        listenToCheckBox = true;
+    }
+
+    public boolean isDeleteSourceFilesAfterCopying() {
+        return deleteSrcFilesAfterCopying;
     }
 
     /**
@@ -90,6 +113,13 @@ public class ImportImageFilesDialog extends Dialog {
         init();
     }
 
+    /**
+     * Returns the source directory if the user choosed a source directory
+     * rather than separate files.
+     * 
+     * @return source directory
+     * @see    #filesChoosed()
+     */
     public File getSourceDir() {
         return sourceDir;
     }
@@ -107,16 +137,65 @@ public class ImportImageFilesDialog extends Dialog {
         setVisible(false);
     }
 
-    private void chooseSrcDir() {
+    private void chooseSourceDir() {
         File dir = chooseDir(sourceDir);
         
         if (dir == null) return;
         if (!targetDir.exists() || checkDirsDifferent(dir, targetDir)) {
-            sourceDir = dir;
+            sourceDir    = dir;
+            filesChoosed = false;
+            sourceFiles.clear();
             toSettings(KEY_LAST_SRC_DIR, dir);
-            setLabel(labelSourceDir, dir);
+            resetLabelChoosedFiles();
+            setDirLabel(labelSourceDir, dir);
         }
         setEnabledOkButton();
+    }
+
+    private void chooseSourceFiles() {
+        JFileChooser      fileChooser = new JFileChooser(sourceDir);
+        ImagePreviewPanel imgPanel    = new ImagePreviewPanel();
+
+        fileChooser.setAccessory(imgPanel);
+        fileChooser.addPropertyChangeListener(imgPanel);
+        fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.setFileFilter(imgPanel.getFileFilter());
+
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            sourceFiles.clear();
+            File[] selFiles = fileChooser.getSelectedFiles();
+            if (selFiles == null || selFiles.length < 1) return;
+            sourceFiles.addAll(Arrays.asList(selFiles));
+            sourceDir = selFiles[0].getParentFile();
+            toSettings(KEY_LAST_SRC_DIR, sourceDir);
+            filesChoosed = true;
+            resetLabelSourceDir();
+            setFileLabel(selFiles[0], selFiles.length > 1);
+        }
+        setEnabledOkButton();
+    }
+
+    /**
+     * Returns the choosen files.
+     * <p>
+     * <em>Verify, that {@link #filesChoosed()} returns true!</em>
+     *
+     * @return choosen files
+     */
+    public List<File> getSourceFiles() {
+        return new ArrayList<File>(sourceFiles);
+    }
+
+    /**
+     * Returns, whether the user choosed files rather than a source directory.
+     * <p>
+     * In this case, {@link #getSourceFiles()} return the choosen files.
+     *
+     * @return true if files choosen
+     * @see    #getSourceDir()
+     */
+    public boolean filesChoosed() {
+        return filesChoosed;
     }
 
     private void chooseTargetDir() {
@@ -126,7 +205,7 @@ public class ImportImageFilesDialog extends Dialog {
         if (!sourceDir.exists() || checkDirsDifferent(sourceDir, dir)) {
             targetDir = dir;
             toSettings(KEY_LAST_TARGET_DIR, dir);
-            setLabel(labelTargetDir, dir);
+            setDirLabel(labelTargetDir, dir);
         }
         setEnabledOkButton();
     }
@@ -145,9 +224,24 @@ public class ImportImageFilesDialog extends Dialog {
         return dlg.accepted() ? dlg.getSelectedDirectories().get(0) : null;
     }
 
-    private void setLabel(JLabel label, File dir) {
+    private void setDirLabel(JLabel label, File dir) {
         label.setIcon(fileSystemView.getSystemIcon(dir));
         label.setText(dir.getAbsolutePath());
+    }
+
+    private void setFileLabel(File file, boolean multipleFiles) {
+        labelChoosedFiles.setIcon(fileSystemView.getSystemIcon(file));
+        labelChoosedFiles.setText(StringUtil.getPrefixDotted(file.getName(), 20) + (multipleFiles ? ", ..." : ""));
+    }
+
+    private void resetLabelChoosedFiles() {
+        labelChoosedFiles.setIcon(null);
+        labelChoosedFiles.setText("");
+    }
+
+    private void resetLabelSourceDir() {
+        labelSourceDir.setText("");
+        labelSourceDir.setIcon(null);
     }
     
     private void setEnabledOkButton() {
@@ -155,7 +249,11 @@ public class ImportImageFilesDialog extends Dialog {
     }
     
     private boolean dirsValid() {
-        return existsBothDirs() && dirsDifferent();
+        if (filesChoosed) {
+            return !sourceFiles.isEmpty() && FileUtil.existsDirectory(targetDir);
+        } else {
+            return existsBothDirs() && dirsDifferent();
+        }
     }
     
     private boolean dirsDifferent() {
@@ -174,6 +272,22 @@ public class ImportImageFilesDialog extends Dialog {
         return true;
     }
 
+    private void handleCheckBoxDeleteAfterCopyPerformed() {
+        if (!listenToCheckBox) return;
+        boolean selected = checkBoxDeleteAfterCopy.isSelected();
+        if (selected) {
+            if (!MessageDisplayer.confirmYesNo(this, "ImportImageFilesDialog.Confirm.DeleteAfterCopy")) {
+                listenToCheckBox = false;
+                selected = false;
+                checkBoxDeleteAfterCopy.setSelected(false);
+                listenToCheckBox = true;
+            }
+        }
+        deleteSrcFilesAfterCopying = selected;
+        UserSettings.INSTANCE.getSettings().set(deleteSrcFilesAfterCopying, KEY_DEL_SRC_AFTER_COPY);
+        UserSettings.INSTANCE.writeToFile();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -185,9 +299,13 @@ public class ImportImageFilesDialog extends Dialog {
 
         labelPromptSourceDir = new javax.swing.JLabel();
         labelSourceDir = new javax.swing.JLabel();
+        buttonChooseSourceDir = new javax.swing.JButton();
+        labelPromptChooseFiles = new javax.swing.JLabel();
+        labelChoosedFiles = new javax.swing.JLabel();
+        buttonChooseFiles = new javax.swing.JButton();
         labelPromptTargetDir = new javax.swing.JLabel();
         labelTargetDir = new javax.swing.JLabel();
-        buttonChooseSourceDir = new javax.swing.JButton();
+        checkBoxDeleteAfterCopy = new javax.swing.JCheckBox();
         buttonChooseTargetDir = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
@@ -198,12 +316,28 @@ public class ImportImageFilesDialog extends Dialog {
 
         labelPromptSourceDir.setText(bundle.getString("ImportImageFilesDialog.labelPromptSourceDir.text")); // NOI18N
 
-        labelPromptTargetDir.setText(bundle.getString("ImportImageFilesDialog.labelPromptTargetDir.text")); // NOI18N
-
         buttonChooseSourceDir.setText(bundle.getString("ImportImageFilesDialog.buttonChooseSourceDir.text")); // NOI18N
         buttonChooseSourceDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseSourceDirActionPerformed(evt);
+            }
+        });
+
+        labelPromptChooseFiles.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptChooseFiles.text")); // NOI18N
+
+        buttonChooseFiles.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseFiles.text")); // NOI18N
+        buttonChooseFiles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChooseFilesActionPerformed(evt);
+            }
+        });
+
+        labelPromptTargetDir.setText(bundle.getString("ImportImageFilesDialog.labelPromptTargetDir.text")); // NOI18N
+
+        checkBoxDeleteAfterCopy.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
+        checkBoxDeleteAfterCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDeleteAfterCopyActionPerformed(evt);
             }
         });
 
@@ -234,34 +368,39 @@ public class ImportImageFilesDialog extends Dialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(97, 97, 97)
+                .addComponent(labelSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addContainerGap(211, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPromptTargetDir)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelPromptTargetDir)
-                                .addGap(177, 177, 177))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(labelTargetDir, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelPromptSourceDir)
-                                .addGap(177, 177, 177))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(labelSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonChooseSourceDir)
-                            .addComponent(buttonChooseTargetDir)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonOk)))
+                                .addComponent(labelPromptChooseFiles)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelChoosedFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                            .addComponent(labelPromptSourceDir)
+                            .addComponent(checkBoxDeleteAfterCopy)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(labelTargetDir, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonChooseFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonChooseSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonChooseTargetDir))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(306, Short.MAX_VALUE)
+                .addComponent(buttonCancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonOk)
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonChooseSourceDir, buttonChooseTargetDir});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonChooseFiles, buttonChooseSourceDir, buttonChooseTargetDir});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonOk});
 
@@ -270,14 +409,21 @@ public class ImportImageFilesDialog extends Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(labelPromptSourceDir)
+                    .addComponent(buttonChooseSourceDir)
                     .addComponent(labelSourceDir)
-                    .addComponent(buttonChooseSourceDir))
+                    .addComponent(labelPromptSourceDir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(buttonChooseFiles)
+                    .addComponent(labelChoosedFiles)
+                    .addComponent(labelPromptChooseFiles))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(buttonChooseTargetDir)
                     .addComponent(labelTargetDir)
                     .addComponent(labelPromptTargetDir))
+                .addGap(8, 8, 8)
+                .addComponent(checkBoxDeleteAfterCopy)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonOk)
@@ -286,6 +432,10 @@ public class ImportImageFilesDialog extends Dialog {
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelPromptSourceDir, labelPromptTargetDir, labelSourceDir, labelTargetDir});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonChooseFiles, buttonChooseSourceDir, buttonChooseTargetDir});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelChoosedFiles, labelPromptChooseFiles});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -299,12 +449,20 @@ public class ImportImageFilesDialog extends Dialog {
     }//GEN-LAST:event_buttonOkActionPerformed
 
     private void buttonChooseSourceDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseSourceDirActionPerformed
-        chooseSrcDir();
+        chooseSourceDir();
     }//GEN-LAST:event_buttonChooseSourceDirActionPerformed
 
     private void buttonChooseTargetDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseTargetDirActionPerformed
         chooseTargetDir();
     }//GEN-LAST:event_buttonChooseTargetDirActionPerformed
+
+    private void buttonChooseFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFilesActionPerformed
+        chooseSourceFiles();
+    }//GEN-LAST:event_buttonChooseFilesActionPerformed
+
+    private void checkBoxDeleteAfterCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteAfterCopyActionPerformed
+        handleCheckBoxDeleteAfterCopyPerformed();
+    }//GEN-LAST:event_checkBoxDeleteAfterCopyActionPerformed
 
     /**
     * @param args the command line arguments
@@ -327,13 +485,16 @@ public class ImportImageFilesDialog extends Dialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonChooseFiles;
     private javax.swing.JButton buttonChooseSourceDir;
     private javax.swing.JButton buttonChooseTargetDir;
     private javax.swing.JButton buttonOk;
+    private javax.swing.JCheckBox checkBoxDeleteAfterCopy;
+    private javax.swing.JLabel labelChoosedFiles;
+    private javax.swing.JLabel labelPromptChooseFiles;
     private javax.swing.JLabel labelPromptSourceDir;
     private javax.swing.JLabel labelPromptTargetDir;
     private javax.swing.JLabel labelSourceDir;
     private javax.swing.JLabel labelTargetDir;
     // End of variables declaration//GEN-END:variables
-
 }
