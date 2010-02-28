@@ -220,7 +220,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
      * Adds for a tab search words which are not contained as text in the tab
      * itself.
      *
-     * @param words additional words
+     * @param words additional words <em>in lowercase</em>
      * @param tab   tab
      */
     public void addSearchWordsTo(Collection<? extends String> words, Component tab) {
