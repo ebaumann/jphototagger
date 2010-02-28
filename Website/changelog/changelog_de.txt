@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.83 2010-02-28
+-----------------
+
+* Datei > Bilder importieren: Dialog bietet Auswahl einzelner Dateien an und
+  die Möglichkeit, nach dem Import die importierten Bilder vom Quellordner zu
+  löschen.
+
 0.7.82 2010-02-27
 -----------------
 

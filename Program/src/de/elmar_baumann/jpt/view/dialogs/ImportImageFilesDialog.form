@@ -26,40 +26,44 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="97" pref="97" max="97" attributes="0"/>
+              <Component id="labelSourceDir" pref="234" max="32767" attributes="0"/>
+              <EmptySpace pref="211" max="32767" attributes="0"/>
+          </Group>
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelPromptTargetDir" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="177" pref="177" max="177" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                              <Component id="labelTargetDir" pref="169" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelPromptSourceDir" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="177" pref="177" max="177" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                              <Component id="labelSourceDir" pref="169" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="buttonChooseSourceDir" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonChooseTargetDir" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="labelPromptTargetDir" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelPromptChooseFiles" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="labelChoosedFiles" pref="161" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="labelPromptSourceDir" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxDeleteAfterCopy" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="buttonCancel" linkSize="3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonOk" linkSize="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="97" pref="97" max="97" attributes="0"/>
+                      <Component id="labelTargetDir" pref="300" max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="buttonChooseFiles" linkSize="1" alignment="0" max="32767" attributes="1"/>
+                  <Component id="buttonChooseSourceDir" linkSize="1" alignment="0" max="32767" attributes="1"/>
+                  <Component id="buttonChooseTargetDir" linkSize="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="306" max="32767" attributes="0"/>
+              <Component id="buttonCancel" linkSize="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="buttonOk" linkSize="3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -69,16 +73,24 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="labelPromptSourceDir" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonChooseSourceDir" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="labelSourceDir" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonChooseSourceDir" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelPromptSourceDir" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="buttonChooseTargetDir" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonChooseFiles" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelChoosedFiles" linkSize="5" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelPromptChooseFiles" linkSize="5" alignment="2" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="buttonChooseTargetDir" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="labelTargetDir" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="labelPromptTargetDir" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Component id="checkBoxDeleteAfterCopy" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonOk" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -99,6 +111,35 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelSourceDir">
     </Component>
+    <Component class="javax.swing.JButton" name="buttonChooseSourceDir">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ImportImageFilesDialog.buttonChooseSourceDir.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseSourceDirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelPromptChooseFiles">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ImportImageFilesDialog.labelPromptChooseFiles.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelChoosedFiles">
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonChooseFiles">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ImportImageFilesDialog.buttonChooseFiles.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseFilesActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JLabel" name="labelPromptTargetDir">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -108,14 +149,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelTargetDir">
     </Component>
-    <Component class="javax.swing.JButton" name="buttonChooseSourceDir">
+    <Component class="javax.swing.JCheckBox" name="checkBoxDeleteAfterCopy">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ImportImageFilesDialog.buttonChooseSourceDir.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="ImportImageFilesDialog.checkBoxDeleteAfterCopy.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseSourceDirActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDeleteAfterCopyActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseTargetDir">
