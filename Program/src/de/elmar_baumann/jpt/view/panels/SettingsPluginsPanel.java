@@ -48,7 +48,7 @@ import javax.swing.event.ChangeListener;
 public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeListener, Persistence {
 
     private static final long                                 serialVersionUID      = 6790634142245254676L;
-    private static final String                               KEY_TABBED_PANE       = "SettingsMiscPanel.TabbedPane";
+    private static final String                               KEY_TABBED_PANE       = "SettingsPluginsPanel.TabbedPane";
     private final        Map<Component, Pair<String, String>> helpContentsPathOfTab = new HashMap<Component, Pair<String, String>>();
 
     public SettingsPluginsPanel() {
@@ -111,6 +111,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     @Override
     public void writeProperties() {
         UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_TABBED_PANE, null);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     private static class ActionExcludePlugin extends AbstractAction {
