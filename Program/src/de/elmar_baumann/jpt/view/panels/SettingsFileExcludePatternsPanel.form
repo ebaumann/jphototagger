@@ -18,25 +18,25 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="scrollPaneListPattern" alignment="0" pref="653" max="32767" attributes="0"/>
+                  <Component id="scrollPaneListPattern" alignment="0" pref="455" max="32767" attributes="0"/>
                   <Component id="labelInfoList" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="textFieldInputPattern" alignment="0" pref="653" max="32767" attributes="0"/>
+                  <Component id="textFieldInputPattern" alignment="0" pref="455" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonDeletePattern" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonInsertPattern" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelInfoDatabase" alignment="1" min="-2" pref="653" max="-2" attributes="0"/>
-                  <Component id="progressBarUpdateDatabase" alignment="0" pref="653" max="32767" attributes="0"/>
+                  <Component id="labelInfoDatabase" alignment="1" pref="455" max="32767" attributes="0"/>
+                  <Component id="progressBarUpdateDatabase" alignment="0" pref="455" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonCancelUpdateDatabase" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonUpdateDatabase" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,7 +46,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelInfoList" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="scrollPaneListPattern" pref="71" max="32767" attributes="0"/>
+              <Component id="scrollPaneListPattern" pref="57" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="textFieldInputPattern" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -55,7 +55,7 @@
                   <Component id="buttonDeletePattern" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="labelInfoDatabase" min="-2" max="-2" attributes="0"/>
+              <Component id="labelInfoDatabase" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="progressBarUpdateDatabase" min="-2" pref="22" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
