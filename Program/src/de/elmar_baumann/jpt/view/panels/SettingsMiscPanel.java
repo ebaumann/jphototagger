@@ -227,6 +227,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     @Override
     public void writeProperties() {
         UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_TABBED_PANE, null);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     /** This method is called from within the constructor to
