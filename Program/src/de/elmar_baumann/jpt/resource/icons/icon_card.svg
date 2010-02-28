@@ -15,7 +15,7 @@
    inkscape:version="0.46"
    sodipodi:docname="icon_card.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="D:/test/t/Program/src/de/elmar_baumann/jpt/resource/icon/icon_card.png"
+   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons/icon_card.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons">
@@ -37,7 +37,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="21.125"
-     inkscape:cx="8"
+     inkscape:cx="-1.3491124"
      inkscape:cy="8"
      inkscape:current-layer="layer2"
      showgrid="true"
@@ -163,7 +163,7 @@
      id="layer2"
      inkscape:label="arrow">
     <path
-       style="opacity:1;display:inline;fill:#dd0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;display:inline;fill:#00bb00;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 6,1 L 10,1 L 10,9 L 14,9 L 8,15 L 2,9 L 6,9 L 6,1 z"
        id="path2395"
        sodipodi:nodetypes="cccccccc" />
