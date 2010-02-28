@@ -250,7 +250,9 @@ public class ImportImageFilesDialog extends Dialog {
     
     private boolean dirsValid() {
         if (filesChoosed) {
-            return !sourceFiles.isEmpty() && FileUtil.existsDirectory(targetDir);
+            return !sourceFiles.isEmpty() && 
+                    FileUtil.existsDirectory(targetDir) &&
+                    dirsDifferent();
         } else {
             return existsBothDirs() && dirsDifferent();
         }
