@@ -5,6 +5,11 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.82 2010-02-27
+-----------------
+
+* Bearbeiten > Einstellungen: Gefundene Wörter werden markiert
+
 0.7.81 2010-02-25
 -----------------
 
