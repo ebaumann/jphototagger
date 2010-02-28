@@ -145,6 +145,33 @@ public final class StringUtil {
         return len > 0 && beginIndex >= 0 && endIndex >= beginIndex && endIndex <= len;
     }
 
+    /**
+     * Returns a to its last characters shortened string with dots as prefix
+     * instead of the string content.
+     *
+     * @param s         string
+     * @param maxLength maximum length of the string included the dots
+     * @return          shortened string or the string itself if it's length
+     *                  is less or equal to <code>maxLength</code>
+     * @throws          NullPointerException if s is null
+     * @throws          IllegalArgumentException if maxLength is less than 3
+     */
+    public static String getPrefixDotted(String s, int maxLength) {
+        if (s == null    ) throw new NullPointerException("s == null");
+        if (maxLength < 3) throw new IllegalArgumentException("Max length < 3: " + maxLength);
+
+        String prefix          = "...";
+        int    stringLength    = s.length();
+        int    prefixLength    = prefix.length();
+        int    substringLength = maxLength - prefixLength;
+
+        if (stringLength <= maxLength      ) return s;
+        if (maxLength == prefixLength      ) return prefix;
+        if (stringLength <= substringLength) return prefix + "s";
+
+        return prefix + s.substring(stringLength - substringLength);
+    }
+
     private StringUtil() {
     }
 }
