@@ -301,7 +301,7 @@ public final class ListUtil {
         int elementCount = list.getModel().getSize();
 
         for (int index : indices) {
-            if (index > 0 && index < elementCount) {
+            if (index >= 0 && index < elementCount) {
                 existingIndices.add(index);
             }
         }
