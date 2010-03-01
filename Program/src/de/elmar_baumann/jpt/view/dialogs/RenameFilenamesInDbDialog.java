@@ -56,8 +56,22 @@ public class RenameFilenamesInDbDialog extends Dialog {
     }
 
     @Override
+    public void setVisible(boolean visible) {
+        if (visible) {
+            panelDbFilenameReplace.readProperties();
+        } else {
+            panelDbFilenameReplace.writeProperties();
+        }
+        super.setVisible(visible);
+    }
+
+    @Override
     protected void escape() {
         checkClosing();
+    }
+
+    private void readProperties() {
+
     }
 
     /** This method is called from within the constructor to
