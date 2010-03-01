@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Elmar Baumann <ebaumann@feitsch.de>
+ * @author Elmar Baumann <eb@elmar-baumann.de>
  */
 public class ByteUtilTest {
 
