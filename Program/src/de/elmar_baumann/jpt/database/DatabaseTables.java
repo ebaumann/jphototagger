@@ -58,6 +58,7 @@ public final class DatabaseTables extends Database {
         TABLE_NAMES.add("xmp");
         TABLE_NAMES.add("xmp_dc_subjects");
         TABLE_NAMES.add("synonyms");
+        TABLE_NAMES.add("rename_templates");
     }
 
     public static List<String> getTableNames() {
@@ -91,6 +92,7 @@ public final class DatabaseTables extends Database {
             createActionsAfterDbInsertionTable(connection, stmt);
             createHierarchicalSubjectsTable(connection, stmt);
             createSynonymsTable(connection, stmt);
+            createRenameTemplatesTable(connection, stmt);
             UpdateTables.INSTANCE.update(connection);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseTables.class, ex);
@@ -408,13 +410,35 @@ public final class DatabaseTables extends Database {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection, "synonyms")) {
             stmt.execute("CREATE CACHED TABLE synonyms " +
                     " (" +
-                    "  word VARCHAR(128)" +
+                    "  word    VARCHAR(128)" +
                     ", synonym VARCHAR(128)" +
                     ", PRIMARY KEY (word, synonym)" +
                     ");");
             stmt.execute("CREATE UNIQUE INDEX idx_synonyms         ON synonyms (word, synonym)");
             stmt.execute("CREATE        INDEX idx_synonyms_word    ON synonyms (word)");
             stmt.execute("CREATE        INDEX idx_synonyms_synonym ON synonyms (synonym)");
+        }
+    }
+
+    private void createRenameTemplatesTable(Connection connection, Statement stmt) throws SQLException {
+        if (!DatabaseMetadata.INSTANCE.existsTable(connection, "rename_templates")) {
+            stmt.execute("CREATE CACHED TABLE rename_templates " +
+                    " (" +
+                    "  name                        VARCHAR(128) PRIMARY KEY" +
+                    ", start_number                INTEGER" +
+                    ", step_width                  INTEGER" +
+                    ", number_count                INTEGER" +
+                    ", date_delimiter              VARCHAR(25)" +
+                    ", format_class_at_begin       VARCHAR(512)" +
+                    ", delimiter_1                 VARCHAR(25)" +
+                    ", format_class_in_the_middle  VARCHAR(512)" +
+                    ", delimiter_2                 VARCHAR(25)" +
+                    ", format_class_at_end         VARCHAR(512)" +
+                    ", text_at_begin               VARCHAR(512)" +
+                    ", text_in_the_middle          VARCHAR(512)" +
+                    ", text_at_end                 VARCHAR(512)" +
+                    ");");
+            stmt.execute("CREATE UNIQUE INDEX idx_rename_templates_name ON rename_templates (name)");
         }
     }
 }
