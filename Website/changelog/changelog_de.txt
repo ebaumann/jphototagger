@@ -5,6 +5,11 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.84 2010-03-01
+-----------------
+
+* Umbenennen von Dateien: Es können Schablonen gespeichert und geladen werden
+
 0.7.83 2010-02-28
 -----------------
 

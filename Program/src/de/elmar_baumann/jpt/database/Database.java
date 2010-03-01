@@ -253,6 +253,14 @@ public class Database {
         }
     }
 
+    protected void setClassname(Class<?> clazz, PreparedStatement stmt, int paramIndex) throws SQLException {
+        if (clazz == null) {
+            stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
+        } else {
+            stmt.setString(paramIndex, clazz.getName());
+        }
+    }
+
     protected void setDate(Date value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DATE);

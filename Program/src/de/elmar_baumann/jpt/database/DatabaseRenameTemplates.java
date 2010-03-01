@@ -59,27 +59,28 @@ public final class DatabaseRenameTemplates extends Database {
                 ", text_at_end" +                // 13
                 ")" +
                 " VALUES (" +
-                " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?" +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?" +
                 ")";
     }
 
-    private void setInsertValues(RenameTemplate template, PreparedStatement stmt) throws SQLException {
-        setString(template.getName()                  , stmt,  1);
-        setString(template.getStartNumber()           , stmt,  2);
-        setString(template.getStepWidth()             , stmt,  3);
-        setString(template.getNumberCount()           , stmt,  4);
-        setString(template.getDateDelimiter()         , stmt,  5);
-        setString(template.getFormatClassAtBegin()    , stmt,  6);
-        setString(template.getDelimiter1()            , stmt,  7);
-        setString(template.getFormatClassInTheMiddle(), stmt,  8);
-        setString(template.getDelimiter2()            , stmt,  9);
-        setString(template.getFormatClassAtEnd()      , stmt, 10);
-        setString(template.getTextAtBegin()           , stmt, 11);
-        setString(template.getTextInTheMiddle()       , stmt, 12);
-        setString(template.getTextAtEnd()             , stmt, 13);
+    private void setValues(RenameTemplate template, PreparedStatement stmt) throws SQLException {
+        setString   (template.getName()                  , stmt,  1);
+        setInt      (template.getStartNumber()           , stmt,  2);
+        setInt      (template.getStepWidth()             , stmt,  3);
+        setInt      (template.getNumberCount()           , stmt,  4);
+        setString   (template.getDateDelimiter()         , stmt,  5);
+        setClassname(template.getFormatClassAtBegin()    , stmt,  6);
+        setString   (template.getDelimiter1()            , stmt,  7);
+        setClassname(template.getFormatClassInTheMiddle(), stmt,  8);
+        setString   (template.getDelimiter2()            , stmt,  9);
+        setClassname(template.getFormatClassAtEnd()      , stmt, 10);
+        setString   (template.getTextAtBegin()           , stmt, 11);
+        setString   (template.getTextInTheMiddle()       , stmt, 12);
+        setString   (template.getTextAtEnd()             , stmt, 13);
     }
 
     public boolean insert(RenameTemplate template) {
+        assert template.getId() == null : template.getId();
         boolean           inserted   = false;
         Connection        connection = null;
         PreparedStatement stmt       = null;
@@ -87,13 +88,14 @@ public final class DatabaseRenameTemplates extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(getInsertSql());
-            setInsertValues(template, stmt);
+            setValues(template, stmt);
             logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
-            inserted = count > 0;
+            inserted = count == 1;
             if (inserted) {
-                notifyListeners(DatabaseRenameTemplatesEvent.Type.TEMPLATE_INSERTED, template, null);
+                template.setId(getId(template.getName()));
+                notifyListeners(DatabaseRenameTemplatesEvent.Type.TEMPLATE_INSERTED, template);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
@@ -119,26 +121,24 @@ public final class DatabaseRenameTemplates extends Database {
                 ", text_at_begin = ?" +              // 11
                 ", text_in_the_middle = ?" +         // 12
                 ", text_at_end = ?" +                // 13
-                " WHERE name = ?";                   // 14
+                " WHERE id = ?";                     // 14
     }
 
-    public boolean update(String name, RenameTemplate updatedTemplate) {
-        boolean           updated    = false;
+    public boolean update(RenameTemplate template) {
         Connection        connection = null;
         PreparedStatement stmt       = null;
+        int               count      = 0;
         try {
-            RenameTemplate oldTemplate = find(name);
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(getUpdateSql());
-            setInsertValues(updatedTemplate, stmt); // Same parameters in same order
-            setString(name, stmt,  14);
+            setValues(template, stmt);
+            stmt.setLong(14, template.getId());
             logFiner(stmt);
-            int count = stmt.executeUpdate();
+            count = stmt.executeUpdate();
             connection.commit();
-            updated = count > 0;
-            if (updated) {
-                notifyListeners(DatabaseRenameTemplatesEvent.Type.TEMPLATE_UPDATED, updatedTemplate, oldTemplate);
+            if (count == 1) {
+                notifyListeners(DatabaseRenameTemplatesEvent.Type.TEMPLATE_UPDATED, template);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
@@ -146,7 +146,7 @@ public final class DatabaseRenameTemplates extends Database {
             close(stmt);
             free(connection);
         }
-        return updated;
+        return count == 1;
     }
 
     public int delete(String name) {
@@ -154,15 +154,17 @@ public final class DatabaseRenameTemplates extends Database {
         PreparedStatement stmt       = null;
         int               count      = 0;
         try {
-            RenameTemplate oldTemplate = find(name);
+            RenameTemplate delTemplate = find(name);
             connection = getConnection();
+            connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
                                  "DELETE FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
             logFiner(stmt);
             count = stmt.executeUpdate();
-            if (count > 0) {
-                notifyListeners(DatabaseRenameTemplatesEvent.Type.TEMPLATE_DELETED, oldTemplate, null);
+            connection.commit();
+            if (count == 1) {
+                notifyListeners(DatabaseRenameTemplatesEvent.Type.TEMPLATE_DELETED, delTemplate);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
@@ -174,39 +176,41 @@ public final class DatabaseRenameTemplates extends Database {
     }
     
     private String getGetAllSql() {
-        return "SELECT " +
-                "name" +                         //  1
-                ", start_number" +               //  2
-                ", step_width" +                 //  3
-                ", number_count" +               //  4
-                ", date_delimiter" +             //  5
-                ", format_class_at_begin" +      //  6
-                ", delimiter_1" +                //  7
-                ", format_class_in_the_middle" + //  8
-                ", delimiter_2" +                //  9
-                ", format_class_at_end" +        // 10
-                ", text_at_begin" +              // 11
-                ", text_in_the_middle" +         // 12
-                ", text_at_end" +                // 13
+        return "SELECT" +
+                "  id" +                         //  1
+                ", name" +                       //  2
+                ", start_number" +               //  3
+                ", step_width" +                 //  4
+                ", number_count" +               //  5
+                ", date_delimiter" +             //  6
+                ", format_class_at_begin" +      //  7
+                ", delimiter_1" +                //  8
+                ", format_class_in_the_middle" + //  9
+                ", delimiter_2" +                // 10
+                ", format_class_at_end" +        // 11
+                ", text_at_begin" +              // 12
+                ", text_in_the_middle" +         // 13
+                ", text_at_end" +                // 14
                 " FROM rename_templates" +
                 " ORDER BY name ASC";
     }
     
     private RenameTemplate getTemplate(ResultSet rs) throws SQLException {
         RenameTemplate template = new RenameTemplate();
-        template.setName                  (getString       (rs,  1));
-        template.setStartNumber           (getInt          (rs,  2));
-        template.setStepWidth             (getInt          (rs,  3));
-        template.setNumberCount           (getInt          (rs,  4));
-        template.setDateDelimiter         (getString       (rs,  5));
-        template.setFormatClassAtBegin    (getClassFromName(rs,  6));
-        template.setDelimiter1            (getString       (rs,  7));
-        template.setFormatClassInTheMiddle(getClassFromName(rs,  8));
-        template.setDelimiter2            (getString       (rs,  9));
-        template.setFormatClassAtEnd      (getClassFromName(rs, 10));
-        template.setTextAtBegin           (getString       (rs, 11));
-        template.setTextInTheMiddle       (getString       (rs, 12));
-        template.setTextAtEnd             (getString       (rs, 13));
+        template.setId                    (getLong         (rs, 1));
+        template.setName                  (getString       (rs,  2));
+        template.setStartNumber           (getInt          (rs,  3));
+        template.setStepWidth             (getInt          (rs,  4));
+        template.setNumberCount           (getInt          (rs,  5));
+        template.setDateDelimiter         (getString       (rs,  6));
+        template.setFormatClassAtBegin    (getClassFromName(rs,  7));
+        template.setDelimiter1            (getString       (rs,  8));
+        template.setFormatClassInTheMiddle(getClassFromName(rs,  9));
+        template.setDelimiter2            (getString       (rs, 10));
+        template.setFormatClassAtEnd      (getClassFromName(rs, 11));
+        template.setTextAtBegin           (getString       (rs, 12));
+        template.setTextInTheMiddle       (getString       (rs, 13));
+        template.setTextAtEnd             (getString       (rs, 14));
         return template;
     }
 
@@ -236,25 +240,32 @@ public final class DatabaseRenameTemplates extends Database {
 
     private String getGetSql() {
         return "SELECT " +
-                "name" +                         //  1
-                ", start_number" +               //  2
-                ", step_width" +                 //  3
-                ", number_count" +               //  4
-                ", date_delimiter" +             //  5
-                ", format_class_at_begin" +      //  6
-                ", delimiter_1" +                //  7
-                ", format_class_in_the_middle" + //  8
-                ", delimiter_2" +                //  9
-                ", format_class_at_end" +        // 10
-                ", text_at_begin" +              // 11
-                ", text_in_the_middle" +         // 12
-                ", text_at_end" +                // 13
+                "  id" +                         //  1
+                ", name" +                       //  2
+                ", start_number" +               //  3
+                ", step_width" +                 //  4
+                ", number_count" +               //  5
+                ", date_delimiter" +             //  6
+                ", format_class_at_begin" +      //  7
+                ", delimiter_1" +                //  8
+                ", format_class_in_the_middle" + //  9
+                ", delimiter_2" +                // 10
+                ", format_class_at_end" +        // 11
+                ", text_at_begin" +              // 12
+                ", text_in_the_middle" +         // 13
+                ", text_at_end" +                // 14
                 " FROM rename_templates" +
-                " WHERE name = ?" +              // 14
+                " WHERE name = ?" +              // 15
                 " ORDER BY name ASC";
     }
 
-    private RenameTemplate find(String name) {
+    /**
+     * Finds a template by its name.
+     *
+     * @param  name name
+     * @return      template or null if not found
+     */
+    public RenameTemplate find(String name) {
         RenameTemplate    template   = null;
         Connection        connection = null;
         PreparedStatement stmt       = null;
@@ -266,7 +277,7 @@ public final class DatabaseRenameTemplates extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                template = getTemplate(rs); // Same parameters in same order
+                template = getTemplate(rs);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
@@ -303,6 +314,30 @@ public final class DatabaseRenameTemplates extends Database {
         return exists;
     }
 
+    private long getId(String name) throws SQLException {
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+        long              id         = -1;
+        try {
+            connection = getConnection();
+            stmt = connection.prepareStatement(
+                             "SELECT id FROM rename_templates WHERE name = ?");
+            stmt.setString(1, name);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseFavorites.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(connection);
+        }
+        return id;
+    }
+
     public void addListener(DatabaseRenameTemplatesListener listener) {
         listenerSupport.add(listener);
     }
@@ -313,15 +348,10 @@ public final class DatabaseRenameTemplates extends Database {
 
     private void notifyListeners(
             DatabaseRenameTemplatesEvent.Type type,
-            RenameTemplate                    template,
-            RenameTemplate                    oldTemplate
+            RenameTemplate                    template
             ) {
         DatabaseRenameTemplatesEvent         evt       = new DatabaseRenameTemplatesEvent(type, template);
         Set<DatabaseRenameTemplatesListener> listeners = listenerSupport.get();
-
-        if (oldTemplate != null) {
-            evt.setOldTemplate(oldTemplate);
-        }
 
         synchronized (listeners) {
             for (DatabaseRenameTemplatesListener listener : listeners) {

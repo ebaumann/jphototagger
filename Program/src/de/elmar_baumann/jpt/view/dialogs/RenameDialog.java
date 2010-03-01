@@ -29,16 +29,21 @@ import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatFileName;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatNumberSequence;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatConstantString;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatFilenamePostfix;
+import de.elmar_baumann.jpt.data.RenameTemplate;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
+import de.elmar_baumann.jpt.helper.RenameTemplateHelper;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
+import de.elmar_baumann.jpt.model.ComboBoxModelRenameTemplates;
 import de.elmar_baumann.jpt.types.FileType;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.lib.componentutil.ComboBoxUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
+import de.elmar_baumann.lib.util.Settings;
 import java.awt.Container;
 import java.awt.Image;
 import java.io.File;
@@ -48,6 +53,8 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -55,15 +62,17 @@ import javax.swing.filechooser.FileSystemView;
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  */
-public final class RenameDialog extends Dialog {
+public final class RenameDialog extends Dialog implements ListDataListener {
 
     private static final    long                      serialVersionUID    = 2975958115627670989L;
+    private static final    String                    KEY_SEL_TEMPLATE    = "RenameDialog.SelectedTemplate";
     private final transient FilenameFormatArray       filenameFormatArray = new FilenameFormatArray();
     private                 List<File>                files               = new ArrayList<File>();
     private final transient FileSystemListenerSupport listenerSupport     = new FileSystemListenerSupport();
     private                 int                       fileIndex           = 0;
     private                 boolean                   lockClose           = false;
     private                 boolean                   stop                = false;
+    private transient       boolean                   listen              = true;
 
     public RenameDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
@@ -75,6 +84,8 @@ public final class RenameDialog extends Dialog {
         setComboBoxModels();
         setHelpPages();
         MnemonicUtil.setMnemonics((Container) this);
+        setEnabledRenameTemplateButtons();
+        comboBoxRenameTemplates.getModel().addListDataListener(this);
     }
 
     private void setComboBoxModels() {
@@ -143,11 +154,9 @@ public final class RenameDialog extends Dialog {
     }
 
     private void renameXmpFile(String oldFilenamne, String newFilename) {
-        String oldXmpFilename = XmpMetadata.
-                getSidecarFilename(oldFilenamne);
+        String oldXmpFilename = XmpMetadata.getSidecarFilename(oldFilenamne);
         if (oldXmpFilename != null) {
-            String newXmpFilename = XmpMetadata.
-                    suggestSidecarFilename(newFilename);
+            String newXmpFilename = XmpMetadata.suggestSidecarFilename(newFilename);
             File newXmpFile = new File(newXmpFilename);
             File oldXmpFile = new File(oldXmpFilename);
             if (newXmpFile.exists()) {
@@ -177,12 +186,9 @@ public final class RenameDialog extends Dialog {
             File oldFile = files.get(i);
             String parent = oldFile.getParent();
             filenameFormatArray.setFile(oldFile);
-            File newFile = new File(
-                    (parent == null
-                     ? ""
-                     : parent + File.separator) +
-                    filenameFormatArray.format());
-            if (checkNewFileNotExists(newFile) && renameFile(oldFile, newFile)) {
+            File newFile = new File((parent == null ? ""
+                       : parent + File.separator) + filenameFormatArray.format());
+            if (checkNewFileDoesNotExist(newFile) && renameFile(oldFile, newFile)) {
                 files.set(i, newFile);
                 notifyFileSystemListeners(oldFile, newFile);
                 countRenamed++;
@@ -232,9 +238,8 @@ public final class RenameDialog extends Dialog {
     private File getNewFileViaInput() {
         String directory = labelDirectory.getText();
         return new File(directory + (directory.isEmpty()
-                                     ? ""
-                                     : File.separator) +
-                textFieldNewName.getText().trim());
+                ? ""
+                : File.separator) + textFieldNewName.getText().trim());
     }
 
     private boolean canRenameViaInput() {
@@ -242,7 +247,7 @@ public final class RenameDialog extends Dialog {
         File newFile = getNewFileViaInput();
         return checkNewFilenameIsDefined() &&
                 checkNamesNotEquals(oldFile, newFile) &&
-                checkNewFileNotExists(newFile);
+                checkNewFileDoesNotExist(newFile);
     }
 
     private boolean checkNewFilenameIsDefined() {
@@ -255,15 +260,14 @@ public final class RenameDialog extends Dialog {
     }
 
     private boolean checkNamesNotEquals(File oldFile, File newFile) {
-        boolean equals = newFile.getAbsolutePath().equals(oldFile.
-                getAbsolutePath());
+        boolean equals = newFile.getAbsolutePath().equals(oldFile.getAbsolutePath());
         if (equals) {
             MessageDisplayer.error(this, "RenameDialog.Error.FilenamesEquals");
         }
         return !equals;
     }
 
-    private boolean checkNewFileNotExists(File file) {
+    private boolean checkNewFileDoesNotExist(File file) {
         boolean exists = file.exists();
         if (exists) {
             MessageDisplayer.error(this, "RenameDialog.Error.NewFileExists", file.getName());
@@ -291,40 +295,34 @@ public final class RenameDialog extends Dialog {
                 comboBoxAtEnd, file, textFieldAtEnd.getText().trim());
     }
 
-    private void setFilenameFormatToSelectedItem(
-            JComboBox comboBox, File file, String fmt) {
-        ComboBoxModel model = comboBox.getModel();
+    private void setFilenameFormatToSelectedItem(JComboBox comboBox, File file, String fmt) {
+        ComboBoxModel  model  = comboBox.getModel();
         FilenameFormat format = (FilenameFormat) model.getSelectedItem();
         format.setFile(file);
         format.setFormat(fmt);
         if (format instanceof FilenameFormatNumberSequence) {
-            FilenameFormatNumberSequence f =
-                    (FilenameFormatNumberSequence) format;
+            FilenameFormatNumberSequence f = (FilenameFormatNumberSequence) format;
             f.setStart((Integer) spinnerStartNumber.getValue());
             f.setIncrement((Integer) spinnerNumberStepWidth.getValue());
             f.setCountDigits((Integer) spinnerNumberCount.getValue());
         } else if (format instanceof FilenameFormatDate) {
             FilenameFormatDate f = (FilenameFormatDate) format;
-            f.setDelimiter(textFieldDateDelim.getText().trim());
+            f.setDelimiter(getDateDelimiter());
         }
+    }
+
+    private String getDateDelimiter() {
+        return (String) comboBoxDateDelimiter.getModel().getSelectedItem();
     }
 
     private void setFilenameFormatArray(File file) {
         filenameFormatArray.clear();
-        filenameFormatArray.addFormat(
-                (FilenameFormat) comboBoxAtBegin.getSelectedItem());
-        filenameFormatArray.addFormat(
-                new FilenameFormatConstantString(
-                textFieldDelim1.getText().trim()));
-        filenameFormatArray.addFormat(
-                (FilenameFormat) comboBoxInTheMiddle.getSelectedItem());
-        filenameFormatArray.addFormat(
-                new FilenameFormatConstantString(
-                textFieldDelim2.getText().trim()));
-        filenameFormatArray.addFormat(
-                (FilenameFormat) comboBoxAtEnd.getSelectedItem());
-        FilenameFormatFilenamePostfix postfix =
-                new FilenameFormatFilenamePostfix();
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxAtBegin.getSelectedItem());
+        filenameFormatArray.addFormat(new FilenameFormatConstantString(textFieldDelim1.getText().trim()));
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxInTheMiddle.getSelectedItem());
+        filenameFormatArray.addFormat(new FilenameFormatConstantString(textFieldDelim2.getText().trim()));
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxAtEnd.getSelectedItem());
+        FilenameFormatFilenamePostfix postfix = new FilenameFormatFilenamePostfix();
         postfix.setFile(file);
         filenameFormatArray.addFormat(postfix);
     }
@@ -342,15 +340,13 @@ public final class RenameDialog extends Dialog {
     private void setDirectoryNameLabel(File file) {
         File dir = file.getParentFile();
         labelDirectory.setText(dir.getAbsolutePath());
-        labelDirectory.setIcon(
-                FileSystemView.getFileSystemView().getSystemIcon(dir));
+        labelDirectory.setIcon(FileSystemView.getFileSystemView().getSystemIcon(dir));
     }
 
     private synchronized void setThumbnail(File file) {
         Image thumbnail = null;
         if (FileType.isJpegFile(file.getName())) {
-            thumbnail =
-                    ThumbnailUtil.getThumbnailFromJavaImageIo(file, panelThumbnail.getWidth());
+            thumbnail = ThumbnailUtil.getThumbnailFromJavaImageIo(file, panelThumbnail.getWidth());
         }
         if (thumbnail != null) {
             panelThumbnail.setImage(thumbnail);
@@ -378,10 +374,12 @@ public final class RenameDialog extends Dialog {
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+        Settings settings = UserSettings.INSTANCE.getSettings();
+        settings.applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         if (!tabbedPane.isEnabledAt(1)) {
             tabbedPane.setSelectedComponent(panelInputName);
         }
+        settings.applySelectedIndex(comboBoxRenameTemplates, KEY_SEL_TEMPLATE);
     }
 
     private void setEnabledConstantTextFields() {
@@ -395,6 +393,218 @@ public final class RenameDialog extends Dialog {
 
     @Override
     protected void escape() {
+        if (!lockClose) {
+            setVisible(false);
+            dispose();
+        }
+    }
+
+    private void setTemplate(RenameTemplate template) {
+        listen = false;
+        spinnerStartNumber    .getModel().setValue(template.getStartNumber());
+        spinnerNumberStepWidth.getModel().setValue(template.getStepWidth());
+        spinnerNumberCount    .getModel().setValue(template.getNumberCount());
+        ComboBoxUtil.selectString(comboBoxDateDelimiter.getModel(), template.getDateDelimiter());
+        select                                    (template.getFormatClassAtBegin(), comboBoxAtBegin);
+        textFieldDelim1     .setText              (template.getDelimiter1());
+        select                                    (template.getFormatClassInTheMiddle(), comboBoxInTheMiddle);
+        textFieldDelim2     .setText              (template.getDelimiter2());
+        select                                    (template.getFormatClassAtEnd(), comboBoxAtEnd);
+        textFieldAtBegin    .setText              (template.getTextAtBegin());
+        textFieldInTheMiddle.setText              (template.getTextInTheMiddle());
+        textFieldAtEnd      .setText              (template.getTextAtEnd());
+        listen = true;
+    }
+
+    private RenameTemplate createTemplate() {
+        RenameTemplate template = new RenameTemplate();
+        setValuesToTemplate(template);
+        return template;
+    }
+
+    private void setValuesToTemplate(RenameTemplate template) {
+        template.setStartNumber           ((Integer) spinnerStartNumber.getModel().getValue());
+        template.setStepWidth             ((Integer) spinnerNumberStepWidth.getModel().getValue());
+        template.setNumberCount           ((Integer) spinnerNumberCount.getModel().getValue());
+        template.setDateDelimiter         (getDateDelimiter());
+        template.setFormatClassAtBegin    (comboBoxAtBegin.getSelectedItem().getClass());
+        template.setDelimiter1            (textFieldDelim1.getText());
+        template.setFormatClassInTheMiddle(comboBoxInTheMiddle.getSelectedItem().getClass());
+        template.setDelimiter2            (textFieldDelim2.getText());
+        template.setFormatClassAtEnd      (comboBoxAtEnd.getSelectedItem().getClass());
+        template.setTextAtBegin           (textFieldAtBegin.getText());
+        template.setTextInTheMiddle       (textFieldInTheMiddle.getText());
+        template.setTextAtEnd             (textFieldAtEnd.getText());
+    }
+
+    private void select(Class<?> formatClass, JComboBox comboBox) {
+        ComboBoxModel model    = comboBox.getModel();
+        int           size     = model.getSize();
+        boolean       selected = false;
+        int           index    = 0;
+
+        while (!selected && index < size) {
+            Object element = model.getElementAt(index++);
+            if (element.getClass().equals(formatClass)) {
+                model.setSelectedItem(element);
+                selected = true;
+            }
+        }
+    }
+
+    private void saveAsRenameTemplate() {
+        RenameTemplate template = createTemplate();
+        RenameTemplateHelper.insert(template);
+    }
+
+    private void renameRenameTemplate() {
+        Object selItem = comboBoxRenameTemplates.getSelectedItem();
+        if (selItem instanceof RenameTemplate) {
+            RenameTemplateHelper.rename((RenameTemplate) selItem);
+        }
+    }
+
+    private void deleteRenameTemplate() {
+        Object selItem = comboBoxRenameTemplates.getSelectedItem();
+        if (selItem instanceof RenameTemplate) {
+            RenameTemplateHelper.delete((RenameTemplate) selItem);
+        }
+    }
+
+    private void updateRenameTemplate() {
+        Object selItem = comboBoxRenameTemplates.getSelectedItem();
+        if (selItem instanceof RenameTemplate) {
+            RenameTemplate template = (RenameTemplate) selItem;
+            setValuesToTemplate(template);
+            RenameTemplateHelper.update(template);
+        }
+    }
+
+    private void setRenameTemplate() {
+        Object selItem = comboBoxRenameTemplates.getSelectedItem();
+        if (selItem instanceof RenameTemplate) {
+            setTemplate((RenameTemplate) selItem);
+            setEnabledConstantTextFields();
+            setExampleFilename();
+        }
+    }
+
+    private void setEnabledRenameTemplateButtons() {
+        Object selValue = comboBoxRenameTemplates.getSelectedItem();
+        boolean templateSelected = selValue instanceof RenameTemplate;
+
+        buttonRenameRenameTemplate.setEnabled(templateSelected);
+        buttonDeleteRenameTemplate.setEnabled(templateSelected);
+        buttonUpdateRenameTemplate.setEnabled(templateSelected);
+    }
+
+    @Override
+    public void intervalAdded(ListDataEvent e) {
+        setEnabledRenameTemplateButtons();
+    }
+
+    @Override
+    public void intervalRemoved(ListDataEvent e) {
+        setEnabledRenameTemplateButtons();
+    }
+
+    @Override
+    public void contentsChanged(ListDataEvent e) {
+        setEnabledRenameTemplateButtons();
+    }
+
+    private void handleComboBoxAtBeginActionPerformed() {
+        if (listen) {
+            setExampleFilename();
+            setEnabledConstantTextFields();
+        }
+    }
+
+    private void handleComboBoxAtEndActionPerformed() {
+        if (listen) {
+            setExampleFilename();
+            setEnabledConstantTextFields();
+        }
+    }
+
+    private void handleComboBoxDateDelimiterActionPerformed() {
+        if (listen) {
+            setExampleFilename();
+            setEnabledConstantTextFields();
+        }
+    }
+
+    private void handleComboBoxInTheMiddleActionPerformed() {
+        if (listen) {
+            setExampleFilename();
+            setEnabledConstantTextFields();
+        }
+    }
+
+    private void handleComboBoxRenameTemplatesActionPerformed() {
+        if (listen) {
+            UserSettings.INSTANCE.getSettings().setSelectedIndex(comboBoxRenameTemplates, KEY_SEL_TEMPLATE);
+            UserSettings.INSTANCE.writeToFile();
+            setRenameTemplate();
+            setEnabledRenameTemplateButtons();
+        }
+    }
+
+    private void handlePanelInputNameComponentShown() {
+        if (panelInputName.isVisible()) {
+            setCurrentFilenameToInputPanel();
+        }
+    }
+
+    private void handleSpinnerNumberCountStateChanged() {
+        if (listen) {
+            setExampleFilename();
+        }
+    }
+
+    private void handleSpinnerNumberStepWidthStateChanged() {
+        if (listen) {
+            setExampleFilename();
+        }
+    }
+
+    private void handleSpinnerStartNumberStateChanged() {
+        if (listen) {
+            setExampleFilename();
+        }
+    }
+
+    private void handleTextFieldAtBeginKeyReleased() {
+        if (listen) {
+            setExampleFilename();
+        }
+    }
+
+    private void handleTextFieldAtEndKeyReleased() {
+        if (listen) {
+            setExampleFilename();
+        }
+    }
+
+    private void handleTextFieldDelim1KeyReleased() {
+        if (listen) {
+            setExampleFilename();
+        }
+    }
+
+    private void handleTextFieldDelim2KeyReleased() {
+        if (listen) {
+            setExampleFilename();
+        }
+    }
+
+    private void handleTextFieldInTheMiddleKeyReleased() {
+        if (listen) {
+            setExampleFilename();
+        }
+    }
+
+    private void handleWindowClosing() {
         if (!lockClose) {
             setVisible(false);
             dispose();
@@ -432,7 +642,7 @@ public final class RenameDialog extends Dialog {
         spinnerNumberCount = new javax.swing.JSpinner();
         panelOther = new javax.swing.JPanel();
         labelDateDelim = new javax.swing.JLabel();
-        textFieldDateDelim = new javax.swing.JTextField();
+        comboBoxDateDelimiter = new javax.swing.JComboBox();
         panelDefineName = new javax.swing.JPanel();
         labelAtBegin = new javax.swing.JLabel();
         comboBoxAtBegin = new javax.swing.JComboBox();
@@ -452,6 +662,12 @@ public final class RenameDialog extends Dialog {
         labelBeforeFilename = new javax.swing.JLabel();
         labelAfter = new javax.swing.JLabel();
         labelAfterFilename = new javax.swing.JLabel();
+        panelRenameTemplates = new javax.swing.JPanel();
+        comboBoxRenameTemplates = new javax.swing.JComboBox();
+        buttonSaveRenameTemplate = new javax.swing.JButton();
+        buttonRenameRenameTemplate = new javax.swing.JButton();
+        buttonDeleteRenameTemplate = new javax.swing.JButton();
+        buttonUpdateRenameTemplate = new javax.swing.JButton();
         buttonRenameTemplate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -568,7 +784,7 @@ public final class RenameDialog extends Dialog {
                         .addComponent(labelNewNamePrompt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldNewName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
                         .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonRename)
                             .addComponent(buttonNextFile))))
@@ -644,14 +860,12 @@ public final class RenameDialog extends Dialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        labelDateDelim.setLabelFor(textFieldDateDelim);
         labelDateDelim.setText(JptBundle.INSTANCE.getString("RenameDialog.labelDateDelim.text")); // NOI18N
 
-        textFieldDateDelim.setColumns(1);
-        textFieldDateDelim.setText("-");
-        textFieldDateDelim.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textFieldDateDelimKeyReleased(evt);
+        comboBoxDateDelimiter.setModel(new DefaultComboBoxModel(new Object[] {"", "-", ".", "/"}));
+        comboBoxDateDelimiter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxDateDelimiterActionPerformed(evt);
             }
         });
 
@@ -663,15 +877,15 @@ public final class RenameDialog extends Dialog {
                 .addContainerGap()
                 .addComponent(labelDateDelim)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldDateDelim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addComponent(comboBoxDateDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         panelOtherLayout.setVerticalGroup(
             panelOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOtherLayout.createSequentialGroup()
                 .addGroup(panelOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDateDelim)
-                    .addComponent(textFieldDateDelim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxDateDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -736,9 +950,9 @@ public final class RenameDialog extends Dialog {
             }
         });
 
-        textFieldAtEnd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                textFieldAtEndMouseReleased(evt);
+        textFieldAtEnd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldAtEndKeyReleased(evt);
             }
         });
 
@@ -846,6 +1060,83 @@ public final class RenameDialog extends Dialog {
 
         panelExampleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelAfterFilename, labelBeforeFilename});
 
+        panelRenameTemplates.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("RenameDialog.panelRenameTemplates.border.title"))); // NOI18N
+
+        comboBoxRenameTemplates.setModel(new ComboBoxModelRenameTemplates());
+        comboBoxRenameTemplates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxRenameTemplatesActionPerformed(evt);
+            }
+        });
+
+        buttonSaveRenameTemplate.setText(JptBundle.INSTANCE.getString("RenameDialog.buttonSaveRenameTemplate.text")); // NOI18N
+        buttonSaveRenameTemplate.setToolTipText(JptBundle.INSTANCE.getString("RenameDialog.buttonSaveRenameTemplate.toolTipText")); // NOI18N
+        buttonSaveRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSaveRenameTemplateActionPerformed(evt);
+            }
+        });
+
+        buttonRenameRenameTemplate.setText(JptBundle.INSTANCE.getString("RenameDialog.buttonRenameRenameTemplate.text")); // NOI18N
+        buttonRenameRenameTemplate.setToolTipText(JptBundle.INSTANCE.getString("RenameDialog.buttonRenameRenameTemplate.toolTipText")); // NOI18N
+        buttonRenameRenameTemplate.setEnabled(false);
+        buttonRenameRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRenameRenameTemplateActionPerformed(evt);
+            }
+        });
+
+        buttonDeleteRenameTemplate.setText(JptBundle.INSTANCE.getString("RenameDialog.buttonDeleteRenameTemplate.text")); // NOI18N
+        buttonDeleteRenameTemplate.setToolTipText(JptBundle.INSTANCE.getString("RenameDialog.buttonDeleteRenameTemplate.toolTipText")); // NOI18N
+        buttonDeleteRenameTemplate.setEnabled(false);
+        buttonDeleteRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteRenameTemplateActionPerformed(evt);
+            }
+        });
+
+        buttonUpdateRenameTemplate.setText(JptBundle.INSTANCE.getString("RenameDialog.buttonUpdateRenameTemplate.text")); // NOI18N
+        buttonUpdateRenameTemplate.setToolTipText(JptBundle.INSTANCE.getString("RenameDialog.buttonUpdateRenameTemplate.toolTipText")); // NOI18N
+        buttonUpdateRenameTemplate.setEnabled(false);
+        buttonUpdateRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateRenameTemplateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelRenameTemplatesLayout = new javax.swing.GroupLayout(panelRenameTemplates);
+        panelRenameTemplates.setLayout(panelRenameTemplatesLayout);
+        panelRenameTemplatesLayout.setHorizontalGroup(
+            panelRenameTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRenameTemplatesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelRenameTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRenameTemplatesLayout.createSequentialGroup()
+                        .addComponent(comboBoxRenameTemplates, 0, 534, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(panelRenameTemplatesLayout.createSequentialGroup()
+                        .addComponent(buttonSaveRenameTemplate)
+                        .addGap(6, 6, 6)
+                        .addComponent(buttonUpdateRenameTemplate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonRenameRenameTemplate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonDeleteRenameTemplate)
+                        .addGap(62, 62, 62))))
+        );
+        panelRenameTemplatesLayout.setVerticalGroup(
+            panelRenameTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRenameTemplatesLayout.createSequentialGroup()
+                .addComponent(comboBoxRenameTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelRenameTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonSaveRenameTemplate)
+                    .addComponent(buttonRenameRenameTemplate)
+                    .addComponent(buttonDeleteRenameTemplate)
+                    .addComponent(buttonUpdateRenameTemplate))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         buttonRenameTemplate.setText(JptBundle.INSTANCE.getString("RenameDialog.buttonRenameTemplate.text")); // NOI18N
         buttonRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -860,6 +1151,7 @@ public final class RenameDialog extends Dialog {
             .addGroup(panelTemplatesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelRenameTemplates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelDefineName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelOther, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelNumbers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -878,7 +1170,9 @@ public final class RenameDialog extends Dialog {
                 .addComponent(panelDefineName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelExample, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelRenameTemplates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonRenameTemplate)
                 .addContainerGap())
         );
@@ -898,7 +1192,7 @@ public final class RenameDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -913,36 +1207,32 @@ private void buttonNextFileActionPerformed(java.awt.event.ActionEvent evt) {//GE
     setNextFileViaInput();
 }//GEN-LAST:event_buttonNextFileActionPerformed
 
-private void textFieldAtEndMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textFieldAtEndMouseReleased
-    setExampleFilename();
-}//GEN-LAST:event_textFieldAtEndMouseReleased
-
 private void textFieldDelim2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDelim2KeyReleased
-    setExampleFilename();
+    handleTextFieldDelim2KeyReleased();
 }//GEN-LAST:event_textFieldDelim2KeyReleased
 
 private void textFieldInTheMiddleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInTheMiddleKeyReleased
-    setExampleFilename();
+    handleTextFieldInTheMiddleKeyReleased();
 }//GEN-LAST:event_textFieldInTheMiddleKeyReleased
 
 private void textFieldDelim1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDelim1KeyReleased
-    setExampleFilename();
+    handleTextFieldDelim1KeyReleased();
 }//GEN-LAST:event_textFieldDelim1KeyReleased
 
 private void textFieldAtBeginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAtBeginKeyReleased
-    setExampleFilename();
+    handleTextFieldAtBeginKeyReleased();
 }//GEN-LAST:event_textFieldAtBeginKeyReleased
 
 private void spinnerNumberCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerNumberCountStateChanged
-    setExampleFilename();
+    handleSpinnerNumberCountStateChanged();
 }//GEN-LAST:event_spinnerNumberCountStateChanged
 
 private void spinnerNumberStepWidthStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerNumberStepWidthStateChanged
-    setExampleFilename();
+    handleSpinnerNumberStepWidthStateChanged();
 }//GEN-LAST:event_spinnerNumberStepWidthStateChanged
 
 private void spinnerStartNumberStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerStartNumberStateChanged
-    setExampleFilename();
+    handleSpinnerStartNumberStateChanged();
 }//GEN-LAST:event_spinnerStartNumberStateChanged
 
 private void buttonRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameTemplateActionPerformed
@@ -950,36 +1240,52 @@ private void buttonRenameTemplateActionPerformed(java.awt.event.ActionEvent evt)
 }//GEN-LAST:event_buttonRenameTemplateActionPerformed
 
 private void comboBoxAtBeginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAtBeginActionPerformed
-    setExampleFilename();
-    setEnabledConstantTextFields();
+    handleComboBoxAtBeginActionPerformed();
 }//GEN-LAST:event_comboBoxAtBeginActionPerformed
 
 private void comboBoxInTheMiddleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxInTheMiddleActionPerformed
-    setExampleFilename();
-    setEnabledConstantTextFields();
+    handleComboBoxInTheMiddleActionPerformed();
 }//GEN-LAST:event_comboBoxInTheMiddleActionPerformed
 
 private void comboBoxAtEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAtEndActionPerformed
-    setExampleFilename();
-    setEnabledConstantTextFields();
+    handleComboBoxAtEndActionPerformed();
 }//GEN-LAST:event_comboBoxAtEndActionPerformed
 
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    if (!lockClose) {
-        setVisible(false);
-        dispose();
-    }
+    handleWindowClosing();
 }//GEN-LAST:event_formWindowClosing
 
-private void textFieldDateDelimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDateDelimKeyReleased
-    setExampleFilename();
-}//GEN-LAST:event_textFieldDateDelimKeyReleased
-
 private void panelInputNameComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelInputNameComponentShown
-    if (panelInputName.isVisible()) {
-        setCurrentFilenameToInputPanel();
-    }
+    handlePanelInputNameComponentShown();
 }//GEN-LAST:event_panelInputNameComponentShown
+
+private void buttonSaveRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveRenameTemplateActionPerformed
+    saveAsRenameTemplate();
+}//GEN-LAST:event_buttonSaveRenameTemplateActionPerformed
+
+private void buttonRenameRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameRenameTemplateActionPerformed
+    renameRenameTemplate();
+}//GEN-LAST:event_buttonRenameRenameTemplateActionPerformed
+
+private void buttonDeleteRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteRenameTemplateActionPerformed
+    deleteRenameTemplate();
+}//GEN-LAST:event_buttonDeleteRenameTemplateActionPerformed
+
+private void comboBoxRenameTemplatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRenameTemplatesActionPerformed
+    handleComboBoxRenameTemplatesActionPerformed();
+}//GEN-LAST:event_comboBoxRenameTemplatesActionPerformed
+
+private void buttonUpdateRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateRenameTemplateActionPerformed
+    updateRenameTemplate();
+}//GEN-LAST:event_buttonUpdateRenameTemplateActionPerformed
+
+private void comboBoxDateDelimiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDateDelimiterActionPerformed
+    handleComboBoxDateDelimiterActionPerformed();
+}//GEN-LAST:event_comboBoxDateDelimiterActionPerformed
+
+private void textFieldAtEndKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAtEndKeyReleased
+    handleTextFieldAtEndKeyReleased();
+}//GEN-LAST:event_textFieldAtEndKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1002,12 +1308,18 @@ private void panelInputNameComponentShown(java.awt.event.ComponentEvent evt) {//
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonDeleteRenameTemplate;
     private javax.swing.JButton buttonNextFile;
     private javax.swing.JButton buttonRename;
+    private javax.swing.JButton buttonRenameRenameTemplate;
     private javax.swing.JButton buttonRenameTemplate;
+    private javax.swing.JButton buttonSaveRenameTemplate;
+    private javax.swing.JButton buttonUpdateRenameTemplate;
     private javax.swing.JComboBox comboBoxAtBegin;
     private javax.swing.JComboBox comboBoxAtEnd;
+    private javax.swing.JComboBox comboBoxDateDelimiter;
     private javax.swing.JComboBox comboBoxInTheMiddle;
+    private javax.swing.JComboBox comboBoxRenameTemplates;
     private javax.swing.JLabel labelAfter;
     private javax.swing.JLabel labelAfterFilename;
     private javax.swing.JLabel labelAtBegin;
@@ -1032,6 +1344,7 @@ private void panelInputNameComponentShown(java.awt.event.ComponentEvent evt) {//
     private javax.swing.JPanel panelInputName;
     private javax.swing.JPanel panelNumbers;
     private javax.swing.JPanel panelOther;
+    private javax.swing.JPanel panelRenameTemplates;
     private javax.swing.JPanel panelTemplates;
     private de.elmar_baumann.lib.component.ImagePanel panelThumbnail;
     private javax.swing.JSpinner spinnerNumberCount;
@@ -1040,7 +1353,6 @@ private void panelInputNameComponentShown(java.awt.event.ComponentEvent evt) {//
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTextField textFieldAtBegin;
     private javax.swing.JTextField textFieldAtEnd;
-    private javax.swing.JTextField textFieldDateDelim;
     private javax.swing.JTextField textFieldDelim1;
     private javax.swing.JTextField textFieldDelim2;
     private javax.swing.JTextField textFieldInTheMiddle;

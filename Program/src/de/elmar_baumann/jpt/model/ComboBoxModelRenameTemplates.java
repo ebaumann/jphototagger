@@ -45,11 +45,15 @@ public final class ComboBoxModelRenameTemplates
     @Override
     public void actionPerformed(DatabaseRenameTemplatesEvent evt) {
         if (evt.isTemplateInserted()) {
-            addElement(evt.getTemplate());
+            RenameTemplate template = evt.getTemplate();
+            addElement(template);
+            setSelectedItem(template);
         } else if (evt.isTemplateUpdated()) {
-            int index = getIndexOf(evt.getOldTemplate());
+            RenameTemplate template = evt.getTemplate();
+            int index = getIndexOf(template);
             if (index >= 0) {
-                ((RenameTemplate) getElementAt(index)).set(evt.getTemplate());
+                ((RenameTemplate) getElementAt(index)).set(template);
+                fireContentsChanged(this, index, index);
             }
         } else if (evt.isTemplateDeleted()) {
             removeElement(evt.getTemplate());

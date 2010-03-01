@@ -36,23 +36,14 @@ public final class DatabaseRenameTemplatesEvent {
 
     private final Type           type;
     private final RenameTemplate template;
-    private       RenameTemplate oldTemplate;
 
     public DatabaseRenameTemplatesEvent(Type type, RenameTemplate template) {
         this.type     = type;
-        this.template = new RenameTemplate(template);
-    }
-
-    public RenameTemplate getOldTemplate() {
-        return oldTemplate == null ? null : new RenameTemplate(oldTemplate);
-    }
-
-    public void setOldTemplate(RenameTemplate oldTemplate) {
-        this.oldTemplate = template == null ? null : new RenameTemplate(oldTemplate);
+        this.template = template == null ? null : new RenameTemplate(template);
     }
 
     public RenameTemplate getTemplate() {
-        return new RenameTemplate(template);
+        return template == null ? null : new RenameTemplate(template);
     }
 
     public Type getType() {
