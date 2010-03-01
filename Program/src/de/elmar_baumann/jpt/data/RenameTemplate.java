@@ -27,6 +27,7 @@ package de.elmar_baumann.jpt.data;
 public final class RenameTemplate {
 
     // On updates change set()!
+    private Long     id;
     private String   name;
     private Integer  startNumber;
     private Integer  stepWidth;
@@ -49,6 +50,7 @@ public final class RenameTemplate {
     }
 
     public void set(RenameTemplate other) {
+        id                     = other.id;
         name                   = other.name;
         startNumber            = other.startNumber;
         stepWidth              = other.stepWidth;
@@ -62,6 +64,14 @@ public final class RenameTemplate {
         textAtBegin            = other.textAtBegin;
         textInTheMiddle        = other.textInTheMiddle;
         textAtEnd              = other.textAtEnd;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -178,14 +188,14 @@ public final class RenameTemplate {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         final RenameTemplate other = (RenameTemplate) obj;
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) return false;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + (this.name != null ? this.name.hashCode() : 0);
+        int hash = 3;
+        hash = 41 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
 }

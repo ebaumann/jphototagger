@@ -40,7 +40,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="373" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="480" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -117,7 +117,7 @@
                               <Component id="labelNewNamePrompt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="textFieldNewName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="173" max="32767" attributes="0"/>
+                              <EmptySpace pref="280" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="buttonRename" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonNextFile" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -261,6 +261,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="panelRenameTemplates" alignment="0" max="32767" attributes="0"/>
                           <Component id="panelDefineName" alignment="0" max="32767" attributes="2"/>
                           <Component id="panelOther" alignment="0" max="32767" attributes="2"/>
                           <Component id="panelNumbers" alignment="0" max="32767" attributes="2"/>
@@ -282,9 +283,11 @@
                       <Component id="panelDefineName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelExample" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="buttonRenameTemplate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panelRenameTemplates" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonRenameTemplate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -409,8 +412,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="labelDateDelim" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldDateDelim" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="139" max="32767" attributes="0"/>
+                          <Component id="comboBoxDateDelimiter" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="250" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -419,7 +422,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelDateDelim" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFieldDateDelim" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboBoxDateDelimiter" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -429,21 +432,19 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="labelDateDelim">
                   <Properties>
-                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="textFieldDateDelim"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.labelDateDelim.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="textFieldDateDelim">
+                <Component class="javax.swing.JComboBox" name="comboBoxDateDelimiter">
                   <Properties>
-                    <Property name="columns" type="int" value="1"/>
-                    <Property name="text" type="java.lang.String" value="-"/>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new DefaultComboBoxModel(new Object[] {&quot;&quot;, &quot;-&quot;, &quot;.&quot;, &quot;/&quot;})" type="code"/>
+                    </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldDateDelimKeyReleased"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxDateDelimiterActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -620,7 +621,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="textFieldAtEnd">
                   <Events>
-                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textFieldAtEndMouseReleased"/>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldAtEndKeyReleased"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -709,6 +710,125 @@
                       </Border>
                     </Property>
                   </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="panelRenameTemplates">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder title="Schablonen">
+                      <ResourceString PropertyName="titleX" bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.panelRenameTemplates.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </TitledBorder>
+                  </Border>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="comboBoxRenameTemplates" pref="534" max="32767" attributes="2"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="buttonSaveRenameTemplate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  <Component id="buttonUpdateRenameTemplate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonRenameRenameTemplate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonDeleteRenameTemplate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="comboBoxRenameTemplates" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="buttonSaveRenameTemplate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonRenameRenameTemplate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonDeleteRenameTemplate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonUpdateRenameTemplate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JComboBox" name="comboBoxRenameTemplates">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new ComboBoxModelRenameTemplates()" type="code"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxRenameTemplatesActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonSaveRenameTemplate">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonSaveRenameTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonSaveRenameTemplate.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSaveRenameTemplateActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonRenameRenameTemplate">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonRenameRenameTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonRenameRenameTemplate.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRenameRenameTemplateActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonDeleteRenameTemplate">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonDeleteRenameTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonDeleteRenameTemplate.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteRenameTemplateActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonUpdateRenameTemplate">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonUpdateRenameTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="RenameDialog.buttonUpdateRenameTemplate.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateRenameTemplateActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
