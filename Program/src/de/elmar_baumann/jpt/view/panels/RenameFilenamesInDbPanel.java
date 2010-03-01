@@ -24,7 +24,9 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import de.elmar_baumann.lib.util.Settings;
 import java.awt.Container;
 import javax.swing.JPanel;
 
@@ -36,9 +38,11 @@ import javax.swing.JPanel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-16
  */
-public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener {
+public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener, Persistence {
 
-    private static final long serialVersionUID = -4207218985613254920L;
+    private static final long   serialVersionUID = -4207218985613254920L;
+    private static final String KEY_SEARCH       = "RenameFilenamesInDbPanel.Search";
+    private static final String KEY_REPLACEMENT  = "RenameFilenamesInDbPanel.Replacement";
 
     private volatile boolean runs;
 
@@ -116,6 +120,21 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
     private boolean confirmReplace() {
         return MessageDisplayer.confirmYesNo(this, "RenameFilenamesInDbPanel.Confirm.Replace", textFieldSearch.getText(), textFieldReplacement.getText());
+    }
+
+    @Override
+    public void readProperties() {
+        Settings settings = UserSettings.INSTANCE.getSettings();
+        textFieldSearch.setText(settings.getString(KEY_SEARCH));
+        textFieldReplacement.setText(settings.getString(KEY_REPLACEMENT));
+    }
+
+    @Override
+    public void writeProperties() {
+        Settings settings = UserSettings.INSTANCE.getSettings();
+        settings.set(textFieldSearch.getText(), KEY_SEARCH);
+        settings.set(textFieldReplacement.getText(), KEY_REPLACEMENT);
+        UserSettings.INSTANCE.writeToFile();
     }
 
     /** This method is called from within the constructor to
