@@ -137,57 +137,68 @@ public class Database {
         }
     }
 
-    protected Double getDouble(ResultSet rs, int paramIndex) throws SQLException {
-        double d = rs.getDouble(paramIndex);
+    protected Double getDouble(ResultSet rs, int colIndex) throws SQLException {
+        double d = rs.getDouble(colIndex);
         if (rs.wasNull()) {
             return null;
         }
         return d;
     }
 
-    protected Short getShort(ResultSet rs, int paramIndex) throws SQLException {
-        short s = rs.getShort(paramIndex);
+    protected Short getShort(ResultSet rs, int colIndex) throws SQLException {
+        short s = rs.getShort(colIndex);
         if (rs.wasNull()) {
             return null;
         }
         return s;
     }
 
-    protected Integer getInt(ResultSet rs, int paramIndex) throws SQLException {
-        int i = rs.getInt(paramIndex);
+    protected Integer getInt(ResultSet rs, int colIndex) throws SQLException {
+        int i = rs.getInt(colIndex);
         if (rs.wasNull()) {
             return null;
         }
         return i;
     }
 
-    protected Long getLong(ResultSet rs, int paramIndex) throws SQLException {
-        long l = rs.getLong(paramIndex);
+    protected Long getLong(ResultSet rs, int colIndex) throws SQLException {
+        long l = rs.getLong(colIndex);
         if (rs.wasNull()) {
             return null;
         }
         return l;
     }
 
-    protected Long getLongMinMax(ResultSet rs, int paramIndex, long min, long max) throws SQLException {
+    protected Long getLongMinMax(ResultSet rs, int colIndex, long min, long max) throws SQLException {
         assert min <= max : "min: " + min + ", max: " + max;
-        long l = rs.getLong(paramIndex);
+        long l = rs.getLong(colIndex);
         if (rs.wasNull()) {
             return null;
         }
         return l < min ? min : l > max ? max : l;
     }
 
-    protected String getString(ResultSet rs, int paramIndex) throws SQLException {
-        String s = rs.getString(paramIndex);
+    protected String getString(ResultSet rs, int colIndex) throws SQLException {
+        String s = rs.getString(colIndex);
         if (rs.wasNull()) {
             return null;
         }
         return s;
     }
 
-    protected Date getDate(ResultSet rs, int paramIndex) throws SQLException {
-        Date d = rs.getDate(paramIndex);
+    protected Class<?> getClassFromName(ResultSet rs, int colIndex) throws SQLException {
+        String classname = rs.getString(colIndex);
+        if (classname == null) return null;
+        try {
+            return Class.forName(classname);
+        } catch (ClassNotFoundException ex) {
+            AppLogger.logSevere(Database.class, ex);
+        }
+        return null;
+    }
+
+    protected Date getDate(ResultSet rs, int colIndex) throws SQLException {
+        Date d = rs.getDate(colIndex);
         if (rs.wasNull()) {
             return null;
         }
