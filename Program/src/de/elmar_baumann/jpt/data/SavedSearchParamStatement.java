@@ -20,6 +20,11 @@ package de.elmar_baumann.jpt.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Data of a {@link de.elmar_baumann.jpt.data.ParamStatement}
@@ -27,12 +32,18 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearchParamStatement {
 
-    private String       name;
-    private String       sql;
+    private String name;
+    private String sql;
+    
+    @XmlElementWrapper(name = "SavedSearchParamStatementValues")
+    @XmlElement(type = String.class)
     private List<String> values;
-    private boolean      query;
+
+    private boolean query;
 
     public SavedSearchParamStatement() {
     }

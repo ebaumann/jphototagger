@@ -20,12 +20,19 @@ package de.elmar_baumann.jpt.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearch {
 
     public enum Type {
@@ -58,8 +65,12 @@ public final class SavedSearch {
     }
 
     private SavedSearchParamStatement paramStatement;
-    private List<SavedSearchPanel>    panels;
-    private Type                      type;
+
+    @XmlElementWrapper(name = "SavedSearchPanels")
+    @XmlElement(type = SavedSearchPanel.class)
+    private List<SavedSearchPanel> panels;
+
+    private Type type;
 
     public SavedSearch() {
     }

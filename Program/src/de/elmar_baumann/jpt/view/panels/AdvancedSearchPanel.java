@@ -214,6 +214,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         listenerSupport.notifyListeners(event);
     }
 
+    public synchronized void notify(SearchEvent event) {
+        listenerSupport.notifyListeners(event);
+    }
+
     private synchronized void notifyNameChanged() {
         SearchEvent event = new SearchEvent(SearchEvent.Type.NAME_CHANGED);
 

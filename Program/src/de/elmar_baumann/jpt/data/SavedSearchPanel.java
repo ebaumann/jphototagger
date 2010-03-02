@@ -18,6 +18,10 @@
  */
 package de.elmar_baumann.jpt.data;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Daten gespeicherter Suchen für ein {@link de.elmar_baumann.jpt.view.panels.SearchColumnPanel}-Objekt.
  * Die Indexe sind Indexe von Listenitems in Comboboxen oder Listboxen.
@@ -25,6 +29,8 @@ package de.elmar_baumann.jpt.data;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-12
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearchPanel {
 
     private int     panelIndex          = Integer.MIN_VALUE;
