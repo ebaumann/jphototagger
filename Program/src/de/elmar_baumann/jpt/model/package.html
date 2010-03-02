@@ -7,35 +7,22 @@
   <body>
     Models reflecting database content and tied to views (lists, trees, ...).
 
+    <h2>Database models</h2>
+
     <p>To reflect the current database content, a model is a <strong>database
-        listener</strong> and synchronizes it's content with the database on
+        listener</strong> and synchronizes its content with the database on
         database updates.
     </p>
 
-    <p>A model itself provides change methods. In case of
-        changes, it does update the database and if successful, it updates
-        the model content.
-    </p>
-
-    <p>For a specific database content <em>only one model instance</em> exists.
-        The model can be displayed by multiple views. All model instances can
-        be retrieved through the <strong>model factory</strong>
-        ({@link de.elmar_baumann.jpt.factory.ModelFactory}) method
-        <code>getModel()</code>.
-    </p>
-
-    <p><img src="doc-files/Model-1.png" width="431" height="328" alt="">
-        <br>Class diagram: Associations between models, database and view
-    </p>
-
-    <p><img src="doc-files/Model-2.png" width="546" height="412" alt="">
-        <br>Sequence diagram: Interactions between Controller, Model, Database
-        and View
+    <p>A model itself shall <em>not</em> provide database change methods for
+        re-using database change methods in other contexts. Also the same
+        database content can be mirrored by different models, e.g. a list
+        model and a combo box model too.
     </p>
 
     <h2>Other models</h2>
 
-    <p>Some models do not interact with the database, e.g. a model with logfile
+    <p>Some models do not reflecting database content, e.g. a model with logfile
         formatter classes for controlling the output formatting of loggers.
     </p>
   </body>
