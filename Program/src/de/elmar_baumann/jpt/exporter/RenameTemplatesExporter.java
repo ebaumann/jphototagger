@@ -56,8 +56,8 @@ public final class RenameTemplatesExporter {
     @XmlRootElement
     public static class CollectionWrapper {
 
-        @XmlElementWrapper(name = "templates")
-        @XmlElement(name = "template", type = RenameTemplate.class)
+        @XmlElementWrapper(name = "RenameTemplates")
+        @XmlElement(type = RenameTemplate.class)
         private final ArrayList<RenameTemplate> collection = new ArrayList<RenameTemplate>();
 
         public CollectionWrapper() {
