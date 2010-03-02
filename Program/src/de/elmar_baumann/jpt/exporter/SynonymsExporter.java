@@ -20,12 +20,17 @@ package de.elmar_baumann.jpt.exporter;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
 import de.elmar_baumann.jpt.io.CharEncoding;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,9 +49,10 @@ import org.w3c.dom.Element;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-07
  */
-public final class SynonymsExporter extends AbstractAction {
+public final class SynonymsExporter extends AbstractAction implements Exporter {
 
     private static final long             serialVersionUID = 1L;
+    public static final  FileFilter       FILE_FILTER      = new FileNameExtensionFilter(JptBundle.INSTANCE.getString("SynonymsExporter.DisplayName.FileFilter"), "jpg", "jpeg");
     public static final  SynonymsExporter INSTANCE         = new SynonymsExporter();
     public static final  String           DTD              = "synonyms.dtd";
     public static final  String           TAGNAME_ROOT     = "synonyms";
@@ -57,14 +63,14 @@ public final class SynonymsExporter extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        export();
+        exportFile(getFile());
     }
 
-    public void export() {
+    @Override
+    public void exportFile(File file) {
         try {
             Document           doc   = getDoc();
             DOMSource          ds    = new DOMSource(doc);
-            File               file  = getFile();
             StreamResult       sr    = new StreamResult(file);
             TransformerFactory tf    = TransformerFactory.newInstance();
             Transformer        trans = tf.newTransformer();
@@ -121,6 +127,21 @@ public final class SynonymsExporter extends AbstractAction {
         trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         trans.setOutputProperty(OutputKeys.INDENT, "yes");
         trans.setOutputProperty(OutputKeys.STANDALONE, "no");
+    }
+
+    @Override
+    public FileFilter getFileFilter() {
+        return FILE_FILTER;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return JptBundle.INSTANCE.getString("SynonymsExporter.DisplayName");
+    }
+
+    @Override
+    public Icon getIcon() {
+        return AppLookAndFeel.getIcon("icon_export.png");
     }
 
     private SynonymsExporter() {

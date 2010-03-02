@@ -48,11 +48,9 @@ import org.xml.sax.SAXException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-10-11
  */
-public final class KeywordImporterJpt
-        implements KeywordImporter, EntityResolver {
+public final class KeywordImporterJpt extends KeywordImporter implements EntityResolver {
 
-    public static final KeywordImporterJpt INSTANCE =
-            new KeywordImporterJpt();
+    public static final KeywordImporterJpt INSTANCE = new KeywordImporterJpt();
 
     @Override
     public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
@@ -143,7 +141,7 @@ public final class KeywordImporterJpt
     }
 
     @Override
-    public String getDescription() {
+    public String getDisplayName() {
         return KeywordExporterJpt.DESCRIPTION;
     }
 

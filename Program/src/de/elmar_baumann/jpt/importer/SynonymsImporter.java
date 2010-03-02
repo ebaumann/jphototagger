@@ -19,9 +19,11 @@
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
 import de.elmar_baumann.jpt.exporter.SynonymsExporter;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +32,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -45,18 +49,21 @@ import org.xml.sax.SAXException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-07
  */
-public final class SynonymsImporter extends AbstractAction implements EntityResolver {
-
+public final class SynonymsImporter 
+        extends    AbstractAction
+        implements Importer,
+                   EntityResolver
+{
     public static final  SynonymsImporter INSTANCE         = new SynonymsImporter();
     private static final long             serialVersionUID = 1L;
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        importSynonyms();
+        importFile(SynonymsExporter.INSTANCE.getFile());
     }
 
-    public void importSynonyms() {
-        File file = SynonymsExporter.INSTANCE.getFile();
+    @Override
+    public void importFile(File file) {
 
         if (!checkExistsFile(file)) return;
 
@@ -124,6 +131,21 @@ public final class SynonymsImporter extends AbstractAction implements EntityReso
             return false;
         }
         return true;
+    }
+
+    @Override
+    public FileFilter getFileFilter() {
+        return SynonymsExporter.FILE_FILTER;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return JptBundle.INSTANCE.getString("SynonymsImporter.DisplayName");
+    }
+
+    @Override
+    public Icon getIcon() {
+        return AppLookAndFeel.getIcon("icon_import.png");
     }
 
     private SynonymsImporter() {}

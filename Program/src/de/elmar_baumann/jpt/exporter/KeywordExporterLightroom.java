@@ -45,11 +45,9 @@ import javax.swing.tree.TreeModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-final class KeywordExporterLightroom
-        implements KeywordExporter {
+public final class KeywordExporterLightroom implements Exporter {
 
-    public static final KeywordExporterLightroom INSTANCE =
-            new KeywordExporterLightroom();
+    public static final KeywordExporterLightroom INSTANCE = new KeywordExporterLightroom();
     private static final Icon icon = AppLookAndFeel.getIcon("icon_lightroom.png");
     /**
      * Lightroom exports keywords within {} - constant if changed in later
@@ -58,7 +56,7 @@ final class KeywordExporterLightroom
     private static final String CHILD_START_CHAR = "\t";
 
     @Override
-    public void export(File file) {
+    public void exportFile(File file) {
         TreeModel tm = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         if (tm instanceof TreeModelKeywords) {
             Writer writer = null;
@@ -123,13 +121,13 @@ final class KeywordExporterLightroom
     }
 
     @Override
-    public String getDescription() {
+    public String getDisplayName() {
         return JptBundle.INSTANCE.getString("KeywordExporterLightroom.Description");
     }
 
     @Override
     public String toString() {
-        return getDescription();
+        return getDisplayName();
     }
 
     @Override
@@ -143,6 +141,6 @@ final class KeywordExporterLightroom
     @Override
     public FileFilter getFileFilter() {
         return new FileNameExtensionFilter(
-                getDescription(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
+                getDisplayName(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
     }
 }

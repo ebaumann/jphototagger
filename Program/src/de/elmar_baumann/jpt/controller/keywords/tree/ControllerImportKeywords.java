@@ -18,24 +18,12 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.importer.KeywordImporter;
-import de.elmar_baumann.jpt.model.TreeModelKeywords;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.KeywordImportDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
-import de.elmar_baumann.jpt.view.panels.ProgressBar;
-import de.elmar_baumann.lib.generics.Pair;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
-import java.util.List;
-import javax.swing.JProgressBar;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
 
 /**
  * Listens to the menu item {@link AppFrame#getMenuItemImportKeywords()} and
@@ -45,8 +33,6 @@ import javax.swing.tree.TreePath;
  * @version 2009-08-01
  */
 public final class ControllerImportKeywords implements ActionListener {
-
-    private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("ControllerImportKeywords.ProgressBar.String");
 
     public ControllerImportKeywords() {
         listen();
@@ -68,85 +54,8 @@ public final class ControllerImportKeywords implements ActionListener {
             KeywordImporter importer = dlg.getImporter();
             assert importer != null : "Importer is null!";
             if (importer != null) {
-                Collection<List<Pair<String, Boolean>>> paths = importer.getPaths(dlg.getFile());
-                if (paths != null) {
-                    new ImportTask(paths).start();
-                }
+                importer.getPaths(dlg.getFile());
             }
-        }
-    }
-
-    private static class ImportTask extends Thread {
-
-        private final Collection<List<Pair<String, Boolean>>> paths;
-        private final TreeModel                               treeModel  = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        private       JProgressBar                            progressBar;
-
-        public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
-            this.paths = paths;
-            setName("Importing keywords @ " + getClass().getSimpleName());
-        }
-
-        private void getProgressBar() {
-            if (progressBar != null) return;
-            progressBar = ProgressBar.INSTANCE.getResource(this);
-        }
-
-        @Override
-        public void run() {
-            assert treeModel instanceof TreeModelKeywords : treeModel;
-            if (treeModel instanceof TreeModelKeywords) {
-                TreeModelKeywords model = (TreeModelKeywords) treeModel;
-                updateProgressBar(0);
-                int progressValue = 0;
-                for (List<Pair<String, Boolean>> path : paths) {
-                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) model.getRoot();
-                    for (Pair<String, Boolean> keyword : path) {
-                        DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getFirst());
-                        if (existingNode == null) {
-                            model.insert(node, keyword.getFirst(), keyword.getSecond());
-                            node = model.findChildByName(node, keyword.getFirst());
-                        } else {
-                            node = existingNode;
-                        }
-                    }
-                    updateProgressBar(++progressValue);
-                }
-                releaseProgressBar();
-                expandRootSelHk();
-            }
-        }
-
-        private void expandRootSelHk() {
-            JTree  tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
-            Object root = tree.getModel().getRoot();
-
-            tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
-        }
-
-        private void updateProgressBar(int value) {
-            getProgressBar();
-            if (progressBar != null) {
-                progressBar.setMinimum(0);
-                progressBar.setMaximum(paths.size());
-                progressBar.setValue(value);
-                if (!progressBar.isStringPainted()) {
-                    progressBar.setStringPainted(true);
-                }
-                if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
-                    progressBar.setString(PROGRESSBAR_STRING);
-                }
-            }
-        }
-
-        private void releaseProgressBar() {
-            if (progressBar != null) {
-                if (progressBar.isStringPainted()) {
-                    progressBar.setString("");
-                }
-                progressBar.setValue(0);
-            }
-            ProgressBar.INSTANCE.releaseResource(this);
         }
     }
 }
