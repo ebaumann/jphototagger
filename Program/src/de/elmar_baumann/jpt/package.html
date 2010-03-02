@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Implementation notes on JPhotoTagger</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+      Some Implementation notes on JPhotoTagger.
+
+      <p>The main parts are:
+      </p>
+
+      <ul>
+          <li>A <strong>database</strong> for specific persistent content.
+              A database <strong>notifies</strong> database listeners on
+              database changes.
+          </li>
+          <li><strong>Models</strong> containing specific database content. A
+              database model <strong>listens</strong> to changes within its
+              database and updates in that case the model content.
+          </li>
+          <li><strong>Views</strong> displaying different models; some models
+              have a specific renderer.
+          </li>
+          <li><strong>Controllers</strong> are listening to user actions and
+              modifying the database or doing something else. A controller
+              uses other classes to perform something so that the other classes
+              can be re-used.
+          </li>
+      </ul>
+
+      <p>Status: 2010-03-02</p>
+  </body>
+</html>
