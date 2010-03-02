@@ -789,6 +789,27 @@ public final class FileUtil {
         return matched == search.length ? file.getFilePointer() - search.length : -1;
     }
 
+    /**
+     * Returns a file with an added suffix to its name.
+     * <p>
+     * Ignores case, both suffixes treated as equals: ".HTML" and ".html".
+     * 
+     * @param  file   file
+     * @param  suffix suffix, e.g. <code>".xml"</code>
+     * @return        file with suffix or the file itself if it already has
+     *                that suffix
+     */
+    public static File getWithSuffixIgnoreCase(File file, String suffix) {
+        if (file   == null) throw new NullPointerException("file == null");
+        if (suffix == null) throw new NullPointerException("suffix == null");
+
+        if (file.getName().toLowerCase().endsWith(suffix.toLowerCase())) {
+            return file;
+        }
+
+        return new File(file.getAbsolutePath() + suffix);
+    }
+
     private FileUtil() {
     }
 }
