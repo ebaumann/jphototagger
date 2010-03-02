@@ -18,17 +18,21 @@
  */
 package de.elmar_baumann.jpt.view;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+import java.awt.Component;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTree;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -100,6 +104,22 @@ public class ViewUtil {
                 mnemonics.add(mnemonic);
             }
         }
+    }
+
+    public static File chooseFile(String keyCurrentDir, FileFilter filter, Component parent) {
+        String       prevCurrentDir = UserSettings.INSTANCE.getSettings().getString(keyCurrentDir);
+        File         currentDir     = new File(prevCurrentDir.isEmpty() ? UserSettings.INSTANCE.getSettingsDirectoryName() : prevCurrentDir);
+        JFileChooser fc             = new JFileChooser(currentDir);
+
+        if (filter != null) fc.setFileFilter(filter);
+        if (parent == null) parent = GUI.INSTANCE.getAppFrame();
+
+        if (fc.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
+            File selFile = fc.getSelectedFile();
+            UserSettings.INSTANCE.getSettings().set(selFile.getAbsolutePath(), keyCurrentDir);
+            return selFile;
+        }
+        return null;
     }
 
     private ViewUtil() {
