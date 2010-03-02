@@ -18,16 +18,15 @@
  */
 package de.elmar_baumann.jpt.view.renderer;
 
-import de.elmar_baumann.jpt.exporter.KeywordExporter;
-import de.elmar_baumann.jpt.importer.KeywordImporter;
+import de.elmar_baumann.jpt.exporter.Exporter;
+import de.elmar_baumann.jpt.importer.Importer;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
 /**
- * Renders lists with {@link KeywordImporter}s and
- * {@link KeywordExporter}s.
+ * Renders lists with {@link Importer}s and {@link Exporter}s for keywords.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-04
@@ -39,13 +38,13 @@ public final class ListCellRendererKeywordImExport extends DefaultListCellRender
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        if (value instanceof KeywordImporter) {
-            KeywordImporter importer = (KeywordImporter) value;
-            label.setText(importer.getDescription());
+        if (value instanceof Importer) {
+            Importer importer = (Importer) value;
+            label.setText(importer.getDisplayName());
             label.setIcon(importer.getIcon());
-        } else if (value instanceof KeywordExporter) {
-            KeywordExporter exporter = (KeywordExporter) value;
-            label.setText(exporter.getDescription());
+        } else if (value instanceof Exporter) {
+            Exporter exporter = (Exporter) value;
+            label.setText(exporter.getDisplayName());
             label.setIcon(exporter.getIcon());
         }
         return label;

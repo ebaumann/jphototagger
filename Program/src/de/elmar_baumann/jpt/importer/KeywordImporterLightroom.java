@@ -44,7 +44,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-final class KeywordImporterLightroom implements KeywordImporter {
+public final class KeywordImporterLightroom extends KeywordImporter {
 
     public static final  KeywordImporterLightroom INSTANCE = new KeywordImporterLightroom();
     private static final Icon                     ICON     = AppLookAndFeel.getIcon("icon_lightroom.png");
@@ -172,17 +172,17 @@ final class KeywordImporterLightroom implements KeywordImporter {
     @Override
     public FileFilter getFileFilter() {
         return new FileNameExtensionFilter(
-                getDescription(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
+                getDisplayName(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
     }
 
     @Override
-    public String getDescription() {
+    public String getDisplayName() {
         return JptBundle.INSTANCE.getString("KeywordImporterLightroom.Description");
     }
 
     @Override
     public String toString() {
-        return getDescription();
+        return getDisplayName();
     }
 
     private KeywordImporterLightroom() {

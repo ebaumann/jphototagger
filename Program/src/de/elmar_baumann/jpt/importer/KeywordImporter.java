@@ -18,12 +18,20 @@
  */
 package de.elmar_baumann.jpt.importer;
 
+import de.elmar_baumann.jpt.factory.ModelFactory;
+import de.elmar_baumann.jpt.model.TreeModelKeywords;
+import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
-import javax.swing.Icon;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.JProgressBar;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  * Imports keywords.
@@ -31,7 +39,9 @@ import javax.swing.filechooser.FileFilter;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-public interface KeywordImporter {
+public abstract class KeywordImporter implements Importer {
+
+    private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("KeywordImporter.ProgressBar.String");
 
     /**
      * Returns all keyword paths to the leaf nodes.
@@ -64,27 +74,87 @@ public interface KeywordImporter {
      *              the second is true, if the keyword is a real keyword and
      *              false if it's a helper. Null on errors.
      */
-    public Collection<List<Pair<String, Boolean>>> getPaths(File file);
+    public abstract Collection<List<Pair<String, Boolean>>> getPaths(File file);
 
-    /**
-     * Returns the filter of files that can be imported.
-     *
-     * @return file filter
-     */
-    public FileFilter getFileFilter();
+    @Override
+    public void importFile(File file) {
+        Collection<List<Pair<String, Boolean>>> paths = getPaths(file);
+        if (paths != null) {
+            new ImportTask(paths).start();
+        }
+    }
 
-    /**
-     * Returns a description of this importer.
-     *
-     * @return description, e.g.
-     *         <code>"Adobe Photoshop Lightroom exported keywords"</code>
-     */
-    public String getDescription();
+    private static class ImportTask extends Thread {
 
-    /**
-     * Returns an icon representation of this importer.
-     *
-     * @return icon or null
-     */
-    public Icon getIcon();
+        private final Collection<List<Pair<String, Boolean>>> paths;
+        private final TreeModel                               treeModel  = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        private       JProgressBar                            progressBar;
+
+        public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
+            this.paths = paths;
+            setName("Importing keywords @ " + getClass().getSimpleName());
+        }
+
+        private void getProgressBar() {
+            if (progressBar != null) return;
+            progressBar = ProgressBar.INSTANCE.getResource(this);
+        }
+
+        @Override
+        public void run() {
+            assert treeModel instanceof TreeModelKeywords : treeModel;
+            if (treeModel instanceof TreeModelKeywords) {
+                TreeModelKeywords model = (TreeModelKeywords) treeModel;
+                updateProgressBar(0);
+                int progressValue = 0;
+                for (List<Pair<String, Boolean>> path : paths) {
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) model.getRoot();
+                    for (Pair<String, Boolean> keyword : path) {
+                        DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getFirst());
+                        if (existingNode == null) {
+                            model.insert(node, keyword.getFirst(), keyword.getSecond());
+                            node = model.findChildByName(node, keyword.getFirst());
+                        } else {
+                            node = existingNode;
+                        }
+                    }
+                    updateProgressBar(++progressValue);
+                }
+                releaseProgressBar();
+                expandRootSelHk();
+            }
+        }
+
+        private void expandRootSelHk() {
+            JTree  tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
+            Object root = tree.getModel().getRoot();
+
+            tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
+        }
+
+        private void updateProgressBar(int value) {
+            getProgressBar();
+            if (progressBar != null) {
+                progressBar.setMinimum(0);
+                progressBar.setMaximum(paths.size());
+                progressBar.setValue(value);
+                if (!progressBar.isStringPainted()) {
+                    progressBar.setStringPainted(true);
+                }
+                if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
+                    progressBar.setString(PROGRESSBAR_STRING);
+                }
+            }
+        }
+
+        private void releaseProgressBar() {
+            if (progressBar != null) {
+                if (progressBar.isStringPainted()) {
+                    progressBar.setString("");
+                }
+                progressBar.setValue(0);
+            }
+            ProgressBar.INSTANCE.releaseResource(this);
+        }
+    }
 }

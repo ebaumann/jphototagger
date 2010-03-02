@@ -20,7 +20,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.exporter.KeywordExporter;
+import de.elmar_baumann.jpt.exporter.Exporter;
 import de.elmar_baumann.jpt.model.ComboBoxModelKeywordExporters;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -74,13 +74,11 @@ public class KeywordExportDialog extends Dialog {
      *
      * @return exporter or null if no exporter was selected.
      */
-    public KeywordExporter getExporter() {
+    public Exporter getExporter() {
         assert accepted : "Export was not accepted!";
         if (!accepted) return null;
         Object item = comboBoxExporter.getSelectedItem();
-        return item instanceof KeywordExporter
-               ? (KeywordExporter) item
-               : null;
+        return item instanceof Exporter ? (Exporter) item : null;
     }
 
     @Override
@@ -94,11 +92,11 @@ public class KeywordExportDialog extends Dialog {
     }
 
     /**
-     * Returns the file to export into.
+     * Returns the file to exportFile into.
      *
      * <em>Should be called only when {@link #isAccepted()} is true!</em>
      *
-     * @return file or null if no file is to export
+     * @return file or null if no file is to exportFile
      */
     public File getFile() {
         assert accepted : "Export was not accepted!";
@@ -108,13 +106,12 @@ public class KeywordExportDialog extends Dialog {
 
     private void chooseFile() {
         Object selItem = comboBoxExporter.getSelectedItem();
-        if (selItem instanceof KeywordExporter) {
+        if (selItem instanceof Exporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null) {
                 fileChooser.setCurrentDirectory(file.getParentFile());
             }
-            fileChooser.setFileFilter(
-                    ((KeywordExporter) selItem).getFileFilter());
+            fileChooser.setFileFilter(((Exporter) selItem).getFileFilter());
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setDialogTitle(getTitle());
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {

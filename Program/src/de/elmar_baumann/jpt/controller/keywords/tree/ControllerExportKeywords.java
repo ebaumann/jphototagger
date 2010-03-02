@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.exporter.KeywordExporter;
+import de.elmar_baumann.jpt.exporter.Exporter;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.KeywordExportDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
@@ -32,16 +32,14 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-02
  */
-public final class ControllerExportKeywords
-        implements ActionListener {
+public final class ControllerExportKeywords implements ActionListener {
 
     public ControllerExportKeywords() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemExportKeywords().addActionListener(
-                this);
+        GUI.INSTANCE.getAppFrame().getMenuItemExportKeywords().addActionListener(this);
     }
 
     @Override
@@ -50,14 +48,13 @@ public final class ControllerExportKeywords
     }
 
     private void exportKeywords() {
-        KeywordExportDialog dlg =
-                new KeywordExportDialog();
+        KeywordExportDialog dlg = new KeywordExportDialog();
         dlg.setVisible(true);
         if (dlg.isAccepted()) {
-            KeywordExporter exporter = dlg.getExporter();
+            Exporter exporter = dlg.getExporter();
             assert exporter != null : "Exporter is null!";
             if (exporter != null) {
-                exporter.export(dlg.getFile());
+                exporter.exportFile(dlg.getFile());
             }
         }
     }

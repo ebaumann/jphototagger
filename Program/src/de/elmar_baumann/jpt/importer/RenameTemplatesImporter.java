@@ -1,15 +1,15 @@
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.RenameTemplate;
 import de.elmar_baumann.jpt.database.DatabaseRenameTemplates;
 import de.elmar_baumann.jpt.exporter.RenameTemplatesExporter;
 import de.elmar_baumann.jpt.exporter.RenameTemplatesExporter.CollectionWrapper;
-import de.elmar_baumann.jpt.view.ViewUtil;
-import java.awt.Component;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.File;
-import java.util.List;
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
 
 /**
  *
@@ -17,36 +17,40 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-03-02
  */
-public final class RenameTemplatesImporter {
+public final class RenameTemplatesImporter implements Importer {
 
-    public static void importFile(Component parent, boolean dlgMessages) {
-        File file = ViewUtil.chooseFile(RenameTemplatesExporter.KEY_START_DIR, RenameTemplatesExporter.FILE_FILTER, null);
+    public static final RenameTemplatesImporter INSTANCE = new RenameTemplatesImporter();
 
-        if (file != null) {
-            importFile(file, dlgMessages);
-        }
-    }
-
-    public static void importFile(File file, boolean dlgMessages) {
+    @Override
+    public void importFile(File file) {
         try {
             RenameTemplatesExporter.CollectionWrapper wrapper = (CollectionWrapper)
                     XmlObjectImporter.importObject(
                           file, RenameTemplatesExporter.CollectionWrapper.class);
-            int                  insertCount = 0;
-            List<RenameTemplate> templates   = wrapper.getCollection();
 
-            for (RenameTemplate template : templates) {
+            for (RenameTemplate template : wrapper.getCollection()) {
                 if (!DatabaseRenameTemplates.INSTANCE.exists(template.getName())) {
-                    if (DatabaseRenameTemplates.INSTANCE.insert(template)) {
-                        insertCount++;
-                    }
+                    DatabaseRenameTemplates.INSTANCE.insert(template);
                 }
             }
-            if (dlgMessages) MessageDisplayer.information(null, "RenameTemplatesImporter.Info.ImportSuccess", insertCount, templates.size(), file);
         } catch (Exception ex) {
             AppLogger.logSevere(RenameTemplatesImporter.class, ex);
-            if (dlgMessages) MessageDisplayer.error(null, "RenameTemplatesImporter.Error.Import", file);
         }
+    }
+
+    @Override
+    public FileFilter getFileFilter() {
+        return RenameTemplatesExporter.FILE_FILTER;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return JptBundle.INSTANCE.getString("RenameTemplatesImporter.DisplayName");
+    }
+
+    @Override
+    public Icon getIcon() {
+        return AppLookAndFeel.getIcon("icon_import.png");
     }
 
     private RenameTemplatesImporter() {

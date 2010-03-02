@@ -30,8 +30,7 @@ import java.util.List;
  */
 public final class KeywordExporters {
 
-    private static final List<KeywordExporter> exporters =
-            new ArrayList<KeywordExporter>();
+    private static final List<Exporter> exporters = new ArrayList<Exporter>();
 
     static {
         exporters.add(KeywordExporterJpt.INSTANCE);
@@ -43,8 +42,8 @@ public final class KeywordExporters {
      *
      * @return exporters
      */
-    public static List<KeywordExporter> getAll() {
-        return new ArrayList<KeywordExporter>(exporters);
+    public static List<Exporter> getAll() {
+        return new ArrayList<Exporter>(exporters);
     }
 
     private KeywordExporters() {

@@ -48,12 +48,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * JPhotoTagger's own export format.
+ * JPhotoTagger's own exportFile format.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-10-11
  */
-public final class KeywordExporterJpt implements KeywordExporter {
+public final class KeywordExporterJpt implements Exporter {
 
     public static final KeywordExporterJpt INSTANCE = new KeywordExporterJpt();
     /**
@@ -90,7 +90,7 @@ public final class KeywordExporterJpt implements KeywordExporter {
      */
     public static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
     /**
-     * Description returned by {@link #getDescription()}
+     * Description returned by {@link #getDisplayName()}
      */
     public static final String DESCRIPTION = JptBundle.INSTANCE.getString("KeywordExporterJpt.Description");
     /**
@@ -104,7 +104,7 @@ public final class KeywordExporterJpt implements KeywordExporter {
     }
 
     @Override
-    public void export(File file) {
+    public void exportFile(File file) {
         try {
             Document           doc   = getXml();
             DOMSource          ds    = new DOMSource(doc);
@@ -175,7 +175,7 @@ public final class KeywordExporterJpt implements KeywordExporter {
     }
 
     @Override
-    public String getDescription() {
+    public String getDisplayName() {
         return DESCRIPTION;
     }
 
@@ -186,7 +186,7 @@ public final class KeywordExporterJpt implements KeywordExporter {
 
     @Override
     public String toString() {
-        return getDescription();
+        return getDisplayName();
     }
 
     private KeywordExporterJpt() {
