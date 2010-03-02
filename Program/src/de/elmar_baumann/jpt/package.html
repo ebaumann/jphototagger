@@ -7,13 +7,18 @@
   <body>
       Some Implementation notes on JPhotoTagger.
 
-      <p>The main parts are:
+      <p>This article was written after collecting experiences, see the status
+          date at the end of this document. You will see older code that does
+          not follow these notes but newer should it.
       </p>
 
+      <h2>Main parts</h2>
+
       <ul>
-          <li>A <strong>database</strong> for specific persistent content.
-              A database <strong>notifies</strong> database listeners on
-              database changes.
+          <li>A specialized <strong>database query- and updater</strong> class
+              for specific persistent content. It updates a subset of tables in
+              JPhotoTagger's database and <strong>notifies</strong> database
+              listeners on database changes.
           </li>
           <li><strong>Models</strong> containing specific database content. A
               database model <strong>listens</strong> to changes within its
