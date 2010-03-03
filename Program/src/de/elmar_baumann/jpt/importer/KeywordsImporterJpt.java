@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.exporter.KeywordExporterJpt;
+import de.elmar_baumann.jpt.exporter.KeywordsExporterJpt;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
 import java.io.IOException;
@@ -42,14 +42,14 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Imports Keywords exported by {@link KeywordExporterJpt}.
+ * Imports Keywords exported by {@link KeywordsExporterJpt}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-10-11
  */
-public final class KeywordImporterJpt extends KeywordImporter implements EntityResolver {
+public final class KeywordsImporterJpt extends KeywordsImporter implements EntityResolver {
 
-    public static final KeywordImporterJpt INSTANCE = new KeywordImporterJpt();
+    public static final KeywordsImporterJpt INSTANCE = new KeywordsImporterJpt();
 
     @Override
     public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
@@ -60,7 +60,7 @@ public final class KeywordImporterJpt extends KeywordImporter implements EntityR
             docBuilder.setEntityResolver(this);
 
             Document doc = docBuilder.parse(file);
-            NodeList nl  = doc.getElementsByTagName(KeywordExporterJpt.TAGNAME_ROOT);
+            NodeList nl  = doc.getElementsByTagName(KeywordsExporterJpt.TAGNAME_ROOT);
 
             if (nl.getLength() > 0) {
                 return getPaths(nl.item(0));
@@ -93,15 +93,15 @@ public final class KeywordImporterJpt extends KeywordImporter implements EntityR
 
     private Pair<String, Boolean> getKeyword(Node node) {
         NamedNodeMap attr = node.getAttributes();
-        String       name = attr.getNamedItem(KeywordExporterJpt.ATTRIBUTE_NAME).getNodeValue();
-        Boolean      real = attr.getNamedItem(KeywordExporterJpt.ATTRIBUTE_TYPE).getNodeValue().equals(KeywordExporterJpt.VALUE_OF_ATTRIBUTE_TYPE.get(true));
+        String       name = attr.getNamedItem(KeywordsExporterJpt.ATTRIBUTE_NAME).getNodeValue();
+        Boolean      real = attr.getNamedItem(KeywordsExporterJpt.ATTRIBUTE_TYPE).getNodeValue().equals(KeywordsExporterJpt.VALUE_OF_ATTRIBUTE_TYPE.get(true));
 
         return new Pair<String, Boolean>(name, real);
     }
 
     private void pushParents(Stack<Node> nodes, Node node) {
         Node parent = node.getParentNode();
-        if (parent != null && !parent.getNodeName().equals(KeywordExporterJpt.TAGNAME_ROOT)) {
+        if (parent != null && !parent.getNodeName().equals(KeywordsExporterJpt.TAGNAME_ROOT)) {
             nodes.push(parent);
             pushParents(nodes, parent); // recursive
         }
@@ -119,7 +119,7 @@ public final class KeywordImporterJpt extends KeywordImporter implements EntityR
     }
 
     private void addLeaf(Collection<Node> leafs, Node node) {
-        if (!node.getNodeName().equals(KeywordExporterJpt.TAGNAME_KEYWORD)) return;
+        if (!node.getNodeName().equals(KeywordsExporterJpt.TAGNAME_KEYWORD)) return;
 
         NodeList nl     = node.getChildNodes();
         int      length = nl.getLength();
@@ -135,28 +135,28 @@ public final class KeywordImporterJpt extends KeywordImporter implements EntityR
 
     @Override
     public FileFilter getFileFilter() {
-        return KeywordExporterJpt.INSTANCE.getFileFilter();
+        return KeywordsExporterJpt.INSTANCE.getFileFilter();
     }
 
     @Override
     public String getDisplayName() {
-        return KeywordExporterJpt.INSTANCE.getDisplayName();
+        return KeywordsExporterJpt.INSTANCE.getDisplayName();
     }
 
     @Override
     public Icon getIcon() {
-        return KeywordExporterJpt.INSTANCE.getIcon();
+        return KeywordsExporterJpt.INSTANCE.getIcon();
     }
 
     @Override
     public String getDefaultFilename() {
-        return KeywordExporterJpt.INSTANCE.getDefaultFilename();
+        return KeywordsExporterJpt.INSTANCE.getDefaultFilename();
     }
 
     @Override
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         InputStream stream = null;
-        String      dtd    = KeywordExporterJpt.DTD;
+        String      dtd    = KeywordsExporterJpt.DTD;
 
         if (systemId.endsWith(dtd)) {
             String name = "/de/elmar_baumann/jpt/resource/dtd/" + dtd;
@@ -167,6 +167,6 @@ public final class KeywordImporterJpt extends KeywordImporter implements EntityR
         return stream == null ? null : new InputSource(new InputStreamReader(stream));
     }
 
-    private KeywordImporterJpt() {
+    private KeywordsImporterJpt() {
     }
 }

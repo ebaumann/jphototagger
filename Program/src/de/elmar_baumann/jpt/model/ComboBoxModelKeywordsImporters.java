@@ -18,28 +18,28 @@
  */
 package de.elmar_baumann.jpt.model;
 
-import de.elmar_baumann.jpt.exporter.Exporter;
-import de.elmar_baumann.jpt.exporter.KeywordExporters;
+import de.elmar_baumann.jpt.importer.KeywordsImporter;
+import de.elmar_baumann.jpt.importer.KeywordImporters;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- * Elements are all implemented {@link }s retrieved through
- * {@link KeywordExporters#getAll()}.
+ * Contains all implemented {@link KeywordsImporter}s retrieved through
+ * {@link KeywordImporters#getAll()}.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-public final class ComboBoxModelKeywordExporters extends DefaultComboBoxModel {
+public final class ComboBoxModelKeywordsImporters extends DefaultComboBoxModel {
 
-    private static final long serialVersionUID = 9136865883087790779L;
+    private static final long serialVersionUID = 7228501230169153588L;
 
-    public ComboBoxModelKeywordExporters() {
+    public ComboBoxModelKeywordsImporters() {
         addElements();
     }
 
     private void addElements() {
-        for (Exporter exporter : KeywordExporters.getAll()) {
-            addElement(exporter);
+        for (KeywordsImporter importer : KeywordImporters.getAll()) {
+            addElement(importer);
         }
     }
 }

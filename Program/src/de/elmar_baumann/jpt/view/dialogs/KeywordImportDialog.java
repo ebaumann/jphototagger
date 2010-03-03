@@ -19,8 +19,8 @@
 package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.importer.KeywordImporter;
-import de.elmar_baumann.jpt.model.ComboBoxModelKeywordImporters;
+import de.elmar_baumann.jpt.importer.KeywordsImporter;
+import de.elmar_baumann.jpt.model.ComboBoxModelKeywordsImporters;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -43,7 +43,7 @@ public class KeywordImportDialog extends Dialog {
     private static final long                                       serialVersionUID       = 7441650879878050560L;
     private              boolean                                    accepted;
     private              File                                       file;
-    private              ComboBoxModelKeywordImporters comboBoxModelImporter = new ComboBoxModelKeywordImporters();
+    private              ComboBoxModelKeywordsImporters comboBoxModelImporter = new ComboBoxModelKeywordsImporters();
 
     public KeywordImportDialog() {
         super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
@@ -73,12 +73,12 @@ public class KeywordImportDialog extends Dialog {
      *
      * @return importer or null if no importer was selected.
      */
-    public KeywordImporter getImporter() {
+    public KeywordsImporter getImporter() {
         assert accepted : "Import was not accepted!";
         if (!accepted) return null;
         Object item = comboBoxImporter.getSelectedItem();
-        return item instanceof KeywordImporter
-               ? (KeywordImporter) item
+        return item instanceof KeywordsImporter
+               ? (KeywordsImporter) item
                : null;
     }
 
@@ -107,13 +107,13 @@ public class KeywordImportDialog extends Dialog {
 
     private void chooseFile() {
         Object selItem = comboBoxImporter.getSelectedItem();
-        if (selItem instanceof KeywordImporter) {
+        if (selItem instanceof KeywordsImporter) {
             JFileChooser fileChooser = new JFileChooser();
             if (file != null && file.isFile()) {
                 fileChooser.setCurrentDirectory(file.getParentFile());
             }
             fileChooser.setFileFilter(
-                    ((KeywordImporter) selItem).getFileFilter());
+                    ((KeywordsImporter) selItem).getFileFilter());
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setDialogTitle(getTitle());
             if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {

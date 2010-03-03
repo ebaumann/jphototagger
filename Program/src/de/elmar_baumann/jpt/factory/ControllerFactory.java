@@ -46,7 +46,7 @@ import de.elmar_baumann.jpt.controller.filesystem.ControllerDeleteFiles;
 import de.elmar_baumann.jpt.controller.filesystem.ControllerMoveFiles;
 import de.elmar_baumann.jpt.controller.filesystem.ControllerRenameFiles;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerAddToImageCollection;
-import de.elmar_baumann.jpt.controller.imagecollection.ControllerCreateImageCollection;
+import de.elmar_baumann.jpt.controller.imagecollection.ControllerAddImageCollection;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerDeleteFromImageCollection;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerDeleteImageCollection;
 import de.elmar_baumann.jpt.controller.imagecollection.ControllerImageCollectionSelected;
@@ -162,7 +162,7 @@ public final class ControllerFactory {
         support.add(new ControllerMenuItemEnabler());
         support.add(new ControllerThumbnailCountDisplay());
         support.add(new ControllerCreateMetadataOfSelectedThumbnails());
-        support.add(new ControllerCreateImageCollection());
+        support.add(new ControllerAddImageCollection());
         support.add(new ControllerDeleteImageCollection());
         support.add(new ControllerDeleteFromImageCollection());
         support.add(new ControllerAddToImageCollection());

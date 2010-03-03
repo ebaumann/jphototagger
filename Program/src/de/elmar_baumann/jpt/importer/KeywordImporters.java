@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contains instances of all {@link KeywordImporter}
+ * Contains instances of all {@link KeywordsImporter}
  * implementations.
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
@@ -30,12 +30,12 @@ import java.util.List;
  */
 public final class KeywordImporters {
 
-    private static final List<KeywordImporter> importers =
-            new ArrayList<KeywordImporter>();
+    private static final List<KeywordsImporter> importers =
+            new ArrayList<KeywordsImporter>();
 
     static {
-        importers.add(KeywordImporterJpt.INSTANCE);
-        importers.add(KeywordImporterLightroom.INSTANCE);
+        importers.add(KeywordsImporterJpt.INSTANCE);
+        importers.add(KeywordsImporterLightroom.INSTANCE);
     }
 
     /**
@@ -43,8 +43,8 @@ public final class KeywordImporters {
      *
      * @return importers
      */
-    public static List<KeywordImporter> getAll() {
-        return new ArrayList<KeywordImporter>(importers);
+    public static List<KeywordsImporter> getAll() {
+        return new ArrayList<KeywordsImporter>(importers);
     }
 
     private KeywordImporters() {

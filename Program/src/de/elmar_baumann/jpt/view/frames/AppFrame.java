@@ -33,8 +33,8 @@ import de.elmar_baumann.jpt.comparator.ComparatorXmpIptcLocationAsc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpIptcLocationDesc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpRatingAsc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpRatingDesc;
-import de.elmar_baumann.jpt.exporter.JptMiscExporter;
-import de.elmar_baumann.jpt.importer.JptMiscImporter;
+import de.elmar_baumann.jpt.exporter.JptMiscExporters;
+import de.elmar_baumann.jpt.importer.JptMiscImporters;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -405,7 +405,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemImportKeywords.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemImportKeywords.text")); // NOI18N
         menuImport.add(menuItemImportKeywords);
 
-        menuItemImportJptMisc.setAction(JptMiscImporter.INSTANCE);
+        menuItemImportJptMisc.setAction(JptMiscImporters.INSTANCE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         menuItemImportJptMisc.setText(bundle.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
         menuImport.add(menuItemImportJptMisc);
@@ -419,7 +419,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemExportKeywords.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExportKeywords.text")); // NOI18N
         menuExport.add(menuItemExportKeywords);
 
-        menuItemExportJptMisc.setAction(JptMiscExporter.INSTANCE);
+        menuItemExportJptMisc.setAction(JptMiscExporters.INSTANCE);
         menuItemExportJptMisc.setText(bundle.getString("AppFrame.menuItemExportJptMisc.text")); // NOI18N
         menuExport.add(menuItemExportJptMisc);
 

@@ -45,9 +45,9 @@ import javax.swing.tree.TreeModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-public final class KeywordExporterLightroom implements Exporter {
+public final class KeywordsExporterLightroom implements Exporter {
 
-    public static  final KeywordExporterLightroom INSTANCE = new KeywordExporterLightroom();
+    public static  final KeywordsExporterLightroom INSTANCE = new KeywordsExporterLightroom();
     private static final Icon                     ICON     = AppLookAndFeel.getIcon("icon_lightroom.png");
     /**
      * Lightroom exports keywords within {} - constant if changed in later
@@ -146,6 +146,6 @@ public final class KeywordExporterLightroom implements Exporter {
         return getDisplayName();
     }
 
-    private KeywordExporterLightroom() {
+    private KeywordsExporterLightroom() {
     }
 }

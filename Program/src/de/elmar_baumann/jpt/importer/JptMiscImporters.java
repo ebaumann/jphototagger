@@ -16,36 +16,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.exporter;
+package de.elmar_baumann.jpt.importer;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.elmar_baumann.jpt.view.dialogs.ExportImportDialog;
+import de.elmar_baumann.jpt.view.panels.ExportImportPanel.Context;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
 
 /**
- * Contains instances of all {@link KeywordExporter}
- * implementations.
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2009-08-01
+ * @version 2010-03-03
  */
-public final class KeywordExporters {
+public final class JptMiscImporters extends AbstractAction {
 
-    private static final List<Exporter> exporters = new ArrayList<Exporter>();
+    private static final long            serialVersionUID = 7147327788643508948L;
+    public static final  JptMiscImporters INSTANCE         = new JptMiscImporters();
 
-    static {
-        exporters.add(KeywordExporterJpt.INSTANCE);
-        exporters.add(KeywordExporterLightroom.INSTANCE);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new ExportImportDialog(Context.IMPORT).setVisible(true);
     }
 
-    /**
-     * Returns all exporters of keywords.
-     *
-     * @return exporters
-     */
-    public static List<Exporter> getAll() {
-        return new ArrayList<Exporter>(exporters);
-    }
-
-    private KeywordExporters() {
+    private JptMiscImporters() {
     }
 }

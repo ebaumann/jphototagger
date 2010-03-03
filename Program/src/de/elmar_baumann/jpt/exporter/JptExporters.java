@@ -15,10 +15,12 @@ public final class JptExporters {
     private static final List<Exporter> EXPORTERS = new ArrayList<Exporter>();
 
     static {
-        EXPORTERS.add(KeywordExporterJpt.INSTANCE);
+        // Please add new exportes at the end
+        EXPORTERS.add(KeywordsExporterJpt.INSTANCE);
         EXPORTERS.add(SynonymsExporter.INSTANCE);
         EXPORTERS.add(RenameTemplatesExporter.INSTANCE);
         EXPORTERS.add(SavedSearchesExporter.INSTANCE);
+        EXPORTERS.add(ImageCollectionsExporter.INSTANCE);
     }
 
     public static List<Exporter> get() {

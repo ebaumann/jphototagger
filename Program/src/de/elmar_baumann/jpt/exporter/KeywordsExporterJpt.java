@@ -52,9 +52,9 @@ import org.w3c.dom.Element;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-10-11
  */
-public final class KeywordExporterJpt implements Exporter {
+public final class KeywordsExporterJpt implements Exporter {
 
-    public static final KeywordExporterJpt INSTANCE = new KeywordExporterJpt();
+    public static final KeywordsExporterJpt INSTANCE = new KeywordsExporterJpt();
     /**
      * DTD of the exported file
      */
@@ -186,6 +186,6 @@ public final class KeywordExporterJpt implements Exporter {
         return getDisplayName();
     }
 
-    private KeywordExporterJpt() {
+    private KeywordsExporterJpt() {
     }
 }

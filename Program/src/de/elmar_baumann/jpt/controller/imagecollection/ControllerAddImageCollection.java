@@ -47,7 +47,7 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-10
  */
-public final class ControllerCreateImageCollection
+public final class ControllerAddImageCollection
         implements ActionListener, KeyListener {
 
     private final PopupMenuThumbnails       popupMenuThumbnails       = PopupMenuThumbnails.INSTANCE;
@@ -56,7 +56,7 @@ public final class ControllerCreateImageCollection
     private final JList                     listImageCollections      = appPanel.getListImageCollections();
     private final ThumbnailsPanel           thumbnailsPanel           = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
-    public ControllerCreateImageCollection() {
+    public ControllerAddImageCollection() {
         listen();
     }
 

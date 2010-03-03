@@ -21,7 +21,7 @@ package de.elmar_baumann.jpt.view.dialogs;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.exporter.Exporter;
-import de.elmar_baumann.jpt.model.ComboBoxModelKeywordExporters;
+import de.elmar_baumann.jpt.model.ComboBoxModelKeywordsExporters;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -43,7 +43,7 @@ public class KeywordExportDialog extends Dialog {
     private static final long                          serialVersionUID       = 5431485480637999486L;
     private              boolean                       accepted;
     private              File                          file;
-    private              ComboBoxModelKeywordExporters comboBoxModelExporter  = new ComboBoxModelKeywordExporters();
+    private              ComboBoxModelKeywordsExporters comboBoxModelExporter  = new ComboBoxModelKeywordsExporters();
     private static final String                        KEY_SEL_EXPORTER_INDEX = "KeywordExportDialog.SelectedExporterIndex";
 
     public KeywordExportDialog() {
