@@ -21,6 +21,7 @@ public final class JptImporters {
         IMPORTERS.add(RenameTemplatesImporter.INSTANCE);
         IMPORTERS.add(SavedSearchesImporter.INSTANCE);
         IMPORTERS.add(ImageCollectionsImporter.INSTANCE);
+        IMPORTERS.add(MetadataTemplatesImporter.INSTANCE);
     }
 
     public static List<Importer> get() {

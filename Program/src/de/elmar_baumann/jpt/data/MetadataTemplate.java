@@ -22,6 +22,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Holds the data of a metadata edit template.
@@ -115,5 +116,9 @@ public final class MetadataTemplate {
                 }
             }
         }
+    }
+
+    public Set<Column> getColumns() {
+        return fieldOfColumn.keySet();
     }
 }

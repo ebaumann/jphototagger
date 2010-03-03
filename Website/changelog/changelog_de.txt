@@ -17,6 +17,7 @@ Changelog JPhotoTagger
   * Dateinamen-Schablonen (neu)
   * Gespeicherte Suchen (neu)
   * Fotoalben (neu)
+  * Bearbeiten-Vorlagen (neu)
   Weitere Informationen stehen im PDF-Benutzerhandbuch oder in der Hilfe,
   die Sie bei geöffneten Dialog mit F1 aufrufen können (wobei [ohne Umwege]
   die richtige Seite angezeigt wird).
