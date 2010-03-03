@@ -1,38 +1,45 @@
 /*
  * JPhotoTagger tags and finds images fast
  * Copyright (C) 2009 by the developer team, resp. Elmar Baumann<eb@elmar-baumann.de>
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.importer;
+package de.elmar_baumann.jpt.exporter;
 
-import java.io.File;
-import javax.swing.Icon;
-import javax.swing.filechooser.FileFilter;
+import de.elmar_baumann.jpt.view.dialogs.ExportImportDialog;
+import de.elmar_baumann.jpt.view.panels.ExportImportPanel.Context;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
 
 /**
  *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2010-03-02
+ * @version 2010-03-03
  */
-public interface Importer {
+public final class JptMiscExporter extends AbstractAction {
 
-    public void importFile(File file);
-    public FileFilter getFileFilter();
-    public String getDisplayName();
-    public Icon getIcon();
-    public String getDefaultFilename();
+    private static final long            serialVersionUID = 2682169629889229733L;
+    public static final  JptMiscExporter INSTANCE         = new JptMiscExporter();
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new ExportImportDialog(Context.EXPORT).setVisible(true);
+    }
+
+    private JptMiscExporter() {
+    }
+
 }

@@ -8,6 +8,18 @@ Changelog JPhotoTagger
 0.7.84 2010-03-01
 -----------------
 
+* Neuer Menüpunkt: Datei > Exportieren > Verschiedene JPhotoTagger-Daten
+* Neuer Menüpunkt: Datei > Importieren > Verschiedene JPhotoTagger-Daten
+* Die neuen Menüpunkte können wahlweise folgende Daten in XML-Dateien
+  exportieren:
+  * JPhotoTagger-Stichwortbaum
+  * Synonyme (wurde durch diesen Menüpunkt ersetzt)
+  * Dateinamen-Schablonen (neu)
+  * Gespeicherte Suchen (neu)
+
+0.7.84 2010-03-01
+-----------------
+
 * Umbenennen von Dateien: Es können Schablonen gespeichert und geladen werden
 
 0.7.83 2010-02-28

@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.exporter;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.CharEncoding;
@@ -88,15 +87,9 @@ public final class KeywordExporterJpt implements Exporter {
     /**
      * Icon returned by {@link #getIcon()}
      */
-    public static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
-    /**
-     * Description returned by {@link #getDisplayName()}
-     */
-    public static final String DESCRIPTION = JptBundle.INSTANCE.getString("KeywordExporterJpt.Description");
-    /**
-     * File filter returned by {@link #getFileFilter()}
-     */
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DESCRIPTION, "xml");
+    private static final Icon       ICON         = AppLookAndFeel.getIcon("icon_app_small.png");
+    private static final String     DISPLAY_NAME = JptBundle.INSTANCE.getString("KeywordExporterJpt.DisplayName");
+    private static final FileFilter FILE_FILTER  = new FileNameExtensionFilter(DISPLAY_NAME, "xml");
 
     static {
         VALUE_OF_ATTRIBUTE_TYPE.put(true, "real");
@@ -115,7 +108,6 @@ public final class KeywordExporterJpt implements Exporter {
             trans.transform(ds, sr);
         } catch (Exception ex) {
             AppLogger.logSevere(getClass(), ex);
-            MessageDisplayer.error(null, "KeywordExporterJpt.Error");
         }
     }
 
@@ -176,12 +168,17 @@ public final class KeywordExporterJpt implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return DESCRIPTION;
+        return DISPLAY_NAME;
     }
 
     @Override
     public Icon getIcon() {
         return ICON;
+    }
+
+    @Override
+    public String getDefaultFilename() {
+        return "JptKeywords.xml";
     }
 
     @Override

@@ -19,7 +19,6 @@
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.exporter.KeywordExporterJpt;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.File;
@@ -68,7 +67,6 @@ public final class KeywordImporterJpt extends KeywordImporter implements EntityR
             }
         } catch (Exception ex) {
             AppLogger.logSevere(getClass(), ex);
-            MessageDisplayer.error(null, "KeywordImporterJpt.Error");
         }
         return null;
     }
@@ -137,20 +135,22 @@ public final class KeywordImporterJpt extends KeywordImporter implements EntityR
 
     @Override
     public FileFilter getFileFilter() {
-        return KeywordExporterJpt.FILE_FILTER;
+        return KeywordExporterJpt.INSTANCE.getFileFilter();
     }
 
     @Override
     public String getDisplayName() {
-        return KeywordExporterJpt.DESCRIPTION;
+        return KeywordExporterJpt.INSTANCE.getDisplayName();
     }
 
     @Override
     public Icon getIcon() {
-        return KeywordExporterJpt.ICON;
+        return KeywordExporterJpt.INSTANCE.getIcon();
     }
 
-    private KeywordImporterJpt() {
+    @Override
+    public String getDefaultFilename() {
+        return KeywordExporterJpt.INSTANCE.getDefaultFilename();
     }
 
     @Override
@@ -159,10 +159,14 @@ public final class KeywordImporterJpt extends KeywordImporter implements EntityR
         String      dtd    = KeywordExporterJpt.DTD;
 
         if (systemId.endsWith(dtd)) {
+            String name = "/de/elmar_baumann/jpt/resource/dtd/" + dtd;
 
-            stream = EntityResolver.class.getResourceAsStream(
-                    "/de/elmar_baumann/jpt/resource/dtd/" + dtd);
+            stream = EntityResolver.class.getResourceAsStream(name);
+            assert stream != null : name;
         }
-        return new InputSource(new InputStreamReader(stream));
+        return stream == null ? null : new InputSource(new InputStreamReader(stream));
+    }
+
+    private KeywordImporterJpt() {
     }
 }

@@ -18,11 +18,9 @@
  */
 package de.elmar_baumann.jpt.importer;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.exporter.KeywordExporterLightroom;
 import de.elmar_baumann.jpt.io.CharEncoding;
-import de.elmar_baumann.jpt.io.FilenameSuffixes;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,7 +34,6 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.
@@ -47,7 +44,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public final class KeywordImporterLightroom extends KeywordImporter {
 
     public static final  KeywordImporterLightroom INSTANCE = new KeywordImporterLightroom();
-    private static final Icon                     ICON     = AppLookAndFeel.getIcon("icon_lightroom.png");
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
@@ -171,26 +167,27 @@ public final class KeywordImporterLightroom extends KeywordImporter {
 
     @Override
     public FileFilter getFileFilter() {
-        return new FileNameExtensionFilter(
-                getDisplayName(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
+        return KeywordExporterLightroom.INSTANCE.getFileFilter();
     }
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("KeywordImporterLightroom.Description");
+        return KeywordExporterLightroom.INSTANCE.getDisplayName();
+    }
+
+    @Override
+    public Icon getIcon() {
+        return KeywordExporterLightroom.INSTANCE.getIcon();
+    }
+
+    @Override
+    public String getDefaultFilename() {
+        return KeywordExporterLightroom.INSTANCE.getDefaultFilename();
     }
 
     @Override
     public String toString() {
         return getDisplayName();
-    }
-
-    private KeywordImporterLightroom() {
-    }
-
-    @Override
-    public Icon getIcon() {
-        return ICON;
     }
 
     private class Node {
@@ -258,5 +255,8 @@ public final class KeywordImporterLightroom extends KeywordImporter {
         private boolean isLevel(int level) {
             return level >= 0 && level <= this.level + 1;
         }
+    }
+
+    private KeywordImporterLightroom() {
     }
 }

@@ -20,10 +20,8 @@ package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
 import de.elmar_baumann.jpt.exporter.SynonymsExporter;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +47,7 @@ import org.xml.sax.SAXException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-07
  */
-public final class SynonymsImporter 
+public final class SynonymsImporter
         extends    AbstractAction
         implements Importer,
                    EntityResolver
@@ -65,8 +63,6 @@ public final class SynonymsImporter
     @Override
     public void importFile(File file) {
 
-        if (!checkExistsFile(file)) return;
-
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder        docBuilder = docFactory.newDocumentBuilder();
@@ -78,14 +74,12 @@ public final class SynonymsImporter
             importSynonyms(doc);
         } catch (Exception ex) {
             AppLogger.logSevere(getClass(), ex);
-            MessageDisplayer.error(null, "SynonymsImporter.Error.Import");
         }
     }
 
     private void importSynonyms(Document doc) {
         NodeList entries     = doc.getElementsByTagName(SynonymsExporter.TAGNAME_ENTRY);
         int      entryCount  = entries.getLength();
-        int      importCount = 0;
 
         for (int i = 0; i < entryCount; i++) {
             Node     entryNode = entries.item(i);
@@ -106,12 +100,10 @@ public final class SynonymsImporter
                     }
                 }
                 for (String synonym : synonyms) {
-                    importCount += DatabaseSynonyms.INSTANCE.insert(word, synonym);
+                    DatabaseSynonyms.INSTANCE.insert(word, synonym);
                 }
             }
         }
-
-        MessageDisplayer.information(null, "SynonymsExporter.Info.Count", importCount);
     }
 
     @Override
@@ -119,33 +111,31 @@ public final class SynonymsImporter
         InputStream stream = null;
         String dtd = SynonymsExporter.DTD;
         if (systemId.endsWith(dtd)) {
-            stream = EntityResolver.class.getResourceAsStream(
-                    "/de/elmar_baumann/jpt/resource/dtd/" + dtd);
+            String name = "/de/elmar_baumann/jpt/resource/dtd/" + dtd;
+            stream = EntityResolver.class.getResourceAsStream(name);
+            assert stream != null : name;
         }
-        return new InputSource(new InputStreamReader(stream));
-    }
-
-    private boolean checkExistsFile(File file) {
-        if (!file.exists()) {
-            MessageDisplayer.error(null, "SynonymsImporter.Error.FileDoesNotExist", file);
-            return false;
-        }
-        return true;
+        return stream == null ? null : new InputSource(new InputStreamReader(stream));
     }
 
     @Override
     public FileFilter getFileFilter() {
-        return SynonymsExporter.FILE_FILTER;
+        return SynonymsExporter.INSTANCE.getFileFilter();
     }
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("SynonymsImporter.DisplayName");
+        return SynonymsExporter.INSTANCE.getDisplayName();
     }
 
     @Override
     public Icon getIcon() {
         return AppLookAndFeel.getIcon("icon_import.png");
+    }
+
+    @Override
+    public String getDefaultFilename() {
+        return SynonymsExporter.INSTANCE.getDefaultFilename();
     }
 
     private SynonymsImporter() {}

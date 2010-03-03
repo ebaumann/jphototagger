@@ -33,8 +33,8 @@ import de.elmar_baumann.jpt.comparator.ComparatorXmpIptcLocationAsc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpIptcLocationDesc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpRatingAsc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpRatingDesc;
-import de.elmar_baumann.jpt.exporter.SynonymsExporter;
-import de.elmar_baumann.jpt.importer.SynonymsImporter;
+import de.elmar_baumann.jpt.exporter.JptMiscExporter;
+import de.elmar_baumann.jpt.importer.JptMiscImporter;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -295,10 +295,10 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator11 = new javax.swing.JSeparator();
         menuImport = new javax.swing.JMenu();
         menuItemImportKeywords = new javax.swing.JMenuItem();
-        menuItemImportSynonyms = new javax.swing.JMenuItem();
+        menuItemImportJptMisc = new javax.swing.JMenuItem();
         menuExport = new javax.swing.JMenu();
         menuItemExportKeywords = new javax.swing.JMenuItem();
-        menuItemExportSynonyms = new javax.swing.JMenuItem();
+        menuItemExportJptMisc = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
@@ -405,10 +405,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemImportKeywords.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemImportKeywords.text")); // NOI18N
         menuImport.add(menuItemImportKeywords);
 
-        menuItemImportSynonyms.setAction(SynonymsImporter.INSTANCE);
+        menuItemImportJptMisc.setAction(JptMiscImporter.INSTANCE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        menuItemImportSynonyms.setText(bundle.getString("AppFrame.menuItemImportSynonyms.text")); // NOI18N
-        menuImport.add(menuItemImportSynonyms);
+        menuItemImportJptMisc.setText(bundle.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
+        menuImport.add(menuItemImportJptMisc);
 
         menuFile.add(menuImport);
 
@@ -419,9 +419,9 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemExportKeywords.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExportKeywords.text")); // NOI18N
         menuExport.add(menuItemExportKeywords);
 
-        menuItemExportSynonyms.setAction(SynonymsExporter.INSTANCE);
-        menuItemExportSynonyms.setText(bundle.getString("AppFrame.menuItemExportSynonyms.text")); // NOI18N
-        menuExport.add(menuItemExportSynonyms);
+        menuItemExportJptMisc.setAction(JptMiscExporter.INSTANCE);
+        menuItemExportJptMisc.setText(bundle.getString("AppFrame.menuItemExportJptMisc.text")); // NOI18N
+        menuExport.add(menuItemExportJptMisc);
 
         menuFile.add(menuExport);
         menuFile.add(jSeparator4);
@@ -702,6 +702,7 @@ public final class AppFrame extends javax.swing.JFrame {
 
         setJMenuBar(menuBar);
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSort;
     private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;
@@ -739,8 +740,8 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
+    private javax.swing.JMenuItem menuItemExportJptMisc;
     private javax.swing.JMenuItem menuItemExportKeywords;
-    private javax.swing.JMenuItem menuItemExportSynonyms;
     private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
     private javax.swing.JMenuItem menuItemGotoCollections;
     private javax.swing.JMenuItem menuItemGotoDirectories;
@@ -757,8 +758,8 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
+    private javax.swing.JMenuItem menuItemImportJptMisc;
     private javax.swing.JMenuItem menuItemImportKeywords;
-    private javax.swing.JMenuItem menuItemImportSynonyms;
     private javax.swing.JMenuItem menuItemInputHelper;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;

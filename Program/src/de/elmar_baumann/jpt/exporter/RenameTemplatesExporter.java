@@ -57,6 +57,11 @@ public final class RenameTemplatesExporter implements Exporter {
         return AppLookAndFeel.getIcon("icon_export.png");
     }
 
+    @Override
+    public String getDefaultFilename() {
+        return "JptRenameTemplates.xml";
+    }
+
     @XmlRootElement
     public static class CollectionWrapper {
 
