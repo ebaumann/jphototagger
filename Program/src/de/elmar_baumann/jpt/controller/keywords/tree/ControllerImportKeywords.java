@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.importer.KeywordImporter;
+import de.elmar_baumann.jpt.importer.KeywordsImporter;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.KeywordImportDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
@@ -51,7 +51,7 @@ public final class ControllerImportKeywords implements ActionListener {
         KeywordImportDialog dlg = new KeywordImportDialog();
         dlg.setVisible(true);
         if (dlg.isAccepted()) {
-            KeywordImporter importer = dlg.getImporter();
+            KeywordsImporter importer = dlg.getImporter();
             assert importer != null : "Importer is null!";
             if (importer != null) {
                 importer.getPaths(dlg.getFile());

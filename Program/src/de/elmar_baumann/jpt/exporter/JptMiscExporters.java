@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package de.elmar_baumann.jpt.importer;
+package de.elmar_baumann.jpt.exporter;
 
 import de.elmar_baumann.jpt.view.dialogs.ExportImportDialog;
 import de.elmar_baumann.jpt.view.panels.ExportImportPanel.Context;
@@ -29,16 +29,17 @@ import javax.swing.AbstractAction;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-03-03
  */
-public final class JptMiscImporter extends AbstractAction {
+public final class JptMiscExporters extends AbstractAction {
 
-    private static final long            serialVersionUID = 7147327788643508948L;
-    public static final  JptMiscImporter INSTANCE         = new JptMiscImporter();
+    private static final long            serialVersionUID = 2682169629889229733L;
+    public static final  JptMiscExporters INSTANCE         = new JptMiscExporters();
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new ExportImportDialog(Context.IMPORT).setVisible(true);
+        new ExportImportDialog(Context.EXPORT).setVisible(true);
     }
 
-    private JptMiscImporter() {
+    private JptMiscExporters() {
     }
+
 }

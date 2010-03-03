@@ -19,7 +19,7 @@
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.exporter.KeywordExporterLightroom;
+import de.elmar_baumann.jpt.exporter.KeywordsExporterLightroom;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.lib.generics.Pair;
 import java.io.BufferedReader;
@@ -41,9 +41,9 @@ import javax.swing.filechooser.FileFilter;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-public final class KeywordImporterLightroom extends KeywordImporter {
+public final class KeywordsImporterLightroom extends KeywordsImporter {
 
-    public static final  KeywordImporterLightroom INSTANCE = new KeywordImporterLightroom();
+    public static final  KeywordsImporterLightroom INSTANCE = new KeywordsImporterLightroom();
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
@@ -167,22 +167,22 @@ public final class KeywordImporterLightroom extends KeywordImporter {
 
     @Override
     public FileFilter getFileFilter() {
-        return KeywordExporterLightroom.INSTANCE.getFileFilter();
+        return KeywordsExporterLightroom.INSTANCE.getFileFilter();
     }
 
     @Override
     public String getDisplayName() {
-        return KeywordExporterLightroom.INSTANCE.getDisplayName();
+        return KeywordsExporterLightroom.INSTANCE.getDisplayName();
     }
 
     @Override
     public Icon getIcon() {
-        return KeywordExporterLightroom.INSTANCE.getIcon();
+        return KeywordsExporterLightroom.INSTANCE.getIcon();
     }
 
     @Override
     public String getDefaultFilename() {
-        return KeywordExporterLightroom.INSTANCE.getDefaultFilename();
+        return KeywordsExporterLightroom.INSTANCE.getDefaultFilename();
     }
 
     @Override
@@ -257,6 +257,6 @@ public final class KeywordImporterLightroom extends KeywordImporter {
         }
     }
 
-    private KeywordImporterLightroom() {
+    private KeywordsImporterLightroom() {
     }
 }

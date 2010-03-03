@@ -15,10 +15,12 @@ public final class JptImporters {
     private static final List<Importer> IMPORTERS = new ArrayList<Importer>();
 
     static {
-        IMPORTERS.add(KeywordImporterJpt.INSTANCE);
+        // Please add new importes at the end
+        IMPORTERS.add(KeywordsImporterJpt.INSTANCE);
         IMPORTERS.add(SynonymsImporter.INSTANCE);
         IMPORTERS.add(RenameTemplatesImporter.INSTANCE);
         IMPORTERS.add(SavedSearchesImporter.INSTANCE);
+        IMPORTERS.add(ImageCollectionsImporter.INSTANCE);
     }
 
     public static List<Importer> get() {

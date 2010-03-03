@@ -19,6 +19,7 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.data.ImageCollection;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent.Type;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionsListener;
@@ -74,6 +75,17 @@ public final class DatabaseImageCollections extends Database {
             free(connection);
         }
         return names;
+    }
+
+    public List<ImageCollection> getAll2() {
+        List<String>          names       = getAll();
+        List<ImageCollection> collections = new ArrayList<ImageCollection>(names.size());
+
+        for (String name : names) {
+            collections.add(new ImageCollection(name, getFilenamesOf(name)));
+        }
+
+        return collections;
     }
 
     /**
@@ -141,6 +153,10 @@ public final class DatabaseImageCollections extends Database {
             free(connection);
         }
         return filenames;
+    }
+
+    public boolean insert(ImageCollection collection) {
+        return insert(collection.getName(), collection.getFilenames());
     }
 
     /**

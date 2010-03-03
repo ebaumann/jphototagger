@@ -39,7 +39,7 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-08-01
  */
-public abstract class KeywordImporter implements Importer {
+public abstract class KeywordsImporter implements Importer {
 
     private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("KeywordImporter.ProgressBar.String");
 
