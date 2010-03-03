@@ -21,7 +21,6 @@ package de.elmar_baumann.jpt.exporter;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -78,7 +77,6 @@ public final class SynonymsExporter extends AbstractAction implements Exporter {
             insertSynonyms(doc);
             initTransformer(trans);
             trans.transform(ds, sr);
-            MessageDisplayer.information(null, "SynonymsExporter.Info.Success", file);
         } catch (Exception ex) {
             AppLogger.logSevere(SynonymsExporter.class, ex);
         }
@@ -142,6 +140,11 @@ public final class SynonymsExporter extends AbstractAction implements Exporter {
     @Override
     public Icon getIcon() {
         return AppLookAndFeel.getIcon("icon_export.png");
+    }
+
+    @Override
+    public String getDefaultFilename() {
+        return "JptSynonyms.xml";
     }
 
     private SynonymsExporter() {

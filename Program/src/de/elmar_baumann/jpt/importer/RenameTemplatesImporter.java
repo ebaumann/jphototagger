@@ -6,7 +6,6 @@ import de.elmar_baumann.jpt.data.RenameTemplate;
 import de.elmar_baumann.jpt.database.DatabaseRenameTemplates;
 import de.elmar_baumann.jpt.exporter.RenameTemplatesExporter;
 import de.elmar_baumann.jpt.exporter.RenameTemplatesExporter.CollectionWrapper;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.File;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
@@ -40,17 +39,22 @@ public final class RenameTemplatesImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return RenameTemplatesExporter.FILE_FILTER;
+        return RenameTemplatesExporter.INSTANCE.getFileFilter();
     }
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("RenameTemplatesImporter.DisplayName");
+        return RenameTemplatesExporter.INSTANCE.getDisplayName();
     }
 
     @Override
     public Icon getIcon() {
         return AppLookAndFeel.getIcon("icon_import.png");
+    }
+
+    @Override
+    public String getDefaultFilename() {
+        return RenameTemplatesExporter.INSTANCE.getDefaultFilename();
     }
 
     private RenameTemplatesImporter() {

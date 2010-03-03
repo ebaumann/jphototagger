@@ -34,4 +34,5 @@ public interface Exporter {
     public FileFilter getFileFilter();
     public String getDisplayName();
     public Icon getIcon();
+    public String getDefaultFilename();
 }

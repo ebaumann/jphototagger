@@ -56,6 +56,11 @@ public final class SavedSearchesExporter implements Exporter {
         return AppLookAndFeel.getIcon("icon_export.png");
     }
 
+    @Override
+    public String getDefaultFilename() {
+        return "JptSavedSearches.xml";
+    }
+
     @XmlRootElement
     public static class CollectionWrapper {
 

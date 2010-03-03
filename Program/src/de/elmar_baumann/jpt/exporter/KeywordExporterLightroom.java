@@ -47,8 +47,8 @@ import javax.swing.tree.TreeModel;
  */
 public final class KeywordExporterLightroom implements Exporter {
 
-    public static final KeywordExporterLightroom INSTANCE = new KeywordExporterLightroom();
-    private static final Icon icon = AppLookAndFeel.getIcon("icon_lightroom.png");
+    public static  final KeywordExporterLightroom INSTANCE = new KeywordExporterLightroom();
+    private static final Icon                     ICON     = AppLookAndFeel.getIcon("icon_lightroom.png");
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
@@ -122,7 +122,23 @@ public final class KeywordExporterLightroom implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("KeywordExporterLightroom.Description");
+        return JptBundle.INSTANCE.getString("KeywordExporterLightroom.DisplayName");
+    }
+
+    @Override
+    public Icon getIcon() {
+        return ICON;
+    }
+
+    @Override
+    public FileFilter getFileFilter() {
+        return new FileNameExtensionFilter(
+                         getDisplayName(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
+    }
+
+    @Override
+    public String getDefaultFilename() {
+        return "LightroomKeywords.txt";
     }
 
     @Override
@@ -130,17 +146,6 @@ public final class KeywordExporterLightroom implements Exporter {
         return getDisplayName();
     }
 
-    @Override
-    public Icon getIcon() {
-        return icon;
-    }
-
     private KeywordExporterLightroom() {
-    }
-
-    @Override
-    public FileFilter getFileFilter() {
-        return new FileNameExtensionFilter(
-                getDisplayName(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
     }
 }
