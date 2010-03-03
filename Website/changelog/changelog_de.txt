@@ -16,6 +16,9 @@ Changelog JPhotoTagger
   * Synonyme (wurde durch diesen Menüpunkt ersetzt)
   * Dateinamen-Schablonen (neu)
   * Gespeicherte Suchen (neu)
+  Weitere Informationen stehen im PDF-Benutzerhandbuch oder in der Hilfe,
+  die Sie bei geöffneten Dialog mit F1 aufrufen können (wobei [ohne Umwege]
+  die richtige Seite angezeigt wird).
 
 0.7.84 2010-03-01
 -----------------
