@@ -46,6 +46,10 @@ public class ExportImportDialog extends Dialog {
                 : JptBundle.INSTANCE.getString("ExportImportDialog.Title.Import"));
 
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpPageUrl(context.equals(ExportImportPanel.Context.EXPORT)
+                ? JptBundle.INSTANCE.getString("Help.Url.ExportImportDialog.Export")
+                : JptBundle.INSTANCE.getString("Help.Url.ExportImportDialog.Import")
+                );
         panelExportImport.setContext(context);
     }
 
