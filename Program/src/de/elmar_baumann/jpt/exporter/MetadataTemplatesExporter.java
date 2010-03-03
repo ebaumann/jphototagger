@@ -20,10 +20,13 @@ package de.elmar_baumann.jpt.exporter;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.database.DatabaseSynonyms;
+import de.elmar_baumann.jpt.data.MetadataTemplate;
+import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
+import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import java.io.File;
+import java.util.Collection;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -35,6 +38,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,16 +49,21 @@ import org.w3c.dom.Element;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-07
  */
-public final class SynonymsExporter implements Exporter {
+public final class MetadataTemplatesExporter implements Exporter {
 
-    private static final long             serialVersionUID = 1L;
-    private static final FileFilter       FILE_FILTER      = new FileNameExtensionFilter(JptBundle.INSTANCE.getString("SynonymsExporter.DisplayName.FileFilter"), "xml");
-    public static final  SynonymsExporter INSTANCE         = new SynonymsExporter();
-    public static final  String           DTD              = "synonyms.dtd";
-    public static final  String           TAGNAME_ROOT     = "synonyms";
-    public static final  String           TAGNAME_ENTRY    = "entry";
-    public static final  String           TAGNAME_WORD     = "word";
-    public static final  String           TAGNAME_SYNONYM  = "synonym";
+    private static final long                      serialVersionUID = 1L;
+    private static final FileFilter                FILE_FILTER              = new FileNameExtensionFilter(JptBundle.INSTANCE.getString("MetadataTemplatesExporter.DisplayName.FileFilter"), "xml");
+    public static final  MetadataTemplatesExporter INSTANCE                 = new MetadataTemplatesExporter();
+    public static final  String                    DTD                      = "metadatatemplates.dtd";
+    public static final  String                    TAGNAME_ROOT             = "templates";
+    public static final  String                    TAGNAME_TEMPLATE         = "template";
+    public static final  String                    TAGNAME_ENTRY            = "entry";
+    public static final  String                    ATTR_NAME_TEMPLATE_NAME  = "name";
+    public static final  String                    ATTR_NAME_COLUMN         = "column";
+    public static final  String                    ATTR_NAME_VALUE_TYPE     = "valuetype";
+    public static final  String                    ATTR_NAME_VALUE          = "value";
+    public static final  String                    COLLECTION_DELIM         = "|";
+    public static final  String                    NULL                     = "null";
 
     @Override
     public void exportFile(File file) {
@@ -65,32 +74,48 @@ public final class SynonymsExporter implements Exporter {
             TransformerFactory tf    = TransformerFactory.newInstance();
             Transformer        trans = tf.newTransformer();
 
-            insertSynonyms(doc);
+            insertTemplates(doc);
             initTransformer(trans);
             trans.transform(ds, sr);
         } catch (Exception ex) {
-            AppLogger.logSevere(SynonymsExporter.class, ex);
+            AppLogger.logSevere(MetadataTemplatesExporter.class, ex);
         }
     }
 
-    private void insertSynonyms(Document doc) {
+    private void insertTemplates(Document doc) {
         Element rootElement = doc.createElement(TAGNAME_ROOT);
 
         doc.appendChild(rootElement);
 
-        for (String word : DatabaseSynonyms.INSTANCE.getAllWords()) {
-            Element entryElement = doc.createElement(TAGNAME_ENTRY);
-            Element wordElement = doc.createElement(TAGNAME_WORD);
-            wordElement.setTextContent(word);
-            entryElement.appendChild(wordElement);
-            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(word)) {
-                Element synonymElement = doc.createElement(TAGNAME_SYNONYM);
-                synonymElement.setTextContent(synonym);
-                entryElement.appendChild(synonymElement);
+        for (MetadataTemplate template : DatabaseMetadataTemplates.INSTANCE.getAll()) {
+            Element templateElement = doc.createElement(TAGNAME_TEMPLATE);
+            templateElement.setAttribute(ATTR_NAME_TEMPLATE_NAME, template.getName());
+            for (Column column : template.getColumns()) {
+                Element entryElement = doc.createElement(TAGNAME_ENTRY);
+                entryElement.setAttribute(ATTR_NAME_COLUMN, column.getClass().getName());
+                setEntryValue(template.getValueOfColumn(column), entryElement);
+                templateElement.appendChild(entryElement);
             }
-            rootElement.appendChild(entryElement);
+            rootElement.appendChild(templateElement);
         }
 
+    }
+
+    private void setEntryValue(Object value, Element entryElement) throws DOMException {
+        if (value instanceof Collection<?>) {
+            int           index = 0;
+            StringBuilder sb    = new StringBuilder();
+            for (Object o : (Collection<?>) value) {
+                assert o instanceof String : o;
+                sb.append(index++ == 0 ? "" : COLLECTION_DELIM);
+                sb.append(o.toString());
+            }
+            entryElement.setAttribute(ATTR_NAME_VALUE_TYPE, Collection.class.getName());
+            entryElement.setAttribute(ATTR_NAME_VALUE, sb.toString());
+        } else {
+            entryElement.setAttribute(ATTR_NAME_VALUE_TYPE, value == null ? NULL : value.getClass().getName());
+            entryElement.setAttribute(ATTR_NAME_VALUE, value == null ? NULL : value.toString());
+        }
     }
 
     private Document getDoc() throws ParserConfigurationException {
@@ -118,7 +143,7 @@ public final class SynonymsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("SynonymsExporter.DisplayName");
+        return JptBundle.INSTANCE.getString("MetadataTemplatesExporter.DisplayName");
     }
 
     @Override
@@ -128,9 +153,9 @@ public final class SynonymsExporter implements Exporter {
 
     @Override
     public String getDefaultFilename() {
-        return "JptSynonyms.xml";
+        return "JptMetadataTemplates.xml";
     }
 
-    private SynonymsExporter() {
+    private MetadataTemplatesExporter() {
     }
 }

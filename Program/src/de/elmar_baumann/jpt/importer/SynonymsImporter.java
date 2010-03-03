@@ -22,14 +22,12 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
 import de.elmar_baumann.jpt.exporter.SynonymsExporter;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.AbstractAction;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
@@ -47,18 +45,10 @@ import org.xml.sax.SAXException;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2010-02-07
  */
-public final class SynonymsImporter
-        extends    AbstractAction
-        implements Importer,
-                   EntityResolver
+public final class SynonymsImporter implements Importer, EntityResolver
 {
     public static final  SynonymsImporter INSTANCE         = new SynonymsImporter();
     private static final long             serialVersionUID = 1L;
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        importFile(SynonymsExporter.INSTANCE.getFile());
-    }
 
     @Override
     public void importFile(File file) {
