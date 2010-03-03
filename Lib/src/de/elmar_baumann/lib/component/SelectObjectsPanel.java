@@ -23,10 +23,12 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +52,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private static final String                 DELIM_SEL_INDICES = ",";
     private final        List<JCheckBox>        checkBoxes        = new ArrayList<JCheckBox>();
     private final        Map<JCheckBox, Object> objectOfCheckBox  = new LinkedHashMap<JCheckBox, Object>();
+    private final        Set<SelectionListener> listeners         = new HashSet<SelectionListener>();
     private              String                 keySelIndices;
     private              Properties             properties;
     private              int                    componentCount;
@@ -78,6 +81,63 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     private void init() {
         setLayout(new GridBagLayout());
+    }
+    
+    public static class SelectionEvent {
+        
+        private final Object selectedObject;
+        private final int    selectionCount;
+
+        public SelectionEvent(Object selectedObject, int selectionCount) {
+            this.selectedObject = selectedObject;
+            this.selectionCount = selectionCount;
+        }
+
+        public Object getSelectedObject() {
+            return selectedObject;
+        }
+
+        public int getSelectionCount() {
+            return selectionCount;
+        }
+    }
+
+    public interface SelectionListener {
+        public void objectSelected(SelectionEvent evt);
+    }
+
+    public void addSelectionListener(SelectionListener listener) {
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
+    }
+
+    public void removeSelectionListener(SelectionListener listener) {
+        synchronized (listeners) {
+            listeners.remove(listener);
+        }
+    }
+
+    private void notifyListeners(Object selObject) {
+        SelectionEvent evt = new SelectionEvent(selObject, getSelectionCount());
+
+        synchronized(listeners) {
+            for (SelectionListener listener : listeners) {
+                listener.objectSelected(evt);
+            }
+        }
+    }
+
+    public int getSelectionCount() {
+        int count = 0;
+
+        for (JCheckBox checkBox : checkBoxes) {
+            if (checkBox.isSelected()) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     /**
@@ -183,6 +243,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         Object source = e.getSource();
         if (source instanceof JCheckBox) {
             writeSelectedIndicesToProperties();
+            notifyListeners(objectOfCheckBox.get((JCheckBox)source));
         }
     }
 
