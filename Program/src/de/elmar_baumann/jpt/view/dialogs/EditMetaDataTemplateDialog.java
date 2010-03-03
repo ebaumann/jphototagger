@@ -186,16 +186,16 @@ public class EditMetaDataTemplateDialog extends Dialog {
         panelPadding.setLayout(panelPaddingLayout);
         panelPaddingLayout.setHorizontalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 357, Short.MAX_VALUE)
+            .addGap(0, 374, Short.MAX_VALUE)
             .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelPaddingLayout.createSequentialGroup()
                     .addGap(8, 8, 8)
-                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         panelPaddingLayout.setVerticalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 869, Short.MAX_VALUE)
+            .addGap(0, 754, Short.MAX_VALUE)
             .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelPaddingLayout.createSequentialGroup()
                     .addContainerGap()
@@ -226,7 +226,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
