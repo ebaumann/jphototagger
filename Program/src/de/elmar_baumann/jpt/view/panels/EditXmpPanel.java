@@ -78,7 +78,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         setAutocomplete();
         addAsFocusListener();
         firstInputComponent = panelDcSubjects.textAreaInput;
-        lastInputComponent  = panelRating.getInputComponents().get(panelRating.getInputComponents().size() - 1);
+        lastInputComponent  = panelPhotoshopCaptionwriter.getInputComponents().get(0);
         firstInputComponent.requestFocusInWindow();
         panelDcSubjects.setBundleKeyPosRenameDialog("EditXmpPanel.Keywords.RenameDialog.Pos");
     }
@@ -247,7 +247,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         panelPhotoshopTransmissionReference = new de.elmar_baumann.jpt.view.panels.EditTextEntryPanel();
         panelPhotoshopInstructions = new de.elmar_baumann.jpt.view.panels.EditTextEntryPanel();
         panelPhotoshopCaptionwriter = new de.elmar_baumann.jpt.view.panels.EditTextEntryPanel();
-        panelRating = new de.elmar_baumann.jpt.view.panels.RatingSelectionPanel();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -270,7 +269,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
             .addComponent(panelPhotoshopTransmissionReference, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
             .addComponent(panelPhotoshopInstructions, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
             .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelRating, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,10 +305,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelPhotoshopInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -333,6 +328,5 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private de.elmar_baumann.jpt.view.panels.EditTextEntryPanel panelPhotoshopSource;
     private de.elmar_baumann.jpt.view.panels.EditTextEntryPanel panelPhotoshopState;
     private de.elmar_baumann.jpt.view.panels.EditTextEntryPanel panelPhotoshopTransmissionReference;
-    private de.elmar_baumann.jpt.view.panels.RatingSelectionPanel panelRating;
     // End of variables declaration//GEN-END:variables
 }

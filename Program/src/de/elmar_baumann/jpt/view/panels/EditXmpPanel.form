@@ -34,7 +34,6 @@
           <Component id="panelPhotoshopTransmissionReference" alignment="0" pref="136" max="32767" attributes="0"/>
           <Component id="panelPhotoshopInstructions" alignment="0" pref="136" max="32767" attributes="0"/>
           <Component id="panelPhotoshopCaptionwriter" alignment="0" pref="136" max="32767" attributes="0"/>
-          <Component id="panelRating" alignment="1" pref="136" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -73,9 +72,6 @@
               <Component id="panelPhotoshopInstructions" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelPhotoshopCaptionwriter" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelRating" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -114,8 +110,6 @@
     <Component class="de.elmar_baumann.jpt.view.panels.EditTextEntryPanel" name="panelPhotoshopInstructions">
     </Component>
     <Component class="de.elmar_baumann.jpt.view.panels.EditTextEntryPanel" name="panelPhotoshopCaptionwriter">
-    </Component>
-    <Component class="de.elmar_baumann.jpt.view.panels.RatingSelectionPanel" name="panelRating">
     </Component>
   </SubComponents>
 </Form>
