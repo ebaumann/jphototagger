@@ -11,6 +11,7 @@ Changelog JPhotoTagger
 * Ex- und Import von folgenden JPhotoTagger-Daten:
   * Programme und Aktionen
   * Favoriten
+  * Überwachte Ordner
 
 0.7.84 2010-03-03
 -----------------

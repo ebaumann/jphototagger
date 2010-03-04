@@ -42,6 +42,7 @@ public final class JptImporters {
         IMPORTERS.add(MetadataTemplatesImporter.INSTANCE);
         IMPORTERS.add(ProgramsImporter.INSTANCE);
         IMPORTERS.add(FavoritesImporter.INSTANCE);
+        IMPORTERS.add(AutoscanDirectoriesImporter.INSTANCE);
     }
 
     public static List<Importer> get() {

@@ -19,36 +19,46 @@
 package de.elmar_baumann.jpt.exporter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * All exporters exporting JPhotoTagger data.
+ *
  *
  * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2010-03-03
+ * @version 2010-03-04
  */
-public final class JptExporters {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public final class StringWrapper {
 
-    public static final  JptExporters   INSTANCE  = new JptExporters();
-    private static final List<Exporter> EXPORTERS = new ArrayList<Exporter>();
+    private String string;
 
-    static {
-        // Please add new exportes at the end
-        EXPORTERS.add(KeywordsExporterJpt.INSTANCE);
-        EXPORTERS.add(SynonymsExporter.INSTANCE);
-        EXPORTERS.add(RenameTemplatesExporter.INSTANCE);
-        EXPORTERS.add(SavedSearchesExporter.INSTANCE);
-        EXPORTERS.add(ImageCollectionsExporter.INSTANCE);
-        EXPORTERS.add(MetadataTemplatesExporter.INSTANCE);
-        EXPORTERS.add(ProgramsExporter.INSTANCE);
-        EXPORTERS.add(FavoritesExporter.INSTANCE);
-        EXPORTERS.add(AutoscanDirectoriesExporter.INSTANCE);
+    public StringWrapper() {
     }
 
-    public static List<Exporter> get() {
-        return new ArrayList<Exporter>(EXPORTERS);
+    public StringWrapper(String string) {
+        this.string = string;
     }
 
-    private JptExporters() {
+    public String getString() {
+        return string;
+    }
+
+    public void setString(String string) {
+        this.string = string;
+    }
+
+    public static List<StringWrapper> getWrappedStrings(Collection<? extends String> strings) {
+        List<StringWrapper> wrapped = new ArrayList<StringWrapper>(strings.size());
+
+        for (String string : strings) {
+            wrapped.add(new StringWrapper(string));
+        }
+
+        return wrapped;
     }
 }
