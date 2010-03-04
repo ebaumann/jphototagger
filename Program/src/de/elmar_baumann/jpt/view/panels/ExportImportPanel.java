@@ -104,7 +104,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         panelSelectObjects.applyPropertiesSelectedIndices();
         buttonExportImport.setText(isExport() ? TEXT_EXPORT : TEXT_IMPORT);
         MnemonicUtil.setMnemonics((Container)this);
-        setEnabledExportImportButton();
+        setEnabledButtons();
     }
 
     private boolean isExport() {
@@ -140,7 +140,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
             UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(), KEY_LAST_DIR);
             UserSettings.INSTANCE.writeToFile();
             setDirLabel();
-            setEnabledExportImportButton();
+            setEnabledButtons();
         }
     }
 
@@ -214,14 +214,23 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         return sb.toString();
     }
 
-    private void setEnabledExportImportButton() {
-        buttonExportImport.setEnabled(dir != null && dir.isDirectory() &&
-                                    panelSelectObjects.getSelectionCount() > 0);
+    private void setEnabledButtons() {
+        int selCount    = panelSelectObjects.getSelectionCount();
+        int objectCount = panelSelectObjects.getObjectCount();
+        
+        buttonExportImport.setEnabled(dir != null && dir.isDirectory() && selCount > 0);
+        buttonSelectAll.setEnabled(objectCount > 0 && objectCount > selCount);
+        buttonSelectNone.setEnabled(selCount > 0);
     }
 
     @Override
     public void objectSelected(SelectionEvent evt) {
-        setEnabledExportImportButton();
+        setEnabledButtons();
+    }
+
+    private void setSelectedAll(boolean select) {
+        panelSelectObjects.setSelectedAll(select);
+        setEnabledButtons();
     }
 
     /** This method is called from within the constructor to
@@ -237,6 +246,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         labelDir = new javax.swing.JLabel();
         buttonSelDir = new javax.swing.JButton();
         labelSelectInfo = new javax.swing.JLabel();
+        buttonSelectAll = new javax.swing.JButton();
+        buttonSelectNone = new javax.swing.JButton();
         scrollPane = new javax.swing.JScrollPane();
         panelSelectObjects = new de.elmar_baumann.lib.component.SelectObjectsPanel();
         buttonExportImport = new javax.swing.JButton();
@@ -251,6 +262,22 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         });
 
         labelSelectInfo.setText("Auswahl:"); // NOI18N
+
+        buttonSelectAll.setText(JptBundle.INSTANCE.getString("ExportImportPanel.buttonSelectAll.text")); // NOI18N
+        buttonSelectAll.setEnabled(false);
+        buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSelectAllActionPerformed(evt);
+            }
+        });
+
+        buttonSelectNone.setText(JptBundle.INSTANCE.getString("ExportImportPanel.buttonSelectNone.text")); // NOI18N
+        buttonSelectNone.setEnabled(false);
+        buttonSelectNone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSelectNoneActionPerformed(evt);
+            }
+        });
 
         scrollPane.setViewportView(panelSelectObjects);
 
@@ -267,19 +294,23 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(buttonSelectAll)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonSelectNone)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonExportImport))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(labelPromptDir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDir, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addComponent(labelDir, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonSelDir))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(labelSelectInfo)
-                .addContainerGap())
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+            .addComponent(labelSelectInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonSelectAll, buttonSelectNone});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -292,7 +323,10 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonExportImport))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonExportImport)
+                    .addComponent(buttonSelectNone)
+                    .addComponent(buttonSelectAll)))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDir, labelPromptDir});
@@ -307,10 +341,20 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         exportImport();
     }//GEN-LAST:event_buttonExportImportActionPerformed
 
+    private void buttonSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectAllActionPerformed
+        setSelectedAll(true);
+    }//GEN-LAST:event_buttonSelectAllActionPerformed
+
+    private void buttonSelectNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectNoneActionPerformed
+        setSelectedAll(false);
+    }//GEN-LAST:event_buttonSelectNoneActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExportImport;
     private javax.swing.JButton buttonSelDir;
+    private javax.swing.JButton buttonSelectAll;
+    private javax.swing.JButton buttonSelectNone;
     private javax.swing.JLabel labelDir;
     private javax.swing.JLabel labelPromptDir;
     private javax.swing.JLabel labelSelectInfo;
