@@ -99,6 +99,7 @@ public final class DatabaseRenameTemplates extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
+            rollback(connection);
         } finally {
             close(stmt);
             free(connection);
@@ -142,6 +143,7 @@ public final class DatabaseRenameTemplates extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
+            rollback(connection);
         } finally {
             close(stmt);
             free(connection);
@@ -168,6 +170,7 @@ public final class DatabaseRenameTemplates extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
+            rollback(connection);
         } finally {
             close(stmt);
             free(connection);

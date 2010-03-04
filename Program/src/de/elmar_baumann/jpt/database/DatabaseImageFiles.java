@@ -801,6 +801,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(true);
             stmt = connection.prepareStatement(
                     "UPDATE files SET xmp_lastmodified = ? WHERE filename = ?");
             stmt.setLong(1, time);

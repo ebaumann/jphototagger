@@ -41,6 +41,7 @@ public final class DatabaseMaintainance extends Database {
         Statement stmt = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(true);
             stmt = connection.createStatement();
             AppLogger.logInfo(DatabaseMaintainance.class, "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");

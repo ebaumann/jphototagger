@@ -130,6 +130,7 @@ public class Database {
      * @param connection  connection
      */
     public static void rollback(Connection connection) {
+        if (connection == null) return;
         try {
             connection.rollback();
         } catch (Exception ex) {

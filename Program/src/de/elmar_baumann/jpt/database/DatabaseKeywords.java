@@ -166,7 +166,6 @@ public final class DatabaseKeywords extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
-            rollback(connection);
         } finally {
             close(stmt);
             free(connection);
@@ -463,6 +462,7 @@ public final class DatabaseKeywords extends Database {
         PreparedStatement stmt = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(true);
             String sql = "UPDATE hierarchical_subjects SET subject = ?" +
                          " WHERE subject = ? AND real = TRUE";
             stmt = connection.prepareStatement(sql);
