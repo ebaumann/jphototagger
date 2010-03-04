@@ -20,7 +20,6 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.exporter.Exporter;
 import de.elmar_baumann.jpt.exporter.JptExporters;
 import de.elmar_baumann.jpt.importer.Importer;
@@ -171,9 +170,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 exportedFiles.add(exportFile);
             }
         }
-        if (!exportedFiles.isEmpty()) {
-            MessageDisplayer.information(this, "ExportImportPanel.Info.ExportedFiles", getFileNames(exportedFiles));
-        }
     }
 
     private void importFiles() {
@@ -195,11 +191,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                     missingFiles.add(importFile);
                 }
             }
-        }
-        if (missingFiles.isEmpty()) {
-            MessageDisplayer.information(this, "ExportImportPanel.Info.ImportedFiles", getFileNames(importedFiles));
-        } else {
-            MessageDisplayer.information(this, "ExportImportPanel.Info.MissingFiles", getFileNames(missingFiles));
         }
     }
 
