@@ -22,6 +22,10 @@ import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.io.IoUtil;
 import java.io.File;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * External program to start within the application. It is written persistent
@@ -30,9 +34,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-11-04
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class Program {
 
-    private              long    id                        = Long.MIN_VALUE;
+    @XmlTransient private long id = Long.MIN_VALUE;
+
     private static final String  EMPTY                     = "";
     private              boolean action                    = false;
     private              File    file;
