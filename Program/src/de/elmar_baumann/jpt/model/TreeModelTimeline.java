@@ -140,12 +140,12 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
         }
     }
 
-    public void delete(Date date) {
+    private void delete(Date date) {
         TreeModelUpdateInfo.NodeAndChild info = timeline.removeDay(date);
         nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(), info.getUpdatedChild());
     }
 
-    public void insert(Date date) {
+    private void insert(Date date) {
         if (!timeline.existsDate(date)) {
 
             TreeModelUpdateInfo.NodesAndChildIndices info = timeline.add(date);
