@@ -102,7 +102,11 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * A selection listener will be notified, if the user did select an object.
+     */
     public interface SelectionListener {
+
         public void objectSelected(SelectionEvent evt);
     }
 
@@ -128,6 +132,32 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Removes all components and clears the component count. Do <em>not</em>
+     * call {@link #removeAll()}!
+     */
+    public void clear() {
+        removeAll();
+        checkBoxes.clear();
+        objectOfCheckBox.clear();
+        componentCount = -1;
+    }
+
+    /**
+     * Returns the "real" object count (i.e. <em>not</em> the object count set
+     * via {@link #setObjectCount(int)}).
+     * 
+     * @return object count
+     */
+    public int getObjectCount() {
+        return checkBoxes.size();
+    }
+
+    /**
+     * Returns the count of selected objects.
+     *
+     * @return selection count
+     */
     public int getSelectionCount() {
         int count = 0;
 
@@ -171,6 +201,8 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * If set, the layout manager ensures, that the check boxes are not
      * centered within this panel but aligned to the top left edge of this
      * panel.
+     * <p>
+     * <em>Do not call this method, if add() may be called later!</em>
      *
      * @param count
      */
@@ -236,6 +268,18 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
                 checkBoxes.get(index).setSelected(true);
             }
         }
+    }
+
+    /**
+     * Selects or unselects all objects.
+     *
+     * @param selected true if select all, false if unselect all
+     */
+    public void setSelectedAll(boolean selected) {
+        for (JCheckBox checkBox : checkBoxes) {
+            checkBox.setSelected(selected);
+        }
+        writeSelectedIndicesToProperties();
     }
 
     @Override
