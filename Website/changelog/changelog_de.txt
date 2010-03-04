@@ -12,6 +12,7 @@ Changelog JPhotoTagger
   * Programme und Aktionen
   * Favoriten
   * Überwachte Ordner
+  * Datei-Ausschluss-Muster
 
 0.7.84 2010-03-03
 -----------------
