@@ -56,9 +56,9 @@ public final class DatabasePrograms extends Database {
      * @return true if inserted
      */
     public boolean insert(Program program) {
-        int countAffectedRows = 0;
-        Connection connection = null;
-        PreparedStatement stmt = null;
+        int               countAffectedRows = 0;
+        Connection        connection        = null;
+        PreparedStatement stmt              = null;
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
@@ -331,6 +331,39 @@ public final class DatabasePrograms extends Database {
                                            ? null
                                            : new String(pattern));
         return program;
+    }
+
+    /**
+     * Returns whether a program exists in the database.
+     * <p>
+     * Programs are treated as equals, if their aliases and filenames are equal.
+     *
+     * @param  program program
+     * @return         true if the program does exist
+     */
+    public boolean exists(Program program) {
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+        boolean           exists     = false;
+        try {
+            connection = getConnection();
+            stmt = connection.prepareStatement(
+                    "SELECT COUNT(*) FROM programs WHERE alias = ? AND filename = ?");
+            setString(program.getAlias(), stmt, 1);
+            setString(program.getFile().getAbsolutePath(), stmt, 2);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                exists = rs.getLong(1) > 0;
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabasePrograms.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(connection);
+        }
+        return exists;
     }
 
     /**
