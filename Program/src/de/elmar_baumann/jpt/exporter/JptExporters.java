@@ -22,6 +22,7 @@ public final class JptExporters {
         EXPORTERS.add(SavedSearchesExporter.INSTANCE);
         EXPORTERS.add(ImageCollectionsExporter.INSTANCE);
         EXPORTERS.add(MetadataTemplatesExporter.INSTANCE);
+        EXPORTERS.add(ProgramsExporter.INSTANCE);
     }
 
     public static List<Exporter> get() {

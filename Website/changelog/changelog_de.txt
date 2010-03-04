@@ -5,11 +5,17 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
-0.7.84 2010-03-01
+0.7.84 2010-03-04
 -----------------
 
-* Neuer Menüpunkt: Datei > Exportieren > Verschiedene JPhotoTagger-Daten
-* Neuer Menüpunkt: Datei > Importieren > Verschiedene JPhotoTagger-Daten
+* Ex- und Import von folgenden JPhotoTagger-Daten:
+  * Programme und Aktionen
+
+0.7.84 2010-03-03
+-----------------
+
+* Neuer Menüpunkt: Datei > Exportieren > JPhotoTagger-Daten
+* Neuer Menüpunkt: Datei > Importieren > JPhotoTagger-Daten
 * Die neuen Menüpunkte können wahlweise folgende Daten in XML-Dateien
   exportieren:
   * JPhotoTagger-Stichwortbaum
