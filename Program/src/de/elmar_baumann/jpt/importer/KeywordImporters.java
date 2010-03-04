@@ -34,7 +34,6 @@ public final class KeywordImporters {
             new ArrayList<KeywordsImporter>();
 
     static {
-        importers.add(KeywordsImporterJpt.INSTANCE);
         importers.add(KeywordsImporterLightroom.INSTANCE);
     }
 

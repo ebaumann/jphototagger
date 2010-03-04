@@ -33,7 +33,6 @@ public final class KeywordsExporters {
     private static final List<Exporter> exporters = new ArrayList<Exporter>();
 
     static {
-        exporters.add(KeywordsExporterJpt.INSTANCE);
         exporters.add(KeywordsExporterLightroom.INSTANCE);
     }
 
