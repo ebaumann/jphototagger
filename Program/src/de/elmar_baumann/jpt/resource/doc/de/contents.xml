@@ -180,16 +180,16 @@
             <title>Datei &gt; Importieren &gt; Stichwörter</title>
         </page>
         <page>
-            <url>import_misc.html</url>
-            <title>Datei &gt; Importieren &gt; Verschiedene JPhotoTagger-Daten</title>
+            <url>import_jpt.html</url>
+            <title>Datei &gt; Importieren &gt; JPhotoTagger-Daten</title>
         </page>
         <page>
             <url>export_keywords.html</url>
             <title>Datei &gt; Exportieren &gt; Stichwörter</title>
         </page>
         <page>
-            <url>export_misc.html</url>
-            <title>Datei &gt; Exportieren &gt; Verschiedene JPhotoTagger-Daten</title>
+            <url>export_jpt.html</url>
+            <title>Datei &gt; Exportieren &gt; JPhotoTagger-Daten</title>
         </page>
         <page>
             <url>settings.html</url>
@@ -305,8 +305,8 @@
             <title>Mehr Arbeitsspeicher</title>
         </page>
         <page>
-            <url>tipp_export_keywords_tree.html</url>
-            <title>Exportieren Sie regelmäßig Ihren Stichwortbaum</title>
+            <url>tipp_export_jpt.html</url>
+            <title>Exportieren Sie regelmäßig JPhotoTagger-Daten</title>
         </page>
     </node>
     <node>
