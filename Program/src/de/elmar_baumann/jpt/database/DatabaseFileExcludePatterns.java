@@ -76,6 +76,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
+            rollback(connection);
         } finally {
             close(stmt);
             free(connection);
@@ -108,6 +109,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
+            rollback(connection);
         } finally {
             close(stmt);
             free(connection);
@@ -239,6 +241,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             notifyProgressListenerEnd(listener, event);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
+            rollback(connection);
         } finally {
             close(rs, stmtQuery);
             close(stmtUpdate);
