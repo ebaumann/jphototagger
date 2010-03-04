@@ -21,9 +21,12 @@ package de.elmar_baumann.jpt.database;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.data.ImageFile;
+import de.elmar_baumann.jpt.event.DatabaseFileExcludePatternsEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.ProgressEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseFileExcludePatternsListener;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,6 +34,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -38,11 +42,12 @@ import java.util.List;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-21
  */
-public final class DatabaseFileExcludePattern extends Database {
+public final class DatabaseFileExcludePatterns extends Database {
 
-    public static final DatabaseFileExcludePattern INSTANCE = new DatabaseFileExcludePattern();
+    public static final DatabaseFileExcludePatterns                          INSTANCE        = new DatabaseFileExcludePatterns();
+    private final       ListenerSupport<DatabaseFileExcludePatternsListener> listenerSupport = new ListenerSupport<DatabaseFileExcludePatternsListener>();
 
-    private DatabaseFileExcludePattern() {
+    private DatabaseFileExcludePatterns() {
     }
 
     /**
@@ -60,14 +65,17 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                    "INSERT INTO file_exclude_pattern (pattern) VALUES (?)");
+                        "INSERT INTO file_exclude_pattern (pattern) VALUES (?)");
             stmt.setString(1, pattern);
             logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             inserted = count > 0;
+            if (inserted) {
+                notifyListeners(DatabaseFileExcludePatternsEvent.Type.PATTERN_INSERTED, pattern);
+            }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
         } finally {
             close(stmt);
             free(connection);
@@ -89,14 +97,17 @@ public final class DatabaseFileExcludePattern extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                    "DELETE FROM file_exclude_pattern WHERE pattern = ?");
+                         "DELETE FROM file_exclude_pattern WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFiner(stmt);
             int count = stmt.executeUpdate();
             connection.commit();
             deleted = count > 0;
+            if (deleted) {
+                notifyListeners(DatabaseFileExcludePatternsEvent.Type.PATTERN_DELETED, pattern);
+            }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
         } finally {
             close(stmt);
             free(connection);
@@ -126,7 +137,7 @@ public final class DatabaseFileExcludePattern extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
         } finally {
             close(rs, stmt);
             free(connection);
@@ -156,7 +167,7 @@ public final class DatabaseFileExcludePattern extends Database {
                 patterns.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
         } finally {
             close(rs, stmt);
             free(connection);
@@ -227,7 +238,7 @@ public final class DatabaseFileExcludePattern extends Database {
             connection.commit();
             notifyProgressListenerEnd(listener, event);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePattern.class, ex);
+            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
         } finally {
             close(rs, stmtQuery);
             close(stmtUpdate);
@@ -242,6 +253,25 @@ public final class DatabaseFileExcludePattern extends Database {
 
         if (!tnFile.delete()) {
             AppLogger.logWarning(getClass(), "DatabaseFileExcludePattern.Error.DeleteThumbnail", tnFile, filename);
+        }
+    }
+
+    public void addListener(DatabaseFileExcludePatternsListener listener) {
+        listenerSupport.add(listener);
+    }
+
+    public void removeListener(DatabaseFileExcludePatternsListener listener) {
+        listenerSupport.remove(listener);
+    }
+
+    private void notifyListeners(DatabaseFileExcludePatternsEvent.Type type, String pattern) {
+        DatabaseFileExcludePatternsEvent         evt       = new DatabaseFileExcludePatternsEvent(type, pattern);
+        Set<DatabaseFileExcludePatternsListener> listeners = listenerSupport.get();
+
+        synchronized (listeners) {
+            for (DatabaseFileExcludePatternsListener listener : listeners) {
+                listener.actionPerformed(evt);
+            }
         }
     }
 }
