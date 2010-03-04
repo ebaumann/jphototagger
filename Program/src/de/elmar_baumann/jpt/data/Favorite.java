@@ -19,6 +19,9 @@
 package de.elmar_baumann.jpt.data;
 
 import java.io.File;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Favorite: File system directory + alias name + order (index).
@@ -26,11 +29,16 @@ import java.io.File;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-09-23
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class Favorite {
 
     private String directoryName;
     private String name;
     private int    index;
+
+    public Favorite() {
+    }
 
     /**
      * Constructor.
