@@ -69,7 +69,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="menuItemExportJptMisc">
                   <Properties>
                     <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="de.elmar_baumann.jpt.exporter.JptMiscExporters.INSTANCE" type="code"/>
+                      <Connection code="de.elmar_baumann.jpt.exporter.JptExportAction.INSTANCE" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_app_small.png"/>
@@ -104,7 +104,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="menuItemImportJptMisc">
                   <Properties>
                     <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="de.elmar_baumann.jpt.importer.JptMiscImporters.INSTANCE" type="code"/>
+                      <Connection code="de.elmar_baumann.jpt.importer.JptImportAction.INSTANCE" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_app_small.png"/>

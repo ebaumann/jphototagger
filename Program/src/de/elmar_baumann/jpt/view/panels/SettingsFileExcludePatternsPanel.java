@@ -18,7 +18,7 @@
  */
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.database.DatabaseFileExcludePattern;
+import de.elmar_baumann.jpt.database.DatabaseFileExcludePatterns;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.model.ListModelFileExcludePatterns;
@@ -39,7 +39,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     private static final    String                       ADD_INFO_TEXT    = JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.AddInfoText");
     private static final    long                         serialVersionUID = -3083582823254767001L;
-    private final transient DatabaseFileExcludePattern   db               = DatabaseFileExcludePattern.INSTANCE;
+    private final transient DatabaseFileExcludePatterns   db               = DatabaseFileExcludePatterns.INSTANCE;
     private final           ListModelFileExcludePatterns model            = new ListModelFileExcludePatterns();
     private                 boolean                      isUpdateDatabase = false;
     private                 boolean                      stop             = false;

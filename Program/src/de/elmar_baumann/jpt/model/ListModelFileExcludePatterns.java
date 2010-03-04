@@ -19,14 +19,16 @@
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.database.DatabaseFileExcludePattern;
+import de.elmar_baumann.jpt.database.DatabaseFileExcludePatterns;
+import de.elmar_baumann.jpt.event.DatabaseFileExcludePatternsEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseFileExcludePatternsListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
  * Element are {@link String}s retrieved through
- * {@link DatabaseFileExcludePattern#getAll()}.
+ * {@link DatabaseFileExcludePatterns#getAll()}.
  *
  * Filenames matching these patterns (strings) shall not be handled by
  * <strong>JPhotoTagger</strong>.
@@ -34,14 +36,16 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-09
  */
-public final class ListModelFileExcludePatterns extends DefaultListModel {
+public final class ListModelFileExcludePatterns extends DefaultListModel implements DatabaseFileExcludePatternsListener {
 
-    private static final    long                       serialVersionUID = -8337739189362442866L;
-    private final transient DatabaseFileExcludePattern db               = DatabaseFileExcludePattern.INSTANCE;
-    private                 List<String>               patterns;
+    private static final    long                        serialVersionUID = -8337739189362442866L;
+    private final transient DatabaseFileExcludePatterns db               = DatabaseFileExcludePatterns.INSTANCE;
+    private                 List<String>                patterns;
+    private transient       boolean                     listenToDb       = true;
 
     public ListModelFileExcludePatterns() {
         addElements();
+        db.addListener(this);
     }
 
     public List<String> getPatterns() {
@@ -49,6 +53,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     }
 
     public void insert(String pattern) {
+        listenToDb = false;
         String trimmedPattern = pattern.trim();
         if (db.exists(trimmedPattern)) {
             errorMessageExists(trimmedPattern);
@@ -59,9 +64,11 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
         } else {
             errorMessageInsert(trimmedPattern);
         }
+        listenToDb = true;
     }
 
     public void delete(String pattern) {
+        listenToDb = false;
         String trimmedPattern = pattern.trim();
         if (db.delete(trimmedPattern)) {
             removeElement(trimmedPattern);
@@ -69,6 +76,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
         } else {
             errorMessageDelete(trimmedPattern);
         }
+        listenToDb = true;
     }
 
     private void addElements() {
@@ -88,5 +96,18 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
 
     private void errorMessageExists(String trimmedPattern) {
         MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Exists", trimmedPattern);
+    }
+
+    @Override
+    public void actionPerformed(DatabaseFileExcludePatternsEvent evt) {
+        if (!listenToDb) return;
+
+        String pattern = evt.getPattern();
+
+        if (evt.isPatternInserted()) {
+            addElement(pattern);
+            patterns.add(pattern);
+        } else if (evt.isPatternDeleted()) {
+        }
     }
 }

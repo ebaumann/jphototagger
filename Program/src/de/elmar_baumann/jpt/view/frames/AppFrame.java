@@ -33,8 +33,8 @@ import de.elmar_baumann.jpt.comparator.ComparatorXmpIptcLocationAsc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpIptcLocationDesc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpRatingAsc;
 import de.elmar_baumann.jpt.comparator.ComparatorXmpRatingDesc;
-import de.elmar_baumann.jpt.exporter.JptMiscExporters;
-import de.elmar_baumann.jpt.importer.JptMiscImporters;
+import de.elmar_baumann.jpt.exporter.JptExportAction;
+import de.elmar_baumann.jpt.importer.JptImportAction;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -401,7 +401,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
         menuExport.setText(JptBundle.INSTANCE.getString("AppFrame.menuExport.text")); // NOI18N
 
-        menuItemExportJptMisc.setAction(de.elmar_baumann.jpt.exporter.JptMiscExporters.INSTANCE);
+        menuItemExportJptMisc.setAction(de.elmar_baumann.jpt.exporter.JptExportAction.INSTANCE);
         menuItemExportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_app_small.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
         menuItemExportJptMisc.setText(bundle.getString("AppFrame.menuItemExportJptMisc.text")); // NOI18N
@@ -416,7 +416,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_import.png"))); // NOI18N
         menuImport.setText(JptBundle.INSTANCE.getString("AppFrame.menuImport.text")); // NOI18N
 
-        menuItemImportJptMisc.setAction(de.elmar_baumann.jpt.importer.JptMiscImporters.INSTANCE);
+        menuItemImportJptMisc.setAction(de.elmar_baumann.jpt.importer.JptImportAction.INSTANCE);
         menuItemImportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_app_small.png"))); // NOI18N
         menuItemImportJptMisc.setText(bundle.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
         menuImport.add(menuItemImportJptMisc);
