@@ -5,7 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
-0.7.84 2010-03-04
+0.7.87 2010-03-04
+-----------------
+
+* Link zur Hilfeseite korrigiert bei Aufruf aus dem Im- und Exportdialog von
+  JPhotoTagger-Daten
+
+0.7.86 2010-03-04
 -----------------
 
 * Ex- und Import von folgenden JPhotoTagger-Daten:
@@ -14,7 +20,7 @@ Changelog JPhotoTagger
   * Überwachte Ordner
   * Datei-Ausschluss-Muster
 
-0.7.84 2010-03-03
+0.7.85 2010-03-03
 -----------------
 
 * Neuer Menüpunkt: Datei > Exportieren > JPhotoTagger-Daten
