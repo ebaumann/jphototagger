@@ -19,12 +19,16 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.event.DatabaseAutoscanDirectoriesEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseAutoscanDirectoriesListener;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -34,11 +38,8 @@ import java.util.List;
  */
 public final class DatabaseAutoscanDirectories extends Database {
 
-    public static final DatabaseAutoscanDirectories INSTANCE =
-            new DatabaseAutoscanDirectories();
-
-    private DatabaseAutoscanDirectories() {
-    }
+    public static final DatabaseAutoscanDirectories                          INSTANCE        = new DatabaseAutoscanDirectories();
+    private final       ListenerSupport<DatabaseAutoscanDirectoriesListener> listenerSupport = new ListenerSupport<DatabaseAutoscanDirectoriesListener>();
 
     /**
      * Fügt ein automatisch nach Metadaten zu scannendes Verzeichnis hinzu.
@@ -60,45 +61,15 @@ public final class DatabaseAutoscanDirectories extends Database {
                 logFiner(stmt);
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
+                if (inserted) {
+                    notifyListeners(DatabaseAutoscanDirectoriesEvent.Type.DIRECTORY_INSERTED, directoryName);
+                }
             } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
             } finally {
                 close(stmt);
                 free(connection);
             }
-        }
-        return inserted;
-    }
-
-    /**
-     * Fügt ein automatisch nach Metadaten zu scannende Verzeichnisse hinzu.
-     *
-     * @param  directoryNames Verzeichnisnamen
-     * @return true bei Erfolg
-     */
-    public boolean insert(List<String> directoryNames) {
-        boolean inserted = false;
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
-                    "INSERT INTO autoscan_directories (directory) VALUES (?)");
-            for (String directoryName : directoryNames) {
-                if (!exists(directoryName)) {
-                    stmt.setString(1, directoryName);
-                    logFiner(stmt);
-                    stmt.executeUpdate();
-                }
-            }
-            connection.commit();
-        } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
-            rollback(connection);
-        } finally {
-            close(stmt);
-            free(connection);
         }
         return inserted;
     }
@@ -123,6 +94,9 @@ public final class DatabaseAutoscanDirectories extends Database {
             logFiner(stmt);
             int count = stmt.executeUpdate();
             deleted = count > 0;
+            if (deleted) {
+                notifyListeners(DatabaseAutoscanDirectoriesEvent.Type.DIRECTORY_DELETED, directoryName);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
@@ -192,5 +166,27 @@ public final class DatabaseAutoscanDirectories extends Database {
         }
 
         return directories;
+    }
+
+    public void addListener(DatabaseAutoscanDirectoriesListener listener) {
+        listenerSupport.add(listener);
+    }
+
+    public void removeListener(DatabaseAutoscanDirectoriesListener listener) {
+        listenerSupport.remove(listener);
+    }
+
+    private void notifyListeners(DatabaseAutoscanDirectoriesEvent.Type type, String dir) {
+        DatabaseAutoscanDirectoriesEvent         evt       = new DatabaseAutoscanDirectoriesEvent(type, dir);
+        Set<DatabaseAutoscanDirectoriesListener> listeners = listenerSupport.get();
+
+        synchronized (listeners) {
+            for (DatabaseAutoscanDirectoriesListener listener : listeners) {
+                listener.actionPerformed(evt);
+            }
+        }
+    }
+
+    private DatabaseAutoscanDirectories() {
     }
 }
