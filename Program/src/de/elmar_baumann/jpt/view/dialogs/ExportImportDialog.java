@@ -22,13 +22,14 @@ import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.panels.ExportImportPanel;
+import de.elmar_baumann.jpt.view.panels.ExportImportPanel.ExportImportListener;
 import de.elmar_baumann.lib.dialog.Dialog;
 
 /**
  *
  * @author Elmar Baumann <eb@elmar-baumann.de>
  */
-public class ExportImportDialog extends Dialog {
+public class ExportImportDialog extends Dialog implements ExportImportListener {
 
     private static final long                      serialVersionUID = 8937656035473070405L;
     private final        ExportImportPanel.Context context;
@@ -51,6 +52,12 @@ public class ExportImportDialog extends Dialog {
                 : JptBundle.INSTANCE.getString("Help.Url.ExportImportDialog.Import")
                 );
         panelExportImport.setContext(context);
+        panelExportImport.addListener(this);
+    }
+
+    @Override
+    public void done() {
+        setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -108,5 +115,4 @@ public class ExportImportDialog extends Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private de.elmar_baumann.jpt.view.panels.ExportImportPanel panelExportImport;
     // End of variables declaration//GEN-END:variables
-
 }

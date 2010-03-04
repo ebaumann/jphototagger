@@ -20,6 +20,7 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.exporter.Exporter;
 import de.elmar_baumann.jpt.exporter.JptExporters;
 import de.elmar_baumann.jpt.importer.Importer;
@@ -35,6 +36,7 @@ import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -42,14 +44,15 @@ import java.util.List;
  */
 public class ExportImportPanel extends javax.swing.JPanel implements SelectObjectsPanel.SelectionListener {
 
-    private static final long    serialVersionUID       = -4556829908393776160L;
-    private static final String  TEXT_EXPORT            = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Export");
-    private static final String  TEXT_IMPORT            = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Import");
-    private static final String  KEY_SEL_INDICES_EXPORT = "ExportImportPanel.Export.SelIndices";
-    private static final String  KEY_SEL_INDICES_IMPORT = "ExportImportPanel.Import.SelIndices";
-    private static final String  KEY_LAST_DIR           = "ExportImportPanel.LastDirectory";
-    private              Context context                = Context.EXPORT;
-    private              File    dir;
+    private static final    long                                  serialVersionUID        = -4556829908393776160L;
+    private static final    String                                TEXT_EXPORT             = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Export");
+    private static final    String                                TEXT_IMPORT             = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Import");
+    private static final    String                                KEY_SEL_INDICES_EXPORT  = "ExportImportPanel.Export.SelIndices";
+    private static final    String                                KEY_SEL_INDICES_IMPORT  = "ExportImportPanel.Import.SelIndices";
+    private static final    String                                KEY_LAST_DIR            = "ExportImportPanel.LastDirectory";
+    private                 Context                               context                 = Context.EXPORT;
+    private                 File                                  dir;
+    private final transient ListenerSupport<ExportImportListener> exImportListenerSupport = new ListenerSupport<ExportImportListener>();
 
     public enum Context {
         EXPORT,
@@ -154,6 +157,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         } else {
             importFiles();
         }
+        notifyExportImportListeners();
     }
 
     private void exportFiles() {
@@ -194,17 +198,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         }
     }
 
-    private String getFileNames(List<File> files) {
-        StringBuilder sb   = new StringBuilder();
-        int           size = files.size();
-        
-        for (int i = 0; i < size; i++) {
-            sb.append(i == 0 ? "" : ", ");
-            sb.append(files.get(i).getName());
-        }
-        return sb.toString();
-    }
-
     private void setEnabledButtons() {
         int selCount    = panelSelectObjects.getSelectionCount();
         int objectCount = panelSelectObjects.getObjectCount();
@@ -222,6 +215,30 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private void setSelectedAll(boolean select) {
         panelSelectObjects.setSelectedAll(select);
         setEnabledButtons();
+    }
+
+    public static interface ExportImportListener {
+        /**
+         * Will be called after an ex-/import.
+         */
+        void done();
+    }
+
+    public void addListener(ExportImportListener listener) {
+        exImportListenerSupport.add(listener);
+    }
+
+    public void removeListener(ExportImportListener listener) {
+        exImportListenerSupport.remove(listener);
+    }
+
+    private void notifyExportImportListeners() {
+        Set<ExportImportListener> listeners = exImportListenerSupport.get();
+        synchronized (listeners) {
+            for (ExportImportListener listener : listeners) {
+                listener.done();
+            }
+        }
     }
 
     /** This method is called from within the constructor to
