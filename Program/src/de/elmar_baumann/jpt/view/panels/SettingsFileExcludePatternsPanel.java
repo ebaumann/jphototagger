@@ -28,6 +28,8 @@ import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -35,7 +37,7 @@ import java.util.List;
  * @version 2008-11-02
  */
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
-        implements ProgressListener, Persistence {
+        implements ProgressListener, Persistence, ListSelectionListener {
 
     private static final    String                       ADD_INFO_TEXT    = JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.AddInfoText");
     private static final    long                         serialVersionUID = -3083582823254767001L;
@@ -46,7 +48,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     public SettingsFileExcludePatternsPanel() {
         initComponents();
-        textFieldInputPattern.requestFocusInWindow();
+        textFieldInputPatterns.requestFocusInWindow();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -63,13 +65,15 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     }
 
     private void deletePattern() {
-        String pattern = (String) listPattern.getSelectedValue();
+        if (listPatterns.getSelectedIndex() < 0) return;
+        String pattern = (String) listPatterns.getSelectedValue();
         model.delete(pattern);
         setEnabledButtons();
+        listPatterns.requestFocusInWindow();
     }
 
     private void insertPattern() {
-        String input = textFieldInputPattern.getText().trim();
+        String input = textFieldInputPatterns.getText().trim();
         if (canInsertPattern(input)) {
             model.insert(input);
         }
@@ -81,22 +85,25 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     }
 
     private void setEnabledButtonInsertPattern() {
-        buttonInsertPattern.setEnabled(
-                canInsertPattern(textFieldInputPattern.getText().trim()));
+        buttonInsertPatterns.setEnabled(
+                canInsertPattern(textFieldInputPatterns.getText().trim()));
     }
 
     private void setEnabledButtons() {
-        int size = model.getSize();
-        buttonDeletePattern.setEnabled(size > 0);
+        int     size         = model.getSize();
+        boolean itemSelected = listPatterns.getSelectedIndex() >= 0;
+
+        buttonDeletePatterns.setEnabled(itemSelected);
         setEnabledButtonInsertPattern();
         buttonUpdateDatabase.setEnabled(size > 0 && !isUpdateDatabase);
         buttonCancelUpdateDatabase.setEnabled(isUpdateDatabase);
     }
 
     private void setSelectedPatternToInput() {
-        String pattern = (String) listPattern.getSelectedValue();
+        String pattern = (String) listPatterns.getSelectedValue();
+
         if (pattern != null) {
-            textFieldInputPattern.setText(pattern);
+            textFieldInputPatterns.setText(pattern);
         }
     }
 
@@ -150,6 +157,13 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     public void writeProperties() {
     }
 
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) {
+            setEnabledButtons();
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -160,50 +174,50 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     private void initComponents() {
 
         labelInfoList = new javax.swing.JLabel();
-        scrollPaneListPattern = new javax.swing.JScrollPane();
-        listPattern = new javax.swing.JList();
-        textFieldInputPattern = new javax.swing.JTextField();
-        buttonDeletePattern = new javax.swing.JButton();
-        buttonInsertPattern = new javax.swing.JButton();
+        scrollPaneListPatterns = new javax.swing.JScrollPane();
+        listPatterns = new javax.swing.JList();
+        textFieldInputPatterns = new javax.swing.JTextField();
+        buttonDeletePatterns = new javax.swing.JButton();
+        buttonInsertPatterns = new javax.swing.JButton();
         labelInfoDatabase = new javax.swing.JLabel();
         progressBarUpdateDatabase = new javax.swing.JProgressBar();
         buttonCancelUpdateDatabase = new javax.swing.JButton();
         buttonUpdateDatabase = new javax.swing.JButton();
 
-        labelInfoList.setLabelFor(listPattern);
+        labelInfoList.setLabelFor(listPatterns);
         labelInfoList.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
 
-        listPattern.setModel(model);
-        listPattern.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPattern.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listPatterns.setModel(model);
+        listPatterns.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listPatterns.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listPatternValueChanged(evt);
+                listPatternsValueChanged(evt);
             }
         });
-        scrollPaneListPattern.setViewportView(listPattern);
+        scrollPaneListPatterns.setViewportView(listPatterns);
 
-        textFieldInputPattern.setText(ADD_INFO_TEXT);
-        textFieldInputPattern.addKeyListener(new java.awt.event.KeyAdapter() {
+        textFieldInputPatterns.setText(ADD_INFO_TEXT);
+        textFieldInputPatterns.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                textFieldInputPatternKeyReleased(evt);
+                textFieldInputPatternsKeyReleased(evt);
             }
         });
 
-        buttonDeletePattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
-        buttonDeletePattern.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
-        buttonDeletePattern.setEnabled(false);
-        buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
+        buttonDeletePatterns.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePatterns.text")); // NOI18N
+        buttonDeletePatterns.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePatterns.toolTipText")); // NOI18N
+        buttonDeletePatterns.setEnabled(false);
+        buttonDeletePatterns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDeletePatternActionPerformed(evt);
+                buttonDeletePatternsActionPerformed(evt);
             }
         });
 
-        buttonInsertPattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
-        buttonInsertPattern.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
-        buttonInsertPattern.setEnabled(false);
-        buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
+        buttonInsertPatterns.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPatterns.text")); // NOI18N
+        buttonInsertPatterns.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPatterns.toolTipText")); // NOI18N
+        buttonInsertPatterns.setEnabled(false);
+        buttonInsertPatterns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonInsertPatternActionPerformed(evt);
+                buttonInsertPatternsActionPerformed(evt);
             }
         });
 
@@ -232,13 +246,13 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPaneListPattern, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListPatterns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                     .addComponent(labelInfoList, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldInputPattern, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addComponent(textFieldInputPatterns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonDeletePattern)
+                        .addComponent(buttonDeletePatterns)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonInsertPattern))
+                        .addComponent(buttonInsertPatterns))
                     .addComponent(labelInfoDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                     .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -253,13 +267,13 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(labelInfoList)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneListPattern, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addComponent(scrollPaneListPatterns, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldInputPattern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldInputPatterns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonInsertPattern)
-                    .addComponent(buttonDeletePattern))
+                    .addComponent(buttonInsertPatterns)
+                    .addComponent(buttonDeletePatterns))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoDatabase)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -272,44 +286,44 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void listPatternValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listPatternValueChanged
+private void listPatternsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listPatternsValueChanged
     setSelectedPatternToInput();
     setEnabledButtons();
-}//GEN-LAST:event_listPatternValueChanged
+}//GEN-LAST:event_listPatternsValueChanged
 
-private void textFieldInputPatternKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputPatternKeyReleased
+private void textFieldInputPatternsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputPatternsKeyReleased
     if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         insertPattern();
     } else {
         setEnabledButtonInsertPattern();
     }
-}//GEN-LAST:event_textFieldInputPatternKeyReleased
+}//GEN-LAST:event_textFieldInputPatternsKeyReleased
 
 private void buttonCancelUpdateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelUpdateDatabaseActionPerformed
     cancelUpdateDatabase();
 }//GEN-LAST:event_buttonCancelUpdateDatabaseActionPerformed
 
-private void buttonDeletePatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletePatternActionPerformed
+private void buttonDeletePatternsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletePatternsActionPerformed
     deletePattern();
-}//GEN-LAST:event_buttonDeletePatternActionPerformed
+}//GEN-LAST:event_buttonDeletePatternsActionPerformed
 
 private void buttonUpdateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateDatabaseActionPerformed
     updateDatabase();
 }//GEN-LAST:event_buttonUpdateDatabaseActionPerformed
 
-private void buttonInsertPatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertPatternActionPerformed
+private void buttonInsertPatternsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertPatternsActionPerformed
     insertPattern();
-}//GEN-LAST:event_buttonInsertPatternActionPerformed
+}//GEN-LAST:event_buttonInsertPatternsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelUpdateDatabase;
-    private javax.swing.JButton buttonDeletePattern;
-    private javax.swing.JButton buttonInsertPattern;
+    private javax.swing.JButton buttonDeletePatterns;
+    private javax.swing.JButton buttonInsertPatterns;
     private javax.swing.JButton buttonUpdateDatabase;
     private javax.swing.JLabel labelInfoDatabase;
     private javax.swing.JLabel labelInfoList;
-    private javax.swing.JList listPattern;
+    private javax.swing.JList listPatterns;
     private javax.swing.JProgressBar progressBarUpdateDatabase;
-    private javax.swing.JScrollPane scrollPaneListPattern;
-    private javax.swing.JTextField textFieldInputPattern;
+    private javax.swing.JScrollPane scrollPaneListPatterns;
+    private javax.swing.JTextField textFieldInputPatterns;
     // End of variables declaration//GEN-END:variables
 }
