@@ -176,20 +176,20 @@
             <title>Datei &gt; Bilder importieren</title>
         </page>
         <page>
-            <url>import_keywords.html</url>
-            <title>Datei &gt; Importieren &gt; Stichwörter</title>
+            <url>export_jpt.html</url>
+            <title>Datei &gt; Exportieren &gt; JPhotoTagger-Daten</title>
+        </page>
+        <page>
+            <url>export_keywords.html</url>
+            <title>Datei &gt; Exportieren &gt; Stichwortbaum</title>
         </page>
         <page>
             <url>import_jpt.html</url>
             <title>Datei &gt; Importieren &gt; JPhotoTagger-Daten</title>
         </page>
         <page>
-            <url>export_keywords.html</url>
-            <title>Datei &gt; Exportieren &gt; Stichwörter</title>
-        </page>
-        <page>
-            <url>export_jpt.html</url>
-            <title>Datei &gt; Exportieren &gt; JPhotoTagger-Daten</title>
+            <url>import_keywords.html</url>
+            <title>Datei &gt; Importieren &gt; Stichwortbaum</title>
         </page>
         <page>
             <url>settings.html</url>
