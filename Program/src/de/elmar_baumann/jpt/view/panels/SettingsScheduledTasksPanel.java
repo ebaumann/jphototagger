@@ -95,9 +95,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
                     String directoryName = directory.getAbsolutePath();
                     lastSelectedAutoscanDirectory = directoryName;
                     if (!db.exists(directoryName)) {
-                        if (db.insert(directoryName)) {
-                            modelAutoscanDirectories.addElement(directory);
-                        } else {
+                        if (!db.insert(directoryName)) {
                             errorMessageInsertAutoscanDirectory(directoryName);
                         }
                     }
@@ -113,9 +111,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
             File directory = (File) values[i];
             String directoryName = (directory).getAbsolutePath();
             if (db.exists(directoryName)) {
-                if (db.delete(directoryName)) {
-                    modelAutoscanDirectories.removeElement(directory);
-                } else {
+                if (!db.delete(directoryName)) {
                     errorMessageDeleteAutoscanDirectory(directoryName);
                 }
             }
