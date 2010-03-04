@@ -24,7 +24,9 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.database.DatabaseFavorites;
+import de.elmar_baumann.jpt.event.DatabaseFavoritesEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseFavoritesListener;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
@@ -61,8 +63,12 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2009-06-15
  */
-public final class TreeModelFavorites extends DefaultTreeModel
-        implements TreeWillExpandListener, AppExitListener {
+public final class TreeModelFavorites
+        extends    DefaultTreeModel
+        implements TreeWillExpandListener,
+                   DatabaseFavoritesListener,
+                   AppExitListener
+{
 
     private static final    String                 KEY_SELECTED_FAV_NAME = "TreeModelFavorites.SelFavDir";
     private static final    String                 KEY_SELECTED_DIR      = "TreeModelFavorites.SelDir";
@@ -71,6 +77,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     private final transient DatabaseFavorites      db;
     private final           JTree                  tree;
     private final           Object                 monitor               = new Object();
+    private transient       boolean                listenToDb            = true;
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(JptBundle.INSTANCE.getString("TreeModelFavorites.Root.DisplayName")));
@@ -79,56 +86,71 @@ public final class TreeModelFavorites extends DefaultTreeModel
         db        = DatabaseFavorites.INSTANCE;
         tree.addTreeWillExpandListener(this);
 
-        addDirectories();
+        addFavorites();
+        db.addListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
-    public void insert(Favorite favoriteDirectory) {
+    public void insert(Favorite favorite) {
         synchronized (monitor) {
-            favoriteDirectory.setIndex(getNextNewFavoriteIndex());
-            if (!existsFavoriteDirectory(favoriteDirectory) &&
-                 db.insertOrUpdate(favoriteDirectory)) {
-                addDirectory(favoriteDirectory);
-            } else {
-                errorMessage(favoriteDirectory.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamInsert"));
+            listenToDb = false;
+            favorite.setIndex(getNextNewFavoriteIndex());
+            if (!existsFavoriteDirectory(favorite)) {
+                if (db.insertOrUpdate(favorite)) {
+                    addFavorite(favorite);
+                } else {
+                    errorMessage(favorite.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamInsert"));
+                }
             }
+            listenToDb = true;
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public void delete(Favorite favoriteDirctory) {
+    public void delete(Favorite favorite) {
         synchronized (monitor) {
-            DefaultMutableTreeNode favNode = getNode(favoriteDirctory);
-            if (favNode != null && db.delete(favoriteDirctory.getName())) {
+            listenToDb = false;
+            DefaultMutableTreeNode favNode = getNode(favorite);
+            if (favNode != null && db.delete(favorite.getName())) {
                 removeNodeFromParent(favNode);
-                for (Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
-                    Object userObject = children.nextElement().getUserObject();
-                    int newIndex = 0;
-                    if (userObject instanceof Favorite) {
-                        Favorite fav = (Favorite) userObject;
-                        fav.setIndex(newIndex++);
-                        db.update(fav.getName(), fav);
-                    }
-                }
+                resetFavoriteIndices();
             } else {
-                errorMessage(favoriteDirctory.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamDelete"));
+                errorMessage(favorite.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamDelete"));
+            }
+            listenToDb = true;
+        }
+    }
+
+    private void resetFavoriteIndices() {
+        for (@SuppressWarnings("unchecked") Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
+            Object userObject = children.nextElement().getUserObject();
+            int newIndex = 0;
+            if (userObject instanceof Favorite) {
+                Favorite fav = (Favorite) userObject;
+                fav.setIndex(newIndex++);
+                db.update(fav.getName(), fav);
             }
         }
     }
 
     public void update(Favorite oldFavorite, Favorite newFavorite) {
         synchronized (monitor) {
+            listenToDb = false;
             DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
             if (nodeOfFavorite != null && db.update(oldFavorite.getName(), newFavorite)) {
-                oldFavorite.setDirectoryName(newFavorite.getDirectoryName());
-                oldFavorite.setName(newFavorite.getName());
-                nodeChanged(nodeOfFavorite);
-                removeAllChildren(nodeOfFavorite);
-                addChildren(nodeOfFavorite);
+                updateNodes(oldFavorite, newFavorite, nodeOfFavorite);
             } else {
                 errorMessage(oldFavorite.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamUpdate"));
             }
+            listenToDb = true;
         }
+    }
+
+    private void updateNodes(Favorite oldFavorite, Favorite newFavorite, DefaultMutableTreeNode nodeOfFavorite) {
+        oldFavorite.setDirectoryName(newFavorite.getDirectoryName());
+        oldFavorite.setName(newFavorite.getName());
+        nodeChanged(nodeOfFavorite);
+        removeAllChildren(nodeOfFavorite);
+        addChildren(nodeOfFavorite);
     }
 
     @SuppressWarnings("unchecked")
@@ -191,11 +213,11 @@ public final class TreeModelFavorites extends DefaultTreeModel
         return false;
     }
 
-    private void addDirectories() {
+    private void addFavorites() {
         List<Favorite> directories = db.getAll();
         for (Favorite directory : directories) {
             if (FileUtil.existsDirectory(directory.getDirectory())) {
-                addDirectory(directory);
+                addFavorite(directory);
             } else {
                 errorMessageAddDirectory(directory);
                 db.delete(directory.getName());
@@ -203,7 +225,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         }
     }
 
-    private void addDirectory(Favorite directory) {
+    private void addFavorite(Favorite directory) {
         DefaultMutableTreeNode dirNode = getNode(directory);
         if (dirNode == null) {
             DefaultMutableTreeNode node = new TreeNodeSortedChildren(directory);
@@ -489,6 +511,29 @@ public final class TreeModelFavorites extends DefaultTreeModel
             removeChildrenWithNotExistingFiles(node);
         }
         tree.setCursor(treeCursor);
+    }
+
+    @Override
+    public void actionPerformed(DatabaseFavoritesEvent evt) {
+        if (!listenToDb) return;
+
+        Favorite favorite    = evt.getFavorite();
+        Favorite oldFavorite = evt.getOldFavorite();
+
+        if (evt.isFavoriteInserted()) {
+            addFavorite(favorite);
+        } else if (evt.isFavoriteUpdated()) {
+            DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
+            if (nodeOfFavorite != null) {
+                updateNodes(oldFavorite, favorite, nodeOfFavorite);
+            }
+        } else if (evt.isFavoriteDeleted()) {
+            DefaultMutableTreeNode favNode = getNode(favorite);
+            if (favNode != null) {
+                removeNodeFromParent(favNode);
+                resetFavoriteIndices();
+            }
+        }
     }
 
     private List<DefaultMutableTreeNode> getTreeRowNodes() {
