@@ -22,6 +22,8 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
+import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
+import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -36,7 +38,7 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann <eb@elmar-baumann.de>
  * @version 2008-10-16
  */
-public final class ListModelPrograms extends DefaultListModel {
+public final class ListModelPrograms extends DefaultListModel implements DatabaseProgramsListener {
 
     private static final long serialVersionUID = 1107244876982338977L;
     private              Type type;
@@ -44,6 +46,7 @@ public final class ListModelPrograms extends DefaultListModel {
     public ListModelPrograms(Type type) {
         this.type = type;
         addElements();
+        DatabasePrograms.INSTANCE.addListener(this);
     }
 
     public void add(Program program) {
@@ -75,6 +78,25 @@ public final class ListModelPrograms extends DefaultListModel {
         List<Program> programs = DatabasePrograms.INSTANCE.getAll(type);
         for (Program program : programs) {
             addElement(program);
+        }
+    }
+
+    @Override
+    public void actionPerformed(DatabaseProgramsEvent event) {
+        Program program = event.getProgram();
+
+        if (program.isAction() && type.equals(Type.PROGRAM) ||
+           !program.isAction() && type.equals(Type.ACTION)) return;
+
+        if (event.getType().equals(DatabaseProgramsEvent.Type.PROGRAM_INSERTED)) {
+            addElement(program);
+        } else if (event.getType().equals(DatabaseProgramsEvent.Type.PROGRAM_UPDATED)) {
+            int index = indexOf(program);
+            if (index >= 0) {
+                set(index, program);
+            }
+        } else if (event.getType().equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED)) {
+            removeElement(program);
         }
     }
 }
