@@ -739,7 +739,8 @@ Changelog JPhotoTagger
 
 * Kontextmenüs von Bäumen haben je einen Eintrag zum Öffnen und Schließen
   aller untergeordneter Knoten bis hin zu den Blättern
-* Bug beseitigt: http://kenai.com/bugzilla/show_bug.cgi?id=1702
+* Bug beseitigt: Vorschaubilder werden nach Erzeugen nicht aktualisiert, auch
+  nicht durch F5
 
 0.7.11 2009-12-19
 -----------------
@@ -806,11 +807,18 @@ Changelog JPhotoTagger
 0.7.5 2009-12-13
 ----------------
 
-* Bug beseitigt: http://kenai.com/bugzilla/show_bug.cgi?id=1700
-* Bug beseitigt: http://kenai.com/bugzilla/show_bug.cgi?id=1701
-* Bug beseitigt: http://kenai.com/bugzilla/show_bug.cgi?id=1705
-* Bug beseitigt: http://kenai.com/bugzilla/show_bug.cgi?id=1708
-* Feature hinzugefügt: http://kenai.com/bugzilla/show_bug.cgi?id=1714
+* Bug beseitigt: Umstellen der IPTC-Codierung von ISO-8859-1 auf UTF-8 wird
+  nicht dauerhaft gespeichert
+* Bug beseitigt: Ist ein Vorschaubild ausgewählt, das bearbeitet werden kann,
+  bleibt der Status "Bearbeiten ist möglich" erhalten, auch falls anschließend
+  in ein anderes Verzeichnis gewechselt wird (obwohl dort kein Bild ausgewählt
+  ist)
+* Bug beseitigt: Nach Speichern einer neuen Vorlage erscheint diese nicht im
+  Vorlagen-Dropdown-Listenfeld
+* Bug beseitigt: Kalender in der erweiterten Suche kann geöffnet werden falls
+  andere Metadaten (als ein Datum) eingestellt sind
+* Feature hinzugefügt: Schaltfläche unter linkem Stichwortbaum: Alle Zweige
+  öffnen
 
 0.7.4 2009-10-23
 ----------------
