@@ -28,7 +28,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JSeparator;
+import javax.swing.JPopupMenu.Separator;
 import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
 
@@ -148,14 +148,14 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     private void addItems() {
         add(itemAddToFavorites);
-        add(new JSeparator());
+        add(new Separator());
         add(itemCreateDirectory);
         add(itemRenameDirectory);
         add(itemDeleteDirectory);
-        add(new JSeparator());
+        add(new Separator());
         add(menuItemExpandAllSubitems);
         add(menuItemCollapseAllSubitems);
-        add(new JSeparator());
+        add(new Separator());
         add(itemRefresh);
     }
 
