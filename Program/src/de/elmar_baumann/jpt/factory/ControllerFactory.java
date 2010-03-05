@@ -130,6 +130,7 @@ import de.elmar_baumann.jpt.controller.misc.ControllerLogfileDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerMaintainDatabase;
 import de.elmar_baumann.jpt.controller.misc.ControllerMenuItemEnabler;
 import de.elmar_baumann.jpt.controller.misc.ControllerPlugins;
+import de.elmar_baumann.jpt.controller.misc.ControllerSendMail;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowSynonymsDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowUserSettingsDialog;
@@ -307,6 +308,7 @@ public final class ControllerFactory {
         support.add(new ControllerShowAdvancedSearchDialog());
         support.add(new ControllerShowSynonymsDialog());
         support.add(new ControllerEditKeywordSynonyms());
+        support.add(new ControllerSendMail());
         addKeywordsTreeControllers();
         addSizeAndLocationController();
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");
