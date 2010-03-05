@@ -138,7 +138,7 @@
         </dc:publisher>
         <dc:title>XMP Rating Set</dc:title>
         <dc:identifier>de.elmar_baumann.jpt.resource.icons.icon_xmp_rating_set.svg</dc:identifier>
-        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:source>http://www.elmar-baumann.de/JPhotoTagger/</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <cc:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />

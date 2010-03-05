@@ -67,7 +67,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:source>http://www.elmar-baumann.de/JPhotoTagger/</dc:source>
         <dc:creator>
           <cc:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>

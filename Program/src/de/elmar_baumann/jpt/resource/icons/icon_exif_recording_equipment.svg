@@ -75,7 +75,7 @@
         <dc:title>EXIF Recording equipment</dc:title>
         <dc:coverage>computer program, icon</dc:coverage>
         <dc:identifier>de.elmar_baumann.jpt.resource.icons.icon_exif_recording_equipment.svg</dc:identifier>
-        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:source>http://www.elmar-baumann.de/JPhotoTagger/</dc:source>
         <cc:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
         <dc:subject>

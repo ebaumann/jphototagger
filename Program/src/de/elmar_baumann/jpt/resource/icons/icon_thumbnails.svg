@@ -72,7 +72,7 @@
         </dc:publisher>
         <dc:title>Thumbnail window</dc:title>
         <dc:identifier>de.elmar_baumann.jpt.resource.icons.icon_thumbnails.svg</dc:identifier>
-        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:source>http://www.elmar-baumann.de/JPhotoTagger/</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <cc:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
