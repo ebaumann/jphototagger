@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Utils for {@link Content}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-14
  */
 public final class ContentUtil {

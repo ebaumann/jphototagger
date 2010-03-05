@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 /**
  * Spalte <code>name</code> der Tabelle <code>collection_names</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-07
  */
 public final class ColumnCollectionnamesName extends Column {

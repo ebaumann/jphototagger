@@ -38,7 +38,7 @@ import java.util.logging.XMLFormatter;
 /**
  * Logging system of the application.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-11
  */
 public final class AppLoggingSystem implements UserSettingsListener {

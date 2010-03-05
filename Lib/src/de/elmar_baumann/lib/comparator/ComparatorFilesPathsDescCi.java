@@ -27,7 +27,7 @@ import java.util.Comparator;
 /**
  * Compares the absolute path names of two files descending case insensitive.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-14
  */
 public final class ComparatorFilesPathsDescCi

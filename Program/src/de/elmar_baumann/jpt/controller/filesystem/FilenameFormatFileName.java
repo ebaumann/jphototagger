@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 /**
  * Format with the name of a filname excluded the postfix and the parents.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-13
  */
 public final class FilenameFormatFileName extends FilenameFormat {

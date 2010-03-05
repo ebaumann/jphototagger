@@ -25,7 +25,7 @@ import java.awt.Color;
 /**
  * Flag of a Thumbnail.
  *
- * @author  Elmar Baumann <eb@elmar-aumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-09
  */
 public final class ThumbnailFlag {

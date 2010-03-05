@@ -28,7 +28,7 @@ import javax.swing.JLabel;
  * Displays text in a {@code JLabel} for an amount of milliseconds, then hides
  * the text.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-15
  */
 public final class MessageLabel {

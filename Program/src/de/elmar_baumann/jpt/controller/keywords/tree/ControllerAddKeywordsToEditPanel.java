@@ -47,7 +47,7 @@ import javax.swing.tree.TreeNode;
  *
  * Also listens to key events and does the same if Ctrl+B were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-15
  */
 public class ControllerAddKeywordsToEditPanel

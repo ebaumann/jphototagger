@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Utils for databases.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-31
  */
 public final class Util {

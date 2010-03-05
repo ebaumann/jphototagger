@@ -38,7 +38,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * Renders items of {@link TreeModelAllSystemDirectories}. Ddisplays only the
  * directory names instead of their full path.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-07-23
  */
 public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellRenderer {

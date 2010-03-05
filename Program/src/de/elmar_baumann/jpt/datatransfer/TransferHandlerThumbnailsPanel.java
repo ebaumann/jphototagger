@@ -56,7 +56,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * The selected files will be transferred as
  * {@link DataFlavor#javaFileListFlavor}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-24
  */
 public final class TransferHandlerThumbnailsPanel extends TransferHandler {

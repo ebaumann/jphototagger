@@ -55,7 +55,7 @@ import javax.swing.table.DefaultTableModel;
  * containing the same objects (both either <code>ExifTag</code> instances or
  * <code>String</code> instances).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
 public final class TableModelExif extends DefaultTableModel {

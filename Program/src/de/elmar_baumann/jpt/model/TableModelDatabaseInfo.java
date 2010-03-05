@@ -40,7 +40,7 @@ import javax.swing.table.DefaultTableModel;
  * count of table rows. If the database content changes, this model updates
  * itself if set through {@link #setListenToDatabase(boolean)}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
 public final class TableModelDatabaseInfo extends DefaultTableModel implements DatabaseImageFilesListener {

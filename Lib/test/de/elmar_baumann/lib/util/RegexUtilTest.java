@@ -31,7 +31,7 @@ import static org.junit.Assert.*;
 /**
  * Tests the class {@link de.elmar_baumann.lib.util.RegexUtil}.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public class RegexUtilTest {
 

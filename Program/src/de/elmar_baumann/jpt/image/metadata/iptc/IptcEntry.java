@@ -29,7 +29,7 @@ import java.util.Arrays;
  * IPTC-Eintrag in einer Bilddatei. Dekodiert die Daten (getData()) als
  * ISO-8859-1-String.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-02-17
  */
 public final class IptcEntry {

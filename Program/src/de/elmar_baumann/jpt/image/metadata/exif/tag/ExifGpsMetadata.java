@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 /**
  * GPS information in the EXIF metadata.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-03-17
  */
 public final class ExifGpsMetadata {

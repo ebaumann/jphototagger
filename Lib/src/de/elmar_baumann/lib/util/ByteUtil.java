@@ -24,7 +24,7 @@ import java.nio.ByteBuffer;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-11
  */
 public final class ByteUtil {

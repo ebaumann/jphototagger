@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-11
  */
 public interface DatabaseProgramsListener {

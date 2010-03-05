@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.DatabaseFileExcludePatternsEvent;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-04
  */
 public interface DatabaseFileExcludePatternsListener {

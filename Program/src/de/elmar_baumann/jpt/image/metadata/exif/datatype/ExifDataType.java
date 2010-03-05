@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 /**
  * Data type of an EXIF tag.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-06
  */
 public enum ExifDataType {

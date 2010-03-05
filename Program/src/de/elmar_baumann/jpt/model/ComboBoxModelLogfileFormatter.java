@@ -30,7 +30,7 @@ import javax.swing.DefaultComboBoxModel;
  * These formatters can be used for formatting {@link java.util.logging.Logger}
  * output.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-17
  */
 public final class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {

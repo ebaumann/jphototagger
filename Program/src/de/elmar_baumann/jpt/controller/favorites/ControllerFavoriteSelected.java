@@ -35,7 +35,7 @@ import javax.swing.event.TreeSelectionListener;
  * item represents a directory. If a new item is selected, this controller sets
  * the files of the selected directory to the image file thumbnails panel.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-24
  */
 public final class ControllerFavoriteSelected implements TreeSelectionListener, RefreshListener {

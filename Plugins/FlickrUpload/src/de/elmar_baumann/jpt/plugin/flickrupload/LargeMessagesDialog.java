@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.plugin.flickrupload;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-14
  */
 public class LargeMessagesDialog extends javax.swing.JDialog {

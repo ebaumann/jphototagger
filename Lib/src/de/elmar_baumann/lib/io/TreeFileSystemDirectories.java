@@ -35,7 +35,7 @@ import javax.swing.tree.TreePath;
  * Creates, renames and deletes directories from the file system and updates
  * trees representing a file system.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-29
  */
 public final class TreeFileSystemDirectories {

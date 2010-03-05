@@ -22,7 +22,7 @@ package de.elmar_baumann.lib.resource;
 /**
  * {@link Bundle} with the path <code>"de/elmar_baumann/lib/resource/properties/Bundle"</code>.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public final class JslBundle extends Bundle {
 

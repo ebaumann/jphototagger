@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  *
  * Inspired by http://bits.netbeans.org/dev/javadoc/org-openide-util/org/openide/util/Lookup.html.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-27
  */
 public final class Lookup {

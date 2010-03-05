@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
 /**
  * Tests the Class {@link de.elmar_baumann.jpt.app.AppLookAndFeel}.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  * @version 2009/12/30
  */
 public class AppLookAndFeelTest {

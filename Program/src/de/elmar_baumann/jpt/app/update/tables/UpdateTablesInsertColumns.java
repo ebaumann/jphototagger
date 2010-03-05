@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Adds new columns to the database.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-06
  */
 final class UpdateTablesInsertColumns {

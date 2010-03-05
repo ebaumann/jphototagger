@@ -28,7 +28,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
  * Dialog zum Scannen eines Verzeichnisses nach Bildern und Einfügen
  * von Thumbnails in die Datenbank.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class UpdateMetadataOfDirectoriesDialog extends Dialog {

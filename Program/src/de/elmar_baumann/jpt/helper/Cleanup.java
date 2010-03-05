@@ -27,7 +27,7 @@ import de.elmar_baumann.jpt.tasks.UserTasks;
 /**
  * Shuts down all Tasks. Should be called when the application exits.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-16
  */
 public final class Cleanup {

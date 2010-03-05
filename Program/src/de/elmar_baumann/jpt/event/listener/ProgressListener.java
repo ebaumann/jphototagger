@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.ProgressEvent;
 /**
  * Wird über einen Fortschritt benachrichtigt.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-07-22
  */
 public interface ProgressListener {

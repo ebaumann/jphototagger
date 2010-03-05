@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-17
  */
 public class PluginEvent {

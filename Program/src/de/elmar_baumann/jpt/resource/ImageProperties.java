@@ -23,7 +23,7 @@ import com.imagero.util.R3;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-02-17
  */
 public final class ImageProperties implements R3 {

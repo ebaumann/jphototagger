@@ -30,7 +30,7 @@ import javax.swing.SwingUtilities;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-22
  */
 public final class ControllerEmptyMetadata implements ActionListener {

@@ -33,7 +33,7 @@ import javax.swing.tree.TreePath;
 /**
  * Popup menu for the tree in a {@link KeywordsPanel}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-29
  */
 public final class PopupMenuKeywordsTree extends JPopupMenu {

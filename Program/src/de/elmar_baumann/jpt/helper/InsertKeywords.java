@@ -32,7 +32,7 @@ import javax.swing.tree.TreePath;
 /**
  * Inserts a list of Strings into the keywords root.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-03
  */
 public final class InsertKeywords extends Thread {

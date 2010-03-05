@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.DatabaseSynonymsEvent;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-07
  */
 public interface DatabaseSynonymsListener {

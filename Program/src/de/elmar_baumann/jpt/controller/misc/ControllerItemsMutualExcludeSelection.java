@@ -34,7 +34,7 @@ import javax.swing.event.TreeSelectionListener;
  * oder einer List Items selektiert sein dürfen. Die Items der anderen werden
  * deselektiert, sobald bei einem ein Item in der Gruppe selektiert wird.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ControllerItemsMutualExcludeSelection

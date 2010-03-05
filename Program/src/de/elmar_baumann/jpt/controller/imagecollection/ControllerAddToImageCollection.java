@@ -32,7 +32,7 @@ import java.awt.event.ActionListener;
  * Kontrolliert die Aktion: Füge Bilder einer Bildsammlung hinzu, ausgelöst von
  * {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-00-10
  */
 public final class ControllerAddToImageCollection implements ActionListener {

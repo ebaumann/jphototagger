@@ -36,7 +36,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemToggleReal()}
  * and toggles the real property of a keyword.
  *
- * @author  Martin Pohlack <martinp@gmx.de>
+ * @author  Martin Pohlack
  * @version 2009-07-13
  */
 public class ControllerToggleRealKeyword

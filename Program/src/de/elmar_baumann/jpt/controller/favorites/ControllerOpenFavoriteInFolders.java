@@ -46,7 +46,7 @@ import javax.swing.tree.TreePath;
  * Also listens to the {@link JTree}'s key events and opens the selected folder
  * in the directorie's tree if the keys <code>Ctrl+O</code> were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-05
  */
 public final class ControllerOpenFavoriteInFolders

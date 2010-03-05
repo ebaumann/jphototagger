@@ -37,7 +37,7 @@ import javax.swing.tree.TreePath;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-26
  */
 public final class TransferHandlerDirectoryTree extends TransferHandler {

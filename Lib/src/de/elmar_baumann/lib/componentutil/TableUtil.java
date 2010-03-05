@@ -35,7 +35,7 @@ import javax.swing.table.TableModel;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-02-17
  */
 public final class TableUtil {

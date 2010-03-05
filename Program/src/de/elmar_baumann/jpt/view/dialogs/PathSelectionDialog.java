@@ -42,7 +42,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  * Modal dialog to select a path.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-12
  */
 public class PathSelectionDialog extends Dialog implements ListSelectionListener {

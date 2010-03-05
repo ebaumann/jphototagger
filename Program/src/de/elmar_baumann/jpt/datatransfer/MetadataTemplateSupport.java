@@ -31,7 +31,7 @@ import javax.swing.TransferHandler.TransferSupport;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-06
  */
 final class MetadataTemplateSupport {

@@ -68,7 +68,7 @@ import javax.swing.event.ListSelectionEvent;
  * Text in the input field will be added to the list on hitting the ENTER key
  * or pushing the ADD button.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-18
  */
 public final class EditRepeatableTextEntryPanel

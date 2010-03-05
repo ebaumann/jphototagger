@@ -26,7 +26,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-22
  */
 public final class ControllerEnableCreateMetadataTemplate implements ThumbnailsPanelListener {

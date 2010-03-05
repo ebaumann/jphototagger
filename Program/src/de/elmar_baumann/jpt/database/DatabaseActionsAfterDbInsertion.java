@@ -32,7 +32,7 @@ import java.util.List;
  * Contains (links to) external Programs to execute after inserting metadata
  * into the database.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-07
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {

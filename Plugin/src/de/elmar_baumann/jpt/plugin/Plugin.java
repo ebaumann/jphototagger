@@ -33,7 +33,7 @@ import javax.swing.JProgressBar;
 /**
  * Base class for Plugins.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-27
  */
 public abstract class Plugin {

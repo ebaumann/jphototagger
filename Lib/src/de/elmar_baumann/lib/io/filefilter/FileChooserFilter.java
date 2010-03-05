@@ -25,7 +25,7 @@ import java.io.File;
  * Filter for {@link javax.swing.JFileChooser} created from a
  * {@link java.io.FileFilter}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-05-30
  */
 public final class FileChooserFilter extends javax.swing.filechooser.FileFilter {

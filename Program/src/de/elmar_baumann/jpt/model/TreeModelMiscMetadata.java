@@ -56,7 +56,7 @@ import javax.swing.tree.DefaultTreeModel;
  *    ({@link Column#getDataType()}</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-12
  */
 public final class TreeModelMiscMetadata

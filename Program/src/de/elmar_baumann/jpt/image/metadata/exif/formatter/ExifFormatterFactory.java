@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * Creates instances of {@link ExifFormatter}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-10
  */
 public final class ExifFormatterFactory {

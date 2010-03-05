@@ -36,7 +36,7 @@ import javax.swing.JPanel;
  * {@link DatabaseImageFiles#updateRenameFilenamesStartingWith(java.lang.String, java.lang.String, de.elmar_baumann.jpt.event.listener.ProgressListener)}
  * to replace substrings in filenames.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-16
  */
 public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener, Persistence {

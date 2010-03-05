@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.types;
 /**
  * Position of a substring within a string.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-16
  */
 public enum SubstringPosition {

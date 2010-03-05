@@ -27,7 +27,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-07
  */
 public class SynonymsDialog extends Dialog {

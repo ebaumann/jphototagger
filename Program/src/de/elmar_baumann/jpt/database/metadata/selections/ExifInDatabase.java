@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Liefert, welche Exif-Metadaten in die Datenbank gespeichert werden.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-14
  */
 public final class ExifInDatabase {

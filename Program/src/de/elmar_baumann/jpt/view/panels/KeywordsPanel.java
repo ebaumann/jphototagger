@@ -34,7 +34,7 @@ import javax.swing.tree.TreeSelectionModel;
 /**
  * A tree for keywords.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-10
  */
 public class KeywordsPanel extends javax.swing.JPanel {

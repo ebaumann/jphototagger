@@ -25,7 +25,7 @@ import java.util.Deque;
 /**
  *
  * @param <E>
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack
  * @version 2009-07-18
  */
 public class WorkQueue<E> {

@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.event;
 /**
  * Action: The user has changed the settings.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-14
  */
 public final class UserSettingsEvent {

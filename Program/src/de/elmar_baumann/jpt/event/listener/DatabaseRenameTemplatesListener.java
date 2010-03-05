@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.DatabaseRenameTemplatesEvent;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-01
  */
 public interface DatabaseRenameTemplatesListener {

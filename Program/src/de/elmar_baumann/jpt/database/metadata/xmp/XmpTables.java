@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Collection of all XMP tables.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-08
  */
 public final class XmpTables {

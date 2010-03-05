@@ -37,7 +37,7 @@ import javax.swing.tree.TreePath;
 /**
  * Imports keywords.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-01
  */
 public abstract class KeywordsImporter implements Importer {

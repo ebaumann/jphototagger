@@ -43,7 +43,7 @@ import javax.swing.tree.TreePath;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-20
  */
 public final class FavoritesHelper {

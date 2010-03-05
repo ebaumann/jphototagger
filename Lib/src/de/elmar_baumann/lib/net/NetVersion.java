@@ -28,7 +28,7 @@ import java.net.URL;
 /**
  * Grabs version information from the net.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-05
  */
 public final class NetVersion {

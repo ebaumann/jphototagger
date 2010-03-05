@@ -29,7 +29,7 @@ import javax.swing.JList;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-17
  */
 public final class ListCellRendererSavedSearches extends DefaultListCellRenderer {

@@ -27,7 +27,7 @@ import javax.swing.InputVerifier;
 /**
  * Eine Tabellenspalte.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2007-07-29
  */
 public class Column {

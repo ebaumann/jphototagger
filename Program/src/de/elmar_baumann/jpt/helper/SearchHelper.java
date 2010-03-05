@@ -28,7 +28,7 @@ import de.elmar_baumann.lib.comparator.FileSort;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-20
  */
 public final class SearchHelper {

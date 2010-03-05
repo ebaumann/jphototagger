@@ -31,7 +31,7 @@ import javax.swing.tree.TreePath;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-20
  */
 public class MouseListenerTree

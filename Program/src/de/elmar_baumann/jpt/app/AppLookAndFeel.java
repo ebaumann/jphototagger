@@ -34,7 +34,7 @@ import javax.swing.plaf.FontUIResource;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-06
  */
 public final class AppLookAndFeel {

@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.FileSystemEvent;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-20
  */
 public interface FileSystemListener {

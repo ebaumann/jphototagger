@@ -27,7 +27,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-29
  */
 public final class InputVerifierForbiddenCharacters extends InputVerifier {

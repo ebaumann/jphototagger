@@ -56,7 +56,7 @@ import javax.swing.text.JTextComponent;
  * {@link #setXmpToInputComponents()} and {@link #setInputToXmp()} to write
  * the input values into the referenced XMP object.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-08
  */
 public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {

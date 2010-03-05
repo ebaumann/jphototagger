@@ -31,7 +31,7 @@ import javax.swing.JToggleButton;
  * Listens to {@link AppPanel#getToggleButtonSelKeywords()} and expands or
  * collapses all keyword nodes on action.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-15
  */
 public final class ControllerToggleButtonSelKeywords implements ActionListener {

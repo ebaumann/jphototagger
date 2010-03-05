@@ -41,7 +41,7 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class IptcToXmpDialog extends Dialog implements ProgressListener {

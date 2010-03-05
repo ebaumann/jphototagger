@@ -35,7 +35,7 @@ import javax.swing.JButton;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-08
  */
 public final class ControllerMetadataTemplateEdit

@@ -27,7 +27,7 @@ import java.util.Comparator;
 /**
  * Does not change the sort order.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-19
  */
 public final class ComparatorFilesNoSort

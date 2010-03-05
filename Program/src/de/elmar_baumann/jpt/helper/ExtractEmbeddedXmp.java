@@ -35,7 +35,7 @@ import java.util.Arrays;
 /**
  * Extracts in images embedded XMP metadata into sidecar files.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-05-22
  */
 public final class ExtractEmbeddedXmp extends FileEditor {

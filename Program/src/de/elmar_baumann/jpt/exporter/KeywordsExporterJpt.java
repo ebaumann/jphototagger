@@ -50,7 +50,7 @@ import org.w3c.dom.Element;
 /**
  * JPhotoTagger's own exportFile format.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-10-11
  */
 public final class KeywordsExporterJpt implements Exporter {

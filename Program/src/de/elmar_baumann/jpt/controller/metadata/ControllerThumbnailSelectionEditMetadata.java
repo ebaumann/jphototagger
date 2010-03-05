@@ -41,7 +41,7 @@ import javax.swing.SwingUtilities;
  * This controller also sets the metadata of a selected thumbnail to the edit
  * panel.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ControllerThumbnailSelectionEditMetadata implements ThumbnailsPanelListener {

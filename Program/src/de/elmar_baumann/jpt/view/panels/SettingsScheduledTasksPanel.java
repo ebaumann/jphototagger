@@ -39,7 +39,7 @@ import javax.swing.SpinnerNumberModel;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-02
  */
 public final class SettingsScheduledTasksPanel extends javax.swing.JPanel

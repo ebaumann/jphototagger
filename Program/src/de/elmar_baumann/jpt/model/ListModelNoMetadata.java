@@ -26,7 +26,7 @@ import javax.swing.DefaultListModel;
 /**
  * Elements are {@link Column}s retrieved through {@link NoMetadataColumns#get()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-06
  */
 public final class ListModelNoMetadata extends DefaultListModel {

@@ -30,7 +30,7 @@ import java.util.Map.Entry;
  * usefull for cache-replacement strategies etc.
  *
  * @param <C>
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack
  * @version 2009-07-18
  */
 public class CacheIndirectionAgeComparator<C extends CacheIndirection>

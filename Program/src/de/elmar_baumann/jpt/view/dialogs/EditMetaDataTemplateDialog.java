@@ -38,7 +38,7 @@ import java.awt.Container;
  * {@link #setTemplate(de.elmar_baumann.jpt.data.MetadataTemplate)} before
  * calling {@link #setVisible(boolean)}!
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-08
  */
 public class EditMetaDataTemplateDialog extends Dialog {

@@ -48,7 +48,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  */
 public final class UpdateMetadataOfDirectoriesPanel
         extends    JPanel

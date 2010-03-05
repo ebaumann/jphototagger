@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Updates the table's primary keys.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-11
  */
 final class UpdateTablesPrimaryKeys {

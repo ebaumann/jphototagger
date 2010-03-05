@@ -46,7 +46,7 @@ import javax.swing.ImageIcon;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-04-29
  */
 final class UpdateTablesThumbnails extends Database {

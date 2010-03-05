@@ -42,7 +42,7 @@ import javax.swing.SwingUtilities;
  * <code>DEL</code> key was pressed deletes the selected files from the
  * image collection.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-00-10
  * @see     ControllerDeleteFiles
  */

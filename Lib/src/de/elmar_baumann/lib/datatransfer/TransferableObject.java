@@ -29,7 +29,7 @@ import java.util.Arrays;
  *
  * <em>The objects have to implement the Interface {@link Serializable}!</em>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-17
  */
 public final class TransferableObject implements Transferable {

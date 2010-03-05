@@ -45,7 +45,7 @@ import javax.swing.filechooser.FileFilter;
  * Starts a thread, let the editor edit all selected files and displays the
  * progress.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-05-22
  */
 public final class FileEditorPanel extends javax.swing.JPanel {

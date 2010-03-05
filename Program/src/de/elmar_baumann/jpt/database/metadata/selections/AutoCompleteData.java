@@ -34,7 +34,7 @@ import java.util.StringTokenizer;
 /**
  * Contains autocomplete data (words, terms).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-10
  */
 public final class AutoCompleteData {

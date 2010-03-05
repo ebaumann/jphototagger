@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Verwaltet Bildsammlungen der Datenbank.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ModifyImageCollections {

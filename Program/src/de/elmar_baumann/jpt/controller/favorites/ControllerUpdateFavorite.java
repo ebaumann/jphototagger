@@ -36,7 +36,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to the {@link JTree}'s key events and let's edit the selected
  * file favorite directory if the keys <code>Strg+E</code> were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-23
  */
 public final class ControllerUpdateFavorite extends ControllerFavorite {

@@ -40,7 +40,7 @@ import java.util.logging.Logger;
  * This key contains only one parameter which will be substitued through the
  * following string.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-11
  */
 public final class AppLogger {

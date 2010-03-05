@@ -42,7 +42,7 @@ import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
 /**
  * Erzeugt und verbindet MouseListener.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-29
  */
 public final class MouseListenerFactory {

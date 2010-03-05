@@ -42,7 +42,7 @@ import javax.swing.SwingUtilities;
  * file system if the panel's content is <em>not</em>
  * {@link Content#IMAGE_COLLECTION}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-12
  * @see     ControllerDeleteFromImageCollection
  */

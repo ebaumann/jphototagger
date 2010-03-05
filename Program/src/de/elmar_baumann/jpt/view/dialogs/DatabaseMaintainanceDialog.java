@@ -29,7 +29,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
 /**
  * Modaler Dialog zur Wartung der Thumbnaildatenbank.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public final class DatabaseMaintainanceDialog extends Dialog {
 

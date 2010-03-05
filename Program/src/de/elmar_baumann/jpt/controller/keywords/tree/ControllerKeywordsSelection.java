@@ -36,7 +36,7 @@ import javax.swing.tree.TreePath;
  * Listens to {@link AppPanel#getTreeSelKeywords()} and on selection
  * shows thumbnails of the selected keyword and all it's
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-02
  */
 public final class ControllerKeywordsSelection

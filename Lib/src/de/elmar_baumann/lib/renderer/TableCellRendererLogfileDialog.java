@@ -39,7 +39,7 @@ import javax.swing.table.TableCellRenderer;
  * {@link de.elmar_baumann.lib.dialog.LogfileDialog}. Also formats dates and
  * selected table rows.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-03
  */
 public final class TableCellRendererLogfileDialog implements TableCellRenderer {

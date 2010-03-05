@@ -31,7 +31,7 @@ import java.util.Locale;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-03-31
  */
 public final class ExifGpsUtil {

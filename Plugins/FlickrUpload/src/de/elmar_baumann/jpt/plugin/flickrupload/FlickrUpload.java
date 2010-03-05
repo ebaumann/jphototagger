@@ -44,7 +44,7 @@ import javax.swing.JPanel;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-13
  */
 public final class FlickrUpload extends Plugin implements Serializable {

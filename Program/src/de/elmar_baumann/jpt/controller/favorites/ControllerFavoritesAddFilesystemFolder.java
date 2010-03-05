@@ -41,7 +41,7 @@ import javax.swing.tree.TreePath;
  * into the selected file system directory if the keys <code>Ctrl+N</code> were
  * pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-30
  */
 public final class ControllerFavoritesAddFilesystemFolder

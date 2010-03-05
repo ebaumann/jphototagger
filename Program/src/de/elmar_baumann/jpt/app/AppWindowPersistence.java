@@ -39,7 +39,7 @@ import java.util.Map;
  * Reads and writes persistent important settings of {@link AppPanel} and
  * {@link AppFrame}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-15
  */
 public final class AppWindowPersistence

@@ -51,7 +51,7 @@ import javax.swing.tree.TreeSelectionModel;
  * Browser for HTML help files. Usually those are packaged with the application
  * in a JAR file.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class HelpBrowser

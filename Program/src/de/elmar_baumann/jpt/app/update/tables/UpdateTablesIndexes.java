@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * Updates the tables indexes.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-11
  */
 final class UpdateTablesIndexes {

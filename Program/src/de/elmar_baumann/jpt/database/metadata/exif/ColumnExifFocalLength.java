@@ -29,7 +29,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * <li>EXIF Tag-ID: 37386 (Hex: 920A)</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-27
  */
 public final class ColumnExifFocalLength extends Column {

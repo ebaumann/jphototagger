@@ -42,7 +42,7 @@ import javax.swing.tree.TreeSelectionModel;
  * Folder to choose one or multiple directories. Can create new directories,
  * delete and rename existing.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class DirectoryChooser extends Dialog implements TreeSelectionListener, PopupMenuListener {

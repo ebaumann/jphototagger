@@ -36,7 +36,7 @@ import javax.swing.KeyStroke;
  * Dialog which can close by pressing the ESC key and showing the Help dialog
  * by pressing the F1 key.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-19
  */
 public class Dialog extends JDialog implements WindowListener {

@@ -43,7 +43,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * Also listens to key events and does the same if Ctrl+D was pressed.
  *
- * @author  Martin Pohlack  <martinp@gmx.de>
+ * @author  Martin Pohlack 
  * @version 2009-07-26
  */
 public class ControllerDeleteKeywordFromEditPanel

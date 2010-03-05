@@ -34,7 +34,7 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-02
  */
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel

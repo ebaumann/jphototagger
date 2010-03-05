@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  * Tests the Class {@link de.elmar_baumann. }.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  * @version 2010/01/15
  */
 public class SplashScreenTest {

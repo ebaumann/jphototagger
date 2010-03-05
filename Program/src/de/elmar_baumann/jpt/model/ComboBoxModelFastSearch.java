@@ -31,7 +31,7 @@ import javax.swing.DefaultComboBoxModel;
  * {@link #ALL_DEFINED_COLUMNS} and means, the fast search shall search
  * in all columns, else only in the selected column.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-31
  */
 public final class ComboBoxModelFastSearch extends DefaultComboBoxModel {

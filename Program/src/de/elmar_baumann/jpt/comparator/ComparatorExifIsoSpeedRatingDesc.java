@@ -28,7 +28,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-16
  */
 public final class ComparatorExifIsoSpeedRatingDesc

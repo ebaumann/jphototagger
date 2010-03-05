@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.metadata.Table;
 /**
  * Tabelle <code>collection_names</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-07
  */
 public final class TableCollectionNames extends Table {

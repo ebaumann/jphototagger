@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 /**
  * Tests the Class {@link de.elmar_baumann. }.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  * @version 2009-01-31
  */
 public class MutualExcludedResourceTest {

@@ -29,7 +29,7 @@ import java.text.DecimalFormat;
 /**
  * Formats tag 18 of the Nikon Type 3 Makernote Tags: The Flash Compensation.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-01
  */
 public final class NikonMakerNoteType3Tag132 implements ExifRawValueFormatter {

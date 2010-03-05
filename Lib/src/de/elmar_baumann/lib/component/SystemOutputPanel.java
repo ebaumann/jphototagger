@@ -33,7 +33,7 @@ import javax.swing.SwingUtilities;
  *
  * Starts after calling {@link #caputure()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-05-31
  */
 public class SystemOutputPanel extends JPanel {

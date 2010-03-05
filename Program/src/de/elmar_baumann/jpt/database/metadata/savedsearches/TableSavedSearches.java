@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.metadata.Table;
 /**
  * Tabelle <code>saved_searches</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-17
  */
 public final class TableSavedSearches extends Table {

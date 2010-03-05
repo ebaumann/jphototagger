@@ -50,7 +50,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-08
  */
 public final class DatabaseInfoRecordCountColumns {

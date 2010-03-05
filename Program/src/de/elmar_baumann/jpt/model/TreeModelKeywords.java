@@ -43,7 +43,7 @@ import javax.swing.tree.TreeNode;
  * <li>All other user objects are {@link Keyword}s</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-11
  */
 public final class TreeModelKeywords extends DefaultTreeModel {

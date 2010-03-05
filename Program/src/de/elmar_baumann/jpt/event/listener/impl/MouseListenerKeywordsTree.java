@@ -36,7 +36,7 @@ import javax.swing.tree.TreePath;
  *
  * Also sets the selected tree path.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-29
  */
 public final class MouseListenerKeywordsTree extends MouseListenerTree {

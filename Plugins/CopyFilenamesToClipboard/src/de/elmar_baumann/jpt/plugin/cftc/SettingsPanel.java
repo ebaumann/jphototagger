@@ -32,7 +32,7 @@ import javax.swing.JList;
 /**
  * Settings for {@link CopyFilenamesToClipboard}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-27
  */
 public class SettingsPanel extends javax.swing.JPanel {

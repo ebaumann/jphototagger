@@ -28,7 +28,7 @@ import javax.swing.JDialog;
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  */
 public class InputDialog extends Dialog {
 

@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Daten gespeicherter Suchen für ein {@link de.elmar_baumann.jpt.view.panels.SearchColumnPanel}-Objekt.
  * Die Indexe sind Indexe von Listenitems in Comboboxen oder Listboxen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-12
  */
 @XmlRootElement

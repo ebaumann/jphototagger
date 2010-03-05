@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-07
  */
 public final class SynonymsImporter implements Importer, EntityResolver

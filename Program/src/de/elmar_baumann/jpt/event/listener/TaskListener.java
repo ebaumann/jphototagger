@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.event.listener;
 /**
  * Beobachtet Tasks.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public interface TaskListener {
 

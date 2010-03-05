@@ -39,7 +39,7 @@ import javax.swing.JTree;
  * Listens to keyboard actions whithin the directories tree and copies or
  * moves files to directories when the keys related to a copy or move action.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-26
  */
 public final class ControllerDirectoryPasteFiles implements KeyListener {

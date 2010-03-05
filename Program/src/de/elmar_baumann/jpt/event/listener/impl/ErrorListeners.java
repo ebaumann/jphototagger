@@ -33,7 +33,7 @@ import java.util.Set;
  * Klassen, die sich für Fehler interessieren, melden sich bei der Instanz
  * dieser Klasse an.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-14
  */
 public final class ErrorListeners extends ListenerSupport<ErrorListener> {

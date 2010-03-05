@@ -30,7 +30,7 @@ import java.util.List;
  * Renames or deletes a directory from the file system and updates the database
  * when image files are affected. Let's confirm the user before acting.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-29
  */
 public final class FileSystemDirectories {

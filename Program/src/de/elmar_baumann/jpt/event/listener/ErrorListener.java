@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.ErrorEvent;
 /**
  * Beobachtet Fehler (in Threads).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-03
  */
 public interface ErrorListener {

@@ -33,7 +33,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Listens to database updates and adds not existing keywords.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-17
  */
 public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesListener {

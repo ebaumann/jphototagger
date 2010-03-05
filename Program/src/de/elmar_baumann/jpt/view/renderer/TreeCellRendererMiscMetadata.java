@@ -40,7 +40,7 @@ import javax.swing.tree.TreeNode;
  * Renders items and text for
  * {@link de.elmar_baumann.jpt.model.TreeModelMiscMetadata} nodes.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-12
  */
 public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {

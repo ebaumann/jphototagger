@@ -40,7 +40,7 @@ import javax.swing.tree.TreePath;
 /**
  * Handles drags and drops for a {@link KeywordsPanel}'s tree.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-11
  */
 public final class TransferHandlerKeywordsTree extends TransferHandler {

@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.event;
 /**
  * Text was selected.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-26
  */
 public final class TextSelectionEvent {

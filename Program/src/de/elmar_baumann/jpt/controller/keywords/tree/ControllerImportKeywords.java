@@ -30,7 +30,7 @@ import java.awt.event.ActionListener;
  * Listens to the menu item {@link AppFrame#getMenuItemImportKeywords()} and
  * on action performed imports keywords.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-01
  */
 public final class ControllerImportKeywords implements ActionListener {

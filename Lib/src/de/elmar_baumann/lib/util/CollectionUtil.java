@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-26
  */
 public final class CollectionUtil {

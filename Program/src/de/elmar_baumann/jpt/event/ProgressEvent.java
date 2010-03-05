@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.event;
 /**
  * Fortschritts-Ereignis.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-27
  */
 public final class ProgressEvent {

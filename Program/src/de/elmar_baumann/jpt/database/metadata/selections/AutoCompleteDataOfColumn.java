@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * Contains autocomplete data of specific columns.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-01
  */
 public final class AutoCompleteDataOfColumn {

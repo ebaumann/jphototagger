@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.app.update.UpdateDownload;
  * Initalizes all other factories in the right order and sets the persistent
  * settings to the application's frame and panel.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-29
  */
 public final class MetaFactory implements Runnable {

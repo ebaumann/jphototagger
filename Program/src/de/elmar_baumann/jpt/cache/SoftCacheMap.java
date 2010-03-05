@@ -33,7 +33,7 @@ import java.util.TreeSet;
  * memory shortage.
  *
  * @param <C>
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack
  * @version 2009-07-18
  */
 public class SoftCacheMap<C extends CacheIndirection> {

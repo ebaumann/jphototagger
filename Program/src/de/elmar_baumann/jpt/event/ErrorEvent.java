@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.event;
 /**
  * Fehler.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-03
  */
 public final class ErrorEvent {

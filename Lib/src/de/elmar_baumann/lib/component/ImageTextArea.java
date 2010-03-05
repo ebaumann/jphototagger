@@ -38,7 +38,7 @@ import javax.swing.JTextArea;
  * When the field contains text, the image will not be displayed to avoid
  * overlaying the text. If the text field is empty, the image will be displayed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-30
  */
 public final class ImageTextArea extends JTextArea implements KeyListener {

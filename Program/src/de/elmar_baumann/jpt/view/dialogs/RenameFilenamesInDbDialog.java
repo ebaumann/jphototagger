@@ -27,7 +27,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
 /**
  * Holds a {@link de.elmar_baumann.jpt.view.panels.RenameFilenamesInDbPanel}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-16
  */
 public class RenameFilenamesInDbDialog extends Dialog {

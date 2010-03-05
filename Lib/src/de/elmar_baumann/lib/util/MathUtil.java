@@ -22,7 +22,7 @@ package de.elmar_baumann.lib.util;
 /**
  * Math utils.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-02-20
  */
 public final class MathUtil {

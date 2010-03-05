@@ -37,7 +37,7 @@ import javax.swing.text.JTextComponent;
  * Contains a button which expands or collapses a component. If the component
  * has a {@link javax.swing.JLabel} the label's text is shown when collapsed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-24
  */
 public class ExpandCollapseComponentPanel extends JPanel implements FocusListener {

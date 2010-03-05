@@ -42,7 +42,7 @@ import javax.swing.SwingUtilities;
  *
  * Fixme: refactor common stuff between this and Cache into a common ancestor
  *
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack
  * @version 2009-07-18
  */
 public final class RenderedThumbnailCache implements ThumbnailUpdateListener {

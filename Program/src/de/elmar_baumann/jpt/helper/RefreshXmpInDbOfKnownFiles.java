@@ -31,7 +31,7 @@ import java.util.List;
  * Refreshes the XMP metadata of all known imagesfiles whithout time stamp
  * check.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-04
  */
 public final class RefreshXmpInDbOfKnownFiles extends HelperThread {

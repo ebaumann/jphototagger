@@ -41,7 +41,7 @@ import javax.swing.JPanel;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-28
  */
 public class ImagePreviewPanel extends JPanel implements PropertyChangeListener {

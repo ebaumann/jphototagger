@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
  * All elements are {@link IptcEntry}s of <em>one</em> image file retrieved
  * through {@link IptcMetadata#getIptcEntries(java.io.File)}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
 public final class TableModelIptc extends DefaultTableModel {

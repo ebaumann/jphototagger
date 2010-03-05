@@ -36,7 +36,7 @@ import javax.swing.JProgressBar;
  * Writes {@link Xmp} objects to XMP files and inserts or updates them into the
  * database.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class SaveXmp extends Thread {

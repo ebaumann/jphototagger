@@ -35,7 +35,7 @@ import java.io.File;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-16
  */
 public final class MiscFactory {

@@ -28,7 +28,7 @@ import java.io.Serializable;
  *
  * Persistent instances resists in the {@link DatabaseKeywords}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-10
  */
 public final class Keyword implements Comparable<Keyword>, Serializable {

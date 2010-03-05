@@ -28,7 +28,7 @@ import java.util.Set;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-07-28
  */
 public final class ImageFile {

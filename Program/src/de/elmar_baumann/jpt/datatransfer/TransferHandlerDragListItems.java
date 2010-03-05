@@ -29,7 +29,7 @@ import de.elmar_baumann.lib.datatransfer.TransferableObject;
 /**
  * Creates a {@link TransferableObject} with selected list items as object array.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-02
  */
 public final class TransferHandlerDragListItems extends TransferHandler {

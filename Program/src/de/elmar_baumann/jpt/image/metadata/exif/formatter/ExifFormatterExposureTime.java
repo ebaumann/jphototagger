@@ -27,7 +27,7 @@ import de.elmar_baumann.lib.generics.Pair;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#EXPOSURE_TIME}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-10
  */
 public final class ExifFormatterExposureTime extends ExifFormatter {

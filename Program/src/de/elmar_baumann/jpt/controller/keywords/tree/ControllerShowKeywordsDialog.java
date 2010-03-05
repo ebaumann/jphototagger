@@ -30,7 +30,7 @@ import java.awt.event.ActionListener;
  * Listens to the menu item {@link AppFrame#getMenuItemInputHelper()}
  * and shows the {@link InputHelperDialog} on action performed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-30
  */
 public final class ControllerShowKeywordsDialog

@@ -28,7 +28,7 @@ import javax.swing.DefaultListModel;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-07
  */
 public final class ListModelSynonyms extends DefaultListModel implements DatabaseSynonymsListener {

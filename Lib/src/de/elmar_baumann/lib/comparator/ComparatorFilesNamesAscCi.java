@@ -27,7 +27,7 @@ import java.util.Comparator;
 /**
  * Compares the file names of two files ascending case insensitive.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Martin Pohlack
+ * @author  Elmar Baumann
  * @version 2009-12-20
  */
 public final class ComparatorFilesNamesAscCi

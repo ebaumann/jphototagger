@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.DatabaseMetadataTemplatesEvent;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-05
  */
 public interface DatabaseMetadataTemplatesListener {

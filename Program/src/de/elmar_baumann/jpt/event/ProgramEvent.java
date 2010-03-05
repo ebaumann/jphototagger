@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.data.Program;
  * Event relating to a program. A program is outside this program and will be
  * called from this program. It displays or modifies images etc.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-06
  */
 public final class ProgramEvent {

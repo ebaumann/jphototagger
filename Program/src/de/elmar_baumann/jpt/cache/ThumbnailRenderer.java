@@ -29,7 +29,7 @@ import java.awt.Image;
  * thumbnail, all other sizes are based on the longer edge of the provided
  * image.
  *
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack
  * @version 2009-08-17
  */
 public interface ThumbnailRenderer {

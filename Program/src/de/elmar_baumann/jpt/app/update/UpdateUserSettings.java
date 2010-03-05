@@ -29,7 +29,7 @@ import java.util.Properties;
 /**
  * Updates the user properties.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-17
  */
 public final class UpdateUserSettings {

@@ -41,7 +41,7 @@ import java.lang.reflect.Method;
  * most effective that that controller registers itself it's actions and
  * the base class controller the key events.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-07
  */
 public abstract class Controller implements ActionListener, KeyListener {

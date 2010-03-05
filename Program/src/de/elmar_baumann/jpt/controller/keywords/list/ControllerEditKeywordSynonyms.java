@@ -47,7 +47,7 @@ import javax.swing.event.PopupMenuListener;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-09
  */
 public final class ControllerEditKeywordSynonyms extends ControllerKeywords 

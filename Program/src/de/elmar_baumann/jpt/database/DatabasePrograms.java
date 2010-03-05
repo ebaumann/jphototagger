@@ -39,7 +39,7 @@ import java.util.Set;
  * key of a program is it's <strong>ID</strong>
  * ({@link de.elmar_baumann.jpt.data.Program#getId()}).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-04
  */
 public final class DatabasePrograms extends Database {

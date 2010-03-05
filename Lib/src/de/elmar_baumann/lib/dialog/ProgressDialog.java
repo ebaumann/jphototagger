@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Nichtmodaler Dialog mit Fortschrittsbalken.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-03
  */
 public final class ProgressDialog extends javax.swing.JDialog {

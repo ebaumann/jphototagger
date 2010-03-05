@@ -52,7 +52,7 @@ import javax.imageio.ImageIO;
 /**
  * Hilfsklasse für Thumbnails.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author Elmar Baumann, Tobias Stening
  * @version 2008-10-07
  */
 public final class ThumbnailUtil {

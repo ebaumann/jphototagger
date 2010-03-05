@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileFilter;
 /**
  * BUG: Does not work.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-04-01
  */
 public final class ExecutableFileChooserFileFilter extends FileFilter {

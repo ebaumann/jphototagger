@@ -47,7 +47,7 @@ import java.util.Map;
 /**
  * Supported XMP columns for editing and updating XMP sidecar files.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class EditColumns {

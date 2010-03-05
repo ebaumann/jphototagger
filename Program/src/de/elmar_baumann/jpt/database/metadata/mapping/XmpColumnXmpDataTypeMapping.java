@@ -47,7 +47,7 @@ import java.util.Map;
  * {@link de.elmar_baumann.jpt.database.metadata.Column}
  * und einem XMP-Datentyp.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-20
  */
 public final class XmpColumnXmpDataTypeMapping {

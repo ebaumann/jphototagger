@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
  * An automatic task is a background task running as long as the next task
  * shall start.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-16
  */
 public final class AutomaticTask {

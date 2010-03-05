@@ -38,7 +38,7 @@ import javax.swing.DefaultListModel;
  * element in this model. All actions shall be executed after inserting metadata
  * into the database.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-07
  */
 public final class ListModelActionsAfterDbInsertion

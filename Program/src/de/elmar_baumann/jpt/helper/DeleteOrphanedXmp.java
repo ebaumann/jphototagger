@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  * @see     DatabaseImageFiles#deleteOrphanedXmp(de.elmar_baumann.jpt.event.listener.ProgressListener)
  */

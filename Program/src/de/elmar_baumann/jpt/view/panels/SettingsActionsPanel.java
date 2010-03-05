@@ -37,7 +37,7 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-07
  */
 public class SettingsActionsPanel extends javax.swing.JPanel

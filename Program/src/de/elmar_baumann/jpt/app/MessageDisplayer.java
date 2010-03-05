@@ -34,7 +34,7 @@ import javax.swing.JOptionPane;
 /**
  * Displays messages.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-12
  */
 public final class MessageDisplayer {

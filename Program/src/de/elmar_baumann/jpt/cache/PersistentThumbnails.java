@@ -38,7 +38,7 @@ import javax.swing.ImageIcon;
 /**
  * Persistent stored (cached) thumbnails.
  *
- * @author  Martin Pohlack <martinp@gmx.de>, Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Martin Pohlack, Elmar Baumann
  * @version 2009-08-13
  */
 public final class PersistentThumbnails {

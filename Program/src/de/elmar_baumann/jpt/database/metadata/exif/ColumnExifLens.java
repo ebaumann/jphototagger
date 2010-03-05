@@ -28,7 +28,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * <li>EXIF: Maker Note Tag</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-01
  */
 public final class ColumnExifLens extends Column {

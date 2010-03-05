@@ -37,7 +37,7 @@ import javax.swing.tree.TreePath;
  * up or down the selected favorite directory when the special menu item was
  * clicked.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-15
  */
 public final class ControllerMoveFavorite implements ActionListener {

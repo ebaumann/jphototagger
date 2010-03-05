@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * Holds the data of a metadata edit template.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-22
  */
 public final class MetadataTemplate {

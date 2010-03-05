@@ -36,7 +36,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-24
  */
 public final class ActionsHelper {

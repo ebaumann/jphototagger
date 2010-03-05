@@ -35,7 +35,7 @@ import java.util.Set;
 /**
  * Life cycle of the application.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-30
  */
 public final class AppLifeCycle {

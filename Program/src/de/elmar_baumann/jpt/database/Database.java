@@ -34,7 +34,7 @@ import java.sql.Statement;
 /**
  * Base class of specialized database classes.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public class Database {

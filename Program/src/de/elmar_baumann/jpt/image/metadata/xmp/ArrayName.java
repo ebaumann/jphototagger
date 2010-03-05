@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMappin
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-27
  */
 public enum ArrayName {

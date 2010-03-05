@@ -27,7 +27,7 @@ import javax.swing.DefaultComboBoxModel;
  * Elements are all implemented {@link }s retrieved through
  * {@link KeywordsExporters#getAll()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-01
  */
 public final class ComboBoxModelKeywordsExporters extends DefaultComboBoxModel {

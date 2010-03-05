@@ -39,7 +39,7 @@ import java.util.Set;
  * thumbnail files. Then deletes all other files in the directory
  * {@link UserSettings#getThumbnailsDirectoryName()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-10-17
  */
 public final class DeleteOrphanedThumbnails implements Runnable {

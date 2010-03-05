@@ -59,7 +59,7 @@ import javax.swing.tree.TreeSelectionModel;
 /**
  * Panel der Anwendung.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
 public final class AppPanel extends javax.swing.JPanel {

@@ -29,7 +29,7 @@ import de.elmar_baumann.lib.resource.JslBundle;
  * This dialog is a singleton. It starts to capture output after calling
  * {@link #captureOutput()}.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public class SystemOutputDialog extends Dialog {
 

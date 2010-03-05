@@ -61,7 +61,7 @@ import javax.swing.tree.TreePath;
  * <li>User objects below the favorites are directory {@link File}s</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-15
  */
 public final class TreeModelFavorites

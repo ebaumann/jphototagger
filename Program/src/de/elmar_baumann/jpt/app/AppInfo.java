@@ -25,7 +25,7 @@ import de.elmar_baumann.lib.util.Version;
 /**
  * Informations about this application.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-06-21
  */
 public final class AppInfo {

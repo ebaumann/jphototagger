@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 /**
  * Art einer Spaltenverknüpfung.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  * @version 2008-08-28
  */
 public enum Relation {

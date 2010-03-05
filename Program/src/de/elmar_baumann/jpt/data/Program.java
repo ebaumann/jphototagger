@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * External program to start within the application. It is written persistent
  * into the database {@link DatabasePrograms}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-04
  */
 @XmlRootElement

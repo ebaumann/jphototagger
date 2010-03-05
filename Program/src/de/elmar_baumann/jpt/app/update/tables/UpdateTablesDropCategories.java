@@ -45,7 +45,7 @@ import java.sql.Statement;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-24
  */
 final class UpdateTablesDropCategories {

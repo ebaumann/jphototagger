@@ -45,7 +45,7 @@ import javax.swing.SwingUtilities;
  * Also listens to the {@link JList}'s key events and creates a new image
  * collection when the keys <code>Ctrl+N</code> were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-10
  */
 public final class ControllerAddImageCollection

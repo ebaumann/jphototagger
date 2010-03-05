@@ -28,7 +28,7 @@ import javax.swing.InputVerifier;
 /**
  * Spalte <code>rating</code> der Tabelle <code>xmp</code>.
  *
- * @author  Martin Pohlack <martinp@gmx.de>
+ * @author  Martin Pohlack
  * @version 2009-07-31
  */
 public final class ColumnXmpRating extends Column {

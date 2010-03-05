@@ -40,7 +40,7 @@ import javax.swing.JMenuItem;
  * {@link EditMetadataPanels#getXmp()} or
  * {@link EditMetadataPanels#setXmp(de.elmar_baumann.jpt.data.Xmp)}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-07
  */
 public final class ControllerCopyPasteMetadata

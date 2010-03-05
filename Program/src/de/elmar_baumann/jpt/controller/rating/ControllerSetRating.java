@@ -39,7 +39,7 @@ import javax.swing.JMenuItem;
  * Also listens to the rating items in the {@link PopupMenuThumbnails} and
  * rates an action performed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-03
  */
 public final class ControllerSetRating

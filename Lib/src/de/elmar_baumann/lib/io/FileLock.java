@@ -32,7 +32,7 @@ import java.util.Map;
  * uses this class to access files. Should be used when changing files or
  * using libraries which fail when opening the same file twice (for reading).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-22
  */
 public final class FileLock {

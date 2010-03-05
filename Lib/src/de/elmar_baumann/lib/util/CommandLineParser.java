@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 /**
  * (Very simple) Command line parser.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-22
  */
 public final class CommandLineParser {

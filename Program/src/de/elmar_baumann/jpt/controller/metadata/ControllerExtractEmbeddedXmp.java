@@ -32,7 +32,7 @@ import java.awt.event.ActionListener;
  * Starts a {@link de.elmar_baumann.jpt.view.dialogs.FileEditorDialog} with
  * an {@link de.elmar_baumann.jpt.helper.ExtractEmbeddedXmp} editor.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-05-22
  */
 public final class ControllerExtractEmbeddedXmp implements ActionListener {

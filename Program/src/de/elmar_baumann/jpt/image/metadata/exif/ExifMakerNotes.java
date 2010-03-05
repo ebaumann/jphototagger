@@ -24,7 +24,7 @@ import java.io.File;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-13
  */
 public interface ExifMakerNotes {

@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.plugin.flickrupload;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-14
  */
 final class FlickrBundle extends de.elmar_baumann.lib.resource.Bundle {

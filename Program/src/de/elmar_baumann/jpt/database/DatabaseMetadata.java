@@ -31,7 +31,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-23
  */
 public final class DatabaseMetadata extends Database {

@@ -42,7 +42,7 @@ import java.util.Arrays;
  * dialog.setVisible(true);
  * }
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-11
  */
 public final class FilesystemDatabaseUpdater implements FileSystemListener {

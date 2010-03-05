@@ -26,7 +26,7 @@ import java.sql.SQLException;
 /**
  * Updates tables from previous application versions
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-23
  */
 public final class UpdateTables extends Database {

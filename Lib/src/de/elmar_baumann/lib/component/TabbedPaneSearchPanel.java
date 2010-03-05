@@ -68,7 +68,7 @@ import javax.swing.event.DocumentListener;
  * Bugs: Words in HTML texts containing tags will not be highlighted and HTML
  * tag names will be added as search words too.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-25
  */
 public class TabbedPaneSearchPanel extends javax.swing.JPanel implements ComponentListener, DocumentListener {

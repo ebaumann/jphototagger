@@ -33,7 +33,7 @@ import javax.swing.JTabbedPane;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-25
  */
 public final class MnemonicUtil {

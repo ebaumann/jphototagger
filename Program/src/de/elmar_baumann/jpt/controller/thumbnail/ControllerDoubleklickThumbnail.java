@@ -27,7 +27,7 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
  * Kontroller für die Aktion: Doppelklick auf ein Thumbnail ausgelöst von
  * {@link de.elmar_baumann.jpt.view.panels.ThumbnailsPanel}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-10
  */
 public final class ControllerDoubleklickThumbnail {

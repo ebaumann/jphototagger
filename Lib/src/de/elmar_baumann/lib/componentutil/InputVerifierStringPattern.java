@@ -26,7 +26,7 @@ import javax.swing.text.JTextComponent;
 /**
  * Verifies wheter a text component's text matches a regex string pattern.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-06
  */
 public final class InputVerifierStringPattern extends InputVerifier {

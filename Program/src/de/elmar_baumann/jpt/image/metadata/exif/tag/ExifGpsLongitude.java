@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * GPS longitude.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-03-17
  */
 public final class ExifGpsLongitude {

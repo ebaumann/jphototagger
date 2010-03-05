@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-17
  */
 final class Support {

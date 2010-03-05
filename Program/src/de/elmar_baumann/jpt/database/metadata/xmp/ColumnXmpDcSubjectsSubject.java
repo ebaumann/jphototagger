@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 /**
  * Spalte <code>subject</code> der Tabelle <code>xmp_dc_subjects</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-23
  */
 public final class ColumnXmpDcSubjectsSubject extends Column {

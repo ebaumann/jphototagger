@@ -32,7 +32,7 @@ import javax.swing.JList;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-08
  */
 public abstract class ControllerMetadataTemplate extends Controller {

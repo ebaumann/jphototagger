@@ -33,7 +33,7 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack
  * @version 2009-07-18
  */
 public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>

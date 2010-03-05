@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * <li>EXIF Tag-ID: 272 (Hex: 110).</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-27
  */
 public final class ColumnExifRecordingEquipment extends Column {

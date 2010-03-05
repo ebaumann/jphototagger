@@ -31,7 +31,7 @@ import java.util.regex.PatternSyntaxException;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-02-16
  */
 public final class RegexUtil {

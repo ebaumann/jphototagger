@@ -23,7 +23,7 @@ package de.elmar_baumann.lib.util.logging;
  * (Stack-) Frame in einer Logdatei von <code>java.util.logging.Logger</code>.
  * Ein Frame beschreibt eine Zeile im Backtrace eines Throwable-Objekts.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 1.0 2008-08-04
  */
 public final class FrameLogfileRecord {

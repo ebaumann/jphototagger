@@ -30,7 +30,7 @@ import javax.swing.JList;
 /**
  * Renders list items of {@link ListModelNoMetadata}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-23
  */
 public final class ListCellRendererNoMetadata extends DefaultListCellRenderer {

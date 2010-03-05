@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 /**
  * A format which is always an empty string.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-13
  */
 public final class FilenameFormatEmptyString extends FilenameFormat {

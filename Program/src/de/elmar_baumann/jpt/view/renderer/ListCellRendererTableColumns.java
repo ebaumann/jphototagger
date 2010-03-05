@@ -28,7 +28,7 @@ import javax.swing.JList;
 /**
  * Renderer für Tabellenspaltenbeschreibungen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-13
  * @see     de.elmar_baumann.jpt.database.metadata.Column#getDescription()
  */

@@ -36,7 +36,7 @@ import javax.swing.JTree;
  * Also listens to the {@link JTree}'s key events and refreshes the view if
  * the key <code>F5</code> was pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-28
  */
 public final class ControllerRefreshFavorites

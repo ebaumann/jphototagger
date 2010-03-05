@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.types;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-02-19
  */
 public enum DeleteOption {

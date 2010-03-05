@@ -33,7 +33,7 @@ import java.util.Set;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-06
  */
 public final class DatabaseSynonyms extends Database {

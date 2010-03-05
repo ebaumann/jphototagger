@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.listener.SearchListener;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-18
  */
 public final class SearchListenerSupport extends ListenerSupport<SearchListener> {

@@ -34,7 +34,7 @@ import javax.swing.JFileChooser;
 /**
  * Modal dialog for importing keywords.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-01
  */
 public class KeywordImportDialog extends Dialog {

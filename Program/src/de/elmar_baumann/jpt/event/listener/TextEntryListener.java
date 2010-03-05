@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 /**
  * Listens to an {@link de.elmar_baumann.jpt.data.TextEntry}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-20
  */
 public interface TextEntryListener {

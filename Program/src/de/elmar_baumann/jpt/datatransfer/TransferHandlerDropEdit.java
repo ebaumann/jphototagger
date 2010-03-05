@@ -44,7 +44,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * Does <em>not</em> support moving data.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-02
  */
 public final class TransferHandlerDropEdit extends TransferHandler {

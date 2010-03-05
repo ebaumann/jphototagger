@@ -31,7 +31,7 @@ import java.text.DecimalFormat;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-13
  */
 final class CanonMakerNoteTag1Formatter {

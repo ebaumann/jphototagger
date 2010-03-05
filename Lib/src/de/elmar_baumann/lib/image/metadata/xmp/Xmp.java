@@ -41,7 +41,7 @@ import java.util.logging.Logger;
  * A project using this class has to include <code>XMPCore.jar</code> in the
  * <code>lib</code> directory of this project.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-15
  */
 public final class Xmp {

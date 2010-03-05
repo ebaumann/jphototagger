@@ -44,7 +44,7 @@ import javax.swing.event.DocumentListener;
 /**
  * Panel zum Eingeben einzeiliger Texte.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-18
  */
 public final class EditTextEntryPanel

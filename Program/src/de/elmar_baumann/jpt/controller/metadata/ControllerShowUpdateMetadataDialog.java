@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 /**
  * Kontrolliert die Aktion: Dialog zum Aktualisieren der Metadaten anzeigen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-25
  */
 public final class ControllerShowUpdateMetadataDialog implements ActionListener {

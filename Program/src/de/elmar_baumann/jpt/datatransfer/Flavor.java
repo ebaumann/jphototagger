@@ -27,7 +27,7 @@ import javax.swing.TransferHandler.TransferSupport;
 /**
  * Data flavors supported in this application.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-14
  */
 public final class Flavor {

@@ -40,7 +40,7 @@ import javax.swing.JMenuItem;
  *
  * <em>Nur eine Instanz erzeugen!</em>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ControllerCreateMetadataOfSelectedThumbnails

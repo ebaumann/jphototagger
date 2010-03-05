@@ -34,7 +34,7 @@ import javax.swing.TransferHandler;
  * transferable is a {@link TransferableObject} instance which supports the data
  * flavor {@link Flavor#KEYWORDS_LIST}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-11
  */
 public final class TransferHandlerKeywordsList extends TransferHandler {

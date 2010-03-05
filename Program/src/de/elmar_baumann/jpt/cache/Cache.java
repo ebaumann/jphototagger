@@ -27,7 +27,7 @@ import java.util.Set;
 /**
  *
  * @param <CI>
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack
  * @version 2009-07-18
  */
 public abstract class Cache<CI extends CacheIndirection> {

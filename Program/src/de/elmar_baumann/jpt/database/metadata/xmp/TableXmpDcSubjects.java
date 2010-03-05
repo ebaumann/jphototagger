@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.database.metadata.Table;
 /**
  * Tabelle <code>xmp_dc_subjects</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-27
  */
 public final class TableXmpDcSubjects extends Table {
