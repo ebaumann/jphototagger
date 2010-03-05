@@ -70,11 +70,11 @@ pre {
     background: #fafafa;
 }
 
-code {
+code, kbd {
     background: #eee;
 }
 
-pre, code {
+pre, code, kbd {
     font-family: 'Courier New',Courier,monospace;
 }
 
